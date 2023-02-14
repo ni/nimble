@@ -644,15 +644,9 @@ describe('Table', () => {
             expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
             expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
 
-            // Open the menu button
-            const menuButton = pageObject.getCellActionMenu(1, 0)!;
-            const toggleListener = createTableListener('action-menu-toggle');
-            menuButton.toggleButton!.control.click();
-            await toggleListener.promise;
-
             pageObject.setRowHoverState(1, false);
             await waitForUpdatesAsync();
-            expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
+            expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
             expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
         });
 
@@ -671,9 +665,15 @@ describe('Table', () => {
             expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
             expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
 
+            // Open the menu button
+            const menuButton = pageObject.getCellActionMenu(1, 0)!;
+            const toggleListener = createTableListener('action-menu-toggle');
+            menuButton.toggleButton!.control.click();
+            await toggleListener.promise;
+
             pageObject.setRowHoverState(1, false);
             await waitForUpdatesAsync();
-            expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
+            expect(pageObject.isCellActionMenuVisible(1, 0)).toBeTrue();
             expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
         });
 
