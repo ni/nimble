@@ -51,8 +51,8 @@ describe('Wafermap Data Manager', () => {
         element.maxCharacters = 3;
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
         element.highlightedValues = getHighlightedValues();
-        element.canvas.width = canvasWidth;
-        element.canvas.height = canvasHeight;
+        element.canvasWidth = canvasWidth;
+        element.canvasHeight = canvasHeight;
 
         processUpdates();
 

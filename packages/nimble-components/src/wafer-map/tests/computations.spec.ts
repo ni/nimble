@@ -17,7 +17,8 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations({
                 dies: getWaferMapDies(),
                 quadrant: WaferMapQuadrant.topLeft,
-                canvas: { width: 100, height: 100 }
+                canvasWidth: 100,
+                canvasHeight: 100
             } as WaferMap);
         });
 
@@ -53,7 +54,8 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations({
                 dies: getWaferMapDies(),
                 quadrant: WaferMapQuadrant.topLeft,
-                canvas: { width: 200, height: 100 }
+                canvasWidth: 200,
+                canvasHeight: 100
             } as WaferMap);
         });
 
@@ -94,7 +96,8 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations({
                 dies: getWaferMapDies(),
                 quadrant: WaferMapQuadrant.topLeft,
-                canvas: { width: 100, height: 100 }
+                canvasWidth: 100,
+                canvasHeight: 100
             } as WaferMap);
         });
 
@@ -132,7 +135,8 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations({
                 dies: getWaferMapDies(),
                 quadrant: WaferMapQuadrant.topRight,
-                canvas: { width: 100, height: 100 }
+                canvasWidth: 100,
+                canvasHeight: 100
             } as WaferMap);
         });
 
@@ -170,7 +174,8 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations({
                 dies: getWaferMapDies(),
                 quadrant: WaferMapQuadrant.bottomLeft,
-                canvas: { width: 100, height: 100 }
+                canvasWidth: 100,
+                canvasHeight: 100
             } as WaferMap);
         });
 
@@ -208,7 +213,8 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations({
                 dies: getWaferMapDies(),
                 quadrant: WaferMapQuadrant.bottomRight,
-                canvas: { width: 100, height: 100 }
+                canvasWidth: 100,
+                canvasHeight: 100
             } as WaferMap);
         });
 

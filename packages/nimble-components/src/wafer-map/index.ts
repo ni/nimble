@@ -89,6 +89,16 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
+    @observable public canvasWidth!: number;
+
+    /**
+     * @internal
+     */
+    @observable public canvasHeight!: number;
+
+    /**
+     * @internal
+     */
     @observable public transform: ZoomTransform = zoomIdentity;
 
     @observable public highlightedValues: string[] = [];
@@ -104,7 +114,6 @@ export class WaferMap extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.resizeObserver = this.createResizeObserver();
-        this.queueRender();
     }
 
     public override disconnectedCallback(): void {
@@ -147,7 +156,8 @@ export class WaferMap extends FoundationElement {
             const { height, width } = entry.contentRect;
             this.canvas.width = width;
             this.canvas.height = height;
-            this.queueRender();
+            this.canvasWidth = width;
+            this.canvasHeight = height;
         });
         resizeObserver.observe(this);
         return resizeObserver;
@@ -194,6 +204,14 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
+        this.queueRender();
+    }
+
+    private canvasWidthChanged(): void {
+        this.queueRender();
+    }
+
+    private canvasHeightChanged(): void {
         this.queueRender();
     }
 }
