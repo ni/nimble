@@ -47,7 +47,7 @@ The table will be invalid if it contains two columns with the same `sort-index`.
 
 ### Visualizing the sort state
 
-Each column that is sorted will have an appropriate icon displayed in the header as shown in the design spec.
+Each column that is sorted will have an appropriate icon displayed in the header as shown in the design spec. The design guidance is to display a sort arrow icon on every column that is part of the sort configuration.
 
 ### Accessibility
 
