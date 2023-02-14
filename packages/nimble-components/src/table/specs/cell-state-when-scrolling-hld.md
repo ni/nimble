@@ -19,21 +19,16 @@ Some of the cell state that would incorrectly apply to new rows (once the user s
 
 When the user scrolls the table, we will:
 
--   Clear text selection (in the table)
 -   'Blur' (Lose focus) from any active/focused control in a table cell. Generally this means that whatever text the user began to change in that control will be committed, not discarded. In the case of a focused menu item, we'll close the associated menu via the menu button.
 
-Currently we do not have any plans to try and re-apply that state to the re-bound rows/cells after the scroll. That means that we won't reselect the text / re-focus the previously focused control in a cell / re-open an action menu, after a scroll operation.
+We will not:
+
+-   Detect and deselect selected table text on scroll. This means that if table text is selected and the user scrolls, text will still be selected (potentially different text). We don't consider that to be a primary table interaction, and it shouldn't harm functionality (it's easy to resolve for the user by clicking off to deselect text). It's also the same behavior as the current `sl-grid`/`smart-table` used in SystemLink Enterprise.
+-   Try and re-apply any state to the re-bound rows/cells after the scroll. That means that we won't re-focus the previously focused control in a cell / re-open an action menu, after a scroll operation.
 
 ### Clearing Text Selection
 
 **Background Info:**  
-Note: Selecting text in the table seems buggy (in different ways in different browsers) currently. We may need to investigate it more in the future if we expect it to be a common use case. This is probably due to our use of Shadow DOM.  
-Current behavior:
-
--   Chrome: Doubleclicking cell text selects the text of the 1st cell in that row (which may not be what you clicked). You can select a full row's text (or multiple rows) if you drag-select from outside the table bounds. You can select multiple rows' text normally (drag across multiple rows within the table bounds).
--   Firefox: You can only select a single cell or column header's text. Once you cross into another cell/column the selection gets cleared. The selection also resets if you start text selection from outside the table, then move your cursor within the table to try to select more text there.
--   Safari: Similar to Chrome, except that doubleclicking cell text does not select it, and it's difficult/ nearly impossible to select a single cell's text (multi-row selections are easier).
-
 The DOM API for text selection is [`window.getSelection()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection), but unfortunately the text selection APIs are incomplete / inconsistent across browsers, once you're using them on DOM elements that use Shadow DOM ([StackOverflow reference](https://stackoverflow.com/a/70523247)). In the future there may be a `getComposedRange()` API added that works better with Shadow DOM, however it's not yet finalized and is not yet in any browsers ([webcomponents#79](https://github.com/WICG/webcomponents/issues/79), [getComposedRange() draft proposal](https://w3c.github.io/selection-api/#dom-selection-getcomposedrange), [feedback thread for proposal](https://github.com/w3c/selection-api/issues/161)).  
 Note: The specific problem is detecting whether the active text selection is (wholly or partially) within the table. Clearing the text selection, once we decide we want to, is always straightforward (`window.getSelection()?.removeAllRanges()`, `window.getSelection().removeRange(range)`).
 
@@ -53,22 +48,12 @@ There's several potential approaches to detecting if the table contains selected
     -   Firefox: Errors out with a `WrongDocumentError` (i.e. one range is in a shadow root, and the other isn't / is in a different shadow root)
 -   (Chrome only) Look at `table.shadowRoot.getSelection()`. If non-null and `rangeCount > 0` we have selected text somewhere in the table. Simplest approach, but this API is non-standard / not in the other browsers / may be removed at any time in the future.
 
+**Note / Behavior limitation in Firefox**: You can only select a single cell's text. Once you cross into another cell/column the selection gets cleared. The selection also resets if you start text selection from outside the table, then move your cursor within the table viewport (to the rows/cells) to try to select more text there. There doesn't seem to be anything for us to do about this, it's probably related to the table's use of Shadow DOM.
+
 **Implementation Plan:**  
-Based on the observations above, the current plan to check if the table contains selected text is:  
-Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected. Otherwise, for each `Range`:
+Since the code required to detect table selection is problematic (`try/catch`) and complex, doesn't work fully in Safari, and is potentially fragile, we currently don't plan to try and detect table text selection. This means that if table text is selected and the user scrolls, text (different text) will be selected. We don't consider that to be a primary table interaction, and it shouldn't harm functionality (it's easy to resolve for the user by clicking off to deselect text). It's also the same behavior as the current `sl-grid`/`smart-table` used in SystemLink Enterprise.
 
--   Check if `startContainer`/`endContainer` is the `nimble-table`
--   Else, do the `compareBoundaryPoints` check (in a `try/catch`)
--   Else, check if `startContainer`/`endContainer` has the `nimble-table` as an ancestor
-
-If any of those `Range` checks succeed, remove that `Range` from the selection.  
-**Limitations:**
-
--   If text is selected in the table but outside rows (e.g. column header text), it will also be cleared when the user scrolls. There's not a good way to differentiate the text location that works in each browser, so that seems like an acceptable compromise.
--   (Safari only) If text selection is partially in the table and partially before/ after it, there isn't any way for us to detect that case. So Safari will still have text incorrectly selected after the scroll in that case.
-
-**Planned API:**  
-This logic will be in the Nimble Virtualizer class, called from `handleVirtualizerChange()` (called when the user scrolls). It will apply to all Nimble tables / all column types, without an opt-out option.
+We can re-evaluate this in the future if and when the Text Selection APIs improve in the context of Shadow DOM.
 
 ### Blur Focused Controls in Cells
 
@@ -89,7 +74,23 @@ New logic in Nimble Virtualizer class, `handleVirtualizerChange()` (called when 
 
 ## Alternative Implementations / Designs
 
-N/A
+### Detecting Table Text Selection
+**Note:** We're not planning to use this implementation, as mentioned above.  
+To check if the table contains selected text:   
+Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected. Otherwise, for each `Range`:
+
+-   Check if `startContainer`/`endContainer` is the `nimble-table`
+-   Else, do the `compareBoundaryPoints` check (in a `try/catch`)
+-   Else, check if `startContainer`/`endContainer` has the `nimble-table` as an ancestor
+
+If any of those `Range` checks succeed, remove that `Range` from the selection.  
+*Limitations:*
+
+-   If text is selected in the table but outside rows (e.g. column header text), it will also be cleared when the user scrolls. (There's not a good way to differentiate the text location that works in each browser.)
+-   (Safari only) If text selection is partially in the table and partially before/ after it, there isn't any way for us to detect that case. So Safari will still have text incorrectly selected after the scroll in that case.
+
+*API:*  
+This logic will be in the Nimble Virtualizer class, called from `handleVirtualizerChange()` (called when the user scrolls). It will apply to all Nimble tables / all column types, without an opt-out option.
 
 ## Open Issues
 
