@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 17:27:05 GMT",
+      "tag": "@ni/nimble-components_v18.3.5",
+      "version": "18.3.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a88731d393687500fc23f86437a73bc6c947e17f",
+            "comment": "Add column IDs to table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 16:15:37 GMT",
       "tag": "@ni/nimble-components_v18.3.4",
       "version": "18.3.4",
