@@ -86,7 +86,7 @@ public partial class NimbleTable<TData> : ComponentBase
     /// Called when 'action-menu-toggle' changes on the web component.
     /// </summary>
     /// <param name="eventArgs">The state of the action menu on the table</param>
-    protected async void FireActionMenuToggle(TableActionMenuToggleEventArgs eventArgs)
+    protected async void HandleActionMenuToggle(TableActionMenuToggleEventArgs eventArgs)
     {
         await ActionMenuToggle.InvokeAsync(eventArgs);
     }
@@ -95,7 +95,7 @@ public partial class NimbleTable<TData> : ComponentBase
     /// Called when the 'action-menu-beforetoggle' event is fired on the web component
     /// </summary>
     /// <param name="eventArgs">The state of the action menu on the table</param>
-    protected async void FireActionMenuBeforeToggle(TableActionMenuToggleEventArgs eventArgs)
+    protected async void HandleActionMenuBeforeToggle(TableActionMenuToggleEventArgs eventArgs)
     {
         await ActionMenuBeforeToggle.InvokeAsync(eventArgs);
     }
