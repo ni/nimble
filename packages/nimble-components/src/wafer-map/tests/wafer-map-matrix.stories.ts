@@ -63,22 +63,19 @@ const dieLabelHidden = [[true], [false]] as const;
 type DieLabelHidden = (typeof dieLabelHidden)[number];
 
 const waferMapDie = [
-    { x: 0, y: 0, value: '100' },
-    { x: 0, y: 1, value: '50' },
-    { x: 0, y: 2, value: '12' },
-    { x: 0, y: 3, value: '99' },
-    { x: 1, y: 0, value: '78' },
+    { x: 0, y: 2, value: '99' },
+    { x: 1, y: 2, value: '78' },
     { x: 1, y: 1, value: '88' },
-    { x: 1, y: 2, value: '68' },
-    { x: 1, y: 3, value: '99' },
-    { x: 2, y: 0, value: '99' },
-    { x: 2, y: 1, value: '80' },
+    { x: 1, y: 3, value: '68' },
     { x: 2, y: 2, value: '99' },
-    { x: 2, y: 3, value: '100' },
-    { x: 3, y: 0, value: '40' },
+    { x: 2, y: 1, value: '99' },
+    { x: 2, y: 0, value: '80' },
+    { x: 2, y: 3, value: '99' },
+    { x: 2, y: 4, value: '100' },
+    { x: 3, y: 2, value: '40' },
     { x: 3, y: 1, value: '10' },
-    { x: 3, y: 2, value: '15' },
-    { x: 3, y: 3, value: '30' }
+    { x: 3, y: 3, value: '15' },
+    { x: 4, y: 2, value: '30' }
 ];
 
 const waferMapSizes = [70, 200, 300, 400];
