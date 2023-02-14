@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Fix token preview rendering in Storybook",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
