@@ -71,13 +71,13 @@ public partial class NimbleTable<TData> : ComponentBase
     }
 
     /// <summary>
-    /// Gets or sets a callback that's invoked when 'open' changes on an action menu
+    /// Gets or sets a callback that's invoked when 'open' changes on an action menu.
     /// </summary>
     [Parameter]
     public EventCallback<TableActionMenuToggleEventArgs> ActionMenuToggle { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that's invoked before 'open' changes on an action menu
+    /// Gets or sets a callback that's invoked before 'open' changes on an action menu.
     /// </summary>
     [Parameter]
     public EventCallback<TableActionMenuToggleEventArgs> ActionMenuBeforeToggle { get; set; }
@@ -92,7 +92,7 @@ public partial class NimbleTable<TData> : ComponentBase
     }
 
     /// <summary>
-    /// Called when the 'action-menu-beforetoggle' event is fired on the web component
+    /// Called when the 'action-menu-beforetoggle' event is fired on the web component.
     /// </summary>
     /// <param name="eventArgs">The state of the action menu on the table</param>
     protected async void HandleActionMenuBeforeToggle(TableActionMenuToggleEventArgs eventArgs)

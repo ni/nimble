@@ -1,4 +1,5 @@
 import {
+    attr,
     defaultExecutionContext,
     ElementStyles,
     HTMLView,
@@ -33,13 +34,13 @@ export class TableCell<
     @observable
     public cellStyles?: ElementStyles;
 
-    @observable
+    @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;
 
-    @observable
-    public menuIsOpen = false;
+    @attr({ attribute: 'menu-open', mode: 'boolean' })
+    public menuOpen = false;
 
-    @observable
+    @attr({ attribute: 'action-menu-label' })
     public actionMenuLabel?: string;
 
     /**
@@ -72,7 +73,7 @@ export class TableCell<
 
     public onActionMenuToggle(event: CustomEvent): void {
         const detail = event.detail as MenuButtonToggleEventDetail;
-        this.menuIsOpen = detail.newState;
+        this.menuOpen = detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
     }
 

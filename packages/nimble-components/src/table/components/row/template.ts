@@ -8,12 +8,12 @@ export const template = html<TableRow>`
     <template role="row">
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             <${DesignSystem.tagFor(TableCell)}
-                class="cell ${(x, c) => (c.parent.menuIsOpen && c.parent.currentActionMenuColumn === x.column ? 'menu-open' : '')}"
+                class="cell"
                 :cellTemplate="${x => x.column.cellTemplate}"
                 :cellStyles="${x => x.column.cellStyles}"
                 :cellState="${x => x.cellState}"
-                :hasActionMenu="${x => !!x.column.actionMenuSlot}"
-                :actionMenuLabel="${x => x.column.actionMenuLabel}"
+                ?has-action-menu="${x => !!x.column.actionMenuSlot}"
+                action-menu-label="${x => x.column.actionMenuLabel}"
                 @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent, x.column)}"
                 @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent, x.column)}"
             >

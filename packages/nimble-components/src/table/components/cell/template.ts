@@ -13,7 +13,7 @@ export const template = html<TableCell>`
         ${when(x => x.hasActionMenu, html<TableCell>`
             <${DesignSystem.tagFor(MenuButton)}
                 content-hidden
-                appearance="${_ => ButtonAppearance.ghost}"
+                appearance="${ButtonAppearance.ghost}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent)}"
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent)}"
                 part="action-menu"

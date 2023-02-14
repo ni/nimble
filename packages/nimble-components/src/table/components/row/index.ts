@@ -41,8 +41,8 @@ export class TableRow<
     @observable
     public currentActionMenuColumn?: TableColumn;
 
-    @observable
-    public menuIsOpen = false;
+    @attr({ attribute: 'menu-open', mode: 'boolean' })
+    public menuOpen = false;
 
     @volatile
     public get columnStates(): ColumnState[] {
@@ -89,7 +89,7 @@ export class TableRow<
         column: TableColumn
     ): void {
         const menuButtonEventDetail = event.detail as MenuButtonToggleEventDetail;
-        this.menuIsOpen = menuButtonEventDetail.newState;
+        this.menuOpen = menuButtonEventDetail.newState;
         this.emitToggleEvent(
             'row-action-menu-toggle',
             menuButtonEventDetail,

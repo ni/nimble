@@ -20,7 +20,7 @@ export const styles = css`
         display: none;
     }
 
-    nimble-table-cell.menu-open::part(action-menu) {
+    nimble-table-cell[menu-open]::part(action-menu) {
         display: initial;
     }
 
