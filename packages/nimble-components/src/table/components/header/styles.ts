@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     controlHeight,
+    iconColor,
     standardPadding,
     tableHeaderFont,
     tableHeaderFontColor
@@ -16,6 +17,7 @@ export const styles = css`
         padding: 0px calc(${standardPadding} / 2);
         font: ${tableHeaderFont};
         color: ${tableHeaderFontColor};
+        ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
         text-transform: uppercase;
     }
 `;
