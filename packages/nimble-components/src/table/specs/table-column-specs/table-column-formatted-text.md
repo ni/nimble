@@ -194,7 +194,6 @@ For the sake of discussion my initial proposal is:
 1. For columns that require app-specific formatting logic I'm leaning towards "Client specifies formatting function" over "Use `table-column-text`" because it seems more like the API that app developers would expect (perhaps I'm biased by previous implementations). I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
 2. I would also like to provide a small number of built-in column types to save clients from having to write JS code. These could offer limited or no configuration to start since we don't have clear requirements yet. Initially this might be just `nimble-table-column-numeric` with default `toString()` formatting and no unit support. Later we could add support for basic formatting and also add column types for date/time or enums, but i18n considerations might make it hard to expose a clean attribute API for these.
 
-
 ### API
 
 _Component Name_
