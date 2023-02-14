@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 10 Feb 2023 15:26:34 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Feb 2023 16:15:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.7.0
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Minor changes
+
+- Add font asset for Noto Serif ([ni/nimble@d9e4787](https://github.com/ni/nimble/commit/d9e478746435367f4909d7592d859747f4b67145))
+
+## 4.6.0
+
+Fri, 10 Feb 2023 19:40:36 GMT
+
+### Minor changes
+
+- Add icons for column sorting ([ni/nimble@4df842d](https://github.com/ni/nimble/commit/4df842d8bc104a9f02d4f73c76f778c6f7b71ef8))
 
 ## 4.5.0
 

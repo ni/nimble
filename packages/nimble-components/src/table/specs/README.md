@@ -100,13 +100,13 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   [Data API](table-data-api.md)
 -   [Column API](table-columns-hld.md)
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
+        -   [Column Widths](./table-column-width-hld.md)
     -   Define how we intend to support defining a column that uses information from multiple columns (e.g. a hyperlink column that uses data from one column for the URL and the data from another as the text to display)
         -   What column gets used for sorting?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
-        -   Require specific component type (i.e. do we need to create a `nimble-table-header`)
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
 -   Row Selection

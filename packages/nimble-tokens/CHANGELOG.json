@@ -2,6 +2,36 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 16:15:37 GMT",
+      "tag": "@ni/nimble-tokens_v4.7.0",
+      "version": "4.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d9e478746435367f4909d7592d859747f4b67145",
+            "comment": "Add font asset for Noto Serif"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Feb 2023 19:40:36 GMT",
+      "tag": "@ni/nimble-tokens_v4.6.0",
+      "version": "4.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "4df842d8bc104a9f02d4f73c76f778c6f7b71ef8",
+            "comment": "Add icons for column sorting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Feb 2023 15:26:34 GMT",
       "tag": "@ni/nimble-tokens_v4.5.0",
       "version": "4.5.0",
