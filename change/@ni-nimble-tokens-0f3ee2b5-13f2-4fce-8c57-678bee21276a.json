@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add font asset for Noto Serif",
-  "packageName": "@ni/nimble-tokens",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
