@@ -154,6 +154,8 @@ export class WaferMap extends FoundationElement {
                 return;
             }
             const { height, width } = entry.contentRect;
+            // Updating the canvas size clears its contents so update it explicitly instead of
+            // via template bindings so we can confirm that it happens before render
             this.canvas.width = width;
             this.canvas.height = height;
             this.canvasWidth = width;
