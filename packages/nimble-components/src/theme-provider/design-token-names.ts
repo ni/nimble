@@ -25,6 +25,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     passColor: 'pass-color',
     informationColor: 'information-color',
     borderHoverColor: 'border-hover-color',
+    ozoneLibraryBackgroundColor: 'ozone-library-background-color',
     iconColor: 'icon-color',
     modalBackdropColor: 'modal-backdrop-color',
     popupBorderColor: 'popup-border-color',

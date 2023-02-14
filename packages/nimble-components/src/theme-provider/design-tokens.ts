@@ -7,6 +7,7 @@ import {
     Black15,
     Black80,
     Black88,
+    Black22,
     White,
     ForestGreen,
     DigitalGreenLight,
@@ -169,6 +170,10 @@ export const informationColor = DesignToken.create<string>(
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
+
+export const ozoneLibraryBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.borderHoverColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black22, Black22, Black22));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
