@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 22:31:17 GMT",
+      "tag": "@ni/nimble-components_v18.3.6",
+      "version": "18.3.6",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "75652f9d803fdfff9de9d0b415d908e493bb889a",
+            "comment": "Fix token preview rendering in Storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 21:18:42 GMT",
       "tag": "@ni/nimble-components_v18.3.6",
       "version": "18.3.6",
