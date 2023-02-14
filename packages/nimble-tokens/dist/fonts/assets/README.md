@@ -3,6 +3,7 @@
 Original font sources:
 
 * [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+Pro)
+* [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif)
 
 Converted to WOFF2 format using [a tff to woff2](https://everythingfonts.com/ttf-to-woff2) recommended by [google-webfonts-helper](https://github.com/majodev/google-webfonts-helper)
 
