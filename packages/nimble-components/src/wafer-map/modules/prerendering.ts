@@ -5,9 +5,9 @@ import type {
     Dimensions,
     Margin,
     DieRenderInfo,
-    WaferMapDie,
     WaferMapColorScale
 } from '../types';
+import type { WaferMap } from '..';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
@@ -27,40 +27,37 @@ export class Prerendering {
     private readonly nanDieColor = 'rgba(122,122,122,1)';
 
     public constructor(
-        dies: Readonly<Readonly<WaferMapDie>[]>,
-        colorScale: Readonly<WaferMapColorScale>,
-        highlightedValues: Readonly<string[]>,
+        wafermap: WaferMap,
         horizontalScale: ScaleLinear<number, number>,
         verticalScale: ScaleLinear<number, number>,
-        colorScaleMode: Readonly<WaferMapColorScaleMode>,
-        dieLabelsHidden: Readonly<boolean>,
-        dieLabelsSuffix: Readonly<string>,
-        maxCharacters: Readonly<number>,
         dieDimensions: Readonly<Dimensions>,
         margin: Readonly<Margin>
     ) {
-        this.d3ColorScale = this.createD3ColorScale(colorScale, colorScaleMode);
+        this.d3ColorScale = this.createD3ColorScale(
+            wafermap.colorScale,
+            wafermap.colorScaleMode
+        );
 
         this.labelsFontSize = this.calculateLabelsFontSize(
             dieDimensions,
-            maxCharacters
+            wafermap.maxCharacters
         );
 
         this.diesRenderInfo = [];
-        for (const die of dies) {
+        for (const die of wafermap.dies) {
             this.diesRenderInfo.push({
                 x: horizontalScale(die.x) + margin.right,
                 y: verticalScale(die.y) + margin.top,
                 fillStyle: this.calculateFillStyle(
                     die.value,
-                    colorScaleMode,
-                    highlightedValues
+                    wafermap.colorScaleMode,
+                    wafermap.highlightedValues
                 ),
                 text: this.buildLabel(
                     die.value,
-                    maxCharacters,
-                    dieLabelsHidden,
-                    dieLabelsSuffix
+                    wafermap.maxCharacters,
+                    wafermap.dieLabelsHidden,
+                    wafermap.dieLabelsSuffix
                 )
             });
         }
