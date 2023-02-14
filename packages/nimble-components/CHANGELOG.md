@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 13 Feb 2023 23:05:12 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Feb 2023 16:15:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.3.4
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v4.7.0
+
+## 18.3.3
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Support dynamic arbitrary header content ([ni/nimble@9b95448](https://github.com/ni/nimble/commit/9b954486247d818d9f5326c1942d51d6a6d0af7b))
 
 ## 18.3.2
 

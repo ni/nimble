@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 16:15:37 GMT",
+      "tag": "@ni/nimble-components_v18.3.4",
+      "version": "18.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.7.0",
+            "commit": "d9e478746435367f4909d7592d859747f4b67145"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 15:44:48 GMT",
+      "tag": "@ni/nimble-components_v18.3.3",
+      "version": "18.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9b954486247d818d9f5326c1942d51d6a6d0af7b",
+            "comment": "Support dynamic arbitrary header content"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 13 Feb 2023 23:05:12 GMT",
       "tag": "@ni/nimble-components_v18.3.2",
       "version": "18.3.2",

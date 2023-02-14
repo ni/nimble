@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 15:44:48 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.9",
+      "version": "11.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9b954486247d818d9f5326c1942d51d6a6d0af7b",
+            "comment": "Support dynamic arbitrary header content"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 30 Jan 2023 19:00:43 GMT",
       "tag": "@ni/nimble-blazor_v11.1.0",
       "version": "11.1.0",

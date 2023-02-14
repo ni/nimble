@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 30 Jan 2023 19:00:43 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Feb 2023 15:44:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.1.9
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Support dynamic arbitrary header content ([ni/nimble@9b95448](https://github.com/ni/nimble/commit/9b954486247d818d9f5326c1942d51d6a6d0af7b))
 
 ## 11.1.0
 
