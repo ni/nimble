@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 17:27:05 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.11",
+      "version": "11.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a88731d393687500fc23f86437a73bc6c947e17f",
+            "comment": "Add column IDs to table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 15:44:48 GMT",
       "tag": "@ni/nimble-blazor_v11.1.9",
       "version": "11.1.9",

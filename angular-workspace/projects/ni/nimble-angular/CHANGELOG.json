@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 17:27:05 GMT",
+      "tag": "@ni/nimble-angular_v16.0.16",
+      "version": "16.0.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a88731d393687500fc23f86437a73bc6c947e17f",
+            "comment": "Add column IDs to table"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.3.5",
+            "commit": "a88731d393687500fc23f86437a73bc6c947e17f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 16:15:37 GMT",
       "tag": "@ni/nimble-angular_v16.0.15",
       "version": "16.0.15",
