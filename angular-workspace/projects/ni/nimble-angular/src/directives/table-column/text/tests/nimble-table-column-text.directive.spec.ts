@@ -21,7 +21,7 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text #column field-name="field1" placeholder="no value"></nimble-table-column-text>
+                    <nimble-table-column-text #column column-id="my-column" field-name="field1" placeholder="no value"></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -50,9 +50,14 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.fieldName).toBe('field1');
         });
 
-        it('cwill use template string values for placeholder', () => {
+        it('will use template string values for placeholder', () => {
             expect(directive.placeholder).toBe('no value');
             expect(nativeElement.placeholder).toBe('no value');
+        });
+
+        it('will use template string values for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
         });
     });
 
@@ -60,7 +65,12 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text #column [field-name]="field" [placeholder]="placeholder"></nimble-table-column-text>
+                    <nimble-table-column-text
+                        #column
+                        [column-id]="columnId"
+                        [field-name]="field"
+                        [placeholder]="placeholder"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -69,6 +79,7 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
             public placeholder = 'no value';
+            public columnId = 'my-column';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -106,6 +117,17 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.placeholder).toBe('foo');
             expect(nativeElement.placeholder).toBe('foo');
+        });
+
+        it('can be configured with property binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
         });
     });
 
@@ -113,7 +135,12 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text #column [attr.field-name]="field" [attr.placeholder]="placeholder"></nimble-table-column-text>
+                    <nimble-table-column-text
+                        #column
+                        [attr.column-id]="columnId"
+                        [attr.field-name]="field"
+                        [attr.placeholder]="placeholder"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -122,6 +149,7 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
             public placeholder = 'no value';
+            public columnId = 'my-column';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -139,7 +167,7 @@ describe('NimbleTableColumnText', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for fieldName', () => {
+        it('can be configured with attribute binding for fieldName', () => {
             expect(directive.fieldName).toBe('field1');
             expect(nativeElement.fieldName).toBe('field1');
 
@@ -150,7 +178,7 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.fieldName).toBe('field2');
         });
 
-        it('can be configured with property binding for placeholder', () => {
+        it('can be configured with attribute binding for placeholder', () => {
             expect(directive.placeholder).toBe('no value');
             expect(nativeElement.placeholder).toBe('no value');
 
@@ -159,6 +187,17 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.placeholder).toBe('foo');
             expect(nativeElement.placeholder).toBe('foo');
+        });
+
+        it('can be configured with attribute binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
         });
     });
 });

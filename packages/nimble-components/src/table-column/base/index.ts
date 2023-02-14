@@ -1,4 +1,4 @@
-import type { ElementStyles, ViewTemplate } from '@microsoft/fast-element';
+import { attr, ElementStyles, ViewTemplate } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import type {
@@ -14,6 +14,9 @@ export abstract class TableColumn<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > extends FoundationElement {
+    @attr({ attribute: 'column-id' })
+    public columnId?: string;
+
     /**
      * The template to use to render the cell content for the column
      */

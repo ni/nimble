@@ -94,7 +94,9 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 
 -   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
 -   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
--   \`invalidRecordId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
+-   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
 `;
 
 const metadata: Meta<TableArgs> = {
@@ -125,12 +127,12 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value">
+            <nimble-table-column-text field-name="firstName" placeholder="no value" column-id="first-name-column">
                 <nimble-icon-user title="First Name"></nimble-icon-user>
             </nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value">Quote</nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="last-name-column">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="favoriteColor" placeholder="no value" column-id="favorite-color-column">Favorite Color</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value" column-id="quote-column">Quote</nimble-table-column-text>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {
