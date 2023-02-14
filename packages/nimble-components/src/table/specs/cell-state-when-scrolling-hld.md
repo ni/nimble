@@ -75,8 +75,9 @@ New logic in Nimble Virtualizer class, `handleVirtualizerChange()` (called when 
 ## Alternative Implementations / Designs
 
 ### Detecting Table Text Selection
+
 **Note:** We're not planning to use this implementation, as mentioned above.  
-To check if the table contains selected text:   
+To check if the table contains selected text:  
 Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected. Otherwise, for each `Range`:
 
 -   Check if `startContainer`/`endContainer` is the `nimble-table`
@@ -84,12 +85,12 @@ Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected.
 -   Else, check if `startContainer`/`endContainer` has the `nimble-table` as an ancestor
 
 If any of those `Range` checks succeed, remove that `Range` from the selection.  
-*Limitations:*
+_Limitations:_
 
 -   If text is selected in the table but outside rows (e.g. column header text), it will also be cleared when the user scrolls. (There's not a good way to differentiate the text location that works in each browser.)
 -   (Safari only) If text selection is partially in the table and partially before/ after it, there isn't any way for us to detect that case. So Safari will still have text incorrectly selected after the scroll in that case.
 
-*API:*  
+_API:_  
 This logic will be in the Nimble Virtualizer class, called from `handleVirtualizerChange()` (called when the user scrolls). It will apply to all Nimble tables / all column types, without an opt-out option.
 
 ### Disabling Table Text Selection
