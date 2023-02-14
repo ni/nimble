@@ -4,13 +4,13 @@
 
 Clients will wish to display non-string text data in table columns for use cases like the following:
 
-1. integer data like counts, formatted to be displayed with no trailing decimals
+1. integer data like counts, formatted to be displayed with no trailing decimals ("4", "100")
 2. floating point data formatted to display values in standard ways ("3.1415", "1.04E47", "Infinity", -0.03)
-3. a mix of the above with formatting determined by the application
+3. a mix of the above with formatting determined by the application ("1.000", "-0.030", "1024.000")
 4. numeric values with a static unit string appended before or after (e.g. "$4.23" or "15%")
 5. numeric values with custom unit logic. Examples:
     - a file size column that could show the value 1000 as "1000 bytes" but the value 1024 as "1KB"
-    - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute and 3 seconds"
+    - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute, 3 seconds"
 6. enum values formatted as localized strings (0 -> "Fail", 1 -> "Pass")
 7. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
 
@@ -48,7 +48,7 @@ We may not choose to support all of the above initially but we should design our
 
 ### Alternatives
 
-Below are different alternatives to solve these use cases. Some alternatives will work better for certain use cases and worse for others. We may choose to implement a few of these alternatives in order to provide a great experience for all use cases.
+Below are different alternatives to solve these use cases. Some alternatives will work better for certain use cases and worse for others. We may choose to implement a few of these alternatives in order to provide a great experience for all use cases. See below for an initial proposal.
 
 At this stage, code examples are meant to be illustrative pseudo-code, not proposed APIs.
 
@@ -79,7 +79,7 @@ table.data = tableData;
 **Pros:**
 
 -   formatted data is specified up front, guaranteeing fast scroll performance
--   powerful; clients can format data however they want, including via browser APIs which are i18n-friendly or on the server
+-   powerful; clients can format data however they want, including via browser APIs which are i18n-friendly or via server-side logic
 
 **Cons:**
 
@@ -162,6 +162,7 @@ For common use cases we could provide column types that expose simplified format
 **Pros:**
 
 -   Easy for clients to use since configuration is declarative
+-   Consistent formatting across apps
 
 **Cons:**
 
@@ -183,18 +184,16 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 **Cons:**
 
 -   Higher burden on clients to specify template, styling, etc in JS
--   Potential for inconsistent styling
+-   Potential for inconsistent text styling
 -   Potential cross-app inconsistency if formatting code isn't shared
 
 ### Strawman Proposal
 
 For the sake of discussion my initial proposal is:
 
-1. For columns that require app-specific formatting logic I'm leaning towards the formatting function approach because it seems more like the API that app developers would expect (perhaps I'm biased by previous implementations). I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
-2. I would also like to provide a few built-in column types to save clients from having to write JS code. These could offer limited configuration to start since we don't have clear requirements yet. Proposed columns include:
+1. For columns that require app-specific formatting logic I'm leaning towards "Client specifies formatting function" over "Use `table-column-text`" because it seems more like the API that app developers would expect (perhaps I'm biased by previous implementations). I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
+2. I would also like to provide a small number of built-in column types to save clients from having to write JS code. These could offer limited or no configuration to start since we don't have clear requirements yet. Initially this might be just `nimble-table-column-numeric` with default `toString()` formatting and no unit support. Later we could add support for basic formatting and also add column types for date/time or enums, but i18n considerations might make it hard to expose a clean attribute API for these.
 
--   `nimble-table-column-numeric`
--   `nimble-table-column-date`
 
 ### API
 
