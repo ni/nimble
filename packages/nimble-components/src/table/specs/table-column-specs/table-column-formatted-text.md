@@ -121,6 +121,12 @@ class MyAppProgressColumn : NimbleFormattedTextColumnBase<number> {
 MyAppProgressColumn.registerColumn('my-app-progress-column');
 ```
 
+Some of this is prototyped in the [number-column-prototype branch](https://github.com/ni/nimble/compare/main...number-column-prototype?expand=1).
+
+Other variants of this idea include: 
+1. setting the formatting function as a property on a column element.
+2. setting an [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) object as a property on a column element. 
+
 **Pros:**
 
 - Small memory footprint and fast data update time because formatting function is called on-demand
@@ -179,6 +185,14 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 - Potential for inconsistent styling
 - Potential cross-app inconsistency if formatting code isn't shared
 
+
+### Strawman Proposal
+
+For the sake of discussion my initial proposal is:
+1. For columns that require app-specific formatting logic I'm leaning towards the formatting function approach because it seems more like the API that app developers would expect (perhaps I'm biased by previous implementations). I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
+2. I would also like to provide a few built-in column types to save clients from having to write JS code. These could offer limited configuration to start since we don't have clear requirements yet. Proposed columns include:
+ - `nimble-table-column-numeric`
+ - `nimble-table-column-date`
 
 ### API
 
@@ -242,3 +256,4 @@ _Type Reference_
 
 ## Open Issues
 
+1. API to configure text justification. Our working decision is that numeric column text and headers should be right aligned. Any alternatives we choose that might display numeric data will need a way to configure this. We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
