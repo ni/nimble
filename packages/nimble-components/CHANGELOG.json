@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 22:59:44 GMT",
+      "tag": "@ni/nimble-components_v18.3.7",
+      "version": "18.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0edf08583fe9196ca449b701e417980e7514adac",
+            "comment": "Fix bug where pointer events were being swallowed by table row hover"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 22:31:17 GMT",
       "tag": "@ni/nimble-components_v18.3.6",
       "version": "18.3.6",

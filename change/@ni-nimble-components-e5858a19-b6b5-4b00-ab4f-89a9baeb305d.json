@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix bug where pointer events were being swallowed by table row hover",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
