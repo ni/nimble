@@ -114,7 +114,9 @@ describe('Table', () => {
         column1.textContent = 'stringData';
         (column1 as TableColumnText).fieldName = 'stringData';
 
-        const checkIcon = document.createElement(DesignSystem.tagFor(IconCheck));
+        const checkIcon = document.createElement(
+            DesignSystem.tagFor(IconCheck)
+        );
         column2 = document.createElement(tableColumnTextTag) as TableColumn;
         column2.appendChild(checkIcon);
         (column2 as TableColumnText).fieldName = 'moreStringData';
