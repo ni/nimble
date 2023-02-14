@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 19:59:45 GMT",
+      "tag": "@ni/nimble-components_v18.3.6",
+      "version": "18.3.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97c87a718b735c46f3d3b4e109302c368fa3e161",
+            "comment": "Changed canvas size and zoom behavior for the Wafer Map Component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 17:27:05 GMT",
       "tag": "@ni/nimble-components_v18.3.5",
       "version": "18.3.5",

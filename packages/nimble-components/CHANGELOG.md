@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 14 Feb 2023 17:27:05 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Feb 2023 19:59:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.3.6
+
+Tue, 14 Feb 2023 19:59:45 GMT
+
+### Patches
+
+- Changed canvas size and zoom behavior for the Wafer Map Component ([ni/nimble@97c87a7](https://github.com/ni/nimble/commit/97c87a718b735c46f3d3b4e109302c368fa3e161))
 
 ## 18.3.5
 
