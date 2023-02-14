@@ -130,7 +130,11 @@ export class Table<
         }
     }
 
-    private idFieldNameChanged(
+    protected childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
+    }
+
+    protected idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
     ): void {
@@ -139,7 +143,7 @@ export class Table<
         this.setTableData(this.table.options.data);
     }
 
-    private columnsChanged(
+    protected columnsChanged(
         _prev: TableColumn[] | undefined,
         _next: TableColumn[]
     ): void {
@@ -174,10 +178,6 @@ export class Table<
             this.columns.map(x => x.columnId)
         );
         this.canRenderRows = this.checkValidity();
-    }
-
-    protected childItemsChanged(): void {
-        void this.updateColumnsFromChildItems();
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
