@@ -95,7 +95,9 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        return cells.item(columnIndex).shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
+        return cells
+            .item(columnIndex)
+            .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
     }
 
     public isCellActionMenuVisible(

@@ -1,5 +1,3 @@
-import type { TableColumn } from '../table-column/base';
-
 /**
  * TableFieldName describes the type associated with keys within
  * a table's records.

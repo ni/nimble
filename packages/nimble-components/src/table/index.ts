@@ -18,7 +18,12 @@ import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableActionMenuToggleEventDetail, TableRecord, TableRowState, TableValidity } from './types';
+import type {
+    TableActionMenuToggleEventDetail,
+    TableRecord,
+    TableRowState,
+    TableValidity
+} from './types';
 import { Virtualizer } from './models/virtualizer';
 
 declare global {

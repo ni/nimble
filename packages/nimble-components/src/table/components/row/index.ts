@@ -72,18 +72,36 @@ export class TableRow<
         });
     }
 
-    public onCellActionMenuBeforeToggle(event: CustomEvent, column: TableColumn): void {
+    public onCellActionMenuBeforeToggle(
+        event: CustomEvent,
+        column: TableColumn
+    ): void {
         this.currentActionMenuColumn = column;
-        this.emitToggleEvent('row-action-menu-beforetoggle', event.detail as MenuButtonToggleEventDetail, column);
+        this.emitToggleEvent(
+            'row-action-menu-beforetoggle',
+            event.detail as MenuButtonToggleEventDetail,
+            column
+        );
     }
 
-    public onCellActionMenuToggle(event: CustomEvent, column: TableColumn): void {
+    public onCellActionMenuToggle(
+        event: CustomEvent,
+        column: TableColumn
+    ): void {
         const menuButtonEventDetail = event.detail as MenuButtonToggleEventDetail;
         this.menuIsOpen = menuButtonEventDetail.newState;
-        this.emitToggleEvent('row-action-menu-toggle', menuButtonEventDetail, column);
+        this.emitToggleEvent(
+            'row-action-menu-toggle',
+            menuButtonEventDetail,
+            column
+        );
     }
 
-    private emitToggleEvent(eventType: string, menuButtonEventDetail: MenuButtonToggleEventDetail, column: TableColumn): void {
+    private emitToggleEvent(
+        eventType: string,
+        menuButtonEventDetail: MenuButtonToggleEventDetail,
+        column: TableColumn
+    ): void {
         const detail: TableActionMenuToggleEventDetail = {
             newState: menuButtonEventDetail.newState,
             oldState: menuButtonEventDetail.oldState,

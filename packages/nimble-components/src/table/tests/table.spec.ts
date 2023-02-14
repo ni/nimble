@@ -1,6 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import { DesignSystem, MenuItem, Menu } from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowUp, keyEscape } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEscape
+} from '@microsoft/fast-web-utilities';
 import { Table } from '..';
 import { IconCheck } from '../../icons/check';
 import type { TableColumn } from '../../table-column/base';
@@ -578,7 +582,10 @@ describe('Table', () => {
     });
 
     describe('action menu', () => {
-        function createAndSlotMenu(slot: string): { menu: Menu, items: MenuItem[] } {
+        function createAndSlotMenu(slot: string): {
+            menu: Menu,
+            items: MenuItem[]
+        } {
             const menu = document.createElement('nimble-menu');
             menu.slot = slot;
 
@@ -599,12 +606,10 @@ describe('Table', () => {
             return { menu, items: [menuItem1, menuItem2, menuItem3] };
         }
 
-        function createTableListener(
-            eventName: string
-        ): {
-                promise: Promise<void>,
-                spy: jasmine.Spy
-            } {
+        function createTableListener(eventName: string): {
+            promise: Promise<void>,
+            spy: jasmine.Spy
+        } {
             const spy = jasmine.createSpy();
             return {
                 promise: new Promise(resolve => {
@@ -727,7 +732,10 @@ describe('Table', () => {
             menuButton.toggleButton!.control.click();
             await toggleListener.promise;
 
-            const rowSlots = element.shadowRoot!.querySelectorAll('nimble-table-row')?.item(1).querySelectorAll<HTMLSlotElement>('slot');
+            const rowSlots = element
+                .shadowRoot!.querySelectorAll('nimble-table-row')
+                ?.item(1)
+                .querySelectorAll<HTMLSlotElement>('slot');
             expect(rowSlots.length).toBe(2);
             expect(rowSlots.item(0).name).toBe(slot1);
             expect(rowSlots.item(1).name).toBe(slot2);
@@ -749,7 +757,10 @@ describe('Table', () => {
             menuButton.toggleButton!.control.click();
             await toggleListener.promise;
 
-            const rowSlots = element.shadowRoot!.querySelectorAll('nimble-table-row')?.item(1).querySelectorAll<HTMLSlotElement>('slot');
+            const rowSlots = element
+                .shadowRoot!.querySelectorAll('nimble-table-row')
+                ?.item(1)
+                .querySelectorAll<HTMLSlotElement>('slot');
             expect(rowSlots.length).toBe(1);
             expect(rowSlots.item(0).name).toBe(slot1);
         });
@@ -764,7 +775,9 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const beforetoggleListener = createTableListener('action-menu-beforetoggle');
+            const beforetoggleListener = createTableListener(
+                'action-menu-beforetoggle'
+            );
             pageObject.setRowHoverState(1, true);
             await waitForUpdatesAsync();
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
@@ -798,7 +811,9 @@ describe('Table', () => {
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
             menuButton.toggleButton!.control.click();
             await waitForUpdatesAsync();
-            const beforetoggleListener = createTableListener('action-menu-beforetoggle');
+            const beforetoggleListener = createTableListener(
+                'action-menu-beforetoggle'
+            );
             const escEvent = new KeyboardEvent('keydown', {
                 key: keyEscape
             } as KeyboardEventInit);
@@ -917,7 +932,9 @@ describe('Table', () => {
             menuButton.toggleButton!.dispatchEvent(event);
 
             await toggleListener.promise;
-            expect(document.activeElement).toEqual(menuItems[menuItems.length - 1]!);
+            expect(document.activeElement).toEqual(
+                menuItems[menuItems.length - 1]!
+            );
         });
     });
 });
