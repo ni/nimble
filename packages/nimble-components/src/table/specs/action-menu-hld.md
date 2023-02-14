@@ -89,7 +89,7 @@ If an application requires different menu items or different menu item states fo
 -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
 -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
 -   `recordIds` - string array - The IDs of the records that the menu is associated with.
--   `columnTarget` - `TableColumn` - The column that the menu is associated with.
+-   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
 
 When an item in the menu is activated, the standard events associated with the menu and menu items will be emitted. The event details will not contain any information about the table, its records, or its columns. Therefore, clients should use the `action-menu-beforetoggle` event to cache any necessary context about which records and column the menu is associated with in order to handle menu events appropriately.
 

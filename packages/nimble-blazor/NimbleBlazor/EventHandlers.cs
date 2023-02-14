@@ -24,7 +24,7 @@ public class TableActionMenuToggleEventArgs : EventArgs
     public bool NewState { get; set; }
     public bool OldState { get; set; }
     public IEnumerable<string>? RecordIds { get; set; }
-    public NimbleTableColumnText? ColumnTarget { get; set; }
+    public string? ColumnId { get; set; }
 }
 
 [EventHandler("onnimbletabsactiveidchange", typeof(TabsChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]

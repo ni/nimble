@@ -142,6 +142,16 @@ export class Table<
         }
     }
 
+    public onRowActionMenuBeforeToggle(event: CustomEvent): void {
+        const eventDetail = event.detail as TableActionMenuToggleEventDetail;
+        this.openActionMenuRecordId = eventDetail.recordIds[0];
+        this.$emit('action-menu-beforetoggle', event.detail);
+    }
+
+    public onRowActionMenuToggle(event: CustomEvent): void {
+        this.$emit('action-menu-toggle', event.detail);
+    }
+
     protected childItemsChanged(): void {
         void this.updateColumnsFromChildItems();
     }
@@ -164,6 +174,14 @@ export class Table<
         }
 
         this.validateAndObserveColumns();
+
+        const slots = new Set<string>();
+        for (const column of this.columns) {
+            if (column.actionMenuSlot) {
+                slots.add(column.actionMenuSlot);
+            }
+        }
+        this.actionMenuSlots = Array.from(slots);
     }
 
     private removeColumnObservers(): void {
@@ -200,29 +218,6 @@ export class Table<
         this.columns = this.childItems.filter(
             (x): x is TableColumn => x instanceof TableColumn
         );
-    }
-
-    public onRowActionMenuBeforeToggle(event: CustomEvent): void {
-        const eventDetail = event.detail as TableActionMenuToggleEventDetail;
-        this.openActionMenuRecordId = eventDetail.recordIds[0];
-        this.$emit('action-menu-beforetoggle', event.detail);
-    }
-
-    public onRowActionMenuToggle(event: CustomEvent): void {
-        this.$emit('action-menu-toggle', event.detail);
-    }
-
-    private columnsChanged(
-        _prev: TableColumn[] | undefined,
-        _next: TableColumn[] | undefined
-    ): void {
-        const slots = new Set<string>();
-        for (const column of this.columns) {
-            if (column.actionMenuSlot) {
-                slots.add(column.actionMenuSlot);
-            }
-        }
-        this.actionMenuSlots = Array.from(slots);
     }
 
     private setTableData(newData: readonly TData[]): void {

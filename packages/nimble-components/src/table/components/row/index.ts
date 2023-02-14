@@ -87,8 +87,8 @@ export class TableRow<
         const detail: TableActionMenuToggleEventDetail = {
             newState: menuButtonEventDetail.newState,
             oldState: menuButtonEventDetail.oldState,
-            recordIds: [this.recordId || ''],
-            columnTarget: column
+            recordIds: [this.recordId!],
+            columnId: column.columnId
         };
         this.$emit(eventType, detail);
     }

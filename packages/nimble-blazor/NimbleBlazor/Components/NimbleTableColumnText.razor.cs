@@ -18,20 +18,6 @@ public partial class NimbleTableColumnText : NimbleTableColumn
     [Parameter]
     public string? Placeholder { get; set; }
 
-    /// <summary>
-    /// The name of the slot containing the menu associated with this column.
-    /// If not specified, no action menu will be associated with this column.
-    /// </summary>
-    [Parameter]
-    public string? ActionMenuSlot { get; set; }
-
-    /// <summary>
-    /// The label to associate with the action menu on this column for accessibility purposes.
-    /// This should be specified if <see cref="ActionMenuSlot"> is specified, but should not be specified otherwise.
-    /// </summary>
-    [Parameter]
-    public string? ActionMenuLabel { get; set; }
-
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }

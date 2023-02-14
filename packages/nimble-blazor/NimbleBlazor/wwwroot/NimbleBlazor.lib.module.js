@@ -58,7 +58,7 @@ export function afterStarted(Blazor) {
                 newState: event.detail.newState,
                 oldState: event.detail.oldState,
                 recordIds: event.detail.recordIds,
-                // columnTarget: event.detail.columnTarget
+                columnId: event.detail.columnId
             };
         }
     });
@@ -70,7 +70,7 @@ export function afterStarted(Blazor) {
                 newState: event.detail.newState,
                 oldState: event.detail.oldState,
                 recordIds: event.detail.recordIds,
-                // columnTarget: event.detail.columnTarget
+                columnId: event.detail.columnId
             };
         }
     });

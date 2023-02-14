@@ -775,7 +775,7 @@ describe('Table', () => {
             const expectedDetails: TableActionMenuToggleEventDetail = {
                 newState: true,
                 oldState: false,
-                columnTarget: column1,
+                columnId: column1.columnId,
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = beforetoggleListener.spy.calls.first()
@@ -809,7 +809,7 @@ describe('Table', () => {
             const expectedDetails: TableActionMenuToggleEventDetail = {
                 newState: false,
                 oldState: true,
-                columnTarget: column1,
+                columnId: column1.columnId,
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = beforetoggleListener.spy.calls.first()
@@ -838,7 +838,7 @@ describe('Table', () => {
             const expectedDetails: TableActionMenuToggleEventDetail = {
                 newState: true,
                 oldState: false,
-                columnTarget: column1,
+                columnId: column1.columnId,
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = toggleListener.spy.calls.first()
@@ -872,7 +872,7 @@ describe('Table', () => {
             const expectedDetails: TableActionMenuToggleEventDetail = {
                 newState: false,
                 oldState: true,
-                columnTarget: column1,
+                columnId: column1.columnId,
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = toggleListener.spy.calls.first()
