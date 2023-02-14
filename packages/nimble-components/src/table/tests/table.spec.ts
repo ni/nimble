@@ -1,6 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
+import { IconCheck } from '../../icons/check';
 import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -112,9 +113,11 @@ describe('Table', () => {
         column1 = document.createElement(tableColumnTextTag) as TableColumn;
         column1.textContent = 'stringData';
         (column1 as TableColumnText).fieldName = 'stringData';
+
+        const checkIcon = document.createElement(DesignSystem.tagFor(IconCheck));
         column2 = document.createElement(tableColumnTextTag) as TableColumn;
-        column2.textContent = 'moreStringData';
-        (column2 as TableColumnText).fieldName = 'stringData';
+        column2.appendChild(checkIcon);
+        (column2 as TableColumnText).fieldName = 'moreStringData';
 
         element.appendChild(column1);
         element.appendChild(column2);
@@ -128,7 +131,7 @@ describe('Table', () => {
         expect(document.createElement('nimble-table')).toBeInstanceOf(Table);
     });
 
-    it('should render column headers', async () => {
+    it('column header content should be the columns', async () => {
         await connect();
 
         element.setData(simpleTableData);
@@ -142,10 +145,26 @@ describe('Table', () => {
             columnIndex < element.columns.length;
             columnIndex++
         ) {
-            expect(pageObject.getRenderedHeaderContent(columnIndex)).toEqual(
-                element.columns[columnIndex]!.textContent!
-            );
+            expect(pageObject.getHeaderContent(columnIndex))
+                .withContext(`for column${columnIndex}`)
+                .toEqual(element.columns[columnIndex]);
         }
+    });
+
+    it('changing column content updates header rendered content', async () => {
+        await connect();
+
+        element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+
+        let headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('stringData');
+
+        element.columns[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('foo');
     });
 
     it('can set data before the element is connected', async () => {

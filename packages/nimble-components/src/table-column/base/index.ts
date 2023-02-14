@@ -1,5 +1,6 @@
 import { attr, ElementStyles, ViewTemplate } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
+import { uniqueId } from '@microsoft/fast-web-utilities';
 import type {
     TableCellRecord,
     TableCellState,
@@ -32,6 +33,12 @@ export abstract class TableColumn<
      * This array is parallel with the field names returned from `getDataRecordFieldNames()`.
      */
     public abstract readonly cellRecordFieldNames: readonly TableFieldName[];
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+
+        this.setAttribute('slot', uniqueId('table-column-slot'));
+    }
 
     /**
      * This method returns the relevant, static configuration a column requires its cellTemplate

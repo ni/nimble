@@ -42,8 +42,17 @@ export class Table<
     @observable
     public tableData: TableRowState<TData>[] = [];
 
+    /**
+     * @internal
+     */
     @observable
-    public readonly columns: TableColumn[] = [];
+    public columns: TableColumn[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly childItems: Element[] = [];
 
     /**
      * @internal
@@ -165,6 +174,20 @@ export class Table<
             this.columns.map(x => x.columnId)
         );
         this.canRenderRows = this.checkValidity();
+    }
+
+    protected childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
+    }
+
+    private async updateColumnsFromChildItems(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
+        this.columns = this.childItems.filter(
+            (x): x is TableColumn => x instanceof TableColumn
+        );
     }
 
     private setTableData(newData: readonly TData[]): void {
