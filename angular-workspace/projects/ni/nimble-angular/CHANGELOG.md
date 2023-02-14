@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 14 Feb 2023 16:15:37 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Feb 2023 17:27:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.16
+
+Tue, 14 Feb 2023 17:27:05 GMT
+
+### Patches
+
+- Add column IDs to table ([ni/nimble@a88731d](https://github.com/ni/nimble/commit/a88731d393687500fc23f86437a73bc6c947e17f))
+- Bump @ni/nimble-components to v18.3.5
 
 ## 16.0.15
 

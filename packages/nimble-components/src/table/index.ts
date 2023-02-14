@@ -1,4 +1,9 @@
-import { attr, observable } from '@microsoft/fast-element';
+import {
+    attr,
+    Observable,
+    observable,
+    Notifier
+} from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
@@ -72,6 +77,7 @@ export class Table<
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
+    private columnNotifiers: Notifier[] = [];
 
     public constructor() {
         super();
@@ -93,7 +99,42 @@ export class Table<
         this.setTableData(newData);
     }
 
-    public idFieldNameChanged(
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.virtualizer.connectedCallback();
+        this.validateAndObserveColumns();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.virtualizer.disconnectedCallback();
+        this.removeColumnObservers();
+    }
+
+    public checkValidity(): boolean {
+        return this.tableValidator.isValid();
+    }
+
+    /**
+     * @internal
+     *
+     * The event handler that is called when a notifier detects a change. Notifiers are added
+     * to each column, so `source` is expected to be an instance of `TableColumn`, and `args`
+     * is the string name of the property that changed on that column.
+     */
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof TableColumn) {
+            if (args === 'columnId') {
+                this.validateColumnIds();
+            }
+        }
+    }
+
+    protected childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
+    }
+
+    protected idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
     ): void {
@@ -102,21 +143,41 @@ export class Table<
         this.setTableData(this.table.options.data);
     }
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.virtualizer.connectedCallback();
+    protected columnsChanged(
+        _prev: TableColumn[] | undefined,
+        _next: TableColumn[]
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.validateAndObserveColumns();
     }
 
-    public override disconnectedCallback(): void {
-        this.virtualizer.disconnectedCallback();
+    private removeColumnObservers(): void {
+        this.columnNotifiers.forEach(notifier => {
+            notifier.unsubscribe(this);
+        });
+        this.columnNotifiers = [];
     }
 
-    public checkValidity(): boolean {
-        return this.tableValidator.isValid();
+    private validateAndObserveColumns(): void {
+        this.removeColumnObservers();
+
+        for (const column of this.columns) {
+            const notifier = Observable.getNotifier(column);
+            notifier.subscribe(this);
+            this.columnNotifiers.push(notifier);
+        }
+
+        this.validateColumnIds();
     }
 
-    protected childItemsChanged(): void {
-        void this.updateColumnsFromChildItems();
+    private validateColumnIds(): void {
+        this.tableValidator.validateColumnIds(
+            this.columns.map(x => x.columnId)
+        );
+        this.canRenderRows = this.checkValidity();
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {

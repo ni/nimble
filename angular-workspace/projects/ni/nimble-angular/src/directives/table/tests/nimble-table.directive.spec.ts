@@ -149,7 +149,9 @@ describe('Nimble table', () => {
             const expectedValidity: TableValidity = {
                 duplicateRecordId: false,
                 invalidRecordId: false,
-                missingRecordId: true
+                missingRecordId: true,
+                duplicateColumnId: false,
+                missingColumnId: false
             };
             expect(directive.validity).toEqual(expectedValidity);
             expect(nativeElement.validity).toEqual(expectedValidity);
