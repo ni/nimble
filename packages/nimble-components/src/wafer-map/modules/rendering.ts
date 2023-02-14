@@ -86,8 +86,8 @@ export class RenderingModule {
         this.context.clearRect(
             0,
             0,
-            this.wafermap.canvas.width * this.wafermap.transform.k,
-            this.wafermap.canvas.height * this.wafermap.transform.k
+            this.wafermap.canvasWidth * this.wafermap.transform.k,
+            this.wafermap.canvasHeight * this.wafermap.transform.k
         );
     }
 
