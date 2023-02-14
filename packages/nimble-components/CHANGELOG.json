@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Feb 2023 21:18:42 GMT",
+      "tag": "@ni/nimble-components_v18.3.6",
+      "version": "18.3.6",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c19ad40ffbbfee58bd2020ffdff40984254bf61c",
+            "comment": "Column Width HLD"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 19:59:45 GMT",
       "tag": "@ni/nimble-components_v18.3.6",
       "version": "18.3.6",
