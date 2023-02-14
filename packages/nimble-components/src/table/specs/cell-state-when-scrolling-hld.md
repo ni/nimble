@@ -92,6 +92,12 @@ If any of those `Range` checks succeed, remove that `Range` from the selection.
 *API:*  
 This logic will be in the Nimble Virtualizer class, called from `handleVirtualizerChange()` (called when the user scrolls). It will apply to all Nimble tables / all column types, without an opt-out option.
 
+### Disabling Table Text Selection
+
+We could add CSS to our table text cells (`user-select: none`) to prevent text selection. This would also eliminate the concern about text selection remaining after a scroll.
+
+We decided against this because there's valid use cases for copying text out of a table cell, and the selection+scrolling issue doesn't seem like a sufficient reason to disable selection entirely.
+
 ## Open Issues
 
 -   (Need to finalize API details surrounding the `onBeforeFocusedCellRecycled` proposal)
