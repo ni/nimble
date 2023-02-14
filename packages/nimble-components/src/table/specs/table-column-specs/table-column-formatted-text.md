@@ -3,21 +3,23 @@
 ## Overview
 
 Clients will wish to display non-string text data in table columns for use cases like the following:
+
 1. integer data like counts, formatted to be displayed with no trailing decimals
 2. floating point data formatted to display values in standard ways ("3.1415", "1.04E47", "Infinity", -0.03)
 3. a mix of the above with formatting determined by the application
 4. numeric values with a static unit string appended before or after (e.g. "$4.23" or "15%")
 5. numeric values with custom unit logic. Examples:
-   - a file size column that could show the value 1000 as "1000 bytes" but the value 1024 as "1KB"
-   - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute and 3 seconds"
+    - a file size column that could show the value 1000 as "1000 bytes" but the value 1024 as "1KB"
+    - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute and 3 seconds"
 6. enum values formatted as localized strings (0 -> "Fail", 1 -> "Pass")
 7. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
 
 In all of the above cases:
- - data should be sortable and groupable by its actual numeric value, not the string representation
- - text styling like font and alignment should be provided by Nimble
- - columns should support i18n behaviors like decimal separators, date/time formats, and localized content
- - there should be an option to show "placeholder" text if no value is specified
+
+-   data should be sortable and groupable by its actual numeric value, not the string representation
+-   text styling like font and alignment should be provided by Nimble
+-   columns should support i18n behaviors like decimal separators, date/time formats, and localized content
+-   there should be an option to show "placeholder" text if no value is specified
 
 We may not choose to support all of the above initially but we should design our solutions with these use cases in mind.
 
@@ -39,7 +41,6 @@ We may not choose to support all of the above initially but we should design our
 
 -   Editable numbers. This is not supported by the text column yet either.
 -   Customizing the styling or alignment of the column content. This is not supported by the text column yet either.
-
 
 ---
 
@@ -67,7 +68,7 @@ With the changes proposed in [HLD for programmatically sorting columns](https://
 ```
 
 ```ts
-const originalData = [{progress: 0.1}, {progress: 0.2}];
+const originalData = [{ progress: 0.1 }, { progress: 0.2 }];
 const tableData = originalData.map(x => {
     progress: x.progress;
     formattedProgress: x ? `${100 * x.progress}%` : undefined;
@@ -77,19 +78,18 @@ table.data = tableData;
 
 **Pros:**
 
-- formatted data is specified up front, guaranteeing fast scroll performance
-- powerful; clients can format data however they want, including via browser APIs which are i18n-friendly or on the server
+-   formatted data is specified up front, guaranteeing fast scroll performance
+-   powerful; clients can format data however they want, including via browser APIs which are i18n-friendly or on the server
 
 **Cons:**
 
-- Increased memory usage and data update time from clients pre-populating data with field for each formatted column
-- Added complexity of writing procedural code even for simple formatting use cases
-- Potential cross-app inconsistency if formatting code isn't shared
+-   Increased memory usage and data update time from clients pre-populating data with field for each formatted column
+-   Added complexity of writing procedural code even for simple formatting use cases
+-   Potential cross-app inconsistency if formatting code isn't shared
 
 **Implementation Cost:**
 
-- Exposing `operational-data-field-name` to be set by client code rather than column definition
-
+-   Exposing `operational-data-field-name` to be set by client code rather than column definition
 
 #### Alternative 2: Client specifies formatting function
 
@@ -123,24 +123,25 @@ MyAppProgressColumn.registerColumn('my-app-progress-column');
 
 Some of this is prototyped in the [number-column-prototype branch](https://github.com/ni/nimble/compare/main...number-column-prototype?expand=1).
 
-Other variants of this idea include: 
+Other variants of this idea include:
+
 1. setting the formatting function as a property on a column element.
-2. setting an [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) object as a property on a column element. 
+2. setting an [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) object as a property on a column element.
 
 **Pros:**
 
-- Small memory footprint and fast data update time because formatting function is called on-demand
-- Powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
+-   Small memory footprint and fast data update time because formatting function is called on-demand
+-   Powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
 
 **Cons:**
 
-- Possible reduced scroll performance because formatting function is called on-demand
-- Requires JS code to do formatting which is less convenient in frameworks like Blazor
-- Potential cross-app inconsistency if formatting code isn't shared
+-   Possible reduced scroll performance because formatting function is called on-demand
+-   Requires JS code to do formatting which is less convenient in frameworks like Blazor
+-   Potential cross-app inconsistency if formatting code isn't shared
 
 **Implementation Cost:**
 
-- Expose mechanism for providing format function
+-   Expose mechanism for providing format function
 
 #### Alternative 3: Nimble provides column implementation for common use cases
 
@@ -148,7 +149,7 @@ For common use cases we could provide column types that expose simplified format
 
 ```html
 <nimble-table>
-    <nimble-table-column-numeric 
+    <nimble-table-column-numeric
         field-name="progress"
         digits-width=2
         suffix="%"
@@ -160,16 +161,16 @@ For common use cases we could provide column types that expose simplified format
 
 **Pros:**
 
-- Easy for clients to use since configuration is declarative
+-   Easy for clients to use since configuration is declarative
 
 **Cons:**
 
-- Requires Nimble team to design simple but powerful formatting and i18n APIs
-- Can't solve some use cases like app-specific formatting logic
+-   Requires Nimble team to design simple but powerful formatting and i18n APIs
+-   Can't solve some use cases like app-specific formatting logic
 
 **Implementation Cost:**
 
-- API design and implementation for each new column type
+-   API design and implementation for each new column type
 
 #### Alternative 4: Client provides custom column implementation for each use case
 
@@ -177,80 +178,63 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 **Pros:**
 
-- Zero implementation cost to Nimble team
+-   Zero implementation cost to Nimble team
 
 **Cons:**
 
-- Higher burden on clients to specify template, styling, etc in JS
-- Potential for inconsistent styling
-- Potential cross-app inconsistency if formatting code isn't shared
-
+-   Higher burden on clients to specify template, styling, etc in JS
+-   Potential for inconsistent styling
+-   Potential cross-app inconsistency if formatting code isn't shared
 
 ### Strawman Proposal
 
 For the sake of discussion my initial proposal is:
+
 1. For columns that require app-specific formatting logic I'm leaning towards the formatting function approach because it seems more like the API that app developers would expect (perhaps I'm biased by previous implementations). I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
 2. I would also like to provide a few built-in column types to save clients from having to write JS code. These could offer limited configuration to start since we don't have clear requirements yet. Proposed columns include:
- - `nimble-table-column-numeric`
- - `nimble-table-column-date`
+
+-   `nimble-table-column-numeric`
+-   `nimble-table-column-date`
 
 ### API
 
 _Component Name_
 
-
 _*Props/Attrs*_
-
 
 _Type Reference_
 
-
 ### Anatomy
-
 
 ### Angular integration
 
-
 ### Blazor integration
 
-
 ### Visual Appearance
-
 
 ---
 
 ## Implementation
 
-
 ### Alternatives considered
-
 
 ### States
 
-
 ### Accessibility
-
 
 ### Globalization
 
-
 ### Security
-
 
 ### Performance
 
-
 ### Dependencies
-
 
 ### Test Plan
 
-
 ### Tooling
 
-
 ### Documentation
-
 
 ---
 
