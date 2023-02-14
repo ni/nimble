@@ -9,7 +9,7 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
-import type { TableColumn } from '../table-column/base';
+import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
@@ -37,8 +37,17 @@ export class Table<
     @observable
     public tableData: TableRowState<TData>[] = [];
 
+    /**
+     * @internal
+     */
     @observable
-    public readonly columns: TableColumn[] = [];
+    public columns: TableColumn[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly childItems: Element[] = [];
 
     /**
      * @internal
@@ -104,6 +113,20 @@ export class Table<
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
+    }
+
+    protected childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
+    }
+
+    private async updateColumnsFromChildItems(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
+        this.columns = this.childItems.filter(
+            (x): x is TableColumn => x instanceof TableColumn
+        );
     }
 
     private setTableData(newData: readonly TData[]): void {
