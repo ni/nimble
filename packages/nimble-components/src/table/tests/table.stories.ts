@@ -13,6 +13,7 @@ interface TableArgs {
     validity: undefined;
     checkValidity: undefined;
     tableRef: Table;
+    updateData: (args: TableArgs) => void;
 }
 
 const simpleData = [
@@ -93,7 +94,9 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 
 -   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
 -   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
--   \`invalidRecordId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
+-   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
 `;
 
 const metadata: Meta<TableArgs> = {
@@ -122,12 +125,14 @@ const metadata: Meta<TableArgs> = {
         <nimble-table
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
-            data-unused="${x => x.tableRef.setData(dataSets[x.data])}"
+            data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value" action-menu-slot="name-menu" action-menu-label="Configure name">First Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value" action-menu-slot="quote-menu" action-menu-label="Configure quote">Quote</nimble-table-column-text>
+            <nimble-table-column-text field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
+                <nimble-icon-user title="First Name"></nimble-icon-user>
+            </nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="last-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="favoriteColor" placeholder="no value" column-id="favorite-color-column">Favorite Color</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value" column-id="quote-column" action-menu-slot="quote-menu" action-menu-label="Configure quote">Quote</nimble-table-column-text>
 
             <nimble-menu slot="name-menu">
                 <nimble-menu-item>Edit name</nimble-menu-item>
@@ -184,6 +189,11 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
+        },
+        updateData: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
@@ -191,7 +201,15 @@ const metadata: Meta<TableArgs> = {
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
-        tableRef: undefined
+        tableRef: undefined,
+        updateData: x => {
+            void (async () => {
+                // Safari workaround: the table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                await customElements.whenDefined('nimble-table');
+                x.tableRef.setData(dataSets[x.data]);
+            })();
+        }
     }
 };
 

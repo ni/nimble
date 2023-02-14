@@ -10,6 +10,16 @@ export type { TableColumnText };
     selector: 'nimble-table-column-text'
 })
 export class NimbleTableColumnTextDirective {
+    public get columnId(): string | undefined {
+        return this.elementRef.nativeElement.columnId;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('column-id') public set columnId(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'columnId', value);
+    }
+
     public get fieldName(): string | undefined {
         return this.elementRef.nativeElement.fieldName;
     }

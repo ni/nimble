@@ -21,3 +21,11 @@
   src: url('../assets/SourceSansPro-SemiBold.woff2') format('woff2');
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Noto Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/NotoSerif-Regular.woff2') format('woff2');
+  font-display: swap;
+}

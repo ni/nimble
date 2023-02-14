@@ -57,6 +57,15 @@ export class TableCell<
         );
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        if (this.customCellView) {
+            this.customCellView.dispose();
+            this.customCellView = undefined;
+        }
+    }
+
     public onActionMenuBeforeToggle(event: CustomEvent): void {
         this.$emit('cell-action-menu-beforetoggle', event.detail);
     }

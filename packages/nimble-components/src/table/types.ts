@@ -48,6 +48,8 @@ export interface TableValidity {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
     readonly invalidRecordId: boolean;
+    readonly duplicateColumnId: boolean;
+    readonly missingColumnId: boolean;
 }
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {

@@ -23,6 +23,7 @@ describe('NimbleTableColumnText', () => {
                 <nimble-table>
                     <nimble-table-column-text
                         #column
+                        column-id="my-column"
                         field-name="field1"
                         placeholder="no value"
                         action-menu-slot="my-slot"
@@ -70,6 +71,11 @@ describe('NimbleTableColumnText', () => {
             expect(directive.actionMenuLabel).toBe('my menu');
             expect(nativeElement.actionMenuLabel).toBe('my menu');
         });
+
+        it('will use template string values for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+        });
     });
 
     describe('with property bound values', () => {
@@ -78,6 +84,7 @@ describe('NimbleTableColumnText', () => {
                 <nimble-table>
                     <nimble-table-column-text
                         #column
+                        [column-id]="columnId"
                         [field-name]="field"
                         [placeholder]="placeholder"
                         [actionMenuSlot]="actionMenuSlot"
@@ -93,6 +100,7 @@ describe('NimbleTableColumnText', () => {
             public placeholder = 'no value';
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
+            public columnId = 'my-column';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -153,6 +161,17 @@ describe('NimbleTableColumnText', () => {
             expect(directive.actionMenuLabel).toBe('another menu');
             expect(nativeElement.actionMenuLabel).toBe('another menu');
         });
+
+        it('can be configured with property binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -161,6 +180,7 @@ describe('NimbleTableColumnText', () => {
                 <nimble-table>
                     <nimble-table-column-text
                         #column
+                        [attr.column-id]="columnId"
                         [attr.field-name]="field"
                         [attr.placeholder]="placeholder"
                         [attr.action-menu-slot]="actionMenuSlot"
@@ -176,6 +196,7 @@ describe('NimbleTableColumnText', () => {
             public placeholder = 'no value';
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
+            public columnId = 'my-column';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -193,7 +214,7 @@ describe('NimbleTableColumnText', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for fieldName', () => {
+        it('can be configured with attribute binding for fieldName', () => {
             expect(directive.fieldName).toBe('field1');
             expect(nativeElement.fieldName).toBe('field1');
 
@@ -204,7 +225,7 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.fieldName).toBe('field2');
         });
 
-        it('can be configured with property binding for placeholder', () => {
+        it('can be configured with attribute binding for placeholder', () => {
             expect(directive.placeholder).toBe('no value');
             expect(nativeElement.placeholder).toBe('no value');
 
@@ -235,6 +256,17 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.actionMenuLabel).toBe('another menu');
             expect(nativeElement.actionMenuLabel).toBe('another menu');
+        });
+
+        it('can be configured with attribute binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
         });
     });
 });
