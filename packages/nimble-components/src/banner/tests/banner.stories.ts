@@ -11,6 +11,7 @@ const ActionType = {
     none: 'none',
     buttonGhost: 'button (ghost)',
     buttonOutline: 'button (outline)',
+    iconButtonOutline: 'icon button (outline)',
     anchor: 'anchor'
 } as const;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -73,6 +74,11 @@ export const _banner: StoryObj<BannerArgs> = {
                 <nimble-button slot="action" appearance="ghost">Do action</nimble-button>`)}
             ${when(x => x.action === 'button (outline)', html`
                 <nimble-button slot="action" appearance="outline">Do action</nimble-button>`)}
+            ${when(x => x.action === 'icon button (outline)', html`
+                <nimble-button slot="action" appearance="outline" content-hidden>
+                    <nimble-icon-key slot="start"></nimble-icon-key>
+                    Do action
+                </nimble-button>`)}
             ${when(x => x.action === 'anchor', html`
                 <nimble-anchor slot="action" href="#">Go to site</nimble-anchor>`)}
         </nimble-banner>

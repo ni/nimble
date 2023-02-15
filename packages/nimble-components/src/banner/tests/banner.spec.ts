@@ -91,28 +91,18 @@ describe('Banner', () => {
         expect(element.severity).toBe(BannerSeverity.default);
     });
 
-    it("should set 'aria-title' to title text when 'titleHidden' set", async () => {
-        element.titleHidden = true;
-        await waitForUpdatesAsync();
-        expect(element.ariaLabel).toBe('Title');
-    });
-
-    it("should set 'aria-title' to title text when 'titleHidden' not set", async () => {
-        element.titleHidden = false;
-        await waitForUpdatesAsync();
-        expect(element.ariaLabel).toBe('Title');
-    });
-
-    it("should update 'aria-title' when title text changes", async () => {
-        element.querySelector('span')!.innerText = 'New Title';
-        await waitForUpdatesAsync();
-        expect(element.ariaLabel).toBe('New Title');
-    });
-
     it("should hide dismiss button when 'preventDismiss' set", async () => {
         element.preventDismiss = true;
         await waitForUpdatesAsync();
         expect(element.shadowRoot?.querySelector('nimble-button')).toBeNull();
+    });
+
+    it("should default label of dismiss button to 'Close'", () => {
+        expect(
+            element.shadowRoot
+                ?.querySelector('nimble-button')
+                ?.innerText.includes('Close')
+        ).toBeTrue();
     });
 
     it("should set 'dismissButtonLabel' as label of dismiss button", async () => {
@@ -126,6 +116,10 @@ describe('Banner', () => {
     });
 
     it("should set the 'role' to 'status'", () => {
-        expect(element.getAttribute('role')).toBe('status');
+        expect(
+            element.shadowRoot
+                ?.querySelector('.container')
+                ?.getAttribute('role')
+        ).toBe('status');
     });
 });

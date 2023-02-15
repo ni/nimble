@@ -3,9 +3,9 @@
  * @public
  */
 export const BannerSeverity = {
+    default: undefined,
     error: 'error',
     warning: 'warning',
-    info: 'info',
-    default: undefined
+    information: 'information'
 } as const;
 export type BannerSeverity = typeof BannerSeverity[keyof typeof BannerSeverity];

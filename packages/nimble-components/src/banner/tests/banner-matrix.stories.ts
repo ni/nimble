@@ -14,6 +14,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { BannerSeverity } from '../types';
+import { bannerGapSize } from '../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Banner',
@@ -35,10 +36,11 @@ const severityStates: [string, string | undefined][] = Object.entries(
 type SeverityState = typeof severityStates[number];
 
 const actionStates = [
-    ['', false, undefined],
-    ['link', true, undefined],
-    ['ghost button', false, 'ghost'],
-    ['outline button', false, 'outline']
+    ['', false, false, undefined],
+    ['link', true, false, undefined],
+    ['ghost button', false, false, 'ghost'],
+    ['outline button', false, false, 'outline'],
+    ['outline icon button', false, true, 'outline']
 ] as const;
 type ActionState = typeof actionStates[number];
 
@@ -48,11 +50,18 @@ const partsHiddenStates = [
 ] as const;
 type PartsHiddenState = typeof partsHiddenStates[number];
 
+const longTextStates = [
+    ['', false],
+    ['long text', true]
+] as const;
+type LongTextState = typeof longTextStates[number];
+
 // prettier-ignore
 const component = (
     [severityLabel, severity]: SeverityState,
-    [actionLabel, linkVisible, buttonAppearance]: ActionState,
-    [partsHiddenLabel, partsHidden]: PartsHiddenState
+    [actionLabel, linkVisible, iconButton, buttonAppearance]: ActionState,
+    [partsHiddenLabel, partsHidden]: PartsHiddenState,
+    [longTextLabel, longText]: LongTextState
 ): ViewTemplate => html`
     <nimble-banner
         open
@@ -60,30 +69,30 @@ const component = (
         title-hidden="${partsHidden}"
         prevent-dismiss="${partsHidden}"
     >
-        <span slot="title">${severityLabel} ${actionLabel} ${partsHiddenLabel}</span>
-        This is message text.
+        <span slot="title">${severityLabel} ${actionLabel} ${partsHiddenLabel} ${longTextLabel} ${longText ? loremIpsum.substring(0, 78) : ''}</span>
+        ${longText ? loremIpsum : 'This is message text.'}
         ${when(() => linkVisible, html`
-            <nimble-anchor slot="action" href="#">Nimble anchor</nimble-anchor>
+            <nimble-anchor slot="action" href="#">${longText ? loremIpsum.substring(0, 78) : 'Nimble anchor'}</nimble-anchor>
         `)}
         ${when(() => buttonAppearance, html`
-            <nimble-button slot="action" appearance="${buttonAppearance!}">Nimble Button</nimble-button>
+            <nimble-button slot="action" appearance="${buttonAppearance!}" content-hidden=${iconButton}>
+                ${when(() => iconButton, html`
+                    <nimble-icon-key slot="start"></nimble-icon-key>
+                `)}
+                ${longText ? loremIpsum.substring(0, 78) : 'Nimble Button'}
+            </nimble-button>
         `)}
     </nimble-banner>
-    <div style="height: 1px"></div>
+    <div style="height: var(${bannerGapSize.cssCustomProperty})"></div>
 `;
 
 export const bannerThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [severityStates, actionStates, partsHiddenStates])
-);
-
-export const textWrapBanner: Story = createStory(
-    html`<nimble-banner open severity="error">
-        <span slot="title">${loremIpsum.substring(0, 78)}</span>
-        ${loremIpsum}
-        <nimble-anchor slot="action" href="#"
-            >${loremIpsum.substring(0, 78)}</nimble-anchor
-        >
-    </nimble-banner>`
+    createMatrix(component, [
+        severityStates,
+        actionStates,
+        partsHiddenStates,
+        longTextStates
+    ])
 );
 
 export const hiddenBanner: Story = createStory(

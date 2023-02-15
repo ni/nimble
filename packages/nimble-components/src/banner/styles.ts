@@ -35,7 +35,6 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        width: 100%;
         font: ${bodyFont};
         font-size: 12.8px;
         align-items: top;
@@ -120,7 +119,7 @@ export const styles = css`
     }
 
     slot[name='action']::slotted(nimble-button) {
-        height: ${controlSlimHeight};
+        ${controlHeight.cssCustomProperty}: ${controlSlimHeight};
         ${buttonLabelFontColor.cssCustomProperty}: ${White};
         ${fillSelectedColor.cssCustomProperty}: ${hexToRgbaCssColor(
             White,
@@ -140,8 +139,7 @@ export const styles = css`
     }
 
     .dismiss nimble-button {
-        height: 16px;
-        width: 16px;
+        ${controlHeight.cssCustomProperty}: 16px;
         ${iconSize.cssCustomProperty}: 14px;
         ${buttonLabelFontColor.cssCustomProperty}: ${White};
         ${borderHoverColor.cssCustomProperty}: transparent;
@@ -174,7 +172,7 @@ export const styles = css`
                 background: ${Warning100LightUi};
             }
 
-            :host([severity='info']) {
+            :host([severity='information']) {
                 background: ${Information100LightUi};
             }
         `
@@ -194,7 +192,7 @@ export const styles = css`
                 background: ${Warning100DarkUi};
             }
 
-            :host([severity='info']) {
+            :host([severity='information']) {
                 background: ${Information100DarkUi};
             }
         `
