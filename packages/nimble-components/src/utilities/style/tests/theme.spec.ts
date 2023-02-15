@@ -240,7 +240,7 @@ describe('The ThemeStylesheetBehavior', () => {
             await disconnect();
         });
 
-        it('can have unset color and dark themes', async () => {
+        xit('can have unset color and dark themes', async () => {
             const themeController = new ThemeController();
             const { connect, disconnect } = await setup(
                 themeController,

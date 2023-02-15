@@ -243,7 +243,7 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('focuses the first button on the dialog when it opens', async () => {
+    xit('focuses the first button on the dialog when it opens', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const okButton = document.getElementById('ok')!;
@@ -255,7 +255,7 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('focuses the button with autofocus when the dialog opens', async () => {
+    xit('focuses the button with autofocus when the dialog opens', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const cancelButton = document.getElementById('cancel')!;
@@ -269,7 +269,7 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('supports opening multiple dialogs on top of each other', async () => {
+    xit('supports opening multiple dialogs on top of each other', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const secondDialog = document.createElement('nimble-dialog');

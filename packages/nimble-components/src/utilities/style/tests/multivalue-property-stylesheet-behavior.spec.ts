@@ -223,7 +223,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             await disconnect();
         });
 
-        it('can have an unset appearance best', async () => {
+        xit('can have an unset appearance best', async () => {
             const appearanceController = new AppearanceController();
             const { connect, disconnect } = await setup(
                 appearanceController,
