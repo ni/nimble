@@ -1,6 +1,6 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
     createStory
@@ -12,6 +12,8 @@ import {
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import type { Table } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import type { MenuButton } from '../../menu-button';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -45,22 +47,52 @@ const data = [
     }
 ] as const;
 
+const actionMenuStates = [true, false];
+type ActionMenuState = (typeof actionMenuStates)[number];
+
 // prettier-ignore
-const component = (): ViewTemplate => html`
+const component = (
+    showActionMenu: ActionMenuState
+): ViewTemplate => html`
     <nimble-table>
-        <nimble-table-column-text field-name="firstName" placeholder="no value"><nimble-icon-user></nimble-icon-user></nimble-table-column-text>
+        <nimble-table-column-text
+            field-name="firstName"
+            placeholder="no value"
+            action-menu-slot="${showActionMenu ? 'action-menu' : ''}"
+            action-menu-label="${showActionMenu ? 'Menu' : ''}"
+        >
+            <nimble-icon-user></nimble-icon-user>
+        </nimble-table-column-text>
         <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
         <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
+
+        ${when(() => showActionMenu, html`
+            <nimble-menu slot="action-menu">
+                <nimble-menu-item>Item 1</nimble-menu-item>
+                <nimble-menu-item>Item 2</nimble-menu-item>
+                <nimble-menu-item>Item 3</nimble-menu-item>
+                <nimble-menu-item>Item 4</nimble-menu-item>
+            </nimble-menu>
+        `)}
     </nimble-table>
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [actionMenuStates])
 );
 
 tableThemeMatrix.play = (): void => {
-    document.querySelectorAll<Table>('nimble-table').forEach(table => {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    document.querySelectorAll<Table>('nimble-table').forEach(async table => {
         table.setData(data);
+
+        await waitForUpdatesAsync();
+        const row = table.shadowRoot!.querySelector('nimble-table-row')!;
+        row.classList.add('hover');
+        const cell = row.shadowRoot!.querySelector('nimble-table-cell')!;
+        const menuButton = cell.shadowRoot!.querySelector<MenuButton>('nimble-menu-button')!;
+        menuButton.toggleButton!.control.click();
+        await waitForUpdatesAsync();
     });
 };
 
