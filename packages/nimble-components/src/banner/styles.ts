@@ -66,7 +66,8 @@ export const styles = css`
         margin-bottom: 7px;
     }
 
-    slot[name='title']::slotted(*) {
+    slot[name='title'] {
+        display: inline;
         font-weight: bold;
         padding-right: 8px;
         white-space: nowrap;
