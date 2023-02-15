@@ -19,10 +19,10 @@ export abstract class TableColumn<
     public columnId?: string;
 
     @attr({ attribute: 'action-menu-slot' })
-    public actionMenuSlot? = '';
+    public actionMenuSlot?: string;
 
     @attr({ attribute: 'action-menu-label' })
-    public actionMenuLabel? = '';
+    public actionMenuLabel?: string;
 
     /**
      * The template to use to render the cell content for the column
