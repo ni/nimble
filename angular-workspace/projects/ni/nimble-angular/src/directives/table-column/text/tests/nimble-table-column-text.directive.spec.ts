@@ -236,7 +236,7 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.placeholder).toBe('foo');
         });
 
-        it('can be configured with property binding for actionMenuSlot', () => {
+        it('can be configured with attribute binding for actionMenuSlot', () => {
             expect(directive.actionMenuSlot).toBe('my-slot');
             expect(nativeElement.actionMenuSlot).toBe('my-slot');
 
@@ -247,7 +247,7 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.actionMenuSlot).toBe('new-slot');
         });
 
-        it('can be configured with property binding for actionMenuLabel', () => {
+        it('can be configured with attribute binding for actionMenuLabel', () => {
             expect(directive.actionMenuLabel).toBe('my menu');
             expect(nativeElement.actionMenuLabel).toBe('my menu');
 
