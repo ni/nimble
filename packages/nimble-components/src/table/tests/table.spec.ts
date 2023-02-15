@@ -1,8 +1,11 @@
 import { html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
+import { IconCheck } from '../../icons/check';
+import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { controlHeight } from '../../theme-provider/design-tokens';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
@@ -31,14 +34,18 @@ const simpleTableData = [
     }
 ] as const;
 
-const tableColumnText = DesignSystem.tagFor(TableColumnText);
+const largeTableData = Array.from(Array(500), (_, i) => {
+    return {
+        stringData: `string ${i}`,
+        numericData: i,
+        moreStringData: 'foo'
+    };
+});
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-                <${tableColumnText} field-name="stringData">stringData</${tableColumnText}>
-            </nimble-table>`
+        html`<nimble-table></nimble-table>`
     );
 }
 
@@ -47,13 +54,15 @@ describe('Table', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
+    let column1: TableColumn;
+    let column2: TableColumn;
 
     // The assumption being made here is that the values in the data are equal to their
     // rendered representation (no formatting).
-    function retrieveVisibleData(
-        tableData: SimpleTableRecord[]
+    function retrieveExpectedData(
+        tableData: readonly SimpleTableRecord[]
     ): TableRecord[] {
-        const visibleData: TableRecord[] = [];
+        const expectedData: TableRecord[] = [];
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
@@ -61,13 +70,15 @@ describe('Table', () => {
                 const expectedCellData = rowData[dataKey]!;
                 record[dataKey] = expectedCellData;
             }
-            visibleData.push(record);
+            expectedData.push(record);
         }
-        return visibleData;
+        return expectedData;
     }
 
-    function verifyRenderedData(): void {
-        const visibleData = retrieveVisibleData(element.data);
+    function verifyRenderedData(
+        visibleTableDataSubset: readonly SimpleTableRecord[]
+    ): void {
+        const visibleData = retrieveExpectedData(visibleTableDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
@@ -97,6 +108,21 @@ describe('Table', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new TablePageObject<SimpleTableRecord>(element);
+
+        const tableColumnTextTag = DesignSystem.tagFor(TableColumnText);
+        column1 = document.createElement(tableColumnTextTag) as TableColumn;
+        column1.textContent = 'stringData';
+        (column1 as TableColumnText).fieldName = 'stringData';
+
+        const checkIcon = document.createElement(
+            DesignSystem.tagFor(IconCheck)
+        );
+        column2 = document.createElement(tableColumnTextTag) as TableColumn;
+        column2.appendChild(checkIcon);
+        (column2 as TableColumnText).fieldName = 'moreStringData';
+
+        element.appendChild(column1);
+        element.appendChild(column2);
     });
 
     afterEach(async () => {
@@ -107,10 +133,10 @@ describe('Table', () => {
         expect(document.createElement('nimble-table')).toBeInstanceOf(Table);
     });
 
-    it('should render column headers', async () => {
+    it('column header content should be the columns', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedHeaderCount()).toEqual(
@@ -121,36 +147,50 @@ describe('Table', () => {
             columnIndex < element.columns.length;
             columnIndex++
         ) {
-            expect(pageObject.getRenderedHeaderContent(columnIndex)).toEqual(
-                element.columns[columnIndex]!.textContent!
-            );
+            expect(pageObject.getHeaderContent(columnIndex))
+                .withContext(`for column${columnIndex}`)
+                .toEqual(element.columns[columnIndex]);
         }
     });
 
+    it('changing column content updates header rendered content', async () => {
+        await connect();
+
+        element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+
+        let headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('stringData');
+
+        element.columns[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('foo');
+    });
+
     it('can set data before the element is connected', async () => {
-        const data = [...simpleTableData];
-        element.data = data;
+        element.setData(simpleTableData);
         await connect();
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
     });
 
     it('can set data after the element is connected', async () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const data = [...simpleTableData];
-        element.data = data;
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
     });
 
     it('updating data can add a new row to the table', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
@@ -161,32 +201,32 @@ describe('Table', () => {
                 moreStringData: 'foo'
             }
         ];
-        element.data = updatedData;
+        element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(updatedData);
     });
 
     it('updating data can remove rows from the table', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
             simpleTableData[0],
             simpleTableData[2]
         ];
-        element.data = updatedData;
+        element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(updatedData);
     });
 
     it('updating data can reorder rows from the table', async () => {
         await connect();
 
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
@@ -194,15 +234,79 @@ describe('Table', () => {
             simpleTableData[2],
             simpleTableData[0]
         ];
-        element.data = updatedData;
+        element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        verifyRenderedData();
+        verifyRenderedData(updatedData);
+    });
+
+    it('can update to have empty array of data', async () => {
+        await connect();
+
+        element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+
+        element.setData([]);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedRowCount()).toBe(0);
+    });
+
+    it('updating data already assigned to the table does not update the table', async () => {
+        await connect();
+
+        const tableData: SimpleTableRecord[] = [...simpleTableData];
+        element.setData(tableData);
+        await waitForUpdatesAsync();
+
+        tableData.push({
+            stringData: 'another record',
+            moreStringData: 'with more data',
+            numericData: 0
+        });
+        await waitForUpdatesAsync();
+
+        verifyRenderedData(simpleTableData);
+    });
+
+    it('can update a record without making a copy of the data', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const data: SimpleTableRecord[] = [...simpleTableData];
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
+
+        const currentFieldValue = data[0]!.stringData;
+        data[0]!.stringData = `${currentFieldValue} - updated value`;
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
+    });
+
+    it('can update the rendered rows by pushing a new record', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const data: SimpleTableRecord[] = [...simpleTableData];
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
+
+        data.push({
+            stringData: 'hello world 123',
+            moreStringData: 'foo bar baz',
+            numericData: 9999
+        });
+        element.setData(data);
+        await waitForUpdatesAsync();
+        verifyRenderedData(data);
     });
 
     it('adding column to end renders data for column at end of row', async () => {
         await connect();
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
@@ -212,12 +316,12 @@ describe('Table', () => {
         await waitForUpdatesAsync();
         expect(element.columns[element.columns.length - 1]).toBe(dateColumn);
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
     });
 
     it('adding column to front renders data for column at front of row', async () => {
         await connect();
-        element.data = [...simpleTableData];
+        element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
@@ -227,54 +331,72 @@ describe('Table', () => {
         await waitForUpdatesAsync();
         expect(element.columns[0]).toBe(dateColumn);
 
-        verifyRenderedData();
+        verifyRenderedData(simpleTableData);
+    });
+
+    it('transitioning the table state from valid to invalid and back to valid rerenders the table correctly', async () => {
+        element.setData(simpleTableData);
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.idFieldName = 'missingFieldName';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedRowCount()).toBe(0);
+        expect(element.checkValidity()).toBeFalse();
+
+        element.idFieldName = undefined;
+        await waitForUpdatesAsync();
+
+        verifyRenderedData(simpleTableData);
+        expect(element.checkValidity()).toBeTrue();
     });
 
     describe('record IDs', () => {
         it('setting ID field uses field value for ID', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRecordIDs(data.map(x => x.stringData));
+            verifyRecordIDs(simpleTableData.map(x => x.stringData));
         });
 
         it('not setting ID field uses generated ID', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRecordIDs(data.map((_, index: number) => index.toString()));
+            verifyRecordIDs(
+                simpleTableData.map((_, index: number) => index.toString())
+            );
         });
 
         it('row IDs update when id-field-name attribute is updated', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
             element.idFieldName = 'stringData';
             await waitForUpdatesAsync();
-            verifyRecordIDs(data.map(x => x.stringData));
+            verifyRecordIDs(simpleTableData.map(x => x.stringData));
 
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
-            verifyRecordIDs(data.map((_, index: number) => index.toString()));
+            verifyRecordIDs(
+                simpleTableData.map((_, index: number) => index.toString())
+            );
         });
     });
 
     describe('ID validation', () => {
         it('setting valid field for ID is valid and renders rows', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
             expect(element.validity.duplicateRecordId).toBeFalse();
             expect(element.validity.invalidRecordId).toBeFalse();
@@ -282,8 +404,7 @@ describe('Table', () => {
         });
 
         it('setting invalid field for ID  is invalid and renders no rows', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'numericData';
             await connect();
             await waitForUpdatesAsync();
@@ -296,8 +417,7 @@ describe('Table', () => {
         });
 
         it('setting ID field name to undefined makes an invalid table valid', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
 
@@ -307,13 +427,12 @@ describe('Table', () => {
             element.idFieldName = undefined;
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
         });
 
         it('setting a valid ID field name makes an invalid table valid', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
 
@@ -323,18 +442,17 @@ describe('Table', () => {
             element.idFieldName = 'stringData';
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
         });
 
         it('setting invalid ID field name on valid table makes it invalid', async () => {
-            const data = [...simpleTableData];
-            element.data = data;
+            element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
 
-            verifyRenderedData();
+            verifyRenderedData(simpleTableData);
             expect(element.checkValidity()).toBeTrue();
 
             element.idFieldName = 'missingFieldName';
@@ -342,6 +460,119 @@ describe('Table', () => {
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();
+        });
+    });
+
+    describe('column IDs', () => {
+        it('duplicate column IDs marks the table as invalid and rows are not rendered', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = 'my-column-id';
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.duplicateColumnId).toBeTrue();
+            expect(element.validity.missingColumnId).toBeFalse();
+        });
+
+        it('missing column IDs marks the table as invalid and rows are not rendered', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = undefined;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.duplicateColumnId).toBeFalse();
+            expect(element.validity.missingColumnId).toBeTrue();
+        });
+
+        it('table validity updates if column IDs become valid', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = undefined;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+
+            column2.setAttribute('column-id', 'my-other-column-id');
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(simpleTableData);
+            expect(element.checkValidity()).toBeTrue();
+        });
+
+        it('table validity updates if column IDs become invalid', async () => {
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(simpleTableData);
+            expect(element.checkValidity()).toBeTrue();
+
+            column1.setAttribute('column-id', 'my-column-id');
+            column2.setAttribute('column-id', 'my-column-id');
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+        });
+    });
+
+    describe('uses virtualization', () => {
+        it('to render fewer rows (based on viewport size)', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+
+            const actualRowCount = pageObject.getRenderedRowCount();
+            const approximateRowHeight = parseFloat(
+                controlHeight.getValueFor(element)
+            );
+            const expectedRowCountUpperBound = (element.offsetHeight / approximateRowHeight) * 3;
+            expect(actualRowCount).toBeLessThan(data.length);
+            expect(actualRowCount).toBeLessThan(expectedRowCountUpperBound);
+            const dataSubset = data.slice(0, actualRowCount);
+            verifyRenderedData(dataSubset);
+        });
+
+        it('and allows viewing the last rows in the data after scrolling to the bottom', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+            await pageObject.scrollToLastRowAsync();
+
+            const actualRowCount = pageObject.getRenderedRowCount();
+            expect(actualRowCount).toBeLessThan(data.length);
+            const dataSubsetAtEnd = data.slice(-actualRowCount);
+            verifyRenderedData(dataSubsetAtEnd);
+        });
+
+        it('and shows additional rows when the table height increases', async () => {
+            await connect();
+
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+
+            const originalRenderedRowCount = pageObject.getRenderedRowCount();
+
+            element.style.height = '700px';
+            await waitForUpdatesAsync();
+
+            const newRenderedRowCount = pageObject.getRenderedRowCount();
+            expect(newRenderedRowCount).toBeGreaterThan(
+                originalRenderedRowCount
+            );
         });
     });
 });

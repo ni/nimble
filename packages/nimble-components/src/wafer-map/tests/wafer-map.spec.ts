@@ -1,5 +1,6 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { WaferMap } from '..';
+import { processUpdates } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     WaferMapColorScaleMode,
@@ -19,8 +20,9 @@ describe('WaferMap', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        element.canvasSideLength = 500;
-        DOM.processUpdates();
+        element.canvasWidth = 500;
+        element.canvasHeight = 500;
+        processUpdates();
         spy = spyOn(element, 'render');
     });
 
@@ -36,55 +38,55 @@ describe('WaferMap', () => {
 
     it('will render once after quadrant changes', () => {
         element.quadrant = WaferMapQuadrant.topRight;
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after orientation changes', () => {
         element.orientation = WaferMapOrientation.right;
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after maxCharacters change', () => {
         element.maxCharacters = 3;
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after dieLabelsHidden change', () => {
         element.dieLabelsHidden = true;
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after dieLabelsSuffix changes', () => {
         element.dieLabelsSuffix = '%';
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after colorScaleMode changes', () => {
         element.colorScaleMode = WaferMapColorScaleMode.ordinal;
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after highlightedValues change', () => {
         element.highlightedValues = ['1'];
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after dies change', () => {
         element.dies = [{ x: 1, y: 1, value: '1' }];
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('will render once after colorScale changes', () => {
         element.colorScale = { colors: ['red'], values: ['1'] };
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -98,7 +100,7 @@ describe('WaferMap', () => {
         element.highlightedValues = ['1'];
         element.dies = [{ x: 1, y: 1, value: '1' }];
         element.colorScale = { colors: ['red'], values: ['1'] };
-        DOM.processUpdates();
+        processUpdates();
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -107,14 +109,14 @@ describe('WaferMap', () => {
 
         beforeEach(() => {
             initialValue = getTransform();
-            expect(initialValue).not.toBeDefined();
+            expect(initialValue).toBe('translate(0,0) scale(1)');
         });
 
         it('will zoom in the wafer-map', () => {
             element.canvas.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
-
+            processUpdates();
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toBe(initialValue);
         });
@@ -124,6 +126,7 @@ describe('WaferMap', () => {
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
             );
 
+            processUpdates();
             const zoomedValue = getTransform();
             expect(zoomedValue).not.toEqual('translate(0,0) scale(1)');
 
@@ -131,6 +134,7 @@ describe('WaferMap', () => {
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
 
+            processUpdates();
             const zoomedOut = getTransform();
             expect(zoomedOut).toBe('translate(0,0) scale(1)');
         });
@@ -139,13 +143,13 @@ describe('WaferMap', () => {
             element.canvas.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: 2, deltaMode: -1 })
             );
-
+            processUpdates();
             const zoomedOut = getTransform();
             expect(zoomedOut).toBe('translate(0,0) scale(1)');
         });
     });
 
     function getTransform(): string | undefined {
-        return element.zoomContainer.getAttribute('transform')?.toString();
+        return element.transform.toString();
     }
 });

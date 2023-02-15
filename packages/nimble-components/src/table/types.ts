@@ -8,13 +8,7 @@ export type TableFieldName = string;
  * TableFieldValue describes the type associated with values within
  * a table's records.
  */
-export type TableFieldValue =
-    | string
-    | number
-    | boolean
-    | Date
-    | null
-    | undefined;
+export type TableFieldValue = string | number | boolean | null | undefined;
 
 /**
  * TableRecord describes the data structure that backs a single row in a table.
@@ -52,6 +46,8 @@ export interface TableValidity {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
     readonly invalidRecordId: boolean;
+    readonly duplicateColumnId: boolean;
+    readonly missingColumnId: boolean;
 }
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {

@@ -41,12 +41,12 @@ const valueStates = [
     ['Value', 'Hello', null],
     ['Long Value', loremIpsum, null]
 ] as const;
-type ValueState = typeof valueStates[number];
+type ValueState = (typeof valueStates)[number];
 
 const appearanceStates = Object.entries(TextAreaAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 const component = (
     [readOnlyName, readonly]: ReadOnlyState,

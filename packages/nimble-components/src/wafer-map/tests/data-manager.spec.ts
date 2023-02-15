@@ -1,67 +1,100 @@
-import { DataManager } from '../modules/data-manager';
-import { Margin, WaferMapColorScaleMode, WaferMapQuadrant } from '../types';
+import { html } from '@microsoft/fast-element';
+
+import { fixture, Fixture } from '../../utilities/tests/fixture';
+import { processUpdates } from '../../testing/async-helpers';
+import type { DataManager } from '../modules/data-manager';
+import type { WaferMap } from '..';
+import {
+    Dimensions,
+    Margin,
+    WaferMapColorScaleMode,
+    WaferMapQuadrant
+} from '../types';
 import {
     getColorScale,
     getHighlightedValues,
     getWaferMapDies
 } from './utilities';
 
-describe('Wafermap Data manager', () => {
+async function setup(): Promise<Fixture<WaferMap>> {
+    return fixture<WaferMap>(html`<nimble-wafer-map></nimble-wafer-map>`);
+}
+
+describe('Wafermap Data Manager', () => {
     let dataManagerModule: DataManager;
-    const axisLocation: WaferMapQuadrant = WaferMapQuadrant.topLeft;
-    const canvasDimensions = { width: 100, height: 110 };
     const dieLabelsSuffix = '%';
-    const dieLabelsHidden = false;
-    const maxCharacters = 3;
-    const defaultMargin: Margin = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20
+    const canvasWidth = 200;
+    const canvasHeight = 100;
+    const canvasDimensions: Dimensions = {
+        width: canvasWidth,
+        height: canvasHeight
+    };
+    const expectedMargin: Margin = {
+        top: 4,
+        right: 54,
+        bottom: 4,
+        left: 54
     };
 
-    beforeEach(() => {
-        dataManagerModule = new DataManager(
-            getWaferMapDies(),
-            axisLocation,
-            canvasDimensions,
-            getColorScale(),
-            getHighlightedValues(),
-            WaferMapColorScaleMode.ordinal,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters
-        );
+    let element: WaferMap;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+        await connect();
+        element.dies = getWaferMapDies();
+        element.colorScale = getColorScale();
+        element.quadrant = WaferMapQuadrant.topLeft;
+        element.dieLabelsSuffix = dieLabelsSuffix;
+        element.dieLabelsHidden = false;
+        element.maxCharacters = 3;
+        element.colorScaleMode = WaferMapColorScaleMode.ordinal;
+        element.highlightedValues = getHighlightedValues();
+        element.canvasWidth = canvasWidth;
+        element.canvasHeight = canvasHeight;
+
+        processUpdates();
+
+        dataManagerModule = element.dataManager!;
+    });
+
+    afterEach(async () => {
+        await disconnect();
     });
 
     it('computes the correct containerDimensions', () => {
         expect(dataManagerModule.containerDimensions).toEqual({
-            width: 60,
-            height: 70
+            width: 92,
+            height: 92
         });
     });
 
     it('computes the correct radius', () => {
-        expect(dataManagerModule.radius).toEqual(45);
+        expect(dataManagerModule.radius).toEqual(46);
     });
 
     it('computes the correct dieDimensions', () => {
-        expect(dataManagerModule.dieDimensions).toEqual({
-            width: 10,
-            height: 10
+        const computedDimensions = {
+            width: Math.ceil(dataManagerModule.dieDimensions.width),
+            height: Math.ceil(dataManagerModule.dieDimensions.height)
+        };
+        expect(computedDimensions).toEqual({
+            width: 16,
+            height: 14
         });
     });
 
-    it('should have default margin', () => {
-        expect(dataManagerModule.margin).toEqual(defaultMargin);
+    it('should have expected margin', () => {
+        expect(dataManagerModule.margin).toEqual(expectedMargin);
     });
 
     it('should have increasing horizontal range', () => {
-        expect(dataManagerModule.horizontalScale.range()).toEqual([0, 60]);
+        expect(dataManagerModule.horizontalScale.range()).toEqual([0, 92]);
     });
 
     it('should have increasing vertical range', () => {
-        expect(dataManagerModule.verticalScale.range()).toEqual([0, 70]);
+        expect(dataManagerModule.verticalScale.range()).toEqual([0, 92]);
     });
 
     it('should not have labelsFontSize larger than the die height', () => {
@@ -83,14 +116,8 @@ describe('Wafermap Data manager', () => {
     });
 
     it('should have label with suffix for each die', () => {
-        const waferMapDies = getWaferMapDies();
-        const expectedValues = waferMapDies.map(x => {
-            return { text: `${x.value}${dieLabelsSuffix}` };
-        });
-        for (let i = 0; i < waferMapDies.length; i += 1) {
-            expect(dataManagerModule.diesRenderInfo[i]!.text).toEqual(
-                expectedValues[i]!.text
-            );
+        for (const dieInfo of dataManagerModule.diesRenderInfo) {
+            expect(dieInfo.text).toContain(dieLabelsSuffix);
         }
     });
 
@@ -123,12 +150,12 @@ describe('Wafermap Data manager', () => {
             expect(dieRenderInfo.x).toBeLessThanOrEqual(
                 canvasDimensions.width
                     - dataManagerModule.dieDimensions.width
-                    - defaultMargin.left
+                    - expectedMargin.left
             );
             expect(dieRenderInfo.y).toBeLessThanOrEqual(
                 canvasDimensions.height
                     - dataManagerModule.dieDimensions.height
-                    - defaultMargin.bottom
+                    - expectedMargin.bottom
             );
         }
     });

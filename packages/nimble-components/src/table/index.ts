@@ -1,4 +1,9 @@
-import { attr, observable } from '@microsoft/fast-element';
+import {
+    attr,
+    Observable,
+    observable,
+    Notifier
+} from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
@@ -9,11 +14,12 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved
 } from '@tanstack/table-core';
-import type { TableColumn } from '../table-column/base';
+import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableRecord, TableRowState, TableValidity } from './types';
+import { Virtualizer } from './models/virtualizer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,10 +34,7 @@ export class Table<
     TData extends TableRecord = TableRecord
 > extends FoundationElement {
     @attr({ attribute: 'id-field-name' })
-    public idFieldName?: string | null;
-
-    @observable
-    public data: TData[] = [];
+    public idFieldName?: string;
 
     /**
      * @internal
@@ -39,17 +42,42 @@ export class Table<
     @observable
     public tableData: TableRowState<TData>[] = [];
 
+    /**
+     * @internal
+     */
     @observable
-    public readonly columns: TableColumn[] = [];
+    public columns: TableColumn[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly childItems: Element[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public canRenderRows = true;
 
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
 
+    /**
+     * @internal
+     */
+    public readonly viewport!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public readonly virtualizer: Virtualizer<TData>;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
-    private readonly tableInitialized: boolean = false;
     private readonly tableValidator = new TableValidator();
+    private columnNotifiers: Notifier[] = [];
 
     public constructor() {
         super();
@@ -63,47 +91,117 @@ export class Table<
             autoResetAll: false
         };
         this.table = tanStackCreateTable(this.options);
-        this.tableInitialized = true;
+        this.virtualizer = new Virtualizer(this);
     }
 
-    public idFieldNameChanged(
-        _prev: string | undefined,
-        _next: string | undefined
-    ): void {
-        // Force TanStack to detect a data update because a row's ID is only
-        // generated when creating a new row model.
-        this.trySetData([...this.data]);
+    public setData(newData: readonly TData[]): void {
+        this.generateTanStackColumns(newData);
+        this.setTableData(newData);
     }
 
-    public dataChanged(
-        prev: TData[] | undefined,
-        next: TData[] | undefined
-    ): void {
-        if ((!prev || prev.length === 0) && next && next.length > 0) {
-            this.generateColumns();
-        }
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.virtualizer.connectedCallback();
+        this.validateAndObserveColumns();
+    }
 
-        // Ignore any updates that occur prior to the TanStack table being initialized.
-        if (this.tableInitialized) {
-            this.trySetData(this.data);
-        }
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.virtualizer.disconnectedCallback();
+        this.removeColumnObservers();
     }
 
     public checkValidity(): boolean {
         return this.tableValidator.isValid();
     }
 
-    private trySetData(newData: TData[]): void {
-        const areIdsValid = this.tableValidator.validateRecordIds(
-            newData,
-            this.idFieldName
+    /**
+     * @internal
+     *
+     * The event handler that is called when a notifier detects a change. Notifiers are added
+     * to each column, so `source` is expected to be an instance of `TableColumn`, and `args`
+     * is the string name of the property that changed on that column.
+     */
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof TableColumn) {
+            if (args === 'columnId') {
+                this.validateColumnIds();
+            }
+        }
+    }
+
+    protected childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
+    }
+
+    protected idFieldNameChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        // Force TanStack to detect a data update because a row's ID is only
+        // generated when creating a new row model.
+        this.setTableData(this.table.options.data);
+    }
+
+    protected columnsChanged(
+        _prev: TableColumn[] | undefined,
+        _next: TableColumn[]
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.validateAndObserveColumns();
+    }
+
+    private removeColumnObservers(): void {
+        this.columnNotifiers.forEach(notifier => {
+            notifier.unsubscribe(this);
+        });
+        this.columnNotifiers = [];
+    }
+
+    private validateAndObserveColumns(): void {
+        this.removeColumnObservers();
+
+        for (const column of this.columns) {
+            const notifier = Observable.getNotifier(column);
+            notifier.subscribe(this);
+            this.columnNotifiers.push(notifier);
+        }
+
+        this.validateColumnIds();
+    }
+
+    private validateColumnIds(): void {
+        this.tableValidator.validateColumnIds(
+            this.columns.map(x => x.columnId)
         );
+        this.canRenderRows = this.checkValidity();
+    }
+
+    private async updateColumnsFromChildItems(): Promise<void> {
+        const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
+            ? customElements.whenDefined(item.localName)
+            : Promise.resolve()));
+        await Promise.all(definedElements);
+        this.columns = this.childItems.filter(
+            (x): x is TableColumn => x instanceof TableColumn
+        );
+    }
+
+    private setTableData(newData: readonly TData[]): void {
+        const data = newData.map(record => {
+            return { ...record };
+        });
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
+        this.canRenderRows = this.checkValidity();
 
         const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TData) => record[this.idFieldName!] as string;
         this.updateTableOptions({
-            data: areIdsValid ? newData : [],
+            data,
             getRowId: getRowIdFunction
         });
     }
@@ -117,6 +215,7 @@ export class Table<
             };
             return rowState;
         });
+        this.virtualizer.dataChanged();
     }
 
     private updateTableOptions(
@@ -143,12 +242,12 @@ export class Table<
 
     // Generate columns for TanStack that correspond to all the keys in TData because all operations,
     // such as grouping and sorting, will be performed on the data's records, not the values rendered within a cell.
-    private generateColumns(): void {
-        if (this.data.length === 0) {
+    private generateTanStackColumns(data: readonly TData[]): void {
+        if (data.length === 0) {
             return;
         }
 
-        const firstItem = this.data[0]!;
+        const firstItem = data[0]!;
         const keys = Object.keys(firstItem);
         const generatedColumns = keys.map(key => {
             const columnDef: TanStackColumnDef<TData> = {

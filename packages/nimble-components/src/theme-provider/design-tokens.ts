@@ -1,5 +1,5 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
-import hexRgb from 'hex-rgb';
+import { parseColorHexRGB } from '@microsoft/fast-colors';
 import {
     Black,
     Black7,
@@ -219,6 +219,16 @@ export const drawerWidth = DesignToken.create<string>(
 export const bannerGapSize = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.bannerGapSize)
 ).withDefault('1px');
+
+export const spinnerSmallHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerSmallHeight)
+).withDefault('16px');
+export const spinnerMediumHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerMediumHeight)
+).withDefault('32px');
+export const spinnerLargeHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerLargeHeight)
+).withDefault('64px');
 
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(
@@ -672,8 +682,8 @@ export const largeDelay = DesignToken.create<string>(
 
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {
-    const { red, green, blue } = hexRgb(hexValue);
-    return `${red}, ${green}, ${blue}`;
+    const { r, g, b } = parseColorHexRGB(hexValue)!;
+    return `${r * 255}, ${g * 255}, ${b * 255}`;
 }
 
 function createFontTokens(
