@@ -29,7 +29,7 @@ export const template = html<Table>`
             </div>
             <div class="table-viewport" ${ref('viewport')}>
                 <div class="table-scroll" style="height: ${x => x.virtualizer.allRowsHeight}px;"></div>
-                <div class="table-row-container" role="rowgroup" style="transform: ${x => (x.virtualizer.rowContainerYOffset === 0 ? 'none' : `translateY(${x.virtualizer.rowContainerYOffset}px)`)};">
+                <div class="table-row-container" role="rowgroup" style="top: ${x => `${x.virtualizer.rowContainerYOffset}px;`}">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}
@@ -39,6 +39,7 @@ export const template = html<Table>`
                                 :columns="${(_, c) => c.parent.columns}"
                                 @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent)}"
                                 @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent)}"
+                                style="height: ${x => x.size}px;"
                             >
                             ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                 ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`

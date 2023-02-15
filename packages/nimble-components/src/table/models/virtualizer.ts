@@ -108,6 +108,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             if (lastItem.end < this.allRowsHeight) {
                 rowContainerYOffset = firstItem.start - virtualizer.scrollOffset;
             }
+
+            rowContainerYOffset += this.table.viewport.scrollTop;
         }
         this.rowContainerYOffset = rowContainerYOffset;
     }
