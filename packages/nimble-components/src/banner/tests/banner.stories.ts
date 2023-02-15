@@ -15,7 +15,7 @@ const ActionType = {
     anchor: 'anchor'
 } as const;
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-type ActionType = typeof ActionType[keyof typeof ActionType];
+type ActionType = (typeof ActionType)[keyof typeof ActionType];
 
 interface BannerArgs {
     open: boolean;

@@ -33,7 +33,7 @@ export default metadata;
 const severityStates: [string, string | undefined][] = Object.entries(
     BannerSeverity
 ).map(([key, value]) => [pascalCase(key), value]);
-type SeverityState = typeof severityStates[number];
+type SeverityState = (typeof severityStates)[number];
 
 const actionStates = [
     ['', false, false, undefined],
@@ -42,19 +42,19 @@ const actionStates = [
     ['outline button', false, false, 'outline'],
     ['outline icon button', false, true, 'outline']
 ] as const;
-type ActionState = typeof actionStates[number];
+type ActionState = (typeof actionStates)[number];
 
 const partsHiddenStates = [
     ['', false],
     ['parts hidden', true]
 ] as const;
-type PartsHiddenState = typeof partsHiddenStates[number];
+type PartsHiddenState = (typeof partsHiddenStates)[number];
 
 const longTextStates = [
     ['', false],
     ['long text', true]
 ] as const;
-type LongTextState = typeof longTextStates[number];
+type LongTextState = (typeof longTextStates)[number];
 
 // prettier-ignore
 const component = (
