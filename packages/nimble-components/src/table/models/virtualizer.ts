@@ -76,7 +76,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     HTMLElement,
     HTMLElement
     > {
-        const rowHeight = parseFloat(controlHeight.getValueFor(this.table)) + 2 * parseFloat(borderWidth.getValueFor(this.table));
+        const rowHeight = parseFloat(controlHeight.getValueFor(this.table))
+            + 2 * parseFloat(borderWidth.getValueFor(this.table));
         return {
             count: this.table.tableData.length,
             getScrollElement: () => {
