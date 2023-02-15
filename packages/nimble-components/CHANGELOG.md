@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 14 Feb 2023 19:59:45 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Feb 2023 22:59:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.3.7
+
+Tue, 14 Feb 2023 22:59:44 GMT
+
+### Patches
+
+- Fix bug where pointer events were being swallowed by table row hover ([ni/nimble@0edf085](https://github.com/ni/nimble/commit/0edf08583fe9196ca449b701e417980e7514adac))
 
 ## 18.3.6
 
