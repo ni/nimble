@@ -49,7 +49,8 @@ module.exports = config => {
             'karma-source-map-support',
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
-            'karma-firefox-launcher'
+            'karma-firefox-launcher',
+            'karma-webkit-launcher'
         ],
         files: ['dist/esm/utilities/tests/setup.js'],
         preprocessors: {
