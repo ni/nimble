@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-column/text';
+import { NimbleTableColumnBaseDirective } from '../base/nimble-table-column-base.directive';
 
 export type { TableColumnText };
 
@@ -9,17 +10,7 @@ export type { TableColumnText };
 @Directive({
     selector: 'nimble-table-column-text'
 })
-export class NimbleTableColumnTextDirective {
-    public get columnId(): string | undefined {
-        return this.elementRef.nativeElement.columnId;
-    }
-
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('column-id') public set columnId(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'columnId', value);
-    }
-
+export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirective<TableColumnText> {
     public get fieldName(): string | undefined {
         return this.elementRef.nativeElement.fieldName;
     }
@@ -30,26 +21,6 @@ export class NimbleTableColumnTextDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
     }
 
-    public get actionMenuSlot(): string | undefined {
-        return this.elementRef.nativeElement.actionMenuSlot;
-    }
-
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('action-menu-slot') public set actionMenuSlot(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenuSlot', value);
-    }
-
-    public get actionMenuLabel(): string | undefined {
-        return this.elementRef.nativeElement.actionMenuLabel;
-    }
-
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('action-menu-label') public set actionMenuLabel(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenuLabel', value);
-    }
-
     public get placeholder(): string | undefined {
         return this.elementRef.nativeElement.placeholder;
     }
@@ -58,5 +29,7 @@ export class NimbleTableColumnTextDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TableColumnText>) {}
+    public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnText>) {
+        super(renderer, elementRef);
+    }
 }
