@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 14 Feb 2023 22:59:44 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Feb 2023 21:23:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.4.0
+
+Wed, 15 Feb 2023 21:23:30 GMT
+
+### Minor changes
+
+- Banner component ([ni/nimble@0248f3d](https://github.com/ni/nimble/commit/0248f3d6d7a0e0dcc7c6a9d4fb982bdbb78ea3d5))
 
 ## 18.3.7
 
