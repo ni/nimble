@@ -1,4 +1,4 @@
-import { attr, ElementStyles, ViewTemplate } from '@microsoft/fast-element';
+import { attr, ElementStyles, observable, ViewTemplate } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import type {
@@ -46,14 +46,16 @@ export abstract class TableColumn<
      * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
      * This array is parallel with the field names specified by `cellRecordFieldNames`.
      */
-    public abstract readonly dataRecordFieldNames: readonly (TableFieldName | undefined)[];
+    @observable
+    public dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
 
     /**
      * @internal
      *
      * The relevant, static configuration a column requires its cellTemplate to have access to.
      */
-    public abstract readonly columnConfig?: TColumnConfig;
+    @observable
+    public columnConfig?: TColumnConfig;
 
     /**
      * @internal

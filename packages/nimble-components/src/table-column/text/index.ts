@@ -31,12 +31,12 @@ TableColumnTextColumnConfig
 
     public readonly cellTemplate = cellTemplate;
 
-    public get columnConfig(): TableColumnTextColumnConfig {
-        return { placeholder: this.placeholder ?? '' };
+    protected fieldNameChanged(_prev: string | undefined, _next: string | undefined): void {
+        this.dataRecordFieldNames = [this.fieldName] as const;
     }
 
-    public get dataRecordFieldNames(): readonly (TableFieldName | undefined)[] {
-        return [this.fieldName] as const;
+    protected placeholderChanged(_prev: string | undefined, _next: string | undefined): void {
+        this.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 }
 
