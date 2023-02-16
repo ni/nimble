@@ -68,8 +68,8 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
 
     public cellRecordFieldNames = ['value'] as const;
 
-    public getDataRecordFieldNames(): string[] {
-        return [fieldName];
+    public dataRecordFieldNames(): readonly string[] {
+        return [fieldName]  as const;
     }
 
     ...

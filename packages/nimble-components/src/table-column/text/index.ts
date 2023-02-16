@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableStringField, TableFieldName } from '../../table/types';
 import { TableColumn } from '../base';
@@ -31,12 +31,12 @@ TableColumnTextColumnConfig
 
     public readonly cellTemplate = cellTemplate;
 
-    public getColumnConfig(): TableColumnTextColumnConfig {
+    public get columnConfig(): TableColumnTextColumnConfig {
         return { placeholder: this.placeholder ?? '' };
     }
 
-    public getDataRecordFieldNames(): (TableFieldName | undefined)[] {
-        return [this.fieldName];
+    public get dataRecordFieldNames(): readonly (TableFieldName | undefined)[] {
+        return [this.fieldName] as const;
     }
 }
 

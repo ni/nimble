@@ -36,9 +36,24 @@ export abstract class TableColumn<
      * @internal
      *
      * The names of the fields that should be present in TCellRecord.
-     * This array is parallel with the field names returned from `getDataRecordFieldNames()`.
+     * This array is parallel with the field names specified by `dataRecordFieldNames`.
      */
     public abstract readonly cellRecordFieldNames: readonly TableFieldName[];
+
+    /**
+     * @internal
+     *
+     * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
+     * This array is parallel with the field names specified by `cellRecordFieldNames`.
+     */
+    public abstract readonly dataRecordFieldNames: readonly (TableFieldName | undefined)[];
+
+    /**
+     * @internal
+     *
+     * The relevant, static configuration a column requires its cellTemplate to have access to.
+     */
+    public abstract readonly columnConfig?: TColumnConfig;
 
     /**
      * @internal
@@ -48,20 +63,4 @@ export abstract class TableColumn<
 
         this.setAttribute('slot', uniqueId('table-column-slot'));
     }
-
-    /**
-     * @internal
-     *
-     * This method returns the relevant, static configuration a column requires its cellTemplate
-     * to have access to.
-     */
-    public abstract getColumnConfig?(): TColumnConfig;
-
-    /**
-     * @internal
-     *
-     * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
-     * This array is parallel with the field names specified by `cellRecordFieldNames`.
-     */
-    public abstract getDataRecordFieldNames(): (TableFieldName | undefined)[];
 }
