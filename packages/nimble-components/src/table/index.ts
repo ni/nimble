@@ -147,13 +147,12 @@ export class Table<
         }
     }
 
-    public onRowActionMenuBeforeToggle(event: CustomEvent): void {
-        const eventDetail = event.detail as TableActionMenuToggleEventDetail;
-        this.openActionMenuRecordId = eventDetail.recordIds[0];
+    public onRowActionMenuBeforeToggle(event: CustomEvent<TableActionMenuToggleEventDetail>): void {
+        this.openActionMenuRecordId = event.detail.recordIds[0];
         this.$emit('action-menu-beforetoggle', event.detail);
     }
 
-    public onRowActionMenuToggle(event: CustomEvent): void {
+    public onRowActionMenuToggle(event: CustomEvent<TableActionMenuToggleEventDetail>): void {
         this.$emit('action-menu-toggle', event.detail);
     }
 

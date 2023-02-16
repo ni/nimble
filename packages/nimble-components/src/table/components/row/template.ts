@@ -1,6 +1,7 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableRow, ColumnState } from '.';
+import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { TableCell } from '../cell';
 
 // prettier-ignore
@@ -14,8 +15,8 @@ export const template = html<TableRow>`
                 :cellState="${x => x.cellState}"
                 ?has-action-menu="${x => !!x.column.actionMenuSlot}"
                 action-menu-label="${x => x.column.actionMenuLabel}"
-                @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent, x.column)}"
-                @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent, x.column)}"
+                @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"
+                @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"
             >
 
                 ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x.column) && x.column.actionMenuSlot, html<ColumnState, TableRow>`

@@ -21,11 +21,11 @@ export const styles = css`
     }
 
     nimble-table-cell[menu-open]::part(action-menu) {
-        display: initial;
+        display: block;
     }
 
     :host(.hover) nimble-table-cell::part(action-menu),
     :host(:hover) nimble-table-cell::part(action-menu) {
-        display: initial;
+        display: block;
     }
 `;

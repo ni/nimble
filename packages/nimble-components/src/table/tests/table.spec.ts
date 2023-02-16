@@ -792,7 +792,7 @@ describe('Table', () => {
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = beforetoggleListener.spy.calls.first()
-                .args[0] as CustomEvent;
+                .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -828,7 +828,7 @@ describe('Table', () => {
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = beforetoggleListener.spy.calls.first()
-                .args[0] as CustomEvent;
+                .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -857,7 +857,7 @@ describe('Table', () => {
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = toggleListener.spy.calls.first()
-                .args[0] as CustomEvent;
+                .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
             expect(event.detail).toEqual(expectedDetails);
         });
 
@@ -891,7 +891,7 @@ describe('Table', () => {
                 recordIds: [simpleTableData[1].stringData]
             };
             const event = toggleListener.spy.calls.first()
-                .args[0] as CustomEvent;
+                .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
             expect(event.detail).toEqual(expectedDetails);
         });
 

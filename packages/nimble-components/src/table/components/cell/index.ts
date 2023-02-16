@@ -67,13 +67,12 @@ export class TableCell<
         }
     }
 
-    public onActionMenuBeforeToggle(event: CustomEvent): void {
+    public onActionMenuBeforeToggle(event: CustomEvent<MenuButtonToggleEventDetail>): void {
         this.$emit('cell-action-menu-beforetoggle', event.detail);
     }
 
-    public onActionMenuToggle(event: CustomEvent): void {
-        const detail = event.detail as MenuButtonToggleEventDetail;
-        this.menuOpen = detail.newState;
+    public onActionMenuToggle(event: CustomEvent<MenuButtonToggleEventDetail>): void {
+        this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
     }
 

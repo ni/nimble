@@ -12,6 +12,7 @@ import type { Table } from '.';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
 import type { TableColumn } from '../table-column/base';
+import type { TableActionMenuToggleEventDetail } from './types';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -37,8 +38,8 @@ export const template = html<Table>`
                                 record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                 :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                 :columns="${(_, c) => c.parent.columns}"
-                                @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent)}"
-                                @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent)}"
+                                @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 style="height: ${x => x.size}px;"
                             >
                             ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
