@@ -1,6 +1,6 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { TableStringField, TableFieldName } from '../../table/types';
+import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -31,11 +31,17 @@ TableColumnTextColumnConfig
 
     public readonly cellTemplate = cellTemplate;
 
-    protected fieldNameChanged(_prev: string | undefined, _next: string | undefined): void {
+    protected fieldNameChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
         this.dataRecordFieldNames = [this.fieldName] as const;
     }
 
-    protected placeholderChanged(_prev: string | undefined, _next: string | undefined): void {
+    protected placeholderChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
         this.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 }

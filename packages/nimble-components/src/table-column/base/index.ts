@@ -1,4 +1,9 @@
-import { attr, ElementStyles, observable, ViewTemplate } from '@microsoft/fast-element';
+import {
+    attr,
+    ElementStyles,
+    observable,
+    ViewTemplate
+} from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import type {
