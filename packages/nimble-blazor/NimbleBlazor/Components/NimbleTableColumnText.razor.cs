@@ -18,6 +18,18 @@ public partial class NimbleTableColumnText : ComponentBase
     [Parameter]
     public string? Placeholder { get; set; }
 
+    /// <summary>
+    /// The text to show when no value is available for a particular cell in the column of a <see cref="NimbleTable{TData}"/>
+    /// </summary>
+    [Parameter]
+    public double FractionalWidth { get; set; } = 1;
+
+    /// <summary>
+    /// The text to show when no value is available for a particular cell in the column of a <see cref="NimbleTable{TData}"/>
+    /// </summary>
+    [Parameter]
+    public double? MinPixelWidth { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }

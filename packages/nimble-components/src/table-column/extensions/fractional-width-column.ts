@@ -1,10 +1,10 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
-export interface FractionalWidthColum {
+export interface FractionalWidthColumn {
     fractionalWidth: number;
     disableResize: boolean;
-    minPixelWidth: number;
+    minPixelWidth: number | null;
 }
 
 // prettier-ignore
@@ -14,7 +14,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
      * The Mixin that provides a concrete column with the API to support being resized
      * proportionally within a Table.
      */
-    abstract class FractionalWidthColumn extends base {
+    abstract class FractionalWidthColumn extends base implements FractionalWidthColumn {
         public fractionalWidth = 1;
 
         public disableResize = false;
@@ -34,13 +34,11 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     attr({ attribute: 'fractional-width', converter: nullableNumberConverter })(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         FractionalWidthColumn.prototype,
         'fractionalWidth'
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     attr({ attribute: 'min-pixel-width', converter: nullableNumberConverter })(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         FractionalWidthColumn.prototype,

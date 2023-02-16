@@ -4,7 +4,7 @@ import type { TableCellState } from '../../../table/types';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
 import { TableColumn } from '../../base';
 import {
-    FractionalWidthColum,
+    FractionalWidthColumn,
     fractionalWidthColumn
 } from '../fractional-width-column';
 
@@ -23,7 +23,7 @@ class TestTableColumnBase extends TableColumn {
 
 class TestTableColumnBaseMixin extends TestTableColumnBase {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TestTableColumnBaseMixin extends FractionalWidthColum {}
+interface TestTableColumnBaseMixin extends FractionalWidthColumn {}
 
 class TestTableColumn extends fractionalWidthColumn(TestTableColumnBaseMixin) {}
 

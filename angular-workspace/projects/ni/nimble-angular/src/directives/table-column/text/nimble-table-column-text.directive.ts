@@ -28,5 +28,25 @@ export class NimbleTableColumnTextDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
+    public get fractionalWidth(): number {
+        return this.elementRef.nativeElement.fractionalWidth;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('fractional-width') public set fractionalWidth(value: number) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'fractionalWidth', value);
+    }
+
+    public get minPixelWidth(): number | null {
+        return this.elementRef.nativeElement.minPixelWidth;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('min-pixel-width') public set minPixelWidth(value: number | null) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', value);
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TableColumnText>) {}
 }
