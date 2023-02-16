@@ -5,11 +5,9 @@ import type { TableCellState } from '../../table/types';
 export const cellTemplate = html<
 TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
-    <span
-        class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
-    >
-        ${x => (typeof x.cellRecord.value === 'string'
+    <nimble-number-field
+        value="${x => (typeof x.cellRecord.value === 'string'
         ? x.cellRecord.value
-        : x.columnConfig.placeholder)}
-    </span>
+        : x.columnConfig.placeholder)}"
+    ></nimble-number-field>
 `;

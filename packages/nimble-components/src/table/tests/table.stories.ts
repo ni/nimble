@@ -37,17 +37,14 @@ const simpleData = [
     }
 ] as const;
 
-const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
-const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
-const colors = ['Red', 'Blue', 'Green', 'Yellow'];
 const largeData = [];
 for (let i = 0; i < 10000; i++) {
     largeData.push({
         id: i.toString(),
-        firstName: firstNames[i % firstNames.length],
-        lastName: lastNames[i % lastNames.length],
-        favoriteColor: colors[i % colors.length],
-        quote: `I'm number ${i + 1}!`
+        firstName: i.toString(),
+        lastName: i.toString(),
+        favoriteColor: i.toString(),
+        quote: i.toString()
     });
 }
 
