@@ -73,26 +73,25 @@ export class TableRow<
     }
 
     public onCellActionMenuBeforeToggle(
-        event: CustomEvent,
+        event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
     ): void {
         this.currentActionMenuColumn = column;
         this.emitToggleEvent(
             'row-action-menu-beforetoggle',
-            event.detail as MenuButtonToggleEventDetail,
+            event.detail,
             column
         );
     }
 
     public onCellActionMenuToggle(
-        event: CustomEvent,
+        event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
     ): void {
-        const menuButtonEventDetail = event.detail as MenuButtonToggleEventDetail;
-        this.menuOpen = menuButtonEventDetail.newState;
+        this.menuOpen = event.detail.newState;
         this.emitToggleEvent(
             'row-action-menu-toggle',
-            menuButtonEventDetail,
+            event.detail,
             column
         );
     }
