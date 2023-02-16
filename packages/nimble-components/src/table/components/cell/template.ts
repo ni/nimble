@@ -3,7 +3,10 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableCell } from '.';
 import { IconThreeDotsLine } from '../../../icons/three-dots-line';
 import { MenuButton } from '../../../menu-button';
-import { ButtonAppearance, MenuButtonToggleEventDetail } from '../../../menu-button/types';
+import {
+    ButtonAppearance,
+    MenuButtonToggleEventDetail
+} from '../../../menu-button/types';
 
 // prettier-ignore
 export const template = html<TableCell>`
