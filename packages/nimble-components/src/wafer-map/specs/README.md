@@ -63,6 +63,8 @@ Please see below a few screenshots regarding the current `wafer-map` component:
 From a user’s perspective one of the most important actions which this component should be able to achieve is to zoom in and out on the datapoints. This functionality should occur when the mouse pointer hovers the `nimble-wafer-map` component and a mouse wheel action is performed.
 While zooming in on the component, the user should also be able to pan (drag) the wafer map by holding the left mouse button and moving the cursor on the XY axis.
 
+Another wafer map feature is the hovering feature which is detailed in the [Nimble Wafer Map Hover Die HLD](features/hover.md).
+
 From a developer perspective, it's very important that the `nimble-wafer-map` component can be integrated with the MicroStrategy Custom plugin framework as this framework provides functionalities as follows:
 
 -   Tooltip when hovering any of the datapoints within the wafer map
@@ -98,6 +100,7 @@ _The key elements of the component's public API surface:_
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
+    -   `lastHighlightedDie` - represents a read only property which will contain a `WaferMapDie` object representing the data of the die which is currently hovered over.
     -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
 The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
@@ -113,6 +116,10 @@ Events: The events mentioned below will all be handled internally by the nimble 
 -   Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered
 -   Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
 -   Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
+
+The public API will have a new custom event fired when the mouse will hover over a displayed die.
+
+-   `hover-change` will be triggered to inform the user that a new die was highlighted and that the specific die is available in the `lastHighlightedDie` readonly property.
 
 ### Anatomy
 
