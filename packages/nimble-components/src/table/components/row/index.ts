@@ -39,7 +39,9 @@ export class TableRow<
 
     @volatile
     public get rowGridColumns(): string {
-        return this.columns.length > 0 ? TableLayoutHelper.getGridTemplateColumns(this.columns) : '';
+        return this.columns.length > 0
+            ? TableLayoutHelper.getGridTemplateColumns(this.columns)
+            : '';
     }
 
     @volatile

@@ -112,7 +112,9 @@ export class Table<
      */
     @volatile
     public get rowGridColumns(): string {
-        return this.columns.length > 0 ? TableLayoutHelper.getGridTemplateColumns(this.columns) : '';
+        return this.columns.length > 0
+            ? TableLayoutHelper.getGridTemplateColumns(this.columns)
+            : '';
     }
 
     private setTableData(newData: readonly TData[]): void {

@@ -1,0 +1,69 @@
+/* eslint-disable max-classes-per-file */
+import { ViewTemplate, ElementStyles, html } from '@microsoft/fast-element';
+import type { TableCellState } from '../../../table/types';
+import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import { TableColumn } from '../../base';
+import {
+    FractionalWidthColum,
+    fractionalWidthColumn
+} from '../fractional-width-column';
+
+class TestTableColumnBase extends TableColumn {
+    public cellTemplate: ViewTemplate<TableCellState> = html``;
+    public cellStyles?: ElementStyles | undefined;
+    public cellRecordFieldNames: readonly string[] = [];
+    public getColumnConfig?(): unknown {
+        throw new Error('Method not implemented.');
+    }
+
+    public getDataRecordFieldNames(): (string | undefined)[] {
+        throw new Error('Method not implemented.');
+    }
+}
+
+class TestTableColumnBaseMixin extends TestTableColumnBase {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface TestTableColumnBaseMixin extends FractionalWidthColum {}
+
+class TestTableColumn extends fractionalWidthColumn(TestTableColumnBaseMixin) {}
+
+const composedTestTableColumn = TestTableColumn.compose({
+    baseName: 'test-table-column'
+});
+
+// prettier-ignore
+async function setup(): Promise<Fixture<TestTableColumn>> {
+    return fixture(composedTestTableColumn());
+}
+
+describe('FractionalWidthColumn', () => {
+    let element: TestTableColumn;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    it('setting fractionalWidth sets internalFractionalWidth', async () => {
+        await connect();
+        element.internalFractionalWidth = 1;
+
+        element.fractionalWidth = 2;
+
+        expect(element.internalFractionalWidth).toBe(2);
+    });
+
+    it('setting minPixelWidth sets internalMinPixelWidth', async () => {
+        await connect();
+        element.internalMinPixelWidth = 0;
+
+        element.minPixelWidth = 20;
+
+        expect(element.internalMinPixelWidth).toBe(20);
+    });
+});

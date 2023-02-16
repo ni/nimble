@@ -1,6 +1,13 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
+export interface FractionalWidthColum {
+    fractionalWidth: number;
+    disableResize: boolean;
+    minPixelWidth: number;
+}
+
+// prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function fractionalWidthColumn<TBase extends abstract new (...args: any[]) => TableColumn>(base: TBase): TBase {
     /**
@@ -12,28 +19,32 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
 
         public disableResize = false;
 
-        public minWidth?: number;
+        public minPixelWidth: number | null = null;
 
         public fractionalWidthChanged(): void {
-            this.currentFractionalWidth = this.fractionalWidth;
+            this.internalFractionalWidth = this.fractionalWidth;
         }
 
-        public disableResizeChanged(): void {
-            this.columnDisableResize = this.disableResize;
-        }
-
-        public minWidthChanged(): void {
-            if (this.minWidth !== undefined) {
-                this.columnMinPixelWidth = this.minWidth;
+        public minPixelWidthChanged(): void {
+            if (this.minPixelWidth !== null) {
+                this.internalMinPixelWidth = this.minPixelWidth;
+            } else {
+                this.internalMinPixelWidth = 0;
             }
         }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    (attr({ attribute: 'fractional-width', converter: nullableNumberConverter }))(FractionalWidthColumn.prototype, 'fractionalWidth');
+    attr({ attribute: 'fractional-width', converter: nullableNumberConverter })(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        FractionalWidthColumn.prototype,
+        'fractionalWidth'
+    );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    (attr({ attribute: 'disable-resize', mode: 'boolean' }))(FractionalWidthColumn.prototype, 'disableResize');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    (attr({ attribute: 'min-width' }))(FractionalWidthColumn.prototype, 'minWidth');
+    attr({ attribute: 'min-pixel-width', converter: nullableNumberConverter })(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        FractionalWidthColumn.prototype,
+        'minPixelWidth'
+    );
     return FractionalWidthColumn;
 }

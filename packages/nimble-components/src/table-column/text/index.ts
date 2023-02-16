@@ -2,12 +2,13 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import { fractionalWidthColumn } from '../extensions/fractional-width-column';
-import { TableColumnTextBase } from './table-column-text-base';
+import { TableColumnTextMixin } from './table-column-test-mixin';
 
 /**
  * The table column for displaying strings.
  */
-export class TableColumnText extends fractionalWidthColumn(TableColumnTextBase) {}
+// prettier-ignore
+export class TableColumnText extends fractionalWidthColumn(TableColumnTextMixin) {}
 
 const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text',

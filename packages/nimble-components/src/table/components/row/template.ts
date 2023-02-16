@@ -5,7 +5,7 @@ import { TableCell } from '../cell';
 
 // prettier-ignore
 export const template = html<TableRow>`
-    <template role="row" style="grid-template-columns: ${x => x.rowGridColumns}">
+    <template role="row" style="grid-template-columns: ${x => x.rowGridColumns};">
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             <${DesignSystem.tagFor(TableCell)}
                 class="cell"

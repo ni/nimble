@@ -1,4 +1,8 @@
-import { ElementStyles, observable, ViewTemplate } from '@microsoft/fast-element';
+import {
+    ElementStyles,
+    observable,
+    ViewTemplate
+} from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type {
     TableCellRecord,
@@ -31,16 +35,25 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * The minimum size in pixels according to the design doc
+     * Used by column plugins to set a specific pixel width. Sets currentPixelWidth when changed.
      */
     @observable
-    public columnMinPixelWidth = 88;
+    public internalPixelWidth: number | null = null;
 
     /**
      * @internal
+     * Used by column plugins to size a column proportionally to the available
+     * width of a row. Sets currentFractionalWidth when changed.
      */
     @observable
-    public columnDisableResize = false;
+    public internalFractionalWidth = 1;
+
+    /**
+     * @internal
+     * The minimum size in pixels according to the design doc
+     */
+    @observable
+    public internalMinPixelWidth = 88;
 
     /**
      * The template to use to render the cell content for the column
@@ -70,4 +83,12 @@ export abstract class TableColumn<
      * This array is parallel with the field names specified by `cellRecordFieldNames`.
      */
     public abstract getDataRecordFieldNames(): (TableFieldName | undefined)[];
+
+    protected internalFractionalWidthChanged(): void {
+        this.currentFractionalWidth = this.internalFractionalWidth;
+    }
+
+    protected internalPixelWidthChanged(): void {
+        this.currentPixelWidth = this.internalPixelWidth;
+    }
 }

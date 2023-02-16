@@ -43,7 +43,8 @@ export const styles = css`
     .table-row-container {
         width: 100%;
         position: sticky;
-        overflow: hidden;
+        overflow-y: hidden;
+        overflow-x: auto;
         top: 0px;
     }
 
