@@ -23,7 +23,7 @@ public class NimbleBannerTests
     }
 
     [Theory]
-    [InlineData(BannerSeverity.Default, "<nimble-banner>")]
+    [InlineData(BannerSeverity.Default, "<nimble-banner blazor:onnimblebannertoggle=\"1\">")]
     [InlineData(BannerSeverity.Error, "severity=\"error\"")]
     [InlineData(BannerSeverity.Warning, "severity=\"warning\"")]
     [InlineData(BannerSeverity.Information, "severity=\"information\"")]
