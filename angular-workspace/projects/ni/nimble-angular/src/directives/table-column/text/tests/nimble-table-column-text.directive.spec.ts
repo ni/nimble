@@ -21,7 +21,14 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text #column field-name="field1" placeholder="no value" fractional-width="2" min-pixel-width="40"></nimble-table-column-text>
+                    <nimble-table-column-text
+                        #column
+                        column-id="my-column"
+                        field-name="field1"
+                        placeholder="no value"
+                        fractional-width="2"
+                        min-pixel-width="40"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -50,9 +57,14 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.fieldName).toBe('field1');
         });
 
-        it('cwill use template string values for placeholder', () => {
+        it('will use template string values for placeholder', () => {
             expect(directive.placeholder).toBe('no value');
             expect(nativeElement.placeholder).toBe('no value');
+        });
+
+        it('will use template string values for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
         });
 
         it('cwill use template string values for fractionalWidth', () => {
@@ -70,12 +82,14 @@ describe('NimbleTableColumnText', () => {
         @Component({
             template: `
                 <nimble-table>
-                    <nimble-table-column-text 
-                        #column [field-name]="field"
+                    <nimble-table-column-text
+                        #column
+                        [column-id]="columnId"
+                        [field-name]="field"
                         [placeholder]="placeholder"
                         [fractional-width]="fractionalWidth"
-                        [min-pixel-width]="minPixelWidth">
-                    </nimble-table-column-text>
+                        [min-pixel-width]="minPixelWidth"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -86,6 +100,7 @@ describe('NimbleTableColumnText', () => {
             public placeholder = 'no value';
             public fractionalWidth = 2;
             public minPixelWidth = 40;
+            public columnId = 'my-column';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -125,6 +140,17 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.placeholder).toBe('foo');
         });
 
+        it('can be configured with property binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
+        });
+
         it('can be configured with property binding for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -154,10 +180,12 @@ describe('NimbleTableColumnText', () => {
                 <nimble-table>
                     <nimble-table-column-text
                         #column
+                        [attr.column-id]="columnId"
                         [attr.field-name]="field"
                         [attr.placeholder]="placeholder"
                         [attr.fractional-width]="fractionalWidth"
-                        [attr.min-pixel-width]="minPixelWidth"></nimble-table-column-text>
+                        [attr.min-pixel-width]="minPixelWidth"
+                    ></nimble-table-column-text>
                 </nimble-table>
             `
         })
@@ -168,6 +196,7 @@ describe('NimbleTableColumnText', () => {
             public placeholder = 'no value';
             public fractionalWidth = 2;
             public minPixelWidth = 40;
+            public columnId = 'my-column';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -185,7 +214,7 @@ describe('NimbleTableColumnText', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for fieldName', () => {
+        it('can be configured with attribute binding for fieldName', () => {
             expect(directive.fieldName).toBe('field1');
             expect(nativeElement.fieldName).toBe('field1');
 
@@ -194,6 +223,28 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.fieldName).toBe('field2');
             expect(nativeElement.fieldName).toBe('field2');
+        });
+
+        it('can be configured with attribute binding for placeholder', () => {
+            expect(directive.placeholder).toBe('no value');
+            expect(nativeElement.placeholder).toBe('no value');
+
+            fixture.componentInstance.placeholder = 'foo';
+            fixture.detectChanges();
+
+            expect(directive.placeholder).toBe('foo');
+            expect(nativeElement.fieldName).toBe('foo');
+        });
+
+        it('can be configured with attribute binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
         });
 
         it('can be configured with property binding for fractionalWidth', () => {

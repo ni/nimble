@@ -1,8 +1,10 @@
 ﻿@namespace NimbleBlazor
+@inherits NimbleTableColumn
 
 <nimble-table-column-text
     field-name="@FieldName"
     placeholder="@Placeholder"
+    column-id="@ColumnId"
     fractional-width="@FractionalWidth"
     min-pixel-width="@MinPixelWidth">
     @ChildContent
