@@ -4,7 +4,7 @@ import { BannerSeverity } from '../../../public-api';
 import { Banner, NimbleBannerDirective } from '../nimble-banner.directive';
 import { NimbleBannerModule } from '../nimble-banner.module';
 
-fdescribe('Nimble banner', () => {
+describe('Nimble banner', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -177,11 +177,11 @@ fdescribe('Nimble banner', () => {
             expect(directive.severity).toBe(BannerSeverity.warning);
             expect(nativeElement.severity).toBe(BannerSeverity.warning);
 
-            fixture.componentInstance.severity = BannerSeverity.info;
+            fixture.componentInstance.severity = BannerSeverity.information;
             fixture.detectChanges();
 
-            expect(directive.severity).toBe(BannerSeverity.info);
-            expect(nativeElement.severity).toBe(BannerSeverity.info);
+            expect(directive.severity).toBe(BannerSeverity.information);
+            expect(nativeElement.severity).toBe(BannerSeverity.information);
         });
 
         it('can be configured with property binding for titleHidden', () => {
@@ -269,11 +269,11 @@ fdescribe('Nimble banner', () => {
             expect(directive.severity).toBe(BannerSeverity.warning);
             expect(nativeElement.severity).toBe(BannerSeverity.warning);
 
-            fixture.componentInstance.severity = BannerSeverity.info;
+            fixture.componentInstance.severity = BannerSeverity.information;
             fixture.detectChanges();
 
-            expect(directive.severity).toBe(BannerSeverity.info);
-            expect(nativeElement.severity).toBe(BannerSeverity.info);
+            expect(directive.severity).toBe(BannerSeverity.information);
+            expect(nativeElement.severity).toBe(BannerSeverity.information);
         });
 
         it('can be configured with attribute binding for titleHidden', () => {
