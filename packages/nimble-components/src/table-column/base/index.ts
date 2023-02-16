@@ -18,22 +18,31 @@ export abstract class TableColumn<
     public columnId?: string;
 
     /**
+     * @internal
+     *
      * The template to use to render the cell content for the column
      */
     // prettier-ignore
     public abstract cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
 
     /**
+     * @internal
+     *
      * The style to apply to the cellTemplate
      */
     public abstract cellStyles?: ElementStyles;
 
     /**
+     * @internal
+     *
      * The names of the fields that should be present in TCellRecord.
      * This array is parallel with the field names returned from `getDataRecordFieldNames()`.
      */
     public abstract readonly cellRecordFieldNames: readonly TableFieldName[];
 
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
 
@@ -41,12 +50,16 @@ export abstract class TableColumn<
     }
 
     /**
+     * @internal
+     *
      * This method returns the relevant, static configuration a column requires its cellTemplate
      * to have access to.
      */
     public abstract getColumnConfig?(): TColumnConfig;
 
     /**
+     * @internal
+     *
      * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
      * This array is parallel with the field names specified by `cellRecordFieldNames`.
      */
