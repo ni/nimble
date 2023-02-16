@@ -3,7 +3,7 @@
 public enum BannerSeverity
 {
     Default,
-    Info,
+    Information,
     Warning,
     Error
 }
