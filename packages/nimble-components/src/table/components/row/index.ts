@@ -89,11 +89,7 @@ export class TableRow<
         column: TableColumn
     ): void {
         this.menuOpen = event.detail.newState;
-        this.emitToggleEvent(
-            'row-action-menu-toggle',
-            event.detail,
-            column
-        );
+        this.emitToggleEvent('row-action-menu-toggle', event.detail, column);
     }
 
     private emitToggleEvent(
