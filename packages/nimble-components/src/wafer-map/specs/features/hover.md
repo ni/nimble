@@ -83,7 +83,7 @@ The rectangle will be transparent and it will have a colored border and outline 
 
 ### Custom Events
 
-The hover will trigger a outward facing custom event which will signal a new  die was highlighted and will enable the user to subscribe to the hover changes.
+The hover will trigger a outward facing custom event which will signal a new die was highlighted and will enable the user to subscribe to the hover changes.
 This event will also have testing purposes for the hover functionality.
 
 Another output will be a public observable readonly property which will contain the data of the highlighted die from the wafer map.
