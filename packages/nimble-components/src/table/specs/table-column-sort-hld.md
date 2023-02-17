@@ -49,10 +49,10 @@ These attributes are part of the public API for the column, and will be set by c
 
 These are internal properties on the column. They will be set by a concrete implementation of a column, and they are not intended to be used by clients of the table.
 
-| property name | type | description |
-| -------------- | -------------- | -------------- |
-| operandDataRecordFieldName  | `string` or `undefined` | The name of the data field that will be used for operations on the table, such as sorting and grouping |
-| sortOperation | `TableColumnSortOperation`, initially defined as `{ basic: 'basic', localeAwareCaseSensitive: 'localeAwareCaseSensitive' }` | The operation to use for sorting |
+| property name              | type                                                                                                                        | description                                                                                            |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| operandDataRecordFieldName | `string` or `undefined`                                                                                                     | The name of the data field that will be used for operations on the table, such as sorting and grouping |
+| sortOperation              | `TableColumnSortOperation`, initially defined as `{ basic: 'basic', localeAwareCaseSensitive: 'localeAwareCaseSensitive' }` | The operation to use for sorting                                                                       |
 
 ### Validation
 
