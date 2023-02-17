@@ -12,6 +12,7 @@ import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
+    HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -100,6 +101,26 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     @observable public transform: ZoomTransform = zoomIdentity;
+
+    /**
+     * @internal
+     */
+    @observable public hoverTransform = '';
+
+    /**
+     * @internal
+     */
+    @observable public hoverOpacity: HoverDieOpacity = HoverDieOpacity.transparent;
+
+    /**
+     * @internal
+     */
+    @observable public hoverWidth = 0;
+
+    /**
+     * @internal
+     */
+    @observable public hoverHeight = 0;
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -206,6 +227,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
+        // this.hoverWidth = this.dataManager!.dieDimensions.width * this.transform.k;
+        // this.hoverHeight = this.dataManager!.dieDimensions.height * this.transform.k;
         this.queueRender();
     }
 

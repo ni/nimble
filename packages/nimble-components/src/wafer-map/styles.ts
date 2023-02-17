@@ -58,4 +58,23 @@ export const styles = css`
         display: inline-block;
         position: absolute;
     }
+
+    .hover-rect {
+        position: absolute;
+        pointer-events: none;
+        fill:transparent;
+        stroke:white;
+        outline-style:solid;
+        outline-color:green;
+    }
+    .hover-rect.opaque {
+        opacity: '1';
+        stroke-width: '2px';
+        outline-width: '2px';
+    }
+    .hover-rect.transparent {
+        opacity: '0';
+        stroke-width: '0px';
+        outline-width: '0px';
+    }
 `;

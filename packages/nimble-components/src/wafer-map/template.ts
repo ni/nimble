@@ -22,5 +22,13 @@ export const template = html<WaferMap>`
             </g>
         </svg>
         <canvas class="wafer-map-canvas" ${ref('canvas')}></canvas>
+        <svg class="hover-layer">
+            <rect
+                class="hover-rect ${x => x.hoverOpacity}"
+                transform="${x => x.hoverTransform.toString()}"
+                width="${x => x.hoverWidth}"
+                height="${x => x.hoverHeight}"
+            />
+        </svg>
     </div>
 `;
