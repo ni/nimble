@@ -55,6 +55,8 @@ export const styles = css`
         display: grid;
         background: ${applicationBackgroundColor};
         position: relative;
+        width: fit-content;
+        min-width: 100%;
     }
 
     .header {
