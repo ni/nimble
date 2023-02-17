@@ -99,7 +99,6 @@ export * from './testing/async-helpers';
 
 // Export items that would otherwise be exported by multiple components just from here to avoid exporting them multiple times.
 // Can be cleaned up when switching to multiple entry points, see: https://github.com/ni/nimble/issues/172
-export { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
 export { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/patterns/button/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';

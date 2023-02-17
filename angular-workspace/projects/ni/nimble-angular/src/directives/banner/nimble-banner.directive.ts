@@ -4,6 +4,7 @@ import type { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Banner };
+export { BannerSeverity };
 
 /**
  * Directive to provide Angular integration for the banner.
