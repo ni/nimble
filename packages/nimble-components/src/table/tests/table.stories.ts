@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { configureActions } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
@@ -216,3 +217,10 @@ const metadata: Meta<TableArgs> = {
 export default metadata;
 
 export const table: StoryObj<TableArgs> = {};
+
+// Storybook's default serialization of events includes the serialized event target, which is
+// the nimble-table element. When the table contains a lot of records, this serialization is
+// very slow. Therefore, limit the serialization depth to avoid poor performance.
+configureActions({
+    depth: 6
+});
