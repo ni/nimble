@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 14 Feb 2023 17:27:05 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Feb 2023 19:44:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.1.15
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
 
 ## 11.1.11
 

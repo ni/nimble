@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 15 Feb 2023 21:23:30 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Feb 2023 19:44:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.20
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
+- Bump @ni/nimble-components to v18.4.1
 
 ## 16.0.19
 
