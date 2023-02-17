@@ -123,7 +123,7 @@ module.exports = config => {
         client: {
             captureConsole: true
         },
-        logLevel: config.LOG_ERROR // to disable the WARN 404 for image requests
+        logLevel: config.LOG_DEBUG // to disable the WARN 404 for image requests
     };
 
     config.set(options);
