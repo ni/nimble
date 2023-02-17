@@ -11,6 +11,7 @@ import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
+import { createEventListener } from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableActionMenuToggleEventDetail, TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
@@ -606,24 +607,6 @@ describe('Table', () => {
             return { menu, items: [menuItem1, menuItem2, menuItem3] };
         }
 
-        function createTableListener(eventName: string): {
-            promise: Promise<void>,
-            spy: jasmine.Spy
-        } {
-            const spy = jasmine.createSpy();
-            return {
-                promise: new Promise(resolve => {
-                    const handler = (...args: unknown[]): void => {
-                        element.removeEventListener(eventName, handler);
-                        spy(...args);
-                        resolve();
-                    };
-                    element.addEventListener(eventName, handler);
-                }),
-                spy
-            };
-        }
-
         beforeEach(() => {
             element.setData(simpleTableData);
             element.idFieldName = 'stringData';
@@ -667,7 +650,7 @@ describe('Table', () => {
 
             // Open the menu button
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
-            const toggleListener = createTableListener('action-menu-toggle');
+            const toggleListener = createEventListener(element, 'action-menu-toggle');
             menuButton.toggleButton!.control.click();
             await toggleListener.promise;
 
@@ -727,7 +710,7 @@ describe('Table', () => {
             pageObject.setRowHoverState(1, true);
             await waitForUpdatesAsync();
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
-            const toggleListener = createTableListener('action-menu-toggle');
+            const toggleListener = createEventListener(element, 'action-menu-toggle');
             // Open a menu button for the first row to cause all the menus to be slotted within that row
             menuButton.toggleButton!.control.click();
             await toggleListener.promise;
@@ -752,7 +735,7 @@ describe('Table', () => {
             pageObject.setRowHoverState(1, true);
             await waitForUpdatesAsync();
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
-            const toggleListener = createTableListener('action-menu-toggle');
+            const toggleListener = createEventListener(element, 'action-menu-toggle');
             // Open a menu button for the first row to cause all the menus to be slotted within that row
             menuButton.toggleButton!.control.click();
             await toggleListener.promise;
@@ -775,7 +758,7 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const beforetoggleListener = createTableListener(
+            const beforetoggleListener = createEventListener(element, 
                 'action-menu-beforetoggle'
             );
             pageObject.setRowHoverState(1, true);
@@ -811,7 +794,7 @@ describe('Table', () => {
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
             menuButton.toggleButton!.control.click();
             await waitForUpdatesAsync();
-            const beforetoggleListener = createTableListener(
+            const beforetoggleListener = createEventListener(element, 
                 'action-menu-beforetoggle'
             );
             const escEvent = new KeyboardEvent('keydown', {
@@ -842,7 +825,7 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const toggleListener = createTableListener('action-menu-toggle');
+            const toggleListener = createEventListener(element, 'action-menu-toggle');
             pageObject.setRowHoverState(1, true);
             await waitForUpdatesAsync();
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
@@ -876,7 +859,7 @@ describe('Table', () => {
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
             menuButton.toggleButton!.control.click();
             await waitForUpdatesAsync();
-            const toggleListener = createTableListener('action-menu-toggle');
+            const toggleListener = createEventListener(element, 'action-menu-toggle');
             const escEvent = new KeyboardEvent('keydown', {
                 key: keyEscape
             } as KeyboardEventInit);
@@ -904,7 +887,7 @@ describe('Table', () => {
 
             pageObject.setRowHoverState(1, true);
             await waitForUpdatesAsync();
-            const toggleListener = createTableListener('action-menu-toggle');
+            const toggleListener = createEventListener(element, 'action-menu-toggle');
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowDown
@@ -924,7 +907,7 @@ describe('Table', () => {
 
             pageObject.setRowHoverState(1, true);
             await waitForUpdatesAsync();
-            const toggleListener = createTableListener('action-menu-toggle');
+            const toggleListener = createEventListener(element, 'action-menu-toggle');
             const menuButton = pageObject.getCellActionMenu(1, 0)!;
             const event = new KeyboardEvent('keydown', {
                 key: keyArrowUp
