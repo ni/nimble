@@ -3,6 +3,7 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Banner } from '..';
 import { BannerSeverity } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { createEventListener } from '../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<Banner>> {
     return fixture<Banner>(html`
@@ -17,28 +18,6 @@ describe('Banner', () => {
     let element: Banner;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-
-    /** A helper function to abstract adding a 'toggle' event listener, spying
-     * on the event being called, and removing the event listener. The returned promise
-     * should be resolved prior to completing a test.
-     */
-    function createToggleListener(): {
-        promise: Promise<void>,
-        spy: jasmine.Spy
-    } {
-        const spy = jasmine.createSpy();
-        return {
-            promise: new Promise(resolve => {
-                const handler = (...args: unknown[]): void => {
-                    element.removeEventListener('toggle', handler);
-                    spy(...args);
-                    resolve();
-                };
-                element.addEventListener('toggle', handler);
-            }),
-            spy
-        };
-    }
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
@@ -71,7 +50,7 @@ describe('Banner', () => {
 
     it("should fire 'toggle' when 'open' is changed", async () => {
         element.open = false;
-        const toggleListener = createToggleListener();
+        const toggleListener = createEventListener(element, 'toggle');
         element.open = true;
         await toggleListener.promise;
         expect(toggleListener.spy).toHaveBeenCalledOnceWith(

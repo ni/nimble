@@ -1,4 +1,5 @@
-import { attr, ElementStyles, ViewTemplate } from '@microsoft/fast-element';
+import type { ElementStyles, ViewTemplate } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import type {
@@ -16,6 +17,12 @@ export abstract class TableColumn<
 > extends FoundationElement {
     @attr({ attribute: 'column-id' })
     public columnId?: string;
+
+    @attr({ attribute: 'action-menu-slot' })
+    public actionMenuSlot?: string;
+
+    @attr({ attribute: 'action-menu-label' })
+    public actionMenuLabel?: string;
 
     /**
      * The template to use to render the cell content for the column

@@ -42,9 +42,7 @@ export const styles = css`
 
     .table-row-container {
         width: 100%;
-        position: sticky;
-        overflow: hidden;
-        top: 0px;
+        position: relative;
     }
 
     .header-container {
@@ -66,6 +64,7 @@ export const styles = css`
     .row {
         background: ${applicationBackgroundColor};
         position: relative;
+        box-sizing: border-box;
     }
 
     .row::before {
