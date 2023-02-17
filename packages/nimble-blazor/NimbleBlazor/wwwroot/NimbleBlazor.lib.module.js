@@ -50,6 +50,16 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleBanner.razor
+    Blazor.registerCustomEventType('nimblebannertoggle', {
+        browserEventName: 'toggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
     // Used by NimbleTable.razor
     Blazor.registerCustomEventType('nimbleactionmenubeforetoggle', {
         browserEventName: 'action-menu-beforetoggle',
