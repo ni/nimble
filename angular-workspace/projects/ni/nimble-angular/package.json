@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "16.0.21",
+  "version": "16.1.0",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
     "invoke-publish": "cd ../../../ && npm run build:library && cd dist/ni/nimble-angular && npm publish"

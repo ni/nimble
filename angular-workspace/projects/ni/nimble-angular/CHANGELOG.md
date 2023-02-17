@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 17 Feb 2023 21:25:31 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Feb 2023 22:48:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.0
+
+Fri, 17 Feb 2023 22:48:41 GMT
+
+### Minor changes
+
+- Angular wrapper for banner ([ni/nimble@297fa53](https://github.com/ni/nimble/commit/297fa53b6599b525ccf37e39980e94107c21825d))
 
 ## 16.0.21
 
