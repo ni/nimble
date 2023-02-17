@@ -14,6 +14,5 @@ export const styles = css`
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
         grid-auto-flow: column;
         grid-auto-columns: 1fr;
-        width: fit-content;
     }
 `;
