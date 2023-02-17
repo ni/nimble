@@ -16,16 +16,16 @@ export const styles = css`
         grid-auto-columns: 1fr;
     }
 
-    nimble-table-cell::part(action-menu) {
-        display: none;
+    nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: none;
     }
 
-    nimble-table-cell[menu-open]::part(action-menu) {
-        display: block;
+    nimble-table-cell[menu-open] {
+        --ni-private-table-cell-action-menu-display: block;
     }
 
-    :host(.hover) nimble-table-cell::part(action-menu),
-    :host(:hover) nimble-table-cell::part(action-menu) {
-        display: block;
+    :host(.hover) nimble-table-cell,
+    :host(:hover) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
     }
 `;

@@ -59,16 +59,16 @@ export class Table<
     @observable
     public readonly childItems: Element[] = [];
 
-    @observable
     /**
      * @internal
      */
+    @observable
     public actionMenuSlots: string[] = [];
 
-    @observable
     /**
      * @internal
      */
+    @observable
     public openActionMenuRecordId?: string;
 
     /**
