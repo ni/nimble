@@ -22,6 +22,12 @@ export abstract class TableColumn<
     @attr({ attribute: 'column-id' })
     public columnId?: string;
 
+    @attr({ attribute: 'action-menu-slot' })
+    public actionMenuSlot?: string;
+
+    @attr({ attribute: 'action-menu-label' })
+    public actionMenuLabel?: string;
+
     /**
      * @internal
      *
