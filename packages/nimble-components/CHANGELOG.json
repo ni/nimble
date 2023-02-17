@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 17 Feb 2023 21:25:30 GMT",
+      "tag": "@ni/nimble-components_v18.5.0",
+      "version": "18.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8c748c8f5e1b67bb7f2c984f1a91c14f967108c8",
+            "comment": "Define type for banner toggle event detail"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Feb 2023 19:44:11 GMT",
+      "tag": "@ni/nimble-components_v18.4.1",
+      "version": "18.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0cc63e618d789506063b68d2b153059df2d21b1f",
+            "comment": "Provide ability to specify an action menu for a table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Feb 2023 21:23:30 GMT",
       "tag": "@ni/nimble-components_v18.4.0",
       "version": "18.4.0",

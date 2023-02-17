@@ -7,7 +7,7 @@ import {
     observeElementRect,
     VirtualItem
 } from '@tanstack/virtual-core';
-import { controlHeight } from '../../theme-provider/design-tokens';
+import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
 
@@ -76,7 +76,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     HTMLElement,
     HTMLElement
     > {
-        const rowHeight = parseFloat(controlHeight.getValueFor(this.table));
+        const rowHeight = parseFloat(controlHeight.getValueFor(this.table))
+            + 2 * parseFloat(borderWidth.getValueFor(this.table));
         return {
             count: this.table.tableData.length,
             getScrollElement: () => {
@@ -104,11 +105,9 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         let rowContainerYOffset = 0;
         if (this.visibleItems.length > 0) {
             const firstItem = this.visibleItems[0]!;
-            const lastItem = this.visibleItems[this.visibleItems.length - 1]!;
-            if (lastItem.end < this.allRowsHeight) {
-                rowContainerYOffset = firstItem.start - virtualizer.scrollOffset;
-            }
+            rowContainerYOffset = firstItem.start;
         }
+
         this.rowContainerYOffset = rowContainerYOffset;
     }
 }

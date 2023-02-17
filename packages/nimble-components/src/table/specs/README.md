@@ -153,7 +153,7 @@ _Events_
     -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
     -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
     -   `recordIds` - string array - The IDs of the records that the menu is associated with.
-    -   `columnTarget` - `TableColumn` - The column that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
 
 ### Anatomy
 
