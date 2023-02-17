@@ -349,7 +349,10 @@ describe('MenuButton', () => {
                     return;
                 }
 
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 menuButton.open = true;
                 await toggleListener.promise;
             }
@@ -366,7 +369,10 @@ describe('MenuButton', () => {
             it('should open the menu and focus first menu item when the toggle button is clicked', async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 menuButton.toggleButton!.control.click();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
@@ -376,7 +382,10 @@ describe('MenuButton', () => {
             it("should open the menu and focus first menu item when 'Enter' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keypress', {
                     key: keyEnter
                 } as KeyboardEventInit);
@@ -389,7 +398,10 @@ describe('MenuButton', () => {
             it("should open the menu and focus first menu item when 'Space' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keypress', {
                     key: keySpace
                 } as KeyboardEventInit);
@@ -402,7 +414,10 @@ describe('MenuButton', () => {
             it('should open the menu and focus first menu item when the down arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keydown', {
                     key: keyArrowDown
                 } as KeyboardEventInit);
@@ -415,7 +430,10 @@ describe('MenuButton', () => {
             it('should open the menu and focus last menu item when the up arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keydown', {
                     key: keyArrowUp
                 } as KeyboardEventInit);
@@ -546,7 +564,10 @@ describe('MenuButton', () => {
                     return;
                 }
 
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 menuButton.open = true;
                 await toggleListener.promise;
             }
@@ -563,7 +584,10 @@ describe('MenuButton', () => {
             it('should transition to the open state when the toggle button is clicked', async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 menuButton.toggleButton!.control.click();
                 expect(menuButton.open).toBeTrue();
                 await toggleListener.promise;
@@ -580,7 +604,10 @@ describe('MenuButton', () => {
             it("should transition to the open state when 'Enter' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keypress', {
                     key: keyEnter
                 } as KeyboardEventInit);
@@ -600,7 +627,10 @@ describe('MenuButton', () => {
             it("should transition to the open state when 'Space' is pressed while the toggle button is focused", async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keypress', {
                     key: keySpace
                 } as KeyboardEventInit);
@@ -620,7 +650,10 @@ describe('MenuButton', () => {
             it('should transition to the open state when the down arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keydown', {
                     key: keyArrowDown
                 } as KeyboardEventInit);
@@ -640,7 +673,10 @@ describe('MenuButton', () => {
             it('should transition to the open state when the up arrow is pressed while the toggle button is focused', async () => {
                 await connect();
                 const menuButton = configuration.getMenuButton(element);
-                const toggleListener = createEventListener(menuButton, 'toggle');
+                const toggleListener = createEventListener(
+                    menuButton,
+                    'toggle'
+                );
                 const event = new KeyboardEvent('keydown', {
                     key: keyArrowUp
                 } as KeyboardEventInit);

@@ -9,10 +9,13 @@ export async function clickElement(element: HTMLElement): Promise<void> {
  * on the event being called, and removing the event listener. The returned promise
  * should be resolved prior to completing a test.
  */
-export function createEventListener(element: HTMLElement, eventName: string): {
-    promise: Promise<void>,
-    spy: jasmine.Spy
-} {
+export function createEventListener(
+    element: HTMLElement,
+    eventName: string
+): {
+        promise: Promise<void>,
+        spy: jasmine.Spy
+    } {
     const spy = jasmine.createSpy();
     return {
         promise: new Promise(resolve => {

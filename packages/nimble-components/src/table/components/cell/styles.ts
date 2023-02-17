@@ -11,7 +11,7 @@ export const styles = css`
         height: 100%;
         grid-template-columns: 1fr auto;
         /* A default value that will be overridden by the row */
-         --ni-private-table-cell-action-menu-display: block;
+        --ni-private-table-cell-action-menu-display: block;
     }
 
     .cell-content-container {
