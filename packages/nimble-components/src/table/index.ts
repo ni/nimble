@@ -2,9 +2,7 @@ import {
     attr,
     Observable,
     observable,
-    Notifier,
-    volatile,
-    DOM
+    Notifier
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
@@ -72,9 +70,9 @@ export class Table<
     /**
      * @internal
      */
-     @observable
-     public rowGridColumns?: string;
- 
+    @observable
+    public rowGridColumns?: string;
+
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -93,9 +91,6 @@ export class Table<
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private columnNotifiers: Notifier[] = [];
-    private ticking = false;
-    private _scrollX?: number;
-    private _scrollElement?: HTMLElement;
 
     public constructor() {
         super();
@@ -145,7 +140,9 @@ export class Table<
         if (source instanceof TableColumn) {
             if (args === 'columnId') {
                 this.validateColumnIds();
-            } else if (args === 'currentFractionalWidth' || args === 'internalMinPixelWidth') {
+            } else if (args === 'currentFractionalWidth'
+                    || args === 'currentPixelWidth'
+                    || args === 'internalMinPixelWidth') {
                 this.updateRowGridColumns();
             }
         }

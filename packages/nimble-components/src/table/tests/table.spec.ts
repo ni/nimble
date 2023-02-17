@@ -614,29 +614,29 @@ describe('Table', () => {
                 rowExpectedRenderedWidth: 300
             },
             {
+                name: 'first column set to use pixelWidth',
+                tableWidth: 400,
+                column1FractionalWidth: 1,
+                column1PixelWidth: 100,
+                column1MinPixelWidth: null,
+                column2FractionalWidth: 1,
+                column2PixelWidth: null,
+                column2MinPixelWidth: null,
+                column1ExpectedRenderedWidth: 100,
+                column2ExpectedRenderedWidth: 300,
+                rowExpectedRenderedWidth: 400
+            },
+            {
                 name: 'second column set to use pixelWidth',
                 tableWidth: 400,
                 column1FractionalWidth: 1,
                 column1PixelWidth: null,
                 column1MinPixelWidth: null,
                 column2FractionalWidth: 1,
-                column2PixelWidth: 50,
+                column2PixelWidth: 100,
                 column2MinPixelWidth: null,
-                column1ExpectedRenderedWidth: 350,
-                column2ExpectedRenderedWidth: 50,
-                rowExpectedRenderedWidth: 400
-            },
-            {
-                name: 'first column set to use pixelWidth',
-                tableWidth: 400,
-                column1FractionalWidth: 1,
-                column1PixelWidth: 50,
-                column1MinPixelWidth: null,
-                column2FractionalWidth: 1,
-                column2PixelWidth: null,
-                column2MinPixelWidth: null,
-                column1ExpectedRenderedWidth: 50,
-                column2ExpectedRenderedWidth: 350,
+                column1ExpectedRenderedWidth: 300,
+                column2ExpectedRenderedWidth: 100,
                 rowExpectedRenderedWidth: 400
             },
             {
