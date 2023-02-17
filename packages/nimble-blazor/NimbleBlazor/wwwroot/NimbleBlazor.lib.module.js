@@ -55,8 +55,8 @@ export function afterStarted(Blazor) {
         browserEventName: 'toggle',
         createEventArgs: event => {
             return {
-                oldState: !event.target.open,
-                newState: event.target.open
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
             };
         }
     });

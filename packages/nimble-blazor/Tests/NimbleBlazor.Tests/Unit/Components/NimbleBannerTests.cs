@@ -23,15 +23,15 @@ public class NimbleBannerTests
     }
 
     [Theory]
-    [InlineData(BannerSeverity.Default, "<nimble-banner blazor:onnimblebannertoggle=\"1\">")]
+    [InlineData(BannerSeverity.Default, "<nimble-banner((?!severity).)*>")]
     [InlineData(BannerSeverity.Error, "severity=\"error\"")]
     [InlineData(BannerSeverity.Warning, "severity=\"warning\"")]
     [InlineData(BannerSeverity.Information, "severity=\"information\"")]
-    public void BannerSeverity_AttributeIsSet(BannerSeverity value, string expectedAttribute)
+    public void BannerSeverity_AttributeIsSet(BannerSeverity value, string expectedMarkupRegEx)
     {
         var banner = RenderWithPropertySet(x => x.Severity, value);
 
-        Assert.Contains(expectedAttribute, banner.Markup);
+        Assert.Matches(expectedMarkupRegEx, banner.Markup);
     }
 
     private IRenderedComponent<NimbleBanner> RenderWithPropertySet<TProperty>(Expression<Func<NimbleBanner, TProperty>> propertyGetter, TProperty propertyValue)
