@@ -1,14 +1,12 @@
 import { html } from '@microsoft/fast-element';
-import { DesignSystem, MenuItem, Menu } from '@microsoft/fast-foundation';
+import type { MenuItem, Menu } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
     keyArrowUp,
     keyEscape
 } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
-import { IconCheck } from '../../icons/check';
 import type { TableColumn } from '../../table-column/base';
-import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
@@ -42,7 +40,12 @@ const simpleTableData = [
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table></nimble-table>`
+        html`<nimble-table>
+            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="moreStringData">
+                <nimble-icon-check></nimble-icon-check>
+            </nimble-table-column-text>
+        </nimble-table>`
     );
 }
 
@@ -57,21 +60,8 @@ describe('Table action menu', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new TablePageObject<SimpleTableRecord>(element);
-
-        const tableColumnTextTag = DesignSystem.tagFor(TableColumnText);
-        column1 = document.createElement(tableColumnTextTag) as TableColumn;
-        column1.textContent = 'stringData';
-        (column1 as TableColumnText).fieldName = 'stringData';
-
-        const checkIcon = document.createElement(
-            DesignSystem.tagFor(IconCheck)
-        );
-        column2 = document.createElement(tableColumnTextTag) as TableColumn;
-        column2.appendChild(checkIcon);
-        (column2 as TableColumnText).fieldName = 'moreStringData';
-
-        element.appendChild(column1);
-        element.appendChild(column2);
+        column1 = element.querySelector<TableColumn>('#first-column')!;
+        column2 = element.querySelector<TableColumn>('#second-column')!;
     });
 
     afterEach(async () => {
