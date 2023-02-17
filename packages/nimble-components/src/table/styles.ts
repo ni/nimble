@@ -19,6 +19,7 @@ export const styles = css`
     }
 
     .table-container {
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -27,7 +28,7 @@ export const styles = css`
     }
 
     .table-viewport {
-        overflow-y: auto;
+        overflow: auto;
         display: block;
         height: 100%;
         position: relative;
@@ -41,10 +42,7 @@ export const styles = css`
     }
 
     .table-row-container {
-        width: 100%;
         position: sticky;
-        overflow-y: hidden;
-        overflow-x: auto;
         top: 0px;
     }
 
@@ -57,6 +55,7 @@ export const styles = css`
         display: grid;
         background: ${applicationBackgroundColor};
         position: relative;
+        width: fit-content;
     }
 
     .header {

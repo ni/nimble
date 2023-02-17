@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-column/text';
+import type { NumberValueOrAttribute } from '../../utilities/template-value-helpers';
 
 export type { TableColumnText };
 
@@ -44,7 +45,7 @@ export class NimbleTableColumnTextDirective {
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('fractional-width') public set fractionalWidth(value: number) {
+    @Input('fractional-width') public set fractionalWidth(value: NumberValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fractionalWidth', value);
     }
 
@@ -54,7 +55,7 @@ export class NimbleTableColumnTextDirective {
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('min-pixel-width') public set minPixelWidth(value: number | null) {
+    @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', value);
     }
 

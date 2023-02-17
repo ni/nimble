@@ -3,7 +3,8 @@ import {
     Observable,
     observable,
     Notifier,
-    volatile
+    volatile,
+    DOM
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
@@ -62,6 +63,18 @@ export class Table<
     @observable
     public canRenderRows = true;
 
+    /**
+     * @internal
+     */
+    @observable
+    public scrollX = 0;
+
+    /**
+     * @internal
+     */
+     @observable
+     public rowGridColumns?: string;
+ 
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -80,6 +93,9 @@ export class Table<
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private columnNotifiers: Notifier[] = [];
+    private ticking = false;
+    private _scrollX?: number;
+    private _scrollElement?: HTMLElement;
 
     public constructor() {
         super();
@@ -105,6 +121,7 @@ export class Table<
         super.connectedCallback();
         this.virtualizer.connectedCallback();
         this.validateAndObserveColumns();
+        this.viewport.addEventListener('scroll', this.onViewPortScroll);
     }
 
     public override disconnectedCallback(): void {
@@ -128,6 +145,8 @@ export class Table<
         if (source instanceof TableColumn) {
             if (args === 'columnId') {
                 this.validateColumnIds();
+            } else if (args === 'currentFractionalWidth' || args === 'internalMinPixelWidth') {
+                this.updateRowGridColumns();
             }
         }
     }
@@ -154,7 +173,12 @@ export class Table<
         }
 
         this.validateAndObserveColumns();
+        this.updateRowGridColumns();
     }
+
+    private readonly onViewPortScroll = (event: Event): void => {
+        this.scrollX = (event.target as HTMLElement).scrollLeft;
+    };
 
     private removeColumnObservers(): void {
         this.columnNotifiers.forEach(notifier => {
@@ -182,6 +206,10 @@ export class Table<
         this.canRenderRows = this.checkValidity();
     }
 
+    private updateRowGridColumns(): void {
+        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(this.columns);
+    }
+
     private async updateColumnsFromChildItems(): Promise<void> {
         const definedElements = this.childItems.map(async item => (item.matches(':not(:defined)')
             ? customElements.whenDefined(item.localName)
@@ -190,16 +218,6 @@ export class Table<
         this.columns = this.childItems.filter(
             (x): x is TableColumn => x instanceof TableColumn
         );
-    }
-
-    /**
-     * @internal
-     */
-    @volatile
-    public get rowGridColumns(): string {
-        return this.columns.length > 0
-            ? TableLayoutHelper.getGridTemplateColumns(this.columns)
-            : '';
     }
 
     private setTableData(newData: readonly TData[]): void {

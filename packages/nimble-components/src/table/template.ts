@@ -17,14 +17,14 @@ import type { TableColumn } from '../table-column/base';
 export const template = html<Table>`
     <template role="table" ${children({ property: 'childItems', filter: elements() })}>
         <div class="table-container">
-            <div role="rowgroup" class="header-container" style="grid-template-columns: ${x => x.rowGridColumns}">
-                <div class="header-row" role="row">
+            <div role="rowgroup" class="header-container">
+                <div class="header-row" role="row" style="grid-template-columns: ${x => x.rowGridColumns} auto; left: -${x => x.scrollX}px;">
                     ${repeat(x => x.columns, html<TableColumn>`
                         <${DesignSystem.tagFor(TableHeader)} class="header">
                             <slot name="${x => x.slot}"></slot>
                         </${DesignSystem.tagFor(TableHeader)}>
                     `)}
-                    <div class="header-scrollbar-spacer" style="width: ${x => x.virtualizer.headerContainerMarginRight}px;"></div>
+                    <div class="header-scrollbar-spacer" style="width: ${x => (x.virtualizer.headerContainerMarginRight !== 0 ? '17' : '0')}px;"></div>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
@@ -37,7 +37,7 @@ export const template = html<Table>`
                                 record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                 :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                 :columns="${(_, c) => c.parent.columns}"
-                                style="height: ${x => x.size}px;"
+                                :rowGridColumns="${(_, c) => c.parent.rowGridColumns}"
                             >
                             </${DesignSystem.tagFor(TableRow)}>
                         `)}

@@ -37,12 +37,11 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
-    @volatile
-    public get rowGridColumns(): string {
-        return this.columns.length > 0
-            ? TableLayoutHelper.getGridTemplateColumns(this.columns)
-            : '';
-    }
+    /**
+     * @internal
+     */
+    @observable
+    public rowGridColumns?: string;
 
     @volatile
     public get columnStates(): ColumnState[] {

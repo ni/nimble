@@ -67,12 +67,12 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.columnId).toBe('my-column');
         });
 
-        it('cwill use template string values for fractionalWidth', () => {
+        it('will use template string values for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
         });
 
-        it('cwill use template string values for minPixelWidth', () => {
+        it('will use template string values for minPixelWidth', () => {
             expect(directive.minPixelWidth).toBe(40);
             expect(nativeElement.minPixelWidth).toBe(40);
         });
@@ -233,7 +233,7 @@ describe('NimbleTableColumnText', () => {
             fixture.detectChanges();
 
             expect(directive.placeholder).toBe('foo');
-            expect(nativeElement.fieldName).toBe('foo');
+            expect(nativeElement.placeholder).toBe('foo');
         });
 
         it('can be configured with attribute binding for columnId', () => {
