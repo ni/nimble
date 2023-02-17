@@ -1,12 +1,13 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
 import { parseColorHexRGB } from '@microsoft/fast-colors';
 import {
+    Black,
     Black7,
-    Black91,
-    Black85,
     Black15,
     Black80,
+    Black85,
     Black88,
+    Black91,
     White,
     ForestGreen,
     DigitalGreenLight,
@@ -88,8 +89,7 @@ import {
     PowerGreen,
     GridHeaderFamily,
     GridHeaderWeight,
-    GridHeaderSize,
-    Black
+    GridHeaderSize
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -195,6 +195,9 @@ export const tableRowBorderColor = DesignToken.create<string>(
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
 ).withDefault('32px');
+export const controlSlimHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlSlimHeight)
+).withDefault('24px');
 export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)
 ).withDefault('4px');
@@ -213,6 +216,9 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+export const bannerGapSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerGapSize)
+).withDefault('1px');
 
 export const spinnerSmallHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.spinnerSmallHeight)

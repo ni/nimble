@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 10 Feb 2023 20:11:53 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Feb 2023 21:23:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.0.19
+
+Wed, 15 Feb 2023 21:23:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.4.0
+
+## 16.0.18
+
+Tue, 14 Feb 2023 22:59:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.7
+
+## 16.0.17
+
+Tue, 14 Feb 2023 19:59:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.6
+
+## 16.0.16
+
+Tue, 14 Feb 2023 17:27:05 GMT
+
+### Patches
+
+- Add column IDs to table ([ni/nimble@a88731d](https://github.com/ni/nimble/commit/a88731d393687500fc23f86437a73bc6c947e17f))
+- Bump @ni/nimble-components to v18.3.5
+
+## 16.0.15
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.4
+
+## 16.0.14
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.3
+
+## 16.0.13
+
+Mon, 13 Feb 2023 23:05:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.2
 
 ## 16.0.12
 

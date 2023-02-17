@@ -6,7 +6,6 @@ import type { DieRenderInfo, Dimensions } from '../types';
  */
 export class RenderingModule {
     private readonly context: CanvasRenderingContext2D;
-    private dieSize?: number;
     private readonly dies: DieRenderInfo[];
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
@@ -59,7 +58,7 @@ export class RenderingModule {
     }
 
     private renderText(): void {
-        this.dieSize = this.dimensions.width
+        const dieSize = this.dimensions.width
             * this.dimensions.height
             * (this.wafermap.transform.k || 1);
         const fontsize = this.labelFontSize;
@@ -67,16 +66,16 @@ export class RenderingModule {
         this.context.fillStyle = '#ffffff';
         this.context.textAlign = 'center';
         this.context.lineCap = 'butt';
-        const aproxTextHeight = this.context.measureText('M');
+        const approxTextHeight = this.context.measureText('M');
 
-        if (this.dieSize >= 50) {
+        if (dieSize >= 50) {
             for (const die of this.dies) {
                 this.context.fillText(
                     die.text,
                     die.x + this.dimensions.width / 2,
                     die.y
                         + this.dimensions.height / 2
-                        + aproxTextHeight.width / 2,
+                        + approxTextHeight.width / 2,
                     this.dimensions.width - (this.dimensions.width / 100) * 20
                 );
             }
@@ -87,8 +86,8 @@ export class RenderingModule {
         this.context.clearRect(
             0,
             0,
-            this.wafermap.canvasSideLength * this.wafermap.transform.k,
-            this.wafermap.canvasSideLength * this.wafermap.transform.k
+            this.wafermap.canvasWidth * this.wafermap.transform.k,
+            this.wafermap.canvasHeight * this.wafermap.transform.k
         );
     }
 
