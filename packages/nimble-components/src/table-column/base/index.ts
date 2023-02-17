@@ -28,14 +28,14 @@ export abstract class TableColumn<
      * The template to use to render the cell content for the column
      */
     // prettier-ignore
-    public abstract cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
+    public abstract readonly cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
 
     /**
      * @internal
      *
      * The style to apply to the cellTemplate
      */
-    public abstract cellStyles?: ElementStyles;
+    public abstract readonly cellStyles?: ElementStyles;
 
     /**
      * @internal

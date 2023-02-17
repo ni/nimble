@@ -31,17 +31,11 @@ TableColumnTextColumnConfig
 
     public readonly cellTemplate = cellTemplate;
 
-    protected fieldNameChanged(
-        _prev: string | undefined,
-        _next: string | undefined
-    ): void {
+    protected fieldNameChanged(): void {
         this.dataRecordFieldNames = [this.fieldName] as const;
     }
 
-    protected placeholderChanged(
-        _prev: string | undefined,
-        _next: string | undefined
-    ): void {
+    protected placeholderChanged(): void {
         this.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 }
