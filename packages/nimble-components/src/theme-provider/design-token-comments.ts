@@ -32,6 +32,8 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     popupBorderColor: 'Border color for menus and dialog boxes',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
+    controlSlimHeight:
+        'Height of controls that are somewhat shorter than standard height.',
     smallPadding: 'Small layout padding for components',
     standardPadding: 'Standard layout padding for components',
     labelHeight:
@@ -40,6 +42,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
+    bannerGapSize: 'Space between stacked banners',
     spinnerSmallHeight: 'Small height (16px) for a spinner component',
     spinnerMediumHeight: 'Medium height (32px) for a spinner component',
     spinnerLargeHeight: 'Large height (64px) for a spinner component',

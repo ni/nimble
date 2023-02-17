@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 14 Feb 2023 22:59:44 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Feb 2023 22:48:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.0
+
+Fri, 17 Feb 2023 22:48:41 GMT
+
+### Minor changes
+
+- Angular wrapper for banner ([ni/nimble@297fa53](https://github.com/ni/nimble/commit/297fa53b6599b525ccf37e39980e94107c21825d))
+
+## 16.0.21
+
+Fri, 17 Feb 2023 21:25:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.0
+
+## 16.0.20
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
+- Bump @ni/nimble-components to v18.4.1
+
+## 16.0.19
+
+Wed, 15 Feb 2023 21:23:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.4.0
 
 ## 16.0.18
 

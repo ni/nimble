@@ -2,6 +2,7 @@ import type { Table } from '..';
 import type { TableHeader } from '../components/header';
 import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import type { MenuButton } from '../../menu-button';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -73,6 +74,57 @@ export class TablePageObject<T extends TableRecord> {
         const scrollElement = this.tableElement.viewport;
         scrollElement.scrollTop = scrollElement.scrollHeight;
         await waitForUpdatesAsync();
+    }
+
+    public getCellActionMenu(
+        rowIndex: number,
+        columnIndex: number
+    ): MenuButton | null {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        const row = rows.item(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return cells
+            .item(columnIndex)
+            .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
+    }
+
+    public isCellActionMenuVisible(
+        rowIndex: number,
+        columnIndex: number
+    ): boolean {
+        const actionMenu = this.getCellActionMenu(rowIndex, columnIndex);
+        if (!actionMenu) {
+            return false;
+        }
+
+        return window.getComputedStyle(actionMenu).display !== 'none';
+    }
+
+    public setRowHoverState(rowIndex: number, hover: boolean): void {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        if (hover) {
+            rows.item(rowIndex).classList.add('hover');
+        } else {
+            rows.item(rowIndex).classList.remove('hover');
+        }
     }
 
     private getHeaderContentElement(
