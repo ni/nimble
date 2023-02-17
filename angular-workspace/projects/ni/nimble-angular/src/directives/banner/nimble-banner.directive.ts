@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import type { Banner } from '@ni/nimble-components/dist/esm/banner';
-import type { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
+import { BannerSeverity } from '@ni/nimble-components/dist/esm/banner/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 export type { Banner };
