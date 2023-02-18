@@ -31,9 +31,8 @@
     "test-chrome": "karma start karma.conf.js --browsers=ChromeHeadlessOpt --single-run",
     "test-firefox": "karma start karma.conf.js --browsers=FirefoxHeadless --single-run",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run",
-    "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run",
-    "test-webkit:headed": "karma start karma.conf.js --browsers=Webkit --single-run",
-    "test": "npm run test-chrome:verbose && npm run test-webkit:verbose"
+    "test-webkit:debugger": "karma start karma.conf.js --browsers=Webkit",
+    "test": "npm run test-chrome:verbose"
   },
   "repository": {
     "type": "git",

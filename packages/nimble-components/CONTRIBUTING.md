@@ -63,11 +63,16 @@ Before building a new component, create a spec document to get agreement on the 
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Create change files for your work by running the following from the `nimble` directory:
+5. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).  
+For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
+    - To open Storybook with WebKit, after running the Storybook command, run the command `npx playwright wk http://localhost:6006` from the `nimble` directory.
+    - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
+
+6. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
-6. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+7. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
 
 ## Develop new components
 
@@ -345,6 +350,8 @@ The following commands can be run from the `nimble` directory:
 -   `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
 
     You can also take the page url and open it in a different browser to test interactively.
+
+-   `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
 
 ### Test utilities
 
