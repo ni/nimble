@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Add dev commands for running tests on WebKit via Playwright; doc updates",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
