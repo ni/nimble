@@ -99,6 +99,7 @@ _The key elements of the component's public API surface:_
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
     -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
+    -   `diePadding` - a value between 0 and 1, defaulted at 0, representing the percentage of the individual die space taken by padding.
 
 The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
 The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
