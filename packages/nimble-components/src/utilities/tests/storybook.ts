@@ -87,18 +87,9 @@ export const createFixedThemeStory = <TSource>(
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
-                <div
-                    style="
-                        background-color: ${backgroundState.value};
-                        position: absolute;
-                        width: 100%;
-                        min-height: 100%;
-                        left: 0px;
-                        top: 0px;
-                    "
-                >
+                <div style="background-color: ${backgroundState.value}; padding:20px;">
+                    ${viewTemplate}
                 </div>
-                ${viewTemplate}
             </${DesignSystem.tagFor(ThemeProvider)}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
