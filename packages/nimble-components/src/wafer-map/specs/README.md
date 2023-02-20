@@ -100,7 +100,6 @@ _The key elements of the component's public API surface:_
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
-    -   `lastHighlightedDie` - represents a read only property which will contain a `WaferMapDie` object representing the data of the die which is currently hovered over.
     -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
 
 The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
@@ -119,7 +118,7 @@ Events: The events mentioned below will all be handled internally by the nimble 
 
 The public API will have a new custom event fired when the mouse will hover over a displayed die.
 
--   `hover-change` will be triggered to inform the user that a new die was highlighted and that the specific die is available in the `lastHighlightedDie` readonly property.
+-   `die-hover` will be triggered to inform the user that the state of hoverin over a die has changed. The event `detail` will include `{currentDie: WaferMapDie}` when a new die is the target of mouse hovernig and `{currentDie: undefined}` when the hovering does not have a target.
 
 ### Anatomy
 

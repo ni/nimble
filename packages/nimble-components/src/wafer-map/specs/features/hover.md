@@ -3,9 +3,8 @@
 ## Problem Statement
 
 Besides zooming and panning, the wafer map component needs to support another user interaction, namely hovering.
-This interaction will mark the die beneath the cursor to allow the user to highlight the specific desired value.
-More so, the interaction will trigger a custom external event containing the data from the highlighted die
-and will also provide the latest highlighted die data to an interface output.
+This interaction will mark the die beneath the cursor to allow the user to emphasize the specific desired die.
+More so, the interaction will trigger a custom external event containing the data from the marked die.
 This will allow the wafer map to act as a selector for the provided dies
 and could be used for displaying a custom tooltip or other external custom features.
 
@@ -15,7 +14,7 @@ and could be used for displaying a custom tooltip or other external custom featu
 
 ## Implementation / Design
 
-![hover Selected Die Prototype](resources/highlight.png)
+![hover Selected Die Prototype](resources/border.png)
 
 ### Detection
 
@@ -31,9 +30,9 @@ respective coordinates of the die from the input list.
 
 The die coordinates will be then used to locate the original die data in a new Map data structure inside the Data Manager Module.
 
-### Highlight
+### Marking
 
-The highlight of the specific die will be implemented using a svg rectangle which will be a part of the template and styled using nimble tokens.
+The marking of the hovered die will be implemented using a svg rectangle which will be a part of the template and styled using nimble tokens.
 
 ```HTML
 <template>
@@ -71,7 +70,7 @@ The highlight of the specific die will be implemented using a svg rectangle whic
     }
 ```
 
-This rectangle will be hidden when no highlight events are triggered, and will be displayed above the canvas element when they are by changing internal wafer map state of the `hoverOpacity` property.
+This rectangle will be hidden when no hovering events are triggered, and will be displayed above the canvas element when they are by changing internal wafer map state of the `hoverOpacity` property.
 
 The rectangle will be resized based on the die dimensions calculated for the input and the zoom transform and influenced by changing the internal `hoverWidth`, `hoverHeight` properties.
 
@@ -79,21 +78,24 @@ The rectangle will be moved to the specific die coordinates detected previously 
 
 Because the rectangle will be displayed on top of the canvas it will have all pointer events disabled to not block the zooming and panning events.
 
-The rectangle will be transparent and it will have a colored border and outline to highlight the desired die.
+The rectangle will be transparent and it will have a colored border and outline to mark the hovered die.
 
 ### Custom Events
 
-The hover will trigger a outward facing custom event which will signal a new die was highlighted and will enable the user to subscribe to the hover changes.
-This event will also have testing purposes for the hover functionality.
-
-Another output will be a public observable readonly property which will contain the data of the highlighted die from the wafer map.
-This will allow for the event listener to access the die data and also discreet querying of the wafermap about the hover state without the need of subscribing to the custom event.
+The hover will trigger a public custom event which will signal a new die was hovered over or the hovering has stopped and will enable the user to subscribe to the hover changes. The event `detail` will contin the mrked die data or will be `undefined` depending on the hover state.
+This event will also allow the testing of the hover functionality.
 
 ```TS
     const waferMap:WaferMap = document.createElement('nimble-wafer-map');
     waferMap.dies = parsedWaferData.dies;
     ...
-    console.log(waferMap.lastSelectedDie);
+    waferMap.addEventListener(
+        "die-hover",
+        (CustomEvent e) => {
+            console.log(e.detail.currentDie);
+        },
+        false
+    );
 ```
 
 ## Alternative Implementations / Designs
