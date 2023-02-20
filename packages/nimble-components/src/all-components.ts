@@ -9,6 +9,7 @@ import './anchor-button';
 import './anchor-tab';
 import './anchor-tabs';
 import './anchored-region';
+import './banner';
 import './breadcrumb';
 import './breadcrumb-item';
 import './button';
