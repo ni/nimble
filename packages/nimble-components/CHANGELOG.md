@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 20 Feb 2023 15:59:14 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Feb 2023 17:53:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.2
+
+Mon, 20 Feb 2023 17:53:22 GMT
+
+### Patches
+
+- New HLD for the hover feature of the Wafer Map component ([ni/nimble@e129dbb](https://github.com/ni/nimble/commit/e129dbb98df339c7f0b1f5b3db195bbbef5e93e9))
 
 ## 18.5.1
 
