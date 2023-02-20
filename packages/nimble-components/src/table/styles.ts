@@ -42,9 +42,7 @@ export const styles = css`
 
     .table-row-container {
         width: 100%;
-        position: sticky;
-        overflow: hidden;
-        top: 0px;
+        position: relative;
     }
 
     .header-container {
@@ -66,6 +64,7 @@ export const styles = css`
     .row {
         background: ${applicationBackgroundColor};
         position: relative;
+        box-sizing: border-box;
     }
 
     .row::before {
@@ -73,6 +72,7 @@ export const styles = css`
         width: 100%;
         height: 100%;
         position: absolute;
+        pointer-events: none;
     }
 
     .row:hover::before {
@@ -88,6 +88,7 @@ export const styles = css`
                 height: 100%;
                 position: absolute;
                 background: ${fillHoverColor};
+                pointer-events: none;
             }
 
             .row::before {

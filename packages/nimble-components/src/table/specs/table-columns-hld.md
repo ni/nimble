@@ -100,9 +100,8 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     @attr({ attribute: 'action-menu-label' })
     actionMenuLabel?: string;
 
-    // This method returns the relevant, static configuration a column requires its cellTemplate
-    // to have access to
-    getColumnConfig(): TColumnConfig {}
+    // The relevant, static configuration a column requires its cellTemplate to have access to.
+    columnConfig?: TColumnConfig;
 
     // The template to use to render the cell content for the column
     abstract cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
@@ -110,13 +109,13 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     // The style to apply to the cellTemplate
     cellStyles?: ElementStyles;
 
-    // The keys that should be present in TCellRecord.
-    // This array is parallel with the keys returned from `getDataRecordFieldNames()`.
+    // The names of the fields that should be present in TCellRecord.
+    // This array is parallel with the field names specified by `dataRecordFieldNames`.
     readonly cellRecordFieldNames: readonly string[];
 
-    // The keys from the row data that correlate to the data that will be in TCellRecord.
-    // This array is parallel with the keys specified by `cellRecordFieldNames`.
-    abstract getDataRecordFieldNames(): string[];
+    // The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
+    // This array is parallel with the field names specified by `cellRecordFieldNames`.
+    dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
 
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellRecord are correct

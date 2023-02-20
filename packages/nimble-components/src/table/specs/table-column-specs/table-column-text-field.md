@@ -68,8 +68,12 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
 
     public cellRecordFieldNames = ['value'] as const;
 
-    public getDataRecordFieldNames(): string[] {
-        return [fieldName];
+    protected fieldNameChanged(): void {
+        this.dataRecordFieldNames = [this.fieldName] as const;
+    }
+
+    protected placeholderChanged(): void {
+        this.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 
     ...

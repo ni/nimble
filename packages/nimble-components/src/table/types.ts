@@ -46,9 +46,18 @@ export interface TableValidity {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
     readonly invalidRecordId: boolean;
+    readonly duplicateColumnId: boolean;
+    readonly missingColumnId: boolean;
 }
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
+}
+
+export interface TableActionMenuToggleEventDetail {
+    newState: boolean;
+    oldState: boolean;
+    recordIds: string[];
+    columnId?: string;
 }

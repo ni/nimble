@@ -2,6 +2,201 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Feb 2023 17:53:22 GMT",
+      "tag": "@ni/nimble-components_v18.5.2",
+      "version": "18.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e129dbb98df339c7f0b1f5b3db195bbbef5e93e9",
+            "comment": "New HLD for the hover feature of the Wafer Map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Feb 2023 15:59:14 GMT",
+      "tag": "@ni/nimble-components_v18.5.1",
+      "version": "18.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb3179ff097069bb7be9af0153e6745ffe6970d2",
+            "comment": "Change table column base methods into internal observable properties"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Feb 2023 21:25:30 GMT",
+      "tag": "@ni/nimble-components_v18.5.0",
+      "version": "18.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8c748c8f5e1b67bb7f2c984f1a91c14f967108c8",
+            "comment": "Define type for banner toggle event detail"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Feb 2023 19:44:11 GMT",
+      "tag": "@ni/nimble-components_v18.4.1",
+      "version": "18.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0cc63e618d789506063b68d2b153059df2d21b1f",
+            "comment": "Provide ability to specify an action menu for a table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Feb 2023 21:23:30 GMT",
+      "tag": "@ni/nimble-components_v18.4.0",
+      "version": "18.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0248f3d6d7a0e0dcc7c6a9d4fb982bdbb78ea3d5",
+            "comment": "Banner component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 22:59:44 GMT",
+      "tag": "@ni/nimble-components_v18.3.7",
+      "version": "18.3.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0edf08583fe9196ca449b701e417980e7514adac",
+            "comment": "Fix bug where pointer events were being swallowed by table row hover"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 22:31:17 GMT",
+      "tag": "@ni/nimble-components_v18.3.6",
+      "version": "18.3.6",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "75652f9d803fdfff9de9d0b415d908e493bb889a",
+            "comment": "Fix token preview rendering in Storybook"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 21:18:42 GMT",
+      "tag": "@ni/nimble-components_v18.3.6",
+      "version": "18.3.6",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c19ad40ffbbfee58bd2020ffdff40984254bf61c",
+            "comment": "Column Width HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 19:59:45 GMT",
+      "tag": "@ni/nimble-components_v18.3.6",
+      "version": "18.3.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97c87a718b735c46f3d3b4e109302c368fa3e161",
+            "comment": "Changed canvas size and zoom behavior for the Wafer Map Component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 17:27:05 GMT",
+      "tag": "@ni/nimble-components_v18.3.5",
+      "version": "18.3.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a88731d393687500fc23f86437a73bc6c947e17f",
+            "comment": "Add column IDs to table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 16:15:37 GMT",
+      "tag": "@ni/nimble-components_v18.3.4",
+      "version": "18.3.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.7.0",
+            "commit": "d9e478746435367f4909d7592d859747f4b67145"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 15:44:48 GMT",
+      "tag": "@ni/nimble-components_v18.3.3",
+      "version": "18.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9b954486247d818d9f5326c1942d51d6a6d0af7b",
+            "comment": "Support dynamic arbitrary header content"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 Feb 2023 23:05:12 GMT",
+      "tag": "@ni/nimble-components_v18.3.2",
+      "version": "18.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97201afa8cc6499a8d1c3b1b593f377cfee883cf",
+            "comment": "Table styling update to headers when scrollbar is showing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Feb 2023 20:11:53 GMT",
       "tag": "@ni/nimble-components_v18.3.1",
       "version": "18.3.1",

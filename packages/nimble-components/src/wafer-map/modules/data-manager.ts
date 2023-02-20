@@ -40,34 +40,18 @@ export class DataManager {
         return this.prerendering.diesRenderInfo;
     }
 
-    public get mainCircleLocation(): { x: number, y: number } {
-        return {
-            x: this.computations.containerDimensions.width / 2,
-            y: this.computations.containerDimensions.height / 2
-        };
-    }
-
     private readonly computations: Computations;
     private readonly prerendering: Prerendering;
 
     public constructor(wafermap: WaferMap) {
-        this.computations = new Computations(wafermap.dies, wafermap.quadrant, {
-            width: wafermap.canvasSideLength,
-            height: wafermap.canvasSideLength
-        });
+        this.computations = new Computations(wafermap);
 
         this.prerendering = new Prerendering(
-            wafermap.dies,
-            wafermap.colorScale,
-            wafermap.highlightedValues,
-            this.computations.horizontalScale,
-            this.computations.verticalScale,
-            wafermap.colorScaleMode,
-            wafermap.dieLabelsHidden,
-            wafermap.dieLabelsSuffix,
-            wafermap.maxCharacters,
-            this.computations.dieDimensions,
-            this.computations.margin
+            wafermap,
+            this.horizontalScale,
+            this.verticalScale,
+            this.dieDimensions,
+            this.margin
         );
     }
 }

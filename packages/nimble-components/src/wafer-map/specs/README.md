@@ -63,6 +63,8 @@ Please see below a few screenshots regarding the current `wafer-map` component:
 From a user’s perspective one of the most important actions which this component should be able to achieve is to zoom in and out on the datapoints. This functionality should occur when the mouse pointer hovers the `nimble-wafer-map` component and a mouse wheel action is performed.
 While zooming in on the component, the user should also be able to pan (drag) the wafer map by holding the left mouse button and moving the cursor on the XY axis.
 
+Another wafer map feature is the hovering feature which is detailed in the [Nimble Wafer Map Hover Die HLD](features/hover.md).
+
 From a developer perspective, it's very important that the `nimble-wafer-map` component can be integrated with the MicroStrategy Custom plugin framework as this framework provides functionalities as follows:
 
 -   Tooltip when hovering any of the datapoints within the wafer map
@@ -113,6 +115,10 @@ Events: The events mentioned below will all be handled internally by the nimble 
 -   Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered
 -   Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
 -   Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
+
+The public API will have a new custom event fired when the mouse will hover over a displayed die.
+
+-   `die-hover` will be triggered to inform the user that the state of hoverin over a die has changed. The event `detail` will include `{currentDie: WaferMapDie}` when a new die is the target of mouse hovernig and `{currentDie: undefined}` when the hovering does not have a target.
 
 ### Anatomy
 

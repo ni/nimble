@@ -1,4 +1,5 @@
 import {
+    attr,
     defaultExecutionContext,
     ElementStyles,
     HTMLView,
@@ -6,6 +7,7 @@ import {
     ViewTemplate
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import type { TableCellRecord, TableCellState } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
@@ -32,6 +34,15 @@ export class TableCell<
     @observable
     public cellStyles?: ElementStyles;
 
+    @attr({ attribute: 'has-action-menu', mode: 'boolean' })
+    public hasActionMenu = false;
+
+    @attr({ attribute: 'menu-open', mode: 'boolean' })
+    public menuOpen = false;
+
+    @attr({ attribute: 'action-menu-label' })
+    public actionMenuLabel?: string;
+
     /**
      * @internal
      */
@@ -54,6 +65,19 @@ export class TableCell<
             this.customCellView.dispose();
             this.customCellView = undefined;
         }
+    }
+
+    public onActionMenuBeforeToggle(
+        event: CustomEvent<MenuButtonToggleEventDetail>
+    ): void {
+        this.$emit('cell-action-menu-beforetoggle', event.detail);
+    }
+
+    public onActionMenuToggle(
+        event: CustomEvent<MenuButtonToggleEventDetail>
+    ): void {
+        this.menuOpen = event.detail.newState;
+        this.$emit('cell-action-menu-toggle', event.detail);
     }
 
     protected cellStateChanged(): void {

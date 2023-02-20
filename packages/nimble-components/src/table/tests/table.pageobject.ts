@@ -1,6 +1,8 @@
 import type { Table } from '..';
+import type { TableHeader } from '../components/header';
 import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import type { MenuButton } from '../../menu-button';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -16,8 +18,8 @@ export class TablePageObject<T extends TableRecord> {
         return headers.length;
     }
 
-    public getRenderedHeaderContent(columnIndex: number): string {
-        const headers = this.tableElement.shadowRoot!.querySelectorAll(
+    public getHeaderContent(columnIndex: number): Node | undefined {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'
         )!;
         if (columnIndex >= headers.length) {
@@ -26,7 +28,7 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        return headers.item(columnIndex).textContent?.trim() ?? '';
+        return this.getHeaderContentElement(headers[columnIndex]!);
     }
 
     public getRenderedRowCount(): number {
@@ -73,4 +75,81 @@ export class TablePageObject<T extends TableRecord> {
         scrollElement.scrollTop = scrollElement.scrollHeight;
         await waitForUpdatesAsync();
     }
+
+    public getCellActionMenu(
+        rowIndex: number,
+        columnIndex: number
+    ): MenuButton | null {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        const row = rows.item(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return cells
+            .item(columnIndex)
+            .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
+    }
+
+    public isCellActionMenuVisible(
+        rowIndex: number,
+        columnIndex: number
+    ): boolean {
+        const actionMenu = this.getCellActionMenu(rowIndex, columnIndex);
+        if (!actionMenu) {
+            return false;
+        }
+
+        return window.getComputedStyle(actionMenu).display !== 'none';
+    }
+
+    public setRowHoverState(rowIndex: number, hover: boolean): void {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        if (hover) {
+            rows.item(rowIndex).classList.add('hover');
+        } else {
+            rows.item(rowIndex).classList.remove('hover');
+        }
+    }
+
+    private getHeaderContentElement(
+        element: HTMLElement | HTMLSlotElement
+    ): Node | undefined {
+        const nodeChildren = this.isSlotElement(element)
+            ? element.assignedNodes()
+            : element.shadowRoot?.childNodes;
+        if (!nodeChildren) {
+            return undefined;
+        }
+
+        const slotElement = Array.from(nodeChildren)?.find<HTMLSlotElement>(
+            this.isSlotElement
+        );
+        if (slotElement) {
+            return this.getHeaderContentElement(slotElement);
+        }
+
+        return nodeChildren[0]; // header content should be first item in final slot element
+    }
+
+    private readonly isSlotElement = (
+        element: Node | undefined
+    ): element is HTMLSlotElement => {
+        return element?.nodeName === 'SLOT' ?? false;
+    };
 }

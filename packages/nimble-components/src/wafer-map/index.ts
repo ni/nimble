@@ -89,7 +89,12 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public canvasSideLength = 0;
+    @observable public canvasWidth!: number;
+
+    /**
+     * @internal
+     */
+    @observable public canvasHeight!: number;
 
     /**
      * @internal
@@ -121,7 +126,7 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        this.initalizeInternalModules();
+        this.initializeInternalModules();
         this.renderer?.drawWafer();
     }
 
@@ -135,7 +140,7 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private initalizeInternalModules(): void {
+    private initializeInternalModules(): void {
         this.eventCoordinator?.detachEvents();
         this.dataManager = new DataManager(this);
         this.renderer = new RenderingModule(this);
@@ -149,7 +154,12 @@ export class WaferMap extends FoundationElement {
                 return;
             }
             const { height, width } = entry.contentRect;
-            this.canvasSideLength = Math.min(height, width);
+            // Updating the canvas size clears its contents so update it explicitly instead of
+            // via template bindings so we can confirm that it happens before render
+            this.canvas.width = width;
+            this.canvas.height = height;
+            this.canvasWidth = width;
+            this.canvasHeight = height;
         });
         resizeObserver.observe(this);
         return resizeObserver;
@@ -199,15 +209,12 @@ export class WaferMap extends FoundationElement {
         this.queueRender();
     }
 
-    private canvasSideLengthChanged(): void {
-        if (
-            this.canvasSideLength !== undefined
-            && this.canvasSideLength !== 0
-        ) {
-            this.canvas.width = this.canvasSideLength;
-            this.canvas.height = this.canvasSideLength;
-            this.queueRender();
-        }
+    private canvasWidthChanged(): void {
+        this.queueRender();
+    }
+
+    private canvasHeightChanged(): void {
+        this.queueRender();
     }
 }
 

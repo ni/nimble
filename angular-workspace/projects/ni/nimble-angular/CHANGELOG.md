@@ -1,8 +1,106 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 10 Feb 2023 20:11:53 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Feb 2023 17:53:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.2
+
+Mon, 20 Feb 2023 17:53:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.2
+
+## 16.1.1
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.1
+
+## 16.1.0
+
+Fri, 17 Feb 2023 22:48:41 GMT
+
+### Minor changes
+
+- Angular wrapper for banner ([ni/nimble@297fa53](https://github.com/ni/nimble/commit/297fa53b6599b525ccf37e39980e94107c21825d))
+
+## 16.0.21
+
+Fri, 17 Feb 2023 21:25:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.0
+
+## 16.0.20
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
+- Bump @ni/nimble-components to v18.4.1
+
+## 16.0.19
+
+Wed, 15 Feb 2023 21:23:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.4.0
+
+## 16.0.18
+
+Tue, 14 Feb 2023 22:59:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.7
+
+## 16.0.17
+
+Tue, 14 Feb 2023 19:59:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.6
+
+## 16.0.16
+
+Tue, 14 Feb 2023 17:27:05 GMT
+
+### Patches
+
+- Add column IDs to table ([ni/nimble@a88731d](https://github.com/ni/nimble/commit/a88731d393687500fc23f86437a73bc6c947e17f))
+- Bump @ni/nimble-components to v18.3.5
+
+## 16.0.15
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.4
+
+## 16.0.14
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.3
+
+## 16.0.13
+
+Mon, 13 Feb 2023 23:05:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.2
 
 ## 16.0.12
 
