@@ -1,7 +1,7 @@
 {
   "type": "minor",
-  "comment": "Define type for banner toggle event detail",
-  "packageName": "@ni/nimble-components",
+  "comment": "Blazor wrapper for banner",
+  "packageName": "@ni/nimble-blazor",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
 }

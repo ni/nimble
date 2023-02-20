@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 17 Feb 2023 22:48:41 GMT",
+      "tag": "@ni/nimble-angular_v16.1.0",
+      "version": "16.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "297fa53b6599b525ccf37e39980e94107c21825d",
+            "comment": "Angular wrapper for banner"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Feb 2023 21:25:31 GMT",
+      "tag": "@ni/nimble-angular_v16.0.21",
+      "version": "16.0.21",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.5.0",
+            "commit": "8c748c8f5e1b67bb7f2c984f1a91c14f967108c8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Feb 2023 19:44:11 GMT",
       "tag": "@ni/nimble-angular_v16.0.20",
       "version": "16.0.20",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 Feb 2023 19:44:11 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Feb 2023 21:25:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.0
+
+Fri, 17 Feb 2023 21:25:30 GMT
+
+### Minor changes
+
+- Define type for banner toggle event detail ([ni/nimble@8c748c8](https://github.com/ni/nimble/commit/8c748c8f5e1b67bb7f2c984f1a91c14f967108c8))
 
 ## 18.4.1
 
