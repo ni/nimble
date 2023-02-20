@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Feb 2023 17:53:22 GMT",
+      "tag": "@ni/nimble-components_v18.5.2",
+      "version": "18.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e129dbb98df339c7f0b1f5b3db195bbbef5e93e9",
+            "comment": "New HLD for the hover feature of the Wafer Map component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Feb 2023 15:59:14 GMT",
       "tag": "@ni/nimble-components_v18.5.1",
       "version": "18.5.1",
