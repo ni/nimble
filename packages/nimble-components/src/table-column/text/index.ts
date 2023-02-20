@@ -1,6 +1,6 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { TableStringField, TableFieldName } from '../../table/types';
+import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -31,12 +31,12 @@ TableColumnTextColumnConfig
 
     public readonly cellTemplate = cellTemplate;
 
-    public getColumnConfig(): TableColumnTextColumnConfig {
-        return { placeholder: this.placeholder ?? '' };
+    protected fieldNameChanged(): void {
+        this.dataRecordFieldNames = [this.fieldName] as const;
     }
 
-    public getDataRecordFieldNames(): (TableFieldName | undefined)[] {
-        return [this.fieldName];
+    protected placeholderChanged(): void {
+        this.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 }
 
