@@ -48,7 +48,7 @@ Additional implemented features:
 
 -   [Nimble Wafer Map Hover Die](features/hover.md).
 
--   [Nimble Wafer Map Die Margins](features/die-margins.md).
+-   [Nimble Wafer Map Die Padding](features/die-padding.md).
 
 ### Risks and Challenges
 
