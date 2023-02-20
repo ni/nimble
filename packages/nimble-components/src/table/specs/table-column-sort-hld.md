@@ -70,6 +70,10 @@ Each column that is sorted ascending will have `aria-sort="ascending"` set on th
 
 As part of the auto tests, we should test with edge cases for `sort-index` values. For example: `-Infinity`, `-2`, `-0`, `3.14`, `1e6`, `Infinity`, and `NaN`.
 
+## Future Work
+
+In the future, we should consider adding a locale configuration to the `nimble-theme-provider` element. The locale configured on the theme provider, could be used for locale-aware sorting. It could also be used in other elements, such as the `nimble-number-field`, which is why a locale configuration should not be on the `nimble-table` itself.
+
 ## Alternative Implementations / Designs
 
 ### Add additional restrictions for validation
