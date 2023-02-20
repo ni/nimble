@@ -117,6 +117,9 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     // This array is parallel with the field names specified by `cellRecordFieldNames`.
     dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
 
+    // The name of the data field that will be used for operations on the table, such as sorting and grouping.
+    operandDataRecordFieldName: TableFieldName | undefined;
+
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellRecord are correct
     // for each key defined by `cellRecordFieldNames`.

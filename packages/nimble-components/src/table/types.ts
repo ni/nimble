@@ -48,6 +48,7 @@ export interface TableValidity {
     readonly invalidRecordId: boolean;
     readonly duplicateColumnId: boolean;
     readonly missingColumnId: boolean;
+    readonly duplicateSortIndex: boolean;
 }
 
 export interface TableRowState<TData extends TableRecord = TableRecord> {
@@ -61,3 +62,22 @@ export interface TableActionMenuToggleEventDetail {
     recordIds: string[];
     columnId?: string;
 }
+
+/**
+ * The possible directions a table column can be sorted in.
+ */
+export const TableColumnSortDirection = {
+    none: undefined,
+    ascending: 'ascending',
+    descending: 'descending'
+} as const;
+export type TableColumnSortDirection = (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
+
+/**
+ * The possible operations to use when sorting a table column.
+*/
+export const TableColumnSortOperation = {
+    basic: 'basic',
+    localeAwareCaseSensitive: 'localeAwareCaseSensitive'
+} as const;
+export type TableColumnSortOperation = (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];

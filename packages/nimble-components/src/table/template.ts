@@ -21,7 +21,10 @@ export const template = html<Table>`
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
-                        <${DesignSystem.tagFor(TableHeader)} class="header">
+                        <${DesignSystem.tagFor(TableHeader)}
+                            class="header"
+                            sort-direction="${x => x.sortDirection}"
+                        >
                             <slot name="${x => x.slot}"></slot>
                         </${DesignSystem.tagFor(TableHeader)}>
                     `)}

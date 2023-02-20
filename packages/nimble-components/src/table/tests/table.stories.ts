@@ -127,7 +127,7 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
+            <nimble-table-column-text sort-direction="ascending" sort-index="0" field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
                 <nimble-icon-user title="First Name"></nimble-icon-user>
             </nimble-table-column-text>
             <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="last-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>

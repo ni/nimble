@@ -1,14 +1,17 @@
 import {
     attr,
     ElementStyles,
+    nullableNumberConverter,
     observable,
     ViewTemplate
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
-import type {
+import {
     TableCellRecord,
     TableCellState,
+    TableColumnSortDirection,
+    TableColumnSortOperation,
     TableFieldName
 } from '../../table/types';
 
@@ -27,6 +30,12 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'action-menu-label' })
     public actionMenuLabel?: string;
+
+    @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
+    public sortIndex: number | null = null;
+
+    @attr({ attribute: 'sort-direction' })
+    public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
     /**
      * @internal
@@ -70,10 +79,36 @@ export abstract class TableColumn<
 
     /**
      * @internal
+     *
+     * The name of the data field that will be used for operations on the table, such as sorting and grouping.
+     */
+    @observable
+    public operandDataRecordFieldName: TableFieldName | undefined;
+
+    /**
+     * @internal
+     *
+     * The operation to use when sorting the table by this column.
+     */
+    @observable
+    public sortOperation: TableColumnSortOperation = TableColumnSortOperation.basic;
+
+    /**
+     * @internal
+     */
+    public readonly internalUniqueId: string;
+
+    public constructor() {
+        super();
+        this.internalUniqueId = uniqueId('table-column-slot');
+    }
+
+    /**
+     * @internal
      */
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        this.setAttribute('slot', uniqueId('table-column-slot'));
+        this.setAttribute('slot', this.internalUniqueId);
     }
 }
