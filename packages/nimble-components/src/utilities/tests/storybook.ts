@@ -97,8 +97,8 @@ export const createFixedThemeStory = <TSource>(
                         top: 0px;
                     "
                 >
-                    ${viewTemplate}
                 </div>
+                ${viewTemplate}
             </${DesignSystem.tagFor(ThemeProvider)}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
