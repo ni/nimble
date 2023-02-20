@@ -6,10 +6,9 @@ on:
     branches:
       - '**'
     paths-ignore:
-      - '/README.md'
-      - '/CONTRIBUTING.md'
-      - '/docs/**'
-      - '/packages/nimble-*/docs/**'
+      - '/*.md'
+      - 'docs/'
+      - 'specs/'
 
 env:
   GITHUB_SERVICE_USER: "rajsite"
