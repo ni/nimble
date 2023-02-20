@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 Feb 2023 21:25:30 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Feb 2023 15:59:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.1
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Patches
+
+- Change table column base methods into internal observable properties ([ni/nimble@cb3179f](https://github.com/ni/nimble/commit/cb3179ff097069bb7be9af0153e6745ffe6970d2))
 
 ## 18.5.0
 

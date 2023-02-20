@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 17 Feb 2023 19:44:11 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Feb 2023 15:59:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.2.0
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Minor changes
+
+- Blazor wrapper for banner ([ni/nimble@e3870e9](https://github.com/ni/nimble/commit/e3870e99f628096689cefede40b9d5222f3e2a84))
 
 ## 11.1.15
 

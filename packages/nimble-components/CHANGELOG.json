@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Feb 2023 15:59:14 GMT",
+      "tag": "@ni/nimble-components_v18.5.1",
+      "version": "18.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb3179ff097069bb7be9af0153e6745ffe6970d2",
+            "comment": "Change table column base methods into internal observable properties"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Feb 2023 21:25:30 GMT",
       "tag": "@ni/nimble-components_v18.5.0",
       "version": "18.5.0",
