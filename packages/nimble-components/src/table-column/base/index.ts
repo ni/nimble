@@ -28,6 +28,9 @@ export abstract class TableColumn<
     @attr({ attribute: 'action-menu-label' })
     public actionMenuLabel?: string;
 
+    @attr({ mode: 'boolean' })
+    public override hidden = false;
+
     /**
      * @internal
      *
