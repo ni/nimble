@@ -1,11 +1,8 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html } from '@microsoft/fast-element';
-import {
-    createFixedThemeStory} from '../../utilities/tests/storybook';
-import {
-    sharedMatrixParameters
-} from '../../utilities/tests/matrix';
+import { createFixedThemeStory } from '../../utilities/tests/storybook';
+import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import '../../all-components';
 import type { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -79,7 +76,7 @@ if (remaining.length > 0) {
 }
 
 const playFunction = async (): Promise<void> => {
-    const table = document.querySelector<Table>('nimble-table')!;    
+    const table = document.querySelector<Table>('nimble-table')!;
     table.setData(data);
     await waitForUpdatesAsync();
 
@@ -90,23 +87,14 @@ const playFunction = async (): Promise<void> => {
     menuButton.toggleButton!.control.click();
 };
 
-export const tableActionMenuOpenedLightThemeWhiteBackground: Story = createFixedThemeStory(
-    component,
-    lightThemeWhiteBackground
-);
+export const tableActionMenuOpenedLightThemeWhiteBackground: Story = createFixedThemeStory(component, lightThemeWhiteBackground);
 
 tableActionMenuOpenedLightThemeWhiteBackground.play = playFunction;
 
-export const tableActionMenuOpenedColorThemeDarkGreenBackground: Story = createFixedThemeStory(
-    component,
-    colorThemeDarkGreenBackground
-);
+export const tableActionMenuOpenedColorThemeDarkGreenBackground: Story = createFixedThemeStory(component, colorThemeDarkGreenBackground);
 
 tableActionMenuOpenedColorThemeDarkGreenBackground.play = playFunction;
 
-export const tableActionMenuOpenedDarkThemeBlackBackground: Story = createFixedThemeStory(
-    component,
-    darkThemeBlackBackground
-);
+export const tableActionMenuOpenedDarkThemeBlackBackground: Story = createFixedThemeStory(component, darkThemeBlackBackground);
 
 tableActionMenuOpenedDarkThemeBlackBackground.play = playFunction;
