@@ -90,7 +90,8 @@ export const createFixedThemeStory = <TSource>(
                 <div
                     style="
                         background-color: ${backgroundState.value};
-                        padding: 20px;
+                        margin: -1em;
+                        min-height: 100vh;
                     "
                 >
                     ${viewTemplate}
