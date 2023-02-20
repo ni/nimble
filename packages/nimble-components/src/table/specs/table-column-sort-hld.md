@@ -9,7 +9,8 @@ There is a requirement to have table columns that can be sorted, both programmat
 While some interactive sorting may be alluded to within this document, the details of interactive sorting are out of scope for this document. For example, this document does not cover:
 
 -   How a column will opt in/out of being interactively sortable
--   Event(s) related to sorting
+-   Event(s) related to sorting.
+    - Whether or not the event is cancellable, and how that is affected by decisions around backend vs frontend sorting.
 -   Interactions that lead to the sorting state changing, e.g. clicking a header, option(s) in the header's menu
 
 ## Links To Relevant Work Items and Reference Material
@@ -27,9 +28,9 @@ The sorting state of the table will be declaritively defined within the `TableCo
 
 In some cases, a client may want to configure their table to be sorted by a column that is not visible within the table. To enable this, a column within the table can be marked as hidden. A hidden column exists in the table to provide metadata that can be used for operations, such as sorting, but it is not rendered within the table.
 
-A column within the table may not have a one-to-one mapping to a field within the table's data. For example, a hyperlink column might use two fields from the data: a string to use as the hyperlink's display and a string to use as the hyperlink's href. Because of this, a column must define which data field is used when sorting that column. That field is specified by a column definition by implementing an `operandDataRecordFieldName` property that is set to the name of the field to use for sorting. For example, the text column would return the value of `fieldName` and the hyperlink column would return the field name associated with the display string.
+A column within the table may not have a one-to-one mapping to a field within the table's data. For example, a hyperlink column might use two fields from the data: a string to use as the hyperlink's display and a string to use as the hyperlink's href. Because of this, a column must define which data field is used when sorting that column. That field is specified by a column definition by setting an `operandDataRecordFieldName` observable property that is set to the name of the field to use for sorting. For example, the text column would return the value of `fieldName` and the hyperlink column would return the field name associated with the display string.
 
-The column definition will also be responsible for specifying the appropriate sort function to use based on the type of data it knows is associated with `operandDataRecordFieldName`. The sort function will be specified by a `sortOperation` getter on the column, that returns a `TableColumnSortOperation` value. `TableColumnSortOperation` is a new enum that will be introduced that defines the set of sort functions that can be applied to a column. Initially, the enum will consist of the value `basic`, which will correspond to [TanStack's `basic` sort function](https://tanstack.com/table/v8/docs/api/features/sorting#sorting-functions), and the value `localeAwareCaseSensitive`, which will be backed by a function written within nimble. That function will leverage [localeCompare()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare) to perform the sort.
+The column definition will also be responsible for specifying the appropriate sort function to use based on the type of data it knows is associated with `operandDataRecordFieldName`. The sort function will be specified by a `sortOperation` observable property on the column, that returns a `TableColumnSortOperation` value. `TableColumnSortOperation` is a new enum that will be introduced that defines the set of sort functions that can be applied to a column. Initially, the enum will consist of the value `basic`, which will correspond to [TanStack's `basic` sort function](https://tanstack.com/table/v8/docs/api/features/sorting#sorting-functions), and the value `localeAwareCaseSensitive`, which will be backed by a function written within nimble. That function will leverage [localeCompare()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare) to perform the sort.
 
 For performance reasons, the table will not support custom sort functions on a column. Additionally, a column can only be sorted based on a single field within the table's data. These requirements guard against performance degradations from inefficient custom sort functions.
 
@@ -72,7 +73,13 @@ As part of the auto tests, we should test with edge cases for `sort-index` value
 
 ## Future Work
 
+### Configurable locale for sorting
+
 In the future, we should consider adding a locale configuration to the `nimble-theme-provider` element. The locale configured on the theme provider, could be used for locale-aware sorting. It could also be used in other elements, such as the `nimble-number-field`, which is why a locale configuration should not be on the `nimble-table` itself.
+
+### Extend `TableColumnSortOperation` enum
+
+As we create additional column types and identify additional sorting requirements, we can extend the `TableColumnSortOperation` enum to allow additional sort algorithms. A consideration to keep in mind is how to best align with backend sorting that may be done on a server. Currently, in SLE applications, backend sorting is not locale-aware, but it is case sensitive.
 
 ## Alternative Implementations / Designs
 
@@ -89,7 +96,7 @@ The purpose of the table's validation is to ensure that a user/client does not g
 
 ### Provide a way for clients to override the sort field
 
-The base table column could provide a way for a client to override the sort field for a column. For example, the base column class could expose an attribute that overrides the value returned by the `operandDataRecordFieldName` getter. It isn't clear at this point in time whether or not this is required on all column types, or even any column types. As a result, the attribute will not be added at this time. In the future, when there is more insight into the requirements, the attribute can either be added to the base class or a mixin can be created to provide a consistent way to allow some column types to expose the configuration in a consistent way.
+The base table column could provide a way for a client to override the sort field for a column. For example, the base column class could expose an attribute that overrides the value returned by `operandDataRecordFieldName`. It isn't clear at this point in time whether or not this is required on all column types, or even any column types. As a result, the attribute will not be added at this time. In the future, when there is more insight into the requirements, the attribute can either be added to the base class or a mixin can be created to provide a consistent way to allow some column types to expose the configuration in a consistent way.
 
 ## Open Issues
 
