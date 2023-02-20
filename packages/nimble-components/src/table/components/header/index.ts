@@ -18,7 +18,10 @@ export class TableHeader extends FoundationElement {
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
-    protected sortDirectionChanged(_prev: TableColumnSortDirection | undefined, _next: TableColumnSortDirection): void {
+    protected sortDirectionChanged(
+        _prev: TableColumnSortDirection | undefined,
+        _next: TableColumnSortDirection
+    ): void {
         if (this.sortDirection === TableColumnSortDirection.ascending) {
             this.ariaSort = 'ascending';
         } else if (this.sortDirection === TableColumnSortDirection.descending) {

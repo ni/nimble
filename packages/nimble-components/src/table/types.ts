@@ -71,13 +71,15 @@ export const TableColumnSortDirection = {
     ascending: 'ascending',
     descending: 'descending'
 } as const;
-export type TableColumnSortDirection = (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
+export type TableColumnSortDirection =
+    (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
 
 /**
  * The possible operations to use when sorting a table column.
-*/
+ */
 export const TableColumnSortOperation = {
     basic: 'basic',
     localeAwareCaseSensitive: 'localeAwareCaseSensitive'
 } as const;
-export type TableColumnSortOperation = (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
+export type TableColumnSortOperation =
+    (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];

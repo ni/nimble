@@ -152,7 +152,10 @@ export class Table<
             if (args === 'columnId') {
                 this.validateColumnIds();
             }
-            if (args === 'operandDataRecordFieldName' || args === 'sortOperation') {
+            if (
+                args === 'operandDataRecordFieldName'
+                || args === 'sortOperation'
+            ) {
                 this.generateTanStackColumns();
             }
             if (args === 'sortIndex' || args === 'sortDirection') {
@@ -239,7 +242,9 @@ export class Table<
 
     private validateColumnSortIndices(): void {
         this.tableValidator.validateColumnSortIndices(
-            this.columns.map(x => x.sortIndex).filter((x): x is number => x !== null)
+            this.columns
+                .map(x => x.sortIndex)
+                .filter((x): x is number => x !== null)
         );
         this.canRenderRows = this.checkValidity();
     }
@@ -306,15 +311,22 @@ export class Table<
 
     private setSortState(): void {
         const sortedColumns = this.columns
-            .filter(x => x.sortIndex !== null && x.sortDirection !== TableColumnSortDirection.none)
-            .sort((x, y) => (x.sortIndex! - y.sortIndex!));
+            .filter(
+                x => x.sortIndex !== null
+                    && x.sortDirection !== TableColumnSortDirection.none
+            )
+            .sort((x, y) => x.sortIndex! - y.sortIndex!);
 
-        const tanStackSortingState: TanStackSortingState = sortedColumns.map(column => {
-            return {
-                id: column.internalUniqueId,
-                desc: column.sortDirection === TableColumnSortDirection.descending
-            };
-        });
+        const tanStackSortingState: TanStackSortingState = sortedColumns.map(
+            column => {
+                return {
+                    id: column.internalUniqueId,
+                    desc:
+                        column.sortDirection
+                        === TableColumnSortDirection.descending
+                };
+            }
+        );
 
         // this.updateTableOptions({ state: { sorting: tanStackSortingState } });
         this.table.setSorting(tanStackSortingState);
@@ -334,7 +346,9 @@ export class Table<
         this.updateTableOptions({ columns: generatedColumns });
     }
 
-    private getTanStackSortingFunction(sortOperation: TableColumnSortOperation): TanStackSortingFnOption<TData> {
+    private getTanStackSortingFunction(
+        sortOperation: TableColumnSortOperation
+    ): TanStackSortingFnOption<TData> {
         switch (sortOperation) {
             case TableColumnSortOperation.basic:
                 return 'basic';
@@ -345,7 +359,11 @@ export class Table<
         }
     }
 
-    private readonly localeAwareCaseSensitiveSortFunction: TanStackSortingFn<TData> = (rowA: TanStackRow<TData>, rowB: TanStackRow<TData>, columnId: string) => {
+    private readonly localeAwareCaseSensitiveSortFunction: TanStackSortingFn<TData> = (
+        rowA: TanStackRow<TData>,
+        rowB: TanStackRow<TData>,
+        columnId: string
+    ) => {
         const valueA = rowA.getValue<string | null | undefined>(columnId) ?? '';
         const valueB = rowB.getValue<string | null | undefined>(columnId) ?? '';
 
