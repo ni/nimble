@@ -10,7 +10,7 @@ While some interactive sorting may be alluded to within this document, the detai
 
 -   How a column will opt in/out of being interactively sortable
 -   Event(s) related to sorting.
-    - Whether or not the event is cancellable, and how that is affected by decisions around backend vs frontend sorting.
+    -   Whether or not the event is cancellable, and how that is affected by decisions around backend vs frontend sorting.
 -   Interactions that lead to the sorting state changing, e.g. clicking a header, option(s) in the header's menu
 
 ## Links To Relevant Work Items and Reference Material
