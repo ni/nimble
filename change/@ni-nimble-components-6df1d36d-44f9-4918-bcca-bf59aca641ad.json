@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Change table column base methods into internal observable properties",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
