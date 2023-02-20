@@ -2,6 +2,36 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 20 Feb 2023 15:59:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.2.0",
+      "version": "11.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e3870e99f628096689cefede40b9d5222f3e2a84",
+            "comment": "Blazor wrapper for banner"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Feb 2023 19:44:11 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.15",
+      "version": "11.1.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0cc63e618d789506063b68d2b153059df2d21b1f",
+            "comment": "Provide ability to specify an action menu for a table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 17:27:05 GMT",
       "tag": "@ni/nimble-blazor_v11.1.11",
       "version": "11.1.11",

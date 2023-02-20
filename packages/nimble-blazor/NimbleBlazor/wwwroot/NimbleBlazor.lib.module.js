@@ -50,6 +50,40 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleBanner.razor
+    Blazor.registerCustomEventType('nimblebannertoggle', {
+        browserEventName: 'toggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbleactionmenubeforetoggle', {
+        browserEventName: 'action-menu-beforetoggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState,
+                recordIds: event.detail.recordIds,
+                columnId: event.detail.columnId
+            };
+        }
+    });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbleactionmenutoggle', {
+        browserEventName: 'action-menu-toggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState,
+                recordIds: event.detail.recordIds,
+                columnId: event.detail.columnId
+            };
+        }
+    });
 }
 
 window.NimbleBlazor = {

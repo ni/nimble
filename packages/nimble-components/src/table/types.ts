@@ -54,3 +54,10 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
 }
+
+export interface TableActionMenuToggleEventDetail {
+    newState: boolean;
+    oldState: boolean;
+    recordIds: string[];
+    columnId?: string;
+}

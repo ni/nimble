@@ -18,7 +18,12 @@ import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableRecord, TableRowState, TableValidity } from './types';
+import type {
+    TableActionMenuToggleEventDetail,
+    TableRecord,
+    TableRowState,
+    TableValidity
+} from './types';
 import { Virtualizer } from './models/virtualizer';
 
 declare global {
@@ -53,6 +58,18 @@ export class Table<
      */
     @observable
     public readonly childItems: Element[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public actionMenuSlots: string[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public openActionMenuRecordId?: string;
 
     /**
      * @internal
@@ -130,6 +147,19 @@ export class Table<
         }
     }
 
+    public onRowActionMenuBeforeToggle(
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): void {
+        this.openActionMenuRecordId = event.detail.recordIds[0];
+        this.$emit('action-menu-beforetoggle', event.detail);
+    }
+
+    public onRowActionMenuToggle(
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): void {
+        this.$emit('action-menu-toggle', event.detail);
+    }
+
     protected childItemsChanged(): void {
         void this.updateColumnsFromChildItems();
     }
@@ -152,6 +182,14 @@ export class Table<
         }
 
         this.validateAndObserveColumns();
+
+        const slots = new Set<string>();
+        for (const column of this.columns) {
+            if (column.actionMenuSlot) {
+                slots.add(column.actionMenuSlot);
+            }
+        }
+        this.actionMenuSlots = Array.from(slots);
     }
 
     private removeColumnObservers(): void {
