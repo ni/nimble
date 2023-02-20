@@ -10,5 +10,6 @@ module.exports = {
                   return `- ${entry.comment} ([ni/nimble@${entry.commit.substring(0,7)}](https://github.com/ni/nimble/commit/${entry.commit}))`;
             }
         }
-    }
+    },
+    ignorePatterns: [ '/*.md', '**/docs/**', '**/specs/**' ]
 };
