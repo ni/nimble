@@ -44,6 +44,12 @@ We consider now that the most important features of the current component would 
 -   Dynamic size adaptability
 -   Scalable for very large number of data points
 
+Additional implemented features:
+
+-   [Nimble Wafer Map Hover Die](features/hover.md).
+
+-   [Nimble Wafer Map Die Margins](features/die-margins.md).
+
 ### Risks and Challenges
 
 The biggest risk and challenge are regarding the rendering of the component when large numbers of data points are present.
@@ -62,8 +68,6 @@ Please see below a few screenshots regarding the current `wafer-map` component:
 
 From a user’s perspective one of the most important actions which this component should be able to achieve is to zoom in and out on the datapoints. This functionality should occur when the mouse pointer hovers the `nimble-wafer-map` component and a mouse wheel action is performed.
 While zooming in on the component, the user should also be able to pan (drag) the wafer map by holding the left mouse button and moving the cursor on the XY axis.
-
-Another wafer map feature is the hovering feature which is detailed in the [Nimble Wafer Map Hover Die HLD](features/hover.md).
 
 From a developer perspective, it's very important that the `nimble-wafer-map` component can be integrated with the MicroStrategy Custom plugin framework as this framework provides functionalities as follows:
 
@@ -97,11 +101,10 @@ _The key elements of the component's public API surface:_
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die, including the label suffix. As the die values are strings, we must have the liberty of limiting how many characters we are willing to display within a single die.
     -   `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
-    -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
+    -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
-    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
-    -   `diePadding` - a value between 0 and 1, defaulted at 0, representing the percentage of the individual die space taken by padding.
+    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
 
 The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
 The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
