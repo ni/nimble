@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - '**'
+    paths-ignore:
+      - '/README.md'
+      - '/CONTRIBUTING.md'
+      - '/packages/nimble-*/docs/**'
 
 env:
   GITHUB_SERVICE_USER: "rajsite"
