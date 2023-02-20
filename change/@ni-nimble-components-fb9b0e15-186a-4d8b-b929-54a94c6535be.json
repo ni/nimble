@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "New HLD detailing changes needed for padding input to be provided to the WaferMap",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
