@@ -32,7 +32,7 @@
     "test-firefox": "karma start karma.conf.js --browsers=FirefoxHeadless --single-run",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run",
     "test-webkit:debugger": "karma start karma.conf.js --browsers=Webkit",
-    "test": "npm run test-chrome:verbose"
+    "test": "npm run test-webkit"
   },
   "repository": {
     "type": "git",

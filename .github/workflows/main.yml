@@ -36,6 +36,7 @@ jobs:
       # See: https://github.com/actions/setup-node/issues/529
       - run: npm i -g npm@8
       - run: npm ci
+      - run: npx playwright install-deps
       - run: npm outdated
         continue-on-error: true
 
