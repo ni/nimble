@@ -21,8 +21,8 @@ export type WaferMapOrientation =
     (typeof WaferMapOrientation)[keyof typeof WaferMapOrientation];
 
 export const HoverDieOpacity = {
-    opaque: 'opaque',
-    transparent: 'transparent'
+    show: 'show',
+    hide: 'hide'
 } as const;
 
 export type HoverDieOpacity =

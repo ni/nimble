@@ -59,20 +59,27 @@ export const styles = css`
         position: absolute;
     }
 
-    .hover-rect {
+    .hover-layer {
         position: absolute;
         pointer-events: none;
-        fill:transparent;
-        stroke:white;
-        outline-style:solid;
-        outline-color:green;
+        width: 100%;
+        height: 100%;
     }
-    .hover-rect.opaque {
+
+    .hover-rect {
+        fill: transparent;
+        stroke: white;
+        outline-style: solid;
+        outline-color: green;
+    }
+
+    .hover-rect.show {
         opacity: '1';
         stroke-width: '2px';
         outline-width: '2px';
     }
-    .hover-rect.transparent {
+
+    .hover-rect.hide {
         opacity: '0';
         stroke-width: '0px';
         outline-width: '0px';

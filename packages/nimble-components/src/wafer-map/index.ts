@@ -110,7 +110,7 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public hoverOpacity: HoverDieOpacity = HoverDieOpacity.transparent;
+    @observable public hoverOpacity: HoverDieOpacity = HoverDieOpacity.hide;
 
     /**
      * @internal
@@ -121,6 +121,11 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     @observable public hoverHeight = 0;
+
+    /**
+     * @internal
+     */
+    @observable public hoverDie: WaferMapDie | undefined;
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -186,10 +191,6 @@ export class WaferMap extends FoundationElement {
         return resizeObserver;
     }
 
-    private readonly emitDieSelected = (die: WaferMapDie): void => {
-        this.$emit('die-selected', { detail: { die } });
-    };
-
     private quadrantChanged(): void {
         this.queueRender();
     }
@@ -227,8 +228,6 @@ export class WaferMap extends FoundationElement {
     }
 
     private transformChanged(): void {
-        // this.hoverWidth = this.dataManager!.dieDimensions.width * this.transform.k;
-        // this.hoverHeight = this.dataManager!.dieDimensions.height * this.transform.k;
         this.queueRender();
     }
 
@@ -238,6 +237,23 @@ export class WaferMap extends FoundationElement {
 
     private canvasHeightChanged(): void {
         this.queueRender();
+    }
+
+    private hoverDieChanged(): void {
+        this.$emit('die-hover', { detail: { currentDie: this.hoverDie } });
+        this.hoverOpacity = this.hoverDie === undefined
+            ? HoverDieOpacity.hide
+            : HoverDieOpacity.show;
+
+        if (this.hoverDie !== undefined) {
+            const scaledX = this.dataManager!.horizontalScale(this.hoverDie.x);
+            const scaledY = this.dataManager!.verticalScale(this.hoverDie.y);
+            const transformedPoint = this.transform.apply([
+                scaledX + this.dataManager!.margin.left,
+                scaledY + this.dataManager!.margin.top
+            ]);
+            this.hoverTransform = `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
+        }
     }
 }
 
