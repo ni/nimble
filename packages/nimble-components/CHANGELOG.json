@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Feb 2023 22:41:30 GMT",
+      "tag": "@ni/nimble-components_v18.5.2",
+      "version": "18.5.2",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c489767ab3227b24417886262cc04a0c8db1b36b",
+            "comment": "Expanded additional design implementation for hover die in Wafer Map"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Feb 2023 20:36:56 GMT",
+      "tag": "@ni/nimble-components_v18.5.2",
+      "version": "18.5.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "46bed1b3a0a17bacc632b74232dd0287bbdd8c93",
+            "comment": "HLD for programmatic column sorting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Feb 2023 17:53:22 GMT",
       "tag": "@ni/nimble-components_v18.5.2",
       "version": "18.5.2",
