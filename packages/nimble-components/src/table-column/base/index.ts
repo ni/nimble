@@ -31,6 +31,9 @@ export abstract class TableColumn<
     @attr({ attribute: 'action-menu-label' })
     public actionMenuLabel?: string;
 
+    @attr({ attribute: 'column-hidden', mode: 'boolean' })
+    public columnHidden = false;
+
     @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
     public sortIndex: number | null = null;
 

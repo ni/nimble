@@ -100,4 +100,20 @@ This event will also allow the testing of the hover functionality.
 
 ## Alternative Implementations / Designs
 
+Different designs for marking the hovered die were suggested and rejected:
+
+Changing the size of the dies on hover.
+This lets us keep the color info and should scale better.
+
+The shrink might run into issue with high density wafers.
+![shrink](resources/shrink.png)
+
+The grow might have to overlap neighbors in a high density case but with the drop shadow should still stand out.
+![Grow](resources/grow.png)
+
+Another option is changing the color altogether and displaying the number on top. The downside is you lose the color info for the active die.
+![different color](resources/top-number.png)
+
+The chosen design is similar to the nimble buttons. This makes us consistent with the rest of the design system.
+
 ## Open Issues

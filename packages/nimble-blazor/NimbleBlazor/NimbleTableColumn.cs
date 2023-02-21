@@ -23,4 +23,10 @@ public abstract class NimbleTableColumn : ComponentBase
     /// </summary>
     [Parameter]
     public string? ActionMenuLabel { get; set; }
+
+    /// <summary>
+    /// Whether or not the column should be hidden within a <see cref="NimbleTable{TData}"/>.
+    /// </summary>
+    [Parameter]
+    public bool? ColumnHidden { get; set; }
 }
