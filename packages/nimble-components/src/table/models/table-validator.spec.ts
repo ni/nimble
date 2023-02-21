@@ -322,31 +322,31 @@ describe('TableValidator', () => {
                 sortIndices: [-Infinity, -Infinity],
                 isValid: false,
                 invalidKeys: ['duplicateSortIndex'],
-                name: 'duplicate \'-Infinity\' values are detected'
+                name: "duplicate '-Infinity' values are detected"
             },
             {
                 sortIndices: [Infinity, Infinity],
                 isValid: false,
                 invalidKeys: ['duplicateSortIndex'],
-                name: 'duplicate \'Infinity\' values are detected'
+                name: "duplicate 'Infinity' values are detected"
             },
             {
                 sortIndices: [Math.PI, Math.PI],
                 isValid: false,
                 invalidKeys: ['duplicateSortIndex'],
-                name: 'duplicate \'Math.PI\' values are detected'
+                name: "duplicate 'Math.PI' values are detected"
             },
             {
                 sortIndices: [NaN, NaN],
                 isValid: false,
                 invalidKeys: ['duplicateSortIndex'],
-                name: 'duplicate \'NaN\' values are detected'
+                name: "duplicate 'NaN' values are detected"
             },
             {
                 sortIndices: [0, -0],
                 isValid: false,
                 invalidKeys: ['duplicateSortIndex'],
-                name: 'duplicate \'0\' and \'-0\' values are detected'
+                name: "duplicate '0' and '-0' values are detected"
             },
             {
                 sortIndices: [1.25, 1.25],
@@ -359,7 +359,7 @@ describe('TableValidator', () => {
                 isValid: true,
                 invalidKeys: [],
                 name: 'special numeric values are valid'
-            },
+            }
         ];
 
         const focused: string[] = [];
@@ -473,9 +473,7 @@ describe('TableValidator', () => {
                 ])
             );
 
-            const sortIndicesAreValid = validator.validateColumnSortIndices(
-                []
-            );
+            const sortIndicesAreValid = validator.validateColumnSortIndices([]);
             expect(sortIndicesAreValid).toBeTrue();
             expect(validator.isValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
@@ -487,15 +485,13 @@ describe('TableValidator', () => {
         });
 
         it('invalid sort indices stay invalid when validating column IDs', () => {
-            const sortIndicesAreValid = validator.validateColumnSortIndices(
-                [1, 1, 1]
-            );
+            const sortIndicesAreValid = validator.validateColumnSortIndices([
+                1, 1, 1
+            ]);
             expect(sortIndicesAreValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
-                jasmine.arrayWithExactContents([
-                    'duplicateSortIndex'
-                ])
+                jasmine.arrayWithExactContents(['duplicateSortIndex'])
             );
 
             const columnIdsAreValid = validator.validateColumnIds([
@@ -506,9 +502,7 @@ describe('TableValidator', () => {
             expect(columnIdsAreValid).toBeTrue();
             expect(validator.isValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
-                jasmine.arrayWithExactContents([
-                    'duplicateSortIndex'
-                ])
+                jasmine.arrayWithExactContents(['duplicateSortIndex'])
             );
         });
     });
