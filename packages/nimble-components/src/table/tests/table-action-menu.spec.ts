@@ -134,12 +134,11 @@ describe('Table action menu', () => {
         expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
 
         // Open the menu button
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const toggleListener = createEventListener(
             element,
             'action-menu-toggle'
         );
-        menuButton.toggleButton!.control.click();
+        pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
 
         pageObject.setRowHoverState(1, false);
@@ -197,13 +196,12 @@ describe('Table action menu', () => {
 
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const toggleListener = createEventListener(
             element,
             'action-menu-toggle'
         );
         // Open a menu button for the first row to cause all the menus to be slotted within that row
-        menuButton.toggleButton!.control.click();
+        pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
 
         const rowSlots = element
@@ -225,13 +223,12 @@ describe('Table action menu', () => {
 
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const toggleListener = createEventListener(
             element,
             'action-menu-toggle'
         );
         // Open a menu button for the first row to cause all the menus to be slotted within that row
-        menuButton.toggleButton!.control.click();
+        pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
 
         const rowSlots = element
@@ -258,8 +255,7 @@ describe('Table action menu', () => {
         );
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        pageObject.clickCellActionMenu(1, 0);
 
         await beforetoggleListener.promise;
         expect(beforetoggleListener.spy).toHaveBeenCalledTimes(1);
@@ -286,8 +282,7 @@ describe('Table action menu', () => {
 
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
         const beforetoggleListener = createEventListener(
             element,
@@ -296,6 +291,7 @@ describe('Table action menu', () => {
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
         } as KeyboardEventInit);
+        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
         await beforetoggleListener.promise;
@@ -327,8 +323,7 @@ describe('Table action menu', () => {
         );
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        pageObject.clickCellActionMenu(1, 0);
 
         await toggleListener.promise;
         expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -355,8 +350,7 @@ describe('Table action menu', () => {
 
         pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
         const toggleListener = createEventListener(
             element,
@@ -365,6 +359,7 @@ describe('Table action menu', () => {
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
         } as KeyboardEventInit);
+        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
         await toggleListener.promise;

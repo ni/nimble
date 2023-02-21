@@ -8,6 +8,7 @@ import type { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import { backgroundStates } from '../../utilities/tests/states';
+import { TablePageObject } from './table.pageobject';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -80,11 +81,10 @@ const playFunction = async (): Promise<void> => {
     table.setData(data);
     await waitForUpdatesAsync();
 
-    const row = table.shadowRoot!.querySelector('nimble-table-row')!;
-    row.classList.add('hover');
-    const cell = row.shadowRoot!.querySelector('nimble-table-cell')!;
-    const menuButton = cell.shadowRoot!.querySelector<MenuButton>('nimble-menu-button')!;
-    menuButton.toggleButton!.control.click();
+    const pageObject = new TablePageObject(table);
+    pageObject.setRowHoverState(0, true);
+    await waitForUpdatesAsync();
+    pageObject.clickCellActionMenu(0, 0);
 };
 
 export const tableActionMenuOpenedLightThemeWhiteBackground: Story = createFixedThemeStory(component, lightThemeWhiteBackground);
