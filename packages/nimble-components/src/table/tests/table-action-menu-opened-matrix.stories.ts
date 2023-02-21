@@ -81,9 +81,7 @@ const playFunction = async (): Promise<void> => {
     await waitForUpdatesAsync();
 
     const pageObject = new TablePageObject(table);
-    pageObject.setRowHoverState(0, true);
-    await waitForUpdatesAsync();
-    pageObject.clickCellActionMenu(0, 0);
+    await pageObject.clickCellActionMenu(0, 0);
 };
 
 export const tableActionMenuOpenedLightThemeWhiteBackground: Story = createFixedThemeStory(component, lightThemeWhiteBackground);

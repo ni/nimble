@@ -100,10 +100,13 @@ export class TablePageObject<T extends TableRecord> {
             .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
     }
 
-    public clickCellActionMenu(
+    public async clickCellActionMenu(
         rowIndex: number,
         columnIndex: number
-    ): void {
+    ): Promise<void> {
+        this.setRowHoverState(rowIndex, true);
+        await waitForUpdatesAsync();
+
         const menuButton = this.getCellActionMenu(rowIndex, columnIndex);
         if (!menuButton) {
             throw new Error(
