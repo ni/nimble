@@ -54,7 +54,7 @@ const component = (): ViewTemplate => html`
         <nimble-table-column-text field-name="firstName" placeholder="no value"><nimble-icon-user></nimble-icon-user></nimble-table-column-text>
         <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
         <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-        <nimble-table-column-text field-name="quote" placeholder="no value" hidden>Hidden Quote</nimble-table-column-text>
+        <nimble-table-column-text field-name="quote" placeholder="no value" column-hidden>Hidden Quote</nimble-table-column-text>
     </nimble-table>
 `;
 

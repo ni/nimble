@@ -8,7 +8,7 @@ import { TableCell } from '../cell';
 export const template = html<TableRow>`
     <template role="row">
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
-            ${when(x => !x.column.hidden, html<ColumnState, TableRow>`
+            ${when(x => !x.column.columnHidden, html<ColumnState, TableRow>`
                 <${DesignSystem.tagFor(TableCell)}
                     class="cell"
                     :cellTemplate="${x => x.column.cellTemplate}"

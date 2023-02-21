@@ -21,7 +21,7 @@ export const template = html<Table>`
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
-                        ${when(x => !x.hidden, html<TableColumn>`
+                        ${when(x => !x.columnHidden, html<TableColumn>`
                             <${DesignSystem.tagFor(TableHeader)} class="header">
                                 <slot name="${x => x.slot}"></slot>
                             </${DesignSystem.tagFor(TableHeader)}>

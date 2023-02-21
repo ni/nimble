@@ -69,7 +69,7 @@ describe('Table', () => {
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
-                if (column.hidden) {
+                if (column.columnHidden) {
                     continue;
                 }
 
@@ -88,7 +88,7 @@ describe('Table', () => {
         const visibleData = retrieveExpectedData(visibleTableDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
-        const visibleColumns = element.columns.filter(x => !x.hidden);
+        const visibleColumns = element.columns.filter(x => !x.columnHidden);
 
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
             for (
@@ -574,7 +574,7 @@ describe('Table', () => {
 
     describe('hidden columns', () => {
         it('does not render hidden columns', async () => {
-            column1.hidden = true;
+            column1.columnHidden = true;
             element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
@@ -583,12 +583,12 @@ describe('Table', () => {
         });
 
         it('changing a column from hidden to not hidden makes it visible', async () => {
-            column1.hidden = true;
+            column1.columnHidden = true;
             element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
-            column1.hidden = false;
+            column1.columnHidden = false;
             await waitForUpdatesAsync();
 
             verifyRenderedData(simpleTableData);
@@ -599,7 +599,7 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            column1.hidden = true;
+            column1.columnHidden = true;
             await waitForUpdatesAsync();
 
             verifyRenderedData(simpleTableData);
