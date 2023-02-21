@@ -69,7 +69,11 @@ describe('Table', () => {
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
-                const dataKey = column.getDataRecordFieldNames()[0]!;
+                if (column.columnHidden) {
+                    continue;
+                }
+
+                const dataKey = column.dataRecordFieldNames[0]!;
                 const expectedCellData = rowData[dataKey]!;
                 record[dataKey] = expectedCellData;
             }
@@ -84,13 +88,15 @@ describe('Table', () => {
         const visibleData = retrieveExpectedData(visibleTableDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
+        const visibleColumns = element.columns.filter(x => !x.columnHidden);
+
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
             for (
                 let columnIndex = 0;
-                columnIndex < element.columns.length;
+                columnIndex < visibleColumns.length;
                 columnIndex++
             ) {
-                const dataKey = element.columns[columnIndex]!.getDataRecordFieldNames()[0]!;
+                const dataKey = visibleColumns[columnIndex]!.dataRecordFieldNames[0]!;
                 const expectedCellData = visibleData[rowIndex]![dataKey]!;
                 expect(
                     pageObject.getRenderedCellContent(rowIndex, columnIndex)
@@ -563,6 +569,67 @@ describe('Table', () => {
             expect(newRenderedRowCount).toBeGreaterThan(
                 originalRenderedRowCount
             );
+        });
+    });
+
+    describe('hidden columns', () => {
+        it('does not render hidden columns', async () => {
+            column1.columnHidden = true;
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('changing a column from hidden to not hidden makes it visible', async () => {
+            column1.columnHidden = true;
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            column1.columnHidden = false;
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('changing a column from not hidden to hidden makes it hidden', async () => {
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            column1.columnHidden = true;
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
         });
     });
 });

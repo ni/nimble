@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 17 Feb 2023 22:48:41 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.1.3
+
+Tue, 21 Feb 2023 20:30:27 GMT
+
+### Patches
+
+- Allow table columns to be marked as hidden ([ni/nimble@8fcdeb8](https://github.com/ni/nimble/commit/8fcdeb884b9be29b92b4e273991fbc96f077d744))
+- Bump @ni/nimble-components to v18.5.3
+
+## 16.1.2
+
+Mon, 20 Feb 2023 17:53:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.2
+
+## 16.1.1
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.1
 
 ## 16.1.0
 

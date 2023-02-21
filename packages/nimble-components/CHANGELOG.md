@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 17 Feb 2023 21:25:30 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.3
+
+Tue, 21 Feb 2023 20:30:27 GMT
+
+### Patches
+
+- Allow table columns to be marked as hidden ([ni/nimble@8fcdeb8](https://github.com/ni/nimble/commit/8fcdeb884b9be29b92b4e273991fbc96f077d744))
+
+## 18.5.2
+
+Mon, 20 Feb 2023 17:53:22 GMT
+
+### Patches
+
+- New HLD for the hover feature of the Wafer Map component ([ni/nimble@e129dbb](https://github.com/ni/nimble/commit/e129dbb98df339c7f0b1f5b3db195bbbef5e93e9))
+
+## 18.5.1
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Patches
+
+- Change table column base methods into internal observable properties ([ni/nimble@cb3179f](https://github.com/ni/nimble/commit/cb3179ff097069bb7be9af0153e6745ffe6970d2))
 
 ## 18.5.0
 

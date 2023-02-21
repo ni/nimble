@@ -196,7 +196,7 @@ It is common in web development to represent variations of control states using 
 
 ##### Attribute common value patterns
 
--   When applicable, the default value for an attribute that is allowed to be unconfigured should have the enum name `default` and be the enum value `undefined`.
+-   When applicable, the default value for an attribute that is allowed to be unconfigured should be first in the enum object, have a descriptive enum name, such as `default`, `none`, etc, based on the context, and be the enum value `undefined`.
 -   States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
 
     Avoid shorthands, i.e. `warn`, `info` and avoid alternatives, i.e. `pass`, `fail`, `invalid`.
