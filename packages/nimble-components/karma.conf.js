@@ -3,7 +3,13 @@
 // Coverage from the fast configuration removed due to lack of Webpack 5 support:
 // https://github.com/webpack-contrib/istanbul-instrumenter-loader/issues/110
 
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+const playwright = require('playwright');
+
+process.env.WEBKIT_HEADLESS_BIN = playwright.webkit.executablePath();
+process.env.WEBKIT_BIN = playwright.webkit.executablePath();
+process.env.FIREFOX_BIN = playwright.firefox.executablePath();
+process.env.CHROME_BIN = playwright.chromium.executablePath();
+
 const path = require('path');
 const webpack = require('webpack');
 

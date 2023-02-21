@@ -111,7 +111,6 @@
     "prettier": "^2.0.0",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
-    "puppeteer": "^19.6.0",
     "rollup": "^3.10.1",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "storybook-addon-xd-designs": "^6.0.0",
