@@ -28,6 +28,7 @@ describe('NimbleTableColumnText', () => {
                         placeholder="no value"
                         action-menu-slot="my-slot"
                         action-menu-label="my menu"
+                        column-hidden="true"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -76,6 +77,11 @@ describe('NimbleTableColumnText', () => {
             expect(directive.columnId).toBe('my-column');
             expect(nativeElement.columnId).toBe('my-column');
         });
+
+        it('will use template string value for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+        });
     });
 
     describe('with property bound values', () => {
@@ -89,6 +95,7 @@ describe('NimbleTableColumnText', () => {
                         [placeholder]="placeholder"
                         [actionMenuSlot]="actionMenuSlot"
                         [actionMenuLabel]="actionMenuLabel"
+                        [column-hidden]="columnHidden"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -101,6 +108,7 @@ describe('NimbleTableColumnText', () => {
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
             public columnId = 'my-column';
+            public columnHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -172,6 +180,17 @@ describe('NimbleTableColumnText', () => {
             expect(directive.columnId).toBe('new-column');
             expect(nativeElement.columnId).toBe('new-column');
         });
+
+        it('can be configured with property binding for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+
+            fixture.componentInstance.columnHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.columnHidden).toBe(false);
+            expect(nativeElement.columnHidden).toBe(false);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -185,6 +204,7 @@ describe('NimbleTableColumnText', () => {
                         [attr.placeholder]="placeholder"
                         [attr.action-menu-slot]="actionMenuSlot"
                         [attr.action-menu-label]="actionMenuLabel"
+                        [attr.column-hidden]="columnHidden"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -197,6 +217,7 @@ describe('NimbleTableColumnText', () => {
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
             public columnId = 'my-column';
+            public columnHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -267,6 +288,17 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.columnId).toBe('new-column');
             expect(nativeElement.columnId).toBe('new-column');
+        });
+
+        it('can be configured with attribute binding for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+
+            fixture.componentInstance.columnHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.columnHidden).toBe(false);
+            expect(nativeElement.columnHidden).toBe(false);
         });
     });
 });
