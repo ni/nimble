@@ -579,9 +579,15 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const visibleColumnCount = element.columns.filter(x => !x.columnHidden).length;
-            expect(pageObject.getRenderedHeaderCount()).toEqual(visibleColumnCount);
-            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(visibleColumnCount);
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
             verifyRenderedData(simpleTableData);
         });
 
@@ -594,9 +600,15 @@ describe('Table', () => {
             column1.columnHidden = false;
             await waitForUpdatesAsync();
 
-            const visibleColumnCount = element.columns.filter(x => !x.columnHidden).length;
-            expect(pageObject.getRenderedHeaderCount()).toEqual(visibleColumnCount);
-            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(visibleColumnCount);
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
             verifyRenderedData(simpleTableData);
         });
 
@@ -608,9 +620,15 @@ describe('Table', () => {
             column1.columnHidden = true;
             await waitForUpdatesAsync();
 
-            const visibleColumnCount = element.columns.filter(x => !x.columnHidden).length;
-            expect(pageObject.getRenderedHeaderCount()).toEqual(visibleColumnCount);
-            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(visibleColumnCount);
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
             verifyRenderedData(simpleTableData);
         });
     });
