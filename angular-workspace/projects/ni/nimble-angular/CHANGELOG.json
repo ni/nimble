@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 21 Feb 2023 20:30:27 GMT",
+      "tag": "@ni/nimble-angular_v16.1.3",
+      "version": "16.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8fcdeb884b9be29b92b4e273991fbc96f077d744",
+            "comment": "Allow table columns to be marked as hidden"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.5.3",
+            "commit": "8fcdeb884b9be29b92b4e273991fbc96f077d744"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Feb 2023 17:53:22 GMT",
       "tag": "@ni/nimble-angular_v16.1.2",
       "version": "16.1.2",
