@@ -109,9 +109,7 @@ export class TablePageObject<T extends TableRecord> {
 
         const menuButton = this.getCellActionMenu(rowIndex, columnIndex);
         if (!menuButton) {
-            throw new Error(
-                'Cannot click on a non-visible action menu'
-            );
+            throw new Error('Cannot click on a non-visible action menu');
         }
 
         menuButton.toggleButton!.control.click();
@@ -137,11 +135,18 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        const cells = rows.item(rowIndex).shadowRoot!.querySelectorAll('nimble-table-cell');
+        const cells = rows
+            .item(rowIndex)
+            .shadowRoot!.querySelectorAll('nimble-table-cell');
         if (hover) {
-            cells.forEach(cell => cell.style.setProperty('--ni-private-table-cell-action-menu-display', 'block'));
+            cells.forEach(cell => cell.style.setProperty(
+                '--ni-private-table-cell-action-menu-display',
+                'block'
+            ));
         } else {
-            cells.forEach(cell => cell.style.removeProperty('--ni-private-table-cell-action-menu-display'));
+            cells.forEach(cell => cell.style.removeProperty(
+                '--ni-private-table-cell-action-menu-display'
+            ));
         }
     }
 
