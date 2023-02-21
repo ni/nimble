@@ -90,7 +90,7 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         actions: {
-            handles: ['click', 'die-selected']
+            handles: ['click', 'die-hover']
         }
     },
     render: createUserSelectedThemeStory(html`

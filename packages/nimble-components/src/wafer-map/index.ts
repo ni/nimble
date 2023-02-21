@@ -154,6 +154,7 @@ export class WaferMap extends FoundationElement {
         this.renderQueued = false;
         this.initializeInternalModules();
         this.renderer?.drawWafer();
+        this.moveHoverRect();
     }
 
     private queueRender(): void {
@@ -240,11 +241,14 @@ export class WaferMap extends FoundationElement {
     }
 
     private hoverDieChanged(): void {
-        this.$emit('die-hover', { detail: { currentDie: this.hoverDie } });
+        this.$emit('die-hover', { currentDie: this.hoverDie });
         this.hoverOpacity = this.hoverDie === undefined
             ? HoverDieOpacity.hide
             : HoverDieOpacity.show;
+        this.moveHoverRect();
+    }
 
+    private moveHoverRect(): void {
         if (this.hoverDie !== undefined) {
             const scaledX = this.dataManager!.horizontalScale(this.hoverDie.x);
             const scaledY = this.dataManager!.verticalScale(this.hoverDie.y);

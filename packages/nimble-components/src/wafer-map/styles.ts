@@ -74,14 +74,14 @@ export const styles = css`
     }
 
     .hover-rect.show {
-        opacity: '1';
-        stroke-width: '2px';
-        outline-width: '2px';
+        opacity: 1;
+        stroke-width: 2px;
+        outline-width: 2px;
     }
 
     .hover-rect.hide {
-        opacity: '0';
-        stroke-width: '0px';
-        outline-width: '0px';
+        opacity: 0;
+        stroke-width: 0px;
+        outline-width: 0px;
     }
 `;
