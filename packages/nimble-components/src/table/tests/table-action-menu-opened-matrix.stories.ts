@@ -6,7 +6,6 @@ import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import '../../all-components';
 import type { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import type { MenuButton } from '../../menu-button';
 import { backgroundStates } from '../../utilities/tests/states';
 import { TablePageObject } from './table.pageobject';
 
