@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "New HLD detailing changes needed for setting die padding in the WaferMap",
-  "packageName": "@ni/nimble-components",
-  "email": "33986780+munteannatan@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

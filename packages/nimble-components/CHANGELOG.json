@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 Feb 2023 16:40:03 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "76729cc4248bb0f5efc01394472b70c6fbc3e271",
+            "comment": "New HLD detailing changes needed for setting die padding in the WaferMap"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Feb 2023 20:30:27 GMT",
       "tag": "@ni/nimble-components_v18.5.3",
       "version": "18.5.3",
