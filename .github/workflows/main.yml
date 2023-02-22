@@ -81,7 +81,7 @@ jobs:
       - run: npm run lint
 
       # Test
-      - run: npm run test -w @ni/nimble-components
+      - run: npm run test
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
