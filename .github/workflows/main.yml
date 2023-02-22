@@ -36,7 +36,7 @@ jobs:
       # See: https://github.com/actions/setup-node/issues/529
       - run: npm i -g npm@8
       - run: npm ci
-      - run: npx playwright install-deps
+      - run: npx playwright install --with-deps
       - run: npm outdated
         continue-on-error: true
 
@@ -81,7 +81,7 @@ jobs:
       - run: npm run lint
 
       # Test
-      - run: npm run test
+      - run: npm run test -w @ni/nimble-components
 
       # Run Lighthouse audit (from any push)
       - name: Performance Audit with Lighthouse CI
