@@ -25,7 +25,7 @@ export const template = html<WaferMap>`
         <svg class="hover-layer">
             <rect
                 class="hover-rect ${x => x.hoverOpacity}"
-                transform="${x => x.hoverTransform.toString()}"
+                transform="${x => x.hoverTransform}"
                 width="${x => x.hoverWidth}"
                 height="${x => x.hoverHeight}"
             />

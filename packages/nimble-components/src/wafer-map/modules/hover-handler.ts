@@ -5,10 +5,7 @@ import { PointCoordinates, WaferMapQuadrant } from '../types';
  * HoverHandler deals with user interactions and events like hovering
  */
 export class HoverHandler {
-    public constructor(private readonly wafermap: WaferMap) {
-        wafermap.hoverWidth = wafermap.dataManager!.dieDimensions.width * wafermap.transform.k;
-        wafermap.hoverHeight = wafermap.dataManager!.dieDimensions.height * wafermap.transform.k;
-    }
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public mousemove(event: MouseEvent): void {
         const mousePosition: PointCoordinates = {
@@ -66,13 +63,7 @@ export class HoverHandler {
     }
 
     private hoversOverDie(mousePosition: PointCoordinates): boolean {
-        const canvasContext = this.wafermap.canvas.getContext('2d', {
-            willReadFrequently: true
-        });
-        if (canvasContext === null) {
-            return false;
-        }
-        const rgba = canvasContext.getImageData(
+        const rgba = this.wafermap.canvasContext.getImageData(
             mousePosition.x,
             mousePosition.y,
             1,

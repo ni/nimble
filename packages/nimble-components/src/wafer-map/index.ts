@@ -66,12 +66,12 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly zoomContainer!: HTMLElement;
+    public canvasContext!: CanvasRenderingContext2D;
 
     /**
      * @internal
      */
-    public readonly rect!: HTMLElement;
+    public readonly zoomContainer!: HTMLElement;
 
     /**
      * @internal
@@ -139,6 +139,12 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        const canvasContext = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        });
+        if (canvasContext != null) {
+            this.canvasContext = canvasContext;
+        }
         this.resizeObserver = this.createResizeObserver();
     }
 
@@ -154,7 +160,6 @@ export class WaferMap extends FoundationElement {
         this.renderQueued = false;
         this.initializeInternalModules();
         this.renderer?.drawWafer();
-        this.moveHoverRect();
     }
 
     private queueRender(): void {
@@ -165,6 +170,13 @@ export class WaferMap extends FoundationElement {
             this.renderQueued = true;
             DOM.queueUpdate(() => this.render());
         }
+    }
+
+    private queueRenderHover(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        DOM.queueUpdate(() => this.renderer?.renderHover());
     }
 
     private initializeInternalModules(): void {
@@ -242,22 +254,7 @@ export class WaferMap extends FoundationElement {
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.hoverOpacity = this.hoverDie === undefined
-            ? HoverDieOpacity.hide
-            : HoverDieOpacity.show;
-        this.moveHoverRect();
-    }
-
-    private moveHoverRect(): void {
-        if (this.hoverDie !== undefined) {
-            const scaledX = this.dataManager!.horizontalScale(this.hoverDie.x);
-            const scaledY = this.dataManager!.verticalScale(this.hoverDie.y);
-            const transformedPoint = this.transform.apply([
-                scaledX + this.dataManager!.margin.left,
-                scaledY + this.dataManager!.margin.top
-            ]);
-            this.hoverTransform = `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
-        }
+        this.queueRenderHover();
     }
 }
 
