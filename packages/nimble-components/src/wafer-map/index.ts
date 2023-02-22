@@ -146,6 +146,7 @@ export class WaferMap extends FoundationElement {
             this.canvasContext = canvasContext;
         }
         this.resizeObserver = this.createResizeObserver();
+        this.queueRender();
     }
 
     public override disconnectedCallback(): void {

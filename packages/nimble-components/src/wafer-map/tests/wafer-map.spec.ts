@@ -20,9 +20,6 @@ describe('WaferMap', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();
-        element.canvasWidth = 500;
-        element.canvasHeight = 500;
-        processUpdates();
         spy = spyOn(element, 'render');
     });
 
@@ -108,6 +105,9 @@ describe('WaferMap', () => {
         let initialValue: string | undefined;
 
         beforeEach(() => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            element.colorScale = { colors: ['red'], values: ['1'] };
+            processUpdates();
             initialValue = getTransform();
             expect(initialValue).toBe('translate(0,0) scale(1)');
         });
@@ -152,4 +152,21 @@ describe('WaferMap', () => {
     function getTransform(): string | undefined {
         return element.transform.toString();
     }
+
+    describe('Hover Rectangle', () => {
+        beforeEach(() => {
+            element.dies = [{ x: 1, y: 1, value: '1' }];
+            element.colorScale = { colors: ['red'], values: ['1'] };
+            processUpdates();
+        });
+
+        it('will translate when moving the pointer over the wafer-map', () => {
+            const initialTransform = element.hoverTransform;
+            element.dispatchEvent(
+                new MouseEvent('mousemove', { clientX: 100, clientY: 100 })
+            );
+            processUpdates();
+            expect(element.hoverTransform).not.toEqual(initialTransform);
+        });
+    });
 });
