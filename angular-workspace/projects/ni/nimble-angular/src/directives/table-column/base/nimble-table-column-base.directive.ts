@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
+import { BooleanValueOrAttribute, toBooleanProperty } from '../../utilities/template-value-helpers';
 
 /**
  * Base class for table column directives.
@@ -34,6 +35,16 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('action-menu-label') public set actionMenuLabel(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'actionMenuLabel', value);
+    }
+
+    public get columnHidden(): boolean {
+        return this.elementRef.nativeElement.columnHidden;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('column-hidden') public set columnHidden(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'columnHidden', toBooleanProperty(value));
     }
 
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<T>) {}
