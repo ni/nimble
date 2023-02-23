@@ -12,11 +12,11 @@ export { Theme };
     selector: 'nimble-theme-provider'
 })
 export class NimbleThemeProviderDirective {
-    public get theme(): Theme {
+    public get theme(): Theme | null | undefined {
         return this.elementRef.nativeElement.theme;
     }
 
-    @Input() public set theme(value: Theme) {
+    @Input() public set theme(value: Theme | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'theme', value);
     }
 
