@@ -172,7 +172,10 @@ describe('WaferMap', () => {
         it('will translate the rectangle when moving the pointer over the wafer-map', () => {
             const initialTransform = element.hoverTransform;
             element.dispatchEvent(
-                new MouseEvent('mousemove', { clientX: 200, clientY: 200 })
+                new MouseEvent('mousemove', {
+                    clientX: element.offsetLeft + 50,
+                    clientY: element.offsetTop + 50
+                })
             );
             processUpdates();
             expect(element.hoverTransform).not.toEqual(initialTransform);
@@ -195,7 +198,10 @@ describe('WaferMap', () => {
 
         it('will translate when zooming in the wafer-map', () => {
             element.dispatchEvent(
-                new MouseEvent('mousemove', { clientX: 200, clientY: 200 })
+                new MouseEvent('mousemove', {
+                    clientX: element.offsetLeft + 50,
+                    clientY: element.offsetTop + 50
+                })
             );
             processUpdates();
             const initialTransform = element.hoverTransform;
