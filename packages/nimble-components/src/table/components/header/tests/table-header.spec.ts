@@ -9,16 +9,22 @@ import { TableColumnSortDirection } from '../../../types';
 
 async function setup(): Promise<Fixture<TableHeader>> {
     return fixture<TableHeader>(
-        html`<nimble-table-header>
-            </nimble-table-header>`
+        html`<nimble-table-header> </nimble-table-header>`
     );
 }
 
-function getSortIcons(element: TableHeader): { ascendingIcon: HTMLElement | null, descendingIcon: HTMLElement | null } {
+function getSortIcons(element: TableHeader): {
+    ascendingIcon: HTMLElement | null,
+    descendingIcon: HTMLElement | null
+} {
     const sortIndicatorContainer = element.shadowRoot!.querySelector('.sort-indicator')!;
     return {
-        ascendingIcon: sortIndicatorContainer.querySelector(DesignSystem.tagFor(IconArrowDown)),
-        descendingIcon: sortIndicatorContainer.querySelector(DesignSystem.tagFor(IconArrowUp))
+        ascendingIcon: sortIndicatorContainer.querySelector(
+            DesignSystem.tagFor(IconArrowDown)
+        ),
+        descendingIcon: sortIndicatorContainer.querySelector(
+            DesignSystem.tagFor(IconArrowUp)
+        )
     };
 }
 

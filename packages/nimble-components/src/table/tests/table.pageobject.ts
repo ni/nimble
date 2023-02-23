@@ -44,7 +44,9 @@ export class TablePageObject<T extends TableRecord> {
         return this.getHeaderContentElement(headers.item(columnIndex));
     }
 
-    public getHeaderSortDirection(columnIndex: number): TableColumnSortDirection {
+    public getHeaderSortDirection(
+        columnIndex: number
+    ): TableColumnSortDirection {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'
         )!;

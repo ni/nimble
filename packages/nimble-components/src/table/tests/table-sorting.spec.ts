@@ -360,9 +360,15 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderSortDirection(0)).toBe(TableColumnSortDirection.ascending);
-        expect(pageObject.getHeaderSortDirection(1)).toBe(TableColumnSortDirection.none);
-        expect(pageObject.getHeaderSortDirection(2)).toBe(TableColumnSortDirection.descending);
+        expect(pageObject.getHeaderSortDirection(0)).toBe(
+            TableColumnSortDirection.ascending
+        );
+        expect(pageObject.getHeaderSortDirection(1)).toBe(
+            TableColumnSortDirection.none
+        );
+        expect(pageObject.getHeaderSortDirection(2)).toBe(
+            TableColumnSortDirection.descending
+        );
     });
 
     it('updates sort direction on header rows when sort direction changes', async () => {
@@ -373,17 +379,29 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderSortDirection(0)).toBe(TableColumnSortDirection.ascending);
-        expect(pageObject.getHeaderSortDirection(1)).toBe(TableColumnSortDirection.none);
-        expect(pageObject.getHeaderSortDirection(2)).toBe(TableColumnSortDirection.descending);
+        expect(pageObject.getHeaderSortDirection(0)).toBe(
+            TableColumnSortDirection.ascending
+        );
+        expect(pageObject.getHeaderSortDirection(1)).toBe(
+            TableColumnSortDirection.none
+        );
+        expect(pageObject.getHeaderSortDirection(2)).toBe(
+            TableColumnSortDirection.descending
+        );
 
         column1.sortDirection = TableColumnSortDirection.descending;
         column2.sortDirection = TableColumnSortDirection.ascending;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderSortDirection(0)).toBe(TableColumnSortDirection.descending);
-        expect(pageObject.getHeaderSortDirection(1)).toBe(TableColumnSortDirection.ascending);
-        expect(pageObject.getHeaderSortDirection(2)).toBe(TableColumnSortDirection.descending);
+        expect(pageObject.getHeaderSortDirection(0)).toBe(
+            TableColumnSortDirection.descending
+        );
+        expect(pageObject.getHeaderSortDirection(1)).toBe(
+            TableColumnSortDirection.ascending
+        );
+        expect(pageObject.getHeaderSortDirection(2)).toBe(
+            TableColumnSortDirection.descending
+        );
     });
 
     it('can have multiple sorted columns sorted by the same data field', async () => {
@@ -493,12 +511,17 @@ describe('Table sorting', () => {
     });
 
     describe('changing slotted columns', () => {
-        async function removeExistingColumnsAndAddNewColumn(fieldName: string, sortDirection: TableColumnSortDirection): Promise<TableColumnText> {
+        async function removeExistingColumnsAndAddNewColumn(
+            fieldName: string,
+            sortDirection: TableColumnSortDirection
+        ): Promise<TableColumnText> {
             element.removeChild(column1);
             element.removeChild(column2);
             element.removeChild(column3);
 
-            const newColumn = document.createElement('nimble-table-column-text');
+            const newColumn = document.createElement(
+                'nimble-table-column-text'
+            );
             newColumn.fieldName = fieldName;
             if (sortDirection !== TableColumnSortDirection.none) {
                 newColumn.sortDirection = sortDirection;
@@ -527,7 +550,10 @@ describe('Table sorting', () => {
 
             expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
 
-            await removeExistingColumnsAndAddNewColumn('stringData1', TableColumnSortDirection.none);
+            await removeExistingColumnsAndAddNewColumn(
+                'stringData1',
+                TableColumnSortDirection.none
+            );
             expect(getRenderedRecordIds()).toEqual(['1', '2', '3', '4']);
         });
 
@@ -548,7 +574,10 @@ describe('Table sorting', () => {
 
             expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
 
-            await removeExistingColumnsAndAddNewColumn('stringData1', TableColumnSortDirection.ascending);
+            await removeExistingColumnsAndAddNewColumn(
+                'stringData1',
+                TableColumnSortDirection.ascending
+            );
             expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
         });
 
@@ -569,7 +598,10 @@ describe('Table sorting', () => {
 
             expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
 
-            const newColumn = await removeExistingColumnsAndAddNewColumn('stringData1', TableColumnSortDirection.ascending);
+            const newColumn = await removeExistingColumnsAndAddNewColumn(
+                'stringData1',
+                TableColumnSortDirection.ascending
+            );
             newColumn.sortDirection = TableColumnSortDirection.descending;
             await waitForUpdatesAsync();
 
