@@ -1,4 +1,5 @@
-import { scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
+import { range } from 'd3-array';
+import { ScaleBand, scaleBand } from 'd3-scale';
 import type { WaferMap } from '..';
 import type { WaferMapDie } from '../types';
 import { Dimensions, Margin, WaferMapQuadrant } from '../types';
@@ -21,17 +22,10 @@ export class Computations {
     public readonly radius: number;
     public readonly margin: Margin;
 
-    public readonly horizontalScale: ScaleLinear<number, number>;
-    public readonly verticalScale: ScaleLinear<number, number>;
+    public readonly horizontalScale: ScaleBand<number>;
+    public readonly verticalScale: ScaleBand<number>;
 
-    private readonly baseMargin: Margin = {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0
-    } as const;
-
-    private readonly defaultAlign = 0.5;
+    private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
 
     public constructor(wafermap: WaferMap) {
@@ -78,14 +72,8 @@ export class Computations {
             containerDiameter
         );
         this.dieDimensions = {
-            width: this.calculateGridWidth(
-                gridDimensions.cols,
-                this.containerDimensions.width
-            ),
-            height: this.calculateGridHeight(
-                gridDimensions.rows,
-                this.containerDimensions.height
-            )
+            width: this.horizontalScale.bandwidth(),
+            height: this.verticalScale.bandwidth()
         };
         this.radius = containerDiameter / 2;
     }
@@ -136,54 +124,42 @@ export class Computations {
         axisLocation: WaferMapQuadrant,
         grid: GridDimensions,
         containerWidth: number
-    ): ScaleLinear<number, number> {
+    ): ScaleBand<number> {
+        const scale = scaleBand<number>()
+            .domain(range(grid.origin.x, grid.origin.x + grid.cols))
+            .range([0, containerWidth])
+            .paddingInner(0)
+            .paddingOuter(0)
+            .align(0)
+            .round(false);
         if (
             axisLocation === WaferMapQuadrant.bottomLeft
             || axisLocation === WaferMapQuadrant.topLeft
         ) {
-            return scaleLinear()
-                .domain([grid.origin.x, grid.origin.x + grid.cols])
-                .range([0, containerWidth]);
+            return scale.range([0, containerWidth]);
         }
-        return scaleLinear()
-            .domain([grid.origin.x - 1, grid.origin.x + grid.cols - 1])
-            .range([containerWidth, 0]);
+        return scale.range([containerWidth, 0]);
     }
 
     private createVerticalScale(
         axisLocation: WaferMapQuadrant,
         grid: GridDimensions,
         containerHeight: number
-    ): ScaleLinear<number, number> {
+    ): ScaleBand<number> {
+        const scale = scaleBand<number>()
+            .domain(range(grid.origin.y, grid.origin.y + grid.rows))
+            .range([containerHeight, 0])
+            .paddingInner(this.defaultPadding)
+            .paddingOuter(0)
+            .align(0)
+            .round(false);
         if (
             axisLocation === WaferMapQuadrant.bottomLeft
             || axisLocation === WaferMapQuadrant.bottomRight
         ) {
-            return scaleLinear()
-                .domain([grid.origin.y - 1, grid.origin.y + grid.rows - 1])
-                .range([containerHeight, 0]);
+            return scale.range([containerHeight, 0]);
         }
-        return scaleLinear()
-            .domain([grid.origin.y, grid.origin.y + grid.rows])
-            .range([0, containerHeight]);
-    }
-
-    private calculateGridWidth(cols: number, containerWidth: number): number {
-        return scaleBand<number>()
-            .align(this.defaultAlign)
-            .padding(0)
-            .domain(this.horizontalScale.ticks(cols))
-            .range([0, containerWidth])
-            .bandwidth();
-    }
-
-    private calculateGridHeight(rows: number, containerHeight: number): number {
-        return scaleBand<number>()
-            .align(this.defaultAlign)
-            .padding(0)
-            .domain(this.verticalScale.ticks(rows))
-            .range([0, containerHeight])
-            .bandwidth();
+        return scale.range([0, containerHeight]);
     }
 
     private calculateMarginAddition(
