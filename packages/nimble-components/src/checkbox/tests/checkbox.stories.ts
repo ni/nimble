@@ -18,7 +18,7 @@ const metadata: Meta<CheckboxArgs> = {
         docs: {
             description: {
                 component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#checkbox) – The dual-state checkbox is the most common type, as it allows the user to toggle between two choices: checked and not checked.'
+                    'Per [W3C](https://w3c.github.io/aria-practices/#checkbox) – The dual-state checkbox is the most common type, as it allows the user to toggle between two choices: checked and not checked. TEST STORYBOOK DOC CHANGE' // TEST CHANGE
             }
         },
         design: {
