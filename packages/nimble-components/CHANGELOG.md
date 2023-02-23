@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 20 Feb 2023 17:53:22 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.3
+
+Tue, 21 Feb 2023 20:30:27 GMT
+
+### Patches
+
+- Allow table columns to be marked as hidden ([ni/nimble@8fcdeb8](https://github.com/ni/nimble/commit/8fcdeb884b9be29b92b4e273991fbc96f077d744))
 
 ## 18.5.2
 
