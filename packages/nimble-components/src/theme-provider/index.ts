@@ -1,10 +1,10 @@
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
-import { Theme } from './types';
+import { ThemeBase } from '../theme-base';
 import { direction, theme } from './design-tokens-control';
+import { Theme } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,24 +15,13 @@ declare global {
 /**
  * The ThemeProvider implementation. Add this component to the page and set its `theme` attribute to control
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
- * @internal
  */
-export class ThemeProvider extends FoundationElement {
-    @attr({
-        attribute: 'direction'
-    })
-    public direction: Direction = Direction.ltr;
-
-    @attr({
-        attribute: 'theme'
-    })
-    public theme: Theme = Theme.light;
-
+export class ThemeProvider extends ThemeBase {
     public directionChanged(
         _prev: Direction | undefined,
         next: Direction | undefined
     ): void {
-        if (next !== undefined && next !== null) {
+        if (next && Direction[next]) {
             direction.setValueFor(this, next);
         } else {
             direction.deleteValueFor(this);
@@ -43,7 +32,7 @@ export class ThemeProvider extends FoundationElement {
         _prev: Theme | undefined,
         next: Theme | undefined
     ): void {
-        if (next !== undefined && next !== null) {
+        if (next && Theme[next]) {
             theme.setValueFor(this, next);
         } else {
             theme.deleteValueFor(this);

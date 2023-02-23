@@ -1,7 +1,7 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { createStory } from '../../utilities/tests/storybook';
 import '../../all-components';
 import { Dialog, UserDismissed } from '..';
 import type { TextField } from '../../text-field';
@@ -64,7 +64,7 @@ const metadata: Meta<DialogArgs> = {
                 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006/specs/'
         }
     },
-    render: createUserSelectedThemeStory(html`
+    render: createStory(html`
         <style class="code-hide">
             .first-button {
                 margin-right: auto;

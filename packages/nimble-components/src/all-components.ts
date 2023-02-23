@@ -37,6 +37,7 @@ import './tabs';
 import './tabs-toolbar';
 import './text-area';
 import './text-field';
+import './theme-controller';
 import './theme-provider';
 import './toggle-button';
 import './toolbar';

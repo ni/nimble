@@ -32,7 +32,13 @@ export const createStory = <TSource>(
 ): Story<TSource> => {
     return (source: TSource, _context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <div class="code-hide-top-container">${viewTemplate}</div>
+            <div class="code-hide-top-container">
+                <style>
+                    body.sb-show-main {
+                        background:var(--ni-nimble-application-background-color) !important;
+                    }
+                </style>
+            ${viewTemplate}</div>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
