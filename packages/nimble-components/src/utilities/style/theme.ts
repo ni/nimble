@@ -6,7 +6,7 @@ import type {
     Subscriber
 } from '@microsoft/fast-element';
 import type { Theme } from '../../theme-provider/types';
-import { theme as themeToken } from '../../theme-provider';
+import { theme as themeToken } from '../../theme-provider/design-tokens-control';
 
 /**
  * Subscription for {@link ThemeStyleSheetBehavior}

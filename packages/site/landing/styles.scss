@@ -1,11 +1,6 @@
 @import "@ni/nimble-tokens/dist/fonts/css/fonts.css";
 @import "@ni/nimble-tokens/dist/styledictionary/scss/variables.scss";
 @import "@ni/nimble-components/dist/tokens";
-// Importing Noto Serif as workaround until we include it with system
-// Issue for including Noto Serif captured at 
-// https://github.com/ni/nimble/issues/899
-@import url('https://fonts.googleapis.com/css2?family=Noto%20Serif&display=swap');
-
 
 $rgb-ni-sky-light: #A5DDED;
 $rgb-labview: #FFC60B;
@@ -14,6 +9,7 @@ $card-height: 4.5rem;
 
 body {
     margin: 0;
+    background: $ni-nimble-application-background-color;
 }
 
 .container {
@@ -103,19 +99,19 @@ $colors:
     text-align: center;
 }
 
-.banner-main>p {
+.banner-main > p {
     max-width: 40rem;
-    color: $ni-nimble-base-black-91;
+    color: $ni-nimble-body-font-color;
     font-family: $ni-nimble-body-font-family;
     font-size: $ni-nimble-title-font-size;
 }
 
-h1 {
-    font-family: $ni-nimble-headline-font-family;
-    font-size: 6rem;
-    color: $ni-nimble-headline-font-color;
-    margin: 0;
-}
+// h1 {
+//     font-family: $ni-nimble-headline-font-family;
+//     font-size: 6rem;
+//     color: $ni-nimble-headline-font-color;
+//     margin: 0;
+// }
 
 .cards-container {
     max-width: 60rem;
@@ -149,12 +145,12 @@ h1 {
     box-sizing: border-box;
     margin: .5rem;
     border-bottom: 3px solid transparent;
-    color:$ni-nimble-base-black-91;
+    color: $ni-nimble-headline-plus-1-font-color;
 }
 
 .card .name {
     grid-area: name;
-    font-family: $ni-nimble-headline-font-family;
+    font-family: $ni-nimble-headline-plus-1-font-family;
     font-size: $ni-nimble-headline-plus-1-font-size;
     font-weight: $ni-nimble-headline-plus-1-font-weight;
 }
@@ -172,14 +168,14 @@ h1 {
 }
 
 .card:hover {
-    border-bottom-color: $ni-nimble-base-digital-green-dark;
+    border-bottom-color: $ni-nimble-border-hover-color;
     cursor: pointer;
 }
 
 .card:visited {
     text-decoration: none;
-    color: inherit;
-    text-decoration-color: inherit;
+    // color: inherit;
+    // text-decoration-color: inherit;
 }
 
 @media screen and (max-width: 1600px) {
