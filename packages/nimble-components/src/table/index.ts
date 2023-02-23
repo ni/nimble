@@ -289,24 +289,14 @@ export class Table<
     private updateTableOptions(
         updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
     ): void {
-        this.options = { ...this.options, ...updatedOptions };
-        this.update({ ...this.table.getState(), ...this.options.state });
+        this.options = {
+            ...this.options,
+            ...updatedOptions,
+            state: { ...this.options.state, ...updatedOptions.state }
+        };
+        this.table.setOptions(this.options);
         this.refreshRows();
     }
-
-    private readonly update = (state: TanStackTableState): void => {
-        this.table.setOptions(prev => ({
-            ...prev,
-            ...this.options,
-            state,
-            onStateChange: (updater: unknown) => {
-                const updatedState = typeof updater === 'function'
-                    ? (updater(state) as TanStackTableState)
-                    : (updater as TanStackTableState);
-                this.update(updatedState);
-            }
-        }));
-    };
 
     private setSortState(): void {
         const sortedColumns = this.columns
@@ -327,8 +317,11 @@ export class Table<
             }
         );
 
-        const updatedState = { ...this.table.options.state, sorting: tanStackSortingState };
-        this.updateTableOptions({ state: updatedState });
+        this.updateTableOptions({
+            state: {
+                sorting: tanStackSortingState
+            }
+        });
     }
 
     private generateTanStackColumns(): void {

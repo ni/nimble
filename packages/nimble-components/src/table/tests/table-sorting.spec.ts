@@ -25,7 +25,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-fdescribe('Table sorting', () => {
+describe('Table sorting', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -172,7 +172,7 @@ fdescribe('Table sorting', () => {
         expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
     });
 
-    fit('changing sort field updates rows', async () => {
+    it('changing sort field updates rows', async () => {
         const data: readonly SimpleTableRecord[] = [
             { id: '1', stringData1: 'foo', stringData2: 'elephant' },
             { id: '2', stringData1: 'abc', stringData2: 'cat' },
