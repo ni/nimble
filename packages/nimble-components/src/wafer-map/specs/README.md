@@ -44,6 +44,12 @@ We consider now that the most important features of the current component would 
 -   Dynamic size adaptability
 -   Scalable for very large number of data points
 
+Additional implemented features:
+
+-   [Nimble Wafer Map Hover Die](features/hover.md).
+
+-   [Nimble Wafer Map Die Padding](features/die-padding.md).
+
 ### Risks and Challenges
 
 The biggest risk and challenge are regarding the rendering of the component when large numbers of data points are present.
@@ -95,10 +101,10 @@ _The key elements of the component's public API surface:_
         The generated wafer using this color scale is: ![color_scale](./Resources/color_scale.png)
     -   `maxCharacters` - represents the number of characters allowed to be displayed within a single die, including the label suffix. As the die values are strings, we must have the liberty of limiting how many characters we are willing to display within a single die.
     -   `dieLabelsHidden` - a boolean value that determines if the die labels in the wafer map view are shown or not. Default value is false.
-    -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value
+    -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
-    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed
+    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
 
 The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
 The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
@@ -113,6 +119,10 @@ Events: The events mentioned below will all be handled internally by the nimble 
 -   Zoom out while hovering - this action gets executed whenever the mouse pointer hovers the `nimble-wafer-map` component and a wheel event (scroll down) gets triggered
 -   Drag while zoomed - this event gets triggered whenever the `nimble-wafer-map` component is zoomed in (larger than 100%) and whilst the left mouse button is held the pointer moves to any direction within the wafer-map canvas
 -   Mouse hover - this event gets triggered whenever the mouse pointer is hovering any of the die elements within the wafer map. We only must detect this in the nimble component, proper handling will be done in the MicroStrategy wrapper. (Tooltip triggering)
+
+The public API will have a new custom event fired when the mouse will hover over a displayed die.
+
+-   `die-hover` will be triggered to inform the user that the state of hoverin over a die has changed. The event `detail` will include `{currentDie: WaferMapDie}` when a new die is the target of mouse hovernig and `{currentDie: undefined}` when the hovering does not have a target.
 
 ### Anatomy
 

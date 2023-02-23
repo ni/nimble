@@ -3,11 +3,13 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type {
+    TableActionMenuToggleEventDetail,
     TableCellState,
     TableDataRecord,
     TableFieldName
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
+import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -36,10 +38,16 @@ export class TableRow<
     @observable
     public columns: TableColumn[] = [];
 
+    @observable
+    public currentActionMenuColumn?: TableColumn;
+
+    @attr({ attribute: 'menu-open', mode: 'boolean' })
+    public menuOpen = false;
+
     @volatile
     public get columnStates(): ColumnState[] {
         return this.columns.map(column => {
-            const fieldNames = column.getDataRecordFieldNames();
+            const fieldNames = column.dataRecordFieldNames;
             let cellState: TableCellState;
             if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
                 const cellDataValues = fieldNames.map(
@@ -51,7 +59,7 @@ export class TableRow<
                         cellDataValues[i]
                     ])
                 );
-                const columnConfig = column.getColumnConfig?.() ?? {};
+                const columnConfig = column.columnConfig ?? {};
                 cellState = {
                     cellRecord,
                     columnConfig
@@ -64,8 +72,42 @@ export class TableRow<
         });
     }
 
+    public onCellActionMenuBeforeToggle(
+        event: CustomEvent<MenuButtonToggleEventDetail>,
+        column: TableColumn
+    ): void {
+        this.currentActionMenuColumn = column;
+        this.emitToggleEvent(
+            'row-action-menu-beforetoggle',
+            event.detail,
+            column
+        );
+    }
+
+    public onCellActionMenuToggle(
+        event: CustomEvent<MenuButtonToggleEventDetail>,
+        column: TableColumn
+    ): void {
+        this.menuOpen = event.detail.newState;
+        this.emitToggleEvent('row-action-menu-toggle', event.detail, column);
+    }
+
+    private emitToggleEvent(
+        eventType: string,
+        menuButtonEventDetail: MenuButtonToggleEventDetail,
+        column: TableColumn
+    ): void {
+        const detail: TableActionMenuToggleEventDetail = {
+            newState: menuButtonEventDetail.newState,
+            oldState: menuButtonEventDetail.oldState,
+            recordIds: [this.recordId!],
+            columnId: column.columnId
+        };
+        this.$emit(eventType, detail);
+    }
+
     private hasValidFieldNames(
-        keys: (TableFieldName | undefined)[]
+        keys: readonly (TableFieldName | undefined)[]
     ): keys is TableFieldName[] {
         return keys.every(key => key !== undefined);
     }
