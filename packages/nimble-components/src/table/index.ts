@@ -231,6 +231,7 @@ export class Table<
         }
 
         this.validateColumnIds();
+        this.validateColumnSortIndices();
     }
 
     private validateColumnIds(): void {
@@ -260,9 +261,7 @@ export class Table<
     }
 
     private setTableData(newData: readonly TData[]): void {
-        const data = newData.map(record => {
-            return { ...record };
-        });
+        const data = this.copyData(newData);
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
 
@@ -291,7 +290,7 @@ export class Table<
         updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
     ): void {
         this.options = { ...this.options, ...updatedOptions };
-        this.update(this.table.initialState);
+        this.update({ ...this.table.getState(), ...this.options.state });
         this.refreshRows();
     }
 
@@ -328,9 +327,8 @@ export class Table<
             }
         );
 
-        // this.updateTableOptions({ state: { sorting: tanStackSortingState } });
-        this.table.setSorting(tanStackSortingState);
-        this.refreshRows();
+        const updatedState = { ...this.table.options.state, sorting: tanStackSortingState };
+        this.updateTableOptions({ state: updatedState });
     }
 
     private generateTanStackColumns(): void {
@@ -343,7 +341,18 @@ export class Table<
             return columnDef;
         });
 
-        this.updateTableOptions({ columns: generatedColumns });
+        this.updateTableOptions({
+            // Force TanStack to detect a data update because a columns's accessor is
+            // referenced when creating a new row model.
+            data: this.copyData(this.table.options.data),
+            columns: generatedColumns
+        });
+    }
+
+    private copyData(data: readonly TData[]): TData[] {
+        return data.map(record => {
+            return { ...record };
+        });
     }
 
     private getTanStackSortingFunction(

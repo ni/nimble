@@ -12,6 +12,12 @@ export interface TableColumnTextColumnConfig {
     placeholder: string;
 }
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-table-column-text': TableColumnText;
+    }
+}
+
 /**
  * The table column for displaying strings.
  */

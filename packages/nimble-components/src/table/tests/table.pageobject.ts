@@ -1,6 +1,6 @@
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import type { TableRecord } from '../types';
+import type { TableColumnSortDirection, TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 
@@ -41,7 +41,20 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        return this.getHeaderContentElement(headers[columnIndex]!);
+        return this.getHeaderContentElement(headers.item(columnIndex));
+    }
+
+    public getHeaderSortDirection(columnIndex: number): TableColumnSortDirection {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+            'nimble-table-header'
+        )!;
+        if (columnIndex >= headers.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return headers.item(columnIndex).sortDirection;
     }
 
     public getRenderedRowCount(): number {
