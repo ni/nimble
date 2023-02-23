@@ -30,7 +30,7 @@ export class Button
      * HTML Attribute: appearance
      */
     @attr
-    public appearance: ButtonAppearance = ButtonAppearance.outline;
+    public appearance: ButtonAppearance = ButtonAppearance.block; // Temp change to test TURBOSNAP
 
     /**
      * @public
