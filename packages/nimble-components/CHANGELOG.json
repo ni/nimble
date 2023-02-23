@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 23 Feb 2023 15:38:25 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9fbfc329ca652dd4a16b2f8018db8ab2747c7266",
+            "comment": "Fix mistake in table-row unit test set up"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Feb 2023 16:40:03 GMT",
       "tag": "@ni/nimble-components_v18.5.3",
       "version": "18.5.3",
