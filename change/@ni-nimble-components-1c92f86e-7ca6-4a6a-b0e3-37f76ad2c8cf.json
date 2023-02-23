@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Implementation for die padding for the wafer map component",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
