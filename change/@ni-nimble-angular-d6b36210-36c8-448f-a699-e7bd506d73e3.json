@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Uptake Playwright for Chromium binaries for tests",
-  "packageName": "@ni/nimble-angular",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
