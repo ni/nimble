@@ -4,7 +4,12 @@ import { template } from './template';
 import { styles } from './styles';
 import { ThemeBase } from '../theme-base';
 import { Theme } from '../theme-provider/types';
-import { direction, directionDefault, theme, themeDefault } from '../theme-provider/design-tokens-control';
+import {
+    direction,
+    directionDefault,
+    theme,
+    themeDefault
+} from '../theme-provider/design-tokens-control';
 
 declare global {
     interface HTMLElementTagNameMap {

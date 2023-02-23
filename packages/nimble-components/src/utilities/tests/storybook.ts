@@ -35,10 +35,13 @@ export const createStory = <TSource>(
             <div class="code-hide-top-container">
                 <style>
                     body.sb-show-main {
-                        background:var(--ni-nimble-application-background-color) !important;
+                        background: var(
+                            --ni-nimble-application-background-color
+                        ) !important;
                     }
                 </style>
-            ${viewTemplate}</div>
+                ${viewTemplate}
+            </div>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
