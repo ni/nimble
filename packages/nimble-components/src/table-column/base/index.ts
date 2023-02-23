@@ -6,6 +6,7 @@ import {
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
+import type { TableCell } from '../../table/components/cell';
 import type {
     TableCellRecord,
     TableCellState,
@@ -79,4 +80,6 @@ export abstract class TableColumn<
 
         this.setAttribute('slot', uniqueId('table-column-slot'));
     }
+
+    public abstract onBeforeFocusedCellRecycled(cell: TableCell): void;
 }

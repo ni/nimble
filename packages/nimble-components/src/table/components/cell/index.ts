@@ -7,6 +7,7 @@ import {
     ViewTemplate
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import type { TableCellRecord, TableCellState } from '../../types';
 import { styles } from './styles';
@@ -48,6 +49,11 @@ export class TableCell<
      */
     public readonly cellContentContainer!: HTMLElement;
 
+    /**
+     * @internal
+     */
+    public readonly actionMenuButton?: MenuButton;
+
     private customCellView?: HTMLView = undefined;
 
     public override connectedCallback(): void {
@@ -78,6 +84,21 @@ export class TableCell<
     ): void {
         this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
+    }
+
+    /**
+     * @internal
+     */
+    public onBeforeRecycled(): void {
+        if (this.$fastController.isConnected) {
+            // Option 1: Raise custom event on the cellContentContainer - this lets column implementations handle the
+            // event from their template - see table-column/text/template.ts for an example.
+            const event = new CustomEvent('cell-blur-option1');
+            this.cellContentContainer.dispatchEvent(event);
+            // Option 2: Raise an event on TableCell that TableRow handles, and delegates to column.onBeforeFocusedCellRecycled().
+            // See row/template.ts for that event binding.
+            this.$emit('cell-blur-option2');
+        }
     }
 
     protected cellStateChanged(): void {

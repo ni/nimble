@@ -10,6 +10,9 @@ import {
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
+import { TableCell } from '../components/cell';
+import { MenuItem } from '../../menu-item';
+import { Menu } from '../../menu';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -95,6 +98,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     private handleVirtualizerChange(): void {
+        this.notifyFocusedCellRecycling();
         const virtualizer = this.virtualizer!;
         this.visibleItems = virtualizer.getVirtualItems();
         this.allRowsHeight = virtualizer.getTotalSize();
@@ -109,5 +113,52 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
 
         this.rowContainerYOffset = rowContainerYOffset;
+    }
+
+    // prettier-ignore
+    private notifyFocusedCellRecycling(): void {
+        let tableActiveElement = this.table.shadowRoot!.activeElement;
+        const tableContainsActiveElement = document.activeElement && this.table.contains(document.activeElement);
+        // Note: If a table action menu is open, tableActiveElement is null, but tableContainsActiveElement is true (a MenuItem will be focused)
+        if (tableActiveElement || tableContainsActiveElement) {
+            // eslint-disable-next-line no-console
+            console.log(
+                'Table is scrolling and contains a focused element.',
+                'table.shadowRoot.activeElement',
+                tableActiveElement,
+                'document.activeElement',
+                document.activeElement
+            );
+        }
+
+        if (tableActiveElement) {
+            while (tableActiveElement !== null && !(tableActiveElement instanceof TableCell)) {
+                if (tableActiveElement.shadowRoot) {
+                    tableActiveElement = tableActiveElement.shadowRoot.activeElement;
+                }
+            }
+            if (tableActiveElement instanceof TableCell) {
+                tableActiveElement.onBeforeRecycled();
+            }
+        } else if (tableContainsActiveElement && document.activeElement instanceof MenuItem) {
+            // A menu item inside the table is focused - find the associated menu
+            let menuItemAncestor = document.activeElement.parentElement;
+            while (menuItemAncestor && !(menuItemAncestor instanceof Menu)) {
+                menuItemAncestor = menuItemAncestor.parentElement;
+            }
+            if (menuItemAncestor instanceof Menu) {
+                // Find the associated table cell this menu was slotted in, so we can get the menu button and close it
+                let slot = menuItemAncestor.assignedSlot;
+                while (slot?.parentElement && !(slot.parentElement instanceof TableCell)) {
+                    slot = slot.assignedSlot;
+                }
+                if (slot && slot.parentElement instanceof TableCell) {
+                    const tableCell = slot.parentElement;
+                    if (tableCell.actionMenuButton) {
+                        tableCell.actionMenuButton.open = false;
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
+import type { TableCell } from '../../table/components/cell';
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
@@ -30,6 +31,14 @@ TableColumnTextColumnConfig
     public readonly cellStyles = cellStyles;
 
     public readonly cellTemplate = cellTemplate;
+
+    // prettier-ignore
+    public override onBeforeFocusedCellRecycled(cell: TableCell): void {
+        // eslint-disable-next-line no-console
+        console.log('TableColumnText.onBeforeFocusedCellRecycled');
+        const textField = cell.cellContentContainer.firstElementChild as HTMLElement; // or cell.cellContentContainer.querySelector(...)
+        textField?.blur();
+    }
 
     protected fieldNameChanged(): void {
         this.dataRecordFieldNames = [this.fieldName] as const;
