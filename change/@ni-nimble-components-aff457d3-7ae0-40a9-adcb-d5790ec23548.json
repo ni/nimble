@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Prefers color scheme and nimble-theme-controller",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
