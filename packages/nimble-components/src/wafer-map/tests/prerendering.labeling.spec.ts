@@ -2,7 +2,7 @@ import type { WaferMap } from '..';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
-    getLinearScale,
+    getScaleBand,
     getWaferMapDies,
     getWaferMapDiesAsFloats,
     getWaferMapDiesAsNaN
@@ -43,8 +43,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
@@ -95,8 +95,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
@@ -141,8 +141,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
@@ -187,8 +187,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
@@ -234,8 +234,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
@@ -283,8 +283,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
@@ -332,8 +332,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
@@ -390,8 +390,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([], []),
-                getLinearScale([], []),
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
                 margin
             );
