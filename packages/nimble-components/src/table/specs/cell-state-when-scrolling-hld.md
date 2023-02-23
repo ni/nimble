@@ -19,12 +19,39 @@ Some of the cell state that would incorrectly apply to new rows (once the user s
 
 When the user scrolls the table, we will:
 
--   'Blur' (Lose focus) from any active/focused control in a table cell. Generally this means that whatever text the user began to change in that control will be committed, not discarded. In the case of a focused menu item, we'll close the associated menu via the menu button.
+-   'Blur' (Lose focus) from any active/focused control in a table cell. Generally this means that whatever text the user began to change in that control will be committed, not discarded.
+-   If a cell action menu is open (in which case a menu item is focused), we'll close the associated menu via the menu button.
 
 We will not:
 
 -   Detect and deselect selected table text on scroll. This means that if table text is selected and the user scrolls, text will still be selected (potentially different text). We don't consider that to be a primary table interaction, and it shouldn't harm functionality (it's easy to resolve for the user by clicking off to deselect text). It's also the same behavior as the current `sl-grid`/`smart-table` used in SystemLink Enterprise.
+    -   See the "Alternative Implementations" section for additional information on this decision.
 -   Try and re-apply any state to the re-bound rows/cells after the scroll. That means that we won't re-focus the previously focused control in a cell / re-open an action menu, after a scroll operation.
+
+See [the prototype branch](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416) and the [prototype table Storybook](https://60e89457a987cf003efc0a5b-jpkalylfjo.chromatic.com/iframe.html?args=data:LargeDataSet&id=table--table&viewMode=story) to illustrate the concepts discussed in the following sections.
+
+### Blur Focused Controls in Cells
+
+In this case, `document.activeElement` will be the Nimble `Table`, and `table.shadowRoot.activeElement` will be a Nimble `TableRow`. We can recursively look at the active element's `shadowRoot.activeElement`, starting from the TableRow, and stop when we reach a Nimble `TableCell` or `null` (see [prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR134)).
+
+If we found a focused `TableCell`, we then want to `blur()` the control in it:  
+(**Open Question: Pick one of the following two approaches**)  
+**Option 1:**  
+Fire a `CustomEvent` called `cell-blur` on `cell.cellContentContainer` ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-8d5022af0a348aba9a14ea0ef27956d08ebbdb2342cb5dc21d0dde4b4b653decR94)). This allows `TableColumn` implementations to handle the event directly from their FAST template ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-9ee1b8660e08ff4f9e24d99f2f70000fc2760b07e9ae00d60aa613fb12f2def5R19)). The event handler can find the control in the cell (via `querySelector`, `firstElementChild`, or similar), and call `blur()` on it ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-9ee1b8660e08ff4f9e24d99f2f70000fc2760b07e9ae00d60aa613fb12f2def5R6))  
+**Option 2:**  
+Declare a new optional abstract method `onBeforeFocusedCellRecycled(cell: TableCell)` on the `TableColumn` abstract class ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-c042ed462074b89ce3df3dd318a82e80a9d096292a3caf101307704b35035fb3R84)). Implementations can `blur()` the controls in their cells similarly to Option 1 (find the control starting from `cell.cellContentContainer`) ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-5058c96c2bc55c407497e6c95b298d71299edba7119549c353cd6985500f135dR36)).  
+In order to call that method, the `TableCell` will raise a `cell-blur` event that will be handled by `TableRow`, which has access to the column to call `column.onBeforeFocusedCellRecycled(cell)` on it (prototype: [cell raises event](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-8d5022af0a348aba9a14ea0ef27956d08ebbdb2342cb5dc21d0dde4b4b653decR100), [row event binding](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-bf998763585210ba31b88a11d6ffe26b09f6ee2860c05c20c3c2a3d6c3cd01d8R21)).
+
+### Close Focused Action Menus
+
+The table will handle this internally (in the `Virtualizer` class, via `handleVirtualizerChange()`), without affecting the TableColumn public API.
+
+We want to close the action menu via the associated `MenuButton`, which allows the rest of the table logic dealing with action menus to get called normally.
+In this case, `table.shadowRoot.activeElement` will be null (since the action menus are slotted in), but `document.activeElement` will be a Nimble `MenuItem`. (We can also doublecheck that `table.contains(document.activeElement)` before proceeding.) From the MenuItem, we can walk up the `parentElement` hierarchy to get to the Nimble `Menu`. Then we can walk up the `assignedSlot` hierarchy until we get to the TableCell action menu slot (in which case `slot.parentElement` is a Nimble `TableCell`). At that point, we can get the `MenuButton` for the cell, and call `open = false` on it.
+
+(See [prototype implementation](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR143))
+
+## Alternative Implementations / Designs
 
 ### Clearing Text Selection
 
@@ -50,33 +77,8 @@ There's several potential approaches to detecting if the table contains selected
 
 **Note / Behavior limitation in Firefox**: You can only select a single cell's text. Once you cross into another cell/column the selection gets cleared. The selection also resets if you start text selection from outside the table, then move your cursor within the table viewport (to the rows/cells) to try to select more text there. There doesn't seem to be anything for us to do about this, it's probably related to the table's use of Shadow DOM.
 
-**Implementation Plan:**  
-Since the code required to detect table selection is problematic (`try/catch`) and complex, doesn't work fully in Safari, and is potentially fragile, we currently don't plan to try and detect table text selection. This means that if table text is selected and the user scrolls, text (different text) will be selected. We don't consider that to be a primary table interaction, and it shouldn't harm functionality (it's easy to resolve for the user by clicking off to deselect text). It's also the same behavior as the current `sl-grid`/`smart-table` used in SystemLink Enterprise.
+**Possible Implementation Plan: Detecting Table Text Selection**
 
-We can re-evaluate this in the future if and when the Text Selection APIs improve in the context of Shadow DOM.
-
-### Blur Focused Controls in Cells
-
-**Implementation Plan:**  
-Logic to find if the table contains an active/focused element within a cell:  
-Start with `document.activeElement`. If non-null, check if that element is a shadow root. If so, continue recursively with `shadowRoot.activeElement`. Stop when we reach a `nimble-table-cell` or `null`.
-
-If we have a focused cell:
-
--   If the cell has an action menu (note: in this case the focused element will be a `nimble-menu-item`), find the associated `nimble-menu-button`. If open, set `open` to `false`.
--   Get the `TableColumn` instance for the column that the cell is in, and call the new API `onBeforeFocusedCellRecycled(cell: TableCell)` on it (if defined).
-    -   General expected implementation, for a column type with editable controls in their `cellTemplate` would be to find the editable control with `querySelector()`, and close/commit it. i.e. `blur()` for `nimble-text-field`/`nimble-text-area`/`nimble-number-field` or other input controls, `open = false` for `nimble-menu-button`/`nimble-combobox`/etc.
-
-**Planned API:**  
-New optional abstract method `onBeforeFocusedCellRecycled(cell: TableCell)` on the `TableColumn` abstract class.  
-New logic in Nimble Virtualizer class, `handleVirtualizerChange()` (called when the user scrolls), to find the active/focused cell.  
-`TableCell` doesn't have a direct reference to `TableColumn` so we'll need to determine the best way to get that reference (to call `onBeforeFocusedCellRecycled`). Perhaps `TableCell` also has an `onBeforeRecycled` function that raises an event that `TableRow` can handle (which does have that mapping, via `row.columnStates`).
-
-## Alternative Implementations / Designs
-
-### Detecting Table Text Selection
-
-**Note:** We're not planning to use this implementation, as mentioned above.  
 To check if the table contains selected text:  
 Get `window.getSelection()`. If null or `rangeCount === 0`, no text is selected. Otherwise, for each `Range`:
 
@@ -93,6 +95,8 @@ _Limitations:_
 _API:_  
 This logic will be in the Nimble Virtualizer class, called from `handleVirtualizerChange()` (called when the user scrolls). It will apply to all Nimble tables / all column types, without an opt-out option.
 
+**Conclusion**: Since the code required to detect table selection is problematic (`try/catch`) and complex, doesn't work fully in Safari, and is potentially fragile, we currently don't plan to try and detect table text selection.
+
 ### Disabling Table Text Selection
 
 We could add CSS to our table text cells (`user-select: none`) to prevent text selection. This would also eliminate the concern about text selection remaining after a scroll.
@@ -101,6 +105,7 @@ We decided against this because there's valid use cases for copying text out of 
 
 ## Open Issues
 
--   (Need to finalize API details surrounding the `onBeforeFocusedCellRecycled` proposal)
--   Do we need to provide additional APIs to allow for saving off cell state at the beginning of a scroll, even if no control is focused? (This would imply something we need to call for every visible cell in a column)
+-   Decide between API Option 1 and Option 2 for blur-ing focused cell controls.
 -   Should we have a default, generic implementation of `onBeforeFocusedCellRecycled`? (It would look for known Nimble control types in the cell, and call the appropriate API on them, `blur()` or `open = false`)
+    -   Current we **do not** plan to have a default implementation. We think it's better for the column implementations to handle this, as they're the ones declaring the editable/blur-able controls in their templates.
+    -   Action menus will be handled by the table, not column implementations.
