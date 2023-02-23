@@ -14,6 +14,7 @@
     "invoke-publish": "npm publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o dist/storybook",
+    "storybook-open-webkit": "playwright wk http://localhost:6006",
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",
     "bundle-components": "rollup --bundleConfigAsCjs --config",
