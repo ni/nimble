@@ -18,7 +18,7 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
     return fixture<TableRow<SimpleTableRecord>>(
         html`<nimble-table-row>
-            </nimble-table>`
+            </nimble-table-row>`
     );
 }
 
