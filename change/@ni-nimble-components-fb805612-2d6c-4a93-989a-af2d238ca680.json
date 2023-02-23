@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Uptake Playwright for Chromium/Firefox binaries for tests; add dev commands for running tests on WebKit via Playwright",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
