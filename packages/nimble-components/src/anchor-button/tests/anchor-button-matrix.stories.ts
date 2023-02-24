@@ -1,6 +1,7 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     ButtonAppearance,
@@ -17,7 +18,15 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
-import '../../all-components';
+import { AnchorButton } from '..';
+import { IconLink } from '../../icons/link';
+import { IconArrowExpanderRight } from '../../icons/arrow-expander-right';
+
+const nimbleAnchorButton = DesignSystem.tagFor(AnchorButton);
+const nimbleIconLink = DesignSystem.tagFor(IconLink);
+const nimbleIconArrowExpanderRight = DesignSystem.tagFor(
+    IconArrowExpanderRight
+);
 
 const metadata: Meta = {
     title: 'Tests/Anchor Button',
@@ -60,17 +69,17 @@ const component = (
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-anchor-button
+    <${nimbleAnchorButton}
         href="https://nimble.ni.dev"
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-link slot="start"></nimble-icon-link>`)}
+            ${when(() => iconVisible, html`<${nimbleIconLink} slot="start"></${nimbleIconLink}>`)}
             ${() => `${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-right slot="end"></nimble-icon-arrow-expander-right>`)}
-    </nimble-anchor-button>
+            ${when(() => endIconVisible, html`<${nimbleIconArrowExpanderRight} slot="end"></${nimbleIconArrowExpanderRight}>`)}
+    </${nimbleAnchorButton}>
 `;
 
 export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
@@ -84,14 +93,14 @@ export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenAnchorButton: Story = createStory(
     hiddenWrapper(
-        html`<nimble-anchor-button hidden
-            >Hidden Anchor Button</nimble-anchor-button
+        html`<${nimbleAnchorButton} hidden
+            >Hidden Anchor Button</${nimbleAnchorButton}
         >`
     )
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<nimble-anchor-button>Anchor Button</nimble-anchor-button>`
+        html`<${nimbleAnchorButton}>Anchor Button</${nimbleAnchorButton}>`
     )
 );
