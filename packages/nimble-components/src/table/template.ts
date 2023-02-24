@@ -12,7 +12,7 @@ import type { Table } from '.';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
 import type { TableColumn } from '../table-column/base';
-import type { TableActionMenuToggleEventDetail } from './types';
+import { TableActionMenuToggleEventDetail, TableColumnSortDirection } from './types';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -24,7 +24,7 @@ export const template = html<Table>`
                         ${when(x => !x.columnHidden, html<TableColumn>`
                             <${DesignSystem.tagFor(TableHeader)}
                                 class="header"
-                                sort-direction="${x => x.sortDirection}"
+                                sort-direction="${x => (x.sortIndex !== null ? x.sortDirection : TableColumnSortDirection.none)}"
                             >
                                 <slot name="${x => x.slot}"></slot>
                             </${DesignSystem.tagFor(TableHeader)}>

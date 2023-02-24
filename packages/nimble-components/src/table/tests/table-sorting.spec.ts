@@ -391,6 +391,7 @@ describe('Table sorting', () => {
 
         column1.sortDirection = TableColumnSortDirection.descending;
         column2.sortDirection = TableColumnSortDirection.ascending;
+        column2.sortIndex = 2;
         await waitForUpdatesAsync();
 
         expect(pageObject.getHeaderSortDirection(0)).toBe(
@@ -401,6 +402,22 @@ describe('Table sorting', () => {
         );
         expect(pageObject.getHeaderSortDirection(2)).toBe(
             TableColumnSortDirection.descending
+        );
+    });
+
+    it('does not set sort on header when a sort index is not specified', async () => {
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 0;
+        column2.sortDirection = TableColumnSortDirection.descending;
+        column2.sortIndex = null;
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getHeaderSortDirection(0)).toBe(
+            TableColumnSortDirection.ascending
+        );
+        expect(pageObject.getHeaderSortDirection(1)).toBe(
+            TableColumnSortDirection.none
         );
     });
 
