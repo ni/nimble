@@ -100,6 +100,15 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     @attr({ attribute: 'action-menu-label' })
     actionMenuLabel?: string;
 
+    // The index for sorting the column. When multiple columns are sorted,
+    // they will be sorted from lowest index to highest index.
+    @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
+    public sortIndex: number | null = null;
+
+    // The direction the column is sorted.
+    @attr({ attribute: 'sort-direction' })
+    public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
+
     // The relevant, static configuration a column requires its cellTemplate to have access to.
     columnConfig?: TColumnConfig;
 
@@ -119,6 +128,14 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
 
     // The name of the data field that will be used for operations on the table, such as sorting and grouping.
     operandDataRecordFieldName: TableFieldName | undefined;
+
+    /**
+     * @internal
+     *
+     * The operation to use when sorting the table by this column.
+     */
+    @observable
+    public sortOperation: TableColumnSortOperation;
 
     // Function that allows the table column to validate the type that gets created
     // for the cell data. This should validate that the types in TCellRecord are correct

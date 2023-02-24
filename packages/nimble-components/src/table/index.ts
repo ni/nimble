@@ -159,9 +159,7 @@ export class Table<
                 this.generateTanStackColumns();
             }
             if (args === 'sortIndex' || args === 'sortDirection') {
-                if (args === 'sortIndex') {
-                    this.validateColumnSortIndices();
-                }
+                this.validateColumnSortIndices();
                 this.setSortState();
             }
         }
@@ -244,7 +242,10 @@ export class Table<
     private validateColumnSortIndices(): void {
         this.tableValidator.validateColumnSortIndices(
             this.columns
-                .filter(x => x.sortDirection !== TableColumnSortDirection.none && x.sortIndex !== null)
+                .filter(
+                    x => x.sortDirection !== TableColumnSortDirection.none
+                        && x.sortIndex !== null
+                )
                 .map(x => x.sortIndex!)
         );
         this.canRenderRows = this.checkValidity();
