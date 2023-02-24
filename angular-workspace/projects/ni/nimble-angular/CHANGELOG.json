@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 23 Feb 2023 20:07:58 GMT",
+      "tag": "@ni/nimble-angular_v16.1.3",
+      "version": "16.1.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b3a6c58b35eb3bdfe9f3a17dd43b2a28b7fefd09",
+            "comment": "Uptake Playwright for Chromium binaries for tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Feb 2023 20:30:27 GMT",
       "tag": "@ni/nimble-angular_v16.1.3",
       "version": "16.1.3",
