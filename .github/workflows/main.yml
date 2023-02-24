@@ -65,24 +65,13 @@ jobs:
         with:
           path: 'packages/site/dist'
 
-      # Publish to Chromatic (from any push *except* main)
+      # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/main')
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          onlyChanged: true # Use TurboSnap for PR builds
-          workingDir: ./packages/nimble-components
-          storybookBuildDir: ../../packages/site/dist/storybook
-          exitOnceUploaded: true # Do not wait for test results
-          exitZeroOnChanges: true # Option to prevent the workflow from failing
-      
-      # Publish to Chromatic (from any push to main)
-      - name: Publish to Chromatic
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
           workingDir: ./packages/nimble-components
           storybookBuildDir: ../../packages/site/dist/storybook
           exitOnceUploaded: true # Do not wait for test results
