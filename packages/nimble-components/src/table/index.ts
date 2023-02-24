@@ -244,8 +244,8 @@ export class Table<
     private validateColumnSortIndices(): void {
         this.tableValidator.validateColumnSortIndices(
             this.columns
-                .map(x => x.sortIndex)
-                .filter((x): x is number => x !== null)
+                .filter(x => x.sortDirection !== TableColumnSortDirection.none && x.sortIndex !== null)
+                .map(x => x.sortIndex!)
         );
         this.canRenderRows = this.checkValidity();
     }

@@ -57,7 +57,7 @@ These are internal properties on the column. They will be set by a concrete impl
 
 ### Validation
 
-The table will be invalid if it contains two columns with the same `sort-index`. If a duplicate `sort-index` is detected, the rows in the table will not render, and the table's validity object will have `duplicateColumnSortIndex` set to `true`.
+The table will be invalid if it contains two columns with the same `sort-index` that both specify a `sort-direction` other than `none`. If a duplicate `sort-index` is detected, the rows in the table will not render, and the table's validity object will have `duplicateColumnSortIndex` set to `true`.
 
 ### Visualizing the sort state
 

@@ -426,7 +426,7 @@ describe('Table sorting', () => {
     });
 
     describe('sort index validation', () => {
-        it('multiple columns with the same sort index is invalid and does not render rows', async () => {
+        it('multiple columns with the same sort index and a sort direction is invalid and does not render rows', async () => {
             const data: readonly SimpleTableRecord[] = [
                 { id: '1', stringData1: 'foo' },
                 { id: '2', stringData1: 'abc' },
@@ -447,6 +447,29 @@ describe('Table sorting', () => {
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.duplicateSortIndex).toBeTrue();
             expect(pageObject.getRenderedRowCount()).toBe(0);
+        });
+
+        it('multiple columns with the same sort index without a sort direction is valid renders rows', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'foo' },
+                { id: '2', stringData1: 'abc' },
+                { id: '3', stringData1: 'zzz' },
+                { id: '4', stringData1: 'hello' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.sortDirection = TableColumnSortDirection.descending;
+            column1.sortIndex = 0;
+            column2.fieldName = 'stringData2';
+            column2.sortDirection = TableColumnSortDirection.none;
+            column2.sortIndex = 0;
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.duplicateSortIndex).toBeFalse();
+            expect(pageObject.getRenderedRowCount()).toBe(4);
         });
 
         it('transitioning out of having duplicate sort indices updates table', async () => {
