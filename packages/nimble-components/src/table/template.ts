@@ -12,7 +12,10 @@ import type { Table } from '.';
 import { TableHeader } from './components/header';
 import { TableRow } from './components/row';
 import type { TableColumn } from '../table-column/base';
-import { TableActionMenuToggleEventDetail, TableColumnSortDirection } from './types';
+import {
+    TableActionMenuToggleEventDetail,
+    TableColumnSortDirection
+} from './types';
 
 // prettier-ignore
 export const template = html<Table>`
