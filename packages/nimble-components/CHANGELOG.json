@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 27 Feb 2023 20:44:30 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb71e66a13c757c05b7869e3ba89f0afe346c2aa",
+            "comment": "Add chromatic tests with an open action menu in a table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 23 Feb 2023 20:07:58 GMT",
       "tag": "@ni/nimble-components_v18.5.3",
       "version": "18.5.3",
