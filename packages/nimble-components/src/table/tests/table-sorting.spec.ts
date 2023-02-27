@@ -130,6 +130,44 @@ describe('Table sorting', () => {
         expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
     });
 
+    it('sorts ascending with values of null and undefined', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: '' },
+            { id: '2', stringData1: undefined },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: null },
+            { id: '5', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 0;
+        element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(getRenderedRecordIds()).toEqual(['2', '4', '1', '5', '3']);
+    });
+
+    it('sorts descending with values of null and undefined', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: '' },
+            { id: '2', stringData1: undefined },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: null },
+            { id: '5', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.sortDirection = TableColumnSortDirection.descending;
+        column1.sortIndex = 0;
+        element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(getRenderedRecordIds()).toEqual(['3', '5', '1', '4', '2']);
+    });
+
     it('can sort by a hidden column', async () => {
         const data: readonly SimpleTableRecord[] = [
             { id: '1', stringData1: 'foo' },

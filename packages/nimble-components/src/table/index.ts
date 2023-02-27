@@ -362,15 +362,29 @@ export class Table<
         }
     }
 
+    /**
+     * A function to perform locale-aware and case-senstitive sorting of two rows from
+     * TanStack for a given column. The function sorts `undefined` followed by `null`
+     * before all defined strings.
+     */
     private readonly localeAwareCaseSensitiveSortFunction: TanStackSortingFn<TData> = (
         rowA: TanStackRow<TData>,
         rowB: TanStackRow<TData>,
         columnId: string
     ) => {
-        const valueA = rowA.getValue<string | null | undefined>(columnId) ?? '';
-        const valueB = rowB.getValue<string | null | undefined>(columnId) ?? '';
+        const valueA = rowA.getValue<string | null | undefined>(columnId);
+        const valueB = rowB.getValue<string | null | undefined>(columnId);
 
-        return valueA.localeCompare(valueB);
+        if (typeof valueA === 'string' && typeof valueB === 'string') {
+            return valueA.localeCompare(valueB);
+        }
+        if (valueA === valueB) {
+            return 0;
+        }
+        if (valueA === undefined || (valueA === null && valueB !== undefined)) {
+            return -1;
+        }
+        return 1;
     };
 }
 
