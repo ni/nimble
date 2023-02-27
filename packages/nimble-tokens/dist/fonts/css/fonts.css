@@ -7,11 +7,26 @@
 }
 
 @font-face {
+  font-family: "Source Sans Pro-fallback";
+  size-adjust: 93.75%;
+  ascent-override: 110%;
+  src: local("Arial");
+}
+
+@font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 300;
   src: url('../assets/SourceSansPro-Light.woff2') format('woff2');
   font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans Pro light-fallback";
+  font-weight: 300;
+  size-adjust: 93.75%;
+  ascent-override: 110%;
+  src: local("Arial");
 }
 
 @font-face {
@@ -23,9 +38,24 @@
 }
 
 @font-face {
+  font-family: "Source Sans Pro semibold-fallback";
+  font-weight: 600;
+  size-adjust: 93.75%;
+  ascent-override: 110%;
+  src: local("Arial");
+}
+
+@font-face {
   font-family: 'Noto Serif';
   font-style: normal;
   font-weight: 400;
   src: url('../assets/NotoSerif-Regular.woff2') format('woff2');
   font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif-fallback";
+  size-adjust: 119%;
+  ascent-override: 90%;
+  src: local("Times New Roman");
 }
