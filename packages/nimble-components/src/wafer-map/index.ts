@@ -139,12 +139,9 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        const canvasContext = this.canvas.getContext('2d', {
+        this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
-        });
-        if (canvasContext != null) {
-            this.canvasContext = canvasContext;
-        }
+        })!;
         this.resizeObserver = this.createResizeObserver();
     }
 
