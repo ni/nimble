@@ -311,7 +311,9 @@ export class Table<
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
             (x, y) => x.sortIndex! - y.sortIndex!
         );
-        this.firstSortedColumn = sortedColumns.length ? sortedColumns[0] : undefined;
+        this.firstSortedColumn = sortedColumns.length
+            ? sortedColumns[0]
+            : undefined;
 
         const tanStackSortingState: TanStackSortingState = sortedColumns.map(
             column => {

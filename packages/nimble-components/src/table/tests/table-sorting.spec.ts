@@ -467,28 +467,16 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderElement(0).firstSortedColumn).toBe(
-            false
-        );
-        expect(pageObject.getHeaderElement(1).firstSortedColumn).toBe(
-            false
-        );
-        expect(pageObject.getHeaderElement(2).firstSortedColumn).toBe(
-            true
-        );
+        expect(pageObject.getHeaderElement(0).firstSortedColumn).toBe(false);
+        expect(pageObject.getHeaderElement(1).firstSortedColumn).toBe(false);
+        expect(pageObject.getHeaderElement(2).firstSortedColumn).toBe(true);
 
         column1.sortIndex = -1;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderElement(0).firstSortedColumn).toBe(
-            true
-        );
-        expect(pageObject.getHeaderElement(1).firstSortedColumn).toBe(
-            false
-        );
-        expect(pageObject.getHeaderElement(2).firstSortedColumn).toBe(
-            false
-        );
+        expect(pageObject.getHeaderElement(0).firstSortedColumn).toBe(true);
+        expect(pageObject.getHeaderElement(1).firstSortedColumn).toBe(false);
+        expect(pageObject.getHeaderElement(2).firstSortedColumn).toBe(false);
     });
 
     it('can have multiple sorted columns sorted by the same data field', async () => {

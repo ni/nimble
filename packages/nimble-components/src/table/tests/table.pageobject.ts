@@ -1,6 +1,6 @@
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import type { TableColumnSortDirection, TableRecord } from '../types';
+import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 
@@ -44,9 +44,7 @@ export class TablePageObject<T extends TableRecord> {
         return this.getHeaderContentElement(headers.item(columnIndex));
     }
 
-    public getHeaderElement(
-        columnIndex: number
-    ): TableHeader {
+    public getHeaderElement(columnIndex: number): TableHeader {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'
         )!;

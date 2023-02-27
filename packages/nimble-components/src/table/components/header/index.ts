@@ -36,7 +36,10 @@ export class TableHeader extends FoundationElement {
     }
 
     private updateAriaSort(): void {
-        if (!this.firstSortedColumn || this.sortDirection === TableColumnSortDirection.none) {
+        if (
+            !this.firstSortedColumn
+            || this.sortDirection === TableColumnSortDirection.none
+        ) {
             this.ariaSort = null;
         } else if (this.sortDirection === TableColumnSortDirection.ascending) {
             this.ariaSort = 'ascending';
