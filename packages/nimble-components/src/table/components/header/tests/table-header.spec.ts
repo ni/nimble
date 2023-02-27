@@ -20,10 +20,10 @@ function getSortIcons(element: TableHeader): {
     const sortIndicatorContainer = element.shadowRoot!.querySelector('.sort-indicator')!;
     return {
         ascendingIcon: sortIndicatorContainer.querySelector(
-            DesignSystem.tagFor(IconArrowDown)
+            DesignSystem.tagFor(IconArrowUp)
         ),
         descendingIcon: sortIndicatorContainer.querySelector(
-            DesignSystem.tagFor(IconArrowUp)
+            DesignSystem.tagFor(IconArrowDown)
         )
     };
 }

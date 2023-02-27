@@ -12,10 +12,10 @@ export const template = html<TableHeader>`
 
         <span class="sort-indicator">
             ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html`
-                <${DesignSystem.tagFor(IconArrowDown)}></${DesignSystem.tagFor(IconArrowDown)}>
+                <${DesignSystem.tagFor(IconArrowUp)}></${DesignSystem.tagFor(IconArrowUp)}>
             `)}
             ${when(x => x.sortDirection === TableColumnSortDirection.descending, html`
-                <${DesignSystem.tagFor(IconArrowUp)}></${DesignSystem.tagFor(IconArrowUp)}>
+                <${DesignSystem.tagFor(IconArrowDown)}></${DesignSystem.tagFor(IconArrowDown)}>
             `)}
         </span>
     </template>
