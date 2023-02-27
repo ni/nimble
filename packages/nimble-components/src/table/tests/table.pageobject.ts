@@ -18,6 +18,19 @@ export class TablePageObject<T extends TableRecord> {
         return headers.length;
     }
 
+    public getRenderedCellCountForRow(rowIndex: number): number {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        const row = rows.item(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        return cells.length;
+    }
+
     public getHeaderContent(columnIndex: number): Node | undefined {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'

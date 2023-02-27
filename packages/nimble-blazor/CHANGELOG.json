@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 21 Feb 2023 20:30:27 GMT",
+      "tag": "@ni/nimble-blazor_v11.2.2",
+      "version": "11.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "8fcdeb884b9be29b92b4e273991fbc96f077d744",
+            "comment": "Allow table columns to be marked as hidden"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Feb 2023 15:59:14 GMT",
       "tag": "@ni/nimble-blazor_v11.2.0",
       "version": "11.2.0",
