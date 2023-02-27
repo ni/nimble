@@ -87,14 +87,16 @@ export const createFixedThemeStory = <TSource>(
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
+                <style>
+                    body {
+                        /* Override storybook's padding styling */
+                        padding: 0px !important;
+                    }
+                </style>
                 <div
                     style="
                         background-color: ${backgroundState.value};
-                        position: absolute;
-                        width: 100%;
-                        min-height: 100%;
-                        left: 0px;
-                        top: 0px;
+                        min-height: 100vh;
                     "
                 >
                     ${viewTemplate}
