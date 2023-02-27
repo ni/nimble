@@ -21,7 +21,10 @@ within a menu button or a tooltip.
 An anchored region is a container component which enables authors to create layouts where the contents of the anchored region can be positioned relative
 to another "anchor" element. Additionally, the anchored region can react to the available space between the anchor and a parent
 ["viewport"](https://developer.mozilla.org/en-US/docs/Glossary/viewport) element such that the region is placed on the side of the anchor with the most
-available space, or even resize itself based on that space.`;
+available space, or even resize itself based on that space. By default, the anchored region uses \`document.documentElement\` as the parent viewport, but
+this can be configured by setting the \`viewport\` attribute to the ID of a different element. The anchored region can also be manually placed in the desired
+location without any consideration of the viewport's size by setting the \`vertical-default-position\` and \`horizontal-default-position\` attributes to the
+desired positions and setting the \`vertical-positioning-mode\` and \`horizontal-positioning-mode\` attributes to \`locktodefault\`.`;
 
 const metadata: Meta<AnchoredRegionArgs> = {
     title: 'Tests/Anchored Region',

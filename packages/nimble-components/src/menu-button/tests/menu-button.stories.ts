@@ -17,7 +17,10 @@ interface MenuButtonArgs {
 }
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#menubutton), a menu button is a button that opens a menu. It is
-often styled as a typical push button with a downward pointing arrow or triangle to hint that activating the button will display a menu.`;
+often styled as a typical push button with a downward pointing arrow or triangle to hint that activating the button will display a menu.
+
+If the placement of the menu relative to the button is not configured using the \`position\` attribute, the menu's placement will
+automatically be determined based on the size of \`document.documentElement\` and the menu button's location within it.`;
 
 const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
 

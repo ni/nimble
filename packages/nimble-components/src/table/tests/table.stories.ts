@@ -61,7 +61,10 @@ const dataSetIdFieldNames = {
     [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
-const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
+const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
+
+If the table contains an action menu, the menu's position relative to the menu button will automatically be determined based on the size
+of \`document.documentElement\` and the menu button's location within it.`;
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
