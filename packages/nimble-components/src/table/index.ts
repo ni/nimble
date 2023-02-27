@@ -241,14 +241,13 @@ export class Table<
 
     private validateColumnSortIndices(): void {
         this.tableValidator.validateColumnSortIndices(
-            this.columns
-                .filter(
-                    x => x.sortDirection !== TableColumnSortDirection.none
-                        && x.sortIndex !== null
-                )
-                .map(x => x.sortIndex!)
+            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
         this.canRenderRows = this.checkValidity();
+    }
+
+    private getColumnsParticipatingInSorting(): TableColumn[] {
+        return this.columns.filter(x => x.sortDirection !== TableColumnSortDirection.none && x.sortIndex !== null);
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
@@ -300,12 +299,7 @@ export class Table<
     }
 
     private setSortState(): void {
-        const sortedColumns = this.columns
-            .filter(
-                x => x.sortIndex !== null
-                    && x.sortDirection !== TableColumnSortDirection.none
-            )
-            .sort((x, y) => x.sortIndex! - y.sortIndex!);
+        const sortedColumns = this.getColumnsParticipatingInSorting().sort((x, y) => x.sortIndex! - y.sortIndex!);
 
         const tanStackSortingState: TanStackSortingState = sortedColumns.map(
             column => {
