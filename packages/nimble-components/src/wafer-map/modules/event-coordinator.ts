@@ -21,12 +21,6 @@ export class EventCoordinator {
         this.attachEvents();
     }
 
-    public get selectedDie(): WaferMapDie | undefined {
-        // TODO HoverHandler - return the last selected die when called
-
-        return undefined;
-    }
-
     public detachEvents(): void {
         this.wafermap.removeEventListener('mousemove', this.onMouseMove);
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
@@ -51,8 +45,5 @@ export class EventCoordinator {
         this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
             passive: false
         });
-
-        // Wafermap callbacks
-        // TODO HoverHandler - configure the callback to be fired from HoverHandler when a new die is selected
     }
 }
