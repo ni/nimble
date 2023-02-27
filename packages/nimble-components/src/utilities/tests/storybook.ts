@@ -87,10 +87,15 @@ export const createFixedThemeStory = <TSource>(
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
+                <style>
+                    body {
+                        /* Override storybook's padding styling */
+                        padding: 0px !important;
+                    }
+                </style>
                 <div
                     style="
                         background-color: ${backgroundState.value};
-                        margin: -1em;
                         min-height: 100vh;
                     "
                 >
