@@ -64,6 +64,7 @@ describe('TableHeader', () => {
 
     it('has correct state when sorted ascending', async () => {
         element.sortDirection = TableColumnSortDirection.ascending;
+        element.firstSortedColumn = true;
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-sort')).toEqual('ascending');
@@ -74,9 +75,21 @@ describe('TableHeader', () => {
 
     it('has correct state when sorted descending', async () => {
         element.sortDirection = TableColumnSortDirection.descending;
+        element.firstSortedColumn = true;
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-sort')).toEqual('descending');
+        const sortIcons = getSortIcons(element);
+        expect(sortIcons.ascendingIcon).toBeFalsy();
+        expect(sortIcons.descendingIcon).toBeTruthy();
+    });
+
+    it('does not configure aria-sort if it is not the first sorted column', async () => {
+        element.sortDirection = TableColumnSortDirection.descending;
+        element.firstSortedColumn = false;
+        await waitForUpdatesAsync();
+
+        expect(element.hasAttribute('aria-sort')).toBeFalse();
         const sortIcons = getSortIcons(element);
         expect(sortIcons.ascendingIcon).toBeFalsy();
         expect(sortIcons.descendingIcon).toBeTruthy();

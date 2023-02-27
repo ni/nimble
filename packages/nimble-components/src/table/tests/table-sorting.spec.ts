@@ -398,13 +398,13 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderSortDirection(0)).toBe(
+        expect(pageObject.getHeaderElement(0).sortDirection).toBe(
             TableColumnSortDirection.ascending
         );
-        expect(pageObject.getHeaderSortDirection(1)).toBe(
+        expect(pageObject.getHeaderElement(1).sortDirection).toBe(
             TableColumnSortDirection.none
         );
-        expect(pageObject.getHeaderSortDirection(2)).toBe(
+        expect(pageObject.getHeaderElement(2).sortDirection).toBe(
             TableColumnSortDirection.descending
         );
     });
@@ -417,13 +417,13 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderSortDirection(0)).toBe(
+        expect(pageObject.getHeaderElement(0).sortDirection).toBe(
             TableColumnSortDirection.ascending
         );
-        expect(pageObject.getHeaderSortDirection(1)).toBe(
+        expect(pageObject.getHeaderElement(1).sortDirection).toBe(
             TableColumnSortDirection.none
         );
-        expect(pageObject.getHeaderSortDirection(2)).toBe(
+        expect(pageObject.getHeaderElement(2).sortDirection).toBe(
             TableColumnSortDirection.descending
         );
 
@@ -432,13 +432,13 @@ describe('Table sorting', () => {
         column2.sortIndex = 2;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderSortDirection(0)).toBe(
+        expect(pageObject.getHeaderElement(0).sortDirection).toBe(
             TableColumnSortDirection.descending
         );
-        expect(pageObject.getHeaderSortDirection(1)).toBe(
+        expect(pageObject.getHeaderElement(1).sortDirection).toBe(
             TableColumnSortDirection.ascending
         );
-        expect(pageObject.getHeaderSortDirection(2)).toBe(
+        expect(pageObject.getHeaderElement(2).sortDirection).toBe(
             TableColumnSortDirection.descending
         );
     });
@@ -451,11 +451,43 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getHeaderSortDirection(0)).toBe(
+        expect(pageObject.getHeaderElement(0).sortDirection).toBe(
             TableColumnSortDirection.ascending
         );
-        expect(pageObject.getHeaderSortDirection(1)).toBe(
+        expect(pageObject.getHeaderElement(1).sortDirection).toBe(
             TableColumnSortDirection.none
+        );
+    });
+
+    it('sets `first-column-sorted` on header with lowest sort index', async () => {
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 1;
+        column3.sortDirection = TableColumnSortDirection.descending;
+        column3.sortIndex = 0;
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getHeaderElement(0).firstSortedColumn).toBe(
+            false
+        );
+        expect(pageObject.getHeaderElement(1).firstSortedColumn).toBe(
+            false
+        );
+        expect(pageObject.getHeaderElement(2).firstSortedColumn).toBe(
+            true
+        );
+
+        column1.sortIndex = -1;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getHeaderElement(0).firstSortedColumn).toBe(
+            true
+        );
+        expect(pageObject.getHeaderElement(1).firstSortedColumn).toBe(
+            false
+        );
+        expect(pageObject.getHeaderElement(2).firstSortedColumn).toBe(
+            false
         );
     });
 

@@ -18,16 +18,30 @@ export class TableHeader extends FoundationElement {
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
+    @attr({ attribute: 'first-sorted-column', mode: 'boolean' })
+    public firstSortedColumn = false;
+
     protected sortDirectionChanged(
         _prev: TableColumnSortDirection | undefined,
         _next: TableColumnSortDirection
     ): void {
-        if (this.sortDirection === TableColumnSortDirection.ascending) {
-            this.ariaSort = 'ascending';
-        } else if (this.sortDirection === TableColumnSortDirection.descending) {
-            this.ariaSort = 'descending';
-        } else {
+        this.updateAriaSort();
+    }
+
+    protected firstSortedColumnChanged(
+        _prev: boolean | undefined,
+        _next: boolean
+    ): void {
+        this.updateAriaSort();
+    }
+
+    private updateAriaSort(): void {
+        if (!this.firstSortedColumn || this.sortDirection === TableColumnSortDirection.none) {
             this.ariaSort = null;
+        } else if (this.sortDirection === TableColumnSortDirection.ascending) {
+            this.ariaSort = 'ascending';
+        } else {
+            this.ariaSort = 'descending';
         }
     }
 }

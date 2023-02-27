@@ -98,6 +98,12 @@ export class Table<
      */
     public readonly virtualizer: Virtualizer<TData>;
 
+    /**
+     * @internal
+     */
+    @observable
+    public firstSortedColumn?: TableColumn;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
@@ -305,6 +311,7 @@ export class Table<
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
             (x, y) => x.sortIndex! - y.sortIndex!
         );
+        this.firstSortedColumn = sortedColumns.length ? sortedColumns[0] : undefined;
 
         const tanStackSortingState: TanStackSortingState = sortedColumns.map(
             column => {

@@ -10,7 +10,7 @@ export const template = html<TableHeader>`
     <template role="columnheader" aria-sort="${x => x.ariaSort}">
         <slot></slot>
 
-        <span class="sort-indicator">
+        <span class="sort-indicator" aria-hidden="true">
             ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html`
                 <${DesignSystem.tagFor(IconArrowUp)}></${DesignSystem.tagFor(IconArrowUp)}>
             `)}
