@@ -247,7 +247,10 @@ export class Table<
     }
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
-        return this.columns.filter(x => x.sortDirection !== TableColumnSortDirection.none && x.sortIndex !== null);
+        return this.columns.filter(
+            x => x.sortDirection !== TableColumnSortDirection.none
+                && x.sortIndex !== null
+        );
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
@@ -299,7 +302,9 @@ export class Table<
     }
 
     private setSortState(): void {
-        const sortedColumns = this.getColumnsParticipatingInSorting().sort((x, y) => x.sortIndex! - y.sortIndex!);
+        const sortedColumns = this.getColumnsParticipatingInSorting().sort(
+            (x, y) => x.sortIndex! - y.sortIndex!
+        );
 
         const tanStackSortingState: TanStackSortingState = sortedColumns.map(
             column => {
