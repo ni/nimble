@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { DigitalGreenLight } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { borderColor, borderWidth } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -70,7 +71,7 @@ export const styles = css`
         fill: transparent;
         stroke: white;
         outline-style: solid;
-        outline-color: green;
+        outline-color: ${DigitalGreenLight};
     }
 
     .hover-rect.show {
