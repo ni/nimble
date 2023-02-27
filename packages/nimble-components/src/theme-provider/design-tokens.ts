@@ -276,7 +276,7 @@ export const [
     Headline1Weight,
     Headline1Size,
     Headline1LineHeight,
-    'serif'
+    'Noto Serif-fallback'
 );
 
 export const [
@@ -296,7 +296,7 @@ export const [
     Headline2Weight,
     Headline2Size,
     Headline2LineHeight,
-    'serif'
+    'Noto Serif-fallback'
 );
 
 export const [
@@ -316,7 +316,7 @@ export const [
     Title3Weight,
     Title3Size,
     Title3LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -336,7 +336,7 @@ export const [
     Title2Weight,
     Title2Size,
     Title2LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -356,7 +356,7 @@ export const [
     Title1Weight,
     Title1Size,
     Title1LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -376,7 +376,7 @@ export const [
     Subtitle2Weight,
     Subtitle2Size,
     Subtitle2LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -396,7 +396,7 @@ export const [
     Subtitle1Weight,
     Subtitle1Size,
     Subtitle1LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -416,7 +416,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -441,7 +441,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -461,7 +461,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -481,7 +481,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -501,7 +501,7 @@ export const [
     PlaceholderWeight,
     PlaceholderSize,
     PlaceholderLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -521,7 +521,7 @@ export const [
     BodyEmphasizedWeight,
     BodyEmphasizedSize,
     BodyEmphasizedLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -541,7 +541,7 @@ export const [
     BodyWeight,
     BodySize,
     BodyLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -561,7 +561,7 @@ export const [
     GroupLabel1Weight,
     GroupLabel1Size,
     GroupLabel1LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -581,7 +581,7 @@ export const [
     ControlLabel1Weight,
     ControlLabel1Size,
     ControlLabel1LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -601,7 +601,7 @@ export const [
     ButtonLabel1Weight,
     ButtonLabel1Size,
     ButtonLabel1LineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -621,7 +621,7 @@ export const [
     TooltipCaptionWeight,
     TooltipCaptionSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -641,7 +641,7 @@ export const [
     ErrorLightUiWeight,
     ErrorLightUiSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 export const [
@@ -661,7 +661,7 @@ export const [
     GridHeaderWeight,
     GridHeaderSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    'Source Sans Pro-fallback'
 );
 
 // Font Transform Tokens
