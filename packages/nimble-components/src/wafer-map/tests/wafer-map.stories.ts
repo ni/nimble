@@ -28,6 +28,7 @@ interface WaferMapArgs {
     maxCharacters: number;
     orientation: WaferMapOrientation;
     quadrant: WaferMapQuadrant;
+    dieHover: unknown;
 }
 
 const getDiesSet = (
@@ -256,6 +257,11 @@ const metadata: Meta<WaferMapArgs> = {
                     [WaferMapQuadrant.topRight]: 'top-right'
                 }
             }
+        },
+        dieHover: {
+            name: 'die-hover',
+            description:
+                'The event is fired whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
         }
     }
 };
