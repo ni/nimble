@@ -19,6 +19,7 @@ interface SimpleTableRecord extends TableRecord {
     styleUrls: ['./customapp.component.scss']
 })
 export class CustomAppComponent {
+    public bannerOpen = false;
     public dialogCloseReason: string;
     public drawerCloseReason: string;
     public drawerLocation: DrawerLocation = DrawerLocation.right;

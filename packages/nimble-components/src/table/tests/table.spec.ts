@@ -1,7 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
-import { IconCheck } from '../../icons/check';
 import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -45,7 +43,12 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table></nimble-table>`
+        html`<nimble-table>
+            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="moreStringData">
+                <nimble-icon-check></nimble-icon-check>
+            </nimble-table-column-text>
+        </nimble-table>`
     );
 }
 
@@ -66,7 +69,11 @@ describe('Table', () => {
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
-                const dataKey = column.getDataRecordFieldNames()[0]!;
+                if (column.columnHidden) {
+                    continue;
+                }
+
+                const dataKey = column.dataRecordFieldNames[0]!;
                 const expectedCellData = rowData[dataKey]!;
                 record[dataKey] = expectedCellData;
             }
@@ -81,13 +88,15 @@ describe('Table', () => {
         const visibleData = retrieveExpectedData(visibleTableDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
+        const visibleColumns = element.columns.filter(x => !x.columnHidden);
+
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
             for (
                 let columnIndex = 0;
-                columnIndex < element.columns.length;
+                columnIndex < visibleColumns.length;
                 columnIndex++
             ) {
-                const dataKey = element.columns[columnIndex]!.getDataRecordFieldNames()[0]!;
+                const dataKey = visibleColumns[columnIndex]!.dataRecordFieldNames[0]!;
                 const expectedCellData = visibleData[rowIndex]![dataKey]!;
                 expect(
                     pageObject.getRenderedCellContent(rowIndex, columnIndex)
@@ -108,21 +117,8 @@ describe('Table', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new TablePageObject<SimpleTableRecord>(element);
-
-        const tableColumnTextTag = DesignSystem.tagFor(TableColumnText);
-        column1 = document.createElement(tableColumnTextTag) as TableColumn;
-        column1.textContent = 'stringData';
-        (column1 as TableColumnText).fieldName = 'stringData';
-
-        const checkIcon = document.createElement(
-            DesignSystem.tagFor(IconCheck)
-        );
-        column2 = document.createElement(tableColumnTextTag) as TableColumn;
-        column2.appendChild(checkIcon);
-        (column2 as TableColumnText).fieldName = 'moreStringData';
-
-        element.appendChild(column1);
-        element.appendChild(column2);
+        column1 = element.querySelector<TableColumn>('#first-column')!;
+        column2 = element.querySelector<TableColumn>('#second-column')!;
     });
 
     afterEach(async () => {
@@ -573,6 +569,67 @@ describe('Table', () => {
             expect(newRenderedRowCount).toBeGreaterThan(
                 originalRenderedRowCount
             );
+        });
+    });
+
+    describe('hidden columns', () => {
+        it('does not render hidden columns', async () => {
+            column1.columnHidden = true;
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('changing a column from hidden to not hidden makes it visible', async () => {
+            column1.columnHidden = true;
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            column1.columnHidden = false;
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('changing a column from not hidden to hidden makes it hidden', async () => {
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            column1.columnHidden = true;
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
         });
     });
 });

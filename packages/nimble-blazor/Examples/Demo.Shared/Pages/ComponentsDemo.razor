@@ -22,6 +22,14 @@
             </NimbleBreadcrumb>
         </div>
         <div class="sub-container">
+            <div class="container-label">Banner</div>
+            <NimbleBanner @bind-Open="@BannerOpen" Severity="BannerSeverity.Information">
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
+            </NimbleBanner>
+            <NimbleCheckbox @bind-Value="@BannerOpen">Show banner</NimbleCheckbox>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Buttons</div>
             <NimbleButton Appearance="ButtonAppearance.Outline">Outline Button</NimbleButton>
             <NimbleButton Appearance="ButtonAppearance.Block">Block Button</NimbleButton>
@@ -198,8 +206,16 @@
         <div class="sub-container">
             <div class="container-label">Table</div>
             <NimbleTable @bind-Data="TableData" class="table">
-                <NimbleTableColumnText FieldName="FirstName" Placeholder="no value"><NimbleIconKey title="First Name"></NimbleIconKey></NimbleTableColumnText>
-                <NimbleTableColumnText FieldName="LastName" Placeholder="no value">Last Name</NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="FirstName" Placeholder="no value" ColumnId="first-name-column" ActionMenuSlot="action-menu" ActionMenuLabel="Action menu">
+                    <NimbleIconKey title="First Name"></NimbleIconKey>
+                </NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value">Last Name</NimbleTableColumnText>
+
+                <NimbleMenu slot="action-menu">
+                    <NimbleMenuItem>Item 1</NimbleMenuItem>
+                    <NimbleMenuItem>Item 2</NimbleMenuItem>
+                    <NimbleMenuItem>Item 3</NimbleMenuItem>
+                </NimbleMenu>
             </NimbleTable>
         </div>
         <NimbleButton class="table-update-button" @onclick=@(_ => UpdateTableData(100))>Update Data</NimbleButton>
