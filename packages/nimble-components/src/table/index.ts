@@ -381,7 +381,10 @@ export class Table<
         if (valueA === valueB) {
             return 0;
         }
-        if (valueA === undefined || (valueA === null && valueB !== undefined)) {
+        if (
+            valueA === undefined
+                || (valueA === null && valueB !== undefined)
+        ) {
             return -1;
         }
         return 1;
