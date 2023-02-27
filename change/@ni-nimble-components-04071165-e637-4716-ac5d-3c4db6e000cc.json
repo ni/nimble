@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Reduce font loading jitter",
+  "comment": "Using new fallback font definitions from `nimble-tokens` that more closely match the design system fonts. This helps minimize font swap jitter on initial page load.",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
