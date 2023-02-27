@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import { BannerSeverity } from './types';
+import { BannerSeverity, BannerToggleEventDetail } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -63,7 +63,11 @@ export class Banner extends FoundationElement {
      * @internal
      */
     public openChanged(): void {
-        this.$emit('toggle', { oldState: !this.open, newState: this.open });
+        const eventDetail: BannerToggleEventDetail = {
+            newState: this.open,
+            oldState: !this.open
+        };
+        this.$emit('toggle', eventDetail);
     }
 
     /**

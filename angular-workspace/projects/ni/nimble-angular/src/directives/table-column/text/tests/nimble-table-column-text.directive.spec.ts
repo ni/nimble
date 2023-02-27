@@ -26,6 +26,9 @@ describe('NimbleTableColumnText', () => {
                         column-id="my-column"
                         field-name="field1"
                         placeholder="no value"
+                        action-menu-slot="my-slot"
+                        action-menu-label="my menu"
+                        column-hidden="true"
                         fractional-width="2"
                         min-pixel-width="40"
                     ></nimble-table-column-text>
@@ -62,10 +65,26 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.placeholder).toBe('no value');
         });
 
+        it('will use template string values for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+        });
+
+        it('will use template string values for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+        });
+
         it('will use template string values for columnId', () => {
             expect(directive.columnId).toBe('my-column');
             expect(nativeElement.columnId).toBe('my-column');
         });
+
+        it('will use template string value for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+        });
+    });
 
         it('will use template string values for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
@@ -87,6 +106,9 @@ describe('NimbleTableColumnText', () => {
                         [column-id]="columnId"
                         [field-name]="field"
                         [placeholder]="placeholder"
+                        [actionMenuSlot]="actionMenuSlot"
+                        [actionMenuLabel]="actionMenuLabel"
+                        [column-hidden]="columnHidden"
                         [fractional-width]="fractionalWidth"
                         [min-pixel-width]="minPixelWidth"
                     ></nimble-table-column-text>
@@ -98,9 +120,12 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
             public placeholder = 'no value';
+            public actionMenuSlot = 'my-slot';
+            public actionMenuLabel = 'my menu';
             public fractionalWidth = 2;
             public minPixelWidth = 40;
             public columnId = 'my-column';
+            public columnHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -140,6 +165,28 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.placeholder).toBe('foo');
         });
 
+        it('can be configured with property binding for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+
+            fixture.componentInstance.actionMenuSlot = 'new-slot';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuSlot).toBe('new-slot');
+            expect(nativeElement.actionMenuSlot).toBe('new-slot');
+        });
+
+        it('can be configured with property binding for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+
+            fixture.componentInstance.actionMenuLabel = 'another menu';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuLabel).toBe('another menu');
+            expect(nativeElement.actionMenuLabel).toBe('another menu');
+        });
+
         it('can be configured with property binding for columnId', () => {
             expect(directive.columnId).toBe('my-column');
             expect(nativeElement.columnId).toBe('my-column');
@@ -150,6 +197,18 @@ describe('NimbleTableColumnText', () => {
             expect(directive.columnId).toBe('new-column');
             expect(nativeElement.columnId).toBe('new-column');
         });
+
+        it('can be configured with property binding for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+
+            fixture.componentInstance.columnHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.columnHidden).toBe(false);
+            expect(nativeElement.columnHidden).toBe(false);
+        });
+    });
 
         it('can be configured with property binding for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
@@ -183,6 +242,9 @@ describe('NimbleTableColumnText', () => {
                         [attr.column-id]="columnId"
                         [attr.field-name]="field"
                         [attr.placeholder]="placeholder"
+                        [attr.action-menu-slot]="actionMenuSlot"
+                        [attr.action-menu-label]="actionMenuLabel"
+                        [attr.column-hidden]="columnHidden"
                         [attr.fractional-width]="fractionalWidth"
                         [attr.min-pixel-width]="minPixelWidth"
                     ></nimble-table-column-text>
@@ -194,9 +256,12 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
             public placeholder = 'no value';
+            public actionMenuSlot = 'my-slot';
+            public actionMenuLabel = 'my menu';
             public fractionalWidth = 2;
             public minPixelWidth = 40;
             public columnId = 'my-column';
+            public columnHidden = true;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -236,6 +301,28 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.placeholder).toBe('foo');
         });
 
+        it('can be configured with attribute binding for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+
+            fixture.componentInstance.actionMenuSlot = 'new-slot';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuSlot).toBe('new-slot');
+            expect(nativeElement.actionMenuSlot).toBe('new-slot');
+        });
+
+        it('can be configured with attribute binding for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+
+            fixture.componentInstance.actionMenuLabel = 'another menu';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuLabel).toBe('another menu');
+            expect(nativeElement.actionMenuLabel).toBe('another menu');
+        });
+
         it('can be configured with attribute binding for columnId', () => {
             expect(directive.columnId).toBe('my-column');
             expect(nativeElement.columnId).toBe('my-column');
@@ -245,6 +332,17 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.columnId).toBe('new-column');
             expect(nativeElement.columnId).toBe('new-column');
+        });
+
+        it('can be configured with attribute binding for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+
+            fixture.componentInstance.columnHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.columnHidden).toBe(false);
+            expect(nativeElement.columnHidden).toBe(false);
         });
 
         it('can be configured with property binding for fractionalWidth', () => {

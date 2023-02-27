@@ -9,6 +9,14 @@
             Let's try it <nimble-anchor nimbleRouterLink="/customapp" underline-visible>using nimbleRouterLink</nimble-anchor>.
         </div>
         <div class="sub-container">
+            <div class="container-label">Banner</div>
+            <nimble-banner [(open)]="bannerOpen" severity="information">
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
+            </nimble-banner>
+            <nimble-checkbox [(ngModel)]="bannerOpen">Show banner</nimble-checkbox>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Breadcrumb</div>
             <nimble-breadcrumb>
                 <nimble-breadcrumb-item href="#">Page 1</nimble-breadcrumb-item>
@@ -177,8 +185,16 @@
         <div class="sub-container">
             <div class="container-label">Table</div>
             <nimble-table [data$]="tableData$">
-                <nimble-table-column-text field-name="stringValue1" fractional-width="2" min-pixel-width="300"><nimble-icon-check title="String 1"></nimble-icon-check></nimble-table-column-text>
+                <nimble-table-column-text field-name="stringValue1" action-menu-slot="action-menu" action-menu-label="Action menu" fractional-width="2" min-pixel-width="300">
+                    <nimble-icon-check title="String 1"></nimble-icon-check>
+                </nimble-table-column-text>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400">String 2</nimble-table-column-text>
+
+                <nimble-menu slot="action-menu">
+                    <nimble-menu-item>Item 1</nimble-menu-item>
+                    <nimble-menu-item>Item 2</nimble-menu-item>
+                    <nimble-menu-item>Item 3</nimble-menu-item>
+                </nimble-menu>
             </nimble-table>
             <nimble-button class="add-table-row-button" (click)="onAddTableRow()">Add row</nimble-button>
         </div>

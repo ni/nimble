@@ -17,4 +17,16 @@ export const styles = css`
         width: fit-content;
         min-width: 100%;
     }
+
+    nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: none;
+    }
+
+    nimble-table-cell[menu-open] {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host(:hover) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
+    }
 `;

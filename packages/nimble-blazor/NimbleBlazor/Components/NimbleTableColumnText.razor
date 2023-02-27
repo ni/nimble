@@ -2,11 +2,15 @@
 @inherits NimbleTableColumn
 
 <nimble-table-column-text
+    column-id="@ColumnId"
     field-name="@FieldName"
     placeholder="@Placeholder"
-    column-id="@ColumnId"
+    action-menu-slot="@ActionMenuSlot"
+    action-menu-label="@ActionMenuLabel"
+    column-hidden="@ColumnHidden"
     fractional-width="@FractionalWidth"
-    min-pixel-width="@MinPixelWidth">
+    min-pixel-width="@MinPixelWidth"
+>
     @ChildContent
 </nimble-table-column-text>
 
