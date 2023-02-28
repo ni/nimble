@@ -11,7 +11,6 @@
   font-style: normal;
   font-weight: 400;
   size-adjust: 93.75%;
-  ascent-override: 110%;
   src: local("Arial");
 }
 
@@ -28,7 +27,6 @@
   font-style: normal;
   font-weight: 300;
   size-adjust: 93.75%;
-  ascent-override: 110%;
   src: local("Arial");
 }
 
@@ -45,7 +43,6 @@
   font-style: normal;
   font-weight: 600;
   size-adjust: 93.75%;
-  ascent-override: 110%;
   src: local("Arial");
 }
 
@@ -62,6 +59,5 @@
   font-style: normal;
   font-weight: 400;
   size-adjust: 119%;
-  ascent-override: 90%;
   src: local("Times New Roman");
 }
