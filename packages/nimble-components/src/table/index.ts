@@ -157,9 +157,11 @@ export class Table<
         if (source instanceof TableColumn) {
             if (args === 'columnId') {
                 this.validateColumnIds();
-            } else if (args === 'currentFractionalWidth'
-                    || args === 'currentPixelWidth'
-                    || args === 'internalMinPixelWidth') {
+            } else if (
+                args === 'currentFractionalWidth'
+                || args === 'currentPixelWidth'
+                || args === 'internalMinPixelWidth'
+            ) {
                 this.updateRowGridColumns();
             }
         }
@@ -242,7 +244,9 @@ export class Table<
     }
 
     private updateRowGridColumns(): void {
-        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(this.columns);
+        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
+            this.columns
+        );
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {

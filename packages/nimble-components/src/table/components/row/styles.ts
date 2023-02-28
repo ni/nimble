@@ -10,7 +10,7 @@ export const styles = css`
     ${display('grid')}
 
     :host {
-        height: ${controlHeight};
+        height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
         grid-auto-flow: column;
         grid-auto-columns: 1fr;

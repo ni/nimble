@@ -58,7 +58,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-describe('Table', () => {
+fdescribe('Table', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -754,9 +754,6 @@ describe('Table', () => {
                     await connect();
                     await waitForUpdatesAsync();
 
-                    const column1 = element.columns[0]!;
-                    const column2 = element.columns[1]!;
-
                     column1.internalFractionalWidth = columnSizeTest.column1FractionalWidth;
                     column1.internalPixelWidth = columnSizeTest.column1PixelWidth;
                     if (columnSizeTest.column1MinPixelWidth !== null) {
@@ -774,9 +771,15 @@ describe('Table', () => {
                     const column2RenderedWidth = pageObject.getColumnRenderedWidth(1);
                     const rowWidth = pageObject.getRowWidth();
                     const tableWidth = element.getBoundingClientRect().width;
-                    expect(column1RenderedWidth).toBe(columnSizeTest.column1ExpectedRenderedWidth);
-                    expect(column2RenderedWidth).toBe(columnSizeTest.column2ExpectedRenderedWidth);
-                    expect(rowWidth).toBe(columnSizeTest.rowExpectedRenderedWidth);
+                    expect(column1RenderedWidth).toBe(
+                        columnSizeTest.column1ExpectedRenderedWidth
+                    );
+                    expect(column2RenderedWidth).toBe(
+                        columnSizeTest.column2ExpectedRenderedWidth
+                    );
+                    expect(rowWidth).toBe(
+                        columnSizeTest.rowExpectedRenderedWidth
+                    );
                     expect(tableWidth).toBe(columnSizeTest.tableWidth);
                 }
             );

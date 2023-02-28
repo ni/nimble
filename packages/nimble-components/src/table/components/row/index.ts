@@ -10,7 +10,6 @@ import type {
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableLayoutHelper } from '../../models/table-layout-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
