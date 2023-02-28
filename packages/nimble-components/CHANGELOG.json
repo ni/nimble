@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 Feb 2023 11:04:40 GMT",
+      "tag": "@ni/nimble-components_v18.5.4",
+      "version": "18.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05d4139de721834e107f2d9db15111f41f19309f",
+            "comment": "Implementation for the hover feature in the Wafer map component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Feb 2023 20:44:30 GMT",
       "tag": "@ni/nimble-components_v18.5.3",
       "version": "18.5.3",

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Implementation for the hover feature in the Wafer map component",
-  "packageName": "@ni/nimble-components",
-  "email": "33986780+munteannatan@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

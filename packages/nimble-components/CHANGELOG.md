@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
+This log was last generated on Tue, 28 Feb 2023 11:04:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.4
+
+Tue, 28 Feb 2023 11:04:40 GMT
+
+### Patches
+
+- Implementation for the hover feature in the Wafer map component ([ni/nimble@05d4139](https://github.com/ni/nimble/commit/05d4139de721834e107f2d9db15111f41f19309f))
 
 ## 18.5.3
 
