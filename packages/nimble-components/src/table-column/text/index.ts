@@ -2,7 +2,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import { fractionalWidthColumn } from '../extensions/fractional-width-column';
-import { TableColumnTextMixin } from './table-column-test-mixin';
+import { TableColumnTextMixin } from './table-column-text-mixin';
 
 /**
  * The table column for displaying strings.
