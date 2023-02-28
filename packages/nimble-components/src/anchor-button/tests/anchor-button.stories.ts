@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     ButtonAppearance,
@@ -13,15 +12,9 @@ import {
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
-import { AnchorButton } from '..';
-import { IconLink } from '../../icons/link';
-import { IconArrowExpanderRight } from '../../icons/arrow-expander-right';
-
-const nimbleAnchorButton = DesignSystem.tagFor(AnchorButton);
-const nimbleIconLink = DesignSystem.tagFor(IconLink);
-const nimbleIconArrowExpanderRight = DesignSystem.tagFor(
-    IconArrowExpanderRight
-);
+import { anchorButtonTag } from '..';
+import { iconLinkTag } from '../../icons/link';
+import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
 
 const hrefDescription = `
 In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
@@ -56,7 +49,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <${nimbleAnchorButton}
+        <${anchorButtonTag}
             href=${x => (x.href !== '' ? x.href : null)}
             appearance=${x => x.appearance}
             appearance-variant=${x => x.appearanceVariant}
@@ -64,13 +57,13 @@ const metadata: Meta<AnchorButtonArgs> = {
             ?disabled=${x => x.disabled}
         >
             ${when(x => x.icon, html`
-                <${nimbleIconLink} slot="start"></${nimbleIconLink}>
+                <${iconLinkTag} slot="start"></${iconLinkTag}>
             `)}
             ${when(x => x.endIcon, html`
-                <${nimbleIconArrowExpanderRight} slot="end"></${nimbleIconArrowExpanderRight}>
+                <${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>
             `)}
             ${x => x.label}
-        </${nimbleAnchorButton}>
+        </${anchorButtonTag}>
     `),
     argTypes: {
         href: {

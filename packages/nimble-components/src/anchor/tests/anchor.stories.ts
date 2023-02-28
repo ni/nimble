@@ -1,13 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import { Anchor } from '..';
-
-const nimbleAnchor = DesignSystem.tagFor(Anchor);
+import { anchorTag } from '..';
 
 const hrefDescription = `
 To disable the control, remove the \`href\` attribute.
@@ -45,11 +42,11 @@ const metadata: Meta<AnchorArgs> = {
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        Click on the <${nimbleAnchor}
+        Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
             appearance=${x => x.appearance}
-        >${x => x.label}</${nimbleAnchor}> to navigate.
+        >${x => x.label}</${anchorTag}> to navigate.
     `),
     argTypes: {
         href: {

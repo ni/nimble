@@ -1,7 +1,6 @@
 import type { Meta, Story } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
     createMatrix,
@@ -15,9 +14,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import { Anchor } from '..';
-
-const nimbleAnchor = DesignSystem.tagFor(Anchor);
+import { anchorTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
@@ -56,12 +53,12 @@ const component = (
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <${nimbleAnchor}
+    <${anchorTag}
         href=${() => href}
         ?underline-hidden="${() => underlineHidden}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${nimbleAnchor}>
+            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
 `;
 
 export const anchorThemeMatrix: Story = createMatrixThemeStory(
@@ -73,11 +70,11 @@ export const anchorThemeMatrix: Story = createMatrixThemeStory(
 );
 
 export const hiddenAnchor: Story = createStory(
-    hiddenWrapper(html`<${nimbleAnchor} hidden>Hidden Anchor</${nimbleAnchor}>`)
+    hiddenWrapper(html`<${anchorTag} hidden>Hidden Anchor</${anchorTag}>`)
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(html`<${nimbleAnchor}>Link</${nimbleAnchor}>`)
+    textCustomizationWrapper(html`<${anchorTag}>Link</${anchorTag}>`)
 );
 
 export const textWrapping: Story = createStory(
@@ -89,8 +86,8 @@ export const textWrapping: Story = createStory(
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        Lorem ipsum dolor sit amet, <${nimbleAnchor} href='#'>
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</${nimbleAnchor}> ut aliquip ex ea commodo consequat.
+        Lorem ipsum dolor sit amet, <${anchorTag} href='#'>
+        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</${anchorTag}> ut aliquip ex ea commodo consequat.
     </p>
     `
 );
