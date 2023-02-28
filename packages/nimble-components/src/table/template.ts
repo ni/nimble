@@ -27,7 +27,7 @@ export const template = html<Table>`
                             </${DesignSystem.tagFor(TableHeader)}>
                         `)}
                     `)}
-                    <div class="header-scrollbar-spacer" style="width: ${x => (x.virtualizer.headerContainerMarginRight !== 0 ? '17' : '0')}px;"></div>
+                    <div class="header-scrollbar-spacer" style="width: ${x => x.virtualizer.headerContainerMarginRight}px;"></div>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
