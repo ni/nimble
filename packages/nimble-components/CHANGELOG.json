@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 28 Feb 2023 11:04:40 GMT",
+      "tag": "@ni/nimble-components_v18.5.4",
+      "version": "18.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05d4139de721834e107f2d9db15111f41f19309f",
+            "comment": "Implementation for the hover feature in the Wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Feb 2023 20:44:30 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb71e66a13c757c05b7869e3ba89f0afe346c2aa",
+            "comment": "Add chromatic tests with an open action menu in a table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Feb 2023 20:07:58 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b3a6c58b35eb3bdfe9f3a17dd43b2a28b7fefd09",
+            "comment": "Uptake Playwright for Chromium/Firefox binaries for tests; add dev commands for running tests on WebKit via Playwright"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Feb 2023 15:38:25 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9fbfc329ca652dd4a16b2f8018db8ab2747c7266",
+            "comment": "Fix mistake in table-row unit test set up"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Feb 2023 16:40:03 GMT",
       "tag": "@ni/nimble-components_v18.5.3",
       "version": "18.5.3",
