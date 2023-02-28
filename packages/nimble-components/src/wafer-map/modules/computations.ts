@@ -1,5 +1,5 @@
 import { range } from 'd3-array';
-import { ScaleBand, scaleBand } from 'd3-scale';
+import { ScaleBand, scaleBand, scaleQuantile, ScaleQuantile } from 'd3-scale';
 import type { WaferMap } from '..';
 import type { WaferMapDie } from '../types';
 import { Dimensions, Margin, WaferMapQuadrant } from '../types';
@@ -24,6 +24,9 @@ export class Computations {
 
     public readonly horizontalScale: ScaleBand<number>;
     public readonly verticalScale: ScaleBand<number>;
+
+    public readonly invertedHorizontalScale: ScaleQuantile<number, number>;
+    public readonly invertedVerticalScale: ScaleQuantile<number, number>;
 
     private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
@@ -65,8 +68,18 @@ export class Computations {
             gridDimensions,
             containerDiameter
         );
+        this.invertedHorizontalScale = this.createInvertedHorizontalScale(
+            wafermap.quadrant,
+            gridDimensions,
+            containerDiameter
+        );
         // this scale is used for positioning the dies on the canvas
         this.verticalScale = this.createVerticalScale(
+            wafermap.quadrant,
+            gridDimensions,
+            containerDiameter
+        );
+        this.invertedVerticalScale = this.createInvertedVerticalScale(
             wafermap.quadrant,
             gridDimensions,
             containerDiameter
@@ -127,7 +140,6 @@ export class Computations {
     ): ScaleBand<number> {
         const scale = scaleBand<number>()
             .domain(range(grid.origin.x, grid.origin.x + grid.cols))
-            .range([0, containerWidth])
             .paddingInner(0)
             .paddingOuter(0)
             .align(0)
@@ -141,6 +153,23 @@ export class Computations {
         return scale.range([containerWidth, 0]);
     }
 
+    private createInvertedHorizontalScale(
+        axisLocation: WaferMapQuadrant,
+        grid: GridDimensions,
+        containerWidth: number
+    ): ScaleQuantile<number, number> {
+        const scale = scaleQuantile().domain([0, containerWidth]);
+        if (
+            axisLocation === WaferMapQuadrant.bottomLeft
+            || axisLocation === WaferMapQuadrant.topLeft
+        ) {
+            return scale.range(range(grid.origin.x, grid.origin.x + grid.cols));
+        }
+        return scale.range(
+            range(grid.origin.x, grid.origin.x + grid.cols).reverse()
+        );
+    }
+
     private createVerticalScale(
         axisLocation: WaferMapQuadrant,
         grid: GridDimensions,
@@ -148,7 +177,6 @@ export class Computations {
     ): ScaleBand<number> {
         const scale = scaleBand<number>()
             .domain(range(grid.origin.y, grid.origin.y + grid.rows))
-            .range([containerHeight, 0])
             .paddingInner(this.defaultPadding)
             .paddingOuter(0)
             .align(0)
@@ -160,6 +188,23 @@ export class Computations {
             return scale.range([containerHeight, 0]);
         }
         return scale.range([0, containerHeight]);
+    }
+
+    private createInvertedVerticalScale(
+        axisLocation: WaferMapQuadrant,
+        grid: GridDimensions,
+        containerHeight: number
+    ): ScaleQuantile<number, number> {
+        const scale = scaleQuantile().domain([0, containerHeight]);
+        if (
+            axisLocation === WaferMapQuadrant.bottomLeft
+            || axisLocation === WaferMapQuadrant.bottomRight
+        ) {
+            return scale.range(
+                range(grid.origin.y, grid.origin.y + grid.rows).reverse()
+            );
+        }
+        return scale.range(range(grid.origin.y, grid.origin.y + grid.rows));
     }
 
     private calculateMarginAddition(
