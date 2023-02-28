@@ -37,7 +37,7 @@ const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState
 ): ViewTemplate => html`
-    <nimble-tabs style="padding: 15px; height: 120px; width: 400px;">
+    <nimble-tabs style="padding: 15px;">
         ${when(() => toolbar, html`
             <nimble-tabs-toolbar>
                 <nimble-button appearance="ghost">Toolbar Button</nimble-button>
@@ -48,7 +48,7 @@ const component = (
             Tab Two ${() => disabledName}
         </nimble-tab>
         <nimble-tab hidden>Tab Three</nimble-tab>
-        <nimble-tab-panel style="width: 450px;">${loremIpsum}</nimble-tab-panel>
+        <nimble-tab-panel>Tab content one</nimble-tab-panel>
         <nimble-tab-panel>Tab content two</nimble-tab-panel>
         <nimble-tab-panel>Tab content three</nimble-tab-panel>
     </nimble-tabs>
@@ -77,4 +77,13 @@ export const textCustomized: Story = createMatrixThemeStory(
             </nimble-tabs>
         `
     )
+);
+
+export const panelOverflow: Story = createStory(
+    html`
+        <nimble-tabs style="height: 120px; width: 400px;">
+            <nimble-tab>Tab One</nimble-tab>
+            <nimble-tab-panel style="width: 450px;">${loremIpsum}</nimble-tab-panel>
+        </nimble-tabs>
+    `
 );
