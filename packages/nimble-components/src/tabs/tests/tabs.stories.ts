@@ -15,8 +15,8 @@ sections of content, known as tab panels, that display one panel of content at a
 associated tab element, that when activated, displays the panel. The list of tab elements is arranged along
 one edge of the currently displayed panel, most commonly the top edge.
 
-Content in tab panels should be sized and arranged such that it fits horizontally within the panel. Your panels
-should not be horizontally scrollable. Vertical scrolling is perfectly acceptable.
+Content in tab panels should be sized and arranged such that it fits horizontally within the panel to avoid
+horizontal scrolling. Content may be any height; the tab panel will display a vertical scrollbar if necessary.
 
 If you want a sequence of tabs that navigate to different URLs, use the Anchor Tabs component instead.`;
 
