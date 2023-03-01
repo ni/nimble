@@ -101,6 +101,26 @@ import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
+/* eslint-disable @typescript-eslint/naming-convention */
+const Headline1FallbackFontFamily = 'Noto Serif Fallback';
+const Headline2FallbackFontFamily = 'Noto Serif Fallback';
+const Title1FallbackFontFamily = 'Source Sans Pro Fallback';
+const Title2FallbackFontFamily = 'Source Sans Pro Fallback';
+const Title3FallbackFontFamily = 'Source Sans Pro Fallback';
+const Subtitle1FallbackFontFamily = 'Source Sans Pro Fallback';
+const Subtitle2FallbackFontFamily = 'Source Sans Pro Fallback';
+const LinkFallbackFontFamily = 'Source Sans Pro Fallback';
+const PlaceholderFallbackFontFamily = 'Source Sans Pro Fallback';
+const BodyFallbackFontFamily = 'Source Sans Pro Fallback';
+const BodyEmphasizedFallbackFontFamily = 'Source Sans Pro Fallback';
+const GroupLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
+const ControlLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
+const ButtonLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
+const TooltipCaptionFallbackFontFamily = 'Source Sans Pro Fallback';
+const ErrorLightUiFallbackFontFamily = 'Source Sans Pro Fallback';
+const GridHeaderFallbackFontFamily = 'Source Sans Pro Fallback';
+/* eslint-enable @typescript-eslint/naming-convention */
+
 // Color Tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.actionRgbPartialColor)
@@ -276,7 +296,7 @@ export const [
     Headline1Weight,
     Headline1Size,
     Headline1LineHeight,
-    'serif'
+    Headline1FallbackFontFamily
 );
 
 export const [
@@ -296,7 +316,7 @@ export const [
     Headline2Weight,
     Headline2Size,
     Headline2LineHeight,
-    'serif'
+    Headline2FallbackFontFamily
 );
 
 export const [
@@ -316,7 +336,7 @@ export const [
     Title3Weight,
     Title3Size,
     Title3LineHeight,
-    'sans-serif'
+    Title3FallbackFontFamily
 );
 
 export const [
@@ -336,7 +356,7 @@ export const [
     Title2Weight,
     Title2Size,
     Title2LineHeight,
-    'sans-serif'
+    Title2FallbackFontFamily
 );
 
 export const [
@@ -356,7 +376,7 @@ export const [
     Title1Weight,
     Title1Size,
     Title1LineHeight,
-    'sans-serif'
+    Title1FallbackFontFamily
 );
 
 export const [
@@ -376,7 +396,7 @@ export const [
     Subtitle2Weight,
     Subtitle2Size,
     Subtitle2LineHeight,
-    'sans-serif'
+    Subtitle2FallbackFontFamily
 );
 
 export const [
@@ -396,7 +416,7 @@ export const [
     Subtitle1Weight,
     Subtitle1Size,
     Subtitle1LineHeight,
-    'sans-serif'
+    Subtitle1FallbackFontFamily
 );
 
 export const [
@@ -416,7 +436,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -441,7 +461,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -461,7 +481,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -481,7 +501,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -501,7 +521,7 @@ export const [
     PlaceholderWeight,
     PlaceholderSize,
     PlaceholderLineHeight,
-    'sans-serif'
+    PlaceholderFallbackFontFamily
 );
 
 export const [
@@ -521,7 +541,7 @@ export const [
     BodyEmphasizedWeight,
     BodyEmphasizedSize,
     BodyEmphasizedLineHeight,
-    'sans-serif'
+    BodyEmphasizedFallbackFontFamily
 );
 
 export const [
@@ -541,7 +561,7 @@ export const [
     BodyWeight,
     BodySize,
     BodyLineHeight,
-    'sans-serif'
+    BodyFallbackFontFamily
 );
 
 export const [
@@ -561,7 +581,7 @@ export const [
     GroupLabel1Weight,
     GroupLabel1Size,
     GroupLabel1LineHeight,
-    'sans-serif'
+    GroupLabel1FallbackFontFamily
 );
 
 export const [
@@ -581,7 +601,7 @@ export const [
     ControlLabel1Weight,
     ControlLabel1Size,
     ControlLabel1LineHeight,
-    'sans-serif'
+    ControlLabel1FallbackFontFamily
 );
 
 export const [
@@ -601,7 +621,7 @@ export const [
     ButtonLabel1Weight,
     ButtonLabel1Size,
     ButtonLabel1LineHeight,
-    'sans-serif'
+    ButtonLabel1FallbackFontFamily
 );
 
 export const [
@@ -621,7 +641,7 @@ export const [
     TooltipCaptionWeight,
     TooltipCaptionSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    TooltipCaptionFallbackFontFamily
 );
 
 export const [
@@ -641,7 +661,7 @@ export const [
     ErrorLightUiWeight,
     ErrorLightUiSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    ErrorLightUiFallbackFontFamily
 );
 
 export const [
@@ -661,7 +681,7 @@ export const [
     GridHeaderWeight,
     GridHeaderSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    GridHeaderFallbackFontFamily
 );
 
 // Font Transform Tokens

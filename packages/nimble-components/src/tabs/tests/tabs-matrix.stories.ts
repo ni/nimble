@@ -17,6 +17,7 @@ import { tabTag } from '../../tab';
 import { tabPanelTag } from '../../tab-panel';
 import { tabsToolbarTag } from '../../tabs-toolbar';
 import { tabsTag } from '..';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
@@ -80,4 +81,15 @@ export const textCustomized: Story = createMatrixThemeStory(
             </${tabsTag}>
         `
     )
+);
+
+export const panelOverflow: Story = createStory(
+    html`
+        <nimble-tabs style="height: 120px; width: 400px;">
+            <nimble-tab>Tab One</nimble-tab>
+            <nimble-tab-panel style="width: 450px;"
+                >${loremIpsum}</nimble-tab-panel
+            >
+        </nimble-tabs>
+    `
 );

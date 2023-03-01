@@ -1,7 +1,7 @@
 import type { WaferMap } from '..';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
-import { getLinearScale, getWaferMapDies } from './utilities';
+import { getScaleBand, getWaferMapDies } from './utilities';
 
 describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
@@ -38,8 +38,8 @@ describe('Wafermap Prerendering module', () => {
             };
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getLinearScale([0, 1], [0, 1]),
-                getLinearScale([0, 1], [0, 1]),
+                getScaleBand([2, 3, 4, 5, 6], [2, 7]),
+                getScaleBand([1, 2, 3, 4, 5, 6], [1, 7]),
                 dieDimensions,
                 margin
             );
@@ -47,10 +47,10 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have die positions offset from margins', () => {
             const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(x => {
+            const expectedValues = waferMapDies.map(die => {
                 return {
-                    x: x.x + margin.right,
-                    y: x.y + margin.top
+                    x: die.x + margin.right,
+                    y: die.y + margin.top
                 };
             });
             for (let i = 0; i < waferMapDies.length; i += 1) {
@@ -70,8 +70,8 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = false;
         const maxCharacters = 2;
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-        const horizontalScale = getLinearScale();
-        const verticalScale = getLinearScale([], []);
+        const horizontalScale = getScaleBand();
+        const verticalScale = getScaleBand([], []);
         const highlightedValues: string[] = [];
 
         beforeEach(() => {
@@ -126,8 +126,8 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = false;
         const maxCharacters = 2;
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-        const horizontalScale = getLinearScale([], []);
-        const verticalScale = getLinearScale();
+        const horizontalScale = getScaleBand([], []);
+        const verticalScale = getScaleBand();
         const highlightedValues: string[] = [];
 
         beforeEach(() => {

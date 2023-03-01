@@ -24,7 +24,6 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
-    :host(.hover) nimble-table-cell,
     :host(:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
