@@ -112,13 +112,6 @@ There is a separate wrapper element that takes both the tooltip and the anchor a
 
 ## Design
 
-Eventually we want the following API:
-- for simple use cases where we only need plain text in our tooltip, we assign that text to an attribute on a Nimble component
-- for tooltips with arbitrary content, we slot tooltip components into other Nimble components
-- for tooltips on native HTML elements, we associate tooltip components to those elements by `id`
-
-Today we only have support for the `id`-based part of that API. FAST has plans to make it easier to modify/extend templates, at which point it will clear the way for us to develop the slot-based part of the API. We will put further development of the Nimble tooltip on hold until that time.
-
 ### API
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
@@ -139,13 +132,22 @@ The tooltip will have a custom template based on FAST's template. In addition to
 -   _Slots:_ Unchanged
 -   _Template:_ Unchanged
 
+### Future Improvements
+
+Eventually we want the following API:
+- for simple use cases where we only need plain text in our tooltip, we assign that text to an attribute on a Nimble component
+- for tooltips with arbitrary content, we slot tooltip components into other Nimble components
+- for tooltips on native HTML elements, we associate tooltip components to those elements by `id`
+
+Today we only have support for the `id`-based part of that API. FAST has plans to make it easier to modify/extend templates, at which point it will clear the way for us to develop the slot-based part of the API. We will put further development of the Nimble tooltip on hold until that time.
+
 ### Angular integration
 
 An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created.
 
 ### Blazor integration
 
-A Blazor wrapper will be created for the tooltip component.
+A Blazor wrapper will be created for the component.
 
 ### Additional requirements
 
@@ -161,7 +163,7 @@ A Blazor wrapper will be created for the tooltip component.
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   `aria-describedby` implementation will eventually need to be fixed- currently only works when tooltip attribute is set to visible
+    -   aria-describedby implementation will eventually need to be fixed- currently only works when tooltip attribute is set to visible
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No additional requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
@@ -173,6 +175,18 @@ A Blazor wrapper will be created for the tooltip component.
 
 ## Open Issues
 
+When user is using nimble tooltip and nimble components, is there an easier way to add a tooltip so they wouldn't have to anchor to an html element every time they want a tooltip?
+
+-   Update nimble controls to have tooltip show and be tooltip aware
+-   Create a tooltip in the shadow dom internally, would not require a separate tooltip element.
+-   If we don't do anything, at least provide an easy way to create unique ids.
+
+Can tooltip be found by screen reader?
+
 Mobile tooltip is not very functional- have to click on button to show tooltip, and clicking away does not make it disappear
+
+aria-describedby only shows up when tooltip attribute is set to visible
+
+How can we give each tooltip a custom id?
 
 When should we use the tooltip vs. the title attribute? MDN [lists many issues with the title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title#accessibility_concerns). Needs to be discussed with team and designers.
