@@ -6,14 +6,22 @@ import '../../all-components';
 import { ExampleDataType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
+import { TableColumnSortDirection } from '../types';
 
 interface TableArgs {
     data: ExampleDataType;
+    sortedColumns: ColumnSortArgs[];
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
+    getColumnSortData: (columnId: string, args: TableArgs) => { direction: TableColumnSortDirection, index: number | undefined };
+}
+
+interface ColumnSortArgs {
+    columnId: string;
+    sortDirection: TableColumnSortDirection;
 }
 
 const simpleData = [
@@ -128,12 +136,37 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text sort-direction="ascending" sort-index="0" field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
+            <nimble-table-column-text
+                column-id="first-name-column"
+                field-name="firstName" placeholder="no value"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+                sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
+            >
                 <nimble-icon-user title="First Name"></nimble-icon-user>
             </nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="last-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="favoriteColor" placeholder="no value" column-id="favorite-color-column">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value" column-id="quote-column" action-menu-slot="quote-menu" action-menu-label="Configure quote">Quote</nimble-table-column-text>
+            <nimble-table-column-text
+                column-id="last-name-column"
+                field-name="lastName" placeholder="no value"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+                sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
+            >
+                Last Name
+            </nimble-table-column-text>
+            <nimble-table-column-text
+                column-id="favorite-color-column"
+                field-name="favoriteColor" placeholder="no value"
+                sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
+            >
+                Favorite Color
+            </nimble-table-column-text>
+            <nimble-table-column-text
+                column-id="quote-column"
+                field-name="quote" placeholder="no value"
+                action-menu-slot="quote-menu" action-menu-label="Configure quote"
+                sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
+            >
+                Quote
+            </nimble-table-column-text>
 
             <nimble-menu slot="name-menu">
                 <nimble-menu-item>Edit name</nimble-menu-item>
@@ -195,10 +228,16 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
+        },
+        getColumnSortData: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
         data: ExampleDataType.simpleData,
+        sortedColumns: [{ columnId: 'first-name-column', sortDirection: TableColumnSortDirection.ascending }],
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -210,6 +249,20 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 x.tableRef.setData(dataSets[x.data]);
             })();
+        },
+        getColumnSortData: (columnId: string, args: TableArgs): { direction: TableColumnSortDirection, index: number | undefined } => {
+            const matchingIndex = args.sortedColumns.findIndex(sortedColumn => sortedColumn.columnId === columnId);
+            if (matchingIndex === -1) {
+                return {
+                    direction: TableColumnSortDirection.none,
+                    index: undefined
+                };
+            }
+
+            return {
+                direction: args.sortedColumns[matchingIndex]!.sortDirection,
+                index: matchingIndex
+            };
         }
     }
 };
