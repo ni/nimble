@@ -151,6 +151,8 @@ Other variants of this idea include:
 
 For common use cases we could provide column types that expose simplified formatting APIs:
 
+##### Example A: Nimble-designed API for known use cases
+
 ```html
 <nimble-table>
     <nimble-table-column-numeric
@@ -159,7 +161,57 @@ For common use cases we could provide column types that expose simplified format
         suffix="%"
     >
         Progress
-    <nimble-table-column-numeric>`
+    <nimble-table-column-numeric>
+</nimble-table>
+```
+
+##### Example B: Pass through Intl.NumberFormat API
+
+The [NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) gives highly configurable formatting with great documentation. It would solve use cases 1-4 above provided they use [supported units](https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-issanctionedsimpleunitidentifier) (includes `%`, currency, temperature, time). It throws for unsupported units (including V and A) and doesn't really support unit conversion. (Aside: it [almost supports](https://stackoverflow.com/a/73974452) our file size column use case but browsers use metric conversions (1KB === 1000B) but we want binary conversions (1KB === 1024B)).
+
+```html
+<nimble-table>
+    <nimble-table-column-numeric
+        field-name="progress"
+        locales="en-US"
+        style="percent"
+        minimum-fraction-digits=2
+    >
+        Progress
+    <nimble-table-column-numeric>
+
+    <nimble-table-column-numeric
+        field-name="count"
+        locales="en-US"
+        style="decimal"
+        use-grouping=false
+        maximum-fraction-digits=0
+        rounding-mode="trunc"
+    >
+        Count
+    <nimble-table-column-numeric>
+</nimble-table>
+```
+
+##### Example C: Provide preconfigured formatters for NumberFormat API
+
+To improve consistency and reduce client configuration, we could provide formatters for common use cases like integers and percent.
+
+```html
+<nimble-table>
+    <nimble-table-column-numeric
+        field-name="progress"
+        nimble-numeric-format="percent"
+    >
+        Progress
+    <nimble-table-column-numeric>
+
+    <nimble-table-column-numeric
+        field-name="count"
+        nimble-numeric-format="integer"
+    >
+        Count
+    <nimble-table-column-numeric>
 </nimble-table>
 ```
 
