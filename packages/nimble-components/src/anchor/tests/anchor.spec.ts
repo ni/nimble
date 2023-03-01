@@ -1,9 +1,10 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Anchor as FoundationAnchor
 } from '@microsoft/fast-foundation';
 import { Anchor } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
@@ -86,7 +87,7 @@ describe('Anchor', () => {
                 await connect();
 
                 element.setAttribute(attribute.name, 'foo');
-                await DOM.nextUpdate();
+                await waitForUpdatesAsync();
 
                 expect(element.control.getAttribute(attribute.name)).toBe(
                     'foo'

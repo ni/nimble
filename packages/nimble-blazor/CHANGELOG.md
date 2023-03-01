@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 30 Jan 2023 19:00:43 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.2.2
+
+Tue, 21 Feb 2023 20:30:27 GMT
+
+### Patches
+
+- Allow table columns to be marked as hidden ([ni/nimble@8fcdeb8](https://github.com/ni/nimble/commit/8fcdeb884b9be29b92b4e273991fbc96f077d744))
+
+## 11.2.0
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Minor changes
+
+- Blazor wrapper for banner ([ni/nimble@e3870e9](https://github.com/ni/nimble/commit/e3870e99f628096689cefede40b9d5222f3e2a84))
+
+## 11.1.15
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
+
+## 11.1.11
+
+Tue, 14 Feb 2023 17:27:05 GMT
+
+### Patches
+
+- Add column IDs to table ([ni/nimble@a88731d](https://github.com/ni/nimble/commit/a88731d393687500fc23f86437a73bc6c947e17f))
+
+## 11.1.9
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Support dynamic arbitrary header content ([ni/nimble@9b95448](https://github.com/ni/nimble/commit/9b954486247d818d9f5326c1942d51d6a6d0af7b))
 
 ## 11.1.0
 

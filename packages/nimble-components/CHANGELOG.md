@@ -1,8 +1,178 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 30 Jan 2023 19:00:43 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Mar 2023 14:29:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.5
+
+Wed, 01 Mar 2023 14:29:04 GMT
+
+### Patches
+
+- Implementation for die padding for the wafer map component ([ni/nimble@0e89134](https://github.com/ni/nimble/commit/0e8913430f74431f5cf8a780b2f17f656480b683))
+
+## 18.5.4
+
+Tue, 28 Feb 2023 11:04:40 GMT
+
+### Patches
+
+- Implementation for the hover feature in the Wafer map component ([ni/nimble@05d4139](https://github.com/ni/nimble/commit/05d4139de721834e107f2d9db15111f41f19309f))
+
+## 18.5.3
+
+Tue, 21 Feb 2023 20:30:27 GMT
+
+### Patches
+
+- Allow table columns to be marked as hidden ([ni/nimble@8fcdeb8](https://github.com/ni/nimble/commit/8fcdeb884b9be29b92b4e273991fbc96f077d744))
+
+## 18.5.2
+
+Mon, 20 Feb 2023 17:53:22 GMT
+
+### Patches
+
+- New HLD for the hover feature of the Wafer Map component ([ni/nimble@e129dbb](https://github.com/ni/nimble/commit/e129dbb98df339c7f0b1f5b3db195bbbef5e93e9))
+
+## 18.5.1
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Patches
+
+- Change table column base methods into internal observable properties ([ni/nimble@cb3179f](https://github.com/ni/nimble/commit/cb3179ff097069bb7be9af0153e6745ffe6970d2))
+
+## 18.5.0
+
+Fri, 17 Feb 2023 21:25:30 GMT
+
+### Minor changes
+
+- Define type for banner toggle event detail ([ni/nimble@8c748c8](https://github.com/ni/nimble/commit/8c748c8f5e1b67bb7f2c984f1a91c14f967108c8))
+
+## 18.4.1
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
+
+## 18.4.0
+
+Wed, 15 Feb 2023 21:23:30 GMT
+
+### Minor changes
+
+- Banner component ([ni/nimble@0248f3d](https://github.com/ni/nimble/commit/0248f3d6d7a0e0dcc7c6a9d4fb982bdbb78ea3d5))
+
+## 18.3.7
+
+Tue, 14 Feb 2023 22:59:44 GMT
+
+### Patches
+
+- Fix bug where pointer events were being swallowed by table row hover ([ni/nimble@0edf085](https://github.com/ni/nimble/commit/0edf08583fe9196ca449b701e417980e7514adac))
+
+## 18.3.6
+
+Tue, 14 Feb 2023 19:59:45 GMT
+
+### Patches
+
+- Changed canvas size and zoom behavior for the Wafer Map Component ([ni/nimble@97c87a7](https://github.com/ni/nimble/commit/97c87a718b735c46f3d3b4e109302c368fa3e161))
+
+## 18.3.5
+
+Tue, 14 Feb 2023 17:27:05 GMT
+
+### Patches
+
+- Add column IDs to table ([ni/nimble@a88731d](https://github.com/ni/nimble/commit/a88731d393687500fc23f86437a73bc6c947e17f))
+
+## 18.3.4
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-tokens to v4.7.0
+
+## 18.3.3
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Support dynamic arbitrary header content ([ni/nimble@9b95448](https://github.com/ni/nimble/commit/9b954486247d818d9f5326c1942d51d6a6d0af7b))
+
+## 18.3.2
+
+Mon, 13 Feb 2023 23:05:12 GMT
+
+### Patches
+
+- Table styling update to headers when scrollbar is showing ([ni/nimble@97201af](https://github.com/ni/nimble/commit/97201afa8cc6499a8d1c3b1b593f377cfee883cf))
+
+## 18.3.1
+
+Fri, 10 Feb 2023 20:11:53 GMT
+
+### Patches
+
+- Fix background color of dropdown listbox ([ni/nimble@571f121](https://github.com/ni/nimble/commit/571f121aa06be77e178a794846dbe0ef985433b8))
+
+## 18.3.0
+
+Fri, 10 Feb 2023 19:40:36 GMT
+
+### Minor changes
+
+- Add icons for column sorting ([ni/nimble@4df842d](https://github.com/ni/nimble/commit/4df842d8bc104a9f02d4f73c76f778c6f7b71ef8))
+- Bump @ni/nimble-tokens to v4.6.0
+
+## 18.2.0
+
+Fri, 10 Feb 2023 15:26:34 GMT
+
+### Minor changes
+
+- Add new save icon ([ni/nimble@b5ca27c](https://github.com/ni/nimble/commit/b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb))
+- Bump @ni/nimble-tokens to v4.5.0
+
+## 18.1.4
+
+Thu, 09 Feb 2023 17:09:32 GMT
+
+### Patches
+
+- Fix issue re-rendering table cells when the table becomes valid again ([ni/nimble@26cdfea](https://github.com/ni/nimble/commit/26cdfeae9c0c418b48f8ed10acb82c8594960f2a))
+
+## 18.1.3
+
+Thu, 09 Feb 2023 14:24:11 GMT
+
+### Patches
+
+- Add zoom functionality to wafer map ([ni/nimble@61ae65c](https://github.com/ni/nimble/commit/61ae65cf7c5ce57cd17a1deb03bed1186a04a871))
+
+## 18.1.2
+
+Tue, 07 Feb 2023 20:17:44 GMT
+
+### Patches
+
+- Fix nimble-table virtualizer bug (when table height changes) ([ni/nimble@48e5e07](https://github.com/ni/nimble/commit/48e5e07874f03ce339e2c05b8345500fd5d5e654))
+
+## 18.1.1
+
+Mon, 06 Feb 2023 16:22:19 GMT
+
+### Patches
+
+- remove explicitly calling out 'null' in type of table's idFieldName property ([ni/nimble@00800bd](https://github.com/ni/nimble/commit/00800bde3e48f362e0cb0c648e947272b5696b34))
 
 ## 18.1.0
 

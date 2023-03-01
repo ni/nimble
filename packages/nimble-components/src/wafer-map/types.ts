@@ -1,3 +1,5 @@
+import type { DataManager } from './modules/data-manager';
+
 export const WaferMapQuadrant = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
@@ -17,6 +19,14 @@ export const WaferMapOrientation = {
 
 export type WaferMapOrientation =
     (typeof WaferMapOrientation)[keyof typeof WaferMapOrientation];
+
+export const HoverDieOpacity = {
+    show: 'show',
+    hide: 'hide'
+} as const;
+
+export type HoverDieOpacity =
+    (typeof HoverDieOpacity)[keyof typeof HoverDieOpacity];
 
 export const WaferMapColorScaleMode = {
     linear: 'linear',
@@ -39,6 +49,13 @@ export interface WaferMapColorScale {
     values: string[];
 }
 
+export interface HoverHandlerData {
+    canvas: HTMLCanvasElement;
+    rect: HTMLElement;
+    dataManager: DataManager;
+    quadrant: WaferMapQuadrant;
+}
+
 export interface Dimensions {
     readonly width: number;
     readonly height: number;
@@ -56,4 +73,9 @@ export interface DieRenderInfo {
     readonly y: number;
     readonly fillStyle: string;
     readonly text: string;
+}
+
+export interface PointCoordinates {
+    readonly x: number;
+    readonly y: number;
 }

@@ -17,6 +17,7 @@ namespace Demo.Shared.Pages
         private NimbleDrawer<DialogResult>? _drawer;
         private string? DrawerClosedReason { get; set; }
         private string? SelectedRadio { get; set; } = "2";
+        private bool BannerOpen { get; set; }
 
         [NotNull]
         public IEnumerable<Person> TableData { get; set; } = Enumerable.Empty<Person>();

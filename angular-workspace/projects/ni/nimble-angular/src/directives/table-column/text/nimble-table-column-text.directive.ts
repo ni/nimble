@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-column/text';
+import { NimbleTableColumnBaseDirective } from '../base/nimble-table-column-base.directive';
 
 export type { TableColumnText };
 
@@ -9,7 +10,7 @@ export type { TableColumnText };
 @Directive({
     selector: 'nimble-table-column-text'
 })
-export class NimbleTableColumnTextDirective {
+export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirective<TableColumnText> {
     public get fieldName(): string | undefined {
         return this.elementRef.nativeElement.fieldName;
     }
@@ -28,5 +29,7 @@ export class NimbleTableColumnTextDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TableColumnText>) {}
+    public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnText>) {
+        super(renderer, elementRef);
+    }
 }

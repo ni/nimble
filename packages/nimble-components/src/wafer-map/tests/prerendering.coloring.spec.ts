@@ -1,6 +1,7 @@
+import type { WaferMap } from '..';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
-import { getLinearScale, getWaferMapDies } from './utilities';
+import { getScaleBand, getWaferMapDies } from './utilities';
 
 describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
@@ -16,20 +17,33 @@ describe('Wafermap Prerendering module', () => {
             const dieLabelsHidden = true;
             const maxCharacters = 2;
             const highlightedValues: string[] = [];
+            const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
             beforeEach(() => {
-                prerenderingModule = new Prerendering(
-                    getWaferMapDies(),
-                    { colors: ['red'], values: ['1'] },
+                const waferMock: Pick<
+                WaferMap,
+                | 'dies'
+                | 'colorScale'
+                | 'highlightedValues'
+                | 'colorScaleMode'
+                | 'dieLabelsHidden'
+                | 'dieLabelsSuffix'
+                | 'maxCharacters'
+                > = {
+                    dies: getWaferMapDies(),
+                    colorScale: { colors: ['red'], values: ['1'] },
                     highlightedValues,
-                    getLinearScale([], []),
-                    getLinearScale([], []),
                     colorScaleMode,
                     dieLabelsHidden,
                     dieLabelsSuffix,
-                    maxCharacters,
+                    maxCharacters
+                };
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    getScaleBand([], []),
+                    getScaleBand([], []),
                     dieDimensions,
-                    { top: 0, right: 0, bottom: 0, left: 0 }
+                    margin
                 );
             });
 
@@ -46,20 +60,36 @@ describe('Wafermap Prerendering module', () => {
             const dieLabelsHidden = true;
             const maxCharacters = 2;
             const highlightedValues: string[] = [];
+            const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
             beforeEach(() => {
-                prerenderingModule = new Prerendering(
-                    getWaferMapDies(),
-                    { colors: ['red', 'red'], values: ['1', '1'] },
+                const waferMock: Pick<
+                WaferMap,
+                | 'dies'
+                | 'colorScale'
+                | 'highlightedValues'
+                | 'colorScaleMode'
+                | 'dieLabelsHidden'
+                | 'dieLabelsSuffix'
+                | 'maxCharacters'
+                > = {
+                    dies: getWaferMapDies(),
+                    colorScale: {
+                        colors: ['red', 'red'],
+                        values: ['1', '1']
+                    },
                     highlightedValues,
-                    getLinearScale([], []),
-                    getLinearScale([], []),
                     colorScaleMode,
                     dieLabelsHidden,
                     dieLabelsSuffix,
-                    maxCharacters,
+                    maxCharacters
+                };
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    getScaleBand([], []),
+                    getScaleBand([], []),
                     dieDimensions,
-                    { top: 0, right: 0, bottom: 0, left: 0 }
+                    margin
                 );
             });
 
@@ -76,20 +106,36 @@ describe('Wafermap Prerendering module', () => {
             const dieLabelsHidden = true;
             const maxCharacters = 2;
             const highlightedValues: string[] = [];
+            const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
             beforeEach(() => {
-                prerenderingModule = new Prerendering(
-                    getWaferMapDies(),
-                    { colors: ['black', 'red'], values: ['1', '18'] },
+                const waferMock: Pick<
+                WaferMap,
+                | 'dies'
+                | 'colorScale'
+                | 'highlightedValues'
+                | 'colorScaleMode'
+                | 'dieLabelsHidden'
+                | 'dieLabelsSuffix'
+                | 'maxCharacters'
+                > = {
+                    dies: getWaferMapDies(),
+                    colorScale: {
+                        colors: ['black', 'red'],
+                        values: ['1', '18']
+                    },
                     highlightedValues,
-                    getLinearScale([], []),
-                    getLinearScale([], []),
                     colorScaleMode,
                     dieLabelsHidden,
                     dieLabelsSuffix,
-                    maxCharacters,
+                    maxCharacters
+                };
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    getScaleBand([], []),
+                    getScaleBand([], []),
                     dieDimensions,
-                    { top: 0, right: 0, bottom: 0, left: 0 }
+                    margin
                 );
             });
 
@@ -118,20 +164,33 @@ describe('Wafermap Prerendering module', () => {
             const dieLabelsHidden = true;
             const maxCharacters = 2;
             const highlightedValues: string[] = [];
+            const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
             beforeEach(() => {
-                prerenderingModule = new Prerendering(
-                    getWaferMapDies(),
-                    { colors: ['red'], values: ['1'] },
+                const waferMock: Pick<
+                WaferMap,
+                | 'dies'
+                | 'colorScale'
+                | 'highlightedValues'
+                | 'colorScaleMode'
+                | 'dieLabelsHidden'
+                | 'dieLabelsSuffix'
+                | 'maxCharacters'
+                > = {
+                    dies: getWaferMapDies(),
+                    colorScale: { colors: ['red'], values: ['1'] },
                     highlightedValues,
-                    getLinearScale([], []),
-                    getLinearScale([], []),
                     colorScaleMode,
                     dieLabelsHidden,
                     dieLabelsSuffix,
-                    maxCharacters,
+                    maxCharacters
+                };
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    getScaleBand([], []),
+                    getScaleBand([], []),
                     dieDimensions,
-                    { top: 0, right: 0, bottom: 0, left: 0 }
+                    margin
                 );
             });
 
@@ -148,20 +207,36 @@ describe('Wafermap Prerendering module', () => {
             const dieLabelsHidden = true;
             const maxCharacters = 2;
             const highlightedValues: string[] = [];
+            const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
             beforeEach(() => {
-                prerenderingModule = new Prerendering(
-                    getWaferMapDies(),
-                    { colors: ['black', 'red'], values: [] },
+                const waferMock: Pick<
+                WaferMap,
+                | 'dies'
+                | 'colorScale'
+                | 'highlightedValues'
+                | 'colorScaleMode'
+                | 'dieLabelsHidden'
+                | 'dieLabelsSuffix'
+                | 'maxCharacters'
+                > = {
+                    dies: getWaferMapDies(),
+                    colorScale: {
+                        colors: ['black', 'red'],
+                        values: [] as string[]
+                    },
                     highlightedValues,
-                    getLinearScale([], []),
-                    getLinearScale([], []),
                     colorScaleMode,
                     dieLabelsHidden,
                     dieLabelsSuffix,
-                    maxCharacters,
+                    maxCharacters
+                };
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    getScaleBand([], []),
+                    getScaleBand([], []),
                     dieDimensions,
-                    { top: 0, right: 0, bottom: 0, left: 0 }
+                    margin
                 );
             });
 
@@ -190,26 +265,42 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValues: string[] = [];
+        const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
-            prerenderingModule = new Prerendering(
-                [
+            const waferMock: Pick<
+            WaferMap,
+            | 'dies'
+            | 'colorScale'
+            | 'highlightedValues'
+            | 'colorScaleMode'
+            | 'dieLabelsHidden'
+            | 'dieLabelsSuffix'
+            | 'maxCharacters'
+            > = {
+                dies: [
                     {
                         x: 0,
                         y: 0,
                         value: 'NaN'
                     }
                 ],
-                { colors: [], values: [] },
+                colorScale: {
+                    colors: [] as string[],
+                    values: [] as string[]
+                },
                 highlightedValues,
-                getLinearScale([], []),
-                getLinearScale([], []),
-                WaferMapColorScaleMode.linear,
+                colorScaleMode: WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters,
+                maxCharacters
+            };
+            prerenderingModule = new Prerendering(
+                waferMock as WaferMap,
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
-                { top: 0, right: 0, bottom: 0, left: 0 }
+                margin
             );
         });
 
@@ -226,26 +317,42 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValues: string[] = [];
+        const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
-            prerenderingModule = new Prerendering(
-                [
+            const waferMock: Pick<
+            WaferMap,
+            | 'dies'
+            | 'colorScale'
+            | 'highlightedValues'
+            | 'colorScaleMode'
+            | 'dieLabelsHidden'
+            | 'dieLabelsSuffix'
+            | 'maxCharacters'
+            > = {
+                dies: [
                     {
                         x: 0,
                         y: 0,
                         value: undefined as unknown as string
                     }
                 ],
-                { colors: [], values: [] },
+                colorScale: {
+                    colors: [] as string[],
+                    values: [] as string[]
+                },
                 highlightedValues,
-                getLinearScale([], []),
-                getLinearScale([], []),
-                WaferMapColorScaleMode.linear,
+                colorScaleMode: WaferMapColorScaleMode.linear,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters,
+                maxCharacters
+            };
+            prerenderingModule = new Prerendering(
+                waferMock as WaferMap,
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
-                { top: 0, right: 0, bottom: 0, left: 0 }
+                margin
             );
         });
 
@@ -262,20 +369,33 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValue = '5';
+        const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
-            prerenderingModule = new Prerendering(
-                getWaferMapDies(),
-                { colors: ['red'], values: [] },
-                [highlightedValue],
-                getLinearScale([], []),
-                getLinearScale([], []),
-                WaferMapColorScaleMode.ordinal,
+            const waferMock: Pick<
+            WaferMap,
+            | 'dies'
+            | 'colorScale'
+            | 'highlightedValues'
+            | 'colorScaleMode'
+            | 'dieLabelsHidden'
+            | 'dieLabelsSuffix'
+            | 'maxCharacters'
+            > = {
+                dies: getWaferMapDies(),
+                colorScale: { colors: ['red'], values: [] as string[] },
+                highlightedValues: [highlightedValue],
+                colorScaleMode: WaferMapColorScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters,
+                maxCharacters
+            };
+            prerenderingModule = new Prerendering(
+                waferMock as WaferMap,
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
-                { top: 0, right: 0, bottom: 0, left: 0 }
+                margin
             );
         });
 
@@ -301,20 +421,33 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = true;
         const maxCharacters = 2;
         const highlightedValues: string[] = [];
+        const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
         beforeEach(() => {
-            prerenderingModule = new Prerendering(
-                getWaferMapDies(),
-                { colors: ['red'], values: [] },
+            const waferMock: Pick<
+            WaferMap,
+            | 'dies'
+            | 'colorScale'
+            | 'highlightedValues'
+            | 'colorScaleMode'
+            | 'dieLabelsHidden'
+            | 'dieLabelsSuffix'
+            | 'maxCharacters'
+            > = {
+                dies: getWaferMapDies(),
+                colorScale: { colors: ['red'], values: [] as string[] },
                 highlightedValues,
-                getLinearScale([], []),
-                getLinearScale([], []),
-                WaferMapColorScaleMode.ordinal,
+                colorScaleMode: WaferMapColorScaleMode.ordinal,
                 dieLabelsHidden,
                 dieLabelsSuffix,
-                maxCharacters,
+                maxCharacters
+            };
+            prerenderingModule = new Prerendering(
+                waferMock as WaferMap,
+                getScaleBand([], []),
+                getScaleBand([], []),
                 dieDimensions,
-                { top: 0, right: 0, bottom: 0, left: 0 }
+                margin
             );
         });
 

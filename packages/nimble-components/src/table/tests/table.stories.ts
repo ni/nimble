@@ -94,7 +94,9 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 
 -   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
 -   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
--   \`invalidRecordId\`: \`true\` when record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
+-   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
+-   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
 `;
 
 const metadata: Meta<TableArgs> = {
@@ -111,7 +113,7 @@ const metadata: Meta<TableArgs> = {
                 'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
         },
         actions: {
-            handles: []
+            handles: ['action-menu-beforetoggle', 'action-menu-toggle']
         }
     },
     // prettier-ignore
@@ -125,10 +127,25 @@ const metadata: Meta<TableArgs> = {
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value">First Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value">Quote</nimble-table-column-text>
+            <nimble-table-column-text field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
+                <nimble-icon-user title="First Name"></nimble-icon-user>
+            </nimble-table-column-text>
+            <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="last-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>
+            <nimble-table-column-text field-name="favoriteColor" placeholder="no value" column-id="favorite-color-column">Favorite Color</nimble-table-column-text>
+            <nimble-table-column-text field-name="quote" placeholder="no value" column-id="quote-column" action-menu-slot="quote-menu" action-menu-label="Configure quote">Quote</nimble-table-column-text>
+
+            <nimble-menu slot="name-menu">
+                <nimble-menu-item>Edit name</nimble-menu-item>
+                <nimble-menu-item>Delete person</nimble-menu-item>
+                <nimble-menu-item>Archive person</nimble-menu-item>
+                <nimble-menu-item>Duplicate person</nimble-menu-item>
+            </nimble-menu>
+
+            <nimble-menu slot="quote-menu">
+                <nimble-menu-item>Edit quote</nimble-menu-item>
+                <nimble-menu-item>Delete quote</nimble-menu-item>
+                <nimble-menu-item>Do something else with the quote</nimble-menu-item>
+            </nimble-menu>
         </nimble-table>
         <style class="code-hide">
             #usage-warning {

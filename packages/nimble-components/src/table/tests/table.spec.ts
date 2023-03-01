@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { Table } from '..';
+import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
@@ -40,14 +40,15 @@ const largeTableData = Array.from(Array(500), (_, i) => {
     };
 });
 
-const tableColumnText = DesignSystem.tagFor(TableColumnText);
-
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${tableColumnText} field-name="stringData">stringData</${tableColumnText}>
-            </nimble-table>`
+            <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="moreStringData">
+                <nimble-icon-check></nimble-icon-check>
+            </nimble-table-column-text>
+        </nimble-table>`
     );
 }
 
@@ -56,6 +57,8 @@ describe('Table', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
+    let column1: TableColumn;
+    let column2: TableColumn;
 
     // The assumption being made here is that the values in the data are equal to their
     // rendered representation (no formatting).
@@ -66,7 +69,11 @@ describe('Table', () => {
         for (const rowData of tableData) {
             const record: TableRecord = {};
             for (const column of element.columns) {
-                const dataKey = column.getDataRecordFieldNames()[0]!;
+                if (column.columnHidden) {
+                    continue;
+                }
+
+                const dataKey = column.dataRecordFieldNames[0]!;
                 const expectedCellData = rowData[dataKey]!;
                 record[dataKey] = expectedCellData;
             }
@@ -81,13 +88,15 @@ describe('Table', () => {
         const visibleData = retrieveExpectedData(visibleTableDataSubset);
         const expectedRowCount = visibleData.length;
         expect(pageObject.getRenderedRowCount()).toEqual(expectedRowCount);
+        const visibleColumns = element.columns.filter(x => !x.columnHidden);
+
         for (let rowIndex = 0; rowIndex < expectedRowCount; rowIndex++) {
             for (
                 let columnIndex = 0;
-                columnIndex < element.columns.length;
+                columnIndex < visibleColumns.length;
                 columnIndex++
             ) {
-                const dataKey = element.columns[columnIndex]!.getDataRecordFieldNames()[0]!;
+                const dataKey = visibleColumns[columnIndex]!.dataRecordFieldNames[0]!;
                 const expectedCellData = visibleData[rowIndex]![dataKey]!;
                 expect(
                     pageObject.getRenderedCellContent(rowIndex, columnIndex)
@@ -108,6 +117,8 @@ describe('Table', () => {
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new TablePageObject<SimpleTableRecord>(element);
+        column1 = element.querySelector<TableColumn>('#first-column')!;
+        column2 = element.querySelector<TableColumn>('#second-column')!;
     });
 
     afterEach(async () => {
@@ -118,7 +129,7 @@ describe('Table', () => {
         expect(document.createElement('nimble-table')).toBeInstanceOf(Table);
     });
 
-    it('should render column headers', async () => {
+    it('column header content should be the columns', async () => {
         await connect();
 
         element.setData(simpleTableData);
@@ -132,10 +143,26 @@ describe('Table', () => {
             columnIndex < element.columns.length;
             columnIndex++
         ) {
-            expect(pageObject.getRenderedHeaderContent(columnIndex)).toEqual(
-                element.columns[columnIndex]!.textContent!
-            );
+            expect(pageObject.getHeaderContent(columnIndex))
+                .withContext(`for column${columnIndex}`)
+                .toEqual(element.columns[columnIndex]);
         }
+    });
+
+    it('changing column content updates header rendered content', async () => {
+        await connect();
+
+        element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+
+        let headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('stringData');
+
+        element.columns[0]!.textContent = 'foo';
+        await waitForUpdatesAsync();
+
+        headerContent = pageObject.getHeaderContent(0)!.firstChild;
+        expect(headerContent?.textContent).toEqual('foo');
     });
 
     it('can set data before the element is connected', async () => {
@@ -303,6 +330,24 @@ describe('Table', () => {
         verifyRenderedData(simpleTableData);
     });
 
+    it('transitioning the table state from valid to invalid and back to valid rerenders the table correctly', async () => {
+        element.setData(simpleTableData);
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.idFieldName = 'missingFieldName';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedRowCount()).toBe(0);
+        expect(element.checkValidity()).toBeFalse();
+
+        element.idFieldName = undefined;
+        await waitForUpdatesAsync();
+
+        verifyRenderedData(simpleTableData);
+        expect(element.checkValidity()).toBeTrue();
+    });
+
     describe('record IDs', () => {
         it('setting ID field uses field value for ID', async () => {
             element.setData(simpleTableData);
@@ -414,6 +459,67 @@ describe('Table', () => {
         });
     });
 
+    describe('column IDs', () => {
+        it('duplicate column IDs marks the table as invalid and rows are not rendered', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = 'my-column-id';
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.duplicateColumnId).toBeTrue();
+            expect(element.validity.missingColumnId).toBeFalse();
+        });
+
+        it('missing column IDs marks the table as invalid and rows are not rendered', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = undefined;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.duplicateColumnId).toBeFalse();
+            expect(element.validity.missingColumnId).toBeTrue();
+        });
+
+        it('table validity updates if column IDs become valid', async () => {
+            element.setData(simpleTableData);
+            column1.columnId = 'my-column-id';
+            column2.columnId = undefined;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+
+            column2.setAttribute('column-id', 'my-other-column-id');
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(simpleTableData);
+            expect(element.checkValidity()).toBeTrue();
+        });
+
+        it('table validity updates if column IDs become invalid', async () => {
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            verifyRenderedData(simpleTableData);
+            expect(element.checkValidity()).toBeTrue();
+
+            column1.setAttribute('column-id', 'my-column-id');
+            column2.setAttribute('column-id', 'my-column-id');
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(element.checkValidity()).toBeFalse();
+        });
+    });
+
     describe('uses virtualization', () => {
         it('to render fewer rows (based on viewport size)', async () => {
             await connect();
@@ -457,14 +563,73 @@ describe('Table', () => {
             const originalRenderedRowCount = pageObject.getRenderedRowCount();
 
             element.style.height = '700px';
-            // Workaround for https://github.com/ni/nimble/issues/1008
-            element.viewport.scrollTop = 2;
             await waitForUpdatesAsync();
 
             const newRenderedRowCount = pageObject.getRenderedRowCount();
             expect(newRenderedRowCount).toBeGreaterThan(
                 originalRenderedRowCount
             );
+        });
+    });
+
+    describe('hidden columns', () => {
+        it('does not render hidden columns', async () => {
+            column1.columnHidden = true;
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('changing a column from hidden to not hidden makes it visible', async () => {
+            column1.columnHidden = true;
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            column1.columnHidden = false;
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('changing a column from not hidden to hidden makes it hidden', async () => {
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            column1.columnHidden = true;
+            await waitForUpdatesAsync();
+
+            const visibleColumnCount = element.columns.filter(
+                x => !x.columnHidden
+            ).length;
+            expect(pageObject.getRenderedHeaderCount()).toEqual(
+                visibleColumnCount
+            );
+            expect(pageObject.getRenderedCellCountForRow(0)).toEqual(
+                visibleColumnCount
+            );
+            verifyRenderedData(simpleTableData);
         });
     });
 });

@@ -9,6 +9,10 @@ public interface ITableValidity
     public bool MissingRecordId { get; }
 
     public bool InvalidRecordId { get; }
+
+    public bool DuplicateColumnId { get; }
+
+    public bool MissingColumnId { get; }
 }
 
 internal class TableValidity : ITableValidity
@@ -21,4 +25,10 @@ internal class TableValidity : ITableValidity
 
     [JsonPropertyName("invalidRecordId")]
     public bool InvalidRecordId { get; set; }
+
+    [JsonPropertyName("duplicateColumnId")]
+    public bool DuplicateColumnId { get; set; }
+
+    [JsonPropertyName("missingColumnId")]
+    public bool MissingColumnId { get; set; }
 }

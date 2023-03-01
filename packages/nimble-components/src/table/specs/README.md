@@ -100,6 +100,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   [Data API](table-data-api.md)
 -   [Column API](table-columns-hld.md)
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
+        -   [Column Widths](./table-column-width-hld.md)
     -   Define how we intend to support defining a column that uses information from multiple columns (e.g. a hyperlink column that uses data from one column for the URL and the data from another as the text to display)
         -   What column gets used for sorting?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
@@ -107,7 +108,6 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   [TableColumnNumber](table-column-specs/table-column-formatted-text.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
-        -   Require specific component type (i.e. do we need to create a `nimble-table-header`)
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
 -   Row Selection
@@ -121,7 +121,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define table-level API for setting grouping
     -   Define events raised when grouping changes
     -   Describe how data hierarchy should work with grouping
--   Sorting
+-   [Sorting](table-column-sort-hld.md)
     -   Define the table-level API for setting sorting
     -   Define events raised when sorting changes
     -   Describe how sorting should with with hierarchical and/or grouped data
@@ -154,7 +154,7 @@ _Events_
     -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
     -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
     -   `recordIds` - string array - The IDs of the records that the menu is associated with.
-    -   `columnTarget` - `TableColumn` - The column that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
 
 ### Anatomy
 
