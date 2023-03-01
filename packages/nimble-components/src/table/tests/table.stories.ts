@@ -16,7 +16,10 @@ interface TableArgs {
     checkValidity: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
-    getColumnSortData: (columnId: string, args: TableArgs) => { direction: TableColumnSortDirection, index: number | undefined };
+    getColumnSortData: (
+        columnId: string,
+        args: TableArgs
+    ) => { direction: TableColumnSortDirection, index: number | undefined };
 }
 
 interface ColumnSortArgs {
@@ -237,7 +240,12 @@ const metadata: Meta<TableArgs> = {
     },
     args: {
         data: ExampleDataType.simpleData,
-        sortedColumns: [{ columnId: 'first-name-column', sortDirection: TableColumnSortDirection.ascending }],
+        sortedColumns: [
+            {
+                columnId: 'first-name-column',
+                sortDirection: TableColumnSortDirection.ascending
+            }
+        ],
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -250,8 +258,16 @@ const metadata: Meta<TableArgs> = {
                 x.tableRef.setData(dataSets[x.data]);
             })();
         },
-        getColumnSortData: (columnId: string, args: TableArgs): { direction: TableColumnSortDirection, index: number | undefined } => {
-            const matchingIndex = args.sortedColumns.findIndex(sortedColumn => sortedColumn.columnId === columnId);
+        getColumnSortData: (
+            columnId: string,
+            args: TableArgs
+        ): {
+            direction: TableColumnSortDirection,
+            index: number | undefined
+        } => {
+            const matchingIndex = args.sortedColumns.findIndex(
+                sortedColumn => sortedColumn.columnId === columnId
+            );
             if (matchingIndex === -1) {
                 return {
                     direction: TableColumnSortDirection.none,
