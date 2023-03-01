@@ -73,7 +73,7 @@ const tableData = originalData.map(x => {
     progress: x.progress;
     formattedProgress: x ? `${100 * x.progress}%` : undefined;
 });
-table.data = tableData;
+table.setData(tableData);
 ```
 
 **Pros:**
