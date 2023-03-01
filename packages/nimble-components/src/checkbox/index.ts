@@ -28,3 +28,4 @@ const nimbleCheckbox = Checkbox.compose<CheckboxOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCheckbox());
+export const checkboxTag = DesignSystem.tagFor(Checkbox);
