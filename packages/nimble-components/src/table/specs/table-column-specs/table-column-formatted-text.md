@@ -40,7 +40,7 @@ We may not choose to support all of the above initially but we should design our
 ### Non-goals
 
 -   Editable numbers. This is not supported by the text column yet either.
--   Customizing the styling or alignment of the column content. This is not supported by the text column yet either.
+-   Customizing the styling of the column content (other than possibly text alignment). This is not supported by the text column yet either.
 
 ---
 
@@ -54,12 +54,12 @@ At this stage, code examples are meant to be illustrative pseudo-code, not propo
 
 #### Alternative 1: Use `table-column-text`
 
-With the changes proposed in [HLD for programmatically sorting columns](https://github.com/ni/nimble/pull/1049) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic to populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
+With the changes proposed in [HLD for programmatically sorting columns](../table-column-sort-hld.md) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic to populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
 
 ```html
 <nimble-table>
     <nimble-table-column-text
-        operational-data-field-name="progress"
+        operand-data-record-name="progress"
         field-name="formattedProgress"
     >
         Progress
@@ -84,12 +84,14 @@ table.setData(tableData);
 **Cons:**
 
 -   Increased memory usage and data update time from clients pre-populating data with field for each formatted column
--   Added complexity of writing procedural code even for simple formatting use cases
--   Potential cross-app inconsistency if formatting code isn't shared
+-   Added complexity of writing procedural code even for simple numeric formatting use cases
+-   Potential cross-app inconsistency if numeric formatting code isn't shared (versus Alternative 3)
+-   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 
 **Implementation Cost:**
 
--   Exposing `operational-data-field-name` to be set by client code rather than column definition
+-   Exposing `operand-data-record-name` to be set by client code rather than column definition
+-   Exposing an API for clients to indicate their data should be styled as numeric data (right aligned)
 
 #### Alternative 2: Client specifies formatting function
 
@@ -132,12 +134,14 @@ Other variants of this idea include:
 
 -   Small memory footprint and fast data update time because formatting function is called on-demand
 -   Powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
+-   Easy to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 
 **Cons:**
 
 -   Possible reduced scroll performance because formatting function is called on-demand
+-   Requires creating a custom element to do formatting which is non-trivial for clients (must consider naming, registration, sharing, etc)
 -   Requires JS code to do formatting which is less convenient in frameworks like Blazor
--   Potential cross-app inconsistency if formatting code isn't shared
+-   Some potential for cross-app inconsistency if numeric formatting code isn't shared (versus Alternative 3)
 
 **Implementation Cost:**
 
@@ -162,7 +166,8 @@ For common use cases we could provide column types that expose simplified format
 **Pros:**
 
 -   Easy for clients to use since configuration is declarative
--   Consistent formatting across apps
+-   Consistent numeric formatting across apps
+-   Easy to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 
 **Cons:**
 
@@ -183,8 +188,8 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 **Cons:**
 
--   Higher burden on clients to specify template, styling, etc in JS
--   Potential for inconsistent text styling
+-   Higher burden on clients to specify template, styling, numeric formatting, etc in JS. This is especially burdensome in frameworks like Blazor.
+-   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 -   Potential cross-app inconsistency if formatting code isn't shared
 
 ### Strawman Proposal
@@ -238,4 +243,4 @@ _Type Reference_
 
 ## Open Issues
 
-1. API to configure text justification. Our working decision is that numeric column text and headers should be right aligned. Any alternatives we choose that might display numeric data will need a way to configure this. We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
+1. API to configure text alignment. Our working decision is that numeric column text should be right aligned while string column text should remain left aligned. Any alternatives we choose that might display numeric data will need a way to configure this. We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
