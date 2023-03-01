@@ -3,6 +3,7 @@ import type { TableHeader } from '../components/header';
 import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
+import type { TableCell } from '../components/cell';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -54,22 +55,14 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): string {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
+        return this.getCell(rowIndex, columnIndex).shadowRoot!.textContent?.trim() ?? '';
+    }
 
-        const row = rows.item(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= cells.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
-
-        return cells.item(columnIndex).shadowRoot!.textContent?.trim() ?? '';
+    public getCellTitle(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        return this.getCell(rowIndex, columnIndex).shadowRoot!.querySelector('.cell-content-container span')?.getAttribute('title') ?? '';
     }
 
     public getRecordId(rowIndex: number): string | undefined {
@@ -93,23 +86,7 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): MenuButton | null {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const row = rows.item(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= cells.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
-
-        return cells
-            .item(columnIndex)
+        return this.getCell(rowIndex, columnIndex)
             .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
     }
 
@@ -161,6 +138,28 @@ export class TablePageObject<T extends TableRecord> {
                 '--ni-private-table-cell-action-menu-display'
             ));
         }
+    }
+
+    private getCell(
+        rowIndex: number,
+        columnIndex: number
+    ): TableCell {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        const row = rows.item(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return cells.item(columnIndex);
     }
 
     private getHeaderContentElement(

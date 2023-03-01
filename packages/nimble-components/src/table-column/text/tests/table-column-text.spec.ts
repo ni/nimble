@@ -62,6 +62,22 @@ describe('TableColumnText', () => {
         });
     }
 
+    it('sets title equal to rendered cell value', async () => {
+        element.setData([{ field: 'foo' }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getCellTitle(0, 0)).toBe('foo');
+    });
+
+    it('sets title equal to rendered placeholder value', async () => {
+        element.setData([{ field: null }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getCellTitle(0, 0)).toBe('no value');
+    });
+
     it('changing fieldName updates display', async () => {
         element.setData([{ field: 'foo', anotherField: 'bar' }]);
         await connect();
