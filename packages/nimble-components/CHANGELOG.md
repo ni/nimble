@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 28 Feb 2023 11:04:40 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Mar 2023 14:29:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.5
+
+Wed, 01 Mar 2023 14:29:04 GMT
+
+### Patches
+
+- Implementation for die padding for the wafer map component ([ni/nimble@0e89134](https://github.com/ni/nimble/commit/0e8913430f74431f5cf8a780b2f17f656480b683))
 
 ## 18.5.4
 
