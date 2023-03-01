@@ -2,10 +2,13 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { ExampleDataType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import type { Table } from '..';
+import { Table, tableTag } from '..';
+import { iconUserTag } from '../../icons/user';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
+import { tableColumnTextTag } from '../../table-column/text';
 
 interface TableArgs {
     data: ExampleDataType;
@@ -122,31 +125,31 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table
+        <${tableTag}
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
-                <nimble-icon-user title="First Name"></nimble-icon-user>
-            </nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="last-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="favoriteColor" placeholder="no value" column-id="favorite-color-column">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value" column-id="quote-column" action-menu-slot="quote-menu" action-menu-label="Configure quote">Quote</nimble-table-column-text>
+            <${tableColumnTextTag} field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
+                <${iconUserTag} title="First Name"></${iconUserTag}>
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag} field-name="lastName" placeholder="no value" column-id="last-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</${tableColumnTextTag}>
+            <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" column-id="favorite-color-column">Favorite Color</${tableColumnTextTag}>
+            <${tableColumnTextTag} field-name="quote" placeholder="no value" column-id="quote-column" action-menu-slot="quote-menu" action-menu-label="Configure quote">Quote</${tableColumnTextTag}>
 
-            <nimble-menu slot="name-menu">
-                <nimble-menu-item>Edit name</nimble-menu-item>
-                <nimble-menu-item>Delete person</nimble-menu-item>
-                <nimble-menu-item>Archive person</nimble-menu-item>
-                <nimble-menu-item>Duplicate person</nimble-menu-item>
-            </nimble-menu>
+            <${menuTag} slot="name-menu">
+                <${menuItemTag}>Edit name</${menuItemTag}>
+                <${menuItemTag}>Delete person</${menuItemTag}>
+                <${menuItemTag}>Archive person</${menuItemTag}>
+                <${menuItemTag}>Duplicate person</${menuItemTag}>
+            </${menuTag}>
 
-            <nimble-menu slot="quote-menu">
-                <nimble-menu-item>Edit quote</nimble-menu-item>
-                <nimble-menu-item>Delete quote</nimble-menu-item>
-                <nimble-menu-item>Do something else with the quote</nimble-menu-item>
-            </nimble-menu>
-        </nimble-table>
+            <${menuTag} slot="quote-menu">
+                <${menuItemTag}>Edit quote</${menuItemTag}>
+                <${menuItemTag}>Delete quote</${menuItemTag}>
+                <${menuItemTag}>Do something else with the quote</${menuItemTag}>
+            </${menuTag}>
+        </${tableTag}>
         <style class="code-hide">
             #usage-warning {
                 color: red;

@@ -4,6 +4,10 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '..';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 
 interface MenuButtonArgs {
     label: string;
@@ -60,33 +64,33 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu-button
+        <${menuTag}-button
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => x.appearance}"
             position="${x => x.menuPosition}"
         >
-            ${when(x => x.icon, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${x => x.label}
-            ${when(x => x.endIcon, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
+            ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
-            <nimble-menu slot="menu">
-                <nimble-menu-item>Item 1</nimble-menu-item>
-                <nimble-menu-item>
+            <${menuTag} slot="menu">
+                <${menuItemTag}>Item 1</${menuItemTag}>
+                <${menuItemTag}>
                     Item 2
-                    <nimble-menu>
-                        <nimble-menu-item>
+                    <${menuTag}>
+                        <${menuItemTag}>
                             Item 2.1
-                        </nimble-menu-item>
-                        <nimble-menu-item>
+                        </${menuItemTag}>
+                        <${menuItemTag}>
                             Item 2.2
-                        </nimble-menu-item>
-                    </nimble-menu>
-                </nimble-menu-item>
-                <nimble-menu-item disabled>Item 3 (disabled)</nimble-menu-item>
-            </nimble-menu>
-        </nimble-menu-button>
+                        </${menuItemTag}>
+                    </${menuTag}>
+                </${menuItemTag}>
+                <${menuItemTag} disabled>Item 3 (disabled)</${menuItemTag}>
+            </${menuTag}>
+        </${menuTag}-button>
     `),
     args: {
         label: 'Ghost Menu Button',

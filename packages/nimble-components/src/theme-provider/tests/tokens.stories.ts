@@ -10,7 +10,6 @@ import {
     suffixFromTokenName
 } from '../design-token-names';
 import { comments } from '../design-token-comments';
-import '../../all-components';
 
 import {
     bodyFont,

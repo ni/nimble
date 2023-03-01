@@ -3,13 +3,13 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import {
     borderColor,
     bodyFont,
     bodyFontColor
 } from '../../theme-provider/design-tokens';
 import { TooltipSeverity } from '../types';
+import { tooltipTag } from '..';
 
 const uniqueId = Symbol('unique id');
 type HTMLElementWithUniqueID = HTMLElement & { [uniqueId]: string };
@@ -116,7 +116,7 @@ const metadata: Meta<TooltipArgs> = {
         <div ${ref('anchorRef')} id="${x => x.getUniqueId(x.anchorRef)}">
             Hover here to see ${x => x.content} tooltip
         </div>
-        <nimble-tooltip
+        <${tooltipTag}
             anchor="${x => x.getUniqueId(x.anchorRef)}"
             ?visible="${x => x.visible}"
             delay="${x => x.delay}"
@@ -125,7 +125,7 @@ const metadata: Meta<TooltipArgs> = {
             ?icon-visible="${x => x.iconVisible}"
         >
             ${x => (x.content === 'complex' ? complexContent : simpleContent)}
-        </nimble-tooltip>
+        </${tooltipTag}>
         <style class="code-hide">
             #${x => x.getUniqueId(x.anchorRef)} {
                 border: 1px solid var(${borderColor.cssCustomProperty});

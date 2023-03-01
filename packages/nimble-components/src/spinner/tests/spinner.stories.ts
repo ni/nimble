@@ -2,7 +2,6 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import {
     spinnerLargeHeight,
     spinnerMediumHeight
@@ -12,6 +11,7 @@ import {
     scssPropertySetterMarkdown,
     tokenNames
 } from '../../theme-provider/design-token-names';
+import { spinnerTag } from '..';
 
 const spinnerSize = {
     small: null,
@@ -84,10 +84,10 @@ const metadata: Meta<SpinnerArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-spinner
+        <${spinnerTag}
             style="${x => spinnerSize[x.size]}"
         >
-        </nimble-spinner>
+        </${spinnerTag}>
     `),
     args: {
         size: 'small'
