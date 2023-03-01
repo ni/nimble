@@ -7,7 +7,9 @@ TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
     <span
         class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
-        title="${x => (typeof x.cellRecord.value === 'string' ? x.cellRecord.value : x.columnConfig.placeholder)}"
+        title="${x => (typeof x.cellRecord.value === 'string'
+        ? x.cellRecord.value
+        : x.columnConfig.placeholder)}"
     >
         ${x => (typeof x.cellRecord.value === 'string'
         ? x.cellRecord.value

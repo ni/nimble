@@ -55,14 +55,20 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): string {
-        return this.getCell(rowIndex, columnIndex).shadowRoot!.textContent?.trim() ?? '';
+        return (
+            this.getCell(
+                rowIndex,
+                columnIndex
+            ).shadowRoot!.textContent?.trim() ?? ''
+        );
     }
 
-    public getCellTitle(
-        rowIndex: number,
-        columnIndex: number
-    ): string {
-        return this.getCell(rowIndex, columnIndex).shadowRoot!.querySelector('.cell-content-container span')?.getAttribute('title') ?? '';
+    public getCellTitle(rowIndex: number, columnIndex: number): string {
+        return (
+            this.getCell(rowIndex, columnIndex)
+                .shadowRoot!.querySelector('.cell-content-container span')
+                ?.getAttribute('title') ?? ''
+        );
     }
 
     public getRecordId(rowIndex: number): string | undefined {
@@ -86,8 +92,10 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): MenuButton | null {
-        return this.getCell(rowIndex, columnIndex)
-            .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
+        return this.getCell(
+            rowIndex,
+            columnIndex
+        ).shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
     }
 
     public async clickCellActionMenu(
@@ -140,10 +148,7 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
-    private getCell(
-        rowIndex: number,
-        columnIndex: number
-    ): TableCell {
+    private getCell(rowIndex: number, columnIndex: number): TableCell {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
