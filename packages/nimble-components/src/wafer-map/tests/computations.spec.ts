@@ -39,8 +39,8 @@ describe('Wafermap Computations module', () => {
                 height: Math.ceil(computationsModule.dieDimensions.height)
             };
             expect(computedDimensions).toEqual({
-                width: 16,
-                height: 14
+                width: 19,
+                height: 16
             });
         });
 
@@ -50,6 +50,17 @@ describe('Wafermap Computations module', () => {
 
         it('should have expected margin', () => {
             expect(computationsModule.margin).toEqual(expectedMargin);
+        });
+
+        it('should have horizontal domain containing all column indexes', () => {
+            expect(computationsModule.horizontalScale.domain()).toEqual([
+                2, 3, 4, 5, 6
+            ]);
+        });
+        it('should have vertical domain containing all row indexes, ', () => {
+            expect(computationsModule.verticalScale.domain()).toEqual([
+                1, 2, 3, 4, 5, 6
+            ]);
         });
     });
 
@@ -80,8 +91,8 @@ describe('Wafermap Computations module', () => {
                 height: Math.ceil(computationsModule.dieDimensions.height)
             };
             expect(computedDimensions).toEqual({
-                width: 16,
-                height: 14
+                width: 19,
+                height: 16
             });
         });
 
@@ -113,29 +124,9 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations(waferMock as WaferMap);
         });
 
-        it(
-            'should have horizontal domain equal to the lowest column index, '
-                + 'but one position higher than the highest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    2, 7
-                ]);
-            }
-        );
-
         it('should have increasing horizontal range', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
-
-        it(
-            'should have vertical domain equal to the lowest row index, '
-                + 'but one position higher than the highest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    1, 7
-                ]);
-            }
-        );
 
         it('should have increasing vertical range', () => {
             expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
@@ -156,29 +147,9 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations(waferMock as WaferMap);
         });
 
-        it(
-            'should have horizontal domain equal to the highest column index, '
-                + 'but one position lower than the lowest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    1, 6
-                ]);
-            }
-        );
-
         it('should have decreasing horizontal range', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
-
-        it(
-            'should have vertical domain equal to the lowest row index, '
-                + 'but one position higher than the highest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    1, 7
-                ]);
-            }
-        );
 
         it('should have increasing vertical range', () => {
             expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
@@ -199,29 +170,9 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations(waferMock as WaferMap);
         });
 
-        it(
-            'should have horizontal domain equal to the lowest column index, '
-                + 'but one position higher than the highest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    2, 7
-                ]);
-            }
-        );
-
         it('should have increasing horizontal range', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
-
-        it(
-            'should have vertical domain equal to the highest row index, '
-                + 'but one position lower than the lowest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    0, 6
-                ]);
-            }
-        );
 
         it('should have decreasing vertical range', () => {
             expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
@@ -242,29 +193,9 @@ describe('Wafermap Computations module', () => {
             computationsModule = new Computations(waferMock as WaferMap);
         });
 
-        it(
-            'should have horizontal domain equal to the highest column index, '
-                + 'but one position lower than the lowest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    1, 6
-                ]);
-            }
-        );
-
         it('should have decreasing horizontal range', () => {
             expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
-
-        it(
-            'should have vertical domain equal to the highest row index, '
-                + 'but one position lower than the lowest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    0, 6
-                ]);
-            }
-        );
 
         it('should have decreasing vertical range', () => {
             expect(computationsModule.verticalScale.range()).toEqual([92, 0]);

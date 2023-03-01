@@ -184,8 +184,8 @@ describe('WaferMap', () => {
         it('will resize the rectangle when zooming in the wafer-map', () => {
             const initialHeight = element.hoverHeight;
             const initialWidth = element.hoverWidth;
-            expect(initialHeight).toBe(230);
-            expect(initialWidth).toBe(230);
+            expect(initialHeight).toBe(460);
+            expect(initialWidth).toBe(460);
 
             element.canvas.dispatchEvent(
                 new WheelEvent('wheel', { deltaY: -2, deltaMode: -1 })
