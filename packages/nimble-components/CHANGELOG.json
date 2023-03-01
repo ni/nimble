@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Mar 2023 18:28:57 GMT",
+      "tag": "@ni/nimble-components_v18.5.7",
+      "version": "18.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c",
+            "comment": "Using new fallback font definitions from `nimble-tokens` that more closely match the design system fonts. This helps minimize font swap jitter on initial page load."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.7.1",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Mar 2023 17:20:37 GMT",
       "tag": "@ni/nimble-components_v18.5.6",
       "version": "18.5.6",
