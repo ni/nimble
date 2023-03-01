@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 01 Mar 2023 14:29:04 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Mar 2023 18:28:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.5.7
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Using new fallback font definitions from `nimble-tokens` that more closely match the design system fonts. This helps minimize font swap jitter on initial page load. ([ni/nimble@29c1ec3](https://github.com/ni/nimble/commit/29c1ec36b4284fff6e104f61a1c483f94945870c))
+- Bump @ni/nimble-tokens to v4.7.1
+
+## 18.5.6
+
+Wed, 01 Mar 2023 17:20:37 GMT
+
+### Patches
+
+- Make tab panels scrollable ([ni/nimble@87eb2c0](https://github.com/ni/nimble/commit/87eb2c0a840f5afe1715e3115eeb5c4edff8ffdb))
 
 ## 18.5.5
 
