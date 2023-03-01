@@ -80,8 +80,8 @@ describe('Wafermap Data Manager', () => {
             height: Math.ceil(dataManagerModule.dieDimensions.height)
         };
         expect(computedDimensions).toEqual({
-            width: 16,
-            height: 14
+            width: 19,
+            height: 16
         });
     });
 
