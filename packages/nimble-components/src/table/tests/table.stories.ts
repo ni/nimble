@@ -96,10 +96,7 @@ it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`d
 of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`.
 
 Note: This editor is strictly to provide a means of customizing the sort attributes for example purposes. To see the expected results in the DOM,
-consult the generated markup`;
-
-// For this example, configure the sorted columns by listing the column ID (\`first-name-column\`, \`last-name-column\`, \`favorite-color-column\`,
-// or \`quote-column\`) and sort directions of each column that should be sorted in the order of sort precendence.`;
+consult the generated markup.`;
 
 const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
