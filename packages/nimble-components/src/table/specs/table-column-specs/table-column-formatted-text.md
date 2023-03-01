@@ -13,6 +13,7 @@ Clients will wish to display non-string text data in table columns for use cases
     - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute, 3 seconds"
 6. enum values formatted as localized strings (0 -> "Fail", 1 -> "Pass")
 7. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
+8. combinations of the above in a single column in cases where the source data isn't uniformly typed (e.g. SLE tag values)
 
 In all of the above cases:
 
@@ -20,6 +21,7 @@ In all of the above cases:
 -   text styling like font and alignment should be provided by Nimble
 -   columns should support i18n behaviors like decimal separators, date/time formats, and localized content
 -   there should be an option to show "placeholder" text if no value is specified
+-   there should be a way to show the full value of truncated text (likely via a title / tooltip on hover)
 
 We may not choose to support all of the above initially but we should design our solutions with these use cases in mind.
 
@@ -167,7 +169,7 @@ For common use cases we could provide column types that expose simplified format
 
 ##### Example B: Pass through Intl.NumberFormat API
 
-The [NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) gives highly configurable formatting with great documentation. It would solve use cases 1-4 above provided they use [supported units](https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-issanctionedsimpleunitidentifier) (includes `%`, currency, temperature, time). It throws for unsupported units (including V and A) and doesn't really support unit conversion. (Aside: it [almost supports](https://stackoverflow.com/a/73974452) our file size column use case but browsers use metric conversions (1KB === 1000B) but we want binary conversions (1KB === 1024B)).
+The [NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) gives highly configurable formatting with great documentation. It would solve use cases 1-4 above provided they use [supported units](https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-issanctionedsimpleunitidentifier) (includes `%`, currency, temperature, time). Unfortunately it throws for unsupported units (like volts and amps) and doesn't really support unit conversion. (Aside: it [almost supports](https://stackoverflow.com/a/73974452) our file size column use case but browsers use metric conversions (1KB === 1000B) but we want binary conversions (1KB === 1024B)).
 
 ```html
 <nimble-table>
