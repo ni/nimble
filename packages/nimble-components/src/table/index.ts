@@ -16,6 +16,7 @@ import {
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingFnOption as TanStackSortingFnOption,
     SortingFn as TanStackSortingFn,
+    sortingFns as TanStackSortingFns,
     Row as TanStackRow,
     SortingState as TanStackSortingState
 } from '@tanstack/table-core';
@@ -362,11 +363,11 @@ export class Table<
     ): TanStackSortingFnOption<TData> {
         switch (sortOperation) {
             case TableColumnSortOperation.basic:
-                return 'basic';
+                return TanStackSortingFns.basic;
             case TableColumnSortOperation.localeAwareCaseSensitive:
                 return this.localeAwareCaseSensitiveSortFunction;
             default:
-                return 'basic';
+                return TanStackSortingFns.basic;
         }
     }
 
