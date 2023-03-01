@@ -13,6 +13,7 @@ import { DisabledState, disabledStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
@@ -76,4 +77,15 @@ export const textCustomized: Story = createMatrixThemeStory(
             </nimble-tabs>
         `
     )
+);
+
+export const panelOverflow: Story = createStory(
+    html`
+        <nimble-tabs style="height: 120px; width: 400px;">
+            <nimble-tab>Tab One</nimble-tab>
+            <nimble-tab-panel style="width: 450px;"
+                >${loremIpsum}</nimble-tab-panel
+            >
+        </nimble-tabs>
+    `
 );
