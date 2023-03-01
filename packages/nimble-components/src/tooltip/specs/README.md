@@ -14,22 +14,114 @@ The nimble-tooltip project will first be implemented as a prototype, open issues
 
 ---
 
+
+## Potential approaches
+
+Below we enumerate several different design approaches from which we may choose one or more as our ideal API surface.
+
+### Prior art
+- [Angular Material Tooltip](https://material.angular.io/components/tooltip/overview) - Uses Angular specific functionality (Directive)
+- [Carbon Design System](https://carbondesignsystem.com/components/tooltip/usage#live-demo) - Tooltip component takes anchor element as content.
+- [Atlassian Design System](https://atlassian.design/components/tooltip/examples) - Tooltip component takes anchor element as content
+- [Adobe Spectrum (React)](https://react-spectrum.adobe.com/react-spectrum/Tooltip.html) - Separate wrapper component around tooltip and anchor elements.
+- [FAST](https://explore.fast.design/components/fast-tooltip) - Tooltip associated with anchor element by id.
+
+### Associate by `id`
+This is the FAST approach, and the current implementation. The tooltip has an `anchor` attribute which takes the `id` of the anchor element.
+```html
+<nimble-tooltip anchor="previewButton">...</nimble-tooltip>
+<nimble-button id="previewButton">Preview</nimble-button>
+```
+
+**Pros**
+- No additional implementation cost
+- Familiar pattern, e.g. `<label>` element with `for` attribute, `aria-labelledby` attribute, `aria-describedby` attribute
+- Reasonable DOM structure, i.e. tooltip sibling of anchor element
+
+**Cons**
+- Annoying to have to give anchor element an `id`
+- <span style="color:red">**Not condusive to use in shared components because `id` values must be unique**</span>
+
+### Tooltip slotted in anchor element
+The anchor element defines a `slot` for the tooltip and takes the tooltip as content.
+```html
+<nimble-button>
+    Preview
+    <nimble-tooltip slot="tooltip">...</nimble-tooltip>
+</nimble-button>
+```
+
+**Pros**
+- Familiar slotting pattern
+- Logical DOM structure (element contains its tooltip)
+- May not need `nimble-tooltip` element at all -- could slot tooltip content directly without wrapping in `nimble-tooltip` element
+
+**Cons**
+- Expensive to implement and maintain. <span style="color:red">**Requires forking and modifying the template of every component that wants to support a tooltip.**</span> (Though code duplication could be avoided by using shared template fragments.) Tooltip implementation leaks into every other component.
+- Cannot apply tooltip to native elements, like `<div>`
+
+### Tooltip implemented by each component
+There is no tooltip component, but instead, each component that wants to support a tooltip makes it a part of its template. Those components have an attribute like `tooltip` that takes the text to display in the tooltip. If the tooltip needs to support more than just unformated text, that approach would be a variation of "Tooltip slotted in anchor element", where there is no explicit tooltip element.
+```html
+<nimble-button tooltip="This is tooltip text">Preview</nimble-button>
+```
+
+**Pros**
+- Simple, intuitive API (similar to existing `title` attribute)
+- No dedicated tooltip component
+
+**Cons**
+- Expensive to implement and maintain. <span style="color:red">**Requires forking and modifying the template of every component that wants to support a tooltip.**</span> (Though code duplication could be avoided by using shared template fragments.) Cannot leverage FAST implementation?
+- <span style="color:red">**Does not support rich tooltip content (which is probably a requirement)**</span>
+- Cannot apply tooltip to native elements, like `<div>`
+
+### Tooltip takes anchor element as content
+The tooltip element wraps the anchor element. If the tooltip takes other content (e.g. the text for the tooltip itself), the anchor element would need to specify something like `slot="anchor"` to distinguish it from that other content.
+```html
+<nimble-tooltip>
+    <nimble-button slot="anchor">Preview</nimble-button>
+    This is the tooltip text.
+</nimble-tooltip>
+```
+
+**Pros**
+- Easy to implement
+- Proven pattern: used by Carbon and Atlassian Design Systems
+
+**Cons**
+- Confusing DOM structure. Both the things _in_ the tooltip and the thing _associated_ with the tooltip are child content.
+
+### Wrapper element around tooltip and anchor elements
+There is a separate wrapper element that takes both the tooltip and the anchor as children.
+```html
+<nimble-tooltip-connection>
+    <nimble-tooltip>...</nimble-tooltip>
+    <nimble-button>Preview</nimble-button>
+</nimble-tooltip-connection>
+```
+
+**Pros**
+- Easy to implement
+- Proven pattern: used by Adobe Spectrum Design System
+- Reasonable DOM structure, i.e. tooltip sibling of anchor element
+
+**Cons**
+- Additional element required
+
+---
+
 ## Design
+
+Eventually we want the following API:
+- for simple use cases where we only need plain text in our tooltip, we assign that text to an attribute on a Nimble component
+- for tooltips with arbitrary content, we slot tooltip components into other Nimble components
+- for tooltips on native HTML elements, we associate tooltip components to those elements by `id`
+
+Today we only have support for the `id`-based part of that API. FAST has plans to make it easier to modify/extend templates, at which point it will clear the way for us to develop the slot-based part of the API. We will put further development of the Nimble tooltip on hold until that time.
 
 ### API
 
 [FAST tooltip API](https://github.com/microsoft/fast/blob/de7f234ef871204fcac2b5df59433d919809341d/packages/web-components/fast-foundation/src/tooltip/tooltip.spec.md)
-
-The tooltip will significantly differ from the FAST API in the way that a tooltip is associated with an "anchor" element. The FAST API provides two ways to associate a tooltip with the anchor: by `id` and by assigning the element directly to the tooltip's `anchorElement` property. We will internally make use of the latter, but the client will associate the two by wrapping them together in a container element:
-
-```
-<nimble-tooltip-connection>
-    <nimble-tooltip>...</nimble-tooltip>
-    <nimble-button>Hover To See Tooltip</nimble-button>
-</nimble-tooltip-connection>
-```
-
-The `nimble-tooltip-connection` element takes exactly one `nimble-tooltip` and one non-tooltip element as contents. It will error if anything else is given. The connection element has no other public API. In its `connectedCallback`, we will assign the non-tooltip element to the tooltip's `anchorElement` property.
 
 The state of the tooltip can be changed by setting the `error`, or `information` class. If neither of these classes are applied, the tooltip will use the `default` appearance- a state that does not require a CSS class. When the tooltip has the `error` or `information` class applied, an icon can optionally be visible in the tooltip by setting the `icon-visible` class. The `icon-visible` class will have no impact on the tooltip when it has the `default` appearance. This will allow clients to easily switch between `default` and `error` without also having to change whether or not the `icon-visible` class is applied.
 
@@ -49,19 +141,11 @@ The tooltip will have a custom template based on FAST's template. In addition to
 
 ### Angular integration
 
-An Angular directive will be created for the tooltip component. The component will not have form association, so a `ControlValueAccessor` will not be created. No directive will be created for the `nimble-tooltip-connection` component since it has no programmatic API.
+An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created.
 
 ### Blazor integration
 
-A Blazor wrapper will be created for the tooltip component and the connection component.
-
-### Accessibility
-
-One key part of tooltip accessibility is setting `aria-describedby` on the anchor element so that it references the tooltip's `id`. The version of FAST that we use does not do this for us (it was added in a later [re-implementation of the tooltip](https://github.com/microsoft/fast/commit/555f1b2cd614a1d5a9bc3985fb892d040c110cb3)). If the user has not assigned the `nimble-tooltip` element an `id`, we will generate one in the `nimble-tooltip-connection`'s `connectedCallback`. We will use a concatenation of `Math.random()` and `Date.now()` to generate a value that is extremely likely to be unique. We will then assign the `id` value to the anchor's `aria-describedby`.
-
-The `nimble-tooltip` will have `role="tooltip"`. We will keep this on the host element, since that is the element whose `id` value we're assigning to `aria-describedby`.
-
-In order for `aria-describedby` to always be able to find the tooltip element, we will re-use a [pattern for hiding it](https://github.com/ni/nimble/blob/0802dad32f1f90df5ded9b64d46d6ddf2aeb2222/packages/nimble-components/src/banner/styles.ts#L76) that does not actually change its `display` or `visibility` or remove it from the DOM. We have used this approach before for the banner, dialog, and button.
+A Blazor wrapper will be created for the tooltip component.
 
 ### Additional requirements
 
@@ -77,7 +161,7 @@ In order for `aria-describedby` to always be able to find the tooltip element, w
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
     -   No additional requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
-    -   No additional requirements
+    -   `aria-describedby` implementation will eventually need to be fixed- currently only works when tooltip attribute is set to visible
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No additional requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
