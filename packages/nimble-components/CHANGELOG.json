@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 01 Mar 2023 17:20:37 GMT",
+      "tag": "@ni/nimble-components_v18.5.6",
+      "version": "18.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "87eb2c0a840f5afe1715e3115eeb5c4edff8ffdb",
+            "comment": "Make tab panels scrollable"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Mar 2023 14:29:04 GMT",
       "tag": "@ni/nimble-components_v18.5.5",
       "version": "18.5.5",
