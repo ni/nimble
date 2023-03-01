@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Created fallback `@font-face` definitions for local fonts to more closely match the design system fonts. These fallbacks can be used to reduce font swap jitter on initial page load.",
+  "packageName": "@ni/nimble-tokens",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
