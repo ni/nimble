@@ -91,6 +91,16 @@ The table will not automatically update if the contents of the array change afte
 </details>
 `;
 
+const sortedColumnsDescription = `A column within the table is configured to be sorted by specifying a \`sort-direction\` and a \`sort-index\` on
+it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
+of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`.
+
+Note: This editor is strictly to provide a means of customizing the sort attributes for example purposes. To see the expected results in the DOM,
+consult the generated markup`;
+
+// For this example, configure the sorted columns by listing the column ID (\`first-name-column\`, \`last-name-column\`, \`favorite-color-column\`,
+// or \`quote-column\`) and sort directions of each column that should be sorted in the order of sort precendence.`;
+
 const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
 and the table will enter an invalid state according to the \`validity\` property and \`checkValidity()\` function.
@@ -203,6 +213,10 @@ const metadata: Meta<TableArgs> = {
                     [ExampleDataType.largeDataSet]: 'Large data set (10k rows)'
                 }
             }
+        },
+        sortedColumns: {
+            name: 'sort configuration',
+            description: sortedColumnsDescription
         },
         idFieldName: {
             name: 'id-field-name',

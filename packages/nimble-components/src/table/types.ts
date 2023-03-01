@@ -78,7 +78,14 @@ export type TableColumnSortDirection =
  * The possible operations to use when sorting a table column.
  */
 export const TableColumnSortOperation = {
+    /**
+     * Performs a sort using `===`, `<`, and `>` operators
+     */
     basic: 'basic',
+    /**
+     * Performs a locale-aware case-sensitive string sort on the columns.
+     * Only use this sort operation if the field is of type `string | undefined | null`.
+     */
     localeAwareCaseSensitive: 'localeAwareCaseSensitive'
 } as const;
 export type TableColumnSortOperation =
