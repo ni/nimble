@@ -193,7 +193,7 @@ The [NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/R
 </nimble-table>
 ```
 
-##### Example C: Provide preconfigured formatters for NumberFormat API
+##### Example C: Provide pre-configured formatters for NumberFormat API
 
 To improve consistency and reduce client configuration, we could provide formatters for common use cases like integers and percent.
 
@@ -212,6 +212,22 @@ To improve consistency and reduce client configuration, we could provide formatt
     >
         Count
     <nimble-table-column-numeric>
+</nimble-table>
+```
+
+##### Example D: Enum Column
+
+We may try to provide an easy way for clients to map enum values to localized strings. Here is a concept for an API which probably has issues.
+
+```html
+<nimble-table>
+    <nimble-table-column-enum
+        field-name="status"
+    >
+        Status
+        <nimble-list-option slot="enum-string-0" value="0">Pass</nimble-list-option>
+        <nimble-list-option slot="enum-string-1" value="1">Fail</nimble-list-option>
+    <nimble-table-column-enum>
 </nimble-table>
 ```
 
@@ -252,7 +268,7 @@ For the sake of discussion my initial proposal is:
 1. We need to offer an approach for columns that require app-specific formatting logic (to support use cases like custom unit logic and enums). 
      - I think the cons of "Client provides a custom column implementation for each use case" are too great so I reject that approach.
      - I'm leaning towards "Client specifies formatting function" over "Use `table-column-text`" because it more clearly encodes that the column is numeric, giving better type safety and allowing for more consistent styling. I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
-2. I would also like to provide a small number of built-in column types to save clients from having to write JS code. These could offer limited or no configuration to start since we don't have clear requirements yet. Initially this might be just `nimble-table-column-numeric` with default `toString()` formatting and no unit support. Later we could add support for basic formatting and also add column types for date/time or enums, but i18n considerations might make it hard to expose a clean attribute API for these.
+2. I would also like to provide a small number of built-in column types to save clients from having to write JS code. These could offer limited or no configuration to start since we don't have clear requirements yet. Initially this might be just `nimble-table-column-numeric` with default `toString()` formatting and no unit support. Later we could add support for some of the examples described in Alternative 3.
 
 ### API
 
