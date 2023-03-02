@@ -7,10 +7,7 @@ import {
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
-import {
-    TableColumnSortDirection,
-    TableFieldName
-} from '../../table/types';
+import { TableColumnSortDirection, TableFieldName } from '../../table/types';
 import {
     TableCellRecord,
     TableCellState,

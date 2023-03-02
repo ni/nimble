@@ -89,7 +89,7 @@ const sortedOptions = {
             columnId: 'last-name-column',
             sortDirection: TableColumnSortDirection.descending
         }
-    ],
+    ]
 } as const;
 
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
@@ -235,9 +235,12 @@ const metadata: Meta<TableArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleSortType.firstColumnAscending]: 'First name ascending',
-                    [ExampleSortType.firstColumnDescending]: 'First name descending',
-                    [ExampleSortType.firstColumnAscendingSecondColumnDescending]: 'First name ascending then last name descending'
+                    [ExampleSortType.firstColumnAscending]:
+                        'First name ascending',
+                    [ExampleSortType.firstColumnDescending]:
+                        'First name descending',
+                    [ExampleSortType.firstColumnAscendingSecondColumnDescending]:
+                        'First name ascending then last name descending'
                 }
             }
         },

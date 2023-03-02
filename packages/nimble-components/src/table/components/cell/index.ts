@@ -8,7 +8,10 @@ import {
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import type { TableCellRecord, TableCellState } from '../../../table-column/base/types';
+import type {
+    TableCellRecord,
+    TableCellState
+} from '../../../table-column/base/types';
 import { styles } from './styles';
 import { template } from './template';
 
