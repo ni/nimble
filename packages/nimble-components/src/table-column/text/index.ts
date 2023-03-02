@@ -1,6 +1,7 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { TableColumnSortOperation, TableStringField } from '../../table/types';
+import type { TableStringField } from '../../table/types';
+import { TableColumnSortOperation } from '../base/types';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';

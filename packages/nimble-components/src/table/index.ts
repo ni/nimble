@@ -21,15 +21,14 @@ import {
     SortingState as TanStackSortingState
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
+import { TableColumnSortOperation } from '../table-column/base/types';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
-    TableColumnSortOperation,
     TableRecord,
-    TableRowState,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
@@ -38,6 +37,11 @@ declare global {
     interface HTMLElementTagNameMap {
         'nimble-table': Table;
     }
+}
+
+interface TableRowState<TData extends TableRecord = TableRecord> {
+    record: TData;
+    id: string;
 }
 
 /**

@@ -19,28 +19,9 @@ export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
 
-/** Represents a single row (element) in the Table's data  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableDataRecord extends TableRecord {}
-
-/**
- * An object whose fields are defined by a particular TableColumn, which is used by the column's
- * cellTemplate implementation.
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableCellRecord extends TableRecord {}
-
 export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: string | null | undefined;
 };
-
-export interface TableCellState<
-    TCellRecord extends TableCellRecord = TableCellRecord,
-    TColumnConfig = unknown
-> {
-    cellRecord: TCellRecord;
-    columnConfig: TColumnConfig;
-}
 
 export interface TableValidity {
     readonly duplicateRecordId: boolean;
@@ -49,11 +30,6 @@ export interface TableValidity {
     readonly duplicateColumnId: boolean;
     readonly missingColumnId: boolean;
     readonly duplicateSortIndex: boolean;
-}
-
-export interface TableRowState<TData extends TableRecord = TableRecord> {
-    record: TData;
-    id: string;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -73,20 +49,3 @@ export const TableColumnSortDirection = {
 } as const;
 export type TableColumnSortDirection =
     (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
-
-/**
- * The possible operations to use when sorting a table column.
- */
-export const TableColumnSortOperation = {
-    /**
-     * Performs a sort using `===`, `<`, and `>` operators
-     */
-    basic: 'basic',
-    /**
-     * Performs a locale-aware case-sensitive string sort on the columns.
-     * Only use this sort operation if the field is of type `string | undefined | null`.
-     */
-    localeAwareCaseSensitive: 'localeAwareCaseSensitive'
-} as const;
-export type TableColumnSortOperation =
-    (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];

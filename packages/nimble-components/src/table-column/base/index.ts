@@ -8,12 +8,14 @@ import {
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import {
-    TableCellRecord,
-    TableCellState,
     TableColumnSortDirection,
-    TableColumnSortOperation,
     TableFieldName
 } from '../../table/types';
+import {
+    TableCellRecord,
+    TableCellState,
+    TableColumnSortOperation
+} from './types';
 
 /**
  * The base class for table columns
