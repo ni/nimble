@@ -54,3 +54,4 @@ const nimbleToggleButton = ToggleButton.compose<ButtonOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleToggleButton());
+export const toggleButtonTag = DesignSystem.tagFor(ToggleButton);

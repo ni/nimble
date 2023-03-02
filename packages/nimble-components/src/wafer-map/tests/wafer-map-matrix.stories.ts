@@ -10,7 +10,7 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { waferMapTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/WaferMap',
@@ -80,48 +80,48 @@ const waferMapDie = [
 
 const waferMapSizes = [70, 200, 300, 400];
 
-const simpleWaferWithDies = (): ViewTemplate => html`<nimble-wafer-map
+const simpleWaferWithDies = (): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferWithDies = ([
     orientation
-]: OrientationState): ViewTemplate => html`<nimble-wafer-map
+]: OrientationState): ViewTemplate => html`<${waferMapTag}
     orientation="${() => orientation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferWithHiddenDieLabel = (
     [color]: ColorScales,
     [dieLabelHidde]: DieLabelHidden
-): ViewTemplate => html`<nimble-wafer-map
+): ViewTemplate => html`<${waferMapTag}
     ?die-labels-hidden=${() => dieLabelHidde}
     :dies="${() => waferMapDie}"
     :colorScale="${() => color}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferWithDieOrientation = ([
     orientation
-]: DieOrientation): ViewTemplate => html`<nimble-wafer-map
+]: DieOrientation): ViewTemplate => html`<${waferMapTag}
     quadrant="${() => orientation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferResize = (
     size: number
-): ViewTemplate => html`<nimble-wafer-map
+): ViewTemplate => html`<${waferMapTag}
     style="width: ${size}px; height: ${size}px"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map> `;
+</${waferMapTag}> `;
 
 export const waferMapThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)

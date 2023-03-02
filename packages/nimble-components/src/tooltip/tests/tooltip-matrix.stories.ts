@@ -12,7 +12,6 @@ import {
 } from '../../utilities/tests/storybook';
 import { backgroundStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import {
     bodyFont,
     bodyFontColor,
@@ -20,6 +19,7 @@ import {
 } from '../../theme-provider/design-tokens';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { TooltipSeverity } from '../types';
+import { tooltipTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
@@ -84,7 +84,7 @@ const component = (
             ${() => `${iconVisibleName}`}
         </div>
 
-        <nimble-tooltip
+        <${tooltipTag}
             anchor="${() => `${textName}_${severityName}_${iconVisibleName}`}"
             visible
             position="bottom"
@@ -93,7 +93,7 @@ const component = (
             ?icon-visible="${() => iconVisible}"
         >
             ${() => `${text}`}
-        </nimble-tooltip>
+        </${tooltipTag}>
     </div>
 `;
 
@@ -123,5 +123,5 @@ export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
 );
 
 export const hiddenTooltip: Story = createStory(
-    hiddenWrapper(html`<nimble-tooltip hidden>Hidden Tooltip</nimble-tooltip>`)
+    hiddenWrapper(html`<${tooltipTag} hidden>Hidden Tooltip</${tooltipTag}>`)
 );

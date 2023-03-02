@@ -3,7 +3,6 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
-import '../../all-components';
 import type { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { backgroundStates } from '../../utilities/tests/states';

@@ -1,0 +1,6 @@
+{
+  "type": "minor",
+  "comment": "Exposed a constant for tag names on nimble components. Enabled Chromatic TurboSnap to reduce the number of Chromatic snapshots consumed by the Nimble build pipeline.",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "minor"}

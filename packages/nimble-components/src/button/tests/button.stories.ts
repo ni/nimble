@@ -3,13 +3,15 @@ import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import {
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
+import { buttonTag } from '..';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
 
 interface ButtonArgs {
     label: string;
@@ -68,19 +70,19 @@ const metadata: Meta<ButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-button
+        <${buttonTag}
             ?disabled="${x => x.disabled}"
             appearance="${x => ButtonAppearance[x.appearance]}"
             appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
             ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`
-                <nimble-icon-key slot="start"></nimble-icon-key>
+                <${iconKeyTag} slot="start"></${iconKeyTag}>
             `)}
             ${x => x.label}
             ${when(x => x.endIcon, html`
-                <nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>
+                <${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>
             `)}
-        </nimble-button>
+        </${buttonTag}>
 `),
     args: {
         label: 'Button',

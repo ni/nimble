@@ -360,3 +360,4 @@ const nimbleTable = Table.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTable());
+export const tableTag = DesignSystem.tagFor(Table);

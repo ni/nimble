@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
     borderHoverColor
 } from '../../theme-provider/design-tokens';
+import { anchoredRegionTag } from '..';
 
 interface AnchoredRegionArgs {
     horizontalPosition: string;
@@ -64,7 +64,7 @@ const metadata: Meta<AnchoredRegionArgs> = {
             <div id="${x => `${x.verticalPosition}_${x.horizontalPosition}`}" class="anchor">
                 Anchor element
             </div>
-            <nimble-anchored-region
+            <${anchoredRegionTag}
                 anchor="${x => `${x.verticalPosition}_${x.horizontalPosition}`}"
                 fixed-placement="true"
                 auto-update-mode="auto"
@@ -76,7 +76,7 @@ const metadata: Meta<AnchoredRegionArgs> = {
                 <div class="anchoredRegion">
                     Anchored region
                 </div>
-            </nimble-anchored-region>
+            </${anchoredRegionTag}>
         </div>
     `),
     argTypes: {

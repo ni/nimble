@@ -62,3 +62,4 @@ const nimbleTableColumnText = TableColumnText.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnText());
+export const tableColumnTextTag = DesignSystem.tagFor(TableColumnText);

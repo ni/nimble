@@ -11,10 +11,13 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 import { BannerSeverity } from '../types';
 import { bannerGapSize } from '../../theme-provider/design-tokens';
+import { bannerTag } from '..';
+import { buttonTag } from '../../button';
+import { anchorTag } from '../../anchor';
+import { iconKeyTag } from '../../icons/key';
 
 const metadata: Meta = {
     title: 'Tests/Banner',
@@ -63,7 +66,7 @@ const component = (
     [partsHiddenLabel, partsHidden]: PartsHiddenState,
     [longTextLabel, longText]: LongTextState
 ): ViewTemplate => html`
-    <nimble-banner
+    <${bannerTag}
         open
         severity="${() => severity}"
         title-hidden="${partsHidden}"
@@ -72,17 +75,17 @@ const component = (
         <span slot="title">${severityLabel} ${actionLabel} ${partsHiddenLabel} ${longTextLabel} ${longText ? loremIpsum.substring(0, 78) : ''}</span>
         ${longText ? loremIpsum : 'This is message text.'}
         ${when(() => linkVisible, html`
-            <nimble-anchor slot="action" href="#">${longText ? loremIpsum.substring(0, 78) : 'Nimble anchor'}</nimble-anchor>
+            <${anchorTag} slot="action" href="#">${longText ? loremIpsum.substring(0, 78) : 'Nimble anchor'}</${anchorTag}>
         `)}
         ${when(() => buttonAppearance, html`
-            <nimble-button slot="action" appearance="${buttonAppearance!}" content-hidden=${iconButton}>
+            <${buttonTag} slot="action" appearance="${buttonAppearance!}" content-hidden=${iconButton}>
                 ${when(() => iconButton, html`
-                    <nimble-icon-key slot="start"></nimble-icon-key>
+                    <${iconKeyTag} slot="start"></${iconKeyTag}>
                 `)}
                 ${longText ? loremIpsum.substring(0, 78) : 'Nimble Button'}
-            </nimble-button>
+            </${buttonTag}>
         `)}
-    </nimble-banner>
+    </${bannerTag}>
     <div style="height: var(${bannerGapSize.cssCustomProperty})"></div>
 `;
 
@@ -97,8 +100,8 @@ export const bannerThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenBanner: Story = createStory(
     hiddenWrapper(
-        html`<nimble-banner hidden>
+        html`<${bannerTag} hidden>
             <span slot="title">Hidden banner</span>
-        </nimble-banner>`
+        </${bannerTag}>`
     )
 );

@@ -2,11 +2,14 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { ExampleDataType, ExampleSortType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import type { Table } from '..';
+import { Table, tableTag } from '..';
 import { TableColumnSortDirection } from '../types';
+import { iconUserTag } from '../../icons/user';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
+import { tableColumnTextTag } from '../../table-column/text';
 
 interface TableArgs {
     data: ExampleDataType;
@@ -158,56 +161,56 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table
+        <${tableTag}
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text
+            <${tableColumnTextTag}
                 column-id="first-name-column"
                 field-name="firstName" placeholder="no value"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
                 sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
             >
-                <nimble-icon-user title="First Name"></nimble-icon-user>
-            </nimble-table-column-text>
-            <nimble-table-column-text
+                <${iconUserTag} title="First Name"></${iconUserTag}>
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
                 column-id="last-name-column"
                 field-name="lastName" placeholder="no value"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
                 sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
             >
                 Last Name
-            </nimble-table-column-text>
-            <nimble-table-column-text
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
                 column-id="favorite-color-column"
                 field-name="favoriteColor" placeholder="no value"
                 sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
             >
                 Favorite Color
-            </nimble-table-column-text>
-            <nimble-table-column-text
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
                 column-id="quote-column"
                 field-name="quote" placeholder="no value"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
                 sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
             >
                 Quote
-            </nimble-table-column-text>
+            </${tableColumnTextTag}>
 
-            <nimble-menu slot="name-menu">
-                <nimble-menu-item>Edit name</nimble-menu-item>
-                <nimble-menu-item>Delete person</nimble-menu-item>
-                <nimble-menu-item>Archive person</nimble-menu-item>
-                <nimble-menu-item>Duplicate person</nimble-menu-item>
-            </nimble-menu>
+            <${menuTag} slot="name-menu">
+                <${menuItemTag}>Edit name</${menuItemTag}>
+                <${menuItemTag}>Delete person</${menuItemTag}>
+                <${menuItemTag}>Archive person</${menuItemTag}>
+                <${menuItemTag}>Duplicate person</${menuItemTag}>
+            </${menuTag}>
 
-            <nimble-menu slot="quote-menu">
-                <nimble-menu-item>Edit quote</nimble-menu-item>
-                <nimble-menu-item>Delete quote</nimble-menu-item>
-                <nimble-menu-item>Do something else with the quote</nimble-menu-item>
-            </nimble-menu>
-        </nimble-table>
+            <${menuTag} slot="quote-menu">
+                <${menuItemTag}>Edit quote</${menuItemTag}>
+                <${menuItemTag}>Delete quote</${menuItemTag}>
+                <${menuItemTag}>Do something else with the quote</${menuItemTag}>
+            </${menuTag}>
+        </${tableTag}>
         <style class="code-hide">
             #usage-warning {
                 color: red;
