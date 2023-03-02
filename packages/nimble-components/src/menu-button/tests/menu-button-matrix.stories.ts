@@ -15,6 +15,7 @@ import {
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
+import { menuButtonTag } from '..';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 
@@ -53,7 +54,7 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <${menuTag}-button
+    <${menuButtonTag}
         appearance="${() => appearance}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
@@ -66,7 +67,7 @@ const component = (
             <${menuItemTag}>Item 1</${menuItemTag}>
             <${menuItemTag}>Item 2</${menuItemTag}>
         </${menuTag}>
-    </${menuTag}-button>
+    </${menuButtonTag}>
 `;
 
 export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
@@ -79,6 +80,6 @@ export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenMenuButton: Story = createStory(
     hiddenWrapper(
-        html`<${menuTag}-button hidden>Hidden Menu Button</${menuTag}-button>`
+        html`<${menuButtonTag} hidden>Hidden Menu Button</${menuButtonTag}>`
     )
 );

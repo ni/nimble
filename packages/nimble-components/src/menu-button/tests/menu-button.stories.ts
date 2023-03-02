@@ -2,10 +2,10 @@ import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '..';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
+import { menuButtonTag } from '..';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 
@@ -64,7 +64,7 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <${menuTag}-button
+        <${menuButtonTag}
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
@@ -90,7 +90,7 @@ const metadata: Meta<MenuButtonArgs> = {
                 </${menuItemTag}>
                 <${menuItemTag} disabled>Item 3 (disabled)</${menuItemTag}>
             </${menuTag}>
-        </${menuTag}-button>
+        </${menuButtonTag}>
     `),
     args: {
         label: 'Ghost Menu Button',

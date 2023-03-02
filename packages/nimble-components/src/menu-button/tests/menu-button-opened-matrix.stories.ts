@@ -4,6 +4,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
+import { menuButtonTag } from '..';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 
@@ -32,14 +33,14 @@ const component = ([
     position,
     positionStyle
 ]: PositionState): ViewTemplate => html`
-    <${menuTag}-button open position="${() => position}" style="${() => positionStyle}">
+    <${menuButtonTag} open position="${() => position}" style="${() => positionStyle}">
         Open menu button ${position}
 
         <${menuTag} slot="menu">
             <${menuItemTag}>Item 1</${menuItemTag}>
             <${menuItemTag}>Item 2</${menuItemTag}>
         </${menuTag}>
-    </${menuTag}-button>
+    </${menuButtonTag}>
 `;
 
 const [
