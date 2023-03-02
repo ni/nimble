@@ -3,14 +3,14 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import '../../all-components';
-import { ExampleDataType } from './types';
+import { ExampleDataType, ExampleSortType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import { TableColumnSortDirection } from '../types';
 
 interface TableArgs {
     data: ExampleDataType;
-    sortedColumns: ColumnSortArgs[];
+    sortedColumns: ExampleSortType;
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
@@ -20,11 +20,6 @@ interface TableArgs {
         columnId: string,
         args: TableArgs
     ) => { direction: TableColumnSortDirection, index: number | undefined };
-}
-
-interface ColumnSortArgs {
-    columnId: string;
-    sortDirection: TableColumnSortDirection;
 }
 
 const simpleData = [
@@ -72,6 +67,31 @@ const dataSetIdFieldNames = {
     [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
+const sortedOptions = {
+    [ExampleSortType.firstColumnAscending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending
+        }
+    ],
+    [ExampleSortType.firstColumnDescending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.descending
+        }
+    ],
+    [ExampleSortType.firstColumnAscendingSecondColumnDescending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending
+        },
+        {
+            columnId: 'last-name-column',
+            sortDirection: TableColumnSortDirection.descending
+        }
+    ],
+} as const;
+
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
@@ -93,10 +113,7 @@ The table will not automatically update if the contents of the array change afte
 
 const sortedColumnsDescription = `A column within the table is configured to be sorted by specifying a \`sort-direction\` and a \`sort-index\` on
 it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
-of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`.
-
-Note: This editor is strictly to provide a means of customizing the sort attributes for example purposes. To see the expected results in the DOM,
-consult the generated markup.`;
+of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`.`;
 
 const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
@@ -213,7 +230,16 @@ const metadata: Meta<TableArgs> = {
         },
         sortedColumns: {
             name: 'sort configuration',
-            description: sortedColumnsDescription
+            description: sortedColumnsDescription,
+            options: Object.values(ExampleSortType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleSortType.firstColumnAscending]: 'First name ascending',
+                    [ExampleSortType.firstColumnDescending]: 'First name descending',
+                    [ExampleSortType.firstColumnAscendingSecondColumnDescending]: 'First name ascending then last name descending'
+                }
+            }
         },
         idFieldName: {
             name: 'id-field-name',
@@ -251,12 +277,7 @@ const metadata: Meta<TableArgs> = {
     },
     args: {
         data: ExampleDataType.simpleData,
-        sortedColumns: [
-            {
-                columnId: 'first-name-column',
-                sortDirection: TableColumnSortDirection.ascending
-            }
-        ],
+        sortedColumns: ExampleSortType.firstColumnAscending,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -276,7 +297,8 @@ const metadata: Meta<TableArgs> = {
             direction: TableColumnSortDirection,
             index: number | undefined
         } => {
-            const matchingIndex = args.sortedColumns.findIndex(
+            const sortData = sortedOptions[args.sortedColumns];
+            const matchingIndex = sortData.findIndex(
                 sortedColumn => sortedColumn.columnId === columnId
             );
             if (matchingIndex === -1) {
@@ -287,7 +309,7 @@ const metadata: Meta<TableArgs> = {
             }
 
             return {
-                direction: args.sortedColumns[matchingIndex]!.sortDirection,
+                direction: sortData[matchingIndex]!.sortDirection,
                 index: matchingIndex
             };
         }
