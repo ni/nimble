@@ -269,7 +269,9 @@ export class Table<
     }
 
     private setTableData(newData: readonly TData[]): void {
-        const data = this.copyData(newData);
+        const data = newData.map(record => {
+            return { ...record };
+        });
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
 
@@ -345,14 +347,8 @@ export class Table<
         this.updateTableOptions({
             // Force TanStack to detect a data update because a columns's accessor is
             // referenced when creating a new row model.
-            data: this.copyData(this.table.options.data),
+            data: [...this.table.options.data],
             columns: generatedColumns
-        });
-    }
-
-    private copyData(data: readonly TData[]): TData[] {
-        return data.map(record => {
-            return { ...record };
         });
     }
 }
