@@ -40,7 +40,7 @@ This is the FAST approach, and the current implementation. The tooltip has an `a
 
 **Cons**
 - Annoying to have to give anchor element an `id`
-- <span style="color:red">**Not condusive to use in shared components because `id` values must be unique**</span>
+- <span style="color:red">**Not conducive to use in shared components because `id` values must be unique**</span>
 
 ### Tooltip slotted in anchor element
 The anchor element defines a `slot` for the tooltip and takes the tooltip as content.
