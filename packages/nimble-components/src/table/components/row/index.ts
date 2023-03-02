@@ -24,7 +24,7 @@ export interface ColumnState {
 
 /** Represents a single row (element) in the Table's data  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TableDataRecord extends TableRecord {}
+export interface TableDataRecord extends TableRecord {}
 
 /**
  * A styled row that is used within the nimble-table.
