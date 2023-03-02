@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 02 Mar 2023 17:48:41 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Mar 2023 18:38:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.6.0
+
+Thu, 02 Mar 2023 18:38:23 GMT
+
+### Minor changes
+
+- Exposed a constant for tag names on nimble components. Enabled Chromatic TurboSnap to reduce the number of Chromatic snapshots consumed by the Nimble build pipeline. ([ni/nimble@4ae2070](https://github.com/ni/nimble/commit/4ae2070766afb33d5be6df1d25dcf3df93f75deb))
 
 ## 18.5.8
 
