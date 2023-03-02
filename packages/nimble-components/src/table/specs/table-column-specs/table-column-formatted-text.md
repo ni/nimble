@@ -235,7 +235,7 @@ We may try to provide an easy way for clients to map enum values to localized st
 
 **Pros:**
 
--   Easy for clients to use since configuration is declarative
+-   Easy for clients to use since configuration is declarative. This means Blazor apps could do configuration from .NET code and not need to write JS.
 -   Consistent numeric formatting across apps
 -   Easy to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 
@@ -267,10 +267,10 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 For the sake of discussion my initial proposal is:
 
-1. We need to offer an approach for columns that require app-specific formatting logic (to support use cases like custom unit logic and enums). 
-     - I think the cons of "Client provides a custom column implementation for each use case" are too great so I think we should invest in a simpler approach.
-     - I'm leaning towards "Client specifies formatting function" over "Use `table-column-text`" because it more clearly encodes that the column is numeric, giving better type safety and allowing for more consistent styling. I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
-2. I would also like to provide a small number of built-in column types to save clients from having to write JS code. These could offer limited or no configuration to start since we don't have clear requirements yet. Initially this might be just `nimble-table-column-numeric` with default `toString()` formatting and no unit support. Later we could add support for some of the examples described in Alternative 3.
+1. We need to offer an approach for columns that require app-specific formatting logic to support above use cases like 5 (custom unit logic) and 8 (data of unknown type). 
+     - I believe the cons of **Client provides a custom column implementation for each use case** are too great so we should invest in an approach that offers clients more consistency and simplicity.
+     - I'm leaning towards **Client specifies formatting function** over **Use `table-column-text`** because it more clearly encodes that the column is numeric, giving better type safety and allowing for more consistent styling. I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
+2. I would also like to pursue **Nimble provides column implementation for common use cases** to save clients from having to write JS code. Ideally we would provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 and 7 (enum and date) coming later.
 
 ### API
 
@@ -315,5 +315,6 @@ _Type Reference_
 ---
 
 ## Open Issues
-
+mention headers, not just columns
 1. API to configure text alignment. Our working decision is that numeric column text should be right aligned while string column text should remain left aligned. Any alternatives we choose that might display numeric data will need a way to configure this. We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
+2. The APIs in this document are examples, not yet proposals. Once we agree on high-level direction I will do more prototyping to propose concrete APIs.
