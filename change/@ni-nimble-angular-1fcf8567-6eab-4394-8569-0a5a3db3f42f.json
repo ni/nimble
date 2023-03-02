@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add programmatic column sorting support to the table",
-  "packageName": "@ni/nimble-angular",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
