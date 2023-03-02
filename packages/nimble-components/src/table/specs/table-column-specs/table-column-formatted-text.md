@@ -142,7 +142,7 @@ Other variants of this idea include:
 
 -   Possible reduced scroll performance because formatting function is called on-demand
 -   Requires creating a custom element to do formatting which is non-trivial for clients (must consider naming, registration, sharing, etc)
--   Requires JS code to do formatting which is less convenient in frameworks like Blazor
+-   Requires JS code to do formatting which is inconvenient in frameworks like Blazor. I propose we **would not** encourage Blazor clients to write formatting code in .NET due to performance concerns.
 -   Some potential for cross-app inconsistency if numeric formatting code isn't shared (versus Alternative 3)
 
 **Implementation Cost:**
