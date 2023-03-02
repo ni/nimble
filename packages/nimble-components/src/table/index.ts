@@ -14,14 +14,9 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     getSortedRowModel as tanStackGetSortedRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved,
-    SortingFnOption as TanStackSortingFnOption,
-    SortingFn as TanStackSortingFn,
-    sortingFns as TanStackSortingFns,
-    Row as TanStackRow,
     SortingState as TanStackSortingState
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
-import { TableColumnSortOperation } from '../table-column/base/types';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
@@ -32,6 +27,7 @@ import {
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
+import { getTanStackSortingFunction } from './models/sort-operations';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -162,14 +158,12 @@ export class Table<
         if (source instanceof TableColumn) {
             if (args === 'columnId') {
                 this.validateColumnIds();
-            }
-            if (
+            } else if (
                 args === 'operandDataRecordFieldName'
                 || args === 'sortOperation'
             ) {
                 this.generateTanStackColumns();
-            }
-            if (args === 'sortIndex' || args === 'sortDirection') {
+            } else if (args === 'sortIndex' || args === 'sortDirection') {
                 this.validateColumnSortIndices();
                 this.setSortState();
             }
@@ -343,7 +337,7 @@ export class Table<
             const columnDef: TanStackColumnDef<TData> = {
                 id: column.internalUniqueId,
                 accessorKey: column.operandDataRecordFieldName,
-                sortingFn: this.getTanStackSortingFunction(column.sortOperation)
+                sortingFn: getTanStackSortingFunction(column.sortOperation)
             };
             return columnDef;
         });
@@ -361,47 +355,6 @@ export class Table<
             return { ...record };
         });
     }
-
-    private getTanStackSortingFunction(
-        sortOperation: TableColumnSortOperation
-    ): TanStackSortingFnOption<TData> {
-        switch (sortOperation) {
-            case TableColumnSortOperation.basic:
-                return TanStackSortingFns.basic;
-            case TableColumnSortOperation.localeAwareCaseSensitive:
-                return this.localeAwareCaseSensitiveSortFunction;
-            default:
-                return TanStackSortingFns.basic;
-        }
-    }
-
-    /**
-     * A function to perform locale-aware and case-senstitive sorting of two rows from
-     * TanStack for a given column. The function sorts `undefined` followed by `null`
-     * before all defined strings.
-     */
-    private readonly localeAwareCaseSensitiveSortFunction: TanStackSortingFn<TData> = (
-        rowA: TanStackRow<TData>,
-        rowB: TanStackRow<TData>,
-        columnId: string
-    ) => {
-        const valueA = rowA.getValue<string | null | undefined>(columnId);
-        const valueB = rowB.getValue<string | null | undefined>(columnId);
-
-        if (typeof valueA === 'string' && typeof valueB === 'string') {
-            return valueA.localeCompare(valueB);
-        }
-        if (valueA === valueB) {
-            return 0;
-        }
-        if (
-            valueA === undefined
-                || (valueA === null && valueB !== undefined)
-        ) {
-            return -1;
-        }
-        return 1;
-    };
 }
 
 const nimbleTable = Table.compose({

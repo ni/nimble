@@ -100,6 +100,8 @@ export abstract class TableColumn<
 
     /**
      * @internal
+     *
+     * Properties prefixed with `internal` are for internal table-use only.
      */
     public readonly internalUniqueId: string;
 
