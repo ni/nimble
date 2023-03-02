@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 02 Mar 2023 17:48:40 GMT",
+      "tag": "@ni/nimble-angular_v16.1.8",
+      "version": "16.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "1a1e630c2741fd00d73f6b6be700aada832143c4",
+            "comment": "Add programmatic column sorting support to the table"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.5.8",
+            "commit": "1a1e630c2741fd00d73f6b6be700aada832143c4"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Mar 2023 18:28:57 GMT",
       "tag": "@ni/nimble-angular_v16.1.7",
       "version": "16.1.7",

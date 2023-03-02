@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnTextModule } from '../nimble-table-column-text.module';
 import { NimbleTableColumnTextDirective, TableColumnText } from '../nimble-table-column-text.directive';
+import { TableColumnSortDirection } from '../../base/nimble-table-column-base.directive';
 
 describe('NimbleTableColumnText', () => {
     describe('module', () => {
@@ -29,6 +30,8 @@ describe('NimbleTableColumnText', () => {
                         action-menu-slot="my-slot"
                         action-menu-label="my menu"
                         column-hidden="true"
+                        sort-direction="${TableColumnSortDirection.ascending}"
+                        sort-index="0"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -82,6 +85,16 @@ describe('NimbleTableColumnText', () => {
             expect(directive.columnHidden).toBe(true);
             expect(nativeElement.columnHidden).toBe(true);
         });
+
+        it('will use template string values for sortDirection', () => {
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.ascending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.ascending);
+        });
+
+        it('will use template string value for sortIndex', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+        });
     });
 
     describe('with property bound values', () => {
@@ -96,6 +109,8 @@ describe('NimbleTableColumnText', () => {
                         [actionMenuSlot]="actionMenuSlot"
                         [actionMenuLabel]="actionMenuLabel"
                         [column-hidden]="columnHidden"
+                        [sort-direction]="sortDirection"
+                        [sort-index]="sortIndex"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -109,6 +124,8 @@ describe('NimbleTableColumnText', () => {
             public actionMenuLabel = 'my menu';
             public columnId = 'my-column';
             public columnHidden = true;
+            public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+            public sortIndex: number | null = 0;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -191,6 +208,39 @@ describe('NimbleTableColumnText', () => {
             expect(directive.columnHidden).toBe(false);
             expect(nativeElement.columnHidden).toBe(false);
         });
+
+        it('can be configured with property binding for sortDirection', () => {
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.ascending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.ascending);
+
+            fixture.componentInstance.sortDirection = TableColumnSortDirection.descending;
+            fixture.detectChanges();
+
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.descending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.descending);
+        });
+
+        it('can be configured with property binding for sortIndex', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(1);
+            expect(nativeElement.sortIndex).toBe(1);
+        });
+
+        it('can be configured with property binding for sortIndex updated to null', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(null);
+            expect(nativeElement.sortIndex).toBe(null);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -205,6 +255,8 @@ describe('NimbleTableColumnText', () => {
                         [attr.action-menu-slot]="actionMenuSlot"
                         [attr.action-menu-label]="actionMenuLabel"
                         [attr.column-hidden]="columnHidden"
+                        [attr.sort-direction]="sortDirection"
+                        [attr.sort-index]="sortIndex"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -218,6 +270,8 @@ describe('NimbleTableColumnText', () => {
             public actionMenuLabel = 'my menu';
             public columnId = 'my-column';
             public columnHidden = true;
+            public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+            public sortIndex: number | null = 0;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -299,6 +353,39 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.columnHidden).toBe(false);
             expect(nativeElement.columnHidden).toBe(false);
+        });
+
+        it('can be configured with attribute binding for sortDirection', () => {
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.ascending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.ascending);
+
+            fixture.componentInstance.sortDirection = TableColumnSortDirection.descending;
+            fixture.detectChanges();
+
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.descending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.descending);
+        });
+
+        it('can be configured with attribute binding for sortIndex', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(1);
+            expect(nativeElement.sortIndex).toBe(1);
+        });
+
+        it('can be configured with attribute binding for sortIndex updated to null', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(null);
+            expect(nativeElement.sortIndex).toBe(null);
         });
     });
 });
