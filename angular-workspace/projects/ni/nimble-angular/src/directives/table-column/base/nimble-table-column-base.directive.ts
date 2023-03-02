@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
 import { TableColumnSortDirection } from '@ni/nimble-components/dist/esm/table/types';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '../../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
 
 export { TableColumnSortDirection };
 
@@ -60,18 +60,14 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
         this.renderer.setProperty(this.elementRef.nativeElement, 'sortDirection', value);
     }
 
-    public get sortIndex(): number | null {
+    public get sortIndex(): number | null | undefined {
         return this.elementRef.nativeElement.sortIndex;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('sort-index') public set sortIndex(value: NumberValueOrAttribute | null) {
-        if (value === null) {
-            this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', null);
-        } else {
-            this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNumberProperty(value));
-        }
+    @Input('sort-index') public set sortIndex(value: NumberValueOrAttribute | null | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNullableNumberProperty(value));
     }
 
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<T>) {}

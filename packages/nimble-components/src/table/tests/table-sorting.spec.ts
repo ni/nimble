@@ -448,6 +448,8 @@ describe('Table sorting', () => {
         column1.sortIndex = 0;
         column2.sortDirection = TableColumnSortDirection.descending;
         column2.sortIndex = null;
+        column3.sortDirection = TableColumnSortDirection.descending;
+        column3.sortIndex = undefined;
         await connect();
         await waitForUpdatesAsync();
 
@@ -455,6 +457,9 @@ describe('Table sorting', () => {
             TableColumnSortDirection.ascending
         );
         expect(pageObject.getHeaderElement(1).sortDirection).toBe(
+            TableColumnSortDirection.none
+        );
+        expect(pageObject.getHeaderElement(2).sortDirection).toBe(
             TableColumnSortDirection.none
         );
     });

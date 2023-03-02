@@ -35,7 +35,7 @@ export abstract class TableColumn<
     public columnHidden = false;
 
     @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
-    public sortIndex: number | null = null;
+    public sortIndex?: number | null;
 
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
@@ -86,7 +86,7 @@ export abstract class TableColumn<
      * The name of the data field that will be used for operations on the table, such as sorting and grouping.
      */
     @observable
-    public operandDataRecordFieldName: TableFieldName | undefined;
+    public operandDataRecordFieldName?: TableFieldName;
 
     /**
      * @internal

@@ -27,7 +27,7 @@ export const template = html<Table>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
                             <${DesignSystem.tagFor(TableHeader)}
                                 class="header"
-                                sort-direction="${x => (x.sortIndex !== null ? x.sortDirection : TableColumnSortDirection.none)}"
+                                sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
                                 ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
                             >
                                 <slot name="${x => x.slot}"></slot>

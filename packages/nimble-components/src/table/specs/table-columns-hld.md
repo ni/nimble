@@ -103,7 +103,7 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     // The index for sorting the column. When multiple columns are sorted,
     // they will be sorted from lowest index to highest index.
     @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
-    public sortIndex: number | null = null;
+    public sortIndex?: number | null;
 
     // The direction the column is sorted.
     @attr({ attribute: 'sort-direction' })
@@ -127,7 +127,7 @@ abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnC
     dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
 
     // The name of the data field that will be used for operations on the table, such as sorting and grouping.
-    operandDataRecordFieldName: TableFieldName | undefined;
+    operandDataRecordFieldName?: TableFieldName;
 
     /**
      * @internal

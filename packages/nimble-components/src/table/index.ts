@@ -256,7 +256,7 @@ export class Table<
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
             x => x.sortDirection !== TableColumnSortDirection.none
-                && x.sortIndex !== null
+                && typeof x.sortIndex === 'number'
         );
     }
 
