@@ -767,8 +767,10 @@ describe('Table', () => {
                     }
 
                     await waitForUpdatesAsync();
-                    const column1RenderedWidth = pageObject.getColumnRenderedWidth(0);
-                    const column2RenderedWidth = pageObject.getColumnRenderedWidth(1);
+                    const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
+                    const column2RenderedWidth = pageObject.getCellRenderedWidth(1);
+                    const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
+                    const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
                     const rowWidth = pageObject.getRowWidth();
                     const tableWidth = element.getBoundingClientRect().width;
                     expect(column1RenderedWidth).toBe(
@@ -777,10 +779,84 @@ describe('Table', () => {
                     expect(column2RenderedWidth).toBe(
                         columnSizeTest.column2ExpectedRenderedWidth
                     );
+                    expect(header1RenderedWidth).toBe(
+                        columnSizeTest.column1ExpectedRenderedWidth
+                    );
+                    expect(header2RenderedWidth).toBe(
+                        columnSizeTest.column2ExpectedRenderedWidth
+                    );
                     expect(rowWidth).toBe(
                         columnSizeTest.rowExpectedRenderedWidth
                     );
                     expect(tableWidth).toBe(columnSizeTest.tableWidth);
+                }
+            );
+        }
+    });
+
+    describe('columns/cells are sized correctly after scrolling vertically', () => {
+        const tests = [
+            {
+                name: 'when columns have min pixel widths',
+                column1FractionalWidth: 1,
+                column1PixelWidth: null,
+                column1MinPixelWidth: 250,
+                column2FractionalWidth: 1,
+                column2PixelWidth: null,
+                column2MinPixelWidth: 150
+            },
+            {
+                name: 'when columns have fractional widths',
+                column1FractionalWidth: 2,
+                column1PixelWidth: null,
+                column1MinPixelWidth: null,
+                column2FractionalWidth: 1,
+                column2PixelWidth: null,
+                column2MinPixelWidth: null
+            }
+        ];
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const rowScrollTest of tests) {
+            const specType = getSpecTypeByNamedList(
+                rowScrollTest,
+                focused,
+                disabled
+            );
+            specType(
+                `${rowScrollTest.name}`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await connect();
+                    element.style.width = '300px';
+                    element.setData(largeTableData);
+                    await connect();
+                    await waitForUpdatesAsync();
+
+                    column1.internalFractionalWidth = rowScrollTest.column1FractionalWidth;
+                    if (rowScrollTest.column1MinPixelWidth !== null) {
+                        column1.internalMinPixelWidth = rowScrollTest.column1MinPixelWidth;
+                    }
+
+                    column2.internalFractionalWidth = rowScrollTest.column2FractionalWidth;
+                    if (rowScrollTest.column2MinPixelWidth !== null) {
+                        column2.internalMinPixelWidth = rowScrollTest.column2MinPixelWidth;
+                    }
+
+                    await waitForUpdatesAsync();
+                    const firstRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
+                    const firstRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(1, 0);
+                    await pageObject.scrollToLastRowAsync();
+                    const lastRowIndex = pageObject.getRenderedRowCount() - 1;
+                    const lastRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(0, lastRowIndex);
+                    const lastRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(1, lastRowIndex);
+
+                    expect(firstRowColumn1RenderedWidth).toBe(
+                        lastRowColumn1RenderedWidth
+                    );
+                    expect(firstRowColumn2RenderedWidth).toBe(
+                        lastRowColumn2RenderedWidth
+                    );
                 }
             );
         }

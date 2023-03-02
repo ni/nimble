@@ -44,6 +44,19 @@ export class TablePageObject<T extends TableRecord> {
         return this.getHeaderContentElement(headers[columnIndex]!);
     }
 
+    public getHeaderRenderedWidth(columnIndex: number): number {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+            'nimble-table-header'
+        )!;
+        if (columnIndex >= headers.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return headers[columnIndex]!.getBoundingClientRect().width;
+    }
+
     public getRenderedRowCount(): number {
         return this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-row'
@@ -110,14 +123,20 @@ export class TablePageObject<T extends TableRecord> {
         return this.tableElement.columns[columnIndex]!.currentPixelWidth;
     }
 
-    public getColumnRenderedWidth(columnIndex: number): number {
+    public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
         if (columnIndex >= this.tableElement.columns.length) {
             throw new Error(
                 'Attempting to index past the total number of columns'
             );
         }
 
-        const row = this.tableElement.shadowRoot?.querySelector('nimble-table-row');
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+        const row = rows[rowIndex];
         const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
         if (columnIndex >= (cells?.length ?? 0)) {
             throw new Error(
