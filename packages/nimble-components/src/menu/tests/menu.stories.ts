@@ -14,6 +14,13 @@ interface MenuItemArgs {
     icon: boolean;
 }
 
+interface AnchorMenuItemArgs {
+    text: string;
+    href: string;
+    disabled: boolean;
+    icon: boolean;
+}
+
 interface ItemArgs extends MenuItemArgs {
     type: 'nimble-menu-item' | 'header' | 'hr';
 }
@@ -64,6 +71,37 @@ export const menuItem: StoryObj<MenuItemArgs> = {
         `),
     args: {
         text: 'Menu Item',
+        disabled: false,
+        icon: true
+    },
+    argTypes: {
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        }
+    }
+};
+
+export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'TODO'
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        <nimble-menu>
+            <nimble-anchor-menu-item ?disabled="${x => x.disabled}" href="${x => x.href}">
+                ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
+                ${x => x.text}
+            </nimble-anchor-menu-item>
+        </nimble-menu>
+        `),
+    args: {
+        text: 'Menu Item',
+        href: 'https://nimble.ni.dev',
         disabled: false,
         icon: true
     },
@@ -180,28 +218,37 @@ export const nestedMenu: StoryObj<MenuArgs> = {
                     <nimble-icon-user slot="start"></nimble-icon-user>
                     Item 1
                 </nimble-menu-item>
+                <nimble-anchor-menu-item href="https://nimble.ni.dev">
+                    Anchor item 2
+                </nimble-anchor-menu-item>
                 <nimble-menu-item>
-                    Item 2
+                    Item 3
                     <nimble-menu>
                         <nimble-menu-item>
-                            Item 2.1
+                            Item 3.1
                         </nimble-menu-item>
+                        <nimble-anchor-menu-item href="https://nimble.ni.dev">
+                            Anchor item 3.2
+                        </nimble-anchor-menu-item>
                         <nimble-menu-item>
-                            Item 2.2
+                            Item 3.3
                             <nimble-menu>
                                 <nimble-menu-item>
-                                    Item 2.2.1
+                                    Item 3.3.1
+                                </nimble-menu-item>
+                                <nimble-anchor-menu-item href="https://nimble.ni.dev">
+                                    Anchor item 3.3.2
+                                </nimble-anchor-menu-item>
+                                <nimble-menu-item>
+                                    Item 3.3.3
                                 </nimble-menu-item>
                                 <nimble-menu-item>
-                                    Item 2.2.2
-                                </nimble-menu-item>
-                                <nimble-menu-item>
-                                    Item 2.2.3
+                                    Item 3.3.4
                                 </nimble-menu-item>
                             </nimble-menu>
                         </nimble-menu-item>
                         <nimble-menu-item>
-                            Item 2.3
+                            Item 3.4
                         </nimble-menu-item>
                     </nimble-menu>
                 </nimble-menu-item>

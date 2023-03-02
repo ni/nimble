@@ -58,6 +58,8 @@ const component = (
                         <nimble-menu-item>Item 1.2</nimble-menu-item>
                         ${when(() => advancedSubMenu, html`<hr>`)}
                         <nimble-menu-item>${when(() => childIcon, html`<nimble-icon-xmark slot="start"></nimble-icon-xmark>`)}Item 1.3</nimble-menu-item>
+                        <nimble-anchor-menu-item href='#'>Anchor item 1.4</nimble-anchor-menu-item>
+                        <nimble-anchor-menu-item href='#'>${when(() => childIcon, html`<nimble-icon-xmark slot="start"></nimble-icon-xmark>`)}Anchor item 1.5</nimble-anchor-menu-item>
                     </nimble-menu>
                 `)}
             </nimble-menu-item>
@@ -65,6 +67,10 @@ const component = (
             <nimble-menu-item disabled>Item 2</nimble-menu-item>
             <nimble-menu-item>${when(() => parentIcon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}Item 3</nimble-menu-item>
             <nimble-menu-item hidden>Item 4</nimble-menu-item>
+            <nimble-anchor-menu-item href='#'>${when(() => parentIcon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}Anchor item</nimble-anchor-menu-item>
+            <nimble-anchor-menu-item disabled>Anchor item no href</nimble-anchor-menu-item>
+            <nimble-anchor-menu-item href='#' disabled>${when(() => parentIcon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}Anchor item disabled</nimble-anchor-menu-item>
+            <nimble-anchor-menu-item href='#' hidden>Anchor item hidden</nimble-anchor-menu-item>
         </nimble-menu>
     </span>
 `;
@@ -86,6 +92,7 @@ export const textCustomized: Story = createMatrixThemeStory(
         html` <nimble-menu>
             Inner text
             <nimble-menu-item>Menu item</nimble-menu-item>
+            <nimble-anchor-menu-item>Anchor menu item</nimble-anchor-menu-item>
         </nimble-menu>`
     )
 );
