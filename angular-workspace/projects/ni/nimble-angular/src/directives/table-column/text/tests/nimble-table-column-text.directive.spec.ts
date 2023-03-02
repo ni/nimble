@@ -84,7 +84,6 @@ describe('NimbleTableColumnText', () => {
             expect(directive.columnHidden).toBe(true);
             expect(nativeElement.columnHidden).toBe(true);
         });
-    });
 
         it('will use template string values for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
@@ -208,7 +207,6 @@ describe('NimbleTableColumnText', () => {
             expect(directive.columnHidden).toBe(false);
             expect(nativeElement.columnHidden).toBe(false);
         });
-    });
 
         it('can be configured with property binding for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
