@@ -1,6 +1,6 @@
-import type { TableRecord, TableValidity } from '../types';
-import { TableValidator } from './table-validator';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import type { TableRecord, TableValidity } from '../../types';
+import { TableValidator } from '../table-validator';
+import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 describe('TableValidator', () => {
     let validator: TableValidator<TableRecord>;
