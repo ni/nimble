@@ -315,5 +315,6 @@ _Type Reference_
 ---
 
 ## Open Issues
+
 1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns). We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
 2. The APIs in this document are examples, not yet proposals. Once we agree on high-level direction I will do more prototyping to propose concrete APIs.
