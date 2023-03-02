@@ -1,16 +1,18 @@
 import {
     attr,
     ElementStyles,
+    nullableNumberConverter,
     observable,
     ViewTemplate
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
-import type {
+import { TableColumnSortDirection, TableFieldName } from '../../table/types';
+import {
     TableCellRecord,
     TableCellState,
-    TableFieldName
-} from '../../table/types';
+    TableColumnSortOperation
+} from './types';
 
 /**
  * The base class for table columns
@@ -30,6 +32,12 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'column-hidden', mode: 'boolean' })
     public columnHidden = false;
+
+    @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
+    public sortIndex?: number | null;
+
+    @attr({ attribute: 'sort-direction' })
+    public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
     /**
      * @internal
@@ -73,10 +81,38 @@ export abstract class TableColumn<
 
     /**
      * @internal
+     *
+     * The name of the data field that will be used for operations on the table, such as sorting and grouping.
+     */
+    @observable
+    public operandDataRecordFieldName?: TableFieldName;
+
+    /**
+     * @internal
+     *
+     * The operation to use when sorting the table by this column.
+     */
+    @observable
+    public sortOperation: TableColumnSortOperation = TableColumnSortOperation.basic;
+
+    /**
+     * @internal
+     *
+     * Properties prefixed with `internal` are for internal table-use only.
+     */
+    public readonly internalUniqueId: string;
+
+    public constructor() {
+        super();
+        this.internalUniqueId = uniqueId('table-column-slot');
+    }
+
+    /**
+     * @internal
      */
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        this.setAttribute('slot', uniqueId('table-column-slot'));
+        this.setAttribute('slot', this.internalUniqueId);
     }
 }

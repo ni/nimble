@@ -2,7 +2,10 @@ import { html, css } from '@microsoft/fast-element';
 import { TableCell } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, type Fixture } from '../../../../utilities/tests/fixture';
-import type { TableCellRecord, TableCellState } from '../../../types';
+import type {
+    TableCellRecord,
+    TableCellState
+} from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 
 interface SimpleTableCellRecord extends TableCellRecord {

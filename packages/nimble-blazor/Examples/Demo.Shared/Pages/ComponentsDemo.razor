@@ -206,7 +206,15 @@
         <div class="sub-container">
             <div class="container-label">Table</div>
             <NimbleTable @bind-Data="TableData" class="table">
-                <NimbleTableColumnText FieldName="FirstName" Placeholder="no value" ColumnId="first-name-column" ActionMenuSlot="action-menu" ActionMenuLabel="Action menu">
+                <NimbleTableColumnText
+                    FieldName="FirstName"
+                    Placeholder="no value"
+                    ColumnId="first-name-column"
+                    ActionMenuSlot="action-menu"
+                    ActionMenuLabel="Action menu"
+                    SortDirection="TableColumnSortDirection.Ascending"
+                    SortIndex="0"
+                >
                     <NimbleIconKey title="First Name"></NimbleIconKey>
                 </NimbleTableColumnText>
                 <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value">Last Name</NimbleTableColumnText>
