@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Mar 2023 18:48:01 GMT",
+      "tag": "@ni/nimble-components_v18.6.0",
+      "version": "18.6.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6711ef956ead44bd38c751f2bf7ac9b6258ce40f",
+            "comment": "Anchor menu item spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Mar 2023 18:38:23 GMT",
       "tag": "@ni/nimble-components_v18.6.0",
       "version": "18.6.0",
