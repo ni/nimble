@@ -1,6 +1,6 @@
 import { ViewTemplate, ElementStyles, html } from '@microsoft/fast-element';
-import type { TableCellState } from '../../../table/types';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import type { TableCellState } from '../types';
 import { TableColumn } from '..';
 
 class TestTableColumn extends TableColumn {

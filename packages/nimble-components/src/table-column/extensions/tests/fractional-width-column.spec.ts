@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { ViewTemplate, ElementStyles, html } from '@microsoft/fast-element';
-import type { TableCellState } from '../../../table/types';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import {
     FractionalWidthColumn,

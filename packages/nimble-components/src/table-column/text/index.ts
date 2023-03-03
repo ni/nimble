@@ -4,6 +4,12 @@ import { template } from '../base/template';
 import { fractionalWidthColumn } from '../extensions/fractional-width-column';
 import { TableColumnTextMixin } from './table-column-text-mixin';
 
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-table-column-text': TableColumnText;
+    }
+}
+
 /**
  * The table column for displaying strings.
  */
