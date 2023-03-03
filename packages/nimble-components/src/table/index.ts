@@ -90,12 +90,6 @@ export class Table<
      * @internal
      */
     @observable
-    public scrollX = 0;
-
-    /**
-     * @internal
-     */
-    @observable
     public rowGridColumns?: string;
 
     public get validity(): TableValidity {
@@ -148,7 +142,6 @@ export class Table<
         super.connectedCallback();
         this.virtualizer.connectedCallback();
         this.validateAndObserveColumns();
-        this.viewport.addEventListener('scroll', this.onViewPortScroll);
     }
 
     public override disconnectedCallback(): void {
@@ -237,10 +230,6 @@ export class Table<
         this.actionMenuSlots = Array.from(slots);
         this.updateRowGridColumns();
     }
-
-    private readonly onViewPortScroll = (event: Event): void => {
-        this.scrollX = (event.target as HTMLElement).scrollLeft;
-    };
 
     private removeColumnObservers(): void {
         this.columnNotifiers.forEach(notifier => {

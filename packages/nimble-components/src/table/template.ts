@@ -20,9 +20,10 @@ import {
 // prettier-ignore
 export const template = html<Table>`
     <template role="table" ${children({ property: 'childItems', filter: elements() })}>
-        <div class="table-container">
+        <div class="table-container" ${ref('viewport')}>
+            <div class="table-scroll" style="height: ${x => x.virtualizer.allRowsHeight}px;"></div>
             <div role="rowgroup" class="header-container">
-                <div class="header-row" role="row" style="grid-template-columns: ${x => x.rowGridColumns} auto; left: -${x => x.scrollX}px;">
+                <div class="header-row" role="row" style="grid-template-columns: ${x => x.rowGridColumns} auto;">
                     ${repeat(x => x.columns, html<TableColumn>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
                             <${DesignSystem.tagFor(TableHeader)}
@@ -37,9 +38,7 @@ export const template = html<Table>`
                     <div class="header-scrollbar-spacer" style="width: ${x => x.virtualizer.headerContainerMarginRight}px;"></div>
                 </div>
             </div>
-            <div class="table-viewport" ${ref('viewport')}>
-                <div class="table-scroll" style="height: ${x => x.virtualizer.allRowsHeight}px;"></div>
-                <div class="table-row-container" role="rowgroup" style="top: ${x => `${x.virtualizer.rowContainerYOffset}px;`}">
+            <div class="table-row-container" role="rowgroup" style="top: ${x => `${x.virtualizer.rowContainerYOffset}px;`}">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}
@@ -62,7 +61,6 @@ export const template = html<Table>`
                             </${DesignSystem.tagFor(TableRow)}>
                         `)}
                     `)}
-                </div>
             </div>
         </div>
     </template>

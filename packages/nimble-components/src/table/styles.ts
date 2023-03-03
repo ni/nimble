@@ -19,10 +19,12 @@ export const styles = css`
     }
 
     .table-container {
-        overflow: hidden;
+        position: relative;
+        overflow: auto;
         display: flex;
         flex-direction: column;
         width: 100%;
+        height: 100%;
         font: ${bodyFont};
         color: ${bodyFontColor};
     }
@@ -44,11 +46,13 @@ export const styles = css`
     .table-row-container {
         width: 100%;
         position: relative;
+        z-index: 1;
     }
 
     .header-container {
         position: sticky;
         top: 0;
+        z-index: 2;
     }
 
     .header-row {
