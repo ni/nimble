@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { ViewTemplate, ElementStyles, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import {
@@ -45,8 +46,10 @@ describe('FractionalWidthColumn', () => {
     it('setting fractionalWidth sets internalFractionalWidth', async () => {
         await connect();
         element.internalFractionalWidth = 1;
+        await waitForUpdatesAsync();
 
         element.fractionalWidth = 2;
+        await waitForUpdatesAsync();
 
         expect(element.internalFractionalWidth).toBe(2);
     });
@@ -54,8 +57,10 @@ describe('FractionalWidthColumn', () => {
     it('setting minPixelWidth sets internalMinPixelWidth', async () => {
         await connect();
         element.internalMinPixelWidth = 0;
+        await waitForUpdatesAsync();
 
         element.minPixelWidth = 20;
+        await waitForUpdatesAsync();
 
         expect(element.internalMinPixelWidth).toBe(20);
     });
