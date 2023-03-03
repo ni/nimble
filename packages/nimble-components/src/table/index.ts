@@ -10,6 +10,7 @@ import {
     TableState as TanStackTableState,
     Updater as TanStackUpdater,
     Table as TanStackTable,
+    Row as TanStackRow,
     createTable as tanStackCreateTable,
     getCoreRowModel as tanStackGetCoreRowModel,
     getSortedRowModel as tanStackGetSortedRowModel,
@@ -28,6 +29,7 @@ import {
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
+import { UpdateTracker } from './models/update-tracker';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -108,6 +110,7 @@ export class Table<
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
+    private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
 
     public constructor() {
@@ -134,7 +137,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
-        this.validateAndObserveColumns();
+        this.updateTracker.connectedCallback();
     }
 
     public override disconnectedCallback(): void {
@@ -156,16 +159,12 @@ export class Table<
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof TableColumn) {
-            if (args === 'columnId') {
-                this.validateColumnIds();
-            } else if (
-                args === 'operandDataRecordFieldName'
-                || args === 'sortOperation'
+            if (
+                args === 'columnId' || args === 'operandDataRecordFieldName'
+                || args === 'sortOperation' || args === 'sortIndex'
+                || args === 'sortDirection' || args === 'actionMenuSlot'
             ) {
-                this.generateTanStackColumns();
-            } else if (args === 'sortIndex' || args === 'sortDirection') {
-                this.validateColumnSortIndices();
-                this.setSortState();
+                this.updateTracker.trackColumnPropertyChange(args);
             }
         }
     }
@@ -183,6 +182,26 @@ export class Table<
         this.$emit('action-menu-toggle', event.detail);
     }
 
+    /**
+     * @internal
+     */
+    public update(): void {
+        this.validate(this.table.options.data);
+        if (this.updateTracker.requiresTanStackUpdate) {
+            this.updateTanStack();
+        }
+
+        if (this.updateTracker.updateActionMenuSlots) {
+            const slots = new Set<string>();
+            for (const column of this.columns) {
+                if (column.actionMenuSlot) {
+                    slots.add(column.actionMenuSlot);
+                }
+            }
+            this.actionMenuSlots = Array.from(slots);
+        }
+    }
+
     protected childItemsChanged(): void {
         void this.updateColumnsFromChildItems();
     }
@@ -191,9 +210,11 @@ export class Table<
         _prev: string | undefined,
         _next: string | undefined
     ): void {
-        // Force TanStack to detect a data update because a row's ID is only
-        // generated when creating a new row model.
-        this.setTableData(this.table.options.data);
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.updateTracker.trackIdFieldNameChange();
     }
 
     protected columnsChanged(
@@ -204,17 +225,8 @@ export class Table<
             return;
         }
 
-        this.validateAndObserveColumns();
-        this.generateTanStackColumns();
-        this.setSortState();
-
-        const slots = new Set<string>();
-        for (const column of this.columns) {
-            if (column.actionMenuSlot) {
-                slots.add(column.actionMenuSlot);
-            }
-        }
-        this.actionMenuSlots = Array.from(slots);
+        this.observeColumns();
+        this.updateTracker.trackColumnInstancesChange();
     }
 
     private removeColumnObservers(): void {
@@ -224,7 +236,7 @@ export class Table<
         this.columnNotifiers = [];
     }
 
-    private validateAndObserveColumns(): void {
+    private observeColumns(): void {
         this.removeColumnObservers();
 
         for (const column of this.columns) {
@@ -232,23 +244,18 @@ export class Table<
             notifier.subscribe(this);
             this.columnNotifiers.push(notifier);
         }
-
-        this.validateColumnIds();
-        this.validateColumnSortIndices();
     }
 
     private validateColumnIds(): void {
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
         );
-        this.canRenderRows = this.checkValidity();
     }
 
     private validateColumnSortIndices(): void {
         this.tableValidator.validateColumnSortIndices(
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
-        this.canRenderRows = this.checkValidity();
     }
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
@@ -268,6 +275,36 @@ export class Table<
         );
     }
 
+    private updateTanStack(): void {
+        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {
+            state: {}
+        };
+
+        if (this.updateTracker.updateColumnSort) {
+            updatedOptions.state!.sorting = this.getTanStackSortState();
+        }
+        if (this.updateTracker.updateColumnDefinition) {
+            updatedOptions.columns = this.getTanStackColumns();
+        }
+        if (this.updateTracker.updateRowIds) {
+            updatedOptions.getRowId = this.getTanStackRowIdFunction();
+        }
+        if (this.updateTracker.requiresTanStackDataReset) {
+            // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
+            updatedOptions.data = [...this.table.options.data];
+        }
+
+        this.updateTableOptions(updatedOptions);
+    }
+
+    private validate(data: TData[]): void {
+        this.validateColumnIds();
+        this.validateColumnSortIndices();
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
+
+        this.canRenderRows = this.checkValidity();
+    }
+
     private setTableData(newData: readonly TData[]): void {
         const data = newData.map(record => {
             return { ...record };
@@ -275,12 +312,8 @@ export class Table<
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
 
-        const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
-            ? undefined
-            : (record: TData) => record[this.idFieldName!] as string;
         this.updateTableOptions({
-            data,
-            getRowId: getRowIdFunction
+            data
         });
     }
 
@@ -308,7 +341,7 @@ export class Table<
         this.refreshRows();
     }
 
-    private setSortState(): void {
+    private getTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
             (x, y) => x.sortIndex! - y.sortIndex!
         );
@@ -316,7 +349,7 @@ export class Table<
             ? sortedColumns[0]
             : undefined;
 
-        const tanStackSortingState: TanStackSortingState = sortedColumns.map(
+        return sortedColumns.map(
             column => {
                 return {
                     id: column.internalUniqueId,
@@ -326,29 +359,21 @@ export class Table<
                 };
             }
         );
-
-        this.updateTableOptions({
-            state: {
-                sorting: tanStackSortingState
-            }
-        });
     }
 
-    private generateTanStackColumns(): void {
-        const generatedColumns = this.columns.map(column => {
-            const columnDef: TanStackColumnDef<TData> = {
+    private getTanStackRowIdFunction(): ((originalRow: TData, index: number, parent?: TanStackRow<TData>) => string) | undefined {
+        return this.idFieldName === null || this.idFieldName === undefined
+            ? undefined
+            : (record: TData) => record[this.idFieldName!] as string;
+    }
+
+    private getTanStackColumns(): TanStackColumnDef<TData>[] {
+        return this.columns.map(column => {
+            return {
                 id: column.internalUniqueId,
                 accessorKey: column.operandDataRecordFieldName,
                 sortingFn: getTanStackSortingFunction(column.sortOperation)
             };
-            return columnDef;
-        });
-
-        this.updateTableOptions({
-            // Force TanStack to detect a data update because a columns's accessor is
-            // referenced when creating a new row model.
-            data: [...this.table.options.data],
-            columns: generatedColumns
         });
     }
 }
