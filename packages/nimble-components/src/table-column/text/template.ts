@@ -9,8 +9,8 @@ TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
         class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
         @mouseover="${(_x, c) => {
         const span = c.event.target as HTMLSpanElement;
-        if (span?.textContent && span.offsetWidth < span.scrollWidth) {
-            span.setAttribute('title', span.textContent);
+        if (span?.textContent?.trim() && span.offsetWidth < span.scrollWidth) {
+            span.setAttribute('title', span.textContent.trim());
         }
     }
 }"
