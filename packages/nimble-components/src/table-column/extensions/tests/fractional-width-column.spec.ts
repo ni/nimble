@@ -22,7 +22,7 @@ interface TestTableColumnBaseMixin extends FractionalWidthColumn {}
 class TestTableColumn extends fractionalWidthColumn(TestTableColumnBaseMixin) {}
 
 const composedTestTableColumn = TestTableColumn.compose({
-    baseName: 'test-table-column'
+    baseName: 'fractional-width-test-table-column'
 });
 
 // prettier-ignore
@@ -46,10 +46,8 @@ describe('FractionalWidthColumn', () => {
     it('setting fractionalWidth sets internalFractionalWidth', async () => {
         await connect();
         element.internalFractionalWidth = 1;
-        await waitForUpdatesAsync();
 
         element.fractionalWidth = 2;
-        await waitForUpdatesAsync();
 
         expect(element.internalFractionalWidth).toBe(2);
     });
@@ -57,10 +55,8 @@ describe('FractionalWidthColumn', () => {
     it('setting minPixelWidth sets internalMinPixelWidth', async () => {
         await connect();
         element.internalMinPixelWidth = 0;
-        await waitForUpdatesAsync();
 
         element.minPixelWidth = 20;
-        await waitForUpdatesAsync();
 
         expect(element.internalMinPixelWidth).toBe(20);
     });

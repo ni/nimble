@@ -7,13 +7,6 @@ class TestTableColumn extends TableColumn {
     public cellTemplate: ViewTemplate<TableCellState> = html``;
     public cellStyles?: ElementStyles | undefined;
     public cellRecordFieldNames: readonly string[] = [];
-    public getColumnConfig?(): unknown {
-        throw new Error('Method not implemented.');
-    }
-
-    public getDataRecordFieldNames(): (string | undefined)[] {
-        throw new Error('Method not implemented.');
-    }
 }
 
 const composedTestTableColumn = TestTableColumn.compose({
