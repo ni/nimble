@@ -160,9 +160,12 @@ export class Table<
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof TableColumn) {
             if (
-                args === 'columnId' || args === 'operandDataRecordFieldName'
-                || args === 'sortOperation' || args === 'sortIndex'
-                || args === 'sortDirection' || args === 'actionMenuSlot'
+                args === 'columnId'
+                || args === 'operandDataRecordFieldName'
+                || args === 'sortOperation'
+                || args === 'sortIndex'
+                || args === 'sortDirection'
+                || args === 'actionMenuSlot'
             ) {
                 this.updateTracker.trackColumnPropertyChange(args);
             }
@@ -349,19 +352,22 @@ export class Table<
             ? sortedColumns[0]
             : undefined;
 
-        return sortedColumns.map(
-            column => {
-                return {
-                    id: column.internalUniqueId,
-                    desc:
-                        column.sortDirection
-                        === TableColumnSortDirection.descending
-                };
-            }
-        );
+        return sortedColumns.map(column => {
+            return {
+                id: column.internalUniqueId,
+                desc:
+                    column.sortDirection === TableColumnSortDirection.descending
+            };
+        });
     }
 
-    private getTanStackRowIdFunction(): ((originalRow: TData, index: number, parent?: TanStackRow<TData>) => string) | undefined {
+    private getTanStackRowIdFunction():
+    | ((
+        originalRow: TData,
+        index: number,
+        parent?: TanStackRow<TData>
+    ) => string)
+    | undefined {
         return this.idFieldName === null || this.idFieldName === undefined
             ? undefined
             : (record: TData) => record[this.idFieldName!] as string;

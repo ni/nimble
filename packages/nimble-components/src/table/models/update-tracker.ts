@@ -56,13 +56,17 @@ export class UpdateTracker<TData extends TableRecord> {
     }
 
     public get requiresTanStackUpdate(): boolean {
-        return this.requiredUpdates.rowIds
+        return (
+            this.requiredUpdates.rowIds
             || this.requiredUpdates.columnSort
-            || this.requiredUpdates.columnDefinition;
+            || this.requiredUpdates.columnDefinition
+        );
     }
 
     public get requiresTanStackDataReset(): boolean {
-        return this.requiredUpdates.rowIds || this.requiredUpdates.columnDefinition;
+        return (
+            this.requiredUpdates.rowIds || this.requiredUpdates.columnDefinition
+        );
     }
 
     public connectedCallback(): void {
@@ -70,12 +74,20 @@ export class UpdateTracker<TData extends TableRecord> {
         this.queueUpdate();
     }
 
-    public trackColumnPropertyChange(changedColumnProperty: keyof TableColumn): void {
+    public trackColumnPropertyChange(
+        changedColumnProperty: keyof TableColumn
+    ): void {
         if (changedColumnProperty === 'columnId') {
             this.requiredUpdates.columnIds = true;
-        } else if (changedColumnProperty === 'operandDataRecordFieldName' || changedColumnProperty === 'sortOperation') {
+        } else if (
+            changedColumnProperty === 'operandDataRecordFieldName'
+            || changedColumnProperty === 'sortOperation'
+        ) {
             this.requiredUpdates.columnDefinition = true;
-        } else if (changedColumnProperty === 'sortIndex' || changedColumnProperty === 'sortDirection') {
+        } else if (
+            changedColumnProperty === 'sortIndex'
+            || changedColumnProperty === 'sortDirection'
+        ) {
             this.requiredUpdates.columnSort = true;
         } else if (changedColumnProperty === 'actionMenuSlot') {
             this.requiredUpdates.actionMenuSlots = true;
