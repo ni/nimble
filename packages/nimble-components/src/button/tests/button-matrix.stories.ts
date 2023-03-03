@@ -13,8 +13,10 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { buttonTag } from '..';
+import { iconKeyTag } from '../../icons/key';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 
 const metadata: Meta = {
     title: 'Tests/Button',
@@ -57,16 +59,16 @@ const component = (
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-button
+    <${buttonTag}
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${() => `${appearanceVariantName} ${appearanceName} Button ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
-    </nimble-button>
+            ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
+    </${buttonTag}>
 `;
 
 export const buttonThemeMatrix: Story = createMatrixThemeStory(
@@ -79,9 +81,9 @@ export const buttonThemeMatrix: Story = createMatrixThemeStory(
 );
 
 export const hiddenButton: Story = createStory(
-    hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
+    hiddenWrapper(html`<${buttonTag} hidden>Hidden Button</${buttonTag}>`)
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(html`<nimble-button>Button</nimble-button>`)
+    textCustomizationWrapper(html`<${buttonTag}>Button</${buttonTag}>`)
 );

@@ -2,8 +2,6 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { bodyFont } from '../../theme-provider/design-tokens';
-
-import '../../all-components';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
@@ -17,6 +15,7 @@ import {
     wafermapDieSets,
     waferMapColorScaleSets
 } from './sets';
+import { waferMapTag } from '..';
 
 interface WaferMapArgs {
     colorScale: WaferMapColorScale;
@@ -99,7 +98,7 @@ const metadata: Meta<WaferMapArgs> = {
             WARNING - The wafermap is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-wafer-map
+        <${waferMapTag}
             id="wafer-map"
             colors-scale-mode="${x => x.colorScaleMode}"
             ?die-labels-hidden="${x => x.dieLabelsHidden}"
@@ -114,7 +113,7 @@ const metadata: Meta<WaferMapArgs> = {
         highLightedValueSets
     )}"
         >
-        </nimble-wafer-map>
+        </${waferMapTag}>
         <style class="code-hide">
             #usage-warning {
                 color: red;

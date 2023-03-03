@@ -13,7 +13,11 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
+import { menuButtonTag } from '..';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
@@ -50,20 +54,20 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <nimble-menu-button
+    <${menuButtonTag}
         appearance="${() => appearance}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${() => `${appearanceName!} Menu Button ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
+            ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
-        <nimble-menu slot="menu">
-            <nimble-menu-item>Item 1</nimble-menu-item>
-            <nimble-menu-item>Item 2</nimble-menu-item>
-        </nimble-menu>
-    </nimble-menu-button>
+        <${menuTag} slot="menu">
+            <${menuItemTag}>Item 1</${menuItemTag}>
+            <${menuItemTag}>Item 2</${menuItemTag}>
+        </${menuTag}>
+    </${menuButtonTag}>
 `;
 
 export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
@@ -76,6 +80,6 @@ export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenMenuButton: Story = createStory(
     hiddenWrapper(
-        html`<nimble-menu-button hidden>Hidden Menu Button</nimble-menu-button>`
+        html`<${menuButtonTag} hidden>Hidden Menu Button</${menuButtonTag}>`
     )
 );

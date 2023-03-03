@@ -250,3 +250,4 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCombobox());
+export const comboboxTag = DesignSystem.tagFor(Combobox);

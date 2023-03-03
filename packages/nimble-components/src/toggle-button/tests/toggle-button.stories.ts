@@ -3,12 +3,14 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ButtonAppearance } from '../types';
-import '../../all-components';
 import {
     contentHiddenDescription,
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
+import { toggleButtonTag } from '..';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
 
 interface ToggleButtonArgs {
     label: string;
@@ -60,16 +62,16 @@ const metadata: Meta<ToggleButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-toggle-button
+        <${toggleButtonTag}
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => x.appearance}"
         >
-            ${when(x => x.icon, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${x => x.label}
-            ${when(x => x.endIcon, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
-        </nimble-toggle-button>
+            ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
+        </${toggleButtonTag}>
     `),
     args: {
         label: 'Ghost Toggle Button',

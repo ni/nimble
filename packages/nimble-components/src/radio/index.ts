@@ -27,3 +27,4 @@ const nimbleRadio = Radio.compose<RadioOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRadio());
+export const radioTag = DesignSystem.tagFor(Radio);

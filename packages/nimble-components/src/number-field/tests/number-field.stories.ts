@@ -2,8 +2,8 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { NumberFieldAppearance } from '../types';
+import { numberFieldTag } from '..';
 
 interface NumberFieldArgs {
     label: string;
@@ -36,7 +36,7 @@ const metadata: Meta<NumberFieldArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        <nimble-number-field
+        <${numberFieldTag}
             placeholder="${x => x.label}"
             value="${x => x.value}"
             step="${x => x.step}"
@@ -48,7 +48,7 @@ const metadata: Meta<NumberFieldArgs> = {
             error-text="${x => x.errorText}"
         >
             ${x => x.label}
-        </nimble-number-field>
+        </${numberFieldTag}>
     `),
     argTypes: {
         appearance: {
