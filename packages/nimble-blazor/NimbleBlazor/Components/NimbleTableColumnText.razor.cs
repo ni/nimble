@@ -19,13 +19,13 @@ public partial class NimbleTableColumnText : NimbleTableColumn
     public string? Placeholder { get; set; }
 
     /// <summary>
-    /// The text to show when no value is available for a particular cell in the column of a <see cref="NimbleTable{TData}"/>
+    /// The fractional/proportional width to use for this column
     /// </summary>
     [Parameter]
     public double FractionalWidth { get; set; } = 1;
 
     /// <summary>
-    /// The text to show when no value is available for a particular cell in the column of a <see cref="NimbleTable{TData}"/>
+    /// The minimum width (in pixels) for this column
     /// </summary>
     [Parameter]
     public double? MinPixelWidth { get; set; }
