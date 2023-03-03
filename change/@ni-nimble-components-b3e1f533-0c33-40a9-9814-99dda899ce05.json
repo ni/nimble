@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Queue table changes and process them in a batch",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
