@@ -63,6 +63,24 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
+    public getCellTitle(rowIndex: number, columnIndex: number): string {
+        return (
+            this.getCell(rowIndex, columnIndex)
+                .shadowRoot!.querySelector('.cell-content-container span')
+                ?.getAttribute('title') ?? ''
+        );
+    }
+
+    public dispatchEventToCell(
+        rowIndex: number,
+        columnIndex: number,
+        event: Event
+    ): boolean | undefined {
+        return this.getCell(rowIndex, columnIndex)
+            .shadowRoot!.querySelector('.cell-content-container span')
+            ?.dispatchEvent(event);
+    }
+
     public getRecordId(rowIndex: number): string | undefined {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
