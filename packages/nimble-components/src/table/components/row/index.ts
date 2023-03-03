@@ -2,11 +2,11 @@ import { attr, observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableCellState } from '../../../table-column/base/types';
 import type {
     TableActionMenuToggleEventDetail,
-    TableCellState,
-    TableDataRecord,
-    TableFieldName
+    TableFieldName,
+    TableRecord
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
@@ -21,6 +21,10 @@ export interface ColumnState {
     column: TableColumn;
     cellState: TableCellState;
 }
+
+/** Represents a single row (element) in the Table's data  */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableDataRecord extends TableRecord {}
 
 /**
  * A styled row that is used within the nimble-table.

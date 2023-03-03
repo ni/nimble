@@ -41,7 +41,20 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        return this.getHeaderContentElement(headers[columnIndex]!);
+        return this.getHeaderContentElement(headers.item(columnIndex));
+    }
+
+    public getHeaderElement(columnIndex: number): TableHeader {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+            'nimble-table-header'
+        )!;
+        if (columnIndex >= headers.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return headers.item(columnIndex);
     }
 
     public getHeaderRenderedWidth(columnIndex: number): number {

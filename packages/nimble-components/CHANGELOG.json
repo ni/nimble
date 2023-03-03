@@ -2,6 +2,102 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 02 Mar 2023 18:38:23 GMT",
+      "tag": "@ni/nimble-components_v18.6.0",
+      "version": "18.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4ae2070766afb33d5be6df1d25dcf3df93f75deb",
+            "comment": "Exposed a constant for tag names on nimble components. Enabled Chromatic TurboSnap to reduce the number of Chromatic snapshots consumed by the Nimble build pipeline."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Mar 2023 17:48:41 GMT",
+      "tag": "@ni/nimble-components_v18.5.8",
+      "version": "18.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1a1e630c2741fd00d73f6b6be700aada832143c4",
+            "comment": "Add programmatic column sorting support to the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Mar 2023 18:28:57 GMT",
+      "tag": "@ni/nimble-components_v18.5.7",
+      "version": "18.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c",
+            "comment": "Using new fallback font definitions from `nimble-tokens` that more closely match the design system fonts. This helps minimize font swap jitter on initial page load."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.7.1",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Mar 2023 17:20:37 GMT",
+      "tag": "@ni/nimble-components_v18.5.6",
+      "version": "18.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "87eb2c0a840f5afe1715e3115eeb5c4edff8ffdb",
+            "comment": "Make tab panels scrollable"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Mar 2023 14:29:04 GMT",
+      "tag": "@ni/nimble-components_v18.5.5",
+      "version": "18.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0e8913430f74431f5cf8a780b2f17f656480b683",
+            "comment": "Implementation for die padding for the wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Feb 2023 11:04:40 GMT",
+      "tag": "@ni/nimble-components_v18.5.4",
+      "version": "18.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05d4139de721834e107f2d9db15111f41f19309f",
+            "comment": "Implementation for the hover feature in the Wafer map component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Feb 2023 20:44:30 GMT",
       "tag": "@ni/nimble-components_v18.5.3",
       "version": "18.5.3",

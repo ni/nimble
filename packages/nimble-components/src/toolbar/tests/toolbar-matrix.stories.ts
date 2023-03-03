@@ -6,6 +6,15 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
+import { toolbarTag } from '..';
+import { buttonTag } from '../../button';
+import { iconArrowRotateRightTag } from '../../icons/arrow-rotate-right';
+import { iconCogTag } from '../../icons/cog';
+import { iconEyeTag } from '../../icons/eye';
+import { iconFilterTag } from '../../icons/filter';
+import { iconPencilTag } from '../../icons/pencil';
+import { iconThumbtackTag } from '../../icons/thumbtack';
+import { iconTrashTag } from '../../icons/trash';
 
 const metadata: Meta = {
     title: 'Tests/Toolbar',
@@ -18,42 +27,42 @@ export default metadata;
 
 // prettier-ignore
 const component = html`
-    <nimble-toolbar>
-        <nimble-button appearance="ghost" slot="start">
-            <nimble-icon-eye slot="start"></nimble-icon-eye>
+    <${toolbarTag}>
+        <${buttonTag} appearance="ghost" slot="start">
+            <${iconEyeTag} slot="start"></${iconEyeTag}>
             View
-        </nimble-button>
-        <nimble-button disabled appearance="ghost" slot="start">
-            <nimble-icon-trash slot="start"></nimble-icon-trash>
+        </${buttonTag}>
+        <${buttonTag} disabled appearance="ghost" slot="start">
+            <${iconTrashTag} slot="start"></${iconTrashTag}>
             Delete
-        </nimble-button>
-        <nimble-button appearance="ghost" slot="start">
-            <nimble-icon-pencil slot="start"></nimble-icon-pencil>
+        </${buttonTag}>
+        <${buttonTag} appearance="ghost" slot="start">
+            <${iconPencilTag} slot="start"></${iconPencilTag}>
             Edit
-        </nimble-button>
+        </${buttonTag}>
 
-        <nimble-button appearance="ghost">
-            <nimble-icon-arrow-rotate-right slot="start"></nimble-icon-arrow-rotate-right>
+        <${buttonTag} appearance="ghost">
+            <${iconArrowRotateRightTag} slot="start"></${iconArrowRotateRightTag}>
             Refresh
-        </nimble-button>
-        <nimble-button appearance="ghost">
-            <nimble-icon-thumbtack slot="start"></nimble-icon-thumbtack>
+        </${buttonTag}>
+        <${buttonTag} appearance="ghost">
+            <${iconThumbtackTag} slot="start"></${iconThumbtackTag}>
             Pin
-        </nimble-button>
+        </${buttonTag}>
 
-        <nimble-button appearance="ghost" content-hidden slot="end">
-            <nimble-icon-cog slot="start"></nimble-icon-cog>
+        <${buttonTag} appearance="ghost" content-hidden slot="end">
+            <${iconCogTag} slot="start"></${iconCogTag}>
             Settings
-        </nimble-button>
-        <nimble-button appearance="ghost" content-hidden slot="end">
-            <nimble-icon-filter slot="start"></nimble-icon-filter>
+        </${buttonTag}>
+        <${buttonTag} appearance="ghost" content-hidden slot="end">
+            <${iconFilterTag} slot="start"></${iconFilterTag}>
             Filter
-        </nimble-button>
-    </nimble-toolbar>
+        </${buttonTag}>
+    </${toolbarTag}>
 `;
 
 export const toolbarThemeMatrix: Story = createMatrixThemeStory(component);
 
 export const hiddenToolbar: Story = createStory(
-    hiddenWrapper(html`<nimble-toolbar hidden>Hidden Toolbar</nimble-toolbar>`)
+    hiddenWrapper(html`<${toolbarTag} hidden>Hidden Toolbar</${toolbarTag}>`)
 );

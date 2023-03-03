@@ -2,18 +2,27 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
-import { ExampleDataType } from './types';
+import { ExampleDataType, ExampleSortType } from './types';
 import { bodyFont } from '../../theme-provider/design-tokens';
-import type { Table } from '..';
+import { Table, tableTag } from '..';
+import { TableColumnSortDirection } from '../types';
+import { iconUserTag } from '../../icons/user';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
+import { tableColumnTextTag } from '../../table-column/text';
 
 interface TableArgs {
     data: ExampleDataType;
+    sortedColumns: ExampleSortType;
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
+    getColumnSortData: (
+        columnId: string,
+        args: TableArgs
+    ) => { direction: TableColumnSortDirection, index: number | undefined };
 }
 
 const simpleData = [
@@ -61,6 +70,31 @@ const dataSetIdFieldNames = {
     [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
+const sortedOptions = {
+    [ExampleSortType.firstColumnAscending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending
+        }
+    ],
+    [ExampleSortType.firstColumnDescending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.descending
+        }
+    ],
+    [ExampleSortType.firstColumnAscendingSecondColumnDescending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending
+        },
+        {
+            columnId: 'last-name-column',
+            sortDirection: TableColumnSortDirection.descending
+        }
+    ]
+} as const;
+
 const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
@@ -80,6 +114,10 @@ The table will not automatically update if the contents of the array change afte
 </details>
 `;
 
+const sortedColumnsDescription = `A column within the table is configured to be sorted by specifying a \`sort-direction\` and a \`sort-index\` on
+it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
+of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`.`;
+
 const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
 and the table will enter an invalid state according to the \`validity\` property and \`checkValidity()\` function.
@@ -97,6 +135,7 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 -   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
 -   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
+-   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
 `;
 
 const metadata: Meta<TableArgs> = {
@@ -122,31 +161,58 @@ const metadata: Meta<TableArgs> = {
             WARNING - The table is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-table
+        <${tableTag}
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
-            <nimble-table-column-text field-name="firstName" placeholder="no value" column-id="first-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">
-                <nimble-icon-user title="First Name"></nimble-icon-user>
-            </nimble-table-column-text>
-            <nimble-table-column-text field-name="lastName" placeholder="no value" column-id="last-name-column" action-menu-slot="name-menu" action-menu-label="Configure name">Last Name</nimble-table-column-text>
-            <nimble-table-column-text field-name="favoriteColor" placeholder="no value" column-id="favorite-color-column" fractional-width=".5">Favorite Color</nimble-table-column-text>
-            <nimble-table-column-text field-name="quote" placeholder="no value" column-id="quote-column" action-menu-slot="quote-menu" action-menu-label="Configure quote" fractional-width="3">Quote</nimble-table-column-text>
+            <${tableColumnTextTag}
+                column-id="first-name-column"
+                field-name="firstName" placeholder="no value"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+                sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
+            >
+                <${iconUserTag} title="First Name"></${iconUserTag}>
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="last-name-column"
+                field-name="lastName" placeholder="no value"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+                sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="favorite-color-column"
+                field-name="favoriteColor" placeholder="no value"
+                fractional-width=".5"
+                sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
+            >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="quote-column"
+                field-name="quote" placeholder="no value"
+                action-menu-slot="quote-menu" action-menu-label="Configure quote"
+                fractional-width="3"
+                sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
+            >
+                Quote
+            </${tableColumnTextTag}>
 
-            <nimble-menu slot="name-menu">
-                <nimble-menu-item>Edit name</nimble-menu-item>
-                <nimble-menu-item>Delete person</nimble-menu-item>
-                <nimble-menu-item>Archive person</nimble-menu-item>
-                <nimble-menu-item>Duplicate person</nimble-menu-item>
-            </nimble-menu>
+            <${menuTag} slot="name-menu">
+                <${menuItemTag}>Edit name</${menuItemTag}>
+                <${menuItemTag}>Delete person</${menuItemTag}>
+                <${menuItemTag}>Archive person</${menuItemTag}>
+                <${menuItemTag}>Duplicate person</${menuItemTag}>
+            </${menuTag}>
 
-            <nimble-menu slot="quote-menu">
-                <nimble-menu-item>Edit quote</nimble-menu-item>
-                <nimble-menu-item>Delete quote</nimble-menu-item>
-                <nimble-menu-item>Do something else with the quote</nimble-menu-item>
-            </nimble-menu>
-        </nimble-table>
+            <${menuTag} slot="quote-menu">
+                <${menuItemTag}>Edit quote</${menuItemTag}>
+                <${menuItemTag}>Delete quote</${menuItemTag}>
+                <${menuItemTag}>Do something else with the quote</${menuItemTag}>
+            </${menuTag}>
+        </${tableTag}>
         <style class="code-hide">
             #usage-warning {
                 color: red;
@@ -164,6 +230,22 @@ const metadata: Meta<TableArgs> = {
                 labels: {
                     [ExampleDataType.simpleData]: 'Simple data',
                     [ExampleDataType.largeDataSet]: 'Large data set (10k rows)'
+                }
+            }
+        },
+        sortedColumns: {
+            name: 'sort configuration',
+            description: sortedColumnsDescription,
+            options: Object.values(ExampleSortType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleSortType.firstColumnAscending]:
+                        'First name ascending',
+                    [ExampleSortType.firstColumnDescending]:
+                        'First name descending',
+                    [ExampleSortType.firstColumnAscendingSecondColumnDescending]:
+                        'First name ascending then last name descending'
                 }
             }
         },
@@ -194,10 +276,16 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
+        },
+        getColumnSortData: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
         data: ExampleDataType.simpleData,
+        sortedColumns: ExampleSortType.firstColumnAscending,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -209,6 +297,29 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 x.tableRef.setData(dataSets[x.data]);
             })();
+        },
+        getColumnSortData: (
+            columnId: string,
+            args: TableArgs
+        ): {
+            direction: TableColumnSortDirection,
+            index: number | undefined
+        } => {
+            const sortData = sortedOptions[args.sortedColumns];
+            const matchingIndex = sortData.findIndex(
+                sortedColumn => sortedColumn.columnId === columnId
+            );
+            if (matchingIndex === -1) {
+                return {
+                    direction: TableColumnSortDirection.none,
+                    index: undefined
+                };
+            }
+
+            return {
+                direction: sortData[matchingIndex]!.sortDirection,
+                index: matchingIndex
+            };
         }
     }
 };

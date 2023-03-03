@@ -185,7 +185,15 @@
         <div class="sub-container">
             <div class="container-label">Table</div>
             <nimble-table [data$]="tableData$">
-                <nimble-table-column-text field-name="stringValue1" action-menu-slot="action-menu" action-menu-label="Action menu" fractional-width="2" min-pixel-width="300">
+                <nimble-table-column-text
+                    field-name="stringValue1"
+                    action-menu-slot="action-menu"
+                    action-menu-label="Action menu"
+                    fractional-width="2"
+                    min-pixel-width="300"
+                    sort-direction="ascending"
+                    sort-index="0"
+                >
                     <nimble-icon-check title="String 1"></nimble-icon-check>
                 </nimble-table-column-text>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400">String 2</nimble-table-column-text>

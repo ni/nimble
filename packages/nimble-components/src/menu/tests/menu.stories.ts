@@ -2,7 +2,10 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { menuTag } from '..';
+import { iconArrowLeftFromLineTag } from '../../icons/arrow-left-from-line';
+import { iconUserTag } from '../../icons/user';
+import { menuItemTag } from '../../menu-item';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
@@ -55,12 +58,12 @@ export const menuItem: StoryObj<MenuItemArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu>
-            <nimble-menu-item ?disabled="${x => x.disabled}">
-                ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
+        <${menuTag}>
+            <${menuItemTag} ?disabled="${x => x.disabled}">
+                ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
                 ${x => x.text}
-            </nimble-menu-item>
-        </nimble-menu>
+            </${menuItemTag}>
+        </${menuTag}>
         `),
     args: {
         text: 'Menu Item',
@@ -85,13 +88,13 @@ export const menu: StoryObj<MenuArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu>
+        <${menuTag}>
             ${repeat(x => x.itemOptions, html<ItemArgs>`
                 ${when(x => x.type === 'nimble-menu-item', html<ItemArgs>`
-                    <nimble-menu-item ?disabled="${x => x.disabled}">
-                        ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
+                    <${menuItemTag} ?disabled="${x => x.disabled}">
+                        ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
                         ${x => x.text}
-                    </nimble-menu-item>
+                    </${menuItemTag}>
                 `)}
                 ${when(x => x.type === 'header', html<ItemArgs>`
                     <header>
@@ -102,7 +105,7 @@ export const menu: StoryObj<MenuArgs> = {
                     <hr>
                 `)}
             `)}
-        </nimble-menu>
+        </${menuTag}>
         `),
     args: {
         itemOptions: [
@@ -175,37 +178,37 @@ export const nestedMenu: StoryObj<MenuArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <div style="width: 600px; height: 300px;">
-            <nimble-menu>
-                <nimble-menu-item>
-                    <nimble-icon-user slot="start"></nimble-icon-user>
+            <${menuTag}>
+                <${menuItemTag}>
+                    <${iconUserTag} slot="start"></${iconUserTag}>
                     Item 1
-                </nimble-menu-item>
-                <nimble-menu-item>
+                </${menuItemTag}>
+                <${menuItemTag}>
                     Item 2
-                    <nimble-menu>
-                        <nimble-menu-item>
+                    <${menuTag}>
+                        <${menuItemTag}>
                             Item 2.1
-                        </nimble-menu-item>
-                        <nimble-menu-item>
+                        </${menuItemTag}>
+                        <${menuItemTag}>
                             Item 2.2
-                            <nimble-menu>
-                                <nimble-menu-item>
+                            <${menuTag}>
+                                <${menuItemTag}>
                                     Item 2.2.1
-                                </nimble-menu-item>
-                                <nimble-menu-item>
+                                </${menuItemTag}>
+                                <${menuItemTag}>
                                     Item 2.2.2
-                                </nimble-menu-item>
-                                <nimble-menu-item>
+                                </${menuItemTag}>
+                                <${menuItemTag}>
                                     Item 2.2.3
-                                </nimble-menu-item>
-                            </nimble-menu>
-                        </nimble-menu-item>
-                        <nimble-menu-item>
+                                </${menuItemTag}>
+                            </${menuTag}>
+                        </${menuItemTag}>
+                        <${menuItemTag}>
                             Item 2.3
-                        </nimble-menu-item>
-                    </nimble-menu>
-                </nimble-menu-item>
-            </nimble-menu>
+                        </${menuItemTag}>
+                    </${menuTag}>
+                </${menuItemTag}>
+            </${menuTag}>
         </div>
     `)
 };
@@ -220,13 +223,13 @@ export const customMenu: StoryObj<MenuArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu>
+        <${menuTag}>
             <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
                 <div style="font-weight: bold; color: black;">lvadmin User</div>
                 <div style="color: gray;">lvadmin</div>
             </div>
-            <nimble-menu-item><nimble-icon-user slot="start"></nimble-icon-user>Account</nimble-menu-item>
-            <nimble-menu-item><nimble-icon-arrow-left-from-line slot="start"></nimble-icon-arrow-left-from-line>Log out</nimble-menu-item>
-        </nimble-menu>
+            <${menuItemTag}><${iconUserTag} slot="start"></${iconUserTag}>Account</${menuItemTag}>
+            <${menuItemTag}><${iconArrowLeftFromLineTag} slot="start"></${iconArrowLeftFromLineTag}>Log out</${menuItemTag}>
+        </${menuTag}>
     `)
 };

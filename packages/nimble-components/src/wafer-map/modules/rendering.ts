@@ -1,29 +1,56 @@
 import type { WaferMap } from '..';
-import type { DieRenderInfo, Dimensions } from '../types';
+import { DieRenderInfo, Dimensions, HoverDieOpacity } from '../types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class RenderingModule {
-    private readonly context: CanvasRenderingContext2D;
     private readonly dies: DieRenderInfo[];
     private readonly dimensions: Dimensions;
     private readonly labelFontSize: number;
 
     public constructor(private readonly wafermap: WaferMap) {
-        this.context = wafermap.canvas.getContext('2d')!;
         this.dies = wafermap.dataManager!.diesRenderInfo;
         this.dimensions = wafermap.dataManager!.dieDimensions;
         this.labelFontSize = wafermap.dataManager!.labelsFontSize;
     }
 
     public drawWafer(): void {
-        this.context.save();
+        this.wafermap.canvasContext.save();
         this.clearCanvas();
         this.scaleCanvas();
         this.renderDies();
         this.renderText();
-        this.context.restore();
+        this.wafermap.canvasContext.restore();
+        this.renderHover();
+    }
+
+    public renderHover(): void {
+        this.wafermap.hoverWidth = this.wafermap.dataManager!.dieDimensions.width
+            * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = this.wafermap.dataManager!.dieDimensions.height
+            * this.wafermap.transform.k;
+        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
+            ? HoverDieOpacity.hide
+            : HoverDieOpacity.show;
+        this.wafermap.hoverTransform = this.calculateHoverTransform();
+    }
+
+    private calculateHoverTransform(): string {
+        if (this.wafermap.hoverDie !== undefined) {
+            const scaledX = this.wafermap.dataManager!.horizontalScale(
+                this.wafermap.hoverDie.x
+            )!;
+            const scaledY = this.wafermap.dataManager!.verticalScale(
+                this.wafermap.hoverDie.y
+            )!;
+            const transformedPoint = this.wafermap.transform.apply([
+                scaledX + this.wafermap.dataManager!.margin.left,
+                scaledY + this.wafermap.dataManager!.margin.top
+            ]);
+            return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
+        }
+        return '';
     }
 
     private renderDies(): void {
@@ -42,12 +69,12 @@ export class RenderingModule {
 
         for (const die of this.dies) {
             if (!prev) {
-                this.context.fillStyle = die.fillStyle;
+                this.wafermap.canvasContext.fillStyle = die.fillStyle;
             }
             if (prev && die.fillStyle !== prev.fillStyle && die.fillStyle) {
-                this.context.fillStyle = die.fillStyle;
+                this.wafermap.canvasContext.fillStyle = die.fillStyle;
             }
-            this.context.fillRect(
+            this.wafermap.canvasContext.fillRect(
                 die.x,
                 die.y,
                 this.dimensions.width,
@@ -62,15 +89,15 @@ export class RenderingModule {
             * this.dimensions.height
             * (this.wafermap.transform.k || 1);
         const fontsize = this.labelFontSize;
-        this.context.font = `${fontsize.toString()}px sans-serif`;
-        this.context.fillStyle = '#ffffff';
-        this.context.textAlign = 'center';
-        this.context.lineCap = 'butt';
-        const approxTextHeight = this.context.measureText('M');
+        this.wafermap.canvasContext.font = `${fontsize.toString()}px sans-serif`;
+        this.wafermap.canvasContext.fillStyle = '#ffffff';
+        this.wafermap.canvasContext.textAlign = 'center';
+        this.wafermap.canvasContext.lineCap = 'butt';
+        const approxTextHeight = this.wafermap.canvasContext.measureText('M');
 
         if (dieSize >= 50) {
             for (const die of this.dies) {
-                this.context.fillText(
+                this.wafermap.canvasContext.fillText(
                     die.text,
                     die.x + this.dimensions.width / 2,
                     die.y
@@ -83,7 +110,7 @@ export class RenderingModule {
     }
 
     private clearCanvas(): void {
-        this.context.clearRect(
+        this.wafermap.canvasContext.clearRect(
             0,
             0,
             this.wafermap.canvasWidth * this.wafermap.transform.k,
@@ -92,11 +119,11 @@ export class RenderingModule {
     }
 
     private scaleCanvas(): void {
-        this.context.translate(
+        this.wafermap.canvasContext.translate(
             this.wafermap.transform.x,
             this.wafermap.transform.y
         );
-        this.context.scale(
+        this.wafermap.canvasContext.scale(
             this.wafermap.transform.k,
             this.wafermap.transform.k
         );

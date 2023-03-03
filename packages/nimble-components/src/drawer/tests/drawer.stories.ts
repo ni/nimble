@@ -15,9 +15,12 @@ import {
     standardPadding
 } from '../../theme-provider/design-tokens';
 import { DrawerLocation } from '../types';
-import { Drawer, UserDismissed } from '..';
-import '../../all-components';
-import type { TextField } from '../../text-field';
+import { Drawer, drawerTag, UserDismissed } from '..';
+import { TextField, textFieldTag } from '../../text-field';
+import { buttonTag } from '../../button';
+import { listOptionTag } from '../../list-option';
+import { numberFieldTag } from '../../number-field';
+import { selectTag } from '../../select';
 
 interface DrawerArgs {
     location: DrawerLocation;
@@ -40,8 +43,8 @@ const simpleContent = html<DrawerArgs>`
             This is a drawer which can slide in from either side of the screen
             and display custom content.
         </p>
-        <nimble-button @click="${x => x.drawerRef.close('Close pressed')}"
-            >Close</nimble-button
+        <${buttonTag} @click="${x => x.drawerRef.close('Close pressed')}"
+            >Close</${buttonTag}
         >
     </section>
 `;
@@ -65,13 +68,13 @@ const headerFooterContent = html<DrawerArgs>`
         <p>When placed in a <code>nimble-drawer</code> they will be automatically styled for you!</p>
 
         <div class="example-content">
-            <nimble-number-field>I am not auto focused</nimble-number-field>
-            <nimble-number-field autofocus>I am auto focused</nimble-number-field>
-            <nimble-select>
-                <nimble-list-option value="1">option 1</nimble-list-option>
-                <nimble-list-option value="2">option 2</nimble-list-option>
-                <nimble-list-option value="3">option 3</nimble-list-option>
-            </nimble-select>
+            <${numberFieldTag}>I am not auto focused</${numberFieldTag}>
+            <${numberFieldTag} autofocus>I am auto focused</${numberFieldTag}>
+            <${selectTag}>
+                <${listOptionTag} value="1">option 1</${listOptionTag}>
+                <${listOptionTag} value="2">option 2</${listOptionTag}>
+                <${listOptionTag} value="3">option 3</${listOptionTag}>
+            </${selectTag}>
         </div>
 
         <p style="height: 1000px;">
@@ -82,8 +85,8 @@ const headerFooterContent = html<DrawerArgs>`
         </p>
     </section>
     <footer>
-        <nimble-button @click="${x => x.drawerRef.close('Cancel pressed')}" appearance="ghost">Cancel</nimble-button>
-        <nimble-button @click="${x => x.drawerRef.close('OK pressed')}" appearance="outline">OK</nimble-button>
+        <${buttonTag} @click="${x => x.drawerRef.close('Cancel pressed')}" appearance="ghost">Cancel</${buttonTag}>
+        <${buttonTag} @click="${x => x.drawerRef.close('OK pressed')}" appearance="outline">OK</${buttonTag}>
     </footer>`;
 
 const content = {
@@ -130,26 +133,26 @@ const metadata: Meta<DrawerArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-drawer
+        <${drawerTag}
             ${ref('drawerRef')}
             ?prevent-dismiss="${x => x.preventDismiss}"
             location="${x => x.location}"
             style="${x => `${drawerWidth.cssCustomProperty}:${widths[x.width]};`}"
         >
             ${x => content[x.content]}
-        </nimble-drawer>
-        <nimble-button
+        </${drawerTag}>
+        <${buttonTag}
             @click="${x => x.openAndHandleResult(x.drawerRef, x.textFieldRef)}"
         >
             Open
-        </nimble-button>
+        </${buttonTag}>
         <div>
-            <nimble-text-field
+            <${textFieldTag}
                 ${ref('textFieldRef')}
                 readonly
             >
                 Close reason
-            </nimble-text-field>
+            </${textFieldTag}>
         </div>
     `),
     argTypes: {

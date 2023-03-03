@@ -1,5 +1,5 @@
 import type { TableCell } from '..';
-import type { TableCellRecord } from '../../../types';
+import type { TableCellRecord } from '../../../../table-column/base/types';
 
 /**
  * Page object for the `nimble-table-cell` component to provide consistent ways

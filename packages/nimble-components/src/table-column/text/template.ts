@@ -3,7 +3,7 @@ import type {
     TableColumnTextCellRecord,
     TableColumnTextColumnConfig
 } from './table-column-text-base';
-import type { TableCellState } from '../../table/types';
+import type { TableCellState } from '../base/types';
 
 export const cellTemplate = html<
 TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>

@@ -2,7 +2,10 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
-import '../../all-components';
+import { treeViewTag } from '..';
+import { iconCogTag } from '../../icons/cog';
+import { iconDatabaseTag } from '../../icons/database';
+import { treeItemTag } from '../../tree-item';
 
 interface TreeArgs {
     selectionMode: TreeViewSelectionMode;
@@ -61,15 +64,15 @@ export const treeItem: StoryObj<ItemArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-tree-view>
-            <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}" value="${x => x.value}">
-                ${when(x => x.icon, html`<nimble-icon-database slot="start"></nimble-icon-database>`)}
+        <${treeViewTag}>
+            <${treeItemTag} ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}" value="${x => x.value}">
+                ${when(x => x.icon, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
                 ${x => x.label}
-                <nimble-tree-item>
+                <${treeItemTag}>
                    Sub Item
-                </nimble-tree-item>
-            </nimble-tree-item>
-        </nimble-tree-view>
+                </${treeItemTag}>
+            </${treeItemTag}>
+        </${treeViewTag}>
 `),
     args: {
         label: 'Item',
@@ -89,30 +92,30 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-tree-view selection-mode="${x => x.selectionMode}">
+        <${treeViewTag} selection-mode="${x => x.selectionMode}">
             ${repeat(x => x.options, html<ItemArgs>`
-                <nimble-tree-item ?expanded="${x => x.expanded}" value="${x => x.value}">
-                    ${when(x => x.icon, html`<nimble-icon-database slot="start"></nimble-icon-database>`)}
+                <${treeItemTag} ?expanded="${x => x.expanded}" value="${x => x.value}">
+                    ${when(x => x.icon, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
                     ${x => x.label}
-                    <nimble-tree-item ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
-                         ${when(x => x.icon, html`<nimble-icon-cog slot="start"></nimble-icon-cog>`)}
+                    <${treeItemTag} ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
+                         ${when(x => x.icon, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                          Sub Group
-                        <nimble-tree-item ?disabled="${x => x.disabled}">
-                            ${when(x => x.icon, html`<nimble-icon-cog slot="start"></nimble-icon-cog>`)}
+                        <${treeItemTag} ?disabled="${x => x.disabled}">
+                            ${when(x => x.icon, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                             <a href="http://www.ni.com">Nested Item 1</a>
-                        </nimble-tree-item>
-                    </nimble-tree-item>
-                    <nimble-tree-item ?selected="${x => x.expanded}">
-                        ${when(x => x.icon, html`<nimble-icon-cog slot="start"></nimble-icon-cog>`)}
+                        </${treeItemTag}>
+                    </${treeItemTag}>
+                    <${treeItemTag} ?selected="${x => x.expanded}">
+                        ${when(x => x.icon, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                         Nested Item 2
-                    </nimble-tree-item>
-                    <nimble-tree-item>
-                        ${when(x => x.icon, html`<nimble-icon-cog slot="start"></nimble-icon-cog>`)}
+                    </${treeItemTag}>
+                    <${treeItemTag}>
+                        ${when(x => x.icon, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                         Nested Item 3
-                     </nimble-tree-item>
-                </nimble-tree-item>
+                     </${treeItemTag}>
+                </${treeItemTag}>
             `)}
-        </nimble-tree-view>
+        </${treeViewTag}>
 `),
     args: {
         selectionMode: TreeViewSelectionMode.leavesOnly,

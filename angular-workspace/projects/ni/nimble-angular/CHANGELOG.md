@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
+This log was last generated on Thu, 02 Mar 2023 18:38:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.2.0
+
+Thu, 02 Mar 2023 18:38:23 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v18.6.0
+
+## 16.1.8
+
+Thu, 02 Mar 2023 17:48:40 GMT
+
+### Patches
+
+- Add programmatic column sorting support to the table ([ni/nimble@1a1e630](https://github.com/ni/nimble/commit/1a1e630c2741fd00d73f6b6be700aada832143c4))
+- Bump @ni/nimble-components to v18.5.8
+
+## 16.1.7
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.7
+
+## 16.1.6
+
+Wed, 01 Mar 2023 17:20:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.6
+
+## 16.1.5
+
+Wed, 01 Mar 2023 14:29:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.5
+
+## 16.1.4
+
+Tue, 28 Feb 2023 11:04:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.4
 
 ## 16.1.3
 
