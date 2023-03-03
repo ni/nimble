@@ -36,6 +36,7 @@ TableColumnTextColumnConfig
 
     protected fieldNameChanged(): void {
         this.dataRecordFieldNames = [this.fieldName] as const;
+        this.operandDataRecordFieldName = this.fieldName;
     }
 
     protected placeholderChanged(): void {

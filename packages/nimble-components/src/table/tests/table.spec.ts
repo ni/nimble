@@ -11,7 +11,6 @@ import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
-    otherData: string;
     numericData: number;
     moreStringData: string;
 }
@@ -19,19 +18,16 @@ interface SimpleTableRecord extends TableRecord {
 const simpleTableData = [
     {
         stringData: 'string 1',
-        otherData: 'blah',
         numericData: 8,
         moreStringData: 'foo'
     },
     {
         stringData: 'hello world',
-        otherData: 'de',
         numericData: 0,
         moreStringData: 'foo'
     },
     {
         stringData: 'another string',
-        otherData: 'blah blah',
         numericData: -9,
         moreStringData: 'foo'
     }
@@ -40,7 +36,6 @@ const simpleTableData = [
 const largeTableData = Array.from(Array(500), (_, i) => {
     return {
         stringData: `string ${i}`,
-        otherData: `more string ${i}`,
         numericData: i,
         moreStringData: 'foo'
     };
