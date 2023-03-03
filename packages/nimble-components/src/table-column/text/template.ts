@@ -7,9 +7,14 @@ TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
     <span
         class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
-        title="${x => (typeof x.cellRecord.value === 'string'
-        ? x.cellRecord.value
-        : x.columnConfig.placeholder)}"
+        @mouseover="${(_x, c) => {
+        const span = c.event.target as HTMLSpanElement;
+        if (span?.textContent && span.offsetWidth < span.scrollWidth) {
+            span.setAttribute('title', span.textContent);
+        }
+    }
+}"
+        @mouseout="${(_x, c) => (c.event.target as HTMLElement).removeAttribute('title')}"
     >
         ${x => (typeof x.cellRecord.value === 'string'
         ? x.cellRecord.value
