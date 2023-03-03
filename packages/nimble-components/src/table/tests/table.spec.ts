@@ -416,6 +416,7 @@ describe('Table', () => {
             element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
+            await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();
@@ -431,6 +432,7 @@ describe('Table', () => {
             element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
+            await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();

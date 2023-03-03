@@ -126,6 +126,7 @@ export class UpdateTracker<TData extends TableRecord> {
             DOM.queueUpdate(() => {
                 this.table.update();
                 this.setAllKeys(false);
+                this.updateQueued = false;
             });
         }
     }
