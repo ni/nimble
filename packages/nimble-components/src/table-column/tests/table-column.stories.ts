@@ -1,9 +1,8 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory, usageWarning } from '../../utilities/tests/storybook';
 import { ExampleDataType, ExampleSortType } from '../../table/tests/types';
-import { bodyFont } from '../../theme-provider/design-tokens';
 import { Table, tableTag } from '../../table';
 import { TableColumnSortDirection } from '../../table/types';
 import { iconUserTag } from '../../icons/user';
@@ -139,7 +138,7 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 `;
 
 const metadata: Meta<TableArgs> = {
-    title: 'Table',
+    title: 'Table Column',
     decorators: [withXD],
     parameters: {
         docs: {
@@ -154,13 +153,15 @@ const metadata: Meta<TableArgs> = {
         actions: {
             handles: ['action-menu-beforetoggle', 'action-menu-toggle']
         }
-    },
+    }
+};
+
+export default metadata;
+
+export const headerContent: StoryObj<TableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        <div id="usage-warning">
-            WARNING - The table is still in development and considered
-            experimental. It is not recommended for application use.
-        </div>
+        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
@@ -211,12 +212,6 @@ const metadata: Meta<TableArgs> = {
                 <${menuItemTag}>Do something else with the quote</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
-        <style class="code-hide">
-            #usage-warning {
-                color: red;
-                font: var(${bodyFont.cssCustomProperty});
-            }
-        </style>
     `),
     argTypes: {
         data: {
@@ -321,7 +316,164 @@ const metadata: Meta<TableArgs> = {
         }
     }
 };
+export const sorting: StoryObj<TableArgs> = {
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<TableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            id-field-name="${x => dataSetIdFieldNames[x.data]}"
+            data-unused="${x => x.updateData(x)}"
+        >
+            <${tableColumnTextTag}
+                column-id="first-name-column"
+                field-name="firstName" placeholder="no value"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+                sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
+            >
+                <${iconUserTag} title="First Name"></${iconUserTag}>
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="last-name-column"
+                field-name="lastName" placeholder="no value"
+                action-menu-slot="name-menu" action-menu-label="Configure name"
+                sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="favorite-color-column"
+                field-name="favoriteColor" placeholder="no value"
+                sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
+            >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="quote-column"
+                field-name="quote" placeholder="no value"
+                action-menu-slot="quote-menu" action-menu-label="Configure quote"
+                sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
+            >
+                Quote
+            </${tableColumnTextTag}>
 
-export default metadata;
+            <${menuTag} slot="name-menu">
+                <${menuItemTag}>Edit name</${menuItemTag}>
+                <${menuItemTag}>Delete person</${menuItemTag}>
+                <${menuItemTag}>Archive person</${menuItemTag}>
+                <${menuItemTag}>Duplicate person</${menuItemTag}>
+            </${menuTag}>
 
-export const table: StoryObj<TableArgs> = {};
+            <${menuTag} slot="quote-menu">
+                <${menuItemTag}>Edit quote</${menuItemTag}>
+                <${menuItemTag}>Delete quote</${menuItemTag}>
+                <${menuItemTag}>Do something else with the quote</${menuItemTag}>
+            </${menuTag}>
+        </${tableTag}>
+    `),
+    argTypes: {
+        data: {
+            name: 'setData(data)',
+            description: dataDescription,
+            options: Object.values(ExampleDataType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleDataType.simpleData]: 'Simple data',
+                    [ExampleDataType.largeDataSet]: 'Large data set (10k rows)'
+                }
+            }
+        },
+        sortedColumns: {
+            name: 'sort configuration',
+            description: sortedColumnsDescription,
+            options: Object.values(ExampleSortType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleSortType.firstColumnAscending]:
+                        'First name ascending',
+                    [ExampleSortType.firstColumnDescending]:
+                        'First name descending',
+                    [ExampleSortType.firstColumnAscendingSecondColumnDescending]:
+                        'First name ascending then last name descending'
+                }
+            }
+        },
+        idFieldName: {
+            name: 'id-field-name',
+            table: {
+                defaultValue: { summary: 'undefined' }
+            },
+            description: idFieldNameDescription,
+            control: false
+        },
+        validity: {
+            description: validityDescription,
+            control: false
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'A function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.',
+            control: false
+        },
+        tableRef: {
+            table: {
+                disable: true
+            }
+        },
+        updateData: {
+            table: {
+                disable: true
+            }
+        },
+        getColumnSortData: {
+            table: {
+                disable: true
+            }
+        }
+    },
+    args: {
+        data: ExampleDataType.simpleData,
+        sortedColumns: ExampleSortType.firstColumnAscending,
+        idFieldName: undefined,
+        validity: undefined,
+        checkValidity: undefined,
+        tableRef: undefined,
+        updateData: x => {
+            void (async () => {
+                // Safari workaround: the table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                await customElements.whenDefined('nimble-table');
+                x.tableRef.setData(dataSets[x.data]);
+            })();
+        },
+        getColumnSortData: (
+            columnId: string,
+            args: TableArgs
+        ): {
+            direction: TableColumnSortDirection,
+            index: number | undefined
+        } => {
+            const sortData = sortedOptions[args.sortedColumns];
+            const matchingIndex = sortData.findIndex(
+                sortedColumn => sortedColumn.columnId === columnId
+            );
+            if (matchingIndex === -1) {
+                return {
+                    direction: TableColumnSortDirection.none,
+                    index: undefined
+                };
+            }
+
+            return {
+                direction: sortData[matchingIndex]!.sortDirection,
+                index: matchingIndex
+            };
+        }
+    }
+};
+// export const width: StoryObj<TableArgs> = {};
+// export const actionMenu: StoryObj<TableArgs> = {};
+// export const text: StoryObj<TableArgs> = {};
