@@ -800,6 +800,22 @@ describe('Table', () => {
                 }
             );
         }
+
+        it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
+            await connect();
+            element.style.width = '400px';
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.style.width = '300px';
+            await waitForUpdatesAsync();
+
+            const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
+            const column2RenderedWidth = pageObject.getCellRenderedWidth(1);
+            expect(column1RenderedWidth).toBe(150);
+            expect(column2RenderedWidth).toBe(150);
+        });
     });
 
     describe('columns/cells are sized correctly after scrolling vertically', () => {
