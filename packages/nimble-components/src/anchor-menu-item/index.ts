@@ -102,7 +102,14 @@ export class AnchorMenuItem extends FoundationMenuItem {
     public type?: string;
 
     /**
-     * For items in submenus, I could not get clicks to navigate except by using this handler.
+     * Only with delegatesFocus set to true was it possible to get the <a> to navigate from clicks or Enter/Space
+     * keypresses, but it only worked for the top-level menu items, not for those in submenus. For items in
+     * submenus, a click or any keypress would dismiss the menu.
+     *
+     * As a workaround, this approach is to set delegatesFocus to false and set the FAST menu item's click and keypress
+     * handlers so that they trigger emitting a "change" event. In response to the change event, this handler
+     * sends the <a> element a "click" event. It triggers navigation on click or Enter/Space press, which are the
+     * actions that should activate an element with role menuitem.
      */
     public handleChange = (e: Event): boolean => {
         if (e.defaultPrevented || this.disabled) {
