@@ -158,17 +158,15 @@ export class Table<
      * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof TableColumn) {
-            if (
-                args === 'columnId'
-                || args === 'operandDataRecordFieldName'
-                || args === 'sortOperation'
-                || args === 'sortIndex'
-                || args === 'sortDirection'
-                || args === 'actionMenuSlot'
-            ) {
-                this.updateTracker.trackColumnPropertyChange(args);
-            }
+        if (source instanceof TableColumn && (
+            args === 'columnId'
+            || args === 'operandDataRecordFieldName'
+            || args === 'sortOperation'
+            || args === 'sortIndex'
+            || args === 'sortDirection'
+            || args === 'actionMenuSlot'
+        )) {
+            this.updateTracker.trackColumnPropertyChange(args);
         }
     }
 
@@ -195,13 +193,7 @@ export class Table<
         }
 
         if (this.updateTracker.updateActionMenuSlots) {
-            const slots = new Set<string>();
-            for (const column of this.columns) {
-                if (column.actionMenuSlot) {
-                    slots.add(column.actionMenuSlot);
-                }
-            }
-            this.actionMenuSlots = Array.from(slots);
+            this.updateActionMenuSlots();
         }
     }
 
@@ -298,6 +290,16 @@ export class Table<
         }
 
         this.updateTableOptions(updatedOptions);
+    }
+
+    private updateActionMenuSlots(): void {
+        const slots = new Set<string>();
+        for (const column of this.columns) {
+            if (column.actionMenuSlot) {
+                slots.add(column.actionMenuSlot);
+            }
+        }
+        this.actionMenuSlots = Array.from(slots);
     }
 
     private validate(data: TData[]): void {
