@@ -19,7 +19,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
 
         public disableResize = false;
 
-        public minPixelWidth: number | null = null;
+        public minPixelWidth?: number | null;
 
         public fractionalWidthChanged(): void {
             this.internalFractionalWidth = this.fractionalWidth;
