@@ -764,13 +764,17 @@ describe('Table', () => {
 
                     column1.internalFractionalWidth = columnSizeTest.column1FractionalWidth;
                     column1.internalPixelWidth = columnSizeTest.column1PixelWidth;
-                    if (typeof columnSizeTest.column1MinPixelWidth === 'number') {
+                    if (
+                        typeof columnSizeTest.column1MinPixelWidth === 'number'
+                    ) {
                         column1.internalMinPixelWidth = columnSizeTest.column1MinPixelWidth;
                     }
 
                     column2.internalFractionalWidth = columnSizeTest.column2FractionalWidth;
                     column2.internalPixelWidth = columnSizeTest.column2PixelWidth;
-                    if (typeof columnSizeTest.column2MinPixelWidth === 'number') {
+                    if (
+                        typeof columnSizeTest.column2MinPixelWidth === 'number'
+                    ) {
                         column2.internalMinPixelWidth = columnSizeTest.column2MinPixelWidth;
                     }
 
