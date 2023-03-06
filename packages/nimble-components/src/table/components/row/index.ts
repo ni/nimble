@@ -48,12 +48,6 @@ export class TableRow<
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
-    /**
-     * @internal
-     */
-    @observable
-    public rowGridColumns?: string;
-
     @volatile
     public get columnStates(): ColumnState[] {
         return this.columns.map(column => {

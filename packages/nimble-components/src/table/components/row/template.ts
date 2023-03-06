@@ -6,7 +6,7 @@ import { TableCell } from '../cell';
 
 // prettier-ignore
 export const template = html<TableRow>`
-    <template role="row" style="grid-template-columns: ${x => x.rowGridColumns};">
+    <template role="row" style="grid-template-columns: inherit;">
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             ${when(x => !x.column.columnHidden, html<ColumnState, TableRow>`
                 <${DesignSystem.tagFor(TableCell)}

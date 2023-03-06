@@ -39,7 +39,9 @@ export const template = html<Table>`
             </div>
             <div class="table-viewport" ${ref('viewport')}>
                 <div class="table-scroll" style="height: ${x => x.virtualizer.allRowsHeight}px;"></div>
-                <div class="table-row-container" role="rowgroup" style="top: ${x => `${x.virtualizer.rowContainerYOffset}px;`}">
+                <div class="table-row-container" 
+                     role="rowgroup" 
+                     style="top: ${x => `${x.virtualizer.rowContainerYOffset}px; grid-template-columns: ${x.rowGridColumns ?? ''}`}">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}
@@ -47,7 +49,6 @@ export const template = html<Table>`
                                 record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                 :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                 :columns="${(_, c) => c.parent.columns}"
-                                :rowGridColumns="${(_, c) => c.parent.rowGridColumns}"
                                 @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                             >
