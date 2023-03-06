@@ -12,7 +12,9 @@ AnchorOptions
 > = (context, definition) => html<AnchorMenuItem>`
     <template
         role="menuitem"
-        class="${x => (typeof x.startColumnCount === 'number' ? `indent-${x.startColumnCount}` : '')}"
+        class="${x => (typeof x.startColumnCount === 'number'
+        ? `indent-${x.startColumnCount}`
+        : '')}"
         aria-disabled="${x => x.disabled || !x.href}"
         ?disabled="${x => x.disabled || !x.href}"
         @keydown="${(x, c) => x.handleMenuItemKeyDown(c.event as KeyboardEvent)}"
@@ -31,9 +33,7 @@ AnchorOptions
             type="${x => x.type}"
         >
             ${startSlotTemplate(context, definition)}
-            <span
-                class="content"
-                part="content">
+            <span class="content" part="content">
                 <slot></slot>
             </span>
         </a>

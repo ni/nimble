@@ -5,7 +5,9 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorMenuItem>> {
-    return fixture<AnchorMenuItem>(html`<nimble-anchor-menu-item href='x'></nimble-anchor-menu-item>`);
+    return fixture<AnchorMenuItem>(
+        html`<nimble-anchor-menu-item href="#"></nimble-anchor-menu-item>`
+    );
 }
 
 describe('Anchor Menu Item', () => {
@@ -22,7 +24,9 @@ describe('Anchor Menu Item', () => {
     });
 
     it('can construct an element instance', () => {
-        expect(document.createElement('nimble-anchor-menu-item')).toBeInstanceOf(AnchorMenuItem);
+        expect(
+            document.createElement('nimble-anchor-menu-item')
+        ).toBeInstanceOf(AnchorMenuItem);
     });
 
     it('should set the role to menuitem', async () => {
@@ -77,9 +81,7 @@ describe('Anchor Menu Item', () => {
                 element.setAttribute(attribute.name, 'foo');
                 await waitForUpdatesAsync();
 
-                expect(element.anchor.getAttribute(attribute.name)).toBe(
-                    'foo'
-                );
+                expect(element.anchor.getAttribute(attribute.name)).toBe('foo');
             });
         }
     });

@@ -25,8 +25,7 @@ export type AnchorMenuItemColumnCount = 0 | 1;
  * This must extend FoundationMenuItem (as opposed to AnchorBase), because the FAST menu has logic
  * for properly indenting items that only works with FAST menu items.
  */
-export class AnchorMenuItem
-    extends FoundationMenuItem {
+export class AnchorMenuItem extends FoundationMenuItem {
     @observable
     public anchor!: HTMLAnchorElement;
 
@@ -120,5 +119,7 @@ const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorMenuItem());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleAnchorMenuItem());
 export const anchorMenuItemTag = DesignSystem.tagFor(AnchorMenuItem);
