@@ -106,7 +106,7 @@ export const headerContent: StoryObj<TableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${x => dataSetIdFieldNames[ExampleDataType.simpleData]}"
+            id-field-name="${() => dataSetIdFieldNames[ExampleDataType.simpleData]}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
@@ -166,7 +166,7 @@ export const sorting: StoryObj<TableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${x => dataSetIdFieldNames[ExampleDataType.simpleData]}"
+            id-field-name="${() => dataSetIdFieldNames[ExampleDataType.simpleData]}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
