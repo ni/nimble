@@ -74,13 +74,14 @@ export class UpdateTracker<TData extends TableRecord> {
         this.queueUpdate();
     }
 
-    public trackColumnPropertyChange(
-        changedColumnProperty: string
-    ): void {
+    public trackColumnPropertyChange(changedColumnProperty: string): void {
         if (this.isSameProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;
         } else if (
-            this.isSameProperty(changedColumnProperty, 'operandDataRecordFieldName')
+            this.isSameProperty(
+                changedColumnProperty,
+                'operandDataRecordFieldName'
+            )
             || this.isSameProperty(changedColumnProperty, 'sortOperation')
         ) {
             this.requiredUpdates.columnDefinition = true;
@@ -89,7 +90,9 @@ export class UpdateTracker<TData extends TableRecord> {
             || this.isSameProperty(changedColumnProperty, 'sortDirection')
         ) {
             this.requiredUpdates.columnSort = true;
-        } else if (this.isSameProperty(changedColumnProperty, 'actionMenuSlot')) {
+        } else if (
+            this.isSameProperty(changedColumnProperty, 'actionMenuSlot')
+        ) {
             this.requiredUpdates.actionMenuSlots = true;
         }
 
@@ -131,7 +134,10 @@ export class UpdateTracker<TData extends TableRecord> {
         }
     }
 
-    private isSameProperty(changedProperty: string, columnProperty: keyof TableColumn): boolean {
+    private isSameProperty(
+        changedProperty: string,
+        columnProperty: keyof TableColumn
+    ): boolean {
         return changedProperty === columnProperty;
     }
 }

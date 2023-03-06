@@ -298,7 +298,10 @@ export class Table<
     private validate(): void {
         this.validateColumnIds();
         this.validateColumnSortIndices();
-        this.tableValidator.validateRecordIds(this.table.options.data, this.idFieldName);
+        this.tableValidator.validateRecordIds(
+            this.table.options.data,
+            this.idFieldName
+        );
 
         this.canRenderRows = this.checkValidity();
     }
@@ -357,7 +360,7 @@ export class Table<
     }
 
     private getTanStackRowIdFunction():
-    ((
+    | ((
         originalRow: TData,
         index: number,
         parent?: TanStackRow<TData>
