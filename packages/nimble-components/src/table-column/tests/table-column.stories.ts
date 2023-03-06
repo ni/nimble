@@ -83,14 +83,14 @@ const sortedOptions = {
             sortDirection: TableColumnSortDirection.descending
         }
     ],
-    [ExampleSortType.firstColumnAscendingSecondColumnDescending]: [
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.ascending
-        },
+    [ExampleSortType.secondColumnDescendingFirstColumnAscending]: [
         {
             columnId: 'last-name-column',
             sortDirection: TableColumnSortDirection.descending
+        },
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending
         }
     ]
 } as const;
@@ -232,8 +232,8 @@ export const sorting: StoryObj<TableArgs> = {
                         'First name ascending',
                     [ExampleSortType.firstColumnDescending]:
                         'First name descending',
-                    [ExampleSortType.firstColumnAscendingSecondColumnDescending]:
-                        'First name ascending then last name descending'
+                    [ExampleSortType.secondColumnDescendingFirstColumnAscending]:
+                        'Last name descending then first name ascending'
                 }
             }
         },
