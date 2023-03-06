@@ -158,14 +158,15 @@ export class Table<
      * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof TableColumn && (
-            args === 'columnId'
-            || args === 'operandDataRecordFieldName'
-            || args === 'sortOperation'
-            || args === 'sortIndex'
-            || args === 'sortDirection'
-            || args === 'actionMenuSlot'
-        )) {
+        if (
+            source instanceof TableColumn
+            && (args === 'columnId'
+                || args === 'operandDataRecordFieldName'
+                || args === 'sortOperation'
+                || args === 'sortIndex'
+                || args === 'sortDirection'
+                || args === 'actionMenuSlot')
+        ) {
             this.updateTracker.trackColumnPropertyChange(args);
         }
     }
