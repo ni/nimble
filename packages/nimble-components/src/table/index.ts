@@ -137,7 +137,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
-        this.updateTracker.connectedCallback();
+        this.updateTracker.trackAllStateChange();
     }
 
     public override disconnectedCallback(): void {
@@ -158,15 +158,7 @@ export class Table<
      * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (
-            source instanceof TableColumn
-            && (args === 'columnId'
-                || args === 'operandDataRecordFieldName'
-                || args === 'sortOperation'
-                || args === 'sortIndex'
-                || args === 'sortDirection'
-                || args === 'actionMenuSlot')
-        ) {
+        if (source instanceof TableColumn && typeof args === 'string') {
             this.updateTracker.trackColumnPropertyChange(args);
         }
     }
@@ -188,7 +180,7 @@ export class Table<
      * @internal
      */
     public update(): void {
-        this.validate(this.table.options.data);
+        this.validate();
         if (this.updateTracker.requiresTanStackUpdate) {
             this.updateTanStack();
         }
@@ -303,10 +295,10 @@ export class Table<
         this.actionMenuSlots = Array.from(slots);
     }
 
-    private validate(data: TData[]): void {
+    private validate(): void {
         this.validateColumnIds();
         this.validateColumnSortIndices();
-        this.tableValidator.validateRecordIds(data, this.idFieldName);
+        this.tableValidator.validateRecordIds(this.table.options.data, this.idFieldName);
 
         this.canRenderRows = this.checkValidity();
     }
@@ -365,7 +357,7 @@ export class Table<
     }
 
     private getTanStackRowIdFunction():
-    | ((
+    ((
         originalRow: TData,
         index: number,
         parent?: TanStackRow<TData>

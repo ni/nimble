@@ -69,27 +69,27 @@ export class UpdateTracker<TData extends TableRecord> {
         );
     }
 
-    public connectedCallback(): void {
+    public trackAllStateChange(): void {
         this.setAllKeys(true);
         this.queueUpdate();
     }
 
     public trackColumnPropertyChange(
-        changedColumnProperty: keyof TableColumn
+        changedColumnProperty: string
     ): void {
-        if (changedColumnProperty === 'columnId') {
+        if (this.isSameProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;
         } else if (
-            changedColumnProperty === 'operandDataRecordFieldName'
-            || changedColumnProperty === 'sortOperation'
+            this.isSameProperty(changedColumnProperty, 'operandDataRecordFieldName')
+            || this.isSameProperty(changedColumnProperty, 'sortOperation')
         ) {
             this.requiredUpdates.columnDefinition = true;
         } else if (
-            changedColumnProperty === 'sortIndex'
-            || changedColumnProperty === 'sortDirection'
+            this.isSameProperty(changedColumnProperty, 'sortIndex')
+            || this.isSameProperty(changedColumnProperty, 'sortDirection')
         ) {
             this.requiredUpdates.columnSort = true;
-        } else if (changedColumnProperty === 'actionMenuSlot') {
+        } else if (this.isSameProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
         }
 
@@ -129,5 +129,9 @@ export class UpdateTracker<TData extends TableRecord> {
                 this.updateQueued = false;
             });
         }
+    }
+
+    private isSameProperty(changedProperty: string, columnProperty: keyof TableColumn): boolean {
+        return changedProperty === columnProperty;
     }
 }
