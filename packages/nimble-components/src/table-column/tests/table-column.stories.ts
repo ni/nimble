@@ -95,7 +95,8 @@ const sortedOptions = {
     ]
 } as const;
 
-const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
+const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
+See the **Table** story for information about configuring the table itself.`;
 
 const sortedColumnsDescription = `A column within the table is configured to be sorted by specifying a \`sort-direction\` and a \`sort-index\` on
 it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
