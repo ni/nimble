@@ -137,7 +137,7 @@ export class Table<
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
-        this.updateTracker.trackAllStateChange();
+        this.updateTracker.trackAllStateChanged();
     }
 
     public override disconnectedCallback(): void {
@@ -159,7 +159,7 @@ export class Table<
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof TableColumn && typeof args === 'string') {
-            this.updateTracker.trackColumnPropertyChange(args);
+            this.updateTracker.trackColumnPropertyChanged(args);
         }
     }
 
@@ -202,7 +202,7 @@ export class Table<
             return;
         }
 
-        this.updateTracker.trackIdFieldNameChange();
+        this.updateTracker.trackIdFieldNameChanged();
     }
 
     protected columnsChanged(
@@ -214,7 +214,7 @@ export class Table<
         }
 
         this.observeColumns();
-        this.updateTracker.trackColumnInstancesChange();
+        this.updateTracker.trackColumnInstancesChanged();
     }
 
     private removeColumnObservers(): void {

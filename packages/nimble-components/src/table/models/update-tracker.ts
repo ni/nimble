@@ -69,12 +69,12 @@ export class UpdateTracker<TData extends TableRecord> {
         );
     }
 
-    public trackAllStateChange(): void {
+    public trackAllStateChanged(): void {
         this.setAllKeys(true);
         this.queueUpdate();
     }
 
-    public trackColumnPropertyChange(changedColumnProperty: string): void {
+    public trackColumnPropertyChanged(changedColumnProperty: string): void {
         if (this.isSameProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;
         } else if (
@@ -99,7 +99,7 @@ export class UpdateTracker<TData extends TableRecord> {
         this.queueUpdate();
     }
 
-    public trackColumnInstancesChange(): void {
+    public trackColumnInstancesChanged(): void {
         this.requiredUpdates.columnIds = true;
         this.requiredUpdates.columnDefinition = true;
         this.requiredUpdates.columnSort = true;
@@ -108,7 +108,7 @@ export class UpdateTracker<TData extends TableRecord> {
         this.queueUpdate();
     }
 
-    public trackIdFieldNameChange(): void {
+    public trackIdFieldNameChanged(): void {
         this.requiredUpdates.rowIds = true;
         this.queueUpdate();
     }
