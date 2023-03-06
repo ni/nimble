@@ -14,6 +14,8 @@ import {
     TableColumnSortOperation
 } from './types';
 
+const defaultMinPixelWidth = 88;
+
 /**
  * The base class for table columns
  */
@@ -45,7 +47,7 @@ export abstract class TableColumn<
      * When set 'currentFractionalWidth' will be ignored.
      */
     @observable
-    public currentPixelWidth: number | null = null;
+    public currentPixelWidth?: number;
 
     /**
      * @internal
@@ -60,7 +62,7 @@ export abstract class TableColumn<
      * Used by column plugins to set a specific pixel width. Sets currentPixelWidth when changed.
      */
     @observable
-    public internalPixelWidth: number | null = null;
+    public internalPixelWidth?: number;
 
     /**
      * @internal
@@ -75,7 +77,7 @@ export abstract class TableColumn<
      * The minimum size in pixels according to the design doc
      */
     @observable
-    public internalMinPixelWidth = 88;
+    public internalMinPixelWidth = defaultMinPixelWidth;
 
     /**
      * @internal
@@ -139,6 +141,8 @@ export abstract class TableColumn<
      * Properties prefixed with `internal` are for internal table-use only.
      */
     public readonly internalUniqueId: string;
+
+    protected defaultMinPixelWidth = defaultMinPixelWidth;
 
     public constructor() {
         super();

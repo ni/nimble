@@ -643,11 +643,11 @@ describe('Table', () => {
                 name: 'both columns have same fractionalWidth',
                 tableWidth: 400,
                 column1FractionalWidth: 1,
-                column1PixelWidth: null,
-                column1MinPixelWidth: null,
+                column1PixelWidth: undefined,
+                column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
-                column2PixelWidth: null,
-                column2MinPixelWidth: null,
+                column2PixelWidth: undefined,
+                column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 200,
                 column2ExpectedRenderedWidth: 200,
                 rowExpectedRenderedWidth: 400
@@ -656,11 +656,11 @@ describe('Table', () => {
                 name: 'one column has larger fractionalWidth',
                 tableWidth: 300,
                 column1FractionalWidth: 2,
-                column1PixelWidth: null,
-                column1MinPixelWidth: null,
+                column1PixelWidth: undefined,
+                column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
-                column2PixelWidth: null,
-                column2MinPixelWidth: null,
+                column2PixelWidth: undefined,
+                column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 200,
                 column2ExpectedRenderedWidth: 100,
                 rowExpectedRenderedWidth: 300
@@ -670,10 +670,10 @@ describe('Table', () => {
                 tableWidth: 400,
                 column1FractionalWidth: 1,
                 column1PixelWidth: 100,
-                column1MinPixelWidth: null,
+                column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
-                column2PixelWidth: null,
-                column2MinPixelWidth: null,
+                column2PixelWidth: undefined,
+                column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 100,
                 column2ExpectedRenderedWidth: 300,
                 rowExpectedRenderedWidth: 400
@@ -682,11 +682,11 @@ describe('Table', () => {
                 name: 'second column set to use pixelWidth',
                 tableWidth: 400,
                 column1FractionalWidth: 1,
-                column1PixelWidth: null,
-                column1MinPixelWidth: null,
+                column1PixelWidth: undefined,
+                column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
                 column2PixelWidth: 100,
-                column2MinPixelWidth: null,
+                column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 300,
                 column2ExpectedRenderedWidth: 100,
                 rowExpectedRenderedWidth: 400
@@ -696,10 +696,10 @@ describe('Table', () => {
                 tableWidth: 400,
                 column1FractionalWidth: 1,
                 column1PixelWidth: 100,
-                column1MinPixelWidth: null,
+                column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
                 column2PixelWidth: 100,
-                column2MinPixelWidth: null,
+                column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 100,
                 column2ExpectedRenderedWidth: 100,
                 rowExpectedRenderedWidth: 400
@@ -711,8 +711,8 @@ describe('Table', () => {
                 column1PixelWidth: 50,
                 column1MinPixelWidth: 75,
                 column2FractionalWidth: 1,
-                column2PixelWidth: null,
-                column2MinPixelWidth: null,
+                column2PixelWidth: undefined,
+                column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 75,
                 column2ExpectedRenderedWidth: 325,
                 rowExpectedRenderedWidth: 400
@@ -721,13 +721,26 @@ describe('Table', () => {
                 name: 'combined minPixelWidth of first column and pixelWidth of second column being greater than table width, results in row size greater than table width',
                 tableWidth: 400,
                 column1FractionalWidth: 1,
-                column1PixelWidth: null,
+                column1PixelWidth: undefined,
                 column1MinPixelWidth: 100,
                 column2FractionalWidth: 1,
                 column2PixelWidth: 350,
-                column2MinPixelWidth: null,
+                column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 100,
                 column2ExpectedRenderedWidth: 350,
+                rowExpectedRenderedWidth: 450
+            },
+            {
+                name: 'combined pixelWidth of first column and minPixelWidth of second column being greater than table width, results in row size greater than table width',
+                tableWidth: 400,
+                column1FractionalWidth: 1,
+                column1PixelWidth: 350,
+                column1MinPixelWidth: undefined,
+                column2FractionalWidth: 1,
+                column2PixelWidth: undefined,
+                column2MinPixelWidth: 100,
+                column1ExpectedRenderedWidth: 350,
+                column2ExpectedRenderedWidth: 100,
                 rowExpectedRenderedWidth: 450
             }
         ];
@@ -751,13 +764,13 @@ describe('Table', () => {
 
                     column1.internalFractionalWidth = columnSizeTest.column1FractionalWidth;
                     column1.internalPixelWidth = columnSizeTest.column1PixelWidth;
-                    if (columnSizeTest.column1MinPixelWidth !== null) {
+                    if (typeof columnSizeTest.column1MinPixelWidth === 'number') {
                         column1.internalMinPixelWidth = columnSizeTest.column1MinPixelWidth;
                     }
 
                     column2.internalFractionalWidth = columnSizeTest.column2FractionalWidth;
                     column2.internalPixelWidth = columnSizeTest.column2PixelWidth;
-                    if (columnSizeTest.column2MinPixelWidth !== null) {
+                    if (typeof columnSizeTest.column2MinPixelWidth === 'number') {
                         column2.internalMinPixelWidth = columnSizeTest.column2MinPixelWidth;
                     }
 

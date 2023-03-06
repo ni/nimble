@@ -126,7 +126,7 @@ export class TablePageObject<T extends TableRecord> {
         return this.tableElement.columns[columnIndex]!.currentFractionalWidth;
     }
 
-    public getColumnPixelWidth(columnIndex: number): number | null {
+    public getColumnPixelWidth(columnIndex: number): number | undefined {
         if (columnIndex >= this.tableElement.columns.length) {
             throw new Error(
                 'Attempting to index past the total number of columns'
@@ -171,7 +171,7 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        this.tableElement.columns[columnIndex]!.internalPixelWidth = null;
+        this.tableElement.columns[columnIndex]!.internalPixelWidth = undefined;
         this.tableElement.columns[columnIndex]!.internalFractionalWidth = fractionalWidth;
     }
 

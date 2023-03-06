@@ -66,7 +66,6 @@ export const styles = css`
     .row {
         background: ${applicationBackgroundColor};
         position: relative;
-        box-sizing: border-box;
     }
 
     .row::before {

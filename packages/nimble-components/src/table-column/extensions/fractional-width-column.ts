@@ -2,9 +2,8 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
 export interface FractionalWidthColumn {
-    fractionalWidth: number;
-    disableResize: boolean;
-    minPixelWidth: number | null;
+    fractionalWidth?: number | null;
+    minPixelWidth?: number | null;
 }
 
 // prettier-ignore
@@ -17,17 +16,21 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
     abstract class FractionalWidthColumn extends base implements FractionalWidthColumn {
         public fractionalWidth?: number | null = 1;
 
-        public disableResize = false;
-
         public minPixelWidth?: number | null;
 
         public fractionalWidthChanged(): void {
-            this.internalFractionalWidth = this.fractionalWidth;
+            if (typeof this.fractionalWidth === 'number') {
+                this.internalFractionalWidth = this.fractionalWidth;
+            } else {
+                this.internalFractionalWidth = 1;
+            }
         }
 
         public minPixelWidthChanged(): void {
             if (typeof this.minPixelWidth === 'number') {
                 this.internalMinPixelWidth = this.minPixelWidth;
+            } else {
+                this.internalMinPixelWidth = this.defaultMinPixelWidth;
             }
         }
     }
