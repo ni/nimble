@@ -2,9 +2,14 @@ import { html } from '@microsoft/fast-element';
 import type { TableColumnTextCellRecord, TableColumnTextColumnConfig } from '.';
 import type { TableCellState } from '../../table/types';
 
-const setTitleWhenOverflow = (span: HTMLElement): void => {
-    if (span?.textContent?.trim() && span.offsetWidth < span.scrollWidth) {
-        span.setAttribute('title', span.textContent.trim());
+const getCellContent = (cellState: TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>): string => {
+    return (typeof cellState.cellRecord.value === 'string'
+        ? cellState.cellRecord.value
+        : cellState.columnConfig.placeholder);
+};
+const setTitleWhenOverflow = (span: HTMLElement, title: string): void => {
+    if (title && span.offsetWidth < span.scrollWidth) {
+        span.setAttribute('title', title);
     }
 };
 export const cellTemplate = html<
@@ -12,11 +17,9 @@ TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
     <span
         class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
-        @mouseover="${(_x, c) => setTitleWhenOverflow(c.event.target as HTMLElement)}"
+        @mouseover="${(x, c) => setTitleWhenOverflow(c.event.target as HTMLElement, getCellContent(x))}"
         @mouseout="${(_x, c) => (c.event.target as HTMLElement).removeAttribute('title')}"
     >
-        ${x => (typeof x.cellRecord.value === 'string'
-        ? x.cellRecord.value
-        : x.columnConfig.placeholder)}
+        ${x => getCellContent(x)}
     </span>
 `;
