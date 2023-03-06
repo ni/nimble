@@ -94,9 +94,6 @@ const metadata: Meta<TableArgs> = {
         design: {
             artboardUrl:
                 'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
-        },
-        actions: {
-            handles: ['action-menu-beforetoggle', 'action-menu-toggle']
         }
     }
 };
@@ -109,7 +106,7 @@ export const headerContent: StoryObj<TableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${x => dataSetIdFieldNames[x.data]}"
+            id-field-name="${x => dataSetIdFieldNames[ExampleDataType.simpleData]}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
@@ -169,7 +166,7 @@ export const sorting: StoryObj<TableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${x => dataSetIdFieldNames[x.data]}"
+            id-field-name="${x => dataSetIdFieldNames[ExampleDataType.simpleData]}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
