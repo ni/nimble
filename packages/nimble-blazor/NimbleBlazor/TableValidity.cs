@@ -13,6 +13,8 @@ public interface ITableValidity
     public bool DuplicateColumnId { get; }
 
     public bool MissingColumnId { get; }
+
+    public bool DuplicateSortIndex { get; }
 }
 
 internal class TableValidity : ITableValidity
@@ -31,4 +33,7 @@ internal class TableValidity : ITableValidity
 
     [JsonPropertyName("missingColumnId")]
     public bool MissingColumnId { get; set; }
+
+    [JsonPropertyName("duplicateSortIndex")]
+    public bool DuplicateSortIndex { get; set; }
 }

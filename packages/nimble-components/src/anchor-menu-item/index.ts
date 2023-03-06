@@ -121,3 +121,4 @@ const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorMenuItem());
+export const anchorMenuItemTag = DesignSystem.tagFor(AnchorMenuItem);

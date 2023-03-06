@@ -3,7 +3,8 @@ import { Orientation } from '@microsoft/fast-web-utilities';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { radioGroupTag } from '..';
+import { radioTag } from '../../radio';
 
 interface RadioGroupArgs {
     label: string;
@@ -32,17 +33,17 @@ const metadata: Meta<RadioGroupArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        <nimble-radio-group
+        <${radioGroupTag}
             orientation="${x => x.orientation}"
             ?disabled="${x => x.disabled}"
             name="${x => x.name}"
             value="${x => x.value}"
         >
             <label slot="label">${x => x.label}</label>
-            <nimble-radio value="apple">Apple</nimble-radio>
-            <nimble-radio value="mango">Mango</nimble-radio>
-            <nimble-radio value="orange">Orange</nimble-radio>
-        </nimble-radio-group>
+            <${radioTag} value="apple">Apple</${radioTag}>
+            <${radioTag} value="mango">Mango</${radioTag}>
+            <${radioTag} value="orange">Orange</${radioTag}>
+        </${radioGroupTag}>
     `),
     args: {
         label: 'Fruit',

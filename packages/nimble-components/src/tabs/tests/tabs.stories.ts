@@ -2,7 +2,11 @@ import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { tabsTag } from '..';
+import { buttonTag } from '../../button';
+import { tabTag } from '../../tab';
+import { tabPanelTag } from '../../tab-panel';
+import { tabsToolbarTag } from '../../tabs-toolbar';
 
 interface TabsArgs {
     activeId: string;
@@ -39,15 +43,15 @@ const metadata: Meta<TabsArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-tabs activeid="${x => x.activeId}">
-            ${when(x => x.toolbar, html<TabsArgs>`<nimble-tabs-toolbar><nimble-button appearance="ghost">Toolbar Button</nimble-button></nimble-tabs-toolbar>`)}
-            <nimble-tab id="1" ?disabled="${x => x.tabDisabled}">Tab One</nimble-tab>
-            <nimble-tab id="2">Tab Two</nimble-tab>
-            <nimble-tab id="3">Tab Three</nimble-tab>
-            <nimble-tab-panel>Content of the first tab</nimble-tab-panel>
-            <nimble-tab-panel>Content of the second tab</nimble-tab-panel>
-            <nimble-tab-panel>Content of the third tab</nimble-tab-panel>
-        </nimble-tabs>
+        <${tabsTag} activeid="${x => x.activeId}">
+            ${when(x => x.toolbar, html<TabsArgs>`<${tabsToolbarTag}><${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}></${tabsToolbarTag}>`)}
+            <${tabTag} id="1" ?disabled="${x => x.tabDisabled}">Tab One</${tabTag}>
+            <${tabTag} id="2">Tab Two</${tabTag}>
+            <${tabTag} id="3">Tab Three</${tabTag}>
+            <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the second tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+        </${tabsTag}>
     `),
     argTypes: {
         activeId: {
