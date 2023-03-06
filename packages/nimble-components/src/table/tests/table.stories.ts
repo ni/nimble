@@ -1,9 +1,8 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory, usageWarning } from '../../utilities/tests/storybook';
 import { ExampleDataType, ExampleSortType } from './types';
-import { bodyFont } from '../../theme-provider/design-tokens';
 import { Table, tableTag } from '..';
 import { TableColumnSortDirection } from '../types';
 import { iconUserTag } from '../../icons/user';
@@ -157,10 +156,7 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        <div id="usage-warning">
-            WARNING - The table is still in development and considered
-            experimental. It is not recommended for application use.
-        </div>
+        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
@@ -211,12 +207,6 @@ const metadata: Meta<TableArgs> = {
                 <${menuItemTag}>Do something else with the quote</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
-        <style class="code-hide">
-            #usage-warning {
-                color: red;
-                font: var(${bodyFont.cssCustomProperty});
-            }
-        </style>
     `),
     argTypes: {
         data: {
