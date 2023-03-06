@@ -1,7 +1,13 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { toolbarTag } from '..';
+import { buttonTag } from '../../button';
+import { iconCogTag } from '../../icons/cog';
+import { iconEyeTag } from '../../icons/eye';
+import { iconFilterTag } from '../../icons/filter';
+import { iconPencilTag } from '../../icons/pencil';
+import { iconTrashTag } from '../../icons/trash';
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#toolbar) - A toolbar is a container
 for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
@@ -12,7 +18,7 @@ an effective way of reducing the number of tab stops in the keyboard interface.
 
 To override the toolbar's background color, style the \`positioning-region\` part:
 \`
-nimble-toolbar::part(positioning-region) {
+${toolbarTag}::part(positioning-region) {
     background: red;
 }
 \``;
@@ -28,29 +34,29 @@ const metadata: Meta = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-toolbar>
-            <nimble-button appearance="ghost" slot="start">
-                <nimble-icon-eye slot="start"></nimble-icon-eye>
+        <${toolbarTag}>
+            <${buttonTag} appearance="ghost" slot="start">
+                <${iconEyeTag} slot="start"></${iconEyeTag}>
                 View
-            </nimble-button>
-            <nimble-button disabled appearance="ghost" slot="start">
-                <nimble-icon-trash slot="start"></nimble-icon-trash>
+            </${buttonTag}>
+            <${buttonTag} disabled appearance="ghost" slot="start">
+                <${iconTrashTag} slot="start"></${iconTrashTag}>
                 Delete
-            </nimble-button>
-            <nimble-button appearance="ghost" slot="start">
-                <nimble-icon-pencil slot="start"></nimble-icon-pencil>
+            </${buttonTag}>
+            <${buttonTag} appearance="ghost" slot="start">
+                <${iconPencilTag} slot="start"></${iconPencilTag}>
                 Edit
-            </nimble-button>
+            </${buttonTag}>
 
-            <nimble-button appearance="ghost" content-hidden slot="end">
-                <nimble-icon-cog slot="start"></nimble-icon-cog>
+            <${buttonTag} appearance="ghost" content-hidden slot="end">
+                <${iconCogTag} slot="start"></${iconCogTag}>
                 Settings
-            </nimble-button>
-            <nimble-button appearance="ghost" content-hidden slot="end">
-                <nimble-icon-filter slot="start"></nimble-icon-filter>
+            </${buttonTag}>
+            <${buttonTag} appearance="ghost" content-hidden slot="end">
+                <${iconFilterTag} slot="start"></${iconFilterTag}>
                 Filter
-            </nimble-button>
-        </nimble-toolbar>
+            </${buttonTag}>
+        </${toolbarTag}>
     `)
 };
 

@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 03 Mar 2023 18:48:01 GMT",
+      "tag": "@ni/nimble-components_v18.6.0",
+      "version": "18.6.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6711ef956ead44bd38c751f2bf7ac9b6258ce40f",
+            "comment": "Anchor menu item spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Mar 2023 18:38:23 GMT",
+      "tag": "@ni/nimble-components_v18.6.0",
+      "version": "18.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4ae2070766afb33d5be6df1d25dcf3df93f75deb",
+            "comment": "Exposed a constant for tag names on nimble components. Enabled Chromatic TurboSnap to reduce the number of Chromatic snapshots consumed by the Nimble build pipeline."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Mar 2023 17:48:41 GMT",
+      "tag": "@ni/nimble-components_v18.5.8",
+      "version": "18.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1a1e630c2741fd00d73f6b6be700aada832143c4",
+            "comment": "Add programmatic column sorting support to the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 01 Mar 2023 18:28:57 GMT",
       "tag": "@ni/nimble-components_v18.5.7",
       "version": "18.5.7",

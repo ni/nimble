@@ -4,7 +4,8 @@ import { html } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
-import '../../all-components';
+import { dialogTag } from '..';
+import { buttonTag } from '../../button';
 
 const metadata: Meta = {
     title: 'Tests/Dialog',
@@ -17,16 +18,16 @@ const metadata: Meta = {
 export default metadata;
 
 const component = html`
-    <nimble-dialog>
+    <${dialogTag}>
         <span slot="title">This is my dialog's title. It is pretty long.</span>
         <span slot="subtitle">The dialog has a subtitle here.</span>
         <div>Here is the first piece of content in the dialog</div>
         <div>
             Here is another piece of content in the dialog. It is a bit longer.
         </div>
-        <nimble-button slot="footer">Cancel</nimble-button>
-        <nimble-button slot="footer">OK</nimble-button>
-    </nimble-dialog>
+        <${buttonTag} slot="footer">Cancel</${buttonTag}>
+        <${buttonTag} slot="footer">OK</${buttonTag}>
+    </${dialogTag}>
 `;
 
 const [

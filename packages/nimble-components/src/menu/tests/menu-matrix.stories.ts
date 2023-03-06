@@ -14,8 +14,11 @@ import {
     iconVisibleStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { menuTag } from '..';
+import { iconUserTag } from '../../icons/user';
+import { iconXmarkTag } from '../../icons/xmark';
+import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
@@ -47,25 +50,25 @@ const component = (
     [showSubMenu, childIcon, advancedSubMenu]: SubMenuState
 ): ViewTemplate => html`
     <span style="${() => (showSubMenu ? 'padding: 15px; padding-right: 200px; display:inline-flex;' : 'padding: 15px; display:inline-flex;')}">
-        <nimble-menu>
+        <${menuTag}>
             <header>Header</header>
-            <nimble-menu-item ?expanded=${() => showSubMenu}>
+            <${menuItemTag} ?expanded=${() => showSubMenu}>
                 Item 1
                 ${when(() => showSubMenu, html`
-                    <nimble-menu>
+                    <${menuTag}>
                         ${when(() => advancedSubMenu, html`<header>Child header</header>`)}
-                        <nimble-menu-item>Item 1.1</nimble-menu-item>
-                        <nimble-menu-item>Item 1.2</nimble-menu-item>
+                        <${menuItemTag}>Item 1.1</${menuItemTag}>
+                        <${menuItemTag}>Item 1.2</${menuItemTag}>
                         ${when(() => advancedSubMenu, html`<hr>`)}
-                        <nimble-menu-item>${when(() => childIcon, html`<nimble-icon-xmark slot="start"></nimble-icon-xmark>`)}Item 1.3</nimble-menu-item>
-                    </nimble-menu>
+                        <${menuItemTag}>${when(() => childIcon, html`<${iconXmarkTag} slot="start"></${iconXmarkTag}>`)}Item 1.3</${menuItemTag}>
+                    </${menuTag}>
                 `)}
-            </nimble-menu-item>
+            </${menuItemTag}>
             <hr>
-            <nimble-menu-item disabled>Item 2</nimble-menu-item>
-            <nimble-menu-item>${when(() => parentIcon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}Item 3</nimble-menu-item>
-            <nimble-menu-item hidden>Item 4</nimble-menu-item>
-        </nimble-menu>
+            <${menuItemTag} disabled>Item 2</${menuItemTag}>
+            <${menuItemTag}>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Item 3</${menuItemTag}>
+            <${menuItemTag} hidden>Item 4</${menuItemTag}>
+        </${menuTag}>
     </span>
 `;
 
@@ -75,17 +78,17 @@ export const menuThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenMenu: Story = createStory(
     hiddenWrapper(
-        html`<nimble-menu hidden>
-            <nimble-menu-item>Item 1</nimble-menu-item>
-        </nimble-menu>`
+        html`<${menuTag} hidden>
+            <${menuItemTag}>Item 1</${menuItemTag}>
+        </${menuTag}>`
     )
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html` <nimble-menu>
+        html` <${menuTag}>
             Inner text
-            <nimble-menu-item>Menu item</nimble-menu-item>
-        </nimble-menu>`
+            <${menuItemTag}>Menu item</${menuItemTag}>
+        </${menuTag}>`
     )
 );

@@ -283,3 +283,4 @@ const nimbleAnchorTabs = AnchorTabs.compose<TabsOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTabs());
+export const anchorTabsTag = DesignSystem.tagFor(AnchorTabs);

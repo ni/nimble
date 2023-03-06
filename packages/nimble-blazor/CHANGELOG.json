@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 02 Mar 2023 17:48:40 GMT",
+      "tag": "@ni/nimble-blazor_v11.2.7",
+      "version": "11.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "1a1e630c2741fd00d73f6b6be700aada832143c4",
+            "comment": "Add programmatic column sorting support to the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 21 Feb 2023 20:30:27 GMT",
       "tag": "@ni/nimble-blazor_v11.2.2",
       "version": "11.2.2",

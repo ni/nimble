@@ -29,4 +29,17 @@ public abstract class NimbleTableColumn : ComponentBase
     /// </summary>
     [Parameter]
     public bool? ColumnHidden { get; set; }
+
+    /// <summary>
+    /// The direction the column is sorted.
+    /// </summary>
+    [Parameter]
+    public TableColumnSortDirection? SortDirection { get; set; }
+
+    /// <summary>
+    /// The index for sorting the column. When multiple columns are sorted,
+    /// they will be sorted from lowest index to highest index.
+    /// </summary>
+    [Parameter]
+    public int? SortIndex { get; set; }
 }

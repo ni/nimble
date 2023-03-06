@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "18.5.7",
+  "version": "18.6.0",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -13,7 +13,7 @@
     "pack": "npm pack",
     "invoke-publish": "npm publish",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -o dist/storybook",
+    "build-storybook": "build-storybook -o dist/storybook --webpack-stats-json",
     "storybook-open-webkit": "playwright wk http://localhost:6006",
     "build-components": "tsc -p ./tsconfig.json",
     "build-components:watch": "tsc -p ./tsconfig.json -w",

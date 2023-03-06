@@ -1,6 +1,7 @@
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableStringField } from '../../table/types';
+import { TableColumnSortOperation } from '../base/types';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -10,6 +11,12 @@ import { cellTemplate } from './template';
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {
     placeholder: string;
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-table-column-text': TableColumnText;
+    }
 }
 
 /**
@@ -31,8 +38,14 @@ TableColumnTextColumnConfig
 
     public readonly cellTemplate = cellTemplate;
 
+    public constructor() {
+        super();
+        this.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+    }
+
     protected fieldNameChanged(): void {
         this.dataRecordFieldNames = [this.fieldName] as const;
+        this.operandDataRecordFieldName = this.fieldName;
     }
 
     protected placeholderChanged(): void {
@@ -49,3 +62,4 @@ const nimbleTableColumnText = TableColumnText.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleTableColumnText());
+export const tableColumnTextTag = DesignSystem.tagFor(TableColumnText);

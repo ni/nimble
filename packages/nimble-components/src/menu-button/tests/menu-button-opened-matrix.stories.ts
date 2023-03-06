@@ -4,7 +4,9 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
-import '../../all-components';
+import { menuButtonTag } from '..';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
@@ -31,14 +33,14 @@ const component = ([
     position,
     positionStyle
 ]: PositionState): ViewTemplate => html`
-    <nimble-menu-button open position="${() => position}" style="${() => positionStyle}">
+    <${menuButtonTag} open position="${() => position}" style="${() => positionStyle}">
         Open menu button ${position}
 
-        <nimble-menu slot="menu">
-            <nimble-menu-item>Item 1</nimble-menu-item>
-            <nimble-menu-item>Item 2</nimble-menu-item>
-        </nimble-menu>
-    </nimble-menu-button>
+        <${menuTag} slot="menu">
+            <${menuItemTag}>Item 1</${menuItemTag}>
+            <${menuItemTag}>Item 2</${menuItemTag}>
+        </${menuTag}>
+    </${menuButtonTag}>
 `;
 
 const [

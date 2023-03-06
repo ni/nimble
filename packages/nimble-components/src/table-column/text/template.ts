@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { TableColumnTextCellRecord, TableColumnTextColumnConfig } from '.';
-import type { TableCellState } from '../../table/types';
+import type { TableCellState } from '../base/types';
 
 const getCellContent = (cellState: TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>): string => {
     return (typeof cellState.cellRecord.value === 'string'

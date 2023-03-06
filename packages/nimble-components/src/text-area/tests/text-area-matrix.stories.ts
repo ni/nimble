@@ -18,9 +18,9 @@ import {
     readOnlyStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { textAreaTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Text Area',
@@ -54,7 +54,7 @@ const component = (
     [appearanceName, appearance]: AppearanceState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
-    <nimble-text-area
+    <${textAreaTag}
         style="width: 250px; padding: 15px;"
         ?disabled="${() => disabled}"
         appearance="${() => appearance}"
@@ -64,7 +64,7 @@ const component = (
     >
         ${() => disabledName} ${() => appearanceName} ${() => valueName}
         ${() => readOnlyName}
-    </nimble-text-area>
+    </${textAreaTag}>
 `;
 
 export const textAreaThemeMatrix: Story = createMatrixThemeStory(
@@ -81,13 +81,13 @@ const widthSizingTestCase = (
     [colsLabel, cols]: [string, number | undefined]
 ): ViewTemplate => html`
     <div style="width: 500px; height: 100px; outline: 1px dotted black">
-        <nimble-text-area
+        <${textAreaTag}
             cols="${() => cols}"
             style="${widthStyle}"
             value="${loremIpsum}"
         >
             ${widthLabel} ${colsLabel}
-        </nimble-text-area>
+        </${textAreaTag}>
     </div>
 `;
 
@@ -96,13 +96,13 @@ const heightSizingTestCase = (
     [rowsLabel, rows]: [string, number | undefined]
 ): ViewTemplate => html`
     <div style="width: 500px; height: 100px; outline: 1px dotted black">
-        <nimble-text-area
+        <${textAreaTag}
             rows="${() => rows}"
             style="${heightStyle}"
             value="${loremIpsum}"
         >
             ${heightLabel} ${rowsLabel}
-        </nimble-text-area>
+        </${textAreaTag}>
     </div>
 `;
 
@@ -133,26 +133,26 @@ export const textAreaSizing: Story = createStory(html`
 
 export const hiddenTextArea: Story = createStory(
     hiddenWrapper(
-        html`<nimble-text-area hidden>Hidden text area</nimble-text-area>`
+        html`<${textAreaTag} hidden>Hidden text area</${textAreaTag}>`
     )
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html` <nimble-text-area value="${loremIpsum}">
+        html` <${textAreaTag} value="${loremIpsum}">
             Text area
-        </nimble-text-area>`
+        </${textAreaTag}>`
     )
 );
 
 export const heightTest: Story = createStory(
     html`
         <div style="display: flex; flex-direction: column">
-            <nimble-text-area style="border: 1px dashed; width: 200px">
+            <${textAreaTag} style="border: 1px dashed; width: 200px">
                 With Label
-            </nimble-text-area>
-            <nimble-text-area style="border: 1px dashed; width: 200px">
-            </nimble-text-area>
+            </${textAreaTag}>
+            <${textAreaTag} style="border: 1px dashed; width: 200px">
+            </${textAreaTag}>
         </div>
     `
 );
