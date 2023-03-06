@@ -15,7 +15,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
      * proportionally within a Table.
      */
     abstract class FractionalWidthColumn extends base implements FractionalWidthColumn {
-        public fractionalWidth = 1;
+        public fractionalWidth?: number | null = 1;
 
         public disableResize = false;
 
