@@ -33,7 +33,10 @@ const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#menu) - A 
 such as a set of actions or functions. Menu widgets behave like native operating system menus, such as the menus that pull down from the
 menubars commonly found at the top of many desktop application windows. A menu is usually opened, or made visible, by activating a menu button,
 choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.
-When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.`;
+When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.
+
+The \`nimble-menu\` supports several child elements including \`<header>\`, \`<hr>\`, \`<nimble-menu-item>\` and \`<nimble-anchor-menu-item>\`,
+and will format them and any Nimble icons added as children of \`<nimble-menu-item>\` or \`<nimble-anchor-menu-item>\`.`;
 
 const metadata: Meta<MenuArgs> = {
     title: 'Menu',
@@ -56,72 +59,11 @@ const metadata: Meta<MenuArgs> = {
 
 export default metadata;
 
-export const menuItem: StoryObj<MenuItemArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any Nimble icons added as children of `<nimble-menu-item>`.'
-            }
-        }
-    },
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html`
-        <${menuTag}>
-            <${menuItemTag} ?disabled="${x => x.disabled}">
-                ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
-                ${x => x.text}
-            </${menuItemTag}>
-        </${menuTag}>
-        `),
-    args: {
-        text: 'Menu Item',
-        disabled: false,
-        icon: true
-    },
-    argTypes: {
-        icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
-        }
-    }
-};
-
-export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'TODO'
-            }
-        }
-    },
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html`
-        <nimble-menu>
-            <nimble-anchor-menu-item ?disabled="${x => x.disabled}" href="${x => x.href}">
-                ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
-                ${x => x.text}
-            </nimble-anchor-menu-item>
-        </nimble-menu>
-        `),
-    args: {
-        text: 'Menu Item',
-        href: 'https://nimble.ni.dev',
-        disabled: false,
-        icon: true
-    },
-    argTypes: {
-        icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
-        }
-    }
-};
-
 export const menu: StoryObj<MenuArgs> = {
     parameters: {
         docs: {
             description: {
-                story: 'The `nimble-menu` supports several child elements including `<header>`, `<hr>`, and `<nimble-menu-item>`, and will format them and any Nimble icons added as children of `<nimble-menu-item>`.'
+                story: overviewText
             }
         }
     },
@@ -203,6 +145,67 @@ export const menu: StoryObj<MenuArgs> = {
                 type: 'nimble-menu-item'
             }
         ]
+    }
+};
+
+export const menuItem: StoryObj<MenuItemArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Use a `nimble-menu-item` to execute a command from a `nimble-menu`. If you want a menu item that navigates to a URL when activated, use a `nimble-anchor-menu-item` instead.'
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        <${menuTag}>
+            <${menuItemTag} ?disabled="${x => x.disabled}">
+                ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
+                ${x => x.text}
+            </${menuItemTag}>
+        </${menuTag}>
+        `),
+    args: {
+        text: 'Menu Item',
+        disabled: false,
+        icon: true
+    },
+    argTypes: {
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        }
+    }
+};
+
+export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Use a `nimble-anchor-menu-item` to navigate to a URL from a `nimble-menu`. If you want a menu item that executes a command when activated, use a `nimble-menu-item` instead.'
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        <nimble-menu>
+            <nimble-anchor-menu-item ?disabled="${x => x.disabled}" href="${x => x.href}">
+                ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
+                ${x => x.text}
+            </nimble-anchor-menu-item>
+        </nimble-menu>
+        `),
+    args: {
+        text: 'Menu Item',
+        href: 'https://nimble.ni.dev',
+        disabled: false,
+        icon: true
+    },
+    argTypes: {
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        }
     }
 };
 
