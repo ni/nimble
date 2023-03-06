@@ -2,7 +2,8 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory, usageWarning } from '../../utilities/tests/storybook';
-import { ExampleDataType, ExampleSortType } from '../../table/tests/types';
+import { ExampleDataType } from '../../table/tests/types';
+import { ExampleSortType } from './types';
 import { Table, tableTag } from '../../table';
 import { TableColumnSortDirection } from '../../table/types';
 import { iconUserTag } from '../../icons/user';
@@ -40,6 +41,24 @@ const simpleData = [
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
         quote: 'Hi diddly-ho neighbor!'
+    },
+    {
+        firstName: 'Maude',
+        lastName: 'Flanders',
+        favoriteColor: 'Taupe',
+        quote: 'Neddy doesn\'t believe in insurance. He considers it a form of gambling.'
+    },
+    {
+        firstName: 'Rod',
+        lastName: 'Flanders',
+        favoriteColor: 'Taupe',
+        quote: 'Lies make baby Jesus cry.'
+    },
+    {
+        firstName: 'Todd',
+        lastName: 'Flanders',
+        favoriteColor: 'Taupe',
+        quote: 'Dad, should I poke Rod with a sharp thing like the mouse did?'
     }
 ] as const;
 
