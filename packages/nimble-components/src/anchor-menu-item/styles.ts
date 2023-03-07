@@ -16,8 +16,7 @@ import {
 export const styles = css`
     ${display('grid')}
 
-    :host(${focusVisible}),
-    :host(:focus-within) {
+    :host(${focusVisible}) {
         outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
     }
