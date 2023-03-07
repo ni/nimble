@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory, usageWarning } from '../../utilities/tests/storybook';
@@ -7,6 +7,7 @@ import { ExampleSortType } from './types';
 import { Table, tableTag } from '../../table';
 import { TableColumnSortDirection } from '../../table/types';
 import { iconUserTag } from '../../icons/user';
+import { iconCommentTag } from '../../icons/comment';
 import { tableColumnTextTag } from '../text';
 
 interface CommonTableArgs {
@@ -16,7 +17,10 @@ interface CommonTableArgs {
     updateData: (args: CommonTableArgs) => void;
 }
 
+type HeaderIconOption = 'user' | 'comment';
+
 interface HeaderContentTableArgs extends CommonTableArgs {
+    headerIcon: HeaderIconOption;
     headerText: string;
 }
 
@@ -164,7 +168,7 @@ export const columnOrder: StoryObj<CommonTableArgs> = {
 const headerContentDescription = `The content of each column header comes from whatever is slotted in the column element. 
 If you provide only text content, Nimble will style it, add a \`title\` to show a tooltip when truncated, 
 and set appropriate ARIA attributes. If you provide icon content, you should set your own \`title\` and ARIA attributes for it. 
-Titles should use "Headline Casing" and Nimble will automatically capitalize them for display.`;
+Titles should use "Headline Casing" and Nimble will automatically capitalize them for display in the header.`;
 
 export const headerContent: StoryObj<HeaderContentTableArgs> = {
     parameters: {
@@ -186,7 +190,12 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
                 column-id="first-name-column"
                 field-name="firstName" placeholder="no value"
             >
-                <${iconUserTag} title="First Name"></${iconUserTag}>
+                ${when(x => x.headerIcon === 'user', html`
+                    <${iconUserTag} title="First Name"></${iconUserTag}>
+                `)}
+                ${when(x => x.headerIcon === 'comment', html`
+                    <${iconCommentTag} title="First Name"></${iconCommentTag}>
+                `)}
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
@@ -209,13 +218,19 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
         </${tableTag}>
     `),
     argTypes: {
-        // headerIcon: {},
+        headerIcon: {
+            name: 'First column header icon',
+            description: headerContentDescription,
+            options: ['user', 'comment'],
+            control: { type: 'radio' }
+        },
         headerText: {
             name: 'Second column header text',
             description: headerContentDescription
         },
     },
     args: {
+        headerIcon: 'user',
         headerText: 'Last Name',
     }
 };
