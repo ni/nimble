@@ -30,23 +30,23 @@ export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirecti
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
-    public get fractionalWidth(): number {
+    public get fractionalWidth(): number | null | undefined {
         return this.elementRef.nativeElement.fractionalWidth;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('fractional-width') public set fractionalWidth(value: NumberValueOrAttribute) {
+    @Input('fractional-width') public set fractionalWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fractionalWidth', value);
     }
 
-    public get minPixelWidth(): number | null {
+    public get minPixelWidth(): number | null | undefined {
         return this.elementRef.nativeElement.minPixelWidth;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null) {
+    @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', value);
     }
 
