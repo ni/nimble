@@ -16,7 +16,8 @@ import {
 export const styles = css`
     ${display('grid')}
 
-    :host(${focusVisible}) {
+    :host(${focusVisible}),
+    :host(:focus-within) {
         outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
     }
@@ -47,6 +48,7 @@ export const styles = css`
         cursor: pointer;
         font: ${bodyFont};
         text-decoration: none;
+        outline: none;
     }
     :host([disabled]) a {
         color: ${bodyDisabledFontColor};

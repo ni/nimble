@@ -17,7 +17,7 @@ AnchorOptions
         : '')}"
         aria-disabled="${x => x.disabled || !x.href}"
         ?disabled="${x => x.disabled || !x.href}"
-        @keydown="${(x, c) => x.handleMenuItemKeyDown(c.event as KeyboardEvent)}"
+        @keydown="${(x, c) => x.handleKeyDown(c.event as KeyboardEvent)}"
         @click="${(x, c) => x.handleMenuItemClick(c.event as MouseEvent)}"
         @change="${(x, c) => x.handleChange(c.event)}"
     >

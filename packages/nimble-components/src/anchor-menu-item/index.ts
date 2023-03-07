@@ -118,6 +118,20 @@ export class AnchorMenuItem extends FoundationMenuItem {
         this.anchor.dispatchEvent(new MouseEvent('click', { bubbles: false }));
         return false;
     };
+
+    public handleKeyDown = (e: KeyboardEvent): boolean => {
+        if (e.defaultPrevented || this.disabled) {
+            return false;
+        }
+        switch (e.key) {
+            case 'ContextMenu':
+                this.anchor.focus();
+                this.anchor.dispatchEvent(new KeyboardEvent('keydown', { key: e.key, bubbles: false }));
+                return false;
+            default:
+        }
+        return this.handleMenuItemKeyDown(e);
+    }
 }
 
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
