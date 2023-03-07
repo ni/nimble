@@ -15,8 +15,7 @@ AnchorOptions
         class="${x => (typeof x.startColumnCount === 'number'
         ? `indent-${x.startColumnCount}`
         : '')}"
-        aria-disabled="${x => x.disabled || !x.href}"
-        ?disabled="${x => x.disabled || !x.href}"
+        aria-disabled="${x => x.disabled}"
         @keydown="${(x, c) => x.handleKeyDown(c.event as KeyboardEvent)}"
         @click="${(x, c) => x.handleMenuItemClick(c.event as MouseEvent)}"
         @change="${(x, c) => x.handleChange(c.event)}"

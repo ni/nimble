@@ -34,23 +34,9 @@ describe('Anchor Menu Item', () => {
         expect(element.role).toBe('menuitem');
     });
 
-    it('should set disabled when href is missing', async () => {
-        await connect();
-        element.href = undefined;
-        await waitForUpdatesAsync();
-        expect(element.disabled).toBe(true);
-    });
-
     it('should set aria-disabled when disabled is set', async () => {
         await connect();
         element.disabled = true;
-        await waitForUpdatesAsync();
-        expect(element.ariaDisabled).toBe('true');
-    });
-
-    it('should set aria-disabled when href is missing', async () => {
-        await connect();
-        element.href = undefined;
         await waitForUpdatesAsync();
         expect(element.ariaDisabled).toBe('true');
     });
