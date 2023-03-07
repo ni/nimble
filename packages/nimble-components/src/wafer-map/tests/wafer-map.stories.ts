@@ -1,6 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory, usageWarning } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    usageWarning
+} from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type { WaferMapDie, WaferMapColorScale } from '../types';

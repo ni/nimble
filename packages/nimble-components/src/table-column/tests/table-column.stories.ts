@@ -1,7 +1,10 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory, usageWarning } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    usageWarning
+} from '../../utilities/tests/storybook';
 import { ExampleDataType } from '../../table/tests/types';
 import { ExampleSortType } from './types';
 import { Table, tableTag } from '../../table';
@@ -40,7 +43,7 @@ const simpleData = [
         firstName: 'Maude',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Neddy doesn\'t believe in insurance. He considers it a form of gambling.'
+        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling."
     },
     {
         firstName: 'Rod',
@@ -57,11 +60,11 @@ const simpleData = [
 ] as const;
 
 const dataSets = {
-    [ExampleDataType.simpleData]: simpleData,
+    [ExampleDataType.simpleData]: simpleData
 } as const;
 
 const dataSetIdFieldNames = {
-    [ExampleDataType.simpleData]: 'firstName',
+    [ExampleDataType.simpleData]: 'firstName'
 } as const;
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
@@ -125,7 +128,7 @@ const metadata: Meta<CommonTableArgs> = {
             table: {
                 disable: true
             }
-        },
+        }
     },
     args: {
         tableRef: undefined,
@@ -144,8 +147,7 @@ export default metadata;
 
 // In the Docs tab, Storybook doesn't render the title of the first story
 // This is a placeholder to get the useful ones to render
-export const columns: StoryObj<CommonTableArgs> = {
-};
+export const columns: StoryObj<CommonTableArgs> = {};
 
 type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
 
@@ -209,10 +211,10 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
             description: columnOrderDescription,
             options: ['FirstName, LastName', 'LastName, FirstName'],
             control: { type: 'radio' }
-        },
+        }
     },
     args: {
-        columnOrder: 'FirstName, LastName',
+        columnOrder: 'FirstName, LastName'
     }
 };
 
@@ -277,11 +279,11 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
         headerText: {
             name: 'Second column header text',
             description: headerTextContentDescription
-        },
+        }
     },
     args: {
         headerIcon: 'user',
-        headerText: 'Last Name',
+        headerText: 'Last Name'
     }
 };
 

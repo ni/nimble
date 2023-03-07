@@ -1,7 +1,10 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory, usageWarning } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    usageWarning
+} from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
@@ -210,7 +213,7 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
-        },
+        }
     },
     args: {
         data: ExampleDataType.simpleData,
@@ -225,7 +228,7 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 x.tableRef.setData(dataSets[x.data]);
             })();
-        },
+        }
     }
 };
 
