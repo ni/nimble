@@ -420,7 +420,3 @@ export const sorting: StoryObj<SortingTableArgs> = {
         }
     }
 };
-
-// export const width: StoryObj<TableArgs> = {};
-// export const actionMenu: StoryObj<TableArgs> = {};
-// export const textColumn: StoryObj<TableArgs> = {};
