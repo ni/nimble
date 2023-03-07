@@ -17,21 +17,6 @@ interface CommonTableArgs {
     updateData: (args: CommonTableArgs) => void;
 }
 
-type HeaderIconOption = 'user' | 'comment';
-
-interface HeaderContentTableArgs extends CommonTableArgs {
-    headerIcon: HeaderIconOption;
-    headerText: string;
-}
-
-interface SortingTableArgs extends CommonTableArgs {
-    sortedColumns: ExampleSortType;
-    getColumnSortData: (
-        columnId: string,
-        args: SortingTableArgs
-    ) => { direction: TableColumnSortDirection, index: number | undefined };
-}
-
 const simpleData = [
     {
         firstName: 'Ralph',
@@ -165,10 +150,22 @@ export const columns: StoryObj<CommonTableArgs> = {
 export const columnOrder: StoryObj<CommonTableArgs> = {
 };
 
-const headerContentDescription = `The content of each column header comes from whatever is slotted in the column element. 
-If you provide only text content, Nimble will style it, add a \`title\` to show a tooltip when truncated, 
-and set appropriate ARIA attributes. If you provide icon content, you should set your own \`title\` and ARIA attributes for it. 
-Titles should use "Headline Casing" and Nimble will automatically capitalize them for display in the header.`;
+type HeaderIconOption = 'user' | 'comment';
+
+interface HeaderContentTableArgs extends CommonTableArgs {
+    headerIcon: HeaderIconOption;
+    headerText: string;
+}
+
+const headerContentIntro = 'The content of each column header comes from whatever is slotted in the column element.';
+const headerTextContent = `If you provide only text content, Nimble will style it
+and add a \`title\` to show a tooltip when truncated.`;
+const headerIconContent = 'If you provide icon content, you should set your own `title`.';
+const headerTitleContent = 'Titles should use "Headline Casing" and Nimble will automatically capitalize them for display in the header.';
+const headerContentDescription = `${headerContentIntro} ${headerTextContent} ${headerIconContent} ${headerTitleContent}`;
+const headerTextContentDescription = `${headerContentIntro} ${headerTextContent} ${headerTitleContent}`;
+const headerIconContentDescription = `${headerContentIntro} ${headerIconContent} ${headerTitleContent}`;
+
 
 export const headerContent: StoryObj<HeaderContentTableArgs> = {
     parameters: {
@@ -203,30 +200,18 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
             >
                 ${x => x.headerText}
             </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                column-id="favorite-color-column"
-                field-name="favoriteColor" placeholder="no value"
-            >
-                Favorite Color
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                column-id="quote-column"
-                field-name="quote" placeholder="no value"
-            >
-                Quote
-            </${tableColumnTextTag}>
         </${tableTag}>
     `),
     argTypes: {
         headerIcon: {
             name: 'First column header icon',
-            description: headerContentDescription,
+            description: headerIconContentDescription,
             options: ['user', 'comment'],
             control: { type: 'radio' }
         },
         headerText: {
             name: 'Second column header text',
-            description: headerContentDescription
+            description: headerTextContentDescription
         },
     },
     args: {
@@ -264,6 +249,14 @@ const sortedColumnsDescription = `A column within the table is configured to be 
 it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
 of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`. 
 Sorting is based on the underlying field values in the column, not the rendered values.`;
+
+interface SortingTableArgs extends CommonTableArgs {
+    sortedColumns: ExampleSortType;
+    getColumnSortData: (
+        columnId: string,
+        args: SortingTableArgs
+    ) => { direction: TableColumnSortDirection, index: number | undefined };
+}
 
 export const sorting: StoryObj<SortingTableArgs> = {
     parameters: {
