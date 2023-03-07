@@ -39,6 +39,11 @@ export const styles = css`
         display: flex;
     }
 
+    :host([large-mode]) dialog {
+        min-width: 1024px;
+        min-height: 640px; 
+    }
+
     header {
         min-height: 48px;
         padding: 24px 24px 0px 24px;

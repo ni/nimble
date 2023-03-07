@@ -19,6 +19,7 @@ interface DialogArgs {
     content: ExampleContentType;
     show: undefined;
     close: undefined;
+    largeMode: boolean;
     dialogRef: Dialog<string>;
     textFieldRef: TextField;
     openAndHandleResult: (
@@ -76,6 +77,7 @@ const metadata: Meta<DialogArgs> = {
             ?prevent-dismiss="${x => x.preventDismiss}"
             ?header-hidden="${x => x.headerHidden}"
             ?footer-hidden="${x => x.footerHidden}"
+            ?large-mode="${x => x.largeMode}"
         >
             <span slot="title">${x => x.title}</span>
             <span slot="subtitle">${x => x.subtitle}</span>
@@ -124,6 +126,9 @@ const metadata: Meta<DialogArgs> = {
     argTypes: {
         preventDismiss: {
             name: 'prevent-dismiss'
+        },
+        largeMode: {
+            name: 'large-mode'
         },
         title: {
             description:
@@ -182,6 +187,7 @@ const metadata: Meta<DialogArgs> = {
         footerHidden: false,
         includeFooterButtons: true,
         preventDismiss: false,
+        largeMode: false,
         content: ExampleContentType.shortContent,
         openAndHandleResult: async (dialogRef, textFieldRef) => {
             const reason = await dialogRef.show();
