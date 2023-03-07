@@ -214,28 +214,9 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
             name: 'Second column header text',
             description: headerContentDescription
         },
-        tableRef: {
-            table: {
-                disable: true
-            }
-        },
-        updateData: {
-            table: {
-                disable: true
-            }
-        },
     },
     args: {
         headerText: 'Last Name',
-        tableRef: undefined,
-        updateData: x => {
-            void (async () => {
-                // Safari workaround: the table element instance is made at this point
-                // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
-                x.tableRef.setData(dataSets[ExampleDataType.simpleData]);
-            })();
-        }
     }
 };
 
@@ -333,16 +314,6 @@ export const sorting: StoryObj<SortingTableArgs> = {
                 }
             }
         },
-        tableRef: {
-            table: {
-                disable: true
-            }
-        },
-        updateData: {
-            table: {
-                disable: true
-            }
-        },
         getColumnSortData: {
             table: {
                 disable: true
@@ -351,15 +322,6 @@ export const sorting: StoryObj<SortingTableArgs> = {
     },
     args: {
         sortedColumns: ExampleSortType.firstColumnAscending,
-        tableRef: undefined,
-        updateData: x => {
-            void (async () => {
-                // Safari workaround: the table element instance is made at this point
-                // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
-                x.tableRef.setData(dataSets[ExampleDataType.simpleData]);
-            })();
-        },
         getColumnSortData: (
             columnId: string,
             args: SortingTableArgs
