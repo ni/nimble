@@ -9,18 +9,22 @@ import { TableColumnSortDirection } from '../../table/types';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../text';
 
-interface TableArgs {
+interface CommonTableArgs {
     data: ExampleDataType;
-    sortedColumns: ExampleSortType;
     idFieldName: undefined;
-    headerText: string;
-    validity: undefined;
-    checkValidity: undefined;
     tableRef: Table;
-    updateData: (args: TableArgs) => void;
+    updateData: (args: CommonTableArgs) => void;
+}
+
+interface HeaderContentTableArgs extends CommonTableArgs {
+    headerText: string;
+}
+
+interface SortingTableArgs extends CommonTableArgs {
+    sortedColumns: ExampleSortType;
     getColumnSortData: (
         columnId: string,
-        args: TableArgs
+        args: SortingTableArgs
     ) => { direction: TableColumnSortDirection, index: number | undefined };
 }
 
@@ -71,35 +75,10 @@ const dataSetIdFieldNames = {
     [ExampleDataType.simpleData]: 'firstName',
 } as const;
 
-const sortedOptions = {
-    [ExampleSortType.firstColumnAscending]: [
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.ascending
-        }
-    ],
-    [ExampleSortType.firstColumnDescending]: [
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.descending
-        }
-    ],
-    [ExampleSortType.secondColumnDescendingFirstColumnAscending]: [
-        {
-            columnId: 'last-name-column',
-            sortDirection: TableColumnSortDirection.descending
-        },
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.ascending
-        }
-    ]
-} as const;
-
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
 See the **Table** story for information about configuring the table itself.`;
 
-const metadata: Meta<TableArgs> = {
+const metadata: Meta<CommonTableArgs> = {
     title: 'Table Columns',
     decorators: [withXD],
     parameters: {
@@ -114,7 +93,7 @@ const metadata: Meta<TableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<TableArgs>`
+    render: createUserSelectedThemeStory(html<CommonTableArgs>`
     ${usageWarning('table')}
     <${tableTag}
         ${ref('tableRef')}
@@ -176,10 +155,10 @@ export default metadata;
 
 // In the Docs tab, Storybook doesn't render the title of the first story
 // This is a placeholder to get the useful ones to render
-export const columns: StoryObj<TableArgs> = {
+export const columns: StoryObj<CommonTableArgs> = {
 };
 
-export const columnOrder: StoryObj<TableArgs> = {
+export const columnOrder: StoryObj<CommonTableArgs> = {
 };
 
 const headerContentDescription = `The content of each column header comes from whatever is slotted in the column element. 
@@ -187,7 +166,7 @@ If you provide only text content, Nimble will style it, add a \`title\` to show 
 and set appropriate ARIA attributes. If you provide icon content, you should set your own \`title\` and ARIA attributes for it. 
 Titles should use "Headline Casing" and Nimble will automatically capitalize them for display.`;
 
-export const headerContent: StoryObj<TableArgs> = {
+export const headerContent: StoryObj<HeaderContentTableArgs> = {
     parameters: {
         docs: {
             description: {
@@ -196,7 +175,7 @@ export const headerContent: StoryObj<TableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<TableArgs>`
+    render: createUserSelectedThemeStory(html<HeaderContentTableArgs>`
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
@@ -230,10 +209,10 @@ export const headerContent: StoryObj<TableArgs> = {
         </${tableTag}>
     `),
     argTypes: {
+        // headerIcon: {},
         headerText: {
             name: 'Second column header text',
-            description:
-                headerContentDescription
+            description: headerContentDescription
         },
         tableRef: {
             table: {
@@ -260,12 +239,37 @@ export const headerContent: StoryObj<TableArgs> = {
     }
 };
 
+const sortedOptions = {
+    [ExampleSortType.firstColumnAscending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending
+        }
+    ],
+    [ExampleSortType.firstColumnDescending]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.descending
+        }
+    ],
+    [ExampleSortType.secondColumnDescendingFirstColumnAscending]: [
+        {
+            columnId: 'last-name-column',
+            sortDirection: TableColumnSortDirection.descending
+        },
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending
+        }
+    ]
+} as const;
+
 const sortedColumnsDescription = `A column within the table is configured to be sorted by specifying a \`sort-direction\` and a \`sort-index\` on
 it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
 of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`. 
 Sorting is based on the underlying field values in the column, not the rendered values.`;
 
-export const sorting: StoryObj<TableArgs> = {
+export const sorting: StoryObj<SortingTableArgs> = {
     parameters: {
         docs: {
             description: {
@@ -274,7 +278,7 @@ export const sorting: StoryObj<TableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<TableArgs>`
+    render: createUserSelectedThemeStory(html<SortingTableArgs>`
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
@@ -358,7 +362,7 @@ export const sorting: StoryObj<TableArgs> = {
         },
         getColumnSortData: (
             columnId: string,
-            args: TableArgs
+            args: SortingTableArgs
         ): {
             direction: TableColumnSortDirection,
             index: number | undefined
