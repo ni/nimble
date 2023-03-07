@@ -269,13 +269,13 @@ export class Table<
         };
 
         if (this.updateTracker.updateColumnSort) {
-            updatedOptions.state!.sorting = this.getTanStackSortState();
+            updatedOptions.state!.sorting = this.calculateTanStackSortState();
         }
         if (this.updateTracker.updateColumnDefinition) {
-            updatedOptions.columns = this.getTanStackColumns();
+            updatedOptions.columns = this.calculateTanStackColumns();
         }
         if (this.updateTracker.updateRowIds) {
-            updatedOptions.getRowId = this.getTanStackRowIdFunction();
+            updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -342,7 +342,7 @@ export class Table<
         this.refreshRows();
     }
 
-    private getTanStackSortState(): TanStackSortingState {
+    private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
             (x, y) => x.sortIndex! - y.sortIndex!
         );
@@ -359,7 +359,7 @@ export class Table<
         });
     }
 
-    private getTanStackRowIdFunction():
+    private calculateTanStackRowIdFunction():
     | ((
         originalRow: TData,
         index: number,
@@ -371,7 +371,7 @@ export class Table<
             : (record: TData) => record[this.idFieldName!] as string;
     }
 
-    private getTanStackColumns(): TanStackColumnDef<TData>[] {
+    private calculateTanStackColumns(): TanStackColumnDef<TData>[] {
         return this.columns.map(column => {
             return {
                 id: column.internalUniqueId,
