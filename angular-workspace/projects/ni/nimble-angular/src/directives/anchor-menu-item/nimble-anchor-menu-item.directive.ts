@@ -11,59 +11,59 @@ export type { AnchorMenuItem };
     selector: 'nimble-anchor-menu-item'
 })
 export class NimbleAnchorMenuItemDirective {
-    public get href(): string {
-        return this.elementRef.nativeElement.href ?? '';
+    public get href(): string | undefined {
+        return this.elementRef.nativeElement.href;
     }
 
-    @Input() public set href(value: string) {
+    @Input() public set href(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'href', value);
     }
 
-    public get hreflang(): string {
-        return this.elementRef.nativeElement.hreflang ?? '';
+    public get hreflang(): string | undefined {
+        return this.elementRef.nativeElement.hreflang;
     }
 
-    @Input() public set hreflang(value: string) {
+    @Input() public set hreflang(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'hreflang', value);
     }
 
-    public get ping(): string {
-        return this.elementRef.nativeElement.ping ?? '';
+    public get ping(): string | undefined {
+        return this.elementRef.nativeElement.ping;
     }
 
-    @Input() public set ping(value: string) {
+    @Input() public set ping(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'ping', value);
     }
 
-    public get referrerpolicy(): string {
-        return this.elementRef.nativeElement.referrerpolicy ?? '';
+    public get referrerpolicy(): string | undefined {
+        return this.elementRef.nativeElement.referrerpolicy;
     }
 
-    @Input() public set referrerpolicy(value: string) {
+    @Input() public set referrerpolicy(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'referrerpolicy', value);
     }
 
-    public get rel(): string {
-        return this.elementRef.nativeElement.rel ?? '';
+    public get rel(): string | undefined {
+        return this.elementRef.nativeElement.rel;
     }
 
-    @Input() public set rel(value: string) {
+    @Input() public set rel(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'rel', value);
     }
 
-    public get target(): string {
-        return this.elementRef.nativeElement.target ?? '';
+    public get target(): string | undefined {
+        return this.elementRef.nativeElement.target;
     }
 
-    @Input() public set target(value: string) {
+    @Input() public set target(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'target', value);
     }
 
-    public get type(): string {
-        return this.elementRef.nativeElement.type ?? '';
+    public get type(): string | undefined {
+        return this.elementRef.nativeElement.type;
     }
 
-    @Input() public set type(value: string) {
+    @Input() public set type(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'type', value);
     }
 

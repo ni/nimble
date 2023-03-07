@@ -91,8 +91,9 @@ describe('Nimble anchor menu item', () => {
         });
 
         it('has expected defaults for disabled', () => {
-            expect(directive.disabled).toBeFalse();
-            expect(nativeElement.disabled).toBeFalse();
+            // True because href is undefined
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
         });
     });
 
@@ -168,8 +169,8 @@ describe('Nimble anchor menu item', () => {
         });
 
         it('will use template string values for disabled', () => {
-            expect(directive.disabled).toBe(true);
-            expect(nativeElement.disabled).toBe(true);
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
         });
     });
 
@@ -295,14 +296,14 @@ describe('Nimble anchor menu item', () => {
         });
 
         it('can be configured with property binding for disabled', () => {
-            expect(directive.disabled).toBe(true);
-            expect(nativeElement.disabled).toBe(true);
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
 
             fixture.componentInstance.disabled = false;
             fixture.detectChanges();
 
-            expect(directive.disabled).toBe(false);
-            expect(nativeElement.disabled).toBe(false);
+            expect(directive.disabled).toBeFalse();
+            expect(nativeElement.disabled).toBeFalse();
         });
     });
 
@@ -428,14 +429,14 @@ describe('Nimble anchor menu item', () => {
         });
 
         it('can be configured with attribute binding for disabled', () => {
-            expect(directive.disabled).toBe(true);
-            expect(nativeElement.disabled).toBe(true);
+            expect(directive.disabled).toBeTrue();
+            expect(nativeElement.disabled).toBeTrue();
 
             fixture.componentInstance.disabled = false;
             fixture.detectChanges();
 
-            expect(directive.disabled).toBe(false);
-            expect(nativeElement.disabled).toBe(false);
+            expect(directive.disabled).toBeFalse();
+            expect(nativeElement.disabled).toBeFalse();
         });
     });
 });
