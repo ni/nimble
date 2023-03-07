@@ -91,9 +91,8 @@ describe('Nimble anchor menu item', () => {
         });
 
         it('has expected defaults for disabled', () => {
-            // True because href is undefined
-            expect(directive.disabled).toBeTrue();
-            expect(nativeElement.disabled).toBeTrue();
+            expect(directive.disabled).toBeFalse();
+            expect(nativeElement.disabled).toBeFalse();
         });
     });
 
