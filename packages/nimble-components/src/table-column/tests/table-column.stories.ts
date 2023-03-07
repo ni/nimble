@@ -91,25 +91,25 @@ const metadata: Meta<CommonTableArgs> = {
     >
         <${tableColumnTextTag}
             column-id="first-name-column"
-            field-name="firstName" placeholder="no value"
+            field-name="firstName"
         >
             First Name
         </${tableColumnTextTag}>
         <${tableColumnTextTag}
             column-id="last-name-column"
-            field-name="lastName" placeholder="no value"
+            field-name="lastName"
         >
             Last Name
         </${tableColumnTextTag}>
         <${tableColumnTextTag}
             column-id="favorite-color-column"
-            field-name="favoriteColor" placeholder="no value"
+            field-name="favoriteColor"
         >
             Favorite Color
         </${tableColumnTextTag}>
         <${tableColumnTextTag}
             column-id="quote-column"
-            field-name="quote" placeholder="no value"
+            field-name="quote"
         >
             Quote
         </${tableColumnTextTag}>
@@ -147,7 +147,73 @@ export default metadata;
 export const columns: StoryObj<CommonTableArgs> = {
 };
 
-export const columnOrder: StoryObj<CommonTableArgs> = {
+type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
+
+interface ColumnOrderTableArgs extends CommonTableArgs {
+    columnOrder: ColumnOrderOption;
+}
+
+const columnOrderDescription = `Configure columns by adding column elements as children of the table. 
+The order of the elements controls the order that columns will appear in the table.`;
+
+export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: columnOrderDescription
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<ColumnOrderTableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            id-field-name="${() => dataSetIdFieldNames[ExampleDataType.simpleData]}"
+            data-unused="${x => x.updateData(x)}"
+        >
+            ${when(x => x.columnOrder === 'FirstName, LastName', html`
+                <${tableColumnTextTag}
+                    column-id="first-name-column"
+                    field-name="firstName"
+                >
+                First Name
+                </${tableColumnTextTag}>
+                <${tableColumnTextTag}
+                    column-id="last-name-column"
+                    field-name="lastName"
+                >
+                Last Name
+                </${tableColumnTextTag}>
+            `)}
+            ${when(x => x.columnOrder === 'LastName, FirstName', html`
+                <${tableColumnTextTag}
+                    column-id="last-name-column"
+                    field-name="lastName"
+                >
+                Last Name
+                </${tableColumnTextTag}>
+                <${tableColumnTextTag}
+                    column-id="first-name-column"
+                    field-name="firstName"
+                >
+                First Name
+                </${tableColumnTextTag}>
+            `)}
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `),
+    argTypes: {
+        columnOrder: {
+            name: 'Column order',
+            description: columnOrderDescription,
+            options: ['FirstName, LastName', 'LastName, FirstName'],
+            control: { type: 'radio' }
+        },
+    },
+    args: {
+        columnOrder: 'FirstName, LastName',
+    }
 };
 
 type HeaderIconOption = 'user' | 'comment';
@@ -165,7 +231,6 @@ const headerTitleContent = 'Titles should use "Headline Casing" and Nimble will 
 const headerContentDescription = `${headerContentIntro} ${headerTextContent} ${headerIconContent} ${headerTitleContent}`;
 const headerTextContentDescription = `${headerContentIntro} ${headerTextContent} ${headerTitleContent}`;
 const headerIconContentDescription = `${headerContentIntro} ${headerIconContent} ${headerTitleContent}`;
-
 
 export const headerContent: StoryObj<HeaderContentTableArgs> = {
     parameters: {
@@ -185,7 +250,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
-                field-name="firstName" placeholder="no value"
+                field-name="firstName"
             >
                 ${when(x => x.headerIcon === 'user', html`
                     <${iconUserTag} title="First Name"></${iconUserTag}>
@@ -196,7 +261,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
-                field-name="lastName" placeholder="no value"
+                field-name="lastName"
             >
                 ${x => x.headerText}
             </${tableColumnTextTag}>
@@ -276,28 +341,28 @@ export const sorting: StoryObj<SortingTableArgs> = {
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
-                field-name="firstName" placeholder="no value"
+                field-name="firstName"
                 sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
             >
                 First Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
-                field-name="lastName" placeholder="no value"
+                field-name="lastName"
                 sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
-                field-name="favoriteColor" placeholder="no value"
+                field-name="favoriteColor"
                 sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
             >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="quote-column"
-                field-name="quote" placeholder="no value"
+                field-name="quote"
                 sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
             >
                 Quote
@@ -355,6 +420,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
         }
     }
 };
+
 // export const width: StoryObj<TableArgs> = {};
 // export const actionMenu: StoryObj<TableArgs> = {};
-// export const text: StoryObj<TableArgs> = {};
+// export const textColumn: StoryObj<TableArgs> = {};
