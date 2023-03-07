@@ -372,7 +372,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
     `),
     argTypes: {
         sortedColumns: {
-            name: 'sort configuration',
+            name: 'Sort configuration',
             description: sortedColumnsDescription,
             options: Object.values(ExampleSortType),
             control: {
