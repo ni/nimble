@@ -6,6 +6,7 @@ export const styles = css`
     }
 
     .header-content {
+        display: contents;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
