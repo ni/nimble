@@ -3,9 +3,7 @@ import { ViewTemplate, ElementStyles, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
 import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
-import {
-    fractionalWidthColumn
-} from '../fractional-width-column';
+import { fractionalWidthColumn } from '../fractional-width-column';
 
 class TestTableColumnBase extends TableColumn {
     public cellTemplate: ViewTemplate<TableCellState> = html``;
