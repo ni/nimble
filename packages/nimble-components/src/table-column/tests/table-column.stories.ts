@@ -58,7 +58,7 @@ const simpleData = [
     {
         firstName: 'Maggie',
         lastName: 'Simpson',
-        favoriteColor: 'Red',
+        favoriteColor: 'Red'
     }
 ] as const;
 
@@ -427,7 +427,7 @@ interface TextColumnTableArgs extends CommonTableArgs {
     placeholderText: string;
 }
 
-const textColumnDescription = `The \`nimble-table-column-text\` column is used to display string fields as text in the \`nimble-table\`.`;
+const textColumnDescription = 'The `nimble-table-column-text` column is used to display string fields as text in the `nimble-table`.';
 
 export const textColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {
@@ -463,13 +463,15 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
     argTypes: {
         fieldName: {
             name: 'field-name',
-            description: 'Set this attribute to identify which field in the data record should be displayed in each column',
+            description:
+                'Set this attribute to identify which field in the data record should be displayed in each column',
             options: ['firstName', 'lastName'],
             control: { type: 'radio' }
         },
         placeholderText: {
             name: 'placeholder',
-            description: 'Optionally set this attribute to change the text that is displayed if the record value is `null`, `undefined`, or not present. If unset, an empty string will be displayed.',
+            description:
+                'Optionally set this attribute to change the text that is displayed if the record value is `null`, `undefined`, or not present. If unset, an empty string will be displayed.'
         }
     },
     args: {
