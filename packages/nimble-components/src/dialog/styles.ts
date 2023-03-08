@@ -39,7 +39,7 @@ export const styles = css`
         display: flex;
     }
 
-    :host([large-mode]) dialog {
+    :host([config-dialog]) dialog {
         min-width: 1024px;
         min-height: 680px; 
     }

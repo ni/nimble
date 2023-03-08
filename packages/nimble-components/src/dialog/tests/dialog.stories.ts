@@ -77,7 +77,7 @@ const metadata: Meta<DialogArgs> = {
             ?prevent-dismiss="${x => x.preventDismiss}"
             ?header-hidden="${x => x.headerHidden}"
             ?footer-hidden="${x => x.footerHidden}"
-            ?large-mode="${x => x.largeMode}"
+            ?config-dialog="${x => x.largeMode}"
         >
             <span slot="title">${x => x.title}</span>
             <span slot="subtitle">${x => x.subtitle}</span>
@@ -128,7 +128,8 @@ const metadata: Meta<DialogArgs> = {
             name: 'prevent-dismiss'
         },
         largeMode: {
-            name: 'large-mode'
+            name: 'config-dialog',
+            description: 'Add the `config-dialog` attribute to the dialog to display it at a larger size for experiences like a wizard or configuration dialog.'
         },
         title: {
             description:
