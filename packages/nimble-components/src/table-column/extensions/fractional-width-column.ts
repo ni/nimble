@@ -13,7 +13,7 @@ export function fractionalWidthColumn<TBase extends abstract new (...args: any[]
      * The Mixin that provides a concrete column with the API to support being resized
      * proportionally within a Table.
      */
-    abstract class FractionalWidthColumn extends base implements FractionalWidthColumn {
+    abstract class FractionalWidthColumn extends base {
         public fractionalWidth?: number | null = 1;
 
         public minPixelWidth?: number | null;

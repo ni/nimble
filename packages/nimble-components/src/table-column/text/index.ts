@@ -1,8 +1,19 @@
+/* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import { fractionalWidthColumn } from '../extensions/fractional-width-column';
-import { TableColumnTextMixin } from './table-column-text-mixin';
+import type { TableStringField } from '../../table/types';
+import { TableColumn } from '../base';
+import { TableColumnSortOperation } from '../base/types';
+import { cellStyles } from './styles';
+import { cellTemplate } from './template';
+
+export type TableColumnTextCellRecord = TableStringField<'value'>;
+export interface TableColumnTextColumnConfig {
+    placeholder: string;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -11,10 +22,44 @@ declare global {
 }
 
 /**
+ * The base class for a table column for displaying strings.
+ */
+class TableColumnTextBase extends TableColumn<
+TableColumnTextCellRecord,
+TableColumnTextColumnConfig
+> {
+    public cellRecordFieldNames = ['value'] as const;
+
+    @attr({ attribute: 'field-name' })
+    public fieldName?: string;
+
+    @attr
+    public placeholder?: string;
+
+    public readonly cellStyles = cellStyles;
+
+    public readonly cellTemplate = cellTemplate;
+
+    public constructor() {
+        super();
+        this.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+    }
+
+    protected fieldNameChanged(): void {
+        this.dataRecordFieldNames = [this.fieldName] as const;
+        this.operandDataRecordFieldName = this.fieldName;
+    }
+
+    protected placeholderChanged(): void {
+        this.columnConfig = { placeholder: this.placeholder ?? '' };
+    }
+}
+
+/**
  * The table column for displaying strings.
  */
 // prettier-ignore
-export class TableColumnText extends fractionalWidthColumn(TableColumnTextMixin) {}
+export class TableColumnText extends fractionalWidthColumn(TableColumnTextBase) {}
 
 const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text',

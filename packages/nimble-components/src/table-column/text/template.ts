@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import type {
     TableColumnTextCellRecord,
     TableColumnTextColumnConfig
-} from './table-column-text-base';
+} from '.';
 import type { TableCellState } from '../base/types';
 
 export const cellTemplate = html<
