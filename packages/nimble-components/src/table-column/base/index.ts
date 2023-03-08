@@ -142,7 +142,7 @@ export abstract class TableColumn<
      */
     public readonly internalUniqueId: string;
 
-    protected defaultMinPixelWidth = defaultMinPixelWidth;
+    public defaultMinPixelWidth = defaultMinPixelWidth;
 
     public constructor() {
         super();

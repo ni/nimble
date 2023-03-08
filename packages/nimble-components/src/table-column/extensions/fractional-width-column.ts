@@ -1,14 +1,15 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
-export interface FractionalWidthColumn {
-    fractionalWidth?: number | null;
-    minPixelWidth?: number | null;
-}
+// Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
+type SizedTableColumn = Pick<TableColumn, 'internalFractionalWidth' | 'internalMinPixelWidth' | 'defaultMinPixelWidth'>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SizedTableColumnConstructor = abstract new (...args: any[]) => SizedTableColumn;
 
 // prettier-ignore
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function fractionalWidthColumn<TBase extends abstract new (...args: any[]) => TableColumn>(base: TBase): TBase {
+// As the returned class is internal to the function, we can't write a signature that uses is directly, so rely on inference
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
+export function fractionalWidthColumn<TBase extends SizedTableColumnConstructor>(base: TBase) {
     /**
      * The Mixin that provides a concrete column with the API to support being resized
      * proportionally within a Table.
