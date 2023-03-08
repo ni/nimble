@@ -2,6 +2,6 @@
   "type": "minor",
   "comment": "Add a \"large mode\" option for the nimble-dialog which simply changes its width to 1024px and its height to 680px",
   "packageName": "@ni/nimble-components",
-  "email": "diana.anca@ni.com",
+  "email": "61456916+CuckooHashing@users.noreply.github.com",
   "dependentChangeType": "patch"
 }
