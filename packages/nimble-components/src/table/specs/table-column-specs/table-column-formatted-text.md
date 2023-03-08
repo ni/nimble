@@ -11,7 +11,7 @@ Clients will wish to display non-string text data in table columns for use cases
 5. numeric values with custom unit logic. Examples:
     - a file size column that could show the value 1000 as "1000 bytes" but the value 1024 as "1KB"
     - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute, 3 seconds"
-6. enum values formatted as localized strings (0 -> "Fail", 1 -> "Pass")
+6. enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass")
 7. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
 8. combinations of the above in a single column in cases where the source data isn't uniformly typed (e.g. SLE tag values)
 
@@ -217,19 +217,35 @@ To improve consistency and reduce client configuration, we could provide formatt
 </nimble-table>
 ```
 
-##### Example D: Enum Column
+##### Example D: Boolean Text Column
+
+We may try to provide an easy way for clients to map boolean values to localized strings.
+
+```html
+<nimble-table>
+    <nimble-table-column-boolean-text
+        field-name="testResult"
+        true-message="Pass"
+        false-message="Fail"
+    >
+        Test Result
+    <nimble-table-boolean-text>
+</nimble-table>
+```
+
+##### Example E: Enum Text Column
 
 We may try to provide an easy way for clients to map enum values to localized strings. Here is a concept for an API which probably has issues.
 
 ```html
 <nimble-table>
-    <nimble-table-column-enum
+    <nimble-table-column-enum-text
         field-name="status"
     >
         Status
         <nimble-list-option slot="enum-string-0" value="0">Pass</nimble-list-option>
         <nimble-list-option slot="enum-string-1" value="1">Fail</nimble-list-option>
-    <nimble-table-column-enum>
+    <nimble-table-column-enum-text>
 </nimble-table>
 ```
 
@@ -270,7 +286,7 @@ For the sake of discussion my initial proposal is:
 1. We need to offer an approach for columns that require app-specific formatting logic to support above use cases like 5 (custom unit logic) and 8 (data of unknown type).
     - I believe the cons of **Client provides a custom column implementation for each use case** are too great so we should invest in an approach that offers clients more consistency and simplicity.
     - I'm leaning towards **Client specifies formatting function** over **Use `table-column-text`** because it more clearly encodes that the column is numeric, giving better type safety and allowing for more consistent styling. I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
-2. I would also like to pursue **Nimble provides column implementation for common use cases** to save clients from having to write JS code. Ideally we would provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 and 7 (enum and date) coming later.
+2. I would also like to pursue **Nimble provides column implementation for common use cases** to save clients from having to write JS code. Ideally we would provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 and 7 (enum/boolean and date) coming later.
 
 ### API
 
