@@ -4,6 +4,7 @@ import {
     AnchorOptions,
     MenuItem as FoundationMenuItem
 } from '@microsoft/fast-foundation';
+import { keyEnter } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -101,45 +102,54 @@ export class AnchorMenuItem extends FoundationMenuItem {
     @attr
     public type?: string;
 
-    /**
-     * Only with delegatesFocus set to true was it possible to get the <a> to navigate from clicks or Enter/Space
-     * keypresses, but it only worked for the top-level menu items, not for those in submenus. For items in
-     * submenus, a click or any keypress would dismiss the menu.
-     *
-     * As a workaround, this approach is to set delegatesFocus to false and set the FAST menu item's click and keypress
-     * handlers so that they trigger emitting a "change" event. In response to the change event, this handler
-     * sends the <a> element a "click" event. It triggers navigation on click or Enter/Space press, which are the
-     * actions that should activate an element with role menuitem.
-     */
-    public handleChange = (e: Event): boolean => {
-        if (e.defaultPrevented || this.disabled) {
-            return false;
-        }
-        this.anchor.dispatchEvent(new MouseEvent('click', { bubbles: false }));
-        return false;
+    // The following three handlers are workarounds for issues with anchor menu items in submenus.
+    // Events can bubble up the DOM and get handled by the menu item in the parent menu. When that happens,
+    // the menu item's handlers (FAST) return false and prevent the default action, i.e. navigation.
+
+    public clickHandler = (e: MouseEvent): boolean => {
+        e.stopImmediatePropagation();
+        return true;
     };
 
-    public handleKeyDown = (e: KeyboardEvent): boolean => {
-        if (e.defaultPrevented || this.disabled) {
+    public keydownHandler = (e: KeyboardEvent): boolean => {
+        if (e.defaultPrevented) {
             return false;
         }
         switch (e.key) {
-            case 'ContextMenu':
-                this.anchor.focus();
-                this.anchor.dispatchEvent(
-                    new KeyboardEvent('keydown', { key: e.key, bubbles: false })
-                );
-                return false;
+            case keyEnter:
+                e.stopImmediatePropagation();
+                break;
             default:
         }
-        return this.handleMenuItemKeyDown(e);
+        return true;
+    };
+
+    // The FAST menu manages the tabindex of its menu items, setting it to 0 for the focused item
+    // and -1 for other items. This happens when arrowing through or clicking menu items.
+    // Apparently setting the tabindex on the anchor menu item when the inner <a> element is focused
+    // results in the <a> element losing focus, and a focusout event being fired (with no newly
+    // focused element, i.e. event's relatedTarget is null). When the anchor menu item is in
+    // a submenu, this event bubbles up to the menu triggering a collapse of the submenu. This
+    // collapse interrupts keboard navigation and prevents link clicks from navigating.
+    // The only known workaround is to install this handler which prevents focusout events from
+    // bubbling up to the parent menu item. Unfortunately, it also prevents the submenu from closing
+    // in situations where it should, i.e. clicking outside the menu when the anchor menu item has
+    // keyboard focus. There is another potential fix in FAST which is in PR
+    // (https://github.com/microsoft/fast/pull/6664). Until that or another FAST fix is submitted,
+    // this workaround is the best we can do.
+    public focusOutHandler = (e: Event): boolean => {
+        e.stopImmediatePropagation();
+        return true;
     };
 }
 
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
     baseName: 'anchor-menu-item',
     template,
-    styles
+    styles,
+    shadowOptions: {
+        delegatesFocus: true
+    }
 });
 
 DesignSystem.getOrCreate()

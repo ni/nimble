@@ -16,9 +16,6 @@ AnchorOptions
         ? `indent-${x.startColumnCount}`
         : '')}"
         aria-disabled="${x => x.disabled}"
-        @keydown="${(x, c) => x.handleKeyDown(c.event as KeyboardEvent)}"
-        @click="${(x, c) => x.handleMenuItemClick(c.event as MouseEvent)}"
-        @change="${(x, c) => x.handleChange(c.event)}"
     >
         <a
             ${ref('anchor')}
@@ -30,6 +27,9 @@ AnchorOptions
             rel="${x => x.rel}"
             target="${x => x.target}"
             type="${x => x.type}"
+            @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+            @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
+            @focusout="${(x, c) => x.focusOutHandler(c.event)}"
         >
             ${startSlotTemplate(context, definition)}
             <span class="content" part="content">
