@@ -3,7 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
-import { fractionalWidthColumn } from '../extensions/fractional-width-column';
+import { fractionalWidthColumn } from '../mixins/fractional-width-column';
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
