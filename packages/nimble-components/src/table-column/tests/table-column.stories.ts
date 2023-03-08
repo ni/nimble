@@ -5,7 +5,6 @@ import {
     createUserSelectedThemeStory,
     usageWarning
 } from '../../utilities/tests/storybook';
-import { ExampleDataType } from '../../table/tests/types';
 import { ExampleSortType } from './types';
 import { Table, tableTag } from '../../table';
 import { TableColumnSortDirection } from '../../table/types';
@@ -14,7 +13,6 @@ import { iconCommentTag } from '../../icons/comment';
 import { tableColumnTextTag } from '../text';
 
 interface CommonTableArgs {
-    data: ExampleDataType;
     idFieldName: undefined;
     tableRef: Table;
     updateData: (args: CommonTableArgs) => void;
@@ -59,13 +57,7 @@ const simpleData = [
     }
 ] as const;
 
-const dataSets = {
-    [ExampleDataType.simpleData]: simpleData
-} as const;
-
-const dataSetIdFieldNames = {
-    [ExampleDataType.simpleData]: 'firstName'
-} as const;
+const idFieldName = 'firstName';
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
 See the **Table** story for information about configuring the table itself.`;
@@ -89,7 +81,7 @@ const metadata: Meta<CommonTableArgs> = {
     ${usageWarning('table')}
     <${tableTag}
         ${ref('tableRef')}
-        id-field-name="${() => dataSetIdFieldNames[ExampleDataType.simpleData]}"
+        id-field-name="${idFieldName}"
         data-unused="${x => x.updateData(x)}"
     >
         <${tableColumnTextTag}
@@ -137,7 +129,7 @@ const metadata: Meta<CommonTableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
-                x.tableRef.setData(dataSets[ExampleDataType.simpleData]);
+                x.tableRef.setData(simpleData);
             })();
         }
     }
@@ -171,7 +163,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${() => dataSetIdFieldNames[ExampleDataType.simpleData]}"
+            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             ${when(x => x.columnOrder === 'FirstName, LastName', html`
@@ -247,7 +239,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${() => dataSetIdFieldNames[ExampleDataType.simpleData]}"
+            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
@@ -338,7 +330,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${() => dataSetIdFieldNames[ExampleDataType.simpleData]}"
+            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
