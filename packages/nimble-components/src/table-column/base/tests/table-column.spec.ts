@@ -1,21 +1,22 @@
-import { ViewTemplate, ElementStyles, html } from '@microsoft/fast-element';
-import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import { ViewTemplate, ElementStyles, html, customElement } from '@microsoft/fast-element';
+import { fixture, Fixture, uniqueElementName } from '../../../utilities/tests/fixture';
 import type { TableCellState } from '../types';
 import { TableColumn } from '..';
 
+const columnName = uniqueElementName();
+
+@customElement({
+    name: columnName
+})
 class TestTableColumn extends TableColumn {
     public cellTemplate: ViewTemplate<TableCellState> = html``;
     public cellStyles?: ElementStyles | undefined;
     public cellRecordFieldNames: readonly string[] = [];
 }
 
-const composedTestTableColumn = TestTableColumn.compose({
-    baseName: 'test-table-column'
-});
-
 // prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
-    return fixture(composedTestTableColumn());
+    return fixture(columnName);
 }
 
 describe('TableColumn', () => {
