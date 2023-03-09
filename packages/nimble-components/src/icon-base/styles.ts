@@ -19,11 +19,6 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    .icon {
-        width: 100%;
-        height: 100%;
-    }
-
     :host([severity='error']) {
         ${iconColor.cssCustomProperty}: ${failColor};
     }
@@ -40,7 +35,7 @@ export const styles = css`
         ${iconColor.cssCustomProperty}: ${informationColor};
     }
 
-    .icon svg {
+    svg {
         fill: ${iconColor};
         width: 100%;
         height: 100%;

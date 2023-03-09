@@ -43,6 +43,7 @@ for (const key of Object.keys(icons)) {
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
+import { ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Icon, registerIcon } from '../icon-base';
 
@@ -57,7 +58,7 @@ declare global {
  */
 export class ${className} extends Icon {
     public constructor() {
-        super(${svgName});
+        super(new ViewTemplate(${svgName}.data, []));
     }
 }
 
