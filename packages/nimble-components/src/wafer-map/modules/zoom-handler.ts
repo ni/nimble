@@ -24,26 +24,21 @@ export class ZoomHandler {
 
     public constructor(private readonly wafermap: WaferMap) {
         this.zoomBehavior = this.createZoomBehavior();
+        this.updateZoomBehavior();
+    }
+
+    public attachZoomBehavior(): void {
         this.zoomBehavior(select(this.wafermap.canvas as Element));
     }
 
-    private rescale(event: ZoomEvent): void {
-        const transform = event.transform;
-        if (transform.k === this.minScale) {
-            this.zoomTransform = zoomIdentity;
-            this.zoomBehavior.transform(
-                select(this.wafermap.canvas as Element),
-                zoomIdentity
-            );
-        } else {
-            this.zoomTransform = transform;
-        }
-
-        this.wafermap.transform = this.zoomTransform;
+    public detachZoomBehavior(): void {
+        // D3 will remove existing handlers when adding a null one
+        // See: https://github.com/d3/d3-zoom#api-reference
+        select(this.wafermap.canvas as Element).on('.zoom', null);
     }
 
-    private createZoomBehavior(): ZoomBehavior<Element, unknown> {
-        const zoomBehavior = zoom()
+    public updateZoomBehavior(): void {
+        this.zoomBehavior
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
@@ -58,7 +53,25 @@ export class ZoomHandler {
                     this.wafermap.canvasWidth + this.extentPadding,
                     this.wafermap.canvasHeight + this.extentPadding
                 ]
-            ])
+            ]);
+    }
+
+    private rescale(event: ZoomEvent): void {
+        const transform = event.transform;
+        if (transform.k === this.minScale) {
+            this.zoomTransform = zoomIdentity;
+            this.zoomBehavior.transform(
+                select(this.wafermap.canvas as Element),
+                zoomIdentity
+            );
+        } else {
+            this.zoomTransform = transform;
+        }
+        this.wafermap.transform = this.zoomTransform;
+    }
+
+    private createZoomBehavior(): ZoomBehavior<Element, unknown> {
+        return zoom()
             .filter((event: Event) => {
                 const transform = zoomTransform(this.wafermap.canvas);
                 const filterEval = transform.k >= this.minScale || event.type === 'wheel';
@@ -69,8 +82,6 @@ export class ZoomHandler {
                 // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
                 this.rescale(event);
             });
-
-        return zoomBehavior;
     }
 
     private getZoomMax(canvasArea: number, dataArea: number): number {

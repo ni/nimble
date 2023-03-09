@@ -25,6 +25,7 @@ export class EventCoordinator {
         this.wafermap.removeEventListener('mousemove', this.onMouseMove);
         this.wafermap.removeEventListener('mouseout', this.onMouseOut);
         this.wafermap.canvas.removeEventListener('wheel', this.onWheelMove);
+        this.zoomHandler.detachZoomBehavior();
     }
 
     private readonly onWheelMove = (event: Event): void => {
@@ -45,5 +46,6 @@ export class EventCoordinator {
         this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
             passive: false
         });
+        this.zoomHandler.attachZoomBehavior();
     }
 }
