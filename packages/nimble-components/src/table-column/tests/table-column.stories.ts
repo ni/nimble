@@ -284,6 +284,65 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
     }
 };
 
+const commonColumnAttributes = 'In addition to the attributes described in other stories there are other attributes available on all column types.';
+
+interface CommonAttributesTableArgs extends CommonTableArgs {
+    columnHidden: boolean;
+    columnId: string;
+}
+
+export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: commonColumnAttributes
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<CommonAttributesTableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            id-field-name="${idFieldName}"
+            data-unused="${x => x.updateData(x)}"
+        >
+            <${tableColumnTextTag}
+                column-id="first-name-column"
+                field-name="firstName"
+            >
+                First Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="last-name-column"
+                field-name="lastName"
+                ?column-hidden=${x => x.columnHidden}
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                column-id="favorite-color-column"
+                field-name="favoriteColor"
+            >
+                Favorite Color
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `),
+    argTypes: {
+        columnHidden: {
+            name: 'column-hidden',
+            description: 'Add the `column-hidden` attribute to hide a column from display. One use case for this is to sort by a field but not display its value.',
+        },
+        columnId: {
+            name: 'column-id',
+            description: 'Optionally use the `column-id` attribute to uniquely identify a column for features like adding an action menu. If you aren\'t using features that require a column id you may leave it unset for all columns. If you provide `column-id` for any column within a table then you must provide it for all and they must be unique strings.'
+        }
+    },
+    args: {
+        columnHidden: false,
+    }
+};
+
 const sortedOptions = {
     [ExampleSortType.firstColumnAscending]: [
         {
