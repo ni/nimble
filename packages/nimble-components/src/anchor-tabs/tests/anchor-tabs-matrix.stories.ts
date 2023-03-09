@@ -11,8 +11,11 @@ import {
 } from '../../utilities/tests/matrix';
 import { DisabledState, disabledStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { anchorTabsTag } from '..';
+import { anchorTabTag } from '../../anchor-tab';
+import { tabsToolbarTag } from '../../tabs-toolbar';
+import { buttonTag } from '../../button';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Tabs',
@@ -36,18 +39,18 @@ const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState
 ): ViewTemplate => html`
-    <nimble-anchor-tabs activeid="tab1" style="padding: 15px;">
+    <${anchorTabsTag} activeid="tab1" style="padding: 15px;">
         ${when(() => toolbar, html`
-            <nimble-tabs-toolbar>
-                <nimble-button appearance="ghost">Toolbar Button</nimble-button>
-            </nimble-tabs-toolbar>
+            <${tabsToolbarTag}>
+                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+            </${tabsToolbarTag}>
         `)}
-        <nimble-anchor-tab id="tab1">Tab One</nimble-anchor-tab>
-        <nimble-anchor-tab ?disabled="${() => disabled}">
+        <${anchorTabTag} id="tab1">Tab One</${anchorTabTag}>
+        <${anchorTabTag} ?disabled="${() => disabled}">
             Tab Two ${() => disabledName}
-        </nimble-anchor-tab>
-        <nimble-anchor-tab hidden>Tab Three</nimble-anchor-tab>
-    </nimble-anchor-tabs>
+        </${anchorTabTag}>
+        <${anchorTabTag} hidden>Tab Three</${anchorTabTag}>
+    </${anchorTabsTag}>
 `;
 
 export const anchorTabsThemeMatrix: Story = createMatrixThemeStory(
@@ -56,20 +59,20 @@ export const anchorTabsThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenTabs: Story = createStory(
     hiddenWrapper(
-        html`<nimble-anchor-tabs hidden>
-            <nimble-anchor-tab>Tab One</nimble-anchor-tab>
-        </nimble-anchor-tabs>`
+        html`<${anchorTabsTag} hidden>
+            <${anchorTabTag}>Tab One</${anchorTabTag}>
+        </${anchorTabsTag}>`
     )
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <nimble-anchor-tabs>
+            <${anchorTabsTag}>
                 Inner text
-                <nimble-tabs-toolbar>Tabs toolbar</nimble-tabs-toolbar>
-                <nimble-anchor-tab>Tab</nimble-anchor-tab>
-            </nimble-anchor-tabs>
+                <${tabsToolbarTag}>Tabs toolbar</${tabsToolbarTag}>
+                <${anchorTabTag}>Tab</${anchorTabTag}>
+            </${anchorTabsTag}>
         `
     )
 );

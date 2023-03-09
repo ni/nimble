@@ -37,3 +37,4 @@ const nimbleAnchorTab = AnchorTab.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTab());
+export const anchorTabTag = DesignSystem.tagFor(AnchorTab);

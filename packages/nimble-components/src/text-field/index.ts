@@ -69,3 +69,4 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextField());
+export const textFieldTag = DesignSystem.tagFor(TextField);

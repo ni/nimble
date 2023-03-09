@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 01 Mar 2023 18:28:57 GMT",
+      "tag": "@ni/nimble-tokens_v4.7.1",
+      "version": "4.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c",
+            "comment": "Created fallback `@font-face` definitions for local fonts to more closely match the design system fonts. These fallbacks can be used to reduce font swap jitter on initial page load."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Feb 2023 16:15:37 GMT",
       "tag": "@ni/nimble-tokens_v4.7.0",
       "version": "4.7.0",

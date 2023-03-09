@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { TableColumnTextCellRecord, TableColumnTextColumnConfig } from '.';
-import type { TableCellState } from '../../table/types';
+import type { TableCellState } from '../base/types';
 
 export const cellTemplate = html<
 TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>

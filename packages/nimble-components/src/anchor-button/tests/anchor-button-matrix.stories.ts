@@ -17,7 +17,9 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
-import '../../all-components';
+import { anchorButtonTag } from '..';
+import { iconLinkTag } from '../../icons/link';
+import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Button',
@@ -60,17 +62,17 @@ const component = (
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-anchor-button
+    <${anchorButtonTag}
         href="https://nimble.ni.dev"
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-link slot="start"></nimble-icon-link>`)}
+            ${when(() => iconVisible, html`<${iconLinkTag} slot="start"></${iconLinkTag}>`)}
             ${() => `${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-right slot="end"></nimble-icon-arrow-expander-right>`)}
-    </nimble-anchor-button>
+            ${when(() => endIconVisible, html`<${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>`)}
+    </${anchorButtonTag}>
 `;
 
 export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
@@ -84,14 +86,14 @@ export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenAnchorButton: Story = createStory(
     hiddenWrapper(
-        html`<nimble-anchor-button hidden
-            >Hidden Anchor Button</nimble-anchor-button
+        html`<${anchorButtonTag} hidden
+            >Hidden Anchor Button</${anchorButtonTag}
         >`
     )
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<nimble-anchor-button>Anchor Button</nimble-anchor-button>`
+        html`<${anchorButtonTag}>Anchor Button</${anchorButtonTag}>`
     )
 );

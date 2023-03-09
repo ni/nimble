@@ -10,7 +10,6 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import '../../all-components';
 import {
     disabledStates,
     DisabledState,
@@ -24,6 +23,8 @@ import {
     controlLabelFontColor,
     standardPadding
 } from '../../theme-provider/design-tokens';
+import { comboboxTag } from '..';
+import { listOptionTag } from '../../list-option';
 
 const valueStates = [
     ['No Value', undefined, 'placeholder'],
@@ -73,7 +74,7 @@ const component = (
             ${() => errorName}
             ${() => valueName}
         </label>
-        <nimble-combobox 
+        <${comboboxTag} 
             ?disabled="${() => disabled}"
             appearance="${() => appearance}"
             ?error-visible="${() => errorVisible}"
@@ -81,11 +82,11 @@ const component = (
             value="${() => value}"
             placeholder="${() => placeholder}"
         >
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-            <nimble-list-option value="3">Option 3</nimble-list-option>
-            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-        </nimble-combobox>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+            <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        </${comboboxTag}>
     </div>
 `;
 
@@ -100,15 +101,15 @@ export const comboboxThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenCombobox: Story = createStory(
     hiddenWrapper(
-        html`<nimble-combobox hidden>
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-        </nimble-combobox>`
+        html`<${comboboxTag} hidden>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        </${comboboxTag}>`
     )
 );
 
 export const blankListOption: Story = createStory(
-    html`<nimble-combobox open>
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option></nimble-list-option>
-    </nimble-combobox>`
+    html`<${comboboxTag} open>
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag}></${listOptionTag}>
+    </${comboboxTag}>`
 );

@@ -17,7 +17,6 @@ import {
     errorStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import {
@@ -25,6 +24,8 @@ import {
     controlLabelFontColor,
     standardPadding
 } from '../../theme-provider/design-tokens';
+import { selectTag } from '..';
+import { listOptionTag } from '../../list-option';
 
 const metadata: Meta = {
     title: 'Tests/Select',
@@ -60,17 +61,17 @@ const component = (
         color: var(${controlLabelFontColor.cssCustomProperty});"
     >
         <label>${() => errorName} ${() => disabledName} ${() => appearanceName}</label>
-        <nimble-select
+        <${selectTag}
             ?error-visible="${() => errorVisible}"
             error-text="${() => errorText}"
             ?disabled="${() => disabled}"
             appearance="${() => appearance}"
         >
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-            <nimble-list-option value="3">Option 3</nimble-list-option>
-            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-        </nimble-select>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+            <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        </${selectTag}>
     </div>
 `;
 
@@ -80,26 +81,26 @@ export const selectThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenSelect: Story = createStory(
     hiddenWrapper(
-        html`<nimble-select hidden>
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-        </nimble-select>`
+        html`<${selectTag} hidden>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        </${selectTag}>`
     )
 );
 
 export const blankListOption: Story = createStory(
-    html`<nimble-select open>
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option></nimble-list-option>
-    </nimble-select>`
+    html`<${selectTag} open>
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag}></${listOptionTag}>
+    </${selectTag}>`
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <nimble-select>
+            <${selectTag}>
                 Inner text
-                <nimble-list-option> Nimble select item </nimble-list-option>
-            </nimble-select>
+                <${listOptionTag}> Nimble select item </${listOptionTag}>
+            </${selectTag}>
         `
     )
 );

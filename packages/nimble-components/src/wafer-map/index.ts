@@ -12,6 +12,7 @@ import { DataManager } from './modules/data-manager';
 import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
+    HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -65,12 +66,12 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly zoomContainer!: HTMLElement;
+    public canvasContext!: CanvasRenderingContext2D;
 
     /**
      * @internal
      */
-    public readonly rect!: HTMLElement;
+    public readonly zoomContainer!: HTMLElement;
 
     /**
      * @internal
@@ -101,6 +102,31 @@ export class WaferMap extends FoundationElement {
      */
     @observable public transform: ZoomTransform = zoomIdentity;
 
+    /**
+     * @internal
+     */
+    @observable public hoverTransform = '';
+
+    /**
+     * @internal
+     */
+    @observable public hoverOpacity: HoverDieOpacity = HoverDieOpacity.hide;
+
+    /**
+     * @internal
+     */
+    @observable public hoverWidth = 0;
+
+    /**
+     * @internal
+     */
+    @observable public hoverHeight = 0;
+
+    /**
+     * @internal
+     */
+    @observable public hoverDie: WaferMapDie | undefined;
+
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
     @observable public colorScale: WaferMapColorScale = {
@@ -113,6 +139,9 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.canvasContext = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        })!;
         this.resizeObserver = this.createResizeObserver();
     }
 
@@ -140,6 +169,13 @@ export class WaferMap extends FoundationElement {
         }
     }
 
+    private queueRenderHover(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        DOM.queueUpdate(() => this.renderer?.renderHover());
+    }
+
     private initializeInternalModules(): void {
         this.eventCoordinator?.detachEvents();
         this.dataManager = new DataManager(this);
@@ -164,10 +200,6 @@ export class WaferMap extends FoundationElement {
         resizeObserver.observe(this);
         return resizeObserver;
     }
-
-    private readonly emitDieSelected = (die: WaferMapDie): void => {
-        this.$emit('die-selected', { detail: { die } });
-    };
 
     private quadrantChanged(): void {
         this.queueRender();
@@ -216,6 +248,11 @@ export class WaferMap extends FoundationElement {
     private canvasHeightChanged(): void {
         this.queueRender();
     }
+
+    private hoverDieChanged(): void {
+        this.$emit('die-hover', { currentDie: this.hoverDie });
+        this.queueRenderHover();
+    }
 }
 
 const nimbleWaferMap = WaferMap.compose({
@@ -225,3 +262,4 @@ const nimbleWaferMap = WaferMap.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());
+export const waferMapTag = DesignSystem.tagFor(WaferMap);

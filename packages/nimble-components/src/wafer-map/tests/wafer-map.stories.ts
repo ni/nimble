@@ -2,8 +2,6 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { bodyFont } from '../../theme-provider/design-tokens';
-
-import '../../all-components';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
@@ -17,6 +15,7 @@ import {
     wafermapDieSets,
     waferMapColorScaleSets
 } from './sets';
+import { waferMapTag } from '..';
 
 interface WaferMapArgs {
     colorScale: WaferMapColorScale;
@@ -28,6 +27,7 @@ interface WaferMapArgs {
     maxCharacters: number;
     orientation: WaferMapOrientation;
     quadrant: WaferMapQuadrant;
+    dieHover: unknown;
 }
 
 const getDiesSet = (
@@ -90,7 +90,7 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         actions: {
-            handles: ['click', 'die-selected']
+            handles: ['click', 'die-hover']
         }
     },
     render: createUserSelectedThemeStory(html`
@@ -98,7 +98,7 @@ const metadata: Meta<WaferMapArgs> = {
             WARNING - The wafermap is still in development and considered
             experimental. It is not recommended for application use.
         </div>
-        <nimble-wafer-map
+        <${waferMapTag}
             id="wafer-map"
             colors-scale-mode="${x => x.colorScaleMode}"
             ?die-labels-hidden="${x => x.dieLabelsHidden}"
@@ -113,7 +113,7 @@ const metadata: Meta<WaferMapArgs> = {
         highLightedValueSets
     )}"
         >
-        </nimble-wafer-map>
+        </${waferMapTag}>
         <style class="code-hide">
             #usage-warning {
                 color: red;
@@ -256,6 +256,11 @@ const metadata: Meta<WaferMapArgs> = {
                     [WaferMapQuadrant.topRight]: 'top-right'
                 }
             }
+        },
+        dieHover: {
+            name: 'die-hover',
+            description:
+                'The event is fired whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
         }
     }
 };

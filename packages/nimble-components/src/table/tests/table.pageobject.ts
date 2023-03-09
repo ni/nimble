@@ -41,7 +41,20 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        return this.getHeaderContentElement(headers[columnIndex]!);
+        return this.getHeaderContentElement(headers.item(columnIndex));
+    }
+
+    public getHeaderElement(columnIndex: number): TableHeader {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+            'nimble-table-header'
+        )!;
+        if (columnIndex >= headers.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return headers.item(columnIndex);
     }
 
     public getRenderedRowCount(): number {
@@ -113,6 +126,21 @@ export class TablePageObject<T extends TableRecord> {
             .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
     }
 
+    public async clickCellActionMenu(
+        rowIndex: number,
+        columnIndex: number
+    ): Promise<void> {
+        this.setRowHoverState(rowIndex, true);
+        await waitForUpdatesAsync();
+
+        const menuButton = this.getCellActionMenu(rowIndex, columnIndex);
+        if (!menuButton) {
+            throw new Error('Cannot click on a non-visible action menu');
+        }
+
+        menuButton.toggleButton!.control.click();
+    }
+
     public isCellActionMenuVisible(
         rowIndex: number,
         columnIndex: number
@@ -133,10 +161,18 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
+        const cells = rows
+            .item(rowIndex)
+            .shadowRoot!.querySelectorAll('nimble-table-cell');
         if (hover) {
-            rows.item(rowIndex).classList.add('hover');
+            cells.forEach(cell => cell.style.setProperty(
+                '--ni-private-table-cell-action-menu-display',
+                'block'
+            ));
         } else {
-            rows.item(rowIndex).classList.remove('hover');
+            cells.forEach(cell => cell.style.removeProperty(
+                '--ni-private-table-cell-action-menu-display'
+            ));
         }
     }
 
