@@ -116,26 +116,6 @@ export class TablePageObject<T extends TableRecord> {
         return tableRowContainer!.scrollWidth;
     }
 
-    public getColumnFractionalWidth(columnIndex: number): number {
-        if (columnIndex >= this.tableElement.columns.length) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        return this.tableElement.columns[columnIndex]!.currentFractionalWidth;
-    }
-
-    public getColumnPixelWidth(columnIndex: number): number | undefined {
-        if (columnIndex >= this.tableElement.columns.length) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        return this.tableElement.columns[columnIndex]!.currentPixelWidth;
-    }
-
     public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
         if (columnIndex >= this.tableElement.columns.length) {
             throw new Error(
@@ -159,43 +139,6 @@ export class TablePageObject<T extends TableRecord> {
 
         const columnCell = cells![columnIndex]!;
         return columnCell.getBoundingClientRect().width;
-    }
-
-    public setColumnFractionalWidth(
-        columnIndex: number,
-        fractionalWidth: number
-    ): void {
-        if (columnIndex >= this.tableElement.columns.length) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        this.tableElement.columns[columnIndex]!.internalPixelWidth = undefined;
-        this.tableElement.columns[columnIndex]!.internalFractionalWidth = fractionalWidth;
-    }
-
-    public setColumnPixelWidth(columnIndex: number, pixelWidth: number): void {
-        if (columnIndex >= this.tableElement.columns.length) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        this.tableElement.columns[columnIndex]!.internalPixelWidth = pixelWidth;
-    }
-
-    public setColumnMinPixelWidth(
-        columnIndex: number,
-        minPixelWidth: number
-    ): void {
-        if (columnIndex >= this.tableElement.columns.length) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        this.tableElement.columns[columnIndex]!.internalMinPixelWidth = minPixelWidth;
     }
 
     public async scrollToLastRowAsync(): Promise<void> {

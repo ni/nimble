@@ -39,11 +39,14 @@ export const styles = css`
         position: absolute;
         top: 0px;
         width: 100%;
+        height: var(--ni-private-table-scroll-height);
     }
 
     .table-row-container {
         width: 100%;
         position: relative;
+        grid-template-columns: var(--ni-private-table-row-grid-columns);
+        top: var(--ni-private-table-row-container-top);
     }
 
     .header-container {
@@ -57,6 +60,12 @@ export const styles = css`
         position: relative;
         width: fit-content;
         min-width: 100%;
+        grid-template-columns: var(--ni-private-table-header-row-grid-columns);
+        left: var(--ni-private-table-scroll-x);
+    }
+
+    .header-scrollbar-spacer {
+        width: var(--ni-private-header-scrollbar-spacer-width);
     }
 
     .header {
