@@ -13,7 +13,7 @@ export const template = html<TableCell>`
     <template role="cell">
         ${when(x => x.cellViewTag, x => {
         const cellViewTag = x.cellViewTag!;
-        return html<TableCell>`<${cellViewTag}}
+        return html<TableCell>`<${cellViewTag}
                     :cellRecord="${y => y.cellState?.cellRecord}"
                     :columnConfig="${y => y.cellState?.columnConfig}"
                 >
