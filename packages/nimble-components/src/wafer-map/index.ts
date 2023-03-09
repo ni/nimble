@@ -157,6 +157,7 @@ export class WaferMap extends FoundationElement {
         this.renderQueued = false;
         this.initializeInternalModules();
         this.renderer?.drawWafer();
+        this.renderer?.renderHover();
     }
 
     private queueRender(): void {
