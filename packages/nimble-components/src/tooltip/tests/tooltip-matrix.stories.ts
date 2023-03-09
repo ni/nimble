@@ -63,7 +63,7 @@ const component = (
         }
 
         .container {
-            padding: 200px;
+            padding: 10px 200px 150px 200px;
             width: 100px;
             height: 50px;
         }
@@ -72,6 +72,8 @@ const component = (
             border: 1px solid var(${borderColor.cssCustomProperty});
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
+            width: 80px;
+            height: 60px;
         }
     </style>
 
