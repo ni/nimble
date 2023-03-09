@@ -29,7 +29,6 @@ AnchorOptions
             type="${x => x.type}"
             @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
             @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
-            @focusout="${(x, c) => x.focusOutHandler(c.event)}"
         >
             ${startSlotTemplate(context, definition)}
             <span class="content" part="content">
