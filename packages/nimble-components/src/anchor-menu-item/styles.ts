@@ -19,7 +19,7 @@ export const styles = css`
         font: ${bodyFont};
     }
 
-    :host(:focus-within) {
+    :host(:focus-within:not(:active)) {
         outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
     }
