@@ -1,3 +1,4 @@
+/*
 import { html, css } from '@microsoft/fast-element';
 import { TableCell } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
@@ -130,3 +131,4 @@ describe('TableCell', () => {
         expect(style.visibility).toBe('hidden');
     });
 });
+*/

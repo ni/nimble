@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableStringField } from '../../table/types';
@@ -5,8 +6,7 @@ import { TableColumnSortOperation } from '../base/types';
 import { TableColumn } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
-import { cellStyles } from './styles';
-import { cellTemplate } from './template';
+import { textCellElementTag } from './cell-element';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {
@@ -22,10 +22,7 @@ declare global {
 /**
  * The table column for displaying strings.
  */
-export class TableColumnText extends TableColumn<
-TableColumnTextCellRecord,
-TableColumnTextColumnConfig
-> {
+export class TableColumnText extends TableColumn<TableColumnTextColumnConfig> {
     public cellRecordFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
@@ -34,9 +31,7 @@ TableColumnTextColumnConfig
     @attr
     public placeholder?: string;
 
-    public readonly cellStyles = cellStyles;
-
-    public readonly cellTemplate = cellTemplate;
+    public readonly cellViewTag = textCellElementTag;
 
     public constructor() {
         super();

@@ -1,15 +1,18 @@
-import { html } from '@microsoft/fast-element';
-import type { TableColumnTextCellRecord, TableColumnTextColumnConfig } from '.';
-import type { TableCellState } from '../base/types';
+import { html, ref } from '@microsoft/fast-element';
+import type { TextCellElement } from './cell-element';
 
-export const cellTemplate = html<
-TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
->`
+export const cellTemplate = html<TextCellElement>`
     <span
+        ${ref('textSpan')}
         class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
+        @mouseover="${x => {
+        x.isHoveredWithOverflow = !!x.content && x.textSpan.offsetWidth < x.textSpan.scrollWidth;
+    }}"
+        @mouseout="${x => {
+        x.isHoveredWithOverflow = false;
+    }}"
+        title=${x => (x.isHoveredWithOverflow ? x.content : null)}
     >
-        ${x => (typeof x.cellRecord.value === 'string'
-        ? x.cellRecord.value
-        : x.columnConfig.placeholder)}
+        ${x => x.content}
     </span>
 `;

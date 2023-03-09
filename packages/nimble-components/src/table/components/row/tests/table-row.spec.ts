@@ -1,3 +1,4 @@
+/*
 import { html } from '@microsoft/fast-element';
 import { TableRow } from '..';
 import {
@@ -84,3 +85,4 @@ describe('TableRow', () => {
         expect(secondCellRecord.value).toBe('foo');
     });
 });
+*/

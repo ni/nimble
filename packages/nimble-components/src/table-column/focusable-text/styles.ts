@@ -20,6 +20,11 @@ export const cellStyles = css`
         text-overflow: ellipsis;
     }
 
+    span:focus {
+        border: 2px solid green;
+        padding: 2px;
+    }
+
     .placeholder {
         color: ${controlLabelFontColor};
     }

@@ -181,6 +181,9 @@ export class Table<
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
         this.$emit('action-menu-toggle', event.detail);
+        if (!event.detail.newState) {
+            this.openActionMenuRecordId = undefined;
+        }
     }
 
     protected childItemsChanged(): void {

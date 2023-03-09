@@ -10,6 +10,7 @@ import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { tableColumnTextTag } from '../../table-column/text';
+import { tableColumnFocusableTextTag } from '../../table-column/focusable-text';
 
 interface TableArgs {
     data: ExampleDataType;
@@ -174,14 +175,14 @@ const metadata: Meta<TableArgs> = {
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
-            <${tableColumnTextTag}
+            <${tableColumnFocusableTextTag}
                 column-id="last-name-column"
                 field-name="lastName" placeholder="no value"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
                 sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
             >
-                Last Name
-            </${tableColumnTextTag}>
+                Last Name (click cell text to focus)
+            </${tableColumnFocusableTextTag}>
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
                 field-name="favoriteColor" placeholder="no value"

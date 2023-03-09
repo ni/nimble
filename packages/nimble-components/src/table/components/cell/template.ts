@@ -11,10 +11,17 @@ import {
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell">
-        <div ${ref('cellContentContainer')} class="cell-content-container"></div>
-
+        ${when(x => x.cellViewTag, x => {
+        const cellViewTag = x.cellViewTag!;
+        return html<TableCell>`<${cellViewTag}}
+                    :cellRecord="${y => y.cellState?.cellRecord}"
+                    :columnConfig="${y => y.cellState?.columnConfig}"
+                >
+                </${cellViewTag}>`;
+    })}
         ${when(x => x.hasActionMenu, html<TableCell>`
             <${DesignSystem.tagFor(MenuButton)}
+                ${ref('actionMenuButton')}
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"

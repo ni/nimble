@@ -1,24 +1,17 @@
 import {
     attr,
-    ElementStyles,
     nullableNumberConverter,
-    observable,
-    ViewTemplate
+    observable
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { TableColumnSortDirection, TableFieldName } from '../../table/types';
-import {
-    TableCellRecord,
-    TableCellState,
-    TableColumnSortOperation
-} from './types';
+import { TableColumnSortOperation } from './types';
 
 /**
  * The base class for table columns
  */
 export abstract class TableColumn<
-    TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > extends FoundationElement {
     @attr({ attribute: 'column-id' })
@@ -42,17 +35,11 @@ export abstract class TableColumn<
     /**
      * @internal
      *
-     * The template to use to render the cell content for the column
+     * The tag (element name) of the custom element that renders the cell content for the column.
+     * Should derive from BaseCellElement<TCellRecord, TColumnConfig>.
      */
-    // prettier-ignore
-    public abstract readonly cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
-
-    /**
-     * @internal
-     *
-     * The style to apply to the cellTemplate
-     */
-    public abstract readonly cellStyles?: ElementStyles;
+    @observable
+    public abstract readonly cellViewTag: string;
 
     /**
      * @internal
