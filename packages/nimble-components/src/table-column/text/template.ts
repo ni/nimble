@@ -17,6 +17,9 @@ const setTitleWhenOverflow = (span: HTMLElement, title: string): void => {
         span.setAttribute('title', title);
     }
 };
+const removeTitle = (span: HTMLElement): void => {
+    span.removeAttribute('title');
+};
 export const cellTemplate = html<
 TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
 >`
@@ -26,7 +29,7 @@ TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>
         c.event.target as HTMLElement,
         getCellContent(x)
     )}"
-        @mouseout="${(_x, c) => (c.event.target as HTMLElement).removeAttribute('title')}"
+        @mouseout="${(_x, c) => removeTitle(c.event.target as HTMLElement)}"
     >
         ${x => getCellContent(x)}
     </span>
