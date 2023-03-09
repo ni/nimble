@@ -3,7 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
-import { fractionalWidthColumn } from '../mixins/fractional-width-column';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
@@ -58,8 +58,9 @@ TableColumnTextColumnConfig
 /**
  * The table column for displaying strings.
  */
-// prettier-ignore
-export class TableColumnText extends fractionalWidthColumn(TableColumnTextBase) {}
+export class TableColumnText extends mixinFractionalWidthColumnAPI(
+    TableColumnTextBase
+) {}
 
 const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text',

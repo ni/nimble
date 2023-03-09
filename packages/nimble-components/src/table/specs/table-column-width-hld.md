@@ -99,7 +99,7 @@ We can help facilitate proper implementation for concrete column types by provid
 The following pattern is modeled after Typescript's documented [Constrained mixin pattern](https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins), combining patterns in place in FAST's [`FormAssociated` mixin](https://github.com/microsoft/fast/blob/f8dde59eee21a1152263447d22a76593ee5ed9e5/packages/web-components/fast-foundation/src/form-associated/form-associated.ts#L206).
 
 ```
-export function fractionalWidthColumn<TBase extends abstract new (...args: any[]) => TableColumn>(base: TBase): TBase {
+export function mixinFractionalWidthColumnAPI<TBase extends abstract new (...args: any[]) => TableColumn>(base: TBase): TBase {
     abstract class FractionalWidthColumn extends base {
         public fractionalWidth = 1: number | null;
 
@@ -138,7 +138,7 @@ TableColumnTextColumnConfig> {
     ...
 }
 
-export class TableColumnText extends fractionalWidthColumn(TableColumnTextBase) {}
+export class TableColumnText extends mixinFractionalWidthColumnAPI(TableColumnTextBase) {}
 ```
 
 The mixin pattern is appropriate for columns since there will be columns that have no fundamental need for various sizing APIs, and thus not add the mixin. Additionally, the mixin is preferred over interfaces, in that the implementation of the public APIs _must_ update the `TableColumn` properties, which an interface can't enforce.

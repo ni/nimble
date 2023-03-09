@@ -3,7 +3,7 @@ import { ViewTemplate, ElementStyles, html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
 import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
-import { fractionalWidthColumn } from '../fractional-width-column';
+import { mixinFractionalWidthColumnAPI } from '../fractional-width-column';
 
 class TestTableColumnBase extends TableColumn {
     public cellTemplate: ViewTemplate<TableCellState> = html``;
@@ -11,7 +11,9 @@ class TestTableColumnBase extends TableColumn {
     public cellRecordFieldNames: readonly string[] = [];
 }
 
-class TestTableColumn extends fractionalWidthColumn(TestTableColumnBase) {}
+class TestTableColumn extends mixinFractionalWidthColumnAPI(
+    TestTableColumnBase
+) {}
 
 const composedTestTableColumn = TestTableColumn.compose({
     baseName: 'fractional-width-test-table-column'

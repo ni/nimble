@@ -148,13 +148,16 @@ export class Table<
         super.connectedCallback();
         this.virtualizer.connectedCallback();
         this.validateAndObserveColumns();
-        this.viewport.addEventListener('scroll', this.onViewPortScroll);
+        this.viewport.addEventListener('scroll', this.onViewPortScroll, {
+            passive: true
+        });
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.removeColumnObservers();
+        this.viewport.removeEventListener('scroll', this.onViewPortScroll);
     }
 
     public checkValidity(): boolean {

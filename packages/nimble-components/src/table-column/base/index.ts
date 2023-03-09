@@ -9,12 +9,12 @@ import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { TableColumnSortDirection, TableFieldName } from '../../table/types';
 import {
+    defaultFractionalWidth,
+    defaultMinPixelWidth,
     TableCellRecord,
     TableCellState,
     TableColumnSortOperation
 } from './types';
-
-const defaultMinPixelWidth = 88;
 
 /**
  * The base class for table columns
@@ -55,7 +55,7 @@ export abstract class TableColumn<
      * width of a row.
      */
     @observable
-    public currentFractionalWidth = 1;
+    public currentFractionalWidth = defaultFractionalWidth;
 
     /**
      * @internal
@@ -70,7 +70,7 @@ export abstract class TableColumn<
      * width of a row. Sets currentFractionalWidth when changed.
      */
     @observable
-    public internalFractionalWidth = 1;
+    public internalFractionalWidth = defaultFractionalWidth;
 
     /**
      * @internal
@@ -141,8 +141,6 @@ export abstract class TableColumn<
      * Properties prefixed with `internal` are for internal table-use only.
      */
     public readonly internalUniqueId: string;
-
-    public defaultMinPixelWidth = defaultMinPixelWidth;
 
     public constructor() {
         super();

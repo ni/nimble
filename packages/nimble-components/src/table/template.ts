@@ -20,12 +20,15 @@ import {
 // prettier-ignore
 export const template = html<Table>`
     <template role="table" ${children({ property: 'childItems', filter: elements() })}>
-        <div class="table-container">
+        <div class="table-container" style="
+            --ni-private-table-scroll-x: -${x => x.scrollX}px;
+            --ni-private-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
+            --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
+            --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
+            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}
+            ">
             <div role="rowgroup" class="header-container">
-                <div class="header-row" role="row" style="
-                    --ni-private-table-header-row-grid-columns: ${x => x.rowGridColumns} auto; 
-                    --ni-private-table-scroll-x: -${x => x.scrollX}px;
-                    ">
+                <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
                             <${DesignSystem.tagFor(TableHeader)}
@@ -37,21 +40,13 @@ export const template = html<Table>`
                             </${DesignSystem.tagFor(TableHeader)}>
                         `)}
                     `)}
-                    <div class="header-scrollbar-spacer" style="
-                        --ni-private-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
-                        "></div>
+                    <div class="header-scrollbar-spacer"></div>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
-                <div class="table-scroll" style="
-                    --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
-                    "></div>
+                <div class="table-scroll"></div>
                 <div class="table-row-container" 
-                     role="rowgroup" 
-                     style="
-                        --ni-private-table-row-container-top: ${x => `${x.virtualizer.rowContainerYOffset}px; 
-                        --ni-private-table-row-grid-columns: ${x.rowGridColumns ?? ''}`}
-                        ">
+                     role="rowgroup">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}

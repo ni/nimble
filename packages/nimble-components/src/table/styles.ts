@@ -60,7 +60,7 @@ export const styles = css`
         position: relative;
         width: fit-content;
         min-width: 100%;
-        grid-template-columns: var(--ni-private-table-header-row-grid-columns);
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
         left: var(--ni-private-table-scroll-x);
     }
 
