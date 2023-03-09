@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Set title attribute in text column",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
