@@ -72,7 +72,7 @@ const component = (
             <${menuItemTag}>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Item 3</${menuItemTag}>
             <${menuItemTag} hidden>Item 4</${menuItemTag}>
             <${anchorMenuItemTag} href='#'>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item</${anchorMenuItemTag}>
-            <${anchorMenuItemTag} disabled>Anchor item no href</${anchorMenuItemTag}>
+            <${anchorMenuItemTag}>Anchor item no href</${anchorMenuItemTag}>
             <${anchorMenuItemTag} href='#' disabled>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item disabled</${anchorMenuItemTag}>
             <${anchorMenuItemTag} href='#' hidden>Anchor item hidden</${anchorMenuItemTag}>
         </nimble-menu>
