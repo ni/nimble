@@ -31,7 +31,7 @@ describe('Anchor Menu Item', () => {
 
     it('should set the role to menuitem', async () => {
         await connect();
-        expect(element.role).toBe('menuitem');
+        expect(element.getAttribute('role')).toBe('menuitem');
     });
 
     it('should set aria-disabled when disabled is set', async () => {
