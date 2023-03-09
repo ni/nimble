@@ -44,10 +44,6 @@ describe('Wafermap Computations module', () => {
             });
         });
 
-        it('should have expected radius', () => {
-            expect(computationsModule.radius).toEqual(46);
-        });
-
         it('should have expected margin', () => {
             expect(computationsModule.margin).toEqual(expectedMargin);
         });
@@ -95,11 +91,6 @@ describe('Wafermap Computations module', () => {
                 height: 16
             });
         });
-
-        it('should have adjusted radius', () => {
-            expect(computationsModule.radius).toEqual(46);
-        });
-
         it('should have adjusted margin', () => {
             expect(computationsModule.margin).toEqual({
                 top: 4,

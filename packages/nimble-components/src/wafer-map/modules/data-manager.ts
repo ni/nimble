@@ -22,10 +22,6 @@ export class DataManager {
         return this.computations.dieDimensions;
     }
 
-    public get radius(): number {
-        return this.computations.radius;
-    }
-
     public get margin(): Margin {
         return this.computations.margin;
     }

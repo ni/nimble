@@ -19,7 +19,6 @@ interface GridDimensions {
 export class Computations {
     public readonly containerDimensions: Dimensions;
     public readonly dieDimensions: Dimensions;
-    public readonly radius: number;
     public readonly margin: Margin;
 
     public readonly horizontalScale: ScaleBand<number>;
@@ -36,7 +35,6 @@ export class Computations {
             width: wafermap.canvasWidth,
             height: wafermap.canvasHeight
         };
-        const gridDimensions = this.calculateGridDimensions(wafermap.dies);
         const canvasDiameter = Math.min(
             canvasDimensions.width,
             canvasDimensions.height
@@ -54,6 +52,7 @@ export class Computations {
             left: canvasDiameter * this.baseMarginPercentage
         };
         this.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
+
         this.containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
             this.margin
@@ -62,6 +61,8 @@ export class Computations {
             this.containerDimensions.width,
             this.containerDimensions.height
         );
+
+        const gridDimensions = this.calculateGridDimensions(wafermap.dies);
         // this scale is used for positioning the dies on the canvas
         this.horizontalScale = this.createHorizontalScale(
             wafermap.quadrant,
@@ -88,7 +89,6 @@ export class Computations {
             width: this.horizontalScale.bandwidth(),
             height: this.verticalScale.bandwidth()
         };
-        this.radius = containerDiameter / 2;
     }
 
     private calculateGridDimensions(

@@ -70,10 +70,6 @@ describe('Wafermap Data Manager', () => {
         });
     });
 
-    it('computes the correct radius', () => {
-        expect(dataManagerModule.radius).toEqual(46);
-    });
-
     it('computes the correct dieDimensions', () => {
         const computedDimensions = {
             width: Math.ceil(dataManagerModule.dieDimensions.width),
