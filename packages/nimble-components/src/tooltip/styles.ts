@@ -30,7 +30,7 @@ export const styles = css`
         color: ${tooltipCaptionFontColor};
         text-align: left;
         --ni-private-tooltip-border-color: ${hexToRgbaCssColor(Black91, 0.3)};
-        --ni-private-tooltip-background-color: ${Black15};
+        --ni-private-tooltip-background-color: ${White};
     }
 
     .tooltip {
@@ -69,12 +69,10 @@ export const styles = css`
         css`
             :host([severity='error']) {
                 --ni-private-tooltip-border-color: ${BannerFail100DarkUi};
-                --ni-private-tooltip-background-color: ${White};
             }
 
             :host([severity='information']) {
                 --ni-private-tooltip-border-color: ${Information100LightUi};
-                --ni-private-tooltip-background-color: ${White};
             }
         `
     ),
