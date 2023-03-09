@@ -1,6 +1,15 @@
 /* eslint-disable max-classes-per-file */
-import { ViewTemplate, ElementStyles, html, customElement } from '@microsoft/fast-element';
-import { fixture, Fixture, uniqueElementName } from '../../../utilities/tests/fixture';
+import {
+    ViewTemplate,
+    ElementStyles,
+    html,
+    customElement
+} from '@microsoft/fast-element';
+import {
+    fixture,
+    Fixture,
+    uniqueElementName
+} from '../../../utilities/tests/fixture';
 import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinFractionalWidthColumnAPI } from '../fractional-width-column';
@@ -15,7 +24,9 @@ const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
-class TestTableColumn extends mixinFractionalWidthColumnAPI(TestTableColumnBase) {}
+class TestTableColumn extends mixinFractionalWidthColumnAPI(
+        TestTableColumnBase
+    ) {}
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {

@@ -1,5 +1,14 @@
-import { ViewTemplate, ElementStyles, html, customElement } from '@microsoft/fast-element';
-import { fixture, Fixture, uniqueElementName } from '../../../utilities/tests/fixture';
+import {
+    ViewTemplate,
+    ElementStyles,
+    html,
+    customElement
+} from '@microsoft/fast-element';
+import {
+    fixture,
+    Fixture,
+    uniqueElementName
+} from '../../../utilities/tests/fixture';
 import type { TableCellState } from '../types';
 import { TableColumn } from '..';
 
