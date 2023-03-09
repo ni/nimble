@@ -15,6 +15,10 @@ import {
 export const styles = css`
     ${display('grid')}
 
+    :host {
+        font: ${bodyFont};
+    }
+
     :host(:focus-within) {
         outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
@@ -44,7 +48,6 @@ export const styles = css`
         color: ${bodyFontColor};
         fill: currentcolor;
         cursor: pointer;
-        font: ${bodyFont};
         text-decoration: none;
         outline: none;
     }
