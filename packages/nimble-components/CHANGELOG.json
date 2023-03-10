@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 10 Mar 2023 23:11:05 GMT",
+      "tag": "@ni/nimble-components_v18.6.4",
+      "version": "18.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "278811bfbe152b64978c9552de1a815bd015fcb1",
+            "comment": "Queue table changes and process them in a batch"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Mar 2023 22:17:50 GMT",
       "tag": "@ni/nimble-components_v18.6.3",
       "version": "18.6.3",

@@ -2,6 +2,29 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 10 Mar 2023 23:11:05 GMT",
+      "tag": "@ni/nimble-angular_v16.2.4",
+      "version": "16.2.4",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "278811bfbe152b64978c9552de1a815bd015fcb1",
+            "comment": "Timing update to table tests"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.6.4",
+            "commit": "278811bfbe152b64978c9552de1a815bd015fcb1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Mar 2023 22:17:50 GMT",
       "tag": "@ni/nimble-angular_v16.2.3",
       "version": "16.2.3",
