@@ -535,6 +535,6 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
     },
     args: {
         fieldName: 'firstName',
-        placeholderText: '<suck suck>'
+        placeholderText: '<pacifier noise>'
     }
 };
