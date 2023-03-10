@@ -479,7 +479,7 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.fractionalWidth).toBe(null);
         });
 
-        it('can be configured with property binding for minPixelWidth', () => {
+        it('can be configured with attribute binding for minPixelWidth', () => {
             expect(directive.minPixelWidth).toBe(40);
             expect(nativeElement.minPixelWidth).toBe(40);
 
