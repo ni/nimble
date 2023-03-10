@@ -284,16 +284,17 @@ export class Table<
     }
 
     private validate(): void {
+        this.validateWithData(this.table.options.data);
+    }
+
+    private validateWithData(data: TableRecord[]): void {
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
-        this.tableValidator.validateRecordIds(
-            this.table.options.data,
-            this.idFieldName
-        );
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
 
         this.canRenderRows = this.checkValidity();
     }
