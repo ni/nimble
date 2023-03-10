@@ -65,7 +65,7 @@ const overviewText = `This page contains information about configuring the colum
 See the **Table** story for information about configuring the table itself.`;
 
 const metadata: Meta<CommonTableArgs> = {
-    title: 'Table Columns',
+    title: 'Table/Column Configuration',
     decorators: [withXD],
     parameters: {
         docs: {
