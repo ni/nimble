@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 02 Mar 2023 18:38:23 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Mar 2023 22:36:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.6.1
+
+Thu, 09 Mar 2023 22:36:20 GMT
+
+### Patches
+
+- Set title attribute in text column ([ni/nimble@f7cb89f](https://github.com/ni/nimble/commit/f7cb89f7523890976b652940dac06f49aeb3017b))
 
 ## 18.6.0
 

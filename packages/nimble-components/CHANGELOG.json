@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 09 Mar 2023 22:36:20 GMT",
+      "tag": "@ni/nimble-components_v18.6.1",
+      "version": "18.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f7cb89f7523890976b652940dac06f49aeb3017b",
+            "comment": "Set title attribute in text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 03 Mar 2023 18:48:01 GMT",
       "tag": "@ni/nimble-components_v18.6.0",
       "version": "18.6.0",
