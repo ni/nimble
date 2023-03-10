@@ -49,7 +49,7 @@ We want to close the action menu via the associated `MenuButton`, which allows t
 In this case, `table.shadowRoot.activeElement` will be null (since the action menus are slotted in), but `document.activeElement` will be a Nimble `MenuItem`. (We can also doublecheck that `table.contains(document.activeElement)` before proceeding.)  
 We have a few options:
 
--   We can use `table.openActionMenuRecordId` to find the row with an open action menu (via `querySelector` as one option). `tableRow.currentActionMenuColumn` gives us the `TableColumn` with an open menu but no direct way to get to the associated cell (we may need to look at all cells in the row, and find the one with `cell.menuOpen` being `true).
+-   We can use `table.openActionMenuRecordId` to find the row with an open action menu (via `querySelector` as one option). `tableRow.currentActionMenuColumn` gives us the `TableColumn` with an open menu but no direct way to get to the associated cell (we may need to look at all cells in the row, and find the one with `cell.menuOpen` being `true`).
 -   From the MenuItem, we can walk up the `parentElement` hierarchy to get to the Nimble `Menu`. Then we can walk up the `assignedSlot` hierarchy until we get to the TableCell action menu slot (in which case `slot.parentElement` is a Nimble `TableCell`).
 
 Once we have a `TableCell`, we can get the `MenuButton` for the cell, and call `open = false` on it.
@@ -108,9 +108,12 @@ We could add CSS to our table text cells (`user-select: none`) to prevent text s
 
 We decided against this because there's valid use cases for copying text out of a table cell, and the selection+scrolling issue doesn't seem like a sufficient reason to disable selection entirely.
 
+### Providing a Default onBeforeBlur() Implementation
+
+We could add code in `BaseCellElement.onBeforeBlur()` to look for known Nimble control types in cells, and call the appropriate API on them, `blur()` or `open = false`.
+
+We decided against this idea. We think it's better for the column implementations to handle this, as they're the ones declaring the editable/blur-able controls in their templates.
+
 ## Open Issues
 
--   Decide between API Option 1 and Option 2 for blur-ing focused cell controls.
--   Should we have a default, generic implementation of `onBeforeFocusedCellRecycled`? (It would look for known Nimble control types in the cell, and call the appropriate API on them, `blur()` or `open = false`)
-    -   Current we **do not** plan to have a default implementation. We think it's better for the column implementations to handle this, as they're the ones declaring the editable/blur-able controls in their templates.
-    -   Action menus will be handled by the table, not column implementations.
+None
