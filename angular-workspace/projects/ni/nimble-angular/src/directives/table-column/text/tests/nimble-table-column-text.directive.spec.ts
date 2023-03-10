@@ -468,7 +468,7 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.fractionalWidth).toBe(1);
         });
 
-        it('can be configured with property binding for fractionalWidth set to null', () => {
+        it('can be configured with attribute binding for fractionalWidth set to null', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
 
