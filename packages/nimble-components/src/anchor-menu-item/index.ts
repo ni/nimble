@@ -17,6 +17,9 @@ declare global {
 
 /**
  * Types of anchor menu item column count.
+ * This is how many grid columns precede the menu item text.
+ * 1 corresponds to having space for an icon, 0 corresponds to the text being flush left.
+ * Users should not need to use this type. The menu sets startColumnCount on its items.
  * @public
  */
 export type AnchorMenuItemColumnCount = 0 | 1;
@@ -98,7 +101,8 @@ export const anchorMenuItemTag = DesignSystem.tagFor(AnchorMenuItem);
 // so we test for that.
 //
 // If/when we change FAST to test for the presence of `startColumnCount` instead
-// of using `instanceof MenuItem`, we can remove this workaround.
+// of using `instanceof MenuItem`, we can remove this workaround. Here is the
+// PR into FAST: https://github.com/microsoft/fast/pull/6667
 Object.defineProperty(FoundationMenuItem, Symbol.hasInstance, {
     value(instance: unknown) {
         return instance instanceof Object && 'startColumnCount' in instance;
