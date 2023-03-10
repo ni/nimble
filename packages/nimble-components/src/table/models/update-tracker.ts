@@ -15,6 +15,18 @@ interface RequiredUpdates extends BooleanCollection {
     actionMenuSlots: boolean;
 }
 
+const isColumnProperty = (
+    changedProperty: string,
+    ...args: (keyof TableColumn)[]
+): boolean => {
+    for (const arg of args) {
+        if (changedProperty === arg) {
+            return true;
+        }
+    }
+    return false;
+};
+
 /**
  * Helper class to track what updates are needed to the table based on configuration
  * changes.
@@ -75,24 +87,13 @@ export class UpdateTracker<TData extends TableRecord> {
     }
 
     public trackColumnPropertyChanged(changedColumnProperty: string): void {
-        if (this.isSameProperty(changedColumnProperty, 'columnId')) {
+        if (isColumnProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;
-        } else if (
-            this.isSameProperty(
-                changedColumnProperty,
-                'operandDataRecordFieldName'
-            )
-            || this.isSameProperty(changedColumnProperty, 'sortOperation')
-        ) {
+        } else if (isColumnProperty(changedColumnProperty, 'operandDataRecordFieldName', 'sortOperation')) {
             this.requiredUpdates.columnDefinition = true;
-        } else if (
-            this.isSameProperty(changedColumnProperty, 'sortIndex')
-            || this.isSameProperty(changedColumnProperty, 'sortDirection')
-        ) {
+        } else if (isColumnProperty(changedColumnProperty, 'sortIndex', 'sortDirection')) {
             this.requiredUpdates.columnSort = true;
-        } else if (
-            this.isSameProperty(changedColumnProperty, 'actionMenuSlot')
-        ) {
+        } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
         }
 
@@ -132,12 +133,5 @@ export class UpdateTracker<TData extends TableRecord> {
                 this.updateQueued = false;
             });
         }
-    }
-
-    private isSameProperty(
-        changedProperty: string,
-        columnProperty: keyof TableColumn
-    ): boolean {
-        return changedProperty === columnProperty;
     }
 }

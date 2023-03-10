@@ -190,10 +190,6 @@ export class Table<
         }
     }
 
-    protected childItemsChanged(): void {
-        void this.updateColumnsFromChildItems();
-    }
-
     protected idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -234,23 +230,15 @@ export class Table<
         }
     }
 
-    private validateColumnIds(): void {
-        this.tableValidator.validateColumnIds(
-            this.columns.map(x => x.columnId)
-        );
-    }
-
-    private validateColumnSortIndices(): void {
-        this.tableValidator.validateColumnSortIndices(
-            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
-        );
-    }
-
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
             x => x.sortDirection !== TableColumnSortDirection.none
                 && typeof x.sortIndex === 'number'
         );
+    }
+
+    private childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
@@ -296,8 +284,12 @@ export class Table<
     }
 
     private validate(): void {
-        this.validateColumnIds();
-        this.validateColumnSortIndices();
+        this.tableValidator.validateColumnIds(
+            this.columns.map(x => x.columnId)
+        );
+        this.tableValidator.validateColumnSortIndices(
+            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
+        );
         this.tableValidator.validateRecordIds(
             this.table.options.data,
             this.idFieldName
