@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 Mar 2023 22:17:50 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Mar 2023 23:11:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.6.4
+
+Fri, 10 Mar 2023 23:11:05 GMT
+
+### Patches
+
+- Queue table changes and process them in a batch ([ni/nimble@278811b](https://github.com/ni/nimble/commit/278811bfbe152b64978c9552de1a815bd015fcb1))
 
 ## 18.6.3
 
