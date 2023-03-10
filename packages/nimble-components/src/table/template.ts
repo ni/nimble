@@ -22,7 +22,7 @@ export const template = html<Table>`
     <template role="table" ${children({ property: 'childItems', filter: elements() })}>
         <div class="table-container" style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
-            --ni-private-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
+            --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}

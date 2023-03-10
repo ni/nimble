@@ -64,7 +64,7 @@ export const styles = css`
     }
 
     .header-scrollbar-spacer {
-        width: var(--ni-private-header-scrollbar-spacer-width);
+        width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
 
     .header {
