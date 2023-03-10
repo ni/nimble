@@ -36,8 +36,8 @@ const metadata: Meta = {
 export default metadata;
 
 const textStates = [
-    ['Short_Text', 'Hello'],
-    ['Long_Text', loremIpsum]
+    ['Long_Text', loremIpsum],
+    ['Short_Text', 'Hello']
 ] as const;
 type TextState = (typeof textStates)[number];
 
@@ -47,8 +47,8 @@ const severityStates: [string, string | undefined][] = Object.entries(
 type SeverityState = (typeof severityStates)[number];
 
 const iconVisibleStates = [
-    ['No_Icon', false],
-    ['Icon_Visible', true]
+    ['Icon_Visible', true],
+    ['No_Icon', false]
 ] as const;
 type IconVisibleState = (typeof iconVisibleStates)[number];
 
