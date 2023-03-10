@@ -317,18 +317,17 @@ export class Table<
     }
 
     private validate(): void {
-        this.validateWithData(this.table.options.data);
-    }
-
-    private validateWithData(data: TableRecord[]): void {
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
-        this.tableValidator.validateRecordIds(data, this.idFieldName);
+        this.validateWithData(this.table.options.data);
+    }
 
+    private validateWithData(data: TableRecord[]): void {
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
     }
 
@@ -336,9 +335,7 @@ export class Table<
         const data = newData.map(record => {
             return { ...record };
         });
-        this.tableValidator.validateRecordIds(data, this.idFieldName);
-        this.canRenderRows = this.checkValidity();
-
+        this.validateWithData(data);
         this.updateTableOptions({
             data
         });
