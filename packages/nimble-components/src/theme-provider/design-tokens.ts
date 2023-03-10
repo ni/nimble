@@ -119,6 +119,7 @@ const ButtonLabel1FallbackFontFamily = 'sans-serif';
 const TooltipCaptionFallbackFontFamily = 'sans-serif';
 const ErrorLightUiFallbackFontFamily = 'sans-serif';
 const GridHeaderFallbackFontFamily = 'sans-serif';
+
 /* eslint-enable @typescript-eslint/naming-convention */
 
 // Color Tokens
