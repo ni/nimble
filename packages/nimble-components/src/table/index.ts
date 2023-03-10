@@ -31,6 +31,7 @@ import {
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { UpdateTracker } from './models/update-tracker';
+import { TableLayoutHelper } from './models/table-layout-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -88,6 +89,18 @@ export class Table<
     @observable
     public canRenderRows = true;
 
+    /**
+     * @internal
+     */
+    @observable
+    public scrollX = 0;
+
+    /**
+     * @internal
+     */
+    @observable
+    public rowGridColumns?: string;
+
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -139,12 +152,17 @@ export class Table<
         super.connectedCallback();
         this.virtualizer.connectedCallback();
         this.updateTracker.trackAllStateChanged();
+        this.observeColumns();
+        this.viewport.addEventListener('scroll', this.onViewPortScroll, {
+            passive: true
+        });
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.removeColumnObservers();
+        this.viewport.removeEventListener('scroll', this.onViewPortScroll);
     }
 
     public checkValidity(): boolean {
@@ -189,6 +207,10 @@ export class Table<
         if (this.updateTracker.updateActionMenuSlots) {
             this.updateActionMenuSlots();
         }
+
+        if (this.updateTracker.updateColumnWidths) {
+            this.updateRowGridColumns();
+        }
     }
 
     protected idFieldNameChanged(
@@ -213,6 +235,10 @@ export class Table<
         this.observeColumns();
         this.updateTracker.trackColumnInstancesChanged();
     }
+
+    private readonly onViewPortScroll = (event: Event): void => {
+        this.scrollX = (event.target as HTMLElement).scrollLeft;
+    };
 
     private removeColumnObservers(): void {
         this.columnNotifiers.forEach(notifier => {
@@ -282,6 +308,12 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
+    }
+
+    private updateRowGridColumns(): void {
+        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
+            this.columns
+        );
     }
 
     private validate(): void {

@@ -1,9 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { TableRow } from '..';
-import {
-    TableColumnText,
-    TableColumnTextCellRecord
-} from '../../../../table-column/text';
+import { TableColumnText } from '../../../../table-column/text';
+import type { TableColumnTextCellRecord } from '../../../../table-column/text';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../types';
