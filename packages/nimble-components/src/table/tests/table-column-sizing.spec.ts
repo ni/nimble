@@ -248,6 +248,20 @@ describe('Table Column Sizing', () => {
             expect(column1RenderedWidth).toBe(150);
             expect(column2RenderedWidth).toBe(150);
         });
+
+        it('hidden column results in other column filling whole space', async () => {
+            await connect();
+            element.style.width = '400px';
+            element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+
+            column1.columnHidden = true;
+            await waitForUpdatesAsync();
+
+            const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
+            expect(column1RenderedWidth).toBe(400);
+        });
     });
 
     describe('columns/cells are sized correctly after scrolling vertically', () => {

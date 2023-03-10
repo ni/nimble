@@ -185,7 +185,6 @@ const metadata: Meta<TableArgs> = {
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
                 field-name="favoriteColor" placeholder="no value"
-                fractional-width=".5"
                 sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
             >
                 Favorite Color
@@ -194,7 +193,6 @@ const metadata: Meta<TableArgs> = {
                 column-id="quote-column"
                 field-name="quote" placeholder="no value"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
-                fractional-width="3"
                 sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
             >
                 Quote

@@ -187,6 +187,7 @@ export class Table<
                 args === 'currentFractionalWidth'
                 || args === 'currentPixelWidth'
                 || args === 'internalMinPixelWidth'
+                || args === 'columnHidden'
             ) {
                 this.updateRowGridColumns();
             }
