@@ -20,7 +20,13 @@ import {
 // prettier-ignore
 export const template = html<Table>`
     <template role="table" ${children({ property: 'childItems', filter: elements() })}>
-        <div class="table-container">
+        <div class="table-container" style="
+            --ni-private-table-scroll-x: -${x => x.scrollX}px;
+            --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
+            --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
+            --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
+            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}
+            ">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
@@ -34,12 +40,13 @@ export const template = html<Table>`
                             </${DesignSystem.tagFor(TableHeader)}>
                         `)}
                     `)}
-                    <div class="header-scrollbar-spacer" style="width: ${x => x.virtualizer.headerContainerMarginRight}px;"></div>
+                    <div class="header-scrollbar-spacer"></div>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
-                <div class="table-scroll" style="height: ${x => x.virtualizer.allRowsHeight}px;"></div>
-                <div class="table-row-container" role="rowgroup" style="top: ${x => `${x.virtualizer.rowContainerYOffset}px;`}">
+                <div class="table-scroll"></div>
+                <div class="table-row-container" 
+                     role="rowgroup">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                             <${DesignSystem.tagFor(TableRow)}
@@ -49,7 +56,6 @@ export const template = html<Table>`
                                 :columns="${(_, c) => c.parent.columns}"
                                 @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
-                                style="height: ${x => x.size}px;"
                             >
                             ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                 ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`

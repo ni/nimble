@@ -2,6 +2,8 @@ import { html } from '@microsoft/fast-element';
 
 export const template = html`
     <template>
-        <slot></slot>
+        <span class="header-content">
+            <slot></slot>
+        </span>
     </template>
 `;

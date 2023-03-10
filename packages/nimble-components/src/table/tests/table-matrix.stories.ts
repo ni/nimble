@@ -54,7 +54,7 @@ const component = (): ViewTemplate => html`
     <${tableTag}>
         <${tableColumnTextTag} field-name="firstName" placeholder="no value" sort-direction="ascending" sort-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1">Favorite Color</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="quote" placeholder="no value" column-hidden>Hidden Quote</${tableColumnTextTag}>
     </${tableTag}>
 `;
