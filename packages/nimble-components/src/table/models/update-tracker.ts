@@ -89,9 +89,21 @@ export class UpdateTracker<TData extends TableRecord> {
     public trackColumnPropertyChanged(changedColumnProperty: string): void {
         if (isColumnProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;
-        } else if (isColumnProperty(changedColumnProperty, 'operandDataRecordFieldName', 'sortOperation')) {
+        } else if (
+            isColumnProperty(
+                changedColumnProperty,
+                'operandDataRecordFieldName',
+                'sortOperation'
+            )
+        ) {
             this.requiredUpdates.columnDefinition = true;
-        } else if (isColumnProperty(changedColumnProperty, 'sortIndex', 'sortDirection')) {
+        } else if (
+            isColumnProperty(
+                changedColumnProperty,
+                'sortIndex',
+                'sortDirection'
+            )
+        ) {
             this.requiredUpdates.columnSort = true;
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
