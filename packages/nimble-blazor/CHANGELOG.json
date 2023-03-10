@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 10 Mar 2023 16:20:35 GMT",
+      "tag": "@ni/nimble-blazor_v11.3.1",
+      "version": "11.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "79c20d76d6425fc5d737d05acaf62ae47a689cd5",
+            "comment": "Update page title in example apps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Mar 2023 17:48:40 GMT",
       "tag": "@ni/nimble-blazor_v11.2.7",
       "version": "11.2.7",
