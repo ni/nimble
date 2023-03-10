@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 09 Mar 2023 22:36:20 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Mar 2023 17:48:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.6.2
+
+Fri, 10 Mar 2023 17:48:14 GMT
+
+### Patches
+
+- Support "." in table record field names ([ni/nimble@a38c155](https://github.com/ni/nimble/commit/a38c155c6c5c7d80e1123ad9e5f00495b57e8b34))
 
 ## 18.6.1
 
