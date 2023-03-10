@@ -19,7 +19,7 @@ Some of the cell state that would incorrectly apply to new rows (once the user s
 
 When the user scrolls the table, we will:
 
--   'Blur' (Lose focus) from any active/focused control in a table cell. Generally this means that whatever text the user began to change in that control will be committed, not discarded.
+-   If a table cell contains an active/focused control, we will notify the column plugin that the cell is being blurred/recycled via a new API. The general expectation is that editable controls will commit any pending updates, then blur the focused the control.
 -   If a cell action menu is open (in which case a menu item is focused), we'll close the associated menu via the menu button.
 
 We will not:
@@ -28,28 +28,33 @@ We will not:
     -   See the "Alternative Implementations" section for additional information on this decision.
 -   Try and re-apply any state to the re-bound rows/cells after the scroll. That means that we won't re-focus the previously focused control in a cell / re-open an action menu, after a scroll operation.
 
-See [the prototype branch](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416) and the [prototype table Storybook](https://60e89457a987cf003efc0a5b-jpkalylfjo.chromatic.com/iframe.html?args=data:LargeDataSet&id=table--table&viewMode=story) to illustrate the concepts discussed in the following sections.
+**Prototype:**  
+See [the prototype branch](https://github.com/ni/nimble/compare/main...table-cell-state-custom-elements-1) and the [prototype table Storybook](https://60e89457a987cf003efc0a5b-azrrwyldta.chromatic.com/?path=/story/table--table&args=data:LargeDataSet) to illustrate the concepts discussed in the following sections.  
+As we don't yet support editable column types, the prototype Storybook updates the Last Name column to show text which can be focused by clicking on it. After clicking a Last Name cell value, you'll see the text get a green border as its focused styling. Once you scroll the table vertically, the green border goes away, and you'll see a `console.log` indicating that the new cell blur API was used.
 
 ### Blur Focused Controls in Cells
 
-In this case, `document.activeElement` will be the Nimble `Table`, and `table.shadowRoot.activeElement` will be a Nimble `TableRow`. We can recursively look at the active element's `shadowRoot.activeElement`, starting from the TableRow, and stop when we reach a Nimble `TableCell` or `null` (see [prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR134)).
+In this case, `document.activeElement` will be the Nimble `Table`, and `table.shadowRoot.activeElement` will be a Nimble `TableRow`. We can recursively look at the active element's `shadowRoot.activeElement`, starting from the TableRow, and stop when we reach a `BaseCellElement` (the custom element in table cells implemented by column plugin authors) or `null` (see [prototype](https://github.com/ni/nimble/compare/main...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR124)).
 
-If we found a focused `TableCell`, we then want to `blur()` the control in it:  
-(**Open Question: Pick one of the following two approaches**)  
-**Option 1:**  
-Fire a `CustomEvent` called `cell-blur` on `cell.cellContentContainer` ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-8d5022af0a348aba9a14ea0ef27956d08ebbdb2342cb5dc21d0dde4b4b653decR94)). This allows `TableColumn` implementations to handle the event directly from their FAST template ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-9ee1b8660e08ff4f9e24d99f2f70000fc2760b07e9ae00d60aa613fb12f2def5R19)). The event handler can find the control in the cell (via `querySelector`, `firstElementChild`, or similar), and call `blur()` on it ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-9ee1b8660e08ff4f9e24d99f2f70000fc2760b07e9ae00d60aa613fb12f2def5R6))  
-**Option 2:**  
-Declare a new optional abstract method `onBeforeFocusedCellRecycled(cell: TableCell)` on the `TableColumn` abstract class ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-c042ed462074b89ce3df3dd318a82e80a9d096292a3caf101307704b35035fb3R84)). Implementations can `blur()` the controls in their cells similarly to Option 1 (find the control starting from `cell.cellContentContainer`) ([prototype](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-5058c96c2bc55c407497e6c95b298d71299edba7119549c353cd6985500f135dR36)).  
-In order to call that method, the `TableCell` will raise a `cell-blur` event that will be handled by `TableRow`, which has access to the column to call `column.onBeforeFocusedCellRecycled(cell)` on it (prototype: [cell raises event](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-8d5022af0a348aba9a14ea0ef27956d08ebbdb2342cb5dc21d0dde4b4b653decR100), [row event binding](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-bf998763585210ba31b88a11d6ffe26b09f6ee2860c05c20c3c2a3d6c3cd01d8R21)).
+If we found a focused `BaseCellElement`, then we will call the new API `onBeforeBlur()` on it.  
+(Prototype: [BaseCellElement API](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-e307bbd379116ba5f5690332122a16b1fe392878b3899cbe487f98672766dcedR25), [calling onBeforeBlur() from virtualizer code](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR130))  
+Column plugins, in their derived versions of `BaseCellElement`, should generally override `onBeforeBlur()` if they have a focusable control - they can commit changes, and then blur the focusable control.
+([Prototype:](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-d1db6a67f7353782eeb2c4769380687c9c1e70261dd7fb43960efe293cf04d97R22) A simplified column implementation that shows focusable text, and blurs it in the `onBeforeBlur` method.)
 
 ### Close Focused Action Menus
 
 The table will handle this internally (in the `Virtualizer` class, via `handleVirtualizerChange()`), without affecting the TableColumn public API.
 
 We want to close the action menu via the associated `MenuButton`, which allows the rest of the table logic dealing with action menus to get called normally.
-In this case, `table.shadowRoot.activeElement` will be null (since the action menus are slotted in), but `document.activeElement` will be a Nimble `MenuItem`. (We can also doublecheck that `table.contains(document.activeElement)` before proceeding.) From the MenuItem, we can walk up the `parentElement` hierarchy to get to the Nimble `Menu`. Then we can walk up the `assignedSlot` hierarchy until we get to the TableCell action menu slot (in which case `slot.parentElement` is a Nimble `TableCell`). At that point, we can get the `MenuButton` for the cell, and call `open = false` on it.
+In this case, `table.shadowRoot.activeElement` will be null (since the action menus are slotted in), but `document.activeElement` will be a Nimble `MenuItem`. (We can also doublecheck that `table.contains(document.activeElement)` before proceeding.)  
+We have a few options:
 
-(See [prototype implementation](https://github.com/ni/nimble/commit/57a85347f86aa55c416671f135c484ee96701416#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR143))
+-   We can use `table.openActionMenuRecordId` to find the row with an open action menu (via `querySelector` as one option). `tableRow.currentActionMenuColumn` gives us the `TableColumn` with an open menu but no direct way to get to the associated cell (we may need to look at all cells in the row, and find the one with `cell.menuOpen` being `true).
+-   From the MenuItem, we can walk up the `parentElement` hierarchy to get to the Nimble `Menu`. Then we can walk up the `assignedSlot` hierarchy until we get to the TableCell action menu slot (in which case `slot.parentElement` is a Nimble `TableCell`).
+
+Once we have a `TableCell`, we can get the `MenuButton` for the cell, and call `open = false` on it.
+
+(See [prototype implementation](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR132))
 
 ## Alternative Implementations / Designs
 
