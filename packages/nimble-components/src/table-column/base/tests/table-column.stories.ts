@@ -4,13 +4,13 @@ import { withXD } from 'storybook-addon-xd-designs';
 import {
     createUserSelectedThemeStory,
     usageWarning
-} from '../../utilities/tests/storybook';
+} from '../../../utilities/tests/storybook';
 import { ExampleSortType } from './types';
-import { Table, tableTag } from '../../table';
-import { TableColumnSortDirection } from '../../table/types';
-import { iconUserTag } from '../../icons/user';
-import { iconCommentTag } from '../../icons/comment';
-import { tableColumnTextTag } from '../text';
+import { Table, tableTag } from '../../../table';
+import { TableColumnSortDirection } from '../../../table/types';
+import { iconUserTag } from '../../../icons/user';
+import { iconCommentTag } from '../../../icons/comment';
+import { tableColumnTextTag } from '../../text';
 
 interface CommonTableArgs {
     tableRef: Table;
