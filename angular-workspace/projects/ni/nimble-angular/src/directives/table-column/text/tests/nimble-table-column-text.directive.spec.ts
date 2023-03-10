@@ -490,7 +490,7 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.minPixelWidth).toBe(50);
         });
 
-        it('can be configured with property binding for minPixelWidth set to null', () => {
+        it('can be configured with attribute binding for minPixelWidth set to null', () => {
             expect(directive.minPixelWidth).toBe(40);
             expect(nativeElement.minPixelWidth).toBe(40);
 
