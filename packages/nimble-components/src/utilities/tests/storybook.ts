@@ -155,7 +155,7 @@ export const usageWarning = (componentName: string): string => `
     font: var(${bodyFont.cssCustomProperty});
 }
 </style>
-<div id="usage-warning">
+<div id="usage-warning" class="code-hide">
 WARNING - The ${componentName} is still in development and considered
 experimental. It is not recommended for application use.
 </div>`;
