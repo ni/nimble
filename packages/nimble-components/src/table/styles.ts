@@ -45,7 +45,6 @@ export const styles = css`
     .table-row-container {
         width: 100%;
         position: relative;
-        grid-template-columns: var(--ni-private-table-row-grid-columns);
         top: var(--ni-private-table-row-container-top);
     }
 
