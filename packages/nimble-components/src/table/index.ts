@@ -23,6 +23,7 @@ import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
+    TableFieldValue,
     TableRecord,
     TableValidity
 } from './types';
@@ -373,7 +374,13 @@ export class Table<
         const generatedColumns = this.columns.map(column => {
             const columnDef: TanStackColumnDef<TData> = {
                 id: column.internalUniqueId,
-                accessorKey: column.operandDataRecordFieldName,
+                accessorFn: (data: TData): TableFieldValue => {
+                    const fieldName = column.operandDataRecordFieldName;
+                    if (typeof fieldName !== 'string') {
+                        return undefined;
+                    }
+                    return data[fieldName];
+                },
                 sortingFn: getTanStackSortingFunction(column.sortOperation)
             };
             return columnDef;
