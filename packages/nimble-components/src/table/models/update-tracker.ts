@@ -11,6 +11,7 @@ interface RequiredUpdates extends BooleanCollection {
     rowIds: boolean;
     columnIds: boolean;
     columnSort: boolean;
+    columnWidths: boolean;
     columnDefinition: boolean;
     actionMenuSlots: boolean;
 }
@@ -36,6 +37,7 @@ export class UpdateTracker<TData extends TableRecord> {
         rowIds: false,
         columnIds: false,
         columnSort: false,
+        columnWidths: false,
         columnDefinition: false,
         actionMenuSlots: false
     };
@@ -57,6 +59,10 @@ export class UpdateTracker<TData extends TableRecord> {
 
     public get updateColumnSort(): boolean {
         return this.requiredUpdates.columnSort;
+    }
+
+    public get updateColumnWidths(): boolean {
+        return this.requiredUpdates.columnWidths;
     }
 
     public get updateColumnDefinition(): boolean {
@@ -105,6 +111,16 @@ export class UpdateTracker<TData extends TableRecord> {
             )
         ) {
             this.requiredUpdates.columnSort = true;
+        } else if (
+            isColumnProperty(
+                changedColumnProperty,
+                'currentFractionalWidth',
+                'currentPixelWidth',
+                'internalMinPixelWidth',
+                'columnHidden'
+            )
+        ) {
+            this.requiredUpdates.columnWidths = true;
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
         }
@@ -116,6 +132,7 @@ export class UpdateTracker<TData extends TableRecord> {
         this.requiredUpdates.columnIds = true;
         this.requiredUpdates.columnDefinition = true;
         this.requiredUpdates.columnSort = true;
+        this.requiredUpdates.columnWidths = true;
         this.requiredUpdates.actionMenuSlots = true;
 
         this.queueUpdate();
