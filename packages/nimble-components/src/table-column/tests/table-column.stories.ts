@@ -86,29 +86,24 @@ const metadata: Meta<CommonTableArgs> = {
     ${usageWarning('table')}
     <${tableTag}
         ${ref('tableRef')}
-        id-field-name="${idFieldName}"
         data-unused="${x => x.updateData(x)}"
     >
         <${tableColumnTextTag}
-            column-id="first-name-column"
             field-name="firstName"
         >
             First Name
         </${tableColumnTextTag}>
         <${tableColumnTextTag}
-            column-id="last-name-column"
             field-name="lastName"
         >
             Last Name
         </${tableColumnTextTag}>
         <${tableColumnTextTag}
-            column-id="favorite-color-column"
             field-name="favoriteColor"
         >
             Favorite Color
         </${tableColumnTextTag}>
         <${tableColumnTextTag}
-            column-id="quote-column"
             field-name="quote"
         >
             Quote
@@ -168,18 +163,15 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             ${when(x => x.columnOrder === 'FirstName, LastName', html`
                 <${tableColumnTextTag}
-                    column-id="first-name-column"
                     field-name="firstName"
                 >
                 First Name
                 </${tableColumnTextTag}>
                 <${tableColumnTextTag}
-                    column-id="last-name-column"
                     field-name="lastName"
                 >
                 Last Name
@@ -187,13 +179,11 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
             `)}
             ${when(x => x.columnOrder === 'LastName, FirstName', html`
                 <${tableColumnTextTag}
-                    column-id="last-name-column"
                     field-name="lastName"
                 >
                 Last Name
                 </${tableColumnTextTag}>
                 <${tableColumnTextTag}
-                    column-id="first-name-column"
                     field-name="firstName"
                 >
                 First Name
@@ -244,11 +234,9 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
-                column-id="first-name-column"
                 field-name="firstName"
             >
                 ${when(x => x.headerIcon === 'user', html`
@@ -259,7 +247,6 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
                 `)}
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
-                column-id="last-name-column"
                 field-name="lastName"
             >
                 ${x => x.headerText}
@@ -304,7 +291,6 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
@@ -396,32 +382,27 @@ export const sorting: StoryObj<SortingTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
-                column-id="first-name-column"
                 field-name="firstName"
                 sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
             >
                 First Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
-                column-id="last-name-column"
                 field-name="lastName"
                 sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
-                column-id="favorite-color-column"
                 field-name="favoriteColor"
                 sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
             >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
-                column-id="quote-column"
                 field-name="quote"
                 sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
             >
@@ -505,17 +486,14 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
-            id-field-name="${idFieldName}"
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag}
-                column-id="name-column"
                 field-name="${x => x.fieldName}"
             >
             Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
-                column-id="quote-column"
                 field-name="quote"
                 placeholder="${x => x.placeholderText}"
             >
