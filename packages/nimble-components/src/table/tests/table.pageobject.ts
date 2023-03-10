@@ -58,6 +58,19 @@ export class TablePageObject<T extends TableRecord> {
         return headers.item(columnIndex);
     }
 
+    public getHeaderRenderedWidth(columnIndex: number): number {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+            'nimble-table-header'
+        )!;
+        if (columnIndex >= headers.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return headers[columnIndex]!.getBoundingClientRect().width;
+    }
+
     public getRenderedRowCount(): number {
         return this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-row'
@@ -103,6 +116,38 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return rows.item(rowIndex).recordId;
+    }
+
+    public getRowWidth(): number {
+        const tableRowContainer = this.tableElement.shadowRoot!.querySelector(
+            '.table-row-container'
+        );
+        return tableRowContainer!.scrollWidth;
+    }
+
+    public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
+        if (columnIndex >= this.tableElement.columns.length) {
+            throw new Error(
+                'Attempting to index past the total number of columns'
+            );
+        }
+
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+        const row = rows[rowIndex];
+        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= (cells?.length ?? 0)) {
+            throw new Error(
+                'Attempting to index past the total number of cells'
+            );
+        }
+
+        const columnCell = cells![columnIndex]!;
+        return columnCell.getBoundingClientRect().width;
     }
 
     public async scrollToLastRowAsync(): Promise<void> {

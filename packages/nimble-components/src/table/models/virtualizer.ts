@@ -41,7 +41,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
                 // If we have enough rows that a vertical scrollbar is shown, we need to offset the header widths
                 // by the same margin so the column headers align with the corresponding rendered cells
                 const viewportBoundingWidth = borderBoxSize.inlineSize;
-                this.headerContainerMarginRight = viewportBoundingWidth - this.table.viewport.scrollWidth;
+                this.headerContainerMarginRight = viewportBoundingWidth - this.table.viewport.clientWidth;
             }
         });
     }

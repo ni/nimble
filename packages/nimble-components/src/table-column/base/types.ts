@@ -31,3 +31,7 @@ export const TableColumnSortOperation = {
 } as const;
 export type TableColumnSortOperation =
     (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
+
+export const defaultMinPixelWidth = 88;
+
+export const defaultFractionalWidth = 1;

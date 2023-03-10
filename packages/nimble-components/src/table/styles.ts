@@ -19,6 +19,7 @@ export const styles = css`
     }
 
     .table-container {
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -27,7 +28,7 @@ export const styles = css`
     }
 
     .table-viewport {
-        overflow-y: auto;
+        overflow: auto;
         display: block;
         height: 100%;
         position: relative;
@@ -38,11 +39,13 @@ export const styles = css`
         position: absolute;
         top: 0px;
         width: 100%;
+        height: var(--ni-private-table-scroll-height);
     }
 
     .table-row-container {
         width: 100%;
         position: relative;
+        top: var(--ni-private-table-row-container-top);
     }
 
     .header-container {
@@ -51,10 +54,17 @@ export const styles = css`
     }
 
     .header-row {
-        display: flex;
-        flex-direction: row;
+        display: grid;
         background: ${applicationBackgroundColor};
         position: relative;
+        width: fit-content;
+        min-width: 100%;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+        left: var(--ni-private-table-scroll-x);
+    }
+
+    .header-scrollbar-spacer {
+        width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
 
     .header {

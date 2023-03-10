@@ -29,6 +29,7 @@ import {
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
+import { TableLayoutHelper } from './models/table-layout-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -86,6 +87,18 @@ export class Table<
     @observable
     public canRenderRows = true;
 
+    /**
+     * @internal
+     */
+    @observable
+    public scrollX = 0;
+
+    /**
+     * @internal
+     */
+    @observable
+    public rowGridColumns?: string;
+
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -136,12 +149,16 @@ export class Table<
         super.connectedCallback();
         this.virtualizer.connectedCallback();
         this.validateAndObserveColumns();
+        this.viewport.addEventListener('scroll', this.onViewPortScroll, {
+            passive: true
+        });
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.removeColumnObservers();
+        this.viewport.removeEventListener('scroll', this.onViewPortScroll);
     }
 
     public checkValidity(): boolean {
@@ -167,6 +184,13 @@ export class Table<
             } else if (args === 'sortIndex' || args === 'sortDirection') {
                 this.validateColumnSortIndices();
                 this.setSortState();
+            } else if (
+                args === 'currentFractionalWidth'
+                || args === 'currentPixelWidth'
+                || args === 'internalMinPixelWidth'
+                || args === 'columnHidden'
+            ) {
+                this.updateRowGridColumns();
             }
         }
     }
@@ -216,7 +240,12 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
+        this.updateRowGridColumns();
     }
+
+    private readonly onViewPortScroll = (event: Event): void => {
+        this.scrollX = (event.target as HTMLElement).scrollLeft;
+    };
 
     private removeColumnObservers(): void {
         this.columnNotifiers.forEach(notifier => {
@@ -256,6 +285,12 @@ export class Table<
         return this.columns.filter(
             x => x.sortDirection !== TableColumnSortDirection.none
                 && typeof x.sortIndex === 'number'
+        );
+    }
+
+    private updateRowGridColumns(): void {
+        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
+            this.columns
         );
     }
 
