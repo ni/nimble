@@ -102,23 +102,23 @@ import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 
 /* eslint-disable @typescript-eslint/naming-convention */
-const Headline1FallbackFontFamily = 'Noto Serif Fallback';
-const Headline2FallbackFontFamily = 'Noto Serif Fallback';
-const Title1FallbackFontFamily = 'Source Sans Pro Fallback';
-const Title2FallbackFontFamily = 'Source Sans Pro Fallback';
-const Title3FallbackFontFamily = 'Source Sans Pro Fallback';
-const Subtitle1FallbackFontFamily = 'Source Sans Pro Fallback';
-const Subtitle2FallbackFontFamily = 'Source Sans Pro Fallback';
-const LinkFallbackFontFamily = 'Source Sans Pro Fallback';
-const PlaceholderFallbackFontFamily = 'Source Sans Pro Fallback';
-const BodyFallbackFontFamily = 'Source Sans Pro Fallback';
-const BodyEmphasizedFallbackFontFamily = 'Source Sans Pro Fallback';
-const GroupLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
-const ControlLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
-const ButtonLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
-const TooltipCaptionFallbackFontFamily = 'Source Sans Pro Fallback';
-const ErrorLightUiFallbackFontFamily = 'Source Sans Pro Fallback';
-const GridHeaderFallbackFontFamily = 'Source Sans Pro Fallback';
+const Headline1FallbackFontFamily = 'serif';
+const Headline2FallbackFontFamily = 'serif';
+const Title1FallbackFontFamily = 'sans-serif';
+const Title2FallbackFontFamily = 'sans-serif';
+const Title3FallbackFontFamily = 'sans-serif';
+const Subtitle1FallbackFontFamily = 'sans-serif';
+const Subtitle2FallbackFontFamily = 'sans-serif';
+const LinkFallbackFontFamily = 'sans-serif';
+const PlaceholderFallbackFontFamily = 'sans-serif';
+const BodyFallbackFontFamily = 'sans-serif';
+const BodyEmphasizedFallbackFontFamily = 'sans-serif';
+const GroupLabel1FallbackFontFamily = 'sans-serif';
+const ControlLabel1FallbackFontFamily = 'sans-serif';
+const ButtonLabel1FallbackFontFamily = 'sans-serif';
+const TooltipCaptionFallbackFontFamily = 'sans-serif';
+const ErrorLightUiFallbackFontFamily = 'sans-serif';
+const GridHeaderFallbackFontFamily = 'sans-serif';
 /* eslint-enable @typescript-eslint/naming-convention */
 
 // Color Tokens
