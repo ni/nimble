@@ -344,6 +344,8 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
 };
 
 const sortedOptions = {
+    [ExampleSortType.none]: [
+    ],
     [ExampleSortType.firstColumnAscending]: [
         {
             columnId: 'first-name-column',
@@ -436,6 +438,8 @@ export const sorting: StoryObj<SortingTableArgs> = {
             control: {
                 type: 'radio',
                 labels: {
+                    [ExampleSortType.none]:
+                        'None',
                     [ExampleSortType.firstColumnAscending]:
                         'First name ascending',
                     [ExampleSortType.firstColumnDescending]:

@@ -1,4 +1,5 @@
 export const ExampleSortType = {
+    none: 'None',
     firstColumnAscending: 'FirstColumnAscending',
     firstColumnDescending: 'FirstColumnDescending',
     secondColumnDescendingFirstColumnAscending:
