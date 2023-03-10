@@ -13,7 +13,6 @@ import { iconCommentTag } from '../../icons/comment';
 import { tableColumnTextTag } from '../text';
 
 interface CommonTableArgs {
-    idFieldName: undefined;
     tableRef: Table;
     updateData: (args: CommonTableArgs) => void;
 }
@@ -61,8 +60,6 @@ const simpleData = [
         favoriteColor: 'Red'
     }
 ] as const;
-
-const idFieldName = 'firstName';
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
 See the **Table** story for information about configuring the table itself.`;
