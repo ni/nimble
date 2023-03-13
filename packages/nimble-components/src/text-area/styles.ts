@@ -11,13 +11,18 @@ import {
     controlLabelFontColor,
     bodyFont,
     controlLabelDisabledFontColor,
-    iconSize
+    iconSize,
+    failColor,
+    smallPadding,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -26,6 +31,7 @@ export const styles = css`
         color: ${bodyFontColor};
         flex-direction: column;
         vertical-align: top;
+        --ni-private-scrollbar-width: 17px;
     }
 
     :host([disabled]) {
@@ -42,10 +48,16 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
+    .container {
+        display: flex;
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
-        width: 100%;
         flex-grow: 1;
         outline: none;
         box-sizing: border-box;
@@ -55,12 +67,9 @@ export const styles = css`
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
         padding: 8px;
-        transition: box-shadow ${smallDelay}, border ${smallDelay};
+        transition: border ${smallDelay};
+        margin-bottom: 1px;
         resize: none;
-    }
-
-    :host([error-visible]) .control {
-        padding-right: calc(8px + ${iconSize});
     }
 
     @media (prefers-reduced-motion) {
@@ -69,9 +78,22 @@ export const styles = css`
         }
     }
 
+    .control[style*='height:'] {
+        ${
+            /*
+             * When the textarea is user-resizable, resizing it causes `style` to be
+             * set to a fixed height/width. When the height is set to a fixed value,
+             * increasing the border width (on hover) does not result in the control
+             * height increasing. As a result, we don't need the compensation margin.
+             */ ''
+        }
+        margin-bottom: 0px;
+    }
+
     .control:hover {
         border-bottom-color: ${borderHoverColor};
         border-bottom-width: calc(${borderWidth} + 1px);
+        margin-bottom: 0px;
     }
 
     .control:focus-within {
@@ -84,7 +106,19 @@ export const styles = css`
     .control[disabled],
     .control[disabled]:hover {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
-        box-shadow: none;
+        border-bottom-width: ${borderWidth};
+        margin-bottom: 1px;
+    }
+
+    :host([error-visible]) .control {
+        padding-right: calc(
+            ${iconSize} + ${standardPadding} / 2 + ${smallPadding}
+        );
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]) .control[readonly]:hover:focus-within {
+        border-bottom-color: ${failColor};
     }
 
     .control::placeholder {
@@ -113,20 +147,13 @@ export const styles = css`
         resize: vertical;
     }
 
-    .error-icon {
-        display: none;
-    }
     :host([error-visible]) .error-icon {
-        display: block;
-        position: relative;
-        left: calc(0px - ${iconSize});
+        position: absolute;
+        top: calc(${standardPadding} / 2);
+        right: calc(${standardPadding} / 2);
     }
     :host([error-visible].vert-scrollbar) .error-icon {
-        left: calc(0px - ${iconSize} - 20px);
-    }
-
-    .container {
-        display: flex;
+        right: calc(${standardPadding} / 2 + var(--ni-private-scrollbar-width));
     }
 `.withBehaviors(
     appearanceBehavior(
@@ -152,6 +179,10 @@ export const styles = css`
             :host([disabled]) .control {
                 border-color: transparent;
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([error-visible][disabled]) .control {
+                border-bottom-color: ${failColor};
             }
         `
     )

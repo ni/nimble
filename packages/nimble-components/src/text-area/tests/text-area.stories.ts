@@ -14,6 +14,7 @@ interface TextAreaArgs {
     readonly: boolean;
     disabled: boolean;
     errorVisible: boolean;
+    errorText: string;
     spellcheck: boolean;
     resize: TextAreaResize;
     rows: number;
@@ -21,14 +22,19 @@ interface TextAreaArgs {
     maxlength: number;
 }
 
+const description = `
+A multi-line text input control. The text area is often used in a form to collect user inputs like comments or reviews.
+
+If you configure your text area to be resizable (with the \`resize\` attribute) in a certain dimension, do not set an explicit size for that dimension (via \`height\` and/or \`width\` \`style\` properties), or you may experience unexpected resize behavior. If you want to set the initial size of a resizable text area, use the \`rows\` and/or \`cols\` attribute(s).
+`;
+
 const metadata: Meta<TextAreaArgs> = {
     title: 'Text Area',
     decorators: [withXD],
     parameters: {
         docs: {
             description: {
-                component:
-                    'A multi-line text input control. The text area is often used in a form to collect user inputs like comments or reviews.'
+                component: description
             }
         },
         design: {
@@ -47,6 +53,7 @@ const metadata: Meta<TextAreaArgs> = {
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
             ?error-visible="${x => x.errorVisible}"
+            error-text="${x => x.errorText}"
             spellcheck="${x => x.spellcheck}"
             resize="${x => x.resize}"
             rows="${x => x.rows}"
@@ -95,6 +102,7 @@ const metadata: Meta<TextAreaArgs> = {
         readonly: false,
         disabled: false,
         errorVisible: false,
+        errorText: 'Value is invalid',
         spellcheck: false,
         resize: TextAreaResize.both,
         rows: 3,

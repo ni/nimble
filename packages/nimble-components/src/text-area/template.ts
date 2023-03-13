@@ -2,6 +2,7 @@ import { html, ref, slotted, ViewTemplate } from '@microsoft/fast-element';
 import type { FoundationElementTemplate } from '@microsoft/fast-foundation';
 import type { TextArea } from '.';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { errorTextTemplate } from '../patterns/error/template';
 
 export const template: FoundationElementTemplate<
 ViewTemplate<TextArea>
@@ -63,6 +64,7 @@ ViewTemplate<TextArea>
                 severity="error"
                 class="error-icon"
             ></${iconExclamationMarkTag}>
+            ${errorTextTemplate}
         </div>
     </template>
 `;

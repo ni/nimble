@@ -15,7 +15,9 @@ import {
     disabledStates,
     DisabledState,
     ReadOnlyState,
-    readOnlyStates
+    readOnlyStates,
+    ErrorState,
+    errorStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
@@ -52,7 +54,8 @@ const component = (
     [readOnlyName, readonly]: ReadOnlyState,
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState,
-    [valueName, valueValue, placeholderValue]: ValueState
+    [valueName, valueValue, placeholderValue]: ValueState,
+    [errorStateName, isError, errorText]: ErrorState
 ): ViewTemplate => html`
     <${textAreaTag}
         style="width: 250px; padding: 15px;"
@@ -61,9 +64,11 @@ const component = (
         value="${() => valueValue}"
         placeholder="${() => placeholderValue}"
         ?readonly="${() => readonly}"
+        error-visible="${() => isError}"
+        error-text="${() => errorText}"
     >
         ${() => disabledName} ${() => appearanceName} ${() => valueName}
-        ${() => readOnlyName}
+        ${() => readOnlyName} ${() => errorStateName}
     </${textAreaTag}>
 `;
 
@@ -72,7 +77,8 @@ export const textAreaThemeMatrix: Story = createMatrixThemeStory(
         readOnlyStates,
         disabledStates,
         appearanceStates,
-        valueStates
+        valueStates,
+        errorStates
     ])
 );
 
