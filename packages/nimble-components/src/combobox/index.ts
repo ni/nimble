@@ -1,5 +1,6 @@
 import { attr, html, observable, ref } from '@microsoft/fast-element';
 import {
+    DesignSystem,
     Combobox as FoundationCombobox,
     ComboboxOptions,
     comboboxTemplate as template

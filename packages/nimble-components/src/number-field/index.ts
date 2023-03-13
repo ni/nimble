@@ -1,5 +1,6 @@
 import { attr, html } from '@microsoft/fast-element';
 import {
+    DesignSystem,
     NumberField as FoundationNumberField,
     NumberFieldOptions,
     numberFieldTemplate as template
@@ -87,7 +88,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             "Increment"
             <${iconAddTag}
                 slot="start">
-            </${IconAddTag}>
+            </${iconAddTag}>
         </${buttonTag}>
     `,
     end: html<NumberField>`
