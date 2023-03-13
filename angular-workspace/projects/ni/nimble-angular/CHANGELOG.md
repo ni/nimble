@@ -1,8 +1,41 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 02 Mar 2023 18:38:23 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Mar 2023 23:11:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.2.4
+
+Fri, 10 Mar 2023 23:11:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.6.4
+
+## 16.2.3
+
+Fri, 10 Mar 2023 22:17:50 GMT
+
+### Patches
+
+- Programmatic table column width API ([ni/nimble@d38391e](https://github.com/ni/nimble/commit/d38391e69c9984de80bf7f4a41cfbcc0181e0d16))
+- Bump @ni/nimble-components to v18.6.3
+
+## 16.2.2
+
+Fri, 10 Mar 2023 17:48:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.6.2
+
+## 16.2.1
+
+Thu, 09 Mar 2023 22:36:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.6.1
 
 ## 16.2.0
 

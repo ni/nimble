@@ -11,7 +11,6 @@ interface SimpleTableRecord extends TableRecord {
     stringData1?: string | null;
     stringData2?: string | null;
     stringData3?: string | null;
-    stringData4?: string | null;
 }
 
 // prettier-ignore
@@ -312,6 +311,29 @@ describe('Table sorting', () => {
         await waitForUpdatesAsync();
 
         expect(getRenderedRecordIds()).toEqual(['1', '2', '4', '3']);
+    });
+
+    it('can sort with have field names containing "."', async () => {
+        /* eslint-disable @typescript-eslint/naming-convention */
+        interface ExtendedTableRecord extends SimpleTableRecord {
+            'field.name.with.dots': string;
+        }
+
+        const data: readonly ExtendedTableRecord[] = [
+            { id: '1', 'field.name.with.dots': 'abc' },
+            { id: '2', 'field.name.with.dots': 'zzz' },
+            { id: '3', 'field.name.with.dots': 'hello' }
+        ] as const;
+
+        column1.fieldName = 'field.name.with.dots';
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 0;
+        element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(getRenderedRecordIds()).toEqual(['1', '3', '2']);
+        /* eslint-enable @typescript-eslint/naming-convention */
     });
 
     it('updating data maintains sort state and updates row order', async () => {

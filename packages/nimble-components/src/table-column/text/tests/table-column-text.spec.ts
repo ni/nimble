@@ -124,6 +124,38 @@ describe('TableColumnText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
     });
 
+    it('sets title when cell text is ellipsized', async () => {
+        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+        element.setData([{ field: cellContents }]);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getCellTitle(0, 0)).toBe(cellContents);
+    });
+
+    it('does not set title when cell text is fully visible', async () => {
+        const cellContents = 'short value';
+        element.setData([{ field: cellContents }]);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getCellTitle(0, 0)).toBe('');
+    });
+
+    it('removes title on mouseout', async () => {
+        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+        element.setData([{ field: cellContents }]);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getCellTitle(0, 0)).toBe('');
+    });
+
     describe('various string values render as expected', () => {
         const focused: string[] = [];
         const disabled: string[] = [];

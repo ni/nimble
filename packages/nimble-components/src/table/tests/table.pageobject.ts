@@ -3,6 +3,7 @@ import type { TableHeader } from '../components/header';
 import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
+import type { TableCell } from '../components/cell';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -57,6 +58,19 @@ export class TablePageObject<T extends TableRecord> {
         return headers.item(columnIndex);
     }
 
+    public getHeaderRenderedWidth(columnIndex: number): number {
+        const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
+            'nimble-table-header'
+        )!;
+        if (columnIndex >= headers.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return headers[columnIndex]!.getBoundingClientRect().width;
+    }
+
     public getRenderedRowCount(): number {
         return this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-row'
@@ -67,22 +81,30 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): string {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
+        return (
+            this.getCell(
+                rowIndex,
+                columnIndex
+            ).shadowRoot!.textContent?.trim() ?? ''
+        );
+    }
 
-        const row = rows.item(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= cells.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
+    public getCellTitle(rowIndex: number, columnIndex: number): string {
+        return (
+            this.getCell(rowIndex, columnIndex)
+                .shadowRoot!.querySelector('.cell-content-container span')
+                ?.getAttribute('title') ?? ''
+        );
+    }
 
-        return cells.item(columnIndex).shadowRoot!.textContent?.trim() ?? '';
+    public dispatchEventToCell(
+        rowIndex: number,
+        columnIndex: number,
+        event: Event
+    ): boolean | undefined {
+        return this.getCell(rowIndex, columnIndex)
+            .shadowRoot!.querySelector('.cell-content-container span')
+            ?.dispatchEvent(event);
     }
 
     public getRecordId(rowIndex: number): string | undefined {
@@ -96,6 +118,38 @@ export class TablePageObject<T extends TableRecord> {
         return rows.item(rowIndex).recordId;
     }
 
+    public getRowWidth(): number {
+        const tableRowContainer = this.tableElement.shadowRoot!.querySelector(
+            '.table-row-container'
+        );
+        return tableRowContainer!.scrollWidth;
+    }
+
+    public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
+        if (columnIndex >= this.tableElement.columns.length) {
+            throw new Error(
+                'Attempting to index past the total number of columns'
+            );
+        }
+
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+        const row = rows[rowIndex];
+        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= (cells?.length ?? 0)) {
+            throw new Error(
+                'Attempting to index past the total number of cells'
+            );
+        }
+
+        const columnCell = cells![columnIndex]!;
+        return columnCell.getBoundingClientRect().width;
+    }
+
     public async scrollToLastRowAsync(): Promise<void> {
         const scrollElement = this.tableElement.viewport;
         scrollElement.scrollTop = scrollElement.scrollHeight;
@@ -106,24 +160,10 @@ export class TablePageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): MenuButton | null {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const row = rows.item(rowIndex);
-        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= cells.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered columns'
-            );
-        }
-
-        return cells
-            .item(columnIndex)
-            .shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
+        return this.getCell(
+            rowIndex,
+            columnIndex
+        ).shadowRoot!.querySelector<MenuButton>('nimble-menu-button');
     }
 
     public async clickCellActionMenu(
@@ -174,6 +214,25 @@ export class TablePageObject<T extends TableRecord> {
                 '--ni-private-table-cell-action-menu-display'
             ));
         }
+    }
+
+    private getCell(rowIndex: number, columnIndex: number): TableCell {
+        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
+        if (rowIndex >= rows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        const row = rows.item(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
+        if (columnIndex >= cells.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered columns'
+            );
+        }
+
+        return cells.item(columnIndex);
     }
 
     private getHeaderContentElement(
