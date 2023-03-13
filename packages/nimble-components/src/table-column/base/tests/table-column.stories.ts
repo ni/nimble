@@ -124,9 +124,10 @@ export const columns: StoryObj<DefaultColumnConfigTableArgs> = {
     argTypes: {
         columns: {
             name: 'Default column configuration',
-            description: 'This example shows columns in their default configuration.',
+            description:
+                'This example shows columns in their default configuration.'
         }
-    },
+    }
 };
 
 type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
