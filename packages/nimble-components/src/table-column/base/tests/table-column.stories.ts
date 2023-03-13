@@ -204,7 +204,7 @@ interface HeaderContentTableArgs extends CommonTableArgs {
 const headerContentIntro = 'The content of each column header comes from whatever is slotted in the column element.';
 const headerTextContent = `If you provide only text content, Nimble will style it
 and add a \`title\` to show a tooltip when truncated.`;
-const headerIconContent = 'If you provide icon content, you should set your own `title`.';
+const headerIconContent = 'If you provide icon content, you should set your own `title` on the icon element.';
 const headerTitleContent = 'Titles should use "Headline Casing" and Nimble will automatically capitalize them for display in the header.';
 const headerContentDescription = `${headerContentIntro} ${headerTextContent} ${headerIconContent} ${headerTitleContent}`;
 const headerTextContentDescription = `${headerContentIntro} ${headerTextContent} ${headerTitleContent}`;
