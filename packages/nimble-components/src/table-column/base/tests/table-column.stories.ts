@@ -6,16 +6,12 @@ import {
     usageWarning
 } from '../../../utilities/tests/storybook';
 import { ExampleSortType } from './types';
-import { Table, tableTag } from '../../../table';
+import { tableTag } from '../../../table';
+import { CommonTableArgs, commonTableArgTypes, commonTableArgs } from './table-column-stories-utils';
 import { TableColumnSortDirection } from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';
-
-interface CommonTableArgs {
-    tableRef: Table;
-    updateData: (args: CommonTableArgs) => void;
-}
 
 const simpleData = [
     {
@@ -59,7 +55,7 @@ const simpleData = [
         lastName: 'Simpson',
         favoriteColor: 'Red'
     }
-] as const;
+];
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
 See **Table** for information about configuring the table itself and **Table Column Types** for 
@@ -108,29 +104,8 @@ const metadata: Meta<CommonTableArgs> = {
         </${tableColumnTextTag}>
     </${tableTag}>
     `),
-    argTypes: {
-        tableRef: {
-            table: {
-                disable: true
-            }
-        },
-        updateData: {
-            table: {
-                disable: true
-            }
-        }
-    },
-    args: {
-        tableRef: undefined,
-        updateData: x => {
-            void (async () => {
-                // Safari workaround: the table element instance is made at this point
-                // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
-                x.tableRef.setData(simpleData);
-            })();
-        }
-    }
+    argTypes: commonTableArgTypes,
+    args: commonTableArgs(simpleData)
 };
 
 export default metadata;

@@ -5,13 +5,9 @@ import {
     createUserSelectedThemeStory,
     usageWarning
 } from '../../../utilities/tests/storybook';
-import { Table, tableTag } from '../../../table';
+import { tableTag } from '../../../table';
 import { tableColumnTextTag } from '..';
-
-interface CommonTableArgs {
-    tableRef: Table;
-    updateData: (args: CommonTableArgs) => void;
-}
+import { CommonTableArgs, commonTableArgTypes, commonTableArgs } from '../../base/tests/table-column-stories-utils';
 
 const simpleData = [
     {
@@ -37,7 +33,7 @@ const simpleData = [
         lastName: 'Simpson',
         favoriteColor: 'Red'
     }
-] as const;
+];
 
 const overviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`. 
 See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for 
@@ -58,29 +54,8 @@ const metadata: Meta<CommonTableArgs> = {
         }
     },
     // prettier-ignore
-    argTypes: {
-        tableRef: {
-            table: {
-                disable: true
-            }
-        },
-        updateData: {
-            table: {
-                disable: true
-            }
-        }
-    },
-    args: {
-        tableRef: undefined,
-        updateData: x => {
-            void (async () => {
-                // Safari workaround: the table element instance is made at this point
-                // but doesn't seem to be upgraded to a custom element yet
-                await customElements.whenDefined('nimble-table');
-                x.tableRef.setData(simpleData);
-            })();
-        }
-    }
+    argTypes: commonTableArgTypes,
+    args: commonTableArgs(simpleData)
 };
 
 export default metadata;
