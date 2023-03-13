@@ -19,7 +19,9 @@ export const commonTableArgTypes = {
     }
 };
 
-export const commonTableArgs = (data: TableRecord[]): { tableRef: undefined, updateData: (x: CommonTableArgs) => void } => {
+export const commonTableArgs = (
+    data: TableRecord[]
+): { tableRef: undefined, updateData: (x: CommonTableArgs) => void } => {
     return {
         tableRef: undefined,
         updateData: (x: CommonTableArgs): void => {

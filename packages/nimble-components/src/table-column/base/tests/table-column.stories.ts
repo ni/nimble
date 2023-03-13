@@ -7,7 +7,11 @@ import {
 } from '../../../utilities/tests/storybook';
 import { ExampleSortType } from './types';
 import { tableTag } from '../../../table';
-import { CommonTableArgs, commonTableArgTypes, commonTableArgs } from './table-column-stories-utils';
+import {
+    CommonTableArgs,
+    commonTableArgTypes,
+    commonTableArgs
+} from './table-column-stories-utils';
 import { TableColumnSortDirection } from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
@@ -290,21 +294,22 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
     argTypes: {
         columnHidden: {
             name: 'column-hidden',
-            description: 'Add the `column-hidden` attribute to hide a column from display. One use case for this is to sort by a field but not display its value.',
+            description:
+                'Add the `column-hidden` attribute to hide a column from display. One use case for this is to sort by a field but not display its value.'
         },
         columnId: {
             name: 'column-id',
-            description: 'Optionally use the `column-id` attribute to uniquely identify a column for features like adding an action menu. If you aren\'t using features that require a column id you may leave it unset for all columns. If you provide `column-id` for any column within a table then you must provide it for all and they must be unique strings.'
+            description:
+                "Optionally use the `column-id` attribute to uniquely identify a column for features like adding an action menu. If you aren't using features that require a column id you may leave it unset for all columns. If you provide `column-id` for any column within a table then you must provide it for all and they must be unique strings."
         }
     },
     args: {
-        columnHidden: false,
+        columnHidden: false
     }
 };
 
 const sortedOptions = {
-    [ExampleSortType.none]: [
-    ],
+    [ExampleSortType.none]: [],
     [ExampleSortType.firstColumnAscending]: [
         {
             columnId: 'first-name-column',
@@ -392,8 +397,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleSortType.none]:
-                        'None',
+                    [ExampleSortType.none]: 'None',
                     [ExampleSortType.firstColumnAscending]:
                         'First name ascending',
                     [ExampleSortType.firstColumnDescending]:

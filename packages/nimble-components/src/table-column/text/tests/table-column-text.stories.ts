@@ -7,7 +7,11 @@ import {
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnTextTag } from '..';
-import { CommonTableArgs, commonTableArgTypes, commonTableArgs } from '../../base/tests/table-column-stories-utils';
+import {
+    CommonTableArgs,
+    commonTableArgTypes,
+    commonTableArgs
+} from '../../base/tests/table-column-stories-utils';
 
 const simpleData = [
     {
