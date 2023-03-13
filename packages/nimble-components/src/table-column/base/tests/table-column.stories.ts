@@ -62,10 +62,11 @@ const simpleData = [
 ] as const;
 
 const overviewText = `This page contains information about configuring the columns of a \`nimble-table\`. 
-See the **Table** story for information about configuring the table itself.`;
+See **Table** for information about configuring the table itself and **Table Column Types** for 
+information about specific types of column.`;
 
 const metadata: Meta<CommonTableArgs> = {
-    title: 'Table/Column Configuration',
+    title: 'Table Column Configuration',
     decorators: [withXD],
     parameters: {
         docs: {
@@ -458,62 +459,5 @@ export const sorting: StoryObj<SortingTableArgs> = {
                 index: matchingIndex
             };
         }
-    }
-};
-
-type TextColumnFieldNameOption = 'firstName' | 'lastName';
-
-interface TextColumnTableArgs extends CommonTableArgs {
-    fieldName: TextColumnFieldNameOption;
-    placeholderText: string;
-}
-
-const textColumnDescription = 'The `nimble-table-column-text` column is used to display string fields as text in the `nimble-table`.';
-
-export const textColumn: StoryObj<TextColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: textColumnDescription
-            }
-        }
-    },
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
-        ${usageWarning('table')}
-        <${tableTag}
-            ${ref('tableRef')}
-            data-unused="${x => x.updateData(x)}"
-        >
-            <${tableColumnTextTag}
-                field-name="${x => x.fieldName}"
-            >
-            Name
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                field-name="quote"
-                placeholder="${x => x.placeholderText}"
-            >
-            Quote
-            </${tableColumnTextTag}>
-        </${tableTag}>
-    `),
-    argTypes: {
-        fieldName: {
-            name: 'field-name',
-            description:
-                'Set this attribute to identify which field in the data record should be displayed in each column. The field data must be of type `string`.',
-            options: ['firstName', 'lastName'],
-            control: { type: 'radio' }
-        },
-        placeholderText: {
-            name: 'placeholder',
-            description:
-                'Optionally set this attribute to change the text that is displayed if the record value is `null`, `undefined`, or not present. If unset, an empty string will be displayed.'
-        }
-    },
-    args: {
-        fieldName: 'firstName',
-        placeholderText: '<pacifier noise>'
     }
 };
