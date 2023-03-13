@@ -334,7 +334,7 @@ const nimbleButton = Button.compose({
 
 ### Leverage mixins for shared APIs across components
 
-Typescript and the FAST library each offer patterns and/or mechanisms to alter the APIs for a component via a mixin.
+TypeScript and the FAST library each offer patterns and/or mechanisms to alter the APIs for a component via a mixin.
 
 FAST provides an `applyMixins` function (which is just an implementation of the pattern described [here](https://www.typescriptlang.org/docs/handbook/mixins.html#alternative-pattern) in the Typscript docs) to alter the API of a given component with a set of provided mixin classes. This is used in several places within Nimble (see [here](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/toggle-button/index.ts#L44) and [here](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/anchor-tabs/index.ts#L274)).
 
