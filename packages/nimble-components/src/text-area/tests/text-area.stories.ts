@@ -13,6 +13,7 @@ interface TextAreaArgs {
     value: string;
     readonly: boolean;
     disabled: boolean;
+    errorVisible: boolean;
     spellcheck: boolean;
     resize: TextAreaResize;
     rows: number;
@@ -45,6 +46,7 @@ const metadata: Meta<TextAreaArgs> = {
             :value="${x => x.value}"
             ?readonly="${x => x.readonly}"
             ?disabled="${x => x.disabled}"
+            ?error-visible="${x => x.errorVisible}"
             spellcheck="${x => x.spellcheck}"
             resize="${x => x.resize}"
             rows="${x => x.rows}"
@@ -92,6 +94,7 @@ const metadata: Meta<TextAreaArgs> = {
         value: loremIpsum,
         readonly: false,
         disabled: false,
+        errorVisible: false,
         spellcheck: false,
         resize: TextAreaResize.both,
         rows: 3,

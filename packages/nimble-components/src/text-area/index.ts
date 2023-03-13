@@ -1,10 +1,10 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
-    TextArea as FoundationTextArea,
-    textAreaTemplate as template
+    TextArea as FoundationTextArea
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
+import { template } from './template';
 import { TextAreaAppearance } from './types';
 
 declare global {
@@ -26,6 +26,34 @@ export class TextArea extends FoundationTextArea {
      */
     @attr
     public appearance: TextAreaAppearance = TextAreaAppearance.outline;
+
+    @observable
+    public hasVerticalScrollbar = false;
+
+    private resizeObserver?: ResizeObserver;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.resizeObserver = new ResizeObserver(this.onResize);
+        this.resizeObserver.observe(this);
+    }
+
+    public override disconnectedCallback(): void {
+        this.resizeObserver?.disconnect();
+    }
+
+    public onTextAreaInput(): void {
+        this.handleTextInput();
+        this.updateHasVerticalScrollbar();
+    }
+
+    private readonly onResize = (): void => {
+        this.updateHasVerticalScrollbar();
+    };
+
+    private updateHasVerticalScrollbar(): void {
+        this.hasVerticalScrollbar = this.control.clientHeight < this.control.scrollHeight;
+    }
 }
 
 const nimbleTextArea = TextArea.compose({

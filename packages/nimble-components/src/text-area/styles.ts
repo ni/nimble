@@ -10,7 +10,8 @@ import {
     controlLabelFont,
     controlLabelFontColor,
     bodyFont,
-    controlLabelDisabledFontColor
+    controlLabelDisabledFontColor,
+    iconSize
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
@@ -56,6 +57,10 @@ export const styles = css`
         padding: 8px;
         transition: box-shadow ${smallDelay}, border ${smallDelay};
         resize: none;
+    }
+
+    :host([error-visible]) .control {
+        padding-right: calc(8px + ${iconSize});
     }
 
     @media (prefers-reduced-motion) {
@@ -106,6 +111,22 @@ export const styles = css`
     }
     :host([resize='vertical']) .control {
         resize: vertical;
+    }
+
+    .error-icon {
+        display: none;
+    }
+    :host([error-visible]) .error-icon {
+        display: block;
+        position: relative;
+        left: calc(0px - ${iconSize});
+    }
+    :host([error-visible].vert-scrollbar) .error-icon {
+        left: calc(0px - ${iconSize} - 20px);
+    }
+
+    .container {
+        display: flex;
     }
 `.withBehaviors(
     appearanceBehavior(
