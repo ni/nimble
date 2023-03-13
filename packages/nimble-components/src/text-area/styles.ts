@@ -70,12 +70,12 @@ export const styles = css`
     }
 
     .control:hover {
-        border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor};
+        border-bottom-color: ${borderHoverColor};
+        border-bottom-width: calc(${borderWidth} + 1px);
     }
 
     .control:focus-within {
-        border-color: ${borderHoverColor};
+        border-bottom-color: ${borderHoverColor};
     }
 
     .control[readonly],
