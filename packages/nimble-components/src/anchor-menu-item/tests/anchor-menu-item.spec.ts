@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import { AnchorMenuItem } from '..';
 import type { Menu } from '../../menu';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -9,7 +9,9 @@ describe('Anchor Menu Item', () => {
     describe('standalone', () => {
         async function setup(): Promise<Fixture<AnchorMenuItem>> {
             return fixture<AnchorMenuItem>(
-                html`<nimble-anchor-menu-item href="#"></nimble-anchor-menu-item>`
+                html`<nimble-anchor-menu-item
+                    href="#"
+                ></nimble-anchor-menu-item>`
             );
         }
 
@@ -69,14 +71,22 @@ describe('Anchor Menu Item', () => {
                     element.setAttribute(attribute.name, 'foo');
                     await waitForUpdatesAsync();
 
-                    expect(element.anchor.getAttribute(attribute.name)).toBe('foo');
+                    expect(element.anchor.getAttribute(attribute.name)).toBe(
+                        'foo'
+                    );
                 });
             }
         });
     });
 
     describe('in a menu', () => {
-        async function setup(): Promise<Fixture<Menu>> {
+        class Model {
+            public item2!: AnchorMenuItem;
+            public item3!: AnchorMenuItem;
+            public item4dot2!: AnchorMenuItem;
+        }
+
+        async function setup(source: Model): Promise<Fixture<Menu>> {
             return fixture<Menu>(
                 html`
                     <nimble-menu>
@@ -84,33 +94,39 @@ describe('Anchor Menu Item', () => {
                             <nimble-icon-xmark slot="start"></nimble-icon-xmark>
                             Item 1
                         </nimble-menu-item>
-                        <nimble-anchor-menu-item href="a">Item 2</nimble-anchor-menu-item>
-                        <nimble-anchor-menu-item href="b">Item 3</nimble-anchor-menu-item>
+                        <nimble-anchor-menu-item ${ref('item2')} href="a"
+                            >Item 2</nimble-anchor-menu-item
+                        >
+                        <nimble-anchor-menu-item ${ref('item3')} href="b"
+                            >Item 3</nimble-anchor-menu-item
+                        >
                         <nimble-menu-item>
                             <nimble-menu>
                                 <nimble-menu-item>Item 4.1</nimble-menu-item>
-                                <nimble-anchor-menu-item href="c">Item 4.2</nimble-anchor-menu-item>
-                                <nimble-anchor-menu-item href="d">Item 4.3</nimble-anchor-menu-item>
+                                <nimble-anchor-menu-item
+                                    ${ref('item4dot2')}
+                                    href="c"
+                                    >Item 4.2</nimble-anchor-menu-item
+                                >
+                                <nimble-anchor-menu-item href="d"
+                                    >Item 4.3</nimble-anchor-menu-item
+                                >
                             </nimble-menu>
                             Item 4
                         </nimble-menu-item>
                     </nimble-menu>
-                `
+                `,
+                { source }
             );
         }
 
-        let element: Menu;
-        let item2: AnchorMenuItem;
-        let item3: AnchorMenuItem;
-        let item4dot2: AnchorMenuItem;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
+        let model: Model;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            item2 = element.children[1] as AnchorMenuItem;
-            item3 = element.children[2] as AnchorMenuItem;
-            item4dot2 = element.children[3]?.children[0]?.children[1] as AnchorMenuItem;
+            model = new Model();
+            ({ connect, disconnect } = await setup(model));
         });
 
         afterEach(async () => {
@@ -120,9 +136,9 @@ describe('Anchor Menu Item', () => {
         it('should have startColumnCount set by the menu', async () => {
             await connect();
             await waitForUpdatesAsync();
-            expect(item2.startColumnCount).toBe(1);
-            expect(item3.startColumnCount).toBe(1);
-            expect(item4dot2.startColumnCount).toBe(0);
+            expect(model.item2.startColumnCount).toBe(1);
+            expect(model.item3.startColumnCount).toBe(1);
+            expect(model.item4dot2.startColumnCount).toBe(0);
         });
     });
 });

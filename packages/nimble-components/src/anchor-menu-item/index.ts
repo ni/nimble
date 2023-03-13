@@ -40,6 +40,7 @@ export class AnchorMenuItem extends AnchorBase {
     // The following two handlers are workarounds for issues with anchor menu items in submenus.
     // Events can bubble up the DOM and get handled by the menu item in the parent menu. When that happens,
     // the menu item's handlers (FAST) return false and prevent the default action, i.e. navigation.
+    // FAST has this issue about supporting links in menus: https://github.com/microsoft/fast/issues/5415
 
     public clickHandler = (e: MouseEvent): boolean => {
         e.stopImmediatePropagation();
@@ -58,25 +59,6 @@ export class AnchorMenuItem extends AnchorBase {
         }
         return true;
     };
-
-    // The FAST Menu manages the `tabindex` of its menu items. Because we're setting `delegatesFocus=true`
-    // the focusable element is the anchor, so we forward `tabindex` to that element instead of the host.
-    // This prevents a problem where the focused anchor loses focus and the menu closes.
-    public override setAttribute(qualifiedName: string, value: string): void {
-        if (qualifiedName === 'tabindex') {
-            this.anchor.setAttribute(qualifiedName, value);
-        } else {
-            super.setAttribute(qualifiedName, value);
-        }
-    }
-
-    public override get tabIndex(): number {
-        return this.anchor.tabIndex;
-    }
-
-    public override set tabIndex(value: number) {
-        this.anchor.tabIndex = value;
-    }
 }
 
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
