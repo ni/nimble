@@ -114,9 +114,20 @@ const metadata: Meta<CommonTableArgs> = {
 
 export default metadata;
 
+interface DefaultColumnConfigTableArgs extends CommonTableArgs {
+    columns: string;
+}
+
 // In the Docs tab, Storybook doesn't render the title of the first story
 // This is a placeholder to get the useful ones to render
-export const columns: StoryObj<CommonTableArgs> = {};
+export const columns: StoryObj<DefaultColumnConfigTableArgs> = {
+    argTypes: {
+        columns: {
+            name: 'Default column configuration',
+            description: 'This example shows columns in their default configuration.',
+        }
+    },
+};
 
 type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
 
