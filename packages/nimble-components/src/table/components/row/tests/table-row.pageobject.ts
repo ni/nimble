@@ -10,6 +10,8 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
     public constructor(private readonly tableRowElement: TableRow<T>) {}
 
     public getRenderedCell(columnIndex: number): TableCell | undefined {
-        return this.tableRowElement.shadowRoot!.querySelectorAll<TableCell>(tableCellTag)[columnIndex];
+        return this.tableRowElement.shadowRoot!.querySelectorAll<TableCell>(
+            tableCellTag
+        )[columnIndex];
     }
 }
