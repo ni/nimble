@@ -9,7 +9,7 @@ import { styles } from './styles';
 import { TextFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
-import { IconExclamationMark } from '../icons/exclamation-mark';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -57,10 +57,10 @@ const nimbleTextField = TextField.compose<TextFieldOptions>({
         delegatesFocus: true
     },
     end: html<TextField>`
-        <${DesignSystem.tagFor(IconExclamationMark)}
+        <${iconExclamationMarkTag}
             severity="error"
             class="error-icon"
-        ></${DesignSystem.tagFor(IconExclamationMark)}>
+        ></${iconExclamationMarkTag}>
         <span part="actions">
             <slot name="actions"></slot>
         </span>
