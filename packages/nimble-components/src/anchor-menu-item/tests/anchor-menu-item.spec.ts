@@ -1,13 +1,11 @@
 import { html } from '@microsoft/fast-element';
-import { keyArrowDown, keyArrowRight, keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorMenuItem } from '..';
 import type { Menu } from '../../menu';
-import type { MenuItem } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
-fdescribe('Anchor Menu Item', () => {
+describe('Anchor Menu Item', () => {
     describe('standalone', () => {
         async function setup(): Promise<Fixture<AnchorMenuItem>> {
             return fixture<AnchorMenuItem>(
@@ -104,7 +102,7 @@ fdescribe('Anchor Menu Item', () => {
         let element: Menu;
         let item2: AnchorMenuItem;
         let item3: AnchorMenuItem;
-        let item4_2: AnchorMenuItem;
+        let item4dot2: AnchorMenuItem;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
 
@@ -112,7 +110,7 @@ fdescribe('Anchor Menu Item', () => {
             ({ element, connect, disconnect } = await setup());
             item2 = element.children[1] as AnchorMenuItem;
             item3 = element.children[2] as AnchorMenuItem;
-            item4_2 = element.children[3]?.children[0]?.children[1] as AnchorMenuItem;
+            item4dot2 = element.children[3]?.children[0]?.children[1] as AnchorMenuItem;
         });
 
         afterEach(async () => {
@@ -124,7 +122,7 @@ fdescribe('Anchor Menu Item', () => {
             await waitForUpdatesAsync();
             expect(item2.startColumnCount).toBe(1);
             expect(item3.startColumnCount).toBe(1);
-            expect(item4_2.startColumnCount).toBe(0);
+            expect(item4dot2.startColumnCount).toBe(0);
         });
     });
 });
