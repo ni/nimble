@@ -18,12 +18,8 @@ function getSortIcons(element: TableHeader): {
 } {
     const sortIndicatorContainer = element.shadowRoot!.querySelector('.sort-indicator')!;
     return {
-        ascendingIcon: sortIndicatorContainer.querySelector(
-            iconArrowUpTag
-        ),
-        descendingIcon: sortIndicatorContainer.querySelector(
-            iconArrowDownTag
-        )
+        ascendingIcon: sortIndicatorContainer.querySelector(iconArrowUpTag),
+        descendingIcon: sortIndicatorContainer.querySelector(iconArrowDownTag)
     };
 }
 

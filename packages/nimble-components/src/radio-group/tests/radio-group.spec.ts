@@ -2,9 +2,7 @@ import { RadioGroup, radioGroupTag } from '..';
 
 describe('Radio Group', () => {
     it('should export its tag', () => {
-        expect(radioGroupTag).toBe(
-            'nimble-radio-group'
-        );
+        expect(radioGroupTag).toBe('nimble-radio-group');
     });
 
     it('can construct an element instance', () => {

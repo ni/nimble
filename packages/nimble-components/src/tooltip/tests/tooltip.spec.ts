@@ -1,6 +1,4 @@
-import {
-    TooltipPosition,
-} from '@microsoft/fast-foundation';
+import { TooltipPosition } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Tooltip, tooltipTag } from '..';
@@ -51,11 +49,7 @@ describe('Tooltip', () => {
         await waitForUpdatesAsync();
 
         expect(element.visible).toBeUndefined();
-        expect(
-            element.shadowRoot?.querySelector(
-                anchoredRegionTag
-            )
-        ).toBeNull();
+        expect(element.shadowRoot?.querySelector(anchoredRegionTag)).toBeNull();
 
         await disconnect();
     });
@@ -69,9 +63,7 @@ describe('Tooltip', () => {
 
         expect(element.visible).toBe(true);
         expect(
-            element.shadowRoot?.querySelector(
-                anchoredRegionTag
-            )
+            element.shadowRoot?.querySelector(anchoredRegionTag)
         ).not.toBeNull();
 
         await disconnect();
@@ -85,11 +77,7 @@ describe('Tooltip', () => {
         await waitForUpdatesAsync();
 
         expect(element.visible).toBe(false);
-        expect(
-            element.shadowRoot?.querySelector(
-                anchoredRegionTag
-            )
-        ).toBeNull();
+        expect(element.shadowRoot?.querySelector(anchoredRegionTag)).toBeNull();
 
         await disconnect();
     });

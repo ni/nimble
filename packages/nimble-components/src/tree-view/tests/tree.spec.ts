@@ -72,9 +72,7 @@ describe('TreeView', () => {
     });
 
     it('should export its tag', () => {
-        expect(treeViewTag).toBe(
-            'nimble-tree-view'
-        );
+        expect(treeViewTag).toBe('nimble-tree-view');
     });
 
     it('can construct an element instance', () => {
