@@ -115,7 +115,7 @@ All components should have an import added to `src/all-components.ts` so they ar
 
 If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
 
-If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
+If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
 Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
 
@@ -293,6 +293,16 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 ### Icon components
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
+
+### Export component tag
+
+Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
+
+```ts
+export const buttonTag = DesignSystem.tagFor(Button);
+```
+
+Client code can use this to refer to the component in an HTML template and trust that the reference will continue to work if the component name ever changes.
 
 ### TypeScript integration
 
