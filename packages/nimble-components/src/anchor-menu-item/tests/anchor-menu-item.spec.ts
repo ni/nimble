@@ -1,20 +1,19 @@
 /* eslint-disable max-classes-per-file */
-import { html, ref } from '@microsoft/fast-element';
-import {
-    FoundationElement,
-    MenuItem as FoundationMenuItem,
-    Anchor as FoundationAnchor,
-    DesignSystem
-} from '@microsoft/fast-foundation';
+import { customElement, html, ref } from '@microsoft/fast-element';
+import { MenuItem as FoundationMenuItem } from '@microsoft/fast-foundation';
 import { AnchorMenuItem, anchorMenuItemTag } from '..';
 import { anchorTag } from '../../anchor';
+import { buttonTag } from '../../button';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
-import type { Menu } from '../../menu';
+import { Menu, menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+
+@customElement('foundation-menu-item')
+export class TestMenuItem extends FoundationMenuItem {}
 
 describe('Anchor Menu Item', () => {
     describe('standalone', () => {
@@ -187,16 +186,6 @@ describe('Anchor Menu Item', () => {
     });
 
     describe('FoundationMenuItem instanceof override', () => {
-        // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-        class TestFoundationMenuItem extends FoundationMenuItem {}
-        const foundationMenuItemComponent = TestFoundationMenuItem.compose({
-            baseName: 'menu-item'
-        });
-
-        DesignSystem.getOrCreate()
-            .withPrefix('foundation')
-            .register(foundationMenuItemComponent());
-
         it('returns true for FoundationMenuItem', () => {
             const foundationMenuItem = document.createElement(
                 'foundation-menu-item'
@@ -214,44 +203,24 @@ describe('Anchor Menu Item', () => {
             expect(menuItem instanceof FoundationMenuItem).toBeTrue();
         });
 
+        it('returns false for Menu', () => {
+            const menu = document.createElement(menuTag);
+            expect(menu instanceof FoundationMenuItem).toBeFalse();
+        });
+
         it('returns false for Anchor', () => {
             const anchor = document.createElement(anchorTag);
             expect(anchor instanceof FoundationMenuItem).toBeFalse();
         });
 
-        // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-        class TestFoundationAnchor extends FoundationAnchor {}
-        const foundationAnchorComponent = TestFoundationAnchor.compose({
-            baseName: 'anchor'
+        it('returns false for Button', () => {
+            const button = document.createElement(buttonTag);
+            expect(button instanceof FoundationMenuItem).toBeFalse();
         });
 
-        DesignSystem.getOrCreate()
-            .withPrefix('foundation')
-            .register(foundationAnchorComponent());
-
-        it('returns false for FoundationAnchor', () => {
-            const foundationAnchor = document.createElement('foundation-anchor');
-            expect(foundationAnchor instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-        class TestFoundationElement extends FoundationElement {}
-        const foundationElementComponent = TestFoundationElement.compose({
-            baseName: 'element'
-        });
-
-        DesignSystem.getOrCreate()
-            .withPrefix('foundation')
-            .register(foundationElementComponent());
-
-        it('returns false for FoundationElement', () => {
-            const foundationElement = document.createElement('foundation-element');
-            expect(foundationElement instanceof FoundationMenuItem).toBeFalse();
-        });
-
-        it('returns false for Object', () => {
-            const obj = {};
-            expect(obj instanceof FoundationMenuItem).toBeFalse();
+        it('returns false for div', () => {
+            const div = document.createElement('div');
+            expect(div instanceof FoundationMenuItem).toBeFalse();
         });
     });
 });
