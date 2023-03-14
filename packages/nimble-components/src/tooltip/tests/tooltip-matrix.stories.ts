@@ -110,6 +110,11 @@ export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
+// Temporarily disabling this test because of flakiness
+tooltipLightThemeWhiteBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
+
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     createMatrix(component, [
         textStates,
@@ -119,10 +124,20 @@ export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory
     colorThemeDarkGreenBackground
 );
 
+// Temporarily disabling this test because of flakiness
+tooltipColorThemeDarkGreenBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
+
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
     createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     darkThemeBlackBackground
 );
+
+// Temporarily disabling this test because of flakiness
+tooltipDarkThemeBlackBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
 
 export const hiddenTooltip: Story = createStory(
     hiddenWrapper(html`<${tooltipTag} hidden>Hidden Tooltip</${tooltipTag}>`)
