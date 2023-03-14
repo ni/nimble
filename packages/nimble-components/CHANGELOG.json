@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Mar 2023 18:33:29 GMT",
+      "tag": "@ni/nimble-components_v18.7.0",
+      "version": "18.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bd3f2cfa0f26c76c6f92cc69f3b9bee7780f457e",
+            "comment": "Add Storybook documentation for table columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Mar 2023 14:51:12 GMT",
       "tag": "@ni/nimble-components_v18.7.0",
       "version": "18.7.0",
