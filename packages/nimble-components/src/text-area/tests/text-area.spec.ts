@@ -41,7 +41,11 @@ describe('Text Area', () => {
         expect(element.control.part.contains('control')).toBe(true);
     });
 
-    const attributeNames: { name: string, value?: string, boolean?: boolean }[] = [
+    const attributeNames: {
+        name: string,
+        value?: string,
+        boolean?: boolean
+    }[] = [
         { name: 'autofocus', boolean: true },
         { name: 'cols', value: '10' },
         { name: 'disabled', boolean: true },
@@ -87,11 +91,16 @@ describe('Text Area', () => {
             specType(`for attribute ${attribute.name}`, async () => {
                 await connect();
 
-                element.setAttribute(attribute.name, attribute.value ?? (attribute.boolean ? '' : 'foo'));
+                element.setAttribute(
+                    attribute.name,
+                    attribute.value ?? (attribute.boolean ? '' : 'foo')
+                );
                 await waitForUpdatesAsync();
 
                 if (attribute.boolean) {
-                    expect(element.control.hasAttribute(attribute.name)).toBeTrue();
+                    expect(
+                        element.control.hasAttribute(attribute.name)
+                    ).toBeTrue();
                 } else {
                     expect(element.control.getAttribute(attribute.name)).toBe(
                         attribute.value ?? 'foo'
