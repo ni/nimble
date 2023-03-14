@@ -75,7 +75,7 @@ describe('TreeView', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationTreeView)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationTreeView)).toBe(
             'nimble-tree-view'
         );

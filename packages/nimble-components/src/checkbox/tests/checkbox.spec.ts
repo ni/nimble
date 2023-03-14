@@ -5,7 +5,7 @@ import {
 import { Checkbox } from '..';
 
 describe('Checkbox', () => {
-    it('should have its tag returned by tagFor(FoundationCheckbox)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationCheckbox)).toBe('nimble-checkbox');
     });
 

@@ -5,7 +5,7 @@ import {
 import { AnchoredRegion } from '..';
 
 describe('Anchored Region', () => {
-    it('should have its tag returned by tagFor(FoundationAnchoredRegion)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationAnchoredRegion)).toBe(
             'nimble-anchored-region'
         );

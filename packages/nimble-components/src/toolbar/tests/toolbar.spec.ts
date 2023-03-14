@@ -5,7 +5,7 @@ import {
 import { Toolbar } from '..';
 
 describe('Toolbar', () => {
-    it('should have its tag returned by tagFor(FoundationToolbar)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationToolbar)).toBe('nimble-toolbar');
     });
 

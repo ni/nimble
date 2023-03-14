@@ -5,7 +5,7 @@ import {
 import { TextArea } from '..';
 
 describe('Text Area', () => {
-    it('should have its tag returned by tagFor(FoundationTextArea)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationTextArea)).toBe(
             'nimble-text-area'
         );

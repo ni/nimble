@@ -5,7 +5,7 @@ import {
 import { Radio } from '..';
 
 describe('Radio', () => {
-    it('should have its tag returned by tagFor(FoundationRadio)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationRadio)).toBe('nimble-radio');
     });
 

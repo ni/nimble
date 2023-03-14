@@ -5,7 +5,7 @@ import {
 import { TextField } from '..';
 
 describe('TextField', () => {
-    it('should have its tag returned by tagFor(FoundationTextField)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationTextField)).toBe(
             'nimble-text-field'
         );

@@ -26,7 +26,7 @@ describe('Dialog', () => {
         ) as ExtendedDialog;
     }
 
-    it('should have its tag returned by tagFor(Dialog)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(Dialog)).toBe('nimble-dialog');
     });
 

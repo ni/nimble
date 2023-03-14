@@ -5,7 +5,7 @@ import {
 import { MenuItem } from '..';
 
 describe('MenuItem', () => {
-    it('should have its tag returned by tagFor(FoundationMenuItem)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationMenuItem)).toBe(
             'nimble-menu-item'
         );

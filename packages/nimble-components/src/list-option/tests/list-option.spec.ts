@@ -5,7 +5,7 @@ import {
 import { ListOption } from '..';
 
 describe('ListboxOption', () => {
-    it('should have its tag returned by tagFor(FoundationListboxOption)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationListboxOption)).toBe(
             'nimble-list-option'
         );

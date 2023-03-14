@@ -5,7 +5,7 @@ import {
 import { TreeItem } from '..';
 
 describe('TreeItem', () => {
-    it('should have its tag returned by tagFor(FoundationTreeItem)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationTreeItem)).toBe(
             'nimble-tree-item'
         );

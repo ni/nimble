@@ -26,7 +26,7 @@ describe('Switch', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationSwitch)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationSwitch)).toBe('nimble-switch');
     });
 

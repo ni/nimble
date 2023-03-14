@@ -5,7 +5,7 @@ import {
 import { NumberField } from '..';
 
 describe('NumberField', () => {
-    it('should have its tag returned by tagFor(FoundationNumberField)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationNumberField)).toBe(
             'nimble-number-field'
         );

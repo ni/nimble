@@ -25,7 +25,7 @@ describe('Anchor', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationAnchor)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationAnchor)).toBe('nimble-anchor');
     });
 

@@ -5,7 +5,7 @@ import {
 import { BreadcrumbItem } from '..';
 
 describe('Breadcrumb Item', () => {
-    it('should have its tag returned by tagFor(FoundationBreadcrumbItem)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationBreadcrumbItem)).toBe(
             'nimble-breadcrumb-item'
         );

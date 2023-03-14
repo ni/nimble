@@ -5,7 +5,7 @@ import {
 import { TabPanel } from '..';
 
 describe('TabPanel', () => {
-    it('should have its tag returned by tagFor(FoundationTabPanel)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationTabPanel)).toBe(
             'nimble-tab-panel'
         );

@@ -131,7 +131,7 @@ describe('Select', () => {
         });
     });
 
-    it('should have its tag returned by tagFor(FoundationSelect)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
     });
 

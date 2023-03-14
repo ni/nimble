@@ -371,7 +371,7 @@ describe('Tooltip', () => {
 
     // end of position tests ^
 
-    it('should have its tag returned by tagFor(FoundationTooltip)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationTooltip)).toBe('nimble-tooltip');
     });
 

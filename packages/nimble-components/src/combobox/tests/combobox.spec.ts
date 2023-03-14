@@ -83,7 +83,7 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationCombobox)', () => {
+    it('should export its tag', () => {
         expect(DesignSystem.tagFor(FoundationCombobox)).toBe('nimble-combobox');
     });
 
