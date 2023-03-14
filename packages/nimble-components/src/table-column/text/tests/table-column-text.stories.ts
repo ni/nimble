@@ -8,9 +8,9 @@ import {
 import { tableTag } from '../../../table';
 import { tableColumnTextTag } from '..';
 import {
-    CommonTableArgs,
-    commonTableArgTypes,
-    commonTableArgs
+    SharedTableArgs,
+    sharedTableArgTypes,
+    sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
 
 const simpleData = [
@@ -43,7 +43,7 @@ const overviewText = `This page contains information about the types of columns 
 See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for 
 information about common column configuration.`;
 
-const metadata: Meta<CommonTableArgs> = {
+const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Types',
     decorators: [withXD],
     parameters: {
@@ -58,15 +58,15 @@ const metadata: Meta<CommonTableArgs> = {
         }
     },
     // prettier-ignore
-    argTypes: commonTableArgTypes,
-    args: commonTableArgs(simpleData)
+    argTypes: sharedTableArgTypes,
+    args: sharedTableArgs(simpleData)
 };
 
 export default metadata;
 
 type TextColumnFieldNameOption = 'firstName' | 'lastName';
 
-interface TextColumnTableArgs extends CommonTableArgs {
+interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: TextColumnFieldNameOption;
     placeholderText: string;
 }

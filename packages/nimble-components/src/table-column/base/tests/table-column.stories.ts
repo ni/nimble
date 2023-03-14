@@ -8,9 +8,9 @@ import {
 import { ExampleSortType } from './types';
 import { tableTag } from '../../../table';
 import {
-    CommonTableArgs,
-    commonTableArgTypes,
-    commonTableArgs
+    SharedTableArgs,
+    sharedTableArgTypes,
+    sharedTableArgs
 } from './table-column-stories-utils';
 import { TableColumnSortDirection } from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
@@ -65,7 +65,7 @@ const overviewText = `This page contains information about configuring the colum
 See **Table** for information about configuring the table itself and **Table Column Types** for 
 information about specific types of column.`;
 
-const metadata: Meta<CommonTableArgs> = {
+const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Configuration',
     decorators: [withXD],
     parameters: {
@@ -80,7 +80,7 @@ const metadata: Meta<CommonTableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<CommonTableArgs>`
+    render: createUserSelectedThemeStory(html<SharedTableArgs>`
     ${usageWarning('table')}
     <${tableTag}
         ${ref('tableRef')}
@@ -108,13 +108,13 @@ const metadata: Meta<CommonTableArgs> = {
         </${tableColumnTextTag}>
     </${tableTag}>
     `),
-    argTypes: commonTableArgTypes,
-    args: commonTableArgs(simpleData)
+    argTypes: sharedTableArgTypes,
+    args: sharedTableArgs(simpleData)
 };
 
 export default metadata;
 
-interface DefaultColumnConfigTableArgs extends CommonTableArgs {
+interface DefaultColumnConfigTableArgs extends SharedTableArgs {
     columns: string;
 }
 
@@ -132,7 +132,7 @@ export const columns: StoryObj<DefaultColumnConfigTableArgs> = {
 
 type ColumnOrderOption = 'FirstName, LastName' | 'LastName, FirstName';
 
-interface ColumnOrderTableArgs extends CommonTableArgs {
+interface ColumnOrderTableArgs extends SharedTableArgs {
     columnOrder: ColumnOrderOption;
 }
 
@@ -196,7 +196,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
 
 type HeaderIconOption = 'user' | 'comment';
 
-interface HeaderContentTableArgs extends CommonTableArgs {
+interface HeaderContentTableArgs extends SharedTableArgs {
     headerIcon: HeaderIconOption;
     headerText: string;
 }
@@ -262,7 +262,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
 
 const commonColumnAttributes = 'In addition to the attributes described in other stories there are other attributes available on all column types.';
 
-interface CommonAttributesTableArgs extends CommonTableArgs {
+interface CommonAttributesTableArgs extends SharedTableArgs {
     columnHidden: boolean;
     columnId: string;
 }
@@ -351,7 +351,7 @@ it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`d
 of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`. 
 Sorting is based on the underlying field values in the column, not the rendered values.`;
 
-interface SortingTableArgs extends CommonTableArgs {
+interface SortingTableArgs extends SharedTableArgs {
     sortedColumns: ExampleSortType;
     getColumnSortData: (
         columnId: string,

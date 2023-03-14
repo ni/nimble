@@ -1,12 +1,12 @@
 import type { Table } from '../../../table';
 import type { TableRecord } from '../../../table/types';
 
-export interface CommonTableArgs {
+export interface SharedTableArgs {
     tableRef: Table;
-    updateData: (args: CommonTableArgs) => void;
+    updateData: (args: SharedTableArgs) => void;
 }
 
-export const commonTableArgTypes = {
+export const sharedTableArgTypes = {
     tableRef: {
         table: {
             disable: true
@@ -17,14 +17,14 @@ export const commonTableArgTypes = {
             disable: true
         }
     }
-};
+} as const;
 
-export const commonTableArgs = (
+export const sharedTableArgs = (
     data: TableRecord[]
-): { tableRef: undefined, updateData: (x: CommonTableArgs) => void } => {
+): { tableRef: undefined, updateData: (x: SharedTableArgs) => void } => {
     return {
         tableRef: undefined,
-        updateData: (x: CommonTableArgs): void => {
+        updateData: (x: SharedTableArgs): void => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
@@ -32,5 +32,5 @@ export const commonTableArgs = (
                 x.tableRef.setData(data);
             })();
         }
-    };
+    } as const;
 };
