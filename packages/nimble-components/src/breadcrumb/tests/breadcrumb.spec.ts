@@ -1,14 +1,8 @@
-import {
-    DesignSystem,
-    Breadcrumb as FoundationBreadcrumb
-} from '@microsoft/fast-foundation';
-import { Breadcrumb } from '..';
+import { Breadcrumb, breadcrumbTag } from '..';
 
 describe('Breadcrumb', () => {
-    it('should have its tag returned by tagFor(FoundationBreadcrumb)', () => {
-        expect(DesignSystem.tagFor(FoundationBreadcrumb)).toBe(
-            'nimble-breadcrumb'
-        );
+    it('should export its tag', () => {
+        expect(breadcrumbTag).toBe('nimble-breadcrumb');
     });
 
     it('can construct an element instance', () => {
