@@ -1,6 +1,7 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { Story } from '@storybook/html';
 import { themeProviderTag } from '../../theme-provider';
+import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
 import {
@@ -145,3 +146,15 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 
 ${howToOverride}
 </details>`;
+
+export const usageWarning = (componentName: string): string => `
+<style class="code-hide">
+#usage-warning {
+    color: red;
+    font: var(${bodyFont.cssCustomProperty});
+}
+</style>
+<div id="usage-warning" class="code-hide">
+WARNING - The ${componentName} is still in development and considered
+experimental. It is not recommended for application use.
+</div>`;
