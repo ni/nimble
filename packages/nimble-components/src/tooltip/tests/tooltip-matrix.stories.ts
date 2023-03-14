@@ -37,7 +37,7 @@ export default metadata;
 
 const textStates = [
     ['Short_Text', 'Hello'],
-    ['Long_Text', loremIpsum]
+    ['Long_Text', loremIpsum.substring(0, 232)]
 ] as const;
 type TextState = (typeof textStates)[number];
 
