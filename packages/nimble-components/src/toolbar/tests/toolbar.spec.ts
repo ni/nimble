@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    Toolbar as FoundationToolbar
-} from '@microsoft/fast-foundation';
-import { Toolbar } from '..';
+import { Toolbar, toolbarTag } from '..';
 
 describe('Toolbar', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationToolbar)).toBe('nimble-toolbar');
+        expect(toolbarTag).toBe('nimble-toolbar');
     });
 
     it('can construct an element instance', () => {

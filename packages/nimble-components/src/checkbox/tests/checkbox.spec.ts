@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    Checkbox as FoundationCheckbox
-} from '@microsoft/fast-foundation';
-import { Checkbox } from '..';
+import { Checkbox, checkboxTag } from '..';
 
 describe('Checkbox', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationCheckbox)).toBe('nimble-checkbox');
+        expect(checkboxTag).toBe('nimble-checkbox');
     });
 
     it('can construct an element instance', () => {

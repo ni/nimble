@@ -1,14 +1,10 @@
-import {
-    DesignSystem,
-    TreeView as FoundationTreeView
-} from '@microsoft/fast-foundation';
 import { html, ref } from '@microsoft/fast-element';
 import { notebook16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { clickElement } from '../../utilities/tests/component';
 import { TreeViewSelectionMode } from '../types';
-import { TreeView } from '..';
+import { TreeView, treeViewTag } from '..';
 import type { TreeItem } from '../../tree-item';
 import type { Button } from '../../button';
 import '../../tree-item';
@@ -76,7 +72,7 @@ describe('TreeView', () => {
     });
 
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationTreeView)).toBe(
+        expect(treeViewTag).toBe(
             'nimble-tree-view'
         );
     });

@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    RadioGroup as FoundationRadioGroup
-} from '@microsoft/fast-foundation';
-import { RadioGroup } from '..';
+import { RadioGroup, radioGroupTag } from '..';
 
 describe('Radio Group', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationRadioGroup)).toBe(
+        expect(radioGroupTag).toBe(
             'nimble-radio-group'
         );
     });

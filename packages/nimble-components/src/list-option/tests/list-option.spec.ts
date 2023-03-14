@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    ListboxOption as FoundationListboxOption
-} from '@microsoft/fast-foundation';
-import { ListOption } from '..';
+import { ListOption, listOptionTag } from '..';
 
 describe('ListboxOption', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationListboxOption)).toBe(
+        expect(listOptionTag).toBe(
             'nimble-list-option'
         );
     });

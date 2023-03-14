@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    TextField as FoundationTextField
-} from '@microsoft/fast-foundation';
-import { TextField } from '..';
+import { TextField, textFieldTag } from '..';
 
 describe('TextField', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationTextField)).toBe(
+        expect(textFieldTag).toBe(
             'nimble-text-field'
         );
     });

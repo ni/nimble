@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    Button as FoundationButton
-} from '@microsoft/fast-foundation';
-import { Button } from '..';
+import { Button, buttonTag } from '..';
 
 describe('Button', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationButton)).toBe('nimble-button');
+        expect(buttonTag).toBe('nimble-button');
     });
 
     it('can construct an element instance', () => {

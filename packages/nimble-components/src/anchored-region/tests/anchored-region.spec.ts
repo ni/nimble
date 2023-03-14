@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    AnchoredRegion as FoundationAnchoredRegion
-} from '@microsoft/fast-foundation';
-import { AnchoredRegion } from '..';
+import { AnchoredRegion, anchoredRegionTag } from '..';
 
 describe('Anchored Region', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationAnchoredRegion)).toBe(
+        expect(anchoredRegionTag).toBe(
             'nimble-anchored-region'
         );
     });

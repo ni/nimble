@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    TreeItem as FoundationTreeItem
-} from '@microsoft/fast-foundation';
-import { TreeItem } from '..';
+import { TreeItem, treeItemTag } from '..';
 
 describe('TreeItem', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationTreeItem)).toBe(
+        expect(treeItemTag).toBe(
             'nimble-tree-item'
         );
     });

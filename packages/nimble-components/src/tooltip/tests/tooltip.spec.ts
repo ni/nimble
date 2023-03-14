@@ -1,12 +1,10 @@
 import {
-    DesignSystem,
     TooltipPosition,
-    Tooltip as FoundationTooltip
 } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Tooltip } from '..';
-import { AnchoredRegion } from '../../anchored-region';
+import { Tooltip, tooltipTag } from '..';
+import { anchoredRegionTag } from '../../anchored-region';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Tooltip>> {
@@ -55,7 +53,7 @@ describe('Tooltip', () => {
         expect(element.visible).toBeUndefined();
         expect(
             element.shadowRoot?.querySelector(
-                DesignSystem.tagFor(AnchoredRegion)
+                anchoredRegionTag
             )
         ).toBeNull();
 
@@ -72,7 +70,7 @@ describe('Tooltip', () => {
         expect(element.visible).toBe(true);
         expect(
             element.shadowRoot?.querySelector(
-                DesignSystem.tagFor(AnchoredRegion)
+                anchoredRegionTag
             )
         ).not.toBeNull();
 
@@ -89,7 +87,7 @@ describe('Tooltip', () => {
         expect(element.visible).toBe(false);
         expect(
             element.shadowRoot?.querySelector(
-                DesignSystem.tagFor(AnchoredRegion)
+                anchoredRegionTag
             )
         ).toBeNull();
 
@@ -372,7 +370,7 @@ describe('Tooltip', () => {
     // end of position tests ^
 
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationTooltip)).toBe('nimble-tooltip');
+        expect(tooltipTag).toBe('nimble-tooltip');
     });
 
     it('can construct an element instance', () => {

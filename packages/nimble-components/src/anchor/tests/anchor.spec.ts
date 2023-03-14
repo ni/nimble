@@ -1,9 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    Anchor as FoundationAnchor
-} from '@microsoft/fast-foundation';
-import { Anchor } from '..';
+import { Anchor, anchorTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
@@ -26,7 +22,7 @@ describe('Anchor', () => {
     });
 
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationAnchor)).toBe('nimble-anchor');
+        expect(anchorTag).toBe('nimble-anchor');
     });
 
     it('can construct an element instance', () => {

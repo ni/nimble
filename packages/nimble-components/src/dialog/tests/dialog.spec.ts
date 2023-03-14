@@ -1,7 +1,6 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Dialog, ExtendedDialog, UserDismissed } from '..';
+import { Dialog, dialogTag, ExtendedDialog, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -27,7 +26,7 @@ describe('Dialog', () => {
     }
 
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(Dialog)).toBe('nimble-dialog');
+        expect(dialogTag).toBe('nimble-dialog');
     });
 
     it('can construct an element instance', () => {

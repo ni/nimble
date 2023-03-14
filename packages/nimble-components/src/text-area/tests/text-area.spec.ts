@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    TextArea as FoundationTextArea
-} from '@microsoft/fast-foundation';
-import { TextArea } from '..';
+import { TextArea, textAreaTag } from '..';
 
 describe('Text Area', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationTextArea)).toBe(
+        expect(textAreaTag).toBe(
             'nimble-text-area'
         );
     });

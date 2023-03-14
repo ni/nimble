@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    Radio as FoundationRadio
-} from '@microsoft/fast-foundation';
-import { Radio } from '..';
+import { Radio, radioTag } from '..';
 
 describe('Radio', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationRadio)).toBe('nimble-radio');
+        expect(radioTag).toBe('nimble-radio');
     });
 
     it('can construct an element instance', () => {

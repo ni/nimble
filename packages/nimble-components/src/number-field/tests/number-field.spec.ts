@@ -1,12 +1,8 @@
-import {
-    DesignSystem,
-    NumberField as FoundationNumberField
-} from '@microsoft/fast-foundation';
-import { NumberField } from '..';
+import { NumberField, numberFieldTag } from '..';
 
 describe('NumberField', () => {
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationNumberField)).toBe(
+        expect(numberFieldTag).toBe(
             'nimble-number-field'
         );
     });

@@ -1,11 +1,7 @@
-import {
-    DesignSystem,
-    Combobox as FoundationCombobox
-} from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Combobox } from '..';
+import { Combobox, comboboxTag } from '..';
 import '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -84,7 +80,7 @@ describe('Combobox', () => {
     });
 
     it('should export its tag', () => {
-        expect(DesignSystem.tagFor(FoundationCombobox)).toBe('nimble-combobox');
+        expect(comboboxTag).toBe('nimble-combobox');
     });
 
     it('can construct an element instance', () => {
