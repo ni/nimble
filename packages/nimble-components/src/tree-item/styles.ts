@@ -147,7 +147,6 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    }
     ::slotted([role='treeitem']) {
         --ni-private-tree-item-nested-width: 1em;
         --ni-private-expand-collapse-button-nested-width: calc(
