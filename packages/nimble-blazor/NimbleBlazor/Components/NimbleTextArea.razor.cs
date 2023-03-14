@@ -30,6 +30,12 @@ public partial class NimbleTextArea : NimbleInputBase<string?>
     public string? Placeholder { get; set; }
 
     [Parameter]
+    public bool? ErrorVisible { get; set; }
+
+    [Parameter]
+    public string? ErrorText { get; set; }
+
+    [Parameter]
     public int? MinLength { get; set; }
 
     [Parameter]
