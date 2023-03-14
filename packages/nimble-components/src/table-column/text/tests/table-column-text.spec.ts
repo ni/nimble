@@ -1,7 +1,6 @@
 import { html } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Table } from '../../../table';
-import { tableColumnTextTag } from '..';
+import { TableColumnText, tableColumnTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
