@@ -58,8 +58,12 @@ const metadata: Meta<SharedTableArgs> = {
         }
     },
     // prettier-ignore
-    argTypes: sharedTableArgTypes,
-    args: sharedTableArgs(simpleData)
+    argTypes: {
+        ...sharedTableArgTypes
+    },
+    args: {
+        ...sharedTableArgs(simpleData)
+    }
 };
 
 export default metadata;

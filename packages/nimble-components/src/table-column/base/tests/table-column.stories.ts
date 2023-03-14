@@ -108,8 +108,12 @@ const metadata: Meta<SharedTableArgs> = {
         </${tableColumnTextTag}>
     </${tableTag}>
     `),
-    argTypes: sharedTableArgTypes,
-    args: sharedTableArgs(simpleData)
+    argTypes: {
+        ...sharedTableArgTypes
+    },
+    args: {
+        ...sharedTableArgs(simpleData)
+    }
 };
 
 export default metadata;
