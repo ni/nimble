@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 10 Mar 2023 23:11:05 GMT and should not be manually modified.
+This log was last generated on Tue, 14 Mar 2023 14:51:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.7.0
+
+Tue, 14 Mar 2023 14:51:12 GMT
+
+### Minor changes
+
+- Expose element tag name for some components that were missing it ([ni/nimble@f5c6a7c](https://github.com/ni/nimble/commit/f5c6a7cc64b1892d1e0c5d75a64637f7043ee020))
 
 ## 18.6.4
 
