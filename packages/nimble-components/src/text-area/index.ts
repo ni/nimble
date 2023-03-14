@@ -56,16 +56,25 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
 
     private resizeObserver?: ResizeObserver;
 
+    /**
+     * @internal
+     */
     public override connectedCallback(): void {
         super.connectedCallback();
         this.resizeObserver = new ResizeObserver(this.onResize);
         this.resizeObserver.observe(this);
     }
 
+    /**
+     * @internal
+     */
     public override disconnectedCallback(): void {
         this.resizeObserver?.disconnect();
     }
 
+    /**
+     * @internal
+     */
     public onTextAreaInput(): void {
         this.handleTextInput();
         this.updateHasVerticalScrollbar();
