@@ -89,14 +89,10 @@ export const anchorMenuItemTag = DesignSystem.tagFor(AnchorMenuItem);
 // If/when we change FAST to test for the presence of `startColumnCount` instead
 // of using `instanceof MenuItem`, we can remove this workaround. Here is the
 // PR into FAST: https://github.com/microsoft/fast/pull/6667
+const originalInstanceOf = FoundationMenuItem[Symbol.hasInstance].bind(FoundationMenuItem);
 Object.defineProperty(FoundationMenuItem, Symbol.hasInstance, {
     value(instance: unknown) {
-        for (let prototype: unknown = Object.getPrototypeOf(instance); prototype !== null; prototype = Object.getPrototypeOf(prototype)) {
-            if (prototype === FoundationMenuItem.prototype) {
-                return true;
-            }
-        }
-        return instance instanceof AnchorMenuItem;
+        return originalInstanceOf(instance) || instance instanceof AnchorMenuItem;
     }
 });
 
