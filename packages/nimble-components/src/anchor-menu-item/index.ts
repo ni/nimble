@@ -68,6 +68,31 @@ export class AnchorMenuItem extends AnchorBase {
         }
         return true;
     }
+
+    // The FAST Menu manages the `tabindex` of its menu items. Because of a bug in Chromium
+    // (https://bugs.chromium.org/p/chromium/issues/detail?id=1346606), setting the tabindex on an element
+    // with `delegatesFocus=true` causes the element to lose focus. This causes the menu to close, preventing
+    // arrowing through the items or navigating to the url. As a workaround, we intercept attempts to
+    // set the tabindex on the host and instead set it on the inner anchor.
+    // The referenced Chromium bug is actually fixed, but it hasn't been pulled into Edge yet (it is in
+    // Chrome). Issue https://github.com/ni/nimble/issues/1118 tracks removal of this workaround.
+    public override setAttribute(qualifiedName: string, value: string): void {
+        if (qualifiedName === 'tabindex') {
+            this.anchor.setAttribute(qualifiedName, value);
+        } else {
+            super.setAttribute(qualifiedName, value);
+        }
+    }
+
+    // This is part of the bug workaround described above (in setAttribute)
+    public override get tabIndex(): number {
+        return this.anchor.tabIndex;
+    }
+
+    // This is part of the bug workaround described above (in setAttribute)
+    public override set tabIndex(value: number) {
+        this.anchor.tabIndex = value;
+    }
 }
 
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
