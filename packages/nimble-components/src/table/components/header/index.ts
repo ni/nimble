@@ -56,3 +56,4 @@ const nimbleTableHeader = TableHeader.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableHeader());
+export const tableHeaderTag = DesignSystem.tagFor(TableHeader);

@@ -18,6 +18,18 @@ public partial class NimbleTableColumnText : NimbleTableColumn
     [Parameter]
     public string? Placeholder { get; set; }
 
+    /// <summary>
+    /// The fractional/proportional width to use for this column
+    /// </summary>
+    [Parameter]
+    public double FractionalWidth { get; set; } = 1;
+
+    /// <summary>
+    /// The minimum width (in pixels) for this column
+    /// </summary>
+    [Parameter]
+    public double? MinPixelWidth { get; set; }
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }

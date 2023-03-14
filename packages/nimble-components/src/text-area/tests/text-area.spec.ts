@@ -1,9 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    TextArea as FoundationTextArea
-} from '@microsoft/fast-foundation';
-import { TextArea } from '..';
+import { TextArea, textAreaTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
@@ -25,10 +21,8 @@ describe('Text Area', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationTextArea)', () => {
-        expect(DesignSystem.tagFor(FoundationTextArea)).toBe(
-            'nimble-text-area'
-        );
+    it('should export its tag', () => {
+        expect(textAreaTag).toBe('nimble-text-area');
     });
 
     it('can construct an element instance', () => {

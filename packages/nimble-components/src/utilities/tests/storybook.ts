@@ -1,7 +1,6 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Story } from '@storybook/html';
-import { ThemeProvider } from '../../theme-provider';
+import { themeProviderTag } from '../../theme-provider';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
 import {
@@ -59,12 +58,12 @@ export const createUserSelectedThemeStory = <TSource>(
 ): Story<TSource> => {
     return (source: TSource, context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <${DesignSystem.tagFor(ThemeProvider)}
+            <${themeProviderTag}
                 theme="${getGlobalTheme(context)}"
                 class="code-hide-top-container"
             >
                 ${viewTemplate}
-            </${DesignSystem.tagFor(ThemeProvider)}>
+            </${themeProviderTag}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -83,7 +82,7 @@ export const createFixedThemeStory = <TSource>(
 ): Story<TSource> => {
     return (source: TSource, _context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <${DesignSystem.tagFor(ThemeProvider)}
+            <${themeProviderTag}
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
@@ -101,7 +100,7 @@ export const createFixedThemeStory = <TSource>(
                 >
                     ${viewTemplate}
                 </div>
-            </${DesignSystem.tagFor(ThemeProvider)}>
+            </${themeProviderTag}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -118,12 +117,12 @@ export const createMatrixThemeStory = <TSource>(
     return (source: TSource, _context: unknown): Element => {
         const matrixTemplate = createMatrix(
             ({ theme, value }: BackgroundState) => html`
-                <${DesignSystem.tagFor(ThemeProvider)}
+                <${themeProviderTag}
                     theme="${theme}">
                     <div style="background-color: ${value}; padding:20px;">
                         ${viewTemplate}
                     </div>
-                </${DesignSystem.tagFor(ThemeProvider)}>
+                </${themeProviderTag}>
             `,
             [backgroundStates]
         );

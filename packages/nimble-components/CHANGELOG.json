@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 14 Mar 2023 14:51:12 GMT",
+      "tag": "@ni/nimble-components_v18.7.0",
+      "version": "18.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f5c6a7cc64b1892d1e0c5d75a64637f7043ee020",
+            "comment": "Expose element tag name for some components that were missing it"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 Mar 2023 14:39:43 GMT",
+      "tag": "@ni/nimble-components_v18.6.4",
+      "version": "18.6.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cceb3edf04d840b8d21b27c9c86b053fb6d0ce4e",
+            "comment": "Set fixed height/width of div in tooltip matrix story"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 23:11:05 GMT",
+      "tag": "@ni/nimble-components_v18.6.4",
+      "version": "18.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "278811bfbe152b64978c9552de1a815bd015fcb1",
+            "comment": "Queue table changes and process them in a batch"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 22:17:50 GMT",
+      "tag": "@ni/nimble-components_v18.6.3",
+      "version": "18.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d38391e69c9984de80bf7f4a41cfbcc0181e0d16",
+            "comment": "Programmatic table column width API"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 17:48:14 GMT",
+      "tag": "@ni/nimble-components_v18.6.2",
+      "version": "18.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a38c155c6c5c7d80e1123ad9e5f00495b57e8b34",
+            "comment": "Support \".\" in table record field names"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 09 Mar 2023 22:36:20 GMT",
       "tag": "@ni/nimble-components_v18.6.1",
       "version": "18.6.1",
