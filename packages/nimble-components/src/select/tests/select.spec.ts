@@ -1,10 +1,6 @@
-import {
-    DesignSystem,
-    Select as FoundationSelect
-} from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Select } from '..';
+import { Select, selectTag } from '..';
 import '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
@@ -131,8 +127,8 @@ describe('Select', () => {
         });
     });
 
-    it('should have its tag returned by tagFor(FoundationSelect)', () => {
-        expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
+    it('should export its tag', () => {
+        expect(selectTag).toBe('nimble-select');
     });
 
     it('can construct an element instance', () => {

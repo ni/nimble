@@ -1,9 +1,8 @@
-import { DesignSystem, Tab as FoundationTab } from '@microsoft/fast-foundation';
-import { Tab } from '..';
+import { Tab, tabTag } from '..';
 
 describe('Tab', () => {
-    it('should have its tag returned by tagFor(FoundationTab)', () => {
-        expect(DesignSystem.tagFor(FoundationTab)).toBe('nimble-tab');
+    it('should export its tag', () => {
+        expect(tabTag).toBe('nimble-tab');
     });
 
     it('can construct an element instance', () => {

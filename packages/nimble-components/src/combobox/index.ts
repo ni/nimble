@@ -11,10 +11,10 @@ import {
     keyEnter,
     keySpace
 } from '@microsoft/fast-web-utilities';
-import { ToggleButton } from '../toggle-button';
+import { ToggleButton, toggleButtonTag } from '../toggle-button';
 import { errorTextTemplate } from '../patterns/error/template';
-import { IconArrowExpanderDown } from '../icons/arrow-expander-down';
-import { IconExclamationMark } from '../icons/exclamation-mark';
+import { iconArrowExpanderDownTag } from '../icons/arrow-expander-down';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
@@ -218,12 +218,12 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
     },
     end: html<Combobox>`
         <div class="end-slot-container">
-            <${DesignSystem.tagFor(IconExclamationMark)}
+            <${iconExclamationMarkTag}
                 severity="error"
                 class="error-icon"
-            ></${DesignSystem.tagFor(IconExclamationMark)}>
+            ></${iconExclamationMarkTag}>
             <div class="separator"></div>
-            <${DesignSystem.tagFor(ToggleButton)}
+            <${toggleButtonTag}
                 ${ref('dropdownButton')}
                 appearance="ghost"
                 ?checked="${x => x.open}"
@@ -238,12 +238,12 @@ const nimbleCombobox = Combobox.compose<ComboboxOptions>({
                 aria-expanded="${x => x.open}"
                 tabindex="-1"
             >
-                <${DesignSystem.tagFor(IconArrowExpanderDown)}
+                <${iconArrowExpanderDownTag}
                     slot="start"
                     class="dropdown-icon"
                 >
-                </${DesignSystem.tagFor(IconArrowExpanderDown)}>
-            </${DesignSystem.tagFor(ToggleButton)}>
+                </${iconArrowExpanderDownTag}>
+            </${toggleButtonTag}>
         </div>
         ${errorTextTemplate}
     `

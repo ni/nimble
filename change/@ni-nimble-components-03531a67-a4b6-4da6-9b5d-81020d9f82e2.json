@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Expose element tag name for some components that were missing it",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
