@@ -58,7 +58,7 @@ const component = (
     [errorStateName, isError, errorText]: ErrorState
 ): ViewTemplate => html`
     <${textAreaTag}
-        style="width: 250px; padding: 15px;"
+        style="width: 250px; margin: 15px;"
         ?disabled="${() => disabled}"
         appearance="${() => appearance}"
         value="${() => valueValue}"

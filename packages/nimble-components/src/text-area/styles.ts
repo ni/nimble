@@ -32,6 +32,7 @@ export const styles = css`
         flex-direction: column;
         vertical-align: top;
         --ni-private-scrollbar-width: 17px;
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
     :host([disabled]) {
@@ -50,6 +51,7 @@ export const styles = css`
 
     .container {
         display: flex;
+        justify-content: center;
         position: relative;
         height: 100%;
         width: 100%;
@@ -67,8 +69,6 @@ export const styles = css`
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
         padding: 8px;
-        transition: border ${smallDelay};
-        margin-bottom: 1px;
         resize: none;
     }
 
@@ -76,24 +76,6 @@ export const styles = css`
         .control {
             transition-duration: 0s;
         }
-    }
-
-    .control[style*='height:'] {
-        ${
-            /*
-             * When the textarea is user-resizable, resizing it causes `style` to be
-             * set to a fixed height/width. When the height is set to a fixed value,
-             * increasing the border width (on hover) does not result in the control
-             * height increasing. As a result, we don't need the compensation margin.
-             */ ''
-        }
-        margin-bottom: 0px;
-    }
-
-    .control:hover {
-        border-bottom-color: ${borderHoverColor};
-        border-bottom-width: calc(${borderWidth} + 1px);
-        margin-bottom: 0px;
     }
 
     .control:focus-within {
@@ -106,8 +88,6 @@ export const styles = css`
     .control[disabled],
     .control[disabled]:hover {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
-        border-bottom-width: ${borderWidth};
-        margin-bottom: 1px;
     }
 
     :host([error-visible]) .control {
@@ -145,6 +125,36 @@ export const styles = css`
     }
     :host([resize='vertical']) .control {
         resize: vertical;
+    }
+
+    .container::after {
+        content: ' ';
+        position: absolute;
+        bottom: calc(-1 * ${borderWidth});
+        width: 0px;
+        height: 0px;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        .container::after {
+            transition-duration: 0s;
+        }
+    }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host(:hover) .container::after {
+        width: 100%;
+    }
+
+    :host([disabled]:hover) .container::after,
+    :host([readonly]:hover) .container::after {
+        width: 0px;
     }
 
     :host([error-visible]) .error-icon {
