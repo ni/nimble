@@ -1,4 +1,5 @@
-import { attr, observable } from '@microsoft/fast-element';
+/* eslint-disable max-classes-per-file */
+import { attr, customElement, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AnchorOptions,
@@ -90,14 +91,27 @@ export const anchorMenuItemTag = DesignSystem.tagFor(AnchorMenuItem);
 // PR into FAST: https://github.com/microsoft/fast/pull/6667
 Object.defineProperty(FoundationMenuItem, Symbol.hasInstance, {
     value(instance: unknown) {
-        const prototype: unknown = Object.getPrototypeOf(instance);
-        return prototype === NimbleMenuItem.prototype || prototype === FoundationMenuItem.prototype || instance instanceof AnchorMenuItem;
+        for (let prototype: unknown = Object.getPrototypeOf(instance); prototype !== null; prototype = Object.getPrototypeOf(prototype)) {
+            if (prototype === FoundationMenuItem.prototype) {
+                return true;
+            }
+        }
+        return instance instanceof AnchorMenuItem;
     }
 });
+
+/**
+ * sdfsf
+ */
+@customElement('my-other-menu-item')
+export class Blah extends FoundationMenuItem {}
 
 const a = document.createElement('nimble-menu-item');
 const b = document.createElement('nimble-anchor-menu-item');
 const c = document.createElement('nimble-button');
+const d = document.createElement('my-other-menu-item');
+
 console.log('menu', a instanceof FoundationMenuItem);
 console.log('anchor', b instanceof FoundationMenuItem);
 console.log('button', c instanceof FoundationMenuItem);
+console.log('custom', d instanceof FoundationMenuItem);
