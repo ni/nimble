@@ -2,12 +2,15 @@ import { attr, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AnchorOptions,
-    MenuItem as FoundationMenuItem
+    MenuItem as FoundationMenuItem,
+    FoundationElement
 } from '@microsoft/fast-foundation';
 import { keyEnter } from '@microsoft/fast-web-utilities';
+import { MenuItem as NimbleMenuItem } from '../menu-item';
 import { AnchorBase } from '../anchor-base';
 import { styles } from './styles';
 import { template } from './template';
+import { Button } from '../button';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -87,6 +90,14 @@ export const anchorMenuItemTag = DesignSystem.tagFor(AnchorMenuItem);
 // PR into FAST: https://github.com/microsoft/fast/pull/6667
 Object.defineProperty(FoundationMenuItem, Symbol.hasInstance, {
     value(instance: unknown) {
-        return instance instanceof Object && 'startColumnCount' in instance;
+        const prototype: unknown = Object.getPrototypeOf(instance);
+        return prototype === NimbleMenuItem.prototype || prototype === FoundationMenuItem.prototype || instance instanceof AnchorMenuItem;
     }
 });
+
+const a = document.createElement('nimble-menu-item');
+const b = document.createElement('nimble-anchor-menu-item');
+const c = document.createElement('nimble-button');
+console.log('menu', a instanceof FoundationMenuItem);
+console.log('anchor', b instanceof FoundationMenuItem);
+console.log('button', c instanceof FoundationMenuItem);
