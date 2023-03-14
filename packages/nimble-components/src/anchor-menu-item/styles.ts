@@ -73,4 +73,7 @@ export const styles = css`
     :host(.indent-1) .content {
         grid-column: 2;
     }
+    [part='end'] {
+        display: none;
+    }
 `;

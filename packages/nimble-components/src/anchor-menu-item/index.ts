@@ -2,7 +2,10 @@ import { attr, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AnchorOptions,
-    MenuItem as FoundationMenuItem
+    MenuItem as FoundationMenuItem,
+    MenuItemColumnCount,
+    StartEnd,
+    applyMixins
 } from '@microsoft/fast-foundation';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
@@ -16,38 +19,44 @@ declare global {
 }
 
 /**
- * Types of anchor menu item column count.
- * This is how many grid columns precede the menu item text.
- * 1 corresponds to having space for an icon, 0 corresponds to the text being flush left.
- * Users should not need to use this type. The menu sets startColumnCount on its items.
- * @public
- */
-export type AnchorMenuItemColumnCount = 0 | 1;
-
-/**
  * A nimble-styled anchor menu-item
  */
 export class AnchorMenuItem extends AnchorBase {
     @attr({ mode: 'boolean' })
     public disabled = false;
 
+    /**
+     * @internal
+     */
     @observable
     public anchor!: HTMLAnchorElement;
 
+    /**
+     * There is an assumption that this component is styled using a grid display, and this property
+     * controls which grid column contains the menu item text (i.e. the indentation of the text).
+     * The parent menu sets this value on all its child menu items so their indentations align.
+     * @internal
+     */
     @observable
-    public startColumnCount: AnchorMenuItemColumnCount = 0;
+    public startColumnCount: MenuItemColumnCount = 0;
 
     // The following two handlers are workarounds for issues with anchor menu items in submenus.
     // Events can bubble up the DOM and get handled by the menu item in the parent menu. When that happens,
     // the menu item's handlers (FAST) return false and prevent the default action, i.e. navigation.
     // FAST has this issue about supporting links in menus: https://github.com/microsoft/fast/issues/5415
 
-    public clickHandler = (e: MouseEvent): boolean => {
+    /**
+     * @internal
+     */
+    public clickHandler(e: MouseEvent): boolean {
         e.stopImmediatePropagation();
         return true;
-    };
+    }
 
-    public keydownHandler = (e: KeyboardEvent): boolean => {
+    /**
+     * @internal
+     */
+    public keydownHandler(e: KeyboardEvent): boolean {
         if (e.defaultPrevented) {
             return false;
         }
@@ -58,7 +67,7 @@ export class AnchorMenuItem extends AnchorBase {
             default:
         }
         return true;
-    };
+    }
 }
 
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
@@ -69,6 +78,10 @@ const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
         delegatesFocus: true
     }
 });
+
+/* eslint-disable-next-line */
+export interface AnchorMenuItem extends StartEnd {}
+applyMixins(AnchorMenuItem, StartEnd);
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')

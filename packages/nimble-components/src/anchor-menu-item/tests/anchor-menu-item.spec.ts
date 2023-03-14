@@ -1,26 +1,52 @@
+/* eslint-disable max-classes-per-file */
 import { html, ref } from '@microsoft/fast-element';
-import { AnchorMenuItem } from '..';
+import {
+    FoundationElement,
+    MenuItem as FoundationMenuItem,
+    Anchor as FoundationAnchor,
+    DesignSystem
+} from '@microsoft/fast-foundation';
+import { AnchorMenuItem, anchorMenuItemTag } from '..';
+import { anchorTag } from '../../anchor';
+import type { IconCheck } from '../../icons/check';
+import type { IconXmark } from '../../icons/xmark';
 import type { Menu } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 describe('Anchor Menu Item', () => {
     describe('standalone', () => {
-        async function setup(): Promise<Fixture<AnchorMenuItem>> {
+        class Model {
+            public xmarkIcon!: IconXmark;
+            public checkIcon!: IconCheck;
+        }
+
+        async function setup(source: Model): Promise<Fixture<AnchorMenuItem>> {
             return fixture<AnchorMenuItem>(
-                html`<nimble-anchor-menu-item
-                    href="#"
-                ></nimble-anchor-menu-item>`
+                html`<nimble-anchor-menu-item href="#">
+                    <nimble-xmark-icon
+                        ${ref('xmarkIcon')}
+                        slot="start"
+                    ></nimble-xmark-icon>
+                    <nimble-check-icon
+                        ${ref('checkIcon')}
+                        slot="end"
+                    ></nimble-check-icon>
+                </nimble-anchor-menu-item>`,
+                { source }
             );
         }
 
+        let model: Model;
         let element: AnchorMenuItem;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
+            model = new Model();
+            ({ element, connect, disconnect } = await setup(model));
         });
 
         afterEach(async () => {
@@ -76,6 +102,24 @@ describe('Anchor Menu Item', () => {
                     );
                 });
             }
+        });
+
+        it('should expose slotted content through properties', async () => {
+            await connect();
+            expect(element.start.assignedElements()[0]).toBe(model.xmarkIcon);
+            expect(element.end.assignedElements()[0]).toBe(model.checkIcon);
+        });
+
+        it('should set start slot visible and end slot not visible', async () => {
+            await connect();
+            expect(
+                getComputedStyle(element.start).display === 'none'
+                    || getComputedStyle(element.startContainer).display === 'none'
+            ).toBeFalse();
+            expect(
+                getComputedStyle(element.end).display === 'none'
+                    || getComputedStyle(element.endContainer).display === 'none'
+            ).toBeTrue();
         });
     });
 
@@ -139,6 +183,75 @@ describe('Anchor Menu Item', () => {
             expect(model.item2.startColumnCount).toBe(1);
             expect(model.item3.startColumnCount).toBe(1);
             expect(model.item4dot2.startColumnCount).toBe(0);
+        });
+    });
+
+    describe('FoundationMenuItem instanceof override', () => {
+        // eslint-disable-next-line @typescript-eslint/no-extraneous-class
+        class TestFoundationMenuItem extends FoundationMenuItem {}
+        const foundationMenuItemComponent = TestFoundationMenuItem.compose({
+            baseName: 'menu-item'
+        });
+
+        DesignSystem.getOrCreate()
+            .withPrefix('foundation')
+            .register(foundationMenuItemComponent());
+
+        it('returns true for FoundationMenuItem', () => {
+            const foundationMenuItem = document.createElement(
+                'foundation-menu-item'
+            );
+            expect(foundationMenuItem instanceof FoundationMenuItem).toBeTrue();
+        });
+
+        it('returns true for AnchorMenuItem', () => {
+            const anchorMenuItem = document.createElement(anchorMenuItemTag);
+            expect(anchorMenuItem instanceof FoundationMenuItem).toBeTrue();
+        });
+
+        it('returns true for MenuItem', () => {
+            const menuItem = document.createElement(menuItemTag);
+            expect(menuItem instanceof FoundationMenuItem).toBeTrue();
+        });
+
+        it('returns false for Anchor', () => {
+            const anchor = document.createElement(anchorTag);
+            expect(anchor instanceof FoundationMenuItem).toBeFalse();
+        });
+
+        // eslint-disable-next-line @typescript-eslint/no-extraneous-class
+        class TestFoundationAnchor extends FoundationAnchor {}
+        const foundationAnchorComponent = TestFoundationAnchor.compose({
+            baseName: 'anchor'
+        });
+
+        DesignSystem.getOrCreate()
+            .withPrefix('foundation')
+            .register(foundationAnchorComponent());
+
+        it('returns false for FoundationAnchor', () => {
+            const foundationAnchor = document.createElement('foundation-anchor');
+            expect(foundationAnchor instanceof FoundationMenuItem).toBeFalse();
+        });
+
+        // eslint-disable-next-line @typescript-eslint/no-extraneous-class
+        class TestFoundationElement extends FoundationElement {}
+        const foundationElementComponent = TestFoundationElement.compose({
+            baseName: 'element'
+        });
+
+        DesignSystem.getOrCreate()
+            .withPrefix('foundation')
+            .register(foundationElementComponent());
+
+        it('returns false for FoundationElement', () => {
+            const foundationElement = document.createElement('foundation-element');
+            expect(foundationElement instanceof FoundationMenuItem).toBeFalse();
+        });
+
+        it('returns false for Object', () => {
+            const obj = {};
+            expect(obj instanceof FoundationMenuItem).toBeFalse();
         });
     });
 });

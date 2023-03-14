@@ -1,6 +1,7 @@
 import { html, ref, ViewTemplate } from '@microsoft/fast-element';
 import {
     AnchorOptions,
+    endSlotTemplate,
     FoundationElementTemplate,
     startSlotTemplate
 } from '@microsoft/fast-foundation';
@@ -34,6 +35,7 @@ AnchorOptions
             <span class="content" part="content">
                 <slot></slot>
             </span>
+            ${endSlotTemplate(context, definition)}
         </a>
     </template>
 `;
