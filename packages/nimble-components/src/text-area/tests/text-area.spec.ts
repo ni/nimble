@@ -41,21 +41,19 @@ describe('Text Area', () => {
         expect(element.control.part.contains('control')).toBe(true);
     });
 
-    const attributeNames: { name: string }[] = [
-        { name: 'autofocus' },
-        { name: 'cols' },
-        { name: 'disabled' },
-        { name: 'form' },
+    const attributeNames: { name: string, value?: string, boolean?: boolean }[] = [
+        { name: 'autofocus', boolean: true },
+        { name: 'cols', value: '10' },
+        { name: 'disabled', boolean: true },
         { name: 'list' },
-        { name: 'maxlength' },
-        { name: 'minlength' },
+        { name: 'maxlength', value: '10' },
+        { name: 'minlength', value: '10' },
         { name: 'name' },
         { name: 'placeholder' },
-        { name: 'readonly' },
-        { name: 'required' },
-        { name: 'rows' },
-        { name: 'spellcheck' },
-        { name: 'value' },
+        { name: 'readonly', boolean: true },
+        { name: 'required', boolean: true },
+        { name: 'rows', value: '10' },
+        { name: 'spellcheck', boolean: true },
         { name: 'aria-atomic' },
         { name: 'aria-busy' },
         { name: 'aria-controls' },
@@ -89,13 +87,26 @@ describe('Text Area', () => {
             specType(`for attribute ${attribute.name}`, async () => {
                 await connect();
 
-                element.setAttribute(attribute.name, 'foo');
+                element.setAttribute(attribute.name, attribute.value ?? (attribute.boolean ? '' : 'foo'));
                 await waitForUpdatesAsync();
 
-                expect(element.control.getAttribute(attribute.name)).toBe(
-                    'foo'
-                );
+                if (attribute.boolean) {
+                    expect(element.control.hasAttribute(attribute.name)).toBeTrue();
+                } else {
+                    expect(element.control.getAttribute(attribute.name)).toBe(
+                        attribute.value ?? 'foo'
+                    );
+                }
             });
         }
+
+        it('for property value', async () => {
+            await connect();
+
+            element.value = 'foo';
+            await waitForUpdatesAsync();
+
+            expect(element.control.value).toBe('foo');
+        });
     });
 });
