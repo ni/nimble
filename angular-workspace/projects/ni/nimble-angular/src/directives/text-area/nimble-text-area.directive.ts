@@ -66,13 +66,13 @@ export class NimbleTextAreaDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }
 
-    public get errorText(): string {
+    public get errorText(): string | undefined {
         return this.elementRef.nativeElement.errorText;
     }
 
     // errorText property maps to the error-text attribute
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('error-text') public set errorText(value: string) {
+    @Input('error-text') public set errorText(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
 
