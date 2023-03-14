@@ -111,6 +111,7 @@ export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
 );
 
 // Temporarily disabling this test because of flakiness
+// See: https://github.com/ni/nimble/issues/1106
 tooltipLightThemeWhiteBackground.parameters = {
     chromatic: { disableSnapshot: true }
 };
@@ -125,6 +126,7 @@ export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory
 );
 
 // Temporarily disabling this test because of flakiness
+// See: https://github.com/ni/nimble/issues/1106
 tooltipColorThemeDarkGreenBackground.parameters = {
     chromatic: { disableSnapshot: true }
 };
@@ -135,6 +137,7 @@ export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
 );
 
 // Temporarily disabling this test because of flakiness
+// See: https://github.com/ni/nimble/issues/1106
 tooltipDarkThemeBlackBackground.parameters = {
     chromatic: { disableSnapshot: true }
 };
