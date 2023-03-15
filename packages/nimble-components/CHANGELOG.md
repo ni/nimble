@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 14 Mar 2023 14:51:12 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Mar 2023 15:36:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.8.0
+
+Wed, 15 Mar 2023 15:36:39 GMT
+
+### Minor changes
+
+- Implement anchor menu item component ([ni/nimble@f1d6370](https://github.com/ni/nimble/commit/f1d6370d5548786004b5ef5d07b7657504d1fdf3))
 
 ## 18.7.0
 
