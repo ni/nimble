@@ -236,6 +236,33 @@ describe('Table action menu', () => {
         expect(rowSlots.item(0).name).toBe(slot1);
     });
 
+    it('table updates slots when `action-menu-slot` value changes', async () => {
+        const slot1 = 'my-action-menu';
+        column1.actionMenuSlot = slot1;
+        createAndSlotMenu(slot1);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const toggleListener = createEventListener(
+            element,
+            'action-menu-toggle'
+        );
+        // Open a menu button for the first row to cause all the menus to be slotted within that row
+        await pageObject.clickCellActionMenu(1, 0);
+        await toggleListener.promise;
+
+        const updatedSlot = 'my-new-slot';
+        column1.actionMenuSlot = updatedSlot;
+        await waitForUpdatesAsync();
+
+        const rowSlots = element
+            .shadowRoot!.querySelectorAll('nimble-table-row')
+            ?.item(1)
+            .querySelectorAll<HTMLSlotElement>('slot');
+        expect(rowSlots.length).toBe(1);
+        expect(rowSlots.item(0).name).toBe(updatedSlot);
+    });
+
     it('`beforetoggle` event is emitted before the action menu is opened', async () => {
         const slot1 = 'my-action-menu';
         column1.actionMenuSlot = slot1;
