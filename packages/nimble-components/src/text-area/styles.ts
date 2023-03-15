@@ -54,6 +54,7 @@ export const styles = css`
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
         padding: 8px;
+        margin: 0px;
         transition: box-shadow ${smallDelay}, border ${smallDelay};
         resize: none;
     }
