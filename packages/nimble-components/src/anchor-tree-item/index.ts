@@ -29,7 +29,7 @@ export class AnchorTreeItem extends AnchorBase {
      * HTML Attribute: selected
      */
     @attr({ mode: 'boolean' })
-    public selected?: boolean;
+    public selected = false;
 
     /**
      * When true, the control will be immutable by user interaction. See {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled | disabled HTML attribute} for more information.
@@ -38,7 +38,7 @@ export class AnchorTreeItem extends AnchorBase {
      * HTML Attribute: disabled
      */
     @attr({ mode: 'boolean' })
-    public disabled?: boolean;
+    public disabled = false;
 
     /**
      * Whether the item is focusable
