@@ -6,6 +6,7 @@ import { treeViewTag } from '..';
 import { iconCogTag } from '../../icons/cog';
 import { iconDatabaseTag } from '../../icons/database';
 import { treeItemTag } from '../../tree-item';
+import { anchorTreeItemTag } from '../../anchor-tree-item';
 
 interface TreeArgs {
     selectionMode: TreeViewSelectionMode;
@@ -100,10 +101,10 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
                     <${treeItemTag} ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}">
                          ${when(x => x.icon, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                          Sub Group
-                        <${treeItemTag} ?disabled="${x => x.disabled}">
+                        <${anchorTreeItemTag} ?disabled="${x => x.disabled}" href="https://nimble.ni.dev">
                             ${when(x => x.icon, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
-                            <a href="http://www.ni.com">Nested Item 1</a>
-                        </${treeItemTag}>
+                            Nested Item 1 (link)
+                        </${anchorTreeItemTag}>
                     </${treeItemTag}>
                     <${treeItemTag} ?selected="${x => x.expanded}">
                         ${when(x => x.icon, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}

@@ -20,6 +20,7 @@ import { treeViewTag } from '..';
 import { iconCogTag } from '../../icons/cog';
 import { iconDatabaseTag } from '../../icons/database';
 import { treeItemTag } from '../../tree-item';
+import { anchorTreeItemTag } from '../../anchor-tree-item';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
@@ -65,10 +66,10 @@ const component = (
             ${when(() => iconVisible, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                 Nested Item 2
             </${treeItemTag}>
-            <${treeItemTag} ?disabled="${() => disabled}">
+            <${anchorTreeItemTag} ?disabled="${() => disabled}" href="#">
             ${when(() => iconVisible, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
-                Nested Item 3
-            </${treeItemTag}>
+                Nested Item 3 (link)
+            </${anchorTreeItemTag}>
             <${treeItemTag} hidden>
                 Nested Item 4
             </${treeItemTag}>
@@ -101,6 +102,7 @@ export const textCustomized: Story = createMatrixThemeStory(
             <${treeViewTag}>
                 Inner text
                 <${treeItemTag}>Tree item</${treeItemTag}>
+                <${anchorTreeItemTag}>Anchor tree item</${anchorTreeItemTag}>
             </${treeViewTag}>
         `
     )
