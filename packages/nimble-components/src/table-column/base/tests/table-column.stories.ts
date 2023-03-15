@@ -525,18 +525,21 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
             <${tableColumnTextTag}
                 field-name="lastName"
                 fractional-width="${x => x.getColumnWidthData('last-name-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="favoriteColor"
                 fractional-width="${x => x.getColumnWidthData('favorite-color-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
            >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
                 fractional-width="${x => x.getColumnWidthData('quote-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
             >
                 Quote
             </${tableColumnTextTag}>
