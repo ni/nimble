@@ -37,7 +37,7 @@ export default metadata;
 
 const textStates = [
     ['Short_Text', 'Hello'],
-    ['Long_Text', loremIpsum.substring(0, 124)]
+    ['Long_Text', loremIpsum]
 ] as const;
 type TextState = (typeof textStates)[number];
 
@@ -110,6 +110,10 @@ export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
+tooltipLightThemeWhiteBackground.parameters = {
+    chromatic: { delay: 1000 }
+};
+
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     createMatrix(component, [
         textStates,
@@ -119,10 +123,18 @@ export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory
     colorThemeDarkGreenBackground
 );
 
+tooltipColorThemeDarkGreenBackground.parameters = {
+    chromatic: { delay: 1000 }
+};
+
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
     createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     darkThemeBlackBackground
 );
+
+tooltipDarkThemeBlackBackground.parameters = {
+    chromatic: { delay: 1000 }
+};
 
 export const hiddenTooltip: Story = createStory(
     hiddenWrapper(html`<${tooltipTag} hidden>Hidden Tooltip</${tooltipTag}>`)
