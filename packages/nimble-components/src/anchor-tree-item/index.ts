@@ -109,7 +109,7 @@ export class AnchorTreeItem extends AnchorBase {
             case keyEnter:
                 // Do not let the event bubble up to the FAST tree, or it will
                 // prevent the default action.
-                e.stopImmediatePropagation();
+                e.stopPropagation();
                 break;
             case keyArrowLeft:
                 // For FAST tree items, the FAST tree view handles this navigation,
@@ -135,7 +135,7 @@ export class AnchorTreeItem extends AnchorBase {
         if (e.defaultPrevented) {
             return false;
         }
-        e.stopImmediatePropagation();
+        e.stopPropagation();
         return true;
     }
 

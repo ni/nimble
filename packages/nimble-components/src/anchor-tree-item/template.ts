@@ -19,6 +19,8 @@ AnchorOptions
         aria-selected="${x => x.selected}"
         @focusin="${(x, c) => x.handleFocus(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.handleBlur(c.event as FocusEvent)}"
+        @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
+        @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
     >
         <a
             class="control"
@@ -32,8 +34,6 @@ AnchorOptions
             rel="${x => x.rel}"
             target="${x => x.target}"
             type="${x => x.type}"
-            @keydown="${(x, c) => x.keydownHandler(c.event as KeyboardEvent)}"
-            @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
             ${ref('control')}
         >
             <div class="positioning-region" part="positioning-region">
