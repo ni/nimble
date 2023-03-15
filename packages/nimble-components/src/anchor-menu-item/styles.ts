@@ -23,15 +23,19 @@ export const styles = css`
         outline: 2px solid ${borderHoverColor};
         outline-offset: -2px;
     }
+
     :host(:hover) {
         background: ${fillHoverColor};
     }
+
     :host(:active) {
         background: ${fillSelectedColor};
     }
+
     :host([disabled]) {
         background: transparent;
     }
+
     a {
         display: grid;
         contain: layout;
@@ -51,28 +55,35 @@ export const styles = css`
         text-decoration: none;
         outline: none;
     }
+
     :host([disabled]) a {
         color: ${bodyDisabledFontColor};
         fill: currentcolor;
         cursor: default;
     }
+
     :host(.indent-1) a {
         grid-template-columns: ${iconSize} 1fr;
     }
+
     [part='start'] {
         display: contents;
     }
+
     slot[name='start']::slotted(*) {
         fill: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }
+
     :host(.indent-1) .start {
         grid-column: 1;
     }
+
     :host(.indent-1) .content {
         grid-column: 2;
     }
+
     [part='end'] {
         display: none;
     }
