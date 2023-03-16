@@ -8,9 +8,9 @@ This document will focus on the programmatic grouping of data rows.
 
 ### Out of Scope of this HLD
 
-1) The proposal in this HLD is focusing on the broad strategy for providing a means for columns to specify how to render the group header associated with that column's values. It will not focus on particular concerns that some columns may have for how to render their value, such as any localization requirements. Ultimately, this strategy should provide a means to those ends without getting into the details of each.
-2) This proposal will not provide a means for rendering values from multiple columns for the group header. TanStack does not support this, and we will not block ourselves on this restriction.
-3) Interactive grouping concerns.
+1. The proposal in this HLD is focusing on the broad strategy for providing a means for columns to specify how to render the group header associated with that column's values. It will not focus on particular concerns that some columns may have for how to render their value, such as any localization requirements. Ultimately, this strategy should provide a means to those ends without getting into the details of each.
+2. This proposal will not provide a means for rendering values from multiple columns for the group header. TanStack does not support this, and we will not block ourselves on this restriction.
+3. Interactive grouping concerns.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -19,7 +19,6 @@ This document will focus on the programmatic grouping of data rows.
 -   [Table README](./README.md)
 -   [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
 -   [Prototype branch](https://github.com/ni/nimble/tree/table-row-grouping-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-bwzrahvxqm.chromatic.com/?path=/story/table--table))
-
 
 ## Implementation / Design
 
@@ -87,6 +86,7 @@ export abstract class TableGroupHeaderView<TColumnConfig> implements TableGroupR
     columnConfig: TColumnConfig;
 }
 ```
+
 The value of the `groupHeaderValue` property will be sourced from the TanStack [`groupingValue` property](https://tanstack.com/table/v8/docs/api/features/grouping#groupingvalue) of a given TanStack `Row` instance. So, this will be a raw, unformatted value. Any formatting of the value for display purposes is up to the concrete implementation of a particular `TableGroupRowHeaderView`. The `columnConfig` value comes from the `TableColumn` instance used for grouping values by.
 
 A naive implementation for the custom element to use for rendering group header values for the `TableColumnText` might look like the following:
@@ -176,6 +176,7 @@ DesignSystem.getOrCreate().withPrefix('nimble').register(tableGroupRowElement())
 Grouped rows are provided alongside ungrouped rows through the TanStack function `getRowModel().rows`, which is already used for retrieving the rows to render. So to render the `TableGroupRows`, the template can make a simple change similar to this:
 
 Table template.ts
+
 ```
     ...
     ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
@@ -204,6 +205,7 @@ As shown in the above example, the `TableGroupRow` will provide a button to cont
 Setting TanStack up to handle both row grouping and expanded state is similar to what is in place for sorting. One notable difference is that we will need to register a handler for TanStack's `onExpandedChange` handler, as we will be working through TanStack to update this state, and the `Table` will need a notification in order to re-render the rows. It would look similar to the following:
 
 Table index.ts
+
 ```
 public constructor() {
     super();
@@ -221,6 +223,6 @@ Consider upstreaming a change to TanStack to allow row grouping by more than one
 
 ## Open Issues
 
-1) Should we mark the table validity state as invalid if more than one column specify the same `group-index`?
-2) Do we always render the number of items in a row group as part of the header, or should this be configurable?
-3) Should the `TableGroupRow` be given an ARIA role of `rowgroup`? The docs state that "a `rowgroup` contains one or more rows...", which the `TableGroupRow` technically does not. The virtualization implementation requires a pretty opinionated representation of the elements in the DOM, making it difficult to parent `TableRow` elements within a `TableGroupRow`.
+1. Should we mark the table validity state as invalid if more than one column specify the same `group-index`?
+2. Do we always render the number of items in a row group as part of the header, or should this be configurable?
+3. Should the `TableGroupRow` be given an ARIA role of `rowgroup`? The docs state that "a `rowgroup` contains one or more rows...", which the `TableGroupRow` technically does not. The virtualization implementation requires a pretty opinionated representation of the elements in the DOM, making it difficult to parent `TableRow` elements within a `TableGroupRow`.
