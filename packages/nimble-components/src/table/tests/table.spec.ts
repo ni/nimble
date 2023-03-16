@@ -4,8 +4,9 @@ import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
+import { createEventListener } from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import type { TableRecord } from '../types';
+import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
@@ -416,6 +417,7 @@ describe('Table', () => {
             element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
+            await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();
@@ -431,6 +433,7 @@ describe('Table', () => {
             element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
+            await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedRowCount()).toBe(0);
             expect(element.checkValidity()).toBeFalse();
@@ -630,6 +633,75 @@ describe('Table', () => {
                 visibleColumnCount
             );
             verifyRenderedData(simpleTableData);
+        });
+    });
+
+    describe('multiple updates', () => {
+        it('can update action menu slots and column sort', async () => {
+            element.setData(simpleTableData);
+            const slot1 = 'my-action-menu';
+            column1.actionMenuSlot = slot1;
+            column1.sortDirection = TableColumnSortDirection.ascending;
+            column1.sortIndex = 0;
+            await connect();
+            await waitForUpdatesAsync();
+
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            // Open a menu button for the first row to cause all the menus to be slotted within that row
+            await pageObject.clickCellActionMenu(1, 0);
+            await toggleListener.promise;
+
+            const updatedSlot = 'my-new-slot';
+            column1.actionMenuSlot = updatedSlot;
+            column1.sortDirection = TableColumnSortDirection.none;
+            await waitForUpdatesAsync();
+
+            // Verify the slot name is updated
+            const rowSlots = element
+                .shadowRoot!.querySelectorAll('nimble-table-row')
+                ?.item(1)
+                .querySelectorAll<HTMLSlotElement>('slot');
+            expect(rowSlots.length).toBe(1);
+            expect(rowSlots.item(0).name).toBe(updatedSlot);
+            // Verify the data is not sorted
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('can update column sort and row IDs', async () => {
+            element.setData(simpleTableData);
+            column1.sortDirection = TableColumnSortDirection.ascending;
+            column1.sortIndex = 0;
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.idFieldName = 'stringData';
+            column1.sortDirection = TableColumnSortDirection.none;
+            await waitForUpdatesAsync();
+
+            // Verify the record IDs are updated
+            verifyRecordIDs(simpleTableData.map(x => x.stringData));
+            // Verify the data is not sorted
+            verifyRenderedData(simpleTableData);
+        });
+
+        it('can update row IDs without modifying sort', async () => {
+            element.setData(simpleTableData);
+            column1.sortDirection = TableColumnSortDirection.ascending;
+            column1.sortIndex = 0;
+            await connect();
+            await waitForUpdatesAsync();
+
+            element.idFieldName = 'stringData';
+            await waitForUpdatesAsync();
+
+            const sortedData = [...simpleTableData].sort((a, b) => a.stringData.localeCompare(b.stringData));
+            // Verify the record IDs are updated
+            verifyRecordIDs(sortedData.map(x => x.stringData));
+            // Verify the data is still sorted
+            verifyRenderedData(sortedData);
         });
     });
 });

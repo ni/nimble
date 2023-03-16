@@ -63,7 +63,7 @@ const component = (
         }
 
         .container {
-            padding: 200px;
+            padding: 10px 200px 150px 200px;
             width: 100px;
             height: 50px;
         }
@@ -72,6 +72,8 @@ const component = (
             border: 1px solid var(${borderColor.cssCustomProperty});
             font: var(${bodyFont.cssCustomProperty});
             color: var(${bodyFontColor.cssCustomProperty});
+            width: 80px;
+            height: 60px;
         }
     </style>
 
@@ -108,6 +110,12 @@ export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
     lightThemeWhiteBackground
 );
 
+// Temporarily disabling this test because of flakiness
+// See: https://github.com/ni/nimble/issues/1106
+tooltipLightThemeWhiteBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
+
 export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
     createMatrix(component, [
         textStates,
@@ -117,10 +125,22 @@ export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory
     colorThemeDarkGreenBackground
 );
 
+// Temporarily disabling this test because of flakiness
+// See: https://github.com/ni/nimble/issues/1106
+tooltipColorThemeDarkGreenBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
+
 export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
     createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     darkThemeBlackBackground
 );
+
+// Temporarily disabling this test because of flakiness
+// See: https://github.com/ni/nimble/issues/1106
+tooltipDarkThemeBlackBackground.parameters = {
+    chromatic: { disableSnapshot: true }
+};
 
 export const hiddenTooltip: Story = createStory(
     hiddenWrapper(html`<${tooltipTag} hidden>Hidden Tooltip</${tooltipTag}>`)

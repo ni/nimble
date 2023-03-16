@@ -6,11 +6,10 @@ import {
     repeat,
     when
 } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { VirtualItem } from '@tanstack/virtual-core';
 import type { Table } from '.';
-import { TableHeader } from './components/header';
-import { TableRow } from './components/row';
+import { tableHeaderTag } from './components/header';
+import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
     TableActionMenuToggleEventDetail,
@@ -31,13 +30,13 @@ export const template = html<Table>`
                 <div class="header-row" role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
-                            <${DesignSystem.tagFor(TableHeader)}
+                            <${tableHeaderTag}
                                 class="header"
                                 sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
                                 ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
                             >
                                 <slot name="${x => x.slot}"></slot>
-                            </${DesignSystem.tagFor(TableHeader)}>
+                            </${tableHeaderTag}>
                         `)}
                     `)}
                     <div class="header-scrollbar-spacer"></div>
@@ -49,7 +48,7 @@ export const template = html<Table>`
                      role="rowgroup">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-                            <${DesignSystem.tagFor(TableRow)}
+                            <${tableRowTag}
                                 class="row"
                                 record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                 :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
@@ -65,7 +64,7 @@ export const template = html<Table>`
                                     </slot>
                                 `)}
                             `)}                        
-                            </${DesignSystem.tagFor(TableRow)}>
+                            </${tableRowTag}>
                         `)}
                     `)}
                 </div>

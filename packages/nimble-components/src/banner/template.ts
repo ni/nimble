@@ -1,11 +1,10 @@
 import { html, when } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Banner } from '.';
-import { Button } from '../button';
-import { IconExclamationMark } from '../icons/exclamation-mark';
-import { IconInfo } from '../icons/info';
-import { IconTriangleFilled } from '../icons/triangle-filled';
-import { IconXmark } from '../icons/xmark';
+import { buttonTag } from '../button';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { iconInfoTag } from '../icons/info';
+import { iconTriangleFilledTag } from '../icons/triangle-filled';
+import { iconXmarkTag } from '../icons/xmark';
 import { BannerSeverity } from './types';
 
 // prettier-ignore
@@ -35,13 +34,13 @@ export const template = html<Banner>`
     >
         <div class="icon">
             ${when(x => x.severity === BannerSeverity.error, html`
-                <${DesignSystem.tagFor(IconExclamationMark)}></${DesignSystem.tagFor(IconExclamationMark)}>
+                <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
             `)}
             ${when(x => x.severity === BannerSeverity.warning, html`
-                <${DesignSystem.tagFor(IconTriangleFilled)}></${DesignSystem.tagFor(IconTriangleFilled)}>
+                <${iconTriangleFilledTag}></${iconTriangleFilledTag}>
             `)}
             ${when(x => x.severity === BannerSeverity.information, html`
-                <${DesignSystem.tagFor(IconInfo)}></${DesignSystem.tagFor(IconInfo)}>
+                <${iconInfoTag}></${iconInfoTag}>
             `)}
         </div>
         <div class="text">
@@ -52,10 +51,10 @@ export const template = html<Banner>`
             <slot name="action"></slot>
             <div class="dismiss">
                 ${when(x => !x.preventDismiss, html<Banner>`
-                    <${DesignSystem.tagFor(Button)} appearance="ghost" content-hidden @click="${x => x.dismissBanner()}">
-                        <${DesignSystem.tagFor(IconXmark)} slot="start"></${DesignSystem.tagFor(IconXmark)}>
+                    <${buttonTag} appearance="ghost" content-hidden @click="${x => x.dismissBanner()}">
+                        <${iconXmarkTag} slot="start"></${iconXmarkTag}>
                         ${x => x.dismissButtonLabel ?? 'Close'}
-                    </${DesignSystem.tagFor(Button)}>
+                    </${buttonTag}>
                 `)}
             </div>
         </div>
