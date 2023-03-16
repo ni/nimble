@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add missing properties to NimbleAnchorTab",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

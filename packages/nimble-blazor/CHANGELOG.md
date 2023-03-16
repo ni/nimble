@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 10 Mar 2023 22:17:50 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Mar 2023 22:00:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.4.0
+
+Thu, 16 Mar 2023 22:00:14 GMT
+
+### Minor changes
+
+- Add missing properties to NimbleAnchorTab ([ni/nimble@e1746f2](https://github.com/ni/nimble/commit/e1746f201eb7919b8e44ab53caa7eba95f036ffd))
 
 ## 11.3.3
 
