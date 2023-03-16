@@ -1,8 +1,7 @@
 import { html, ref, slotted, when } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { MenuButton } from '.';
-import { ToggleButton } from '../toggle-button';
-import { AnchoredRegion } from '../anchored-region';
+import { toggleButtonTag } from '../toggle-button';
+import { anchoredRegionTag } from '../anchored-region';
 
 // prettier-ignore
 export const template = html<MenuButton>`
@@ -10,7 +9,7 @@ export const template = html<MenuButton>`
         ?open="${x => x.open}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
     >
-        <${DesignSystem.tagFor(ToggleButton)}
+        <${toggleButtonTag}
             part="button"
             appearance="${x => x.appearance}"
             ?content-hidden="${x => x.contentHidden}"
@@ -27,11 +26,11 @@ export const template = html<MenuButton>`
             <slot slot="start" name="start"></slot>
             <slot></slot>
             <slot slot="end" name="end"></slot>
-        </${DesignSystem.tagFor(ToggleButton)}>
+        </${toggleButtonTag}>
         ${when(
         x => x.open,
         html<MenuButton>`
-            <${DesignSystem.tagFor(AnchoredRegion)}
+            <${anchoredRegionTag}
                 fixed-placement="true"
                 auto-update-mode="auto"
                 horizontal-inset="true"
@@ -45,7 +44,7 @@ export const template = html<MenuButton>`
                 <span part="menu">
                     <slot name="menu" ${slotted({ property: 'slottedMenus' })}></slot>
                 </span>
-            </${DesignSystem.tagFor(AnchoredRegion)}>
+            </${anchoredRegionTag}>
         `
     )}
     </template>

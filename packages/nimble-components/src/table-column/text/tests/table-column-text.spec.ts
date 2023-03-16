@@ -1,7 +1,6 @@
 import { html } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { Table } from '../../../table';
-import { TableColumnText } from '..';
+import { TableColumnText, tableColumnTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
@@ -15,18 +14,16 @@ interface SimpleTableRecord extends TableRecord {
     anotherField?: string | null;
 }
 
-const tableColumnText = DesignSystem.tagFor(TableColumnText);
-
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${tableColumnText} field-name="field" placeholder="no value">
+                <${tableColumnTextTag} field-name="field" placeholder="no value">
                     Column 1
-                </${tableColumnText}>
-                <${tableColumnText} field-name="noPlaceholder">
+                </${tableColumnTextTag}>
+                <${tableColumnTextTag} field-name="noPlaceholder">
                     Column 2
-                </${tableColumnText}>
+                </${tableColumnTextTag}>
             </nimble-table>`
     );
 }
