@@ -29,7 +29,7 @@ This document will focus on the programmatic grouping of data rows.
 To support both the notion that a column type may want to allow grouping in some situations and not others (e.g. a numeric column displaying discrete values versus continuous values), as well as the possibility that certain columns should never be groupable, we will create a mixin to provide the necessary grouping APIs:
 
 ```
-export function groupableColumn<
+export function mixinGroupableColumnAPI<
     TBase extends GroupableTableColumnConstructor
 >(base: TBase) {
     abstract class GroupableColumn extends base {
@@ -63,9 +63,9 @@ The `TableColumn` will add the `internalIsGroupable` and `internalGroupIndex` AP
 This mixin can then be chained to other mixins in the following fashion:
 
 ```
-class TableColumnTextFractionalWidth extends fractionalWidthColumn(TableColumnTextBase) {}
+class TableColumnTextFractionalWidth extends mixinFractionalWidthColumnAPI(TableColumnTextBase) {}
 
-export class TableColumnText extends groupableColumn(TableColumnTextFractionalWidth) {}
+export class TableColumnText extends mixinGroupableColumnAPI(TableColumnTextFractionalWidth) {}
 ```
 
 ### Rendering group header values
