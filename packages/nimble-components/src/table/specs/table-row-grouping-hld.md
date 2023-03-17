@@ -87,7 +87,7 @@ export abstract class TableGroupHeaderView<TColumnConfig> implements TableGroupR
 }
 ```
 
-The value of the `groupHeaderValue` property will be sourced from the TanStack [`groupingValue` property](https://tanstack.com/table/v8/docs/api/features/grouping#groupingvalue) of a given TanStack `Row` instance. So, this will be a raw, unformatted value. Any formatting of the value for display purposes is up to the concrete implementation of a particular `TableGroupRowHeaderView`. The `columnConfig` value comes from the `TableColumn` instance used for grouping values by.
+The value of the `groupHeaderValue` property will be sourced from the TanStack [`groupingValue` property](https://tanstack.com/table/v8/docs/api/features/grouping#groupingvalue) of a given TanStack `Row` instance. This will be the value associated with the grouped column's `operandDataRecordFieldName` and have no formatting applied to it. Any formatting of the value for display purposes is up to the concrete implementation of a particular `TableGroupRowHeaderView`. The `columnConfig` value comes from the `TableColumn` instance used for grouping values by.
 
 A naive implementation for the custom element to use for rendering group header values for the `TableColumnText` might look like the following:
 
