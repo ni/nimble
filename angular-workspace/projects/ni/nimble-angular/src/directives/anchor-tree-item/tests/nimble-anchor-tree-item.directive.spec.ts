@@ -4,7 +4,7 @@ import type { BooleanValueOrAttribute } from '../../utilities/template-value-hel
 import { AnchorTreeItem, NimbleAnchorTreeItemDirective } from '../nimble-anchor-tree-item.directive';
 import { NimbleAnchorTreeItemModule } from '../nimble-anchor-tree-item.module';
 
-describe('Nimble anchor button', () => {
+describe('Nimble anchor tree item', () => {
     const href1 = '#';
     const href2 = 'http://www.ni.com';
     const hreflang1 = 'en';
