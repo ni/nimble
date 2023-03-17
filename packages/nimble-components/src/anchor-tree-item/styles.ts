@@ -1,6 +1,18 @@
 import { css } from '@microsoft/fast-element';
-import { display, focusVisible } from '@microsoft/fast-foundation';
-import { bodyFontFamily, bodyFontWeight, bodyFontColor, borderHoverColor, borderWidth, iconSize, fillHoverColor, fillHoverSelectedColor, fillSelectedColor, bodyFontSize } from '../theme-provider/design-tokens';
+import { display } from '@microsoft/fast-foundation';
+import {
+    bodyFontFamily,
+    bodyFontWeight,
+    bodyFontColor,
+    borderHoverColor,
+    borderWidth,
+    iconSize,
+    fillHoverColor,
+    fillHoverSelectedColor,
+    fillSelectedColor,
+    bodyFontSize
+} from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('block')}
@@ -25,7 +37,7 @@ export const styles = css`
         color: ${bodyFontColor};
     }
 
-    .control:${focusVisible} {
+    .control${focusVisible} {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -2px;
@@ -87,9 +99,7 @@ export const styles = css`
         width: ${iconSize};
     }
 
-    ${
-        /* the start class is applied when the corresponding slot is filled */ ''
-    }
+    ${/* the start class is applied when the corresponding slot is filled */ ''}
     .start {
         display: flex;
         fill: currentcolor;

@@ -115,7 +115,11 @@ export class AnchorTreeItem extends AnchorBase {
                 // For FAST tree items, the FAST tree view handles this navigation,
                 // but since our anchor tree item is not "instanceof FASTTreeItem",
                 // the FAST tree view won't do this for us. We do it ourselves.
-                if (item === this.control && this.parentElement && this.isNestedItem()) {
+                if (
+                    item === this.control
+                    && this.parentElement
+                    && this.isNestedItem()
+                ) {
                     FoundationTreeItem.focusItem(this.parentElement);
                 }
                 break;
@@ -139,7 +143,10 @@ export class AnchorTreeItem extends AnchorBase {
         return true;
     }
 
-    protected selectedChanged(_prev: boolean | undefined, _next: boolean): void {
+    protected selectedChanged(
+        _prev: boolean | undefined,
+        _next: boolean
+    ): void {
         if (this.$fastController.isConnected) {
             this.$emit('selected-change', this);
         }
@@ -158,5 +165,7 @@ const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
     }
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAnchorTreeItem());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleAnchorTreeItem());
 export const anchorTreeItemTag = DesignSystem.tagFor(AnchorTreeItem);
