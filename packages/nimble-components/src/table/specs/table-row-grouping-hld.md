@@ -144,7 +144,7 @@ export class TableGroupRow extends FoundationElement {
 }
 
 const tableGroupRowElement = TableGroupRow.compose({
-    baseName: 'table-row-group',
+    baseName: 'table-group-row',
     template: html<TableColumnTextGroupHeaderView>`
     <template
         role="rowgroup"
