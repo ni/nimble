@@ -2,6 +2,7 @@
 name: 🧑‍🎨 IxD User story
 about: (DEV TEAM ONLY) A small chunk of work to be done by an Interaction Designer
 title: '(Fully descriptive title)'
+labels: 'IxD,triage'
 ---
 
 <!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-datepicker Interaction Design" rather than just "Interaction Design" -->
