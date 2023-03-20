@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 20 Mar 2023 22:35:48 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "728064a9e20c867a2ec90a973f2a282bfd01029a",
+            "comment": "Adding column width storybook."
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Mar 2023 15:01:43 GMT",
       "tag": "@ni/nimble-components_v18.8.0",
       "version": "18.8.0",
