@@ -492,11 +492,8 @@ const fractionalWidthOptions = {
     ]
 } as const;
 
-const fractionalWidthDescription = `Some table columns (like \`nimble-table-column-text\`) can be configured to have a fractional width such that its width
-                                    will be proportional to other columns also configured with a fractional width. So, a column with a \`fractional-width\`
-                                    set to 2 would be twice as wide as a column with a \`fractional-width\` set to 1. The default value for
-                                    \`fractional-width\` is 1. Columns that don't support \`fractional-width\` explicitly, or another API responsible for
-                                    managing the width of the column, will behave as if they have a \`fractional-width\` of 1.`;
+const fractionalWidthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
+The default value for \`fractional-width\` is 1, and columns that don't support \`fractional-width\` explicitly, or another API responsible for managing the width of the column, will also behave as if they have a \`fractional-width\` of 1.`;
 
 const minPixelWidthDescription = `Table columns that support having a \`fractional-width\` can also be configured to have a minimum width such that its width
 will never shrink below the specified pixel width.`;
