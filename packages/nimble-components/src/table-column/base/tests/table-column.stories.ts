@@ -5,7 +5,7 @@ import {
     createUserSelectedThemeStory,
     usageWarning
 } from '../../../utilities/tests/storybook';
-import { ExampleSortType } from './types';
+import { ExampleGroupType, ExampleSortType } from './types';
 import { tableTag } from '../../../table';
 import {
     SharedTableArgs,
@@ -451,6 +451,140 @@ export const sorting: StoryObj<SortingTableArgs> = {
 
             return {
                 direction: sortData[matchingIndex]!.sortDirection,
+                index: matchingIndex
+            };
+        }
+    }
+};
+
+const groupedRowOptions = {
+    [ExampleGroupType.none]: [],
+    [ExampleGroupType.firstName]: [
+        {
+            columnId: 'first-name-column'
+        }
+    ],
+    [ExampleGroupType.lastName]: [
+        {
+            columnId: 'last-name-column'
+        }
+    ],
+    [ExampleGroupType.firstThenLastName]: [
+        {
+            columnId: 'first-name-column'
+        },
+        {
+            columnId: 'last-name-column'
+        }
+    ],
+    [ExampleGroupType.lastThenFirstName]: [
+        {
+            columnId: 'last-name-column'
+        },
+        {
+            columnId: 'first-name-column'
+        }
+    ]
+} as const;
+
+const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented
+                                under a collapsible row. There will be a collapsible row per unique value in a given column. More than one
+                                column can be configured to group values by, with the precedence determined by the \`group-index\`, which
+                                also controls whether or not to enable row grouping for that column.`;
+
+interface GroupingTableArgs extends SharedTableArgs {
+    groupedColumns: ExampleGroupType;
+    getColumnGroupData: (
+        columnId: string,
+        args: GroupingTableArgs
+    ) => { index: number | undefined };
+}
+
+export const grouping: StoryObj<GroupingTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: groupedRowsDescription
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<GroupingTableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => x.updateData(x)}"
+        >
+            <${tableColumnTextTag}
+                field-name="firstName"
+                group-index="${x => x.getColumnGroupData('first-name-column', x).index}"
+            >
+                First Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="lastName"
+                group-index="${x => x.getColumnGroupData('last-name-column', x).index}"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="favoriteColor"
+            >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="quote"
+            >
+                Quote
+            </${tableColumnTextTag}>
+
+        </${tableTag}>
+    `),
+    argTypes: {
+        groupedColumns: {
+            name: 'Group configuration',
+            description: groupedRowsDescription,
+            options: Object.values(ExampleGroupType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleGroupType.none]: 'None',
+                    [ExampleGroupType.firstName]:
+                        'Group by first name',
+                    [ExampleGroupType.lastName]:
+                        'Group by last name',
+                    [ExampleGroupType.firstThenLastName]:
+                        'Group by first name then last.',
+                    [ExampleGroupType.lastThenFirstName]:
+                        'Group by last name then first.'
+                }
+            }
+        },
+        getColumnGroupData: {
+            table: {
+                disable: true
+            }
+        }
+    },
+    args: {
+        groupedColumns: ExampleGroupType.none,
+        getColumnGroupData: (
+            columnId: string,
+            args: GroupingTableArgs
+        ): {
+            index: number | undefined
+        } => {
+            const groupData = groupedRowOptions[args.groupedColumns];
+            const matchingIndex = groupData.findIndex(
+                groupedColumn => groupedColumn.columnId === columnId
+            );
+            if (matchingIndex === -1) {
+                return {
+                    index: undefined
+                };
+            }
+
+            return {
                 index: matchingIndex
             };
         }

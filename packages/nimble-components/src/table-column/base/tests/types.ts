@@ -7,3 +7,13 @@ export const ExampleSortType = {
 } as const;
 export type ExampleSortType =
     (typeof ExampleSortType)[keyof typeof ExampleSortType];
+
+export const ExampleGroupType = {
+    none: 'None',
+    firstName: 'FirstName',
+    lastName: 'LastName',
+    firstThenLastName: 'FirstThenLastName',
+    lastThenFirstName: 'LastThenFirstName'
+} as const;
+export type ExampleGroupType =
+    (typeof ExampleGroupType)[keyof typeof ExampleGroupType];
