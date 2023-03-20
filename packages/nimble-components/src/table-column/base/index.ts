@@ -81,6 +81,20 @@ export abstract class TableColumn<
 
     /**
      * @internal
+     * Whether or not a column can be used to group rows by
+     */
+    @observable
+    public internalIsGroupable?: boolean;
+
+    /**
+     * @internal
+     * The order in which to group column values by
+     */
+    @observable
+    public internalGroupIndex?: number;
+
+    /**
+     * @internal
      *
      * The template to use to render the cell content for the column
      */
@@ -141,6 +155,12 @@ export abstract class TableColumn<
      * Properties prefixed with `internal` are for internal table-use only.
      */
     public readonly internalUniqueId: string;
+
+    /**
+     * @internal
+     * The tag to use to render the group header content for a column
+     */
+    public internalGroupHeaderViewTag?: string;
 
     public constructor() {
         super();

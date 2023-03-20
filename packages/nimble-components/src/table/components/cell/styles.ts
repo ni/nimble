@@ -6,7 +6,9 @@ export const styles = css`
     ${display('grid')}
 
     :host {
-        padding: 0px calc(${standardPadding} / 2);
+        --ni-private-table-cell-offset-factor: 0;
+        /* prettier-ignore */
+        margin-left: calc(${standardPadding} / 2 + (var(--ni-private-table-cell-offset-factor) * ${standardPadding} * 2));
         align-self: center;
         height: 100%;
         grid-template-columns: 1fr auto;

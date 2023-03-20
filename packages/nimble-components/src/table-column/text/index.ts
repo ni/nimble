@@ -9,6 +9,8 @@ import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
 import { cellStyles } from './styles';
 import { cellTemplate } from './template';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { tableColumnTextGroupHeaderTag } from './group-header';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {
@@ -55,12 +57,19 @@ TableColumnTextColumnConfig
     }
 }
 
+// eslint-disable-next-line jsdoc/require-jsdoc
+class TableColumnTextFractionalWidth extends mixinFractionalWidthColumnAPI(
+    TableColumnTextBase
+) {}
+
 /**
  * The table column for displaying strings.
  */
-export class TableColumnText extends mixinFractionalWidthColumnAPI(
-    TableColumnTextBase
-) {}
+export class TableColumnText extends mixinGroupableColumnAPI(
+    TableColumnTextFractionalWidth
+) {
+    public groupHeaderViewTag = tableColumnTextGroupHeaderTag;
+}
 
 const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text',

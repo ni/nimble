@@ -1,0 +1,42 @@
+import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
+import {
+    borderWidth,
+    controlHeight,
+    standardPadding
+} from '../../../theme-provider/design-tokens';
+
+export const styles = css`
+    ${display('flex')}
+
+    :host {
+        align-items: center;
+        height: calc(${controlHeight} + 2 * ${borderWidth});
+        padding-left: calc(
+            ${standardPadding} * 2 *
+                var(--ni-private-table-group-row-indent-level)
+        );
+    }
+
+    :host([expanded='true']) .expander-icon {
+        transform: rotate(90deg);
+        transition: 300ms ease-in-out;
+    }
+
+    :host([expanded='false']) .expander-icon {
+        transform: rotate(0deg);
+        transition: 300ms ease-in-out;
+    }
+
+    .group-header-value {
+        padding-left: calc(${standardPadding} / 2);
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .group-row-child-count {
+        padding-left: 2px;
+        pointer-events: none;
+        user-select: none;
+    }
+`;

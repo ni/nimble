@@ -142,6 +142,7 @@ const metadata: Meta<TableArgs> = {
                 column-id="last-name-column"
                 field-name="lastName" placeholder="no value"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
+                group-index="0"
             >
                 Last Name
             </${tableColumnTextTag}>
