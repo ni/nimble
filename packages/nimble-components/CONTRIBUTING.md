@@ -302,7 +302,7 @@ Every component should export its custom element tag (e.g. `nimble-button`) in a
 export const buttonTag = DesignSystem.tagFor(Button);
 ```
 
-Client code can use this to refer to the component in an HTML template and trust that the reference will continue to work if the component name ever changes.
+Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.
 
 ### TypeScript integration
 
