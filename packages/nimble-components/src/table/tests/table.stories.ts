@@ -1,11 +1,12 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { ExampleDataType, ExampleSortType } from './types';
-import { bodyFont } from '../../theme-provider/design-tokens';
+import {
+    createUserSelectedThemeStory,
+    usageWarning
+} from '../../utilities/tests/storybook';
+import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableColumnSortDirection } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -13,16 +14,11 @@ import { tableColumnTextTag } from '../../table-column/text';
 
 interface TableArgs {
     data: ExampleDataType;
-    sortedColumns: ExampleSortType;
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
-    getColumnSortData: (
-        columnId: string,
-        args: TableArgs
-    ) => { direction: TableColumnSortDirection, index: number | undefined };
 }
 
 const simpleData = [
@@ -70,32 +66,8 @@ const dataSetIdFieldNames = {
     [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
-const sortedOptions = {
-    [ExampleSortType.firstColumnAscending]: [
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.ascending
-        }
-    ],
-    [ExampleSortType.firstColumnDescending]: [
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.descending
-        }
-    ],
-    [ExampleSortType.firstColumnAscendingSecondColumnDescending]: [
-        {
-            columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.ascending
-        },
-        {
-            columnId: 'last-name-column',
-            sortDirection: TableColumnSortDirection.descending
-        }
-    ]
-} as const;
-
-const overviewText = 'The `nimble-table` is a component that offers a way to render tabular data in a variety of ways in each column.';
+const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column. 
+For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.`;
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
 which are key/value pairs. The key in each pair must be of type \`string\`, which is defined by the type \`TableFieldName\`. The value
@@ -113,10 +85,6 @@ The table will not automatically update if the contents of the array change afte
     Setting a new value on the property in Blazor will internally call \`setData()\` on the web component.
 </details>
 `;
-
-const sortedColumnsDescription = `A column within the table is configured to be sorted by specifying a \`sort-direction\` and a \`sort-index\` on
-it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
-of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`.`;
 
 const idFieldNameDescription = `An optional string attribute that specifies the field name within a row's record to use as a row's ID.
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
@@ -157,10 +125,7 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        <div id="usage-warning">
-            WARNING - The table is still in development and considered
-            experimental. It is not recommended for application use.
-        </div>
+        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
@@ -170,7 +135,6 @@ const metadata: Meta<TableArgs> = {
                 column-id="first-name-column"
                 field-name="firstName" placeholder="no value"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
-                sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
@@ -178,14 +142,12 @@ const metadata: Meta<TableArgs> = {
                 column-id="last-name-column"
                 field-name="lastName" placeholder="no value"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
-                sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
                 field-name="favoriteColor" placeholder="no value"
-                sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
             >
                 Favorite Color
             </${tableColumnTextTag}>
@@ -193,7 +155,6 @@ const metadata: Meta<TableArgs> = {
                 column-id="quote-column"
                 field-name="quote" placeholder="no value"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
-                sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
             >
                 Quote
             </${tableColumnTextTag}>
@@ -211,12 +172,6 @@ const metadata: Meta<TableArgs> = {
                 <${menuItemTag}>Do something else with the quote</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
-        <style class="code-hide">
-            #usage-warning {
-                color: red;
-                font: var(${bodyFont.cssCustomProperty});
-            }
-        </style>
     `),
     argTypes: {
         data: {
@@ -228,22 +183,6 @@ const metadata: Meta<TableArgs> = {
                 labels: {
                     [ExampleDataType.simpleData]: 'Simple data',
                     [ExampleDataType.largeDataSet]: 'Large data set (10k rows)'
-                }
-            }
-        },
-        sortedColumns: {
-            name: 'sort configuration',
-            description: sortedColumnsDescription,
-            options: Object.values(ExampleSortType),
-            control: {
-                type: 'radio',
-                labels: {
-                    [ExampleSortType.firstColumnAscending]:
-                        'First name ascending',
-                    [ExampleSortType.firstColumnDescending]:
-                        'First name descending',
-                    [ExampleSortType.firstColumnAscendingSecondColumnDescending]:
-                        'First name ascending then last name descending'
                 }
             }
         },
@@ -274,16 +213,10 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
-        },
-        getColumnSortData: {
-            table: {
-                disable: true
-            }
         }
     },
     args: {
         data: ExampleDataType.simpleData,
-        sortedColumns: ExampleSortType.firstColumnAscending,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -295,29 +228,6 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 x.tableRef.setData(dataSets[x.data]);
             })();
-        },
-        getColumnSortData: (
-            columnId: string,
-            args: TableArgs
-        ): {
-            direction: TableColumnSortDirection,
-            index: number | undefined
-        } => {
-            const sortData = sortedOptions[args.sortedColumns];
-            const matchingIndex = sortData.findIndex(
-                sortedColumn => sortedColumn.columnId === columnId
-            );
-            if (matchingIndex === -1) {
-                return {
-                    direction: TableColumnSortDirection.none,
-                    index: undefined
-                };
-            }
-
-            return {
-                direction: sortData[matchingIndex]!.sortDirection,
-                index: matchingIndex
-            };
         }
     }
 };

@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 17 Mar 2023 18:44:43 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7184164a0e3661bc0b75c3bd559ef2306d393a6a",
+            "comment": "Add mixin documentation to CONTRIBUTING."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Mar 2023 15:36:39 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f1d6370d5548786004b5ef5d07b7657504d1fdf3",
+            "comment": "Implement anchor menu item component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Mar 2023 22:36:45 GMT",
+      "tag": "@ni/nimble-components_v18.7.0",
+      "version": "18.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "09fead1f3b08e3fde3bda7058271f35d7de6b7c4",
+            "comment": "Disable flaky visual tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Mar 2023 18:33:29 GMT",
+      "tag": "@ni/nimble-components_v18.7.0",
+      "version": "18.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bd3f2cfa0f26c76c6f92cc69f3b9bee7780f457e",
+            "comment": "Add Storybook documentation for table columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Mar 2023 14:51:12 GMT",
       "tag": "@ni/nimble-components_v18.7.0",
       "version": "18.7.0",

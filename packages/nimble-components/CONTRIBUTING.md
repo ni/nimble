@@ -342,6 +342,16 @@ const nimbleButton = Button.compose({
 });
 ```
 
+### Leverage mixins for shared APIs across components
+
+TypeScript and the FAST library each offer patterns and/or mechanisms to alter the APIs for a component via a mixin.
+
+FAST provides an `applyMixins` function (which is just an implementation of the [Alternative Pattern](https://www.typescriptlang.org/docs/handbook/mixins.html#alternative-pattern) described in the Typscript docs) to alter the API of a given component with a set of provided mixin classes. For an example, see how the [ToggleButton StartEnd mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/toggle-button/index.ts#L44) is applied.
+
+Another pattern in use within in Nimble is the [Constrained Mixin](https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins) pattern. An example in Nimble is the [FractionalWidth mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/mixins/fractional-width-column.ts#L16) which `TableColumnText`, for example, [ultimately extends](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/text/index.ts#L61). This offers the ability for a mixin to extend the functionality of another concrete type and interface with its implementation.
+
+The 'Constrained Mixin' pattern is used for applying mixins that are defined within Nimble, as they do not fundamentally alter existing types, and the `applyMixins` FAST method is used for consuming mixins exported from the FAST library.
+
 ## Unit tests
 
 Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
