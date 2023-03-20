@@ -17,8 +17,12 @@ function getSortIcons(element: TableHeader): {
     descendingIcon: HTMLElement | null
 } {
     return {
-        ascendingIcon: element.shadowRoot!.querySelector(`${iconArrowUpTag}.sort-indicator`),
-        descendingIcon: element.shadowRoot!.querySelector(`${iconArrowDownTag}.sort-indicator`)
+        ascendingIcon: element.shadowRoot!.querySelector(
+            `${iconArrowUpTag}.sort-indicator`
+        ),
+        descendingIcon: element.shadowRoot!.querySelector(
+            `${iconArrowDownTag}.sort-indicator`
+        )
     };
 }
 
