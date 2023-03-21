@@ -347,7 +347,7 @@ const positiveNegativeNumberCellView = PositiveNegativeNumberCellView.compose({
 });
 ```
 
-Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:  
+Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
 type TableColumnButtonCellData = TableStringField<'id'>;
