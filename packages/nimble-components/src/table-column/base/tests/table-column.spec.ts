@@ -8,7 +8,7 @@ import {
     uniqueElementName
 } from '../../../utilities/tests/fixture';
 import { TableColumn } from '..';
-import { BaseCellElement } from '../cell-element';
+import { TableCellView } from '../cell-element';
 
 const columnName = uniqueElementName();
 const columnCellViewName = uniqueElementName();
@@ -17,7 +17,7 @@ const columnCellViewName = uniqueElementName();
     name: columnCellViewName
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends BaseCellElement {
+class TestTableColumnCellView extends TableCellView {
 }
 
 @customElement({

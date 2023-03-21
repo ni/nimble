@@ -3,9 +3,11 @@ import { FoundationElement } from '@microsoft/fast-foundation';
 import type { TableCellRecord, TableCellState } from './types';
 
 /**
- * Base class for cell elements
+ * Base class for table cell elements.
+ * There is a 1:1 mapping between custom TableColumn and TableCellView implementations, via
+ * TableColumn.cellViewTag.
  */
-export abstract class BaseCellElement<
+export abstract class TableCellView<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 >
@@ -22,5 +24,5 @@ export abstract class BaseCellElement<
      * Expected implementation is to commit changes as needed, and blur the focusable element (or close
      * the menu/popup/etc).
      */
-    public onBeforeBlur(): void {}
+    public focusedRecycleCallback(): void {}
 }

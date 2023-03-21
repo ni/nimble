@@ -11,7 +11,7 @@ import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
 import { TableCell } from '../components/cell';
-import { BaseCellElement } from '../../table-column/base/cell-element';
+import { TableCellView } from '../../table-column/base/cell-element';
 import type { TableRow } from '../components/row';
 
 /**
@@ -121,13 +121,13 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         const tableContainsActiveElement = document.activeElement && this.table.contains(document.activeElement);
         // Note: If a table action menu is open, tableActiveElement is null, but tableContainsActiveElement is true (a MenuItem will be focused)
         if (tableActiveElement) {
-            while (tableActiveElement !== null && !(tableActiveElement instanceof BaseCellElement)) {
+            while (tableActiveElement !== null && !(tableActiveElement instanceof TableCellView)) {
                 if (tableActiveElement.shadowRoot) {
                     tableActiveElement = tableActiveElement.shadowRoot.activeElement;
                 }
             }
-            if (tableActiveElement instanceof BaseCellElement) {
-                tableActiveElement.onBeforeBlur();
+            if (tableActiveElement instanceof TableCellView) {
+                tableActiveElement.focusedRecycleCallback();
             }
         } else if (tableContainsActiveElement && this.table.openActionMenuRecordId !== undefined) {
             const row = this.table.viewport.querySelector(`nimble-table-row[record-id="${this.table.openActionMenuRecordId}"]`);

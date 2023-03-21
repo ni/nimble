@@ -78,7 +78,7 @@ export abstract class TableColumn<
      * @internal
      *
      * The tag (element name) of the custom element that renders the cell content for the column.
-     * Should derive from BaseCellElement<TCellRecord, TColumnConfig>.
+     * Should derive from TableCellView<TCellRecord, TColumnConfig>.
      */
     @observable
     public abstract readonly cellViewTag: string;

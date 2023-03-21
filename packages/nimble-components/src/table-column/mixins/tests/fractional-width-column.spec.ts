@@ -10,7 +10,7 @@ import {
 } from '../../../utilities/tests/fixture';
 import { TableColumn } from '../../base';
 import { mixinFractionalWidthColumnAPI } from '../fractional-width-column';
-import { BaseCellElement } from '../../base/cell-element';
+import { TableCellView } from '../../base/cell-element';
 
 const columnCellViewName = uniqueElementName();
 
@@ -18,7 +18,7 @@ const columnCellViewName = uniqueElementName();
     name: columnCellViewName
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends BaseCellElement {
+class TestTableColumnCellView extends TableCellView {
 }
 
 class TestTableColumnBase extends TableColumn {
