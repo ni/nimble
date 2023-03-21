@@ -113,7 +113,7 @@ abstract class TableColumn<TColumnConfig = {}> {
     columnConfig?: TColumnConfig;
 
     // The tag (element name) of the custom element that renders the cell content for the column.
-    // Should derive from BaseCellElement<TCellRecord, TColumnConfig>.
+    // Should derive from TableCellView<TCellRecord, TColumnConfig>.
     cellViewTag: string;
 
     // The names of the fields that should be present in TCellRecord.
@@ -145,10 +145,10 @@ abstract class TableColumn<TColumnConfig = {}> {
 
 _Note: The `TableColumn` class may be updated to support other features not covered in this HLD such as sorting and grouping._
 
-### `BaseCellElement<>`
+### `TableCellView<>`
 
 ```TS
-abstract class BaseCellElement<
+abstract class TableCellView<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 >
@@ -165,15 +165,15 @@ abstract class BaseCellElement<
      * Expected implementation is to commit changes as needed, and blur the focusable element (or close
      * the menu/popup/etc).
      */
-    public onBeforeBlur(): void {}
+    public focusedRecycleCallback(): void {}
 }
 ```
 
-Requiring column plugins to create custom elements for use in the table cells has several implementations:
+Requiring column plugins to create custom elements for use in the table cells has several implications:
 
 -   The elements encapsulate any state needed by the cell
 -   The cell element templates can use `ref` to get references to view elements from their templates, for use in their element code
--   Simplifies the API needed to respond to events from the table. One example is `BaseCellElement.onBeforeBlur()` which will be called before a row is recycled during a virtualized scroll, giving column plugins the opportunity to commit changes and blur the control in the cell.
+-   Simplifies the API needed to respond to events from the table. One example is `TableCellView.focusedRecycleCallback()` which will be called before a row is recycled during a virtualized scroll, giving column plugins the opportunity to commit changes and blur the control in the cell.
 
 Given the above classes, a series of column types to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
@@ -200,7 +200,7 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
         return [valueKey];
     }
 
-    public cellViewTag = 'nimble-table-cell-element-text';
+    public cellViewTag = 'nimble-table-cell-view-text';
 
     public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['value']) !== 'string') {
@@ -215,7 +215,7 @@ In the above example, notifications for when the `placeholder` property changed 
 The corresponding cell element implementation would look like this:
 
 ```TS
-class TextCellElement extends BaseCellElement<
+class TextCellView extends TableCellView<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
@@ -235,14 +235,14 @@ TableColumnTextColumnConfig
     public textField!: TextField;
 }
 
-const textCellElement = TextCellElement.compose({
-    baseName: 'table-cell-element-text',
-    template: html<TextCellElement>`
+const textCellView = TextCellView.compose({
+    baseName: 'table-cell-view-text',
+    template: html<TextCellView>`
         <nimble-text-field ${ref('textField')} readonly="true" value="${x => x.cellRecord.value}" placeholder="${x => x.columnConfig.placeholder}">
         </nimble-text-field>`,
     styles: /* styling */
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(textCellElement());
+DesignSystem.getOrCreate().withPrefix('nimble').register(textCellView());
 ```
 
 Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
@@ -261,7 +261,7 @@ public class TableColumnNumberWithUnit extends TableColumn {
     @attr
     public unitKey: string;
 
-    public cellViewTag = 'nimble-table-cell-element-number-with-unit';
+    public cellViewTag = 'nimble-table-cell-view-number-with-unit';
 
     public getDataRecordFieldNames(): string[] {
         return [valueKey, unitKey];
@@ -274,15 +274,14 @@ public class TableColumnNumberWithUnit extends TableColumn {
     }
 }
 
-class NumberWithUnitCellElement extends BaseCellElement<TableColumnNumberWithUnitCellData> {
-    @volatile
+class NumberWithUnitCellView extends TableCellView<TableColumnNumberWithUnitCellData> {
     public get formattedValue(): string {
         return `${this.cellRecord.value.toString()} ${this.cellRecord.units}`;
     }
 }
-const numberWithUnitCellElement = NumberWithUnitCellElement.compose({
-    baseName: 'table-cell-element-number-with-unit',
-    template: html<NumberWithUnitCellElement>`
+const numberWithUnitCellView = NumberWithUnitCellView.compose({
+    baseName: 'table-cell-view-number-with-unit',
+    template: html<NumberWithUnitCellView>`
         <nimble-text-field
             readonly="true"
             value="${x => x.formattedValue}"
@@ -309,6 +308,8 @@ public class TableColumnPositiveNegativeNumber extends TableColumn {
     @attr
     public valueKey: string;
 
+    public cellViewTag = 'table-cell-view-positive-negative-number';
+
     public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
@@ -320,15 +321,14 @@ public class TableColumnPositiveNegativeNumber extends TableColumn {
     }
 }
 
-class PositiveNegativeNumberCellElement extends BaseCellElement<TableColumnPositiveNegativeNumberCellData> {
-    @volatile
+class PositiveNegativeNumberCellView extends TableCellView<TableColumnPositiveNegativeNumberCellData> {
     public get textFieldCssClass(): string {
         return this.cellRecord.value > 0 ? 'good' : 'bad';
     }
 }
-const positiveNegativeNumberCellElement = PositiveNegativeNumberCellElement.compose({
-    baseName: 'table-cell-element-positive-negative-number',
-    template: html<PositiveNegativeNumberCellElement>`
+const positiveNegativeNumberCellView = PositiveNegativeNumberCellView.compose({
+    baseName: 'table-cell-view-positive-negative-number',
+    template: html<PositiveNegativeNumberCellView>`
         <nimble-text-field
             class="${x => x.textFieldCssClass}"
             readonly="true"
@@ -348,10 +348,8 @@ const positiveNegativeNumberCellElement = PositiveNegativeNumberCellElement.comp
 ```
 
 Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:  
-**TODO: Update the following example based on custom-element-in-cell changes**
 
 ```TS
-/* TODO: not yet updated */
 type TableColumnButtonCellData = TableStringField<'id'>;
 
 public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
@@ -366,14 +364,7 @@ public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
         return [valueKey];
     }
 
-    public callback: (id: string) => void;
-
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
-        html<TableCellState<TableColumnButtonCellData>>`
-            <nimble-button @click="${(x, c) => c.event.currentTarget.$emit('button-click', {data: x.data.id})}">
-                <span>Press Me</span>
-            </nimble-button>
-        `;
+    public cellViewTag = 'table-cell-view-button';
 
     public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['id']) !== 'string') {
@@ -381,6 +372,20 @@ public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
         }
     }
 }
+
+class ButtonCellView extends TableCellView<TableColumnButtonCellData> {
+    public onButtonClick(): void {
+        this.$emit('button-click', { data: this.cellRecord.id })
+    }
+}
+const buttonCellView = ButtonCellView.compose({
+    baseName: 'table-cell-view-button',
+    template: html<ButtonCellView>`
+        <nimble-button @click="${(x) => x.onButtonClick()}">
+            <span>Press Me</span>
+        </nimble-button>`,
+    styles: /* styling */
+});
 ```
 
 Angular template:

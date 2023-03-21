@@ -19,7 +19,7 @@ Some of the cell state that would incorrectly apply to new rows (once the user s
 
 When the user scrolls the table, we will:
 
--   If a table cell contains an active/focused control, we will notify the column plugin that the cell is being blurred/recycled via a new API. The general expectation is that editable controls will commit any pending updates, then blur the focused the control.
+-   If a table cell contains an active/focused control, we will notify the column plugin that the cell is being recycled via a new API. The general expectation is that editable controls will commit any pending updates, then blur the focused the control.
 -   If a cell action menu is open (in which case a menu item is focused), we'll close the associated menu via the menu button.
 
 We will not:
@@ -29,17 +29,17 @@ We will not:
 -   Try and re-apply any state to the re-bound rows/cells after the scroll. That means that we won't re-focus the previously focused control in a cell / re-open an action menu, after a scroll operation.
 
 **Prototype:**  
-See [the prototype branch](https://github.com/ni/nimble/compare/main...table-cell-state-custom-elements-1) and the [prototype table Storybook](https://60e89457a987cf003efc0a5b-azrrwyldta.chromatic.com/?path=/story/table--table&args=data:LargeDataSet) to illustrate the concepts discussed in the following sections.  
-As we don't yet support editable column types, the prototype Storybook updates the Last Name column to show text which can be focused by clicking on it. After clicking a Last Name cell value, you'll see the text get a green border as its focused styling. Once you scroll the table vertically, the green border goes away, and you'll see a `console.log` indicating that the new cell blur API was used.
+See [the prototype branch](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1) and the [prototype table Storybook](https://60e89457a987cf003efc0a5b-ktcaixsgzs.chromatic.com/?path=/story/table--table&args=data:LargeDataSet) to illustrate the concepts discussed in the following sections.  
+As we don't yet support editable column types, the prototype Storybook updates the Last Name column to show text which can be focused by clicking on it. After clicking a Last Name cell value, you'll see the text get a green border as its focused styling. Once you scroll the table vertically, the green border goes away, and you'll see a `console.log` indicating that the new cell `focusedRecycleCallback` API was used.
 
 ### Blur Focused Controls in Cells
 
-In this case, `document.activeElement` will be the Nimble `Table`, and `table.shadowRoot.activeElement` will be a Nimble `TableRow`. We can recursively look at the active element's `shadowRoot.activeElement`, starting from the TableRow, and stop when we reach a `BaseCellElement` (the custom element in table cells implemented by column plugin authors) or `null` (see [prototype](https://github.com/ni/nimble/compare/main...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR124)).
+In this case, `document.activeElement` will be the Nimble `Table`, and `table.shadowRoot.activeElement` will be a Nimble `TableRow`. We can recursively look at the active element's `shadowRoot.activeElement`, starting from the TableRow, and stop when we reach a `TableCellView` (the custom element in table cells implemented by column plugin authors) or `null` (see [prototype](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR124)).
 
-If we found a focused `BaseCellElement`, then we will call the new API `onBeforeBlur()` on it.  
-(Prototype: [BaseCellElement API](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-e307bbd379116ba5f5690332122a16b1fe392878b3899cbe487f98672766dcedR25), [calling onBeforeBlur() from virtualizer code](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR130))  
-Column plugins, in their derived versions of `BaseCellElement`, should generally override `onBeforeBlur()` if they have a focusable control - they can commit changes, and then blur the focusable control.
-([Prototype:](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-d1db6a67f7353782eeb2c4769380687c9c1e70261dd7fb43960efe293cf04d97R22) A simplified column implementation that shows focusable text, and blurs it in the `onBeforeBlur` method.)
+If we found a focused `TableCellView`, then we will call the new API `focusedRecycleCallback()` on it.  
+(Prototype: [TableCellView API](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e307bbd379116ba5f5690332122a16b1fe392878b3899cbe487f98672766dcedR10), [calling focusedRecycleCallback() from virtualizer code](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR130))  
+Column plugins, in their derived versions of `TableCellView`, should generally override `focusedRecycleCallback()` if they have a focusable control - they can commit changes, and then blur the focusable control.
+([Prototype:](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-d1db6a67f7353782eeb2c4769380687c9c1e70261dd7fb43960efe293cf04d97) A simplified column implementation that shows focusable text, and blurs it in the `focusedRecycleCallback` method.)
 
 ### Close Focused Action Menus
 
@@ -54,7 +54,7 @@ We have a few options:
 
 Once we have a `TableCell`, we can get the `MenuButton` for the cell, and call `open = false` on it.
 
-(See [prototype implementation](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.6.1...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR132))
+(See [prototype implementation](https://github.com/ni/nimble/compare/%40ni/nimble-components_v18.8.0...table-cell-state-custom-elements-1#diff-e2bfd4eda0a3c89f54b4e09624e6cfd5a68ea2f14c0e79f717eacce38ec5982bR133))
 
 ## Alternative Implementations / Designs
 
@@ -108,9 +108,9 @@ We could add CSS to our table text cells (`user-select: none`) to prevent text s
 
 We decided against this because there's valid use cases for copying text out of a table cell, and the selection+scrolling issue doesn't seem like a sufficient reason to disable selection entirely.
 
-### Providing a Default onBeforeBlur() Implementation
+### Providing a Default focusedRecycleCallback() Implementation
 
-We could add code in `BaseCellElement.onBeforeBlur()` to look for known Nimble control types in cells, and call the appropriate API on them, `blur()` or `open = false`.
+We could add code in `TableCellView.focusedRecycleCallback()` to look for known Nimble control types in cells, and call the appropriate API on them, `blur()` or `open = false`.
 
 We decided against this idea. We think it's better for the column implementations to handle this, as they're the ones declaring the editable/blur-able controls in their templates.
 
