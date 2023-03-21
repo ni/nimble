@@ -9,8 +9,6 @@ import { TableColumnSortDirection, TableFieldName } from '../../table/types';
 import {
     defaultFractionalWidth,
     defaultMinPixelWidth,
-    TableCellRecord,
-    TableCellState,
     TableColumnSortOperation
 } from './types';
 

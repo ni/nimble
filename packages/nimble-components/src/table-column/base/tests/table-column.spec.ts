@@ -1,7 +1,5 @@
+/* eslint-disable max-classes-per-file */
 import {
-    ViewTemplate,
-    ElementStyles,
-    html,
     customElement
 } from '@microsoft/fast-element';
 import {
@@ -9,17 +7,24 @@ import {
     Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
-import type { TableCellState } from '../types';
 import { TableColumn } from '..';
+import { BaseCellElement } from '../cell-element';
 
 const columnName = uniqueElementName();
+const columnCellViewName = uniqueElementName();
+
+@customElement({
+    name: columnCellViewName
+})
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class TestTableColumnCellView extends BaseCellElement {
+}
 
 @customElement({
     name: columnName
 })
 class TestTableColumn extends TableColumn {
-    public cellTemplate: ViewTemplate<TableCellState> = html``;
-    public cellStyles?: ElementStyles | undefined;
+    public cellViewTag = columnCellViewName;
     public cellRecordFieldNames: readonly string[] = [];
 }
 

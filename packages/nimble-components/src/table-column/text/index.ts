@@ -24,7 +24,6 @@ declare global {
  * The base class for a table column for displaying strings.
  */
 class TableColumnTextBase extends TableColumn<
-TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
     public cellRecordFieldNames = ['value'] as const;
