@@ -28,7 +28,7 @@ This document will focus on the programmatic grouping of data rows.
 
 To support both the notion that a column type may want to allow grouping in some situations and not others (e.g. a numeric column displaying discrete values versus continuous values), as well as the possibility that certain columns should never be groupable, we will create a mixin to provide the necessary grouping APIs:
 
-```
+```ts
 export function mixinGroupableColumnAPI<
     TBase extends GroupableTableColumnConstructor
 >(base: TBase) {
@@ -36,6 +36,12 @@ export function mixinGroupableColumnAPI<
         public disableGrouping?: boolean;
 
         public groupIndex?: number | null = null;
+
+        /**
+         * The custom element tag to use for rendering group header values.
+         * Should derive from TableGroupHeaderView.
+         */
+        public abstract groupHeaderViewTag: string;
 
         public isDisableGroupingChanged(): void {
             this.internalIsGroupable = !this.disableGrouping;
@@ -45,45 +51,75 @@ export function mixinGroupableColumnAPI<
             this.internalGroupIndex = this.groupIndex;
         }
 
-        /**
-         * The custom element tag to use for rendering group header values.
-         * Should derive from TableGroupHeaderView.
-         */
-        public abstract groupHeaderViewTag: string;
+        public groupHeaderViewTagChanged(): void {
+            this.internalGroupHeaderViewTag = this.groupHeaderViewTag;
+        }
     }
-    attr({ attribute: 'disable-grouping', mode: 'boolean' })(GroupableColumn.prototype, 'disableGrouping');
-    attr({ attribute: 'group-index', converter: nullableNumberConverter })(GroupableColumn.prototype, 'groupIndex');
+    attr({ attribute: 'disable-grouping', mode: 'boolean' })(
+        GroupableColumn.prototype,
+        'disableGrouping'
+    );
+    attr({ attribute: 'group-index', converter: nullableNumberConverter })(
+        GroupableColumn.prototype,
+        'groupIndex'
+    );
+    observable(GroupableColumn.prototype, 'groupHeaderViewTag');
 
     return GroupableColumn;
 }
 ```
 
-The `TableColumn` will add the `internalIsGroupable` and `internalGroupIndex` APIs to provide that state where it is needed in the rest of the `Table` implementation.
+The `TableColumn` will add the `internalIsGroupable`, `internalGroupIndex` and `internalGroupHeaderViewTag` APIs to provide that state where it is needed in the rest of the `Table` implementation.
 
 This mixin can then be chained to other mixins in the following fashion:
 
 ```
-class TableColumnTextFractionalWidth extends mixinFractionalWidthColumnAPI(TableColumnTextBase) {}
+export class TableColumnText extends mixinGroupableColumnAPI(
+    mixinFractionalWidthColumnAPI(TableColumnBase)
+) {}
+```
 
-export class TableColumnText extends mixinGroupableColumnAPI(TableColumnTextFractionalWidth) {}
+A client would then be able to configure their `Table` in the following way in html to mark certain columns to be grouped by:
+
+```html
+<nimble-table>
+    <nimble-table-column-text
+        field-name="firstName"
+        group-index="1"
+    ></nimble-table-column-text>
+    <nimble-table-column-text
+        field-name="lastName"
+        group-index="0"
+    ></nimble-table-column-text>
+    <nimble-table-column-text field-name="age"></nimble-table-column-text>
+</nimble-table>
 ```
 
 ### Rendering group header values
 
-Rendering group header values have similar concerns as rendering cell values, providing reason to adopt the pattern outlined in [this PR](https://github.com/ni/nimble/pull/1052) for columns to specify a custom element to use to render the value. As shown in the mixin snippet above, it will provide an abstract `groupHeaderViewTag` property, which will require groupable columns to specify the element to use to display the header value. This element will derive from an element of type `TableGroupRowHeaderView`:
+Rendering group header values have similar concerns as rendering cell values, providing reason to adopt the pattern outlined in [the table state management PR (#1052)](https://github.com/ni/nimble/pull/1052) for columns to specify a custom element to use to render the value. As shown in the mixin snippet above, it will provide an abstract `groupHeaderViewTag` property, which will require groupable columns to specify the element to use to display the header value. This element will derive from an element of type `TableGroupHeaderView`:
 
-```
-export interface TableGroupRowHeaderValueState<TColumnConfig = unknown> {
-    groupHeaderValue: TableFieldValue;
-    columnConfig: TColumnConfig;
+```ts
+export interface TableGroupHeaderState<
+    TGroupValue = unknown,
+    TColumnConfig = unknown
+> {
+    groupHeaderValue: TGroupValue;
+    columnConfig?: TColumnConfig;
 }
 
-export abstract class TableGroupHeaderView<TColumnConfig> implements TableGroupRowHeaderValueState<TColumnConfig> {
+export abstract class TableGroupHeaderView<
+        TGroupValue = unknown,
+        TColumnConfig = unknown
+    >
+    extends FoundationElement
+    implements TableGroupHeaderState<TGroupValue, TColumnConfig>
+{
     @observable
-    groupHeaderValue: TableFieldValue;
+    public groupHeaderValue: TGroupValue;
 
     @observable
-    columnConfig: TColumnConfig;
+    public columnConfig?: TColumnConfig;
 }
 ```
 
@@ -91,8 +127,9 @@ The value of the `groupHeaderValue` property will be sourced from the TanStack [
 
 An example implementation for the custom element to use for rendering group header values for the `TableColumnText` might look like the following:
 
-```
+```ts
 export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
+string | null | undefined,
 TableColumnTextColumnConfig
 > {
     @observable
@@ -120,7 +157,7 @@ DesignSystem.getOrCreate().withPrefix('nimble').register(tableColumnTextGroupHea
 
 Rendering a row group has concerns beyond just rendering the grouping value. It also has a button for controlling the expand/collapse state of a row group (indented for sub-groups) as well as potentially rendering auxiliary information such as the total number of items within a group. We can provide a new `TableGroupRow` element to manage all of these:
 
-```
+```ts
 export class TableGroupRow extends FoundationElement {
     @observable
     public groupRowValue?: TableFieldValue;
@@ -182,7 +219,7 @@ Grouped rows are provided alongside ungrouped rows through the TanStack function
 
 Table template.ts
 
-```
+```ts
     ...
     ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
         ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
@@ -212,7 +249,7 @@ Setting TanStack up to handle both row grouping and expanded state is similar to
 
 Table index.ts
 
-```
+```ts
 public constructor() {
     super();
     this.options = {
@@ -229,10 +266,15 @@ The table will be invalid if it contains two columns with the same `group-index`
 
 ## Alternative Implementations / Designs
 
+### Rendering more than one column value in group header
+
 Consider upstreaming a change to TanStack to allow row grouping by more than one column value. While this may not affect the overall architectural design proposed here, it would likely alter it to support providing multiple values to render in the `TableGroupHeaderView`.
+
+### Group on formatted values
+
+We decided against grouping on formatted values since TanStack will only determine its grouping based on the raw, unformatted values in the columns. Circumventing this would invariably lead to us losing much of the state management TanStack provides.
 
 ## Open Issues
 
-1. Should we mark the table validity state as invalid if more than one column specify the same `group-index`?
-2. Do we always render the number of items in a row group as part of the header, or should this be configurable?
-3. Should the `TableGroupRow` be given an ARIA role of `rowgroup`? The docs state that "a `rowgroup` contains one or more rows...", which the `TableGroupRow` technically does not. The virtualization implementation requires a pretty opinionated representation of the elements in the DOM, making it difficult to parent `TableRow` elements within a `TableGroupRow`.
+1. Do we always render the number of items in a row group as part of the header, or should this be configurable?
+2. Should the `TableGroupRow` be given an ARIA role of `rowgroup`? The docs state that "a `rowgroup` contains one or more rows...", which the `TableGroupRow` technically does not. The virtualization implementation requires a pretty opinionated representation of the elements in the DOM, making it difficult to parent `TableRow` elements within a `TableGroupRow`.
