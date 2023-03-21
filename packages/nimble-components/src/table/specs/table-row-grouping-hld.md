@@ -33,7 +33,7 @@ export function mixinGroupableColumnAPI<
     TBase extends GroupableTableColumnConstructor
 >(base: TBase) {
     abstract class GroupableColumn extends base {
-        public disableGrouping?: boolean;
+        public groupingDisabled?: boolean;
 
         public groupIndex?: number | null = null;
 
@@ -43,8 +43,8 @@ export function mixinGroupableColumnAPI<
          */
         public abstract groupHeaderViewTag: string;
 
-        public isDisableGroupingChanged(): void {
-            this.internalIsGroupable = !this.disableGrouping;
+        public isGroupingDisabledChanged(): void {
+            this.internalGroupingDisabled = !this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
@@ -55,9 +55,9 @@ export function mixinGroupableColumnAPI<
             this.internalGroupHeaderViewTag = this.groupHeaderViewTag;
         }
     }
-    attr({ attribute: 'disable-grouping', mode: 'boolean' })(
+    attr({ attribute: 'grouping-disabled', mode: 'boolean' })(
         GroupableColumn.prototype,
-        'disableGrouping'
+        'groupingDisabled'
     );
     attr({ attribute: 'group-index', converter: nullableNumberConverter })(
         GroupableColumn.prototype,
@@ -69,7 +69,7 @@ export function mixinGroupableColumnAPI<
 }
 ```
 
-The `TableColumn` will add the `internalIsGroupable`, `internalGroupIndex` and `internalGroupHeaderViewTag` APIs to provide that state where it is needed in the rest of the `Table` implementation.
+The `TableColumn` will add the `internalGroupingDisabled`, `internalGroupIndex` and `internalGroupHeaderViewTag` APIs to provide that state where it is needed in the rest of the `Table` implementation.
 
 This mixin can then be chained to other mixins in the following fashion:
 
