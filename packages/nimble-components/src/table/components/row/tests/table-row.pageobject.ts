@@ -1,7 +1,6 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableRow } from '..';
 import type { TableRecord } from '../../../types';
-import { TableCell } from '../../cell';
+import { tableCellTag, TableCell } from '../../cell';
 
 /**
  * Page object for the `nimble-table-row` component to provide consistent ways
@@ -12,7 +11,7 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
 
     public getRenderedCell(columnIndex: number): TableCell | undefined {
         return this.tableRowElement.shadowRoot!.querySelectorAll<TableCell>(
-            DesignSystem.tagFor(TableCell)
+            tableCellTag
         )[columnIndex];
     }
 }

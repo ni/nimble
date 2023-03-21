@@ -2,6 +2,51 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 16 Mar 2023 22:00:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.4.0",
+      "version": "11.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e1746f201eb7919b8e44ab53caa7eba95f036ffd",
+            "comment": "Add missing properties to NimbleAnchorTab"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 22:17:50 GMT",
+      "tag": "@ni/nimble-blazor_v11.3.3",
+      "version": "11.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d38391e69c9984de80bf7f4a41cfbcc0181e0d16",
+            "comment": "Programmatic table column width API"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 16:20:35 GMT",
+      "tag": "@ni/nimble-blazor_v11.3.1",
+      "version": "11.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "79c20d76d6425fc5d737d05acaf62ae47a689cd5",
+            "comment": "Update page title in example apps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Mar 2023 17:48:40 GMT",
       "tag": "@ni/nimble-blazor_v11.2.7",
       "version": "11.2.7",

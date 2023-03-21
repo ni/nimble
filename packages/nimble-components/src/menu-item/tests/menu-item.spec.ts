@@ -1,14 +1,8 @@
-import {
-    DesignSystem,
-    MenuItem as FoundationMenuItem
-} from '@microsoft/fast-foundation';
-import { MenuItem } from '..';
+import { MenuItem, menuItemTag } from '..';
 
 describe('MenuItem', () => {
-    it('should have its tag returned by tagFor(FoundationMenuItem)', () => {
-        expect(DesignSystem.tagFor(FoundationMenuItem)).toBe(
-            'nimble-menu-item'
-        );
+    it('should export its tag', () => {
+        expect(menuItemTag).toBe('nimble-menu-item');
     });
 
     it('can construct an element instance', () => {

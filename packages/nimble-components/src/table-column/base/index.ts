@@ -6,7 +6,13 @@ import {
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { TableColumnSortDirection, TableFieldName } from '../../table/types';
-import { TableColumnSortOperation } from './types';
+import {
+    defaultFractionalWidth,
+    defaultMinPixelWidth,
+    TableCellRecord,
+    TableCellState,
+    TableColumnSortOperation
+} from './types';
 
 /**
  * The base class for table columns
@@ -31,6 +37,44 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
+
+    /**
+     * @internal
+     * Used by the Table in order to give a column a specific pixel width.
+     * When set 'currentFractionalWidth' will be ignored.
+     */
+    @observable
+    public currentPixelWidth?: number;
+
+    /**
+     * @internal
+     * Used by the Table in order to size a column proportionally to the available
+     * width of a row.
+     */
+    @observable
+    public currentFractionalWidth = defaultFractionalWidth;
+
+    /**
+     * @internal
+     * Used by column plugins to set a specific pixel width. Sets currentPixelWidth when changed.
+     */
+    @observable
+    public internalPixelWidth?: number;
+
+    /**
+     * @internal
+     * Used by column plugins to size a column proportionally to the available
+     * width of a row. Sets currentFractionalWidth when changed.
+     */
+    @observable
+    public internalFractionalWidth = defaultFractionalWidth;
+
+    /**
+     * @internal
+     * The minimum size in pixels according to the design doc
+     */
+    @observable
+    public internalMinPixelWidth = defaultMinPixelWidth;
 
     /**
      * @internal
@@ -101,5 +145,13 @@ export abstract class TableColumn<
         super.connectedCallback();
 
         this.setAttribute('slot', this.internalUniqueId);
+    }
+
+    protected internalFractionalWidthChanged(): void {
+        this.currentFractionalWidth = this.internalFractionalWidth;
+    }
+
+    protected internalPixelWidthChanged(): void {
+        this.currentPixelWidth = this.internalPixelWidth;
     }
 }

@@ -1,8 +1,7 @@
 import { html } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { TableHeader } from '..';
-import { IconArrowDown } from '../../../../icons/arrow-down';
-import { IconArrowUp } from '../../../../icons/arrow-up';
+import { iconArrowDownTag } from '../../../../icons/arrow-down';
+import { iconArrowUpTag } from '../../../../icons/arrow-up';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { TableColumnSortDirection } from '../../../types';
@@ -19,12 +18,8 @@ function getSortIcons(element: TableHeader): {
 } {
     const sortIndicatorContainer = element.shadowRoot!.querySelector('.sort-indicator')!;
     return {
-        ascendingIcon: sortIndicatorContainer.querySelector(
-            DesignSystem.tagFor(IconArrowUp)
-        ),
-        descendingIcon: sortIndicatorContainer.querySelector(
-            DesignSystem.tagFor(IconArrowDown)
-        )
+        ascendingIcon: sortIndicatorContainer.querySelector(iconArrowUpTag),
+        descendingIcon: sortIndicatorContainer.querySelector(iconArrowDownTag)
     };
 }
 

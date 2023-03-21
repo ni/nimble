@@ -1,7 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { bodyFont } from '../../theme-provider/design-tokens';
+import {
+    createUserSelectedThemeStory,
+    usageWarning
+} from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
@@ -94,10 +96,7 @@ const metadata: Meta<WaferMapArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        <div id="usage-warning">
-            WARNING - The wafermap is still in development and considered
-            experimental. It is not recommended for application use.
-        </div>
+        ${usageWarning('wafer map')}
         <${waferMapTag}
             id="wafer-map"
             colors-scale-mode="${x => x.colorScaleMode}"
@@ -115,10 +114,6 @@ const metadata: Meta<WaferMapArgs> = {
         >
         </${waferMapTag}>
         <style class="code-hide">
-            #usage-warning {
-                color: red;
-                font: var(${bodyFont.cssCustomProperty});
-            }
             #wafer-map {
                 resize: both;
                 overflow: hidden;

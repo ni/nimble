@@ -1,11 +1,12 @@
 /* eslint-disable max-classes-per-file */
-import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { TableStringField } from '../../table/types';
-import { TableColumnSortOperation } from '../base/types';
-import { TableColumn } from '../base';
+import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
+import type { TableStringField } from '../../table/types';
+import { TableColumn } from '../base';
+import { TableColumnSortOperation } from '../base/types';
 import { textCellElementTag } from './cell-element';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
@@ -20,9 +21,12 @@ declare global {
 }
 
 /**
- * The table column for displaying strings.
+ * The base class for a table column for displaying strings.
  */
-export class TableColumnText extends TableColumn<TableColumnTextColumnConfig> {
+class TableColumnTextBase extends TableColumn<
+TableColumnTextCellRecord,
+TableColumnTextColumnConfig
+> {
     public cellRecordFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
@@ -47,6 +51,13 @@ export class TableColumnText extends TableColumn<TableColumnTextColumnConfig> {
         this.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 }
+
+/**
+ * The table column for displaying strings.
+ */
+export class TableColumnText extends mixinFractionalWidthColumnAPI(
+    TableColumnTextBase
+) {}
 
 const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text',

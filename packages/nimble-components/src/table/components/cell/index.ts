@@ -63,3 +63,4 @@ const nimbleTableCell = TableCell.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableCell());
+export const tableCellTag = DesignSystem.tagFor(TableCell);

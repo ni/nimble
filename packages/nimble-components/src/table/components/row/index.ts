@@ -124,3 +124,4 @@ const nimbleTableRow = TableRow.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableRow());
+export const tableRowTag = DesignSystem.tagFor(TableRow);

@@ -1,8 +1,7 @@
 import { html, ref, when } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableCell } from '.';
-import { IconThreeDotsLine } from '../../../icons/three-dots-line';
-import { MenuButton } from '../../../menu-button';
+import { iconThreeDotsLineTag } from '../../../icons/three-dots-line';
+import { menuButtonTag } from '../../../menu-button';
 import {
     ButtonAppearance,
     MenuButtonToggleEventDetail
@@ -20,7 +19,7 @@ export const template = html<TableCell>`
                 </${cellViewTag}>`;
     })}
         ${when(x => x.hasActionMenu, html<TableCell>`
-            <${DesignSystem.tagFor(MenuButton)}
+            <${menuButtonTag}
                 ${ref('actionMenuButton')}
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
@@ -28,10 +27,10 @@ export const template = html<TableCell>`
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 class="action-menu"
             >
-                <${DesignSystem.tagFor(IconThreeDotsLine)} slot="start"></${DesignSystem.tagFor(IconThreeDotsLine)}>
+                <${iconThreeDotsLineTag} slot="start"></${iconThreeDotsLineTag}>
                 ${x => x.actionMenuLabel}
                 <slot name="cellActionMenu" slot="menu"></slot>
-            </${DesignSystem.tagFor(MenuButton)}>
+            </${menuButtonTag}>
         `)}
     </template>
 `;

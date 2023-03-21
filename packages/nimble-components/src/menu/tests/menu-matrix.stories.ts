@@ -19,6 +19,7 @@ import { menuTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { iconXmarkTag } from '../../icons/xmark';
 import { menuItemTag } from '../../menu-item';
+import { anchorMenuItemTag } from '../../anchor-menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
@@ -61,14 +62,20 @@ const component = (
                         <${menuItemTag}>Item 1.2</${menuItemTag}>
                         ${when(() => advancedSubMenu, html`<hr>`)}
                         <${menuItemTag}>${when(() => childIcon, html`<${iconXmarkTag} slot="start"></${iconXmarkTag}>`)}Item 1.3</${menuItemTag}>
-                    </${menuTag}>
+                        <${anchorMenuItemTag} href='#'>Anchor item 1.4</${anchorMenuItemTag}>
+                        <${anchorMenuItemTag} href='#'>${when(() => childIcon, html`<${iconXmarkTag} slot="start"></${iconXmarkTag}>`)}Anchor item 1.5</${anchorMenuItemTag}>
+                    </nimble-menu>
                 `)}
             </${menuItemTag}>
             <hr>
             <${menuItemTag} disabled>Item 2</${menuItemTag}>
             <${menuItemTag}>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Item 3</${menuItemTag}>
             <${menuItemTag} hidden>Item 4</${menuItemTag}>
-        </${menuTag}>
+            <${anchorMenuItemTag} href='#'>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item</${anchorMenuItemTag}>
+            <${anchorMenuItemTag}>Anchor item no href</${anchorMenuItemTag}>
+            <${anchorMenuItemTag} href='#' disabled>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item disabled</${anchorMenuItemTag}>
+            <${anchorMenuItemTag} href='#' hidden>Anchor item hidden</${anchorMenuItemTag}>
+        </nimble-menu>
     </span>
 `;
 
@@ -89,6 +96,7 @@ export const textCustomized: Story = createMatrixThemeStory(
         html` <${menuTag}>
             Inner text
             <${menuItemTag}>Menu item</${menuItemTag}>
-        </${menuTag}>`
+            <${anchorMenuItemTag}>Anchor menu item</${anchorMenuItemTag}>
+        </<${menuTag}>`
     )
 );

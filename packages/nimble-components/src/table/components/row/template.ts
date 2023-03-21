@@ -1,15 +1,14 @@
 import { html, repeat, when } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableRow, ColumnState } from '.';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableCell } from '../cell';
+import { tableCellTag } from '../cell';
 
 // prettier-ignore
 export const template = html<TableRow>`
     <template role="row">
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             ${when(x => !x.column.columnHidden, html<ColumnState, TableRow>`
-                <${DesignSystem.tagFor(TableCell)}
+                <${tableCellTag}
                     class="cell"
                     :cellState="${x => x.cellState}"
                     :cellViewTag="${x => x.column.cellViewTag}"
@@ -25,7 +24,7 @@ export const template = html<TableRow>`
                             slot="cellActionMenu"
                         ></slot>
                     `)}
-                </${DesignSystem.tagFor(TableCell)}>
+                </${tableCellTag}>
             `)}
         `)}
     </template>
