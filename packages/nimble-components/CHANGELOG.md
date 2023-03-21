@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 02 Mar 2023 18:38:23 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Mar 2023 15:36:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.8.0
+
+Wed, 15 Mar 2023 15:36:39 GMT
+
+### Minor changes
+
+- Implement anchor menu item component ([ni/nimble@f1d6370](https://github.com/ni/nimble/commit/f1d6370d5548786004b5ef5d07b7657504d1fdf3))
+
+## 18.7.0
+
+Tue, 14 Mar 2023 14:51:12 GMT
+
+### Minor changes
+
+- Expose element tag name for some components that were missing it ([ni/nimble@f5c6a7c](https://github.com/ni/nimble/commit/f5c6a7cc64b1892d1e0c5d75a64637f7043ee020))
+
+## 18.6.4
+
+Fri, 10 Mar 2023 23:11:05 GMT
+
+### Patches
+
+- Queue table changes and process them in a batch ([ni/nimble@278811b](https://github.com/ni/nimble/commit/278811bfbe152b64978c9552de1a815bd015fcb1))
+
+## 18.6.3
+
+Fri, 10 Mar 2023 22:17:50 GMT
+
+### Patches
+
+- Programmatic table column width API ([ni/nimble@d38391e](https://github.com/ni/nimble/commit/d38391e69c9984de80bf7f4a41cfbcc0181e0d16))
+
+## 18.6.2
+
+Fri, 10 Mar 2023 17:48:14 GMT
+
+### Patches
+
+- Support "." in table record field names ([ni/nimble@a38c155](https://github.com/ni/nimble/commit/a38c155c6c5c7d80e1123ad9e5f00495b57e8b34))
+
+## 18.6.1
+
+Thu, 09 Mar 2023 22:36:20 GMT
+
+### Patches
+
+- Set title attribute in text column ([ni/nimble@f7cb89f](https://github.com/ni/nimble/commit/f7cb89f7523890976b652940dac06f49aeb3017b))
 
 ## 18.6.0
 

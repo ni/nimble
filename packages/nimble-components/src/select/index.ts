@@ -10,7 +10,7 @@ import { styles } from './styles';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
-import { IconExclamationMark } from '../icons/exclamation-mark';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -82,10 +82,10 @@ const nimbleSelect = Select.compose<SelectOptions>({
     styles,
     indicator: arrowExpanderDown16X16.data,
     end: html<Select>`
-        <${DesignSystem.tagFor(IconExclamationMark)}
+        <${iconExclamationMarkTag}
             severity="error"
             class="error-icon"
-        ></${DesignSystem.tagFor(IconExclamationMark)}>
+        ></${iconExclamationMarkTag}>
         ${errorTextTemplate}
     `
 });
