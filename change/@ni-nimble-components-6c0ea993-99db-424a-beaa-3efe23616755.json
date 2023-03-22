@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update table header styling to not reserve space for sort icon",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

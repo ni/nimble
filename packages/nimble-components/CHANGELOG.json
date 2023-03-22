@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 22 Mar 2023 20:54:34 GMT",
+      "tag": "@ni/nimble-components_v18.8.1",
+      "version": "18.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "459bc0e425822ee15ba62c557f86dd78b92d4158",
+            "comment": "Update table header styling to not reserve space for sort icon"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Mar 2023 22:35:48 GMT",
       "tag": "@ni/nimble-components_v18.8.0",
       "version": "18.8.0",
