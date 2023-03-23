@@ -16,10 +16,13 @@ function getSortIcons(element: TableHeader): {
     ascendingIcon: HTMLElement | null,
     descendingIcon: HTMLElement | null
 } {
-    const sortIndicatorContainer = element.shadowRoot!.querySelector('.sort-indicator')!;
     return {
-        ascendingIcon: sortIndicatorContainer.querySelector(iconArrowUpTag),
-        descendingIcon: sortIndicatorContainer.querySelector(iconArrowDownTag)
+        ascendingIcon: element.shadowRoot!.querySelector(
+            `${iconArrowUpTag}.sort-indicator`
+        ),
+        descendingIcon: element.shadowRoot!.querySelector(
+            `${iconArrowDownTag}.sort-indicator`
+        )
     };
 }
 
