@@ -33,7 +33,9 @@
     "test-firefox": "karma start karma.conf.js --browsers=FirefoxHeadless --single-run",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run",
     "test-webkit:debugger": "karma start karma.conf.js --browsers=Webkit",
-    "test": "npm run test-chrome:verbose"
+    "test": "npm run test-chrome:verbose",
+    "benchmark:create-element": "npx tachometer --config src/utilities/tests/tachometer/create-element/config.json",
+    "benchmark:set-table-data": "npx tachometer --config src/utilities/tests/tachometer/set-table-data/config.json"
   },
   "repository": {
     "type": "git",
@@ -117,6 +119,7 @@
     "rollup": "^3.10.1",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "storybook-addon-xd-designs": "^6.0.0",
+    "tachometer": "^0.7.0",
     "ts-loader": "^9.2.5",
     "typescript": "~4.6.4",
     "webpack": "^5.75.0",

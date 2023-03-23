@@ -1,0 +1,46 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Polymer/tachometer/master/config.schema.json",
+    "sampleSize": 10,
+    "timeout": 0,
+    "benchmarks": [
+        {
+            "browser": {
+                "name": "chrome",
+                "headless": true
+            },
+            "name": "set table data",
+            "measurement": [
+                {
+                    "mode": "performance",
+                    "entryName": "setData"
+                }
+            ],
+            "expand": [
+                {
+                    "name": "1K unsorted",
+                    "url": "index.html?count=1000"
+                },
+                {
+                    "name": "10K unsorted",
+                    "url": "index.html?count=10000"
+                },
+                {
+                    "name": "100K unsorted",
+                    "url": "index.html?count=100000"
+                },
+                {
+                    "name": "1K sorted",
+                    "url": "index.html?count=1000&sort"
+                },
+                {
+                    "name": "10K sorted",
+                    "url": "index.html?count=10000&sort"
+                },
+                {
+                    "name": "100K sorted",
+                    "url": "index.html?count=100000&sort"
+                }
+            ]
+        }
+    ]
+}

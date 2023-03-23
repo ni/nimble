@@ -1,0 +1,33 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Polymer/tachometer/master/config.schema.json",
+    "sampleSize": 50,
+    "benchmarks": [
+        {
+            "browser": {
+                "name": "chrome",
+                "headless": true
+            },
+            "name": "create element",
+            "measurement": [
+                {
+                    "mode": "performance",
+                    "entryName": "createElement"
+                }
+            ],
+            "expand": [
+                {
+                    "name": "button",
+                    "url": "index.html?component=nimble-button"
+                },
+                {
+                    "name": "switch",
+                    "url": "index.html?component=nimble-switch"
+                },
+                {
+                    "name": "table",
+                    "url": "index.html?component=nimble-table"
+                }
+            ]
+        }
+    ]
+}
