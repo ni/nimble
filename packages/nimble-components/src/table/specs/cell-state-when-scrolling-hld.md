@@ -19,7 +19,7 @@ Some of the cell state that would incorrectly apply to new rows (once the user s
 
 When the user scrolls the table, we will:
 
--   If a table cell contains an active/focused control, we will notify the column plugin that the cell is being recycled via a new API. The general expectation is that editable controls will commit any pending updates, then blur the focused the control.
+-   If a table cell contains an active/focused control, we will notify the column plugin that the cell is being recycled via a new API. The general expectation is that editable controls will commit any pending updates, then blur the focused control.
 -   If a cell action menu is open (in which case a menu item is focused), we'll close the associated menu via the menu button.
 
 We will not:
