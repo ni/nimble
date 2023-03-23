@@ -15,9 +15,11 @@ This document will focus on the programmatic grouping of data rows.
 ## Links To Relevant Work Items and Reference Material
 
 -   [#1003 Programmatic grouping of data rows](https://github.com/ni/nimble/issues/1003)
--   [IxD Document](https://xd.adobe.com/view/6f3be15d-8503-4f1f-54b9-5bc27955b3e4-190a/screen/13edcacf-4e95-46b2-a7a8-83141afb3f2d)
+-   [IxD Interactive Document](https://xd.adobe.com/view/6f3be15d-8503-4f1f-54b9-5bc27955b3e4-190a/screen/13edcacf-4e95-46b2-a7a8-83141afb3f2d)
+-   [Keyboard Navigation](https://xd.adobe.com/view/fa09e396-dbb9-40b8-547f-1cf9eab35a0b-8c38/screen/61432aef-6dca-4b87-a62b-12ed17a927b4)
 -   [Table README](./README.md)
 -   [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)
+-   [Icon Visual Designs](https://xd.adobe.com/view/1a9870c7-2510-4248-83a5-b0148e7a6763-4fcb/)
 -   [Prototype branch](https://github.com/ni/nimble/tree/table-row-grouping-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-bwzrahvxqm.chromatic.com/?path=/story/table--table))
 
 ## Implementation / Design
@@ -160,7 +162,7 @@ Rendering a row group has concerns beyond just rendering the grouping value. It 
 ```ts
 export class TableGroupRow extends FoundationElement {
     @observable
-    public groupRowValue?: TableFieldValue;
+    public groupRowValue?: unknown;
 
     @observable
     public nestingLevel: number = 0;
@@ -236,6 +238,22 @@ Table template.ts
 ```
 
 The one change necessary to support this properly is to change the virtualizer to use the current length of `getRowModel.rows()` for the `count` instead of the [current length of the table's data](https://github.com/ni/nimble/blob/f60dedf600147b16916f876b749a4e019c2a6308/packages/nimble-components/src/table/models/virtualizer.ts#L82) (see [prototype](https://github.com/ni/nimble/blob/5cd05ab733b00ebb33e44d53c7be30c980fa3398/packages/nimble-components/src/table/models/virtualizer.ts#L87)).
+
+### Row Interaction Summary
+
+- Group rows will perform an expand/collapse operation when clicked anywhere on the row.
+- The expand/collapse button will still have button hover/click visual state
+    - This is to promote consistency between group rows and parent rows, the latter of which will not expand/collapse on click, and instead select the row, and thus will benefit from the button having visual interaction cues.
+- No elements within a group row will be focusable.
+- To navigate between rows a user will click the UP or DOWN arrows
+- To expand/collapse rows a user will click ALT UP or ALT DOWN arrows
+- When a row is focused (via the UP or DOWN arrows), if a screen reader is active it should read the header text and the total row count.
+
+### Auto Expanding Groups
+
+The `Table` will have the behavior such that when it receives new data, any new group row will display expanded by default. If a group row already existed when new data is set, if that group row had been collapsed, it will remain collapsed. If a user changes the grouping configuration, we will expand all group rows.
+
+There will be no additional API to configure this behavior. If we determine that such an API is needed we can always add it.
 
 ### Column header grouping visual
 
