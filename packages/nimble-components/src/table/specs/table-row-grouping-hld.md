@@ -239,7 +239,7 @@ Table template.ts
 
 The one change necessary to support this properly is to change the virtualizer to use the current length of `getRowModel.rows()` for the `count` instead of the [current length of the table's data](https://github.com/ni/nimble/blob/f60dedf600147b16916f876b749a4e019c2a6308/packages/nimble-components/src/table/models/virtualizer.ts#L82) (see [prototype](https://github.com/ni/nimble/blob/5cd05ab733b00ebb33e44d53c7be30c980fa3398/packages/nimble-components/src/table/models/virtualizer.ts#L87)).
 
-### Row Interaction Summary
+### Row interaction summary
 
 - Group rows will perform an expand/collapse operation when clicked anywhere on the row.
 - The expand/collapse button will still have button hover/click visual state
@@ -249,7 +249,7 @@ The one change necessary to support this properly is to change the virtualizer t
 - To expand/collapse rows a user will click ALT UP or ALT DOWN arrows
 - When a row is focused (via the UP or DOWN arrows), if a screen reader is active it should read the header text and the total row count.
 
-### Auto Expanding Groups
+### Auto expanding groups
 
 The `Table` will have the behavior such that when it receives new data, any new group row will display expanded by default. If a group row already existed when new data is set, if that group row had been collapsed, it will remain collapsed. If a user changes the grouping configuration, we will expand all group rows.
 
