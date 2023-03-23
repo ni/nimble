@@ -23,6 +23,5 @@ export const styles = css`
 
     .sort-indicator {
         padding: 0px calc(${standardPadding} / 2);
-        width: ${standardPadding};
     }
 `;
