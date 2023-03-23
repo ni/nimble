@@ -64,7 +64,7 @@ template:
 
 ### Framework Integration
 
-Column elements, and the associated elements used in table cells, will always be FAST-based custom elements. Framework-specific constructs/content are not supported. Standard column types (e.g. text-field, link, icon, etc) will be provided by Nimble. For non-standard column types, clients will be expected to implement a custom column type, which the rest of this document desribes in detail.
+Column elements, and the associated elements used in table cells, will always be FAST-based custom elements. Framework-specific constructs/content are not supported. Standard column types (e.g. text-field, link, icon, etc) will be provided by Nimble. For non-standard column types, clients will be expected to implement a custom column type, which the rest of this document describes in detail.
 
 ### `TableCellState` interface
 
