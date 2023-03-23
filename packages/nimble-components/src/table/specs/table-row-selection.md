@@ -4,6 +4,10 @@
 
 The nimble-table should support selecting rows. Row selection should be configurable such that a client can enable single-row selection, multi-row selection, or no selection. A client of the table should be able to get the current selection from the nimble-table element and should also be notified when the selection changes.
 
+## Out of scope of this HLD
+
+Any implication that data hierarchy has on row selection is out of scope for this HLD.
+
 ## Links To Relevant Work Items and Reference Material
 
 -   [#856 Selection support in the table](https://github.com/ni/nimble/issues/856)
