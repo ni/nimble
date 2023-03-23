@@ -56,6 +56,8 @@ export * from './directives/radio/nimble-radio.directive';
 export * from './directives/radio/nimble-radio.module';
 export * from './directives/radio-group/nimble-radio-group.directive';
 export * from './directives/radio-group/nimble-radio-group.module';
+export * from './directives/rich-content-list-option/nimble-combobox-rich-content-list-option.directive';
+export * from './directives/rich-content-list-option/nimble-rich-content-list-option.module';
 export * from './directives/select/nimble-select-control-value-accessor.directive';
 export * from './directives/select/nimble-select.directive';
 export * from './directives/select/nimble-select.module';

@@ -155,7 +155,24 @@
         <div class="sub-container">
             <div class="container-label">Combobox</div>
             <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
-                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+                <nimble-rich-content-list-option *ngFor="let item of comboboxItems" [ngValue]="item">
+                    <div style="display: flex;">       
+                        <nimble-icon-user></nimble-icon-user>
+                        <div>
+                            <div part="text">
+                                {{ item ? item.first : '' }}
+                            </div>
+                            <div>
+                                {{ item ? item.first : '' }}@email.com
+                            </div>
+                        </div>
+                        <nimble-icon-eye [id]="item ? item.first : ''">
+                        </nimble-icon-eye>
+                        <nimble-tooltip [anchor]="item ? item.first : ''">
+                            Tooltip
+                        </nimble-tooltip>
+                    </div>
+                </nimble-rich-content-list-option>
             </nimble-combobox>
             <div>
                 <span>
