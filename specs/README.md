@@ -7,7 +7,7 @@ For smaller architectural changes, opening an issue and gathering consensus on a
 The process to create and approve a spec is:
 
 1. In a new branch, create a copy of one of the following spec templates as described below:
-   - If proposing other architecture or infrastructure changes, use the [high-level design template](/specs/templates/high-level-design.md) and place the spec at `/specs/title-of-your-proposal/README.md`.
+   - If proposing architecture or infrastructure changes, use the [high-level design template](/specs/templates/high-level-design.md) and place the spec at `/specs/title-of-your-proposal/README.md`.
    - [Interaction Designer] If defining a new component, use the [Interaction Design template](/specs/templates/component-interaction-design.md) and place the spec at `packages/nimble-components/src/component-name/specs/IxD Spec.md`:
    - [Developer] If proposing a new component, use one of the following templates and place the spec at `packages/nimble-components/src/component-name/specs/README.md`:
       - Use the [FAST-based component template](/specs/templates/fast-based-component.md) if leveraging a FAST component.
