@@ -13,7 +13,10 @@ declare global {
  * The custom element used to render a group row for a group representing rows
  * gruped by a TableColumnText column.
  */
-export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<TableColumnTextColumnConfig> {
+export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
+string | null | undefined,
+TableColumnTextColumnConfig
+> {
     @observable
     public override columnConfig!: TableColumnTextColumnConfig;
 

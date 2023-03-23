@@ -137,21 +137,22 @@ export class Table<
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
-    private expandedState: TanStackExpandedState = {};
+    private expandedState: TanStackExpandedState = true;
 
     public constructor() {
         super();
         this.options = {
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
-            onExpandedChange: this.setExpanded,
+            onExpandedChange: this.handleExpandedChange,
             getCoreRowModel: tanStackGetCoreRowModel(),
             getSortedRowModel: tanStackGetSortedRowModel(),
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
             columns: [],
             state: {
-                grouping: []
+                grouping: [],
+                expanded: this.expandedState
             },
             enableSorting: true,
             enableGrouping: true,
@@ -410,7 +411,7 @@ export class Table<
         this.refreshRows();
     }
 
-    private readonly setExpanded = (updater: unknown): void => {
+    private readonly handleExpandedChange = (updater: unknown): void => {
         this.expandedState = updater instanceof Function
             ? (updater(this.expandedState) as TanStackExpandedState)
             : (this.expandedState = updater as TanStackExpandedState);

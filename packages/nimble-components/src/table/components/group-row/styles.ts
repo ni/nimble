@@ -18,13 +18,17 @@ export const styles = css`
         );
     }
 
-    :host([expanded='true']) .expander-icon {
+    :host([expanded='true']) .expander-icon,
+    :host([expanded]) .expander-icon {
         transform: rotate(90deg);
-        transition: 300ms ease-in-out;
     }
 
     :host([expanded='false']) .expander-icon {
         transform: rotate(0deg);
+    }
+
+    :host([expanded='true']) .animating,
+    :host([expanded='false']) .animating {
         transition: 300ms ease-in-out;
     }
 
@@ -38,5 +42,12 @@ export const styles = css`
         padding-left: 2px;
         pointer-events: none;
         user-select: none;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host([expanded='true']) .animating,
+        :host([expanded='false']) .animating {
+            transition-duration: 0s;
+        }
     }
 `;

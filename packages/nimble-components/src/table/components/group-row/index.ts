@@ -32,9 +32,33 @@ export class TableGroupRow extends FoundationElement {
     @observable
     public groupHeaderViewTag?: string;
 
+    /**
+     * @internal
+     */
+    public readonly expandIcon!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public animationClass = '';
+
     public onGroupExpandToggle(): void {
         this.$emit('group-expand-toggle');
+        this.animationClass = 'animating';
+        this.expandIcon.addEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
     }
+
+    private readonly removeAnimatingClass = (): void => {
+        this.animationClass = '';
+        this.expandIcon.removeEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    };
 }
 
 const nimbleTableGroupRow = TableGroupRow.compose({

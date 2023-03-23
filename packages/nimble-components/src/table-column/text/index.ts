@@ -57,16 +57,11 @@ TableColumnTextColumnConfig
     }
 }
 
-// eslint-disable-next-line jsdoc/require-jsdoc
-class TableColumnTextFractionalWidth extends mixinFractionalWidthColumnAPI(
-    TableColumnTextBase
-) {}
-
 /**
  * The table column for displaying strings.
  */
 export class TableColumnText extends mixinGroupableColumnAPI(
-    TableColumnTextFractionalWidth
+    mixinFractionalWidthColumnAPI(TableColumnTextBase)
 ) {
     public groupHeaderViewTag = tableColumnTextGroupHeaderTag;
 }

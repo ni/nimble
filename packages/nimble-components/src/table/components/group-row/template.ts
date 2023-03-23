@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
-import { html, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@microsoft/fast-element';
 import type { TableGroupRow } from '.';
 
 // prettier-ignore
@@ -9,8 +9,9 @@ export const template = html<TableGroupRow>`
             appearance="ghost"
             content-hidden
             class="expand-collapse-button"
+            tabindex="-1"
         >
-            <nimble-icon-arrow-expander-right slot="start" class="expander-icon"></nimble-icon-arrow-expander-right>
+            <nimble-icon-arrow-expander-right ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></nimble-icon-arrow-expander-right>
         </nimble-button>
         ${when(x => x.groupHeaderViewTag, x => {
         const groupHeaderViewTag = x.groupHeaderViewTag!;
