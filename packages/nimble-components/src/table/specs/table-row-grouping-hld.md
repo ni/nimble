@@ -241,13 +241,13 @@ The one change necessary to support this properly is to change the virtualizer t
 
 ### Row interaction summary
 
-- Group rows will perform an expand/collapse operation when clicked anywhere on the row.
-- The expand/collapse button will still have button hover/click visual state
-    - This is to promote consistency between group rows and parent rows, the latter of which will not expand/collapse on click, and instead select the row, and thus will benefit from the button having visual interaction cues.
-- No elements within a group row will be focusable.
-- To navigate between rows a user will click the UP or DOWN arrows
-- To expand/collapse rows a user will click ALT UP or ALT DOWN arrows
-- When a row is focused (via the UP or DOWN arrows), if a screen reader is active it should read the header text and the total row count.
+-   Group rows will perform an expand/collapse operation when clicked anywhere on the row.
+-   The expand/collapse button will still have button hover/click visual state
+    -   This is to promote consistency between group rows and parent rows, the latter of which will not expand/collapse on click, and instead select the row, and thus will benefit from the button having visual interaction cues.
+-   No elements within a group row will be focusable.
+-   To navigate between rows a user will click the UP or DOWN arrows
+-   To expand/collapse rows a user will click ALT UP or ALT DOWN arrows
+-   When a row is focused (via the UP or DOWN arrows), if a screen reader is active it should read the header text and the total row count.
 
 ### Auto expanding groups
 
