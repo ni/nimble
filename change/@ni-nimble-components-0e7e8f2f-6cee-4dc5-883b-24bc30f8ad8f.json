@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Add HLD for handling table cell state when scrolling",
+  "packageName": "@ni/nimble-components",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
