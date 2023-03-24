@@ -174,7 +174,7 @@ export class TableGroupRow extends FoundationElement {
     public columnConfig?: unknown;
 
     @observable
-    public isExpanded?: boolean;
+    public isExpanded: boolean = false;
 
     @observable
     public groupRowHeaderViewTag?: string;
