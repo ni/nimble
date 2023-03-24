@@ -1,8 +1,7 @@
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = {
-    stories: ['../src/button/tests/button.stories.@(ts|mdx)'],
-    // stories: ['../src/**/*.stories.@(ts|mdx)', '../docs/**/*.stories.mdx'],
+    stories: ['../src/**/*.stories.@(ts|mdx)', '../docs/**/*.stories.mdx'],
     addons: [
         {
             name: '@storybook/addon-essentials',
