@@ -292,6 +292,10 @@ Consider upstreaming a change to TanStack to allow row grouping by more than one
 
 We decided against grouping on formatted values since TanStack will only determine its grouping based on the raw, unformatted values in the columns. Circumventing this would invariably lead to us losing much of the state management TanStack provides.
 
+### Event on group row expand/collapse
+
+We will not be exposing an event when a group row is expanded or collapsed. Ultimately, it's unclear what information we could pass to the client that would give them anything helpful regarding which group was expanded or collapsed. Ultimately, once we support data hierarchy, we will certainly want a public expand/collapse event for a parent row, which will have a row Id that a client can use effectively. This, however, does not suggest that such an event will be useful for group row expand/collapse, as there is no such row Id associated with a group row.
+
 ## Open Issues
 
 1. Do we always render the number of items in a row group as part of the header, or should this be configurable?
