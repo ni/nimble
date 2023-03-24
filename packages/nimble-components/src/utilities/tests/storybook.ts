@@ -28,7 +28,7 @@ const renderViewTemplate = <TSource>(
  */
 export const createStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): (source: TSource) => Element => {
+): ((source: TSource) => Element) => {
     return (source: TSource): Element => {
         const wrappedViewTemplate = html<TSource>`
             <div class="code-hide-top-container">${viewTemplate}</div>
@@ -55,7 +55,7 @@ const getGlobalTheme = (context: unknown): Theme => {
  */
 export const createUserSelectedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): (source: TSource, context: unknown) => Element => {
+): ((source: TSource, context: unknown) => Element) => {
     return (source: TSource, context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
             <${themeProviderTag}
@@ -79,7 +79,7 @@ export const createUserSelectedThemeStory = <TSource>(
 export const createFixedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     backgroundState: BackgroundState
-): (source: TSource) => Element => {
+): ((source: TSource) => Element) => {
     return (source: TSource): Element => {
         const wrappedViewTemplate = html<TSource>`
             <${themeProviderTag}
@@ -113,7 +113,7 @@ export const createFixedThemeStory = <TSource>(
  */
 export const createMatrixThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): (source: TSource) => Element => {
+): ((source: TSource) => Element) => {
     return (source: TSource): Element => {
         const matrixTemplate = createMatrix(
             ({ theme, value }: BackgroundState) => html`
