@@ -35,7 +35,7 @@ export function mixinGroupableColumnAPI<
     TBase extends GroupableTableColumnConstructor
 >(base: TBase) {
     abstract class GroupableColumn extends base {
-        public groupingDisabled?: boolean;
+        public groupingDisabled: boolean = false;
 
         public groupIndex?: number | null = null;
 
@@ -45,8 +45,8 @@ export function mixinGroupableColumnAPI<
          */
         public abstract groupHeaderViewTag: string;
 
-        public isGroupingDisabledChanged(): void {
-            this.internalGroupingDisabled = !this.groupingDisabled;
+        public groupingDisabledChanged(): void {
+            this.internalGroupingDisabled = this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
@@ -174,7 +174,7 @@ export class TableGroupRow extends FoundationElement {
     public columnConfig?: unknown;
 
     @observable
-    public isExpanded?: boolean;
+    public isExpanded: boolean = false;
 
     @observable
     public groupRowHeaderViewTag?: string;
