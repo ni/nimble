@@ -35,7 +35,7 @@ export function mixinGroupableColumnAPI<
     TBase extends GroupableTableColumnConstructor
 >(base: TBase) {
     abstract class GroupableColumn extends base {
-        public groupingDisabled?: boolean;
+        public groupingDisabled: boolean = false;
 
         public groupIndex?: number | null = null;
 
