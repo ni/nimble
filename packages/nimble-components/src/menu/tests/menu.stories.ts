@@ -188,12 +188,12 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu>
-            <nimble-anchor-menu-item ?disabled="${x => x.disabled}" href="${x => x.href}">
-                ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
+        <${menuTag}>
+            <${anchorMenuItemTag}> ?disabled="${x => x.disabled}" href="${x => x.href}">
+                ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
                 ${x => x.text}
-            </nimble-anchor-menu-item>
-        </nimble-menu>
+            </${anchorMenuItemTag}>
+        </${menuTag}>
         `),
     args: {
         text: 'Menu Item',
