@@ -38,6 +38,6 @@ module.exports = {
         options: {}
     },
     docs: {
-        autodocs: false
+        autodocs: true
     }
 };
