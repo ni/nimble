@@ -85,7 +85,7 @@ export const _banner: StoryObj<BannerArgs> = {
         </${bannerTag}>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
-    storyName: 'Banner',
+    name: 'Banner',
     argTypes: {
         open: {
             description: 'Controls whether the banner is visible.'
