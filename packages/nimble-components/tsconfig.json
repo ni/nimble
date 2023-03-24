@@ -20,7 +20,14 @@
         "importsNotUsedAsValues": "error",
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
-        "noPropertyAccessFromIndexSignature": false
+        "noPropertyAccessFromIndexSignature": false,
+        // Necessary to fix build error in storybook code
+        // ../../node_modules/@storybook/html/dist/types-2ec88714.d.ts:2:38 - error TS2307: Cannot find module 'lib/docs-tools/dist' or its corresponding type declarations.
+        // import * as lib_docs_tools_dist from 'lib/docs-tools/dist';
+        // TODO: File bug or try newer rc build
+        // Can also fix locally manually modifying that file to import from @storybook/docs-tools/dist
+
+        "skipLibCheck": true
     },
     "include": ["src/button/tests/button.stories.ts"]
 }
