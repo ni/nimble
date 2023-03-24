@@ -1,4 +1,4 @@
-# Table Column Sorting HLD
+# Table Row Selection HLD
 
 ## Problem Statement
 
