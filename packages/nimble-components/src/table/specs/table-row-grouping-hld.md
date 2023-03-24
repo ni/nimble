@@ -46,7 +46,7 @@ export function mixinGroupableColumnAPI<
         public abstract groupHeaderViewTag: string;
 
         public groupingDisabledChanged(): void {
-            this.internalGroupingDisabled = !this.groupingDisabled;
+            this.internalGroupingDisabled = this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
