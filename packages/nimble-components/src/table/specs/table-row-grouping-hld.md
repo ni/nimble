@@ -242,8 +242,8 @@ The one change necessary to support this properly is to change the virtualizer t
 ### Row interaction summary
 
 -   Group rows will perform an expand/collapse operation when clicked anywhere on the row.
--   The expand/collapse button will still have button hover/click visual state
-    -   This is to promote consistency between group rows and parent rows, the latter of which will not expand/collapse on click, and instead select the row, and thus will benefit from the button having visual interaction cues.
+-   The expand/collapse button for group rows will not have button hover/click visual state
+-   The group row will change its background color on hover
 -   No elements within a group row will be focusable.
 -   To navigate between rows a user will click the UP or DOWN arrows
 -   To expand/collapse rows a user will click ALT UP or ALT DOWN arrows
@@ -257,7 +257,7 @@ There will be no additional API to configure this behavior. If we determine that
 
 ### Column header grouping visual
 
-Ultimately, when a column has set itself to be grouped, the design calls for that to be represented with a visual in the header for that column. This will be handled in a similar fashion to how we represent sort direction, by providing a new `is-grouped` attribute on `TableHeader` to determine whether to show the appropriate icon.
+Ultimately, when a column has set itself to be grouped, the design calls for that to be represented with a visual in the header for that column. This will be handled in a similar fashion to how we represent sort direction, by providing a new `grouped` attribute on `TableHeader` to determine whether to show the appropriate icon.
 
 ### Interfacing with TanStack
 
