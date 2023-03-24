@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/html';
 
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { BreadcrumbAppearance } from '../types';
+import { breadcrumbTag } from '..';
+import { breadcrumbItemTag } from '../../breadcrumb-item';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
@@ -49,19 +50,19 @@ export default metadata;
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-breadcrumb
+        <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
         >
             ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
-                <nimble-breadcrumb-item
+                <${breadcrumbItemTag}
                     href="${x => x.href}"
                     target="${x => x.target}"
                     @click="${(_x, c) => c.parent.allowNavigation}"
                 >
                     ${x => x.label}
-                </nimble-breadcrumb-item>
+                </${breadcrumbItemTag}>
             `)}
-        </nimble-breadcrumb>
+        </${breadcrumbTag}>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
     name: 'Standard Breadcrumb',
@@ -98,15 +99,15 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
 
 export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
     render: createUserSelectedThemeStory(html`
-        <nimble-breadcrumb>
-            <nimble-breadcrumb-item
+        <${breadcrumbTag}>
+            <${breadcrumbItemTag}
                 href="${x => x.href}"
                 target="${x => x.target}"
                 @click="${x => x.allowNavigation}"
             >
                 Breadcrumb Item
-            </nimble-breadcrumb-item>
-        </nimble-breadcrumb>
+            </${breadcrumbItemTag}>
+        </${breadcrumbTag}>
     `),
     argTypes: {
         href: {

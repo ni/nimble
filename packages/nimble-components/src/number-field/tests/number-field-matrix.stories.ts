@@ -16,9 +16,9 @@ import {
     ErrorState
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { NumberFieldAppearance } from '../types';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { numberFieldTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
@@ -50,7 +50,7 @@ const component = (
     [errorName, errorVisible, errorText]: ErrorState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <nimble-number-field
+    <${numberFieldTag}
         style="width: 250px; padding: 8px;"
         class="${() => errorVisible}"
         value="${() => valueValue}"
@@ -62,7 +62,7 @@ const component = (
     >
         ${() => errorName} ${() => appearanceName} ${() => valueName}
         ${() => disabledName}
-    </nimble-number-field>
+    </${numberFieldTag}>
 `;
 
 export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -77,27 +77,27 @@ export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
 export const hiddenNumberField: StoryFn = createStory(
     hiddenWrapper(
         html`
-            <nimble-number-field hidden>
+            <${numberFieldTag} hidden>
                 Hidden number field
-            </nimble-number-field>
+            </${numberFieldTag}>
         `
     )
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<nimble-number-field value="42">Number field</nimble-number-field>`
+        html`<${numberFieldTag} value="42">Number field</${numberFieldTag}>`
     )
 );
 
 export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
-            <nimble-number-field style="border: 1px dashed; width: 200px">
+            <${numberFieldTag} style="border: 1px dashed; width: 200px">
                 With Label
-            </nimble-number-field>
-            <nimble-number-field style="border: 1px dashed; width: 200px">
-            </nimble-number-field>
+            </${numberFieldTag}>
+            <${numberFieldTag} style="border: 1px dashed; width: 200px">
+            </${numberFieldTag}>
         </div>
     `
 );

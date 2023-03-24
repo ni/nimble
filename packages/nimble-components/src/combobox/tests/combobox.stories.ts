@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/html';
 
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
-import '../../all-components';
-import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
+import { listOptionTag } from '../../list-option';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     DropdownAppearance,
     DropdownPosition
 } from '../../patterns/dropdown/types';
+import { comboboxTag } from '..';
 
 interface ComboboxArgs {
     disabled: boolean;
@@ -48,7 +48,7 @@ const metadata: Meta<ComboboxArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-combobox
+        <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
@@ -59,9 +59,9 @@ const metadata: Meta<ComboboxArgs> = {
             placeholder="${x => x.placeholder}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
+                <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
             `)}
-        </nimble-combobox>
+        </${comboboxTag}>
     `),
     argTypes: {
         autocomplete: {

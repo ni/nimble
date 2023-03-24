@@ -1,11 +1,8 @@
-import {
-    DesignSystem,
-    Select as FoundationSelect
-} from '@microsoft/fast-foundation';
-import { DOM, html, repeat } from '@microsoft/fast-element';
+import { html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Select } from '..';
+import { Select, selectTag } from '..';
 import '../../list-option';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(
     position?: string,
@@ -27,8 +24,8 @@ async function setup(
 async function clickAndWaitForOpen(select: Select): Promise<void> {
     select.click();
     // Takes two updates for listbox to be rendered
-    await DOM.nextUpdate();
-    await DOM.nextUpdate();
+    await waitForUpdatesAsync();
+    await waitForUpdatesAsync();
 }
 
 async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
@@ -69,7 +66,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup(position, true);
 
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('open')).not.toBeNull();
         expect(element.getAttribute('position')).toBe(position);
@@ -81,7 +78,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.value = 'two';
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.value).toBe('two');
 
         // Add option zero at the top of the options list
@@ -90,7 +87,7 @@ describe('Select', () => {
             'afterbegin',
             '<nimble-list-option value="zero">Zero</nimble-list-option>'
         );
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.value).toBe('two');
 
@@ -130,8 +127,8 @@ describe('Select', () => {
         });
     });
 
-    it('should have its tag returned by tagFor(FoundationSelect)', () => {
-        expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
+    it('should export its tag', () => {
+        expect(selectTag).toBe('nimble-select');
     });
 
     it('can construct an element instance', () => {

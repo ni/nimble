@@ -11,9 +11,9 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
-import '../../all-components';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
+import { anchorTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
@@ -52,12 +52,12 @@ const component = (
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <nimble-anchor
+    <${anchorTag}
         href=${() => href}
         ?underline-hidden="${() => underlineHidden}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</nimble-anchor>
+            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
 `;
 
 export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -69,11 +69,11 @@ export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const hiddenAnchor: StoryFn = createStory(
-    hiddenWrapper(html`<nimble-anchor hidden>Hidden Anchor</nimble-anchor>`)
+    hiddenWrapper(html`<${anchorTag} hidden>Hidden Anchor</${anchorTag}>`)
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
-    textCustomizationWrapper(html`<nimble-anchor>Link</nimble-anchor>`)
+    textCustomizationWrapper(html`<${anchorTag}>Link</${anchorTag}>`)
 );
 
 export const textWrapping: StoryFn = createStory(
@@ -85,8 +85,8 @@ export const textWrapping: StoryFn = createStory(
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        Lorem ipsum dolor sit amet, <nimble-anchor href='#'>
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</nimble-anchor> ut aliquip ex ea commodo consequat.
+        Lorem ipsum dolor sit amet, <${anchorTag} href='#'>
+        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</${anchorTag}> ut aliquip ex ea commodo consequat.
     </p>
     `
 );

@@ -1,6 +1,6 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { ThemeProvider } from '../../theme-provider';
+import { themeProviderTag } from '../../theme-provider';
+import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
 import {
@@ -58,12 +58,12 @@ export const createUserSelectedThemeStory = <TSource>(
 ): (source: TSource, context: unknown) => Element => {
     return (source: TSource, context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <${DesignSystem.tagFor(ThemeProvider)}
+            <${themeProviderTag}
                 theme="${getGlobalTheme(context)}"
                 class="code-hide-top-container"
             >
                 ${viewTemplate}
-            </${DesignSystem.tagFor(ThemeProvider)}>
+            </${themeProviderTag}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -82,23 +82,25 @@ export const createFixedThemeStory = <TSource>(
 ): (source: TSource) => Element => {
     return (source: TSource): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <${DesignSystem.tagFor(ThemeProvider)}
+            <${themeProviderTag}
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
+                <style>
+                    body {
+                        /* Override storybook's padding styling */
+                        padding: 0px !important;
+                    }
+                </style>
                 <div
                     style="
                         background-color: ${backgroundState.value};
-                        position: absolute;
-                        width: 100%;
-                        min-height: 100%;
-                        left: 0px;
-                        top: 0px;
+                        min-height: 100vh;
                     "
                 >
                     ${viewTemplate}
                 </div>
-            </${DesignSystem.tagFor(ThemeProvider)}>
+            </${themeProviderTag}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -115,12 +117,12 @@ export const createMatrixThemeStory = <TSource>(
     return (source: TSource): Element => {
         const matrixTemplate = createMatrix(
             ({ theme, value }: BackgroundState) => html`
-                <${DesignSystem.tagFor(ThemeProvider)}
+                <${themeProviderTag}
                     theme="${theme}">
                     <div style="background-color: ${value}; padding:20px;">
                         ${viewTemplate}
                     </div>
-                </${DesignSystem.tagFor(ThemeProvider)}>
+                </${themeProviderTag}>
             `,
             [backgroundStates]
         );
@@ -143,3 +145,15 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 
 ${howToOverride}
 </details>`;
+
+export const usageWarning = (componentName: string): string => `
+<style class="code-hide">
+#usage-warning {
+    color: red;
+    font: var(${bodyFont.cssCustomProperty});
+}
+</style>
+<div id="usage-warning" class="code-hide">
+WARNING - The ${componentName} is still in development and considered
+experimental. It is not recommended for application use.
+</div>`;

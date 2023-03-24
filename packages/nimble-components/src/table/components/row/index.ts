@@ -1,8 +1,15 @@
-import { observable } from '@microsoft/fast-element';
+import { attr, observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableFieldValue, TableRecord } from '../../types';
+import type { TableCellState } from '../../../table-column/base/types';
+import type {
+    TableActionMenuToggleEventDetail,
+    TableFieldName,
+    TableRecord
+} from '../../types';
+import type { TableColumn } from '../../../table-column/base';
+import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -10,23 +17,103 @@ declare global {
     }
 }
 
+export interface ColumnState {
+    column: TableColumn;
+    cellState: TableCellState;
+}
+
+/** Represents a single row (element) in the Table's data  */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableDataRecord extends TableRecord {}
+
 /**
  * A styled row that is used within the nimble-table.
  * @internal
  */
 export class TableRow<
-    TData extends TableRecord = TableRecord
+    TDataRecord extends TableDataRecord = TableDataRecord
 > extends FoundationElement {
-    @observable
-    public data?: TData;
+    @attr({ attribute: 'record-id' })
+    public recordId?: string;
 
-    // TODO: Temporarily assume the set of columns will be an array of strings.
-    // Eventually, this will be an array of column definitions.
     @observable
-    public columns: string[] = [];
+    public dataRecord?: TDataRecord;
 
-    public getCellValue(column: string): TableFieldValue {
-        return this.data ? this.data[column] : undefined;
+    @observable
+    public columns: TableColumn[] = [];
+
+    @observable
+    public currentActionMenuColumn?: TableColumn;
+
+    @attr({ attribute: 'menu-open', mode: 'boolean' })
+    public menuOpen = false;
+
+    @volatile
+    public get columnStates(): ColumnState[] {
+        return this.columns.map(column => {
+            const fieldNames = column.dataRecordFieldNames;
+            let cellState: TableCellState;
+            if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
+                const cellDataValues = fieldNames.map(
+                    field => this.dataRecord![field]
+                );
+                const cellRecord = Object.fromEntries(
+                    column.cellRecordFieldNames.map((k, i) => [
+                        k,
+                        cellDataValues[i]
+                    ])
+                );
+                const columnConfig = column.columnConfig ?? {};
+                cellState = {
+                    cellRecord,
+                    columnConfig
+                };
+            } else {
+                cellState = { cellRecord: {}, columnConfig: {} };
+            }
+
+            return { column, cellState };
+        });
+    }
+
+    public onCellActionMenuBeforeToggle(
+        event: CustomEvent<MenuButtonToggleEventDetail>,
+        column: TableColumn
+    ): void {
+        this.currentActionMenuColumn = column;
+        this.emitToggleEvent(
+            'row-action-menu-beforetoggle',
+            event.detail,
+            column
+        );
+    }
+
+    public onCellActionMenuToggle(
+        event: CustomEvent<MenuButtonToggleEventDetail>,
+        column: TableColumn
+    ): void {
+        this.menuOpen = event.detail.newState;
+        this.emitToggleEvent('row-action-menu-toggle', event.detail, column);
+    }
+
+    private emitToggleEvent(
+        eventType: string,
+        menuButtonEventDetail: MenuButtonToggleEventDetail,
+        column: TableColumn
+    ): void {
+        const detail: TableActionMenuToggleEventDetail = {
+            newState: menuButtonEventDetail.newState,
+            oldState: menuButtonEventDetail.oldState,
+            recordIds: [this.recordId!],
+            columnId: column.columnId
+        };
+        this.$emit(eventType, detail);
+    }
+
+    private hasValidFieldNames(
+        keys: readonly (TableFieldName | undefined)[]
+    ): keys is TableFieldName[] {
+        return keys.every(key => key !== undefined);
     }
 }
 
@@ -37,3 +124,4 @@ const nimbleTableRow = TableRow.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTableRow());
+export const tableRowTag = DesignSystem.tagFor(TableRow);

@@ -2,7 +2,7 @@ import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { switchTag } from '..';
 
 interface SwitchArgs {
     label: string;
@@ -38,14 +38,14 @@ const metadata: Meta<SwitchArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-switch
+        <${switchTag}
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
         >
             ${when(x => x.label, html<SwitchArgs>`${x => x.label}`)}
             ${when(x => x.checkedMessage, html<SwitchArgs>`<span slot="checked-message">${x => x.checkedMessage}</span>`)}
             ${when(x => x.uncheckedMessage, html<SwitchArgs>`<span slot="unchecked-message">${x => x.uncheckedMessage}</span>`)}
-        </nimble-switch>
+        </${switchTag}>
     `),
     args: {
         label: 'Switch',

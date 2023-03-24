@@ -6,7 +6,7 @@ import {
     createFixedThemeStory,
     createMatrixThemeStory
 } from '../../utilities/tests/storybook';
-import { TextFieldAppearance } from '../types';
+import { TextFieldAppearance, TextFieldType } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -21,9 +21,13 @@ import {
     ErrorState
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { textFieldTag } from '..';
+import { buttonTag } from '../../button';
+import { iconPencilTag } from '../../icons/pencil';
+import { iconTagTag } from '../../icons/tag';
+import { iconXmarkTag } from '../../icons/xmark';
 
 const metadata: Meta = {
     title: 'Tests/Text Field',
@@ -57,8 +61,8 @@ const valueStates = [
 type ValueState = (typeof valueStates)[number];
 
 const typeStates = [
-    ['Text', 'text'],
-    ['Password', 'password']
+    ['Text', TextFieldType.text],
+    ['Password', TextFieldType.password]
 ] as const;
 type TypeState = (typeof typeStates)[number];
 
@@ -97,7 +101,7 @@ const component = (
     [fullBleedName, fullBleed]: FullBleedState,
     [valueName, valueValue, placeholderValue]: ValueState
 ): ViewTemplate => html`
-    <nimble-text-field
+    <${textFieldTag}
         style="width: 350px; padding: 8px;"
         ?full-bleed="${() => fullBleed}"
         ?disabled="${() => disabled}"
@@ -109,7 +113,7 @@ const component = (
         ?error-visible="${() => errorVisible}"
         error-text="${() => errorText}"
     >
-        ${when(() => showLeftIcon, html`<nimble-icon-tag slot="start"></nimble-icon-tag>`)}
+        ${when(() => showLeftIcon, html`<${iconTagTag} slot="start"></${iconTagTag}>`)}
 
         ${/* Only include states in label that are not expanded on page */ ''}
         ${() => showLeftIconName}
@@ -120,15 +124,15 @@ const component = (
         ${() => valueName}
 
         ${when(() => showActionButtons, html`
-            <nimble-button slot="actions" appearance="outline" content-hidden>
-                <nimble-icon-pencil slot="start"></nimble-icon-pencil>
+            <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                <${iconPencilTag} slot="start"></${iconPencilTag}>
                 Edit
-            </nimble-button>
-            <nimble-button slot="actions" appearance="outline" content-hidden>
-                <nimble-icon-xmark slot="start"></nimble-icon-xmark>
+            </${buttonTag}>
+            <${buttonTag} slot="actions" appearance="outline" content-hidden>
+                <${iconXmarkTag} slot="start"></${iconXmarkTag}>
                 Clear
-            </nimble-button>`)}
-    </nimble-text-field>
+            </${buttonTag}>`)}
+    </${textFieldTag}>
 `;
 
 export const lightThemeEditableEnabledWithoutButtons: StoryFn = createFixedThemeStory(
@@ -493,16 +497,16 @@ export const colorThemeReadOnlyDisabledWithButtons: StoryFn = createFixedThemeSt
 
 export const hiddenTextField: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-text-field hidden>Hidden text field</nimble-text-field>`
+        html`<${textFieldTag} hidden>Hidden text field</${textFieldTag}>`
     )
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <nimble-text-field value="${loremIpsum}">
+            <${textFieldTag} value="${loremIpsum}">
                 Text field
-            </nimble-text-field>
+            </${textFieldTag}>
         `
     )
 );
@@ -510,11 +514,11 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
 export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
-            <nimble-text-field style="border: 1px dashed; width: 200px">
+            <${textFieldTag} style="border: 1px dashed; width: 200px">
                 With Label
-            </nimble-text-field>
-            <nimble-text-field style="border: 1px dashed; width: 200px">
-            </nimble-text-field>
+            </${textFieldTag}>
+            <${textFieldTag} style="border: 1px dashed; width: 200px">
+            </${textFieldTag}>
         </div>
     `
 );

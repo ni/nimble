@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { checkboxTag } from '..';
 
 interface CheckboxArgs {
     label: string;
@@ -30,13 +30,13 @@ const metadata: Meta<CheckboxArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        <nimble-checkbox
+        <${checkboxTag}
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
             :indeterminate="${x => x.indeterminate}"
         >
             ${x => x.label}
-        </nimble-checkbox>
+        </${checkboxTag}>
     `),
     argTypes: {
         indeterminate: {

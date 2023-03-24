@@ -3,7 +3,7 @@ export const ExampleContentType = {
     headerContentFooter: 'HeaderContentFooter'
 } as const;
 export type ExampleContentType =
-    typeof ExampleContentType[keyof typeof ExampleContentType];
+    (typeof ExampleContentType)[keyof typeof ExampleContentType];
 
 export const DrawerWidthOptions = {
     default: 'Default',
@@ -12,4 +12,4 @@ export const DrawerWidthOptions = {
     fitContent: 'FitContent'
 } as const;
 export type DrawerWidthOptions =
-    typeof DrawerWidthOptions[keyof typeof DrawerWidthOptions];
+    (typeof DrawerWidthOptions)[keyof typeof DrawerWidthOptions];

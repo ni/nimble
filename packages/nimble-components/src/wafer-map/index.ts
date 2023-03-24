@@ -5,17 +5,20 @@ import {
     observable
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
 import { styles } from './styles';
+import { DataManager } from './modules/data-manager';
+import { RenderingModule } from './modules/rendering';
+import { EventCoordinator } from './modules/event-coordinator';
 import {
+    HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
-import { DataManager } from './modules/data-manager';
-import { RenderingModule } from './modules/rendering';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -53,6 +56,7 @@ export class WaferMap extends FoundationElement {
     @attr({
         attribute: 'color-scale-mode'
     })
+    public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
      * @internal
@@ -62,9 +66,66 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    @observable public canvasSideLength: number | undefined;
+    public canvasContext!: CanvasRenderingContext2D;
 
-    @observable public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
+    /**
+     * @internal
+     */
+    public readonly zoomContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public dataManager?: DataManager;
+    /**
+     * @internal
+     */
+    public renderer?: RenderingModule;
+
+    /**
+     * @internal
+     */
+    public renderQueued = false;
+
+    /**
+     * @internal
+     */
+    @observable public canvasWidth!: number;
+
+    /**
+     * @internal
+     */
+    @observable public canvasHeight!: number;
+
+    /**
+     * @internal
+     */
+    @observable public transform: ZoomTransform = zoomIdentity;
+
+    /**
+     * @internal
+     */
+    @observable public hoverTransform = '';
+
+    /**
+     * @internal
+     */
+    @observable public hoverOpacity: HoverDieOpacity = HoverDieOpacity.hide;
+
+    /**
+     * @internal
+     */
+    @observable public hoverWidth = 0;
+
+    /**
+     * @internal
+     */
+    @observable public hoverHeight = 0;
+
+    /**
+     * @internal
+     */
+    @observable public hoverDie: WaferMapDie | undefined;
 
     @observable public highlightedValues: string[] = [];
     @observable public dies: WaferMapDie[] = [];
@@ -73,20 +134,15 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private renderQueued = false;
-    private dataManager: DataManager | undefined;
-    private renderer: RenderingModule | undefined;
-    private resizeObserver: ResizeObserver | undefined;
+    private eventCoordinator?: EventCoordinator;
+    private resizeObserver?: ResizeObserver;
+
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.resizeObserver = new ResizeObserver(entries => {
-            const entry = entries[0];
-            if (entry === undefined) return;
-            const { height, width } = entry.contentRect;
-            this.canvasSideLength = Math.min(height, width);
-        });
-        this.resizeObserver.observe(this);
-        this.queueRender();
+        this.canvasContext = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        })!;
+        this.resizeObserver = this.createResizeObserver();
     }
 
     public override disconnectedCallback(): void {
@@ -99,24 +155,50 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        if (this.canvasSideLength === undefined || this.canvasSideLength === 0) return;
-        this.renderer?.clearCanvas(
-            this.canvasSideLength,
-            this.canvasSideLength
-        );
-        this.dataManager = new DataManager(
-            this.dies,
-            this.quadrant,
-            { width: this.canvasSideLength, height: this.canvasSideLength },
-            this.colorScale,
-            this.highlightedValues,
-            this.colorScaleMode,
-            this.dieLabelsHidden,
-            this.dieLabelsSuffix,
-            this.maxCharacters
-        );
-        this.renderer = new RenderingModule(this.dataManager, this.canvas);
-        this.renderer.drawWafer();
+        this.initializeInternalModules();
+        this.renderer?.drawWafer();
+    }
+
+    private queueRender(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            DOM.queueUpdate(() => this.render());
+        }
+    }
+
+    private queueRenderHover(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        DOM.queueUpdate(() => this.renderer?.renderHover());
+    }
+
+    private initializeInternalModules(): void {
+        this.eventCoordinator?.detachEvents();
+        this.dataManager = new DataManager(this);
+        this.renderer = new RenderingModule(this);
+        this.eventCoordinator = new EventCoordinator(this);
+    }
+
+    private createResizeObserver(): ResizeObserver {
+        const resizeObserver = new ResizeObserver(entries => {
+            const entry = entries[0];
+            if (entry === undefined) {
+                return;
+            }
+            const { height, width } = entry.contentRect;
+            // Updating the canvas size clears its contents so update it explicitly instead of
+            // via template bindings so we can confirm that it happens before render
+            this.canvas.width = width;
+            this.canvas.height = height;
+            this.canvasWidth = width;
+            this.canvasHeight = height;
+        });
+        resizeObserver.observe(this);
+        return resizeObserver;
     }
 
     private quadrantChanged(): void {
@@ -155,25 +237,21 @@ export class WaferMap extends FoundationElement {
         this.queueRender();
     }
 
-    private canvasSideLengthChanged(): void {
-        if (
-            this.canvasSideLength !== undefined
-            && this.canvasSideLength !== 0
-        ) {
-            this.canvas.width = this.canvasSideLength;
-            this.canvas.height = this.canvasSideLength;
-        }
+    private transformChanged(): void {
         this.queueRender();
     }
 
-    private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
-        }
+    private canvasWidthChanged(): void {
+        this.queueRender();
+    }
+
+    private canvasHeightChanged(): void {
+        this.queueRender();
+    }
+
+    private hoverDieChanged(): void {
+        this.$emit('die-hover', { currentDie: this.hoverDie });
+        this.queueRenderHover();
     }
 }
 
@@ -184,3 +262,4 @@ const nimbleWaferMap = WaferMap.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());
+export const waferMapTag = DesignSystem.tagFor(WaferMap);

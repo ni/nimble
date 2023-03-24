@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 11 Nov 2022 14:59:30 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Mar 2023 18:28:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.7.1
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Created fallback `@font-face` definitions for local fonts to more closely match the design system fonts. These fallbacks can be used to reduce font swap jitter on initial page load. ([ni/nimble@29c1ec3](https://github.com/ni/nimble/commit/29c1ec36b4284fff6e104f61a1c483f94945870c))
+
+## 4.7.0
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Minor changes
+
+- Add font asset for Noto Serif ([ni/nimble@d9e4787](https://github.com/ni/nimble/commit/d9e478746435367f4909d7592d859747f4b67145))
+
+## 4.6.0
+
+Fri, 10 Feb 2023 19:40:36 GMT
+
+### Minor changes
+
+- Add icons for column sorting ([ni/nimble@4df842d](https://github.com/ni/nimble/commit/4df842d8bc104a9f02d4f73c76f778c6f7b71ef8))
+
+## 4.5.0
+
+Fri, 10 Feb 2023 15:26:34 GMT
+
+### Minor changes
+
+- Add new save icon ([ni/nimble@b5ca27c](https://github.com/ni/nimble/commit/b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb))
+
+## 4.4.0
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Minor changes
+
+- Nimble dependencies updated to latest ([ni/nimble@e1da136](https://github.com/ni/nimble/commit/e1da13662d82fa41f81f038335e6a142355de29e))
+
+## 4.3.2
+
+Wed, 11 Jan 2023 20:34:04 GMT
+
+### Patches
+
+- Update styleguide versions ([ni/nimble@d36bef4](https://github.com/ni/nimble/commit/d36bef4533df1908c92f4cb0e795ffb647bda627))
+
+## 4.3.1
+
+Mon, 09 Jan 2023 20:12:13 GMT
+
+### Patches
+
+- Update assembly to .net 6 ([ni/nimble@2d84f9c](https://github.com/ni/nimble/commit/2d84f9cf515f7bfd25f89e9b84ebf60dc5f217e8))
 
 ## 4.3.0
 

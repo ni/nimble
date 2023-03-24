@@ -14,18 +14,19 @@ A table/data-grid component can have a variety of ways to introduce data into it
 
 ## Implementation / Design
 
-In the `nimble-table`, the data associated with the table will be exposed through a `data` property that is an array of key/value pairs. The collection of key/value pairs is called a record, and each record is used to populate one row in the table. Each key/value pair within a record is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `Date`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to create custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the `data` property are out of scope for this spec.
+In the `nimble-table`, the data associated with the table will be specified by calling a `setData()` function, that takes an array of key/value pairs. The collection of key/value pairs is called a record, and each record is used to populate one row in the table. Each key/value pair within a record is called a field. The name of a field (i.e. the key of the key/value pair) must be a string, and the value of a field (i.e. the value of the key/value pair) must be a `string`, `number`, `boolean`, `null`, or `undefined`. As implied by the set of supported field types, complex field types such as arrays or objects are not supported. The supported field types are limited to ensure data operations are fast and to eliminate the need to create custom sort functions, which could hurt performance. While the types are limited, a rendered cell in the table can access multiple fields from the record. The details about the way column definitions use data from the table's data are out of scope for this spec.
 
-Because `data` is a complex type, it will not be exposed as an attribute on the `nimble-table` element. As a result, the data must be provided to the table programatically rather than declaratively with HTML.
+The data will be specified by calling a function for a few different reasons:
 
-This API is similar to the `FASTDataGrid`. Its [data API](https://github.com/microsoft/fast/blob/416dc9167e9d41e6ffe11d87ed79b2f455357923/packages/web-components/fast-foundation/src/data-grid/data-grid.ts#L193), is provided via a `rowsData` property of type `object[]`.
+-   Requiring a client to explicitly call `setData()` avoids confusion regarding what needs to be done to update the data. For example, if `data` were a property, would the table update if a new record were pushed into the assigned array? Would reassigning the same array instance cause the table to re-render to include any changes made to the array since last time the property was assigned?
+-   By not having a `getData()` function or a property with a getter and setter, the table does not have to create an additional copy of the data in order to have it available to return to the client. Instead, the data provided in `setData()` can be passed to TanStack without an additional copy being cached within the `Table` class in nimble.
 
 To help enforce typing, the `Table` class will be generic on the type for the record. The typing of the table is shown below:
 
 ```ts
 type TableFieldName = string;
 
-type TableFieldValue = string | number | boolean | Date | null | undefined;
+type TableFieldValue = string | number | boolean | null | undefined;
 
 interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
@@ -41,7 +42,10 @@ The user of the table can type a reference to the table as:
 
 ```ts
 const tableRef: Table<TData>;
-tableRef.data = [{...}]; // The data property is bound by the above type
+
+// The type of records in the passed array is
+// restricted by the type specified above
+tableRef.setData([{...}]);
 ```
 
 The typing described above does not fully enforce the type requirement on the table. Specifically, the type of `TData` above does not enforce that a given key only has one data type associated with it. For example, it allows the following, which is not considered valid:
@@ -55,7 +59,7 @@ interface MyTableData {
 Therefore, types will be provided to allow clients to optionally provide more strict typing on their data. These types will look something like the following:
 
 ```ts
-type StringField<FieldName extends string> = {
+type TableStringField<FieldName extends string> = {
     [name in FieldName]: string | null | undefined;
 };
 
@@ -65,10 +69,6 @@ type NumberField<FieldName extends string> = {
 
 type BooleanField<FieldName extends string> = {
     [name in FieldName]: boolean | null | undefined;
-};
-
-type DateField<FieldName extends string> = {
-    [name in FieldName]: Date | null | undefined;
 };
 ```
 
@@ -93,14 +93,17 @@ const tableRef: Table<
     NumericColumnRecord<'value', 'units', 'placeholder'> &
         BooleanField<'awesome'>
 >;
-tableRef.data[
+
+// The field names and types in the array passed to setData()
+// are enforced by the type above.
+tableRef.setData([
     {
         value: 3,
         units: 'a',
         placeholder: 'b',
         awesome: true
     }
-]; // The data property names and types are enforced by the type above.
+]);
 ```
 
 Note that the above is only an example of what is possible. The details of a table's column definitions are out of scope of this spec.
@@ -109,28 +112,31 @@ Ideally, this typing can also be used to provide compile-time checking of templa
 
 ### Data interaction to the TanStack table
 
-The `data` property on the `nimble-table` will be passed directly into the TanStack Table library. TanStack expects its `data` property to be provided as an array of some arbitrary type. The generic typing of the table allows the `nimble-table` to interface with the TanStack APIs using `TData` rather than `unknown` as shown below:
+The data passed into the `nimble-table` will be passed into the TanStack Table library after making a shallow copy of the array to ensure that TanStack always detects that the data is being updated even when `setData()` is called multiple times with the same array instance. TanStack expects its `data` property to be provided as an array of some arbitrary type. The generic typing of the table allows the `nimble-table` to interface with the TanStack APIs using `TData` rather than `unknown` as shown below:
 
 ```ts
-public data: TData[] = [];
 private _options: TanstackOptionsResolved<TData>;
 
 this._options = {
     get data(): TData[] { // instead of unknown[]
-        return data;
+        return [];  // TanStack starts with an empty array
     }
+}
+
+public setData(data: TData[]) {
+    this._options.data = [...data];
 }
 ```
 
 ### Angular Integration
 
-The Angular directive for the table will be generic on the table's record type, `TData`. The `data` property will be exposed through the directive and have type of `TData[]`. The type requirements on `TData` in the Angular directive will be the same as in the web component.
+The Angular directive for the table will be generic on the table's record type, `TData`. The `setData()` function will be exposed through the directive. Additionally, the directive will have a `data$` property that accepts an `Observable<TData[]>`. The directive will subscribe to the observable and internally call `setData()` on the web component when new values are emitted. The type requirements on `TData` in the Angular directive will be the same as in the web component.
 
 ### Blazor Integration
 
-The Blazor wrapper around the table will be generic on the table's record type. The best way to reflect the same type requirements on `TData` in Blazor has not yet been determined.
+The Blazor wrapper around the table will be generic on the table's record type. In Blazor, `TData` will be required to be serializable to JSON without any nested objects or arrays.
 
-The Blazor wrapper around the table will require writing interop code to set the property on the underlying `nimble-table` component because Blazor does not allow binding to properties on an element. The interop code will likely be written within the `OnParametersSetAsync()` lifecycle method.
+The Blazor wrapper around the table will expose a `Data` property that internally calls `setData()` within `OnAfterRenderAsync()`. The `setData()` method will not be exposed directly from the Blazor component because it would have no functional difference from calling the `Data` property's setter.
 
 ### Hierarchical Data
 
@@ -148,27 +154,10 @@ Some functionality, such as row selection, row expansion, and having an action m
 
 If the requirement for having unique row IDs comes up as table features are being defined, we will determine how to enforce that requirement at that time. One possibility would be to have a string attribute on the table that is the key of the id field, and if that attribute is not set, the row index is treated as the unique row id.
 
-### Methods to get/set data (no property)
-
-Rather than having a property on the table for the data, we could expose the data through `setData` and `getData` functions.
-
-**Pros**
-
--   The API could be made async if desired. This could potentially be useful if we needed a way to inform the user that any asynchronous updates to the table had been completed.
--   The implementation of `setData` could ensure that the internal representation of the data had been updated in a way that the table would detect the changes. With `data` as a property, the client of the table needs to be aware of the appropriate ways to modify their data in order for the table to detect changes had been made.
-
-**Cons**
-
--   Binding in supported frameworks, such as Angular, becomes more difficult. A property easily allows for simple array binding and for easily binding to an `Observable<TData[]>`.
-
 ### Support virtualized data
 
 APIs around virtualized data, such as automatically loading more data when the user scrolls to the bottom of the data set is out of scope for this spec. It will be a client's responsibility to implement any necessary data virtualization.
 
 ### Support partial data updates
 
-The current API does not allow updating only a subset of the data, such as modifying a single record. It only supports a new array of data being assigned to `data`. While we could write an API to allow for partial updates, TanStack does not support partial data updates, so it would provide no performance benefit over reassigning the entire set of data.
-
-## Open Issues
-
--   How will the type requirements of `TData` be reflected in Blazor?
+The current API does not allow updating only a subset of the data, such as modifying a single record. It only supports a new array of data being provided in `setData()`. While we could write an API to allow for partial updates, TanStack does not support partial data updates, so it would provide no performance benefit over reassigning the entire set of data.

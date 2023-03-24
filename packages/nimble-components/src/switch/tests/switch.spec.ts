@@ -1,11 +1,8 @@
-import { DOM, html } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    Switch as FoundationSwitch
-} from '@microsoft/fast-foundation';
+import { html } from '@microsoft/fast-element';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Switch } from '..';
+import { Switch, switchTag } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Switch>> {
     return fixture<Switch>(html`<nimble-switch></nimble-switch>`);
@@ -25,8 +22,8 @@ describe('Switch', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationSwitch)', () => {
-        expect(DesignSystem.tagFor(FoundationSwitch)).toBe('nimble-switch');
+    it('should export its tag', () => {
+        expect(switchTag).toBe('nimble-switch');
     });
 
     it('can construct an element instance', () => {
@@ -47,7 +44,7 @@ describe('Switch', () => {
 
         expect(element.getAttribute('aria-checked')).toBe('true');
         element.checked = false;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.getAttribute('aria-checked')).toBe('false');
 
         await disconnect();
@@ -76,7 +73,7 @@ describe('Switch', () => {
 
         expect(element.getAttribute('aria-disabled')).toBe('true');
         element.disabled = false;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.getAttribute('aria-disabled')).toBe('false');
 
         await disconnect();
@@ -96,7 +93,7 @@ describe('Switch', () => {
 
         expect(element.getAttribute('aria-readonly')).toBe('true');
         element.readOnly = false;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.getAttribute('aria-readonly')).toBe('false');
 
         await disconnect();
@@ -206,7 +203,7 @@ describe('Switch', () => {
 
                 wasClicked = true;
             });
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             element.click();
             expect(wasClicked).toBe(true);
 
@@ -225,7 +222,7 @@ describe('Switch', () => {
 
                 wasInvoked = true;
             });
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             element.dispatchEvent(event);
             expect(wasInvoked).toBe(true);
 
@@ -244,7 +241,7 @@ describe('Switch', () => {
 
                 wasInvoked = true;
             });
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             element.dispatchEvent(event);
             expect(wasInvoked).toBe(true);
 

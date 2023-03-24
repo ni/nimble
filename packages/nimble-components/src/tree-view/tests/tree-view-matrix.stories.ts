@@ -15,8 +15,11 @@ import {
     iconVisibleStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { treeViewTag } from '..';
+import { iconCogTag } from '../../icons/cog';
+import { iconDatabaseTag } from '../../icons/database';
+import { treeItemTag } from '../../tree-item';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
@@ -44,33 +47,33 @@ const component = (
     [selectedName, selected]: SelectedState,
     iconVisible: IconVisibleState
 ): ViewTemplate => html`
-    <nimble-tree-view style="padding: 10px">
-        <nimble-tree-item
+    <${treeViewTag} style="padding: 10px">
+        <${treeItemTag}
             ?expanded="${() => expanded}"
             ?disabled="${() => disabled}"
         >
-            ${when(() => iconVisible, html`<nimble-icon-database slot="start"></nimble-icon-database>`)}
+            ${when(() => iconVisible, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
             ${() => expandedName} ${() => disabledName} ${() => selectedName}
-            <nimble-tree-item
+            <${treeItemTag}
                 ?disabled="${() => disabled}"
                 ?selected="${() => selected}"
             >
-            ${when(() => iconVisible, html`<nimble-icon-cog slot="start"></nimble-icon-cog>`)}
+            ${when(() => iconVisible, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                 Nested Item 1
-            </nimble-tree-item>
-            <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => iconVisible, html`<nimble-icon-cog slot="start"></nimble-icon-cog>`)}
+            </${treeItemTag}>
+            <${treeItemTag} ?disabled="${() => disabled}">
+            ${when(() => iconVisible, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                 Nested Item 2
-            </nimble-tree-item>
-            <nimble-tree-item ?disabled="${() => disabled}">
-            ${when(() => iconVisible, html`<nimble-icon-cog slot="start"></nimble-icon-cog>`)}
+            </${treeItemTag}>
+            <${treeItemTag} ?disabled="${() => disabled}">
+            ${when(() => iconVisible, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                 Nested Item 3
-            </nimble-tree-item>
-            <nimble-tree-item hidden>
+            </${treeItemTag}>
+            <${treeItemTag} hidden>
                 Nested Item 4
-            </nimble-tree-item>
-        </nimble-tree-item>
-    </nimble-tree-view>
+            </${treeItemTag}>
+        </${treeItemTag}>
+    </${treeViewTag}>
 `;
 
 export default metadata;
@@ -86,19 +89,19 @@ export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hiddenTreeView: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-tree-view hidden>
-            <nimble-tree-item>Item 1</nimble-tree-item>
-        </nimble-tree-view>`
+        html`<${treeViewTag} hidden>
+            <${treeItemTag}>Item 1</${treeItemTag}>
+        </${treeViewTag}>`
     )
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <nimble-tree-view>
+            <${treeViewTag}>
                 Inner text
-                <nimble-tree-item>Tree item</nimble-tree-item>
-            </nimble-tree-view>
+                <${treeItemTag}>Tree item</${treeItemTag}>
+            </${treeViewTag}>
         `
     )
 );

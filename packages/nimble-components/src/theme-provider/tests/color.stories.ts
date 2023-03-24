@@ -4,7 +4,6 @@ import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { controlLabelFont, controlLabelFontColor } from '../design-tokens';
-import '../../all-components';
 
 interface NimbleColor {
     name: string;

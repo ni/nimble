@@ -6,13 +6,13 @@ import {
 } from '../../utilities/tests/matrix';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import {
     bodyFont,
     bodyFontColor,
     borderHoverColor,
     applicationBackgroundColor
 } from '../../theme-provider/design-tokens';
+import { anchoredRegionTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Anchored Region',
@@ -77,7 +77,7 @@ const component = (
         >
             Anchor element
         </div>
-        <nimble-anchored-region
+        <${anchoredRegionTag}
             anchor="${() => `${verticalPosition}_${horizontalPosition}`}"
             fixed-placement="true"
             auto-update-mode="auto"
@@ -89,7 +89,7 @@ const component = (
             <div class="anchoredRegion">
                 ${horizontalPositionName} ${verticalPositionName}
             </div>
-        </nimble-anchored-region>
+        </${anchoredRegionTag}>
         <div></div>
     </div>`;
 
@@ -99,6 +99,6 @@ export const anchoredRegionThemeMatrix: StoryFn = createStory(
 
 export const hiddenAnchoredRegion: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-anchored-region hidden>Hidden Anchored Region</nimble-anchored-regionx>`
+        html`<${anchoredRegionTag} hidden>Hidden Anchored Region</${anchoredRegionTag}>`
     )
 );

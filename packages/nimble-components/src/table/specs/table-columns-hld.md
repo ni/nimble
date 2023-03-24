@@ -28,7 +28,7 @@ Column custom elements will be provided to the table as slotted elements. The sl
 </nimble-table>
 ```
 
-These column elements will _not_ have templates/CSS associated with them. Instead, each column element will provide a FAST ViewTemplate for the visual representation of each cell in the column. The ordering of the column elements in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the column elements in the DOM.
+These column elements will _not_ have templates/CSS associated with them. Instead, each column element have an associated FAST-based custom element which will be used in each table cell for that column. The ordering of the column elements in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the column elements in the DOM.
 
 The table API to support this could look like the following:
 
@@ -64,16 +64,17 @@ template:
 
 ### Framework Integration
 
-Column elements will always be FAST-based custom elements. Framework-specific constructs/content are not supported. Standard column types (e.g. text-field, link, icon, etc) will be provided by Nimble. For non-standard column types, clients will be expected to implement a custom column element, which the rest of this document desribes in detail.
+Column elements, and the associated elements used in table cells, will always be FAST-based custom elements. Framework-specific constructs/content are not supported. Standard column types (e.g. text-field, link, icon, etc) will be provided by Nimble. For non-standard column types, clients will be expected to implement a custom column type, which the rest of this document describes in detail.
 
 ### `TableCellState` interface
 
-A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellData` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
+A table cell represents a single column for a single row. The data that a cell has access to will be a subset of the data for the entire row. An instance of a table cell will be generic to describe the subset of data it contains, where the `TCellRecord` type is a superset of the type represented by [`TableRecord`](https://github.com/ni/nimble/blob/3e4b8d3dd59431d1671e381aa66052db57bc475c/packages/nimble-components/src/table/types.ts#L24):
 
 ```TS
-interface TableCellState<TCellData extends TableRecord, TColumnConfig> {
-  data: TCellData;
+interface TableCellState<TCellRecord extends TableRecord, TColumnConfig> {
+  data: TCellRecord;
   columnConfig: TColumnConfig;
+  recordId: string;
 }
 ```
 
@@ -84,49 +85,110 @@ This interface could possibly be expanded in the future to communicate relevant 
 This abstract class is what a column web component (i.e. a slotted column element) must extend.
 
 ```TS
-abstract class TableColumn<TCellData extends TableRecord = TableRecord, TColumnConfig = {}> {
-    // This method returns the relevant, static configuration a column requires its cellTemplate
-    // to have access to
-    getColumnConfig(): TColumnConfig {}
+abstract class TableColumn<TColumnConfig = {}> {
+    // An optional ID to associated with the column.
+    @attr({ attribute: 'column-id' })
+    columnId?: string;
 
-    // The template to use to render the cell content for the column
-    abstract cellTemplate: ViewTemplate<TableCellState<TCellData, TColumnConfig>>;
+    // The name of the slot containing the action menu for this column, or `undefined` to indicate
+    // that the column does not have an action menu.
+    // Note: Multiple columns can specify the same slot.
+    @attr({ attribute: 'action-menu-slot'})
+    actionMenuSlot?: string;
 
-    // The style to apply to the cellTemplate
-    cellStyles?: ElementStyles;
+    // The label to associated with the column's action menu for accessibility purposes.
+    @attr({ attribute: 'action-menu-label' })
+    actionMenuLabel?: string;
 
-    // The keys that should be present in TCellData.
-    // This array is parallel with the keys returned from `getRecordFieldNames()`.
-    readonly cellStateDataFieldNames: readonly string[];
+    // The index for sorting the column. When multiple columns are sorted,
+    // they will be sorted from lowest index to highest index.
+    @attr({ attribute: 'sort-index', converter: nullableNumberConverter })
+    public sortIndex?: number | null;
 
-    // The keys from the row data that correlate to the data that will be in TCellData.
-    // This array is parallel with the keys specified by `cellStateDataFieldNames`.
-    abstract getRecordFieldNames(): string[];
+    // The direction the column is sorted.
+    @attr({ attribute: 'sort-direction' })
+    public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
+
+    // The relevant, static configuration a column requires its cellTemplate to have access to.
+    columnConfig?: TColumnConfig;
+
+    // The tag (element name) of the custom element that renders the cell content for the column.
+    // Should derive from TableCellView<TCellRecord, TColumnConfig>.
+    cellViewTag: string;
+
+    // The names of the fields that should be present in TCellRecord.
+    // This array is parallel with the field names specified by `dataRecordFieldNames`.
+    readonly cellRecordFieldNames: readonly string[];
+
+    // The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
+    // This array is parallel with the field names specified by `cellRecordFieldNames`.
+    dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
+
+    // The name of the data field that will be used for operations on the table, such as sorting and grouping.
+    operandDataRecordFieldName?: TableFieldName;
+
+    /**
+     * @internal
+     *
+     * The operation to use when sorting the table by this column.
+     */
+    @observable
+    public sortOperation: TableColumnSortOperation;
 
     // Function that allows the table column to validate the type that gets created
-    // for the cell data. This should validate that the types in TCellData are correct
-    // for each key defined by `cellStateDataFieldNames`.
+    // for the cell data. This should validate that the types in TCellRecord are correct
+    // for each key defined by `cellRecordFieldNames`.
     // This function should throw if validation fails.
-    abstract validateCellData(cellData: TCellData): void;
+    abstract validateCellData(cellData: TCellRecord): void;
 }
 ```
 
 _Note: The `TableColumn` class may be updated to support other features not covered in this HLD such as sorting and grouping._
 
-Given the above class, a series of column elements to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
+### `TableCellView<>`
 
 ```TS
-type TableColumnTextCellData = StringField<'value'>;
+abstract class TableCellView<
+    TCellRecord extends TableCellRecord = TableCellRecord,
+    TColumnConfig = unknown
+>
+    extends FoundationElement
+    implements TableCellState<TCellRecord, TColumnConfig> {
+    @observable
+    public cellRecord!: TCellRecord;
+
+    @observable
+    public columnConfig!: TColumnConfig;
+
+    /**
+     * Called if an element inside this cell element has focus, and this row/cell is being recycled.
+     * Expected implementation is to commit changes as needed, and blur the focusable element (or close
+     * the menu/popup/etc).
+     */
+    public focusedRecycleCallback(): void {}
+}
+```
+
+Requiring column plugins to create custom elements for use in the table cells has several implications:
+
+-   The elements encapsulate any state needed by the cell
+-   The cell element templates can use `ref` to get references to view elements from their templates, for use in their element code
+-   Simplifies the API needed to respond to events from the table. One example is `TableCellView.focusedRecycleCallback()` which will be called before a row is recycled during a virtualized scroll, giving column plugins the opportunity to commit changes and blur the control in the cell.
+
+Given the above classes, a series of column types to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
+
+```TS
+type TableColumnTextCellRecord = TableStringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
 
-public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
+public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
 
     public getColumnConfig(): TableColumnTextColumnConfig {
         return { placeholder: this.placeholder };
     }
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
@@ -134,17 +196,13 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>> =
-        html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
-            <nimble-text-field readonly="true" value="${x => x.data.value}" placeholder="${x => x.columnConfig.placeholder}">
-            </nimble-text-field>
-        `;
+    public cellViewTag = 'nimble-table-cell-view-text';
 
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['value']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
@@ -154,19 +212,48 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
 
 In the above example, notifications for when the `placeholder` property changed would be handled by the base class, and it would be responsible for any further action. This action could be a combination of things like causing a re-render, and issuing an event that may be publicly visible (such as `column-configuration-changed`). These details will be ironed out outside of this spec.
 
+The corresponding cell element implementation would look like this:
+
+```TS
+class TextCellView extends TableCellView<
+TableColumnTextCellRecord,
+TableColumnTextColumnConfig
+> {
+    @observable
+    public override cellRecord!: TableColumnTextCellRecord;
+
+    @observable
+    public override columnConfig!: TableColumnTextColumnConfig;
+
+    @volatile
+    public get content(): string {
+        return typeof this.cellRecord.value === 'string'
+            ? this.cellRecord.value
+            : this.columnConfig.placeholder;
+    }
+
+    public textField!: TextField;
+}
+
+const textCellView = TextCellView.compose({
+    baseName: 'table-cell-view-text',
+    template: html<TextCellView>`
+        <nimble-text-field ${ref('textField')} readonly="true" value="${x => x.cellRecord.value}" placeholder="${x => x.columnConfig.placeholder}">
+        </nimble-text-field>`,
+    styles: /* styling */
+});
+DesignSystem.getOrCreate().withPrefix('nimble').register(textCellView());
+```
+
 Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
 
 ```TS
-type TableColumnNumberWithUnitCellData = NumberField<'value'> & StringField<'units'>;
+type TableColumnNumberWithUnitCellData = NumberField<'value'> & TableStringField<'units'>;
 
-const formatData = (value: number, unit: string): string => {
-    return `${value.toString()} ${units}`;
-};
-
-public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWithUnitCellData> {
+public class TableColumnNumberWithUnit extends TableColumn {
     ...
 
-    public cellStateDataFieldNames = ['value', 'units'] as const;
+    public cellRecordFieldNames = ['value', 'units'] as const;
 
     @attr
     public valueKey: string;
@@ -174,25 +261,34 @@ public class TableColumnNumberWithUnit extends TableColumn<TableColumnNumberWith
     @attr
     public unitKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public cellViewTag = 'nimble-table-cell-view-number-with-unit';
+
+    public getDataRecordFieldNames(): string[] {
         return [valueKey, unitKey];
     }
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnNumberWithUnitCellData>> =
-        html<TableCellState<TableColumnNumberWithUnitCellData>>`
-            <nimble-text-field
-                readonly="true"
-                value="${x => formatData(x.data.value, x.data.units)}"
-            >
-            </nimble-text-field>
-        `;
-
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
             throw new Error('Type for cellData is incorrect!');
         }
     }
 }
+
+class NumberWithUnitCellView extends TableCellView<TableColumnNumberWithUnitCellData> {
+    public get formattedValue(): string {
+        return `${this.cellRecord.value.toString()} ${this.cellRecord.units}`;
+    }
+}
+const numberWithUnitCellView = NumberWithUnitCellView.compose({
+    baseName: 'table-cell-view-number-with-unit',
+    template: html<NumberWithUnitCellView>`
+        <nimble-text-field
+            readonly="true"
+            value="${x => x.formattedValue}"
+        >
+        </nimble-text-field>`,
+    styles: /* styling */
+});
 ```
 
 Here we have a cell visualized in different ways based on custom logic:
@@ -204,79 +300,92 @@ const isPositive = (value: number): bool => {
     return value >= 0;
 }
 
-public class TableColumnPositiveNegativeNumber extends TableColumn<TableColumnPositiveNegativeNumberCellData> {
+public class TableColumnPositiveNegativeNumber extends TableColumn {
     ...
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
     @attr
     public valueKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public cellViewTag = 'table-cell-view-positive-negative-number';
+
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
-    public readonly cellStyles: ElementStyles =
-        css`
-            .good {
-                color: green;
-            }
-
-            .bad {
-                color: red;
-            }
-        `;
-
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnPositiveNegativeNumberCellData>> =
-        html<TableCellState<TableColumnPositiveNegativeNumberCellData>`
-            <nimble-text-field
-                class="${x => isPositive(x.data.value) ? "good" : "bad"}"
-                readonly="true"
-                value="${x => x.data.value}"
-            >
-            </nimble-text-field>
-        `;
-
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['value']) !== 'number') {
             throw new Error('Type for cellData is incorrect!');
         }
     }
 }
+
+class PositiveNegativeNumberCellView extends TableCellView<TableColumnPositiveNegativeNumberCellData> {
+    public get textFieldCssClass(): string {
+        return this.cellRecord.value > 0 ? 'good' : 'bad';
+    }
+}
+const positiveNegativeNumberCellView = PositiveNegativeNumberCellView.compose({
+    baseName: 'table-cell-view-positive-negative-number',
+    template: html<PositiveNegativeNumberCellView>`
+        <nimble-text-field
+            class="${x => x.textFieldCssClass}"
+            readonly="true"
+            value="${x => x.cellRecord.value}"
+        >
+        </nimble-text-field>`,
+    styles: css`
+        .good {
+            color: green;
+        }
+
+        .bad {
+            color: red;
+        }
+    `
+});
 ```
 
 Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
 
 ```TS
-type TableColumnButtonCellData = StringField<'id'>;
+type TableColumnButtonCellData = TableStringField<'id'>;
 
 public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
     ...
 
-    public cellStateDataFieldNames = ['id'] as const;
+    public cellRecordFieldNames = ['id'] as const;
 
     @attr
     public idKey: string;
 
-    public getRecordFieldNames(): string[] {
+    public getDataRecordFieldNames(): string[] {
         return [valueKey];
     }
 
-    public callback: (id: string) => void;
+    public cellViewTag = 'table-cell-view-button';
 
-    public readonly cellTemplate: ViewTemplate<TableCellState<TableColumnButtonCellData>> =
-        html<TableCellState<TableColumnButtonCellData>>`
-            <nimble-button @click="${(x, c) => c.event.currentTarget.$emit('button-click', {data: x.data.id})}">
-                <span>Press Me</span>
-            </nimble-button>
-        `;
-
-    public validateCellData(cellData: TCellData): void {
+    public validateCellData(cellData: TCellRecord): void {
         if (typeof(cellData['id']) !== 'string') {
             throw new Error('Type for cellData is incorrect!');
         }
     }
 }
+
+class ButtonCellView extends TableCellView<TableColumnButtonCellData> {
+    public onButtonClick(): void {
+        this.$emit('button-click', { data: this.cellRecord.id })
+    }
+}
+const buttonCellView = ButtonCellView.compose({
+    baseName: 'table-cell-view-button',
+    template: html<ButtonCellView>`
+        <nimble-button @click="${(x) => x.onButtonClick()}">
+            <span>Press Me</span>
+        </nimble-button>`,
+    styles: /* styling */
+});
 ```
 
 Angular template:

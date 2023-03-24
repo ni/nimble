@@ -1,234 +1,204 @@
+import type { WaferMap } from '..';
 import { Computations } from '../modules/computations';
 import { Margin, WaferMapQuadrant } from '../types';
 import { getWaferMapDies } from './utilities';
 
-describe('Computations module', () => {
+describe('Wafermap Computations module', () => {
     let computationsModule: Computations;
 
     describe('with 100 square canvas', () => {
-        const defaultMargin: Margin = {
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 20
+        const expectedMargin: Margin = {
+            top: 4,
+            right: 4,
+            bottom: 4,
+            left: 4
         };
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topLeft,
-                { width: 100, height: 100 }
-            );
+            const waferMock: Pick<
+            WaferMap,
+            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
+            > = {
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topLeft,
+                canvasWidth: 100,
+                canvasHeight: 100
+            };
+            computationsModule = new Computations(waferMock as WaferMap);
         });
 
-        it('should have 60 square container', () => {
+        it('should have expected square container', () => {
             expect(computationsModule.containerDimensions).toEqual({
-                width: 60,
-                height: 60
+                width: 92,
+                height: 92
             });
         });
 
-        it('should have 10:8.571428571428571 die', () => {
-            expect(computationsModule.dieDimensions).toEqual({
-                width: 10,
-                height: 8.571428571428571
+        it('should have expected die size', () => {
+            const computedDimensions = {
+                width: Math.ceil(computationsModule.dieDimensions.width),
+                height: Math.ceil(computationsModule.dieDimensions.height)
+            };
+            expect(computedDimensions).toEqual({
+                width: 19,
+                height: 16
             });
         });
 
-        it('should have 45 radius', () => {
-            expect(computationsModule.radius).toEqual(45);
+        it('should have expected radius', () => {
+            expect(computationsModule.radius).toEqual(46);
         });
 
-        it('should have default margin', () => {
-            expect(computationsModule.margin).toEqual(defaultMargin);
+        it('should have expected margin', () => {
+            expect(computationsModule.margin).toEqual(expectedMargin);
+        });
+
+        it('should have horizontal domain containing all column indexes', () => {
+            expect(computationsModule.horizontalScale.domain()).toEqual([
+                2, 3, 4, 5, 6
+            ]);
+        });
+        it('should have vertical domain containing all row indexes, ', () => {
+            expect(computationsModule.verticalScale.domain()).toEqual([
+                1, 2, 3, 4, 5, 6
+            ]);
         });
     });
 
-    describe('with 180 square canvas', () => {
+    describe('with rectangular canvas', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topLeft,
-                { width: 180, height: 180 }
-            );
+            const waferMock: Pick<
+            WaferMap,
+            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
+            > = {
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topLeft,
+                canvasWidth: 200,
+                canvasHeight: 100
+            };
+            computationsModule = new Computations(waferMock as WaferMap);
         });
 
-        it('should have adjusted 110 square container', () => {
+        it('should have adjusted square container', () => {
             expect(computationsModule.containerDimensions).toEqual({
-                width: 110,
-                height: 110
+                width: 92,
+                height: 92
             });
         });
 
-        it('should have adjusted 18.333333333333332:15.714285714285714 die', () => {
-            expect(computationsModule.dieDimensions).toEqual({
-                width: 18.333333333333332,
-                height: 15.714285714285714
+        it('should have adjusted die size', () => {
+            const computedDimensions = {
+                width: Math.ceil(computationsModule.dieDimensions.width),
+                height: Math.ceil(computationsModule.dieDimensions.height)
+            };
+            expect(computedDimensions).toEqual({
+                width: 19,
+                height: 16
             });
         });
 
-        it('should have adjusted 82.5 radius', () => {
-            expect(computationsModule.radius).toEqual(82.5);
+        it('should have adjusted radius', () => {
+            expect(computationsModule.radius).toEqual(46);
         });
 
         it('should have adjusted margin', () => {
             expect(computationsModule.margin).toEqual({
-                top: 35,
-                right: 35,
-                bottom: 35,
-                left: 35
+                top: 4,
+                right: 54,
+                bottom: 4,
+                left: 54
             });
         });
     });
 
     describe('with top left origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topLeft,
-                { width: 100, height: 100 }
-            );
+            const waferMock: Pick<
+            WaferMap,
+            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
+            > = {
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topLeft,
+                canvasWidth: 100,
+                canvasHeight: 100
+            };
+            computationsModule = new Computations(waferMock as WaferMap);
         });
-
-        it(
-            'should have horizontal domain equal to the lowest column index, '
-                + 'but one position higher than the highest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    2, 7
-                ]);
-            }
-        );
 
         it('should have increasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
 
-        it(
-            'should have vertical domain equal to the lowest row index, '
-                + 'but one position higher than the highest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    1, 7
-                ]);
-            }
-        );
-
         it('should have increasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
     describe('with top right origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.topRight,
-                { width: 100, height: 100 }
-            );
+            const waferMock: Pick<
+            WaferMap,
+            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
+            > = {
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.topRight,
+                canvasWidth: 100,
+                canvasHeight: 100
+            };
+            computationsModule = new Computations(waferMock as WaferMap);
         });
-
-        it(
-            'should have horizontal domain equal to the highest column index, '
-                + 'but one position lower than the lowest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    1, 6
-                ]);
-            }
-        );
 
         it('should have decreasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
 
-        it(
-            'should have vertical domain equal to the lowest row index, '
-                + 'but one position higher than the highest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    1, 7
-                ]);
-            }
-        );
-
         it('should have increasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.verticalScale.range()).toEqual([0, 92]);
         });
     });
 
     describe('with bottom left origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.bottomLeft,
-                { width: 100, height: 100 }
-            );
+            const waferMock: Pick<
+            WaferMap,
+            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
+            > = {
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.bottomLeft,
+                canvasWidth: 100,
+                canvasHeight: 100
+            };
+            computationsModule = new Computations(waferMock as WaferMap);
         });
-
-        it(
-            'should have horizontal domain equal to the lowest column index, '
-                + 'but one position higher than the highest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    2, 7
-                ]);
-            }
-        );
 
         it('should have increasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([0, 60]);
+            expect(computationsModule.horizontalScale.range()).toEqual([0, 92]);
         });
 
-        it(
-            'should have vertical domain equal to the highest row index, '
-                + 'but one position lower than the lowest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    0, 6
-                ]);
-            }
-        );
-
         it('should have decreasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });
 
     describe('with bottom right origin quadrant', () => {
         beforeEach(() => {
-            computationsModule = new Computations(
-                getWaferMapDies(),
-                WaferMapQuadrant.bottomRight,
-                { width: 100, height: 100 }
-            );
+            const waferMock: Pick<
+            WaferMap,
+            'dies' | 'quadrant' | 'canvasWidth' | 'canvasHeight'
+            > = {
+                dies: getWaferMapDies(),
+                quadrant: WaferMapQuadrant.bottomRight,
+                canvasWidth: 100,
+                canvasHeight: 100
+            };
+            computationsModule = new Computations(waferMock as WaferMap);
         });
-
-        it(
-            'should have horizontal domain equal to the highest column index, '
-                + 'but one position lower than the lowest column index ',
-            () => {
-                expect(computationsModule.horizontalScale.domain()).toEqual([
-                    1, 6
-                ]);
-            }
-        );
 
         it('should have decreasing horizontal range', () => {
-            expect(computationsModule.horizontalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.horizontalScale.range()).toEqual([92, 0]);
         });
 
-        it(
-            'should have vertical domain equal to the highest row index, '
-                + 'but one position lower than the lowest row index ',
-            () => {
-                expect(computationsModule.verticalScale.domain()).toEqual([
-                    0, 6
-                ]);
-            }
-        );
-
         it('should have decreasing vertical range', () => {
-            expect(computationsModule.verticalScale.range()).toEqual([60, 0]);
+            expect(computationsModule.verticalScale.range()).toEqual([92, 0]);
         });
     });
 });

@@ -10,8 +10,8 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { checkboxTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Checkbox',
@@ -43,13 +43,13 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [checkedName, checked]: CheckedState,
     [indeterminateName, indeterminate]: IndeterminateState
-): ViewTemplate => html`<nimble-checkbox
+): ViewTemplate => html`<${checkboxTag}
     ?checked="${() => checked}"
     ?disabled="${() => disabled}"
     :indeterminate="${() => indeterminate}"
 >
     ${checkedName} ${indeterminateName} ${disabledName}
-</nimble-checkbox>`;
+</${checkboxTag}>`;
 
 export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
@@ -60,11 +60,9 @@ export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const hiddenCheckbox: StoryFn = createStory(
-    hiddenWrapper(
-        html`<nimble-checkbox hidden>Hidden Checkbox</nimble-checkbox>`
-    )
+    hiddenWrapper(html`<${checkboxTag} hidden>Hidden Checkbox</${checkboxTag}>`)
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
-    textCustomizationWrapper(html`<nimble-checkbox>Checkbox</nimble-checkbox>`)
+    textCustomizationWrapper(html`<${checkboxTag}>Checkbox</${checkboxTag}>`)
 );

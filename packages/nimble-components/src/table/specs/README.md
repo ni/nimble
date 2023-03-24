@@ -100,13 +100,13 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   [Data API](table-data-api.md)
 -   [Column API](table-columns-hld.md)
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
+        -   [Column Widths](./table-column-width-hld.md)
     -   Define how we intend to support defining a column that uses information from multiple columns (e.g. a hyperlink column that uses data from one column for the URL and the data from another as the text to display)
         -   What column gets used for sorting?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
-        -   Require specific component type (i.e. do we need to create a `nimble-table-header`)
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
 -   Row Selection
@@ -120,7 +120,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define table-level API for setting grouping
     -   Define events raised when grouping changes
     -   Describe how data hierarchy should work with grouping
--   Sorting
+-   [Sorting](table-column-sort-hld.md)
     -   Define the table-level API for setting sorting
     -   Define events raised when sorting changes
     -   Describe how sorting should with with hierarchical and/or grouped data
@@ -129,24 +129,38 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   Attribute on table to represent parentId?
     -   Define event/property APIs needed for dealing with lazily-loaded hierarchical data (possibly out of scope of initial release)
     -   Describe the UI representation of hierarchical data (there should be a design doc to reference)
--   Action Menu
-    -   Define how the action menu gets associated with a particular column
-    -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
+-   [Action Menu](action-menu-hld.md)
+
+_Attributes_
+
+-   `id-field-name` - An optional string attribute that specifies the field name within a row's record to use as a row's ID. If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered, and the table will enter an invalid state according to the `validity` property and `checkValidity()` function. The attribute is invalid in the following conditions:
+    -   Multiple records were found with the same ID
+    -   A record was found that did not have a field with the name specified by `id-field-name`
+    -   A record was found where `id-field-name` did not refer to a value of type `string`
 
 _Properties_
 
-Placeholder
+-   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+-   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
+
+_Functions_
+
+-   `checkValidity(): boolean` - Function that returns `true` if the configuration of the table is valid and `false` if the configuration of the table is not valid.
 
 _Events_
 
--   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
+-   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
 
 ### Anatomy
 
 _Slots_
 
 -   default - the column elements
--   `action-menu` (Placeholder for action menu)
+-   _user specified_ - Slots dynamically created based on the values specified for `action-menu-slot` on the slotted column elements. A menu element should be provided in each slot that is associated with the action menu for any column that has `action-menu-slot` set. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
 
 ### Security
 
@@ -205,13 +219,23 @@ We will be using TanStack Table to manage all of the table state related to data
 
 TanStack Virtual provides various pieces of state to enable simple, efficient virtualization of table data. The Nimble Table will provide certain state/objects to the TanStack Virtual API for it to then provide the needed state that we can virtualize the table rows with. Namely:
 
--   The element that will serve as the scollable element
+-   The element that will serve as the scrollable element
 -   An estimated height for each row
 -   The total count of rows in the data
 
 With this set of information, the Nimble Table will be able to register a callback to the TanStack Virtual `onChange` which will happen any time the scrollable element scrolls. In that handler the Nimble Table can retrieve the set of virtual items from TanStack Virtual (i.e. `getVirtualItems()`), which represent the total set of rows that should be displayed, and contain the state information that allows the Nimble Table to retrieve the appropriate data from the TanStack Table model to apply to each rendered row, as well as the position each row should be rendered.
 
-_Placeholder for other implementation details_
+Our implementation has some differences from the TanStack Virtual examples:
+
+-   The scrollable element is the parent of 2 containers (the 1st has its `height` set to the height of all rows, and the 2nd is the row container)
+-   Rather than doing a `translate` `transform` on each individual row in the row container, we have one `translate` `transform` on the row container itself, which is never larger than the height of a couple of rows.
+-   The rows always render at the top of their container (which has `position: sticky` applied to it)
+
+The changes above result in better rendering performance (notably in Firefox which sometimes had flickering otherwise).
+
+#### Cell State and Virtualized Scrolling
+
+With virtualization enabled, when a scroll occurs, before components in cells are reused for data at the new scroll position, we need to clear/commit some cell state first. The [Cell State when Scrolling HLD](cell-state-when-scrolling-hld.md) covers specifics for that behavior.
 
 ### States
 
@@ -265,4 +289,7 @@ Storybook stories will be added to document/showcase the various features and AP
 
 ### Open Issues
 
-None.
+-   Should all invalid configurations get reflected to the client & end user the same way? Currently, invalid row ID configuration will cause no rows to be rendered in the table and the `validity` object to reflect why the table is invalid. Other options include: showing invalid text in the table or stopping updates to the table's state. Some things to keep in mind related to this:
+    -   We should be mindful of UI flickers when the client passes temporarily through an invalid state.
+    -   Stopping updates to the table's state could cause two tables with the same property values assigned to have different rendered outputs, which is not ideal.
+-   Should we implement our own algorithm for creating a default row ID rather than relying on TanStack? This would allow us to ensure backwards compatibility and would also allows us to make guarantees about it, such that it is always the index of the record within the `data` property (which isn't true in TanStack when dealing with hierarchical data).

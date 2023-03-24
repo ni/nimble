@@ -8,7 +8,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
-    NimbleAnchorModule, NimbleAnchorButtonModule } from '@ni/nimble-angular';
+    NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule, NimbleTableColumnTextModule, NimbleIconCheckModule, NimbleBannerModule } from '@ni/nimble-angular';
 import { NimbleTableModule } from 'projects/ni/nimble-angular/src/public-api';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
@@ -45,6 +45,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleBreadcrumbModule,
         NimbleBreadcrumbItemModule,
         NimbleIconAddModule,
+        NimbleIconCheckModule,
         NimbleSpinnerModule,
         NimbleSwitchModule,
         NimbleToolbarModule,
@@ -57,12 +58,18 @@ import { HeaderComponent } from './header/header.component';
         NimbleRadioModule,
         NimbleAnchorModule,
         NimbleAnchorButtonModule,
+        NimbleAnchorTabModule,
+        NimbleAnchorTabsModule,
         NimbleTableModule,
-        RouterModule.forRoot([
-            { path: '', redirectTo: '/customapp', pathMatch: 'full' },
-            { path: 'customapp', component: CustomAppComponent }
-        ],
-        { useHash: true })
+        NimbleTableColumnTextModule,
+        NimbleBannerModule,
+        RouterModule.forRoot(
+            [
+                { path: '', redirectTo: '/customapp', pathMatch: 'full' },
+                { path: 'customapp', component: CustomAppComponent, title: 'Angular All Components Demo - Nimble Design System - NI' }
+            ],
+            { useHash: true }
+        )
     ],
     providers: [FormBuilder],
     bootstrap: [AppComponent]

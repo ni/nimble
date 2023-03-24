@@ -48,16 +48,16 @@ _*Props/Attrs*_
 _Type Reference_
 
 -   [`TableColumn`](../table-columns-hld.md#tablecolumn)
--   [`StringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
+-   [`TableStringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
 -   [`TableCellState`](../table-columns-hld.md#tablecellstate-interface)
 
 The `TableColumnText` will extend the `TableColumn` in a manner similar to the following:
 
 ```TS
-type TableColumnTextCellData = StringField<'value'>;
+type TableColumnTextCellRecord = TableStringField<'value'>;
 type TableColumnTextColumnConfig = { placeholder: string };
 
-public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
+public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
 
     @attr({ attribute: 'field-name'})
@@ -66,10 +66,14 @@ public class TableColumnText extends TableColumn<TableColumnTextCellData, TableC
     @attr
     public placeholder: string; // Column auxiliary configuration
 
-    public cellStateDataFieldNames = ['value'] as const;
+    public cellRecordFieldNames = ['value'] as const;
 
-    public getRecordFieldNames(): string[] {
-        return [fieldName];
+    protected fieldNameChanged(): void {
+        this.dataRecordFieldNames = [this.fieldName] as const;
+    }
+
+    protected placeholderChanged(): void {
+        this.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 
     ...
@@ -113,7 +117,7 @@ public class TableColumnText ...
         }
     `;
 
-    public readonly cellTemplate = html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
+    public readonly cellTemplate = html<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>>`
             <span class="${x => x.data.value ? 'text-value' : 'placeholder'}">
                 ${x => x.data.value? x.data.value : x.columnConfig.plaeholder}
             </span>

@@ -1,8 +1,450 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 05 Jan 2023 18:31:08 GMT and should not be manually modified.
+This log was last generated on Wed, 22 Mar 2023 20:54:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.2.7
+
+Wed, 22 Mar 2023 20:54:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.1
+
+## 16.2.6
+
+Wed, 15 Mar 2023 15:36:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.0
+
+## 16.2.5
+
+Tue, 14 Mar 2023 14:51:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.7.0
+
+## 16.2.4
+
+Fri, 10 Mar 2023 23:11:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.6.4
+
+## 16.2.3
+
+Fri, 10 Mar 2023 22:17:50 GMT
+
+### Patches
+
+- Programmatic table column width API ([ni/nimble@d38391e](https://github.com/ni/nimble/commit/d38391e69c9984de80bf7f4a41cfbcc0181e0d16))
+- Bump @ni/nimble-components to v18.6.3
+
+## 16.2.2
+
+Fri, 10 Mar 2023 17:48:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.6.2
+
+## 16.2.1
+
+Thu, 09 Mar 2023 22:36:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.6.1
+
+## 16.2.0
+
+Thu, 02 Mar 2023 18:38:23 GMT
+
+### Minor changes
+
+- Bump @ni/nimble-components to v18.6.0
+
+## 16.1.8
+
+Thu, 02 Mar 2023 17:48:40 GMT
+
+### Patches
+
+- Add programmatic column sorting support to the table ([ni/nimble@1a1e630](https://github.com/ni/nimble/commit/1a1e630c2741fd00d73f6b6be700aada832143c4))
+- Bump @ni/nimble-components to v18.5.8
+
+## 16.1.7
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.7
+
+## 16.1.6
+
+Wed, 01 Mar 2023 17:20:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.6
+
+## 16.1.5
+
+Wed, 01 Mar 2023 14:29:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.5
+
+## 16.1.4
+
+Tue, 28 Feb 2023 11:04:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.4
+
+## 16.1.3
+
+Tue, 21 Feb 2023 20:30:27 GMT
+
+### Patches
+
+- Allow table columns to be marked as hidden ([ni/nimble@8fcdeb8](https://github.com/ni/nimble/commit/8fcdeb884b9be29b92b4e273991fbc96f077d744))
+- Bump @ni/nimble-components to v18.5.3
+
+## 16.1.2
+
+Mon, 20 Feb 2023 17:53:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.2
+
+## 16.1.1
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.1
+
+## 16.1.0
+
+Fri, 17 Feb 2023 22:48:41 GMT
+
+### Minor changes
+
+- Angular wrapper for banner ([ni/nimble@297fa53](https://github.com/ni/nimble/commit/297fa53b6599b525ccf37e39980e94107c21825d))
+
+## 16.0.21
+
+Fri, 17 Feb 2023 21:25:31 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.5.0
+
+## 16.0.20
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
+- Bump @ni/nimble-components to v18.4.1
+
+## 16.0.19
+
+Wed, 15 Feb 2023 21:23:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.4.0
+
+## 16.0.18
+
+Tue, 14 Feb 2023 22:59:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.7
+
+## 16.0.17
+
+Tue, 14 Feb 2023 19:59:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.6
+
+## 16.0.16
+
+Tue, 14 Feb 2023 17:27:05 GMT
+
+### Patches
+
+- Add column IDs to table ([ni/nimble@a88731d](https://github.com/ni/nimble/commit/a88731d393687500fc23f86437a73bc6c947e17f))
+- Bump @ni/nimble-components to v18.3.5
+
+## 16.0.15
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.4
+
+## 16.0.14
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.3
+
+## 16.0.13
+
+Mon, 13 Feb 2023 23:05:12 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.2
+
+## 16.0.12
+
+Fri, 10 Feb 2023 20:11:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.1
+
+## 16.0.11
+
+Fri, 10 Feb 2023 19:40:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.3.0
+
+## 16.0.10
+
+Fri, 10 Feb 2023 15:26:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.2.0
+
+## 16.0.9
+
+Thu, 09 Feb 2023 17:09:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.4
+
+## 16.0.8
+
+Thu, 09 Feb 2023 14:24:11 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.3
+
+## 16.0.7
+
+Tue, 07 Feb 2023 20:17:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.2
+
+## 16.0.6
+
+Tue, 07 Feb 2023 17:44:56 GMT
+
+### Patches
+
+- Make the click area of the breadcrumb-item match the link area ([ni/nimble@2ef5883](https://github.com/ni/nimble/commit/2ef58836cd5a1fd4bed4a9e6d24c5d53a604b541))
+
+## 16.0.5
+
+Mon, 06 Feb 2023 16:22:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.1
+
+## 16.0.4
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.1.0
+
+## 16.0.3
+
+Fri, 27 Jan 2023 20:53:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.0.3
+
+## 16.0.2
+
+Fri, 27 Jan 2023 15:05:13 GMT
+
+### Patches
+
+- Create `setData()` function on the table rather than having a `data` property. Expose a `data$` observable on the Table directive. ([ni/nimble@f19bf61](https://github.com/ni/nimble/commit/f19bf610f46683eae4c80f2bdd5967d76e63124a))
+- Bump @ni/nimble-components to v18.0.2
+
+## 16.0.1
+
+Thu, 26 Jan 2023 19:17:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.0.1
+
+## 16.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle' ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
+- Bump @ni/nimble-components to v18.0.0
+
+## 15.1.0
+
+Tue, 24 Jan 2023 22:55:17 GMT
+
+### Minor changes
+
+- Angular integration for anchor tabs ([ni/nimble@0548a2a](https://github.com/ni/nimble/commit/0548a2a07aee2461e94d22ebb0f91a817f2ae088))
+
+## 15.0.11
+
+Tue, 24 Jan 2023 21:30:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.2.0
+
+## 15.0.10
+
+Fri, 20 Jan 2023 22:27:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.1.0
+
+## 15.0.9
+
+Fri, 20 Jan 2023 10:47:22 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.8
+
+## 15.0.8
+
+Thu, 19 Jan 2023 13:56:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.7
+
+## 15.0.7
+
+Wed, 18 Jan 2023 21:20:08 GMT
+
+### Patches
+
+- Fix bug in table record ID logic ([ni/nimble@fa6aff9](https://github.com/ni/nimble/commit/fa6aff9024add0e848792001f85da2d4067054dd))
+- Bump @ni/nimble-components to v17.0.6
+
+## 15.0.6
+
+Wed, 18 Jan 2023 15:32:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.5
+
+## 15.0.5
+
+Wed, 18 Jan 2023 14:55:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.4
+
+## 15.0.4
+
+Sat, 14 Jan 2023 00:16:05 GMT
+
+### Patches
+
+- Adding Angular support for TableColumnText ([ni/nimble@86ea30b](https://github.com/ni/nimble/commit/86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5))
+- Bump @ni/nimble-components to v17.0.3
+
+## 15.0.3
+
+Fri, 13 Jan 2023 07:16:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.2
+
+## 15.0.2
+
+Fri, 13 Jan 2023 03:10:37 GMT
+
+### Patches
+
+- Add Angular support for table row IDs and table validity ([ni/nimble@159910b](https://github.com/ni/nimble/commit/159910bf7d56124ae5491a396ec6a2b01c3ecb3a))
+
+## 15.0.1
+
+Thu, 12 Jan 2023 15:29:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v17.0.1
+
+## 15.0.0
+
+Wed, 11 Jan 2023 21:08:14 GMT
+
+### Major changes
+
+- Bump @ni/nimble-components to v17.0.0
+
+## 14.2.4
+
+Wed, 11 Jan 2023 20:34:04 GMT
+
+### Patches
+
+- Update styleguide versions ([ni/nimble@d36bef4](https://github.com/ni/nimble/commit/d36bef4533df1908c92f4cb0e795ffb647bda627))
+- Bump @ni/nimble-components to v16.1.8
+
+## 14.2.3
+
+Mon, 09 Jan 2023 23:44:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v16.1.7
 
 ## 14.2.2
 

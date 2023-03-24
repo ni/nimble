@@ -10,8 +10,8 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { bodyFont } from '../../theme-provider/design-tokens';
+import { cardButtonTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Card Button',
@@ -57,7 +57,7 @@ const component = (
         font-weight: 600;
     }
 </style>
-<nimble-card-button
+<${cardButtonTag}
     ?disabled=${() => disabled}
     ?selected=${() => selected}
 >
@@ -67,7 +67,7 @@ const component = (
             ${() => disabledName} ${() => selectedName}
         </div>
     </div>
-</nimble-card-button>
+</${cardButtonTag}>
 `;
 
 export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -76,6 +76,6 @@ export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hiddenButton: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-card-button hidden>Hidden Card Button</nimble-card-button>`
+        html`<${cardButtonTag} hidden>Hidden Card Button</${cardButtonTag}>`
     )
 );

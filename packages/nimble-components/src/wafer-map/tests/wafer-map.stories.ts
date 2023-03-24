@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { bodyFont } from '../../theme-provider/design-tokens';
-
-import '../../all-components';
+import {
+    createUserSelectedThemeStory,
+    usageWarning
+} from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
@@ -17,6 +17,7 @@ import {
     wafermapDieSets,
     waferMapColorScaleSets
 } from './sets';
+import { waferMapTag } from '..';
 
 interface WaferMapArgs {
     colorScale: WaferMapColorScale;
@@ -28,6 +29,7 @@ interface WaferMapArgs {
     maxCharacters: number;
     orientation: WaferMapOrientation;
     quadrant: WaferMapQuadrant;
+    dieHover: unknown;
 }
 
 const getDiesSet = (
@@ -37,21 +39,20 @@ const getDiesSet = (
     const seed = 0.5;
     let returnedValue: WaferMapDie[];
     switch (setName) {
-        case 'set1':
+        case 'fixedDies10':
             returnedValue = sets[0]!;
             break;
-        case 'set2':
-            returnedValue = sets[1]!;
+        case 'goodDies100':
+            returnedValue = generateWaferData(100, goodValueGenerator(seed));
             break;
-        case 'largeGoodSet':
-            returnedValue = generateWaferData(100, goodValueGenerator(seed))!;
+        case 'goodDies1000':
+            returnedValue = generateWaferData(1000, goodValueGenerator(seed))!;
             break;
-        case 'largeBadSet':
-            returnedValue = generateWaferData(100, badValueGenerator(seed))!;
+        case 'badDies10000':
+            returnedValue = generateWaferData(10000, badValueGenerator(seed))!;
             break;
         default:
             returnedValue = [] as WaferMapDie[];
-            break;
     }
     return returnedValue;
 };
@@ -89,14 +90,15 @@ const metadata: Meta<WaferMapArgs> = {
                 component:
                     'A wafer map is a component for visualizing data from the manufacture of semiconductor wafers. Each die on the wafer can show numerical information and be colored to indicate information about that die.'
             }
+        },
+        actions: {
+            handles: ['click', 'die-hover']
         }
     },
     render: createUserSelectedThemeStory(html`
-        <div id="usage-warning">
-            WARNING - The wafermap is still in development and considered
-            experimental. It is not recommended for application use.
-        </div>
-        <nimble-wafer-map
+        ${usageWarning('wafer map')}
+        <${waferMapTag}
+            id="wafer-map"
             colors-scale-mode="${x => x.colorScaleMode}"
             ?die-labels-hidden="${x => x.dieLabelsHidden}"
             die-labels-suffix="${x => x.dieLabelsSuffix}"
@@ -110,18 +112,18 @@ const metadata: Meta<WaferMapArgs> = {
         highLightedValueSets
     )}"
         >
-        </nimble-wafer-map>
+        </${waferMapTag}>
         <style class="code-hide">
-            #usage-warning {
-                color: red;
-                font: var(${bodyFont.cssCustomProperty});
+            #wafer-map {
+                resize: both;
+                overflow: hidden;
             }
         </style>
     `),
     args: {
         colorScale: waferMapColorScaleSets[0],
         colorScaleMode: WaferMapColorScaleMode.linear,
-        dies: 'set1',
+        dies: 'fixedDies10',
         dieLabelsHidden: false,
         dieLabelsSuffix: '',
         highlightedValues: 'set1',
@@ -163,20 +165,25 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         dies: {
-            description: `Represents the input data, an array of \`WaferMapDie\`, which will be renedered by the wafer map
+            description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map
                 <details>
                     <summary>Usage details</summary>
                     The \`dies\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
                 </details>
                 `,
-            options: ['set1', 'set2', 'largeGoodSet', 'largeBadSet'],
+            options: [
+                'fixedDies10',
+                'goodDies100',
+                'goodDies1000',
+                'badDies10000'
+            ],
             control: {
                 type: 'radio',
                 labels: {
-                    set1: 'Set 1',
-                    set2: 'Set 2',
-                    largeGoodSet: 'Large dies set of mostly good values',
-                    largeBadSet: 'Large dies set of mostly bad values'
+                    fixedDies10: 'Small dies set of fixed values',
+                    goodDies100: 'Medium dies set of mostly good values',
+                    goodDies1000: 'Large dies set of mostly good values',
+                    badDies10000: 'Very large dies set of mostly bad values'
                 }
             },
             defaultValue: 'set1'
@@ -244,6 +251,11 @@ const metadata: Meta<WaferMapArgs> = {
                     [WaferMapQuadrant.topRight]: 'top-right'
                 }
             }
+        },
+        dieHover: {
+            name: 'die-hover',
+            description:
+                'The event is fired whenever the mouse enters or leaves a die. In the event data, `detail.currentDie` will be set to the `WaferMapDie` element of the `dies` array that is being hovered or `undefined` if the mouse is leaving a die.'
         }
     }
 };

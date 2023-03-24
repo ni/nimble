@@ -6,7 +6,6 @@ import {
     bodyFontColor,
     borderWidth,
     popupBorderColor,
-    popupBoxShadowColor,
     standardPadding,
     titlePlus1Font,
     drawerWidth,
@@ -88,8 +87,7 @@ export const styles = css`
     }
 
     :host([location='left']) .dialog-contents {
-        border-right: ${borderWidth} solid ${popupBoxShadowColor};
-        box-shadow: 3px 0px 8px ${popupBoxShadowColor};
+        box-shadow: 3px 0px 8px #00000033;
     }
 
     :host([location='left']) dialog.animating .dialog-contents {
@@ -108,8 +106,7 @@ export const styles = css`
 
     :host([location='right']) .dialog-contents {
         right: 0px;
-        border-left: ${borderWidth} solid ${popupBoxShadowColor};
-        box-shadow: -3px 0px 8px ${popupBoxShadowColor};
+        box-shadow: -3px 0px 8px #00000033;
     }
 
     :host([location='right']) dialog.animating .dialog-contents {

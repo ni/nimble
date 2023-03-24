@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from '@storybook/html';
 
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextAreaAppearance, TextAreaResize } from '../types';
-import '../../all-components';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { textAreaTag } from '..';
 
 interface TextAreaArgs {
     appearance: TextAreaAppearance;
@@ -39,7 +39,7 @@ const metadata: Meta<TextAreaArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        <nimble-text-area
+        <${textAreaTag}
             appearance="${x => x.appearance}"
             placeholder="${x => x.placeholder}"
             :value="${x => x.value}"
@@ -52,7 +52,7 @@ const metadata: Meta<TextAreaArgs> = {
             maxlength="${x => x.maxlength}"
         >
             ${x => x.label}
-        </nimble-text-area>
+        </${textAreaTag}>
     `),
     argTypes: {
         appearance: {

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/html';
 
 import { html, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant
@@ -13,6 +12,9 @@ import {
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
+import { anchorButtonTag } from '..';
+import { iconLinkTag } from '../../icons/link';
+import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
 
 const hrefDescription = `
 In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
@@ -47,7 +49,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-anchor-button
+        <${anchorButtonTag}
             href=${x => (x.href !== '' ? x.href : null)}
             appearance=${x => x.appearance}
             appearance-variant=${x => x.appearanceVariant}
@@ -55,13 +57,13 @@ const metadata: Meta<AnchorButtonArgs> = {
             ?disabled=${x => x.disabled}
         >
             ${when(x => x.icon, html`
-                <nimble-icon-link slot="start"></nimble-icon-link>
+                <${iconLinkTag} slot="start"></${iconLinkTag}>
             `)}
             ${when(x => x.endIcon, html`
-                <nimble-icon-arrow-expander-right slot="end"></nimble-icon-arrow-expander-right>
+                <${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>
             `)}
             ${x => x.label}
-        </nimble-anchor-button>
+        </${anchorButtonTag}>
     `),
     argTypes: {
         href: {

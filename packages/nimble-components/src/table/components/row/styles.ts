@@ -1,27 +1,33 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    applicationBackgroundColor,
     borderWidth,
     controlHeight,
-    fillHoverColor,
     tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('grid')}
 
     :host {
-        height: ${controlHeight};
-        background: ${applicationBackgroundColor};
+        height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+        width: fit-content;
+        min-width: 100%;
     }
 
-    .cell {
-        flex: 1;
+    nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: none;
     }
 
-    :host(:hover) .cell {
-        background: ${fillHoverColor};
+    nimble-table-cell[menu-open] {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host(:hover) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
     }
 `;

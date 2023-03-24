@@ -12,7 +12,7 @@ import {
 import { IconSeverity } from '../types';
 import { bodyFontColor } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
+import { iconCheckTag } from '../../icons/check';
 
 const metadata: Meta = {
     title: 'Tests/Icon',
@@ -32,7 +32,7 @@ const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
     </span>
-    <nimble-icon-check severity="${() => state}"></nimble-icon-check>
+    <${iconCheckTag} severity="${() => state}"></${iconCheckTag}>
 `;
 
 export const iconThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -40,5 +40,5 @@ export const iconThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const hiddenIcon: StoryFn = createStory(
-    hiddenWrapper(html`<nimble-icon-check hidden></nimble-icon-check>`)
+    hiddenWrapper(html`<${iconCheckTag} hidden></${iconCheckTag}>`)
 );

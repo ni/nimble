@@ -12,8 +12,10 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { toggleButtonTag } from '..';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
 
 const metadata: Meta = {
     title: 'Tests/Toggle Button',
@@ -57,16 +59,16 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <nimble-toggle-button
+    <${toggleButtonTag}
         appearance="${() => appearance}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         ?checked=${() => checked}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
-    </nimble-toggle-button>
+            ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
+    </${toggleButtonTag}>
 `;
 
 export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
@@ -80,14 +82,14 @@ export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
 
 export const hiddenButton: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-toggle-button hidden
-            >Hidden Toggle Button</nimble-toggle-button
+        html`<${toggleButtonTag} hidden
+            >Hidden Toggle Button</${toggleButtonTag}
         >`
     )
 );
 
 export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<nimble-toggle-button>Toggle button</nimble-toggle-button>`
+        html`<${toggleButtonTag}>Toggle button</${toggleButtonTag}>`
     )
 );

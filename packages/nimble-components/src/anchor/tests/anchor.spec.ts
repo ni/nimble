@@ -1,9 +1,6 @@
-import { DOM, html } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    Anchor as FoundationAnchor
-} from '@microsoft/fast-foundation';
-import { Anchor } from '..';
+import { html } from '@microsoft/fast-element';
+import { Anchor, anchorTag } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
@@ -24,8 +21,8 @@ describe('Anchor', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationAnchor)', () => {
-        expect(DesignSystem.tagFor(FoundationAnchor)).toBe('nimble-anchor');
+    it('should export its tag', () => {
+        expect(anchorTag).toBe('nimble-anchor');
     });
 
     it('can construct an element instance', () => {
@@ -44,6 +41,7 @@ describe('Anchor', () => {
 
     const attributeNames: { name: string }[] = [
         { name: 'download' },
+        { name: 'href' },
         { name: 'hreflang' },
         { name: 'ping' },
         { name: 'referrerpolicy' },
@@ -85,7 +83,7 @@ describe('Anchor', () => {
                 await connect();
 
                 element.setAttribute(attribute.name, 'foo');
-                await DOM.nextUpdate();
+                await waitForUpdatesAsync();
 
                 expect(element.control.getAttribute(attribute.name)).toBe(
                     'foo'

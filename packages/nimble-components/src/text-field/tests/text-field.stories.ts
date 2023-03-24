@@ -2,12 +2,15 @@ import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { TextFieldAppearance } from '../types';
-import '../../all-components';
+import { TextFieldAppearance, TextFieldType } from '../types';
+import { textFieldTag } from '..';
+import { buttonTag } from '../../button';
+import { iconPencilTag } from '../../icons/pencil';
+import { iconTagTag } from '../../icons/tag';
 
 interface TextFieldArgs {
     label: string;
-    type: string;
+    type: TextFieldType;
     appearance: string;
     fullBleed: boolean;
     value: string;
@@ -47,7 +50,7 @@ const metadata: Meta<TextFieldArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-text-field
+        <${textFieldTag}
             placeholder="${x => x.label}"
             type="${x => x.type}"
             appearance="${x => x.appearance}"
@@ -59,20 +62,20 @@ const metadata: Meta<TextFieldArgs> = {
             ?full-bleed="${x => x.fullBleed}"
         >
             ${when(x => x.leftIcon, html`
-                <nimble-icon-tag slot="start"></nimble-icon-tag>`)}
+                <${iconTagTag} slot="start"></${iconTagTag}>`)}
 
             ${x => x.label}
 
             ${when(x => x.actionButton, html`
-                <nimble-button slot="actions" appearance="ghost" content-hidden>
-                    <nimble-icon-pencil slot="start"></nimble-icon-pencil>
+                <${buttonTag} slot="actions" appearance="ghost" content-hidden>
+                    <${iconPencilTag} slot="start"></${iconPencilTag}>
                     Edit
-                </nimble-button>`)}
-        </nimble-text-field>
+                </${buttonTag}>`)}
+        </${textFieldTag}>
     `),
     argTypes: {
         type: {
-            options: ['text', 'password'],
+            options: Object.values(TextFieldType),
             control: { type: 'select' }
         },
         appearance: {
@@ -96,7 +99,7 @@ const metadata: Meta<TextFieldArgs> = {
     },
     args: {
         label: 'default label',
-        type: 'text',
+        type: TextFieldType.text,
         appearance: 'underline',
         fullBleed: false,
         value: '',
@@ -128,5 +131,5 @@ export const framelessTextField: StoryObj<TextFieldArgs> = {
 };
 
 export const passwordField: StoryObj<TextFieldArgs> = {
-    args: { label: 'Password Field', type: 'password' }
+    args: { label: 'Password Field', type: TextFieldType.password }
 };

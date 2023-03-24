@@ -39,3 +39,4 @@ const nimbleTextArea = TextArea.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTextArea());
+export const textAreaTag = DesignSystem.tagFor(TextArea);
