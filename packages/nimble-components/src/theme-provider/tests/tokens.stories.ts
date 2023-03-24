@@ -34,6 +34,7 @@ const metadata: Meta = {
     title: 'Tokens/Theme-aware Tokens',
     parameters: {
         docs: {
+            autodocs: true,
             description: {
                 component: overviewText
             }
