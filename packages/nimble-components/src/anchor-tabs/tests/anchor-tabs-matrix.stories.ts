@@ -1,5 +1,4 @@
 import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -19,7 +18,6 @@ import { buttonTag } from '../../button';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Tabs',
-    decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters(),
         design: {

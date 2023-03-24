@@ -29,5 +29,5 @@
 
         "skipLibCheck": true
     },
-    "include": ["src/button/tests/button.stories.ts"]
+    "include": ["src"]
 }

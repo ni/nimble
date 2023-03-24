@@ -1,6 +1,5 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { anchorTabsTag } from '..';
 import { anchorTabTag } from '../../anchor-tab';
@@ -21,7 +20,6 @@ tab panels hosted on the same page.`;
 
 const metadata: Meta<TabsArgs> = {
     title: 'Anchor Tabs',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {

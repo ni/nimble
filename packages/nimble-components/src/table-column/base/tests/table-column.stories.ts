@@ -1,6 +1,5 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import {
     createUserSelectedThemeStory,
     usageWarning
@@ -67,7 +66,6 @@ information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Configuration',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {

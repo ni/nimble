@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { BannerSeverity } from '../types';
@@ -42,7 +41,6 @@ should be spaced apart using the \`${bannerGapSize.cssCustomProperty}\` design t
 
 const metadata: Meta<BannerArgs> = {
     title: 'Banner',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {

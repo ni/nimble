@@ -82,7 +82,7 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
     )
 );
 
-export const panelOverflow: Story = createStory(
+export const panelOverflow: StoryFn = createStory(
     html`
         <nimble-tabs style="height: 120px; width: 400px;">
             <nimble-tab>Tab One</nimble-tab>

@@ -1,5 +1,4 @@
 import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
@@ -10,7 +9,6 @@ import { TablePageObject } from './table.pageobject';
 
 const metadata: Meta = {
     title: 'Tests/Table',
-    decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters(),
         design: {

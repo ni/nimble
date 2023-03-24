@@ -141,6 +141,6 @@ export const waferMapDieOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithDieOrientation, [dieOrientation])
 );
 
-export const waferMapResizeTest: Story = createStory(
+export const waferMapResizeTest: StoryFn = createStory(
     createMatrix(componentWaferResize, [waferMapSizes])
 );
