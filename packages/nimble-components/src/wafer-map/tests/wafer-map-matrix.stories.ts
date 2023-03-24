@@ -12,7 +12,7 @@ import {
 import { waferMapTag } from '..';
 
 const metadata: Meta = {
-    title: 'Tests/Wafer Map',
+    title: 'Tests/WaferMap',
 
     parameters: {
         ...sharedMatrixParameters()
