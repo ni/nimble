@@ -100,11 +100,6 @@ import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
-import { comments } from './design-token-comments';
-
-// TODO: Remove or fix workaround for
-// Error: Could not resolve '../../../dist/esm/theme-provider/design-token-comments' from build/generate-scss/source/index.js
-export const commentsWorkaround = comments;
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const Headline1FallbackFontFamily = 'Noto Serif Fallback';
