@@ -41,9 +41,7 @@ export interface TableRowSelectionEventDetail {
 
 In the case where grouping is enabled, it is possible that a grouping row can be visualized as selected because all of its child rows are selected. It is important to note that because the grouping row does not have a record associated with it, it will never be returned as part of the `selectedRecordIds` array in the event detail. Instead, each of its selected child rows will have their record ID included in the `selectedRecordIds` array.
 
-In addition to having a `selection-change` event, the table will also have a getter called `selectedRecordIds` of type `string[]`. The getter will convert TanStack's selection state, which is a map of row IDs to boolean, to a string array of the IDs in the map with a value of `true`.
-
-The table will not have a way to programmatically set the selection. This functionality can be added in the future if desired, but there is currently not a requirement for it.
+The table will have a property called `selectedRecordIds` of type `string[]`. It will be implemented with a getter and setter. The getter will convert TanStack's selection state, which is a map of row IDs to boolean, to a string array of the IDs in the map with a value of `true`. The setter will update TanStack's selection state to be the record IDs provided to the setter. Any record IDs that do not exist will be removed from the selection prior to updating TanStack's state. Setting the `selectedRecordIds` to an empty array will clear the selection.
 
 The table will only support selection when it has an `id-field-name` configured on it. This is for a few reasons:
 
