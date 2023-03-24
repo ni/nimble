@@ -115,7 +115,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   Selected row CSS/design
     -   Define events raised when row selection changes/occurs
     -   Define table-level row-selection API
--   Grouping
+-   [Grouping](table-row-grouping-hld.md)
     -   Define interactive mechanism, if any, to provide grouping
     -   Define table-level API for setting grouping
     -   Define events raised when grouping changes
