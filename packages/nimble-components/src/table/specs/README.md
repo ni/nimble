@@ -115,7 +115,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   Selected row CSS/design
     -   Define events raised when row selection changes/occurs
     -   Define table-level row-selection API
--   Grouping
+-   [Grouping](table-row-grouping-hld.md)
     -   Define interactive mechanism, if any, to provide grouping
     -   Define table-level API for setting grouping
     -   Define events raised when grouping changes
@@ -232,6 +232,10 @@ Our implementation has some differences from the TanStack Virtual examples:
 -   The rows always render at the top of their container (which has `position: sticky` applied to it)
 
 The changes above result in better rendering performance (notably in Firefox which sometimes had flickering otherwise).
+
+#### Cell State and Virtualized Scrolling
+
+With virtualization enabled, when a scroll occurs, before components in cells are reused for data at the new scroll position, we need to clear/commit some cell state first. The [Cell State when Scrolling HLD](cell-state-when-scrolling-hld.md) covers specifics for that behavior.
 
 ### States
 
