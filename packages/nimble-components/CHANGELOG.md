@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 15 Mar 2023 15:36:39 GMT and should not be manually modified.
+This log was last generated on Wed, 22 Mar 2023 20:54:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.8.1
+
+Wed, 22 Mar 2023 20:54:34 GMT
+
+### Patches
+
+- Update table header styling to not reserve space for sort icon ([ni/nimble@459bc0e](https://github.com/ni/nimble/commit/459bc0e425822ee15ba62c557f86dd78b92d4158))
 
 ## 18.8.0
 

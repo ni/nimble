@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 16 Mar 2023 22:00:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.4.0",
+      "version": "11.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e1746f201eb7919b8e44ab53caa7eba95f036ffd",
+            "comment": "Add missing properties to NimbleAnchorTab"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 10 Mar 2023 22:17:50 GMT",
       "tag": "@ni/nimble-blazor_v11.3.3",
       "version": "11.3.3",
