@@ -32,6 +32,16 @@ export const TableColumnSortOperation = {
 export type TableColumnSortOperation =
     (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
 
+/**
+ * The possible selection states that the table or a table row can be in.
+ */
+export const TableRowSelectionState = {
+    notSelected: 'notSelected',
+    selected: 'selected'
+} as const;
+export type TableRowSelectionState =
+    (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
+
 export const defaultMinPixelWidth = 88;
 
 export const defaultFractionalWidth = 1;

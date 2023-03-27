@@ -36,6 +36,9 @@ export class TableRow<
     @attr({ attribute: 'record-id' })
     public recordId?: string;
 
+    @attr({ mode: 'boolean' })
+    public selected = false;
+
     @observable
     public dataRecord?: TDataRecord;
 

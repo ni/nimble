@@ -14,6 +14,7 @@ interface RequiredUpdates extends BooleanCollection {
     columnWidths: boolean;
     columnDefinition: boolean;
     actionMenuSlots: boolean;
+    selectionMode: boolean;
 }
 
 const isColumnProperty = (
@@ -39,7 +40,8 @@ export class UpdateTracker<TData extends TableRecord> {
         columnSort: false,
         columnWidths: false,
         columnDefinition: false,
-        actionMenuSlots: false
+        actionMenuSlots: false,
+        selectionMode: false
     };
 
     private readonly table: Table<TData>;
@@ -73,11 +75,16 @@ export class UpdateTracker<TData extends TableRecord> {
         return this.requiredUpdates.actionMenuSlots;
     }
 
+    public get updateSelectionMode(): boolean {
+        return this.requiredUpdates.selectionMode;
+    }
+
     public get requiresTanStackUpdate(): boolean {
         return (
             this.requiredUpdates.rowIds
             || this.requiredUpdates.columnSort
             || this.requiredUpdates.columnDefinition
+            || this.requiredUpdates.selectionMode
         );
     }
 
@@ -140,6 +147,11 @@ export class UpdateTracker<TData extends TableRecord> {
 
     public trackIdFieldNameChanged(): void {
         this.requiredUpdates.rowIds = true;
+        this.queueUpdate();
+    }
+
+    public trackSelectionModeChanged(): void {
+        this.requiredUpdates.selectionMode = true;
         this.queueUpdate();
     }
 

@@ -49,3 +49,13 @@ export const TableColumnSortDirection = {
 } as const;
 export type TableColumnSortDirection =
     (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
+
+/**
+ * The selection modes of rows in the table.
+ */
+export const TableRowSelectionMode = {
+    none: undefined,
+    single: 'single'
+} as const;
+export type TableRowSelectionMode =
+    (typeof TableRowSelectionMode)[keyof typeof TableRowSelectionMode];

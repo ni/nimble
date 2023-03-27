@@ -7,6 +7,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
+import { TableRowSelectionMode } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -14,6 +15,7 @@ import { tableColumnTextTag } from '../../table-column/text';
 
 interface TableArgs {
     data: ExampleDataType;
+    selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
@@ -128,6 +130,7 @@ const metadata: Meta<TableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
@@ -186,6 +189,11 @@ const metadata: Meta<TableArgs> = {
                 }
             }
         },
+        selectionMode: {
+            options: Object.keys(TableRowSelectionMode),
+            description: 'Controls whether the table supports selecting a single row at a time or no rows.',
+            control: { type: 'radio' }
+        },
         idFieldName: {
             name: 'id-field-name',
             table: {
@@ -217,6 +225,7 @@ const metadata: Meta<TableArgs> = {
     },
     args: {
         data: ExampleDataType.simpleData,
+        selectionMode: TableRowSelectionMode.single,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,

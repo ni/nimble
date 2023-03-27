@@ -15,7 +15,9 @@ import {
     getCoreRowModel as tanStackGetCoreRowModel,
     getSortedRowModel as tanStackGetSortedRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved,
-    SortingState as TanStackSortingState
+    SortingState as TanStackSortingState,
+    RowSelectionState as TanStackRowSelectionState,
+    OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
@@ -26,12 +28,14 @@ import {
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
+    TableRowSelectionMode,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
+import { TableRowSelectionState } from '../table-column/base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -42,6 +46,7 @@ declare global {
 interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
+    selectionState: TableRowSelectionState;
 }
 
 /**
@@ -52,6 +57,9 @@ export class Table<
 > extends FoundationElement {
     @attr({ attribute: 'id-field-name' })
     public idFieldName?: string;
+
+    @attr({ attribute: 'selection-mode' })
+    public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
     /**
      * @internal
@@ -132,10 +140,14 @@ export class Table<
         this.options = {
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
+            onRowSelectionChange: this.setRowSelection,
             getCoreRowModel: tanStackGetCoreRowModel(),
             getSortedRowModel: tanStackGetSortedRowModel(),
             columns: [],
-            state: {},
+            state: {
+                rowSelection: {}
+            },
+            enableRowSelection: false,
             enableSorting: true,
             renderFallbackValue: null,
             autoResetAll: false
@@ -182,16 +194,39 @@ export class Table<
         }
     }
 
+    /** @internal */
+    public onRowClick(
+        rowIndex: number
+    ): void {
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return;
+        }
+
+        const row = this.table.getRowModel().rows[rowIndex];
+        if (!row) {
+            return;
+        }
+
+        this.table.toggleAllRowsSelected(false);
+        row.toggleSelected(true);
+    }
+
+    /** @internal */
     public onRowActionMenuBeforeToggle(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
+        event.stopImmediatePropagation();
+
         this.openActionMenuRecordId = event.detail.recordIds[0];
         this.$emit('action-menu-beforetoggle', event.detail);
     }
 
+    /** @internal */
     public onRowActionMenuToggle(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
+        event.stopImmediatePropagation();
+
         this.$emit('action-menu-toggle', event.detail);
     }
 
@@ -279,18 +314,21 @@ export class Table<
     }
 
     private updateTanStack(): void {
-        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {
-            state: {}
-        };
+        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {};
+        updatedOptions.state = {};
 
         if (this.updateTracker.updateColumnSort) {
-            updatedOptions.state!.sorting = this.calculateTanStackSortState();
+            updatedOptions.state.sorting = this.calculateTanStackSortState();
         }
         if (this.updateTracker.updateColumnDefinition) {
             updatedOptions.columns = this.calculateTanStackColumns();
         }
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
+        }
+        if (this.updateTracker.updateSelectionMode) {
+            updatedOptions.enableRowSelection = this.selectionMode !== TableRowSelectionMode.none;
+            updatedOptions.state.rowSelection = {};
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -346,7 +384,8 @@ export class Table<
         this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
                 record: row.original,
-                id: row.id
+                id: row.id,
+                selectionState: row.getIsSelected() ? TableRowSelectionState.selected : TableRowSelectionState.notSelected
             };
             return rowState;
         });
@@ -364,6 +403,18 @@ export class Table<
         this.table.setOptions(this.options);
         this.refreshRows();
     }
+
+    private readonly setRowSelection: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
+        const rowSelectionState = updaterOrValue instanceof Function
+            ? updaterOrValue(this.table.getState().rowSelection)
+            : updaterOrValue;
+
+        this.updateTableOptions({
+            state: {
+                rowSelection: rowSelectionState
+            }
+        });
+    };
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
