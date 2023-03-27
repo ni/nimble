@@ -189,7 +189,7 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
-            <${anchorMenuItemTag}> ?disabled="${x => x.disabled}" href="${x => x.href}">
+            <${anchorMenuItemTag} ?disabled="${x => x.disabled}" href="${x => x.href}">
                 ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
                 ${x => x.text}
             </${anchorMenuItemTag}>
