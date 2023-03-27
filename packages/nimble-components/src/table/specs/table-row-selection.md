@@ -6,7 +6,10 @@ The nimble-table should support selecting rows. Row selection should be configur
 
 ## Out of scope of this HLD
 
-Any implication that data hierarchy has on row selection is out of scope for this HLD.
+The following items are out of scope of this HLD:
+
+-   The table will not support programmatically selecting grouped rows. This feature can be implemented in the future if desired, but the first step of adding this feature will need to be exposing row IDs for grouped rows.
+-   Any implication that data hierarchy has on row selection is out of scope for this HLD.
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -68,6 +71,8 @@ Single selection
 -   Selection is set by clicking on a row; clicking a new row changes selection to that row
 -   The menu button associated with an action menu is visible for the selected row even if it is not hovered
 -   Opening the action menu for a row ensures that row is selected
+-   Keyboard interactions:
+    -   SPACE: Select/deselect the focused row
 
 Multiple selection
 
@@ -93,6 +98,13 @@ Multiple selection
 -   Opening the action menu for a row ensures that row is selected:
     -   If that row was already selected, the action menu is associated with all selected rows. The record IDs for each selected row will be included in the `action-menu-toggle` event detail.
     -   If that row was not already selected, the selection changes to _only_ that row. All other rows are deselected. The action menu is only applied with the single row it was opened on. The record ID for only the single row will be include in the `action-menu-toggle` event detail.
+-   Keyboard interactions:
+    -   SPACE: Select/deselect the focused row
+    -   CTRL + SPACE: Multi-select/multi-deselect row
+    -   SHIFT + SPACE: Select rows between selected and focused
+    -   SHIFT + ARROW DOWN: Select/multiselect row(s) below
+    -   SHIFT + ARROW UP: Select/multiselect row(s) above
+    -   CTRL + A: Select all rows
 
 ### Interfacing with TanStack
 
@@ -118,7 +130,7 @@ Accessbility guidance taken from [MDN role="row"](https://developer.mozilla.org/
 -   Rows that are currently not selected but can be selected will have `aria-selected="false"` configured.
 -   When selection is not enabled in the table, `aria-selected` will not be set on any rows.
 
-Note: The guidance above is when rows are within a component with a role of `grid` or `treegrid`. However, the nimble table currently has a role of `table`.
+The guidance above applies to rows within a component with a role of `grid` or `treegrid`. However, the nimble table currently has a role of `table`. As part of this feature, the nimble table's role will be updated to `grid`.
 
 ## Alternative Implementations / Designs
 
@@ -133,4 +145,3 @@ Instead of having validation preventing enabling selection in the table without 
 ## Open Issues
 
 -   There is [an issue in TanStack](https://github.com/TanStack/table/issues/4759) with deselecting a grouped row with the proposed configuration. There is also [an open PR](https://github.com/TanStack/table/pull/4760) with a fix. If the issue isn't resolved within TanStack, we will need to put a workaround in the nimble-table.
--   The `aria-selected` attribute on rows is intended to be used for role `grid` or `treegrid`. However, the nimble table currently has a role of `table`. Should the role of the table change to `grid` when selection is enabled? Should the table always have a role of `grid`?
