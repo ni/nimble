@@ -30,6 +30,7 @@ export interface TableValidity {
     readonly duplicateColumnId: boolean;
     readonly missingColumnId: boolean;
     readonly duplicateSortIndex: boolean;
+    readonly idFieldNameNotConfigured: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -59,3 +60,10 @@ export const TableRowSelectionMode = {
 } as const;
 export type TableRowSelectionMode =
     (typeof TableRowSelectionMode)[keyof typeof TableRowSelectionMode];
+
+/**
+ * Event detail type for row selection events in the table.
+ */
+export interface TableRowSelectionEventDetail {
+    selectedRecordIds: string[];
+}

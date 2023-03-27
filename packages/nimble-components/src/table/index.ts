@@ -28,6 +28,7 @@ import {
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
+    TableRowSelectionEventDetail,
     TableRowSelectionMode,
     TableValidity
 } from './types';
@@ -160,6 +161,33 @@ export class Table<
         this.setTableData(newData);
     }
 
+    public getSelectedRecordIds(): string[] {
+        const tanStackSelectionState = this.options.state.rowSelection;
+        if (!tanStackSelectionState) {
+            return [];
+        }
+
+        const selectedRecordIds: string[] = [];
+        Object.entries(tanStackSelectionState).forEach(([recordId, isSelected]) => {
+            if (isSelected) {
+                selectedRecordIds.push(recordId);
+            }
+        });
+        return selectedRecordIds;
+    }
+
+    public setSelectedRecordIds(recordIds: string[]): void {
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return;
+        }
+
+        this.updateTableOptions({
+            state: {
+                rowSelection: this.calculateTanStackSelectionState(recordIds)
+            }
+        });
+    }
+
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
@@ -209,6 +237,7 @@ export class Table<
 
         this.table.toggleAllRowsSelected(false);
         row.toggleSelected(true);
+        this.emitSelectionChangeEvent();
     }
 
     /** @internal */
@@ -325,6 +354,7 @@ export class Table<
         }
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
+            updatedOptions.state.rowSelection = {};
         }
         if (this.updateTracker.updateSelectionMode) {
             updatedOptions.enableRowSelection = this.selectionMode !== TableRowSelectionMode.none;
@@ -355,6 +385,7 @@ export class Table<
     }
 
     private validate(): void {
+        this.tableValidator.validateCanSupportSelection(this.selectionMode, this.idFieldName);
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
         );
@@ -369,14 +400,35 @@ export class Table<
         this.canRenderRows = this.checkValidity();
     }
 
+    private emitSelectionChangeEvent(): void {
+        const detail: TableRowSelectionEventDetail = {
+            selectedRecordIds: this.getSelectedRecordIds()
+        };
+
+        this.$emit(
+            'selection-change',
+            detail
+        );
+    }
+
     private setTableData(newData: readonly TData[]): void {
         const data = newData.map(record => {
             return { ...record };
         });
         this.validateWithData(data);
-        this.updateTableOptions({
-            data
-        });
+
+        if (this.tableValidator.areRecordIdsValid()) {
+            this.updateTableOptions({
+                data,
+                state: {
+                    rowSelection: this.calculateTanStackSelectionState(this.getSelectedRecordIds())
+                }
+            });
+        } else {
+            this.updateTableOptions({
+                data
+            });
+        }
     }
 
     private refreshRows(): void {
@@ -459,6 +511,19 @@ export class Table<
                 sortingFn: getTanStackSortingFunction(column.sortOperation)
             };
         });
+    }
+
+    private calculateTanStackSelectionState(recordIds: string[]): TanStackRowSelectionState {
+        const tanstackSelectionState: TanStackRowSelectionState = {};
+        for (const id of this.tableValidator.getPresentRecordIds(recordIds)) {
+            tanstackSelectionState[id] = true;
+
+            if (this.selectionMode === TableRowSelectionMode.single) {
+                break;
+            }
+        }
+
+        return tanstackSelectionState;
     }
 }
 

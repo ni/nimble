@@ -1,4 +1,4 @@
-import type { TableRecord, TableValidity } from '../types';
+import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
@@ -11,6 +11,9 @@ export class TableValidator<TData extends TableRecord> {
     private duplicateColumnId = false;
     private missingColumnId = false;
     private duplicateSortIndex = false;
+    private idFieldNameNotConfigured = false;
+
+    private readonly recordIds = new Set<string>();
 
     public getValidity(): TableValidity {
         return {
@@ -19,12 +22,28 @@ export class TableValidator<TData extends TableRecord> {
             invalidRecordId: this.invalidRecordId,
             duplicateColumnId: this.duplicateColumnId,
             missingColumnId: this.missingColumnId,
-            duplicateSortIndex: this.duplicateSortIndex
+            duplicateSortIndex: this.duplicateSortIndex,
+            idFieldNameNotConfigured: this.idFieldNameNotConfigured
         };
     }
 
     public isValid(): boolean {
         return Object.values(this.getValidity()).every(x => x === false);
+    }
+
+    public areRecordIdsValid(): boolean {
+        const validity = this.getValidity();
+        return !validity.duplicateRecordId && !validity.missingRecordId && !validity.invalidRecordId;
+    }
+
+    public validateCanSupportSelection(selectionMode: TableRowSelectionMode, idFieldName: string | undefined): boolean {
+        if (selectionMode === TableRowSelectionMode.none) {
+            this.idFieldNameNotConfigured = false;
+        } else {
+            this.idFieldNameNotConfigured = (typeof idFieldName !== 'string');
+        }
+
+        return !this.idFieldNameNotConfigured;
     }
 
     public validateRecordIds(
@@ -35,12 +54,12 @@ export class TableValidator<TData extends TableRecord> {
         this.duplicateRecordId = false;
         this.missingRecordId = false;
         this.invalidRecordId = false;
+        this.recordIds.clear();
 
         if (typeof idFieldName !== 'string') {
             return true;
         }
 
-        const ids = new Set<string>();
         for (const record of data) {
             if (!Object.prototype.hasOwnProperty.call(record, idFieldName)) {
                 this.missingRecordId = true;
@@ -53,10 +72,10 @@ export class TableValidator<TData extends TableRecord> {
                 continue;
             }
 
-            if (ids.has(id)) {
+            if (this.recordIds.has(id)) {
                 this.duplicateRecordId = true;
             }
-            ids.add(id);
+            this.recordIds.add(id);
         }
 
         return (
@@ -104,5 +123,9 @@ export class TableValidator<TData extends TableRecord> {
         }
 
         return !this.duplicateSortIndex;
+    }
+
+    public getPresentRecordIds(requestedRecordIds: string[]): string[] {
+        return requestedRecordIds.filter(id => this.recordIds.has(id));
     }
 }
