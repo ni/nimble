@@ -13,12 +13,12 @@ export const template = html<TableGroupRow>`
         >
             <nimble-icon-arrow-expander-right ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></nimble-icon-arrow-expander-right>
         </nimble-button>
-        ${when(x => x.groupHeaderViewTag, x => {
-        const groupHeaderViewTag = x.groupHeaderViewTag!;
+        ${when(x => x.groupColumn?.internalGroupHeaderViewTag, x => {
+        const groupHeaderViewTag = x.groupColumn!.internalGroupHeaderViewTag!;
         return html<TableGroupRow>`
                 <${groupHeaderViewTag}
                     :groupHeaderValue="${y => y.groupRowValue}"
-                    :columnConfig="${y => y.columnConfig}"
+                    :columnConfig="${y => y.groupColumn?.columnConfig}"
                     class="group-header-value"
                     >
                 </${groupHeaderViewTag}>

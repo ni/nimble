@@ -281,7 +281,7 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         const groupRow = groupRows[groupRowIndex];
-        return groupRow!.shadowRoot!.querySelector(groupRow!.groupHeaderViewTag!)!;
+        return groupRow!.shadowRoot!.querySelector(groupRow!.groupColumn!.internalGroupHeaderViewTag!)!;
     }
 
     private getHeaderContentElement(

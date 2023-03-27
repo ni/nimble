@@ -56,8 +56,7 @@ export const template = html<Table>`
                                     expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded ?? false}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
-                                    :columnConfig="${(x, c) => c.parent.tableData[x.index]?.columnConfig}"
-                                    :groupHeaderViewTag="${(x, c) => c.parent.tableData[x.index]?.groupRowHeaderViewTag}"
+                                    :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                     @group-expand-toggle="${(x, c) => c.parent.toggleGroupExpanded(x.index)}"
                                     >
                                 </${tableGroupRowTag}>

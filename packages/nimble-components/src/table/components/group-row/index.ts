@@ -1,5 +1,6 @@
 import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -24,13 +25,10 @@ export class TableGroupRow extends FoundationElement {
     public leafItemCount?: number;
 
     @observable
-    public columnConfig?: unknown;
+    public groupColumn?: TableColumn;
 
     @attr({ mode: 'boolean' })
     public expanded = false;
-
-    @observable
-    public groupHeaderViewTag?: string;
 
     /**
      * @internal

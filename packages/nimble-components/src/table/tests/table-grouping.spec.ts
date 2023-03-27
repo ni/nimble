@@ -255,7 +255,7 @@ describe('Table grouping', () => {
             expect(pageObject.getRenderedRowCount()).toBe(0);
         });
 
-        it('transitioning out of having duplicate group indices updates table', async () => {
+        fit('transitioning out of having duplicate group indices updates table', async () => {
             const data: readonly SimpleTableRecord[] = [
                 { id: '1', stringData1: 'foo' },
                 { id: '2', stringData1: 'abc' },
@@ -312,102 +312,111 @@ describe('Table grouping', () => {
         });
     });
 
-    // describe('changing slotted columns', () => {
-    //     async function removeExistingColumnsAndAddNewColumn(
-    //         fieldName: string,
-    //         sortDirection: TableColumnSortDirection
-    //     ): Promise<TableColumnText> {
-    //         element.removeChild(column1);
-    //         element.removeChild(column2);
-    //         element.removeChild(column3);
+    describe('changing slotted columns', () => {
+        async function removeExistingColumnsAndAddNewColumn(
+            fieldName: string,
+            groupIndex?: number
+        ): Promise<TableColumnText> {
+            element.removeChild(column1);
+            element.removeChild(column2);
 
-    //         const newColumn = document.createElement(
-    //             'nimble-table-column-text'
-    //         );
-    //         newColumn.fieldName = fieldName;
-    //         if (sortDirection !== TableColumnSortDirection.none) {
-    //             newColumn.sortDirection = sortDirection;
-    //             newColumn.sortIndex = 0;
-    //         }
-    //         element.appendChild(newColumn);
+            const newColumn = document.createElement(
+                'nimble-table-column-text'
+            );
+            newColumn.fieldName = fieldName;
+            if (typeof groupIndex === 'number') {
+                newColumn.groupIndex = groupIndex;
+            }
+            element.appendChild(newColumn);
 
-    //         await waitForUpdatesAsync();
-    //         return newColumn;
-    //     }
+            await waitForUpdatesAsync();
+            return newColumn;
+        }
 
-    //     it('removes sorting if no new columns are sorted', async () => {
-    //         const data: readonly SimpleTableRecord[] = [
-    //             { id: '1', stringData1: 'foo' },
-    //             { id: '2', stringData1: 'abc' },
-    //             { id: '3', stringData1: 'zzz' },
-    //             { id: '4', stringData1: 'hello' }
-    //         ] as const;
+        async function addNewColumn(
+            fieldName: string,
+            groupIndex?: number
+        ): Promise<TableColumnText> {
+            const newColumn = document.createElement(
+                'nimble-table-column-text'
+            );
+            newColumn.fieldName = fieldName;
+            if (typeof groupIndex === 'number') {
+                newColumn.groupIndex = groupIndex;
+            }
+            element.appendChild(newColumn);
 
-    //         column1.fieldName = 'stringData1';
-    //         column1.sortDirection = TableColumnSortDirection.descending;
-    //         column1.sortIndex = 0;
-    //         element.setData(data);
-    //         await connect();
-    //         await waitForUpdatesAsync();
+            await waitForUpdatesAsync();
+            return newColumn;
+        }
 
-    //         expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
+        it('removes grouping if no new columns are grouped', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'foo' },
+                { id: '2', stringData1: 'abc' },
+                { id: '3', stringData1: 'zzz' },
+                { id: '4', stringData1: 'hello' }
+            ] as const;
 
-    //         await removeExistingColumnsAndAddNewColumn(
-    //             'stringData1',
-    //             TableColumnSortDirection.none
-    //         );
-    //         expect(getRenderedRecordIds()).toEqual(['1', '2', '3', '4']);
-    //     });
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 0;
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
 
-    //     it('applies new sorting if new columns are sorted', async () => {
-    //         const data: readonly SimpleTableRecord[] = [
-    //             { id: '1', stringData1: 'foo' },
-    //             { id: '2', stringData1: 'abc' },
-    //             { id: '3', stringData1: 'zzz' },
-    //             { id: '4', stringData1: 'hello' }
-    //         ] as const;
+            expect(pageObject.getRenderedGroupRowCount()).toEqual(4);
 
-    //         column1.fieldName = 'stringData1';
-    //         column1.sortDirection = TableColumnSortDirection.descending;
-    //         column1.sortIndex = 0;
-    //         element.setData(data);
-    //         await connect();
-    //         await waitForUpdatesAsync();
+            await removeExistingColumnsAndAddNewColumn(
+                'stringData1'
+            );
+            expect(pageObject.getRenderedGroupRowCount()).toEqual(0);
+        });
 
-    //         expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
+        it('applies new grouping if new columns are grouped', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'foo' },
+                { id: '2', stringData1: 'abc' },
+                { id: '3', stringData1: 'zzz' },
+                { id: '4', stringData1: 'hello' }
+            ] as const;
 
-    //         await removeExistingColumnsAndAddNewColumn(
-    //             'stringData1',
-    //             TableColumnSortDirection.ascending
-    //         );
-    //         expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
-    //     });
+            column1.fieldName = 'stringData1';
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
 
-    //     it('sort state responds to changes on new columns', async () => {
-    //         const data: readonly SimpleTableRecord[] = [
-    //             { id: '1', stringData1: 'foo' },
-    //             { id: '2', stringData1: 'abc' },
-    //             { id: '3', stringData1: 'zzz' },
-    //             { id: '4', stringData1: 'hello' }
-    //         ] as const;
+            expect(pageObject.getRenderedGroupRowCount()).toEqual(0);
 
-    //         column1.fieldName = 'stringData1';
-    //         column1.sortDirection = TableColumnSortDirection.descending;
-    //         column1.sortIndex = 0;
-    //         element.setData(data);
-    //         await connect();
-    //         await waitForUpdatesAsync();
+            await removeExistingColumnsAndAddNewColumn(
+                'stringData1',
+                0
+            );
+            expect(pageObject.getRenderedGroupRowCount()).toEqual(4);
+        });
 
-    //         expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
+        it('group state responds to changes on new columns', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'foo', stringData3: 'bar' },
+                { id: '2', stringData1: 'abc', stringData3: 'bar' },
+                { id: '3', stringData1: 'zzz', stringData3: 'bar' },
+                { id: '4', stringData1: 'hello', stringData3: 'bar' }
+            ] as const;
 
-    //         const newColumn = await removeExistingColumnsAndAddNewColumn(
-    //             'stringData1',
-    //             TableColumnSortDirection.ascending
-    //         );
-    //         newColumn.sortDirection = TableColumnSortDirection.descending;
-    //         await waitForUpdatesAsync();
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 1;
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
 
-    //         expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
-    //     });
-    // });
+            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('foo');
+
+            const newColumn = await addNewColumn(
+                'stringData3'
+            );
+            newColumn.groupIndex = 0;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('bar');
+        });
+    });
 });

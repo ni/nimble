@@ -225,7 +225,7 @@ describe('TableColumnText', () => {
         }
     });
 
-    fdescribe('placeholder assigned various strings render in group header as expected', () => {
+    describe('placeholder assigned various strings render in group header as expected', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
         for (const value of wackyStrings) {

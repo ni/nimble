@@ -19,8 +19,7 @@ import {
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingState as TanStackSortingState,
     GroupingState as TanStackGroupingState,
-    ExpandedState as TanStackExpandedState,
-    GroupingRow
+    ExpandedState as TanStackExpandedState
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
@@ -49,11 +48,10 @@ interface TableRowState<TData extends TableRecord = TableRecord> {
     id: string;
     isGrouped: boolean;
     groupRowValue?: unknown;
-    groupRowHeaderViewTag?: string;
     isExpanded?: boolean;
     nestingLevel?: number;
     leafItemCount?: number;
-    columnConfig?: unknown;
+    groupColumn?: TableColumn;
 }
 
 /**
@@ -419,8 +417,7 @@ export class Table<
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)
                     .length,
-                columnConfig: groupColumn?.columnConfig,
-                groupRowHeaderViewTag: groupColumn?.internalGroupHeaderViewTag
+                groupColumn
             };
             return rowState;
         });

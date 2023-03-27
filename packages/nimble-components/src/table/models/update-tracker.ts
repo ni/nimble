@@ -149,6 +149,7 @@ export class UpdateTracker<TData extends TableRecord> {
         this.requiredUpdates.columnSort = true;
         this.requiredUpdates.columnWidths = true;
         this.requiredUpdates.actionMenuSlots = true;
+        this.requiredUpdates.groupRows = true;
 
         this.queueUpdate();
     }
