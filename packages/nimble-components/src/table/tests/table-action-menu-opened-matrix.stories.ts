@@ -51,7 +51,7 @@ const component = html`
             action-menu-slot="action-menu"
             action-menu-label="Menu"
         >
-            <${iconUserTag}r></${iconUserTag}r>
+            <${iconUserTag}></${iconUserTag}>
         </${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value">Favorite Color</${tableColumnTextTag}>
