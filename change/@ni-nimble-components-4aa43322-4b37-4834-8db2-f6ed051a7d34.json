@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Error state for text area component",
+  "comment": "Error state and update of focus state visuals for text area component",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"

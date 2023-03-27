@@ -92,7 +92,15 @@ const metadata: Meta<TextAreaArgs> = {
         maxlength: {
             description:
                 'Maximum number of characters that may be entered by the user'
-        }
+        },
+        errorVisible: {
+            description:
+                'Whether the text area should be styled to indicate that it is in an invalid state'
+        },
+        errorText: {
+            description:
+                'A message to be displayed when the text area is in the invalid state explaining why the value is invalid'
+        },
     },
     args: {
         appearance: TextAreaAppearance.outline,
