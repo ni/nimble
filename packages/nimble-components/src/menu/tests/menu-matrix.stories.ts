@@ -63,7 +63,7 @@ const component = (
                         <${menuItemTag}>${when(() => childIcon, html`<${iconXmarkTag} slot="start"></${iconXmarkTag}>`)}Item 1.3</${menuItemTag}>
                         <${anchorMenuItemTag} href='#'>Anchor item 1.4</${anchorMenuItemTag}>
                         <${anchorMenuItemTag} href='#'>${when(() => childIcon, html`<${iconXmarkTag} slot="start"></${iconXmarkTag}>`)}Anchor item 1.5</${anchorMenuItemTag}>
-                    </nimble-menu>
+                    </${menuTag}>
                 `)}
             </${menuItemTag}>
             <hr>
@@ -74,7 +74,7 @@ const component = (
             <${anchorMenuItemTag}>Anchor item no href</${anchorMenuItemTag}>
             <${anchorMenuItemTag} href='#' disabled>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item disabled</${anchorMenuItemTag}>
             <${anchorMenuItemTag} href='#' hidden>Anchor item hidden</${anchorMenuItemTag}>
-        </nimble-menu>
+        </${menuTag}>
     </span>
 `;
 
@@ -96,6 +96,6 @@ export const textCustomized: StoryFn = createMatrixThemeStory(
             Inner text
             <${menuItemTag}>Menu item</${menuItemTag}>
             <${anchorMenuItemTag}>Anchor menu item</${anchorMenuItemTag}>
-        </<${menuTag}>`
+        </${menuTag}>`
     )
 );
