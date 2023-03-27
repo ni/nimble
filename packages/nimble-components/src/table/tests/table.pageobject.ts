@@ -4,6 +4,7 @@ import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
+import type { TableGroupHeaderView } from '../components/group-header-view/table-group-header-view';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -77,6 +78,19 @@ export class TablePageObject<T extends TableRecord> {
         ).length;
     }
 
+    public getRenderedGroupRowCount(): number {
+        return this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-group-row'
+        ).length;
+    }
+
+    public getAllGroupRowExpandedState(): boolean[] {
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-group-row'
+        );
+        return Array.from(groupRows).map(row => row.expanded);
+    }
+
     public getRenderedCellContent(
         rowIndex: number,
         columnIndex: number
@@ -85,6 +99,16 @@ export class TablePageObject<T extends TableRecord> {
             this.getCell(
                 rowIndex,
                 columnIndex
+            ).shadowRoot!.textContent?.trim() ?? ''
+        );
+    }
+
+    public getRenderedGroupHeaderContent(
+        groupRowIndex: number
+    ): string {
+        return (
+            this.getGroupRowHeaderView(
+                groupRowIndex
             ).shadowRoot!.textContent?.trim() ?? ''
         );
     }
@@ -216,6 +240,19 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
+    public toggleGroupRowExpandedState(groupRowIndex: number): void {
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-group-row'
+        );
+        if (groupRowIndex >= groupRows.length) {
+            throw new Error(
+                'Attempting to index past the total number of group rows'
+            );
+        }
+
+        groupRows[groupRowIndex]!.click();
+    }
+
     private getCell(rowIndex: number, columnIndex: number): TableCell {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
@@ -233,6 +270,18 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return cells.item(columnIndex);
+    }
+
+    private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-group-row');
+        if (groupRowIndex >= groupRows.length) {
+            throw new Error(
+                'Attempting to index past the total number of rendered rows'
+            );
+        }
+
+        const groupRow = groupRows[groupRowIndex];
+        return groupRow!.shadowRoot!.querySelector(groupRow!.groupHeaderViewTag!)!;
     }
 
     private getHeaderContentElement(

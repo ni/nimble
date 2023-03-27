@@ -10,7 +10,7 @@ declare global {
     }
 }
 /**
- * The custom element used to render a group row for a group representing rows
+ * The custom element used to render a group row header for a group representing rows
  * gruped by a TableColumnText column.
  */
 export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<

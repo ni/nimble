@@ -3,6 +3,7 @@ import { display } from '@microsoft/fast-foundation';
 import {
     borderWidth,
     controlHeight,
+    fillHoverColor,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 
@@ -16,6 +17,10 @@ export const styles = css`
             ${standardPadding} * 2 *
                 var(--ni-private-table-group-row-indent-level)
         );
+    }
+
+    :host(:hover) {
+        background: ${fillHoverColor};
     }
 
     :host([expanded='true']) .expander-icon,

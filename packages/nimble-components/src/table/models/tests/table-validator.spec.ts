@@ -389,6 +389,102 @@ describe('TableValidator', () => {
         }
     });
 
+    describe('column group index validation', () => {
+        const columnConfigurations: {
+            groupIndices: number[],
+            isValid: boolean,
+            invalidKeys: (keyof TableValidity)[],
+            name: string
+        }[] = [
+            {
+                groupIndices: [1, 2, 3],
+                isValid: true,
+                invalidKeys: [],
+                name: 'unique sort indices is valid'
+            },
+            {
+                groupIndices: [1, 2, 2],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: 'duplicate sort indices is invalid'
+            },
+            {
+                groupIndices: [],
+                isValid: true,
+                invalidKeys: [],
+                name: 'sort indices are not required'
+            },
+            {
+                groupIndices: [-Infinity, -Infinity],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate '-Infinity' values are detected"
+            },
+            {
+                groupIndices: [Infinity, Infinity],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate 'Infinity' values are detected"
+            },
+            {
+                groupIndices: [Math.PI, Math.PI],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate 'Math.PI' values are detected"
+            },
+            {
+                groupIndices: [NaN, NaN],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate 'NaN' values are detected"
+            },
+            {
+                groupIndices: [0, -0],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate '0' and '-0' values are detected"
+            },
+            {
+                groupIndices: [1.25, 1.25],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: 'duplicate decimal values are detected'
+            },
+            {
+                groupIndices: [1.25, NaN, Math.PI, -0, Infinity, -Infinity, 1e6],
+                isValid: true,
+                invalidKeys: [],
+                name: 'special numeric values are valid'
+            }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const columnConfiguration of columnConfigurations) {
+            const specType = getSpecTypeByNamedList(
+                columnConfiguration,
+                focused,
+                disabled
+            );
+            specType(columnConfiguration.name, () => {
+                const tableValidator = new TableValidator();
+                const isValid = tableValidator.validateColumnGroupIndices(
+                    columnConfiguration.groupIndices
+                );
+
+                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(tableValidator.isValid()).toBe(
+                    columnConfiguration.invalidKeys.length === 0
+                );
+                expect(getInvalidKeys(tableValidator)).toEqual(
+                    jasmine.arrayWithExactContents(
+                        columnConfiguration.invalidKeys
+                    )
+                );
+            });
+        }
+    });
+
     describe('validation checks do not reset unrelated state', () => {
         it('invalid record IDs stay invalid when validating column IDs', () => {
             const data = [

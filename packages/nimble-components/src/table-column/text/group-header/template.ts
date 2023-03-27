@@ -4,7 +4,7 @@ import type { TableColumnTextColumnConfig } from '..';
 import { removeTitle, setTitleWhenOverflow } from '../template-helpers';
 
 const getHeaderContent = (
-    groupHeaderValue: unknown,
+    groupHeaderValue: string | null | undefined,
     columnConfig: TableColumnTextColumnConfig
 ): string => {
     return typeof groupHeaderValue === 'string'

@@ -18,7 +18,7 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${tableColumnTextTag} field-name="field" placeholder="no value">
+                <${tableColumnTextTag} field-name="field" placeholder="no value" group-index="0">
                     Column 1
                 </${tableColumnTextTag}>
                 <${tableColumnTextTag} field-name="noPlaceholder">
@@ -195,6 +195,55 @@ describe('TableColumnText', () => {
                     await waitForUpdatesAsync();
 
                     expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                        value.name
+                    );
+                }
+            );
+        }
+    });
+
+    describe('various string values render in group header as expected', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of wackyStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `data "${value.name}" renders as "${value.name}"`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await connect();
+
+                    element.setData([{ field: value.name }]);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getRenderedGroupHeaderContent(0)).toContain(
+                        value.name
+                    );
+                }
+            );
+        }
+    });
+
+    fdescribe('placeholder assigned various strings render in group header as expected', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of wackyStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `placeholder "${value.name}" renders as "${value.name}"`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await connect();
+                    element.setData([{ field: null }]);
+                    await waitForUpdatesAsync();
+
+                    const firstColumn = element.columns[0] as TableColumnText;
+                    firstColumn.placeholder = value.name;
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getRenderedGroupHeaderContent(0)).toContain(
                         value.name
                     );
                 }

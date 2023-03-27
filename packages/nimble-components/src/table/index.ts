@@ -137,7 +137,7 @@ export class Table<
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
-    private expandedState: TanStackExpandedState = true;
+    private collapsedState: { [key: string]: boolean } = {};
 
     public constructor() {
         super();
@@ -152,7 +152,7 @@ export class Table<
             columns: [],
             state: {
                 grouping: [],
-                expanded: this.expandedState
+                expanded: true
             },
             enableSorting: true,
             enableGrouping: true,
@@ -215,7 +215,13 @@ export class Table<
     }
 
     public toggleGroupExpanded(rowIndex: number): void {
-        this.table.getRowModel()!.rows[rowIndex]?.toggleExpanded();
+        const rowModel = this.table.getRowModel()!.rows[rowIndex]!;
+        if (rowModel.getIsExpanded()) {
+            this.collapsedState[rowModel.id] = true;
+        } else {
+            this.collapsedState[rowModel.id] = false;
+        }
+        rowModel.toggleExpanded();
     }
 
     /**
@@ -321,6 +327,7 @@ export class Table<
         }
         if (this.updateTracker.updatGroupRows) {
             updatedOptions.state!.grouping = this.calculateTanStackGroupingState();
+            updatedOptions.state!.expanded = true;
         }
 
         this.updateTableOptions(updatedOptions);
@@ -349,6 +356,9 @@ export class Table<
         this.tableValidator.validateColumnSortIndices(
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
+        this.tableValidator.validateColumnGroupIndices(
+            this.columns.filter(c => typeof c.internalGroupIndex === 'number').map(x => x.internalGroupIndex!)
+        );
         this.validateWithData(this.table.options.data);
     }
 
@@ -363,8 +373,34 @@ export class Table<
         });
         this.validateWithData(data);
         this.updateTableOptions({
-            data
+            data,
+            state: {
+                expanded: true
+            }
+        }, true);
+        const expandedState = this.getInflatedExpandedState() as { [key: string]: boolean };
+        for (const collapsedRowId of Object.keys(this.collapsedState)) {
+            if (this.collapsedState[collapsedRowId]) {
+                expandedState[collapsedRowId] = false;
+            }
+        }
+        this.updateTableOptions({
+            state: {
+                expanded: expandedState
+            }
         });
+    }
+
+    private getInflatedExpandedState(): TanStackExpandedState {
+        if (this.table.options.state.expanded === true) {
+            const expandedState = {} as { [key: string]: boolean };
+            for (const row of this.table.getRowModel().rows) {
+                expandedState[row.id] = true;
+            }
+            return expandedState;
+        }
+
+        return this.table.options.state.expanded!;
     }
 
     private refreshRows(): void {
@@ -400,7 +436,8 @@ export class Table<
     }
 
     private updateTableOptions(
-        updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
+        updatedOptions: Partial<TanStackTableOptionsResolved<TData>>,
+        skipRowRefresh?: boolean
     ): void {
         this.options = {
             ...this.options,
@@ -408,17 +445,20 @@ export class Table<
             state: { ...this.options.state, ...updatedOptions.state }
         };
         this.table.setOptions(this.options);
-        this.refreshRows();
+        if (!skipRowRefresh) {
+            this.refreshRows();
+        }
     }
 
     private readonly handleExpandedChange = (updater: unknown): void => {
-        this.expandedState = updater instanceof Function
-            ? (updater(this.expandedState) as TanStackExpandedState)
-            : (this.expandedState = updater as TanStackExpandedState);
+        let expandedState = this.table.options.state.expanded;
+        expandedState = updater instanceof Function
+            ? (updater(expandedState) as TanStackExpandedState)
+            : (expandedState = updater as TanStackExpandedState);
 
         this.updateTableOptions({
             state: {
-                expanded: this.expandedState
+                expanded: expandedState
             }
         });
     };

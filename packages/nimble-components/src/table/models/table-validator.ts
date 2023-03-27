@@ -11,6 +11,7 @@ export class TableValidator<TData extends TableRecord> {
     private duplicateColumnId = false;
     private missingColumnId = false;
     private duplicateSortIndex = false;
+    private duplicateGroupIndex = false;
 
     public getValidity(): TableValidity {
         return {
@@ -19,7 +20,8 @@ export class TableValidator<TData extends TableRecord> {
             invalidRecordId: this.invalidRecordId,
             duplicateColumnId: this.duplicateColumnId,
             missingColumnId: this.missingColumnId,
-            duplicateSortIndex: this.duplicateSortIndex
+            duplicateSortIndex: this.duplicateSortIndex,
+            duplicateGroupIndex: this.duplicateGroupIndex
         };
     }
 
@@ -104,5 +106,19 @@ export class TableValidator<TData extends TableRecord> {
         }
 
         return !this.duplicateSortIndex;
+    }
+
+    public validateColumnGroupIndices(groupIndices: number[]): boolean {
+        this.duplicateGroupIndex = false;
+
+        const groupIndexSet = new Set<number>();
+        for (const groupIndex of groupIndices) {
+            if (groupIndexSet.has(groupIndex)) {
+                this.duplicateGroupIndex = true;
+            }
+            groupIndexSet.add(groupIndex);
+        }
+
+        return !this.duplicateGroupIndex;
     }
 }
