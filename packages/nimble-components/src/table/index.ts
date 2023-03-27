@@ -19,7 +19,8 @@ import {
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingState as TanStackSortingState,
     GroupingState as TanStackGroupingState,
-    ExpandedState as TanStackExpandedState
+    ExpandedState as TanStackExpandedState,
+    GroupingRow
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
@@ -412,7 +413,7 @@ export class Table<
                 id: row.id,
                 isGrouped: row.getIsGrouped(),
                 isExpanded: row.getIsExpanded(),
-                groupRowValue: row.groupingValue,
+                groupRowValue: groupColumn ? row?.getLeafRows()[0]?.getValue(row.groupingColumnId!) : undefined,
                 nestingLevel: row.depth,
                 leafItemCount: row
                     .getLeafRows()
