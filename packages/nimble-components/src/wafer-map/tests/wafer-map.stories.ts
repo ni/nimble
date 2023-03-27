@@ -83,7 +83,7 @@ const getHighLightedValueSets = (
 };
 
 const metadata: Meta<WaferMapArgs> = {
-    title: 'Wafer Map',
+    title: 'WaferMap',
     parameters: {
         docs: {
             description: {
