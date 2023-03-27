@@ -18,13 +18,13 @@ string | null | undefined,
 TableColumnTextColumnConfig
 > {
     @observable
-    public override columnConfig!: TableColumnTextColumnConfig;
+    public override columnConfig?: TableColumnTextColumnConfig;
 
     @volatile
     public get content(): string {
         return typeof this.groupHeaderValue === 'string'
             ? this.groupHeaderValue
-            : this.columnConfig.placeholder;
+            : this.columnConfig?.placeholder ?? '';
     }
 }
 

@@ -356,7 +356,9 @@ export class Table<
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
         this.tableValidator.validateColumnGroupIndices(
-            this.columns.filter(c => typeof c.internalGroupIndex === 'number').map(x => x.internalGroupIndex!)
+            this.columns
+                .filter(c => typeof c.internalGroupIndex === 'number')
+                .map(x => x.internalGroupIndex!)
         );
         this.validateWithData(this.table.options.data);
     }
@@ -371,13 +373,18 @@ export class Table<
             return { ...record };
         });
         this.validateWithData(data);
-        this.updateTableOptions({
-            data,
-            state: {
-                expanded: true
-            }
-        }, true);
-        const expandedState = this.getInflatedExpandedState() as { [key: string]: boolean };
+        this.updateTableOptions(
+            {
+                data,
+                state: {
+                    expanded: true
+                }
+            },
+            true
+        );
+        const expandedState = this.getInflatedExpandedState() as {
+            [key: string]: boolean
+        };
         for (const collapsedRowId of Object.keys(this.collapsedState)) {
             if (this.collapsedState[collapsedRowId]) {
                 expandedState[collapsedRowId] = false;
@@ -411,7 +418,9 @@ export class Table<
                 id: row.id,
                 isGrouped: row.getIsGrouped(),
                 isExpanded: row.getIsExpanded(),
-                groupRowValue: groupColumn ? row?.getLeafRows()[0]?.getValue(row.groupingColumnId!) : undefined,
+                groupRowValue: groupColumn
+                    ? row?.getLeafRows()[0]?.getValue(row.groupingColumnId!)
+                    : undefined,
                 nestingLevel: row.depth,
                 leafItemCount: row
                     .getLeafRows()

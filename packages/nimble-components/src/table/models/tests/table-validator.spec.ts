@@ -451,7 +451,15 @@ describe('TableValidator', () => {
                 name: 'duplicate decimal values are detected'
             },
             {
-                groupIndices: [1.25, NaN, Math.PI, -0, Infinity, -Infinity, 1e6],
+                groupIndices: [
+                    1.25,
+                    NaN,
+                    Math.PI,
+                    -0,
+                    Infinity,
+                    -Infinity,
+                    1e6
+                ],
                 isValid: true,
                 invalidKeys: [],
                 name: 'special numeric values are valid'

@@ -156,12 +156,21 @@ describe('Table grouping', () => {
         pageObject.toggleGroupRowExpandedState(0);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true, true]);
+        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+            false,
+            true,
+            true
+        ]);
 
         element.setData(newData);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([true, false, true, true]);
+        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+            true,
+            false,
+            true,
+            true
+        ]);
     });
 
     it('updating grouping state expands all groups', async () => {
@@ -186,7 +195,12 @@ describe('Table grouping', () => {
         column2.groupIndex = 1;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([true, true, true, true]);
+        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+            true,
+            true,
+            true,
+            true
+        ]);
     });
 
     it('can group by multiple columns', async () => {
@@ -207,6 +221,8 @@ describe('Table grouping', () => {
 
         expect(pageObject.getRenderedGroupRowCount()).toBe(6);
         expect(getRenderedRecordIds()).toEqual(['1', '4', '2', '3']);
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('world');
+        expect(pageObject.getRenderedGroupHeaderContent(1)).toBe('hello');
     });
 
     it('can update group index', async () => {
@@ -255,7 +271,7 @@ describe('Table grouping', () => {
             expect(pageObject.getRenderedRowCount()).toBe(0);
         });
 
-        fit('transitioning out of having duplicate group indices updates table', async () => {
+        it('transitioning out of having duplicate group indices updates table', async () => {
             const data: readonly SimpleTableRecord[] = [
                 { id: '1', stringData1: 'foo' },
                 { id: '2', stringData1: 'abc' },
@@ -366,9 +382,7 @@ describe('Table grouping', () => {
 
             expect(pageObject.getRenderedGroupRowCount()).toEqual(4);
 
-            await removeExistingColumnsAndAddNewColumn(
-                'stringData1'
-            );
+            await removeExistingColumnsAndAddNewColumn('stringData1');
             expect(pageObject.getRenderedGroupRowCount()).toEqual(0);
         });
 
@@ -387,10 +401,7 @@ describe('Table grouping', () => {
 
             expect(pageObject.getRenderedGroupRowCount()).toEqual(0);
 
-            await removeExistingColumnsAndAddNewColumn(
-                'stringData1',
-                0
-            );
+            await removeExistingColumnsAndAddNewColumn('stringData1', 0);
             expect(pageObject.getRenderedGroupRowCount()).toEqual(4);
         });
 
@@ -410,9 +421,7 @@ describe('Table grouping', () => {
 
             expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('foo');
 
-            const newColumn = await addNewColumn(
-                'stringData3'
-            );
+            const newColumn = await addNewColumn('stringData3');
             newColumn.groupIndex = 0;
             await waitForUpdatesAsync();
 

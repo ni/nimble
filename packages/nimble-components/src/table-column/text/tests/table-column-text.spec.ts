@@ -217,9 +217,9 @@ describe('TableColumnText', () => {
                     element.setData([{ field: value.name }]);
                     await waitForUpdatesAsync();
 
-                    expect(pageObject.getRenderedGroupHeaderContent(0)).toContain(
-                        value.name
-                    );
+                    expect(
+                        pageObject.getRenderedGroupHeaderContent(0)
+                    ).toContain(value.name);
                 }
             );
         }
@@ -243,9 +243,9 @@ describe('TableColumnText', () => {
                     firstColumn.placeholder = value.name;
                     await waitForUpdatesAsync();
 
-                    expect(pageObject.getRenderedGroupHeaderContent(0)).toContain(
-                        value.name
-                    );
+                    expect(
+                        pageObject.getRenderedGroupHeaderContent(0)
+                    ).toContain(value.name);
                 }
             );
         }

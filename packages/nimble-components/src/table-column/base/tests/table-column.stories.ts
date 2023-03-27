@@ -549,10 +549,8 @@ export const grouping: StoryObj<GroupingTableArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleGroupType.none]: 'None',
-                    [ExampleGroupType.firstName]:
-                        'Group by first name',
-                    [ExampleGroupType.lastName]:
-                        'Group by last name',
+                    [ExampleGroupType.firstName]: 'Group by first name',
+                    [ExampleGroupType.lastName]: 'Group by last name',
                     [ExampleGroupType.firstThenLastName]:
                         'Group by first name then last.',
                     [ExampleGroupType.lastThenFirstName]:
