@@ -100,7 +100,7 @@ const metadata: Meta<TextAreaArgs> = {
         errorText: {
             description:
                 'A message to be displayed when the text area is in the invalid state explaining why the value is invalid'
-        },
+        }
     },
     args: {
         appearance: TextAreaAppearance.outline,

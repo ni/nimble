@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextArea as FoundationTextArea
@@ -48,12 +48,6 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
-    /**
-     * @internal
-     */
-    @observable
-    public hasVerticalScrollbar = false;
-
     private resizeObserver?: ResizeObserver;
 
     /**
@@ -77,15 +71,18 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
      */
     public onTextAreaInput(): void {
         this.handleTextInput();
-        this.updateHasVerticalScrollbar();
+        this.updateScrollbarWidth();
     }
 
     private readonly onResize = (): void => {
-        this.updateHasVerticalScrollbar();
+        this.updateScrollbarWidth();
     };
 
-    private updateHasVerticalScrollbar(): void {
-        this.hasVerticalScrollbar = this.control.clientHeight < this.control.scrollHeight;
+    private updateScrollbarWidth(): void {
+        this.style.setProperty(
+            '--ni-private-scrollbar-width',
+            `${this.control.offsetWidth - this.control.clientWidth}px`
+        );
     }
 }
 

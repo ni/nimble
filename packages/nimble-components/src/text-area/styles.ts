@@ -31,7 +31,7 @@ export const styles = css`
         color: ${bodyFontColor};
         flex-direction: column;
         vertical-align: top;
-        --ni-private-scrollbar-width: 17px;
+        --ni-private-scrollbar-width: 0px;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
@@ -68,6 +68,8 @@ export const styles = css`
         border-radius: 0px;
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
+        min-width: 100px;
+        min-height: calc(${iconSize} + ${standardPadding});
         padding: 8px;
         margin: 0px;
         resize: none;
@@ -161,9 +163,6 @@ export const styles = css`
     :host([error-visible]) .error-icon {
         position: absolute;
         top: calc(${standardPadding} / 2);
-        right: calc(${standardPadding} / 2);
-    }
-    :host([error-visible].vert-scrollbar) .error-icon {
         right: calc(${standardPadding} / 2 + var(--ni-private-scrollbar-width));
     }
 `.withBehaviors(
