@@ -198,6 +198,34 @@ describe('Table row selection', () => {
         expect(element.getSelectedRecordIds()).toEqual(['1']);
     });
 
+    it('does not set aria-selected on rows when selection mode is "none"', async () => {
+        element.selectionMode = TableRowSelectionMode.none;
+        await waitForUpdatesAsync();
+
+        const rowCount = simpleTableData.length;
+        for (let i = 0; i < rowCount; i++) {
+            const row = pageObject.getRow(i);
+            expect(row.ariaSelected).toBe(null);
+        }
+    });
+
+    it('sets aria-selected to "true" or "false" based on selection state when selection is enabled', async () => {
+        element.selectionMode = TableRowSelectionMode.single;
+        element.idFieldName = 'stringData';
+        await waitForUpdatesAsync();
+
+        const selectedIndex = 1;
+        element.setSelectedRecordIds([simpleTableData[selectedIndex].stringData]);
+        await waitForUpdatesAsync();
+
+        const rowCount = simpleTableData.length;
+        for (let i = 0; i < rowCount; i++) {
+            const row = pageObject.getRow(i);
+            const expectedAriaSelected = i === selectedIndex ? 'true' : 'false';
+            expect(row.ariaSelected).toBe(expectedAriaSelected);
+        }
+    });
+
     describe('programmatic selection', () => {
         describe('with selection mode of "none"', () => {
             beforeEach(async () => {
