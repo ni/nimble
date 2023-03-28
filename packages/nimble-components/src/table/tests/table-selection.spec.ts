@@ -215,7 +215,9 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         const selectedIndex = 1;
-        element.setSelectedRecordIds([simpleTableData[selectedIndex].stringData]);
+        element.setSelectedRecordIds([
+            simpleTableData[selectedIndex].stringData
+        ]);
         await waitForUpdatesAsync();
 
         const rowCount = simpleTableData.length;

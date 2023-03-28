@@ -467,7 +467,9 @@ export class Table<
         this.virtualizer.dataChanged();
     }
 
-    private getAriaSelectedForRow(row: TanStackRow<TData>): 'true' | 'false' | null {
+    private getAriaSelectedForRow(
+        row: TanStackRow<TData>
+    ): 'true' | 'false' | null {
         if (this.selectionMode === TableRowSelectionMode.none) {
             return null;
         }
