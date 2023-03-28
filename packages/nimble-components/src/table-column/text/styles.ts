@@ -5,7 +5,7 @@ import {
     controlLabelFontColor
 } from '../../theme-provider/design-tokens';
 
-export const cellStyles = css`
+export const cellViewStyles = css`
     span {
         font: ${bodyFont};
         color: ${bodyFontColor};

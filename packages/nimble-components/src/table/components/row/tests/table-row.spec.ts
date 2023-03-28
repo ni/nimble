@@ -49,8 +49,7 @@ describe('TableRow', () => {
 
         const renderedCell = pageObject.getRenderedCell(0);
 
-        expect(renderedCell!.cellTemplate).toEqual(textColumn1.cellTemplate);
-        expect(renderedCell!.cellStyles).toEqual(textColumn1.cellStyles);
+        expect(renderedCell!.cellViewTag).toEqual(textColumn1.cellViewTag);
     });
 
     it('rendered cell gets cellState from column', async () => {

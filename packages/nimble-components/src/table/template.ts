@@ -44,7 +44,7 @@ export const template = html<Table>`
             </div>
             <div class="table-viewport" ${ref('viewport')}>
                 <div class="table-scroll"></div>
-                <div class="table-row-container" 
+                <div class="table-row-container" ${ref('rowContainer')}
                      role="rowgroup">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`

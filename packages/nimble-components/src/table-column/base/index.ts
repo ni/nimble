@@ -1,9 +1,7 @@
 import {
     attr,
-    ElementStyles,
     nullableNumberConverter,
-    observable,
-    ViewTemplate
+    observable
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
@@ -11,8 +9,6 @@ import { TableColumnSortDirection, TableFieldName } from '../../table/types';
 import {
     defaultFractionalWidth,
     defaultMinPixelWidth,
-    TableCellRecord,
-    TableCellState,
     TableColumnSortOperation
 } from './types';
 
@@ -20,7 +16,6 @@ import {
  * The base class for table columns
  */
 export abstract class TableColumn<
-    TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > extends FoundationElement {
     @attr({ attribute: 'column-id' })
@@ -81,18 +76,11 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     *
-     * The template to use to render the cell content for the column
+     * The tag (element name) of the custom element that renders the cell content for the column.
+     * Should derive from TableCellView<TCellRecord, TColumnConfig>.
      */
-    // prettier-ignore
-    public abstract readonly cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
-
-    /**
-     * @internal
-     *
-     * The style to apply to the cellTemplate
-     */
-    public abstract readonly cellStyles?: ElementStyles;
+    @observable
+    public abstract readonly cellViewTag: string;
 
     /**
      * @internal
@@ -114,7 +102,7 @@ export abstract class TableColumn<
     /**
      * @internal
      *
-     * The relevant, static configuration a column requires its cellTemplate to have access to.
+     * The relevant, static configuration a column requires its cell view to have access to.
      */
     @observable
     public columnConfig?: TColumnConfig;

@@ -113,6 +113,11 @@ export class Table<
     /**
      * @internal
      */
+    public readonly rowContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
     public readonly virtualizer: Virtualizer<TData>;
 
     /**
@@ -193,6 +198,9 @@ export class Table<
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
         this.$emit('action-menu-toggle', event.detail);
+        if (!event.detail.newState) {
+            this.openActionMenuRecordId = undefined;
+        }
     }
 
     /**

@@ -7,8 +7,7 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
-import { cellStyles } from './styles';
-import { cellTemplate } from './template';
+import { textCellElementTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {
@@ -24,10 +23,7 @@ declare global {
 /**
  * The base class for a table column for displaying strings.
  */
-class TableColumnTextBase extends TableColumn<
-TableColumnTextCellRecord,
-TableColumnTextColumnConfig
-> {
+class TableColumnTextBase extends TableColumn<TableColumnTextColumnConfig> {
     public cellRecordFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
@@ -36,9 +32,7 @@ TableColumnTextColumnConfig
     @attr
     public placeholder?: string;
 
-    public readonly cellStyles = cellStyles;
-
-    public readonly cellTemplate = cellTemplate;
+    public readonly cellViewTag = textCellElementTag;
 
     public constructor() {
         super();

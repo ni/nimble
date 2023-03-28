@@ -10,6 +10,8 @@ import {
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
+import { TableCellView } from '../../table-column/base/cell-view';
+import { TableRow } from '../components/row';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -95,6 +97,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     private handleVirtualizerChange(): void {
+        this.notifyFocusedCellRecycling();
         const virtualizer = this.virtualizer!;
         this.visibleItems = virtualizer.getVirtualItems();
         this.allRowsHeight = virtualizer.getTotalSize();
@@ -109,5 +112,32 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
 
         this.rowContainerYOffset = rowContainerYOffset;
+    }
+
+    private notifyFocusedCellRecycling(): void {
+        let tableFocusedElement = this.table.shadowRoot!.activeElement;
+        if (tableFocusedElement) {
+            while (
+                tableFocusedElement !== null
+                && !(tableFocusedElement instanceof TableCellView)
+            ) {
+                if (tableFocusedElement.shadowRoot) {
+                    tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
+                } else {
+                    break;
+                }
+            }
+            if (tableFocusedElement instanceof TableCellView) {
+                tableFocusedElement.focusedRecycleCallback();
+            }
+        }
+        if (this.table.openActionMenuRecordId !== undefined) {
+            const row = Array.prototype.find.call(
+                this.table.rowContainer.children,
+                e => e instanceof TableRow
+                    && e.recordId === this.table.openActionMenuRecordId
+            ) as TableRow;
+            row?.closeOpenActionMenus();
+        }
     }
 }
