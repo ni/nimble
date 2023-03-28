@@ -59,6 +59,7 @@ ViewTemplate<TextArea>
         <${iconExclamationMarkTag}
             severity="error"
             class="error-icon"
+            ${ref('errorIcon')}
         ></${iconExclamationMarkTag}>
         ${errorTextTemplate}
     </div>

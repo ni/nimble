@@ -3,6 +3,7 @@ import {
     DesignSystem,
     TextArea as FoundationTextArea
 } from '@microsoft/fast-foundation';
+import type { IconExclamationMark } from '../icons/exclamation-mark';
 import type { ErrorPattern } from '../patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -48,6 +49,12 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
+    /**
+     * A reference to the internal error icon element
+     * @internal
+     */
+    public errorIcon!: IconExclamationMark;
+
     private resizeObserver?: ResizeObserver;
 
     /**
@@ -79,7 +86,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     };
 
     private updateScrollbarWidth(): void {
-        this.style.setProperty(
+        this.errorIcon.style.setProperty(
             '--ni-private-scrollbar-width',
             `${this.control.offsetWidth - this.control.clientWidth}px`
         );

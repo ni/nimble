@@ -31,7 +31,6 @@ export const styles = css`
         color: ${bodyFontColor};
         flex-direction: column;
         vertical-align: top;
-        --ni-private-scrollbar-width: 0px;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
@@ -158,6 +157,10 @@ export const styles = css`
     :host([disabled]:hover) .container::after,
     :host([readonly]:hover) .container::after {
         width: 0px;
+    }
+
+    .error-icon {
+        --ni-private-scrollbar-width: 0px;
     }
 
     :host([error-visible]) .error-icon {
