@@ -168,11 +168,13 @@ export class Table<
         }
 
         const selectedRecordIds: string[] = [];
-        Object.entries(tanStackSelectionState).forEach(([recordId, isSelected]) => {
-            if (isSelected) {
-                selectedRecordIds.push(recordId);
+        Object.entries(tanStackSelectionState).forEach(
+            ([recordId, isSelected]) => {
+                if (isSelected) {
+                    selectedRecordIds.push(recordId);
+                }
             }
-        });
+        );
         return selectedRecordIds;
     }
 
@@ -223,9 +225,7 @@ export class Table<
     }
 
     /** @internal */
-    public onRowClick(
-        rowIndex: number
-    ): void {
+    public onRowClick(rowIndex: number): void {
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
@@ -402,7 +402,10 @@ export class Table<
     }
 
     private validate(): void {
-        this.tableValidator.validateCanSupportSelection(this.selectionMode, this.idFieldName);
+        this.tableValidator.validateCanSupportSelection(
+            this.selectionMode,
+            this.idFieldName
+        );
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
         );
@@ -422,10 +425,7 @@ export class Table<
             selectedRecordIds: this.getSelectedRecordIds()
         };
 
-        this.$emit(
-            'selection-change',
-            detail
-        );
+        this.$emit('selection-change', detail);
     }
 
     private setTableData(newData: readonly TData[]): void {
@@ -438,7 +438,9 @@ export class Table<
             this.updateTableOptions({
                 data,
                 state: {
-                    rowSelection: this.calculateTanStackSelectionState(this.getSelectedRecordIds())
+                    rowSelection: this.calculateTanStackSelectionState(
+                        this.getSelectedRecordIds()
+                    )
                 }
             });
         } else {
@@ -454,7 +456,9 @@ export class Table<
             const rowState: TableRowState<TData> = {
                 record: row.original,
                 id: row.id,
-                selectionState: row.getIsSelected() ? TableRowSelectionState.selected : TableRowSelectionState.notSelected
+                selectionState: row.getIsSelected()
+                    ? TableRowSelectionState.selected
+                    : TableRowSelectionState.notSelected
             };
             return rowState;
         });
@@ -530,7 +534,9 @@ export class Table<
         });
     }
 
-    private calculateTanStackSelectionState(recordIds: string[]): TanStackRowSelectionState {
+    private calculateTanStackSelectionState(
+        recordIds: string[]
+    ): TanStackRowSelectionState {
         const tanstackSelectionState: TanStackRowSelectionState = {};
         for (const id of this.tableValidator.getPresentRecordIds(recordIds)) {
             tanstackSelectionState[id] = true;

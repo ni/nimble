@@ -122,7 +122,11 @@ const metadata: Meta<TableArgs> = {
                 'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
         },
         actions: {
-            handles: ['action-menu-beforetoggle', 'action-menu-toggle', 'selection-change']
+            handles: [
+                'action-menu-beforetoggle',
+                'action-menu-toggle',
+                'selection-change'
+            ]
         }
     },
     // prettier-ignore
@@ -194,7 +198,8 @@ const metadata: Meta<TableArgs> = {
                 defaultValue: { summary: 'none' }
             },
             options: Object.keys(TableRowSelectionMode),
-            description: 'Controls whether the table supports selecting a single row at a time or no rows.',
+            description:
+                'Controls whether the table supports selecting a single row at a time or no rows.',
             control: { type: 'radio' }
         },
         idFieldName: {

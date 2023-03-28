@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Support single-row selection in the table",
+  "comment": "Support selecting a single row in the table",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"

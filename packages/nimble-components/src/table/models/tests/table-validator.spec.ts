@@ -480,8 +480,13 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(data, 'stringField');
 
-            const presentRecordIds = validator.getPresentRecordIds(['value-2', 'value-3']);
-            expect(presentRecordIds).toEqual(jasmine.arrayWithExactContents(['value-2']));
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-3'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents(['value-2'])
+            );
         });
 
         it('returns all record IDs if they are all in the data set', () => {
@@ -491,8 +496,13 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(data, 'stringField');
 
-            const presentRecordIds = validator.getPresentRecordIds(['value-2', 'value-1']);
-            expect(presentRecordIds).toEqual(jasmine.arrayWithExactContents(['value-1', 'value-2']));
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents(['value-1', 'value-2'])
+            );
         });
 
         it('filters out records that previously were in the data set but no longer are', () => {
@@ -508,8 +518,13 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(newData, 'stringField');
 
-            const presentRecordIds = validator.getPresentRecordIds(['value-2', 'value-1']);
-            expect(presentRecordIds).toEqual(jasmine.arrayWithExactContents(['value-1']));
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents(['value-1'])
+            );
         });
 
         it('filters out all records when there is no id field name', () => {
@@ -519,8 +534,13 @@ describe('TableValidator', () => {
             ];
             validator.validateRecordIds(data, undefined);
 
-            const presentRecordIds = validator.getPresentRecordIds(['value-2', 'value-1']);
-            expect(presentRecordIds).toEqual(jasmine.arrayWithExactContents([]));
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([])
+            );
         });
     });
 

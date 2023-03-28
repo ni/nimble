@@ -3,7 +3,11 @@ import type { Table } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import { TableRecord, TableRowSelectionEventDetail, TableRowSelectionMode } from '../types';
+import {
+    TableRecord,
+    TableRowSelectionEventDetail,
+    TableRowSelectionMode
+} from '../types';
 import { TablePageObject } from './table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
@@ -119,10 +123,12 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         element.setSelectedRecordIds(['1']);
-        element.setData([{
-            stringData: 'new-record',
-            stringData2: 'with new values'
-        }]);
+        element.setData([
+            {
+                stringData: 'new-record',
+                stringData2: 'with new values'
+            }
+        ]);
         await waitForUpdatesAsync();
 
         expect(element.getSelectedRecordIds()).toEqual([]);
@@ -134,13 +140,16 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         element.setSelectedRecordIds(['1']);
-        element.setData([{
-            stringData: 'new-record',
-            stringData2: 'with new values'
-        }, {
-            stringData: '1',
-            stringData2: 'updated value'
-        }]);
+        element.setData([
+            {
+                stringData: 'new-record',
+                stringData2: 'with new values'
+            },
+            {
+                stringData: '1',
+                stringData2: 'updated value'
+            }
+        ]);
         await waitForUpdatesAsync();
 
         expect(element.getSelectedRecordIds()).toEqual(['1']);
@@ -156,10 +165,12 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         element.setSelectedRecordIds(['1']);
-        element.setData([{
-            stringData: 'new-record',
-            stringData2: 'with new values'
-        }]);
+        element.setData([
+            {
+                stringData: 'new-record',
+                stringData2: 'with new values'
+            }
+        ]);
         await waitForUpdatesAsync();
 
         expect(selectionChangeListener.spy).not.toHaveBeenCalled();
@@ -171,13 +182,16 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         element.setSelectedRecordIds(['1']);
-        element.setData([{
-            stringData: 'new-record',
-            stringData2: 'with new values'
-        }, {
-            stringData: 'new-record',
-            stringData2: 'with same id'
-        }]);
+        element.setData([
+            {
+                stringData: 'new-record',
+                stringData2: 'with new values'
+            },
+            {
+                stringData: 'new-record',
+                stringData2: 'with same id'
+            }
+        ]);
         await waitForUpdatesAsync();
 
         expect(element.checkValidity()).toBeFalse();

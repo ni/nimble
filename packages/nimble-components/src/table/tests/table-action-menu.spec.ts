@@ -10,7 +10,11 @@ import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import { TableActionMenuToggleEventDetail, TableRecord, TableRowSelectionMode } from '../types';
+import {
+    TableActionMenuToggleEventDetail,
+    TableRecord,
+    TableRowSelectionMode
+} from '../types';
 import { TablePageObject } from './table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
@@ -452,7 +456,9 @@ describe('Table action menu', () => {
 
         it('action menu is visible when row is selected', async () => {
             const rowIndex = 0;
-            element.setSelectedRecordIds([simpleTableData[rowIndex].stringData]);
+            element.setSelectedRecordIds([
+                simpleTableData[rowIndex].stringData
+            ]);
             await waitForUpdatesAsync();
 
             expect(pageObject.isCellActionMenuVisible(rowIndex, 0)).toBeTrue();
@@ -468,7 +474,9 @@ describe('Table action menu', () => {
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener.promise;
 
-            expect(element.getSelectedRecordIds()).toEqual([simpleTableData[rowIndex].stringData]);
+            expect(element.getSelectedRecordIds()).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
         });
 
         it('clicking action menu with a different row selected selects the new row and deselects the previous row', async () => {
@@ -483,12 +491,16 @@ describe('Table action menu', () => {
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener.promise;
 
-            expect(element.getSelectedRecordIds()).toEqual([simpleTableData[rowIndex].stringData]);
+            expect(element.getSelectedRecordIds()).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
         });
 
         it('clicking action menu for an already selected row keeps it selected', async () => {
             const rowIndex = 0;
-            element.setSelectedRecordIds([simpleTableData[rowIndex].stringData]);
+            element.setSelectedRecordIds([
+                simpleTableData[rowIndex].stringData
+            ]);
 
             const toggleListener = createEventListener(
                 element,
@@ -498,7 +510,9 @@ describe('Table action menu', () => {
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener.promise;
 
-            expect(element.getSelectedRecordIds()).toEqual([simpleTableData[rowIndex].stringData]);
+            expect(element.getSelectedRecordIds()).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
         });
     });
 });

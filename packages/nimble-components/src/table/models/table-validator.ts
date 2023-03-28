@@ -33,14 +33,21 @@ export class TableValidator<TData extends TableRecord> {
 
     public areRecordIdsValid(): boolean {
         const validity = this.getValidity();
-        return !validity.duplicateRecordId && !validity.missingRecordId && !validity.invalidRecordId;
+        return (
+            !validity.duplicateRecordId
+            && !validity.missingRecordId
+            && !validity.invalidRecordId
+        );
     }
 
-    public validateCanSupportSelection(selectionMode: TableRowSelectionMode, idFieldName: string | undefined): boolean {
+    public validateCanSupportSelection(
+        selectionMode: TableRowSelectionMode,
+        idFieldName: string | undefined
+    ): boolean {
         if (selectionMode === TableRowSelectionMode.none) {
             this.idFieldNameNotConfigured = false;
         } else {
-            this.idFieldNameNotConfigured = (typeof idFieldName !== 'string');
+            this.idFieldNameNotConfigured = typeof idFieldName !== 'string';
         }
 
         return !this.idFieldNameNotConfigured;
