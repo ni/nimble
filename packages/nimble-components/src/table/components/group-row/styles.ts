@@ -39,10 +39,16 @@ export const styles = css`
         transition: 0.2s ease-in-out;
     }
 
+    .group-row-header-content {
+        display: flex;
+        overflow: hidden;
+    }
+
     .group-header-value {
         padding-left: calc(${standardPadding} / 2);
-        pointer-events: none;
         user-select: none;
+        overflow: hidden;
+        display: flex;
     }
 
     .group-row-child-count {
