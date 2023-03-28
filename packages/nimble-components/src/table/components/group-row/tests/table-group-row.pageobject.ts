@@ -13,8 +13,4 @@ export class TableGroupRowPageObject {
             this.tableGroupRowElement.groupColumn!.internalGroupHeaderViewTag!
         );
     }
-
-    public toggleGroupRowExpandCollapse(): void {
-        this.tableGroupRowElement.click();
-    }
 }
