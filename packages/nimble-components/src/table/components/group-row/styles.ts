@@ -36,7 +36,7 @@ export const styles = css`
 
     :host([expanded='true']) .animating,
     :host([expanded='false']) .animating {
-        transition: .2s ease-in-out;
+        transition: 0.2s ease-in-out;
     }
 
     .group-header-value {
