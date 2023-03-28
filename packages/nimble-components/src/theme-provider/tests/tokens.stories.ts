@@ -32,9 +32,9 @@ interface TokenArgs {
 
 const metadata: Meta = {
     title: 'Tokens/Theme-aware Tokens',
+    tags: ['autodocs'],
     parameters: {
         docs: {
-            autodocs: true,
             description: {
                 component: overviewText
             }

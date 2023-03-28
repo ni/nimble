@@ -53,6 +53,7 @@ Most client applications shouldn't use these tokens directly. See the <a href="h
 
 const metadata: Meta = {
     title: 'Tokens/Base Colors',
+    tags: ['autodocs'],
 
     parameters: {
         docs: {

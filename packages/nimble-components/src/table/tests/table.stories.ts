@@ -107,6 +107,7 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
+    tags: ['autodocs'],
 
     parameters: {
         docs: {

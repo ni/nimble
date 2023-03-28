@@ -52,6 +52,7 @@ const content = {
 
 const metadata: Meta<DialogArgs> = {
     title: 'Dialog',
+    tags: ['autodocs'],
 
     parameters: {
         docs: {

@@ -20,6 +20,8 @@ tab panels hosted on the same page.`;
 
 const metadata: Meta<TabsArgs> = {
     title: 'Anchor Tabs',
+    tags: ['autodocs'],
+
     parameters: {
         docs: {
             description: {

@@ -36,9 +36,5 @@ module.exports = {
     framework: {
         name: '@storybook/html-webpack5',
         options: {}
-    },
-    docs: {
-        // Generates a Docs page for each component out of its stories
-        autodocs: true
     }
 };
