@@ -38,6 +38,7 @@ module.exports = {
         options: {}
     },
     docs: {
+        // Generates a Docs page for each component out of its stories
         autodocs: true
     }
 };
