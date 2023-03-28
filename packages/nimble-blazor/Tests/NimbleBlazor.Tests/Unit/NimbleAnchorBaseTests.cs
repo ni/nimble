@@ -11,6 +11,7 @@ namespace NimbleBlazor.Tests.Unit;
 /// </summary>
 public class NimbleAnchorBaseTests<T> where T : NimbleAnchorBase
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1000:Do not declare static members on generic types", Justification = "Static needed for MemberData of Theory")]
     public static IEnumerable<object[]> Data =>
         new List<object[]>
         {
