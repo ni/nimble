@@ -1,9 +1,8 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextArea as FoundationTextArea
 } from '@microsoft/fast-foundation';
-import type { IconExclamationMark } from '../icons/exclamation-mark';
 import type { ErrorPattern } from '../patterns/error/types';
 import { styles } from './styles';
 import { template } from './template';
@@ -50,10 +49,11 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     public errorVisible = false;
 
     /**
-     * A reference to the internal error icon element
+     * The width of the vertical scrollbar, if displayed.
      * @internal
      */
-    public errorIcon!: IconExclamationMark;
+    @observable
+    public scrollbarWidth = 0;
 
     private resizeObserver?: ResizeObserver;
 
@@ -86,10 +86,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     };
 
     private updateScrollbarWidth(): void {
-        this.errorIcon.style.setProperty(
-            '--ni-private-scrollbar-width',
-            `${this.control.offsetWidth - this.control.clientWidth}px`
-        );
+        this.scrollbarWidth = this.control.offsetWidth - this.control.clientWidth;
     }
 }
 

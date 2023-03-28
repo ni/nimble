@@ -159,10 +159,6 @@ export const styles = css`
         width: 0px;
     }
 
-    .error-icon {
-        --ni-private-scrollbar-width: 0px;
-    }
-
     :host([error-visible]) .error-icon {
         position: absolute;
         top: calc(${standardPadding} / 2);
