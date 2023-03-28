@@ -66,11 +66,11 @@ describe('Anchor Tree Item', () => {
             expect(element.ariaDisabled).toBe('true');
         });
 
-        it('should clear href when disabled is set', async () => {
+        it('should clear control href when disabled is set', async () => {
             await connect();
             element.disabled = true;
             await waitForUpdatesAsync();
-            expect(element.href).toBeNull();
+            expect(element.control.href).toBe('');
         });
 
         const attributeNames: { name: string }[] = [
@@ -112,7 +112,7 @@ describe('Anchor Tree Item', () => {
             expect(element.end.assignedElements()[0]).toBe(model.checkIcon);
         });
 
-        it('should set start slot visible and end slot not visible', async () => {
+        it('should set start and end slots visible', async () => {
             await connect();
             expect(
                 getComputedStyle(element.start).display === 'none'
@@ -121,7 +121,7 @@ describe('Anchor Tree Item', () => {
             expect(
                 getComputedStyle(element.end).display === 'none'
                     || getComputedStyle(element.endContainer).display === 'none'
-            ).toBeTrue();
+            ).toBeFalse();
         });
     });
 });
