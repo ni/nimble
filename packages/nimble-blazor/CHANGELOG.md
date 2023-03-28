@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 16 Mar 2023 22:00:14 GMT and should not be manually modified.
+This log was last generated on Tue, 28 Mar 2023 22:52:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.5.0
+
+Tue, 28 Mar 2023 22:52:47 GMT
+
+### Minor changes
+
+- Blazor support for anchor menu item component ([ni/nimble@fcc2f9c](https://github.com/ni/nimble/commit/fcc2f9c0a871020f8da04213e561c0953a71d62c))
 
 ## 11.4.0
 
