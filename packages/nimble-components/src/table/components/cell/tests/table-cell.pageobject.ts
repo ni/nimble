@@ -9,19 +9,17 @@ import type { TableCellRecord } from '../../../../table-column/base/types';
 export class TableCellPageObject<T extends TableCellRecord = TableCellRecord> {
     public constructor(private readonly tableCellElement: TableCell<T>) {}
 
-    public getRenderedCellView(): TableCellView | undefined {
+    public getRenderedCellView(): TableCellView {
         const cellView = this.tableCellElement.shadowRoot!.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
             );
         }
-        return cellView instanceof TableCellView ? cellView : undefined;
+        return cellView as TableCellView;
     }
 
     public getRenderedCellContent(): string {
-        return (
-            this.getRenderedCellView()?.shadowRoot!.textContent?.trim() ?? ''
-        );
+        return this.getRenderedCellView().shadowRoot!.textContent?.trim() ?? '';
     }
 }

@@ -83,13 +83,13 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number
     ): TableCellView {
         const cell = this.getCell(rowIndex, columnIndex);
-        const cellView = cell.shadowRoot!.firstElementChild! as TableCellView;
+        const cellView = cell.shadowRoot!.firstElementChild;
         if (!(cellView instanceof TableCellView)) {
             throw new Error(
                 'Cell view not found in cell - ensure cellViewTag is set for column'
             );
         }
-        return cellView;
+        return cellView as TableCellView;
     }
 
     public getRenderedCellContent(
@@ -100,7 +100,7 @@ export class TablePageObject<T extends TableRecord> {
             this.getRenderedCellView(
                 rowIndex,
                 columnIndex
-            )?.shadowRoot!.textContent?.trim() ?? ''
+            ).shadowRoot!.textContent?.trim() ?? ''
         );
     }
 
