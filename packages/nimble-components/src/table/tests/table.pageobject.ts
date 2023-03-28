@@ -4,6 +4,7 @@ import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
+import type { TableRow } from '../components/row';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -20,14 +21,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getRenderedCellCountForRow(rowIndex: number): number {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const row = rows.item(rowIndex);
+        const row = this.getRow(rowIndex);
         const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
         return cells.length;
     }
@@ -108,14 +102,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getRecordId(rowIndex: number): string | undefined {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        return rows.item(rowIndex).recordId;
+        return this.getRow(rowIndex).recordId;
     }
 
     public getRowWidth(): number {
@@ -132,13 +119,7 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-        const row = rows[rowIndex];
+        const row = this.getRow(rowIndex);
         const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
         if (columnIndex >= (cells?.length ?? 0)) {
             throw new Error(
@@ -194,16 +175,8 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public setRowHoverState(rowIndex: number, hover: boolean): void {
-        const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
-        if (rowIndex >= rows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const cells = rows
-            .item(rowIndex)
-            .shadowRoot!.querySelectorAll('nimble-table-cell');
+        const row = this.getRow(rowIndex);
+        const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
         if (hover) {
             cells.forEach(cell => cell.style.setProperty(
                 '--ni-private-table-cell-action-menu-display',
@@ -216,7 +189,12 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
-    private getCell(rowIndex: number, columnIndex: number): TableCell {
+    public clickRow(rowIndex: number): void {
+        const row = this.getRow(rowIndex);
+        row.click();
+    }
+
+    private getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
@@ -224,7 +202,11 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        const row = rows.item(rowIndex);
+        return rows.item(rowIndex);
+    }
+
+    private getCell(rowIndex: number, columnIndex: number): TableCell {
+        const row = this.getRow(rowIndex);
         const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
         if (columnIndex >= cells.length) {
             throw new Error(

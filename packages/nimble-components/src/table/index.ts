@@ -235,6 +235,12 @@ export class Table<
             return;
         }
 
+        const currentSelection = this.getSelectedRecordIds();
+        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
+            // The clicked row is already the only selected row. Do nothing.
+            return;
+        }
+
         this.table.toggleAllRowsSelected(false);
         row.toggleSelected(true);
         this.emitSelectionChangeEvent();
@@ -275,6 +281,17 @@ export class Table<
         if (this.updateTracker.updateColumnWidths) {
             this.updateRowGridColumns();
         }
+    }
+
+    protected selectionModeChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.updateTracker.trackSelectionModeChanged();
     }
 
     protected idFieldNameChanged(
