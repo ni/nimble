@@ -10,8 +10,9 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
-import type { Table } from '..';
+import { Table, tableTag } from '..';
+import { iconUserTag } from '../../icons/user';
+import { tableColumnTextTag } from '../../table-column/text';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -50,12 +51,12 @@ const data = [
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <nimble-table>
-        <nimble-table-column-text field-name="firstName" placeholder="no value"><nimble-icon-user></nimble-icon-user></nimble-table-column-text>
-        <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
-        <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-        <nimble-table-column-text field-name="quote" placeholder="no value" column-hidden>Hidden Quote</nimble-table-column-text>
-    </nimble-table>
+    <${tableTag}>
+        <${tableColumnTextTag} field-name="firstName" placeholder="no value" sort-direction="ascending" sort-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="quote" placeholder="no value" column-hidden>Hidden Quote</${tableColumnTextTag}>
+    </${tableTag}>
 `;
 
 export const tableThemeMatrix: Story = createMatrixThemeStory(
@@ -69,5 +70,5 @@ tableThemeMatrix.play = (): void => {
 };
 
 export const hiddenTable: Story = createStory(
-    hiddenWrapper(html`<nimble-table hidden></nimble-table>`)
+    hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
 );

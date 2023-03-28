@@ -2,6 +2,387 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 24 Mar 2023 16:13:35 GMT",
+      "tag": "@ni/nimble-components_v18.8.1",
+      "version": "18.8.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6ecfe5122f0970f6d51e1760bf69ac75b9ca071d",
+            "comment": "Row Grouping HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Mar 2023 21:40:52 GMT",
+      "tag": "@ni/nimble-components_v18.8.1",
+      "version": "18.8.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "83c21ce6a62aa7c14873f0b8aa6577d12fd842d8",
+            "comment": "Add HLD for handling table cell state when scrolling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Mar 2023 20:54:34 GMT",
+      "tag": "@ni/nimble-components_v18.8.1",
+      "version": "18.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "459bc0e425822ee15ba62c557f86dd78b92d4158",
+            "comment": "Update table header styling to not reserve space for sort icon"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Mar 2023 22:35:48 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "728064a9e20c867a2ec90a973f2a282bfd01029a",
+            "comment": "Adding column width storybook."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Mar 2023 15:01:43 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7537303d7ede1cfe98d7f979b5f1227fc7a5aaa0",
+            "comment": "Update contributing docs for element tags"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Mar 2023 18:44:43 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7184164a0e3661bc0b75c3bd559ef2306d393a6a",
+            "comment": "Add mixin documentation to CONTRIBUTING."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 15 Mar 2023 15:36:39 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f1d6370d5548786004b5ef5d07b7657504d1fdf3",
+            "comment": "Implement anchor menu item component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Mar 2023 22:36:45 GMT",
+      "tag": "@ni/nimble-components_v18.7.0",
+      "version": "18.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "09fead1f3b08e3fde3bda7058271f35d7de6b7c4",
+            "comment": "Disable flaky visual tests"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Mar 2023 18:33:29 GMT",
+      "tag": "@ni/nimble-components_v18.7.0",
+      "version": "18.7.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "bd3f2cfa0f26c76c6f92cc69f3b9bee7780f457e",
+            "comment": "Add Storybook documentation for table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Mar 2023 14:51:12 GMT",
+      "tag": "@ni/nimble-components_v18.7.0",
+      "version": "18.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f5c6a7cc64b1892d1e0c5d75a64637f7043ee020",
+            "comment": "Expose element tag name for some components that were missing it"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 13 Mar 2023 14:39:43 GMT",
+      "tag": "@ni/nimble-components_v18.6.4",
+      "version": "18.6.4",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cceb3edf04d840b8d21b27c9c86b053fb6d0ce4e",
+            "comment": "Set fixed height/width of div in tooltip matrix story"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 23:11:05 GMT",
+      "tag": "@ni/nimble-components_v18.6.4",
+      "version": "18.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "278811bfbe152b64978c9552de1a815bd015fcb1",
+            "comment": "Queue table changes and process them in a batch"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 22:17:50 GMT",
+      "tag": "@ni/nimble-components_v18.6.3",
+      "version": "18.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d38391e69c9984de80bf7f4a41cfbcc0181e0d16",
+            "comment": "Programmatic table column width API"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 17:48:14 GMT",
+      "tag": "@ni/nimble-components_v18.6.2",
+      "version": "18.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a38c155c6c5c7d80e1123ad9e5f00495b57e8b34",
+            "comment": "Support \".\" in table record field names"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 09 Mar 2023 22:36:20 GMT",
+      "tag": "@ni/nimble-components_v18.6.1",
+      "version": "18.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f7cb89f7523890976b652940dac06f49aeb3017b",
+            "comment": "Set title attribute in text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 03 Mar 2023 18:48:01 GMT",
+      "tag": "@ni/nimble-components_v18.6.0",
+      "version": "18.6.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6711ef956ead44bd38c751f2bf7ac9b6258ce40f",
+            "comment": "Anchor menu item spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Mar 2023 18:38:23 GMT",
+      "tag": "@ni/nimble-components_v18.6.0",
+      "version": "18.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4ae2070766afb33d5be6df1d25dcf3df93f75deb",
+            "comment": "Exposed a constant for tag names on nimble components. Enabled Chromatic TurboSnap to reduce the number of Chromatic snapshots consumed by the Nimble build pipeline."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Mar 2023 17:48:41 GMT",
+      "tag": "@ni/nimble-components_v18.5.8",
+      "version": "18.5.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1a1e630c2741fd00d73f6b6be700aada832143c4",
+            "comment": "Add programmatic column sorting support to the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Mar 2023 18:28:57 GMT",
+      "tag": "@ni/nimble-components_v18.5.7",
+      "version": "18.5.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c",
+            "comment": "Using new fallback font definitions from `nimble-tokens` that more closely match the design system fonts. This helps minimize font swap jitter on initial page load."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.7.1",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Mar 2023 17:20:37 GMT",
+      "tag": "@ni/nimble-components_v18.5.6",
+      "version": "18.5.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "87eb2c0a840f5afe1715e3115eeb5c4edff8ffdb",
+            "comment": "Make tab panels scrollable"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Mar 2023 14:29:04 GMT",
+      "tag": "@ni/nimble-components_v18.5.5",
+      "version": "18.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0e8913430f74431f5cf8a780b2f17f656480b683",
+            "comment": "Implementation for die padding for the wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Feb 2023 11:04:40 GMT",
+      "tag": "@ni/nimble-components_v18.5.4",
+      "version": "18.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05d4139de721834e107f2d9db15111f41f19309f",
+            "comment": "Implementation for the hover feature in the Wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 27 Feb 2023 20:44:30 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb71e66a13c757c05b7869e3ba89f0afe346c2aa",
+            "comment": "Add chromatic tests with an open action menu in a table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Feb 2023 20:07:58 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b3a6c58b35eb3bdfe9f3a17dd43b2a28b7fefd09",
+            "comment": "Uptake Playwright for Chromium/Firefox binaries for tests; add dev commands for running tests on WebKit via Playwright"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Feb 2023 15:38:25 GMT",
+      "tag": "@ni/nimble-components_v18.5.3",
+      "version": "18.5.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9fbfc329ca652dd4a16b2f8018db8ab2747c7266",
+            "comment": "Fix mistake in table-row unit test set up"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 22 Feb 2023 16:40:03 GMT",
       "tag": "@ni/nimble-components_v18.5.3",
       "version": "18.5.3",

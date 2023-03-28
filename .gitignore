@@ -119,8 +119,5 @@ package-lock.json
 # macOS
 .DS_Store
 
-# local npmrc files
-.npmrc
-
 # lighthouse build directory
 .lighthouseci/

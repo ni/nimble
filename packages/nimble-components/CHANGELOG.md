@@ -1,8 +1,113 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
+This log was last generated on Wed, 22 Mar 2023 20:54:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.8.1
+
+Wed, 22 Mar 2023 20:54:34 GMT
+
+### Patches
+
+- Update table header styling to not reserve space for sort icon ([ni/nimble@459bc0e](https://github.com/ni/nimble/commit/459bc0e425822ee15ba62c557f86dd78b92d4158))
+
+## 18.8.0
+
+Wed, 15 Mar 2023 15:36:39 GMT
+
+### Minor changes
+
+- Implement anchor menu item component ([ni/nimble@f1d6370](https://github.com/ni/nimble/commit/f1d6370d5548786004b5ef5d07b7657504d1fdf3))
+
+## 18.7.0
+
+Tue, 14 Mar 2023 14:51:12 GMT
+
+### Minor changes
+
+- Expose element tag name for some components that were missing it ([ni/nimble@f5c6a7c](https://github.com/ni/nimble/commit/f5c6a7cc64b1892d1e0c5d75a64637f7043ee020))
+
+## 18.6.4
+
+Fri, 10 Mar 2023 23:11:05 GMT
+
+### Patches
+
+- Queue table changes and process them in a batch ([ni/nimble@278811b](https://github.com/ni/nimble/commit/278811bfbe152b64978c9552de1a815bd015fcb1))
+
+## 18.6.3
+
+Fri, 10 Mar 2023 22:17:50 GMT
+
+### Patches
+
+- Programmatic table column width API ([ni/nimble@d38391e](https://github.com/ni/nimble/commit/d38391e69c9984de80bf7f4a41cfbcc0181e0d16))
+
+## 18.6.2
+
+Fri, 10 Mar 2023 17:48:14 GMT
+
+### Patches
+
+- Support "." in table record field names ([ni/nimble@a38c155](https://github.com/ni/nimble/commit/a38c155c6c5c7d80e1123ad9e5f00495b57e8b34))
+
+## 18.6.1
+
+Thu, 09 Mar 2023 22:36:20 GMT
+
+### Patches
+
+- Set title attribute in text column ([ni/nimble@f7cb89f](https://github.com/ni/nimble/commit/f7cb89f7523890976b652940dac06f49aeb3017b))
+
+## 18.6.0
+
+Thu, 02 Mar 2023 18:38:23 GMT
+
+### Minor changes
+
+- Exposed a constant for tag names on nimble components. Enabled Chromatic TurboSnap to reduce the number of Chromatic snapshots consumed by the Nimble build pipeline. ([ni/nimble@4ae2070](https://github.com/ni/nimble/commit/4ae2070766afb33d5be6df1d25dcf3df93f75deb))
+
+## 18.5.8
+
+Thu, 02 Mar 2023 17:48:41 GMT
+
+### Patches
+
+- Add programmatic column sorting support to the table ([ni/nimble@1a1e630](https://github.com/ni/nimble/commit/1a1e630c2741fd00d73f6b6be700aada832143c4))
+
+## 18.5.7
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Using new fallback font definitions from `nimble-tokens` that more closely match the design system fonts. This helps minimize font swap jitter on initial page load. ([ni/nimble@29c1ec3](https://github.com/ni/nimble/commit/29c1ec36b4284fff6e104f61a1c483f94945870c))
+- Bump @ni/nimble-tokens to v4.7.1
+
+## 18.5.6
+
+Wed, 01 Mar 2023 17:20:37 GMT
+
+### Patches
+
+- Make tab panels scrollable ([ni/nimble@87eb2c0](https://github.com/ni/nimble/commit/87eb2c0a840f5afe1715e3115eeb5c4edff8ffdb))
+
+## 18.5.5
+
+Wed, 01 Mar 2023 14:29:04 GMT
+
+### Patches
+
+- Implementation for die padding for the wafer map component ([ni/nimble@0e89134](https://github.com/ni/nimble/commit/0e8913430f74431f5cf8a780b2f17f656480b683))
+
+## 18.5.4
+
+Tue, 28 Feb 2023 11:04:40 GMT
+
+### Patches
+
+- Implementation for the hover feature in the Wafer map component ([ni/nimble@05d4139](https://github.com/ni/nimble/commit/05d4139de721834e107f2d9db15111f41f19309f))
 
 ## 18.5.3
 

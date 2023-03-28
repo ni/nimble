@@ -15,7 +15,7 @@ import {
     spinnerMediumHeight
 } from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
+import { spinnerTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Spinner',
@@ -48,7 +48,7 @@ const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
     </span>
-    <nimble-spinner style="${() => state}"></nimble-spinner>
+    <${spinnerTag} style="${() => state}"></${spinnerTag}>
 `;
 
 export const spinnerThemeMatrix: Story = createMatrixThemeStory(
@@ -56,5 +56,5 @@ export const spinnerThemeMatrix: Story = createMatrixThemeStory(
 );
 
 export const hiddenSpinner: Story = createStory(
-    hiddenWrapper(html`<nimble-spinner hidden></nimble-spinner>`)
+    hiddenWrapper(html`<${spinnerTag} hidden></${spinnerTag}>`)
 );

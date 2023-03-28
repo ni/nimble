@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 14 Feb 2023 16:15:37 GMT and should not be manually modified.
+This log was last generated on Wed, 01 Mar 2023 18:28:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.7.1
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Created fallback `@font-face` definitions for local fonts to more closely match the design system fonts. These fallbacks can be used to reduce font swap jitter on initial page load. ([ni/nimble@29c1ec3](https://github.com/ni/nimble/commit/29c1ec36b4284fff6e104f61a1c483f94945870c))
 
 ## 4.7.0
 

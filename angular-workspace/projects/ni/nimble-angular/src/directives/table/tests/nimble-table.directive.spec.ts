@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { Table, TableRecord, TableValidity } from '@ni/nimble-angular';
+import { processUpdates, Table, TableRecord, TableValidity } from '@ni/nimble-angular';
 import { Observable, Subject } from 'rxjs';
 import { NimbleTableDirective } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
@@ -137,6 +137,7 @@ describe('Nimble table', () => {
         it('`checkValidity()` returns `false` when the table is not valid', () => {
             fixture.componentInstance.idFieldName = 'not-a-field';
             fixture.detectChanges();
+            processUpdates();
 
             expect(directive.checkValidity()).toBeFalse();
             expect(nativeElement.checkValidity()).toBeFalse();
@@ -145,13 +146,15 @@ describe('Nimble table', () => {
         it('`validity` property returns expected state', () => {
             fixture.componentInstance.idFieldName = 'not-a-field';
             fixture.detectChanges();
+            processUpdates();
 
             const expectedValidity: TableValidity = {
                 duplicateRecordId: false,
                 invalidRecordId: false,
                 missingRecordId: true,
                 duplicateColumnId: false,
-                missingColumnId: false
+                missingColumnId: false,
+                duplicateSortIndex: false
             };
             expect(directive.validity).toEqual(expectedValidity);
             expect(nativeElement.validity).toEqual(expectedValidity);

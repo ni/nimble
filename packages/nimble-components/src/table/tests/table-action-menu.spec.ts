@@ -134,12 +134,11 @@ describe('Table action menu', () => {
         expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
 
         // Open the menu button
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const toggleListener = createEventListener(
             element,
             'action-menu-toggle'
         );
-        menuButton.toggleButton!.control.click();
+        await pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
 
         pageObject.setRowHoverState(1, false);
@@ -195,15 +194,13 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        pageObject.setRowHoverState(1, true);
         await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const toggleListener = createEventListener(
             element,
             'action-menu-toggle'
         );
         // Open a menu button for the first row to cause all the menus to be slotted within that row
-        menuButton.toggleButton!.control.click();
+        await pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
 
         const rowSlots = element
@@ -223,15 +220,12 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        pageObject.setRowHoverState(1, true);
-        await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         const toggleListener = createEventListener(
             element,
             'action-menu-toggle'
         );
         // Open a menu button for the first row to cause all the menus to be slotted within that row
-        menuButton.toggleButton!.control.click();
+        await pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
 
         const rowSlots = element
@@ -240,6 +234,33 @@ describe('Table action menu', () => {
             .querySelectorAll<HTMLSlotElement>('slot');
         expect(rowSlots.length).toBe(1);
         expect(rowSlots.item(0).name).toBe(slot1);
+    });
+
+    it('table updates slots when `action-menu-slot` value changes', async () => {
+        const slot1 = 'my-action-menu';
+        column1.actionMenuSlot = slot1;
+        createAndSlotMenu(slot1);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const toggleListener = createEventListener(
+            element,
+            'action-menu-toggle'
+        );
+        // Open a menu button for the first row to cause all the menus to be slotted within that row
+        await pageObject.clickCellActionMenu(1, 0);
+        await toggleListener.promise;
+
+        const updatedSlot = 'my-new-slot';
+        column1.actionMenuSlot = updatedSlot;
+        await waitForUpdatesAsync();
+
+        const rowSlots = element
+            .shadowRoot!.querySelectorAll('nimble-table-row')
+            ?.item(1)
+            .querySelectorAll<HTMLSlotElement>('slot');
+        expect(rowSlots.length).toBe(1);
+        expect(rowSlots.item(0).name).toBe(updatedSlot);
     });
 
     it('`beforetoggle` event is emitted before the action menu is opened', async () => {
@@ -256,10 +277,7 @@ describe('Table action menu', () => {
             element,
             'action-menu-beforetoggle'
         );
-        pageObject.setRowHoverState(1, true);
-        await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        await pageObject.clickCellActionMenu(1, 0);
 
         await beforetoggleListener.promise;
         expect(beforetoggleListener.spy).toHaveBeenCalledTimes(1);
@@ -284,10 +302,7 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        pageObject.setRowHoverState(1, true);
-        await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        await pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
         const beforetoggleListener = createEventListener(
             element,
@@ -296,6 +311,7 @@ describe('Table action menu', () => {
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
         } as KeyboardEventInit);
+        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
         await beforetoggleListener.promise;
@@ -325,10 +341,7 @@ describe('Table action menu', () => {
             element,
             'action-menu-toggle'
         );
-        pageObject.setRowHoverState(1, true);
-        await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        await pageObject.clickCellActionMenu(1, 0);
 
         await toggleListener.promise;
         expect(toggleListener.spy).toHaveBeenCalledTimes(1);
@@ -353,10 +366,7 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        pageObject.setRowHoverState(1, true);
-        await waitForUpdatesAsync();
-        const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.toggleButton!.control.click();
+        await pageObject.clickCellActionMenu(1, 0);
         await waitForUpdatesAsync();
         const toggleListener = createEventListener(
             element,
@@ -365,6 +375,7 @@ describe('Table action menu', () => {
         const escEvent = new KeyboardEvent('keydown', {
             key: keyEscape
         } as KeyboardEventInit);
+        const menuButton = pageObject.getCellActionMenu(1, 0)!;
         menuButton.region!.dispatchEvent(escEvent);
 
         await toggleListener.promise;

@@ -37,3 +37,4 @@ const nimbleTooltip = Tooltip.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTooltip());
+export const tooltipTag = DesignSystem.tagFor(Tooltip);

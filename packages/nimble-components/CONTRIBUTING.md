@@ -63,11 +63,17 @@ Before building a new component, create a spec document to get agreement on the 
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Create change files for your work by running the following from the `nimble` directory:
+5. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
+   For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
+
+    - To open Storybook with WebKit, after running the Storybook command, run the command `npm run storybook-open-webkit -w @ni/nimble-components` from the `nimble` directory.
+    - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
+
+6. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
-6. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+7. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
 
 ## Develop new components
 
@@ -109,7 +115,7 @@ All components should have an import added to `src/all-components.ts` so they ar
 
 If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
 
-If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
+If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
 Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
 
@@ -138,7 +144,7 @@ const nimbleButton = Button.compose({
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 
-Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(NimbleComponentClass)` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
+Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `import { componentNameTag } ...;` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
 
 #### Build a new component without leveraging FAST Foundation or existing Nimble components
 
@@ -288,6 +294,16 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
 
+### Export component tag
+
+Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
+
+```ts
+export const buttonTag = DesignSystem.tagFor(Button);
+```
+
+Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.
+
 ### TypeScript integration
 
 For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
@@ -326,6 +342,16 @@ const nimbleButton = Button.compose({
 });
 ```
 
+### Leverage mixins for shared APIs across components
+
+TypeScript and the FAST library each offer patterns and/or mechanisms to alter the APIs for a component via a mixin.
+
+FAST provides an `applyMixins` function (which is just an implementation of the [Alternative Pattern](https://www.typescriptlang.org/docs/handbook/mixins.html#alternative-pattern) described in the Typscript docs) to alter the API of a given component with a set of provided mixin classes. For an example, see how the [ToggleButton StartEnd mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/toggle-button/index.ts#L44) is applied.
+
+Another pattern in use within in Nimble is the [Constrained Mixin](https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins) pattern. An example in Nimble is the [FractionalWidth mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/mixins/fractional-width-column.ts#L16) which `TableColumnText`, for example, [ultimately extends](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/text/index.ts#L61). This offers the ability for a mixin to extend the functionality of another concrete type and interface with its implementation.
+
+The 'Constrained Mixin' pattern is used for applying mixins that are defined within Nimble, as they do not fundamentally alter existing types, and the `applyMixins` FAST method is used for consuming mixins exported from the FAST library.
+
 ## Unit tests
 
 Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
@@ -345,6 +371,8 @@ The following commands can be run from the `nimble` directory:
 -   `npm run test-chrome:debugger -w @ni/nimble-components`: When run opens a Chrome window that can be used for interactive debugging. Using dev tools set breakpoints in tests and refresh the page, etc.
 
     You can also take the page url and open it in a different browser to test interactively.
+
+-   `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
 
 ### Test utilities
 

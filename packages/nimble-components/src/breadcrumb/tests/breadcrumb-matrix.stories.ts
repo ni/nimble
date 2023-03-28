@@ -11,9 +11,10 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { BreadcrumbAppearance } from '../types';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { breadcrumbTag } from '..';
+import { breadcrumbItemTag } from '../../breadcrumb-item';
 
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
@@ -38,15 +39,15 @@ const component = ([
     appearanceName,
     appearance
 ]: AppearanceState): ViewTemplate => html`
-    <nimble-breadcrumb
+    <${breadcrumbTag}
         appearance="${() => appearance}"
         style="margin-right: 24px"
     >
-        <nimble-breadcrumb-item href="${parent.location.href}">
+        <${breadcrumbItemTag} href="${parent.location.href}">
             ${() => `Breadcrumb (${appearanceName}) - Link`}
-        </nimble-breadcrumb-item>
-        <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
-    </nimble-breadcrumb>
+        </${breadcrumbItemTag}>
+        <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
+    </${breadcrumbTag}>
 `;
 export const breadcrumbThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component, [appearanceStates])
@@ -54,15 +55,15 @@ export const breadcrumbThemeMatrix: Story = createMatrixThemeStory(
 
 export const hiddenBreadcrumb: Story = createStory(
     hiddenWrapper(
-        html`<nimble-breadcrumb hidden>
-            <nimble-breadcrumb-item href="#">Item 1</nimble-breadcrumb-item>
-            <nimble-breadcrumb-item>Current (No Link)</nimble-breadcrumb-item>
-        </nimble-breadcrumb>`
+        html`<${breadcrumbTag} hidden>
+            <${breadcrumbItemTag} href="#">Item 1</${breadcrumbItemTag}>
+            <${breadcrumbItemTag}>Current (No Link)</${breadcrumbItemTag}>
+        </${breadcrumbTag}>`
     )
 );
 
 export const textCustomized: Story = createMatrixThemeStory(
     textCustomizationWrapper(
-        html`<nimble-breadcrumb-item>Breadcrumb item</nimble-breadcrumb-item>`
+        html`<${breadcrumbItemTag}>Breadcrumb item</${breadcrumbItemTag}>`
     )
 );

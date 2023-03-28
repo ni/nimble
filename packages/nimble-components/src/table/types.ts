@@ -19,28 +19,9 @@ export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
 }
 
-/** Represents a single row (element) in the Table's data  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableDataRecord extends TableRecord {}
-
-/**
- * An object whose fields are defined by a particular TableColumn, which is used by the column's
- * cellTemplate implementation.
- */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableCellRecord extends TableRecord {}
-
 export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: string | null | undefined;
 };
-
-export interface TableCellState<
-    TCellRecord extends TableCellRecord = TableCellRecord,
-    TColumnConfig = unknown
-> {
-    cellRecord: TCellRecord;
-    columnConfig: TColumnConfig;
-}
 
 export interface TableValidity {
     readonly duplicateRecordId: boolean;
@@ -48,11 +29,7 @@ export interface TableValidity {
     readonly invalidRecordId: boolean;
     readonly duplicateColumnId: boolean;
     readonly missingColumnId: boolean;
-}
-
-export interface TableRowState<TData extends TableRecord = TableRecord> {
-    record: TData;
-    id: string;
+    readonly duplicateSortIndex: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -61,3 +38,14 @@ export interface TableActionMenuToggleEventDetail {
     recordIds: string[];
     columnId?: string;
 }
+
+/**
+ * The possible directions a table column can be sorted in.
+ */
+export const TableColumnSortDirection = {
+    none: undefined,
+    ascending: 'ascending',
+    descending: 'descending'
+} as const;
+export type TableColumnSortDirection =
+    (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];

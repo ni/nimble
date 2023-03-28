@@ -10,26 +10,38 @@ import {
     TableState as TanStackTableState,
     Updater as TanStackUpdater,
     Table as TanStackTable,
+    Row as TanStackRow,
     createTable as tanStackCreateTable,
     getCoreRowModel as tanStackGetCoreRowModel,
-    TableOptionsResolved as TanStackTableOptionsResolved
+    getSortedRowModel as tanStackGetSortedRowModel,
+    TableOptionsResolved as TanStackTableOptionsResolved,
+    SortingState as TanStackSortingState
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
-import type {
+import {
     TableActionMenuToggleEventDetail,
+    TableColumnSortDirection,
+    TableFieldValue,
     TableRecord,
-    TableRowState,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
+import { getTanStackSortingFunction } from './models/sort-operations';
+import { UpdateTracker } from './models/update-tracker';
+import { TableLayoutHelper } from './models/table-layout-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table': Table;
     }
+}
+
+interface TableRowState<TData extends TableRecord = TableRecord> {
+    record: TData;
+    id: string;
 }
 
 /**
@@ -77,6 +89,18 @@ export class Table<
     @observable
     public canRenderRows = true;
 
+    /**
+     * @internal
+     */
+    @observable
+    public scrollX = 0;
+
+    /**
+     * @internal
+     */
+    @observable
+    public rowGridColumns?: string;
+
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -91,9 +115,16 @@ export class Table<
      */
     public readonly virtualizer: Virtualizer<TData>;
 
+    /**
+     * @internal
+     */
+    @observable
+    public firstSortedColumn?: TableColumn;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
+    private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
 
     public constructor() {
@@ -102,8 +133,10 @@ export class Table<
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
             getCoreRowModel: tanStackGetCoreRowModel(),
+            getSortedRowModel: tanStackGetSortedRowModel(),
             columns: [],
             state: {},
+            enableSorting: true,
             renderFallbackValue: null,
             autoResetAll: false
         };
@@ -112,20 +145,24 @@ export class Table<
     }
 
     public setData(newData: readonly TData[]): void {
-        this.generateTanStackColumns(newData);
         this.setTableData(newData);
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.virtualizer.connectedCallback();
-        this.validateAndObserveColumns();
+        this.updateTracker.trackAllStateChanged();
+        this.observeColumns();
+        this.viewport.addEventListener('scroll', this.onViewPortScroll, {
+            passive: true
+        });
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.removeColumnObservers();
+        this.viewport.removeEventListener('scroll', this.onViewPortScroll);
     }
 
     public checkValidity(): boolean {
@@ -140,10 +177,8 @@ export class Table<
      * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof TableColumn) {
-            if (args === 'columnId') {
-                this.validateColumnIds();
-            }
+        if (source instanceof TableColumn && typeof args === 'string') {
+            this.updateTracker.trackColumnPropertyChanged(args);
         }
     }
 
@@ -160,17 +195,33 @@ export class Table<
         this.$emit('action-menu-toggle', event.detail);
     }
 
-    protected childItemsChanged(): void {
-        void this.updateColumnsFromChildItems();
+    /**
+     * @internal
+     */
+    public update(): void {
+        this.validate();
+        if (this.updateTracker.requiresTanStackUpdate) {
+            this.updateTanStack();
+        }
+
+        if (this.updateTracker.updateActionMenuSlots) {
+            this.updateActionMenuSlots();
+        }
+
+        if (this.updateTracker.updateColumnWidths) {
+            this.updateRowGridColumns();
+        }
     }
 
     protected idFieldNameChanged(
         _prev: string | undefined,
         _next: string | undefined
     ): void {
-        // Force TanStack to detect a data update because a row's ID is only
-        // generated when creating a new row model.
-        this.setTableData(this.table.options.data);
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.updateTracker.trackIdFieldNameChanged();
     }
 
     protected columnsChanged(
@@ -181,16 +232,13 @@ export class Table<
             return;
         }
 
-        this.validateAndObserveColumns();
-
-        const slots = new Set<string>();
-        for (const column of this.columns) {
-            if (column.actionMenuSlot) {
-                slots.add(column.actionMenuSlot);
-            }
-        }
-        this.actionMenuSlots = Array.from(slots);
+        this.observeColumns();
+        this.updateTracker.trackColumnInstancesChanged();
     }
+
+    private readonly onViewPortScroll = (event: Event): void => {
+        this.scrollX = (event.target as HTMLElement).scrollLeft;
+    };
 
     private removeColumnObservers(): void {
         this.columnNotifiers.forEach(notifier => {
@@ -199,7 +247,7 @@ export class Table<
         this.columnNotifiers = [];
     }
 
-    private validateAndObserveColumns(): void {
+    private observeColumns(): void {
         this.removeColumnObservers();
 
         for (const column of this.columns) {
@@ -207,15 +255,17 @@ export class Table<
             notifier.subscribe(this);
             this.columnNotifiers.push(notifier);
         }
-
-        this.validateColumnIds();
     }
 
-    private validateColumnIds(): void {
-        this.tableValidator.validateColumnIds(
-            this.columns.map(x => x.columnId)
+    private getColumnsParticipatingInSorting(): TableColumn[] {
+        return this.columns.filter(
+            x => x.sortDirection !== TableColumnSortDirection.none
+                && typeof x.sortIndex === 'number'
         );
-        this.canRenderRows = this.checkValidity();
+    }
+
+    private childItemsChanged(): void {
+        void this.updateColumnsFromChildItems();
     }
 
     private async updateColumnsFromChildItems(): Promise<void> {
@@ -228,19 +278,66 @@ export class Table<
         );
     }
 
+    private updateTanStack(): void {
+        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {
+            state: {}
+        };
+
+        if (this.updateTracker.updateColumnSort) {
+            updatedOptions.state!.sorting = this.calculateTanStackSortState();
+        }
+        if (this.updateTracker.updateColumnDefinition) {
+            updatedOptions.columns = this.calculateTanStackColumns();
+        }
+        if (this.updateTracker.updateRowIds) {
+            updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
+        }
+        if (this.updateTracker.requiresTanStackDataReset) {
+            // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
+            updatedOptions.data = [...this.table.options.data];
+        }
+
+        this.updateTableOptions(updatedOptions);
+    }
+
+    private updateActionMenuSlots(): void {
+        const slots = new Set<string>();
+        for (const column of this.columns) {
+            if (column.actionMenuSlot) {
+                slots.add(column.actionMenuSlot);
+            }
+        }
+        this.actionMenuSlots = Array.from(slots);
+    }
+
+    private updateRowGridColumns(): void {
+        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
+            this.columns
+        );
+    }
+
+    private validate(): void {
+        this.tableValidator.validateColumnIds(
+            this.columns.map(x => x.columnId)
+        );
+        this.tableValidator.validateColumnSortIndices(
+            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
+        );
+        this.validateWithData(this.table.options.data);
+    }
+
+    private validateWithData(data: TableRecord[]): void {
+        this.tableValidator.validateRecordIds(data, this.idFieldName);
+        this.canRenderRows = this.checkValidity();
+    }
+
     private setTableData(newData: readonly TData[]): void {
         const data = newData.map(record => {
             return { ...record };
         });
-        this.tableValidator.validateRecordIds(data, this.idFieldName);
-        this.canRenderRows = this.checkValidity();
-
-        const getRowIdFunction = this.idFieldName === null || this.idFieldName === undefined
-            ? undefined
-            : (record: TData) => record[this.idFieldName!] as string;
+        this.validateWithData(data);
         this.updateTableOptions({
-            data,
-            getRowId: getRowIdFunction
+            data
         });
     }
 
@@ -259,44 +356,58 @@ export class Table<
     private updateTableOptions(
         updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
     ): void {
-        this.options = { ...this.options, ...updatedOptions };
-        this.update(this.table.initialState);
+        this.options = {
+            ...this.options,
+            ...updatedOptions,
+            state: { ...this.options.state, ...updatedOptions.state }
+        };
+        this.table.setOptions(this.options);
         this.refreshRows();
     }
 
-    private readonly update = (state: TanStackTableState): void => {
-        this.table.setOptions(prev => ({
-            ...prev,
-            ...this.options,
-            state,
-            onStateChange: (updater: unknown) => {
-                const updatedState = typeof updater === 'function'
-                    ? (updater(state) as TanStackTableState)
-                    : (updater as TanStackTableState);
-                this.update(updatedState);
-            }
-        }));
-    };
+    private calculateTanStackSortState(): TanStackSortingState {
+        const sortedColumns = this.getColumnsParticipatingInSorting().sort(
+            (x, y) => x.sortIndex! - y.sortIndex!
+        );
+        this.firstSortedColumn = sortedColumns.length
+            ? sortedColumns[0]
+            : undefined;
 
-    // Generate columns for TanStack that correspond to all the keys in TData because all operations,
-    // such as grouping and sorting, will be performed on the data's records, not the values rendered within a cell.
-    private generateTanStackColumns(data: readonly TData[]): void {
-        if (data.length === 0) {
-            return;
-        }
-
-        const firstItem = data[0]!;
-        const keys = Object.keys(firstItem);
-        const generatedColumns = keys.map(key => {
-            const columnDef: TanStackColumnDef<TData> = {
-                id: key,
-                accessorKey: key,
-                header: key
+        return sortedColumns.map(column => {
+            return {
+                id: column.internalUniqueId,
+                desc:
+                    column.sortDirection === TableColumnSortDirection.descending
             };
-            return columnDef;
         });
+    }
 
-        this.updateTableOptions({ columns: generatedColumns });
+    private calculateTanStackRowIdFunction():
+    | ((
+        originalRow: TData,
+        index: number,
+        parent?: TanStackRow<TData>
+    ) => string)
+    | undefined {
+        return this.idFieldName === null || this.idFieldName === undefined
+            ? undefined
+            : (record: TData) => record[this.idFieldName!] as string;
+    }
+
+    private calculateTanStackColumns(): TanStackColumnDef<TData>[] {
+        return this.columns.map(column => {
+            return {
+                id: column.internalUniqueId,
+                accessorFn: (data: TData): TableFieldValue => {
+                    const fieldName = column.operandDataRecordFieldName;
+                    if (typeof fieldName !== 'string') {
+                        return undefined;
+                    }
+                    return data[fieldName];
+                },
+                sortingFn: getTanStackSortingFunction(column.sortOperation)
+            };
+        });
     }
 }
 
@@ -307,3 +418,4 @@ const nimbleTable = Table.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTable());
+export const tableTag = DesignSystem.tagFor(Table);

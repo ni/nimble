@@ -1,6 +1,7 @@
 import type { WaferMapDie } from '../types';
 import { ZoomHandler } from './zoom-handler';
 import type { WaferMap } from '..';
+import { HoverHandler } from './hover-handler';
 
 export interface EventCoordinatorCallbacks {
     dieSelected: (die: WaferMapDie) => void;
@@ -11,21 +12,13 @@ export interface EventCoordinatorCallbacks {
  */
 export class EventCoordinator {
     private readonly zoomHandler: ZoomHandler;
+    private readonly hoverHandler: HoverHandler;
 
     public constructor(private readonly wafermap: WaferMap) {
         this.zoomHandler = new ZoomHandler(wafermap);
-
-        // TODO HoverHandler - initialization
-
-        // TODO HoverHandler -  create a hoverDie element
+        this.hoverHandler = new HoverHandler(wafermap);
 
         this.attachEvents();
-    }
-
-    public get selectedDie(): WaferMapDie | undefined {
-        // TODO HoverHandler - return the last selected die when called
-
-        return undefined;
     }
 
     public detachEvents(): void {
@@ -38,12 +31,12 @@ export class EventCoordinator {
         event.preventDefault();
     };
 
-    private readonly onMouseMove = (): void => {
-        // TODO HoverHandler - mousemove(e) callback
+    private readonly onMouseMove = (event: MouseEvent): void => {
+        this.hoverHandler.mousemove(event);
     };
 
-    private readonly onMouseOut = (): void => {
-        // TODO HoverHandler - mouseout() callback
+    private readonly onMouseOut = (event: MouseEvent): void => {
+        this.hoverHandler.mouseout(event);
     };
 
     private attachEvents(): void {
@@ -52,8 +45,5 @@ export class EventCoordinator {
         this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
             passive: false
         });
-
-        // Wafermap callbacks
-        // TODO HoverHandler - configure the callback to be fired from HoverHandler when a new die is selected
     }
 }

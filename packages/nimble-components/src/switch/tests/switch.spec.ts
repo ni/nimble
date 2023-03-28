@@ -1,11 +1,7 @@
 import { html } from '@microsoft/fast-element';
-import {
-    DesignSystem,
-    Switch as FoundationSwitch
-} from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Switch } from '..';
+import { Switch, switchTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Switch>> {
@@ -26,8 +22,8 @@ describe('Switch', () => {
         await disconnect();
     });
 
-    it('should have its tag returned by tagFor(FoundationSwitch)', () => {
-        expect(DesignSystem.tagFor(FoundationSwitch)).toBe('nimble-switch');
+    it('should export its tag', () => {
+        expect(switchTag).toBe('nimble-switch');
     });
 
     it('can construct an element instance', () => {

@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
+import { selectTag } from '..';
+import { listOptionTag } from '../../list-option';
 
 interface SelectArgs {
     disabled: boolean;
@@ -40,7 +41,7 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-select
+        <${selectTag}
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?disabled="${x => x.disabled}"
@@ -48,14 +49,14 @@ const metadata: Meta<SelectArgs> = {
             appearance="${x => x.appearance}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option
+                <${listOptionTag}
                     value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
                 >
                     ${x => x.label}
-                </nimble-list-option>
+                </${listOptionTag}>
             `)}
-        </nimble-select>
+        </${selectTag}>
     `),
     argTypes: {
         dropDownPosition: {
