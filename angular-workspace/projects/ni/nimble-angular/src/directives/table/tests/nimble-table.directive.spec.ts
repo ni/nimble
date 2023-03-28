@@ -154,7 +154,8 @@ describe('Nimble table', () => {
                 missingRecordId: true,
                 duplicateColumnId: false,
                 missingColumnId: false,
-                duplicateSortIndex: false
+                duplicateSortIndex: false,
+                idFieldNameNotConfigured: false
             };
             expect(directive.validity).toEqual(expectedValidity);
             expect(nativeElement.validity).toEqual(expectedValidity);
