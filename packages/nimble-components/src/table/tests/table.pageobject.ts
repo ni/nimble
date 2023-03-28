@@ -194,7 +194,7 @@ export class TablePageObject<T extends TableRecord> {
         row.click();
     }
 
-    private getRow(rowIndex: number): TableRow {
+    public getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(
