@@ -4,7 +4,8 @@ import {
     borderWidth,
     controlHeight,
     fillHoverColor,
-    standardPadding
+    standardPadding,
+    tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -13,6 +14,7 @@ export const styles = css`
     :host {
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
+        border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
         padding-left: calc(
             ${standardPadding} * 2 *
                 var(--ni-private-table-group-row-indent-level)
