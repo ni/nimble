@@ -41,27 +41,6 @@ export class AnchorTreeItem extends AnchorBase {
     public disabled = false;
 
     /**
-     * Whether the item is focusable
-     *
-     * @internal
-     */
-    public focusable?: boolean;
-
-    /**
-     * Indicates if the tree item is nested
-     *
-     * @internal
-     */
-    public nested?: boolean;
-
-    /**
-     *  Readonly property identifying the element as a tree item
-     *
-     * @internal
-     */
-    public readonly isTreeItem: boolean = true;
-
-    /**
      * Whether the tree is nested
      *
      * @public
@@ -89,22 +68,12 @@ export class AnchorTreeItem extends AnchorBase {
     }
 
     /**
-     * Gets number of children
-     *
-     * @internal
-     */
-    public childItemLength(): number {
-        return 0;
-    }
-
-    /**
      * @internal
      */
     public keydownHandler(e: KeyboardEvent): boolean {
         if (e.defaultPrevented) {
             return false;
         }
-        const item = e.target as HTMLElement;
         switch (e.key) {
             case keyEnter:
                 // Do not let the event bubble up to the FAST tree, or it will
@@ -116,8 +85,7 @@ export class AnchorTreeItem extends AnchorBase {
                 // but since our anchor tree item is not "instanceof FASTTreeItem",
                 // the FAST tree view won't do this for us. We do it ourselves.
                 if (
-                    item === this.control
-                    && this.parentElement
+                    this.parentElement
                     && this.isNestedItem()
                 ) {
                     FoundationTreeItem.focusItem(this.parentElement);
