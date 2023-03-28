@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, html, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
@@ -33,6 +33,12 @@ export class TableGroupRow extends FoundationElement {
     /**
      * @internal
      */
+    @observable
+    public groupHeaderViewTemplate?: ViewTemplate<TableGroupRow>;
+
+    /**
+     * @internal
+     */
     public readonly expandIcon!: HTMLElement;
 
     /**
@@ -48,6 +54,19 @@ export class TableGroupRow extends FoundationElement {
             'transitionend',
             this.removeAnimatingClass
         );
+    }
+
+    public groupColumnChanged(): void {
+        if (this.groupColumn?.internalGroupHeaderViewTag) {
+            this.groupHeaderViewTemplate = html<TableGroupRow>`
+            <${this.groupColumn.internalGroupHeaderViewTag}
+                :groupHeaderValue="${y => y.groupRowValue}"
+                :columnConfig="${y => y.groupColumn?.columnConfig}"
+                class="group-header-value"
+                >
+            </${this.groupColumn.internalGroupHeaderViewTag}>
+        `;
+        }
     }
 
     private readonly removeAnimatingClass = (): void => {

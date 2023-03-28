@@ -3,7 +3,7 @@ import type { Table } from '..';
 import type { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import type { TableRecord } from '../types';
+import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
@@ -249,6 +249,48 @@ describe('Table grouping', () => {
         expect(getRenderedRecordIds()).toEqual(['1', '3', '2', '4']);
     });
 
+    it('column with group-index and grouping-disabled set does not get grouped', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'hello' },
+            { id: '2', stringData1: 'good bye' },
+            { id: '3', stringData1: 'hello' },
+            { id: '4', stringData1: 'good bye' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 1;
+        column1.groupingDisabled = true;
+        element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedGroupRowCount()).toEqual(0);
+        expect(pageObject.getRenderedRowCount()).toEqual(4);
+    });
+
+    it('updating grouped column to set grouping-disabled removes grouping', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'hello' },
+            { id: '2', stringData1: 'good bye' },
+            { id: '3', stringData1: 'hello' },
+            { id: '4', stringData1: 'good bye' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 1;
+        element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedGroupRowCount()).toEqual(2);
+        expect(pageObject.getRenderedRowCount()).toEqual(4);
+
+        column1.groupingDisabled = true;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedGroupRowCount()).toEqual(0);
+        expect(pageObject.getRenderedRowCount()).toEqual(4);
+    });
+
     describe('group index validation', () => {
         it('multiple columns with the same group index does not render rows', async () => {
             const data: readonly SimpleTableRecord[] = [
@@ -426,6 +468,98 @@ describe('Table grouping', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('bar');
+        });
+    });
+
+    describe('column sort state arranges grouped rows', () => {
+        it('sort ascending on grouped column sorts group rows in ascending order', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello', stringData2: 'world' },
+                { id: '2', stringData1: 'good bye', stringData2: 'moon' },
+                { id: '3', stringData1: 'hello', stringData2: 'moon' },
+                { id: '4', stringData1: 'good bye', stringData2: 'world' },
+                { id: '5', stringData1: 'adios', stringData2: 'saturn' },
+                { id: '6', stringData1: 'sayonara', stringData2: 'jupiter' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column2.groupIndex = 0;
+            column2.sortIndex = 0;
+            column2.sortDirection = TableColumnSortDirection.ascending;
+            column2.fieldName = 'stringData2';
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+                'jupiter',
+                'moon',
+                'saturn',
+                'world'
+            ]);
+        });
+
+        it('sort descending on grouped column sorts group rows in descending order', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello', stringData2: 'world' },
+                { id: '2', stringData1: 'good bye', stringData2: 'moon' },
+                { id: '3', stringData1: 'hello', stringData2: 'moon' },
+                { id: '4', stringData1: 'good bye', stringData2: 'world' },
+                { id: '5', stringData1: 'adios', stringData2: 'saturn' },
+                { id: '6', stringData1: 'sayonara', stringData2: 'jupiter' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column2.groupIndex = 0;
+            column2.sortIndex = 0;
+            column2.sortDirection = TableColumnSortDirection.descending;
+            column2.fieldName = 'stringData2';
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+                'world',
+                'saturn',
+                'moon',
+                'jupiter'
+            ]);
+        });
+
+        it('sort descending on first grouped column and sort ascending on second grouped column sorts group rows as expected', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello', stringData2: 'world' },
+                { id: '2', stringData1: 'good bye', stringData2: 'moon' },
+                { id: '3', stringData1: 'hello', stringData2: 'moon' },
+                { id: '4', stringData1: 'good bye', stringData2: 'world' },
+                { id: '5', stringData1: 'adios', stringData2: 'saturn' },
+                { id: '6', stringData1: 'sayonara', stringData2: 'jupiter' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 1;
+            column1.sortIndex = 1;
+            column1.sortDirection = TableColumnSortDirection.ascending;
+            column2.fieldName = 'stringData2';
+            column2.groupIndex = 0;
+            column2.sortIndex = 0;
+            column2.sortDirection = TableColumnSortDirection.descending;
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+                'world',
+                'good bye',
+                'hello',
+                'saturn',
+                'adios',
+                'moon',
+                'good bye',
+                'hello',
+                'jupiter',
+                'sayonara'
+            ]);
         });
     });
 });

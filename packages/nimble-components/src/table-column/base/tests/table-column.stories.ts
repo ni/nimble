@@ -5,7 +5,11 @@ import {
     createUserSelectedThemeStory,
     usageWarning
 } from '../../../utilities/tests/storybook';
-import { ExampleGroupType, ExampleSortType } from './types';
+import {
+    ExampleGroupingDisabledType,
+    ExampleGroupType,
+    ExampleSortType
+} from './types';
 import { tableTag } from '../../../table';
 import {
     SharedTableArgs,
@@ -487,17 +491,33 @@ const groupedRowOptions = {
     ]
 } as const;
 
+const groupingDisabledOptions = {
+    [ExampleGroupingDisabledType.firstName]: {
+        columnId: 'first-name-column'
+    },
+    [ExampleGroupingDisabledType.lastName]: {
+        columnId: 'last-name-column'
+    }
+};
+
 const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented
                                 under a collapsible row. There will be a collapsible row per unique value in a given column. More than one
                                 column can be configured to group values by, with the precedence determined by the \`group-index\`, which
                                 also controls whether or not to enable row grouping for that column.`;
 
+const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
+
 interface GroupingTableArgs extends SharedTableArgs {
     groupedColumns: ExampleGroupType;
+    groupingDisabled: ExampleGroupingDisabledType[];
     getColumnGroupData: (
         columnId: string,
         args: GroupingTableArgs
     ) => { index: number | undefined };
+    getGroupingDisabledData: (
+        columndId: string,
+        args: GroupingTableArgs
+    ) => { disabled: boolean };
 }
 
 export const grouping: StoryObj<GroupingTableArgs> = {
@@ -518,12 +538,14 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             <${tableColumnTextTag}
                 field-name="firstName"
                 group-index="${x => x.getColumnGroupData('first-name-column', x).index}"
+                grouping-disabled="${x => x.getGroupingDisabledData('first-name-column', x).disabled}"
             >
                 First Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="lastName"
                 group-index="${x => x.getColumnGroupData('last-name-column', x).index}"
+                grouping-disabled="${x => x.getGroupingDisabledData('last-name-column', x).disabled}"
             >
                 Last Name
             </${tableColumnTextTag}>
@@ -558,7 +580,26 @@ export const grouping: StoryObj<GroupingTableArgs> = {
                 }
             }
         },
+        groupingDisabled: {
+            name: 'Grouping disabled configuration',
+            description: groupingDisabledDescription,
+            control: {
+                type: 'check',
+                labels: {
+                    [ExampleGroupingDisabledType.firstName]:
+                        'Disable first name grouping',
+                    [ExampleGroupingDisabledType.lastName]:
+                        'Disable last name grouping'
+                }
+            },
+            options: Object.values(ExampleGroupingDisabledType)
+        },
         getColumnGroupData: {
+            table: {
+                disable: true
+            }
+        },
+        getGroupingDisabledData: {
             table: {
                 disable: true
             }
@@ -566,6 +607,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
     },
     args: {
         groupedColumns: ExampleGroupType.none,
+        groupingDisabled: [],
         getColumnGroupData: (
             columnId: string,
             args: GroupingTableArgs
@@ -584,6 +626,22 @@ export const grouping: StoryObj<GroupingTableArgs> = {
 
             return {
                 index: matchingIndex
+            };
+        },
+        getGroupingDisabledData: (
+            columnId: string,
+            args: GroupingTableArgs
+        ): {
+            disabled: boolean
+        } => {
+            const groupingDisabledData = args.groupingDisabled.map(
+                x => groupingDisabledOptions[x]
+            );
+            return {
+                disabled:
+                    groupingDisabledData.findIndex(
+                        x => x.columnId === columnId
+                    ) >= 0
             };
         }
     }

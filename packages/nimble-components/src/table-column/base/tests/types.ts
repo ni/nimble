@@ -17,3 +17,10 @@ export const ExampleGroupType = {
 } as const;
 export type ExampleGroupType =
     (typeof ExampleGroupType)[keyof typeof ExampleGroupType];
+
+export const ExampleGroupingDisabledType = {
+    firstName: 'FirstName',
+    lastName: 'LastName'
+} as const;
+export type ExampleGroupingDisabledType =
+    (typeof ExampleGroupingDisabledType)[keyof typeof ExampleGroupingDisabledType];

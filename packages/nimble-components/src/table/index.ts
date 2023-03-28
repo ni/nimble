@@ -489,7 +489,10 @@ export class Table<
 
     private calculateTanStackGroupingState(): TanStackGroupingState {
         const groupedColumns = this.columns
-            .filter(c => typeof c.internalGroupIndex === 'number')
+            .filter(
+                c => typeof c.internalGroupIndex === 'number'
+                    && !c.internalGroupingDisabled
+            )
             .sort((x, y) => x.internalGroupIndex! - y.internalGroupIndex!);
 
         return groupedColumns.map(column => column.internalUniqueId);

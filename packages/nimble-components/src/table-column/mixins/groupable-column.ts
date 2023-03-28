@@ -8,7 +8,9 @@ import type { TableColumn } from '../base';
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
 type GroupableTableColumn = Pick<
 TableColumn,
-'internalIsGroupable' | 'internalGroupIndex' | 'internalGroupHeaderViewTag'
+| 'internalGroupingDisabled'
+| 'internalGroupIndex'
+| 'internalGroupHeaderViewTag'
 >;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,14 +26,14 @@ export function mixinGroupableColumnAPI<
      * by the values in that column.
      */
     abstract class GroupableColumn extends base {
-        public disableGrouping?: boolean;
+        public groupingDisabled = false;
 
         public groupIndex?: number | null = null;
 
         public abstract groupHeaderViewTag: string;
 
-        public isDisableGroupingChanged(): void {
-            this.internalIsGroupable = !this.disableGrouping;
+        public groupingDisabledChanged(): void {
+            this.internalGroupingDisabled = this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
@@ -46,10 +48,10 @@ export function mixinGroupableColumnAPI<
             this.internalGroupHeaderViewTag = this.groupHeaderViewTag;
         }
     }
-    attr({ attribute: 'disable-grouping', mode: 'boolean' })(
+    attr({ attribute: 'grouping-disabled', mode: 'boolean' })(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         GroupableColumn.prototype,
-        'disableGrouping'
+        'groupingDisabled'
     );
     attr({ attribute: 'group-index', converter: nullableNumberConverter })(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

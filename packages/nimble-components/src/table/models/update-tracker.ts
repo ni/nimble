@@ -134,7 +134,7 @@ export class UpdateTracker<TData extends TableRecord> {
             isColumnProperty(
                 changedColumnProperty,
                 'internalGroupIndex',
-                'internalIsGroupable'
+                'internalGroupingDisabled'
             )
         ) {
             this.requiredUpdates.groupRows = true;

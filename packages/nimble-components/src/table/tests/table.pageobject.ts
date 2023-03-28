@@ -111,6 +111,15 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
+    public getAllRenderedGroupHeaderContent(): string[] {
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-group-row'
+        );
+        return Array.from(groupRows).map((_, i) => {
+            return this.getRenderedGroupHeaderContent(i);
+        });
+    }
+
     public getCellTitle(rowIndex: number, columnIndex: number): string {
         return (
             this.getCell(rowIndex, columnIndex)
