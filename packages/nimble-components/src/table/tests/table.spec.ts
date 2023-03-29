@@ -130,8 +130,9 @@ describe('Table', () => {
         expect(document.createElement('nimble-table')).toBeInstanceOf(Table);
     });
 
-    it('element has a role of "grid"', () => {
-        expect(element.role).toBe('grid');
+    it('element has a role of "grid"', async () => {
+        await connect();
+        expect(element.getAttribute('role')).toBe('grid');
     });
 
     it('column header content should be the columns', async () => {
