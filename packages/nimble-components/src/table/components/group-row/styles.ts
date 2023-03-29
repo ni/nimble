@@ -4,6 +4,7 @@ import {
     borderWidth,
     controlHeight,
     fillHoverColor,
+    mediumDelay,
     standardPadding,
     tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
@@ -36,7 +37,7 @@ export const styles = css`
 
     :host([expanded='true']) .animating,
     :host([expanded='false']) .animating {
-        transition: 0.2s ease-in-out;
+        transition: ${mediumDelay} ease-in-out;
     }
 
     .group-row-header-content {

@@ -11,7 +11,8 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     borderWidth,
-    iconSize
+    iconSize,
+    mediumDelay
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -120,7 +121,7 @@ export const styles = css`
     .expand-collapse-button svg {
         width: ${iconSize};
         height: ${iconSize};
-        transition: transform 0.2s ease-in;
+        transition: transform ${mediumDelay} ease-in;
         pointer-events: none;
         fill: currentcolor;
     }
