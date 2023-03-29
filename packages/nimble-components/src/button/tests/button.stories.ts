@@ -40,10 +40,6 @@ const metadata: Meta<ButtonArgs> = {
                 component: overviewText
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
-        },
         actions: {
             handles: ['click']
         }

@@ -31,10 +31,6 @@ const metadata: Meta<TextAreaArgs> = {
                     'A multi-line text input control. The text area is often used in a form to collect user inputs like comments or reviews.'
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/specs/'
-        },
         actions: {
             handles: ['change']
         }

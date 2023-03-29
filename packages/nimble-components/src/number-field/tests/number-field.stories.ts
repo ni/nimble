@@ -28,10 +28,6 @@ const metadata: Meta<NumberFieldArgs> = {
                     'Similar to a single line text box but only used for numeric data. The controls allow the user to increment and decrement the value.'
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf/specs/'
-        },
         actions: {
             handles: ['change', 'input']
         }

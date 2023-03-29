@@ -41,10 +41,6 @@ const metadata: Meta<TextFieldArgs> = {
                 component: 'A single-line text field.'
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/specs/'
-        },
         actions: {
             handles: ['change', 'input']
         }

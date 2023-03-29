@@ -38,10 +38,6 @@ const metadata: Meta<BreadcrumbArgs> = {
                 component: overviewText
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/'
-        },
         actions: {}
     }
 };
