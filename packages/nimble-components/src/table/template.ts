@@ -19,7 +19,7 @@ import { TableRowSelectionState } from '../table-column/base/types';
 
 // prettier-ignore
 export const template = html<Table>`
-    <template role="table" ${children({ property: 'childItems', filter: elements() })}>
+    <template role="grid" ${children({ property: 'childItems', filter: elements() })}>
         <div class="table-container" style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
