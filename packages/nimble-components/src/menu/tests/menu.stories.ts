@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { menuTag } from '..';

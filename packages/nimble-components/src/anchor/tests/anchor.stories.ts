@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-
 import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { AnchorAppearance } from '../types';

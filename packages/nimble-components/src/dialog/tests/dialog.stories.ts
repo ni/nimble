@@ -1,6 +1,5 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { Dialog, dialogTag, UserDismissed } from '..';
 import { TextField, textFieldTag } from '../../text-field';

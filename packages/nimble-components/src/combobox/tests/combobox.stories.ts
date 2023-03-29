@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
 import { listOptionTag } from '../../list-option';

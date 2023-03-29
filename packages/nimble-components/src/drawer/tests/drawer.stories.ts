@@ -1,6 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-
 import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
     createUserSelectedThemeStory,

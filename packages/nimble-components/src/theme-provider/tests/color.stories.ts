@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-
 import { html, repeat } from '@microsoft/fast-element';
 import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';

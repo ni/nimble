@@ -1,6 +1,5 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
