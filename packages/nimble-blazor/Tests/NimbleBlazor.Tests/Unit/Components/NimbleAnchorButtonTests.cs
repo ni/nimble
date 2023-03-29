@@ -8,7 +8,7 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleAnchorButton"/>.
 /// </summary>
-public class NimbleAnchorButtonTests
+public class NimbleAnchorButtonTests : NimbleAnchorBaseTests<NimbleAnchorButton>
 {
     [Fact]
     public void NimbleAnchorButton_Render_HasAnchorButtonMarkup()
