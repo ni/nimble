@@ -84,10 +84,7 @@ export class AnchorTreeItem extends AnchorBase {
                 // For FAST tree items, the FAST tree view handles this navigation,
                 // but since our anchor tree item is not "instanceof FASTTreeItem",
                 // the FAST tree view won't do this for us. We do it ourselves.
-                if (
-                    this.parentElement
-                    && this.isNestedItem()
-                ) {
+                if (this.parentElement && this.isNestedItem()) {
                     FoundationTreeItem.focusItem(this.parentElement);
                 }
                 break;
