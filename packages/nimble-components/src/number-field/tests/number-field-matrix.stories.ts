@@ -22,7 +22,6 @@ import { numberFieldTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

@@ -31,7 +31,6 @@ This icon will be hidden when \`contentHidden\` is set to \`true\`
 const metadata: Meta<MenuButtonArgs> = {
     title: 'Menu Button',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

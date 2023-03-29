@@ -8,7 +8,6 @@ import { listOptionTag } from '../../list-option';
 
 const metadata: Meta = {
     title: 'Tests/Select',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

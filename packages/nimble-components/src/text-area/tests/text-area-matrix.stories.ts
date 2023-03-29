@@ -23,7 +23,6 @@ import { textAreaTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Text Area',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

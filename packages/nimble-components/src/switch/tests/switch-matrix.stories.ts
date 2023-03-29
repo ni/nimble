@@ -14,7 +14,6 @@ import { switchTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Switch',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

@@ -20,7 +20,6 @@ import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

@@ -31,7 +31,6 @@ import { iconXmarkTag } from '../../icons/xmark';
 
 const metadata: Meta = {
     title: 'Tests/Text Field',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

@@ -22,7 +22,6 @@ pressed or not pressed and can optionally allow for a partially pressed state.`;
 const metadata: Meta<SwitchArgs> = {
     title: 'Switch',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

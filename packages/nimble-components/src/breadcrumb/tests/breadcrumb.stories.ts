@@ -31,7 +31,6 @@ for information on using this component in Angular with RouterLink directives.`;
 const metadata: Meta<BreadcrumbArgs> = {
     title: 'Breadcrumb',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

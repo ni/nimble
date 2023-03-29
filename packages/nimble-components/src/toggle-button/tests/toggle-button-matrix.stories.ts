@@ -19,7 +19,6 @@ import { iconKeyTag } from '../../icons/key';
 
 const metadata: Meta = {
     title: 'Tests/Toggle Button',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

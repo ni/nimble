@@ -19,7 +19,6 @@ import { spinnerTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Spinner',
-
     parameters: {
         ...sharedMatrixParameters(),
 

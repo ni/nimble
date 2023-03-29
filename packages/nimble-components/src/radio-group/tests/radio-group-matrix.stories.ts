@@ -17,7 +17,6 @@ import { radioTag } from '../../radio';
 
 const metadata: Meta = {
     title: 'Tests/Radio Group',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

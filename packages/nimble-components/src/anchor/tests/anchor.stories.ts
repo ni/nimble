@@ -22,7 +22,6 @@ interface AnchorArgs {
 const metadata: Meta<AnchorArgs> = {
     title: 'Anchor',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

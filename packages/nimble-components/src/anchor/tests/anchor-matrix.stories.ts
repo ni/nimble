@@ -17,7 +17,6 @@ import { anchorTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
-
     parameters: {
         ...sharedMatrixParameters(),
         docs: {

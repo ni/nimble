@@ -22,7 +22,6 @@ import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Button',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

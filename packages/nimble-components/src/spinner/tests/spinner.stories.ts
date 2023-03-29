@@ -30,7 +30,6 @@ const overviewText = '<p>The `nimble-spinner` is an animating indicator that can
 const metadata: Meta<SpinnerArgs> = {
     title: 'Spinner',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

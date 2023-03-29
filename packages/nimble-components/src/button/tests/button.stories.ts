@@ -33,7 +33,6 @@ If you want a button that triggers navigation to a URL, use the \`nimble-anchor-
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

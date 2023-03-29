@@ -41,7 +41,6 @@ and will format them and any Nimble icons added as children of \`<nimble-menu-it
 const metadata: Meta<MenuArgs> = {
     title: 'Menu',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

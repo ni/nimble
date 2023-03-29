@@ -14,7 +14,6 @@ interface CheckboxArgs {
 const metadata: Meta<CheckboxArgs> = {
     title: 'Checkbox',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

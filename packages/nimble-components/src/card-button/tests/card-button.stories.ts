@@ -19,7 +19,6 @@ Note: The styling for the "Color" theme is not complete.`;
 const metadata: Meta<CardButtonArgs> = {
     title: 'Card Button',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

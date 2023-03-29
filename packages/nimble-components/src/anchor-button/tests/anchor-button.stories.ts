@@ -34,7 +34,6 @@ interface AnchorButtonArgs {
 const metadata: Meta<AnchorButtonArgs> = {
     title: 'Anchor Button',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

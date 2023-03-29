@@ -20,7 +20,6 @@ import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

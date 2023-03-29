@@ -27,7 +27,6 @@ If you want a sequence of tabs that navigate to different URLs, use the Anchor T
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

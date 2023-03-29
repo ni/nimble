@@ -23,7 +23,6 @@ interface TextAreaArgs {
 const metadata: Meta<TextAreaArgs> = {
     title: 'Text Area',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

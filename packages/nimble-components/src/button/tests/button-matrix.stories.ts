@@ -19,7 +19,6 @@ import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 
 const metadata: Meta = {
     title: 'Tests/Button',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

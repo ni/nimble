@@ -34,7 +34,6 @@ consuming application must implement that functionality.
 const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

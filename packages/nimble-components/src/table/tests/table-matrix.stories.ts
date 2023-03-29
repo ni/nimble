@@ -15,7 +15,6 @@ import { tableColumnTextTag } from '../../table-column/text';
 
 const metadata: Meta = {
     title: 'Tests/Table',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

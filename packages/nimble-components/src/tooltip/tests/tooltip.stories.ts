@@ -93,7 +93,6 @@ const complexContent = html<TooltipArgs>`
 const metadata: Meta<TooltipArgs> = {
     title: 'Tooltip',
     tags: ['autodocs'],
-
     parameters: {
         docs: {
             description: {

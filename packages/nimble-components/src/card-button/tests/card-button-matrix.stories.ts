@@ -15,7 +15,6 @@ import { cardButtonTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Card Button',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

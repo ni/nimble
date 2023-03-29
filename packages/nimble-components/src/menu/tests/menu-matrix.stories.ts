@@ -22,7 +22,6 @@ import { anchorMenuItemTag } from '../../anchor-menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

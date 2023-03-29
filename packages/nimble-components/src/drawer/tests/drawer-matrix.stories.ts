@@ -7,7 +7,6 @@ import { drawerTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Drawer',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

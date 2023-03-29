@@ -17,7 +17,6 @@ import { breadcrumbItemTag } from '../../breadcrumb-item';
 
 const metadata: Meta = {
     title: 'Tests/Breadcrumb',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

@@ -8,7 +8,6 @@ import { buttonTag } from '../../button';
 
 const metadata: Meta = {
     title: 'Tests/Dialog',
-
     parameters: {
         ...sharedMatrixParameters()
     }

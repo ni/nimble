@@ -15,7 +15,6 @@ import { checkboxTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Checkbox',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {

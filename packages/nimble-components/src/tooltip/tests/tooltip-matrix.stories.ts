@@ -22,7 +22,6 @@ import { tooltipTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
-
     parameters: {
         ...sharedMatrixParameters(),
         design: {
