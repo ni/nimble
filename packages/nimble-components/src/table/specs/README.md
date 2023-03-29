@@ -109,7 +109,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   Define the anatomy of headers in the table DOM
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
--   Row Selection
+-   [Row Selection](table-row-selection.md)
     -   Define the anatomy of row selection in the table DOM
         -   Indeterminate checkbox at the far left of each row?
         -   Selected row CSS/design
