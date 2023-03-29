@@ -6,6 +6,7 @@ import {
     usageWarning
 } from '../../../utilities/tests/storybook';
 import {
+    ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,
     ExampleGroupType,
     ExampleSortType
@@ -457,6 +458,144 @@ export const sorting: StoryObj<SortingTableArgs> = {
                 direction: sortData[matchingIndex]!.sortDirection,
                 index: matchingIndex
             };
+        }
+    }
+};
+
+interface ColumnWidthTableArgs extends SharedTableArgs {
+    fractionalWidth: ExampleColumnFractionalWidthType;
+    minPixelWidth: number;
+    getColumnWidthData: (
+        columnId: string,
+        args: ColumnWidthTableArgs
+    ) => number | undefined;
+}
+
+const fractionalWidthOptions = {
+    [ExampleColumnFractionalWidthType.default]: [],
+    [ExampleColumnFractionalWidthType.firstColumnHalfSize]: [
+        {
+            columnId: 'first-name-column',
+            width: 0.5
+        }
+    ],
+    [ExampleColumnFractionalWidthType.firstColumTwiceSize]: [
+        {
+            columnId: 'first-name-column',
+            width: 2
+        }
+    ],
+    [ExampleColumnFractionalWidthType.thirdColumnHalfFourthColumnTwice]: [
+        {
+            columnId: 'favorite-color-column',
+            width: 0.5
+        },
+        {
+            columnId: 'quote-column',
+            width: 2
+        }
+    ]
+} as const;
+
+const fractionalWidthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
+The default value for \`fractional-width\` is 1, and columns that don't support \`fractional-width\` explicitly, or another API responsible for managing the width of the column, will also behave as if they have a \`fractional-width\` of 1.`;
+
+const minPixelWidthDescription = `Table columns that support having a \`fractional-width\` can also be configured to have a minimum width such that its width
+will never shrink below the specified pixel width.`;
+
+export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: fractionalWidthDescription
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<ColumnWidthTableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => x.updateData(x)}"
+        >
+           <${tableColumnTextTag}
+                field-name="firstName"
+                fractional-width="${x => x.getColumnWidthData('first-name-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+            >
+                First Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="lastName"
+                fractional-width="${x => x.getColumnWidthData('last-name-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="favoriteColor"
+                fractional-width="${x => x.getColumnWidthData('favorite-color-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+           >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="quote"
+                placeholder="${'<pacifier noise>'}"
+                fractional-width="${x => x.getColumnWidthData('quote-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+            >
+                Quote
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `),
+    argTypes: {
+        fractionalWidth: {
+            name: 'Fractional width configuration',
+            description: fractionalWidthDescription,
+            options: Object.values(ExampleColumnFractionalWidthType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleColumnFractionalWidthType.default]: 'Default',
+                    [ExampleColumnFractionalWidthType.firstColumnHalfSize]:
+                        'First column half size',
+                    [ExampleColumnFractionalWidthType.firstColumTwiceSize]:
+                        'First column double size',
+                    [ExampleColumnFractionalWidthType.thirdColumnHalfFourthColumnTwice]:
+                        'Third column half size, fourth column double size'
+                }
+            }
+        },
+        minPixelWidth: {
+            name: 'min-pixel-width',
+            description: minPixelWidthDescription,
+            control: {
+                type: 'number'
+            }
+        },
+        getColumnWidthData: {
+            table: {
+                disable: true
+            }
+        }
+    },
+    args: {
+        fractionalWidth: ExampleColumnFractionalWidthType.default,
+        minPixelWidth: 100,
+        getColumnWidthData: (
+            columnId: string,
+            args: ColumnWidthTableArgs
+        ): number | undefined => {
+            const widthData = fractionalWidthOptions[args.fractionalWidth];
+            const matchingIndex = widthData?.findIndex(
+                column => column.columnId === columnId
+            );
+            if (matchingIndex === -1) {
+                return 1;
+            }
+
+            return widthData[matchingIndex]?.width;
         }
     }
 };

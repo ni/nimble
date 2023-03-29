@@ -24,3 +24,12 @@ export const ExampleGroupingDisabledType = {
 } as const;
 export type ExampleGroupingDisabledType =
     (typeof ExampleGroupingDisabledType)[keyof typeof ExampleGroupingDisabledType];
+
+export const ExampleColumnFractionalWidthType = {
+    default: 'Default',
+    firstColumnHalfSize: 'FirstColumnHalfSize',
+    firstColumTwiceSize: 'FirstColumnTwiceSize',
+    thirdColumnHalfFourthColumnTwice: 'ThirdColumnHalfFourthColumnTwice'
+} as const;
+export type ExampleColumnFractionalWidthType =
+    (typeof ExampleColumnFractionalWidthType)[keyof typeof ExampleColumnFractionalWidthType];

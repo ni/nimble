@@ -9,13 +9,11 @@ export const template = html<TableHeader>`
     <template role="columnheader" aria-sort="${x => x.ariaSort}">
         <slot></slot>
 
-        <span class="sort-indicator" aria-hidden="true">
-            ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html`
-                <${iconArrowUpTag}></${iconArrowUpTag}>
-            `)}
-            ${when(x => x.sortDirection === TableColumnSortDirection.descending, html`
-                <${iconArrowDownTag}></${iconArrowDownTag}>
-            `)}
-        </span>
+        ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html`
+            <${iconArrowUpTag} class="sort-indicator" aria-hidden="true"></${iconArrowUpTag}>
+        `)}
+        ${when(x => x.sortDirection === TableColumnSortDirection.descending, html`
+            <${iconArrowDownTag} class="sort-indicator" aria-hidden="true"></${iconArrowDownTag}>
+        `)}
     </template>
 `;
