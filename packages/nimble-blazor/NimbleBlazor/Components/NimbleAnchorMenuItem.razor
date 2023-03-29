@@ -1,6 +1,6 @@
 @namespace NimbleBlazor
 @inherits NimbleAnchorBase
-<nimble-anchor-button
+<nimble-anchor-menu-item
     href="@Href"
     hreflang="@HrefLang"
     ping="@Ping"
@@ -8,10 +8,7 @@
     rel="@Rel"
     target="@Target"
     type="@Type"
-    appearance="@Appearance.ToAttributeValue()"
-    appearance-variant="@AppearanceVariant.ToAttributeValue()"
-    content-hidden="@ContentHidden"
     disabled="@Disabled"
     @attributes="AdditionalAttributes">
     @ChildContent
-</nimble-anchor-button>
+</nimble-anchor-menu-item>

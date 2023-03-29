@@ -2,6 +2,96 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 24 Mar 2023 16:13:35 GMT",
+      "tag": "@ni/nimble-components_v18.8.1",
+      "version": "18.8.1",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6ecfe5122f0970f6d51e1760bf69ac75b9ca071d",
+            "comment": "Row Grouping HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 23 Mar 2023 21:40:52 GMT",
+      "tag": "@ni/nimble-components_v18.8.1",
+      "version": "18.8.1",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "83c21ce6a62aa7c14873f0b8aa6577d12fd842d8",
+            "comment": "Add HLD for handling table cell state when scrolling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 22 Mar 2023 20:54:34 GMT",
+      "tag": "@ni/nimble-components_v18.8.1",
+      "version": "18.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "459bc0e425822ee15ba62c557f86dd78b92d4158",
+            "comment": "Update table header styling to not reserve space for sort icon"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Mar 2023 22:35:48 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "728064a9e20c867a2ec90a973f2a282bfd01029a",
+            "comment": "Adding column width storybook."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Mar 2023 15:01:43 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7537303d7ede1cfe98d7f979b5f1227fc7a5aaa0",
+            "comment": "Update contributing docs for element tags"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Mar 2023 18:44:43 GMT",
+      "tag": "@ni/nimble-components_v18.8.0",
+      "version": "18.8.0",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7184164a0e3661bc0b75c3bd559ef2306d393a6a",
+            "comment": "Add mixin documentation to CONTRIBUTING."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Mar 2023 15:36:39 GMT",
       "tag": "@ni/nimble-components_v18.8.0",
       "version": "18.8.0",
