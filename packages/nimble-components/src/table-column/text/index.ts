@@ -7,7 +7,7 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
-import { textCellElementTag } from './cell-view';
+import { tableColumnTextCellViewTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {
@@ -32,7 +32,7 @@ class TableColumnTextBase extends TableColumn<TableColumnTextColumnConfig> {
     @attr
     public placeholder?: string;
 
-    public readonly cellViewTag = textCellElementTag;
+    public readonly cellViewTag = tableColumnTextCellViewTag;
 
     public constructor() {
         super();

@@ -40,7 +40,7 @@ describe('TableRow', () => {
         expect(document.createElement('nimble-table-row')).toBeInstanceOf(TableRow);
     });
 
-    it('column state is applied to generated cells', async () => {
+    it('column cellViewTag is applied to generated cells', async () => {
         await connect();
 
         const textColumn1 = new TableColumnText();

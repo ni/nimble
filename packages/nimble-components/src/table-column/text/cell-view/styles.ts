@@ -3,9 +3,9 @@ import {
     bodyFont,
     bodyFontColor,
     controlLabelFontColor
-} from '../../theme-provider/design-tokens';
+} from '../../../theme-provider/design-tokens';
 
-export const cellViewStyles = css`
+export const styles = css`
     span {
         font: ${bodyFont};
         color: ${bodyFontColor};

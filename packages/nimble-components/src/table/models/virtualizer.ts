@@ -116,20 +116,18 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
 
     private notifyFocusedCellRecycling(): void {
         let tableFocusedElement = this.table.shadowRoot!.activeElement;
-        if (tableFocusedElement) {
-            while (
-                tableFocusedElement !== null
-                && !(tableFocusedElement instanceof TableCellView)
-            ) {
-                if (tableFocusedElement.shadowRoot) {
-                    tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
-                } else {
-                    break;
-                }
+        while (
+            tableFocusedElement !== null
+            && !(tableFocusedElement instanceof TableCellView)
+        ) {
+            if (tableFocusedElement.shadowRoot) {
+                tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
+            } else {
+                break;
             }
-            if (tableFocusedElement instanceof TableCellView) {
-                tableFocusedElement.focusedRecycleCallback();
-            }
+        }
+        if (tableFocusedElement instanceof TableCellView) {
+            tableFocusedElement.focusedRecycleCallback();
         }
         if (this.table.openActionMenuRecordId !== undefined) {
             const row = Array.prototype.find.call(

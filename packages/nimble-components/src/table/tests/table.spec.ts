@@ -3,7 +3,7 @@ import { customElement, html } from '@microsoft/fast-element';
 import { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
-import { TextCellView } from '../../table-column/text/cell-view';
+import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
 import { createEventListener } from '../../utilities/tests/component';
@@ -539,7 +539,7 @@ describe('Table', () => {
             >`
         })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        class TestFocusableCellView extends TextCellView {
+        class TestFocusableCellView extends TableColumnTextCellView {
             public override focusedRecycleCallback(): void {
                 (this.shadowRoot!.firstElementChild as HTMLElement).blur();
             }

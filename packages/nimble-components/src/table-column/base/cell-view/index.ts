@@ -1,6 +1,6 @@
 import { observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { TableCellRecord, TableCellState } from './types';
+import type { TableCellRecord, TableCellState } from '../types';
 
 /**
  * Base class for table cell views, which are used within the nimble-table-cell.
