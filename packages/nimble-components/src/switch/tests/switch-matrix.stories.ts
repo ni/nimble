@@ -15,11 +15,7 @@ import { switchTag } from '..';
 const metadata: Meta = {
     title: 'Tests/Switch',
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 

@@ -21,11 +21,7 @@ import { iconKeyTag } from '../../icons/key';
 const metadata: Meta = {
     title: 'Tests/Banner',
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/29c405f7-08ea-48b6-973f-546970b9dbab/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 

@@ -59,10 +59,6 @@ const metadata: Meta = {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/89e665af-d24c-4f5e-b547-294caeccd29a/specs/'
         }
     }
 };

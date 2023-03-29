@@ -23,11 +23,7 @@ import { numberFieldTag } from '..';
 const metadata: Meta = {
     title: 'Tests/Number Field',
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 

@@ -23,11 +23,7 @@ import { anchorMenuItemTag } from '../../anchor-menu-item';
 const metadata: Meta = {
     title: 'Tests/Menu',
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 

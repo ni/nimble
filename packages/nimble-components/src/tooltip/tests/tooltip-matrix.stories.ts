@@ -23,11 +23,7 @@ import { tooltipTag } from '..';
 const metadata: Meta = {
     title: 'Tests/Tooltip',
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
