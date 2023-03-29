@@ -13,7 +13,6 @@ import {
     controlLabelDisabledFontColor,
     iconSize,
     failColor,
-    smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
@@ -70,6 +69,7 @@ export const styles = css`
         min-width: 100px;
         min-height: calc(${iconSize} + ${standardPadding});
         padding: 8px;
+        padding-right: calc(${iconSize});
         margin: 0px;
         resize: none;
     }
@@ -93,9 +93,6 @@ export const styles = css`
     }
 
     :host([error-visible]) .control {
-        padding-right: calc(
-            ${iconSize} + ${standardPadding} / 2 + ${smallPadding}
-        );
         border-bottom-color: ${failColor};
     }
 
@@ -162,7 +159,7 @@ export const styles = css`
     :host([error-visible]) .error-icon {
         position: absolute;
         top: calc(${standardPadding} / 2);
-        right: calc(${standardPadding} / 2 + var(--ni-private-scrollbar-width));
+        right: calc(var(--ni-private-scrollbar-width));
     }
 `.withBehaviors(
     appearanceBehavior(
