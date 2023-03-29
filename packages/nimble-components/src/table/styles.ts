@@ -90,9 +90,11 @@ export const styles = css`
     :host([selection-mode='single']) .row:hover::before {
         background: ${fillHoverColor};
     }
+
     :host([selection-mode='single']) .row[selected]::before {
         background: ${fillSelectedColor};
     }
+
     :host([selection-mode='single']) .row[selected]:hover::before {
         background: ${fillHoverSelectedColor};
     }
@@ -116,6 +118,7 @@ export const styles = css`
             :host([selection-mode='single']) .row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
+
             :host([selection-mode='single']) .row[selected]::before {
                 background: ${hexToRgbaCssColor(White, 0.25)};
             }

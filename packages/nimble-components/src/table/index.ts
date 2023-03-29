@@ -403,7 +403,7 @@ export class Table<
     }
 
     private validate(): void {
-        this.tableValidator.validateCanSupportSelection(
+        this.tableValidator.validateSelectionMode(
             this.selectionMode,
             this.idFieldName
         );
@@ -433,22 +433,20 @@ export class Table<
         const data = newData.map(record => {
             return { ...record };
         });
-        this.validateWithData(data);
+        const tanStackUpdates: Partial<TanStackTableOptionsResolved<TData>> = {
+            data
+        };
 
+        this.validateWithData(data);
         if (this.tableValidator.areRecordIdsValid()) {
-            this.updateTableOptions({
-                data,
-                state: {
-                    rowSelection: this.calculateTanStackSelectionState(
-                        this.getSelectedRecordIds()
-                    )
-                }
-            });
-        } else {
-            this.updateTableOptions({
-                data
-            });
+            tanStackUpdates.state = {
+                rowSelection: this.calculateTanStackSelectionState(
+                    this.getSelectedRecordIds()
+                )
+            };
         }
+
+        this.updateTableOptions(tanStackUpdates);
     }
 
     private refreshRows(): void {

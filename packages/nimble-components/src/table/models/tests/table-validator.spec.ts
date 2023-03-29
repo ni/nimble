@@ -406,7 +406,7 @@ describe('TableValidator', () => {
         }
     });
 
-    describe('row selection support validation', () => {
+    describe('row selection mode validation', () => {
         const selectionConfigurations: {
             selectionMode: TableRowSelectionMode,
             idFieldName: string | undefined,
@@ -454,7 +454,7 @@ describe('TableValidator', () => {
             );
             specType(selectionConfiguration.name, () => {
                 const tableValidator = new TableValidator();
-                const isValid = tableValidator.validateCanSupportSelection(
+                const isValid = tableValidator.validateSelectionMode(
                     selectionConfiguration.selectionMode,
                     selectionConfiguration.idFieldName
                 );

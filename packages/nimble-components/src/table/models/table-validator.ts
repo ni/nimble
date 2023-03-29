@@ -40,7 +40,7 @@ export class TableValidator<TData extends TableRecord> {
         );
     }
 
-    public validateCanSupportSelection(
+    public validateSelectionMode(
         selectionMode: TableRowSelectionMode,
         idFieldName: string | undefined
     ): boolean {

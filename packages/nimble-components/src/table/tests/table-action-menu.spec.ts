@@ -454,7 +454,7 @@ describe('Table action menu', () => {
             await waitForUpdatesAsync();
         });
 
-        it('action menu is visible when row is selected', async () => {
+        it('action menu button is visible when row is selected', async () => {
             const rowIndex = 0;
             element.setSelectedRecordIds([
                 simpleTableData[rowIndex].stringData
@@ -464,7 +464,7 @@ describe('Table action menu', () => {
             expect(pageObject.isCellActionMenuVisible(rowIndex, 0)).toBeTrue();
         });
 
-        it('clicking action menu selects the row when nothing was previously selected', async () => {
+        it('clicking action menu button selects the row when nothing was previously selected', async () => {
             const rowIndex = 0;
             const toggleListener = createEventListener(
                 element,
@@ -479,7 +479,7 @@ describe('Table action menu', () => {
             ]);
         });
 
-        it('clicking action menu with a different row selected selects the new row and deselects the previous row', async () => {
+        it('clicking action menu button with a different row selected selects the new row and deselects the previous row', async () => {
             element.setSelectedRecordIds([simpleTableData[1].stringData]);
 
             const rowIndex = 0;
@@ -496,7 +496,7 @@ describe('Table action menu', () => {
             ]);
         });
 
-        it('clicking action menu for an already selected row keeps it selected', async () => {
+        it('clicking action menu button for an already selected row keeps it selected', async () => {
             const rowIndex = 0;
             element.setSelectedRecordIds([
                 simpleTableData[rowIndex].stringData
