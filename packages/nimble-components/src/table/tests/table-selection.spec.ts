@@ -43,10 +43,19 @@ describe('Table row selection', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
+    let selectionChangeListener: {
+        promise: Promise<void>,
+        spy: jasmine.Spy
+    };
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         pageObject = new TablePageObject<SimpleTableRecord>(element);
+        selectionChangeListener = createEventListener(
+            element,
+            'selection-change'
+        );
+
         await connect();
         element.setData(simpleTableData);
         await waitForUpdatesAsync();
@@ -105,6 +114,18 @@ describe('Table row selection', () => {
         expect(element.getSelectedRecordIds()).toEqual([]);
     });
 
+    it('does not fire selection-change event when selection is cleared when selection mode changes', async () => {
+        element.selectionMode = TableRowSelectionMode.single;
+        element.idFieldName = 'stringData';
+        await waitForUpdatesAsync();
+
+        element.setSelectedRecordIds(['1']);
+        element.selectionMode = TableRowSelectionMode.none;
+        await waitForUpdatesAsync();
+
+        expect(selectionChangeListener.spy).not.toHaveBeenCalled();
+    });
+
     it('is cleared when id field name changes', async () => {
         element.selectionMode = TableRowSelectionMode.single;
         element.idFieldName = 'stringData';
@@ -115,6 +136,18 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         expect(element.getSelectedRecordIds()).toEqual([]);
+    });
+
+    it('does not fire selection-change event when selection is cleared when id field name changes', async () => {
+        element.selectionMode = TableRowSelectionMode.single;
+        element.idFieldName = 'stringData';
+        await waitForUpdatesAsync();
+
+        element.setSelectedRecordIds(['1']);
+        element.idFieldName = 'stringData2';
+        await waitForUpdatesAsync();
+
+        expect(selectionChangeListener.spy).not.toHaveBeenCalled();
     });
 
     it('is updated when data is updated and no longer includes selected record', async () => {
@@ -156,10 +189,6 @@ describe('Table row selection', () => {
     });
 
     it('does not fire selection-change event when selection is changed when updating data', async () => {
-        const selectionChangeListener = createEventListener(
-            element,
-            'selection-change'
-        );
         element.selectionMode = TableRowSelectionMode.single;
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
@@ -287,10 +316,6 @@ describe('Table row selection', () => {
             });
 
             it('does not fire selection-change event when selection is changed by calling setSelectedRecordIds', () => {
-                const selectionChangeListener = createEventListener(
-                    element,
-                    'selection-change'
-                );
                 element.setSelectedRecordIds(['0']);
                 expect(selectionChangeListener.spy).not.toHaveBeenCalled();
             });
@@ -298,18 +323,6 @@ describe('Table row selection', () => {
     });
 
     describe('interactive selection', () => {
-        let selectionChangeListener: {
-            promise: Promise<void>,
-            spy: jasmine.Spy
-        };
-
-        beforeEach(() => {
-            selectionChangeListener = createEventListener(
-                element,
-                'selection-change'
-            );
-        });
-
         describe('with selection mode of "none"', () => {
             beforeEach(async () => {
                 element.selectionMode = TableRowSelectionMode.none;
@@ -319,8 +332,11 @@ describe('Table row selection', () => {
 
             it('clicking a row does not select it', () => {
                 pageObject.clickRow(0);
-
                 expect(element.getSelectedRecordIds()).toEqual([]);
+            });
+
+            it('clicking a row does not emit a selection-change event', () => {
+                pageObject.clickRow(0);
                 expect(selectionChangeListener.spy).not.toHaveBeenCalled();
             });
         });
