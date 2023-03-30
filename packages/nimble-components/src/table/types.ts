@@ -62,6 +62,18 @@ export type TableRowSelectionMode =
     (typeof TableRowSelectionMode)[keyof typeof TableRowSelectionMode];
 
 /**
+ * @internal
+ *
+ * The possible selection states that the table or a table row can be in.
+ */
+export const TableRowSelectionState = {
+    notSelected: 'notSelected',
+    selected: 'selected'
+} as const;
+export type TableRowSelectionState =
+    (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
+
+/**
  * Event detail type for row selection events in the table.
  */
 export interface TableRowSelectionEventDetail {

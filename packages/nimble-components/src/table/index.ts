@@ -30,13 +30,13 @@ import {
     TableRecord,
     TableRowSelectionEventDetail,
     TableRowSelectionMode,
+    TableRowSelectionState,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
-import { TableRowSelectionState } from '../table-column/base/types';
 
 declare global {
     interface HTMLElementTagNameMap {

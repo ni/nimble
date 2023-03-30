@@ -13,9 +13,9 @@ import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
     TableActionMenuToggleEventDetail,
-    TableColumnSortDirection
+    TableColumnSortDirection,
+    TableRowSelectionState
 } from './types';
-import { TableRowSelectionState } from '../table-column/base/types';
 
 // prettier-ignore
 export const template = html<Table>`
