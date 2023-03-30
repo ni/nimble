@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Add missing anchored region import to menu component",
+  "comment": "Add missing anchored region import to menu component as part of Storybook 7 upgrade",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
