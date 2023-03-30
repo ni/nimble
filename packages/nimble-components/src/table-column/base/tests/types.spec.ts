@@ -1,6 +1,4 @@
-import type {
-    TableColumnSortOperation
-} from '../types';
+import type { TableColumnSortOperation } from '../types';
 
 describe('Table column base type', () => {
     it('TableColumnSortOperation fails compile if assigning arbitrary string values', () => {

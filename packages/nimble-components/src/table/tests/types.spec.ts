@@ -1,4 +1,8 @@
-import type { TableColumnSortDirection, TableRowSelectionMode, TableRowSelectionState } from '../types';
+import type {
+    TableColumnSortDirection,
+    TableRowSelectionMode,
+    TableRowSelectionState
+} from '../types';
 
 describe('Table type', () => {
     it('TableColumnSortDirection fails compile if assigning arbitrary string values', () => {

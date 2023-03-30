@@ -213,7 +213,8 @@ const metadata: Meta<TableArgs> = {
         },
         getSelectedRecordIds: {
             name: 'getSelectedRecordIds()',
-            description: 'A function that returns an array of record IDs that represent the selected row(s) in the table.',
+            description:
+                'A function that returns an array of record IDs that represent the selected row(s) in the table.',
             control: false
         },
         setSelectedRecordIds: {
