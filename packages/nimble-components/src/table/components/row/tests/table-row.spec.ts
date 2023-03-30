@@ -81,4 +81,39 @@ describe('TableRow', () => {
             .cellRecord as TableColumnTextCellRecord;
         expect(secondCellRecord.value).toBe('foo');
     });
+
+    it('does not have aria-selected attribute when it is not selectable', async () => {
+        element.selectable = false;
+        element.selected = false;
+        await connect();
+
+        expect(element.hasAttribute('aria-selected')).toBeFalse();
+    });
+
+    it('has aria-selected attribute set to "true" when it is selected', async () => {
+        element.selectable = true;
+        element.selected = true;
+        await connect();
+
+        expect(element.getAttribute('aria-selected')).toBe('true');
+    });
+
+    it('has aria-selected attribute set to "false" when it is not selected', async () => {
+        element.selectable = true;
+        element.selected = false;
+        await connect();
+
+        expect(element.getAttribute('aria-selected')).toBe('false');
+    });
+
+    it('updates aria-selected attribute when selection state changes', async () => {
+        element.selectable = true;
+        element.selected = false;
+        await connect();
+
+        element.selected = true;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('aria-selected')).toBe('true');
+    });
 });

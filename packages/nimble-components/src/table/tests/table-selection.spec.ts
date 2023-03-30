@@ -198,18 +198,17 @@ describe('Table row selection', () => {
         expect(element.getSelectedRecordIds()).toEqual(['1']);
     });
 
-    it('does not set aria-selected on rows when selection mode is "none"', async () => {
+    it('configures rows not to be selectable when selection mode is "none"', async () => {
         element.selectionMode = TableRowSelectionMode.none;
         await waitForUpdatesAsync();
 
         const rowCount = simpleTableData.length;
         for (let i = 0; i < rowCount; i++) {
-            const row = pageObject.getRow(i);
-            expect(row.ariaSelected).toBe(null);
+            expect(pageObject.getIsRowSelectable(i)).toBeFalse();
         }
     });
 
-    it('sets aria-selected to "true" or "false" based on selection state when selection is enabled', async () => {
+    it('configures rows to be selected when a record ID is selected', async () => {
         element.selectionMode = TableRowSelectionMode.single;
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
@@ -222,9 +221,8 @@ describe('Table row selection', () => {
 
         const rowCount = simpleTableData.length;
         for (let i = 0; i < rowCount; i++) {
-            const row = pageObject.getRow(i);
-            const expectedAriaSelected = i === selectedIndex ? 'true' : 'false';
-            expect(row.ariaSelected).toBe(expectedAriaSelected);
+            expect(pageObject.getIsRowSelectable(i)).toBeTrue();
+            expect(pageObject.getIsRowSelected(i)).toBe(i === selectedIndex);
         }
     });
 

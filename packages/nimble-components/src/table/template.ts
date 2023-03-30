@@ -14,6 +14,7 @@ import type { TableColumn } from '../table-column/base';
 import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
+    TableRowSelectionMode,
     TableRowSelectionState
 } from './types';
 
@@ -51,8 +52,8 @@ export const template = html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                             <${tableRowTag}
                                 class="row"
-                                aria-selected="${(x, c) => c.parent.tableData[x.index]?.ariaSelected}"
                                 record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
+                                ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                 ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
                                 :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                 :columns="${(_, c) => c.parent.columns}"

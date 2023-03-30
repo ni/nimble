@@ -5,7 +5,7 @@ import { tableCellTag } from '../cell';
 
 // prettier-ignore
 export const template = html<TableRow>`
-    <template role="row">
+    <template role="row" aria-selected=${x => x.ariaSelected}>
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             ${when(x => !x.column.columnHidden, html<ColumnState, TableRow>`
                 <${tableCellTag}

@@ -37,6 +37,9 @@ export class TableRow<
     public recordId?: string;
 
     @attr({ mode: 'boolean' })
+    public selectable = false;
+
+    @attr({ mode: 'boolean' })
     public selected = false;
 
     @observable
@@ -77,6 +80,15 @@ export class TableRow<
 
             return { column, cellState };
         });
+    }
+
+    @volatile
+    public override get ariaSelected(): 'true' | 'false' | null {
+        if (this.selectable) {
+            return this.selected ? 'true' : 'false';
+        }
+
+        return null;
     }
 
     public onCellActionMenuBeforeToggle(

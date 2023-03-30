@@ -194,7 +194,17 @@ export class TablePageObject<T extends TableRecord> {
         row.click();
     }
 
-    public getRow(rowIndex: number): TableRow {
+    public getIsRowSelectable(rowIndex: number): boolean {
+        const row = this.getRow(rowIndex);
+        return row.selectable;
+    }
+
+    public getIsRowSelected(rowIndex: number): boolean {
+        const row = this.getRow(rowIndex);
+        return row.selected;
+    }
+
+    private getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
             throw new Error(

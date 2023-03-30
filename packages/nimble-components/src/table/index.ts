@@ -48,7 +48,6 @@ interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
-    ariaSelected: 'true' | 'false' | null;
 }
 
 /**
@@ -457,22 +456,11 @@ export class Table<
                 id: row.id,
                 selectionState: row.getIsSelected()
                     ? TableRowSelectionState.selected
-                    : TableRowSelectionState.notSelected,
-                ariaSelected: this.getAriaSelectedForRow(row)
+                    : TableRowSelectionState.notSelected
             };
             return rowState;
         });
         this.virtualizer.dataChanged();
-    }
-
-    private getAriaSelectedForRow(
-        row: TanStackRow<TData>
-    ): 'true' | 'false' | null {
-        if (this.selectionMode === TableRowSelectionMode.none) {
-            return null;
-        }
-
-        return row.getIsSelected() ? 'true' : 'false';
     }
 
     private updateTableOptions(
