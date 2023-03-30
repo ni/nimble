@@ -13,6 +13,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -30,18 +31,21 @@ export default metadata;
 
 const data = [
     {
+        id: '0',
         firstName: 'Ralph',
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
         quote: "I'm in danger!"
     },
     {
+        id: '1',
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
+        id: '2',
         firstName: null,
         lastName: null,
         favoriteColor: null,
@@ -51,7 +55,7 @@ const data = [
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${tableTag}>
+    <${tableTag} selection-mode="single" id-field-name="id">
         <${tableColumnTextTag} field-name="firstName" placeholder="no value" sort-direction="ascending" sort-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
@@ -63,9 +67,14 @@ export const tableThemeMatrix: Story = createMatrixThemeStory(
     createMatrix(component)
 );
 
-tableThemeMatrix.play = (): void => {
-    document.querySelectorAll<Table>('nimble-table').forEach(table => {
+tableThemeMatrix.play = async (): Promise<void> => {
+    const tables = document.querySelectorAll<Table>('nimble-table');
+    tables.forEach(table => {
         table.setData(data);
+    });
+    await waitForUpdatesAsync();
+    tables.forEach(table => {
+        table.setSelectedRecordIds(['1']);
     });
 };
 
