@@ -8,8 +8,7 @@
           "chrome": 100
         }
       }
-    ],
-    "@babel/preset-typescript"
+    ]
   ],
   "plugins": []
 }
