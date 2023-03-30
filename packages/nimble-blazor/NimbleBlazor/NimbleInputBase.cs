@@ -49,7 +49,7 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
     /// Gets the associated <see cref="AspNetCore.Components.Forms.EditContext"/>.
     /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
     /// </summary>
-    protected EditContext EditContext { get; set; } = default!;
+    protected EditContext? EditContext { get; set; }
 
     /// <summary>
     /// Gets the <see cref="FieldIdentifier"/> for the bound value.
@@ -233,48 +233,40 @@ public abstract class NimbleInputBase<TValue> : ComponentBase, IDisposable
         }
 
         var hasAriaInvalidAttribute = AdditionalAttributes != null && AdditionalAttributes.ContainsKey("aria-invalid");
-        if (EditContext.GetValidationMessages(FieldIdentifier).Any())
-        {
-            if (hasAriaInvalidAttribute)
-            {
-                // Do not overwrite the attribute value
-                return;
-            }
+        var validationMessages = EditContext.GetValidationMessages(FieldIdentifier).ToArray();
 
+        if (validationMessages.Any())
+        {
             if (ConvertToDictionary(AdditionalAttributes, out var additionalAttributes))
             {
                 AdditionalAttributes = additionalAttributes;
             }
 
             // To make the `Input` components accessible by default
-            // we will automatically render the `aria-invalid` attribute when the validation fails
+            // we will automatically render the `aria-invalid`, `error-visible` and `error-text` attributes when the validation fails
             additionalAttributes["aria-invalid"] = true;
+            additionalAttributes["error-visible"] = true;
+            additionalAttributes["error-text"] = validationMessages.First();
         }
         else if (hasAriaInvalidAttribute)
         {
-            // No validation errors. Need to remove `aria-invalid` if it was rendered already
+            // No validation errors. Need to remove `aria-invalid`, error-visible` and `error-text` if they were rendered already
 
-            if (AdditionalAttributes!.Count == 1)
+            if (ConvertToDictionary(AdditionalAttributes, out var additionalAttributes))
             {
-                // Only aria-invalid argument is present which we don't need any more
-                AdditionalAttributes = null;
+                AdditionalAttributes = additionalAttributes;
             }
-            else
-            {
-                if (ConvertToDictionary(AdditionalAttributes, out var additionalAttributes))
-                {
-                    AdditionalAttributes = additionalAttributes;
-                }
 
-                additionalAttributes.Remove("aria-invalid");
-            }
+            additionalAttributes.Remove("aria-invalid");
+            additionalAttributes.Remove("error-visible");
+            additionalAttributes.Remove("error-text");
         }
     }
 
     /// <summary>
     /// Returns a dictionary with the same values as the specified <paramref name="source"/>.
     /// </summary>
-    /// <returns>true, if a new dictrionary with copied values was created. false - otherwise.</returns>
+    /// <returns>true, if a new dictionary with copied values was created. false - otherwise.</returns>
     private bool ConvertToDictionary(IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result)
     {
         var newDictionaryCreated = true;

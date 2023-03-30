@@ -24,13 +24,15 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     public DropdownAppearance? Appearance { get; set; }
 
     /// <summary>
-    /// Gets or sets the select error text
+    /// Gets or sets the select error text.
+    /// Value is set automatically if the component is used in an <see cref="EditForm"/>.
     /// </summary>
     [Parameter]
     public string? ErrorText { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the select error is visible
+    /// Gets or sets whether the select error is visible.
+    /// Value is set automatically if the component is used in an <see cref="EditForm"/>.
     /// </summary>
     [Parameter]
     public bool? ErrorVisible { get; set; }

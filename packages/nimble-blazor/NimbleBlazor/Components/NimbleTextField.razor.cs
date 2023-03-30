@@ -39,13 +39,15 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the combobox error text
+    /// Gets or sets whether the text field error text.
+    /// Value is set automatically if the component is used in an <see cref="EditForm"/>.
     /// </summary>
     [Parameter]
     public string? ErrorText { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the combobox error is visible
+    /// Gets or sets whether the text field error is visible.
+    /// Value is set automatically if the component is used in an <see cref="EditForm"/>.
     /// </summary>
     [Parameter]
     public bool? ErrorVisible { get; set; }
