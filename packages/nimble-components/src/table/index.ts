@@ -545,15 +545,18 @@ export class Table<
     }
 
     private calculateTanStackSelectionState(
-        recordIds: string[]
+        recordIdsToSelect: string[]
     ): TanStackRowSelectionState {
-        const tanstackSelectionState: TanStackRowSelectionState = {};
-        for (const id of this.tableValidator.getPresentRecordIds(recordIds)) {
-            tanstackSelectionState[id] = true;
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return {};
+        }
 
-            if (this.selectionMode === TableRowSelectionMode.single) {
-                break;
-            }
+        const tanstackSelectionState: TanStackRowSelectionState = {};
+        const selectableRecordIds = this.tableValidator.getPresentRecordIds(recordIdsToSelect);
+        if (selectableRecordIds.length) {
+            // In single selection mode, only select the first record ID that is requested
+            const firstSelectableRecordId = selectableRecordIds[0]!;
+            tanstackSelectionState[firstSelectableRecordId] = true;
         }
 
         return tanstackSelectionState;
