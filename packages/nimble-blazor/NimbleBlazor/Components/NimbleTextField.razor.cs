@@ -39,7 +39,7 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the text field error text.
+    /// Gets or sets the text field error text.
     /// Value is set automatically if the component is used in an <see cref="EditForm"/>.
     /// </summary>
     [Parameter]
