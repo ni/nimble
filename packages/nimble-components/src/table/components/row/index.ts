@@ -67,14 +67,18 @@ export class TableRow<
                     ])
                 );
                 const columnConfig = column.columnConfig ?? {};
-                const cellOffset = i === 0 ? this.nestingLevel : 0;
+                const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
                 cellState = {
                     cellRecord,
                     columnConfig,
-                    cellOffset
+                    cellIndentLevel
                 };
             } else {
-                cellState = { cellRecord: {}, columnConfig: {}, cellOffset: 0 };
+                cellState = {
+                    cellRecord: {},
+                    columnConfig: {},
+                    cellIndentLevel: 0
+                };
             }
             return { column, cellState };
         });

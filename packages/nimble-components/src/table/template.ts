@@ -53,7 +53,7 @@ export const template = html<Table>`
                                 <${tableGroupRowTag}
                                     class="group-row"
                                     :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
-                                    expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded ?? false}"
+                                    ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"

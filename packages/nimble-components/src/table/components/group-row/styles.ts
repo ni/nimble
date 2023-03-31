@@ -26,17 +26,16 @@ export const styles = css`
         background: ${fillHoverColor};
     }
 
-    :host([expanded='true']) .expander-icon,
+    :host(:not([expanded])) .expander-icon {
+        transform: rotate(0deg);
+    }
+
     :host([expanded]) .expander-icon {
         transform: rotate(90deg);
     }
 
-    :host([expanded='false']) .expander-icon {
-        transform: rotate(0deg);
-    }
-
-    :host([expanded='true']) .animating,
-    :host([expanded='false']) .animating {
+    :host([expanded]) .animating,
+    :host(:not([expanded])) .animating {
         transition: ${mediumDelay} ease-in-out;
     }
 
@@ -59,8 +58,8 @@ export const styles = css`
     }
 
     @media (prefers-reduced-motion) {
-        :host([expanded='true']) .animating,
-        :host([expanded='false']) .animating {
+        :host(:not([expanded])) .animating,
+        :host([expanded]) .animating {
             transition-duration: 0s;
         }
     }

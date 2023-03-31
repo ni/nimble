@@ -400,19 +400,19 @@ describe('TableValidator', () => {
                 groupIndices: [1, 2, 3],
                 isValid: true,
                 invalidKeys: [],
-                name: 'unique sort indices is valid'
+                name: 'unique group indices is valid'
             },
             {
                 groupIndices: [1, 2, 2],
                 isValid: false,
                 invalidKeys: ['duplicateGroupIndex'],
-                name: 'duplicate sort indices is invalid'
+                name: 'duplicate group indices is invalid'
             },
             {
                 groupIndices: [],
                 isValid: true,
                 invalidKeys: [],
-                name: 'sort indices are not required'
+                name: 'group indices are not required'
             },
             {
                 groupIndices: [-Infinity, -Infinity],

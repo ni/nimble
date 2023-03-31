@@ -55,7 +55,7 @@ export class UpdateTracker<TData extends TableRecord> {
         return this.requiredUpdates.rowIds;
     }
 
-    public get updatGroupRows(): boolean {
+    public get updateGroupRows(): boolean {
         return this.requiredUpdates.groupRows;
     }
 

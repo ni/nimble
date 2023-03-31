@@ -88,7 +88,7 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * The order in which to group column values by
+     * The grouping precedence of the column
      */
     @observable
     public internalGroupIndex?: number;
@@ -158,7 +158,8 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * The tag to use to render the group header content for a column
+     * The tag to use to render the group header content for a column.
+     * The element this tag refers to must derive from TableGroupHeaderView.
      */
     public internalGroupHeaderViewTag?: string;
 

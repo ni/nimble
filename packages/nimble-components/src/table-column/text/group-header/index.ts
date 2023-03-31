@@ -21,6 +21,9 @@ TableColumnTextColumnConfig
     @observable
     public override columnConfig?: TableColumnTextColumnConfig;
 
+    /** @internal */
+    public textSpan!: HTMLElement;
+
     @volatile
     public get content(): string {
         return typeof this.groupHeaderValue === 'string'

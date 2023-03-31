@@ -1,7 +1,7 @@
 import { observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 
-export interface TableGroupHeaderValueState<
+export interface TableGroupHeaderState<
     TGroupValue = unknown,
     TColumnConfig = unknown
 > {
@@ -17,7 +17,7 @@ export abstract class TableGroupHeaderView<
     TColumnConfig = unknown
 >
     extends FoundationElement
-    implements TableGroupHeaderValueState<TGroupValue, TColumnConfig> {
+    implements TableGroupHeaderState<TGroupValue, TColumnConfig> {
     @observable
     public groupHeaderValue!: TGroupValue;
 

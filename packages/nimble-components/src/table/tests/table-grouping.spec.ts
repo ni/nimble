@@ -203,6 +203,37 @@ describe('Table grouping', () => {
         ]);
     });
 
+    it('collapsing group then updating grouped state followed by setting data has all groups expanded', async () => {
+        const originalData: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo', stringData2: 'a' },
+            { id: '2', stringData1: 'abc', stringData2: 'a' },
+            { id: '3', stringData1: 'foo', stringData2: 'a' },
+            { id: '4', stringData1: 'abc', stringData2: 'a' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        element.setData(originalData);
+        await connect();
+        await waitForUpdatesAsync();
+
+        pageObject.toggleGroupRowExpandedState(0);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true]);
+
+        column2.groupIndex = 1;
+        await waitForUpdatesAsync();
+
+        const newData: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo', stringData2: 'bar' }
+        ];
+        element.setData(newData);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getAllGroupRowExpandedState()).toEqual([true, true]);
+    });
+
     it('can group by multiple columns', async () => {
         const data: readonly SimpleTableRecord[] = [
             { id: '1', stringData1: 'hello', stringData2: 'world' },

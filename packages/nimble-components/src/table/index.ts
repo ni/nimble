@@ -19,7 +19,8 @@ import {
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingState as TanStackSortingState,
     GroupingState as TanStackGroupingState,
-    ExpandedState as TanStackExpandedState
+    ExpandedState as TanStackExpandedState,
+    OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
@@ -48,7 +49,7 @@ interface TableRowState<TData extends TableRecord = TableRecord> {
     id: string;
     isGrouped: boolean;
     groupRowValue?: unknown;
-    isExpanded?: boolean;
+    isExpanded: boolean;
     nestingLevel?: number;
     leafItemCount?: number;
     groupColumn?: TableColumn;
@@ -136,7 +137,7 @@ export class Table<
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
-    private collapsedState: { [key: string]: boolean } = {};
+    private readonly collapsedGroupRowIds = new Set<string>();
 
     public constructor() {
         super();
@@ -148,6 +149,7 @@ export class Table<
             getSortedRowModel: tanStackGetSortedRowModel(),
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
+            getIsRowExpanded: this.getIsRowExpanded,
             columns: [],
             state: {
                 grouping: [],
@@ -214,13 +216,15 @@ export class Table<
     }
 
     public toggleGroupExpanded(rowIndex: number): void {
-        const rowModel = this.table.getRowModel()!.rows[rowIndex]!;
-        if (rowModel.getIsExpanded()) {
-            this.collapsedState[rowModel.id] = true;
+        const row = this.table.getRowModel()!.rows[rowIndex]!;
+        const wasExpanded = row.getIsExpanded();
+        // must update the collapsedGroupRowIds before toggling expanded state
+        if (wasExpanded) {
+            this.collapsedGroupRowIds.add(row.id);
         } else {
-            this.collapsedState[rowModel.id] = false;
+            this.collapsedGroupRowIds.delete(row.id);
         }
-        rowModel.toggleExpanded();
+        row.toggleExpanded();
     }
 
     /**
@@ -292,6 +296,13 @@ export class Table<
         );
     }
 
+    private getColumnsParticipatingInGrouping(): TableColumn[] {
+        return this.columns.filter(
+            x => !x.internalGroupingDisabled
+                && typeof x.internalGroupIndex === 'number'
+        );
+    }
+
     private childItemsChanged(): void {
         void this.updateColumnsFromChildItems();
     }
@@ -324,9 +335,10 @@ export class Table<
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
             updatedOptions.data = [...this.table.options.data];
         }
-        if (this.updateTracker.updatGroupRows) {
+        if (this.updateTracker.updateGroupRows) {
             updatedOptions.state!.grouping = this.calculateTanStackGroupingState();
             updatedOptions.state!.expanded = true;
+            this.collapsedGroupRowIds.clear();
         }
 
         this.updateTableOptions(updatedOptions);
@@ -356,9 +368,9 @@ export class Table<
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
         this.tableValidator.validateColumnGroupIndices(
-            this.columns
-                .filter(c => typeof c.internalGroupIndex === 'number')
-                .map(x => x.internalGroupIndex!)
+            this.getColumnsParticipatingInGrouping().map(
+                x => x.internalGroupIndex!
+            )
         );
         this.validateWithData(this.table.options.data);
     }
@@ -373,40 +385,9 @@ export class Table<
             return { ...record };
         });
         this.validateWithData(data);
-        this.updateTableOptions(
-            {
-                data,
-                state: {
-                    expanded: true
-                }
-            },
-            true
-        );
-        const expandedState = this.getInflatedExpandedState() as {
-            [key: string]: boolean
-        };
-        for (const collapsedRowId of Object.keys(this.collapsedState)) {
-            if (this.collapsedState[collapsedRowId]) {
-                expandedState[collapsedRowId] = false;
-            }
-        }
         this.updateTableOptions({
-            state: {
-                expanded: expandedState
-            }
+            data
         });
-    }
-
-    private getInflatedExpandedState(): TanStackExpandedState {
-        if (this.table.options.state.expanded === true) {
-            const expandedState = {} as { [key: string]: boolean };
-            for (const row of this.table.getRowModel().rows) {
-                expandedState[row.id] = true;
-            }
-            return expandedState;
-        }
-
-        return this.table.options.state.expanded!;
     }
 
     private refreshRows(): void {
@@ -456,11 +437,28 @@ export class Table<
         }
     }
 
-    private readonly handleExpandedChange = (updater: unknown): void => {
-        let expandedState = this.table.options.state.expanded;
-        expandedState = updater instanceof Function
-            ? (updater(expandedState) as TanStackExpandedState)
-            : (expandedState = updater as TanStackExpandedState);
+    private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
+        if (!row.getIsGrouped()) {
+            return false;
+        }
+
+        const expandedState = this.table.options.state.expanded;
+
+        if (expandedState === true) {
+            return true;
+        }
+
+        if (Object.keys(expandedState ?? {}).includes(row.id)) {
+            return expandedState![row.id]!;
+        }
+
+        return !this.collapsedGroupRowIds.has(row.id);
+    };
+
+    private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> = (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
+        const expandedState = updaterOrValue instanceof Function
+            ? updaterOrValue(this.table.getState().expanded)
+            : updaterOrValue;
 
         this.updateTableOptions({
             state: {
@@ -487,12 +485,9 @@ export class Table<
     }
 
     private calculateTanStackGroupingState(): TanStackGroupingState {
-        const groupedColumns = this.columns
-            .filter(
-                c => typeof c.internalGroupIndex === 'number'
-                    && !c.internalGroupingDisabled
-            )
-            .sort((x, y) => x.internalGroupIndex! - y.internalGroupIndex!);
+        const groupedColumns = this.getColumnsParticipatingInGrouping().sort(
+            (x, y) => x.internalGroupIndex! - y.internalGroupIndex!
+        );
 
         return groupedColumns.map(column => column.internalUniqueId);
     }
