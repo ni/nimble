@@ -88,7 +88,9 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * The grouping precedence of the column
+     * Specifies the grouping precedence of the column within the set of all columns participating in grouping.
+     * Columns are rendered in the grouping tree from lowest group-index as the tree root to highest
+     * group-index as tree leaves.
      */
     @observable
     public internalGroupIndex?: number;

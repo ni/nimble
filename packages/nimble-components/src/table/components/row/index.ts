@@ -20,6 +20,7 @@ declare global {
 export interface ColumnState {
     column: TableColumn;
     cellState: TableCellState;
+    cellIndentLevel: number;
 }
 
 /** Represents a single row (element) in the Table's data  */
@@ -67,20 +68,18 @@ export class TableRow<
                     ])
                 );
                 const columnConfig = column.columnConfig ?? {};
-                const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
                 cellState = {
                     cellRecord,
-                    columnConfig,
-                    cellIndentLevel
+                    columnConfig
                 };
             } else {
                 cellState = {
                     cellRecord: {},
-                    columnConfig: {},
-                    cellIndentLevel: 0
+                    columnConfig: {}
                 };
             }
-            return { column, cellState };
+            const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
+            return { column, cellState, cellIndentLevel };
         });
     }
 

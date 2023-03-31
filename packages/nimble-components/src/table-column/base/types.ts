@@ -13,7 +13,6 @@ export interface TableCellState<
 > {
     cellRecord: TCellRecord;
     columnConfig: TColumnConfig;
-    cellIndentLevel: number;
 }
 
 /**

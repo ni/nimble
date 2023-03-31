@@ -1,13 +1,15 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { TableColumnTextGroupHeaderView } from '.';
-import { removeTitle, setTitleWhenOverflow } from '../template-helpers';
 
 export const template = html<TableColumnTextGroupHeaderView>`
     <span
         ${ref('textSpan')}
         class="${x => (typeof x.groupHeaderValue === 'string' ? '' : 'placeholder')}"
-        @mouseover="${x => setTitleWhenOverflow(x.textSpan, x.content)}"
-        @mouseout="${x => removeTitle(x.textSpan)}"
+        @mouseover="${x => x.updateTitleOverflow()}"
+        @mouseout="${x => x.clearTitleOverflow()}"
+        title="${x => (x.isValidContentAndHasOverflow && x.content
+        ? x.content
+        : undefined)}"
     >
         ${x => x.content}
     </span>

@@ -24,11 +24,22 @@ TableColumnTextColumnConfig
     /** @internal */
     public textSpan!: HTMLElement;
 
+    /** @internal */
+    public isValidContentAndHasOverflow = false;
+
     @volatile
     public get content(): string {
         return typeof this.groupHeaderValue === 'string'
             ? this.groupHeaderValue
             : this.columnConfig?.placeholder ?? '';
+    }
+
+    public updateTitleOverflow(): void {
+        this.isValidContentAndHasOverflow = this.textSpan.offsetWidth < this.textSpan.scrollWidth;
+    }
+
+    public clearTitleOverflow(): void {
+        this.isValidContentAndHasOverflow = false;
     }
 }
 

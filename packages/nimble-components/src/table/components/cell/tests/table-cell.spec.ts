@@ -60,16 +60,14 @@ describe('TableCell', () => {
         `;
         element.cellState = {
             cellRecord: { stringData: 'foo' },
-            columnConfig: {},
-            cellIndentLevel: 0
+            columnConfig: {}
         };
         element.cellTemplate = cellTemplate;
         await waitForUpdatesAsync();
 
         element.cellState = {
             cellRecord: { stringData: 'bar' },
-            columnConfig: {},
-            cellIndentLevel: 0
+            columnConfig: {}
         };
         const renderedContent = pageObject.getRenderedCellContent();
         expect(renderedContent?.textContent).toBe('bar');
@@ -89,8 +87,7 @@ describe('TableCell', () => {
         `;
         element.cellState = {
             cellRecord: { stringData: 'foo' },
-            columnConfig: {},
-            cellIndentLevel: 0
+            columnConfig: {}
         };
         element.cellTemplate = cellTemplate;
         element.cellStyles = cellStyles;
@@ -114,8 +111,7 @@ describe('TableCell', () => {
         `;
         element.cellState = {
             cellRecord: { stringData: 'foo' },
-            columnConfig: {},
-            cellIndentLevel: 0
+            columnConfig: {}
         };
         element.cellTemplate = cellTemplate;
         element.cellStyles = cellStyles;

@@ -30,7 +30,7 @@ export function mixinGroupableColumnAPI<
 
         public groupIndex?: number | null = null;
 
-        public abstract groupHeaderViewTag: string;
+        public abstract readonly groupHeaderViewTag: string;
 
         public groupingDisabledChanged(): void {
             this.internalGroupingDisabled = this.groupingDisabled;

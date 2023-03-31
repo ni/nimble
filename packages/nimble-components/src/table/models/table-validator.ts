@@ -95,30 +95,17 @@ export class TableValidator<TData extends TableRecord> {
     }
 
     public validateColumnSortIndices(sortIndices: number[]): boolean {
-        this.duplicateSortIndex = false;
-
-        const sortIndexSet = new Set<number>();
-        for (const sortIndex of sortIndices) {
-            if (sortIndexSet.has(sortIndex)) {
-                this.duplicateSortIndex = true;
-            }
-            sortIndexSet.add(sortIndex);
-        }
-
+        this.duplicateSortIndex = !this.validateIndicesAreUnique(sortIndices);
         return !this.duplicateSortIndex;
     }
 
     public validateColumnGroupIndices(groupIndices: number[]): boolean {
-        this.duplicateGroupIndex = false;
-
-        const groupIndexSet = new Set<number>();
-        for (const groupIndex of groupIndices) {
-            if (groupIndexSet.has(groupIndex)) {
-                this.duplicateGroupIndex = true;
-            }
-            groupIndexSet.add(groupIndex);
-        }
-
+        this.duplicateGroupIndex = !this.validateIndicesAreUnique(groupIndices);
         return !this.duplicateGroupIndex;
+    }
+
+    private validateIndicesAreUnique(indices: number[]): boolean {
+        const numberSet = new Set<number>(indices);
+        return numberSet.size === indices.length;
     }
 }
