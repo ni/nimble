@@ -108,14 +108,6 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
-    :host([cols]) .control {
-        width: auto;
-    }
-
-    :host([rows]) .control {
-        flex: none;
-    }
-
     :host([resize='both']) .control {
         resize: both;
     }
