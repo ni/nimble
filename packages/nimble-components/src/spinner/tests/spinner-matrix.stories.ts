@@ -1,6 +1,6 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { withXD } from 'storybook-addon-xd-designs';
+
 import {
     createMatrix,
     sharedMatrixParameters
@@ -19,13 +19,8 @@ import { spinnerTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Spinner',
-    decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/specs/'
-        },
 
         // Spinner animation causes snapshot changes in chromatic
         // See https://github.com/ni/nimble/issues/983
@@ -51,10 +46,10 @@ const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <${spinnerTag} style="${() => state}"></${spinnerTag}>
 `;
 
-export const spinnerThemeMatrix: Story = createMatrixThemeStory(
+export const spinnerThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [sizeStates])
 );
 
-export const hiddenSpinner: Story = createStory(
+export const hiddenSpinner: StoryFn = createStory(
     hiddenWrapper(html`<${spinnerTag} hidden></${spinnerTag}>`)
 );

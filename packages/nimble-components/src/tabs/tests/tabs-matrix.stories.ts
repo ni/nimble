@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -21,13 +20,8 @@ import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -58,11 +52,11 @@ const component = (
     </${tabsTag}>
 `;
 
-export const tabsThemeMatrix: Story = createMatrixThemeStory(
+export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [tabsToolbarState, disabledStates])
 );
 
-export const hiddenTabs: Story = createStory(
+export const hiddenTabs: StoryFn = createStory(
     hiddenWrapper(
         html`<${tabsTag} hidden>
             <${tabTag}>Tab One</${tabTag}>
@@ -71,7 +65,7 @@ export const hiddenTabs: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <${tabsTag}>
@@ -83,7 +77,7 @@ export const textCustomized: Story = createMatrixThemeStory(
     )
 );
 
-export const panelOverflow: Story = createStory(
+export const panelOverflow: StoryFn = createStory(
     html`
         <nimble-tabs style="height: 120px; width: 400px;">
             <nimble-tab>Tab One</nimble-tab>
