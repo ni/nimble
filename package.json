@@ -42,9 +42,11 @@
   ],
   "devDependencies": {
     "@lhci/cli": "^0.10.0",
-    "@storybook/html": "*",
     "beachball": "^2.31.0",
     "cross-env": "^7.0.3",
     "patch-package": "^6.4.7"
+  },
+  "peerDependencies": {
+    "@storybook/html": "*"
   }
 }
