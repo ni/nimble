@@ -412,21 +412,20 @@ export class Table<
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map((row, i) => {
-            const groupColumn = this.getGroupRowColumn(i);
             const rowState: TableRowState<TData> = {
                 record: row.original,
                 id: row.id,
                 isGrouped: row.getIsGrouped(),
                 isExpanded: row.getIsExpanded(),
-                groupRowValue: groupColumn
-                    ? row?.getLeafRows()[0]?.getValue(row.groupingColumnId!)
+                groupRowValue: row.getIsGrouped()
+                    ? row?.getValue(row.groupingColumnId!)
                     : undefined,
                 nestingLevel: row.depth,
                 leafItemCount: row
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)
                     .length,
-                groupColumn
+                groupColumn: this.getGroupRowColumn(i)
             };
             return rowState;
         });
