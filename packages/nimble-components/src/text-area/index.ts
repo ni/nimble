@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, DOM, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     TextArea as FoundationTextArea
@@ -56,6 +56,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     public scrollbarWidth = 0;
 
     private resizeObserver?: ResizeObserver;
+    private updateScrollbarWidthQueued = false;
 
     /**
      * @internal
@@ -78,14 +79,45 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
      */
     public onTextAreaInput(): void {
         this.handleTextInput();
-        this.updateScrollbarWidth();
+        this.queueUpdateScrollbarWidth();
+    }
+
+    // If a property can affect whether a scrollbar is visible, we need to
+    // call queueUpdateScrollbarWidth() when it changes. The exceptions are
+    // properties that affect size (e.g. height, width, cols, rows), because
+    // we already have a ResizeObserver handling those changes.
+
+    /**
+     * @internal
+     */
+    public placeholderChanged(): void {
+        this.queueUpdateScrollbarWidth();
+    }
+
+    /**
+     * @internal
+     */
+    public override valueChanged(previous: string, next: string): void {
+        super.valueChanged(previous, next);
+        this.queueUpdateScrollbarWidth();
     }
 
     private readonly onResize = (): void => {
         this.updateScrollbarWidth();
     };
 
+    private queueUpdateScrollbarWidth(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.updateScrollbarWidthQueued) {
+            this.updateScrollbarWidthQueued = true;
+            DOM.queueUpdate(() => this.updateScrollbarWidth());
+        }
+    }
+
     private updateScrollbarWidth(): void {
+        this.updateScrollbarWidthQueued = false;
         this.scrollbarWidth = this.control.offsetWidth - this.control.clientWidth;
     }
 }
