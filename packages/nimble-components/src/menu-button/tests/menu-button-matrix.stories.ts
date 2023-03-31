@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../types';
@@ -21,13 +20,8 @@ import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -70,7 +64,7 @@ const component = (
     </${menuButtonTag}>
 `;
 
-export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
+export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         partVisibilityStates,
         disabledStates,
@@ -78,7 +72,7 @@ export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenMenuButton: Story = createStory(
+export const hiddenMenuButton: StoryFn = createStory(
     hiddenWrapper(
         html`<${menuButtonTag} hidden>Hidden Menu Button</${menuButtonTag}>`
     )

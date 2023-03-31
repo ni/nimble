@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -23,13 +22,8 @@ import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
 
 const metadata: Meta = {
     title: 'Tests/Anchor Button',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -75,7 +69,7 @@ const component = (
     </${anchorButtonTag}>
 `;
 
-export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
+export const anchorButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -84,7 +78,7 @@ export const anchorButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenAnchorButton: Story = createStory(
+export const hiddenAnchorButton: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchorButtonTag} hidden
             >Hidden Anchor Button</${anchorButtonTag}
@@ -92,7 +86,7 @@ export const hiddenAnchorButton: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<${anchorButtonTag}>Anchor Button</${anchorButtonTag}>`
     )

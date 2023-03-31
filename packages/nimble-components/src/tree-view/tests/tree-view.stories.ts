@@ -37,6 +37,7 @@ Note: Changing the selection mode does not affect which items can be selected pr
 
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
