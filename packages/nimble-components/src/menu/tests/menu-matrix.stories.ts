@@ -1,6 +1,5 @@
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import {
     createMatrixThemeStory,
     createStory
@@ -23,13 +22,8 @@ import { anchorMenuItemTag } from '../../anchor-menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -64,7 +58,7 @@ const component = (
                         <${menuItemTag}>${when(() => childIcon, html`<${iconXmarkTag} slot="start"></${iconXmarkTag}>`)}Item 1.3</${menuItemTag}>
                         <${anchorMenuItemTag} href='#'>Anchor item 1.4</${anchorMenuItemTag}>
                         <${anchorMenuItemTag} href='#'>${when(() => childIcon, html`<${iconXmarkTag} slot="start"></${iconXmarkTag}>`)}Anchor item 1.5</${anchorMenuItemTag}>
-                    </nimble-menu>
+                    </${menuTag}>
                 `)}
             </${menuItemTag}>
             <hr>
@@ -75,15 +69,15 @@ const component = (
             <${anchorMenuItemTag}>Anchor item no href</${anchorMenuItemTag}>
             <${anchorMenuItemTag} href='#' disabled>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item disabled</${anchorMenuItemTag}>
             <${anchorMenuItemTag} href='#' hidden>Anchor item hidden</${anchorMenuItemTag}>
-        </nimble-menu>
+        </${menuTag}>
     </span>
 `;
 
-export const menuThemeMatrix: Story = createMatrixThemeStory(
+export const menuThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [iconVisibleStates, subMenuStates])
 );
 
-export const hiddenMenu: Story = createStory(
+export const hiddenMenu: StoryFn = createStory(
     hiddenWrapper(
         html`<${menuTag} hidden>
             <${menuItemTag}>Item 1</${menuItemTag}>
@@ -91,12 +85,12 @@ export const hiddenMenu: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html` <${menuTag}>
             Inner text
             <${menuItemTag}>Menu item</${menuItemTag}>
             <${anchorMenuItemTag}>Anchor menu item</${anchorMenuItemTag}>
-        </<${menuTag}>`
+        </${menuTag}>`
     )
 );

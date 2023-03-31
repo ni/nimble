@@ -1,6 +1,5 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { tabsTag } from '..';
 import { buttonTag } from '../../button';
@@ -26,16 +25,12 @@ If you want a sequence of tabs that navigate to different URLs, use the Anchor T
 
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
         },
         actions: {
             handles: ['change']

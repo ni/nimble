@@ -1,6 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import {
     createUserSelectedThemeStory,
     usageWarning
@@ -108,16 +107,12 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
         },
         actions: {
             handles: ['action-menu-beforetoggle', 'action-menu-toggle']

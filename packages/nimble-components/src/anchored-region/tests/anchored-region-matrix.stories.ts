@@ -1,4 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -93,11 +93,11 @@ const component = (
         <div></div>
     </div>`;
 
-export const anchoredRegionThemeMatrix: Story = createStory(
+export const anchoredRegionThemeMatrix: StoryFn = createStory(
     createMatrix(component, [horizontalPositionStates, verticalPositionStates])
 );
 
-export const hiddenAnchoredRegion: Story = createStory(
+export const hiddenAnchoredRegion: StoryFn = createStory(
     hiddenWrapper(
         html`<${anchoredRegionTag} hidden>Hidden Anchored Region</${anchoredRegionTag}>`
     )

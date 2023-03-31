@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -23,13 +22,8 @@ import { tooltipTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Tooltip',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/044414d7-1714-40f2-9679-2ce2c8202d1c/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -105,7 +99,7 @@ const [
     darkThemeBlackBackground
 ] = backgroundStates;
 
-export const tooltipLightThemeWhiteBackground: Story = createFixedThemeStory(
+export const tooltipLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     lightThemeWhiteBackground
 );
@@ -116,7 +110,7 @@ tooltipLightThemeWhiteBackground.parameters = {
     chromatic: { disableSnapshot: true }
 };
 
-export const tooltipColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+export const tooltipColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     createMatrix(component, [
         textStates,
         severityStates,
@@ -131,7 +125,7 @@ tooltipColorThemeDarkGreenBackground.parameters = {
     chromatic: { disableSnapshot: true }
 };
 
-export const tooltipDarkThemeBlackBackground: Story = createFixedThemeStory(
+export const tooltipDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     createMatrix(component, [textStates, severityStates, iconVisibleStates]),
     darkThemeBlackBackground
 );
@@ -142,6 +136,6 @@ tooltipDarkThemeBlackBackground.parameters = {
     chromatic: { disableSnapshot: true }
 };
 
-export const hiddenTooltip: Story = createStory(
+export const hiddenTooltip: StoryFn = createStory(
     hiddenWrapper(html`<${tooltipTag} hidden>Hidden Tooltip</${tooltipTag}>`)
 );

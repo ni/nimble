@@ -1,6 +1,5 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { switchTag } from '..';
 
@@ -21,16 +20,12 @@ pressed or not pressed and can optionally allow for a partially pressed state.`;
 
 const metadata: Meta<SwitchArgs> = {
     title: 'Switch',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs/'
         },
         actions: {
             handles: ['change']
