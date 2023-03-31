@@ -137,7 +137,7 @@ export class Table<
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
-    private readonly collapsedGroupRowIds = new Set<string>();
+    private readonly collapsedRows = new Set<string>();
 
     public constructor() {
         super();
@@ -218,11 +218,11 @@ export class Table<
     public toggleGroupExpanded(rowIndex: number): void {
         const row = this.table.getRowModel()!.rows[rowIndex]!;
         const wasExpanded = row.getIsExpanded();
-        // must update the collapsedGroupRowIds before toggling expanded state
+        // must update the collapsedRows before toggling expanded state
         if (wasExpanded) {
-            this.collapsedGroupRowIds.add(row.id);
+            this.collapsedRows.add(row.id);
         } else {
-            this.collapsedGroupRowIds.delete(row.id);
+            this.collapsedRows.delete(row.id);
         }
         row.toggleExpanded();
     }
@@ -338,7 +338,7 @@ export class Table<
         if (this.updateTracker.updateGroupRows) {
             updatedOptions.state!.grouping = this.calculateTanStackGroupingState();
             updatedOptions.state!.expanded = true;
-            this.collapsedGroupRowIds.clear();
+            this.collapsedRows.clear();
         }
 
         this.updateTableOptions(updatedOptions);
@@ -452,7 +452,7 @@ export class Table<
             return expandedState![row.id]!;
         }
 
-        return !this.collapsedGroupRowIds.has(row.id);
+        return !this.collapsedRows.has(row.id);
     };
 
     private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> = (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
