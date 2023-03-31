@@ -1,5 +1,4 @@
 import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -21,13 +20,8 @@ import { iconKeyTag } from '../../icons/key';
 
 const metadata: Meta = {
     title: 'Tests/Banner',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/29c405f7-08ea-48b6-973f-546970b9dbab/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 

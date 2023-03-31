@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../types';
@@ -20,13 +19,8 @@ import { iconKeyTag } from '../../icons/key';
 
 const metadata: Meta = {
     title: 'Tests/Toggle Button',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -72,7 +66,7 @@ const component = (
     </${toggleButtonTag}>
 `;
 
-export const toggleButtonThemeMatrix: Story = createMatrixThemeStory(
+export const toggleButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         partVisibilityStates,
         checkedStates,
@@ -81,7 +75,7 @@ export const toggleButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenButton: Story = createStory(
+export const hiddenButton: StoryFn = createStory(
     hiddenWrapper(
         html`<${toggleButtonTag} hidden
             >Hidden Toggle Button</${toggleButtonTag}
@@ -89,7 +83,7 @@ export const hiddenButton: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<${toggleButtonTag}>Toggle button</${toggleButtonTag}>`
     )
