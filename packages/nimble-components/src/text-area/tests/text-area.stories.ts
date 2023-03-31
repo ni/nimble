@@ -72,7 +72,8 @@ const metadata: Meta<TextAreaArgs> = {
             }
         },
         resize: {
-            description: 'Direction(s) the text area is sizeable by the user. Setting a fixed `height` and `width` on the text area is not supported while it is sizeable. You may instead use `rows` and `cols` to set an initial size.',
+            description:
+                'Direction(s) the text area is sizeable by the user. Setting a fixed `height` and `width` on the text area is not supported while it is sizeable. You may instead use `rows` and `cols` to set an initial size.',
             options: Object.values(TextAreaResize),
             control: { type: 'select' },
             table: {
