@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 22 Mar 2023 20:54:34 GMT and should not be manually modified.
+This log was last generated on Sat, 01 Apr 2023 05:14:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.8.2
+
+Sat, 01 Apr 2023 05:14:36 GMT
+
+### Patches
+
+- Add missing anchored region import to menu component as part of Storybook 7 upgrade ([ni/nimble@b2ab12c](https://github.com/ni/nimble/commit/b2ab12c6ab80c0ad5bad389893dd52e9a04995be))
 
 ## 18.8.1
 
