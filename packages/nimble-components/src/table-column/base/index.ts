@@ -1,10 +1,13 @@
 import {
     attr,
     nullableNumberConverter,
-    observable
+    observable,
+    ViewTemplate
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
+import type { TableCell } from '../../table/components/cell';
+import { createCellViewTemplate } from '../../table/components/cell/template';
 import { TableColumnSortDirection, TableFieldName } from '../../table/types';
 import {
     defaultFractionalWidth,
@@ -82,6 +85,10 @@ export abstract class TableColumn<
     @observable
     public abstract readonly cellViewTag: string;
 
+    /* @internal */
+    @observable
+    public currentCellViewTemplate?: ViewTemplate<TableCell>;
+
     /**
      * @internal
      *
@@ -142,6 +149,13 @@ export abstract class TableColumn<
         super.connectedCallback();
 
         this.setAttribute('slot', this.internalUniqueId);
+    }
+
+    /** @internal */
+    public cellViewTagChanged(): void {
+        this.currentCellViewTemplate = this.cellViewTag
+            ? createCellViewTemplate(this.cellViewTag)
+            : undefined;
     }
 
     protected internalFractionalWidthChanged(): void {

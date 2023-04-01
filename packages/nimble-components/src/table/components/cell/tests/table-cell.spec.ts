@@ -9,6 +9,7 @@ import {
 import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 import { TableCellView } from '../../../../table-column/base/cell-view';
+import { createCellViewTemplate } from '../template';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;
@@ -41,7 +42,7 @@ describe('TableCell', () => {
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
-        element.cellViewTag = columnCellViewName;
+        element.cellViewTemplate = createCellViewTemplate(columnCellViewName);
         pageObject = new TableCellPageObject<SimpleTableCellRecord>(element);
     });
 

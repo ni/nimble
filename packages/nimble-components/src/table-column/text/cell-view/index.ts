@@ -21,15 +21,9 @@ export class TableColumnTextCellView extends TableCellView<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
-    @observable
-    public override cellRecord!: TableColumnTextCellRecord;
-
-    @observable
-    public override columnConfig!: TableColumnTextColumnConfig;
-
     /** @internal */
     @observable
-    public isHoveredWithOverflow = false;
+    public isValidContentAndHasOverflow = false;
 
     /** @internal */
     public textSpan!: HTMLElement;

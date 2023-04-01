@@ -32,6 +32,7 @@ import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
+import type { TableRow } from './components/row';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -70,6 +71,12 @@ export class Table<
      */
     @observable
     public readonly childItems: Element[] = [];
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly rowElements: TableRow[] = [];
 
     /**
      * @internal

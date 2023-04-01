@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
@@ -35,7 +35,7 @@ export class TableCell<
     public actionMenuLabel?: string;
 
     @observable
-    public cellViewTag?: string;
+    public cellViewTemplate?: ViewTemplate<TableCell>;
 
     public readonly actionMenuButton?: MenuButton;
 

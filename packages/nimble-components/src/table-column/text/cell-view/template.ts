@@ -7,12 +7,12 @@ export const template = html<TableColumnTextCellView>`
         ${ref('textSpan')}
         class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
         @mouseover="${x => {
-        x.isHoveredWithOverflow = !!x.content && x.textSpan.offsetWidth < x.textSpan.scrollWidth;
+        x.isValidContentAndHasOverflow = !!x.content && x.textSpan.offsetWidth < x.textSpan.scrollWidth;
     }}"
         @mouseout="${x => {
-        x.isHoveredWithOverflow = false;
+        x.isValidContentAndHasOverflow = false;
     }}"
-        title=${x => (x.isHoveredWithOverflow ? x.content : null)}
+        title=${x => (x.isValidContentAndHasOverflow ? x.content : null)}
     >
         ${x => x.content}
     </span>

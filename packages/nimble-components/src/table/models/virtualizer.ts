@@ -11,7 +11,6 @@ import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
-import { TableRow } from '../components/row';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -130,12 +129,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             tableFocusedElement.focusedRecycleCallback();
         }
         if (this.table.openActionMenuRecordId !== undefined) {
-            const row = Array.prototype.find.call(
-                this.table.rowContainer.children,
-                e => e instanceof TableRow
-                    && e.recordId === this.table.openActionMenuRecordId
-            ) as TableRow;
-            row?.closeOpenActionMenus();
+            const activeRow = this.table.rowElements.find(
+                row => row.recordId === this.table.openActionMenuRecordId
+            );
+            activeRow?.closeOpenActionMenus();
         }
     }
 }

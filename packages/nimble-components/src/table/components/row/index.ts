@@ -99,8 +99,7 @@ export class TableRow<
 
     public closeOpenActionMenus(): void {
         if (this.menuOpen) {
-            const cellWithMenuOpen = Array.prototype.find.call(
-                this.shadowRoot!.children,
+            const cellWithMenuOpen = Array.from(this.shadowRoot!.children).find(
                 c => c instanceof TableCell && c.menuOpen
             ) as TableCell;
             if (cellWithMenuOpen?.actionMenuButton) {
