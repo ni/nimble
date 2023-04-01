@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Sat, 01 Apr 2023 05:14:36 GMT",
+      "tag": "@ni/nimble-components_v18.8.2",
+      "version": "18.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b2ab12c6ab80c0ad5bad389893dd52e9a04995be",
+            "comment": "Add missing anchored region import to menu component as part of Storybook 7 upgrade"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 29 Mar 2023 18:05:42 GMT",
       "tag": "@ni/nimble-components_v18.8.1",
       "version": "18.8.1",
