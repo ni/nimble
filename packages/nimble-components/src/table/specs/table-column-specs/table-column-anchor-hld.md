@@ -12,6 +12,8 @@ We need to support links in table cells. We will do this by creating a new colum
 
 This is a fairly straightforward execution of our custom column type pattern. The anchor column will use two fields from the data records: one for the link's visible text (the "label") and one for the url (the "href"). The column configuration will contain the rest of the native anchor parameters: `hreflang`, `ping`, `referrerpolicy`, `rel`, `target`, `type`, and `download`. The assumption is that these should be the same for each link of a given column (if used at all). An alternative would be to have a `*FieldName` property for each of the native anchor parameters, but that seems unlikely to be useful.
 
+If a table record is missing a href value a text span will be rendered rather than a link.
+
 The column will also take an optional `placeholder` value to use when a record does not define a label.
 
 *   _Element name_: `nimble-table-column-anchor`
@@ -57,6 +59,20 @@ When either cellRecord.label or cellRecord.html is missing
     </span>
 ```
 As seen in the template, we use `mouseover` and `mouseout` handlers to conditionally set, then remove, the `title` attribute to provide a tooltip when text is trucated. This is the same pattern used by the text column type. Note that we set the `underline-hidden` attribute so that the text only gets an underline upon hover.
+
+### Sorting & Grouping
+
+The column will be sorted and grouped by the label value. It would be unexpected and unhelpful to sort or group by some invisible value, i.e. the url. An alternative would be to sort/group based on a combination of the label and url, but that is not clearly any more useful than sorting/grouping by just the label. It is arguably more confusing, based on the visibility argument.
+
+When grouped, the header item should not be a link.
+
+### Sizing
+
+The column should support the same sizing modes as the text column, which is fractional widths plus minimum pixel widths.
+
+### Keyboard Interactions
+
+Arrowing to a anchor table cell should focus the link (if it is actually a link and not just a text span). Pressing `Enter` on a focused link will trigger navigation.
 
 ### Angular RouterLink Support
 The real challenge of this column type is integrating with the Angular router. The `RouterLink`/`RouterLinkWithHref` directives are used to intercept clicks on anchors and replace the default navigation action with a call to `Router.navigateByUrl()`. As we have done in the past for other anchor components, we will have our own directive deriving from `RouterLinkWithHref`. Our directive will apply based on the presence of the `nimbleRouterLink` attribute. As we have done in the past, we will also have a directive that throws an error if `routerLink` is used instead. Normally, you would specify the `nimbleRouterLink` and related attributes (e.g. `queryParams`, `replaceUrl`, etc.) directly on the anchor element, but that's not possible for anchors in generated table cells. Our options are to put the directive on `nimble-table` or `nimble-table-column-anchor`. Because we would like to allow different anchor columns to be configured differently, and because it is a more intuitive API, we want to put our directive on the column element:
@@ -113,6 +129,10 @@ public doRouterNavigation(href: string): boolean {
     return super.onClick(...);
 }
 ```
+
+### Blazor integration
+
+A Blazor wrapper will be created for the component. There is no special routing support needed for Blazor.
 
 ## Alternative Implementations / Designs
 
