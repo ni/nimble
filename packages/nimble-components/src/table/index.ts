@@ -438,6 +438,8 @@ export class Table<
 
         this.validateWithData(data);
         if (this.tableValidator.areRecordIdsValid()) {
+            // Update the selection state to remove previously selected records that no longer exist in the
+            // data set while maintaining the selection state of records that still exist in the data set.
             tanStackUpdates.state = {
                 rowSelection: this.calculateTanStackSelectionState(
                     this.getSelectedRecordIds()
