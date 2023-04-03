@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 03 Apr 2023 18:19:24 GMT and should not be manually modified.
+This log was last generated on Mon, 03 Apr 2023 21:31:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.8.4
+
+Mon, 03 Apr 2023 21:31:32 GMT
+
+### Patches
+
+- Allow events to bubble enough for Angular nimbleRouterLink directive to work ([ni/nimble@9bcfe99](https://github.com/ni/nimble/commit/9bcfe9997a520cf952e63fd48440dc23f13ec63d))
 
 ## 18.8.3
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Allow events to bubble enough for Angular nimbleRouterLink directive to work",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
