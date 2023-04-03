@@ -49,7 +49,7 @@ export class AnchorMenuItem extends AnchorBase {
      * @internal
      */
     public clickHandler(e: MouseEvent): boolean {
-        e.stopImmediatePropagation();
+        e.stopPropagation();
         return true;
     }
 
@@ -62,7 +62,7 @@ export class AnchorMenuItem extends AnchorBase {
         }
         switch (e.key) {
             case keyEnter:
-                e.stopImmediatePropagation();
+                e.stopPropagation();
                 break;
             default:
         }
