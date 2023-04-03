@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Change menu to explicit side-effect import of anchored-region",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

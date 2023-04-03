@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 03 Apr 2023 18:19:24 GMT",
+      "tag": "@ni/nimble-components_v18.8.3",
+      "version": "18.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ed97369fe171c4f2535e651e09a0a20214bbebcc",
+            "comment": "Change menu to explicit side-effect import of anchored-region"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 01 Apr 2023 05:14:36 GMT",
       "tag": "@ni/nimble-components_v18.8.2",
       "version": "18.8.2",
