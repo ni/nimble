@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 28 Mar 2023 22:52:47 GMT and should not be manually modified.
+This log was last generated on Mon, 03 Apr 2023 17:06:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.6.0
+
+Mon, 03 Apr 2023 17:06:25 GMT
+
+### Minor changes
+
+- Fix bug where NimbleTab would respond to `change` event from children components, causing tabs to change. Also made NimbleTabs.UpdateActiveId private. ([ni/nimble@67c3790](https://github.com/ni/nimble/commit/67c3790a9412dcb482959971edef0040028556e9))
 
 ## 11.5.0
 

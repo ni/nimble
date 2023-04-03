@@ -15,14 +15,13 @@ public partial class NimbleTabs : ComponentBase
     /// </summary>
     [Parameter] public EventCallback<string?> ActiveIdChanged { get; set; }
 
-    /// <summary>
-    /// Called when activeid changes on the web component
-    /// </summary>
-    /// <param name="value">New value of activeid</param>
-    protected async void UpdateActiveId(string? value)
+    private async void UpdateActiveId(string? value)
     {
-        ActiveId = value;
-        await ActiveIdChanged.InvokeAsync(value);
+        if (value != null)
+        {
+            ActiveId = value;
+            await ActiveIdChanged.InvokeAsync(value);
+        }
     }
 
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
