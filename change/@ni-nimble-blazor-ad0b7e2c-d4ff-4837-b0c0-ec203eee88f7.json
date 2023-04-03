@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Added logic to stop NimbleTabs from seeing `change` event from children components. Followed the pattern FluentUI Blazor uses for their Tab component.",
-  "packageName": "@ni/nimble-blazor",
-  "email": "tim.atwood@ni.com",
-  "dependentChangeType": "patch"
-}
