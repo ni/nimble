@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -35,10 +35,10 @@ const component = ([stateName, state]: SeverityState): ViewTemplate => html`
     <${iconCheckTag} severity="${() => state}"></${iconCheckTag}>
 `;
 
-export const iconThemeMatrix: Story = createMatrixThemeStory(
+export const iconThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [severityStates])
 );
 
-export const hiddenIcon: Story = createStory(
+export const hiddenIcon: StoryFn = createStory(
     hiddenWrapper(html`<${iconCheckTag} hidden></${iconCheckTag}>`)
 );

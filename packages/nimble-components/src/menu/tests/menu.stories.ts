@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { menuTag } from '..';
@@ -40,16 +39,12 @@ and will format them and any Nimble icons added as children of \`<nimble-menu-it
 
 const metadata: Meta<MenuArgs> = {
     title: 'Menu',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/c098395e-30f8-4bd4-b8c5-394326b59919/specs'
         },
         actions: {
             handles: ['change']
@@ -188,12 +183,12 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu>
-            <nimble-anchor-menu-item ?disabled="${x => x.disabled}" href="${x => x.href}">
-                ${when(x => x.icon, html`<nimble-icon-user slot="start"></nimble-icon-user>`)}
+        <${menuTag}>
+            <${anchorMenuItemTag} ?disabled="${x => x.disabled}" href="${x => x.href}">
+                ${when(x => x.icon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}
                 ${x => x.text}
-            </nimble-anchor-menu-item>
-        </nimble-menu>
+            </${anchorMenuItemTag}>
+        </${menuTag}>
         `),
     args: {
         text: 'Menu Item',

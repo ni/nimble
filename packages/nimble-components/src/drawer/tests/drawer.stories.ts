@@ -1,6 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
     createUserSelectedThemeStory,
@@ -115,17 +114,13 @@ ${overrideWarning('Drawer Width', widthDescriptionOverride)}
 
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component:
                     'Specialized dialog designed to slide in from either side of the page. Typically used for a configuration pane.'
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/730cdeb8-a4b5-4dcc-9fe4-718a75da7aff/specs/'
         },
         actions: {
             handles: []

@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -23,13 +22,8 @@ import { numberFieldTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Number Field',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -66,7 +60,7 @@ const component = (
     </${numberFieldTag}>
 `;
 
-export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
+export const numberFieldThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         valueStates,
@@ -75,7 +69,7 @@ export const numberFieldThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenNumberField: Story = createStory(
+export const hiddenNumberField: StoryFn = createStory(
     hiddenWrapper(
         html`
             <${numberFieldTag} hidden>
@@ -85,13 +79,13 @@ export const hiddenNumberField: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`<${numberFieldTag} value="42">Number field</${numberFieldTag}>`
     )
 );
 
-export const heightTest: Story = createStory(
+export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
             <${numberFieldTag} style="border: 1px dashed; width: 200px">
