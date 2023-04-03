@@ -1,0 +1,121 @@
+# Anchor Table Column HLD
+
+## Problem Statement
+
+We need to support links in table cells. We will do this by creating a new column type.
+
+## Links To Relevant Work Items and Reference Material
+
+[GitHub issue: Table allows configuration of hyperlink column type (#1012)](https://github.com/ni/nimble/issues/1012)
+
+## Implementation / Design
+
+This is a fairly straightforward execution of our custom column type pattern. The anchor column will use two fields from the data records: one for the link's visible text (the "label") and one for the url (the "href"). The column configuration will contain the rest of the native anchor parameters: `hreflang`, `ping`, `referrerpolicy`, `rel`, `target`, `type`, and `download`. The assumption is that these should be the same for each link of a given column (if used at all). An alternative would be to have a `*FieldName` property for each of the native anchor parameters, but that seems unlikely to be useful.
+
+The column will also take an optional `placeholder` value to use when a record does not define a label.
+
+*   _Element name_: `nimble-table-column-anchor`
+*   _Attributes/properties_:
+    *   `labelFieldName`
+    *   `hrefFieldName`
+    *   `placeholder`
+    *   `hreflang`
+    *   `ping`
+    *   `referrerpolicy`
+    *   `rel`
+    *   `target`
+    *   `type`
+    *   `download`
+
+### Cell Template
+We will conditionally render either a `nimble-anchor` or a `span` of text.
+
+```html
+When cellRecord.label and cellRecord.html both present
+    <nimble-anchor
+        href="${x => x.cellRecord.href}"
+        hreflang="${x => x.columnConfig.hreflang}"
+        ping="${x => x.columnConfig.ping}"
+        referrerpolicy="${x => x.columnConfig.referrerpolicy}"
+        rel="${x => x.columnConfig.rel}"
+        target="${x => x.columnConfig.target}"
+        type="${x => x.columnConfig.type}"
+        download="${x => x.columnConfig.download}"
+        underline-hidden
+        @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
+        @mouseout="${(x, c) => removeTitle(...)}"
+    >
+        ${cellState.cellRecord.label}
+    </nimble-anchor>
+When either cellRecord.label or cellRecord.html is missing
+    <span
+        class="when cellRecord.label present, empty, otherwise 'placeholder'"
+        @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
+        @mouseout="${(_x, c) => removeTitle(...)}"
+    >
+        <!-- when cellRecord.label present, cellRecord.label, otherwise columnConfig.placeholder -->
+    </span>
+```
+As seen in the template, we use `mouseover` and `mouseout` handlers to conditionally set, then remove, the `title` attribute to provide a tooltip when text is trucated. This is the same pattern used by the text column type. Note that we set the `underline-hidden` attribute so that the text only gets an underline upon hover.
+
+### Angular RouterLink Support
+The real challenge of this column type is integrating with the Angular router. The `RouterLink`/`RouterLinkWithHref` directives are used to intercept clicks on anchors and replace the default navigation action with a call to `Router.navigateByUrl()`. As we have done in the past for other anchor components, we will have our own directive deriving from `RouterLinkWithHref`. Our directive will apply based on the presence of the `nimbleRouterLink` attribute. As we have done in the past, we will also have a directive that throws an error if `routerLink` is used instead. Normally, you would specify the `nimbleRouterLink` and related attributes (e.g. `queryParams`, `replaceUrl`, etc.) directly on the anchor element, but that's not possible for anchors in generated table cells. Our options are to put the directive on `nimble-table` or `nimble-table-column-anchor`. Because we would like to allow different anchor columns to be configured differently, and because it is a more intuitive API, we want to put our directive on the column element:
+```html
+<nimble-table>
+    <nimble-table-column-anchor nimbleRouterLink replaceUrl ...>
+        Link Column 1
+    </nimble-table-column-anchor>
+    ...
+</nimble-table>
+```
+Note that this implies that these configuration parameters must be the same for each link in the column:
+- `target`
+- `queryParams`
+- `queryParamsHandling`
+- `fragment`
+- `state`
+- `relativeTo`
+- `preserveFragment`
+- `skipLocationChange`
+- `replaceUrl`
+
+Normally with RouterLink directives, you assign the url to `routerLink`/`nimbleRouterLink`, but in this case, the url is coming from the table data. `nimbleRouterLink` just has to be present for the directive to be applied.
+
+There is a problem with puting the directive on `nimble-table-column-anchor`, though. `RouterLinkWithHref` works by intercepting a click event that is bubbled up from a decendant link, but the `nimble-table-column-anchor` is not an ancestor of the anchor/table cell. The solution is to introduce a second directive that is on `nimble-table`, which _is_ an ancestor of the anchor/table cell. This directive will be responsible for intercepting click events from anchor elements, then "forwarding" the event to the right column directive.
+
+The first part of this task is to detect which click events have come from a `nimble-anchor`. We can't just look at the event's `target`, because that is changed to the host control upon crossing a shadow DOM boundary. We can, however, look at the `composedPath()` of the event, which will include every element that was along the bubble-up path. If we find a `nimble-anchor` among them (by using `instanceof`), we know we should handle the event.
+
+To handle the event, we must find the associated anchor column directive. We have the `nimble-anchor` that the event came from, and by calling `anchor.getRootNode().host`, we can get the `nimble-table-cell`. Currently, there is no way to get from a given table cell to its associated column. One way to solve this is to include the associated `columnId` in the cell state, i.e. `cell.cellState.columnId`.
+```ts
+export interface TableCellState<...> {
+    cellRecord: TCellRecord;
+    columnConfig: TColumnConfig;
+    columnId: string | undefined;
+}
+```
+`columnId` is at the top level rather than part of the `columnConfig`, because it applies for all column types, and it is not for configuration.
+Adding `columnId` to the cell state would be a change to `nimble-components` just to support `nimble-angular`, but it seems generic enough to be a reasonable API change.
+
+One problem is that `columnId` is `undefined` unless a client sets it. We would also need to start auto-generating unique `columnId` values if the client hasn't provided one (i.e. in `connectedCallback`). An alternative would be to document that users must provide column ids when wishing to integrate with the Angular router, but this seems like an arbitrary requirement that would be better to avoid. Another option considered was to reuse the existing `internalUniqueId` that each column defines, but this is used for the action menu slot, and overloading its use as a general-purpose ID seems wrong.
+
+Another issue is that the client may change the `columnId` programmatically, invalidating the value stored in the cell state. To ensure consistency, we must have a `columnIdChanged()` handler that causes `refreshRows()` to be called on the table.
+
+Now that we have the `columnId` for a given anchor click, we need to get the column directive. We can get all potential directives as content children:
+```ts
+@ContentChildren(NimbleTableColumnAnchorDirective) public anchorColumnDirectives: QueryList<NimbleTableColumnAnchorDirective>;
+```
+Each directive has a reference to its associated element, so we can get to the `nimble-table-column-anchor`. From there, we have access to the `columnId`, so we can find the match.
+
+Finally, we need to call `RouterLinkWithHref.onClick()` to do the router navigation. However, we'll first need to set up the `routerLink` property with the url:
+```ts
+public doRouterNavigation(href: string): boolean {
+    this.routerLink = href;
+    return super.onClick(...);
+}
+```
+
+## Alternative Implementations / Designs
+
+Alternatives were described inline with proposed approaches.
+
+## Open Issues
