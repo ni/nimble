@@ -18,7 +18,9 @@ export const parameters = {
         expanded: true
     },
     docs: {
-        transformSource
+        source: {
+            transform: transformSource
+        }
     }
 };
 
