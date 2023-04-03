@@ -54,12 +54,14 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
 
     /// <summary>
     /// Gets or sets the number field error text.
+    /// Value is set automatically if the component is used in an <see cref="EditForm"/>.
     /// </summary>
     [Parameter]
     public string? ErrorText { get; set; }
 
     /// <summary>
     /// Gets or sets whether the number field error is visible.
+    /// Value is set automatically if the component is used in an <see cref="EditForm"/>.
     /// </summary>
     [Parameter]
     public bool? ErrorVisible { get; set; }

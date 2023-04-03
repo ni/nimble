@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Added Blazor EditForm input validation support for some components.",
+  "packageName": "@ni/nimble-blazor",
+  "email": "demeter.gorog@ni.com",
+  "dependentChangeType": "patch"
+}
