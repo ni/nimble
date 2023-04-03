@@ -18,14 +18,26 @@ interface ItemArgs {
     value: string;
     disabled: boolean;
     icon: boolean;
+    selected: boolean;
     expanded: boolean;
+}
+
+interface AnchorItemArgs {
+    label: string;
+    href: string;
+    disabled: boolean;
+    selected: boolean;
+    icon: boolean;
 }
 
 const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#TreeView) - A tree view widget
 presents a hierarchical list. Any item in the hierarchy may have child items, and items that have
 children may be expanded or collapsed to show or hide the children. For example, in a file system
 navigator that uses a tree view to display folders and files, an item representing a folder can be
-expanded to reveal the contents of the folder, which may be files, folders, or both.`;
+expanded to reveal the contents of the folder, which may be files, folders, or both.
+
+The \`nimble-tree-view\` supports standard \`nimble-tree-item\`s and \`nimble-anchor-tree-item\`s,
+which navigate to a url upon activation. Both types of tree items support icons as slotted content.`;
 
 const selectionModeDescription = `
 <li>All: all items in the tree are selectable through user interaction</li>
@@ -33,6 +45,10 @@ const selectionModeDescription = `
 <li>None: no items in the tree are selectable through user interaction</li>
 <br>
 Note: Changing the selection mode does not affect which items can be selected programmatically.
+`;
+
+const hrefDescription = `
+In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
 `;
 
 const metadata: Meta<TreeArgs> = {
@@ -66,7 +82,7 @@ export const treeItem: StoryObj<ItemArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${treeViewTag}>
-            <${treeItemTag} ?expanded="${x => x.expanded}" ?disabled="${x => x.disabled}" value="${x => x.value}">
+            <${treeItemTag} ?expanded="${x => x.expanded}" ?selected="${x => x.selected}" ?disabled="${x => x.disabled}" value="${x => x.value}">
                 ${when(x => x.icon, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
                 ${x => x.label}
                 <${treeItemTag}>
@@ -80,7 +96,47 @@ export const treeItem: StoryObj<ItemArgs> = {
         value: '1',
         disabled: false,
         icon: true,
+        selected: false,
         expanded: true
+    }
+};
+
+export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Use a `nimble-anchor-tree-item` to navigate to a URL from a `nimble-tree-view`. If you want a tree item that can have a value and/or child items, use a `nimble-tree-item` instead.'
+            }
+        }
+    },
+    argTypes: {
+        icon: {
+            description:
+                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+        },
+        selected: {
+            description:
+                'Cannot be selected interactively, as click/Enter causes navigation.'
+        },
+        href: {
+            description: hrefDescription
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html`
+        <${treeViewTag}>
+            <${anchorTreeItemTag} ?selected="${x => x.selected}" ?disabled="${x => x.disabled}" href="${x => x.href}">
+                ${when(x => x.icon, html`<${iconDatabaseTag} slot="start"></${iconDatabaseTag}>`)}
+                ${x => x.label}
+            </${anchorTreeItemTag}>
+        </${treeViewTag}>
+`),
+    args: {
+        label: 'Item',
+        href: 'https://nimble.ni.dev',
+        disabled: false,
+        icon: true,
+        selected: false
     }
 };
 
@@ -126,6 +182,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
                 value: '1',
                 disabled: false,
                 icon: true,
+                selected: false,
                 expanded: false
             },
             {
@@ -133,6 +190,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
                 value: '2',
                 disabled: true,
                 icon: true,
+                selected: false,
                 expanded: true
             },
             {
@@ -140,6 +198,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
                 value: '3',
                 disabled: false,
                 icon: true,
+                selected: false,
                 expanded: false
             },
             {
@@ -147,6 +206,7 @@ export const multipleTreeItems: StoryObj<TreeArgs> = {
                 value: '3',
                 disabled: false,
                 icon: false,
+                selected: false,
                 expanded: false
             }
         ]
