@@ -1,12 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import { TableGroupRow } from '..';
-import {
-    TableColumnText,
-    TableColumnTextColumnConfig
-} from '../../../../table-column/text';
-import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
+import { createEventListener } from '../../../../utilities/tests/component';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
-import { TableGroupRowPageObject } from './table-group-row.pageobject';
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TableGroupRow>> {
@@ -20,11 +15,8 @@ describe('TableGroupRow', () => {
     let element: TableGroupRow;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let pageObject: TableGroupRowPageObject;
-
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
-        pageObject = new TableGroupRowPageObject(element);
     });
 
     afterEach(async () => {
@@ -36,24 +28,15 @@ describe('TableGroupRow', () => {
         expect(document.createElement('nimble-table-group-row')).toBeInstanceOf(TableGroupRow);
     });
 
-    it('column state is applied to group header', async () => {
+    it('clicking group row emits group-expand-toggle event', async () => {
         await connect();
+        const groupExpandListener = createEventListener(
+            element,
+            'group-expand-toggle'
+        );
 
-        const textColumn1 = new TableColumnText();
-        textColumn1.columnConfig = {
-            placeholder: 'no value'
-        } as TableColumnTextColumnConfig;
-        element.groupColumn = textColumn1;
-        element.groupRowValue = 'test';
-        await waitForUpdatesAsync();
-
-        const renderedGroupHeader = pageObject.getRenderedGroupHeader();
-
-        expect(renderedGroupHeader).not.toBeNull();
-        expect(renderedGroupHeader?.groupHeaderValue).toBe('test');
-        expect(
-            (renderedGroupHeader?.columnConfig as TableColumnTextColumnConfig)
-                .placeholder
-        ).toBe('no value');
+        element.click();
+        await groupExpandListener.promise;
+        expect(groupExpandListener.spy).toHaveBeenCalledTimes(1);
     });
 });

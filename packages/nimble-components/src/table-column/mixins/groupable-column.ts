@@ -1,16 +1,10 @@
-import {
-    attr,
-    nullableNumberConverter,
-    observable
-} from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
 type GroupableTableColumn = Pick<
 TableColumn,
-| 'internalGroupingDisabled'
-| 'internalGroupIndex'
-| 'internalGroupHeaderViewTag'
+'internalGroupingDisabled' | 'internalGroupIndex'
 >;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,8 +24,6 @@ export function mixinGroupableColumnAPI<
 
         public groupIndex?: number | null = null;
 
-        public abstract readonly groupHeaderViewTag: string;
-
         public groupingDisabledChanged(): void {
             this.internalGroupingDisabled = this.groupingDisabled;
         }
@@ -43,10 +35,6 @@ export function mixinGroupableColumnAPI<
                 this.internalGroupIndex = undefined;
             }
         }
-
-        public groupHeaderViewTagChanged(): void {
-            this.internalGroupHeaderViewTag = this.groupHeaderViewTag;
-        }
     }
     attr({ attribute: 'grouping-disabled', mode: 'boolean' })(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -57,11 +45,6 @@ export function mixinGroupableColumnAPI<
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         GroupableColumn.prototype,
         'groupIndex'
-    );
-    observable(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        GroupableColumn.prototype,
-        'groupHeaderViewTag'
     );
 
     return GroupableColumn;

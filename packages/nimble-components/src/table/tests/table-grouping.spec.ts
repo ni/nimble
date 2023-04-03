@@ -502,7 +502,7 @@ describe('Table grouping', () => {
         });
     });
 
-    describe('column sort state arranges grouped rows', () => {
+    describe('grouping with sorting:', () => {
         it('sort ascending on grouped column sorts group rows in ascending order', async () => {
             const data: readonly SimpleTableRecord[] = [
                 { id: '1', stringData1: 'hello', stringData2: 'world' },
@@ -590,6 +590,35 @@ describe('Table grouping', () => {
                 'hello',
                 'jupiter',
                 'sayonara'
+            ]);
+        });
+
+        it('sort on one column while grouping another sorts rows as expected within group', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello', stringData2: 'world' },
+                { id: '2', stringData1: 'good bye', stringData2: 'moon' },
+                { id: '3', stringData1: 'hello', stringData2: 'moon' },
+                { id: '4', stringData1: 'good bye', stringData2: 'world' },
+                { id: '5', stringData1: 'adios', stringData2: 'moon' },
+                { id: '6', stringData1: 'sayonara', stringData2: 'world' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.sortIndex = 0;
+            column1.sortDirection = TableColumnSortDirection.descending;
+            column2.fieldName = 'stringData2';
+            column2.groupIndex = 0;
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(getRenderedRecordIds()).toEqual([
+                '6',
+                '1',
+                '4',
+                '3',
+                '2',
+                '5'
             ]);
         });
     });

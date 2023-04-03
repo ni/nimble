@@ -4,7 +4,7 @@ import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
-import type { TableGroupHeaderView } from '../components/group-header-view/table-group-header-view';
+import type { TableGroupHeaderView } from '../components/group-header-view';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -291,7 +291,7 @@ export class TablePageObject<T extends TableRecord> {
 
         const groupRow = groupRows[groupRowIndex];
         return groupRow!.shadowRoot!.querySelector(
-            groupRow!.groupColumn!.internalGroupHeaderViewTag!
+            groupRow!.groupColumn!.groupHeaderViewTag!
         )!;
     }
 

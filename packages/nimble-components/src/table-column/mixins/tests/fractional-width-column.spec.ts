@@ -14,7 +14,7 @@ import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinFractionalWidthColumnAPI } from '../fractional-width-column';
 
-class TestTableColumnBase extends TableColumn {
+abstract class TestTableColumnBase extends TableColumn {
     public cellTemplate: ViewTemplate<TableCellState> = html``;
     public cellStyles?: ElementStyles | undefined;
     public cellRecordFieldNames: readonly string[] = [];
@@ -26,7 +26,9 @@ const columnName = uniqueElementName();
 })
 class TestTableColumn extends mixinFractionalWidthColumnAPI(
         TestTableColumnBase
-    ) {}
+    ) {
+    public groupHeaderViewTag = '';
+}
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {

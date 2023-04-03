@@ -14,7 +14,7 @@ export const template = html<TableGroupRow>`
             <nimble-icon-arrow-expander-right ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></nimble-icon-arrow-expander-right>
         </nimble-button>
         <div class="group-row-header-content">
-            ${x => x.groupHeaderViewTemplate}
+            ${x => x.groupColumn?.internalGroupHeaderViewTemplate}
             <div class="group-row-child-count">(${x => x.leafItemCount})</span>
         </div>
     </template>

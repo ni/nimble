@@ -1,12 +1,15 @@
 import {
     attr,
     ElementStyles,
+    html,
     nullableNumberConverter,
+    Observable,
     observable,
     ViewTemplate
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
+import type { TableGroupRow } from '../../table/components/group-row';
 import { TableColumnSortDirection, TableFieldName } from '../../table/types';
 import {
     defaultFractionalWidth,
@@ -104,6 +107,21 @@ export abstract class TableColumn<
     public abstract readonly cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
 
     /**
+     * The tag to use to render the group header content for a column.
+     * The element this tag refers to must derive from TableGroupHeaderView.
+     */
+    @observable
+    public abstract readonly groupHeaderViewTag?: string;
+
+    /**
+     * @internal
+     */
+    public get internalGroupHeaderViewTemplate(): ViewTemplate | undefined {
+        Observable.track(this, 'internalGroupHeaderViewTemplate');
+        return this._groupHeaderViewTemplate;
+    }
+
+    /**
      * @internal
      *
      * The style to apply to the cellTemplate
@@ -158,12 +176,7 @@ export abstract class TableColumn<
      */
     public readonly internalUniqueId: string;
 
-    /**
-     * @internal
-     * The tag to use to render the group header content for a column.
-     * The element this tag refers to must derive from TableGroupHeaderView.
-     */
-    public internalGroupHeaderViewTag?: string;
+    private _groupHeaderViewTemplate?: ViewTemplate;
 
     public constructor() {
         super();
@@ -185,5 +198,27 @@ export abstract class TableColumn<
 
     protected internalPixelWidthChanged(): void {
         this.currentPixelWidth = this.internalPixelWidth;
+    }
+
+    protected groupHeaderViewTagChanged(): void {
+        this._groupHeaderViewTemplate = this.createGroupHeaderViewTemplate();
+        Observable.notify(this, 'internalGroupHeaderViewTemplate');
+    }
+
+    private createGroupHeaderViewTemplate():
+    | ViewTemplate<TableGroupRow>
+    | undefined {
+        if (!this.groupHeaderViewTag) {
+            return undefined;
+        }
+
+        return html<TableGroupRow>`
+            <${this.groupHeaderViewTag}
+                :groupHeaderValue="${x => x.groupRowValue}"
+                :columnConfig="${x => x.groupColumn?.columnConfig}"
+                class="group-header-value"
+                >
+            </${this.groupHeaderViewTag}>
+        `;
     }
 }

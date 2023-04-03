@@ -18,6 +18,7 @@ const columnName = uniqueElementName();
     name: columnName
 })
 class TestTableColumn extends TableColumn {
+    public groupHeaderViewTag = '';
     public cellTemplate: ViewTemplate<TableCellState> = html``;
     public cellStyles?: ElementStyles | undefined;
     public cellRecordFieldNames: readonly string[] = [];

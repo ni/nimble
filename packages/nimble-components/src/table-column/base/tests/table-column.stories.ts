@@ -462,6 +462,165 @@ export const sorting: StoryObj<SortingTableArgs> = {
     }
 };
 
+const groupedRowOptions = {
+    [ExampleGroupType.none]: [],
+    [ExampleGroupType.firstName]: [
+        {
+            columnId: 'first-name-column'
+        }
+    ],
+    [ExampleGroupType.lastName]: [
+        {
+            columnId: 'last-name-column'
+        }
+    ],
+    [ExampleGroupType.firstThenLastName]: [
+        {
+            columnId: 'first-name-column'
+        },
+        {
+            columnId: 'last-name-column'
+        }
+    ],
+    [ExampleGroupType.lastThenFirstName]: [
+        {
+            columnId: 'last-name-column'
+        },
+        {
+            columnId: 'first-name-column'
+        }
+    ]
+} as const;
+
+const groupingDisabledOptions = {
+    [ExampleGroupingDisabledType.firstName]: {
+        columnId: 'first-name-column'
+    },
+    [ExampleGroupingDisabledType.lastName]: {
+        columnId: 'last-name-column'
+    }
+};
+
+function getColumnGroupData(
+    columnId: string,
+    groupType: ExampleGroupType
+): { index: number | undefined } {
+    const groupData = groupedRowOptions[groupType];
+    const matchingIndex = groupData.findIndex(
+        groupedColumn => groupedColumn.columnId === columnId
+    );
+    if (matchingIndex === -1) {
+        return {
+            index: undefined
+        };
+    }
+
+    return {
+        index: matchingIndex
+    };
+}
+
+function getGroupingDisabledData(
+    columnId: string,
+    groupDisabledTypes: ExampleGroupingDisabledType[]
+): boolean {
+    const groupingDisabledData = groupDisabledTypes.map(
+        x => groupingDisabledOptions[x]
+    );
+    return groupingDisabledData.findIndex(x => x.columnId === columnId) >= 0;
+}
+
+const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented under a collapsible row.
+There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is configured with a group-index, the precedence is determined by the value of group-index on each column.`;
+
+const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
+
+interface GroupingTableArgs extends SharedTableArgs {
+    groupedColumns: ExampleGroupType;
+    groupingDisabled: ExampleGroupingDisabledType[];
+}
+
+export const grouping: StoryObj<GroupingTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: groupedRowsDescription
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<GroupingTableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => x.updateData(x)}"
+        >
+            <${tableColumnTextTag}
+                field-name="firstName"
+                group-index="${x => getColumnGroupData('first-name-column', x.groupedColumns).index}"
+                grouping-disabled="${x => getGroupingDisabledData('first-name-column', x.groupingDisabled)}"
+            >
+                First Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="lastName"
+                group-index="${x => getColumnGroupData('last-name-column', x.groupedColumns).index}"
+                grouping-disabled="${x => getGroupingDisabledData('last-name-column', x.groupingDisabled)}"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="favoriteColor"
+            >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="quote"
+            >
+                Quote
+            </${tableColumnTextTag}>
+
+        </${tableTag}>
+    `),
+    argTypes: {
+        groupedColumns: {
+            name: 'Group configuration',
+            description: groupedRowsDescription,
+            options: Object.values(ExampleGroupType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleGroupType.none]: 'None',
+                    [ExampleGroupType.firstName]: 'Group by first name',
+                    [ExampleGroupType.lastName]: 'Group by last name',
+                    [ExampleGroupType.firstThenLastName]:
+                        'Group by first name then last.',
+                    [ExampleGroupType.lastThenFirstName]:
+                        'Group by last name then first.'
+                }
+            }
+        },
+        groupingDisabled: {
+            name: 'Grouping disabled configuration',
+            description: groupingDisabledDescription,
+            control: {
+                type: 'check',
+                labels: {
+                    [ExampleGroupingDisabledType.firstName]:
+                        'Disable first name grouping',
+                    [ExampleGroupingDisabledType.lastName]:
+                        'Disable last name grouping'
+                }
+            },
+            options: Object.values(ExampleGroupingDisabledType)
+        }
+    },
+    args: {
+        groupedColumns: ExampleGroupType.lastName,
+        groupingDisabled: []
+    }
+};
+
 interface ColumnWidthTableArgs extends SharedTableArgs {
     fractionalWidth: ExampleColumnFractionalWidthType;
     minPixelWidth: number;
@@ -596,190 +755,6 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
             }
 
             return widthData[matchingIndex]?.width;
-        }
-    }
-};
-
-const groupedRowOptions = {
-    [ExampleGroupType.none]: [],
-    [ExampleGroupType.firstName]: [
-        {
-            columnId: 'first-name-column'
-        }
-    ],
-    [ExampleGroupType.lastName]: [
-        {
-            columnId: 'last-name-column'
-        }
-    ],
-    [ExampleGroupType.firstThenLastName]: [
-        {
-            columnId: 'first-name-column'
-        },
-        {
-            columnId: 'last-name-column'
-        }
-    ],
-    [ExampleGroupType.lastThenFirstName]: [
-        {
-            columnId: 'last-name-column'
-        },
-        {
-            columnId: 'first-name-column'
-        }
-    ]
-} as const;
-
-const groupingDisabledOptions = {
-    [ExampleGroupingDisabledType.firstName]: {
-        columnId: 'first-name-column'
-    },
-    [ExampleGroupingDisabledType.lastName]: {
-        columnId: 'last-name-column'
-    }
-};
-
-const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented under a collapsible row.
-There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is configured with a group-index, the precedence is determined by the value of group-index on each column.`;
-
-const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
-
-interface GroupingTableArgs extends SharedTableArgs {
-    groupedColumns: ExampleGroupType;
-    groupingDisabled: ExampleGroupingDisabledType[];
-    getColumnGroupData: (
-        columnId: string,
-        args: GroupingTableArgs
-    ) => { index: number | undefined };
-    getGroupingDisabledData: (
-        columndId: string,
-        args: GroupingTableArgs
-    ) => { disabled: boolean };
-}
-
-export const grouping: StoryObj<GroupingTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: groupedRowsDescription
-            }
-        }
-    },
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html<GroupingTableArgs>`
-        ${usageWarning('table')}
-        <${tableTag}
-            ${ref('tableRef')}
-            data-unused="${x => x.updateData(x)}"
-        >
-            <${tableColumnTextTag}
-                field-name="firstName"
-                group-index="${x => x.getColumnGroupData('first-name-column', x).index}"
-                grouping-disabled="${x => x.getGroupingDisabledData('first-name-column', x).disabled}"
-            >
-                First Name
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                field-name="lastName"
-                group-index="${x => x.getColumnGroupData('last-name-column', x).index}"
-                grouping-disabled="${x => x.getGroupingDisabledData('last-name-column', x).disabled}"
-            >
-                Last Name
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                field-name="favoriteColor"
-            >
-                Favorite Color
-            </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                field-name="quote"
-            >
-                Quote
-            </${tableColumnTextTag}>
-
-        </${tableTag}>
-    `),
-    argTypes: {
-        groupedColumns: {
-            name: 'Group configuration',
-            description: groupedRowsDescription,
-            options: Object.values(ExampleGroupType),
-            control: {
-                type: 'radio',
-                labels: {
-                    [ExampleGroupType.none]: 'None',
-                    [ExampleGroupType.firstName]: 'Group by first name',
-                    [ExampleGroupType.lastName]: 'Group by last name',
-                    [ExampleGroupType.firstThenLastName]:
-                        'Group by first name then last.',
-                    [ExampleGroupType.lastThenFirstName]:
-                        'Group by last name then first.'
-                }
-            }
-        },
-        groupingDisabled: {
-            name: 'Grouping disabled configuration',
-            description: groupingDisabledDescription,
-            control: {
-                type: 'check',
-                labels: {
-                    [ExampleGroupingDisabledType.firstName]:
-                        'Disable first name grouping',
-                    [ExampleGroupingDisabledType.lastName]:
-                        'Disable last name grouping'
-                }
-            },
-            options: Object.values(ExampleGroupingDisabledType)
-        },
-        getColumnGroupData: {
-            table: {
-                disable: true
-            }
-        },
-        getGroupingDisabledData: {
-            table: {
-                disable: true
-            }
-        }
-    },
-    args: {
-        groupedColumns: ExampleGroupType.none,
-        groupingDisabled: [],
-        getColumnGroupData: (
-            columnId: string,
-            args: GroupingTableArgs
-        ): {
-            index: number | undefined
-        } => {
-            const groupData = groupedRowOptions[args.groupedColumns];
-            const matchingIndex = groupData.findIndex(
-                groupedColumn => groupedColumn.columnId === columnId
-            );
-            if (matchingIndex === -1) {
-                return {
-                    index: undefined
-                };
-            }
-
-            return {
-                index: matchingIndex
-            };
-        },
-        getGroupingDisabledData: (
-            columnId: string,
-            args: GroupingTableArgs
-        ): {
-            disabled: boolean
-        } => {
-            const groupingDisabledData = args.groupingDisabled.map(
-                x => groupingDisabledOptions[x]
-            );
-            return {
-                disabled:
-                    groupingDisabledData.findIndex(
-                        x => x.columnId === columnId
-                    ) >= 0
-            };
         }
     }
 };

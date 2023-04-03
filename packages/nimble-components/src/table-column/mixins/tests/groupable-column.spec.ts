@@ -13,9 +13,9 @@ import {
 import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinGroupableColumnAPI } from '../groupable-column';
-import { TableGroupHeaderView } from '../../../table/components/group-header-view/table-group-header-view';
+import { TableGroupHeaderView } from '../../../table/components/group-header-view';
 
-class TestTableColumnBase extends TableColumn {
+abstract class TestTableColumnBase extends TableColumn {
     public cellTemplate: ViewTemplate<TableCellState> = html``;
     public cellStyles?: ElementStyles | undefined;
     public cellRecordFieldNames: readonly string[] = [];
@@ -54,9 +54,9 @@ describe('GroupableColumn', () => {
         await disconnect();
     });
 
-    it('groupable column implementation sets internalGroupHeaderViewTag', async () => {
+    it('groupable column implementation sets groupHeaderViewTag', async () => {
         await connect();
-        element.internalGroupHeaderViewTag = testColumnGroupHeaderName;
+        element.groupHeaderViewTag = testColumnGroupHeaderName;
     });
 
     it('setting groupingDisabled sets internalGroupingDisabled', async () => {
