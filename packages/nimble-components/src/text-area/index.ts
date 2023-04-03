@@ -53,7 +53,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
      * @internal
      */
     @observable
-    public scrollbarWidth = 0;
+    public scrollbarWidth = -1;
 
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
@@ -63,7 +63,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.resizeObserver = new ResizeObserver(this.onResize);
+        this.resizeObserver = new ResizeObserver(this.onResize.bind(this));
         this.resizeObserver.observe(this);
     }
 
@@ -85,7 +85,9 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
     // If a property can affect whether a scrollbar is visible, we need to
     // call queueUpdateScrollbarWidth() when it changes. The exceptions are
     // properties that affect size (e.g. height, width, cols, rows), because
-    // we already have a ResizeObserver handling those changes.
+    // we already have a ResizeObserver handling those changes. Also,
+    // a change to errorVisible cannot cause scrollbar visibility to change,
+    // because we always reserve space for the error icon.
 
     /**
      * @internal
@@ -102,9 +104,11 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
         this.queueUpdateScrollbarWidth();
     }
 
-    private readonly onResize = (): void => {
-        this.updateScrollbarWidth();
-    };
+    private onResize(): void {
+        // Do this directly instead of calling updateScrollbarWidth, b/c we don't want to
+        // interfere with queue.
+        this.scrollbarWidth = this.control.offsetWidth - this.control.clientWidth;
+    }
 
     private queueUpdateScrollbarWidth(): void {
         if (!this.$fastController.isConnected) {

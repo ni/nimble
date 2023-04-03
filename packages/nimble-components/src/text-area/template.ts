@@ -58,7 +58,7 @@ ViewTemplate<TextArea>
         ></textarea>
         <${iconExclamationMarkTag}
             severity="error"
-            class="error-icon"
+            class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
             style="--ni-private-scrollbar-width: ${x => x.scrollbarWidth}px;"
         ></${iconExclamationMarkTag}>
         ${errorTextTemplate}
