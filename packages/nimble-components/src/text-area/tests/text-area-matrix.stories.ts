@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -24,13 +23,8 @@ import { textAreaTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Text Area',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -67,7 +61,7 @@ const component = (
     </${textAreaTag}>
 `;
 
-export const textAreaThemeMatrix: Story = createMatrixThemeStory(
+export const textAreaThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         readOnlyStates,
         disabledStates,
@@ -106,7 +100,7 @@ const heightSizingTestCase = (
     </div>
 `;
 
-export const textAreaSizing: Story = createStory(html`
+export const textAreaSizing: StoryFn = createStory(html`
     ${createMatrix(widthSizingTestCase, [
         [
             ['No width', ''],
@@ -131,13 +125,13 @@ export const textAreaSizing: Story = createStory(html`
     ])}
 `);
 
-export const hiddenTextArea: Story = createStory(
+export const hiddenTextArea: StoryFn = createStory(
     hiddenWrapper(
         html`<${textAreaTag} hidden>Hidden text area</${textAreaTag}>`
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html` <${textAreaTag} value="${loremIpsum}">
             Text area
@@ -145,7 +139,7 @@ export const textCustomized: Story = createMatrixThemeStory(
     )
 );
 
-export const heightTest: Story = createStory(
+export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
             <${textAreaTag} style="border: 1px dashed; width: 200px">

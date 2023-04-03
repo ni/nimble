@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -16,13 +15,8 @@ import { checkboxTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Checkbox',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -52,7 +46,7 @@ const component = (
     ${checkedName} ${indeterminateName} ${disabledName}
 </${checkboxTag}>`;
 
-export const checkboxThemeMatrix: Story = createMatrixThemeStory(
+export const checkboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         checkedStates,
@@ -60,10 +54,10 @@ export const checkboxThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenCheckbox: Story = createStory(
+export const hiddenCheckbox: StoryFn = createStory(
     hiddenWrapper(html`<${checkboxTag} hidden>Hidden Checkbox</${checkboxTag}>`)
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(html`<${checkboxTag}>Checkbox</${checkboxTag}>`)
 );

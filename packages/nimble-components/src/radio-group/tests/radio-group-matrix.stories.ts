@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
 import {
@@ -18,13 +17,8 @@ import { radioTag } from '../../radio';
 
 const metadata: Meta = {
     title: 'Tests/Radio Group',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -49,21 +43,21 @@ const component = (
     <${radioTag} value="2">Option 2</${radioTag}>
 </${radioGroupTag}>`;
 
-export const radioGroupThemeMatrix: Story = createMatrixThemeStory(
+export const radioGroupThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates, orientationStates])
 );
 
-export const hiddenRadioGroup: Story = createStory(
+export const hiddenRadioGroup: StoryFn = createStory(
     hiddenWrapper(
         html`<${radioGroupTag} hidden>Hidden Radio Group</${radioGroupTag}>`
     )
 );
 
-export const hiddenRadio: Story = createStory(
+export const hiddenRadio: StoryFn = createStory(
     hiddenWrapper(html`<${radioTag} hidden>Hidden Radio</${radioTag}>`)
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <${radioGroupTag}>
@@ -75,7 +69,7 @@ export const textCustomized: Story = createMatrixThemeStory(
     )
 );
 
-export const heightTest: Story = createStory(
+export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
             <${radioGroupTag} style="border: 1px dashed; width: 200px">

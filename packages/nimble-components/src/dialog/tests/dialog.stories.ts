@@ -1,6 +1,5 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { Dialog, dialogTag, UserDismissed } from '..';
 import { TextField, textFieldTag } from '../../text-field';
@@ -52,17 +51,13 @@ const content = {
 
 const metadata: Meta<DialogArgs> = {
     title: 'Dialog',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component:
                     'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.'
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006/specs/'
         }
     },
     render: createUserSelectedThemeStory(html`

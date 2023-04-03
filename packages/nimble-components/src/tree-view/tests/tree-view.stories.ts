@@ -53,6 +53,7 @@ In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g
 
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
