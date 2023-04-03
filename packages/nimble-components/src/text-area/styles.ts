@@ -69,7 +69,9 @@ export const styles = css`
         min-width: 100px;
         min-height: calc(${iconSize} + ${standardPadding});
         padding: 8px;
-        ${/* This padding ensures that showing/hiding the error icon doesn't affect text layout */ ''}
+        ${
+            /* This padding ensures that showing/hiding the error icon doesn't affect text layout */ ''
+        }
         padding-right: calc(${iconSize});
         margin: 0px;
         resize: none;
@@ -157,7 +159,7 @@ export const styles = css`
         display: inline-flex;
         position: absolute;
         top: calc(${standardPadding} / 2);
-        right: calc(var(--ni-private-scrollbar-width));
+        right: var(--ni-private-scrollbar-width);
     }
 `.withBehaviors(
     appearanceBehavior(

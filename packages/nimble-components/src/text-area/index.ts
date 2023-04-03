@@ -63,7 +63,7 @@ export class TextArea extends FoundationTextArea implements ErrorPattern {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.resizeObserver = new ResizeObserver(this.onResize.bind(this));
+        this.resizeObserver = new ResizeObserver(() => this.onResize());
         this.resizeObserver.observe(this);
     }
 
