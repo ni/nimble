@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Apr 2023 19:42:20 GMT",
+      "tag": "@ni/nimble-components_v18.9.0",
+      "version": "18.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a",
+            "comment": "Error state and update of focus state visuals for text area component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Apr 2023 21:31:32 GMT",
+      "tag": "@ni/nimble-components_v18.8.4",
+      "version": "18.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9bcfe9997a520cf952e63fd48440dc23f13ec63d",
+            "comment": "Allow events to bubble enough for Angular nimbleRouterLink directive to work"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Apr 2023 18:19:24 GMT",
+      "tag": "@ni/nimble-components_v18.8.3",
+      "version": "18.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ed97369fe171c4f2535e651e09a0a20214bbebcc",
+            "comment": "Change menu to explicit side-effect import of anchored-region"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 01 Apr 2023 05:14:36 GMT",
       "tag": "@ni/nimble-components_v18.8.2",
       "version": "18.8.2",
