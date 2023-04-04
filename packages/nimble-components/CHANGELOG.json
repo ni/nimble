@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Apr 2023 19:42:20 GMT",
+      "tag": "@ni/nimble-components_v18.9.0",
+      "version": "18.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a",
+            "comment": "Error state and update of focus state visuals for text area component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Apr 2023 21:31:32 GMT",
       "tag": "@ni/nimble-components_v18.8.4",
       "version": "18.8.4",

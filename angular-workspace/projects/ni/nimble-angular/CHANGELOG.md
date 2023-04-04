@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 03 Apr 2023 21:31:32 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Apr 2023 19:42:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.4.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+- Bump @ni/nimble-components to v18.9.0
 
 ## 16.3.0
 
