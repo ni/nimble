@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Apr 2023 23:23:52 GMT",
+      "tag": "@ni/nimble-components_v18.9.1",
+      "version": "18.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "91172d95006601f5bb57a8831238e114f837dbf5",
+            "comment": "Table updates: use custom element (TableCellView) in cells, cells are notified of row recycling, action menus are closed on scroll/ row recycles."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 04 Apr 2023 22:34:56 GMT",
       "tag": "@ni/nimble-components_v18.9.0",
       "version": "18.9.0",
