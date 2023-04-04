@@ -1,6 +1,5 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     spinnerLargeHeight,
@@ -29,16 +28,12 @@ const overviewText = '<p>The `nimble-spinner` is an animating indicator that can
 
 const metadata: Meta<SpinnerArgs> = {
     title: 'Spinner',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/specs/'
         },
 
         // Spinner animation causes snapshot changes in chromatic

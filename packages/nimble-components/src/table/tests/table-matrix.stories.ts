@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -16,13 +15,8 @@ import { tableColumnTextTag } from '../../table-column/text';
 
 const metadata: Meta = {
     title: 'Tests/Table',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -59,7 +53,7 @@ const component = (): ViewTemplate => html`
     </${tableTag}>
 `;
 
-export const tableThemeMatrix: Story = createMatrixThemeStory(
+export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
@@ -69,6 +63,6 @@ tableThemeMatrix.play = (): void => {
     });
 };
 
-export const hiddenTable: Story = createStory(
+export const hiddenTable: StoryFn = createStory(
     hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
 );

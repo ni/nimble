@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { BreadcrumbAppearance } from '../types';
@@ -30,16 +29,12 @@ for information on using this component in Angular with RouterLink directives.`;
 
 const metadata: Meta<BreadcrumbArgs> = {
     title: 'Breadcrumb',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/'
         },
         actions: {}
     }
@@ -65,7 +60,7 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
         </${breadcrumbTag}>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
-    storyName: 'Standard Breadcrumb',
+    name: 'Standard Breadcrumb',
     argTypes: {
         options: {
             description:

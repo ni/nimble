@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { WaferMapOrientation, WaferMapQuadrant } from '../types';
 import {
@@ -14,7 +13,6 @@ import { waferMapTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/WaferMap',
-    decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -123,25 +121,25 @@ const componentWaferResize = (
 >
 </${waferMapTag}> `;
 
-export const waferMapThemeMatrix: Story = createMatrixThemeStory(
+export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
 );
 
-export const waferMapDiesAndOrientationTest: Story = createStory(
+export const waferMapDiesAndOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithDies, [orientationStates])
 );
 
-export const waferMapDieLabelAndColorScaleTest: Story = createStory(
+export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
     createMatrix(componentWaferWithHiddenDieLabel, [
         colorsScales,
         dieLabelHidden
     ])
 );
 
-export const waferMapDieOrientationTest: Story = createStory(
+export const waferMapDieOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithDieOrientation, [dieOrientation])
 );
 
-export const waferMapResizeTest: Story = createStory(
+export const waferMapResizeTest: StoryFn = createStory(
     createMatrix(componentWaferResize, [waferMapSizes])
 );

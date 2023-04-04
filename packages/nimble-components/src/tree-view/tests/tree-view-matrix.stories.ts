@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -78,7 +78,7 @@ const component = (
 
 export default metadata;
 
-export const treeViewThemeMatrix: Story = createMatrixThemeStory(
+export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         expandedStates,
@@ -87,7 +87,7 @@ export const treeViewThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenTreeView: Story = createStory(
+export const hiddenTreeView: StoryFn = createStory(
     hiddenWrapper(
         html`<${treeViewTag} hidden>
             <${treeItemTag}>Item 1</${treeItemTag}>
@@ -95,7 +95,7 @@ export const hiddenTreeView: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <${treeViewTag}>

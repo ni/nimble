@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
 import { listOptionTag } from '../../list-option';
@@ -29,7 +28,7 @@ interface OptionArgs {
 
 const metadata: Meta<ComboboxArgs> = {
     title: 'Combobox',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
@@ -37,10 +36,6 @@ const metadata: Meta<ComboboxArgs> = {
                      The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
                      list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae/specs/'
         },
         actions: {
             handles: ['change', 'input']
