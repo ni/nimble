@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -29,13 +28,8 @@ import { listOptionTag } from '../../list-option';
 
 const metadata: Meta = {
     title: 'Tests/Select',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -75,11 +69,11 @@ const component = (
     </div>
 `;
 
-export const selectThemeMatrix: Story = createMatrixThemeStory(
+export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates, appearanceStates, errorStates])
 );
 
-export const hiddenSelect: Story = createStory(
+export const hiddenSelect: StoryFn = createStory(
     hiddenWrapper(
         html`<${selectTag} hidden>
             <${listOptionTag} value="1">Option 1</${listOptionTag}>
@@ -87,14 +81,14 @@ export const hiddenSelect: Story = createStory(
     )
 );
 
-export const blankListOption: Story = createStory(
+export const blankListOption: StoryFn = createStory(
     html`<${selectTag} open>
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag}></${listOptionTag}>
     </${selectTag}>`
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <${selectTag}>

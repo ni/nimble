@@ -10,6 +10,10 @@ export * from './directives/anchor-button/nimble-anchor-button-router-link-with-
 export * from './directives/anchor-button/nimble-anchor-button-router-link.directive';
 export * from './directives/anchor-button/nimble-anchor-button.directive';
 export * from './directives/anchor-button/nimble-anchor-button.module';
+export * from './directives/anchor-menu-item/nimble-anchor-menu-item-router-link-with-href.directive';
+export * from './directives/anchor-menu-item/nimble-anchor-menu-item-router-link.directive';
+export * from './directives/anchor-menu-item/nimble-anchor-menu-item.directive';
+export * from './directives/anchor-menu-item/nimble-anchor-menu-item.module';
 export * from './directives/anchor-tab/nimble-anchor-tab-router-link-with-href.directive';
 export * from './directives/anchor-tab/nimble-anchor-tab-router-link.directive';
 export * from './directives/anchor-tab/nimble-anchor-tab.directive';
