@@ -1,6 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
 import type { AutoUpdateMode } from '@microsoft/fast-foundation';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     borderColor,
@@ -92,6 +93,7 @@ const complexContent = html<TooltipArgs>`
 const metadata: Meta<TooltipArgs> = {
     title: 'Tooltip',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

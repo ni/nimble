@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Fix Actions tab in Storybook",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
