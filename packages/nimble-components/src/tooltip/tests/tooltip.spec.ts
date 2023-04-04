@@ -9,6 +9,14 @@ async function setup(): Promise<Fixture<Tooltip>> {
     return fixture<Tooltip>(html`<nimble-tooltip></nimble-tooltip>`);
 }
 
+// For some reason, on Firefox, it takes two calls to waitForUpdatesAsync before
+// the icon elements have computed styles. If we call it just once, getComputedStyles()
+// returns an empty styles object.
+async function waitForIconVisibilityCheck(): Promise<void> {
+    await waitForUpdatesAsync();
+    await waitForUpdatesAsync();
+}
+
 describe('Tooltip', () => {
     let parent: HTMLElement;
     let element: Tooltip;
@@ -20,7 +28,9 @@ describe('Tooltip', () => {
         if (!iconElement) {
             return false;
         }
-        return window.getComputedStyle(iconElement).display !== 'none';
+        const display = window.getComputedStyle(iconElement).display;
+        expect(display).not.toBe('');
+        return display === 'block' || display === 'inline' || display === 'flex';
     }
 
     beforeEach(async () => {
@@ -121,7 +131,7 @@ describe('Tooltip', () => {
         element.visible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitForIconVisibilityCheck();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -134,7 +144,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitForIconVisibilityCheck();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -147,7 +157,7 @@ describe('Tooltip', () => {
         element.severity = 'error';
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitForIconVisibilityCheck();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -161,7 +171,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitForIconVisibilityCheck();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeTrue();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -174,7 +184,7 @@ describe('Tooltip', () => {
         element.severity = 'information';
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitForIconVisibilityCheck();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -188,7 +198,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitForIconVisibilityCheck();
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeTrue();
