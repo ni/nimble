@@ -1,6 +1,5 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextAreaAppearance, TextAreaResize } from '../types';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
@@ -30,16 +29,12 @@ If you configure your text area to be resizable (with the \`resize\` attribute) 
 
 const metadata: Meta<TextAreaArgs> = {
     title: 'Text Area',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: description
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7c146e4b-c7c9-4975-a158-10e6093c522d/specs/'
         },
         actions: {
             handles: ['change']

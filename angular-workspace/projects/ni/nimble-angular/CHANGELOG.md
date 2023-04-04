@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 14 Mar 2023 14:51:12 GMT and should not be manually modified.
+This log was last generated on Mon, 03 Apr 2023 21:31:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.3.0
+
+Mon, 03 Apr 2023 21:31:32 GMT
+
+### Minor changes
+
+- Angular integration for anchor menu item component ([ni/nimble@9bcfe99](https://github.com/ni/nimble/commit/9bcfe9997a520cf952e63fd48440dc23f13ec63d))
+- Bump @ni/nimble-components to v18.8.4
+
+## 16.2.9
+
+Mon, 03 Apr 2023 18:19:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.3
+
+## 16.2.8
+
+Sat, 01 Apr 2023 05:14:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.2
+
+## 16.2.7
+
+Wed, 22 Mar 2023 20:54:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.1
+
+## 16.2.6
+
+Wed, 15 Mar 2023 15:36:39 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.0
 
 ## 16.2.5
 

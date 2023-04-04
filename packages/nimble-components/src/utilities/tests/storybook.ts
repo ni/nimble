@@ -1,6 +1,6 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import type { Story } from '@storybook/html';
 import { themeProviderTag } from '../../theme-provider';
+import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
 import {
@@ -28,8 +28,8 @@ const renderViewTemplate = <TSource>(
  */
 export const createStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
-    return (source: TSource, _context: unknown): Element => {
+): ((source: TSource) => Element) => {
+    return (source: TSource): Element => {
         const wrappedViewTemplate = html<TSource>`
             <div class="code-hide-top-container">${viewTemplate}</div>
         `;
@@ -55,7 +55,7 @@ const getGlobalTheme = (context: unknown): Theme => {
  */
 export const createUserSelectedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
+): ((source: TSource, context: unknown) => Element) => {
     return (source: TSource, context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
             <${themeProviderTag}
@@ -79,8 +79,8 @@ export const createUserSelectedThemeStory = <TSource>(
 export const createFixedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     backgroundState: BackgroundState
-): Story<TSource> => {
-    return (source: TSource, _context: unknown): Element => {
+): ((source: TSource) => Element) => {
+    return (source: TSource): Element => {
         const wrappedViewTemplate = html<TSource>`
             <${themeProviderTag}
                 theme="${backgroundState.theme}"
@@ -113,8 +113,8 @@ export const createFixedThemeStory = <TSource>(
  */
 export const createMatrixThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
-    return (source: TSource, _context: unknown): Element => {
+): ((source: TSource) => Element) => {
+    return (source: TSource): Element => {
         const matrixTemplate = createMatrix(
             ({ theme, value }: BackgroundState) => html`
                 <${themeProviderTag}
@@ -145,3 +145,15 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 
 ${howToOverride}
 </details>`;
+
+export const usageWarning = (componentName: string): string => `
+<style class="code-hide">
+#usage-warning {
+    color: red;
+    font: var(${bodyFont.cssCustomProperty});
+}
+</style>
+<div id="usage-warning" class="code-hide">
+WARNING - The ${componentName} is still in development and considered
+experimental. It is not recommended for application use.
+</div>`;

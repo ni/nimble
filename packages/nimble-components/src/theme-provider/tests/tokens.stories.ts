@@ -32,6 +32,7 @@ interface TokenArgs {
 
 const metadata: Meta = {
     title: 'Tokens/Theme-aware Tokens',
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
@@ -184,7 +185,7 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
     `)
 };
 
-themeAwareTokens.storyName = 'Theme-aware Tokens';
+themeAwareTokens.name = 'Theme-aware Tokens';
 
 // Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
 // https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
