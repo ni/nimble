@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Apr 2023 22:34:56 GMT",
+      "tag": "@ni/nimble-components_v18.9.0",
+      "version": "18.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "995d7c218bc90c3e995f4a211571cc8a16253e66",
+            "comment": "Fix Actions tab in Storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 04 Apr 2023 19:42:20 GMT",
       "tag": "@ni/nimble-components_v18.9.0",
       "version": "18.9.0",
