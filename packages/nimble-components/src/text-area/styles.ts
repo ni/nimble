@@ -10,13 +10,18 @@ import {
     controlLabelFont,
     controlLabelFontColor,
     bodyFont,
-    controlLabelDisabledFontColor
+    controlLabelDisabledFontColor,
+    iconSize,
+    failColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -25,6 +30,7 @@ export const styles = css`
         color: ${bodyFontColor};
         flex-direction: column;
         vertical-align: top;
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
     :host([disabled]) {
@@ -41,10 +47,47 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
+    .container {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+
+    .container::after {
+        content: ' ';
+        position: absolute;
+        bottom: calc(-1 * ${borderWidth});
+        width: 0px;
+        height: 0px;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        .container::after {
+            transition-duration: 0s;
+        }
+    }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host(:hover) .container::after {
+        width: 100%;
+    }
+
+    :host([disabled]:hover) .container::after,
+    :host([readonly]:hover) .container::after {
+        width: 0px;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
-        width: 100%;
         flex-grow: 1;
         outline: none;
         box-sizing: border-box;
@@ -53,8 +96,14 @@ export const styles = css`
         border-radius: 0px;
         align-items: flex-end;
         border: ${borderWidth} solid transparent;
+        min-width: 100px;
+        min-height: calc(${iconSize} + ${standardPadding});
         padding: 8px;
-        transition: box-shadow ${smallDelay}, border ${smallDelay};
+        ${
+            /* This padding ensures that showing/hiding the error icon doesn't affect text layout */ ''
+        }
+        padding-right: calc(${iconSize});
+        margin: 0px;
         resize: none;
     }
 
@@ -64,13 +113,8 @@ export const styles = css`
         }
     }
 
-    .control:hover {
-        border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor};
-    }
-
     .control:focus-within {
-        border-color: ${borderHoverColor};
+        border-bottom-color: ${borderHoverColor};
     }
 
     .control[readonly],
@@ -79,7 +123,14 @@ export const styles = css`
     .control[disabled],
     .control[disabled]:hover {
         border-color: rgba(${borderRgbPartialColor}, 0.1);
-        box-shadow: none;
+    }
+
+    :host([error-visible]) .control {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]) .control[readonly]:hover:focus-within {
+        border-bottom-color: ${failColor};
     }
 
     .control::placeholder {
@@ -90,14 +141,6 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
-    :host([cols]) .control {
-        width: auto;
-    }
-
-    :host([rows]) .control {
-        flex: none;
-    }
-
     :host([resize='both']) .control {
         resize: both;
     }
@@ -106,6 +149,17 @@ export const styles = css`
     }
     :host([resize='vertical']) .control {
         resize: vertical;
+    }
+
+    :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+        display: inline-flex;
+        position: absolute;
+        top: calc(${standardPadding} / 2);
+        right: var(--ni-private-scrollbar-width);
     }
 `.withBehaviors(
     appearanceBehavior(
@@ -131,6 +185,10 @@ export const styles = css`
             :host([disabled]) .control {
                 border-color: transparent;
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
+            }
+
+            :host([error-visible][disabled]) .control {
+                border-bottom-color: ${failColor};
             }
         `
     )
