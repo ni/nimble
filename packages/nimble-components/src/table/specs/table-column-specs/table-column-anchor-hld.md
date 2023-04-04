@@ -60,6 +60,8 @@ When either cellRecord.label or cellRecord.html is missing
 ```
 As seen in the template, we use `mouseover` and `mouseout` handlers to conditionally set, then remove, the `title` attribute to provide a tooltip when text is trucated. This is the same pattern used by the text column type. Note that we set the `underline-hidden` attribute so that the text only gets an underline upon hover.
 
+One alternative would be to use a native anchor (`<a>`) instead of a `nimble-anchor`, for possible performance gains. I tested scrolling through a table with 10k rows and multiple columns, including five anchor columns. Scrolling performance was not noticably different than without the anchor columns. Consequently, it doesn't seem worth trying to optimize by using native anchors.
+
 ### Sorting & Grouping
 
 The column will be sorted and grouped by the label value. It would be unexpected and unhelpful to sort or group by some invisible value, i.e. the url. An alternative would be to sort/group based on a combination of the label and url, but that is not clearly any more useful than sorting/grouping by just the label. It is arguably more confusing, based on the visibility argument.
@@ -73,6 +75,10 @@ The column should support the same sizing modes as the text column, which is fra
 ### Keyboard Interactions
 
 Arrowing to a anchor table cell should focus the link (if it is actually a link and not just a text span). Pressing `Enter` on a focused link will trigger navigation.
+
+### Accessibility Roles
+
+In the accessibility tree, the cells of an anchor column are instances of [`nimble-table-cell`](https://github.com/ni/nimble/blob/f663c38741e731bef91aa58e8fb2d1cec653b679/packages/nimble-components/src/table/components/cell/template.ts#L6) which has a `role` of [`cell`](https://w3c.github.io/aria/#cell). The cell then has a child `nimble-anchor`, which has a `role` of [`link`](https://w3c.github.io/aria/#link).
 
 ### Angular RouterLink Support
 The real challenge of this column type is integrating with the Angular router. The `RouterLink`/`RouterLinkWithHref` directives are used to intercept clicks on anchors and replace the default navigation action with a call to `Router.navigateByUrl()`. As we have done in the past for other anchor components, we will have our own directive deriving from `RouterLinkWithHref`. Our directive will apply based on the presence of the `nimbleRouterLink` attribute. As we have done in the past, we will also have a directive that throws an error if `routerLink` is used instead. Normally, you would specify the `nimbleRouterLink` and related attributes (e.g. `queryParams`, `replaceUrl`, etc.) directly on the anchor element, but that's not possible for anchors in generated table cells. Our options are to put the directive on `nimble-table` or `nimble-table-column-anchor`. Because we would like to allow different anchor columns to be configured differently, and because it is a more intuitive API, we want to put our directive on the column element:
