@@ -31,10 +31,10 @@ The column will also take an optional `placeholder` value to use when a record d
 
 ### Cell Template
 
-We will conditionally render either a `nimble-anchor` or a `span` of text.
+We will conditionally render either a `nimble-anchor` or a `span` of text. If no label is provided, but we have a URL, we'll render a link with the URL itself as the label.
 
 ```html
-When cellRecord.label and cellRecord.html both present
+When cellRecord.href present
 <nimble-anchor
     href="${x => x.cellRecord.href}"
     hreflang="${x => x.columnConfig.hreflang}"
@@ -48,15 +48,15 @@ When cellRecord.label and cellRecord.html both present
     @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
     @mouseout="${(x, c) => removeTitle(...)}"
 >
-    ${cellState.cellRecord.label}
+    ${cellState.cellRecord.label ?? cellState.cellRecord.href}
 </nimble-anchor>
-When either cellRecord.label or cellRecord.html is missing
+When cellRecord.href is missing
 <span
     class="when cellRecord.label present, empty, otherwise 'placeholder'"
     @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
     @mouseout="${(_x, c) => removeTitle(...)}"
 >
-    <!-- when cellRecord.label present, cellRecord.label, otherwise columnConfig.placeholder -->
+    ${cellState.cellRecord.label ?? cellState.columnConfig.placeholder}
 </span>
 ```
 
