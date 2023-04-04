@@ -151,8 +151,7 @@ export abstract class TableColumn<
         this.setAttribute('slot', this.internalUniqueId);
     }
 
-    /** @internal */
-    public cellViewTagChanged(): void {
+    protected cellViewTagChanged(): void {
         this.currentCellViewTemplate = this.cellViewTag
             ? createCellViewTemplate(this.cellViewTag)
             : undefined;

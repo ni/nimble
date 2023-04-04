@@ -10,7 +10,7 @@ import {
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell">
-        ${when(x => x.cellViewTemplate, x => x.cellViewTemplate!)}
+        ${x => x.cellViewTemplate}
         ${when(x => x.hasActionMenu, html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}
                 content-hidden

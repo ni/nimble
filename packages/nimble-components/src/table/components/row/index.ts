@@ -102,8 +102,8 @@ export class TableRow<
             const cellWithMenuOpen = Array.from(this.shadowRoot!.children).find(
                 c => c instanceof TableCell && c.menuOpen
             ) as TableCell;
-            if (cellWithMenuOpen?.actionMenuButton) {
-                cellWithMenuOpen.actionMenuButton.open = false;
+            if (cellWithMenuOpen?.actionMenuButton?.open) {
+                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
             }
         }
     }
