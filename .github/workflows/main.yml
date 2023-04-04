@@ -36,8 +36,10 @@ jobs:
       # See: https://github.com/actions/setup-node/issues/529
       - run: npm i -g npm@8
       - run: npm ci
-      - run: npm outdated
-        continue-on-error: true
+
+      # print a log of outdated npm dependencies
+      # only informational so swallow error codes
+      - run: npm outdated || exit 0
 
       # Audit
       - run: npm audit --only=prod
