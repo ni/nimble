@@ -55,6 +55,36 @@ export const styles = css`
         width: 100%;
     }
 
+    .container::after {
+        content: ' ';
+        position: absolute;
+        bottom: calc(-1 * ${borderWidth});
+        width: 0px;
+        height: 0px;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        .container::after {
+            transition-duration: 0s;
+        }
+    }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host(:hover) .container::after {
+        width: 100%;
+    }
+
+    :host([disabled]:hover) .container::after,
+    :host([readonly]:hover) .container::after {
+        width: 0px;
+    }
+
     .control {
         -webkit-appearance: none;
         font: inherit;
@@ -119,36 +149,6 @@ export const styles = css`
     }
     :host([resize='vertical']) .control {
         resize: vertical;
-    }
-
-    .container::after {
-        content: ' ';
-        position: absolute;
-        bottom: calc(-1 * ${borderWidth});
-        width: 0px;
-        height: 0px;
-        border-bottom: ${borderHoverColor}
-            var(--ni-private-hover-indicator-width) solid;
-        transition: width ${smallDelay} ease-in;
-    }
-
-    @media (prefers-reduced-motion) {
-        .container::after {
-            transition-duration: 0s;
-        }
-    }
-
-    :host([error-visible]) .container::after {
-        border-bottom-color: ${failColor};
-    }
-
-    :host(:hover) .container::after {
-        width: 100%;
-    }
-
-    :host([disabled]:hover) .container::after,
-    :host([readonly]:hover) .container::after {
-        width: 0px;
     }
 
     :host([error-visible]) .error-icon {
