@@ -1,4 +1,5 @@
 import { html } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
@@ -85,6 +86,7 @@ const getHighLightedValueSets = (
 const metadata: Meta<WaferMapArgs> = {
     title: 'WaferMap',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
