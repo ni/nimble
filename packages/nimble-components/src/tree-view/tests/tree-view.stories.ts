@@ -74,6 +74,13 @@ const metadata: Meta<TreeArgs> = {
 export default metadata;
 
 export const treeItem: StoryObj<ItemArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Use a `nimble-tree-item` if you want a tree item that calls a callback, has a value, and/or has child items. Use a `nimble-anchor-tree-item` instead if you want to navigate to a URL.'
+            }
+        }
+    },
     argTypes: {
         icon: {
             description:
