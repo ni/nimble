@@ -40,7 +40,7 @@ describe('TableRow', () => {
         expect(document.createElement('nimble-table-row')).toBeInstanceOf(TableRow);
     });
 
-    it('column state is applied to generated cells', async () => {
+    it('column cell view template is applied to generated cells', async () => {
         await connect();
 
         const textColumn1 = new TableColumnText();
@@ -49,8 +49,9 @@ describe('TableRow', () => {
 
         const renderedCell = pageObject.getRenderedCell(0);
 
-        expect(renderedCell!.cellTemplate).toEqual(textColumn1.cellTemplate);
-        expect(renderedCell!.cellStyles).toEqual(textColumn1.cellStyles);
+        expect(renderedCell!.cellViewTemplate).toEqual(
+            textColumn1.currentCellViewTemplate
+        );
     });
 
     it('rendered cell gets cellState from column', async () => {

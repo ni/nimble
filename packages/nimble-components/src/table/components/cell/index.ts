@@ -1,12 +1,6 @@
-import {
-    attr,
-    defaultExecutionContext,
-    ElementStyles,
-    HTMLView,
-    observable,
-    ViewTemplate
-} from '@microsoft/fast-element';
+import { attr, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import type {
     TableCellRecord,
@@ -31,12 +25,6 @@ export class TableCell<
     @observable
     public cellState?: TableCellState<TCellRecord>;
 
-    @observable
-    public cellTemplate?: ViewTemplate;
-
-    @observable
-    public cellStyles?: ElementStyles;
-
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;
 
@@ -46,29 +34,10 @@ export class TableCell<
     @attr({ attribute: 'action-menu-label' })
     public actionMenuLabel?: string;
 
-    /**
-     * @internal
-     */
-    public readonly cellContentContainer!: HTMLElement;
+    @observable
+    public cellViewTemplate?: ViewTemplate<TableCell>;
 
-    private customCellView?: HTMLView = undefined;
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.customCellView = this.cellTemplate?.render(
-            this.cellState,
-            this.cellContentContainer
-        );
-    }
-
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback();
-
-        if (this.customCellView) {
-            this.customCellView.dispose();
-            this.customCellView = undefined;
-        }
-    }
+    public readonly actionMenuButton?: MenuButton;
 
     public onActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>
@@ -81,32 +50,6 @@ export class TableCell<
     ): void {
         this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
-    }
-
-    protected cellStateChanged(): void {
-        this.customCellView?.bind(this.cellState, defaultExecutionContext);
-    }
-
-    protected cellTemplateChanged(): void {
-        if (this.$fastController.isConnected) {
-            this.customCellView = this.cellTemplate?.render(
-                this.cellState,
-                this.cellContentContainer
-            );
-        }
-    }
-
-    protected cellStylesChanged(
-        prev?: ElementStyles,
-        next?: ElementStyles
-    ): void {
-        if (prev) {
-            this.$fastController.removeStyles(prev);
-        }
-
-        if (next) {
-            this.$fastController.addStyles(next);
-        }
     }
 }
 
