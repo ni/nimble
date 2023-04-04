@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Table updates: use custom element (TableCellView) in cells, cells are notified of row recycling, action menus are closed on scroll/ row recycles.",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

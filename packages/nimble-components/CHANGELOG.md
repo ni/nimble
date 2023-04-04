@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 04 Apr 2023 19:42:20 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Apr 2023 23:23:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.9.1
+
+Tue, 04 Apr 2023 23:23:52 GMT
+
+### Patches
+
+- Table updates: use custom element (TableCellView) in cells, cells are notified of row recycling, action menus are closed on scroll/ row recycles. ([ni/nimble@91172d9](https://github.com/ni/nimble/commit/91172d95006601f5bb57a8831238e114f837dbf5))
 
 ## 18.9.0
 
