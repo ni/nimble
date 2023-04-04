@@ -1,4 +1,5 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ButtonAppearance } from '../types';
@@ -30,6 +31,7 @@ screen reader would say something like "Mute toggle button pressed".`;
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Toggle Button',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

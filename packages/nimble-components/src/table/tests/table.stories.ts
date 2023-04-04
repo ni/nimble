@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
@@ -108,6 +109,7 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 const metadata: Meta<TableArgs> = {
     title: 'Table',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
