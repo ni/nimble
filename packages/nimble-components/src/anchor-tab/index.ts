@@ -28,6 +28,15 @@ export class AnchorTab extends AnchorBase {
      */
     @attr({ mode: 'boolean' })
     public disabled = false;
+
+    /**
+     * Provide our own attribute reflection for the aria-selected attribute.
+     * @public
+     * @remarks
+     * HTML Attribute: aria-selected
+     */
+    @attr({ attribute: 'aria-selected' })
+    public override ariaSelected = 'false';
 }
 
 const nimbleAnchorTab = AnchorTab.compose({

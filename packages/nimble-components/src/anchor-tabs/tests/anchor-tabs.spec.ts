@@ -98,9 +98,7 @@ describe('AnchorTabs', () => {
         expect(element.activetab).toBe(tab(1));
     });
 
-    // ariaSelected property is not supported on Firefox:
-    // see https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaSelected#browser_compatibility
-    it('#failsFirefox should set aria-selected on active tab', () => {
+    it('should set aria-selected on active tab', () => {
         expect(element.activetab?.ariaSelected).toBe('true');
     });
 
