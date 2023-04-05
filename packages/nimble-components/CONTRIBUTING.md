@@ -392,6 +392,7 @@ The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/ut
 If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#SkipFirefox`, `#SkipWebkit`, or `#SkipChrome` to the test name:
 
 ```ts
+// Firefox skipped, see: https://github.com/ni/nimble/issues/####
 it('sets title when cell text is ellipsized #SkipFirefox', ...);
 ```
 
