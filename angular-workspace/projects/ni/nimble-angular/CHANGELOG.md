@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 04 Apr 2023 23:23:52 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Apr 2023 18:54:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.1
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.1
+
+## 16.5.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Angular support for anchor tree item ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+- Bump @ni/nimble-components to v18.10.0
 
 ## 16.4.1
 

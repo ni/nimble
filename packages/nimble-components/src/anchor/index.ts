@@ -36,6 +36,8 @@ export class Anchor extends AnchorBase {
     public appearance: AnchorAppearance;
 }
 
+// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
+
 const nimbleAnchor = Anchor.compose<AnchorOptions>({
     baseName: 'anchor',
     baseClass: FoundationAnchor,
