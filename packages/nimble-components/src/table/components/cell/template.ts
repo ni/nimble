@@ -1,4 +1,4 @@
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref, ViewTemplate, when } from '@microsoft/fast-element';
 import type { TableCell } from '.';
 import { iconThreeDotsLineTag } from '../../../icons/three-dots-line';
 import { menuButtonTag } from '../../../menu-button';
@@ -10,10 +10,9 @@ import {
 // prettier-ignore
 export const template = html<TableCell>`
     <template role="cell">
-        <div ${ref('cellContentContainer')} class="cell-content-container"></div>
-
+        ${x => x.cellViewTemplate}
         ${when(x => x.hasActionMenu, html<TableCell>`
-            <${menuButtonTag}
+            <${menuButtonTag} ${ref('actionMenuButton')}
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
@@ -27,3 +26,11 @@ export const template = html<TableCell>`
         `)}
     </template>
 `;
+
+export const createCellViewTemplate = (
+    cellViewTag: string
+): ViewTemplate<TableCell> => html<TableCell>`<${cellViewTag} class="cell-view"
+        :cellRecord="${y => y.cellState?.cellRecord}"
+        :columnConfig="${y => y.cellState?.columnConfig}"
+    >
+    </${cellViewTag}>`;
