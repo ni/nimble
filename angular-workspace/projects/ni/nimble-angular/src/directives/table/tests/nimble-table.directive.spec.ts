@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { processUpdates, Table, TableRecord, TableValidity } from '@ni/nimble-angular';
 import { Observable, Subject } from 'rxjs';

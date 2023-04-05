@@ -597,7 +597,7 @@ describe('Table', () => {
             column1.replaceWith(focusableColumn);
             await connect();
             const data = [...largeTableData];
-            element.setData(data);
+            await element.setData(data);
             await waitForUpdatesAsync();
 
             const firstCellView = pageObject.getRenderedCellView(0, 0);
@@ -626,7 +626,7 @@ describe('Table', () => {
             element.appendChild(menu);
             await connect();
             const data = [...largeTableData];
-            element.setData(data);
+            await element.setData(data);
             await waitForUpdatesAsync();
 
             const toggleListener = createEventListener(
