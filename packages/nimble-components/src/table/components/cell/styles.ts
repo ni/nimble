@@ -14,7 +14,7 @@ export const styles = css`
         --ni-private-table-cell-action-menu-display: block;
     }
 
-    .cell-content-container {
+    .cell-view {
         overflow: hidden;
         display: flex;
         align-items: center;

@@ -107,6 +107,16 @@ describe('Nimble text area', () => {
             expect(directive.spellcheck).toBeUndefined();
             expect(nativeElement.spellcheck).toBeUndefined();
         });
+
+        it('has expected defaults for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+        });
+
+        it('has expected defaults for errorText', () => {
+            expect(directive.errorText).toBeUndefined();
+            expect(nativeElement.errorText).toBeUndefined();
+        });
     });
 
     describe('with template string values', () => {
@@ -119,6 +129,8 @@ describe('Nimble text area', () => {
                     autofocus
                     disabled
                     required
+                    error-visible
+                    error-text="Error text"
                     form="foo"
                     maxlength="100"
                     minlength="20"
@@ -212,6 +224,16 @@ describe('Nimble text area', () => {
             expect(directive.spellcheck).toBeTrue();
             expect(nativeElement.spellcheck).toBeTrue();
         });
+
+        it('will use template string values for errorVisible', () => {
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('will use template string values for errorText', () => {
+            expect(directive.errorText).toBe('Error text');
+            expect(nativeElement.errorText).toBe('Error text');
+        });
     });
 
     describe('with property bound values', () => {
@@ -224,6 +246,8 @@ describe('Nimble text area', () => {
                     [autofocus]="autofocus"
                     [disabled]="disabled"
                     [required]="required"
+                    [error-visible]="errorVisible"
+                    [error-text]="errorText"
                     [form]="form"
                     [maxlength]="maxlength"
                     [minlength]="minlength"
@@ -242,6 +266,8 @@ describe('Nimble text area', () => {
             public autofocus = false;
             public disabled = false;
             public required = false;
+            public errorVisible = false;
+            public errorText = 'initial';
             public form = 'initial';
             public maxlength = 10;
             public minlength = 5;
@@ -408,6 +434,28 @@ describe('Nimble text area', () => {
             expect(directive.spellcheck).toBeTrue();
             expect(nativeElement.spellcheck).toBeTrue();
         });
+
+        it('can be configured with property binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = true;
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with property binding for errorText', () => {
+            expect(directive.errorText).toBe('initial');
+            expect(nativeElement.errorText).toBe('initial');
+
+            fixture.componentInstance.errorText = 'et';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('et');
+            expect(nativeElement.errorText).toBe('et');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -420,6 +468,8 @@ describe('Nimble text area', () => {
                     [attr.autofocus]="autofocus"
                     [attr.disabled]="disabled"
                     [attr.required]="required"
+                    [attr.error-visible]="errorVisible"
+                    [attr.error-text]="errorText"
                     [attr.form]="form"
                     [attr.maxlength]="maxlength"
                     [attr.minlength]="minlength"
@@ -438,6 +488,8 @@ describe('Nimble text area', () => {
             public autofocus: BooleanValueOrAttribute = null;
             public disabled: BooleanValueOrAttribute = null;
             public required: BooleanValueOrAttribute = null;
+            public errorVisible: BooleanValueOrAttribute = null;
+            public errorText = 'initial';
             public form = 'initial';
             public maxlength: NumberValueOrAttribute = 10;
             public minlength: NumberValueOrAttribute = 5;
@@ -603,6 +655,28 @@ describe('Nimble text area', () => {
 
             expect(directive.spellcheck).toBeTrue();
             expect(nativeElement.spellcheck).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for errorVisible', () => {
+            expect(directive.errorVisible).toBeFalse();
+            expect(nativeElement.errorVisible).toBeFalse();
+
+            fixture.componentInstance.errorVisible = '';
+            fixture.detectChanges();
+
+            expect(directive.errorVisible).toBeTrue();
+            expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for errorText', () => {
+            expect(directive.errorText).toBe('initial');
+            expect(nativeElement.errorText).toBe('initial');
+
+            fixture.componentInstance.errorText = 'foo';
+            fixture.detectChanges();
+
+            expect(directive.errorText).toBe('foo');
+            expect(nativeElement.errorText).toBe('foo');
         });
     });
 });

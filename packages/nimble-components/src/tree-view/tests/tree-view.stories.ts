@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
 import { treeViewTag } from '..';
@@ -54,6 +55,7 @@ In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g
 const metadata: Meta<TreeArgs> = {
     title: 'Tree View',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

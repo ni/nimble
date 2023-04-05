@@ -2,6 +2,96 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 04 Apr 2023 23:23:52 GMT",
+      "tag": "@ni/nimble-components_v18.9.1",
+      "version": "18.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "91172d95006601f5bb57a8831238e114f837dbf5",
+            "comment": "Table updates: use custom element (TableCellView) in cells, cells are notified of row recycling, action menus are closed on scroll/ row recycles."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Apr 2023 22:34:56 GMT",
+      "tag": "@ni/nimble-components_v18.9.0",
+      "version": "18.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "995d7c218bc90c3e995f4a211571cc8a16253e66",
+            "comment": "Fix Actions tab in Storybook"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Apr 2023 19:42:20 GMT",
+      "tag": "@ni/nimble-components_v18.9.0",
+      "version": "18.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a",
+            "comment": "Error state and update of focus state visuals for text area component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Apr 2023 21:31:32 GMT",
+      "tag": "@ni/nimble-components_v18.8.4",
+      "version": "18.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9bcfe9997a520cf952e63fd48440dc23f13ec63d",
+            "comment": "Allow events to bubble enough for Angular nimbleRouterLink directive to work"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Apr 2023 18:19:24 GMT",
+      "tag": "@ni/nimble-components_v18.8.3",
+      "version": "18.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ed97369fe171c4f2535e651e09a0a20214bbebcc",
+            "comment": "Change menu to explicit side-effect import of anchored-region"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 01 Apr 2023 05:14:36 GMT",
+      "tag": "@ni/nimble-components_v18.8.2",
+      "version": "18.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b2ab12c6ab80c0ad5bad389893dd52e9a04995be",
+            "comment": "Add missing anchored region import to menu component as part of Storybook 7 upgrade"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 29 Mar 2023 18:05:42 GMT",
       "tag": "@ni/nimble-components_v18.8.1",
       "version": "18.8.1",
