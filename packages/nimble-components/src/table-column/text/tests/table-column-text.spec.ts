@@ -121,7 +121,8 @@ describe('TableColumnText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
     });
 
-    it('sets title when cell text is ellipsized', async () => {
+    // see https://github.com/ni/nimble/issues/1075
+    it('#failsFirefox sets title when cell text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
         element.setData([{ field: cellContents }]);
         await connect();

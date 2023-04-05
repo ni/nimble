@@ -130,7 +130,8 @@ describe('Drawer', () => {
             await expectAsync(promise).toBePending();
         });
 
-        it('should resolve promise if drawer completely opens before being closed', async () => {
+        // see https://github.com/ni/nimble/issues/1075
+        it('#failsFirefox should resolve promise if drawer completely opens before being closed', async () => {
             const promise = element.show();
             await completeAnimationAsync(element);
             element.close();
@@ -213,13 +214,15 @@ describe('Drawer', () => {
             expect(afterDrawerCloseActiveElement).toBe(button2);
         });
 
-        it('focuses the first button on the drawer when it opens', () => {
+        // see https://github.com/ni/nimble/issues/1075
+        it('#failsFirefox focuses the first button on the drawer when it opens', () => {
             const okButton = document.getElementById('ok')!;
             void element.show();
             expect(document.activeElement).toBe(okButton);
         });
 
-        it('focuses the button with autofocus when the drawer opens', () => {
+        // see https://github.com/ni/nimble/issues/1075
+        it('#failsFirefox focuses the button with autofocus when the drawer opens', () => {
             const cancelButton = document.getElementById('cancel')!;
             cancelButton.setAttribute('autofocus', '');
             processUpdates();
@@ -227,7 +230,8 @@ describe('Drawer', () => {
             expect(document.activeElement).toBe(cancelButton);
         });
 
-        it('supports opening multiple drawers on top of each other', () => {
+        // see https://github.com/ni/nimble/issues/1075
+        it('#failsFirefox supports opening multiple drawers on top of each other', () => {
             const secondDrawer = document.createElement('nimble-drawer');
             const secondDrawerButton = document.createElement('nimble-button');
             secondDrawer.append(secondDrawerButton);
