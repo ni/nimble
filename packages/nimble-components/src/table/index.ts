@@ -153,7 +153,7 @@ export class Table<
             columns: [],
             state: {
                 grouping: [],
-                expanded: true
+                expanded: true // Workaround until we can apply a fix to TanStack regarding leveraging our getIsRowExpanded implementation
             },
             enableSorting: true,
             enableGrouping: true,
