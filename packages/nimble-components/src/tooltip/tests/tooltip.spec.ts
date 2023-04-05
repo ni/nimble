@@ -30,7 +30,9 @@ describe('Tooltip', () => {
         }
         const display = window.getComputedStyle(iconElement).display;
         expect(display).not.toBe('');
-        return display === 'block' || display === 'inline' || display === 'flex';
+        return (
+            display === 'block' || display === 'inline' || display === 'flex'
+        );
     }
 
     beforeEach(async () => {
