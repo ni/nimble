@@ -389,10 +389,10 @@ The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/ut
 
 ### Disabling tests
 
-If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#failsFirefox`, `#failsWebkit`, or `#failsChrome` to the test name:
+If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#SkipFirefox`, `#SkipWebkit`, or `#SkipChrome` to the test name:
 
 ```ts
-it('#failsFirefox sets title when cell text is ellipsized', ...);
+it('sets title when cell text is ellipsized #SkipFirefox', ...);
 ```
 
 Before disabling a test, you **must** have investigated the failure and attempted to find a proper resolution. If you still end up needing to disable it, there must be an issue in this repo tracking the failure, and you must add a comment in the source linking to that issue.

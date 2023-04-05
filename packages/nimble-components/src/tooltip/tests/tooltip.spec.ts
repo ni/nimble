@@ -29,7 +29,9 @@ describe('Tooltip', () => {
             return false;
         }
         const display = window.getComputedStyle(iconElement).display;
-        expect(display).not.toBe('');
+        if (display === '') {
+            throw new Error('Value of display was unexpectedly empty');
+        }
         return (
             display === 'block' || display === 'inline' || display === 'flex'
         );

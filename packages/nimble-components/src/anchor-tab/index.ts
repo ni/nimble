@@ -30,7 +30,9 @@ export class AnchorTab extends AnchorBase {
     public disabled = false;
 
     /**
-     * Provide our own attribute reflection for the aria-selected attribute.
+     * Indicates the current "selected" state of various widgets.
+     * {@link https://www.w3.org/TR/wai-aria-1.1/#aria-selected}
+     *
      * @public
      * @remarks
      * HTML Attribute: aria-selected
