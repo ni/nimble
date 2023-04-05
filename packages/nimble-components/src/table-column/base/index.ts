@@ -81,7 +81,7 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * Whether or not a column can be used to group rows by
+     * Whether or not this column can be used to group rows by
      */
     @observable
     public internalGroupingDisabled = false;

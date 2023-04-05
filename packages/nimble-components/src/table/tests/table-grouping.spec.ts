@@ -500,6 +500,29 @@ describe('Table grouping', () => {
 
             expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('bar');
         });
+
+        it('hidden column can still be grouped by', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'foo' },
+                { id: '2', stringData1: 'abc' },
+                { id: '3', stringData1: 'zzz' },
+                { id: '4', stringData1: 'hello' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.hidden = true;
+            column1.groupIndex = 0;
+            element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+                'foo',
+                'abc',
+                'zzz',
+                'hello'
+            ]);
+        });
     });
 
     describe('grouping with sorting:', () => {
