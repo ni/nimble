@@ -10,4 +10,12 @@ export const styles = css`
         cursor: inherit;
         outline: none;
     }
+
+    [part='start'] {
+        display: none;
+    }
+
+    [part='end'] {
+        display: none;
+    }
 `;
