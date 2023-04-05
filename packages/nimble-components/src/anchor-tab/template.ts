@@ -1,5 +1,9 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { endSlotTemplate, FoundationElementTemplate, startSlotTemplate } from '@microsoft/fast-foundation';
+import {
+    endSlotTemplate,
+    FoundationElementTemplate,
+    startSlotTemplate
+} from '@microsoft/fast-foundation';
 import type { AnchorTab, TabOptions } from '.';
 
 export const template: FoundationElementTemplate<
