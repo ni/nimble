@@ -258,7 +258,7 @@ const metadata: Meta<TableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
-                x.tableRef.setData(dataSets[x.data]);
+                await x.tableRef.setData(dataSets[x.data]);
             })();
         }
     }

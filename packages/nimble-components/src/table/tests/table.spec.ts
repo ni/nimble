@@ -138,7 +138,7 @@ describe('Table', () => {
     it('column header content should be the columns', async () => {
         await connect();
 
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedHeaderCount()).toEqual(
@@ -158,7 +158,7 @@ describe('Table', () => {
     it('changing column content updates header rendered content', async () => {
         await connect();
 
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         let headerContent = pageObject.getHeaderContent(0)!.firstChild;
@@ -172,7 +172,7 @@ describe('Table', () => {
     });
 
     it('can set data before the element is connected', async () => {
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await connect();
         await waitForUpdatesAsync();
 
@@ -183,7 +183,7 @@ describe('Table', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         verifyRenderedData(simpleTableData);
@@ -192,7 +192,7 @@ describe('Table', () => {
     it('updating data can add a new row to the table', async () => {
         await connect();
 
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
@@ -203,7 +203,7 @@ describe('Table', () => {
                 moreStringData: 'foo'
             }
         ];
-        element.setData(updatedData);
+        await element.setData(updatedData);
         await waitForUpdatesAsync();
 
         verifyRenderedData(updatedData);
@@ -212,14 +212,14 @@ describe('Table', () => {
     it('updating data can remove rows from the table', async () => {
         await connect();
 
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
             simpleTableData[0],
             simpleTableData[2]
         ];
-        element.setData(updatedData);
+        await element.setData(updatedData);
         await waitForUpdatesAsync();
 
         verifyRenderedData(updatedData);
@@ -228,7 +228,7 @@ describe('Table', () => {
     it('updating data can reorder rows from the table', async () => {
         await connect();
 
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const updatedData: SimpleTableRecord[] = [
@@ -236,7 +236,7 @@ describe('Table', () => {
             simpleTableData[2],
             simpleTableData[0]
         ];
-        element.setData(updatedData);
+        await element.setData(updatedData);
         await waitForUpdatesAsync();
 
         verifyRenderedData(updatedData);
@@ -245,10 +245,10 @@ describe('Table', () => {
     it('can update to have empty array of data', async () => {
         await connect();
 
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
-        element.setData([]);
+        await element.setData([]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedRowCount()).toBe(0);
@@ -258,7 +258,7 @@ describe('Table', () => {
         await connect();
 
         const tableData: SimpleTableRecord[] = [...simpleTableData];
-        element.setData(tableData);
+        await element.setData(tableData);
         await waitForUpdatesAsync();
 
         tableData.push({
@@ -276,13 +276,13 @@ describe('Table', () => {
         await waitForUpdatesAsync();
 
         const data: SimpleTableRecord[] = [...simpleTableData];
-        element.setData(data);
+        await element.setData(data);
         await waitForUpdatesAsync();
         verifyRenderedData(data);
 
         const currentFieldValue = data[0]!.stringData;
         data[0]!.stringData = `${currentFieldValue} - updated value`;
-        element.setData(data);
+        await element.setData(data);
         await waitForUpdatesAsync();
         verifyRenderedData(data);
     });
@@ -292,7 +292,7 @@ describe('Table', () => {
         await waitForUpdatesAsync();
 
         const data: SimpleTableRecord[] = [...simpleTableData];
-        element.setData(data);
+        await element.setData(data);
         await waitForUpdatesAsync();
         verifyRenderedData(data);
 
@@ -301,14 +301,14 @@ describe('Table', () => {
             moreStringData: 'foo bar baz',
             numericData: 9999
         });
-        element.setData(data);
+        await element.setData(data);
         await waitForUpdatesAsync();
         verifyRenderedData(data);
     });
 
     it('adding column to end renders data for column at end of row', async () => {
         await connect();
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
@@ -323,7 +323,7 @@ describe('Table', () => {
 
     it('adding column to front renders data for column at front of row', async () => {
         await connect();
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
 
         const dateColumn = new TableColumnText();
@@ -337,7 +337,7 @@ describe('Table', () => {
     });
 
     it('transitioning the table state from valid to invalid and back to valid rerenders the table correctly', async () => {
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await connect();
         await waitForUpdatesAsync();
 
@@ -356,7 +356,7 @@ describe('Table', () => {
 
     describe('record IDs', () => {
         it('setting ID field uses field value for ID', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
@@ -365,7 +365,7 @@ describe('Table', () => {
         });
 
         it('not setting ID field uses generated ID', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -375,7 +375,7 @@ describe('Table', () => {
         });
 
         it('row IDs update when id-field-name attribute is updated', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -393,7 +393,7 @@ describe('Table', () => {
 
     describe('ID validation', () => {
         it('setting valid field for ID is valid and renders rows', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
@@ -406,7 +406,7 @@ describe('Table', () => {
         });
 
         it('setting invalid field for ID  is invalid and renders no rows', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             element.idFieldName = 'numericData';
             await connect();
             await waitForUpdatesAsync();
@@ -419,7 +419,7 @@ describe('Table', () => {
         });
 
         it('setting ID field name to undefined makes an invalid table valid', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
             await waitForUpdatesAsync();
@@ -435,7 +435,7 @@ describe('Table', () => {
         });
 
         it('setting a valid ID field name makes an invalid table valid', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             element.idFieldName = 'missingFieldName';
             await connect();
             await waitForUpdatesAsync();
@@ -451,7 +451,7 @@ describe('Table', () => {
         });
 
         it('setting invalid ID field name on valid table makes it invalid', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             element.idFieldName = 'stringData';
             await connect();
             await waitForUpdatesAsync();
@@ -469,7 +469,7 @@ describe('Table', () => {
 
     describe('column IDs', () => {
         it('duplicate column IDs marks the table as invalid and rows are not rendered', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             column1.columnId = 'my-column-id';
             column2.columnId = 'my-column-id';
             await connect();
@@ -482,7 +482,7 @@ describe('Table', () => {
         });
 
         it('missing column IDs marks the table as invalid and rows are not rendered', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             column1.columnId = 'my-column-id';
             column2.columnId = undefined;
             await connect();
@@ -495,7 +495,7 @@ describe('Table', () => {
         });
 
         it('table validity updates if column IDs become valid', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             column1.columnId = 'my-column-id';
             column2.columnId = undefined;
             await connect();
@@ -512,7 +512,7 @@ describe('Table', () => {
         });
 
         it('table validity updates if column IDs become invalid', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -533,7 +533,7 @@ describe('Table', () => {
             await connect();
 
             const data = [...largeTableData];
-            element.setData(data);
+            await element.setData(data);
             await waitForUpdatesAsync();
 
             const actualRowCount = pageObject.getRenderedRowCount();
@@ -551,7 +551,7 @@ describe('Table', () => {
             await connect();
 
             const data = [...largeTableData];
-            element.setData(data);
+            await element.setData(data);
             await waitForUpdatesAsync();
             await pageObject.scrollToLastRowAsync();
 
@@ -565,7 +565,7 @@ describe('Table', () => {
             await connect();
 
             const data = [...largeTableData];
-            element.setData(data);
+            await element.setData(data);
             await waitForUpdatesAsync();
 
             const originalRenderedRowCount = pageObject.getRenderedRowCount();
@@ -583,7 +583,7 @@ describe('Table', () => {
     describe('hidden columns', () => {
         it('does not render hidden columns', async () => {
             column1.columnHidden = true;
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -601,7 +601,7 @@ describe('Table', () => {
 
         it('changing a column from hidden to not hidden makes it visible', async () => {
             column1.columnHidden = true;
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -621,7 +621,7 @@ describe('Table', () => {
         });
 
         it('changing a column from not hidden to hidden makes it hidden', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -643,7 +643,7 @@ describe('Table', () => {
 
     describe('multiple updates', () => {
         it('can update action menu slots and column sort', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             const slot1 = 'my-action-menu';
             column1.actionMenuSlot = slot1;
             column1.sortDirection = TableColumnSortDirection.ascending;
@@ -676,7 +676,7 @@ describe('Table', () => {
         });
 
         it('can update column sort and row IDs', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             column1.sortDirection = TableColumnSortDirection.ascending;
             column1.sortIndex = 0;
             await connect();
@@ -693,7 +693,7 @@ describe('Table', () => {
         });
 
         it('can update row IDs without modifying sort', async () => {
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             column1.sortDirection = TableColumnSortDirection.ascending;
             column1.sortIndex = 0;
             await connect();

@@ -51,7 +51,7 @@ describe('TableColumnText', () => {
     for (const testData of noValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         it(`displays placeholder string when ${testData.description}`, async () => {
-            element.setData(testData.data);
+            await element.setData(testData.data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -60,7 +60,7 @@ describe('TableColumnText', () => {
     }
 
     it('changing fieldName updates display', async () => {
-        element.setData([{ field: 'foo', anotherField: 'bar' }]);
+        await element.setData([{ field: 'foo', anotherField: 'bar' }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -72,7 +72,7 @@ describe('TableColumnText', () => {
     });
 
     it('changing placeholder updates display', async () => {
-        element.setData([{ field: null }]);
+        await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -84,26 +84,26 @@ describe('TableColumnText', () => {
     });
 
     it('changing data from value to null displays placeholder', async () => {
-        element.setData([{ field: 'foo' }]);
+        await element.setData([{ field: 'foo' }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
 
         const updatedValue = { field: null };
         const updatedData = [updatedValue];
-        element.setData(updatedData);
+        await element.setData(updatedData);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
     });
 
     it('changing data from null to value displays value', async () => {
-        element.setData([{ field: null }]);
+        await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
 
-        element.setData([{ field: 'foo' }]);
+        await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
@@ -115,7 +115,7 @@ describe('TableColumnText', () => {
 
         const firstColumn = element.columns[0] as TableColumnText;
         firstColumn.fieldName = undefined;
-        element.setData([{ field: 'foo' }]);
+        await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
@@ -123,7 +123,7 @@ describe('TableColumnText', () => {
 
     it('sets title when cell text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -133,7 +133,7 @@ describe('TableColumnText', () => {
 
     it('does not set title when cell text is fully visible', async () => {
         const cellContents = 'short value';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -143,7 +143,7 @@ describe('TableColumnText', () => {
 
     it('removes title on mouseout', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -165,7 +165,7 @@ describe('TableColumnText', () => {
                 async () => {
                     await connect();
 
-                    element.setData([{ field: value.name }]);
+                    await element.setData([{ field: value.name }]);
                     await waitForUpdatesAsync();
 
                     expect(pageObject.getRenderedCellContent(0, 0)).toBe(
@@ -187,7 +187,7 @@ describe('TableColumnText', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    element.setData([{ field: null }]);
+                    await element.setData([{ field: null }]);
                     await waitForUpdatesAsync();
 
                     const firstColumn = element.columns[0] as TableColumnText;

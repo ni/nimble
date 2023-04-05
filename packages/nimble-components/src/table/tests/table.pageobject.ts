@@ -189,9 +189,10 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
-    public clickRow(rowIndex: number): void {
+    public async clickRow(rowIndex: number): Promise<void> {
         const row = this.getRow(rowIndex);
         row.click();
+        await waitForUpdatesAsync();
     }
 
     public getIsRowSelectable(rowIndex: number): boolean {

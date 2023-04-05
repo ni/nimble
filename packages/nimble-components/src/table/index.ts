@@ -2,7 +2,8 @@ import {
     attr,
     Observable,
     observable,
-    Notifier
+    Notifier,
+    DOM
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
@@ -135,6 +136,7 @@ export class Table<
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
+    private isInitialized = false;
 
     public constructor() {
         super();
@@ -157,11 +159,31 @@ export class Table<
         this.virtualizer = new Virtualizer(this);
     }
 
-    public setData(newData: readonly TData[]): void {
-        this.setTableData(newData);
+    public async setData(newData: readonly TData[]): Promise<void> {
+        await this.processPendingUpdates();
+
+        const data = newData.map(record => {
+            return { ...record };
+        });
+        const tanStackUpdates: Partial<TanStackTableOptionsResolved<TData>> = {
+            data
+        };
+        this.validateWithData(data);
+        if (this.tableValidator.areRecordIdsValid()) {
+            // Update the selection state to remove previously selected records that no longer exist in the
+            // data set while maintaining the selection state of records that still exist in the data set.
+            const previousSelection = await this.getSelectedRecordIds();
+            tanStackUpdates.state = {
+                rowSelection:
+                    this.calculateTanStackSelectionState(previousSelection)
+            };
+        }
+        this.updateTableOptions(tanStackUpdates);
     }
 
-    public getSelectedRecordIds(): string[] {
+    public async getSelectedRecordIds(): Promise<string[]> {
+        await this.processPendingUpdates();
+
         const tanStackSelectionState = this.options.state.rowSelection;
         if (!tanStackSelectionState) {
             return [];
@@ -178,7 +200,9 @@ export class Table<
         return selectedRecordIds;
     }
 
-    public setSelectedRecordIds(recordIds: string[]): void {
+    public async setSelectedRecordIds(recordIds: string[]): Promise<void> {
+        await this.processPendingUpdates();
+
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
@@ -192,9 +216,8 @@ export class Table<
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.initialize();
         this.virtualizer.connectedCallback();
-        this.updateTracker.trackAllStateChanged();
-        this.observeColumns();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -203,7 +226,6 @@ export class Table<
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
-        this.removeColumnObservers();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
     }
 
@@ -225,7 +247,7 @@ export class Table<
     }
 
     /** @internal */
-    public onRowClick(rowIndex: number): void {
+    public async onRowClick(rowIndex: number): Promise<void> {
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
@@ -235,7 +257,7 @@ export class Table<
             return;
         }
 
-        const currentSelection = this.getSelectedRecordIds();
+        const currentSelection = await this.getSelectedRecordIds();
         if (currentSelection.length === 1 && currentSelection[0] === row.id) {
             // The clicked row is already the only selected row. Do nothing.
             return;
@@ -243,7 +265,7 @@ export class Table<
 
         this.table.toggleAllRowsSelected(false);
         row.toggleSelected(true);
-        this.emitSelectionChangeEvent();
+        await this.emitSelectionChangeEvent();
     }
 
     /** @internal */
@@ -326,6 +348,27 @@ export class Table<
             notifier.unsubscribe(this);
         });
         this.columnNotifiers = [];
+    }
+
+    private initialize(): void {
+        if (this.isInitialized) {
+            // The table is already initialized. There is nothing more to do.
+            return;
+        }
+
+        this.isInitialized = true;
+        this.$fastController.onConnectedCallback();
+        this.updateTracker.trackAllStateChanged();
+        this.observeColumns();
+    }
+
+    private async processPendingUpdates(): Promise<void> {
+        this.initialize();
+
+        do {
+            // eslint-disable-next-line no-await-in-loop
+            await DOM.nextUpdate();
+        } while (this.updateTracker.hasPendingUpdates);
     }
 
     private observeColumns(): void {
@@ -420,34 +463,12 @@ export class Table<
         this.canRenderRows = this.checkValidity();
     }
 
-    private emitSelectionChangeEvent(): void {
+    private async emitSelectionChangeEvent(): Promise<void> {
         const detail: TableRowSelectionEventDetail = {
-            selectedRecordIds: this.getSelectedRecordIds()
+            selectedRecordIds: await this.getSelectedRecordIds()
         };
 
         this.$emit('selection-change', detail);
-    }
-
-    private setTableData(newData: readonly TData[]): void {
-        const data = newData.map(record => {
-            return { ...record };
-        });
-        const tanStackUpdates: Partial<TanStackTableOptionsResolved<TData>> = {
-            data
-        };
-
-        this.validateWithData(data);
-        if (this.tableValidator.areRecordIdsValid()) {
-            // Update the selection state to remove previously selected records that no longer exist in the
-            // data set while maintaining the selection state of records that still exist in the data set.
-            tanStackUpdates.state = {
-                rowSelection: this.calculateTanStackSelectionState(
-                    this.getSelectedRecordIds()
-                )
-            };
-        }
-
-        this.updateTableOptions(tanStackUpdates);
     }
 
     private refreshRows(): void {

@@ -99,6 +99,10 @@ export class UpdateTracker<TData extends TableRecord> {
         this.queueUpdate();
     }
 
+    public get hasPendingUpdates(): boolean {
+        return this.updateQueued;
+    }
+
     public trackColumnPropertyChanged(changedColumnProperty: string): void {
         if (isColumnProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;

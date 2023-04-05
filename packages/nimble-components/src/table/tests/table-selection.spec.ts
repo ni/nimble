@@ -57,7 +57,7 @@ describe('Table row selection', () => {
         );
 
         await connect();
-        element.setData(simpleTableData);
+        await element.setData(simpleTableData);
         await waitForUpdatesAsync();
     });
 
@@ -107,11 +107,12 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
+        await element.setSelectedRecordIds(['1']);
         element.selectionMode = TableRowSelectionMode.none;
         await waitForUpdatesAsync();
 
-        expect(element.getSelectedRecordIds()).toEqual([]);
+        const currentSelection = await element.getSelectedRecordIds();
+        expect(currentSelection).toEqual([]);
     });
 
     it('does not fire selection-change event when selection is cleared when selection mode changes', async () => {
@@ -119,7 +120,7 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
+        await element.setSelectedRecordIds(['1']);
         element.selectionMode = TableRowSelectionMode.none;
         await waitForUpdatesAsync();
 
@@ -131,11 +132,12 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
+        await element.setSelectedRecordIds(['1']);
         element.idFieldName = 'stringData2';
         await waitForUpdatesAsync();
 
-        expect(element.getSelectedRecordIds()).toEqual([]);
+        const currentSelection = await element.getSelectedRecordIds();
+        expect(currentSelection).toEqual([]);
     });
 
     it('does not fire selection-change event when selection is cleared when id field name changes', async () => {
@@ -143,7 +145,7 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
+        await element.setSelectedRecordIds(['1']);
         element.idFieldName = 'stringData2';
         await waitForUpdatesAsync();
 
@@ -155,8 +157,8 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
-        element.setData([
+        await element.setSelectedRecordIds(['1']);
+        await element.setData([
             {
                 stringData: 'new-record',
                 stringData2: 'with new values'
@@ -164,7 +166,8 @@ describe('Table row selection', () => {
         ]);
         await waitForUpdatesAsync();
 
-        expect(element.getSelectedRecordIds()).toEqual([]);
+        const currentSelection = await element.getSelectedRecordIds();
+        expect(currentSelection).toEqual([]);
     });
 
     it('is unchanged when data is updated but still includes selected record', async () => {
@@ -172,8 +175,8 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
-        element.setData([
+        await element.setSelectedRecordIds(['1']);
+        await element.setData([
             {
                 stringData: 'new-record',
                 stringData2: 'with new values'
@@ -185,7 +188,8 @@ describe('Table row selection', () => {
         ]);
         await waitForUpdatesAsync();
 
-        expect(element.getSelectedRecordIds()).toEqual(['1']);
+        const currentSelection = await element.getSelectedRecordIds();
+        expect(currentSelection).toEqual(['1']);
     });
 
     it('does not fire selection-change event when selection is changed when updating data', async () => {
@@ -193,8 +197,8 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
-        element.setData([
+        await element.setSelectedRecordIds(['1']);
+        await element.setData([
             {
                 stringData: 'new-record',
                 stringData2: 'with new values'
@@ -210,8 +214,8 @@ describe('Table row selection', () => {
         element.idFieldName = 'stringData';
         await waitForUpdatesAsync();
 
-        element.setSelectedRecordIds(['1']);
-        element.setData([
+        await element.setSelectedRecordIds(['1']);
+        await element.setData([
             {
                 stringData: 'new-record',
                 stringData2: 'with new values'
@@ -224,7 +228,8 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         expect(element.checkValidity()).toBeFalse();
-        expect(element.getSelectedRecordIds()).toEqual(['1']);
+        const currentSelection = await element.getSelectedRecordIds();
+        expect(currentSelection).toEqual(['1']);
     });
 
     it('configures rows not to be selectable when selection mode is "none"', async () => {
@@ -243,7 +248,7 @@ describe('Table row selection', () => {
         await waitForUpdatesAsync();
 
         const selectedIndex = 1;
-        element.setSelectedRecordIds([
+        await element.setSelectedRecordIds([
             simpleTableData[selectedIndex].stringData
         ]);
         await waitForUpdatesAsync();
@@ -263,14 +268,17 @@ describe('Table row selection', () => {
                 await waitForUpdatesAsync();
             });
 
-            it('nothing is selected by default', () => {
-                expect(element.getSelectedRecordIds()).toEqual([]);
+            it('nothing is selected by default', async () => {
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
             });
 
-            it('setting selection does not apply', () => {
+            it('setting selection does not apply', async () => {
                 const selection = ['1'];
-                element.setSelectedRecordIds(selection);
-                expect(element.getSelectedRecordIds()).toEqual([]);
+                await element.setSelectedRecordIds(selection);
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
             });
         });
 
@@ -281,42 +289,53 @@ describe('Table row selection', () => {
                 await waitForUpdatesAsync();
             });
 
-            it('nothing is selected by default', () => {
-                expect(element.getSelectedRecordIds()).toEqual([]);
+            it('nothing is selected by default', async () => {
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
             });
 
-            it('can get and set selection with one record ID', () => {
+            it('can get and set selection with one record ID', async () => {
                 const selection = ['1'];
-                element.setSelectedRecordIds(selection);
-                expect(element.getSelectedRecordIds()).toEqual(selection);
+                await element.setSelectedRecordIds(selection);
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(selection);
             });
 
-            it('does not apply selection when the record ID is not in the data set', () => {
+            it('does not apply selection when the record ID is not in the data set', async () => {
                 const selection = ['not-there'];
-                element.setSelectedRecordIds(selection);
-                expect(element.getSelectedRecordIds()).toEqual([]);
+                await element.setSelectedRecordIds(selection);
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
             });
 
-            it('filters out selection when some record IDs are not in the data set', () => {
+            it('filters out selection when some record IDs are not in the data set', async () => {
                 const selection = ['not-there', '1'];
-                element.setSelectedRecordIds(selection);
-                expect(element.getSelectedRecordIds()).toEqual(['1']);
+                await element.setSelectedRecordIds(selection);
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['1']);
             });
 
-            it('only applies first record ID', () => {
+            it('only applies first record ID', async () => {
                 const selection = ['1', '2'];
-                element.setSelectedRecordIds(selection);
-                expect(element.getSelectedRecordIds()).toEqual(['1']);
+                await element.setSelectedRecordIds(selection);
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['1']);
             });
 
-            it('can clear selection', () => {
-                element.setSelectedRecordIds(['1']);
-                element.setSelectedRecordIds([]);
-                expect(element.getSelectedRecordIds()).toEqual([]);
+            it('can clear selection', async () => {
+                await element.setSelectedRecordIds(['1']);
+                await element.setSelectedRecordIds([]);
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
             });
 
-            it('does not fire selection-change event when selection is changed by calling setSelectedRecordIds', () => {
-                element.setSelectedRecordIds(['0']);
+            it('does not fire selection-change event when selection is changed by calling setSelectedRecordIds', async () => {
+                await element.setSelectedRecordIds(['0']);
                 expect(selectionChangeListener.spy).not.toHaveBeenCalled();
             });
         });
@@ -330,13 +349,14 @@ describe('Table row selection', () => {
                 await waitForUpdatesAsync();
             });
 
-            it('clicking a row does not select it', () => {
-                pageObject.clickRow(0);
-                expect(element.getSelectedRecordIds()).toEqual([]);
+            it('clicking a row does not select it', async () => {
+                await pageObject.clickRow(0);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
             });
 
-            it('clicking a row does not emit a selection-change event', () => {
-                pageObject.clickRow(0);
+            it('clicking a row does not emit a selection-change event', async () => {
+                await pageObject.clickRow(0);
                 expect(selectionChangeListener.spy).not.toHaveBeenCalled();
             });
         });
@@ -348,10 +368,11 @@ describe('Table row selection', () => {
                 await waitForUpdatesAsync();
             });
 
-            it('clicking a row with no previous selection selects the clicked row and emits an event', () => {
-                pageObject.clickRow(0);
+            it('clicking a row with no previous selection selects the clicked row and emits an event', async () => {
+                await pageObject.clickRow(0);
 
-                expect(element.getSelectedRecordIds()).toEqual(['0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0']);
                 const expectedDetail: TableRowSelectionEventDetail = {
                     selectedRecordIds: ['0']
                 };
@@ -360,11 +381,12 @@ describe('Table row selection', () => {
                 expect(event.detail).toEqual(expectedDetail);
             });
 
-            it('clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event', () => {
-                element.setSelectedRecordIds(['1']);
+            it('clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event', async () => {
+                await element.setSelectedRecordIds(['1']);
 
-                pageObject.clickRow(0);
-                expect(element.getSelectedRecordIds()).toEqual(['0']);
+                await pageObject.clickRow(0);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0']);
                 const expectedDetail: TableRowSelectionEventDetail = {
                     selectedRecordIds: ['0']
                 };
@@ -373,12 +395,13 @@ describe('Table row selection', () => {
                 expect(event.detail).toEqual(expectedDetail);
             });
 
-            it('clicking the already selected row maintains its selection and does not emit an event', () => {
-                element.setSelectedRecordIds(['0']);
+            it('clicking the already selected row maintains its selection and does not emit an event', async () => {
+                await element.setSelectedRecordIds(['0']);
 
-                pageObject.clickRow(0);
+                await pageObject.clickRow(0);
 
-                expect(element.getSelectedRecordIds()).toEqual(['0']);
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(['0']);
                 expect(selectionChangeListener.spy).not.toHaveBeenCalled();
             });
         });

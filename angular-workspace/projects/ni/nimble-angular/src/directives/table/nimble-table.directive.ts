@@ -24,7 +24,9 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         this.dataObservable = value;
         if (value) {
             this.dataSubscription = value.subscribe(
-                next => this.elementRef.nativeElement.setData(next)
+                next => {
+                    void this.setData(next);
+                }
             );
         }
     }
@@ -56,7 +58,7 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         return this.elementRef.nativeElement.checkValidity();
     }
 
-    public setData(data: readonly TData[]): void {
-        this.elementRef.nativeElement.setData(data);
+    public async setData(data: readonly TData[]): Promise<void> {
+        return this.elementRef.nativeElement.setData(data);
     }
 }

@@ -96,8 +96,8 @@ describe('Table action menu', () => {
         return { menu, items: [menuItem1, menuItem2, menuItem3] };
     }
 
-    beforeEach(() => {
-        element.setData(simpleTableData);
+    beforeEach(async () => {
+        await element.setData(simpleTableData);
         element.idFieldName = 'stringData';
     });
 
@@ -456,7 +456,7 @@ describe('Table action menu', () => {
 
         it('action menu button is visible when row is selected', async () => {
             const rowIndex = 0;
-            element.setSelectedRecordIds([
+            await element.setSelectedRecordIds([
                 simpleTableData[rowIndex].stringData
             ]);
             await waitForUpdatesAsync();
@@ -474,13 +474,14 @@ describe('Table action menu', () => {
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener.promise;
 
-            expect(element.getSelectedRecordIds()).toEqual([
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
         });
 
         it('clicking action menu button with a different row selected selects the new row and deselects the previous row', async () => {
-            element.setSelectedRecordIds([simpleTableData[1].stringData]);
+            await element.setSelectedRecordIds([simpleTableData[1].stringData]);
 
             const rowIndex = 0;
             const toggleListener = createEventListener(
@@ -491,14 +492,15 @@ describe('Table action menu', () => {
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener.promise;
 
-            expect(element.getSelectedRecordIds()).toEqual([
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
         });
 
         it('clicking action menu button for an already selected row keeps it selected', async () => {
             const rowIndex = 0;
-            element.setSelectedRecordIds([
+            await element.setSelectedRecordIds([
                 simpleTableData[rowIndex].stringData
             ]);
 
@@ -510,7 +512,8 @@ describe('Table action menu', () => {
             await pageObject.clickCellActionMenu(rowIndex, 0);
             await toggleListener.promise;
 
-            expect(element.getSelectedRecordIds()).toEqual([
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
         });

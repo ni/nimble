@@ -186,7 +186,7 @@ describe('Table Column Sizing', () => {
                 async () => {
                     await connect();
                     element.style.width = `${columnSizeTest.tableWidth.toString()}px`;
-                    element.setData(simpleTableData);
+                    await element.setData(simpleTableData);
                     await connect();
                     await waitForUpdatesAsync();
 
@@ -236,7 +236,7 @@ describe('Table Column Sizing', () => {
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
             await connect();
             element.style.width = '400px';
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -252,7 +252,7 @@ describe('Table Column Sizing', () => {
         it('hidden column results in other column filling whole space', async () => {
             await connect();
             element.style.width = '400px';
-            element.setData(simpleTableData);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -299,7 +299,7 @@ describe('Table Column Sizing', () => {
                 async () => {
                     await connect();
                     element.style.width = '300px';
-                    element.setData(largeTableData);
+                    await element.setData(largeTableData);
                     await connect();
                     await waitForUpdatesAsync();
 

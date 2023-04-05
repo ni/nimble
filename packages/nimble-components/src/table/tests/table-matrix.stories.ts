@@ -12,7 +12,6 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -62,14 +61,16 @@ export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 tableThemeMatrix.play = async (): Promise<void> => {
-    const tables = document.querySelectorAll<Table>('nimble-table');
-    tables.forEach(table => {
-        table.setData(data);
+    const setDataAndSelectRecord = async (table: Table): Promise<void> => {
+        await table.setData(data);
+        await table.setSelectedRecordIds(['1']);
+    };
+
+    const promises: Promise<void>[] = [];
+    document.querySelectorAll<Table>('nimble-table').forEach(table => {
+        promises.push(setDataAndSelectRecord(table));
     });
-    await waitForUpdatesAsync();
-    tables.forEach(table => {
-        table.setSelectedRecordIds(['1']);
-    });
+    await Promise.all(promises);
 };
 
 export const hiddenTable: StoryFn = createStory(
