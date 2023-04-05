@@ -65,7 +65,8 @@ export const styles = css`
     }
 
     @media (prefers-reduced-motion) {
-        :host .animating {
+        :host .animating,
+        :host([expanded]) .animating {
             transition-duration: 0s;
         }
     }
