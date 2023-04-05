@@ -4,6 +4,7 @@ import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
+import { TableCellView } from '../../table-column/base/cell-view';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -77,12 +78,26 @@ export class TablePageObject<T extends TableRecord> {
         ).length;
     }
 
+    public getRenderedCellView(
+        rowIndex: number,
+        columnIndex: number
+    ): TableCellView {
+        const cell = this.getCell(rowIndex, columnIndex);
+        const cellView = cell.shadowRoot!.firstElementChild;
+        if (!(cellView instanceof TableCellView)) {
+            throw new Error(
+                'Cell view not found in cell - ensure cellViewTag is set for column'
+            );
+        }
+        return cellView as TableCellView;
+    }
+
     public getRenderedCellContent(
         rowIndex: number,
         columnIndex: number
     ): string {
         return (
-            this.getCell(
+            this.getRenderedCellView(
                 rowIndex,
                 columnIndex
             ).shadowRoot!.textContent?.trim() ?? ''
@@ -90,10 +105,10 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public getCellTitle(rowIndex: number, columnIndex: number): string {
+        const cellView = this.getRenderedCellView(rowIndex, columnIndex);
         return (
-            this.getCell(rowIndex, columnIndex)
-                .shadowRoot!.querySelector('.cell-content-container span')
-                ?.getAttribute('title') ?? ''
+            cellView.shadowRoot!.querySelector('span')?.getAttribute('title')
+            ?? ''
         );
     }
 
@@ -102,9 +117,8 @@ export class TablePageObject<T extends TableRecord> {
         columnIndex: number,
         event: Event
     ): boolean | undefined {
-        return this.getCell(rowIndex, columnIndex)
-            .shadowRoot!.querySelector('.cell-content-container span')
-            ?.dispatchEvent(event);
+        const cellView = this.getRenderedCellView(rowIndex, columnIndex);
+        return cellView.shadowRoot!.querySelector('span')?.dispatchEvent(event);
     }
 
     public getRecordId(rowIndex: number): string | undefined {

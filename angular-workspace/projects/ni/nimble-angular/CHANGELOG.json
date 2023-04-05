@@ -2,6 +2,78 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 05 Apr 2023 18:54:28 GMT",
+      "tag": "@ni/nimble-angular_v16.5.1",
+      "version": "16.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.10.1",
+            "commit": "2dd4d31306ba122fb8f5378cd83e8abc83bfa618"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Apr 2023 17:16:16 GMT",
+      "tag": "@ni/nimble-angular_v16.5.0",
+      "version": "16.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "1827debb2b303a140bee1b23a01f8d94dbc35247",
+            "comment": "Angular support for anchor tree item"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.10.0",
+            "commit": "1827debb2b303a140bee1b23a01f8d94dbc35247"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Apr 2023 23:23:52 GMT",
+      "tag": "@ni/nimble-angular_v16.4.1",
+      "version": "16.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.9.1",
+            "commit": "91172d95006601f5bb57a8831238e114f837dbf5"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Apr 2023 19:42:20 GMT",
+      "tag": "@ni/nimble-angular_v16.4.0",
+      "version": "16.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a",
+            "comment": "Error state for text area component"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.9.0",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Apr 2023 21:31:32 GMT",
       "tag": "@ni/nimble-angular_v16.3.0",
       "version": "16.3.0",

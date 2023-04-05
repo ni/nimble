@@ -41,6 +41,8 @@ export class AnchorTab extends AnchorBase {
     public override ariaSelected = 'false';
 }
 
+// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
+
 const nimbleAnchorTab = AnchorTab.compose({
     baseName: 'anchor-tab',
     template,

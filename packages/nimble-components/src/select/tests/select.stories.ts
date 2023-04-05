@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
@@ -23,6 +24,7 @@ interface OptionArgs {
 const metadata: Meta<SelectArgs> = {
     title: 'Select',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
