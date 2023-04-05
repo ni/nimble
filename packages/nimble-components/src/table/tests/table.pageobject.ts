@@ -152,6 +152,25 @@ export class TablePageObject<T extends TableRecord> {
         return cellView.shadowRoot!.querySelector('span')?.dispatchEvent(event);
     }
 
+    public getGroupHeaderTitle(groupRowIndex: number): string {
+        const groupHeader = this.getGroupRowHeaderView(groupRowIndex);
+        return (
+            groupHeader
+                .shadowRoot!.querySelector('span')
+                ?.getAttribute('title') ?? ''
+        );
+    }
+
+    public dispatchEventToGroupHeader(
+        groupRowIndex: number,
+        event: Event
+    ): boolean | undefined {
+        const groupHeader = this.getGroupRowHeaderView(groupRowIndex);
+        return groupHeader
+            .shadowRoot!.querySelector('span')
+            ?.dispatchEvent(event);
+    }
+
     public getRecordId(rowIndex: number): string | undefined {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
