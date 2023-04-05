@@ -12,7 +12,7 @@ declare global {
 }
 /**
  * The custom element used to render a group row header for a group representing rows
- * gruped by a TableColumnText column.
+ * grouped by a TableColumnText column.
  */
 export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
 string | null | undefined,
