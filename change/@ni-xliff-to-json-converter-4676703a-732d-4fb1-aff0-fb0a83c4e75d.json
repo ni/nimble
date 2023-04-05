@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Upgrade to typescript 4.7.4",
+  "packageName": "@ni/xliff-to-json-converter",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
