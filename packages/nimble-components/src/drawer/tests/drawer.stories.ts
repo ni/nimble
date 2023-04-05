@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { DrawerWidthOptions, ExampleContentType } from './types';
 import {
@@ -115,6 +116,7 @@ ${overrideWarning('Drawer Width', widthDescriptionOverride)}
 const metadata: Meta<DrawerArgs> = {
     title: 'Drawer',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

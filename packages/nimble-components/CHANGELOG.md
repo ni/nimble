@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 22 Mar 2023 20:54:34 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Apr 2023 18:54:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.10.1
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Upgrade to typescript 4.7.4 ([ni/nimble@2dd4d31](https://github.com/ni/nimble/commit/2dd4d31306ba122fb8f5378cd83e8abc83bfa618))
+- Bump @ni/nimble-tokens to v4.7.2
+
+## 18.10.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Anchor tree item component ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+
+## 18.9.1
+
+Tue, 04 Apr 2023 23:23:52 GMT
+
+### Patches
+
+- Table updates: use custom element (TableCellView) in cells, cells are notified of row recycling, action menus are closed on scroll/ row recycles. ([ni/nimble@91172d9](https://github.com/ni/nimble/commit/91172d95006601f5bb57a8831238e114f837dbf5))
+
+## 18.9.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state and update of focus state visuals for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+
+## 18.8.4
+
+Mon, 03 Apr 2023 21:31:32 GMT
+
+### Patches
+
+- Allow events to bubble enough for Angular nimbleRouterLink directive to work ([ni/nimble@9bcfe99](https://github.com/ni/nimble/commit/9bcfe9997a520cf952e63fd48440dc23f13ec63d))
+
+## 18.8.3
+
+Mon, 03 Apr 2023 18:19:24 GMT
+
+### Patches
+
+- Change menu to explicit side-effect import of anchored-region ([ni/nimble@ed97369](https://github.com/ni/nimble/commit/ed97369fe171c4f2535e651e09a0a20214bbebcc))
+
+## 18.8.2
+
+Sat, 01 Apr 2023 05:14:36 GMT
+
+### Patches
+
+- Add missing anchored region import to menu component as part of Storybook 7 upgrade ([ni/nimble@b2ab12c](https://github.com/ni/nimble/commit/b2ab12c6ab80c0ad5bad389893dd52e9a04995be))
 
 ## 18.8.1
 

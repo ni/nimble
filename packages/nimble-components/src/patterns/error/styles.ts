@@ -1,10 +1,9 @@
 import { css } from '@microsoft/fast-element';
 import {
-    controlHeight,
     failColor,
     errorTextFont,
-    borderWidth,
-    iconSize
+    iconSize,
+    errorTextFontLineHeight
 } from '../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -29,15 +28,11 @@ export const styles = css`
         color: ${failColor};
         width: 100%;
         position: absolute;
-        top: ${controlHeight};
+        bottom: calc(-1 * ${errorTextFontLineHeight});
         left: 0px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
-
-    :host([error-visible][readonly]:not([disabled])) .error-text {
-        top: calc(${controlHeight} - ${borderWidth});
     }
 
     :host([error-visible]) .error-text:empty {

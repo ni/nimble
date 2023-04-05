@@ -1,4 +1,5 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { tabsTag } from '..';
@@ -26,6 +27,7 @@ If you want a sequence of tabs that navigate to different URLs, use the Anchor T
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

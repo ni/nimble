@@ -1,5 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import { Orientation } from '@microsoft/fast-web-utilities';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { radioGroupTag } from '..';
@@ -16,6 +17,7 @@ interface RadioGroupArgs {
 const metadata: Meta<RadioGroupArgs> = {
     title: 'Radio Group',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

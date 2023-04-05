@@ -1,4 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
@@ -119,6 +120,7 @@ mode is \`single\`, only the first record that exists in the table's data will b
 const metadata: Meta<TableArgs> = {
     title: 'Table',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

@@ -1,22 +1,24 @@
 /* eslint-disable max-classes-per-file */
-import {
-    ViewTemplate,
-    ElementStyles,
-    html,
-    customElement
-} from '@microsoft/fast-element';
+import { customElement } from '@microsoft/fast-element';
 import {
     fixture,
     Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
-import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinFractionalWidthColumnAPI } from '../fractional-width-column';
+import { TableCellView } from '../../base/cell-view';
+
+const columnCellViewName = uniqueElementName();
+
+@customElement({
+    name: columnCellViewName
+})
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class TestTableColumnCellView extends TableCellView {}
 
 class TestTableColumnBase extends TableColumn {
-    public cellTemplate: ViewTemplate<TableCellState> = html``;
-    public cellStyles?: ElementStyles | undefined;
+    public cellViewTag = columnCellViewName;
     public cellRecordFieldNames: readonly string[] = [];
 }
 

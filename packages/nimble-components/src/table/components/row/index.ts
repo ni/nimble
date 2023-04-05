@@ -10,6 +10,7 @@ import type {
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
+import { TableCell } from '../cell';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -109,6 +110,17 @@ export class TableRow<
     ): void {
         this.menuOpen = event.detail.newState;
         this.emitToggleEvent('row-action-menu-toggle', event.detail, column);
+    }
+
+    public closeOpenActionMenus(): void {
+        if (this.menuOpen) {
+            const cellWithMenuOpen = Array.from(this.shadowRoot!.children).find(
+                c => c instanceof TableCell && c.menuOpen
+            ) as TableCell;
+            if (cellWithMenuOpen?.actionMenuButton?.open) {
+                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
+            }
+        }
     }
 
     private emitToggleEvent(

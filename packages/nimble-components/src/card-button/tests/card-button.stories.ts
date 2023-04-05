@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { cardButtonTag } from '..';
@@ -18,6 +19,7 @@ Note: The styling for the "Color" theme is not complete.`;
 const metadata: Meta<CardButtonArgs> = {
     title: 'Card Button',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
