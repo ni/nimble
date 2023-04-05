@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 05 Apr 2023 18:54:28 GMT",
+      "tag": "@ni/nimble-components_v18.10.1",
+      "version": "18.10.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2dd4d31306ba122fb8f5378cd83e8abc83bfa618",
+            "comment": "Upgrade to typescript 4.7.4"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.7.2",
+            "commit": "2dd4d31306ba122fb8f5378cd83e8abc83bfa618"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Apr 2023 17:16:16 GMT",
       "tag": "@ni/nimble-components_v18.10.0",
       "version": "18.10.0",
