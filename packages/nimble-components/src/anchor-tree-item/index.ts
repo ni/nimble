@@ -2,8 +2,6 @@ import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AnchorOptions,
-    StartEnd,
-    applyMixins,
     isTreeItemElement,
     TreeItem as FoundationTreeItem
 } from '@microsoft/fast-foundation';
@@ -94,7 +92,7 @@ export class AnchorTreeItem extends AnchorBase {
     }
 
     /**
-     * Apparently, pressing the Enter key on an anchor generates a click event, too.
+     * Activating the anchor by pressing the Enter key results in a click event.
      * This bubbles up to the Nimble tree-view's click handler, causing the tree item
      * to be selected. We don't want that for anchor tree items. We'll stop propagation
      * of the event to prevent that.
@@ -117,9 +115,6 @@ export class AnchorTreeItem extends AnchorBase {
         }
     }
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AnchorTreeItem extends StartEnd {}
-applyMixins(AnchorTreeItem, StartEnd);
 
 const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
     baseName: 'anchor-tree-item',

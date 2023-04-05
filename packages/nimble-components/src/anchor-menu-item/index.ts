@@ -3,9 +3,7 @@ import {
     DesignSystem,
     AnchorOptions,
     MenuItem as FoundationMenuItem,
-    MenuItemColumnCount,
-    StartEnd,
-    applyMixins
+    MenuItemColumnCount
 } from '@microsoft/fast-foundation';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
@@ -103,10 +101,6 @@ const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
         delegatesFocus: true
     }
 });
-
-/* eslint-disable-next-line */
-export interface AnchorMenuItem extends StartEnd {}
-applyMixins(AnchorMenuItem, StartEnd);
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
