@@ -56,6 +56,26 @@ export class NimbleTextAreaDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
     }
 
+    public get errorVisible(): boolean {
+        return this.elementRef.nativeElement.errorVisible;
+    }
+
+    // errorVisible property maps to the error-visible attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
+    public get errorText(): string | undefined {
+        return this.elementRef.nativeElement.errorText;
+    }
+
+    // errorText property maps to the error-text attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('error-text') public set errorText(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
+    }
+
     public get required(): boolean {
         return this.elementRef.nativeElement.required;
     }

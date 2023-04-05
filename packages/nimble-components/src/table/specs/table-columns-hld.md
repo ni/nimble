@@ -109,7 +109,7 @@ abstract class TableColumn<TColumnConfig = {}> {
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
-    // The relevant, static configuration a column requires its cellTemplate to have access to.
+    // The relevant, static configuration a column requires its cell view to have access to.
     columnConfig?: TColumnConfig;
 
     // The tag (element name) of the custom element that renders the cell content for the column.
@@ -430,7 +430,7 @@ A programmatic API was also considered either in place of, or along side the pro
 
 ## Open Issues
 
--   The current design doesn't offer any strict templating feedback (in Angular) for a particular `TableColumn` implementation. So, if a user provides a dataKey to a property of an `TableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its `cellTemplate` implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
+-   The current design doesn't offer any strict templating feedback (in Angular) for a particular `TableColumn` implementation. So, if a user provides a dataKey to a property of an `TableColumn` that wants the value for that dataKey to be a `DateTime` (i.e. its cell view implementation expects a `DateTime`), but the value in the actual table data for that key is a string, the user will be unaware of that mismatch at compile time.
 
     It is unclear how we could provide such feedback, but it would be extremely nice if possible.
 

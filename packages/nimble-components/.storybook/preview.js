@@ -28,5 +28,5 @@ export const parameters = {
 // be quite large, such as in a table with a lot of records. Therefore, the serialization depth
 // should be limited to avoid poor performance.
 configureActions({
-    depth: 6
+    depth: 1
 });

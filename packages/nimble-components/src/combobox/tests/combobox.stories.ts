@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/html';
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
 import { html, repeat } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../list-option';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
@@ -29,6 +30,7 @@ interface OptionArgs {
 const metadata: Meta<ComboboxArgs> = {
     title: 'Combobox',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

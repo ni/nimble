@@ -1,11 +1,17 @@
-import { html } from '@microsoft/fast-element';
+/* eslint-disable max-classes-per-file */
+import { customElement, html } from '@microsoft/fast-element';
 import { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
+import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
 import { createEventListener } from '../../utilities/tests/component';
-import { type Fixture, fixture } from '../../utilities/tests/fixture';
+import {
+    type Fixture,
+    fixture,
+    uniqueElementName
+} from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
 
@@ -524,6 +530,28 @@ describe('Table', () => {
     });
 
     describe('uses virtualization', () => {
+        const focusableCellViewName = uniqueElementName();
+        const focusableColumnName = uniqueElementName();
+        @customElement({
+            name: focusableCellViewName,
+            template: html<TestFocusableCellView>`<span tabindex="0"
+                >${x => x.content}</span
+            >`
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        class TestFocusableCellView extends TableColumnTextCellView {
+            public override focusedRecycleCallback(): void {
+                (this.shadowRoot!.firstElementChild as HTMLElement).blur();
+            }
+        }
+        @customElement({
+            name: focusableColumnName
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        class TestFocusableTableColumn extends TableColumnText {
+            public override cellViewTag = focusableCellViewName;
+        }
+
         it('to render fewer rows (based on viewport size)', async () => {
             await connect();
 
@@ -554,6 +582,59 @@ describe('Table', () => {
             expect(actualRowCount).toBeLessThan(data.length);
             const dataSubsetAtEnd = data.slice(-actualRowCount);
             verifyRenderedData(dataSubsetAtEnd);
+        });
+
+        it('and calls focusedRecycleCallback on focused cell views when a scroll happens', async () => {
+            const focusableColumn = document.createElement(
+                focusableColumnName
+            ) as TestFocusableTableColumn;
+            focusableColumn.fieldName = 'stringData';
+            column1.replaceWith(focusableColumn);
+            await connect();
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+
+            const firstCellView = pageObject.getRenderedCellView(0, 0);
+            const focusedRecycleSpy = spyOn(
+                firstCellView,
+                'focusedRecycleCallback'
+            ).and.callThrough();
+            const focusableElementInCell = pageObject.getRenderedCellView(0, 0)
+                .shadowRoot!.firstElementChild! as HTMLElement;
+            focusableElementInCell.focus();
+            expect(focusedRecycleSpy).not.toHaveBeenCalled();
+
+            await pageObject.scrollToLastRowAsync();
+
+            expect(focusedRecycleSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('and closes open action menus when a scroll happens', async () => {
+            const slot = 'my-action-menu';
+            column1.actionMenuSlot = slot;
+            const menu = document.createElement('nimble-menu');
+            const menuItem1 = document.createElement('nimble-menu-item');
+            menuItem1.textContent = 'menu item 1';
+            menu.appendChild(menuItem1);
+            menu.slot = slot;
+            element.appendChild(menu);
+            await connect();
+            const data = [...largeTableData];
+            element.setData(data);
+            await waitForUpdatesAsync();
+
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            await pageObject.clickCellActionMenu(0, 0);
+            await toggleListener.promise;
+            expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(true);
+
+            await pageObject.scrollToLastRowAsync();
+
+            expect(pageObject.getCellActionMenu(0, 0)!.open).toBe(false);
         });
 
         it('and shows additional rows when the table height increases', async () => {
@@ -646,7 +727,7 @@ describe('Table', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const toggleListener = createEventListener(
+            let toggleListener = createEventListener(
                 element,
                 'action-menu-toggle'
             );
@@ -658,6 +739,11 @@ describe('Table', () => {
             column1.actionMenuSlot = updatedSlot;
             column1.sortDirection = TableColumnSortDirection.none;
             await waitForUpdatesAsync();
+
+            // Reopen the menu so we can verify the slots (changing sort order causes a row recycle which closes action menus)
+            toggleListener = createEventListener(element, 'action-menu-toggle');
+            await pageObject.clickCellActionMenu(1, 0);
+            await toggleListener.promise;
 
             // Verify the slot name is updated
             const rowSlots = element

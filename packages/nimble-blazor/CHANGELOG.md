@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 28 Mar 2023 22:52:47 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Apr 2023 17:16:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Blazor support for anchor tree item ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+
+## 11.7.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+
+## 11.6.0
+
+Mon, 03 Apr 2023 17:06:25 GMT
+
+### Minor changes
+
+- Fix bug where NimbleTab would respond to `change` event from children components, causing tabs to change. Also made NimbleTabs.UpdateActiveId private. ([ni/nimble@67c3790](https://github.com/ni/nimble/commit/67c3790a9412dcb482959971edef0040028556e9))
 
 ## 11.5.0
 

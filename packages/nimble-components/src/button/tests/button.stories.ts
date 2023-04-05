@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/html';
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
@@ -32,6 +33,7 @@ If you want a button that triggers navigation to a URL, use the \`nimble-anchor-
 const metadata: Meta<ButtonArgs> = {
     title: 'Button',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
