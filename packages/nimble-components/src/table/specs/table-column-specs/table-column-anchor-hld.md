@@ -113,30 +113,39 @@ There is a problem with putting the directive on `nimble-table-column-anchor`, t
 
 The first part of this task is to detect which click events have come from a `nimble-anchor`. We can't just look at the event's `target`, because that is changed to the host control upon crossing a shadow DOM boundary. We can, however, look at the `composedPath()` of the event, which will include every element that was along the bubble-up path. If we find a `nimble-anchor` among them (by using `instanceof`), we know we should handle the event.
 
-To handle the event, we must find the associated anchor column directive. We have the `nimble-anchor` that the event came from, and by calling `anchor.getRootNode().host`, we can get the `nimble-table-cell`. Currently, there is no way to get from a given table cell to its associated column. One way to solve this is to include the associated `columnId` in the cell state, i.e. `cell.cellState.columnId`.
+To handle the event, we must find the associated anchor column directive. We have the `nimble-anchor` that the event came from, and by calling `anchor.getRootNode().host`, we can get the `nimble-table-cell`. Currently, there is no way to get from a given table cell to its associated column. One way to solve this is to include a unique ID for the column in the cell state, i.e. `cell.cellState.columnUniqueId`.
 
 ```ts
 export interface TableCellState<...> {
     cellRecord: TCellRecord;
     columnConfig: TColumnConfig;
-    columnId: string | undefined;
+    columnUniqueId: string | undefined;
 }
 ```
 
-`columnId` is at the top level rather than part of the `columnConfig`, because it applies for all column types, and it is not for configuration.
-Adding `columnId` to the cell state would be a change to `nimble-components` just to support `nimble-angular`, but it seems generic enough to be a reasonable API change.
+This value we use for this unique ID could be the `columnId`, but that is `undefined` unless a client sets it. We would need to start auto-generating unique `columnId` values if the client hasn't provided one, or else document that users must provide column ids when wishing to integrate with the Angular router. Another issue with using `columnId` is that the client may change it programmatically, invalidating the value stored in the cell state. To ensure consistency, we would have to have a `columnIdChanged()` handler that caused `refreshRows()` to be called on the table.
 
-One problem is that `columnId` is `undefined` unless a client sets it. We would also need to start auto-generating unique `columnId` values if the client hasn't provided one (i.e. in `connectedCallback`). An alternative would be to document that users must provide column ids when wishing to integrate with the Angular router, but this seems like an arbitrary requirement that would be better to avoid. Another option considered was to reuse the existing `internalUniqueId` that each column defines, but this is used for the action menu slot, and overloading its use as a general-purpose ID seems wrong.
+A better option would be to use the existing `internalUniqueId` that each column defines. These IDs are used for a couple purposes already where a unique, internal ID is needed.
 
-Another issue is that the client may change the `columnId` programmatically, invalidating the value stored in the cell state. To ensure consistency, we must have a `columnIdChanged()` handler that causes `refreshRows()` to be called on the table.
+`columnUniqueId` is at the top level rather than part of the `columnConfig`, because it applies for all column types, and it is not for configuration.
+Adding `columnUniqueId` to the cell state would be a change to `nimble-components` just to support `nimble-angular`, but it seems generic enough to be a reasonable API change.
 
-Now that we have the `columnId` for a given anchor click, we need to get the column directive. We can get all potential directives as content children:
+Now that we have the column's `internalUniqueId` for a given anchor click, we need to get the column directive. It's possible that in the future, there will be other column types that contain `nimble-anchors`. For that reason, we'll have a base class for our directive that any anchor-containing column directive can extend.
 
 ```ts
-@ContentChildren(NimbleTableColumnAnchorDirective) public anchorColumnDirectives: QueryList<NimbleTableColumnAnchorDirective>;
+abstract class NimbleTableColumnContainsAnchorDirective extends RouterLinkWithHref { ... }
+
+@Directive({ selector: 'nimble-table-column-anchor[nimbleRouterLink]' })
+export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends NimbleTableColumnContainsAnchorDirective { ... }
 ```
 
-Each directive has a reference to its associated element, so we can get to the `nimble-table-column-anchor`. From there, we have access to the `columnId`, so we can find the match.
+We can get all potential directives as content children:
+
+```ts
+@ContentChildren(NimbleTableColumnContainsAnchorDirective) public anchorColumnDirectives: QueryList<NimbleTableColumnContainsAnchorDirective>;
+```
+
+Each directive has a reference to its associated element, so we can get to the column element. From there, we have access to the `internalUniqueId`, so we can find the match.
 
 Finally, we need to call `RouterLinkWithHref.onClick()` to do the router navigation. However, we'll first need to set up the `routerLink` property with the url:
 
@@ -146,6 +155,8 @@ public doRouterNavigation(href: string): boolean {
     return super.onClick(...);
 }
 ```
+
+Note that `RouterLink`/`RouterLinkWithHref` [only handles left-clicks, when no other keys are held down](https://github.com/angular/angular/blob/9bd9a11f4e21e5a7cc9da18f150f6dd520e7cd1e/packages/router/src/directives/router_link.ts#L302). We will check the event state in our table directive, only calling `NimbleTableColumnContainsAnchorDirective.doRouterNavigation()` if it is a plain left-click. Otherwise, we let the default anchor action occur.
 
 ### Blazor integration
 
