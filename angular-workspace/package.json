@@ -55,6 +55,6 @@
     "ng-packagr": "^14.1.0",
     "playwright": "^1.30.0",
     "rollup": "^3.10.1",
-    "typescript": "~4.6.4"
+    "typescript": "~4.7.4"
   }
 }
