@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Upgrade to typescript 4.7.4",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
