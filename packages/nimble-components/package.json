@@ -25,7 +25,7 @@
     "generate-scss:bundle": "rollup --bundleConfigAsCjs --config build/generate-scss/rollup.config.js",
     "generate-scss:run": "node build/generate-scss/dist/index.js",
     "tdd": "npm run build-components && npm run test-chrome",
-    "tdd:watch": "npm run build-components:watch && npm run test-chrome:watch",
+    "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
     "test-chrome:debugger": "karma start karma.conf.js --browsers=ChromeDebugging --skip-tags SkipChrome",
     "test-chrome:verbose": "karma start karma.conf.verbose.js --browsers=ChromeHeadlessOpt --single-run --skip-tags SkipChrome",
     "test-chrome:watch": "karma start karma.conf.js --browsers=ChromeHeadlessOpt  --skip-tags SkipChrome --watch-extensions js",
