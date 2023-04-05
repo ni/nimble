@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Update table validation test",
+  "comment": "Update table validation test and make setData() async",
   "packageName": "@ni/nimble-angular",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "none"
