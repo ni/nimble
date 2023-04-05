@@ -4,7 +4,6 @@ import {
     borderWidth,
     controlHeight,
     controlSlimHeight,
-    fillHoverColor,
     mediumDelay,
     smallPadding,
     standardPadding,
@@ -15,22 +14,22 @@ export const styles = css`
     ${display('flex')}
 
     :host {
-        align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
-        padding-left: calc(
-            ${smallPadding} * 2 + ${standardPadding} * 2 *
-                var(--ni-private-table-group-row-indent-level)
-        );
-    }
-
-    :host(:hover) {
-        background: ${fillHoverColor};
     }
 
     :host([expanded]) .animating,
     :host .animating {
         transition: ${mediumDelay} ease-in-out;
+    }
+
+    .group-row-container {
+        display: flex;
+        align-items: center;
+        padding-left: calc(
+            ${smallPadding} * 2 + ${standardPadding} * 2 *
+                var(--ni-private-table-group-row-indent-level)
+        );
     }
 
     .expand-collapse-button {

@@ -5,7 +5,8 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    fillHoverColor
+    fillHoverColor,
+    sectionBackgroundColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -63,6 +64,14 @@ export const styles = css`
         left: var(--ni-private-table-scroll-x);
     }
 
+    .header-row::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        pointer-events: none;
+    }
+
     .header-scrollbar-spacer {
         width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
@@ -71,10 +80,26 @@ export const styles = css`
         flex: 1;
     }
 
+    .group-row {
+        background: ${sectionBackgroundColor};
+        position: relative;
+    }
+
+    .group-row::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .group-row:hover::before {
+        background: ${fillHoverColor};
+    }
+
     .row {
         background: ${applicationBackgroundColor};
         position: relative;
-        box-sizing: border-box;
     }
 
     .row::before {
@@ -92,21 +117,22 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
-            .header-row::before {
-                content: '';
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                background: ${fillHoverColor};
-                pointer-events: none;
+            .group-row {
+                background: #205439;
             }
 
-            .row::before {
-                background: ${fillHoverColor};
-            }
-
+            .group-row:hover::before,
             .row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.15)};
+                background: ${hexToRgbaCssColor(White, 0.05)};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            .group-row:hover::before,
+            .row:hover::before {
+                background: ${hexToRgbaCssColor(White, 0.10)};
             }
         `
     )
