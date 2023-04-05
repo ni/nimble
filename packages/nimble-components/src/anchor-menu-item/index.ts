@@ -93,6 +93,8 @@ export class AnchorMenuItem extends AnchorBase {
     }
 }
 
+// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
+
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
     baseName: 'anchor-menu-item',
     template,

@@ -116,6 +116,8 @@ export class AnchorTreeItem extends AnchorBase {
     }
 }
 
+// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
+
 const nimbleAnchorTreeItem = AnchorTreeItem.compose<AnchorOptions>({
     baseName: 'anchor-tree-item',
     template,
