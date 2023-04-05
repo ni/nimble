@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 03 Apr 2023 17:06:25 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Apr 2023 19:42:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.7.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
 
 ## 11.6.0
 

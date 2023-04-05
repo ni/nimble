@@ -7,10 +7,9 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
-import { cellStyles } from './styles';
-import { cellTemplate } from './template';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { tableColumnTextGroupHeaderTag } from './group-header';
+import { tableColumnTextCellViewTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {
@@ -26,10 +25,7 @@ declare global {
 /**
  * The base class for a table column for displaying strings.
  */
-abstract class TableColumnTextBase extends TableColumn<
-TableColumnTextCellRecord,
-TableColumnTextColumnConfig
-> {
+abstract class TableColumnTextBase extends TableColumn<TableColumnTextColumnConfig> {
     public cellRecordFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
@@ -38,9 +34,7 @@ TableColumnTextColumnConfig
     @attr
     public placeholder?: string;
 
-    public readonly cellStyles = cellStyles;
-
-    public readonly cellTemplate = cellTemplate;
+    public readonly cellViewTag = tableColumnTextCellViewTag;
 
     public constructor() {
         super();

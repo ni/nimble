@@ -14,12 +14,21 @@ import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinGroupableColumnAPI } from '../groupable-column';
 import { TableGroupHeaderView } from '../../../table/components/group-header-view';
+import { TableCellView } from '../../base/cell-view';
 
 abstract class TestTableColumnBase extends TableColumn {
     public cellTemplate: ViewTemplate<TableCellState> = html``;
     public cellStyles?: ElementStyles | undefined;
     public cellRecordFieldNames: readonly string[] = [];
 }
+
+const columnCellViewName = uniqueElementName();
+
+@customElement({
+    name: columnCellViewName
+})
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class TestTableColumnCellView extends TableCellView {}
 
 const testColumnGroupHeaderName = uniqueElementName();
 @customElement({
@@ -33,6 +42,7 @@ const columnName = uniqueElementName();
     name: columnName
 })
 class TestTableColumn extends mixinGroupableColumnAPI(TestTableColumnBase) {
+    public cellViewTag = columnCellViewName;
     public groupHeaderViewTag = testColumnGroupHeaderName;
 }
 

@@ -1,6 +1,5 @@
 import {
     attr,
-    ElementStyles,
     nullableNumberConverter,
     observable,
     ViewTemplate
@@ -9,12 +8,12 @@ import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { createGroupHeaderViewTemplate } from '../../table/components/group-header-view/template';
 import type { TableGroupRow } from '../../table/components/group-row';
+import type { TableCell } from '../../table/components/cell';
+import { createCellViewTemplate } from '../../table/components/cell/template';
 import { TableColumnSortDirection, TableFieldName } from '../../table/types';
 import {
     defaultFractionalWidth,
     defaultMinPixelWidth,
-    TableCellRecord,
-    TableCellState,
     TableColumnSortOperation
 } from './types';
 
@@ -22,7 +21,6 @@ import {
  * The base class for table columns
  */
 export abstract class TableColumn<
-    TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > extends FoundationElement {
     @attr({ attribute: 'column-id' })
@@ -98,14 +96,6 @@ export abstract class TableColumn<
     public internalGroupIndex?: number;
 
     /**
-     * @internal
-     *
-     * The template to use to render the cell content for the column
-     */
-    // prettier-ignore
-    public abstract readonly cellTemplate: ViewTemplate<TableCellState<TCellRecord, TColumnConfig>>;
-
-    /**
      * The tag to use to render the group header content for a column.
      * The element this tag refers to must derive from TableGroupHeaderView.
      */
@@ -121,9 +111,16 @@ export abstract class TableColumn<
     /**
      * @internal
      *
-     * The style to apply to the cellTemplate
+     * The template to use to render the cell content for the column
+     * The tag (element name) of the custom element that renders the cell content for the column.
+     * That element should derive from TableCellView<TCellRecord, TColumnConfig>.
      */
-    public abstract readonly cellStyles?: ElementStyles;
+    @observable
+    public abstract readonly cellViewTag: string;
+
+    /* @internal */
+    @observable
+    public currentCellViewTemplate?: ViewTemplate<TableCell>;
 
     /**
      * @internal
@@ -145,7 +142,7 @@ export abstract class TableColumn<
     /**
      * @internal
      *
-     * The relevant, static configuration a column requires its cellTemplate to have access to.
+     * The relevant, static configuration a column requires its cell view to have access to.
      */
     @observable
     public columnConfig?: TColumnConfig;
@@ -185,6 +182,12 @@ export abstract class TableColumn<
         super.connectedCallback();
 
         this.setAttribute('slot', this.internalUniqueId);
+    }
+
+    protected cellViewTagChanged(): void {
+        this.currentCellViewTemplate = this.cellViewTag
+            ? createCellViewTemplate(this.cellViewTag)
+            : undefined;
     }
 
     protected internalFractionalWidthChanged(): void {

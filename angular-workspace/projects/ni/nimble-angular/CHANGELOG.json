@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 04 Apr 2023 23:23:52 GMT",
+      "tag": "@ni/nimble-angular_v16.4.1",
+      "version": "16.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.9.1",
+            "commit": "91172d95006601f5bb57a8831238e114f837dbf5"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Apr 2023 19:42:20 GMT",
+      "tag": "@ni/nimble-angular_v16.4.0",
+      "version": "16.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a",
+            "comment": "Error state for text area component"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.9.0",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Apr 2023 21:31:32 GMT",
       "tag": "@ni/nimble-angular_v16.3.0",
       "version": "16.3.0",
