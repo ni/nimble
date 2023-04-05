@@ -46,6 +46,9 @@ export class TableCell<
     @attr({ attribute: 'action-menu-label' })
     public actionMenuLabel?: string;
 
+    @observable
+    public nestingLevel = 0;
+
     /**
      * @internal
      */

@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Table row grouping",
+  "comment": "Programmatic table row grouping",
   "packageName": "@ni/nimble-components",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"

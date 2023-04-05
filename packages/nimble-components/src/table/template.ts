@@ -57,7 +57,7 @@ export const template = html<Table>`
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
-                                    @group-expand-toggle="${(x, c) => c.parent.toggleGroupExpanded(x.index)}"
+                                    @group-expand-toggle="${(x, c) => c.parent.toggleGroupExpanded(x.index, c.event)}"
                                     >
                                 </${tableGroupRowTag}>
                             `)}

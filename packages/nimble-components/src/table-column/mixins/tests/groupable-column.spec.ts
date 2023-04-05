@@ -54,11 +54,6 @@ describe('GroupableColumn', () => {
         await disconnect();
     });
 
-    it('groupable column implementation sets groupHeaderViewTag', async () => {
-        await connect();
-        element.groupHeaderViewTag = testColumnGroupHeaderName;
-    });
-
     it('setting groupingDisabled sets internalGroupingDisabled', async () => {
         await connect();
         element.internalGroupingDisabled = false;

@@ -2,13 +2,14 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { TableGroupRow } from '.';
 import { buttonTag } from '../../../button';
+import { ButtonAppearance } from '../../../button/types';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 
 // prettier-ignore
 export const template = html<TableGroupRow>`
     <template @click=${x => x.onGroupExpandToggle()} style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};">
         <${buttonTag}
-            appearance="ghost"
+            appearance="${ButtonAppearance.ghost}"
             content-hidden
             class="expand-collapse-button"
             tabindex="-1"

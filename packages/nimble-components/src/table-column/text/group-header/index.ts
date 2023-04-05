@@ -25,6 +25,7 @@ TableColumnTextColumnConfig
     public textSpan!: HTMLElement;
 
     /** @internal */
+    @observable
     public isValidContentAndHasOverflow = false;
 
     @volatile

@@ -3,8 +3,10 @@ import { display } from '@microsoft/fast-foundation';
 import {
     borderWidth,
     controlHeight,
+    controlSlimHeight,
     fillHoverColor,
     mediumDelay,
+    smallPadding,
     standardPadding,
     tableRowBorderColor
 } from '../../../theme-provider/design-tokens';
@@ -17,7 +19,7 @@ export const styles = css`
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
         padding-left: calc(
-            ${standardPadding} * 2 *
+            ${smallPadding} * 2 + ${standardPadding} * 2 *
                 var(--ni-private-table-group-row-indent-level)
         );
     }
@@ -26,17 +28,22 @@ export const styles = css`
         background: ${fillHoverColor};
     }
 
-    :host(:not([expanded])) .expander-icon {
-        transform: rotate(0deg);
+    :host([expanded]) .animating,
+    :host .animating {
+        transition: ${mediumDelay} ease-in-out;
+    }
+
+    .expand-collapse-button {
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
     }
 
     :host([expanded]) .expander-icon {
         transform: rotate(90deg);
     }
 
-    :host([expanded]) .animating,
-    :host(:not([expanded])) .animating {
-        transition: ${mediumDelay} ease-in-out;
+    .expander-icon {
+        transform: rotate(0deg);
     }
 
     .group-row-header-content {
@@ -58,8 +65,7 @@ export const styles = css`
     }
 
     @media (prefers-reduced-motion) {
-        :host(:not([expanded])) .animating,
-        :host([expanded]) .animating {
+        :host .animating {
             transition-duration: 0s;
         }
     }

@@ -9,7 +9,7 @@ import {
 
 // prettier-ignore
 export const template = html<TableCell>`
-    <template role="cell">
+    <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}">
         <div ${ref('cellContentContainer')} class="cell-content-container"></div>
 
         ${when(x => x.hasActionMenu, html<TableCell>`
@@ -18,7 +18,7 @@ export const template = html<TableCell>`
                 appearance="${ButtonAppearance.ghost}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
-                class="action-menu"
+                class="action-menu"                
             >
                 <${iconThreeDotsLineTag} slot="start"></${iconThreeDotsLineTag}>
                 ${x => x.actionMenuLabel}

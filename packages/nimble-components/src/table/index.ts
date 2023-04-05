@@ -215,8 +215,8 @@ export class Table<
         this.$emit('action-menu-toggle', event.detail);
     }
 
-    public toggleGroupExpanded(rowIndex: number): void {
-        const row = this.table.getRowModel()!.rows[rowIndex]!;
+    public toggleGroupExpanded(rowIndex: number, event: Event): void {
+        const row = this.table.getRowModel().rows[rowIndex]!;
         const wasExpanded = row.getIsExpanded();
         // must update the collapsedRows before toggling expanded state
         if (wasExpanded) {
@@ -225,6 +225,7 @@ export class Table<
             this.collapsedRows.delete(row.id);
         }
         row.toggleExpanded();
+        event.stopPropagation();
     }
 
     /**
@@ -392,29 +393,31 @@ export class Table<
 
     private refreshRows(): void {
         const rows = this.table.getRowModel().rows;
-        this.tableData = rows.map((row, i) => {
+        this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
                 record: row.original,
                 id: row.id,
                 isGrouped: row.getIsGrouped(),
                 isExpanded: row.getIsExpanded(),
                 groupRowValue: row.getIsGrouped()
-                    ? row?.getValue(row.groupingColumnId!)
+                    ? row.getValue(row.groupingColumnId!)
                     : undefined,
                 nestingLevel: row.depth,
                 leafItemCount: row
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)
                     .length,
-                groupColumn: this.getGroupRowColumn(i)
+                groupColumn: this.getGroupRowColumn(row)
             };
             return rowState;
         });
         this.virtualizer.dataChanged();
     }
 
-    private getGroupRowColumn(rowIndex: number): TableColumn | undefined {
-        const groupedId = this.table.getRowModel()!.rows[rowIndex]?.groupingColumnId;
+    private getGroupRowColumn(
+        row: TanStackRow<TData>
+    ): TableColumn | undefined {
+        const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
             return this.columns.find(c => c.internalUniqueId === groupedId);
         }
@@ -423,8 +426,7 @@ export class Table<
     }
 
     private updateTableOptions(
-        updatedOptions: Partial<TanStackTableOptionsResolved<TData>>,
-        skipRowRefresh?: boolean
+        updatedOptions: Partial<TanStackTableOptionsResolved<TData>>
     ): void {
         this.options = {
             ...this.options,
@@ -432,9 +434,7 @@ export class Table<
             state: { ...this.options.state, ...updatedOptions.state }
         };
         this.table.setOptions(this.options);
-        if (!skipRowRefresh) {
-            this.refreshRows();
-        }
+        this.refreshRows();
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {

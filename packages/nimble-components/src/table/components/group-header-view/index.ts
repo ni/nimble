@@ -10,7 +10,9 @@ export interface TableGroupHeaderState<
 }
 
 /**
- * dsa
+ * The base class for group header views, which are displayed in a TableGroupRow.
+ * A TableColumn that uses the GroupableColumn mixin must provide a TableGroupHeaderView
+ * type (linked via TableColumn.groupHeaderViewTag).
  */
 export abstract class TableGroupHeaderView<
     TGroupValue = unknown,
