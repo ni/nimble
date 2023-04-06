@@ -70,6 +70,10 @@ The column will be sorted and grouped by the label value. It would be unexpected
 
 When grouped, the header item should not be a link.
 
+### Clearing state
+
+Because the anchor in the cell can have focus, we must override `focusedRecycleCallback()` in our cell view and have it call `blur()` on our anchor. If we don't, the focus can pass to other cells as you scroll.
+
 ### Sizing
 
 The column should support the same sizing modes as the text column, which is fractional widths plus minimum pixel widths.
