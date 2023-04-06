@@ -29,9 +29,7 @@ export interface ColumnInternalOptions {
  * Internal column state configured by plugin authors
  * @internal
  */
-export class ColumnInternals<
-    TColumnConfig
-> {
+export class ColumnInternals<TColumnConfig> {
     /**
      * @see ColumnInternalOptions.cellRecordFieldNames
      */

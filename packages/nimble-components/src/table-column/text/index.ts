@@ -46,7 +46,9 @@ export class TableColumnText extends mixinFractionalWidthColumnAPI(
     }
 
     protected placeholderChanged(): void {
-        this.columnInternals.columnConfig = { placeholder: this.placeholder ?? '' };
+        this.columnInternals.columnConfig = {
+            placeholder: this.placeholder ?? ''
+        };
     }
 }
 

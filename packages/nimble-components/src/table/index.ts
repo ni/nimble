@@ -190,9 +190,11 @@ export class Table<
      * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
-        if ((source instanceof TableColumn
-            || source instanceof ColumnInternals)
-             && typeof args === 'string') {
+        if (
+            (source instanceof TableColumn
+                || source instanceof ColumnInternals)
+            && typeof args === 'string'
+        ) {
             this.updateTracker.trackColumnPropertyChanged(args);
         }
     }
@@ -272,7 +274,9 @@ export class Table<
             const notifier = Observable.getNotifier(column);
             notifier.subscribe(this);
             this.columnNotifiers.push(notifier);
-            const notifierInternals = Observable.getNotifier(column.columnInternals);
+            const notifierInternals = Observable.getNotifier(
+                column.columnInternals
+            );
             notifierInternals.subscribe(this);
             this.columnNotifiers.push(notifier);
         }
@@ -426,7 +430,9 @@ export class Table<
                     }
                     return data[fieldName];
                 },
-                sortingFn: getTanStackSortingFunction(column.columnInternals.sortOperation)
+                sortingFn: getTanStackSortingFunction(
+                    column.columnInternals.sortOperation
+                )
             };
         });
     }

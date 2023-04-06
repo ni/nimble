@@ -21,9 +21,7 @@ const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
-class TestTableColumn extends mixinFractionalWidthColumnAPI(
-        TableColumn
-    ) {
+class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
     public constructor() {
         super({
             cellRecordFieldNames: [],
