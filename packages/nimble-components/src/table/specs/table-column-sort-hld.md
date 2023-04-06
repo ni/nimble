@@ -4,6 +4,11 @@
 
 There is a requirement to have table columns that can be sorted, both programmatically and interactively.
 
+### Out of Scope of this HLD
+
+-   Keyboard interactions for interactive sorting (see [#1137](https://github.com/ni/nimble/issues/1137))
+-   Focusable element behavior for the column header (see [#1151](https://github.com/ni/nimble/issues/1151))
+
 ## Links To Relevant Work Items and Reference Material
 
 -   [#874 Programmatically sort columns](https://github.com/ni/nimble/issues/874)
@@ -67,6 +72,7 @@ interface TableColumnSortState {
 }
 
 export interface TableColumnSortEventDetail {
+    /** sorted by sort index (ascending) */
     sortedColumns: TableColumnSortState[];
 }
 ```
@@ -97,7 +103,7 @@ To summarize:
 If the table `sortMode` is `single` or `multiple`:  
 Single-clicking a column header will cycle the column from unsorted, to ascending sort, descending sort, then back to unsorted.
 
--   Any other columns that were also sorted become unsorted
+-   Any other columns that were also sorted become unsorted (i.e. `sortDirection` => none/ `undefined`, `sortIndex` => `undefined` for those columns)
 -   The clicked column gets a sort index of `0` when sorted, and `undefined` if it's transitioning back to unsorted.
 
 If the table `sortMode` is `multiple` only:  
@@ -110,9 +116,9 @@ Shift-clicking a column header will cycle the column from unsorted, to ascending
 
 If interactive sorting is enabled, sorting menu items also appear in the column header menu:  
 ![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)  
-Sorting via the menu will always unsort any other columns that were already sorted (TBD: even when unsorting the current column?)
+Updating sorting via the menu will always unsort any other columns that were already sorted, even when the current column is being unsorted too.
 
-For columns with `sorting-disabled` set to true, clicking/Shift-clicking the column header will not affect the sort state, and the sort menu options will not appear in the column header menu.
+For columns with `sorting-disabled` set to true, clicking/Shift-clicking the column header will not affect the sort state, and the sort menu options will not appear in the column header menu. (However, programmatic sorting via setting `sortIndex`/`sortDirection ` is still possible.)
 
 ## Testing Considerations
 
@@ -148,8 +154,8 @@ The base table column could provide a way for a client to override the sort fiel
 ## Open Issues
 
 -   Should the interactive sort mode default to None or Multiple?
+-   Property naming: `sortMode` vs `interactiveSortMode`, `sortingDisabled` vs `interactiveSortingDisabled`
 -   Do we need to support a cancelable event for sorting?
     -   Current proposal is to not have a cancelable event, and the event only fires for interactive sort changes, not programmatic changes to sortIndex/sortDirection
--   Need to clarify a few more interactive sorting behaviors ([see GitHub comment](https://github.com/ni/nimble/issues/885#issuecomment-1498266347))
--   If the column headers are clickable (for sorting) but not focusable, Firefox shows an accessibility warning ("Clickable elements must be focusable and should have interactive semantics."). Should we make the header elements focusable, when interactive sorting is allowed?
+-   If the column headers are clickable (for sorting) but not focusable, Firefox shows an accessibility warning ("Clickable elements must be focusable and should have interactive semantics."). Should we make the header elements focusable, when interactive sorting is allowed? If so, do we need to set a different `role` on the header (or on an element inside the header)
     -   Listed here for visibility with the interactive sorting discussion, however this is captured in [#1151](https://github.com/ni/nimble/issues/1151), so it won't block the interactive sorting work.
