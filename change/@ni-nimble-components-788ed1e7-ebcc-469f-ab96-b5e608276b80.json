@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add ariaSelected property to anchor tab",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

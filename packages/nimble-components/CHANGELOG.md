@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 05 Apr 2023 22:05:06 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Apr 2023 17:21:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.10.3
+
+Thu, 06 Apr 2023 17:21:40 GMT
+
+### Patches
+
+- Add ariaSelected property to anchor tab ([ni/nimble@b042f21](https://github.com/ni/nimble/commit/b042f218a9cfc31c015e6e38af164265c4f58c9f))
 
 ## 18.10.2
 
