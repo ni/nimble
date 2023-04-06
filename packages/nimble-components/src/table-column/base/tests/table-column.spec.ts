@@ -23,6 +23,7 @@ class TestTableColumnCellView extends TableCellView {}
 class TestTableColumn extends TableColumn {
     public cellViewTag = columnCellViewName;
     public cellRecordFieldNames: readonly string[] = [];
+    public groupHeaderViewTag = '';
 }
 
 // prettier-ignore

@@ -15,6 +15,7 @@ import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection
 } from './types';
+import { tableGroupRowTag } from './components/group-row';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -48,23 +49,38 @@ export const template = html<Table>`
                      role="rowgroup">
                     ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                         ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
-                            <${tableRowTag}
-                                class="row"
-                                record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
-                                :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
-                                :columns="${(_, c) => c.parent.columns}"
-                                @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
-                                @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
-                            >
-                            ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
-                                ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`
-                                    <slot
-                                        name="${x => x}"
-                                        slot="${x => `row-action-menu-${x}`}">
-                                    </slot>
-                                `)}
-                            `)}                        
-                            </${tableRowTag}>
+                            ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
+                                <${tableGroupRowTag}
+                                    class="group-row"
+                                    :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
+                                    ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
+                                    :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
+                                    :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
+                                    :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
+                                    @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
+                                    >
+                                </${tableGroupRowTag}>
+                            `)}
+                            ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
+                                <${tableRowTag}
+                                    class="row"
+                                    record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
+                                    :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
+                                    :columns="${(_, c) => c.parent.columns}"
+                                    :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
+                                    @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                >
+                                ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
+                                    ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`
+                                        <slot
+                                            name="${x => x}"
+                                            slot="${x => `row-action-menu-${x}`}">
+                                        </slot>
+                                    `)}
+                                `)}                        
+                                </${tableRowTag}>
+                            `)}
                         `)}
                     `)}
                 </div>
