@@ -372,6 +372,7 @@ export class Table<
         }
 
         this.isInitialized = true;
+        // Initialize the controller to ensure that FAST functionality such as Observables work as expected.
         this.$fastController.onConnectedCallback();
         this.updateTracker.trackAllStateChanged();
         this.observeColumns();
