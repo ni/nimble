@@ -134,7 +134,9 @@ describe('Table', () => {
         });
 
         it('can construct an element instance', () => {
-            expect(document.createElement('nimble-table')).toBeInstanceOf(Table);
+            expect(document.createElement('nimble-table')).toBeInstanceOf(
+                Table
+            );
         });
 
         it('element has a role of "grid"', async () => {
@@ -323,7 +325,9 @@ describe('Table', () => {
 
             element.appendChild(dateColumn);
             await waitForUpdatesAsync();
-            expect(element.columns[element.columns.length - 1]).toBe(dateColumn);
+            expect(element.columns[element.columns.length - 1]).toBe(
+                dateColumn
+            );
 
             verifyRenderedData(simpleTableData);
         });
@@ -606,8 +610,10 @@ describe('Table', () => {
                     firstCellView,
                     'focusedRecycleCallback'
                 ).and.callThrough();
-                const focusableElementInCell = pageObject.getRenderedCellView(0, 0)
-                    .shadowRoot!.firstElementChild! as HTMLElement;
+                const focusableElementInCell = pageObject.getRenderedCellView(
+                    0,
+                    0
+                ).shadowRoot!.firstElementChild! as HTMLElement;
                 focusableElementInCell.focus();
                 expect(focusedRecycleSpy).not.toHaveBeenCalled();
 
@@ -747,7 +753,10 @@ describe('Table', () => {
                 await waitForUpdatesAsync();
 
                 // Reopen the menu so we can verify the slots (changing sort order causes a row recycle which closes action menus)
-                toggleListener = createEventListener(element, 'action-menu-toggle');
+                toggleListener = createEventListener(
+                    element,
+                    'action-menu-toggle'
+                );
                 await pageObject.clickCellActionMenu(1, 0);
                 await toggleListener.promise;
 
@@ -817,10 +826,7 @@ describe('Table', () => {
         });
 
         it('validates record IDs when data changes', async () => {
-            await table.setData([
-                ...simpleTableData,
-                ...simpleTableData
-            ]);
+            await table.setData([...simpleTableData, ...simpleTableData]);
 
             expect(table.checkValidity()).toBeFalse();
             expect(table.validity.duplicateRecordId).toBeTrue();

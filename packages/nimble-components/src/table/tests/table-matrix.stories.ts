@@ -61,12 +61,14 @@ export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 tableThemeMatrix.play = async (): Promise<void> => {
-    await Promise.all(Array
-        .from(document.querySelectorAll<Table>('nimble-table'))
-        .map(async table => {
-            await table.setData(data);
-            await table.setSelectedRecordIds(['1']);
-        }));
+    await Promise.all(
+        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
+            async table => {
+                await table.setData(data);
+                await table.setSelectedRecordIds(['1']);
+            }
+        )
+    );
 };
 
 export const hiddenTable: StoryFn = createStory(

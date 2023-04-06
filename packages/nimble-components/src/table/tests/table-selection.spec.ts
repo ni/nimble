@@ -257,7 +257,9 @@ describe('Table row selection', () => {
             const rowCount = simpleTableData.length;
             for (let i = 0; i < rowCount; i++) {
                 expect(pageObject.getIsRowSelectable(i)).toBeTrue();
-                expect(pageObject.getIsRowSelected(i)).toBe(i === selectedIndex);
+                expect(pageObject.getIsRowSelected(i)).toBe(
+                    i === selectedIndex
+                );
             }
         });
 
@@ -433,7 +435,9 @@ describe('Table row selection', () => {
             await table.setSelectedRecordIds(expectedSelection);
 
             const selection = await table.getSelectedRecordIds();
-            expect(selection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+            expect(selection).toEqual(
+                jasmine.arrayWithExactContents(expectedSelection)
+            );
         });
 
         it('should not select records that do not exist', async () => {
