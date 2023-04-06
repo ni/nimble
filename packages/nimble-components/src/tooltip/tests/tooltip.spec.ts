@@ -32,9 +32,7 @@ describe('Tooltip', () => {
         if (display === '') {
             throw new Error('Value of display was unexpectedly empty');
         }
-        return (
-            display === 'block' || display === 'inline' || display === 'flex'
-        );
+        return display === 'block' || display === 'inline' || display === 'flex';
     }
 
     beforeEach(async () => {

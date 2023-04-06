@@ -130,6 +130,14 @@ module.exports = config => {
             ChromeHeadlessOpt: {
                 base: 'ChromeHeadless',
                 flags: [...commonChromeFlags]
+            },
+            FirefoxDebugging: {
+                base: 'Firefox',
+                debug: true
+            },
+            WebkitDebugging: {
+                base: 'Webkit',
+                debug: true
             }
         },
         client: {
