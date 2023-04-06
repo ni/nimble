@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 17:21:40 GMT",
+      "tag": "@ni/nimble-components_v18.10.3",
+      "version": "18.10.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b042f218a9cfc31c015e6e38af164265c4f58c9f",
+            "comment": "Add ariaSelected property to anchor tab"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Apr 2023 22:05:06 GMT",
       "tag": "@ni/nimble-components_v18.10.2",
       "version": "18.10.2",
