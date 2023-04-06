@@ -30,6 +30,7 @@ export const styles = css`
     }
 
     .control {
+        position: relative;
         width: calc(${controlHeight} / 2);
         height: calc(${controlHeight} / 2);
         box-sizing: border-box;
