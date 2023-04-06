@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 06 Apr 2023 17:21:40 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Apr 2023 19:46:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.10.4
+
+Thu, 06 Apr 2023 19:46:21 GMT
+
+### Patches
+
+- Programmatic table row grouping ([ni/nimble@b7fbb73](https://github.com/ni/nimble/commit/b7fbb738322e83b315fce68890caaaf4ce56d9e1))
 
 ## 18.10.3
 

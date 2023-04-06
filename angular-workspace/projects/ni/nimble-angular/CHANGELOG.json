@@ -2,6 +2,29 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 19:46:21 GMT",
+      "tag": "@ni/nimble-angular_v16.5.4",
+      "version": "16.5.4",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b7fbb738322e83b315fce68890caaaf4ce56d9e1",
+            "comment": "Update valildity test for the table"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.10.4",
+            "commit": "b7fbb738322e83b315fce68890caaaf4ce56d9e1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Apr 2023 17:21:40 GMT",
       "tag": "@ni/nimble-angular_v16.5.3",
       "version": "16.5.3",
