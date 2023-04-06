@@ -90,6 +90,8 @@ export class ColumnInternals<TColumnConfig> {
         this.uniqueId = uniqueId('table-column-slot');
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
-        this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(options.groupHeaderViewTag);
+        this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
+            options.groupHeaderViewTag
+        );
     }
 }
