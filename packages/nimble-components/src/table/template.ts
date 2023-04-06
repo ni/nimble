@@ -13,13 +13,15 @@ import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
     TableActionMenuToggleEventDetail,
-    TableColumnSortDirection
+    TableColumnSortDirection,
+    TableRowSelectionMode,
+    TableRowSelectionState
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
 
 // prettier-ignore
 export const template = html<Table>`
-    <template role="table" ${children({ property: 'childItems', filter: elements() })}>
+    <template role="grid" ${children({ property: 'childItems', filter: elements() })}>
         <div class="table-container" style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -65,9 +67,12 @@ export const template = html<Table>`
                                 <${tableRowTag}
                                     class="row"
                                     record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
+                                    ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
+                                    ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
                                     :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                     :columns="${(_, c) => c.parent.columns}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
+                                    @click="${async (x, c) => c.parent.onRowClick(x.index)}"
                                     @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                     @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 >

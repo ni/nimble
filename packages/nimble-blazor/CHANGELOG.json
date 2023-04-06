@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 21:12:10 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "16d3c53c367518f8c670696c997fbc8d5e89bea0",
+            "comment": "Update setData() to be async"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Apr 2023 15:10:28 GMT",
       "tag": "@ni/nimble-blazor_v11.8.2",
       "version": "11.8.2",
