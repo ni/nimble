@@ -379,11 +379,11 @@ export class Table<
 
     private async processPendingUpdates(): Promise<void> {
         this.initialize();
+        await DOM.nextUpdate();
 
-        do {
-            // eslint-disable-next-line no-await-in-loop
-            await DOM.nextUpdate();
-        } while (this.updateTracker.hasPendingUpdates);
+        if (this.updateTracker.hasPendingUpdates) {
+            throw new Error('Expected pending updates to be resolved');
+        }
     }
 
     private observeColumns(): void {
