@@ -1,15 +1,18 @@
 import {
+    ViewTemplate,
     attr,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
+import { createGroupHeaderViewTemplate } from './group-header-view/template';
+import type { TableGroupRow } from '../../table/components/group-row';
 import { TableColumnSortDirection } from '../../table/types';
-import { defaultFractionalWidth, defaultMinPixelWidth } from './types';
 import {
     ColumnInternalOptions,
     ColumnInternals
 } from './models/column-internals';
+import { defaultFractionalWidth, defaultMinPixelWidth } from './types';
 
 /**
  * The base class for table columns
@@ -75,6 +78,35 @@ export abstract class TableColumn<
 
     /**
      * @internal
+     * Whether or not this column can be used to group rows by
+     */
+    @observable
+    public internalGroupingDisabled = false;
+
+    /**
+     * @internal
+     * Specifies the grouping precedence of the column within the set of all columns participating in grouping.
+     * Columns are rendered in the grouping tree from lowest group-index as the tree root to highest
+     * group-index as tree leaves.
+     */
+    @observable
+    public internalGroupIndex?: number;
+
+    /**
+     * The tag to use to render the group header content for a column.
+     * The element this tag refers to must derive from TableGroupHeaderView.
+     */
+    @observable
+    public abstract readonly groupHeaderViewTag?: string;
+
+    /**
+     * @internal
+     */
+    @observable
+    public internalGroupHeaderViewTemplate?: ViewTemplate<TableGroupRow>;
+
+    /**
+     * @internal
      *
      * Column properties configurable by plugin authors
      */
@@ -100,5 +132,11 @@ export abstract class TableColumn<
 
     protected internalPixelWidthChanged(): void {
         this.currentPixelWidth = this.internalPixelWidth;
+    }
+
+    protected groupHeaderViewTagChanged(): void {
+        this.internalGroupHeaderViewTemplate = this.groupHeaderViewTag
+            ? createGroupHeaderViewTemplate(this.groupHeaderViewTag)
+            : undefined;
     }
 }

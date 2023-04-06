@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 05 Apr 2023 22:05:06 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Apr 2023 21:12:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update table validation test and make setData() async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+- Bump @ni/nimble-components to v18.10.5
+
+## 16.5.4
+
+Thu, 06 Apr 2023 19:46:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.4
+
+## 16.5.3
+
+Thu, 06 Apr 2023 17:21:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.3
 
 ## 16.5.2
 

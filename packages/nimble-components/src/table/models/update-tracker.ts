@@ -10,11 +10,13 @@ interface BooleanCollection {
 
 interface RequiredUpdates extends BooleanCollection {
     rowIds: boolean;
+    groupRows: boolean;
     columnIds: boolean;
     columnSort: boolean;
     columnWidths: boolean;
     columnDefinition: boolean;
     actionMenuSlots: boolean;
+    selectionMode: boolean;
 }
 
 const isColumnProperty = (
@@ -48,11 +50,13 @@ const isColumnInternalsProperty = (
 export class UpdateTracker<TData extends TableRecord> {
     private readonly requiredUpdates: RequiredUpdates = {
         rowIds: false,
+        groupRows: false,
         columnIds: false,
         columnSort: false,
         columnWidths: false,
         columnDefinition: false,
-        actionMenuSlots: false
+        actionMenuSlots: false,
+        selectionMode: false
     };
 
     private readonly table: Table<TData>;
@@ -64,6 +68,10 @@ export class UpdateTracker<TData extends TableRecord> {
 
     public get updateRowIds(): boolean {
         return this.requiredUpdates.rowIds;
+    }
+
+    public get updateGroupRows(): boolean {
+        return this.requiredUpdates.groupRows;
     }
 
     public get updateColumnIds(): boolean {
@@ -86,11 +94,17 @@ export class UpdateTracker<TData extends TableRecord> {
         return this.requiredUpdates.actionMenuSlots;
     }
 
+    public get updateSelectionMode(): boolean {
+        return this.requiredUpdates.selectionMode;
+    }
+
     public get requiresTanStackUpdate(): boolean {
         return (
             this.requiredUpdates.rowIds
             || this.requiredUpdates.columnSort
             || this.requiredUpdates.columnDefinition
+            || this.requiredUpdates.groupRows
+            || this.requiredUpdates.selectionMode
         );
     }
 
@@ -103,6 +117,10 @@ export class UpdateTracker<TData extends TableRecord> {
     public trackAllStateChanged(): void {
         this.setAllKeys(true);
         this.queueUpdate();
+    }
+
+    public get hasPendingUpdates(): boolean {
+        return this.updateQueued;
     }
 
     public trackColumnPropertyChanged(changedColumnProperty: string): void {
@@ -136,6 +154,14 @@ export class UpdateTracker<TData extends TableRecord> {
             this.requiredUpdates.columnWidths = true;
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
+        } else if (
+            isColumnProperty(
+                changedColumnProperty,
+                'internalGroupIndex',
+                'internalGroupingDisabled'
+            )
+        ) {
+            this.requiredUpdates.groupRows = true;
         }
 
         this.queueUpdate();
@@ -147,12 +173,18 @@ export class UpdateTracker<TData extends TableRecord> {
         this.requiredUpdates.columnSort = true;
         this.requiredUpdates.columnWidths = true;
         this.requiredUpdates.actionMenuSlots = true;
+        this.requiredUpdates.groupRows = true;
 
         this.queueUpdate();
     }
 
     public trackIdFieldNameChanged(): void {
         this.requiredUpdates.rowIds = true;
+        this.queueUpdate();
+    }
+
+    public trackSelectionModeChanged(): void {
+        this.requiredUpdates.selectionMode = true;
         this.queueUpdate();
     }
 

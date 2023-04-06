@@ -21,6 +21,7 @@ class TestTableColumnCellView extends TableCellView {}
     name: columnName
 })
 class TestTableColumn extends TableColumn {
+    public groupHeaderViewTag = '';
     public constructor() {
         super({
             cellRecordFieldNames: [],

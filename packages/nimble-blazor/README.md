@@ -81,7 +81,7 @@ More complete examples can be found in the Demo.Client/Server example projects.
 ### Using Nimble Design Tokens (CSS/SCSS)
 
 Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.  
-For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Property Names"](https://ni.github.io/nimble/storybook/?path=/story/tokens-property-names--property-names&args=propertyFormat:CSS).
+For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Theme-aware tokens"](https://nimble.ni.dev/storybook/?path=/story/tokens-theme-aware-tokens--theme-aware-tokens&args=propertyFormat:CSS).
 
 **Experimental: Manually including Nimble Tokens SCSS files**  
 There are currently extra manual steps required to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):

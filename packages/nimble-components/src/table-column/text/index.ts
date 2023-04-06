@@ -7,6 +7,8 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
@@ -26,6 +28,7 @@ declare global {
 export class TableColumnText extends mixinFractionalWidthColumnAPI(
     TableColumn<TableColumnTextColumnConfig>
 ) {
+    public groupHeaderViewTag = tableColumnTextGroupHeaderTag;
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
 
