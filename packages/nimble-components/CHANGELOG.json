@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 19:46:21 GMT",
+      "tag": "@ni/nimble-components_v18.10.4",
+      "version": "18.10.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b7fbb738322e83b315fce68890caaaf4ce56d9e1",
+            "comment": "Programmatic table row grouping"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Apr 2023 17:21:40 GMT",
       "tag": "@ni/nimble-components_v18.10.3",
       "version": "18.10.3",
