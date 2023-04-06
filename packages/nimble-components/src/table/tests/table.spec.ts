@@ -2,7 +2,7 @@
 import { customElement, html } from '@microsoft/fast-element';
 import { Table, tableTag } from '..';
 import type { TableColumn } from '../../table-column/base';
-import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
+import { TableColumnText } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';

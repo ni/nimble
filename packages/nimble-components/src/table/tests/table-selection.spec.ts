@@ -9,7 +9,6 @@ import {
     TableRowSelectionMode
 } from '../types';
 import { TablePageObject } from './table.pageobject';
-import { TableColumnText, tableColumnTextTag } from '../../table-column/text';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
