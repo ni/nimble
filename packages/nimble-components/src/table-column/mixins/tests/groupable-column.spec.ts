@@ -1,8 +1,5 @@
 /* eslint-disable max-classes-per-file */
 import {
-    ViewTemplate,
-    ElementStyles,
-    html,
     customElement
 } from '@microsoft/fast-element';
 import {
@@ -10,17 +7,10 @@ import {
     Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
-import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinGroupableColumnAPI } from '../groupable-column';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import { TableCellView } from '../../base/cell-view';
-
-abstract class TestTableColumnBase extends TableColumn {
-    public cellTemplate: ViewTemplate<TableCellState> = html``;
-    public cellStyles?: ElementStyles | undefined;
-    public cellRecordFieldNames: readonly string[] = [];
-}
 
 const columnCellViewName = uniqueElementName();
 
@@ -41,9 +31,14 @@ const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
-class TestTableColumn extends mixinGroupableColumnAPI(TestTableColumnBase) {
-    public cellViewTag = columnCellViewName;
+class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
     public groupHeaderViewTag = testColumnGroupHeaderName;
+    public constructor() {
+        super({
+            cellRecordFieldNames: [],
+            cellViewTag: columnCellViewName
+        });
+    }
 }
 
 // prettier-ignore

@@ -6,7 +6,7 @@ export const createGroupHeaderViewTemplate = (
 ): ViewTemplate<TableGroupRow> => html<TableGroupRow>`
         <${groupHeaderViewTag}
             :groupHeaderValue="${x => x.groupRowValue}"
-            :columnConfig="${x => x.groupColumn?.columnConfig}"
+            :columnConfig="${x => x.groupColumn?.columnInternals.columnConfig}"
             class="group-header-value"
             >
         </${groupHeaderViewTag}>

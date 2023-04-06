@@ -25,9 +25,12 @@ declare global {
 /**
  * The table column for displaying strings.
  */
-export class TableColumnText extends mixinFractionalWidthColumnAPI(
-    TableColumn<TableColumnTextColumnConfig>
-) {
+export class TableColumnText extends
+    mixinGroupableColumnAPI(
+        mixinFractionalWidthColumnAPI(
+            TableColumn<TableColumnTextColumnConfig>
+        )
+    ) {
     public groupHeaderViewTag = tableColumnTextGroupHeaderTag;
     @attr({ attribute: 'field-name' })
     public fieldName?: string;

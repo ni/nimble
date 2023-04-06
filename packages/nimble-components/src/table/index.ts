@@ -568,7 +568,7 @@ export class Table<
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
-            return this.columns.find(c => c.internalUniqueId === groupedId);
+            return this.columns.find(c => c.columnInternals.uniqueId === groupedId);
         }
 
         return undefined;
@@ -662,7 +662,7 @@ export class Table<
             (x, y) => x.internalGroupIndex! - y.internalGroupIndex!
         );
 
-        return groupedColumns.map(column => column.internalUniqueId);
+        return groupedColumns.map(column => column.columnInternals.uniqueId);
     }
 
     private calculateTanStackRowIdFunction():
