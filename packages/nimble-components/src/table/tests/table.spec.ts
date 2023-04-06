@@ -104,7 +104,8 @@ describe('Table', () => {
                     columnIndex < visibleColumns.length;
                     columnIndex++
                 ) {
-                    const dataKey = visibleColumns[columnIndex]!.columnInternals.dataRecordFieldNames[0]!;
+                    const dataKey = visibleColumns[columnIndex]!.columnInternals
+                        .dataRecordFieldNames[0]!;
                     const expectedCellData = visibleData[rowIndex]![dataKey]!;
                     expect(
                         pageObject.getRenderedCellContent(rowIndex, columnIndex)

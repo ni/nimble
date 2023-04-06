@@ -115,7 +115,9 @@ export abstract class TableColumn<
     public constructor(options: ColumnInternalOptions) {
         super();
         if (!options) {
-            throw new Error('ColumnInternalsOptions must be provided to constructor');
+            throw new Error(
+                'ColumnInternalsOptions must be provided to constructor'
+            );
         }
         this.columnInternals = new ColumnInternals(options);
     }

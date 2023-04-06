@@ -568,7 +568,9 @@ export class Table<
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
-            return this.columns.find(c => c.columnInternals.uniqueId === groupedId);
+            return this.columns.find(
+                c => c.columnInternals.uniqueId === groupedId
+            );
         }
 
         return undefined;
