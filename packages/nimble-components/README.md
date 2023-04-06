@@ -27,7 +27,7 @@ If you have an existing application that incorporates a module bundler like [Web
 4. Nimble components are [standard web components (custom elements)](https://developer.mozilla.org/en-US/docs/Web/Web_Components) so you can configure them via normal DOM APIs like attributes, properties, events, and methods. The [Storybook documentation](https://ni.github.io/nimble/storybook/) for each component describes its custom API.
 
 ### Prototyping in a static webpage
-
+ 
 If you have a static webpage without a bundler, you can use `@ni/nimble-components` by including one of the bundled distribution files. For example:
 
 ```html
