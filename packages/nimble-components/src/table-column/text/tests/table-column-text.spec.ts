@@ -156,7 +156,7 @@ describe('TableColumnText', () => {
 
     it('sets title when group header text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         element.style.width = '200px';
         await connect();
         await waitForUpdatesAsync();
@@ -167,7 +167,7 @@ describe('TableColumnText', () => {
 
     it('does not set title when group header text is fully visible', async () => {
         const cellContents = 'foo';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
@@ -177,7 +177,7 @@ describe('TableColumnText', () => {
 
     it('removes title on mouseout of group header', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
@@ -248,7 +248,7 @@ describe('TableColumnText', () => {
                 async () => {
                     await connect();
 
-                    element.setData([{ field: value.name }]);
+                    await element.setData([{ field: value.name }]);
                     await waitForUpdatesAsync();
 
                     expect(
@@ -270,7 +270,7 @@ describe('TableColumnText', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    element.setData([{ field: null }]);
+                    await element.setData([{ field: null }]);
                     await waitForUpdatesAsync();
 
                     const firstColumn = element.columns[0] as TableColumnText;
