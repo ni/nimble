@@ -28,7 +28,6 @@ declare global {
 export class TableColumnText extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(TableColumn<TableColumnTextColumnConfig>)
 ) {
-    public groupHeaderViewTag = tableColumnTextGroupHeaderTag;
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
 
@@ -39,7 +38,8 @@ export class TableColumnText extends mixinGroupableColumnAPI(
         super({
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
-            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive,
+            groupHeaderViewTag: tableColumnTextGroupHeaderTag
         });
     }
 

@@ -563,12 +563,11 @@ describe('Table', () => {
                 @attr({ attribute: 'field-name' })
                 public fieldName?: string;
 
-                public override groupHeaderViewTag?: string | undefined;
-
                 public constructor() {
                     super({
                         cellViewTag: focusableCellViewName,
-                        cellRecordFieldNames: ['value']
+                        cellRecordFieldNames: ['value'],
+                        groupHeaderViewTag: ''
                     });
                 }
             }

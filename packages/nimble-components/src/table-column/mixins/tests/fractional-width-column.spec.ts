@@ -22,11 +22,11 @@ const columnName = uniqueElementName();
     name: columnName
 })
 class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
-    public groupHeaderViewTag = '';
     public constructor() {
         super({
             cellRecordFieldNames: [],
-            cellViewTag: columnCellViewName
+            cellViewTag: columnCellViewName,
+            groupHeaderViewTag: ''
         });
     }
 }

@@ -34,7 +34,8 @@ class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
     public constructor() {
         super({
             cellRecordFieldNames: [],
-            cellViewTag: columnCellViewName
+            cellViewTag: columnCellViewName,
+            groupHeaderViewTag: ''
         });
     }
 }

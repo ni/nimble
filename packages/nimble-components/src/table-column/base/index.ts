@@ -1,12 +1,9 @@
 import {
-    ViewTemplate,
     attr,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import { createGroupHeaderViewTemplate } from './group-header-view/template';
-import type { TableGroupRow } from '../../table/components/group-row';
 import { TableColumnSortDirection } from '../../table/types';
 import {
     ColumnInternalOptions,
@@ -93,19 +90,6 @@ export abstract class TableColumn<
     public internalGroupIndex?: number;
 
     /**
-     * The tag to use to render the group header content for a column.
-     * The element this tag refers to must derive from TableGroupHeaderView.
-     */
-    @observable
-    public abstract readonly groupHeaderViewTag?: string;
-
-    /**
-     * @internal
-     */
-    @observable
-    public internalGroupHeaderViewTemplate?: ViewTemplate<TableGroupRow>;
-
-    /**
      * @internal
      *
      * Column properties configurable by plugin authors
@@ -137,11 +121,5 @@ export abstract class TableColumn<
 
     protected internalPixelWidthChanged(): void {
         this.currentPixelWidth = this.internalPixelWidth;
-    }
-
-    protected groupHeaderViewTagChanged(): void {
-        this.internalGroupHeaderViewTemplate = this.groupHeaderViewTag
-            ? createGroupHeaderViewTemplate(this.groupHeaderViewTag)
-            : undefined;
     }
 }

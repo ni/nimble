@@ -4,6 +4,8 @@ import type { TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import { createCellViewTemplate } from '../../../table/components/cell/template';
 import { TableColumnSortOperation } from '../types';
+import type { TableGroupRow } from '../../../table/components/group-row';
+import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 
 export interface ColumnInternalOptions {
     /**
@@ -23,6 +25,12 @@ export interface ColumnInternalOptions {
      * Default is @see TableColumnSortOperation.basic
      */
     sortOperation?: TableColumnSortOperation;
+
+    /**
+     * The tag to use to render the group header content for a column.
+     * The element this tag refers to must derive from TableGroupHeaderView.
+     */
+    readonly groupHeaderViewTag: string;
 }
 
 /**
@@ -72,10 +80,16 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
 
+    /**
+     * Template for the group header view
+     */
+    public readonly groupHeaderViewTemplate: ViewTemplate<TableGroupRow>;
+
     public constructor(options: ColumnInternalOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.uniqueId = uniqueId('table-column-slot');
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
+        this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(options.groupHeaderViewTag);
     }
 }
