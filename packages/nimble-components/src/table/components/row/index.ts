@@ -38,6 +38,12 @@ export class TableRow<
     @attr({ attribute: 'record-id' })
     public recordId?: string;
 
+    @attr({ mode: 'boolean' })
+    public selectable = false;
+
+    @attr({ mode: 'boolean' })
+    public selected = false;
+
     @observable
     public dataRecord?: TDataRecord;
 
@@ -82,6 +88,15 @@ export class TableRow<
             const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
             return { column, cellState, cellIndentLevel };
         });
+    }
+
+    @volatile
+    public override get ariaSelected(): 'true' | 'false' | null {
+        if (this.selectable) {
+            return this.selected ? 'true' : 'false';
+        }
+
+        return null;
     }
 
     public onCellActionMenuBeforeToggle(
