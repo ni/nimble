@@ -5,7 +5,7 @@ import { tableCellTag } from '../cell';
 
 // prettier-ignore
 export const template = html<TableRow>`
-    <template role="row">
+    <template role="row" aria-selected=${x => x.ariaSelected}>
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             ${when(x => !x.column.columnHidden, html<ColumnState, TableRow>`
                 <${tableCellTag}
@@ -16,6 +16,7 @@ export const template = html<TableRow>`
                     action-menu-label="${x => x.column.actionMenuLabel}"
                     @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"
                     @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"
+                    :nestingLevel="${x => x.cellIndentLevel};"
                 >
 
                     ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x.column) && x.column.actionMenuSlot, html<ColumnState, TableRow>`

@@ -6,6 +6,8 @@ import {
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
+import { createGroupHeaderViewTemplate } from './group-header-view/template';
+import type { TableGroupRow } from '../../table/components/group-row';
 import type { TableCell } from '../../table/components/cell';
 import { createCellViewTemplate } from '../../table/components/cell/template';
 import { TableColumnSortDirection, TableFieldName } from '../../table/types';
@@ -79,6 +81,37 @@ export abstract class TableColumn<
 
     /**
      * @internal
+     * Whether or not this column can be used to group rows by
+     */
+    @observable
+    public internalGroupingDisabled = false;
+
+    /**
+     * @internal
+     * Specifies the grouping precedence of the column within the set of all columns participating in grouping.
+     * Columns are rendered in the grouping tree from lowest group-index as the tree root to highest
+     * group-index as tree leaves.
+     */
+    @observable
+    public internalGroupIndex?: number;
+
+    /**
+     * The tag to use to render the group header content for a column.
+     * The element this tag refers to must derive from TableGroupHeaderView.
+     */
+    @observable
+    public abstract readonly groupHeaderViewTag?: string;
+
+    /**
+     * @internal
+     */
+    @observable
+    public internalGroupHeaderViewTemplate?: ViewTemplate<TableGroupRow>;
+
+    /**
+     * @internal
+     *
+     * The template to use to render the cell content for the column
      * The tag (element name) of the custom element that renders the cell content for the column.
      * That element should derive from TableCellView<TCellRecord, TColumnConfig>.
      */
@@ -163,5 +196,11 @@ export abstract class TableColumn<
 
     protected internalPixelWidthChanged(): void {
         this.currentPixelWidth = this.internalPixelWidth;
+    }
+
+    protected groupHeaderViewTagChanged(): void {
+        this.internalGroupHeaderViewTemplate = this.groupHeaderViewTag
+            ? createGroupHeaderViewTemplate(this.groupHeaderViewTag)
+            : undefined;
     }
 }

@@ -2,7 +2,8 @@ import {
     attr,
     Observable,
     observable,
-    Notifier
+    Notifier,
+    DOM
 } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
@@ -14,8 +15,14 @@ import {
     createTable as tanStackCreateTable,
     getCoreRowModel as tanStackGetCoreRowModel,
     getSortedRowModel as tanStackGetSortedRowModel,
+    getGroupedRowModel as tanStackGetGroupedRowModel,
+    getExpandedRowModel as tanStackGetExpandedRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved,
-    SortingState as TanStackSortingState
+    SortingState as TanStackSortingState,
+    RowSelectionState as TanStackRowSelectionState,
+    GroupingState as TanStackGroupingState,
+    ExpandedState as TanStackExpandedState,
+    OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
@@ -26,6 +33,9 @@ import {
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
+    TableRowSelectionEventDetail,
+    TableRowSelectionMode,
+    TableRowSelectionState,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
@@ -43,6 +53,13 @@ declare global {
 interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
+    selectionState: TableRowSelectionState;
+    isGrouped: boolean;
+    groupRowValue?: unknown;
+    isExpanded: boolean;
+    nestingLevel?: number;
+    leafItemCount?: number;
+    groupColumn?: TableColumn;
 }
 
 /**
@@ -53,6 +70,9 @@ export class Table<
 > extends FoundationElement {
     @attr({ attribute: 'id-field-name' })
     public idFieldName?: string;
+
+    @attr({ attribute: 'selection-mode' })
+    public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
     /**
      * @internal
@@ -138,33 +158,96 @@ export class Table<
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
+    private isInitialized = false;
+    private readonly collapsedRows = new Set<string>();
 
     public constructor() {
         super();
         this.options = {
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
+            onRowSelectionChange: this.handleRowSelectionChange,
+            onExpandedChange: this.handleExpandedChange,
             getCoreRowModel: tanStackGetCoreRowModel(),
             getSortedRowModel: tanStackGetSortedRowModel(),
+            getGroupedRowModel: tanStackGetGroupedRowModel(),
+            getExpandedRowModel: tanStackGetExpandedRowModel(),
+            getIsRowExpanded: this.getIsRowExpanded,
             columns: [],
-            state: {},
+            state: {
+                rowSelection: {},
+                grouping: [],
+                expanded: true // Workaround until we can apply a fix to TanStack regarding leveraging our getIsRowExpanded implementation
+            },
+            enableRowSelection: false,
             enableSorting: true,
+            enableGrouping: true,
             renderFallbackValue: null,
             autoResetAll: false
         };
         this.table = tanStackCreateTable(this.options);
-        this.virtualizer = new Virtualizer(this);
+        this.virtualizer = new Virtualizer(this, this.table);
     }
 
-    public setData(newData: readonly TData[]): void {
-        this.setTableData(newData);
+    public async setData(newData: readonly TData[]): Promise<void> {
+        await this.processPendingUpdates();
+
+        const data = newData.map(record => {
+            return { ...record };
+        });
+        const tanStackUpdates: Partial<TanStackTableOptionsResolved<TData>> = {
+            data
+        };
+        this.validateWithData(data);
+        if (this.tableValidator.areRecordIdsValid()) {
+            // Update the selection state to remove previously selected records that no longer exist in the
+            // data set while maintaining the selection state of records that still exist in the data set.
+            const previousSelection = await this.getSelectedRecordIds();
+            tanStackUpdates.state = {
+                rowSelection:
+                    this.calculateTanStackSelectionState(previousSelection)
+            };
+        }
+        this.updateTableOptions(tanStackUpdates);
+    }
+
+    public async getSelectedRecordIds(): Promise<string[]> {
+        await this.processPendingUpdates();
+
+        const tanStackSelectionState = this.options.state.rowSelection;
+        if (!tanStackSelectionState) {
+            return [];
+        }
+
+        const selectedRecordIds: string[] = [];
+        Object.entries(tanStackSelectionState).forEach(
+            ([recordId, isSelected]) => {
+                if (isSelected) {
+                    selectedRecordIds.push(recordId);
+                }
+            }
+        );
+        return selectedRecordIds;
+    }
+
+    public async setSelectedRecordIds(recordIds: string[]): Promise<void> {
+        await this.processPendingUpdates();
+
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return;
+        }
+
+        this.updateTableOptions({
+            state: {
+                rowSelection: this.calculateTanStackSelectionState(recordIds)
+            }
+        });
     }
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.initialize();
         this.virtualizer.connectedCallback();
-        this.updateTracker.trackAllStateChanged();
-        this.observeColumns();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -173,7 +256,6 @@ export class Table<
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
-        this.removeColumnObservers();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
     }
 
@@ -194,20 +276,53 @@ export class Table<
         }
     }
 
+    /** @internal */
+    public async onRowClick(rowIndex: number): Promise<void> {
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return;
+        }
+
+        const row = this.table.getRowModel().rows[rowIndex];
+        if (!row) {
+            return;
+        }
+
+        const currentSelection = await this.getSelectedRecordIds();
+        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
+            // The clicked row is already the only selected row. Do nothing.
+            return;
+        }
+
+        this.table.toggleAllRowsSelected(false);
+        row.toggleSelected(true);
+        await this.emitSelectionChangeEvent();
+    }
+
+    /** @internal */
     public onRowActionMenuBeforeToggle(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
+        event.stopImmediatePropagation();
+
         this.openActionMenuRecordId = event.detail.recordIds[0];
         this.$emit('action-menu-beforetoggle', event.detail);
     }
 
+    /** @internal */
     public onRowActionMenuToggle(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): void {
+        event.stopImmediatePropagation();
+
         this.$emit('action-menu-toggle', event.detail);
         if (!event.detail.newState) {
             this.openActionMenuRecordId = undefined;
         }
+    }
+
+    public handleGroupRowExpanded(rowIndex: number, event: Event): void {
+        this.toggleGroupExpanded(rowIndex);
+        event.stopPropagation();
     }
 
     /**
@@ -226,6 +341,17 @@ export class Table<
         if (this.updateTracker.updateColumnWidths) {
             this.updateRowGridColumns();
         }
+    }
+
+    protected selectionModeChanged(
+        _prev: string | undefined,
+        _next: string | undefined
+    ): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        this.updateTracker.trackSelectionModeChanged();
     }
 
     protected idFieldNameChanged(
@@ -262,6 +388,28 @@ export class Table<
         this.columnNotifiers = [];
     }
 
+    private initialize(): void {
+        if (this.isInitialized) {
+            // The table is already initialized. There is nothing more to do.
+            return;
+        }
+
+        this.isInitialized = true;
+        // Initialize the controller to ensure that FAST functionality such as Observables work as expected.
+        this.$fastController.onConnectedCallback();
+        this.updateTracker.trackAllStateChanged();
+        this.observeColumns();
+    }
+
+    private async processPendingUpdates(): Promise<void> {
+        this.initialize();
+        await DOM.nextUpdate();
+
+        if (this.updateTracker.hasPendingUpdates) {
+            throw new Error('Expected pending updates to be resolved');
+        }
+    }
+
     private observeColumns(): void {
         this.removeColumnObservers();
 
@@ -276,6 +424,13 @@ export class Table<
         return this.columns.filter(
             x => x.sortDirection !== TableColumnSortDirection.none
                 && typeof x.sortIndex === 'number'
+        );
+    }
+
+    private getColumnsParticipatingInGrouping(): TableColumn[] {
+        return this.columns.filter(
+            x => !x.internalGroupingDisabled
+                && typeof x.internalGroupIndex === 'number'
         );
     }
 
@@ -294,22 +449,31 @@ export class Table<
     }
 
     private updateTanStack(): void {
-        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {
-            state: {}
-        };
+        const updatedOptions: Partial<TanStackTableOptionsResolved<TData>> = {};
+        updatedOptions.state = {};
 
         if (this.updateTracker.updateColumnSort) {
-            updatedOptions.state!.sorting = this.calculateTanStackSortState();
+            updatedOptions.state.sorting = this.calculateTanStackSortState();
         }
         if (this.updateTracker.updateColumnDefinition) {
             updatedOptions.columns = this.calculateTanStackColumns();
         }
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
+            updatedOptions.state.rowSelection = {};
+        }
+        if (this.updateTracker.updateSelectionMode) {
+            updatedOptions.enableRowSelection = this.selectionMode !== TableRowSelectionMode.none;
+            updatedOptions.state.rowSelection = {};
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
             updatedOptions.data = [...this.table.options.data];
+        }
+        if (this.updateTracker.updateGroupRows) {
+            updatedOptions.state.grouping = this.calculateTanStackGroupingState();
+            updatedOptions.state.expanded = true;
+            this.collapsedRows.clear();
         }
 
         this.updateTableOptions(updatedOptions);
@@ -332,11 +496,20 @@ export class Table<
     }
 
     private validate(): void {
+        this.tableValidator.validateSelectionMode(
+            this.selectionMode,
+            this.idFieldName
+        );
         this.tableValidator.validateColumnIds(
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
+        );
+        this.tableValidator.validateColumnGroupIndices(
+            this.getColumnsParticipatingInGrouping().map(
+                x => x.internalGroupIndex!
+            )
         );
         this.validateWithData(this.table.options.data);
     }
@@ -346,14 +519,12 @@ export class Table<
         this.canRenderRows = this.checkValidity();
     }
 
-    private setTableData(newData: readonly TData[]): void {
-        const data = newData.map(record => {
-            return { ...record };
-        });
-        this.validateWithData(data);
-        this.updateTableOptions({
-            data
-        });
+    private async emitSelectionChangeEvent(): Promise<void> {
+        const detail: TableRowSelectionEventDetail = {
+            selectedRecordIds: await this.getSelectedRecordIds()
+        };
+
+        this.$emit('selection-change', detail);
     }
 
     private refreshRows(): void {
@@ -361,11 +532,36 @@ export class Table<
         this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
                 record: row.original,
-                id: row.id
+                id: row.id,
+                selectionState: row.getIsSelected()
+                    ? TableRowSelectionState.selected
+                    : TableRowSelectionState.notSelected,
+                isGrouped: row.getIsGrouped(),
+                isExpanded: row.getIsExpanded(),
+                groupRowValue: row.getIsGrouped()
+                    ? row.getValue(row.groupingColumnId!)
+                    : undefined,
+                nestingLevel: row.depth,
+                leafItemCount: row
+                    .getLeafRows()
+                    .filter(leafRow => leafRow.getLeafRows().length === 0)
+                    .length,
+                groupColumn: this.getGroupRowColumn(row)
             };
             return rowState;
         });
         this.virtualizer.dataChanged();
+    }
+
+    private getGroupRowColumn(
+        row: TanStackRow<TData>
+    ): TableColumn | undefined {
+        const groupedId = row.groupingColumnId;
+        if (groupedId !== undefined) {
+            return this.columns.find(c => c.internalUniqueId === groupedId);
+        }
+
+        return undefined;
     }
 
     private updateTableOptions(
@@ -378,6 +574,60 @@ export class Table<
         };
         this.table.setOptions(this.options);
         this.refreshRows();
+    }
+
+    private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
+        if (!row.getIsGrouped()) {
+            return false;
+        }
+
+        const expandedState = this.table.options.state.expanded;
+
+        if (expandedState === true) {
+            return true;
+        }
+
+        if (Object.keys(expandedState ?? {}).includes(row.id)) {
+            return expandedState![row.id]!;
+        }
+
+        return !this.collapsedRows.has(row.id);
+    };
+
+    private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
+        const rowSelectionState = updaterOrValue instanceof Function
+            ? updaterOrValue(this.table.getState().rowSelection)
+            : updaterOrValue;
+
+        this.updateTableOptions({
+            state: {
+                rowSelection: rowSelectionState
+            }
+        });
+    };
+
+    private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> = (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
+        const expandedState = updaterOrValue instanceof Function
+            ? updaterOrValue(this.table.getState().expanded)
+            : updaterOrValue;
+
+        this.updateTableOptions({
+            state: {
+                expanded: expandedState
+            }
+        });
+    };
+
+    private toggleGroupExpanded(rowIndex: number): void {
+        const row = this.table.getRowModel().rows[rowIndex]!;
+        const wasExpanded = row.getIsExpanded();
+        // must update the collapsedRows before toggling expanded state
+        if (wasExpanded) {
+            this.collapsedRows.add(row.id);
+        } else {
+            this.collapsedRows.delete(row.id);
+        }
+        row.toggleExpanded();
     }
 
     private calculateTanStackSortState(): TanStackSortingState {
@@ -395,6 +645,14 @@ export class Table<
                     column.sortDirection === TableColumnSortDirection.descending
             };
         });
+    }
+
+    private calculateTanStackGroupingState(): TanStackGroupingState {
+        const groupedColumns = this.getColumnsParticipatingInGrouping().sort(
+            (x, y) => x.internalGroupIndex! - y.internalGroupIndex!
+        );
+
+        return groupedColumns.map(column => column.internalUniqueId);
     }
 
     private calculateTanStackRowIdFunction():
@@ -423,6 +681,24 @@ export class Table<
                 sortingFn: getTanStackSortingFunction(column.sortOperation)
             };
         });
+    }
+
+    private calculateTanStackSelectionState(
+        recordIdsToSelect: string[]
+    ): TanStackRowSelectionState {
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return {};
+        }
+
+        const tanstackSelectionState: TanStackRowSelectionState = {};
+        const selectableRecordIds = this.tableValidator.getPresentRecordIds(recordIdsToSelect);
+        if (selectableRecordIds.length) {
+            // In single selection mode, only select the first record ID that is requested
+            const firstSelectableRecordId = selectableRecordIds[0]!;
+            tanstackSelectionState[firstSelectableRecordId] = true;
+        }
+
+        return tanstackSelectionState;
     }
 }
 

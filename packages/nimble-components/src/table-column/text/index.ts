@@ -7,6 +7,8 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
@@ -23,7 +25,7 @@ declare global {
 /**
  * The base class for a table column for displaying strings.
  */
-class TableColumnTextBase extends TableColumn<TableColumnTextColumnConfig> {
+abstract class TableColumnTextBase extends TableColumn<TableColumnTextColumnConfig> {
     public cellRecordFieldNames = ['value'] as const;
 
     @attr({ attribute: 'field-name' })
@@ -52,9 +54,11 @@ class TableColumnTextBase extends TableColumn<TableColumnTextColumnConfig> {
 /**
  * The table column for displaying strings.
  */
-export class TableColumnText extends mixinFractionalWidthColumnAPI(
-    TableColumnTextBase
-) {}
+export class TableColumnText extends mixinGroupableColumnAPI(
+    mixinFractionalWidthColumnAPI(TableColumnTextBase)
+) {
+    public groupHeaderViewTag = tableColumnTextGroupHeaderTag;
+}
 
 const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text',

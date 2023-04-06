@@ -387,6 +387,17 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 
 The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
 
+### Disabling tests
+
+If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#SkipFirefox`, `#SkipWebkit`, or `#SkipChrome` to the test name:
+
+```ts
+// Firefox skipped, see: https://github.com/ni/nimble/issues/####
+it('sets title when cell text is ellipsized #SkipFirefox', ...);
+```
+
+Before disabling a test, you **must** have investigated the failure and attempted to find a proper resolution. If you still end up needing to disable it, there must be an issue in this repo tracking the failure, and you must add a comment in the source linking to that issue.
+
 ## Theming
 
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
