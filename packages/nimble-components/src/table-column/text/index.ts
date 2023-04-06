@@ -21,40 +21,34 @@ declare global {
 }
 
 /**
- * The base class for a table column for displaying strings.
+ * The table column for displaying strings.
  */
-class TableColumnTextBase extends TableColumn<TableColumnTextColumnConfig> {
-    public cellRecordFieldNames = ['value'] as const;
-
+export class TableColumnText extends mixinFractionalWidthColumnAPI(
+    TableColumn<TableColumnTextColumnConfig>
+) {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
 
     @attr
     public placeholder?: string;
 
-    public readonly cellViewTag = tableColumnTextCellViewTag;
-
     public constructor() {
-        super();
-        this.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+        super({
+            cellRecordFieldNames: ['value'],
+            cellViewTag: tableColumnTextCellViewTag,
+            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+        });
     }
 
     protected fieldNameChanged(): void {
-        this.dataRecordFieldNames = [this.fieldName] as const;
-        this.operandDataRecordFieldName = this.fieldName;
+        this.columnInternals.dataRecordFieldNames = [this.fieldName];
+        this.columnInternals.operandDataRecordFieldName = this.fieldName;
     }
 
     protected placeholderChanged(): void {
-        this.columnConfig = { placeholder: this.placeholder ?? '' };
+        this.columnInternals.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 }
-
-/**
- * The table column for displaying strings.
- */
-export class TableColumnText extends mixinFractionalWidthColumnAPI(
-    TableColumnTextBase
-) {}
 
 const nimbleTableColumnText = TableColumnText.compose({
     baseName: 'table-column-text',

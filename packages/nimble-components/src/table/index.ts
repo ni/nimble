@@ -33,6 +33,7 @@ import { getTanStackSortingFunction } from './models/sort-operations';
 import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
+import { ColumnInternals } from '../table-column/base/models/column-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -189,7 +190,9 @@ export class Table<
      * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof TableColumn && typeof args === 'string') {
+        if ((source instanceof TableColumn
+            || source instanceof ColumnInternals)
+             && typeof args === 'string') {
             this.updateTracker.trackColumnPropertyChanged(args);
         }
     }
@@ -268,6 +271,9 @@ export class Table<
         for (const column of this.columns) {
             const notifier = Observable.getNotifier(column);
             notifier.subscribe(this);
+            this.columnNotifiers.push(notifier);
+            const notifierInternals = Observable.getNotifier(column.columnInternals);
+            notifierInternals.subscribe(this);
             this.columnNotifiers.push(notifier);
         }
     }
@@ -390,7 +396,7 @@ export class Table<
 
         return sortedColumns.map(column => {
             return {
-                id: column.internalUniqueId,
+                id: column.columnInternals.uniqueId,
                 desc:
                     column.sortDirection === TableColumnSortDirection.descending
             };
@@ -412,15 +418,15 @@ export class Table<
     private calculateTanStackColumns(): TanStackColumnDef<TData>[] {
         return this.columns.map(column => {
             return {
-                id: column.internalUniqueId,
+                id: column.columnInternals.uniqueId,
                 accessorFn: (data: TData): TableFieldValue => {
-                    const fieldName = column.operandDataRecordFieldName;
+                    const fieldName = column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
                     }
                     return data[fieldName];
                 },
-                sortingFn: getTanStackSortingFunction(column.sortOperation)
+                sortingFn: getTanStackSortingFunction(column.columnInternals.sortOperation)
             };
         });
     }

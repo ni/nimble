@@ -2,18 +2,14 @@ import {
     attr,
     nullableNumberConverter,
     observable,
-    ViewTemplate
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import { uniqueId } from '@microsoft/fast-web-utilities';
-import type { TableCell } from '../../table/components/cell';
-import { createCellViewTemplate } from '../../table/components/cell/template';
-import { TableColumnSortDirection, TableFieldName } from '../../table/types';
+import { TableColumnSortDirection } from '../../table/types';
 import {
     defaultFractionalWidth,
-    defaultMinPixelWidth,
-    TableColumnSortOperation
+    defaultMinPixelWidth
 } from './types';
+import { ColumnInternalOptions, ColumnInternals } from './models/column-internals';
 
 /**
  * The base class for table columns
@@ -79,67 +75,16 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * The tag (element name) of the custom element that renders the cell content for the column.
-     * That element should derive from TableCellView<TCellRecord, TColumnConfig>.
-     */
-    @observable
-    public abstract readonly cellViewTag: string;
-
-    /* @internal */
-    @observable
-    public currentCellViewTemplate?: ViewTemplate<TableCell>;
-
-    /**
-     * @internal
      *
-     * The names of the fields that should be present in TCellRecord.
-     * This array is parallel with the field names specified by `dataRecordFieldNames`.
+     * Column properties configurable by plugin authors
      */
-    public abstract readonly cellRecordFieldNames: readonly TableFieldName[];
+    public readonly columnInternals: ColumnInternals<TColumnConfig>;
 
-    /**
-     * @internal
-     *
-     * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
-     * This array is parallel with the field names specified by `cellRecordFieldNames`.
-     */
-    @observable
-    public dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
-
-    /**
-     * @internal
-     *
-     * The relevant, static configuration a column requires its cell view to have access to.
-     */
-    @observable
-    public columnConfig?: TColumnConfig;
-
-    /**
-     * @internal
-     *
-     * The name of the data field that will be used for operations on the table, such as sorting and grouping.
-     */
-    @observable
-    public operandDataRecordFieldName?: TableFieldName;
-
-    /**
-     * @internal
-     *
-     * The operation to use when sorting the table by this column.
-     */
-    @observable
-    public sortOperation: TableColumnSortOperation = TableColumnSortOperation.basic;
-
-    /**
-     * @internal
-     *
-     * Properties prefixed with `internal` are for internal table-use only.
-     */
-    public readonly internalUniqueId: string;
-
-    public constructor() {
+    public constructor(
+        options: ColumnInternalOptions
+    ) {
         super();
-        this.internalUniqueId = uniqueId('table-column-slot');
+        this.columnInternals = new ColumnInternals(options);
     }
 
     /**
@@ -148,13 +93,7 @@ export abstract class TableColumn<
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        this.setAttribute('slot', this.internalUniqueId);
-    }
-
-    protected cellViewTagChanged(): void {
-        this.currentCellViewTemplate = this.cellViewTag
-            ? createCellViewTemplate(this.cellViewTag)
-            : undefined;
+        this.setAttribute('slot', this.columnInternals.uniqueId);
     }
 
     protected internalFractionalWidthChanged(): void {

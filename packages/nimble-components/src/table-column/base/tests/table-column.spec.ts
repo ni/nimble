@@ -21,8 +21,12 @@ class TestTableColumnCellView extends TableCellView {}
     name: columnName
 })
 class TestTableColumn extends TableColumn {
-    public cellViewTag = columnCellViewName;
-    public cellRecordFieldNames: readonly string[] = [];
+    public constructor() {
+        super({
+            cellRecordFieldNames: [],
+            cellViewTag: columnCellViewName
+        });
+    }
 }
 
 // prettier-ignore
