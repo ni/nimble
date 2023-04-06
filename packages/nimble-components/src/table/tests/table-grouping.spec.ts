@@ -153,7 +153,7 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        pageObject.toggleGroupRowExpandedState(0);
+        pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
         expect(pageObject.getAllGroupRowExpandedState()).toEqual([
@@ -161,8 +161,9 @@ describe('Table grouping', () => {
             true,
             true
         ]);
+        expect(pageObject.getRenderedRowCount()).toBe(2);
 
-        element.setData(newData);
+        element.setData(newData); // inserts row at beginning
         await waitForUpdatesAsync();
 
         expect(pageObject.getAllGroupRowExpandedState()).toEqual([
@@ -171,6 +172,7 @@ describe('Table grouping', () => {
             true,
             true
         ]);
+        expect(pageObject.getRenderedRowCount()).toBe(3);
     });
 
     it('updating grouping state expands all groups', async () => {
@@ -187,7 +189,7 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        pageObject.toggleGroupRowExpandedState(0);
+        pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
         expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true]);
@@ -201,6 +203,7 @@ describe('Table grouping', () => {
             true,
             true
         ]);
+        expect(pageObject.getRenderedRowCount()).toBe(4);
     });
 
     it('collapsing group then updating grouped state followed by setting data has all groups expanded', async () => {
@@ -217,7 +220,7 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        pageObject.toggleGroupRowExpandedState(0);
+        pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
         expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true]);
@@ -476,6 +479,7 @@ describe('Table grouping', () => {
 
             await removeExistingColumnsAndAddNewColumn('stringData1', 0);
             expect(pageObject.getRenderedGroupRowCount()).toEqual(4);
+            expect(pageObject.getRenderedRowCount()).toEqual(4);
         });
 
         it('group state responds to changes on new columns', async () => {
