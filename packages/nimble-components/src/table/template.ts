@@ -72,6 +72,7 @@ export const template = html<Table>`
                                     :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                     :columns="${(_, c) => c.parent.columns}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
+                                    @click="${async (x, c) => c.parent.onRowClick(x.index)}"
                                     @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                     @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 >
