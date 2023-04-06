@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 15:10:28 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.2",
+      "version": "11.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9e49658a43773ec9281184a0996d35c8027b6bee",
+            "comment": "Fix broken link in NimbleBlazor README"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Apr 2023 17:16:16 GMT",
       "tag": "@ni/nimble-blazor_v11.8.0",
       "version": "11.8.0",
