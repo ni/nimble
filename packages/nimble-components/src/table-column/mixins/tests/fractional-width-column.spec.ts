@@ -17,7 +17,7 @@ const columnCellViewName = uniqueElementName();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumnCellView extends TableCellView {}
 
-class TestTableColumnBase extends TableColumn {
+abstract class TestTableColumnBase extends TableColumn {
     public cellViewTag = columnCellViewName;
     public cellRecordFieldNames: readonly string[] = [];
 }
@@ -28,7 +28,9 @@ const columnName = uniqueElementName();
 })
 class TestTableColumn extends mixinFractionalWidthColumnAPI(
         TestTableColumnBase
-    ) {}
+    ) {
+    public groupHeaderViewTag = '';
+}
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {

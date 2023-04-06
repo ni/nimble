@@ -30,6 +30,7 @@ export interface TableValidity {
     readonly duplicateColumnId: boolean;
     readonly missingColumnId: boolean;
     readonly duplicateSortIndex: boolean;
+    readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
 }
 

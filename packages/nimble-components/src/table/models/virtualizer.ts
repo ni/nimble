@@ -1,4 +1,5 @@
 import { observable } from '@microsoft/fast-element';
+import type { Table as TanStackTable } from '@tanstack/table-core';
 import {
     Virtualizer as TanStackVirtualizer,
     VirtualizerOptions,
@@ -31,11 +32,16 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
+    private readonly tanStackTable: TanStackTable<TData>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
 
-    public constructor(table: Table<TData>) {
+    public constructor(
+        table: Table<TData>,
+        tanStackTable: TanStackTable<TData>
+    ) {
         this.table = table;
+        this.tanStackTable = tanStackTable;
         this.viewportResizeObserver = new ResizeObserver(entries => {
             const borderBoxSize = entries[0]?.borderBoxSize[0];
             if (borderBoxSize) {
@@ -80,7 +86,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         const rowHeight = parseFloat(controlHeight.getValueFor(this.table))
             + 2 * parseFloat(borderWidth.getValueFor(this.table));
         return {
-            count: this.table.tableData.length,
+            count: this.tanStackTable.getRowModel().rows.length,
             getScrollElement: () => {
                 return this.table.viewport;
             },

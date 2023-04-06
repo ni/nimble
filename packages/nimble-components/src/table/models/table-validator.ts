@@ -11,6 +11,7 @@ export class TableValidator<TData extends TableRecord> {
     private duplicateColumnId = false;
     private missingColumnId = false;
     private duplicateSortIndex = false;
+    private duplicateGroupIndex = false;
     private idFieldNameNotConfigured = false;
 
     private readonly recordIds = new Set<string>();
@@ -23,6 +24,7 @@ export class TableValidator<TData extends TableRecord> {
             duplicateColumnId: this.duplicateColumnId,
             missingColumnId: this.missingColumnId,
             duplicateSortIndex: this.duplicateSortIndex,
+            duplicateGroupIndex: this.duplicateGroupIndex,
             idFieldNameNotConfigured: this.idFieldNameNotConfigured
         };
     }
@@ -119,20 +121,21 @@ export class TableValidator<TData extends TableRecord> {
     }
 
     public validateColumnSortIndices(sortIndices: number[]): boolean {
-        this.duplicateSortIndex = false;
-
-        const sortIndexSet = new Set<number>();
-        for (const sortIndex of sortIndices) {
-            if (sortIndexSet.has(sortIndex)) {
-                this.duplicateSortIndex = true;
-            }
-            sortIndexSet.add(sortIndex);
-        }
-
+        this.duplicateSortIndex = !this.validateIndicesAreUnique(sortIndices);
         return !this.duplicateSortIndex;
+    }
+
+    public validateColumnGroupIndices(groupIndices: number[]): boolean {
+        this.duplicateGroupIndex = !this.validateIndicesAreUnique(groupIndices);
+        return !this.duplicateGroupIndex;
     }
 
     public getPresentRecordIds(requestedRecordIds: string[]): string[] {
         return requestedRecordIds.filter(id => this.recordIds.has(id));
+    }
+
+    private validateIndicesAreUnique(indices: number[]): boolean {
+        const numberSet = new Set<number>(indices);
+        return numberSet.size === indices.length;
     }
 }

@@ -15,9 +15,13 @@ import {
     createTable as tanStackCreateTable,
     getCoreRowModel as tanStackGetCoreRowModel,
     getSortedRowModel as tanStackGetSortedRowModel,
+    getGroupedRowModel as tanStackGetGroupedRowModel,
+    getExpandedRowModel as tanStackGetExpandedRowModel,
     TableOptionsResolved as TanStackTableOptionsResolved,
     SortingState as TanStackSortingState,
     RowSelectionState as TanStackRowSelectionState,
+    GroupingState as TanStackGroupingState,
+    ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
 import { TableColumn } from '../table-column/base';
@@ -50,6 +54,12 @@ interface TableRowState<TData extends TableRecord = TableRecord> {
     record: TData;
     id: string;
     selectionState: TableRowSelectionState;
+    isGrouped: boolean;
+    groupRowValue?: unknown;
+    isExpanded: boolean;
+    nestingLevel?: number;
+    leafItemCount?: number;
+    groupColumn?: TableColumn;
 }
 
 /**
@@ -149,26 +159,34 @@ export class Table<
     private readonly updateTracker = new UpdateTracker(this);
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
+    private readonly collapsedRows = new Set<string>();
 
     public constructor() {
         super();
         this.options = {
             data: [],
             onStateChange: (_: TanStackUpdater<TanStackTableState>) => {},
-            onRowSelectionChange: this.setRowSelection,
+            onRowSelectionChange: this.handleRowSelectionChange,
+            onExpandedChange: this.handleExpandedChange,
             getCoreRowModel: tanStackGetCoreRowModel(),
             getSortedRowModel: tanStackGetSortedRowModel(),
+            getGroupedRowModel: tanStackGetGroupedRowModel(),
+            getExpandedRowModel: tanStackGetExpandedRowModel(),
+            getIsRowExpanded: this.getIsRowExpanded,
             columns: [],
             state: {
-                rowSelection: {}
+                rowSelection: {},
+                grouping: [],
+                expanded: true // Workaround until we can apply a fix to TanStack regarding leveraging our getIsRowExpanded implementation
             },
             enableRowSelection: false,
             enableSorting: true,
+            enableGrouping: true,
             renderFallbackValue: null,
             autoResetAll: false
         };
         this.table = tanStackCreateTable(this.options);
-        this.virtualizer = new Virtualizer(this);
+        this.virtualizer = new Virtualizer(this, this.table);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -302,6 +320,11 @@ export class Table<
         }
     }
 
+    public handleGroupRowExpanded(rowIndex: number, event: Event): void {
+        this.toggleGroupExpanded(rowIndex);
+        event.stopPropagation();
+    }
+
     /**
      * @internal
      */
@@ -404,6 +427,13 @@ export class Table<
         );
     }
 
+    private getColumnsParticipatingInGrouping(): TableColumn[] {
+        return this.columns.filter(
+            x => !x.internalGroupingDisabled
+                && typeof x.internalGroupIndex === 'number'
+        );
+    }
+
     private childItemsChanged(): void {
         void this.updateColumnsFromChildItems();
     }
@@ -440,6 +470,11 @@ export class Table<
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
             updatedOptions.data = [...this.table.options.data];
         }
+        if (this.updateTracker.updateGroupRows) {
+            updatedOptions.state.grouping = this.calculateTanStackGroupingState();
+            updatedOptions.state.expanded = true;
+            this.collapsedRows.clear();
+        }
 
         this.updateTableOptions(updatedOptions);
     }
@@ -471,6 +506,11 @@ export class Table<
         this.tableValidator.validateColumnSortIndices(
             this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
         );
+        this.tableValidator.validateColumnGroupIndices(
+            this.getColumnsParticipatingInGrouping().map(
+                x => x.internalGroupIndex!
+            )
+        );
         this.validateWithData(this.table.options.data);
     }
 
@@ -495,11 +535,33 @@ export class Table<
                 id: row.id,
                 selectionState: row.getIsSelected()
                     ? TableRowSelectionState.selected
-                    : TableRowSelectionState.notSelected
+                    : TableRowSelectionState.notSelected,
+                isGrouped: row.getIsGrouped(),
+                isExpanded: row.getIsExpanded(),
+                groupRowValue: row.getIsGrouped()
+                    ? row.getValue(row.groupingColumnId!)
+                    : undefined,
+                nestingLevel: row.depth,
+                leafItemCount: row
+                    .getLeafRows()
+                    .filter(leafRow => leafRow.getLeafRows().length === 0)
+                    .length,
+                groupColumn: this.getGroupRowColumn(row)
             };
             return rowState;
         });
         this.virtualizer.dataChanged();
+    }
+
+    private getGroupRowColumn(
+        row: TanStackRow<TData>
+    ): TableColumn | undefined {
+        const groupedId = row.groupingColumnId;
+        if (groupedId !== undefined) {
+            return this.columns.find(c => c.internalUniqueId === groupedId);
+        }
+
+        return undefined;
     }
 
     private updateTableOptions(
@@ -514,7 +576,25 @@ export class Table<
         this.refreshRows();
     }
 
-    private readonly setRowSelection: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
+    private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
+        if (!row.getIsGrouped()) {
+            return false;
+        }
+
+        const expandedState = this.table.options.state.expanded;
+
+        if (expandedState === true) {
+            return true;
+        }
+
+        if (Object.keys(expandedState ?? {}).includes(row.id)) {
+            return expandedState![row.id]!;
+        }
+
+        return !this.collapsedRows.has(row.id);
+    };
+
+    private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
         const rowSelectionState = updaterOrValue instanceof Function
             ? updaterOrValue(this.table.getState().rowSelection)
             : updaterOrValue;
@@ -525,6 +605,30 @@ export class Table<
             }
         });
     };
+
+    private readonly handleExpandedChange: TanStackOnChangeFn<TanStackExpandedState> = (updaterOrValue: TanStackUpdater<TanStackExpandedState>): void => {
+        const expandedState = updaterOrValue instanceof Function
+            ? updaterOrValue(this.table.getState().expanded)
+            : updaterOrValue;
+
+        this.updateTableOptions({
+            state: {
+                expanded: expandedState
+            }
+        });
+    };
+
+    private toggleGroupExpanded(rowIndex: number): void {
+        const row = this.table.getRowModel().rows[rowIndex]!;
+        const wasExpanded = row.getIsExpanded();
+        // must update the collapsedRows before toggling expanded state
+        if (wasExpanded) {
+            this.collapsedRows.add(row.id);
+        } else {
+            this.collapsedRows.delete(row.id);
+        }
+        row.toggleExpanded();
+    }
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
@@ -541,6 +645,14 @@ export class Table<
                     column.sortDirection === TableColumnSortDirection.descending
             };
         });
+    }
+
+    private calculateTanStackGroupingState(): TanStackGroupingState {
+        const groupedColumns = this.getColumnsParticipatingInGrouping().sort(
+            (x, y) => x.internalGroupIndex! - y.internalGroupIndex!
+        );
+
+        return groupedColumns.map(column => column.internalUniqueId);
     }
 
     private calculateTanStackRowIdFunction():

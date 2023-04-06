@@ -21,6 +21,7 @@ declare global {
 export interface ColumnState {
     column: TableColumn;
     cellState: TableCellState;
+    cellIndentLevel: number;
 }
 
 /** Represents a single row (element) in the Table's data  */
@@ -52,12 +53,15 @@ export class TableRow<
     @observable
     public currentActionMenuColumn?: TableColumn;
 
+    @observable
+    public nestingLevel = 0;
+
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
     @volatile
     public get columnStates(): ColumnState[] {
-        return this.columns.map(column => {
+        return this.columns.map((column, i) => {
             const fieldNames = column.dataRecordFieldNames;
             let cellState: TableCellState;
             if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
@@ -65,9 +69,9 @@ export class TableRow<
                     field => this.dataRecord![field]
                 );
                 const cellRecord = Object.fromEntries(
-                    column.cellRecordFieldNames.map((k, i) => [
+                    column.cellRecordFieldNames.map((k, j) => [
                         k,
-                        cellDataValues[i]
+                        cellDataValues[j]
                     ])
                 );
                 const columnConfig = column.columnConfig ?? {};
@@ -76,10 +80,13 @@ export class TableRow<
                     columnConfig
                 };
             } else {
-                cellState = { cellRecord: {}, columnConfig: {} };
+                cellState = {
+                    cellRecord: {},
+                    columnConfig: {}
+                };
             }
-
-            return { column, cellState };
+            const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
+            return { column, cellState, cellIndentLevel };
         });
     }
 

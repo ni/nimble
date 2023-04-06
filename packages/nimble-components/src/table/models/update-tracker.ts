@@ -9,6 +9,7 @@ interface BooleanCollection {
 
 interface RequiredUpdates extends BooleanCollection {
     rowIds: boolean;
+    groupRows: boolean;
     columnIds: boolean;
     columnSort: boolean;
     columnWidths: boolean;
@@ -36,6 +37,7 @@ const isColumnProperty = (
 export class UpdateTracker<TData extends TableRecord> {
     private readonly requiredUpdates: RequiredUpdates = {
         rowIds: false,
+        groupRows: false,
         columnIds: false,
         columnSort: false,
         columnWidths: false,
@@ -53,6 +55,10 @@ export class UpdateTracker<TData extends TableRecord> {
 
     public get updateRowIds(): boolean {
         return this.requiredUpdates.rowIds;
+    }
+
+    public get updateGroupRows(): boolean {
+        return this.requiredUpdates.groupRows;
     }
 
     public get updateColumnIds(): boolean {
@@ -84,6 +90,7 @@ export class UpdateTracker<TData extends TableRecord> {
             this.requiredUpdates.rowIds
             || this.requiredUpdates.columnSort
             || this.requiredUpdates.columnDefinition
+            || this.requiredUpdates.groupRows
             || this.requiredUpdates.selectionMode
         );
     }
@@ -134,6 +141,14 @@ export class UpdateTracker<TData extends TableRecord> {
             this.requiredUpdates.columnWidths = true;
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
+        } else if (
+            isColumnProperty(
+                changedColumnProperty,
+                'internalGroupIndex',
+                'internalGroupingDisabled'
+            )
+        ) {
+            this.requiredUpdates.groupRows = true;
         }
 
         this.queueUpdate();
@@ -145,6 +160,7 @@ export class UpdateTracker<TData extends TableRecord> {
         this.requiredUpdates.columnSort = true;
         this.requiredUpdates.columnWidths = true;
         this.requiredUpdates.actionMenuSlots = true;
+        this.requiredUpdates.groupRows = true;
 
         this.queueUpdate();
     }

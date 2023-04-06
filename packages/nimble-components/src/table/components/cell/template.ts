@@ -9,7 +9,7 @@ import {
 
 // prettier-ignore
 export const template = html<TableCell>`
-    <template role="cell">
+    <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}">
         ${x => x.cellViewTemplate}
         ${when(x => x.hasActionMenu, html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}

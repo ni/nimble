@@ -60,7 +60,8 @@ describe('TableHeader', () => {
         expect(sortIcons.descendingIcon).toBeFalsy();
     });
 
-    it('has correct state when sorted ascending', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('has correct state when sorted ascending #SkipFirefox', async () => {
         element.sortDirection = TableColumnSortDirection.ascending;
         element.firstSortedColumn = true;
         await waitForUpdatesAsync();
@@ -71,7 +72,8 @@ describe('TableHeader', () => {
         expect(sortIcons.descendingIcon).toBeFalsy();
     });
 
-    it('has correct state when sorted descending', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('has correct state when sorted descending #SkipFirefox', async () => {
         element.sortDirection = TableColumnSortDirection.descending;
         element.firstSortedColumn = true;
         await waitForUpdatesAsync();

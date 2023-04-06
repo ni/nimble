@@ -39,22 +39,12 @@ export function mixinGroupableColumnAPI<
 
         public groupIndex?: number | null = null;
 
-        /**
-         * The custom element tag to use for rendering group header values.
-         * Should derive from TableGroupHeaderView.
-         */
-        public abstract groupHeaderViewTag: string;
-
         public groupingDisabledChanged(): void {
             this.internalGroupingDisabled = this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
             this.internalGroupIndex = this.groupIndex;
-        }
-
-        public groupHeaderViewTagChanged(): void {
-            this.internalGroupHeaderViewTag = this.groupHeaderViewTag;
         }
     }
     attr({ attribute: 'grouping-disabled', mode: 'boolean' })(
@@ -65,13 +55,12 @@ export function mixinGroupableColumnAPI<
         GroupableColumn.prototype,
         'groupIndex'
     );
-    observable(GroupableColumn.prototype, 'groupHeaderViewTag');
 
     return GroupableColumn;
 }
 ```
 
-The `TableColumn` will add the `internalGroupingDisabled`, `internalGroupIndex` and `internalGroupHeaderViewTag` APIs to provide that state where it is needed in the rest of the `Table` implementation.
+The `TableColumn` will add the `internalGroupingDisabled` and `internalGroupIndex` properties to provide that state where it is needed in the rest of the `Table` implementation.
 
 This mixin can then be chained to other mixins in the following fashion:
 
