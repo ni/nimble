@@ -4,7 +4,7 @@ import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
-import type { TableGroupHeaderView } from '../components/group-header-view';
+import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
 
 /**
@@ -150,6 +150,25 @@ export class TablePageObject<T extends TableRecord> {
     ): boolean | undefined {
         const cellView = this.getRenderedCellView(rowIndex, columnIndex);
         return cellView.shadowRoot!.querySelector('span')?.dispatchEvent(event);
+    }
+
+    public getGroupHeaderTitle(groupRowIndex: number): string {
+        const groupHeader = this.getGroupRowHeaderView(groupRowIndex);
+        return (
+            groupHeader
+                .shadowRoot!.querySelector('span')
+                ?.getAttribute('title') ?? ''
+        );
+    }
+
+    public dispatchEventToGroupHeader(
+        groupRowIndex: number,
+        event: Event
+    ): boolean | undefined {
+        const groupHeader = this.getGroupRowHeaderView(groupRowIndex);
+        return groupHeader
+            .shadowRoot!.querySelector('span')
+            ?.dispatchEvent(event);
     }
 
     public getRecordId(rowIndex: number): string | undefined {

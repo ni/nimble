@@ -13,7 +13,7 @@ import {
 import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinGroupableColumnAPI } from '../groupable-column';
-import { TableGroupHeaderView } from '../../../table/components/group-header-view';
+import { TableGroupHeaderView } from '../../base/group-header-view';
 import { TableCellView } from '../../base/cell-view';
 
 abstract class TestTableColumnBase extends TableColumn {

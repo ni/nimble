@@ -141,7 +141,7 @@ describe('TableColumnText', () => {
         expect(pageObject.getCellTitle(0, 0)).toBe('');
     });
 
-    it('removes title on mouseout', async () => {
+    it('removes title on mouseout of cell', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
         element.setData([{ field: cellContents }]);
         await connect();
@@ -151,6 +151,39 @@ describe('TableColumnText', () => {
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
         await waitForUpdatesAsync();
         expect(pageObject.getCellTitle(0, 0)).toBe('');
+    });
+
+    it('sets title when group header text is ellipsized', async () => {
+        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+        element.setData([{ field: cellContents }]);
+        element.style.width = '200px';
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getGroupHeaderTitle(0)).toBe(cellContents);
+    });
+
+    it('does not set title when group header text is fully visible', async () => {
+        const cellContents = 'foo';
+        element.setData([{ field: cellContents }]);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getGroupHeaderTitle(0)).toBe('');
+    });
+
+    it('removes title on mouseout of group header', async () => {
+        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+        element.setData([{ field: cellContents }]);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseout'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getGroupHeaderTitle(0)).toBe('');
     });
 
     describe('various string values render as expected', () => {

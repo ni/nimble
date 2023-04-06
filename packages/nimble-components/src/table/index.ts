@@ -230,16 +230,8 @@ export class Table<
         }
     }
 
-    public toggleGroupExpanded(rowIndex: number, event: Event): void {
-        const row = this.table.getRowModel().rows[rowIndex]!;
-        const wasExpanded = row.getIsExpanded();
-        // must update the collapsedRows before toggling expanded state
-        if (wasExpanded) {
-            this.collapsedRows.add(row.id);
-        } else {
-            this.collapsedRows.delete(row.id);
-        }
-        row.toggleExpanded();
+    public handleGroupRowExpanded(rowIndex: number, event: Event): void {
+        this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
     }
 
@@ -481,6 +473,18 @@ export class Table<
             }
         });
     };
+
+    private toggleGroupExpanded(rowIndex: number): void {
+        const row = this.table.getRowModel().rows[rowIndex]!;
+        const wasExpanded = row.getIsExpanded();
+        // must update the collapsedRows before toggling expanded state
+        if (wasExpanded) {
+            this.collapsedRows.add(row.id);
+        } else {
+            this.collapsedRows.delete(row.id);
+        }
+        row.toggleExpanded();
+    }
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(

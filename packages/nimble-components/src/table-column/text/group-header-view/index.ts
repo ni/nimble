@@ -1,7 +1,7 @@
 import { observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableColumnTextColumnConfig } from '..';
-import { TableGroupHeaderView } from '../../../table/components/group-header-view';
+import { TableGroupHeaderView } from '../../base/group-header-view';
 import { template } from './template';
 import { styles } from './styles';
 
@@ -12,7 +12,7 @@ declare global {
 }
 /**
  * The custom element used to render a group row header for a group representing rows
- * gruped by a TableColumnText column.
+ * grouped by a TableColumnText column.
  */
 export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
 string | null | undefined,

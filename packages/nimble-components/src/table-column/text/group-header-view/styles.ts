@@ -9,6 +9,7 @@ export const styles = css`
     span {
         font: ${bodyFont};
         color: ${bodyFontColor};
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
