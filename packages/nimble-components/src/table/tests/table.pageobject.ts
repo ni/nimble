@@ -4,7 +4,7 @@ import type { TableRecord } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
-import type { TableGroupHeaderView } from '../components/group-header-view';
+import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
 
 /**

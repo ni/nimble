@@ -6,7 +6,7 @@ import {
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { uniqueId } from '@microsoft/fast-web-utilities';
-import { createGroupHeaderViewTemplate } from '../../table/components/group-header-view/template';
+import { createGroupHeaderViewTemplate } from './group-header-view/template';
 import type { TableGroupRow } from '../../table/components/group-row';
 import type { TableCell } from '../../table/components/cell';
 import { createCellViewTemplate } from '../../table/components/cell/template';

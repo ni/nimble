@@ -8,7 +8,7 @@ import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { tableColumnTextGroupHeaderTag } from './group-header';
+import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
