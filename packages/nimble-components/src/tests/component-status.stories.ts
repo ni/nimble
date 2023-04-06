@@ -1,9 +1,14 @@
 /* eslint-disable max-classes-per-file */
-import { attr, css, customElement, html, ref, when } from '@microsoft/fast-element';
-import type { Meta, StoryObj } from '@storybook/html';
 import {
-    createUserSelectedThemeStory,
-} from '../utilities/tests/storybook';
+    attr,
+    css,
+    customElement,
+    html,
+    ref,
+    when
+} from '@microsoft/fast-element';
+import type { Meta, StoryObj } from '@storybook/html';
+import { createUserSelectedThemeStory } from '../utilities/tests/storybook';
 import { Table, tableTag } from '../table';
 import { tableColumnTextTag } from '../table-column/text';
 import { mixinFractionalWidthColumnAPI } from '../table-column/mixins/fractional-width-column';
@@ -403,20 +408,20 @@ const data = [
         '✅',
         '✅'
     ],
-    [
-        'Wafer Map',
-        undefined,
-        undefined,
-        undefined,
-        '⚠️',
-        '⚠️',
-        '⚠️'
-    ]
+    ['Wafer Map', undefined, undefined, undefined, '⚠️', '⚠️', '⚠️']
 ];
 
-const dataFormatted = data.map(([name, design, issue, story, component, angular, blazor]) => ({
-    name, design, issue, story, component, angular, blazor
-}));
+const dataFormatted = data.map(
+    ([name, design, issue, story, component, angular, blazor]) => ({
+        name,
+        design,
+        issue,
+        story,
+        component,
+        angular,
+        blazor
+    })
+);
 
 const updateData = async (tableRef: Table): Promise<void> => {
     await customElements.whenDefined('nimble-table');
@@ -468,9 +473,14 @@ type ComponentStatusHyperlinkCellRecord = TableStringField<'url'>;
 @customElement({
     name: 'component-status-hyperlink-view',
     template: html<TableColumnTextCellView>`
-    ${when(x => x.cellRecord.url, html<TableColumnTextCellView>`
-        <a href="${x => x.cellRecord.url}" style="">${x => x.columnConfig.placeholder}</a>
-        `)}
+        ${when(
+        x => x.cellRecord.url,
+        html<TableColumnTextCellView>`
+                <a href="${x => x.cellRecord.url}" style=""
+                    >${x => x.columnConfig.placeholder}</a
+                >
+            `
+    )}
     `,
     styles: css`
         a {
@@ -479,7 +489,10 @@ type ComponentStatusHyperlinkCellRecord = TableStringField<'url'>;
     `
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TableColumnTextCellView extends TableCellView<ComponentStatusHyperlinkCellRecord, ComponentStatusHyperlinkColumnConfig> {}
+class TableColumnTextCellView extends TableCellView<
+    ComponentStatusHyperlinkCellRecord,
+    ComponentStatusHyperlinkColumnConfig
+    > {}
 
 /**
  * Hyperlink column for component table base
@@ -489,7 +502,9 @@ class TableColumnTextCellView extends TableCellView<ComponentStatusHyperlinkCell
     template: tableColumnTemplate
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-class ComponentStatusHyperlink extends mixinFractionalWidthColumnAPI(TableColumn<ComponentStatusHyperlinkColumnConfig>) {
+class ComponentStatusHyperlink extends mixinFractionalWidthColumnAPI(
+    TableColumn<ComponentStatusHyperlinkColumnConfig>
+    ) {
     public cellRecordFieldNames = ['url'] as const;
 
     @attr({ attribute: 'field-url' })
