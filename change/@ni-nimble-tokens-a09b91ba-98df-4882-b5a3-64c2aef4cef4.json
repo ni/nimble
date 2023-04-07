@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Generate a fonts.scss file in addition to the fonts.css file",
-  "packageName": "@ni/nimble-tokens",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
