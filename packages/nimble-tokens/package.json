@@ -3,7 +3,7 @@
   "version": "4.7.2",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && build:generate-font-scss",
+    "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss",
     "build:svg-to-ts": "svg-to-ts-constants --config build/svg-to-ts-config.js",
     "build:svg-to-ico": "node build/svg-to-ico.js",
     "build:generate-font-scss": "node build/generate-font-scss.js",
