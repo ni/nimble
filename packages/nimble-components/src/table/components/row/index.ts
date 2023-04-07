@@ -67,6 +67,9 @@ export class TableRow<
     @observable
     public readonly selectionCheckbox?: Checkbox;
 
+    /** @internal */
+    public readonly cellContainer!: HTMLSpanElement;
+
     private ignoreSelectionChangeEvents = false;
 
     public override connectedCallback(): void {
@@ -148,7 +151,7 @@ export class TableRow<
 
     public closeOpenActionMenus(): void {
         if (this.menuOpen) {
-            const cellWithMenuOpen = Array.from(this.shadowRoot!.children).find(
+            const cellWithMenuOpen = Array.from(this.cellContainer.children).find(
                 c => c instanceof TableCell && c.menuOpen
             ) as TableCell;
             if (cellWithMenuOpen?.actionMenuButton?.open) {

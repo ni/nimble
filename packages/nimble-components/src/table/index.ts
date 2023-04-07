@@ -338,17 +338,20 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
+        let recordIds = event.detail.recordIds;
         if (this.selectionMode !== TableRowSelectionMode.none) {
             const row = this.table.getRowModel().rows[rowIndex];
             if (row && !row.getIsSelected()) {
                 await this.selectSingleRow(rowIndex);
+            } else {
+                recordIds = await this.getSelectedRecordIds();
             }
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
         const detail: TableActionMenuToggleEventDetail = {
             ...event.detail,
-            recordIds: await this.getSelectedRecordIds()
+            recordIds
         };
         this.$emit('action-menu-beforetoggle', detail);
     }
@@ -359,9 +362,12 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
+        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
+            ? await this.getSelectedRecordIds()
+            : event.detail.recordIds;
         const detail: TableActionMenuToggleEventDetail = {
             ...event.detail,
-            recordIds: await this.getSelectedRecordIds()
+            recordIds
         };
         this.$emit('action-menu-toggle', detail);
         if (!event.detail.newState) {

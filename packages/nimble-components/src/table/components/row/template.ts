@@ -17,7 +17,7 @@ export const template = html<TableRow>`
             </${checkboxTag}>
         `)}
 
-        <span class="cell-container">
+        <span ${ref('cellContainer')} class="cell-container">
             ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
                 ${when(x => !x.column.columnHidden, html<ColumnState, TableRow>`
                     <${tableCellTag}
