@@ -13,7 +13,7 @@ const path = require('path');
 const fontsFilePath = path.resolve(__dirname, '../../../dist/fonts.scss');
 const fontsFile = `// Nimble Components Fonts SCSS
 
-@import '@ni/nimble-tokens/dist/fonts/css/fonts.css';
+@import '@ni/nimble-tokens/dist/fonts/scss/fonts';
 `;
 
 const tokensFilePath = path.resolve(__dirname, '../../../dist/tokens.scss');
