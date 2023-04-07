@@ -9,9 +9,16 @@ export class TableLayoutHelper {
         return columns
             ?.filter(column => !column.columnHidden)
             .map(column => {
-                const { minPixelWidth, currentPixelWidth, currentFractionalWidth } = column.columnInternals;
+                const {
+                    minPixelWidth,
+                    currentPixelWidth,
+                    currentFractionalWidth
+                } = column.columnInternals;
                 if (currentPixelWidth) {
-                    const coercedPixelWidth = Math.max(minPixelWidth, currentPixelWidth);
+                    const coercedPixelWidth = Math.max(
+                        minPixelWidth,
+                        currentPixelWidth
+                    );
                     return `${coercedPixelWidth}px`;
                 }
 

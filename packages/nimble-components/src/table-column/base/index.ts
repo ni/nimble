@@ -1,7 +1,4 @@
-import {
-    attr,
-    nullableNumberConverter,
-} from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../table/types';
 import {

@@ -143,10 +143,7 @@ export class UpdateTracker<TData extends TableRecord> {
         ) {
             this.requiredUpdates.columnSort = true;
         } else if (
-            isColumnProperty(
-                changedColumnProperty,
-                'columnHidden'
-            )
+            isColumnProperty(changedColumnProperty, 'columnHidden')
             || isColumnInternalsProperty(
                 changedColumnProperty,
                 'currentFractionalWidth',
