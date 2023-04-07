@@ -80,3 +80,24 @@ export type TableRowSelectionState =
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
 }
+
+/**
+ * The interactive sort mode for columns of the table.
+ */
+export const TableInteractiveSortMode = {
+    none: undefined,
+    single: 'single',
+    multiple: 'multiple'
+} as const;
+export type TableInteractiveSortMode =
+    (typeof TableInteractiveSortMode)[keyof typeof TableInteractiveSortMode];
+
+interface TableColumnSortState {
+    columnId: string;
+    sortIndex: number;
+    sortDirection: TableColumnSortDirection;
+}
+
+export interface TableColumnSortEventDetail {
+    sortedColumns: TableColumnSortState[];
+}

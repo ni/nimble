@@ -35,6 +35,7 @@ export const template = html<Table>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
                             <${tableHeaderTag}
                                 class="header"
+                                @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                 sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
                                 ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
                             >

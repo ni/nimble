@@ -7,7 +7,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableRowSelectionMode } from '../types';
+import { TableInteractiveSortMode, TableRowSelectionMode } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -16,6 +16,7 @@ import { tableColumnTextTag } from '../../table-column/text';
 interface TableArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
+    sortMode: keyof typeof TableInteractiveSortMode;
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
@@ -131,6 +132,7 @@ const metadata: Meta<TableArgs> = {
             handles: [
                 'action-menu-beforetoggle',
                 'action-menu-toggle',
+                'column-sort-change',
                 'selection-change'
             ]
         }
@@ -141,6 +143,7 @@ const metadata: Meta<TableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
+            sort-mode="${x => TableInteractiveSortMode[x.sortMode]}"
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
@@ -208,6 +211,15 @@ const metadata: Meta<TableArgs> = {
                 'Controls whether the table supports selecting a single row at a time or no rows. When selection is enabled, `id-field-name` must be specified.',
             control: { type: 'radio' }
         },
+        sortMode: {
+            table: {
+                defaultValue: { summary: 'none' }
+            },
+            options: Object.keys(TableInteractiveSortMode),
+            description:
+                'Controls whether columns can be sorted interactively. `single` allows sorting a single column at a time via a mouse click on the header. `multiple` also allows sorting by multiple columns (Shift-click updates a column sort while keeping any other columns already sorted).',
+            control: { type: 'radio' }
+        },
         getSelectedRecordIds: {
             name: 'getSelectedRecordIds()',
             description:
@@ -251,6 +263,7 @@ const metadata: Meta<TableArgs> = {
     args: {
         data: ExampleDataType.simpleData,
         selectionMode: TableRowSelectionMode.single,
+        sortMode: TableInteractiveSortMode.multiple,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,

@@ -41,6 +41,9 @@ export abstract class TableColumn<
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
+    @attr({ attribute: 'sorting-disabled' })
+    public sortingDisabled = false;
+
     /**
      * @internal
      * Used by the Table in order to give a column a specific pixel width.

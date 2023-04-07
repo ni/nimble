@@ -31,7 +31,9 @@ import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
+    TableColumnSortEventDetail,
     TableFieldValue,
+    TableInteractiveSortMode,
     TableRecord,
     TableRowSelectionEventDetail,
     TableRowSelectionMode,
@@ -73,6 +75,9 @@ export class Table<
 
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
+
+    @attr({ attribute: 'sort-mode' })
+    public sortMode: TableInteractiveSortMode = TableInteractiveSortMode.none;
 
     /**
      * @internal
@@ -328,6 +333,69 @@ export class Table<
     /**
      * @internal
      */
+    public toggleColumnSort(
+        column: TableColumn,
+        shiftKeyPressed: boolean
+    ): void {
+        if (this.sortMode === TableInteractiveSortMode.none) {
+            return;
+        }
+
+        const allowMultiSort = this.sortMode === TableInteractiveSortMode.multiple
+            && shiftKeyPressed;
+        const allSortedColumns = this.getColumnsParticipatingInSorting();
+        const otherSortedColumns = allSortedColumns.filter(c => c !== column);
+        const columnAlreadySorted = allSortedColumns.length > otherSortedColumns.length;
+
+        let sortIndex = 0;
+        if (columnAlreadySorted) {
+            sortIndex = column.sortIndex!;
+        } else if (
+            allowMultiSort
+            && !columnAlreadySorted
+            && otherSortedColumns.length > 0
+        ) {
+            sortIndex = Math.max(...otherSortedColumns.map(c => c.sortIndex!)) + 1;
+        }
+        switch (column.sortDirection) {
+            case TableColumnSortDirection.ascending:
+                column.sortDirection = TableColumnSortDirection.descending;
+                break;
+            case TableColumnSortDirection.descending:
+                column.sortDirection = TableColumnSortDirection.none;
+                break;
+            case TableColumnSortDirection.none:
+            default:
+                column.sortDirection = TableColumnSortDirection.ascending;
+                break;
+        }
+        column.sortIndex = column.sortDirection === TableColumnSortDirection.none
+            ? undefined
+            : sortIndex;
+        if (!allowMultiSort) {
+            for (const columnToUnsort of otherSortedColumns) {
+                columnToUnsort.sortIndex = undefined;
+                columnToUnsort.sortDirection = TableColumnSortDirection.none;
+            }
+        }
+
+        const newSortedColumns = this.getColumnsParticipatingInSorting()
+            .sort((x, y) => x.sortIndex! - y.sortIndex!)
+            .map(c => {
+                return {
+                    columnId: c.columnId!,
+                    sortIndex: c.sortIndex!,
+                    sortDirection: c.sortDirection
+                };
+            });
+        this.$emit('column-sort-change', {
+            sortedColumns: newSortedColumns
+        } as TableColumnSortEventDetail);
+    }
+
+    /**
+     * @internal
+     */
     public update(): void {
         this.validate();
         if (this.updateTracker.requiresTanStackUpdate) {
@@ -422,7 +490,8 @@ export class Table<
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
-            x => x.sortDirection !== TableColumnSortDirection.none
+            x => !x.sortingDisabled
+                && x.sortDirection !== TableColumnSortDirection.none
                 && typeof x.sortIndex === 'number'
         );
     }
