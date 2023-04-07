@@ -25,12 +25,6 @@ export interface ColumnInternalOptions {
     readonly cellRecordFieldNames: readonly TableFieldName[];
 
     /**
-     * The operation to use when sorting the table by this column.
-     * Default is @see TableColumnSortOperation.basic
-     */
-    sortOperation?: TableColumnSortOperation;
-
-    /**
      * The tag to use to render the group header content for a column.
      * The element this tag refers to must derive from TableGroupHeaderView.
      */
@@ -70,10 +64,10 @@ export class ColumnInternals<TColumnConfig> {
     public operandDataRecordFieldName?: TableFieldName;
 
     /**
-     * @see ColumnInternalOptions.sortOperation
+     * The operation to use when sorting the table by this column.
      */
     @observable
-    public sortOperation: TableColumnSortOperation;
+    public sortOperation = TableColumnSortOperation.basic;
 
     /**
      * @internal
@@ -142,7 +136,6 @@ export class ColumnInternals<TColumnConfig> {
     public constructor(options: ColumnInternalOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
-        this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
         this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
             options.groupHeaderViewTag
         );
