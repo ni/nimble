@@ -5,6 +5,8 @@ import { AnchorTreeItem } from '..';
 import type { IconCheck } from '../../icons/check';
 import type { IconXmark } from '../../icons/xmark';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import type { TreeItem } from '../../tree-item';
+import type { TreeView } from '../../tree-view';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
@@ -122,6 +124,76 @@ describe('Anchor Tree Item', () => {
                 getComputedStyle(element.end).display === 'none'
                     || getComputedStyle(element.endContainer).display === 'none'
             ).toBeFalse();
+        });
+    });
+
+    describe('in tree-view', () => {
+        class Model {
+            public treeView!: TreeView;
+            public root1!: TreeItem; // starts off expanded
+            public root2!: TreeItem;
+            public leaf1!: AnchorTreeItem; // starts off selected
+            public leaf2!: TreeItem;
+            public leaf3!: AnchorTreeItem;
+            public subRoot1!: TreeItem;
+            public subRoot2!: TreeItem;
+        }
+
+        async function setup(source: Model): Promise<Fixture<TreeView>> {
+            return fixture<TreeView>(
+                // prettier-ignore
+                html<Model>`
+                <nimble-tree-view ${ref('treeView')}>
+                    <nimble-tree-item ${ref('root1')}>Root1
+                        <nimble-tree-item ${ref('subRoot1')}>SubRoot
+                            <nimble-anchor-tree-item ${ref('leaf1')} href="#" selected>Leaf1</nimble-anchor-tree-item>
+                        </nimble-tree-item>
+                        <nimble-tree-item ${ref('leaf2')}>Leaf 2</nimble-tree-item>
+                    </nimble-tree-item>
+                    <nimble-tree-item ${ref('root2')}>Root2
+                        <nimble-tree-item ${ref('subRoot2')}>SubRoot 2
+                            <nimble-anchor-tree-item ${ref('leaf3')} href="#">Leaf 3</nimble-anchor-tree-item>
+                        </nimble-tree-item>
+                    </nimble-tree-item>
+                </nimble-tree-view>`,
+                { source }
+            );
+        }
+
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let model: Model;
+
+        beforeEach(async () => {
+            model = new Model();
+            ({ connect, disconnect } = await setup(model));
+            await connect();
+            await waitForUpdatesAsync();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('root1 should have "group-selected" attribute set after initialization', () => {
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
+            expect(model.root2.hasAttribute('group-selected')).toBe(false);
+        });
+
+        it('when leaf item is selected, only root parent tree item has "group-selected" attribute', async () => {
+            model.leaf3.selected = true;
+            await waitForUpdatesAsync();
+            expect(model.root2.hasAttribute('group-selected')).toBe(true);
+            expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
+            expect(model.root1.hasAttribute('group-selected')).toBe(false);
+            expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
+
+            model.leaf1.selected = true;
+            await waitForUpdatesAsync();
+            expect(model.root2.hasAttribute('group-selected')).toBe(false);
+            expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
+            expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
         });
     });
 });

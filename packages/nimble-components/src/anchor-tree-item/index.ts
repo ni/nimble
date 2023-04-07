@@ -7,6 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { keyArrowLeft, keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
+import type { TreeView } from '../tree-view';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -37,6 +38,14 @@ export class AnchorTreeItem extends AnchorBase {
      */
     @attr({ mode: 'boolean' })
     public disabled = false;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        const treeView = this.getParentTreeView();
+        if (treeView && this.selected) {
+            treeView.setGroupSelectionOnRootParentTreeItem(this);
+        }
+    }
 
     /**
      * Whether the tree is nested
@@ -113,6 +122,15 @@ export class AnchorTreeItem extends AnchorBase {
         if (this.$fastController.isConnected) {
             this.$emit('selected-change', this);
         }
+    }
+
+    /**
+     * This was copied directly from the FAST TreeItem implementation
+     * @returns the root tree view
+     */
+    private getParentTreeView(): TreeView | null {
+        const parentNode: Element | null = this.parentElement!.closest("[role='tree']");
+        return parentNode as TreeView;
     }
 }
 
