@@ -29,6 +29,7 @@ Column custom elements will be provided to the table as slotted elements. The sl
 ```
 
 The column elements provide two purposes:
+
 1. The elements themselves will be inserted as the header of the column in the table. In the example above the text column will have a header with the text "Name" shouwn in the table.
 2. The columns define configuration information to the table for that column.
 
@@ -198,7 +199,7 @@ abstract class TableCellView<
 
 ### Example columns
 
-Given the above classes, a series of column types to handle basic use cases can be written within Nimble. 
+Given the above classes, a series of column types to handle basic use cases can be written within Nimble.
 
 #### Simple text field
 
@@ -321,6 +322,7 @@ const numberWithUnitCellView = NumberWithUnitCellView.compose({
     styles: /* styling */
 });
 ```
+
 #### Exposing cell view events externally
 
 <!--
