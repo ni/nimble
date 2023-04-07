@@ -47,7 +47,7 @@ These attributes are part of the public API for the column, and will be set by c
 | sort-direction   | `TableColumnSortDirection`, defined as `{none: undefined, ascending: 'ascending', descending: 'descending'}` | `TableColumnSortDirection.none` | The direction the column is sorted                                                                                          |
 | sort-index       | `number` or `null` \*                                                                                        | `null`                          | The index for sorting the column. When multiple columns are sorted, they will be sorted from lowest index to highest index. |
 | column-hidden    | `boolean`                                                                                                    | `false`                         | When set to true, do not render the column as part of the table                                                             |
-| sorting-disabled | `boolean`                                                                                                    | `false`                         | When set to true, interactive sorting is disabled for this column                                                           |
+| sorting-disabled | `boolean`                                                                                                    | `false`                         | When set to true, sorting is disabled for this column (both interactive and programmatic sorting)                           |
 
 \* Note: The `sort-index` attribute is `number | null` because of the plan to use the `nullableNumberConverter` provided by FAST. That converter uses the value of `null` to represent non-number types rather than `undefined`, which is common within the nimble repo.
 
@@ -118,7 +118,7 @@ If interactive sorting is enabled, sorting menu items also appear in the column 
 ![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)  
 Updating sorting via the menu will always unsort any other columns that were already sorted, even when the current column is being unsorted too.
 
-For columns with `sorting-disabled` set to true, clicking/Shift-clicking the column header will not affect the sort state, and the sort menu options will not appear in the column header menu. (However, programmatic sorting via setting `sortIndex`/`sortDirection ` is still possible.)
+For columns with `sorting-disabled` set to true, clicking/Shift-clicking the column header will not affect the sort state, the sort menu options will not appear in the column header menu, and programmatic sorting is disabled (setting `sortIndex`/`sortDirection` will have no effect if `sorting-disabled` is also `true`).
 
 ## Testing Considerations
 
@@ -154,8 +154,4 @@ The base table column could provide a way for a client to override the sort fiel
 ## Open Issues
 
 -   Should the interactive sort mode default to None or Multiple?
--   Property naming: `sortMode` vs `interactiveSortMode`, `sortingDisabled` vs `interactiveSortingDisabled`
--   Do we need to support a cancelable event for sorting?
-    -   Current proposal is to not have a cancelable event, and the event only fires for interactive sort changes, not programmatic changes to sortIndex/sortDirection
--   If the column headers are clickable (for sorting) but not focusable, Firefox shows an accessibility warning ("Clickable elements must be focusable and should have interactive semantics."). Should we make the header elements focusable, when interactive sorting is allowed? If so, do we need to set a different `role` on the header (or on an element inside the header)
-    -   Listed here for visibility with the interactive sorting discussion, however this is captured in [#1151](https://github.com/ni/nimble/issues/1151), so it won't block the interactive sorting work.
+-   Property naming: `sortMode` vs `interactiveSortMode`
