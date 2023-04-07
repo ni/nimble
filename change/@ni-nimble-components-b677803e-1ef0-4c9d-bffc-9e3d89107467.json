@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update fonts.scss to reference the new nimble-tokens fonts.scss file",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
