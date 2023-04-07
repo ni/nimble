@@ -2,10 +2,7 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
-type GroupableTableColumn = Pick<
-TableColumn,
-'columnInternals'
->;
+type GroupableTableColumn = Pick<TableColumn, 'columnInternals'>;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type GroupableTableColumnConstructor = abstract new (...args: any[]) => GroupableTableColumn;

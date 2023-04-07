@@ -147,8 +147,12 @@ export class UpdateTracker<TData extends TableRecord> {
                 changedColumnProperty,
                 'currentFractionalWidth',
                 'currentPixelWidth',
-                'internalMinPixelWidth',
                 'columnHidden'
+            )
+            || isColumnInternalsProperty(
+                changedColumnProperty,
+                // TODO what about fractionalwidth and minpixelwidth?
+                'minPixelWidth'
             )
         ) {
             this.requiredUpdates.columnWidths = true;

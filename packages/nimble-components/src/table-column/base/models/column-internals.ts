@@ -2,7 +2,7 @@ import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
 import type { TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
-import { TableColumnSortOperation } from '../types';
+import { TableColumnSortOperation, defaultFractionalWidth, defaultMinPixelWidth } from '../types';
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 import { createCellViewTemplate } from '../cell-view/template';
@@ -98,6 +98,26 @@ export class ColumnInternals<TColumnConfig> {
      */
     @observable
     public groupIndex?: number;
+
+    /**
+     * @internal
+     * Used by column plugins to set a specific pixel width. Sets currentPixelWidth when changed.
+     */
+    @observable
+    public pixelWidth?: number;
+
+    /**
+     * Used by column plugins to size a column proportionally to the available
+     * width of a row. Sets currentFractionalWidth when changed.
+     */
+    @observable
+    public fractionalWidth = defaultFractionalWidth;
+
+    /**
+     * The minimum size in pixels according to the design doc
+     */
+    @observable
+    public minPixelWidth = defaultMinPixelWidth;
 
     public constructor(options: ColumnInternalOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;

@@ -1,4 +1,5 @@
 import {
+    Observable,
     attr,
     nullableNumberConverter,
     observable
@@ -9,7 +10,7 @@ import {
     ColumnInternalOptions,
     ColumnInternals
 } from './models/column-internals';
-import { defaultFractionalWidth, defaultMinPixelWidth } from './types';
+import { defaultFractionalWidth } from './types';
 
 /**
  * The base class for table columns
@@ -53,28 +54,6 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * Used by column plugins to set a specific pixel width. Sets currentPixelWidth when changed.
-     */
-    @observable
-    public internalPixelWidth?: number;
-
-    /**
-     * @internal
-     * Used by column plugins to size a column proportionally to the available
-     * width of a row. Sets currentFractionalWidth when changed.
-     */
-    @observable
-    public internalFractionalWidth = defaultFractionalWidth;
-
-    /**
-     * @internal
-     * The minimum size in pixels according to the design doc
-     */
-    @observable
-    public internalMinPixelWidth = defaultMinPixelWidth;
-
-    /**
-     * @internal
      *
      * Column properties configurable by plugin authors
      */
@@ -88,6 +67,17 @@ export abstract class TableColumn<
             );
         }
         this.columnInternals = new ColumnInternals(options);
+        const notifier = Observable.getNotifier(this.columnInternals);
+        notifier.subscribe({
+            handleChange: () => {
+                this.currentFractionalWidth = this.columnInternals.fractionalWidth;
+            }
+        }, 'fractionalWidth');
+        notifier.subscribe({
+            handleChange: () => {
+                this.currentPixelWidth = this.columnInternals.pixelWidth;
+            }
+        }, 'pixelWidth');
     }
 
     /**
@@ -97,13 +87,5 @@ export abstract class TableColumn<
         super.connectedCallback();
 
         this.setAttribute('slot', this.columnInternals.uniqueId);
-    }
-
-    protected internalFractionalWidthChanged(): void {
-        this.currentFractionalWidth = this.internalFractionalWidth;
-    }
-
-    protected internalPixelWidthChanged(): void {
-        this.currentPixelWidth = this.internalPixelWidth;
     }
 }

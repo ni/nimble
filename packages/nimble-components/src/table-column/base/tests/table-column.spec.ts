@@ -48,20 +48,20 @@ describe('TableColumn', () => {
         await disconnect();
     });
 
-    it('setting internalFractionalWidth sets currentFractionalWidth', async () => {
+    it('setting columnInternals.fractionalWidth sets currentFractionalWidth', async () => {
         await connect();
         element.currentFractionalWidth = 1;
 
-        element.internalFractionalWidth = 2;
+        element.columnInternals.fractionalWidth = 2;
 
         expect(element.currentFractionalWidth).toBe(2);
     });
 
-    it('setting internalPixelWidth sets currentPixelWidth', async () => {
+    it('setting columnInternals.pixelWidth sets currentPixelWidth', async () => {
         await connect();
         element.currentPixelWidth = 100;
 
-        element.internalPixelWidth = 200;
+        element.columnInternals.pixelWidth = 200;
 
         expect(element.currentPixelWidth).toBe(200);
     });
