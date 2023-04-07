@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 21:12:10 GMT",
+      "tag": "@ni/nimble-components_v18.10.5",
+      "version": "18.10.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "16d3c53c367518f8c670696c997fbc8d5e89bea0",
+            "comment": "Support selecting a single row in the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Apr 2023 19:46:21 GMT",
       "tag": "@ni/nimble-components_v18.10.4",
       "version": "18.10.4",

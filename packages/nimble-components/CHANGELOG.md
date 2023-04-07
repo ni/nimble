@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 06 Apr 2023 19:46:21 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Apr 2023 21:12:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.10.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Support selecting a single row in the table ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
 
 ## 18.10.4
 

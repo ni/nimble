@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 21:12:10 GMT",
+      "tag": "@ni/nimble-angular_v16.5.5",
+      "version": "16.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "16d3c53c367518f8c670696c997fbc8d5e89bea0",
+            "comment": "Update table validation test and make setData() async"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.10.5",
+            "commit": "16d3c53c367518f8c670696c997fbc8d5e89bea0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Apr 2023 19:46:21 GMT",
       "tag": "@ni/nimble-angular_v16.5.4",
       "version": "16.5.4",
