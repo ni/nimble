@@ -96,6 +96,12 @@ describe('Table action menu', () => {
         return { menu, items: [menuItem1, menuItem2, menuItem3] };
     }
 
+    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy): string[] {
+        const event = spy.calls.first()
+            .args[0] as CustomEvent<TableActionMenuToggleEventDetail>;
+        return event.detail.recordIds;
+    }
+
     beforeEach(async () => {
         await element.setData(simpleTableData);
         element.idFieldName = 'stringData';
@@ -478,6 +484,7 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
         });
 
         it('clicking action menu button with a different row selected selects the new row and deselects the previous row', async () => {
@@ -496,6 +503,7 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
         });
 
         it('clicking action menu button for an already selected row keeps it selected', async () => {
@@ -516,6 +524,110 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+        });
+    });
+
+    describe('with multi row selection', () => {
+        beforeEach(async () => {
+            const slot = 'my-action-menu';
+            column1.actionMenuSlot = slot;
+            createAndSlotMenu(slot);
+
+            element.selectionMode = TableRowSelectionMode.multiple;
+            await connect();
+            await waitForUpdatesAsync();
+        });
+
+        it('action menu button is visible on all selected rows', async () => {
+            await element.setSelectedRecordIds([
+                simpleTableData[0].stringData,
+                simpleTableData[2].stringData
+            ]);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isCellActionMenuVisible(0, 0)).toBeTrue();
+            expect(pageObject.isCellActionMenuVisible(1, 0)).toBeFalse();
+            expect(pageObject.isCellActionMenuVisible(2, 0)).toBeTrue();
+        });
+
+        it('clicking action menu button selects the row when nothing was previously selected', async () => {
+            const rowIndex = 0;
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener.promise;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+        });
+
+        it('clicking action menu button with a different row selected selects the new row and deselects the previous row', async () => {
+            await element.setSelectedRecordIds([simpleTableData[1].stringData]);
+
+            const rowIndex = 0;
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener.promise;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+        });
+
+        it('clicking action menu button for an already selected row keeps it selected', async () => {
+            const rowIndex = 0;
+            await element.setSelectedRecordIds([
+                simpleTableData[rowIndex].stringData
+            ]);
+
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener.promise;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+        });
+
+        it('clicking action menu button for an already selected row keeps entire selection selected', async () => {
+            await element.setSelectedRecordIds([
+                simpleTableData[0].stringData,
+                simpleTableData[2].stringData
+            ]);
+
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            pageObject.setRowHoverState(2, true);
+            await pageObject.clickCellActionMenu(2, 0);
+            await toggleListener.promise;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
+                simpleTableData[0].stringData,
+                simpleTableData[2].stringData
+            ]);
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
         });
     });
 });

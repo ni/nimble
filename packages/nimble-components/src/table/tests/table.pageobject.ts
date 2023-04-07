@@ -1,3 +1,4 @@
+import type { Checkbox } from '@microsoft/fast-foundation';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
 import type { TableRecord } from '../types';
@@ -264,6 +265,11 @@ export class TablePageObject<T extends TableRecord> {
         return row.selectable;
     }
 
+    public getIsRowSelectionCheckboxHidden(rowIndex: number): boolean {
+        const row = this.getRow(rowIndex);
+        return row.hideSelection;
+    }
+
     public getIsRowSelected(rowIndex: number): boolean {
         const row = this.getRow(rowIndex);
         return row.selected;
@@ -280,6 +286,10 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         groupRows[groupRowIndex]!.click();
+    }
+
+    public getTableSelectionCheckbox(): Checkbox | null {
+        return this.tableElement.shadowRoot!.querySelector<Checkbox>('.header-row .selection-checkbox');
     }
 
     private getRow(rowIndex: number): TableRow {

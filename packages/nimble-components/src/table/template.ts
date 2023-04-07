@@ -71,7 +71,7 @@ export const template = html<Table>`
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                     ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                     selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
-                                    @group-row-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
+                                    @group-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                     @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                 >
                                 </${tableGroupRowTag}>

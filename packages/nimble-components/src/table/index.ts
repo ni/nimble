@@ -321,7 +321,7 @@ export class Table<
     }
 
     /** @internal */
-    public onSelectionChange(event: CustomEvent): void {
+    public async onSelectionChange(event: CustomEvent): Promise<void> {
         event.stopPropagation();
 
         if (this.ignoreSelectionChangeEvents) {
@@ -329,6 +329,7 @@ export class Table<
         }
 
         this.table.toggleAllRowsSelected(this.selectionCheckbox!.checked);
+        await this.emitSelectionChangeEvent();
     }
 
     /** @internal */
@@ -854,10 +855,13 @@ export class Table<
 
         const tanstackSelectionState: TanStackRowSelectionState = {};
         const selectableRecordIds = this.tableValidator.getPresentRecordIds(recordIdsToSelect);
-        if (selectableRecordIds.length) {
-            // In single selection mode, only select the first record ID that is requested
-            const firstSelectableRecordId = selectableRecordIds[0]!;
-            tanstackSelectionState[firstSelectableRecordId] = true;
+        for (const recordId of selectableRecordIds) {
+            tanstackSelectionState[recordId] = true;
+
+            if (this.selectionMode === TableRowSelectionMode.single) {
+                // In single selection mode, only select the first record ID that is requested
+                break;
+            }
         }
 
         return tanstackSelectionState;

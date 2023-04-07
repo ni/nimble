@@ -82,7 +82,7 @@ export class TableGroupRow extends FoundationElement {
             oldState: !checkbox.checked,
             newState: checkbox.checked
         };
-        this.$emit('group-row-selection-toggle', detail);
+        this.$emit('group-selection-toggle', detail);
     }
 
     private selectionStateChanged(): void {

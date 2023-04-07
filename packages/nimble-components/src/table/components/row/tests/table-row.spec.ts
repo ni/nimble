@@ -4,8 +4,9 @@ import { TableColumnText } from '../../../../table-column/text';
 import type { TableColumnTextCellRecord } from '../../../../table-column/text';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
-import type { TableRecord } from '../../../types';
+import type { TableRecord, TableRowSelectionToggleEventDetail } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
+import { createEventListener } from '../../../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -116,5 +117,114 @@ describe('TableRow', () => {
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-selected')).toBe('true');
+    });
+
+    it('shows selection checkbox when row is selectable and selection is not hidden', async () => {
+        await connect();
+        element.selectable = true;
+        element.hideSelection = false;
+        await waitForUpdatesAsync();
+
+        expect(element.selectionCheckbox).toBeDefined();
+    });
+
+    it('hides selection checkbox when row is selectable and selection is hidden', async () => {
+        await connect();
+        element.selectable = true;
+        element.hideSelection = true;
+        await waitForUpdatesAsync();
+
+        expect(element.selectionCheckbox).not.toBeDefined();
+    });
+
+    it('hides selection checkbox when row is not selectable', async () => {
+        await connect();
+        element.selectable = false;
+        element.hideSelection = false;
+        await waitForUpdatesAsync();
+
+        expect(element.selectionCheckbox).not.toBeDefined();
+    });
+
+    it('selection checkbox is checked when row is selected', async () => {
+        await connect();
+        element.selectable = true;
+        element.hideSelection = false;
+        element.selected = true;
+        await waitForUpdatesAsync();
+
+        expect(element.selectionCheckbox!.checked).toBeTrue();
+    });
+
+    it('selection checkbox is not checked when row is not selected', async () => {
+        await connect();
+        element.selectable = true;
+        element.hideSelection = false;
+        element.selected = false;
+        await waitForUpdatesAsync();
+
+        expect(element.selectionCheckbox!.checked).toBeFalse();
+    });
+
+    it('selection state can be set before connect()', async () => {
+        element.selectable = true;
+        element.hideSelection = false;
+        element.selected = true;
+        await connect();
+
+        expect(element.selectionCheckbox!.checked).toBeTrue();
+    });
+
+    it('checking selection checkbox fires "row-selection-toggle" event', async () => {
+        element.selectable = true;
+        element.hideSelection = false;
+        element.selected = false;
+        await connect();
+
+        const listener = createEventListener(element, 'row-selection-toggle');
+        element.selectionCheckbox!.click();
+        await listener.promise;
+
+        expect(listener.spy).toHaveBeenCalledTimes(1);
+        const expectedDetails: TableRowSelectionToggleEventDetail = {
+            newState: true,
+            oldState: false
+        };
+        const event = listener.spy.calls.first()
+            .args[0] as CustomEvent;
+        expect(event.detail).toEqual(expectedDetails);
+    });
+
+    it('unchecking selection checkbox fires "row-selection-toggle" event', async () => {
+        element.selectable = true;
+        element.hideSelection = false;
+        element.selected = true;
+        await connect();
+
+        const listener = createEventListener(element, 'row-selection-toggle');
+        element.selectionCheckbox!.click();
+        await listener.promise;
+
+        expect(listener.spy).toHaveBeenCalledTimes(1);
+        const expectedDetails: TableRowSelectionToggleEventDetail = {
+            newState: false,
+            oldState: true
+        };
+        const event = listener.spy.calls.first()
+            .args[0] as CustomEvent;
+        expect(event.detail).toEqual(expectedDetails);
+    });
+
+    it('programmatically changing selection state does not fire "row-selection-toggle" event', async () => {
+        element.selectable = true;
+        element.hideSelection = false;
+        element.selected = true;
+        await connect();
+
+        const listener = createEventListener(element, 'row-selection-toggle');
+        element.selected = false;
+        await waitForUpdatesAsync();
+
+        expect(listener.spy).not.toHaveBeenCalled();
     });
 });
