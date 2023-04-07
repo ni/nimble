@@ -10,10 +10,13 @@ export const styles = css`
     ${display('grid')}
 
     :host {
-        height: ${controlHeight};
+        height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
         grid-auto-flow: column;
         grid-auto-columns: 1fr;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+        width: fit-content;
+        min-width: 100%;
     }
 
     nimble-table-cell {
@@ -25,6 +28,10 @@ export const styles = css`
     }
 
     :host(:hover) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host([selected]) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 `;

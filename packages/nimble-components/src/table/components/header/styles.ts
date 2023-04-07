@@ -20,4 +20,8 @@ export const styles = css`
         ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
         text-transform: uppercase;
     }
+
+    .sort-indicator {
+        padding: 0px calc(${standardPadding} / 2);
+    }
 `;

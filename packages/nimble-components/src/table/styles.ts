@@ -5,7 +5,9 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    fillHoverColor
+    fillHoverColor,
+    fillHoverSelectedColor,
+    fillSelectedColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -19,6 +21,7 @@ export const styles = css`
     }
 
     .table-container {
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -27,7 +30,7 @@ export const styles = css`
     }
 
     .table-viewport {
-        overflow-y: auto;
+        overflow: auto;
         display: block;
         height: 100%;
         position: relative;
@@ -38,11 +41,13 @@ export const styles = css`
         position: absolute;
         top: 0px;
         width: 100%;
+        height: var(--ni-private-table-scroll-height);
     }
 
     .table-row-container {
         width: 100%;
         position: relative;
+        top: var(--ni-private-table-row-container-top);
     }
 
     .header-container {
@@ -51,10 +56,17 @@ export const styles = css`
     }
 
     .header-row {
-        display: flex;
-        flex-direction: row;
+        display: grid;
         background: ${applicationBackgroundColor};
         position: relative;
+        width: fit-content;
+        min-width: 100%;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+        left: var(--ni-private-table-scroll-x);
+    }
+
+    .header-scrollbar-spacer {
+        width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
 
     .header {
@@ -75,8 +87,16 @@ export const styles = css`
         pointer-events: none;
     }
 
-    .row:hover::before {
+    :host([selection-mode='single']) .row:hover::before {
         background: ${fillHoverColor};
+    }
+
+    :host([selection-mode='single']) .row[selected]::before {
+        background: ${fillSelectedColor};
+    }
+
+    :host([selection-mode='single']) .row[selected]:hover::before {
+        background: ${fillHoverSelectedColor};
     }
 `.withBehaviors(
     themeBehavior(
@@ -95,8 +115,16 @@ export const styles = css`
                 background: ${fillHoverColor};
             }
 
-            .row:hover::before {
+            :host([selection-mode='single']) .row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.15)};
+            }
+
+            :host([selection-mode='single']) .row[selected]::before {
+                background: ${hexToRgbaCssColor(White, 0.25)};
+            }
+
+            :host([selection-mode='single']) .row[selected]:hover::before {
+                background: ${hexToRgbaCssColor(White, 0.2)};
             }
         `
     )

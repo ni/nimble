@@ -22,5 +22,6 @@ export const styles = css`
         grid-row: 2;
         grid-column-start: 1;
         grid-column-end: 4;
+        overflow: auto;
     }
 `;

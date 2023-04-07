@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 21 Feb 2023 20:30:27 GMT and should not be manually modified.
+This log was last generated on Thu, 06 Apr 2023 21:12:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update setData() to be async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+
+## 11.8.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Blazor support for anchor tree item ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+
+## 11.7.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+
+## 11.6.0
+
+Mon, 03 Apr 2023 17:06:25 GMT
+
+### Minor changes
+
+- Fix bug where NimbleTab would respond to `change` event from children components, causing tabs to change. Also made NimbleTabs.UpdateActiveId private. ([ni/nimble@67c3790](https://github.com/ni/nimble/commit/67c3790a9412dcb482959971edef0040028556e9))
+
+## 11.5.0
+
+Tue, 28 Mar 2023 22:52:47 GMT
+
+### Minor changes
+
+- Blazor support for anchor menu item component ([ni/nimble@fcc2f9c](https://github.com/ni/nimble/commit/fcc2f9c0a871020f8da04213e561c0953a71d62c))
+
+## 11.4.0
+
+Thu, 16 Mar 2023 22:00:14 GMT
+
+### Minor changes
+
+- Add missing properties to NimbleAnchorTab ([ni/nimble@e1746f2](https://github.com/ni/nimble/commit/e1746f201eb7919b8e44ab53caa7eba95f036ffd))
+
+## 11.3.3
+
+Fri, 10 Mar 2023 22:17:50 GMT
+
+### Patches
+
+- Programmatic table column width API ([ni/nimble@d38391e](https://github.com/ni/nimble/commit/d38391e69c9984de80bf7f4a41cfbcc0181e0d16))
+
+## 11.2.7
+
+Thu, 02 Mar 2023 17:48:40 GMT
+
+### Patches
+
+- Add programmatic column sorting support to the table ([ni/nimble@1a1e630](https://github.com/ni/nimble/commit/1a1e630c2741fd00d73f6b6be700aada832143c4))
 
 ## 11.2.2
 

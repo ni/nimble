@@ -1,7 +1,6 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Dialog, ExtendedDialog, UserDismissed } from '..';
+import { Dialog, dialogTag, ExtendedDialog, UserDismissed } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
@@ -26,8 +25,8 @@ describe('Dialog', () => {
         ) as ExtendedDialog;
     }
 
-    it('should have its tag returned by tagFor(Dialog)', () => {
-        expect(DesignSystem.tagFor(Dialog)).toBe('nimble-dialog');
+    it('should export its tag', () => {
+        expect(dialogTag).toBe('nimble-dialog');
     });
 
     it('can construct an element instance', () => {
@@ -243,7 +242,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('focuses the first button on the dialog when it opens', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('focuses the first button on the dialog when it opens #SkipFirefox', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const okButton = document.getElementById('ok')!;
@@ -255,7 +255,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('focuses the button with autofocus when the dialog opens', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('focuses the button with autofocus when the dialog opens #SkipFirefox', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const cancelButton = document.getElementById('cancel')!;
@@ -269,7 +270,8 @@ describe('Dialog', () => {
         await disconnect();
     });
 
-    it('supports opening multiple dialogs on top of each other', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('supports opening multiple dialogs on top of each other #SkipFirefox', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const secondDialog = document.createElement('nimble-dialog');

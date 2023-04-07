@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -10,18 +9,14 @@ import {
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
-import type { Table } from '..';
+import { Table, tableTag } from '..';
+import { iconUserTag } from '../../icons/user';
+import { tableColumnTextTag } from '../../table-column/text';
 
 const metadata: Meta = {
     title: 'Tests/Table',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -29,18 +24,21 @@ export default metadata;
 
 const data = [
     {
+        id: '0',
         firstName: 'Ralph',
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
         quote: "I'm in danger!"
     },
     {
+        id: '1',
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
+        id: '2',
         firstName: null,
         lastName: null,
         favoriteColor: null,
@@ -50,24 +48,29 @@ const data = [
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <nimble-table>
-        <nimble-table-column-text field-name="firstName" placeholder="no value"><nimble-icon-user></nimble-icon-user></nimble-table-column-text>
-        <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
-        <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
-        <nimble-table-column-text field-name="quote" placeholder="no value" column-hidden>Hidden Quote</nimble-table-column-text>
-    </nimble-table>
+    <${tableTag} selection-mode="single" id-field-name="id">
+        <${tableColumnTextTag} field-name="firstName" placeholder="no value" sort-direction="ascending" sort-index="0" group-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="quote" placeholder="no value" column-hidden>Hidden Quote</${tableColumnTextTag}>
+    </${tableTag}>
 `;
 
-export const tableThemeMatrix: Story = createMatrixThemeStory(
+export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
-tableThemeMatrix.play = (): void => {
-    document.querySelectorAll<Table>('nimble-table').forEach(table => {
-        table.setData(data);
-    });
+tableThemeMatrix.play = async (): Promise<void> => {
+    await Promise.all(
+        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
+            async table => {
+                await table.setData(data);
+                await table.setSelectedRecordIds(['1']);
+            }
+        )
+    );
 };
 
-export const hiddenTable: Story = createStory(
-    hiddenWrapper(html`<nimble-table hidden></nimble-table>`)
+export const hiddenTable: StoryFn = createStory(
+    hiddenWrapper(html`<${tableTag} hidden></${tableTag}>`)
 );

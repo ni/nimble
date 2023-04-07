@@ -1,9 +1,9 @@
 import { html } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { NumberFieldAppearance } from '../types';
+import { numberFieldTag } from '..';
 
 interface NumberFieldArgs {
     label: string;
@@ -19,7 +19,8 @@ interface NumberFieldArgs {
 
 const metadata: Meta<NumberFieldArgs> = {
     title: 'Number Field',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
@@ -27,16 +28,12 @@ const metadata: Meta<NumberFieldArgs> = {
                     'Similar to a single line text box but only used for numeric data. The controls allow the user to increment and decrement the value.'
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/eaa9ee19-4411-4648-b19d-41f61f9a01cf/specs/'
-        },
         actions: {
             handles: ['change', 'input']
         }
     },
     render: createUserSelectedThemeStory(html`
-        <nimble-number-field
+        <${numberFieldTag}
             placeholder="${x => x.label}"
             value="${x => x.value}"
             step="${x => x.step}"
@@ -48,7 +45,7 @@ const metadata: Meta<NumberFieldArgs> = {
             error-text="${x => x.errorText}"
         >
             ${x => x.label}
-        </nimble-number-field>
+        </${numberFieldTag}>
     `),
     argTypes: {
         appearance: {

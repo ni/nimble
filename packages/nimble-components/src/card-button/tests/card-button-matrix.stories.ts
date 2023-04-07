@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -11,18 +10,13 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { bodyFont } from '../../theme-provider/design-tokens';
+import { cardButtonTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Card Button',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d4ebeb5d-023c-4ff2-a71c-f6385fffca20/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -58,7 +52,7 @@ const component = (
         font-weight: 600;
     }
 </style>
-<nimble-card-button
+<${cardButtonTag}
     ?disabled=${() => disabled}
     ?selected=${() => selected}
 >
@@ -68,15 +62,15 @@ const component = (
             ${() => disabledName} ${() => selectedName}
         </div>
     </div>
-</nimble-card-button>
+</${cardButtonTag}>
 `;
 
-export const buttonThemeMatrix: Story = createMatrixThemeStory(
+export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates, selectedStates])
 );
 
-export const hiddenButton: Story = createStory(
+export const hiddenButton: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-card-button hidden>Hidden Card Button</nimble-card-button>`
+        html`<${cardButtonTag} hidden>Hidden Card Button</${cardButtonTag}>`
     )
 );

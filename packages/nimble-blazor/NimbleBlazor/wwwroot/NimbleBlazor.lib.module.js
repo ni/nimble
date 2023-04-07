@@ -22,12 +22,16 @@ export function afterStarted(Blazor) {
     // Used by NimbleTabs.razor
     // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
     // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.
+    // 'localName' check is required to guard against children's change event trickling into the NimbleTabs.
     Blazor.registerCustomEventType('nimbletabsactiveidchange', {
         browserEventName: 'change',
         createEventArgs: event => {
-            return {
-                activeId: event.target.activeid
-            };
+            if (event.target.localName === 'nimble-tabs') {
+                return {
+                    activeId: event.target.activeid
+                };
+            }
+            return null;
         }
     });
     // Used by NimbleMenuButton.razor
@@ -108,7 +112,7 @@ window.NimbleBlazor = {
     Table: {
         setData: async function (tableReference, data) {
             const dataObject = JSON.parse(data);
-            tableReference.setData(dataObject);
+            await tableReference.setData(dataObject);
         },
         checkValidity: function (tableReference) {
             return tableReference.checkValidity();

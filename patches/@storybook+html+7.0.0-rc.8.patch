@@ -1,0 +1,13 @@
+diff --git a/node_modules/@storybook/html/dist/types-2ec88714.d.ts b/node_modules/@storybook/html/dist/types-2ec88714.d.ts
+index b0d70cf..a55d597 100644
+--- a/node_modules/@storybook/html/dist/types-2ec88714.d.ts
++++ b/node_modules/@storybook/html/dist/types-2ec88714.d.ts
+@@ -1,6 +1,6 @@
+ import { PartialStoryFn, ArgsStoryFn, RenderContext, WebRenderer, StoryContext as StoryContext$1 } from '@storybook/types';
+-import * as lib_docs_tools_dist from 'lib/docs-tools/dist';
+-import * as lib_types_dist from 'lib/types/dist';
++import * as lib_docs_tools_dist from '@storybook/docs-tools';
++import * as lib_types_dist from '@storybook/types';
+ 
+ declare function sourceDecorator(storyFn: PartialStoryFn<HtmlRenderer>, context: StoryContext): StoryFnHtmlReturnType;
+ 

@@ -6,8 +6,10 @@
 
 import './anchor';
 import './anchor-button';
+import './anchor-menu-item';
 import './anchor-tab';
 import './anchor-tabs';
+import './anchor-tree-item';
 import './anchored-region';
 import './banner';
 import './breadcrumb';

@@ -1,6 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../../utilities/template-value-helpers';
+import { TableColumnSortDirection } from '@ni/nimble-components/dist/esm/table/types';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
+
+export { TableColumnSortDirection };
 
 /**
  * Base class for table column directives.
@@ -45,6 +48,26 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('column-hidden') public set columnHidden(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'columnHidden', toBooleanProperty(value));
+    }
+
+    public get sortDirection(): TableColumnSortDirection {
+        return this.elementRef.nativeElement.sortDirection;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('sort-direction') public set sortDirection(value: TableColumnSortDirection) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sortDirection', value);
+    }
+
+    public get sortIndex(): number | null | undefined {
+        return this.elementRef.nativeElement.sortIndex;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('sort-index') public set sortIndex(value: NumberValueOrAttribute | null | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'sortIndex', toNullableNumberProperty(value));
     }
 
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<T>) {}

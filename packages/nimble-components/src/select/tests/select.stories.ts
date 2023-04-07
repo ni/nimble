@@ -1,9 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
+import { selectTag } from '..';
+import { listOptionTag } from '../../list-option';
 
 interface SelectArgs {
     disabled: boolean;
@@ -22,7 +23,8 @@ interface OptionArgs {
 
 const metadata: Meta<SelectArgs> = {
     title: 'Select',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
@@ -30,17 +32,13 @@ const metadata: Meta<SelectArgs> = {
                     "Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected `nimble-list-option`, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible. The user cannot manually enter values, and thus the list cannot be filtered."
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e/specs'
-        },
         actions: {
             handles: ['change']
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-select
+        <${selectTag}
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?disabled="${x => x.disabled}"
@@ -48,14 +46,14 @@ const metadata: Meta<SelectArgs> = {
             appearance="${x => x.appearance}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option
+                <${listOptionTag}
                     value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
                 >
                     ${x => x.label}
-                </nimble-list-option>
+                </${listOptionTag}>
             `)}
-        </nimble-select>
+        </${selectTag}>
     `),
     argTypes: {
         dropDownPosition: {

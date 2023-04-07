@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -11,18 +10,18 @@ import {
 } from '../../utilities/tests/matrix';
 import { DisabledState, disabledStates } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { buttonTag } from '../../button';
+import { tabTag } from '../../tab';
+import { tabPanelTag } from '../../tab-panel';
+import { tabsToolbarTag } from '../../tabs-toolbar';
+import { tabsTag } from '..';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Tabs',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -36,44 +35,55 @@ const component = (
     toolbar: TabsToolbarState,
     [disabledName, disabled]: DisabledState
 ): ViewTemplate => html`
-    <nimble-tabs style="padding: 15px;">
+    <${tabsTag} style="padding: 15px;">
         ${when(() => toolbar, html`
-            <nimble-tabs-toolbar>
-                <nimble-button appearance="ghost">Toolbar Button</nimble-button>
-            </nimble-tabs-toolbar>
+            <${tabsToolbarTag}>
+                <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+            </${tabsToolbarTag}>
         `)}
-        <nimble-tab>Tab One</nimble-tab>
-        <nimble-tab ?disabled="${() => disabled}">
+        <${tabTag}>Tab One</${tabTag}>
+        <${tabTag} ?disabled="${() => disabled}">
             Tab Two ${() => disabledName}
-        </nimble-tab>
-        <nimble-tab hidden>Tab Three</nimble-tab>
-        <nimble-tab-panel>Tab content one</nimble-tab-panel>
-        <nimble-tab-panel>Tab content two</nimble-tab-panel>
-        <nimble-tab-panel>Tab content three</nimble-tab-panel>
-    </nimble-tabs>
+        </${tabTag}>
+        <${tabTag} hidden>Tab Three</${tabTag}>
+        <${tabPanelTag}>Tab content one</${tabPanelTag}>
+        <${tabPanelTag}>Tab content two</${tabPanelTag}>
+        <${tabPanelTag}>Tab content three</${tabPanelTag}>
+    </${tabsTag}>
 `;
 
-export const tabsThemeMatrix: Story = createMatrixThemeStory(
+export const tabsThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [tabsToolbarState, disabledStates])
 );
 
-export const hiddenTabs: Story = createStory(
+export const hiddenTabs: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-tabs hidden>
-            <nimble-tab>Tab One</nimble-tab>
-            <nimble-tab-panel>Tab content one</nimble-tab-panel>
-        </nimble-tabs>`
+        html`<${tabsTag} hidden>
+            <${tabTag}>Tab One</${tabTag}>
+            <${tabPanelTag}>Tab content one</${tabPanelTag}>
+        </${tabsTag}>`
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <nimble-tabs>
+            <${tabsTag}>
                 Inner text
-                <nimble-tabs-toolbar>Tabs toolbar</nimble-tabs-toolbar>
-                <nimble-tab>Tab</nimble-tab>
-            </nimble-tabs>
+                <${tabsToolbarTag}>Tabs toolbar</${tabsToolbarTag}>
+                <${tabTag}>Tab</${tabTag}>
+            </${tabsTag}>
         `
     )
+);
+
+export const panelOverflow: StoryFn = createStory(
+    html`
+        <nimble-tabs style="height: 120px; width: 400px;">
+            <nimble-tab>Tab One</nimble-tab>
+            <nimble-tab-panel style="width: 450px;"
+                >${loremIpsum}</nimble-tab-panel
+            >
+        </nimble-tabs>
+    `
 );

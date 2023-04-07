@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
-import '../../all-components';
-import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
+import { listOptionTag } from '../../list-option';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     DropdownAppearance,
     DropdownPosition
 } from '../../patterns/dropdown/types';
+import { comboboxTag } from '..';
 
 interface ComboboxArgs {
     disabled: boolean;
@@ -29,7 +29,8 @@ interface OptionArgs {
 
 const metadata: Meta<ComboboxArgs> = {
     title: 'Combobox',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
@@ -38,17 +39,13 @@ const metadata: Meta<ComboboxArgs> = {
                      list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae/specs/'
-        },
         actions: {
             handles: ['change', 'input']
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-combobox
+        <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
@@ -59,9 +56,9 @@ const metadata: Meta<ComboboxArgs> = {
             placeholder="${x => x.placeholder}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
+                <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
             `)}
-        </nimble-combobox>
+        </${comboboxTag}>
     `),
     argTypes: {
         autocomplete: {

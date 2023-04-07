@@ -10,7 +10,11 @@ import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import type { TableActionMenuToggleEventDetail, TableRecord } from '../types';
+import {
+    TableActionMenuToggleEventDetail,
+    TableRecord,
+    TableRowSelectionMode
+} from '../types';
 import { TablePageObject } from './table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
@@ -92,8 +96,8 @@ describe('Table action menu', () => {
         return { menu, items: [menuItem1, menuItem2, menuItem3] };
     }
 
-    beforeEach(() => {
-        element.setData(simpleTableData);
+    beforeEach(async () => {
+        await element.setData(simpleTableData);
         element.idFieldName = 'stringData';
     });
 
@@ -234,6 +238,33 @@ describe('Table action menu', () => {
             .querySelectorAll<HTMLSlotElement>('slot');
         expect(rowSlots.length).toBe(1);
         expect(rowSlots.item(0).name).toBe(slot1);
+    });
+
+    it('table updates slots when `action-menu-slot` value changes', async () => {
+        const slot1 = 'my-action-menu';
+        column1.actionMenuSlot = slot1;
+        createAndSlotMenu(slot1);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const toggleListener = createEventListener(
+            element,
+            'action-menu-toggle'
+        );
+        // Open a menu button for the first row to cause all the menus to be slotted within that row
+        await pageObject.clickCellActionMenu(1, 0);
+        await toggleListener.promise;
+
+        const updatedSlot = 'my-new-slot';
+        column1.actionMenuSlot = updatedSlot;
+        await waitForUpdatesAsync();
+
+        const rowSlots = element
+            .shadowRoot!.querySelectorAll('nimble-table-row')
+            ?.item(1)
+            .querySelectorAll<HTMLSlotElement>('slot');
+        expect(rowSlots.length).toBe(1);
+        expect(rowSlots.item(0).name).toBe(updatedSlot);
     });
 
     it('`beforetoggle` event is emitted before the action menu is opened', async () => {
@@ -410,5 +441,81 @@ describe('Table action menu', () => {
         expect(document.activeElement).toEqual(
             menuItems[menuItems.length - 1]!
         );
+    });
+
+    describe('with single row selection', () => {
+        beforeEach(async () => {
+            const slot = 'my-action-menu';
+            column1.actionMenuSlot = slot;
+            createAndSlotMenu(slot);
+
+            element.selectionMode = TableRowSelectionMode.single;
+            await connect();
+            await waitForUpdatesAsync();
+        });
+
+        it('action menu button is visible when row is selected', async () => {
+            const rowIndex = 0;
+            await element.setSelectedRecordIds([
+                simpleTableData[rowIndex].stringData
+            ]);
+            await waitForUpdatesAsync();
+
+            expect(pageObject.isCellActionMenuVisible(rowIndex, 0)).toBeTrue();
+        });
+
+        it('clicking action menu button selects the row when nothing was previously selected', async () => {
+            const rowIndex = 0;
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener.promise;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
+        });
+
+        it('clicking action menu button with a different row selected selects the new row and deselects the previous row', async () => {
+            await element.setSelectedRecordIds([simpleTableData[1].stringData]);
+
+            const rowIndex = 0;
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener.promise;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
+        });
+
+        it('clicking action menu button for an already selected row keeps it selected', async () => {
+            const rowIndex = 0;
+            await element.setSelectedRecordIds([
+                simpleTableData[rowIndex].stringData
+            ]);
+
+            const toggleListener = createEventListener(
+                element,
+                'action-menu-toggle'
+            );
+            pageObject.setRowHoverState(rowIndex, true);
+            await pageObject.clickCellActionMenu(rowIndex, 0);
+            await toggleListener.promise;
+
+            const currentSelection = await element.getSelectedRecordIds();
+            expect(currentSelection).toEqual([
+                simpleTableData[rowIndex].stringData
+            ]);
+        });
     });
 });

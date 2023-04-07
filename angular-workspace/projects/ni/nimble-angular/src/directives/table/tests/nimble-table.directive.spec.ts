@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { Table, TableRecord, TableValidity } from '@ni/nimble-angular';
+import { processUpdates, Table, TableRecord, TableValidity } from '@ni/nimble-angular';
 import { Observable, Subject } from 'rxjs';
 import { NimbleTableDirective } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
@@ -99,18 +99,17 @@ describe('Nimble table', () => {
                 <nimble-table #table [idFieldName]="idFieldName"></nimble-table>
             `
         })
-        class TestHostComponent implements AfterViewInit {
+        class TestHostComponent {
             @ViewChild('table', { read: NimbleTableDirective }) public directive: NimbleTableDirective<SimpleRecord>;
             @ViewChild('table', { read: ElementRef }) public elementRef: ElementRef<Table<SimpleRecord>>;
-            public readonly originalData: readonly SimpleRecord[] = [{
+            public idFieldName = 'field1';
+            private readonly originalData: readonly SimpleRecord[] = [{
                 field1: 'hello world',
                 field2: 'foo'
             }] as const;
 
-            public idFieldName = 'field1';
-
-            public ngAfterViewInit(): void {
-                this.directive.setData(this.originalData);
+            public async initializeTableData(): Promise<void> {
+                return this.directive.setData(this.originalData);
             }
         }
 
@@ -118,7 +117,7 @@ describe('Nimble table', () => {
         let directive: NimbleTableDirective<SimpleRecord>;
         let nativeElement: Table<SimpleRecord>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
                 imports: [NimbleTableModule]
@@ -127,6 +126,7 @@ describe('Nimble table', () => {
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
+            await fixture.componentInstance.initializeTableData();
         });
 
         it('`checkValidity()` returns `true` when the table is valid', () => {
@@ -137,6 +137,7 @@ describe('Nimble table', () => {
         it('`checkValidity()` returns `false` when the table is not valid', () => {
             fixture.componentInstance.idFieldName = 'not-a-field';
             fixture.detectChanges();
+            processUpdates();
 
             expect(directive.checkValidity()).toBeFalse();
             expect(nativeElement.checkValidity()).toBeFalse();
@@ -145,13 +146,17 @@ describe('Nimble table', () => {
         it('`validity` property returns expected state', () => {
             fixture.componentInstance.idFieldName = 'not-a-field';
             fixture.detectChanges();
+            processUpdates();
 
             const expectedValidity: TableValidity = {
                 duplicateRecordId: false,
                 invalidRecordId: false,
                 missingRecordId: true,
                 duplicateColumnId: false,
-                missingColumnId: false
+                missingColumnId: false,
+                duplicateSortIndex: false,
+                duplicateGroupIndex: false,
+                idFieldNameNotConfigured: false
             };
             expect(directive.validity).toEqual(expectedValidity);
             expect(nativeElement.validity).toEqual(expectedValidity);

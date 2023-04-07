@@ -1,10 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { BannerSeverity } from '../types';
 import { bannerGapSize } from '../../theme-provider/design-tokens';
+import { bannerTag } from '..';
+import { iconKeyTag } from '../../icons/key';
+import { buttonTag } from '../../button';
+import { anchorTag } from '../../anchor';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
@@ -39,16 +42,13 @@ should be spaced apart using the \`${bannerGapSize.cssCustomProperty}\` design t
 
 const metadata: Meta<BannerArgs> = {
     title: 'Banner',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/29c405f7-08ea-48b6-973f-546970b9dbab/specs/'
         },
         actions: {
             handles: ['toggle']
@@ -61,7 +61,7 @@ export default metadata;
 export const _banner: StoryObj<BannerArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-banner
+        <${bannerTag}
             ?open="${x => x.open}"
             severity="${x => x.severity}"
             ?title-hidden="${x => x.titleHidden}"
@@ -71,20 +71,20 @@ export const _banner: StoryObj<BannerArgs> = {
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
             ${when(x => x.action === 'button (ghost)', html`
-                <nimble-button slot="action" appearance="ghost">Do action</nimble-button>`)}
+                <${buttonTag} slot="action" appearance="ghost">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'button (outline)', html`
-                <nimble-button slot="action" appearance="outline">Do action</nimble-button>`)}
+                <${buttonTag} slot="action" appearance="outline">Do action</${buttonTag}>`)}
             ${when(x => x.action === 'icon button (outline)', html`
-                <nimble-button slot="action" appearance="outline" content-hidden>
-                    <nimble-icon-key slot="start"></nimble-icon-key>
+                <${buttonTag} slot="action" appearance="outline" content-hidden>
+                    <${iconKeyTag} slot="start"></${iconKeyTag}>
                     Do action
-                </nimble-button>`)}
+                </${buttonTag}>`)}
             ${when(x => x.action === 'anchor', html`
-                <nimble-anchor slot="action" href="#">Go to site</nimble-anchor>`)}
-        </nimble-banner>
+                <${anchorTag} slot="action" href="#">Go to site</${anchorTag}>`)}
+        </${bannerTag}>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
-    storyName: 'Banner',
+    name: 'Banner',
     argTypes: {
         open: {
             description: 'Controls whether the banner is visible.'

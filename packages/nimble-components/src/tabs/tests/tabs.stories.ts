@@ -1,8 +1,12 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { tabsTag } from '..';
+import { buttonTag } from '../../button';
+import { tabTag } from '../../tab';
+import { tabPanelTag } from '../../tab-panel';
+import { tabsToolbarTag } from '../../tabs-toolbar';
 
 interface TabsArgs {
     activeId: string;
@@ -15,20 +19,20 @@ sections of content, known as tab panels, that display one panel of content at a
 associated tab element, that when activated, displays the panel. The list of tab elements is arranged along
 one edge of the currently displayed panel, most commonly the top edge.
 
+Content in tab panels should be sized and arranged such that it fits horizontally within the panel to avoid
+horizontal scrolling. Content may be any height; the tab panel will display a vertical scrollbar if necessary.
+
 If you want a sequence of tabs that navigate to different URLs, use the Anchor Tabs component instead.`;
 
 const metadata: Meta<TabsArgs> = {
     title: 'Tabs',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
         },
         actions: {
             handles: ['change']
@@ -36,15 +40,15 @@ const metadata: Meta<TabsArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-tabs activeid="${x => x.activeId}">
-            ${when(x => x.toolbar, html<TabsArgs>`<nimble-tabs-toolbar><nimble-button appearance="ghost">Toolbar Button</nimble-button></nimble-tabs-toolbar>`)}
-            <nimble-tab id="1" ?disabled="${x => x.tabDisabled}">Tab One</nimble-tab>
-            <nimble-tab id="2">Tab Two</nimble-tab>
-            <nimble-tab id="3">Tab Three</nimble-tab>
-            <nimble-tab-panel>Content of the first tab</nimble-tab-panel>
-            <nimble-tab-panel>Content of the second tab</nimble-tab-panel>
-            <nimble-tab-panel>Content of the third tab</nimble-tab-panel>
-        </nimble-tabs>
+        <${tabsTag} activeid="${x => x.activeId}">
+            ${when(x => x.toolbar, html<TabsArgs>`<${tabsToolbarTag}><${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}></${tabsToolbarTag}>`)}
+            <${tabTag} id="1" ?disabled="${x => x.tabDisabled}">Tab One</${tabTag}>
+            <${tabTag} id="2">Tab Two</${tabTag}>
+            <${tabTag} id="3">Tab Three</${tabTag}>
+            <${tabPanelTag}>Content of the first tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the second tab</${tabPanelTag}>
+            <${tabPanelTag}>Content of the third tab</${tabPanelTag}>
+        </${tabsTag}>
     `),
     argTypes: {
         activeId: {

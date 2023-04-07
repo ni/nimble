@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
@@ -13,18 +12,15 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
+import { buttonTag } from '..';
+import { iconKeyTag } from '../../icons/key';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 
 const metadata: Meta = {
     title: 'Tests/Button',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -57,19 +53,19 @@ const component = (
     [appearanceVariantName, appearanceVariant]: AppearanceVariantState,
     [iconVisible, labelVisible, endIconVisible]: PartVisibilityState,
 ): ViewTemplate => html`
-    <nimble-button
+    <${buttonTag}
         appearance="${() => appearance}"
         appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${() => `${appearanceVariantName} ${appearanceName} Button ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
-    </nimble-button>
+            ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
+    </${buttonTag}>
 `;
 
-export const buttonThemeMatrix: Story = createMatrixThemeStory(
+export const buttonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -78,10 +74,10 @@ export const buttonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenButton: Story = createStory(
-    hiddenWrapper(html`<nimble-button hidden>Hidden Button</nimble-button>`)
+export const hiddenButton: StoryFn = createStory(
+    hiddenWrapper(html`<${buttonTag} hidden>Hidden Button</${buttonTag}>`)
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(html`<nimble-button>Button</nimble-button>`)
+export const textCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(html`<${buttonTag}>Button</${buttonTag}>`)
 );

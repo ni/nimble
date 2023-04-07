@@ -262,3 +262,4 @@ const nimbleWaferMap = WaferMap.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleWaferMap());
+export const waferMapTag = DesignSystem.tagFor(WaferMap);

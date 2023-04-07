@@ -75,3 +75,4 @@ const nimbleDesignSystemProvider = ThemeProvider.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleDesignSystemProvider());
+export const themeProviderTag = DesignSystem.tagFor(ThemeProvider);

@@ -1,23 +1,22 @@
 import { html, repeat, when } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableRow, ColumnState } from '.';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableCell } from '../cell';
+import { tableCellTag } from '../cell';
 
 // prettier-ignore
 export const template = html<TableRow>`
-    <template role="row">
+    <template role="row" aria-selected=${x => x.ariaSelected}>
         ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
             ${when(x => !x.column.columnHidden, html<ColumnState, TableRow>`
-                <${DesignSystem.tagFor(TableCell)}
+                <${tableCellTag}
                     class="cell"
-                    :cellTemplate="${x => x.column.cellTemplate}"
-                    :cellStyles="${x => x.column.cellStyles}"
                     :cellState="${x => x.cellState}"
+                    :cellViewTemplate="${x => x.column.currentCellViewTemplate}"
                     ?has-action-menu="${x => !!x.column.actionMenuSlot}"
                     action-menu-label="${x => x.column.actionMenuLabel}"
                     @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"
                     @cell-action-menu-toggle="${(x, c) => c.parent.onCellActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"
+                    :nestingLevel="${x => x.cellIndentLevel};"
                 >
 
                     ${when((x, c) => ((c.parent as TableRow).currentActionMenuColumn === x.column) && x.column.actionMenuSlot, html<ColumnState, TableRow>`
@@ -26,7 +25,7 @@ export const template = html<TableRow>`
                             slot="cellActionMenu"
                         ></slot>
                     `)}
-                </${DesignSystem.tagFor(TableCell)}>
+                </${tableCellTag}>
             `)}
         `)}
     </template>

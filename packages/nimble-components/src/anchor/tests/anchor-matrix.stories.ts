@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -12,19 +11,14 @@ import {
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
-import '../../all-components';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
+import { anchorTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Anchor',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bfadf499-caf5-4ca0-9814-e777fbae0d46/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -53,15 +47,15 @@ const component = (
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <nimble-anchor
+    <${anchorTag}
         href=${() => href}
         ?underline-hidden="${() => underlineHidden}"
         appearance="${() => appearance}"
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</nimble-anchor>
+            ${() => `${underlineHiddenName} ${appearanceName} ${disabledName} Link`}</${anchorTag}>
 `;
 
-export const anchorThemeMatrix: Story = createMatrixThemeStory(
+export const anchorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         underlineHiddenStates,
@@ -69,15 +63,15 @@ export const anchorThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenAnchor: Story = createStory(
-    hiddenWrapper(html`<nimble-anchor hidden>Hidden Anchor</nimble-anchor>`)
+export const hiddenAnchor: StoryFn = createStory(
+    hiddenWrapper(html`<${anchorTag} hidden>Hidden Anchor</${anchorTag}>`)
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
-    textCustomizationWrapper(html`<nimble-anchor>Link</nimble-anchor>`)
+export const textCustomized: StoryFn = createMatrixThemeStory(
+    textCustomizationWrapper(html`<${anchorTag}>Link</${anchorTag}>`)
 );
 
-export const textWrapping: Story = createStory(
+export const textWrapping: StoryFn = createStory(
     // prettier-ignore
     html`
     <p style="width: 300px; border: 1px solid black">
@@ -86,8 +80,8 @@ export const textWrapping: Story = createStory(
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        Lorem ipsum dolor sit amet, <nimble-anchor href='#'>
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</nimble-anchor> ut aliquip ex ea commodo consequat.
+        Lorem ipsum dolor sit amet, <${anchorTag} href='#'>
+        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</${anchorTag}> ut aliquip ex ea commodo consequat.
     </p>
     `
 );

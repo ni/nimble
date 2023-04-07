@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { WaferMapOrientation, WaferMapQuadrant } from '../types';
 import {
@@ -10,11 +9,10 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { waferMapTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/WaferMap',
-    decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -80,68 +78,68 @@ const waferMapDie = [
 
 const waferMapSizes = [70, 200, 300, 400];
 
-const simpleWaferWithDies = (): ViewTemplate => html`<nimble-wafer-map
+const simpleWaferWithDies = (): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferWithDies = ([
     orientation
-]: OrientationState): ViewTemplate => html`<nimble-wafer-map
+]: OrientationState): ViewTemplate => html`<${waferMapTag}
     orientation="${() => orientation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferWithHiddenDieLabel = (
     [color]: ColorScales,
     [dieLabelHidde]: DieLabelHidden
-): ViewTemplate => html`<nimble-wafer-map
+): ViewTemplate => html`<${waferMapTag}
     ?die-labels-hidden=${() => dieLabelHidde}
     :dies="${() => waferMapDie}"
     :colorScale="${() => color}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferWithDieOrientation = ([
     orientation
-]: DieOrientation): ViewTemplate => html`<nimble-wafer-map
+]: DieOrientation): ViewTemplate => html`<${waferMapTag}
     quadrant="${() => orientation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map>`;
+</${waferMapTag}>`;
 
 const componentWaferResize = (
     size: number
-): ViewTemplate => html`<nimble-wafer-map
+): ViewTemplate => html`<${waferMapTag}
     style="width: ${size}px; height: ${size}px"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
-</nimble-wafer-map> `;
+</${waferMapTag}> `;
 
-export const waferMapThemeMatrix: Story = createMatrixThemeStory(
+export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
 );
 
-export const waferMapDiesAndOrientationTest: Story = createStory(
+export const waferMapDiesAndOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithDies, [orientationStates])
 );
 
-export const waferMapDieLabelAndColorScaleTest: Story = createStory(
+export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
     createMatrix(componentWaferWithHiddenDieLabel, [
         colorsScales,
         dieLabelHidden
     ])
 );
 
-export const waferMapDieOrientationTest: Story = createStory(
+export const waferMapDieOrientationTest: StoryFn = createStory(
     createMatrix(componentWaferWithDieOrientation, [dieOrientation])
 );
 
-export const waferMapResizeTest: Story = createStory(
+export const waferMapResizeTest: StoryFn = createStory(
     createMatrix(componentWaferResize, [waferMapSizes])
 );

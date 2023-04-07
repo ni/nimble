@@ -1,9 +1,12 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance, TextFieldType } from '../types';
-import '../../all-components';
+import { textFieldTag } from '..';
+import { buttonTag } from '../../button';
+import { iconPencilTag } from '../../icons/pencil';
+import { iconTagTag } from '../../icons/tag';
 
 interface TextFieldArgs {
     label: string;
@@ -30,16 +33,13 @@ consuming application must implement that functionality.
 
 const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: 'A single-line text field.'
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/specs/'
         },
         actions: {
             handles: ['change', 'input']
@@ -47,7 +47,7 @@ const metadata: Meta<TextFieldArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-text-field
+        <${textFieldTag}
             placeholder="${x => x.label}"
             type="${x => x.type}"
             appearance="${x => x.appearance}"
@@ -59,16 +59,16 @@ const metadata: Meta<TextFieldArgs> = {
             ?full-bleed="${x => x.fullBleed}"
         >
             ${when(x => x.leftIcon, html`
-                <nimble-icon-tag slot="start"></nimble-icon-tag>`)}
+                <${iconTagTag} slot="start"></${iconTagTag}>`)}
 
             ${x => x.label}
 
             ${when(x => x.actionButton, html`
-                <nimble-button slot="actions" appearance="ghost" content-hidden>
-                    <nimble-icon-pencil slot="start"></nimble-icon-pencil>
+                <${buttonTag} slot="actions" appearance="ghost" content-hidden>
+                    <${iconPencilTag} slot="start"></${iconPencilTag}>
                     Edit
-                </nimble-button>`)}
-        </nimble-text-field>
+                </${buttonTag}>`)}
+        </${textFieldTag}>
     `),
     argTypes: {
         type: {

@@ -1,8 +1,10 @@
 import { html, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { anchorTabsTag } from '..';
+import { anchorTabTag } from '../../anchor-tab';
+import { tabsToolbarTag } from '../../tabs-toolbar';
+import { buttonTag } from '../../button';
 
 interface TabsArgs {
     activeId: string;
@@ -18,26 +20,22 @@ tab panels hosted on the same page.`;
 
 const metadata: Meta<TabsArgs> = {
     title: 'Anchor Tabs',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b/specs'
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-anchor-tabs activeid="${x => x.activeId}">
-            ${when(x => x.toolbar, html<TabsArgs>`<nimble-tabs-toolbar><nimble-button appearance="ghost">Toolbar Button</nimble-button></nimble-tabs-toolbar>`)}
-            <nimble-anchor-tab id="1" ?disabled="${x => x.tabDisabled}" href="${x => x.tabHref}">Google</nimble-anchor-tab>
-            <nimble-anchor-tab id="2" href="https://www.ni.com">NI</nimble-anchor-tab>
-            <nimble-anchor-tab id="3" href="https://nimble.ni.dev">Nimble</nimble-anchor-tab>
-        </nimble-anchor-tabs>
+        <${anchorTabsTag} activeid="${x => x.activeId}">
+            ${when(x => x.toolbar, html<TabsArgs>`<${tabsToolbarTag}><${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}></${tabsToolbarTag}>`)}
+            <${anchorTabTag} id="1" ?disabled="${x => x.tabDisabled}" href="${x => x.tabHref}">Google</${anchorTabTag}>
+            <${anchorTabTag} id="2" href="https://www.ni.com">NI</${anchorTabTag}>
+            <${anchorTabTag} id="3" href="https://nimble.ni.dev">Nimble</${anchorTabTag}>
+        </${anchorTabsTag}>
     `),
     argTypes: {
         activeId: {

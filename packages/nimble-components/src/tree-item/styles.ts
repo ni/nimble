@@ -11,7 +11,8 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     borderWidth,
-    iconSize
+    iconSize,
+    mediumDelay
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
@@ -120,7 +121,7 @@ export const styles = css`
     .expand-collapse-button svg {
         width: ${iconSize};
         height: ${iconSize};
-        transition: transform 0.2s ease-in;
+        transition: transform ${mediumDelay} ease-in;
         pointer-events: none;
         fill: currentcolor;
     }
@@ -147,13 +148,6 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    ${
-        /*
-        Cannot call DesignSystem.tagFor(TreeItem) as this string is evaluated
-        before the registration of the element itself; the style is self-referencing.
-        Instead styling against the role which is more general and likely a better approach.
-    */ ''
-    }
     ::slotted([role='treeitem']) {
         --ni-private-tree-item-nested-width: 1em;
         --ni-private-expand-collapse-button-nested-width: calc(

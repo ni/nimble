@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -11,17 +10,12 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
+import { switchTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Switch',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -45,38 +39,38 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [messagesName, messages]: MessagesState
 ): ViewTemplate => html`
-    <nimble-switch
+    <${switchTag}
         ?disabled=${() => disabled}
         ?checked=${() => checked}
         style="margin-right: 8px; margin-bottom: 8px;">
             ${() => `${checkedName} Switch ${disabledName} ${messagesName}`}
             ${when(() => messages, html`<span slot="checked-message">On</span><span slot="unchecked-message">Off</span>`)}
-    </nimble-switch>
+    </${switchTag}>
 `;
 
-export const switchThemeMatrix: Story = createMatrixThemeStory(
+export const switchThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [checkedStates, disabledStates, messagesStates])
 );
 
 // prettier-ignore
-export const hiddenSwitch: Story = createStory(
+export const hiddenSwitch: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-switch hidden>Hidden Switch</nimble-switch>`
+        html`<${switchTag} hidden>Hidden Switch</${switchTag}>`
     )
 );
 
-export const heightTest: Story = createStory(
+export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
-            <nimble-switch style="border: 1px dashed; width: 200px">
+            <${switchTag} style="border: 1px dashed; width: 200px">
                 With Label
                 <span slot="checked-message">On</span>
                 <span slot="unchecked-message">Off</span>
-            </nimble-switch>
-            <nimble-switch style="border: 1px dashed; width: 200px">
+            </${switchTag}>
+            <${switchTag} style="border: 1px dashed; width: 200px">
                 <span slot="checked-message">On</span>
                 <span slot="unchecked-message">Off</span>
-            </nimble-switch>
+            </${switchTag}>
         </div>
     `
 );

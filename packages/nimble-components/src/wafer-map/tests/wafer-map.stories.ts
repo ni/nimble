@@ -1,9 +1,10 @@
 import { html } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { bodyFont } from '../../theme-provider/design-tokens';
-
-import '../../all-components';
+import {
+    createUserSelectedThemeStory,
+    usageWarning
+} from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
@@ -17,6 +18,7 @@ import {
     wafermapDieSets,
     waferMapColorScaleSets
 } from './sets';
+import { waferMapTag } from '..';
 
 interface WaferMapArgs {
     colorScale: WaferMapColorScale;
@@ -83,6 +85,8 @@ const getHighLightedValueSets = (
 
 const metadata: Meta<WaferMapArgs> = {
     title: 'WaferMap',
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
@@ -95,11 +99,8 @@ const metadata: Meta<WaferMapArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        <div id="usage-warning">
-            WARNING - The wafermap is still in development and considered
-            experimental. It is not recommended for application use.
-        </div>
-        <nimble-wafer-map
+        ${usageWarning('wafer map')}
+        <${waferMapTag}
             id="wafer-map"
             colors-scale-mode="${x => x.colorScaleMode}"
             ?die-labels-hidden="${x => x.dieLabelsHidden}"
@@ -114,12 +115,8 @@ const metadata: Meta<WaferMapArgs> = {
         highLightedValueSets
     )}"
         >
-        </nimble-wafer-map>
+        </${waferMapTag}>
         <style class="code-hide">
-            #usage-warning {
-                color: red;
-                font: var(${bodyFont.cssCustomProperty});
-            }
             #wafer-map {
                 resize: both;
                 overflow: hidden;
