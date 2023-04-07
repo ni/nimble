@@ -79,7 +79,10 @@ export class TreeView extends FoundationTreeView {
         this.clearTreeGroupSelection();
 
         let currentItem: HTMLElement | null | undefined = treeItem;
-        while (currentItem?.parentElement !== this && currentItem?.parentElement !== null) {
+        while (
+            currentItem?.parentElement !== this
+            && currentItem?.parentElement !== null
+        ) {
             currentItem = currentItem?.parentElement;
         }
 
@@ -91,7 +94,7 @@ export class TreeView extends FoundationTreeView {
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
     // which is what the FAST TreeItem allows
     private handleSelectedChangeOverride(event: Event): void {
-        const toggledElement = event.target as (TreeItem | AnchorTreeItem);
+        const toggledElement = event.target as TreeItem | AnchorTreeItem;
         // only process selection
         if (toggledElement.selected) {
             this.setGroupSelectionOnRootParentTreeItem(toggledElement);
