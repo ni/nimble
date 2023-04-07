@@ -315,26 +315,6 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
-    // TODO: make private
-    public deselectAllLeafRows(rowIndex: number): void {
-        const groupRow = this.table.getRowModel().rows[rowIndex]!;
-        const leafRowIds = groupRow
-            .getLeafRows()
-            .filter(leafRow => leafRow.getLeafRows().length === 0)
-            .map(leafRow => leafRow.id);
-
-        const selectionState = this.table.getState().rowSelection;
-        for (const id of leafRowIds) {
-            delete selectionState[id];
-        }
-
-        this.updateTableOptions({
-            state: {
-                rowSelection: selectionState
-            }
-        });
-    }
-
     /** @internal */
     public async onRowClick(rowIndex: number): Promise<void> {
         return this.selectSingleRow(rowIndex);
@@ -731,6 +711,25 @@ export class Table<
         this.table.toggleAllRowsSelected(false);
         row.toggleSelected(true);
         await this.emitSelectionChangeEvent();
+    }
+
+    private deselectAllLeafRows(rowIndex: number): void {
+        const groupRow = this.table.getRowModel().rows[rowIndex]!;
+        const leafRowIds = groupRow
+            .getLeafRows()
+            .filter(leafRow => leafRow.getLeafRows().length === 0)
+            .map(leafRow => leafRow.id);
+
+        const selectionState = this.table.getState().rowSelection;
+        for (const id of leafRowIds) {
+            delete selectionState[id];
+        }
+
+        this.updateTableOptions({
+            state: {
+                rowSelection: selectionState
+            }
+        });
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
