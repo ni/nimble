@@ -68,16 +68,22 @@ export abstract class TableColumn<
         }
         this.columnInternals = new ColumnInternals(options);
         const notifier = Observable.getNotifier(this.columnInternals);
-        notifier.subscribe({
-            handleChange: () => {
-                this.currentFractionalWidth = this.columnInternals.fractionalWidth;
-            }
-        }, 'fractionalWidth');
-        notifier.subscribe({
-            handleChange: () => {
-                this.currentPixelWidth = this.columnInternals.pixelWidth;
-            }
-        }, 'pixelWidth');
+        notifier.subscribe(
+            {
+                handleChange: () => {
+                    this.currentFractionalWidth = this.columnInternals.fractionalWidth;
+                }
+            },
+            'fractionalWidth'
+        );
+        notifier.subscribe(
+            {
+                handleChange: () => {
+                    this.currentPixelWidth = this.columnInternals.pixelWidth;
+                }
+            },
+            'pixelWidth'
+        );
     }
 
     /**

@@ -75,7 +75,9 @@ describe('FractionalWidthColumn', () => {
         expect(element.columnInternals.fractionalWidth).toBe(2);
         element.fractionalWidth = null;
 
-        expect(element.columnInternals.fractionalWidth).toBe(defaultFractionalWidth);
+        expect(element.columnInternals.fractionalWidth).toBe(
+            defaultFractionalWidth
+        );
     });
 
     it('removing minPixellWidth sets columnInternals.minPixelWidth to default', async () => {
@@ -86,6 +88,8 @@ describe('FractionalWidthColumn', () => {
         expect(element.columnInternals.minPixelWidth).toBe(200);
         element.minPixelWidth = null;
 
-        expect(element.columnInternals.minPixelWidth).toBe(defaultMinPixelWidth);
+        expect(element.columnInternals.minPixelWidth).toBe(
+            defaultMinPixelWidth
+        );
     });
 });

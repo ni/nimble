@@ -2,7 +2,11 @@ import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
 import type { TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
-import { TableColumnSortOperation, defaultFractionalWidth, defaultMinPixelWidth } from '../types';
+import {
+    TableColumnSortOperation,
+    defaultFractionalWidth,
+    defaultMinPixelWidth
+} from '../types';
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 import { createCellViewTemplate } from '../cell-view/template';
