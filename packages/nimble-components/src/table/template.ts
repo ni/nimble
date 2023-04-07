@@ -15,9 +15,11 @@ import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
-    TableRowSelectionState
+    TableRowSelectionState,
+    TableRowSelectionToggleEventDetail
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
+import { checkboxTag } from '../checkbox';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -31,6 +33,14 @@ export const template = html<Table>`
             ">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
+                    <${checkboxTag}
+                        ${ref('selectionCheckbox')}
+                        class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                        ?hidden="${x => x.selectionMode !== TableRowSelectionMode.multiple}"
+                        @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                    >
+                    </${checkboxTag}>
+
                     ${repeat(x => x.columns, html<TableColumn>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
                             <${tableHeaderTag}
@@ -59,8 +69,11 @@ export const template = html<Table>`
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
+                                    ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
+                                    selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
+                                    @group-row-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                     @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
-                                    >
+                                >
                                 </${tableGroupRowTag}>
                             `)}
                             ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
@@ -69,12 +82,14 @@ export const template = html<Table>`
                                     record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                     ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                     ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
+                                    ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
                                     :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                     :columns="${(_, c) => c.parent.columns}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     @click="${async (x, c) => c.parent.onRowClick(x.index)}"
-                                    @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
-                                    @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @row-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
+                                    @row-action-menu-beforetoggle="${async (x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @row-action-menu-toggle="${async (_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 >
                                 ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                     ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`

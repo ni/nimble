@@ -7,7 +7,8 @@ import {
     bodyFontColor,
     fillHoverColor,
     fillHoverSelectedColor,
-    fillSelectedColor
+    fillSelectedColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -65,12 +66,24 @@ export const styles = css`
         left: var(--ni-private-table-scroll-x);
     }
 
+    :host([selection-mode="multiple"]) .header-row {
+        grid-template-columns: auto var(--ni-private-table-row-grid-columns) auto;
+    }
+
     .header-scrollbar-spacer {
         width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
 
     .header {
         flex: 1;
+    }
+
+    .selection-checkbox {
+        margin: 0px ${standardPadding};
+    }
+
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
     }
 
     .row {
@@ -87,15 +100,18 @@ export const styles = css`
         pointer-events: none;
     }
 
-    :host([selection-mode='single']) .row:hover::before {
+    :host([selection-mode='single']) .row:hover::before,
+    :host([selection-mode='multiple']) .row:hover::before {
         background: ${fillHoverColor};
     }
 
-    :host([selection-mode='single']) .row[selected]::before {
+    :host([selection-mode='single']) .row[selected]::before,
+    :host([selection-mode='multiple']) .row[selected]::before {
         background: ${fillSelectedColor};
     }
 
-    :host([selection-mode='single']) .row[selected]:hover::before {
+    :host([selection-mode='single']) .row[selected]:hover::before,
+    :host([selection-mode='multiple']) .row[selected]:hover::before {
         background: ${fillHoverSelectedColor};
     }
 `.withBehaviors(
@@ -115,15 +131,18 @@ export const styles = css`
                 background: ${fillHoverColor};
             }
 
-            :host([selection-mode='single']) .row:hover::before {
+            :host([selection-mode='single']) .row:hover::before,
+            :host([selection-mode='multiple']) .row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
 
-            :host([selection-mode='single']) .row[selected]::before {
+            :host([selection-mode='single']) .row[selected]::before,
+            :host([selection-mode='multiple']) .row[selected]::before {
                 background: ${hexToRgbaCssColor(White, 0.25)};
             }
 
-            :host([selection-mode='single']) .row[selected]:hover::before {
+            :host([selection-mode='single']) .row[selected]:hover::before,
+            :host([selection-mode='multiple']) .row[selected]:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.2)};
             }
         `

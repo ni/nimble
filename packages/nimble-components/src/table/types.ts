@@ -57,7 +57,8 @@ export type TableColumnSortDirection =
  */
 export const TableRowSelectionMode = {
     none: undefined,
-    single: 'single'
+    single: 'single',
+    multiple: 'multiple'
 } as const;
 export type TableRowSelectionMode =
     (typeof TableRowSelectionMode)[keyof typeof TableRowSelectionMode];
@@ -69,10 +70,21 @@ export type TableRowSelectionMode =
  */
 export const TableRowSelectionState = {
     notSelected: 'notSelected',
-    selected: 'selected'
+    selected: 'selected',
+    partiallySelected: 'partiallySelected'
 } as const;
 export type TableRowSelectionState =
     (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
+
+/**
+ * @internal
+ *
+ * Internal event detail type for a row's selection state changing
+*/
+export interface TableRowSelectionToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+}
 
 /**
  * Event detail type for row selection events in the table.

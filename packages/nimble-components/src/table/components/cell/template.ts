@@ -17,6 +17,7 @@ export const template = html<TableCell>`
                 appearance="${ButtonAppearance.ghost}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
+                @click="${(_, c) => c.event.stopPropagation()}"
                 class="action-menu"
             >
                 <${iconThreeDotsLineTag} slot="start"></${iconThreeDotsLineTag}>

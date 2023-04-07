@@ -1,8 +1,9 @@
 import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { Checkbox, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
+import { TableRowSelectionState, TableRowSelectionToggleEventDetail } from '../../types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,6 +31,12 @@ export class TableGroupRow extends FoundationElement {
     @attr({ mode: 'boolean' })
     public expanded = false;
 
+    @attr({ mode: 'boolean' })
+    public selectable = false;
+
+    @attr({ attribute: 'selection-state' })
+    public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
+
     /**
      * @internal
      */
@@ -39,7 +46,15 @@ export class TableGroupRow extends FoundationElement {
      * @internal
      */
     @observable
+    public readonly selectionCheckbox?: Checkbox;
+
+    /**
+     * @internal
+     */
+    @observable
     public animationClass = '';
+
+    private ignoreSelectionChangeEvents = false;
 
     public onGroupExpandToggle(): void {
         this.$emit('group-expand-toggle');
@@ -54,6 +69,37 @@ export class TableGroupRow extends FoundationElement {
             'transitionend',
             this.removeAnimatingClass
         );
+    }
+
+    /** @internal */
+    public onSelectionChange(event: CustomEvent): void {
+        if (this.ignoreSelectionChangeEvents) {
+            return;
+        }
+
+        const checkbox = event.target as Checkbox;
+        const detail: TableRowSelectionToggleEventDetail = {
+            oldState: !checkbox.checked,
+            newState: checkbox.checked
+        };
+        this.$emit('group-row-selection-toggle', detail);
+    }
+
+    private selectionStateChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private selectionCheckboxChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private setSelectionCheckboxState(): void {
+        if (this.selectionCheckbox) {
+            this.ignoreSelectionChangeEvents = true;
+            this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
+            this.selectionCheckbox.indeterminate = this.selectionState === TableRowSelectionState.partiallySelected;
+            this.ignoreSelectionChangeEvents = false;
+        }
     }
 
     private readonly removeAnimatingClass = (): void => {
