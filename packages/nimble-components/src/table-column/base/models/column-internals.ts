@@ -85,6 +85,20 @@ export class ColumnInternals<TColumnConfig> {
      */
     public readonly groupHeaderViewTemplate: ViewTemplate<TableGroupRow>;
 
+    /**
+     * Whether or not this column can be used to group rows by
+     */
+    @observable
+    public groupingDisabled = false;
+
+    /**
+     * Specifies the grouping precedence of the column within the set of all columns participating in grouping.
+     * Columns are rendered in the grouping tree from lowest group-index as the tree root to highest
+     * group-index as tree leaves.
+     */
+    @observable
+    public groupIndex?: number;
+
     public constructor(options: ColumnInternalOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.uniqueId = uniqueId('table-column-slot');

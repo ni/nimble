@@ -439,8 +439,8 @@ export class Table<
 
     private getColumnsParticipatingInGrouping(): TableColumn[] {
         return this.columns.filter(
-            x => !x.internalGroupingDisabled
-                && typeof x.internalGroupIndex === 'number'
+            x => !x.columnInternals.groupingDisabled
+                && typeof x.columnInternals.groupIndex === 'number'
         );
     }
 
@@ -518,7 +518,7 @@ export class Table<
         );
         this.tableValidator.validateColumnGroupIndices(
             this.getColumnsParticipatingInGrouping().map(
-                x => x.internalGroupIndex!
+                x => x.columnInternals.groupIndex!
             )
         );
         this.validateWithData(this.table.options.data);
@@ -661,7 +661,7 @@ export class Table<
 
     private calculateTanStackGroupingState(): TanStackGroupingState {
         const groupedColumns = this.getColumnsParticipatingInGrouping().sort(
-            (x, y) => x.internalGroupIndex! - y.internalGroupIndex!
+            (x, y) => x.columnInternals.groupIndex! - y.columnInternals.groupIndex!
         );
 
         return groupedColumns.map(column => column.columnInternals.uniqueId);

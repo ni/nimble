@@ -155,10 +155,10 @@ export class UpdateTracker<TData extends TableRecord> {
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
         } else if (
-            isColumnProperty(
+            isColumnInternalsProperty(
                 changedColumnProperty,
-                'internalGroupIndex',
-                'internalGroupingDisabled'
+                'groupIndex',
+                'groupingDisabled'
             )
         ) {
             this.requiredUpdates.groupRows = true;

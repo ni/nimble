@@ -30,7 +30,6 @@ const columnName = uniqueElementName();
     name: columnName
 })
 class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
-    public groupHeaderViewTag = testColumnGroupHeaderName;
     public constructor() {
         super({
             cellRecordFieldNames: [],
@@ -58,32 +57,32 @@ describe('GroupableColumn', () => {
         await disconnect();
     });
 
-    it('setting groupingDisabled sets internalGroupingDisabled', async () => {
+    it('setting groupingDisabled sets columnInternals.groupingDisabled', async () => {
         await connect();
-        element.internalGroupingDisabled = false;
+        element.columnInternals.groupingDisabled = false;
 
         element.groupingDisabled = true;
 
-        expect(element.internalGroupingDisabled).toBeTrue();
+        expect(element.columnInternals.groupingDisabled).toBeTrue();
     });
 
-    it('setting groupIndex sets internalGroupIndex', async () => {
+    it('setting groupIndex sets columnInternals.groupIndex', async () => {
         await connect();
-        element.internalGroupIndex = 2;
+        element.columnInternals.groupIndex = 2;
 
         element.groupIndex = 1;
 
-        expect(element.internalGroupIndex).toBe(1);
+        expect(element.columnInternals.groupIndex).toBe(1);
     });
 
-    it('removing groupIndex sets internalGroupIndex to default', async () => {
+    it('removing groupIndex sets columnInternals.groupIndex to default', async () => {
         await connect();
-        const defaultGroupIndex = element.internalGroupIndex;
+        const defaultGroupIndex = element.columnInternals.groupIndex;
 
         element.groupIndex = 2;
-        expect(element.internalGroupIndex).toBe(2);
+        expect(element.columnInternals.groupIndex).toBe(2);
         element.groupIndex = null;
 
-        expect(element.internalGroupIndex).toBe(defaultGroupIndex);
+        expect(element.columnInternals.groupIndex).toBe(defaultGroupIndex);
     });
 });

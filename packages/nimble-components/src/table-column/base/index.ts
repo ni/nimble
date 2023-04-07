@@ -75,22 +75,6 @@ export abstract class TableColumn<
 
     /**
      * @internal
-     * Whether or not this column can be used to group rows by
-     */
-    @observable
-    public internalGroupingDisabled = false;
-
-    /**
-     * @internal
-     * Specifies the grouping precedence of the column within the set of all columns participating in grouping.
-     * Columns are rendered in the grouping tree from lowest group-index as the tree root to highest
-     * group-index as tree leaves.
-     */
-    @observable
-    public internalGroupIndex?: number;
-
-    /**
-     * @internal
      *
      * Column properties configurable by plugin authors
      */
