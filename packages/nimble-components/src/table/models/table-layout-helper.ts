@@ -9,20 +9,20 @@ export class TableLayoutHelper {
         return (
             columns
                 ?.filter(column => !column.columnHidden)
-                .reduce((accumulator: string, currentValue) => {
-                    const gap = accumulator === '' ? '' : ' ';
-                    const minPixelWidth = currentValue.internalMinPixelWidth;
-                    if (currentValue.currentPixelWidth) {
-                        const pixelWidth = currentValue.currentPixelWidth;
+                .map(column => {
+                    const minPixelWidth = column.internalMinPixelWidth;
+                    if (column.currentPixelWidth) {
+                        const pixelWidth = column.currentPixelWidth;
                         const gridPixelWidth = pixelWidth > minPixelWidth
                             ? pixelWidth
                             : minPixelWidth;
-                        return `${accumulator}${gap}${gridPixelWidth}px`;
+                        return `${gridPixelWidth}px`;
                     }
 
-                    const fractionalWidth = currentValue.currentFractionalWidth;
-                    return `${accumulator}${gap}minmax(${minPixelWidth}px, ${fractionalWidth}fr)`;
-                }, '') ?? ''
+                    const fractionalWidth = column.currentFractionalWidth;
+                    return `minmax(${minPixelWidth}px, ${fractionalWidth}fr)`;
+                })
+                .join(' ')
         );
     }
 }
