@@ -9,15 +9,13 @@ export class TableLayoutHelper {
         return columns
             ?.filter(column => !column.columnHidden)
             .map(column => {
-                const minPixelWidth = column.columnInternals.minPixelWidth;
-                if (column.currentPixelWidth) {
-                    const pixelWidth = column.currentPixelWidth;
-                    const gridPixelWidth = pixelWidth > minPixelWidth ? pixelWidth : minPixelWidth;
-                    return `${gridPixelWidth}px`;
+                const { minPixelWidth, currentPixelWidth, currentFractionalWidth } = column.columnInternals;
+                if (currentPixelWidth) {
+                    const coercedPixelWidth = Math.max(minPixelWidth, currentPixelWidth);
+                    return `${coercedPixelWidth}px`;
                 }
 
-                const fractionalWidth = column.currentFractionalWidth;
-                return `minmax(${minPixelWidth}px, ${fractionalWidth}fr)`;
+                return `minmax(${minPixelWidth}px, ${currentFractionalWidth}fr)`;
             })
             .join(' ');
     }

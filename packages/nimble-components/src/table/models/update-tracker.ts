@@ -145,13 +145,12 @@ export class UpdateTracker<TData extends TableRecord> {
         } else if (
             isColumnProperty(
                 changedColumnProperty,
-                'currentFractionalWidth',
-                'currentPixelWidth',
                 'columnHidden'
             )
             || isColumnInternalsProperty(
                 changedColumnProperty,
-                // TODO what about fractionalwidth and minpixelwidth?
+                'currentFractionalWidth',
+                'currentPixelWidth',
                 'minPixelWidth'
             )
         ) {

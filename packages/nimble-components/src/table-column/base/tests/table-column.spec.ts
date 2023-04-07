@@ -48,21 +48,21 @@ describe('TableColumn', () => {
         await disconnect();
     });
 
-    it('setting columnInternals.fractionalWidth sets currentFractionalWidth', async () => {
+    it('setting columnInternals.fractionalWidth sets columnInternals.currentFractionalWidth', async () => {
         await connect();
-        element.currentFractionalWidth = 1;
+        element.columnInternals.currentFractionalWidth = 1;
 
         element.columnInternals.fractionalWidth = 2;
 
-        expect(element.currentFractionalWidth).toBe(2);
+        expect(element.columnInternals.currentFractionalWidth).toBe(2);
     });
 
-    it('setting columnInternals.pixelWidth sets currentPixelWidth', async () => {
+    it('setting columnInternals.pixelWidth sets columnInternals.currentPixelWidth', async () => {
         await connect();
-        element.currentPixelWidth = 100;
+        element.columnInternals.currentPixelWidth = 100;
 
         element.columnInternals.pixelWidth = 200;
 
-        expect(element.currentPixelWidth).toBe(200);
+        expect(element.columnInternals.currentPixelWidth).toBe(200);
     });
 });

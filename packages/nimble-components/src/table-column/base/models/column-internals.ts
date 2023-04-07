@@ -48,9 +48,9 @@ export class ColumnInternals<TColumnConfig> {
     public readonly cellRecordFieldNames: readonly TableFieldName[];
 
     /**
-     * Properties prefixed with `internal` are for internal table-use only.
+     * A unique id used internally in the table to identify specific column instances
      */
-    public readonly uniqueId: string;
+    public readonly uniqueId = uniqueId('table-column-slot');
 
     /**
      * Template for the cell view
@@ -123,13 +123,36 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public minPixelWidth = defaultMinPixelWidth;
 
+    /**
+     * @internal
+     * Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the fractionalWidth after updates programmatic or interactive updates.
+     */
+    @observable
+    public currentFractionalWidth = defaultFractionalWidth;
+
+    /**
+     * @internal
+     * Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the pixelWidth after programmatic or interactive updates.
+     */
+    @observable
+    public currentPixelWidth?: number;
+
     public constructor(options: ColumnInternalOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
-        this.uniqueId = uniqueId('table-column-slot');
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
         this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
         this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
             options.groupHeaderViewTag
         );
+    }
+
+    protected fractionalWidthChanged(): void {
+        this.currentFractionalWidth = this.fractionalWidth;
+    }
+
+    protected pixelWidthChanged(): void {
+        this.currentPixelWidth = this.pixelWidth;
     }
 }
