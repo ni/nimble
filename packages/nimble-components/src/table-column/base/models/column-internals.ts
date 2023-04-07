@@ -2,10 +2,10 @@ import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
 import type { TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
-import { createCellViewTemplate } from '../../../table/components/cell/template';
 import { TableColumnSortOperation } from '../types';
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
+import { createCellViewTemplate } from '../cell-view/template';
 
 export interface ColumnInternalOptions {
     /**

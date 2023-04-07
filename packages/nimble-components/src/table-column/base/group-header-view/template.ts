@@ -7,7 +7,7 @@ export const createGroupHeaderViewTemplate = (
         <${groupHeaderViewTag}
             :groupHeaderValue="${x => x.groupRowValue}"
             :columnConfig="${x => x.groupColumn?.columnInternals.columnConfig}"
-            class="group-header-value"
-            >
+            class="group-header-view"
+        >
         </${groupHeaderViewTag}>
     `;
