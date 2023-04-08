@@ -2,9 +2,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { TableGroupHeaderView } from '.';
 
-const validateGroupHeaderViewTemplate = (
-    groupHeaderViewTag: string
-): void => {
+const validateGroupHeaderViewTemplate = (groupHeaderViewTag: string): void => {
     let instance;
     try {
         instance = document.createElement(groupHeaderViewTag);
@@ -12,7 +10,9 @@ const validateGroupHeaderViewTemplate = (
         // Swallow construction error to report a better one
     }
     if (!(instance instanceof TableGroupHeaderView)) {
-        throw new Error(`Group header view tag name (${groupHeaderViewTag}) must evaluate to an element extending TableGroupHeaderView`);
+        throw new Error(
+            `Group header view tag name (${groupHeaderViewTag}) must evaluate to an element extending TableGroupHeaderView`
+        );
     }
 };
 

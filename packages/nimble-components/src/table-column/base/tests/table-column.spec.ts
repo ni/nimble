@@ -1,8 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import {
-    fixture,
-    Fixture
-} from '../../../utilities/tests/fixture';
+import { fixture, Fixture } from '../../../utilities/tests/fixture';
 import { TableColumnEmpty, tableColumnEmptyTag } from './table-column.fixtures';
 
 // prettier-ignore

@@ -2,9 +2,7 @@ import { type ViewTemplate, html } from '@microsoft/fast-element';
 import type { TableCell } from '../../../table/components/cell';
 import { TableCellView } from '.';
 
-const validateCellViewTemplate = (
-    cellViewTag: string
-): void => {
+const validateCellViewTemplate = (cellViewTag: string): void => {
     let instance;
     try {
         instance = document.createElement(cellViewTag);
@@ -12,7 +10,9 @@ const validateCellViewTemplate = (
         // Swallow construction error to report a better one
     }
     if (!(instance instanceof TableCellView)) {
-        throw new Error(`Cell view tag name (${cellViewTag}) must evaluate to an element extending TableCellView`);
+        throw new Error(
+            `Cell view tag name (${cellViewTag}) must evaluate to an element extending TableCellView`
+        );
     }
 };
 

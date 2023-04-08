@@ -7,7 +7,10 @@ import {
 } from '../../../utilities/tests/fixture';
 import { TableColumn } from '../../base';
 import { mixinGroupableColumnAPI } from '../groupable-column';
-import { tableColumnEmptyCellViewTag, tableColumnEmptyGroupHeaderViewTag } from '../../base/tests/table-column.fixtures';
+import {
+    tableColumnEmptyCellViewTag,
+    tableColumnEmptyGroupHeaderViewTag
+} from '../../base/tests/table-column.fixtures';
 
 const columnName = uniqueElementName();
 @customElement({
