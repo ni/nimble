@@ -11,7 +11,7 @@ import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 import { createCellViewTemplate } from '../cell-view/template';
 
-export interface ColumnInternalOptions {
+export interface ColumnInternalsOptions {
     /**
      * The tag (element name) of the custom element that renders the cell content for the column.
      * That element should derive from TableCellView<TCellRecord, TColumnConfig>.
@@ -37,7 +37,7 @@ export interface ColumnInternalOptions {
  */
 export class ColumnInternals<TColumnConfig> {
     /**
-     * @see ColumnInternalOptions.cellRecordFieldNames
+     * @see ColumnInternalsOptions.cellRecordFieldNames
      */
     public readonly cellRecordFieldNames: readonly TableFieldName[];
 
@@ -128,7 +128,7 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public currentPixelWidth?: number;
 
-    public constructor(options: ColumnInternalOptions) {
+    public constructor(options: ColumnInternalsOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
         this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(

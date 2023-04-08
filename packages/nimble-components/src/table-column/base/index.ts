@@ -2,7 +2,7 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../table/types';
 import {
-    ColumnInternalOptions,
+    ColumnInternalsOptions,
     ColumnInternals
 } from './models/column-internals';
 
@@ -37,7 +37,7 @@ export abstract class TableColumn<
      */
     public readonly columnInternals: ColumnInternals<TColumnConfig>;
 
-    public constructor(options: ColumnInternalOptions) {
+    public constructor(options: ColumnInternalsOptions) {
         super();
         if (!options) {
             throw new Error(

@@ -91,7 +91,7 @@ This interface could possibly be expanded in the future to communicate relevant 
 
 This abstract class is what a column web component (i.e. a slotted column element) must extend. The attributes added to the `TableColumn` class are intended to be options configurable by client users.
 
-Column authors have additional configuration options to maintain that are configured via the `ColumnInternalOptions` constructor parameter and the `TableColumn.columnInternals` reference.
+Column authors have additional configuration options to maintain that are configured via the `ColumnInternalsOptions` constructor parameter and the `TableColumn.columnInternals` reference.
 
 ```TS
 abstract class TableColumn<TColumnConfig = {}> {
@@ -121,7 +121,7 @@ abstract class TableColumn<TColumnConfig = {}> {
     // @internal Configuration settings for column plugin authors
     public readonly columnInternals: ColumnInternals<TColumnConfig>;
 
-    public constructor(options: ColumnInternalOptions) {
+    public constructor(options: ColumnInternalsOptions) {
         super();
         this.columnInternals = new ColumnInternals(options);
     }
@@ -132,10 +132,10 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 
 ### Column author internal configuration
 
-Column authors have a required `ColumnInternalOptions` constructor parameter argument to define for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
+Column authors have a required `ColumnInternalsOptions` constructor parameter argument to define for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
 
 ```TS
-export interface ColumnInternalOptions {
+export interface ColumnInternalsOptions {
     // The tag (element name) of the custom element that renders the cell content for the column.
     // Should derive from TableCellView<TCellRecord, TColumnConfig>.
     readonly cellViewTag: string;
