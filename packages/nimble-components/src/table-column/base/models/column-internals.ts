@@ -67,7 +67,7 @@ export class ColumnInternals<TColumnConfig> {
      * The operation to use when sorting the table by this column.
      */
     @observable
-    public sortOperation = TableColumnSortOperation.basic;
+    public sortOperation: TableColumnSortOperation = TableColumnSortOperation.basic;
 
     /**
      * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
