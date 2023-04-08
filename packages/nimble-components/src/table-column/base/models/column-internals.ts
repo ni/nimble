@@ -70,8 +70,6 @@ export class ColumnInternals<TColumnConfig> {
     public sortOperation = TableColumnSortOperation.basic;
 
     /**
-     * @internal
-     *
      * The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
      * This array is parallel with the field names specified by `cellRecordFieldNames`.
      */
@@ -98,7 +96,6 @@ export class ColumnInternals<TColumnConfig> {
     public groupIndex?: number;
 
     /**
-     * @internal
      * Used by column plugins to set a specific pixel width. Sets currentPixelWidth when changed.
      */
     @observable
@@ -118,16 +115,14 @@ export class ColumnInternals<TColumnConfig> {
     public minPixelWidth = defaultMinPixelWidth;
 
     /**
-     * @internal
-     * Do not write to this value directly. It is used by the Table in order to store
+     * @internal Do not write to this value directly. It is used by the Table in order to store
      * the resolved value of the fractionalWidth after updates programmatic or interactive updates.
      */
     @observable
     public currentFractionalWidth = defaultFractionalWidth;
 
     /**
-     * @internal
-     * Do not write to this value directly. It is used by the Table in order to store
+     * @internal Do not write to this value directly. It is used by the Table in order to store
      * the resolved value of the pixelWidth after programmatic or interactive updates.
      */
     @observable
