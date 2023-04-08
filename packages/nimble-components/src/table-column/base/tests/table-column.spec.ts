@@ -1,42 +1,17 @@
 /* eslint-disable max-classes-per-file */
-import { customElement } from '@microsoft/fast-element';
 import {
     fixture,
-    Fixture,
-    uniqueElementName
+    Fixture
 } from '../../../utilities/tests/fixture';
-import { TableColumn } from '..';
-import { TableCellView } from '../cell-view';
-
-const columnName = uniqueElementName();
-const columnCellViewName = uniqueElementName();
-
-@customElement({
-    name: columnCellViewName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends TableCellView {}
-
-@customElement({
-    name: columnName
-})
-class TestTableColumn extends TableColumn {
-    public constructor() {
-        super({
-            cellRecordFieldNames: [],
-            cellViewTag: columnCellViewName,
-            groupHeaderViewTag: ''
-        });
-    }
-}
+import { TableColumnEmpty, tableColumnEmptyTag } from './table-column.fixtures';
 
 // prettier-ignore
-async function setup(): Promise<Fixture<TestTableColumn>> {
-    return fixture(columnName);
+async function setup(): Promise<Fixture<TableColumnEmpty>> {
+    return fixture(tableColumnEmptyTag);
 }
 
 describe('TableColumn', () => {
-    let element: TestTableColumn;
+    let element: TableColumnEmpty;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 

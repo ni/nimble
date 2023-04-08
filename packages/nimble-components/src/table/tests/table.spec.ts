@@ -14,6 +14,7 @@ import {
 } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
+import { tableColumnEmptyGroupHeaderViewTag } from '../../table-column/base/tests/table-column.fixtures';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -567,7 +568,7 @@ describe('Table', () => {
                     super({
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
-                        groupHeaderViewTag: ''
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
                     });
                 }
             }

@@ -7,15 +7,7 @@ import {
 } from '../../../utilities/tests/fixture';
 import { TableColumn } from '../../base';
 import { mixinFractionalWidthColumnAPI } from '../fractional-width-column';
-import { TableCellView } from '../../base/cell-view';
-
-const columnCellViewName = uniqueElementName();
-
-@customElement({
-    name: columnCellViewName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends TableCellView {}
+import { tableColumnEmptyCellViewTag, tableColumnEmptyGroupHeaderViewTag } from '../../base/tests/table-column.fixtures';
 
 const columnName = uniqueElementName();
 @customElement({
@@ -25,8 +17,8 @@ class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
     public constructor() {
         super({
             cellRecordFieldNames: [],
-            cellViewTag: columnCellViewName,
-            groupHeaderViewTag: ''
+            cellViewTag: tableColumnEmptyCellViewTag,
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
         });
     }
 }

@@ -7,23 +7,7 @@ import {
 } from '../../../utilities/tests/fixture';
 import { TableColumn } from '../../base';
 import { mixinGroupableColumnAPI } from '../groupable-column';
-import { TableGroupHeaderView } from '../../base/group-header-view';
-import { TableCellView } from '../../base/cell-view';
-
-const columnCellViewName = uniqueElementName();
-
-@customElement({
-    name: columnCellViewName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends TableCellView {}
-
-const testColumnGroupHeaderName = uniqueElementName();
-@customElement({
-    name: testColumnGroupHeaderName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnGroupHeader extends TableGroupHeaderView {}
+import { tableColumnEmptyCellViewTag, tableColumnEmptyGroupHeaderViewTag } from '../../base/tests/table-column.fixtures';
 
 const columnName = uniqueElementName();
 @customElement({
@@ -33,8 +17,8 @@ class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
     public constructor() {
         super({
             cellRecordFieldNames: [],
-            cellViewTag: columnCellViewName,
-            groupHeaderViewTag: ''
+            cellViewTag: tableColumnEmptyCellViewTag,
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
         });
     }
 }
