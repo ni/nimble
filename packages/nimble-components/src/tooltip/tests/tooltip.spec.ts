@@ -22,7 +22,9 @@ describe('Tooltip', () => {
         }
         const display = window.getComputedStyle(iconElement).display;
         if (typeof display !== 'string' || display === '') {
-            throw new Error(`Invalid display value was calcualted for ${elementName}`);
+            throw new Error(
+                `Invalid display value was calcualted for ${elementName}`
+            );
         }
         return display !== 'none';
     }
