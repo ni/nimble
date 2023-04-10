@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add the table column internals api for column authors",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 10 Apr 2023 19:29:13 GMT",
+      "tag": "@ni/nimble-components_v18.11.1",
+      "version": "18.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "49ea4be8b29e5426f01f64811f4cc648316c144f",
+            "comment": "Add the table column internals api for column authors"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 10 Apr 2023 18:53:34 GMT",
       "tag": "@ni/nimble-components_v18.11.0",
       "version": "18.11.0",

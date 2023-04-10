@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 10 Apr 2023 18:53:34 GMT and should not be manually modified.
+This log was last generated on Mon, 10 Apr 2023 19:29:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.11.1
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Add the table column internals api for column authors ([ni/nimble@49ea4be](https://github.com/ni/nimble/commit/49ea4be8b29e5426f01f64811f4cc648316c144f))
 
 ## 18.11.0
 
