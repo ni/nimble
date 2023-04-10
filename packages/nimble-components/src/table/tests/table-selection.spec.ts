@@ -7,7 +7,8 @@ import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     TableRecord,
     TableRowSelectionEventDetail,
-    TableRowSelectionMode
+    TableRowSelectionMode,
+    TableRowSelectionState
 } from '../types';
 import { TablePageObject } from './table.pageobject';
 import type { TableColumnText } from '../../table-column/text';
@@ -34,29 +35,33 @@ const simpleTableData = [
 ] as const;
 
 const groupableTableData = [{
-    id: '0',
-    stringData: 'cat',
-    stringData2: 'blue'
+    id: 'blue-cat-0',
+    stringData: 'blue',
+    stringData2: 'cat'
 }, {
-    id: '1',
-    stringData: 'dog',
-    stringData2: 'green'
+    id: 'green-dog-0',
+    stringData: 'green',
+    stringData2: 'dog'
 }, {
-    id: '2',
-    stringData: 'cat',
-    stringData2: 'green'
+    id: 'green-cat-0',
+    stringData: 'green',
+    stringData2: 'cat'
 }, {
-    id: '3',
-    stringData: 'cat',
-    stringData2: 'green'
+    id: 'green-cat-1',
+    stringData: 'green',
+    stringData2: 'cat'
 }, {
-    id: '4',
-    stringData: 'dog',
-    stringData2: 'blue'
+    id: 'blue-dog-0',
+    stringData: 'blue',
+    stringData2: 'dog'
 }, {
-    id: '5',
-    stringData: 'cat',
-    stringData2: 'green'
+    id: 'green-cat-2',
+    stringData: 'green',
+    stringData2: 'cat'
+}, {
+    id: 'blue-cat-1',
+    stringData: 'blue',
+    stringData2: 'cat'
 }] as const;
 
 // prettier-ignore
@@ -70,6 +75,12 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
 }
 
 describe('Table row selection', () => {
+    function getEmittedRecordIdsFromSpy(spy: jasmine.Spy): string[] {
+        const event = spy.calls.first()
+            .args[0] as CustomEvent<TableRowSelectionEventDetail>;
+        return event.detail.selectedRecordIds;
+    }
+
     describe('with connection', () => {
         let element: Table<SimpleTableRecord>;
         let connect: () => Promise<void>;
@@ -314,7 +325,7 @@ describe('Table row selection', () => {
             const rowCount = simpleTableData.length;
             for (let i = 0; i < rowCount; i++) {
                 expect(pageObject.getIsRowSelectable(i)).toBeTrue();
-                expect(pageObject.getIsRowSelectionCheckboxHidden(i)).toBeTrue();
+                expect(pageObject.isRowSelectionCheckboxVisible(i)).toBeFalse();
             }
         });
 
@@ -326,7 +337,7 @@ describe('Table row selection', () => {
             const rowCount = simpleTableData.length;
             for (let i = 0; i < rowCount; i++) {
                 expect(pageObject.getIsRowSelectable(i)).toBeTrue();
-                expect(pageObject.getIsRowSelectionCheckboxHidden(i)).toBeFalse();
+                expect(pageObject.isRowSelectionCheckboxVisible(i)).toBeTrue();
             }
         });
 
@@ -525,7 +536,7 @@ describe('Table row selection', () => {
                 });
 
                 it('selection checkbox is not shown in header', () => {
-                    expect(pageObject.getTableSelectionCheckbox()).not.toBeDefined();
+                    expect(pageObject.isTableSelectionCheckboxVisible()).toBeFalse();
                 });
             });
 
@@ -539,35 +550,28 @@ describe('Table row selection', () => {
                 it('clicking a row with no previous selection selects the clicked row and emits an event', async () => {
                     await pageObject.clickRow(0);
 
+                    const expectedSelection = ['0'];
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(['0']);
+                    expect(currentSelection).toEqual(expectedSelection);
                     expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                    const expectedDetail: TableRowSelectionEventDetail = {
-                        selectedRecordIds: ['0']
-                    };
-                    const event = selectionChangeListener.spy.calls.first()
-                        .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                    expect(event.detail).toEqual(expectedDetail);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(expectedSelection);
                 });
 
                 it('clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event', async () => {
                     await element.setSelectedRecordIds(['1']);
-
                     await pageObject.clickRow(0);
+
+                    const expectedSelection = ['0'];
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(['0']);
+                    expect(currentSelection).toEqual(expectedSelection);
                     expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                    const expectedDetail: TableRowSelectionEventDetail = {
-                        selectedRecordIds: ['0']
-                    };
-                    const event = selectionChangeListener.spy.calls.first()
-                        .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                    expect(event.detail).toEqual(expectedDetail);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(expectedSelection);
                 });
 
                 it('clicking the already selected row maintains its selection and does not emit an event', async () => {
                     await element.setSelectedRecordIds(['0']);
-
                     await pageObject.clickRow(0);
 
                     const currentSelection = await element.getSelectedRecordIds();
@@ -576,7 +580,7 @@ describe('Table row selection', () => {
                 });
 
                 it('selection checkbox is not shown in header', () => {
-                    expect(pageObject.getTableSelectionCheckbox()).not.toBeDefined();
+                    expect(pageObject.isTableSelectionCheckboxVisible()).toBeFalse();
                 });
             });
 
@@ -590,65 +594,52 @@ describe('Table row selection', () => {
                 it('clicking a row with no previous selection selects the clicked row and emits an event', async () => {
                     await pageObject.clickRow(0);
 
+                    const expectedSelection = ['0'];
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(['0']);
+                    expect(currentSelection).toEqual(expectedSelection);
                     expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                    const expectedDetail: TableRowSelectionEventDetail = {
-                        selectedRecordIds: ['0']
-                    };
-                    const event = selectionChangeListener.spy.calls.first()
-                        .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                    expect(event.detail).toEqual(expectedDetail);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(expectedSelection);
                 });
 
                 it('clicking a row with one different row previously selected selects the clicked row and deselects the other row and emits an event', async () => {
                     await element.setSelectedRecordIds(['1']);
-
                     await pageObject.clickRow(0);
+
+                    const expectedSelection = ['0'];
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(['0']);
+                    expect(currentSelection).toEqual(expectedSelection);
                     expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                    const expectedDetail: TableRowSelectionEventDetail = {
-                        selectedRecordIds: ['0']
-                    };
-                    const event = selectionChangeListener.spy.calls.first()
-                        .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                    expect(event.detail).toEqual(expectedDetail);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(expectedSelection);
                 });
 
                 it('clicking a row with multiple different row previously selected selects the clicked row and deselects the other row and emits an event', async () => {
                     await element.setSelectedRecordIds(['1', '2']);
-
                     await pageObject.clickRow(0);
+
+                    const expectedSelection = ['0'];
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(['0']);
+                    expect(currentSelection).toEqual(expectedSelection);
                     expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                    const expectedDetail: TableRowSelectionEventDetail = {
-                        selectedRecordIds: ['0']
-                    };
-                    const event = selectionChangeListener.spy.calls.first()
-                        .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                    expect(event.detail).toEqual(expectedDetail);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(expectedSelection);
                 });
 
                 it('clicking a selected row with multiple rows previously selected keeps the clicked row selected and deselects others emits an event', async () => {
                     await element.setSelectedRecordIds(['1', '2']);
-
                     await pageObject.clickRow(1);
+
+                    const expectedSelection = ['1'];
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(['1']);
+                    expect(currentSelection).toEqual(expectedSelection);
                     expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                    const expectedDetail: TableRowSelectionEventDetail = {
-                        selectedRecordIds: ['1']
-                    };
-                    const event = selectionChangeListener.spy.calls.first()
-                        .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                    expect(event.detail).toEqual(expectedDetail);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(expectedSelection);
                 });
 
                 it('clicking the already selected row maintains its selection and does not emit an event', async () => {
                     await element.setSelectedRecordIds(['0']);
-
                     await pageObject.clickRow(0);
 
                     const currentSelection = await element.getSelectedRecordIds();
@@ -656,34 +647,47 @@ describe('Table row selection', () => {
                     expect(selectionChangeListener.spy).not.toHaveBeenCalled();
                 });
 
+                it('can select multiple rows by clicking their selection checkboxes', async () => {
+                    pageObject.clickRowSelectionCheckbox(0);
+                    pageObject.clickRowSelectionCheckbox(1);
+                    await waitForUpdatesAsync();
+
+                    const selectedRecordIds = await element.getSelectedRecordIds();
+                    expect(selectedRecordIds).toEqual(jasmine.arrayWithExactContents([simpleTableData[0].stringData, simpleTableData[1].stringData]));
+                });
+
+                it('can deselect a single row by clicking the selection checkbox for the row', async () => {
+                    const recordIds = simpleTableData.map(x => x.stringData);
+                    await element.setSelectedRecordIds(recordIds);
+                    await waitForUpdatesAsync();
+
+                    pageObject.clickRowSelectionCheckbox(0);
+                    await waitForUpdatesAsync();
+
+                    recordIds.splice(0, 1);
+                    const selectedRecordIds = await element.getSelectedRecordIds();
+                    expect(selectedRecordIds).toEqual(jasmine.arrayWithExactContents(recordIds));
+                });
+
                 describe('header selection checkbox', () => {
-                    let checkbox: Checkbox;
-
-                    beforeEach(() => {
-                        checkbox = pageObject.getTableSelectionCheckbox()!;
-                    });
-
-                    it('is shown in header', () => {
-                        expect(pageObject.getTableSelectionCheckbox()).toBeDefined();
+                    it('is shown', () => {
+                        expect(pageObject.isTableSelectionCheckboxVisible()).toBeTrue();
                     });
 
                     it('is unchecked by default', () => {
-                        expect(checkbox.checked).toBeFalse();
-                        expect(checkbox.indeterminate).toBeFalse();
+                        expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.notSelected);
                     });
 
                     it('is indeterminate with a partial selection', async () => {
                         await element.setSelectedRecordIds([simpleTableData[0].stringData]);
-                        expect(checkbox.checked).toBeFalse();
-                        expect(checkbox.indeterminate).toBeTrue();
+                        expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.partiallySelected);
                     });
 
                     it('is checked with a complete selection', async () => {
                         const allRecordIds = simpleTableData.map(x => x.stringData);
                         await element.setSelectedRecordIds(allRecordIds);
 
-                        expect(checkbox.checked).toBeTrue();
-                        expect(checkbox.indeterminate).toBeFalse();
+                        expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.selected);
                     });
 
                     it('is unchecked when selection is cleared', async () => {
@@ -691,61 +695,47 @@ describe('Table row selection', () => {
                         await element.setSelectedRecordIds(allRecordIds);
                         await element.setSelectedRecordIds([]);
 
-                        expect(checkbox.checked).toBeFalse();
-                        expect(checkbox.indeterminate).toBeFalse();
+                        expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.notSelected);
                     });
 
                     it('selects all rows and fires event when clicked while unchecked', async () => {
                         const allRecordIds = simpleTableData.map(x => x.stringData);
-                        checkbox.click();
+                        pageObject.clickTableSelectionCheckbox();
 
                         await selectionChangeListener.promise;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(allRecordIds);
+                        expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allRecordIds));
                         expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                        const expectedDetail: TableRowSelectionEventDetail = {
-                            selectedRecordIds: allRecordIds
-                        };
-                        const event = selectionChangeListener.spy.calls.first()
-                            .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                        expect(event.detail).toEqual(expectedDetail);
+                        const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                        expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allRecordIds));
                     });
 
                     it('selects all rows and fires event when clicked while indeterminate', async () => {
                         const allRecordIds = simpleTableData.map(x => x.stringData);
                         await element.setSelectedRecordIds([simpleTableData[0].stringData]);
-                        checkbox.click();
+                        pageObject.clickTableSelectionCheckbox();
 
                         await selectionChangeListener.promise;
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(allRecordIds);
+                        expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allRecordIds));
                         expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                        const expectedDetail: TableRowSelectionEventDetail = {
-                            selectedRecordIds: allRecordIds
-                        };
-                        const event = selectionChangeListener.spy.calls.first()
-                            .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                        expect(event.detail).toEqual(expectedDetail);
+                        const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                        expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allRecordIds));
                     });
 
                     it('deselects all rows and fires event when clicked while checked', async () => {
                         const allRecordIds = simpleTableData.map(x => x.stringData);
                         await element.setSelectedRecordIds(allRecordIds);
-                        checkbox.click();
+                        pageObject.clickTableSelectionCheckbox();
 
                         await selectionChangeListener.promise;
 
                         const currentSelection = await element.getSelectedRecordIds();
                         expect(currentSelection).toEqual([]);
-                        expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
-                        const expectedDetail: TableRowSelectionEventDetail = {
-                            selectedRecordIds: []
-                        };
-                        const event = selectionChangeListener.spy.calls.first()
-                            .args[0] as CustomEvent<TableRowSelectionEventDetail>;
-                        expect(event.detail).toEqual(expectedDetail);
+                        const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                        expect(emittedIds).toEqual([]);
                     });
                 });
             });
@@ -838,8 +828,9 @@ describe('Table row selection', () => {
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setup());
             element.selectionMode = TableRowSelectionMode.multiple;
-            column1 = element.querySelector<TableColumnText>('#first-column')!;
-            column2 = element.querySelector<TableColumnText>('#second-column')!;
+            element.idFieldName = 'id';
+            column1 = element.querySelector<TableColumnText>('#column1')!;
+            column2 = element.querySelector<TableColumnText>('#column2')!;
 
             pageObject = new TablePageObject<SimpleTableRecord>(element);
             selectionChangeListener = createEventListener(
@@ -862,10 +853,172 @@ describe('Table row selection', () => {
                 await waitForUpdatesAsync();
             });
 
-            // table selection checkbox is in correct state -- checked, not checked, indeterminate
-            // table selection checkbox selects/deselects all leaf rows (grouped rows not marked as selected)
-            // group row has correct selected state after interacting with child rows
-            // child rows have correct selection state after interacting with group rows
+            it('table selection checkbox is not checked when no rows are selected', () => {
+                expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.notSelected);
+            });
+
+            it('table selection checkbox is checked when all leaf rows are selected', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                await element.setSelectedRecordIds(allRecordIds);
+
+                expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.selected);
+            });
+
+            it('table selection checkbox is indeterminate when some leaf rows are selected', async () => {
+                // Select all records in the "Green" group
+                const allGreenRecordIds = groupableTableData
+                    .filter(x => x.id.includes('green-'))
+                    .map(x => x.id);
+                await element.setSelectedRecordIds(allGreenRecordIds);
+
+                expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.partiallySelected);
+            });
+
+            it('clicking unchecked selection checkbox selects all leaf rows and fires event', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                pageObject.clickTableSelectionCheckbox();
+
+                await selectionChangeListener.promise;
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+                expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+            });
+
+            it('clicking checked selection checkbox selects all leaf rows and fires event', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                await element.setSelectedRecordIds(allRecordIds);
+
+                pageObject.clickTableSelectionCheckbox();
+                await selectionChangeListener.promise;
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
+                expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                expect(emittedIds).toEqual([]);
+            });
+
+            it('clicking indeterminate selection checkbox selects all leaf rows and fires event', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                await element.setSelectedRecordIds([groupableTableData[0].id]);
+
+                pageObject.clickTableSelectionCheckbox();
+                await selectionChangeListener.promise;
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+                expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+            });
+
+            describe('group selection checkbox', () => {
+                const blueGroupIndex = 0;
+
+                it('group selection checkbox default to not checked', () => {
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.notSelected);
+                });
+
+                it('clicking unchecked group selection checkbox selects all children and emits event', async () => {
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                });
+
+                it('clicking checked group selection checkbox deselects all children and emits event', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    await element.setSelectedRecordIds(allBlueRecordIds);
+
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual([]);
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual([]);
+                });
+
+                it('clicking group selection checkbox does not modify selection of rows not in the group', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const firstGreenRecordId = groupableTableData.filter(x => x.id.includes('green-'))[0]!.id;
+                    const recordIdsToSelect = [...allBlueRecordIds, firstGreenRecordId];
+                    await element.setSelectedRecordIds(recordIdsToSelect);
+
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual([firstGreenRecordId]);
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual([firstGreenRecordId]);
+                });
+
+                it('clicking indeterminate group selection checkbox selects all children and emits event', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const firstBlueRecordId = allBlueRecordIds[0]!;
+                    await element.setSelectedRecordIds([firstBlueRecordId]);
+
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                });
+
+                it('selecting a row within a group makes the group row indeterminate', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const firstBlueRecordId = allBlueRecordIds[0]!;
+                    await element.setSelectedRecordIds([firstBlueRecordId]);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.partiallySelected);
+                });
+
+                it('selecting all rows within a group makes the group row checked', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    await element.setSelectedRecordIds(allBlueRecordIds);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.selected);
+                });
+
+                it('deselecting all rows within a group makes the group row unchecked', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    await element.setSelectedRecordIds(allBlueRecordIds);
+                    await element.setSelectedRecordIds([]);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.notSelected);
+                });
+            });
         });
 
         describe('two levels of grouping', () => {
@@ -873,6 +1026,268 @@ describe('Table row selection', () => {
                 column1.groupIndex = 0;
                 column2.groupIndex = 1;
                 await waitForUpdatesAsync();
+            });
+
+            it('table selection checkbox is not checked when no rows are selected', () => {
+                expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.notSelected);
+            });
+
+            it('table selection checkbox is checked when all leaf rows are selected', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                await element.setSelectedRecordIds(allRecordIds);
+
+                expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.selected);
+            });
+
+            it('table selection checkbox is indeterminate when some leaf rows are selected', async () => {
+                // Select all records in the "Green" group
+                const allGreenRecordIds = groupableTableData
+                    .filter(x => x.id.includes('green-'))
+                    .map(x => x.id);
+                await element.setSelectedRecordIds(allGreenRecordIds);
+
+                expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.partiallySelected);
+            });
+
+            it('clicking unchecked selection checkbox selects all leaf rows and fires event', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                pageObject.clickTableSelectionCheckbox();
+
+                await selectionChangeListener.promise;
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+                expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+            });
+
+            it('clicking checked selection checkbox selects all leaf rows and fires event', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                await element.setSelectedRecordIds(allRecordIds);
+
+                pageObject.clickTableSelectionCheckbox();
+                await selectionChangeListener.promise;
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual([]);
+                expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                expect(emittedIds).toEqual([]);
+            });
+
+            it('clicking indeterminate selection checkbox selects all leaf rows and fires event', async () => {
+                const allRecordIds = groupableTableData.map(x => x.id);
+                await element.setSelectedRecordIds([groupableTableData[0].id]);
+
+                pageObject.clickTableSelectionCheckbox();
+                await selectionChangeListener.promise;
+
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+                expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allRecordIds));
+            });
+
+            describe('group selection checkbox', () => {
+                const blueGroupIndex = 0;
+
+                it('group selection checkbox default to not checked', () => {
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.notSelected);
+                });
+
+                it('clicking unchecked group selection checkbox selects all children and emits event', async () => {
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                });
+
+                it('clicking checked group selection checkbox deselects all children and emits event', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    await element.setSelectedRecordIds(allBlueRecordIds);
+
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual([]);
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual([]);
+                });
+
+                it('clicking group selection checkbox does not modify selection of rows not in the group', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const firstGreenRecordId = groupableTableData.filter(x => x.id.includes('green-'))[0]!.id;
+                    const recordIdsToSelect = [...allBlueRecordIds, firstGreenRecordId];
+                    await element.setSelectedRecordIds(recordIdsToSelect);
+
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual([firstGreenRecordId]);
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual([firstGreenRecordId]);
+                });
+
+                it('clicking indeterminate group selection checkbox selects all children and emits event', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const firstBlueRecordId = allBlueRecordIds[0]!;
+                    await element.setSelectedRecordIds([firstBlueRecordId]);
+
+                    pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                    await selectionChangeListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                    expect(selectionChangeListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(selectionChangeListener.spy);
+                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(allBlueRecordIds));
+                });
+
+                it('selecting a row within a group makes the group row indeterminate', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    const firstBlueRecordId = allBlueRecordIds[0]!;
+                    await element.setSelectedRecordIds([firstBlueRecordId]);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.partiallySelected);
+                });
+
+                it('selecting all rows within a group makes the group row checked', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    await element.setSelectedRecordIds(allBlueRecordIds);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.selected);
+                });
+
+                it('deselecting all rows within a group makes the group row unchecked', async () => {
+                    const allBlueRecordIds = groupableTableData
+                        .filter(x => x.id.includes('blue-'))
+                        .map(x => x.id);
+                    await element.setSelectedRecordIds(allBlueRecordIds);
+                    await element.setSelectedRecordIds([]);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.notSelected);
+                });
+
+                describe('subgroup selection checkbox', () => {
+                    const blueCatGroupIndex = 1;
+                    const blueDogGroupIndex = 2;
+
+                    it('selecting a row within a group makes the group row indeterminate', async () => {
+                        const allBlueRecordIds = groupableTableData
+                            .filter(x => x.id.includes('blue-cat-'))
+                            .map(x => x.id);
+                        const firstBlueRecordId = allBlueRecordIds[0]!;
+                        await element.setSelectedRecordIds([firstBlueRecordId]);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getGroupRowSelectionState(blueCatGroupIndex)).toBe(TableRowSelectionState.partiallySelected);
+                    });
+
+                    it('selecting all rows within a group makes the group row checked', async () => {
+                        const allBlueRecordIds = groupableTableData
+                            .filter(x => x.id.includes('blue-cat-'))
+                            .map(x => x.id);
+                        await element.setSelectedRecordIds(allBlueRecordIds);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getGroupRowSelectionState(blueCatGroupIndex)).toBe(TableRowSelectionState.selected);
+                    });
+
+                    it('deselecting all rows within a group makes the group row unchecked', async () => {
+                        const allBlueRecordIds = groupableTableData
+                            .filter(x => x.id.includes('blue-cat-'))
+                            .map(x => x.id);
+                        await element.setSelectedRecordIds(allBlueRecordIds);
+                        await element.setSelectedRecordIds([]);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getGroupRowSelectionState(blueCatGroupIndex)).toBe(TableRowSelectionState.notSelected);
+                    });
+
+                    it('deselecting all rows within a group makes the group row unchecked', async () => {
+                        const allBlueRecordIds = groupableTableData
+                            .filter(x => x.id.includes('blue-cat-'))
+                            .map(x => x.id);
+                        await element.setSelectedRecordIds(allBlueRecordIds);
+                        await element.setSelectedRecordIds([]);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getGroupRowSelectionState(blueCatGroupIndex)).toBe(TableRowSelectionState.notSelected);
+                    });
+
+                    it('selecting all sub groups within a group makes the group row checked', async () => {
+                        pageObject.clickGroupRowSelectionCheckbox(blueCatGroupIndex);
+                        pageObject.clickGroupRowSelectionCheckbox(blueDogGroupIndex);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.selected);
+                    });
+
+                    it('selecting all parent group makes all sub groups selected', async () => {
+                        pageObject.clickGroupRowSelectionCheckbox(blueGroupIndex);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getGroupRowSelectionState(blueCatGroupIndex)).toBe(TableRowSelectionState.selected);
+                        expect(pageObject.getGroupRowSelectionState(blueDogGroupIndex)).toBe(TableRowSelectionState.selected);
+                    });
+
+                    it('selecting single leaf row updates all its group parents to be indeterminate', async () => {
+                        const firstBlueCatRecordId = groupableTableData
+                            .filter(x => x.id.includes('blue-cat-'))
+                            .map(x => x.id)[0]!;
+                        await element.setSelectedRecordIds([firstBlueCatRecordId]);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.partiallySelected);
+                        expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.partiallySelected);
+                        expect(pageObject.getGroupRowSelectionState(blueCatGroupIndex)).toBe(TableRowSelectionState.partiallySelected);
+                        expect(pageObject.getGroupRowSelectionState(blueDogGroupIndex)).toBe(TableRowSelectionState.notSelected);
+                    });
+
+                    it('deselecting single leaf row updates all its group parents to be indeterminate', async () => {
+                        const allRecordIds = groupableTableData.map(x => x.id);
+                        await element.setSelectedRecordIds(allRecordIds);
+                        await waitForUpdatesAsync();
+
+                        const firstBlueCatRecordId = groupableTableData
+                            .filter(x => x.id.includes('blue-cat-'))
+                            .map(x => x.id)[0]!;
+                        const newSelection = allRecordIds.filter(x => x !== firstBlueCatRecordId);
+                        await element.setSelectedRecordIds(newSelection);
+                        await waitForUpdatesAsync();
+
+                        expect(pageObject.getTableSelectionState()).toBe(TableRowSelectionState.partiallySelected);
+                        expect(pageObject.getGroupRowSelectionState(blueGroupIndex)).toBe(TableRowSelectionState.partiallySelected);
+                        expect(pageObject.getGroupRowSelectionState(blueCatGroupIndex)).toBe(TableRowSelectionState.partiallySelected);
+                        expect(pageObject.getGroupRowSelectionState(blueDogGroupIndex)).toBe(TableRowSelectionState.selected);
+                    });
+                });
             });
         });
     });
