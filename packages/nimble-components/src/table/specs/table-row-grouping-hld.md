@@ -39,22 +39,12 @@ export function mixinGroupableColumnAPI<
 
         public groupIndex?: number | null = null;
 
-        /**
-         * The custom element tag to use for rendering group header values.
-         * Should derive from TableGroupHeaderView.
-         */
-        public abstract groupHeaderViewTag: string;
-
         public groupingDisabledChanged(): void {
-            this.internalGroupingDisabled = this.groupingDisabled;
+            this.columnInternals.groupingDisabled = this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
-            this.internalGroupIndex = this.groupIndex;
-        }
-
-        public groupHeaderViewTagChanged(): void {
-            this.internalGroupHeaderViewTag = this.groupHeaderViewTag;
+            this.columnInternals.groupIndex = this.groupIndex;
         }
     }
     attr({ attribute: 'grouping-disabled', mode: 'boolean' })(
@@ -65,17 +55,16 @@ export function mixinGroupableColumnAPI<
         GroupableColumn.prototype,
         'groupIndex'
     );
-    observable(GroupableColumn.prototype, 'groupHeaderViewTag');
 
     return GroupableColumn;
 }
 ```
 
-The `TableColumn` will add the `internalGroupingDisabled`, `internalGroupIndex` and `internalGroupHeaderViewTag` APIs to provide that state where it is needed in the rest of the `Table` implementation.
+The `ColumnInternals` will add the `groupingDisabled` and `groupIndex` properties to provide that state where it is needed in the rest of the `Table` implementation.
 
 This mixin can then be chained to other mixins in the following fashion:
 
-```
+```ts
 export class TableColumnText extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(TableColumnBase)
 ) {}
@@ -99,7 +88,7 @@ A client would then be able to configure their `Table` in the following way in h
 
 ### Rendering group header values
 
-Rendering group header values have similar concerns as rendering cell values, providing reason to adopt the pattern outlined in [the table state management PR (#1052)](https://github.com/ni/nimble/pull/1052) for columns to specify a custom element to use to render the value. As shown in the mixin snippet above, it will provide an abstract `groupHeaderViewTag` property, which will require groupable columns to specify the element to use to display the header value. This element will derive from an element of type `TableGroupHeaderView`:
+Rendering group header values have similar concerns as rendering cell values, providing reason to adopt the pattern outlined in [the table state management PR (#1052)](https://github.com/ni/nimble/pull/1052) for columns to specify a custom element to use to render the value. The `ColumnInternalsOptions` will require a `groupHeaderViewTag` for groupable columns to specify the element to use to display their header value. This element will derive from an element of type `TableGroupHeaderView`:
 
 ```ts
 export interface TableGroupHeaderState<
@@ -134,9 +123,6 @@ export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
 string | null | undefined,
 TableColumnTextColumnConfig
 > {
-    @observable
-    public override columnConfig!: TableColumnTextColumnConfig;
-
     @volatile
     public get content(): string {
         return typeof this.groupHeaderValue === 'string'
@@ -148,7 +134,11 @@ TableColumnTextColumnConfig
 const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
     baseName: 'table-column-text-group-header',
     template: html<TableColumnTextGroupHeaderView>`
-        <nimble-text-field readonly="true" value="${x => x.groupHeaderValue}" placeholder="${x => x.columnConfig.placeholder}">
+        <nimble-text-field
+            readonly="true"
+            value="${x => x.groupHeaderValue}"
+            placeholder="${x => x.columnConfig.placeholder}"
+        >
         </nimble-text-field>`,
     styles: /* styling */
 });

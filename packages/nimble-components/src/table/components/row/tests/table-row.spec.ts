@@ -40,7 +40,7 @@ describe('TableRow', () => {
         expect(document.createElement('nimble-table-row')).toBeInstanceOf(TableRow);
     });
 
-    it('column state is applied to generated cells', async () => {
+    it('column cell view template is applied to generated cells', async () => {
         await connect();
 
         const textColumn1 = new TableColumnText();
@@ -49,8 +49,9 @@ describe('TableRow', () => {
 
         const renderedCell = pageObject.getRenderedCell(0);
 
-        expect(renderedCell!.cellTemplate).toEqual(textColumn1.cellTemplate);
-        expect(renderedCell!.cellStyles).toEqual(textColumn1.cellStyles);
+        expect(renderedCell!.cellViewTemplate).toEqual(
+            textColumn1.columnInternals.cellViewTemplate
+        );
     });
 
     it('rendered cell gets cellState from column', async () => {
@@ -80,5 +81,40 @@ describe('TableRow', () => {
         const secondCellRecord = secondCellState!
             .cellRecord as TableColumnTextCellRecord;
         expect(secondCellRecord.value).toBe('foo');
+    });
+
+    it('does not have aria-selected attribute when it is not selectable', async () => {
+        element.selectable = false;
+        element.selected = false;
+        await connect();
+
+        expect(element.hasAttribute('aria-selected')).toBeFalse();
+    });
+
+    it('has aria-selected attribute set to "true" when it is selected', async () => {
+        element.selectable = true;
+        element.selected = true;
+        await connect();
+
+        expect(element.getAttribute('aria-selected')).toBe('true');
+    });
+
+    it('has aria-selected attribute set to "false" when it is not selected', async () => {
+        element.selectable = true;
+        element.selected = false;
+        await connect();
+
+        expect(element.getAttribute('aria-selected')).toBe('false');
+    });
+
+    it('updates aria-selected attribute when selection state changes', async () => {
+        element.selectable = true;
+        element.selected = false;
+        await connect();
+
+        element.selected = true;
+        await waitForUpdatesAsync();
+
+        expect(element.getAttribute('aria-selected')).toBe('true');
     });
 });

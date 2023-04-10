@@ -15,7 +15,7 @@ The `nimble-table-column-text` is a component that defines how to render a cell 
 ### Non-goals
 
 -   Defining an API that supports editable text. Once we need editable text we will determine if it makes sense to modify this component or introduce a new column type.
--   Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the abstract `cssStyles` property.
+-   Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the cell view element.
 
 ### Features
 
@@ -64,18 +64,22 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
     public fieldName: string;
 
     @attr
-    public placeholder: string; // Column auxiliary configuration
-
-    public cellRecordFieldNames = ['value'] as const;
+    public placeholder: string;
 
     protected fieldNameChanged(): void {
-        this.dataRecordFieldNames = [this.fieldName] as const;
+        this.columnInternals.dataRecordFieldNames = [this.fieldName] as const;
     }
 
     protected placeholderChanged(): void {
-        this.columnConfig = { placeholder: this.placeholder ?? '' };
+        this.columnInternals.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 
+    constuctor() {
+        super({
+            cellRecordFieldNames: ['value'],
+            ...
+        })
+    }
     ...
 }
 ```
@@ -100,31 +104,25 @@ The visual appearance of the text content will match that of a frameless `nimble
 
 ## Implementation
 
-For the `cellTemplate` implementation required for a `TableColumn<>` implementation we will provide something similar to the following:
+The cell view element will have styles and and template similar to:
 
 ```TS
-public class TableColumnText ...
-{
-    ...
+const styles = css`
+    .text-value {
+        // set necessary text-value styles
+    }
 
-    public readonly cellStyles = css`
-        .text-value {
-            // set necessary text-value styles
-        }
+    .placeholder {
+        // set necessary placeholder styles
+    }
+`;
 
-        .placeholder {
-            // set necessary placeholder styles
-        }
-    `;
+const template = html<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>>`
+    <span class="${x => x.data.value ? 'text-value' : 'placeholder'}">
+        ${x => x.data.value? x.data.value : x.columnConfig.plaeholder}
+    </span>
+`;
 
-    public readonly cellTemplate = html<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>>`
-            <span class="${x => x.data.value ? 'text-value' : 'placeholder'}">
-                ${x => x.data.value? x.data.value : x.columnConfig.plaeholder}
-            </span>
-        `;
-
-    ...
-}
 ```
 
 Note that as we are using a `span` element for the visual we will not support many of the features native to the `nimble-text-field` component as they have little value. This includes:

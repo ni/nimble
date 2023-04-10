@@ -1,8 +1,108 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 03 Apr 2023 18:19:24 GMT and should not be manually modified.
+This log was last generated on Mon, 10 Apr 2023 19:29:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.8
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.1
+
+## 16.5.7
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.0
+
+## 16.5.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.6
+
+## 16.5.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update table validation test and make setData() async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+- Bump @ni/nimble-components to v18.10.5
+
+## 16.5.4
+
+Thu, 06 Apr 2023 19:46:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.4
+
+## 16.5.3
+
+Thu, 06 Apr 2023 17:21:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.3
+
+## 16.5.2
+
+Wed, 05 Apr 2023 22:05:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.2
+
+## 16.5.1
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.1
+
+## 16.5.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Angular support for anchor tree item ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+- Bump @ni/nimble-components to v18.10.0
+
+## 16.4.1
+
+Tue, 04 Apr 2023 23:23:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.9.1
+
+## 16.4.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+- Bump @ni/nimble-components to v18.9.0
+
+## 16.3.0
+
+Mon, 03 Apr 2023 21:31:32 GMT
+
+### Minor changes
+
+- Angular integration for anchor menu item component ([ni/nimble@9bcfe99](https://github.com/ni/nimble/commit/9bcfe9997a520cf952e63fd48440dc23f13ec63d))
+- Bump @ni/nimble-components to v18.8.4
 
 ## 16.2.9
 

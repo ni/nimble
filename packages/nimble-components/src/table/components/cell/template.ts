@@ -9,11 +9,10 @@ import {
 
 // prettier-ignore
 export const template = html<TableCell>`
-    <template role="cell">
-        <div ${ref('cellContentContainer')} class="cell-content-container"></div>
-
+    <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}">
+        ${x => x.cellViewTemplate}
         ${when(x => x.hasActionMenu, html<TableCell>`
-            <${menuButtonTag}
+            <${menuButtonTag} ${ref('actionMenuButton')}
                 content-hidden
                 appearance="${ButtonAppearance.ghost}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"

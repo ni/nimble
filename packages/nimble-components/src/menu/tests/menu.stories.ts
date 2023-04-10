@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { menuTag } from '..';
 import { iconArrowLeftFromLineTag } from '../../icons/arrow-left-from-line';
@@ -40,6 +41,7 @@ and will format them and any Nimble icons added as children of \`<nimble-menu-it
 const metadata: Meta<MenuArgs> = {
     title: 'Menu',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {

@@ -10,6 +10,7 @@ import type {
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
+import { TableCell } from '../cell';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,6 +21,7 @@ declare global {
 export interface ColumnState {
     column: TableColumn;
     cellState: TableCellState;
+    cellIndentLevel: number;
 }
 
 /** Represents a single row (element) in the Table's data  */
@@ -36,6 +38,12 @@ export class TableRow<
     @attr({ attribute: 'record-id' })
     public recordId?: string;
 
+    @attr({ mode: 'boolean' })
+    public selectable = false;
+
+    @attr({ mode: 'boolean' })
+    public selected = false;
+
     @observable
     public dataRecord?: TDataRecord;
 
@@ -45,35 +53,50 @@ export class TableRow<
     @observable
     public currentActionMenuColumn?: TableColumn;
 
+    @observable
+    public nestingLevel = 0;
+
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
     @volatile
     public get columnStates(): ColumnState[] {
-        return this.columns.map(column => {
-            const fieldNames = column.dataRecordFieldNames;
+        return this.columns.map((column, i) => {
+            const fieldNames = column.columnInternals.dataRecordFieldNames;
             let cellState: TableCellState;
             if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
                 const cellDataValues = fieldNames.map(
                     field => this.dataRecord![field]
                 );
                 const cellRecord = Object.fromEntries(
-                    column.cellRecordFieldNames.map((k, i) => [
+                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
                         k,
-                        cellDataValues[i]
+                        cellDataValues[j]
                     ])
                 );
-                const columnConfig = column.columnConfig ?? {};
+                const columnConfig = column.columnInternals.columnConfig ?? {};
                 cellState = {
                     cellRecord,
                     columnConfig
                 };
             } else {
-                cellState = { cellRecord: {}, columnConfig: {} };
+                cellState = {
+                    cellRecord: {},
+                    columnConfig: {}
+                };
             }
-
-            return { column, cellState };
+            const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
+            return { column, cellState, cellIndentLevel };
         });
+    }
+
+    @volatile
+    public override get ariaSelected(): 'true' | 'false' | null {
+        if (this.selectable) {
+            return this.selected ? 'true' : 'false';
+        }
+
+        return null;
     }
 
     public onCellActionMenuBeforeToggle(
@@ -94,6 +117,17 @@ export class TableRow<
     ): void {
         this.menuOpen = event.detail.newState;
         this.emitToggleEvent('row-action-menu-toggle', event.detail, column);
+    }
+
+    public closeOpenActionMenus(): void {
+        if (this.menuOpen) {
+            const cellWithMenuOpen = Array.from(this.shadowRoot!.children).find(
+                c => c instanceof TableCell && c.menuOpen
+            ) as TableCell;
+            if (cellWithMenuOpen?.actionMenuButton?.open) {
+                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
+            }
+        }
     }
 
     private emitToggleEvent(

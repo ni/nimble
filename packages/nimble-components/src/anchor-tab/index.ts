@@ -28,7 +28,20 @@ export class AnchorTab extends AnchorBase {
      */
     @attr({ mode: 'boolean' })
     public disabled = false;
+
+    /**
+     * Indicates the current "selected" state of various widgets.
+     * {@link https://www.w3.org/TR/wai-aria-1.1/#aria-selected}
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: aria-selected
+     */
+    @attr({ attribute: 'aria-selected' })
+    public override ariaSelected = 'false';
 }
+
+// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
 
 const nimbleAnchorTab = AnchorTab.compose({
     baseName: 'anchor-tab',

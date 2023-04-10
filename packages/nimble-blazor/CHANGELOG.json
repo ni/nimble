@@ -2,6 +2,66 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 21:12:10 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "16d3c53c367518f8c670696c997fbc8d5e89bea0",
+            "comment": "Update setData() to be async"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Apr 2023 15:10:28 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.2",
+      "version": "11.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9e49658a43773ec9281184a0996d35c8027b6bee",
+            "comment": "Fix broken link in NimbleBlazor README"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Apr 2023 17:16:16 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.0",
+      "version": "11.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "1827debb2b303a140bee1b23a01f8d94dbc35247",
+            "comment": "Blazor support for anchor tree item"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Apr 2023 19:42:20 GMT",
+      "tag": "@ni/nimble-blazor_v11.7.0",
+      "version": "11.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a",
+            "comment": "Error state for text area component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 03 Apr 2023 17:06:25 GMT",
       "tag": "@ni/nimble-blazor_v11.6.0",
       "version": "11.6.0",
