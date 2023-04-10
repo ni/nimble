@@ -39,6 +39,9 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                 ) {
                     resolve(true);
                 } else {
+                    console.log(`element: ${element.outerHTML}`);
+                    console.log(`fully intersecting?: ${entries[0]?.isIntersecting ? 'true' : 'false'}`);
+                    console.log(`intersection ratio: ${entries[0] ? entries[0].intersectionRatio : 'undefined'}`);
                     resolve(false);
                 }
             },
@@ -121,7 +124,7 @@ describe('Select', () => {
             const fullyVisible = await checkFullyInViewport(listbox);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
-            expect(fullyVisible).toBe(true);
+            expect(fullyVisible).toBeTrue();
 
             await disconnect();
         });
