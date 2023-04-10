@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --configuration development",
     "build": "npm run build:library && npm run build:application",
     "build:library": "npm run generate-icons && ng build @ni/nimble-angular",
     "build:application": "ng build example-client-app",

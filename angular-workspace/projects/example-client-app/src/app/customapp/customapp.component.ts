@@ -1,7 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-restricted-imports */
 /* eslint-disable no-alert */
 import { Component, ViewChild } from '@angular/core';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { DesignSystem } from '@microsoft/fast-foundation';
+import { IconThreeVerticalLines } from '@ni/nimble-components/dist/esm/icons/three-vertical-lines';
 
 interface ComboboxItem {
     first: string;
@@ -86,7 +90,7 @@ export class CustomAppComponent {
     }
 
     public onTabToolbarButtonClick(): void {
-        alert('Tab toolbar button clicked');
+        alert(`Tab toolbar button clicked, tag name: ${DesignSystem.tagFor(IconThreeVerticalLines)}`);
     }
 
     public onAddTableRow(): void {
