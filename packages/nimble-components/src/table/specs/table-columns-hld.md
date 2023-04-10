@@ -355,7 +355,7 @@ AnchorTableColumn extends TableColumn {
 }
 ```
 
-Upon connecting a cell view to the DOM, we will attach an event listener for each event type in `columnDelegatedEvents`. The handler will wrap the original event in a new `CustomEvent` and dispatch that to the column.
+Upon connecting a cell view to the DOM, we will attach an event listener for each event type in `columnInternals.delegatedEvents`. The handler will wrap the original event in a new `CustomEvent` and dispatch that to the column.
 
 ```TS
 this.addEventListener(delegatedEventName, event => {
