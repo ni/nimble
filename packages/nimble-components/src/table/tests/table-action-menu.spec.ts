@@ -484,7 +484,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
         });
 
         it('clicking action menu button with a different row selected selects the new row and deselects the previous row', async () => {
@@ -503,7 +505,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
         });
 
         it('clicking action menu button for an already selected row keeps it selected', async () => {
@@ -524,7 +528,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
         });
     });
 
@@ -565,7 +571,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
         });
 
         it('clicking action menu button with a different row selected selects the new row and deselects the previous row', async () => {
@@ -584,7 +592,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
         });
 
         it('clicking action menu button for an already selected row keeps it selected', async () => {
@@ -605,7 +615,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
         });
 
         it('clicking action menu button for an already selected row keeps entire selection selected', async () => {
@@ -627,7 +639,9 @@ describe('Table action menu', () => {
                 simpleTableData[0].stringData,
                 simpleTableData[2].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(jasmine.arrayWithExactContents(currentSelection));
+            expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
+                jasmine.arrayWithExactContents(currentSelection)
+            );
         });
     });
 });

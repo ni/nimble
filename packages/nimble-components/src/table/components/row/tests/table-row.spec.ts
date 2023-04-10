@@ -4,7 +4,10 @@ import { TableColumnText } from '../../../../table-column/text';
 import type { TableColumnTextCellRecord } from '../../../../table-column/text';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
-import type { TableRecord, TableRowSelectionToggleEventDetail } from '../../../types';
+import type {
+    TableRecord,
+    TableRowSelectionToggleEventDetail
+} from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
 import { createEventListener } from '../../../../utilities/tests/component';
 
@@ -190,8 +193,7 @@ describe('TableRow', () => {
             newState: true,
             oldState: false
         };
-        const event = listener.spy.calls.first()
-            .args[0] as CustomEvent;
+        const event = listener.spy.calls.first().args[0] as CustomEvent;
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -210,8 +212,7 @@ describe('TableRow', () => {
             newState: false,
             oldState: true
         };
-        const event = listener.spy.calls.first()
-            .args[0] as CustomEvent;
+        const event = listener.spy.calls.first().args[0] as CustomEvent;
         expect(event.detail).toEqual(expectedDetails);
     });
 

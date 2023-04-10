@@ -5,7 +5,11 @@ import {
     Notifier,
     DOM
 } from '@microsoft/fast-element';
-import { Checkbox, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    Checkbox,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
     TableState as TanStackTableState,
@@ -306,10 +310,15 @@ export class Table<
         // Work around for https://github.com/TanStack/table/issues/4759
         // Manually deselect all leaf rows when a fully selected group is being deselected.
         const rowState = this.tableData[rowIndex];
-        if (rowState?.isGrouped && rowState?.selectionState === TableRowSelectionState.selected) {
+        if (
+            rowState?.isGrouped
+            && rowState?.selectionState === TableRowSelectionState.selected
+        ) {
             this.deselectAllLeafRows(rowIndex);
         } else {
-            this.table.getRowModel().rows[rowIndex]?.toggleSelected(event.detail.newState);
+            this.table
+                .getRowModel()
+                .rows[rowIndex]?.toggleSelected(event.detail.newState);
         }
 
         await this.emitSelectionChangeEvent();
@@ -597,7 +606,8 @@ export class Table<
         if (this.selectionCheckbox) {
             this.ignoreSelectionChangeEvents = true;
             this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
-            this.selectionCheckbox.indeterminate = this.selectionState === TableRowSelectionState.partiallySelected;
+            this.selectionCheckbox.indeterminate = this.selectionState
+                === TableRowSelectionState.partiallySelected;
             this.ignoreSelectionChangeEvents = false;
         }
     }
@@ -638,15 +648,21 @@ export class Table<
         return TableRowSelectionState.notSelected;
     }
 
-    private getRowSelectionState(row: TanStackRow<TData>): TableRowSelectionState {
+    private getRowSelectionState(
+        row: TanStackRow<TData>
+    ): TableRowSelectionState {
         if (row.getIsGrouped()) {
             return this.getGroupedRowSelectionState(row);
         }
 
-        return row.getIsSelected() ? TableRowSelectionState.selected : TableRowSelectionState.notSelected;
+        return row.getIsSelected()
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
     }
 
-    private getGroupedRowSelectionState(groupedRow: TanStackRow<TData>): TableRowSelectionState {
+    private getGroupedRowSelectionState(
+        groupedRow: TanStackRow<TData>
+    ): TableRowSelectionState {
         const subRows = groupedRow.subRows ?? [];
 
         let foundSelectedRow = false;
@@ -655,9 +671,15 @@ export class Table<
         for (const row of subRows) {
             if (row.getIsGrouped()) {
                 const subGroupRowSelectionState = this.getGroupedRowSelectionState(row);
-                if (subGroupRowSelectionState === TableRowSelectionState.notSelected) {
+                if (
+                    subGroupRowSelectionState
+                    === TableRowSelectionState.notSelected
+                ) {
                     foundNotSelectedRow = true;
-                } else if (subGroupRowSelectionState === TableRowSelectionState.selected) {
+                } else if (
+                    subGroupRowSelectionState
+                    === TableRowSelectionState.selected
+                ) {
                     foundSelectedRow = true;
                 } else {
                     return TableRowSelectionState.partiallySelected;
@@ -673,7 +695,9 @@ export class Table<
             }
         }
 
-        return foundSelectedRow ? TableRowSelectionState.selected : TableRowSelectionState.notSelected;
+        return foundSelectedRow
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
     }
 
     private getGroupRowColumn(

@@ -27,7 +27,11 @@ export const sharedTableArgTypes = {
 
 export const sharedTableArgs = (
     data: TableRecord[]
-): { selectionMode: keyof typeof TableRowSelectionMode, tableRef: undefined, updateData: (x: SharedTableArgs) => void } => {
+): {
+        selectionMode: keyof typeof TableRowSelectionMode,
+        tableRef: undefined,
+        updateData: (x: SharedTableArgs) => void
+    } => {
     return {
         selectionMode: 'none',
         tableRef: undefined,

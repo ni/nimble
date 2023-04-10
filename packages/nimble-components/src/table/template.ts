@@ -37,7 +37,7 @@ export const template = html<Table>`
                         ${ref('selectionCheckbox')}
                         class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
                         ?hidden="${x => x.selectionMode !== TableRowSelectionMode.multiple}"
-                        @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                        @change="${async (x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                     >
                     </${checkboxTag}>
 

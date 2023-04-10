@@ -1,9 +1,16 @@
 import { attr, observable } from '@microsoft/fast-element';
-import { Checkbox, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    Checkbox,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
-import { TableRowSelectionState, TableRowSelectionToggleEventDetail } from '../../types';
+import {
+    TableRowSelectionState,
+    TableRowSelectionToggleEventDetail
+} from '../../types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -97,7 +104,8 @@ export class TableGroupRow extends FoundationElement {
         if (this.selectionCheckbox) {
             this.ignoreSelectionChangeEvents = true;
             this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
-            this.selectionCheckbox.indeterminate = this.selectionState === TableRowSelectionState.partiallySelected;
+            this.selectionCheckbox.indeterminate = this.selectionState
+                === TableRowSelectionState.partiallySelected;
             this.ignoreSelectionChangeEvents = false;
         }
     }

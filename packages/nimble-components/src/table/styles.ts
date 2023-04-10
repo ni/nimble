@@ -66,7 +66,7 @@ export const styles = css`
         left: var(--ni-private-table-scroll-x);
     }
 
-    :host([selection-mode="multiple"]) .header-row {
+    :host([selection-mode='multiple']) .header-row {
         grid-template-columns: auto var(--ni-private-table-row-grid-columns) auto;
     }
 

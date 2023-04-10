@@ -80,7 +80,7 @@ export type TableRowSelectionState =
  * @internal
  *
  * Internal event detail type for a row's selection state changing
-*/
+ */
 export interface TableRowSelectionToggleEventDetail {
     oldState: boolean;
     newState: boolean;

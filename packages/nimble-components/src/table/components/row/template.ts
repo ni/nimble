@@ -1,4 +1,4 @@
-import { children, html, ref, repeat, when } from '@microsoft/fast-element';
+import { html, ref, repeat, when } from '@microsoft/fast-element';
 import type { TableRow, ColumnState } from '.';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';

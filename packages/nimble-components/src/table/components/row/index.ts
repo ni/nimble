@@ -1,5 +1,9 @@
 import { attr, observable, volatile } from '@microsoft/fast-element';
-import { Checkbox, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    Checkbox,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
@@ -146,14 +150,18 @@ export class TableRow<
         column: TableColumn
     ): void {
         this.menuOpen = event.detail.newState;
-        this.emitActionMenuToggleEvent('row-action-menu-toggle', event.detail, column);
+        this.emitActionMenuToggleEvent(
+            'row-action-menu-toggle',
+            event.detail,
+            column
+        );
     }
 
     public closeOpenActionMenus(): void {
         if (this.menuOpen) {
-            const cellWithMenuOpen = Array.from(this.cellContainer.children).find(
-                c => c instanceof TableCell && c.menuOpen
-            ) as TableCell;
+            const cellWithMenuOpen = Array.from(
+                this.cellContainer.children
+            ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
             if (cellWithMenuOpen?.actionMenuButton?.open) {
                 cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
             }

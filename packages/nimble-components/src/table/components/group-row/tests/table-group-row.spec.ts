@@ -3,7 +3,10 @@ import { TableGroupRow } from '..';
 import { createEventListener } from '../../../../utilities/tests/component';
 import { fixture, Fixture } from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
-import { TableRowSelectionState, TableRowSelectionToggleEventDetail } from '../../../types';
+import {
+    TableRowSelectionState,
+    TableRowSelectionToggleEventDetail
+} from '../../../types';
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TableGroupRow>> {
@@ -121,8 +124,7 @@ describe('TableGroupRow', () => {
             newState: true,
             oldState: false
         };
-        const event = listener.spy.calls.first()
-            .args[0] as CustomEvent;
+        const event = listener.spy.calls.first().args[0] as CustomEvent;
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -140,8 +142,7 @@ describe('TableGroupRow', () => {
             newState: false,
             oldState: true
         };
-        const event = listener.spy.calls.first()
-            .args[0] as CustomEvent;
+        const event = listener.spy.calls.first().args[0] as CustomEvent;
         expect(event.detail).toEqual(expectedDetails);
     });
 
@@ -159,8 +160,7 @@ describe('TableGroupRow', () => {
             newState: true,
             oldState: false
         };
-        const event = listener.spy.calls.first()
-            .args[0] as CustomEvent;
+        const event = listener.spy.calls.first().args[0] as CustomEvent;
         expect(event.detail).toEqual(expectedDetails);
     });
 

@@ -310,7 +310,9 @@ export class TablePageObject<T extends TableRecord> {
     //     return this.isCheckboxVisible(checkbox);
     // }
 
-    public getGroupRowSelectionState(groupRowIndex: number): TableRowSelectionState {
+    public getGroupRowSelectionState(
+        groupRowIndex: number
+    ): TableRowSelectionState {
         const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
         return this.getSelectionStateOfCheckbox(checkbox);
     }
@@ -348,20 +350,26 @@ export class TablePageObject<T extends TableRecord> {
         return row.shadowRoot!.querySelector('.selection-checkbox');
     }
 
-    private getSelectionCheckboxForGroupRow(groupRowIndex: number): Checkbox | null {
+    private getSelectionCheckboxForGroupRow(
+        groupRowIndex: number
+    ): Checkbox | null {
         const groupRow = this.getGroupRow(groupRowIndex);
         return groupRow.shadowRoot!.querySelector('.selection-checkbox');
     }
 
     private getSelectionCheckboxForTable(): Checkbox | null {
-        return this.tableElement.shadowRoot!.querySelector<Checkbox>('.header-row .selection-checkbox');
+        return this.tableElement.shadowRoot!.querySelector<Checkbox>(
+            '.header-row .selection-checkbox'
+        );
     }
 
     private isCheckboxVisible(checkbox: Checkbox | null): boolean {
         return !!checkbox && !checkbox.hidden;
     }
 
-    private getSelectionStateOfCheckbox(checkbox: Checkbox | null): TableRowSelectionState {
+    private getSelectionStateOfCheckbox(
+        checkbox: Checkbox | null
+    ): TableRowSelectionState {
         if (!checkbox) {
             throw new Error('Cannot get selection state from null checkbox');
         }
