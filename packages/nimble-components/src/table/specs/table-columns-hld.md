@@ -325,21 +325,21 @@ const numberWithUnitCellView = NumberWithUnitCellView.compose({
 
 #### Exposing cell view events externally
 
-Because the cell view is not a descendant of the column element, we must add special support for the column to handle events that originate in the cells. A column will define a `columnDelegatedEvents` property which is an array of event names that should be delegated. As this is a static property, it will be part of the `ColumnInternalsOptions` passed to the base column constructor.
+Because the cell view is not a descendant of the column element, we must add special support for the column to handle events that originate in the cells. A column will define a `delegatedEvents` property which is an array of event names that should be delegated. As this is a static property, it will be part of the `ColumnInternalsOptions` passed to the base column constructor.
 
 ```TS
 export interface ColumnInternalsOptions {
     ...
-    readonly columnDelegatedEvents: readonly string[];
+    readonly delegatedEvents: readonly string[];
     ...
 }
 
 export class ColumnInternals<TColumnConfig> {
     ...
-    public readonly columnDelegatedEvents: readonly string[];
+    public readonly delegatedEvents: readonly string[];
     ...
     public constructor(options: ColumnInternalsOptions) {
-        this.columnDelegatedEvents = options.columnDelegatedEvents;
+        this.delegatedEvents = options.delegatedEvents;
         ...
     }
 }
@@ -347,7 +347,7 @@ export class ColumnInternals<TColumnConfig> {
 AnchorTableColumn extends TableColumn {
     constructor() {
         super({
-            columnDelegatedEvents: ['click'],
+            delegatedEvents: ['click'],
             ...
         });
     }
@@ -355,18 +355,48 @@ AnchorTableColumn extends TableColumn {
 }
 ```
 
-Upon connecting a cell view to the DOM, we will attach an event listener for each event type in `columnDelegatedEvents`. The handler will wrap the original event in a new `CustomEvent` and dispatch that to the column. It will also stop propagation on the original event, and prevent default if the `dispatchEvent` call returns `false`.
+Upon connecting a cell view to the DOM, we will attach an event listener for each event type in `columnDelegatedEvents`. The handler will wrap the original event in a new `CustomEvent` and dispatch that to the column.
 
 ```TS
 this.addEventListener(delegatedEventName, event => {
-    event.stopPropagation();
-    if (!this.column.dispatchEvent(new CustomEvent('delegated-event', { details: { event }}))) {
-        event.preventDefault();
-    };
+    this.column.dispatchEvent(new CustomEvent('delegated-event', {
+        details: {
+            originalEvent: event
+        }
+    }));
 });
 ```
 
+The `CustomEvent`'s details will be of type `DelegatedEventEventDetails`:
+
+```TS
+export interface DelegatedEventEventDetails {
+    originalEvent: Event;
+}
+```
+
 A column type (or an Angular directive on that type) may register a listener for the `delegated-event` event. This listener will have access to the full original event, including the originating cell view via `event.target`. The cell view can expose anything necessary from its public API.
+
+```TS
+class AnchorColumnDirective {
+    constructor(private elementRef: ElementRef) {
+        elementRef.nativeElement.addEventListener('delegated-event', event => {
+            const originalEvent = (event as CustomEvent).details.originalEvent;
+            if (originalEvent.type !== 'click') {
+                return;
+            }
+
+            if ((originalEvent as MouseEvent).button !== 0) {
+                return;
+            }
+
+            const cellView = originalEvent.target as TableColumnAnchorCellView;
+            this.doSomething(cellView.anchor.href);
+            originalEvent.preventDefault();
+        });
+    }
+}
+```
 
 ### Header Content
 
