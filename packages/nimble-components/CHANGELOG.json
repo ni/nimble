@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 10 Apr 2023 18:53:34 GMT",
+      "tag": "@ni/nimble-components_v18.11.0",
+      "version": "18.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f",
+            "comment": "Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.8.0",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Apr 2023 20:48:27 GMT",
       "tag": "@ni/nimble-components_v18.10.6",
       "version": "18.10.6",

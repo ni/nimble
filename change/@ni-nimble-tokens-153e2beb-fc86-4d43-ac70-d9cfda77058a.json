@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines",
-  "packageName": "@ni/nimble-tokens",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
