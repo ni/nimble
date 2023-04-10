@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 06 Apr 2023 21:12:10 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Apr 2023 20:48:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.10.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Update fonts.scss to reference the new nimble-tokens fonts.scss file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
+- Bump @ni/nimble-tokens to v4.7.3
 
 ## 18.10.5
 

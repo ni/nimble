@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 05 Apr 2023 18:54:28 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Apr 2023 20:48:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.7.3
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Generate a fonts.scss file in addition to the fonts.css file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
 
 ## 4.7.2
 
