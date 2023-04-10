@@ -18,10 +18,13 @@ describe('Tooltip', () => {
     function isIconVisible(elementName: string): boolean {
         const iconElement = element.shadowRoot?.querySelector(elementName);
         if (!iconElement) {
-            return false;
+            throw new Error(`Cannot find icon with name ${elementName}`);
         }
         const display = window.getComputedStyle(iconElement).display;
-        return typeof display === 'string' && display !== '';
+        if (typeof display !== 'string' || display === '') {
+            throw new Error(`Invalid display value was calcualted for ${elementName}`);
+        }
+        return display !== 'none';
     }
 
     beforeEach(async () => {
