@@ -44,9 +44,19 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                     // eslint-disable-next-line no-console
                     console.log(`element: ${element.outerHTML}`);
                     // eslint-disable-next-line no-console
-                    console.log(`fully intersecting?: ${entries[0]?.isIntersecting ? 'true' : 'false'}`);
+                    console.log(
+                        `fully intersecting?: ${
+                            entries[0]?.isIntersecting ? 'true' : 'false'
+                        }`
+                    );
                     // eslint-disable-next-line no-console
-                    console.log(`intersection ratio: ${entries[0] ? entries[0].intersectionRatio : 'undefined'}`);
+                    console.log(
+                        `intersection ratio: ${
+                            entries[0]
+                                ? entries[0].intersectionRatio
+                                : 'undefined'
+                        }`
+                    );
                     resolve(false);
                 }
             },
