@@ -30,7 +30,7 @@ Column custom elements will be provided to the table as slotted elements. The sl
 
 The column elements provide two purposes:
 
-1. The elements themselves will be inserted as the header of the column in the table. In the example above the text column will have a header with the text "Name" shouwn in the table.
+1. The elements themselves will be inserted as the header of the column in the table. In the example above the text column will have a header with the text "Name" shown in the table.
 2. The columns define configuration information to the table for that column.
 
 Each column element has an associated FAST-based custom element which will be used in each table cell for that column.
