@@ -325,15 +325,33 @@ const numberWithUnitCellView = NumberWithUnitCellView.compose({
 
 #### Exposing cell view events externally
 
-Because the cell view is not a descendant of the column element, we must add special support for the column to handle events that originate in the cells. A column will define a `columnDelegatedEvents` property which is an array of event names that should be delegated.
+Because the cell view is not a descendant of the column element, we must add special support for the column to handle events that originate in the cells. A column will define a `columnDelegatedEvents` property which is an array of event names that should be delegated. As this is a static property, it will be part of the `ColumnInternalsOptions` passed to the base column constructor.
 
 ```TS
-TableColumn {
-   abstract readonly columnDelegatedEvents: readonly string[];
+export interface ColumnInternalsOptions {
+    ...
+    readonly columnDelegatedEvents: readonly string[];
+    ...
+}
+
+export class ColumnInternals<TColumnConfig> {
+    ...
+    public readonly columnDelegatedEvents: readonly string[];
+    ...
+    public constructor(options: ColumnInternalsOptions) {
+        this.columnDelegatedEvents = options.columnDelegatedEvents;
+        ...
+    }
 }
 
 AnchorTableColumn extends TableColumn {
-   readonly columnDelegatedEvents = ['click'] as const;
+    constructor() {
+        super({
+            columnDelegatedEvents: ['click'],
+            ...
+        });
+    }
+    ...
 }
 ```
 
