@@ -39,8 +39,13 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                 ) {
                     resolve(true);
                 } else {
+                    // Temporary debugging output for intermittently failing test
+                    // see: https://github.com/ni/nimble/issues/1172
+                    // eslint-disable-next-line no-console
                     console.log(`element: ${element.outerHTML}`);
+                    // eslint-disable-next-line no-console
                     console.log(`fully intersecting?: ${entries[0]?.isIntersecting ? 'true' : 'false'}`);
+                    // eslint-disable-next-line no-console
                     console.log(`intersection ratio: ${entries[0] ? entries[0].intersectionRatio : 'undefined'}`);
                     resolve(false);
                 }
