@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Revert icon timing workaround",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
