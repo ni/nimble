@@ -54,7 +54,7 @@ describe('TableRow', () => {
         const renderedCell = pageObject.getRenderedCell(0);
 
         expect(renderedCell!.cellViewTemplate).toEqual(
-            textColumn1.currentCellViewTemplate
+            textColumn1.columnInternals.cellViewTemplate
         );
     });
 

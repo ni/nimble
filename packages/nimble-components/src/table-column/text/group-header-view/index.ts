@@ -18,9 +18,6 @@ export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
 string | null | undefined,
 TableColumnTextColumnConfig
 > {
-    @observable
-    public override columnConfig?: TableColumnTextColumnConfig;
-
     /** @internal */
     public textSpan!: HTMLElement;
 

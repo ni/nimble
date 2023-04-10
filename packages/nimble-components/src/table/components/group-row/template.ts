@@ -28,7 +28,7 @@ export const template = html<TableGroupRow>`
             <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
         </${buttonTag}>
         <div class="group-row-header-content">
-            ${x => x.groupColumn?.internalGroupHeaderViewTemplate}
+            ${x => x.groupColumn?.columnInternals.groupHeaderViewTemplate}
             <div class="group-row-child-count">(${x => x.leafItemCount})</span>
         </div>
     </template>

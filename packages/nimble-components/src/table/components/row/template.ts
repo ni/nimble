@@ -23,7 +23,7 @@ export const template = html<TableRow>`
                     <${tableCellTag}
                         class="cell"
                         :cellState="${x => x.cellState}"
-                        :cellViewTemplate="${x => x.column.currentCellViewTemplate}"
+                        :cellViewTemplate="${x => x.column.columnInternals.currentCellViewTemplate}"
                         ?has-action-menu="${x => !!x.column.actionMenuSlot}"
                         action-menu-label="${x => x.column.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"

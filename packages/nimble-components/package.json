@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "18.10.6",
+  "version": "18.11.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -61,7 +61,7 @@
     "@microsoft/fast-element": "^1.10.1",
     "@microsoft/fast-foundation": "^2.47.1-0",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-tokens": "^4.7.3",
+    "@ni/nimble-tokens": "^4.8.0",
     "@tanstack/table-core": "^8.7.0",
     "@tanstack/virtual-core": "^3.0.0-beta.44",
     "@types/d3-array": "^3.0.4",

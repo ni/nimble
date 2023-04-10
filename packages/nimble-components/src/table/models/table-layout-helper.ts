@@ -6,23 +6,24 @@ import type { TableColumn } from '../../table-column/base';
  */
 export class TableLayoutHelper {
     public static getGridTemplateColumns(columns: TableColumn[]): string {
-        return (
-            columns
-                ?.filter(column => !column.columnHidden)
-                .reduce((accumulator: string, currentValue) => {
-                    const gap = accumulator === '' ? '' : ' ';
-                    const minPixelWidth = currentValue.internalMinPixelWidth;
-                    if (currentValue.currentPixelWidth) {
-                        const pixelWidth = currentValue.currentPixelWidth;
-                        const gridPixelWidth = pixelWidth > minPixelWidth
-                            ? pixelWidth
-                            : minPixelWidth;
-                        return `${accumulator}${gap}${gridPixelWidth}px`;
-                    }
+        return columns
+            ?.filter(column => !column.columnHidden)
+            .map(column => {
+                const {
+                    minPixelWidth,
+                    currentPixelWidth,
+                    currentFractionalWidth
+                } = column.columnInternals;
+                if (currentPixelWidth) {
+                    const coercedPixelWidth = Math.max(
+                        minPixelWidth,
+                        currentPixelWidth
+                    );
+                    return `${coercedPixelWidth}px`;
+                }
 
-                    const fractionalWidth = currentValue.currentFractionalWidth;
-                    return `${accumulator}${gap}minmax(${minPixelWidth}px, ${fractionalWidth}fr)`;
-                }, '') ?? ''
-        );
+                return `minmax(${minPixelWidth}px, ${currentFractionalWidth}fr)`;
+            })
+            .join(' ');
     }
 }
