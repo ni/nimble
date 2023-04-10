@@ -8,7 +8,7 @@ import {
 } from '@microsoft/fast-foundation';
 import type { AnchorTreeItem } from '../anchor-tree-item';
 import { styles } from './styles';
-import { groupSelectedAttribute, TreeViewSelectionMode } from './types';
+import { groupSelectedAttribute, ISelectable, TreeViewSelectionMode } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,12 +30,9 @@ export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
 
-    private readonly baseHandleSelectedChange: (event: Event) => void;
-
     public constructor() {
         super();
-        this.baseHandleSelectedChange = this.handleSelectedChange;
-        this.handleSelectedChange = event => this.handleSelectedChangeOverride(event);
+        this.addEventListener('selected-change', event => this.onSelectedChange(event));
     }
 
     public override handleClick(e: Event): boolean {
@@ -93,14 +90,12 @@ export class TreeView extends FoundationTreeView {
 
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
     // which is what the FAST TreeItem allows
-    private handleSelectedChangeOverride(event: Event): void {
-        const toggledElement = event.target as TreeItem | AnchorTreeItem;
+    private onSelectedChange(event: Event): void {
+        const toggledElement = event.target as ISelectable;
         // only process selection
         if (toggledElement.selected) {
             this.setGroupSelectionOnRootParentTreeItem(toggledElement);
         }
-
-        this.baseHandleSelectedChange(event);
     }
 
     private canSelect(item: TreeItem): boolean {
