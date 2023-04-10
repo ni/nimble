@@ -1,27 +1,11 @@
-import { Canvas, Meta, Story, ArgTypes, Controls, Stories } from '@storybook/blocks';
-
+import { Canvas, Meta, Controls, Stories, Title, Description } from '@storybook/blocks';
 import * as buttonStories from './button.stories';
 
 <Meta of={buttonStories} />
 
-# Button
-
-A button is a square box 
-
-<Stories />
+<Title of={buttonStories} />
+<Description of={buttonStories} />
 
 <Canvas of={buttonStories.outlineButton} />
 <Controls of={buttonStories.outlineButton} />
-
-<ArgTypes of={buttonStories} />
-
-| Nice table | More columns | Last one |
-|----|----|----|
-|And data | more data | some opinion |
-|And data | more data | some opinion |
-|And data | more data | some opinion |
-|And data | more data | some opinion |
-
-## Sub header
-
-`monospace code snippet`
+<Stories of={buttonStories} />
