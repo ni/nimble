@@ -21,9 +21,7 @@ describe('Tooltip', () => {
             return false;
         }
         const display = window.getComputedStyle(iconElement).display;
-        return (
-            typeof display === 'string' && display !== ''
-        );
+        return typeof display === 'string' && display !== '';
     }
 
     beforeEach(async () => {
