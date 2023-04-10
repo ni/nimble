@@ -2,9 +2,9 @@ import remarkGfm from 'remark-gfm';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 
 export const stories = [
-    '../src/**/*.stories.ts',
+    '../docs/**/*.mdx',
     '../src/**/*.mdx',
-    '../docs/**/*.mdx'
+    '../src/**/*.stories.ts'
 ];
 export const addons = [
     {
