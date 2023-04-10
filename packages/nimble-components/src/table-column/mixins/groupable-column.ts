@@ -2,10 +2,7 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import type { TableColumn } from '../base';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
-type GroupableTableColumn = Pick<
-TableColumn,
-'internalGroupingDisabled' | 'internalGroupIndex'
->;
+type GroupableTableColumn = Pick<TableColumn, 'columnInternals'>;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type GroupableTableColumnConstructor = abstract new (...args: any[]) => GroupableTableColumn;
@@ -25,14 +22,14 @@ export function mixinGroupableColumnAPI<
         public groupIndex?: number | null = null;
 
         public groupingDisabledChanged(): void {
-            this.internalGroupingDisabled = this.groupingDisabled;
+            this.columnInternals.groupingDisabled = this.groupingDisabled;
         }
 
         public groupIndexChanged(): void {
             if (typeof this.groupIndex === 'number') {
-                this.internalGroupIndex = this.groupIndex;
+                this.columnInternals.groupIndex = this.groupIndex;
             } else {
-                this.internalGroupIndex = undefined;
+                this.columnInternals.groupIndex = undefined;
             }
         }
     }

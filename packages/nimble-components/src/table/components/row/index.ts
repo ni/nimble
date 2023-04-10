@@ -62,19 +62,19 @@ export class TableRow<
     @volatile
     public get columnStates(): ColumnState[] {
         return this.columns.map((column, i) => {
-            const fieldNames = column.dataRecordFieldNames;
+            const fieldNames = column.columnInternals.dataRecordFieldNames;
             let cellState: TableCellState;
             if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
                 const cellDataValues = fieldNames.map(
                     field => this.dataRecord![field]
                 );
                 const cellRecord = Object.fromEntries(
-                    column.cellRecordFieldNames.map((k, j) => [
+                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
                         k,
                         cellDataValues[j]
                     ])
                 );
-                const columnConfig = column.columnConfig ?? {};
+                const columnConfig = column.columnInternals.columnConfig ?? {};
                 cellState = {
                     cellRecord,
                     columnConfig

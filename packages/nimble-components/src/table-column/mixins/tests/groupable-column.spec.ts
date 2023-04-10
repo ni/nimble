@@ -1,49 +1,29 @@
 /* eslint-disable max-classes-per-file */
-import {
-    ViewTemplate,
-    ElementStyles,
-    html,
-    customElement
-} from '@microsoft/fast-element';
+import { customElement } from '@microsoft/fast-element';
 import {
     fixture,
     Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
-import type { TableCellState } from '../../base/types';
 import { TableColumn } from '../../base';
 import { mixinGroupableColumnAPI } from '../groupable-column';
-import { TableGroupHeaderView } from '../../base/group-header-view';
-import { TableCellView } from '../../base/cell-view';
-
-abstract class TestTableColumnBase extends TableColumn {
-    public cellTemplate: ViewTemplate<TableCellState> = html``;
-    public cellStyles?: ElementStyles | undefined;
-    public cellRecordFieldNames: readonly string[] = [];
-}
-
-const columnCellViewName = uniqueElementName();
-
-@customElement({
-    name: columnCellViewName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends TableCellView {}
-
-const testColumnGroupHeaderName = uniqueElementName();
-@customElement({
-    name: testColumnGroupHeaderName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnGroupHeader extends TableGroupHeaderView {}
+import {
+    tableColumnEmptyCellViewTag,
+    tableColumnEmptyGroupHeaderViewTag
+} from '../../base/tests/table-column.fixtures';
 
 const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
-class TestTableColumn extends mixinGroupableColumnAPI(TestTableColumnBase) {
-    public cellViewTag = columnCellViewName;
-    public groupHeaderViewTag = testColumnGroupHeaderName;
+class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
+    public constructor() {
+        super({
+            cellRecordFieldNames: [],
+            cellViewTag: tableColumnEmptyCellViewTag,
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+        });
+    }
 }
 
 // prettier-ignore
@@ -64,32 +44,32 @@ describe('GroupableColumn', () => {
         await disconnect();
     });
 
-    it('setting groupingDisabled sets internalGroupingDisabled', async () => {
+    it('setting groupingDisabled sets columnInternals.groupingDisabled', async () => {
         await connect();
-        element.internalGroupingDisabled = false;
+        element.columnInternals.groupingDisabled = false;
 
         element.groupingDisabled = true;
 
-        expect(element.internalGroupingDisabled).toBeTrue();
+        expect(element.columnInternals.groupingDisabled).toBeTrue();
     });
 
-    it('setting groupIndex sets internalGroupIndex', async () => {
+    it('setting groupIndex sets columnInternals.groupIndex', async () => {
         await connect();
-        element.internalGroupIndex = 2;
+        element.columnInternals.groupIndex = 2;
 
         element.groupIndex = 1;
 
-        expect(element.internalGroupIndex).toBe(1);
+        expect(element.columnInternals.groupIndex).toBe(1);
     });
 
-    it('removing groupIndex sets internalGroupIndex to default', async () => {
+    it('removing groupIndex sets columnInternals.groupIndex to default', async () => {
         await connect();
-        const defaultGroupIndex = element.internalGroupIndex;
+        const defaultGroupIndex = element.columnInternals.groupIndex;
 
         element.groupIndex = 2;
-        expect(element.internalGroupIndex).toBe(2);
+        expect(element.columnInternals.groupIndex).toBe(2);
         element.groupIndex = null;
 
-        expect(element.internalGroupIndex).toBe(defaultGroupIndex);
+        expect(element.columnInternals.groupIndex).toBe(defaultGroupIndex);
     });
 });
