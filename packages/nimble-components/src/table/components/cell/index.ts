@@ -37,6 +37,9 @@ export class TableCell<
     @observable
     public cellViewTemplate?: ViewTemplate<TableCell>;
 
+    @observable
+    public nestingLevel = 0;
+
     public readonly actionMenuButton?: MenuButton;
 
     public onActionMenuBeforeToggle(

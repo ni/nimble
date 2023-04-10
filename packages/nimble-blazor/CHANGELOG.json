@@ -2,6 +2,36 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 06 Apr 2023 21:12:10 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "16d3c53c367518f8c670696c997fbc8d5e89bea0",
+            "comment": "Update setData() to be async"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Apr 2023 15:10:28 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.2",
+      "version": "11.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9e49658a43773ec9281184a0996d35c8027b6bee",
+            "comment": "Fix broken link in NimbleBlazor README"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 05 Apr 2023 17:16:16 GMT",
       "tag": "@ni/nimble-blazor_v11.8.0",
       "version": "11.8.0",
