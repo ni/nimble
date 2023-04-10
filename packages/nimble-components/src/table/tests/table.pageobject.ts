@@ -305,11 +305,6 @@ export class TablePageObject<T extends TableRecord> {
         checkbox!.click();
     }
 
-    // public isGroupRowSelectionCheckboxVisible(groupRowIndex: number): boolean {
-    //     const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
-    //     return this.isCheckboxVisible(checkbox);
-    // }
-
     public getGroupRowSelectionState(
         groupRowIndex: number
     ): TableRowSelectionState {
