@@ -379,22 +379,18 @@ A column type (or an Angular directive on that type) may register a listener for
 
 ```TS
 class AnchorColumnDirective {
-    constructor(private elementRef: ElementRef) {
-        elementRef.nativeElement.addEventListener('delegated-event', event => {
-            const originalEvent = (event as CustomEvent).details.originalEvent;
-            if (originalEvent.type !== 'click') {
-                return;
-            }
-
-            if ((originalEvent as MouseEvent).button !== 0) {
-                return;
-            }
-
-            const cellView = originalEvent.target as TableColumnAnchorCellView;
-            this.doSomething(cellView.anchor.href);
-            originalEvent.preventDefault();
-        });
-    }
+  @HostListener('delegated-event', ['$event.details.originalEvent'])
+  onDelegatedEvent(originalEvent: CustomEvent<DelegatedEventEventDetails>) {
+      if (originalEvent.type !== 'click') {
+          return;
+      }
+      if ((originalEvent as MouseEvent).button !== 0) {
+          return;
+      }
+      const cellView = originalEvent.target as TableColumnAnchorCellView;
+      this.doSomething(cellView.anchor.href);
+      originalEvent.preventDefault();
+  }
 }
 ```
 
