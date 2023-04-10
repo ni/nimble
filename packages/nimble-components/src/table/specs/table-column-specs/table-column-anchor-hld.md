@@ -113,45 +113,9 @@ Note that this implies that these configuration parameters must be the same for 
 
 Normally with RouterLink directives, you assign the url to `routerLink`/`nimbleRouterLink`, but in this case, the url is coming from the table data. `nimbleRouterLink` just has to be present for the directive to be applied.
 
-There is a problem with putting the directive on `nimble-table-column-anchor`, though. `RouterLinkWithHref` works by intercepting a click event that is bubbled up from a decendant link, but the `nimble-table-column-anchor` is not an ancestor of the anchor/table cell. The solution is to introduce a second directive that is on `nimble-table`, which _is_ an ancestor of the anchor/table cell. This directive will be responsible for intercepting click events from anchor elements, then "forwarding" the event to the right column directive.
+There is a problem with putting the directive on `nimble-table-column-anchor`, though. `RouterLinkWithHref` works by intercepting a click event that is bubbled up from a decendant link, but the `nimble-table-column-anchor` is not an ancestor of the anchor/table cell. We will make use of the table's support (being implemented alongside this column type) for delegating events from the cell views to the columns. We will specify that the anchor column type delegates the `click` event. The column directive will add an event listener to the `nimble-anchor-column`, listening for the `delegated-event` event. This event will give us access to the original `click` event as well as the cell view from which it originated. The cell view will expose the `Anchor` element, from which we can access the `href` value.
 
-The first part of this task is to detect which click events have come from a `nimble-anchor`. We can't just look at the event's `target`, because that is changed to the host control upon crossing a shadow DOM boundary. We can, however, look at the `composedPath()` of the event, which will include every element that was along the bubble-up path. If we find a `nimble-anchor` among them (by using `instanceof`), we know we should handle the event.
-
-To handle the event, we must find the associated anchor column directive. We have the `nimble-anchor` that the event came from, and by calling `anchor.getRootNode().host`, we can get the `nimble-table-cell`. Currently, there is no way to get from a given table cell to its associated column. One way to solve this is to include a unique ID for the column in the cell state, i.e. `cell.cellState.columnUniqueId`.
-
-```ts
-export interface TableCellState<...> {
-    cellRecord: TCellRecord;
-    columnConfig: TColumnConfig;
-    columnUniqueId: string | undefined;
-}
-```
-
-This value we use for this unique ID could be the `columnId`, but that is `undefined` unless a client sets it. We would need to start auto-generating unique `columnId` values if the client hasn't provided one, or else document that users must provide column ids when wishing to integrate with the Angular router. Another issue with using `columnId` is that the client may change it programmatically, invalidating the value stored in the cell state. To ensure consistency, we would have to have a `columnIdChanged()` handler that caused `refreshRows()` to be called on the table.
-
-A better option would be to use the existing `internalUniqueId` that each column defines. These IDs are used for a couple purposes already where a unique, internal ID is needed.
-
-`columnUniqueId` is at the top level rather than part of the `columnConfig`, because it applies for all column types, and it is not for configuration.
-Adding `columnUniqueId` to the cell state would be a change to `nimble-components` just to support `nimble-angular`, but it seems generic enough to be a reasonable API change.
-
-Now that we have the column's `internalUniqueId` for a given anchor click, we need to get the column directive. It's possible that in the future, there will be other column types that contain `nimble-anchors`. For that reason, we'll have a base class for our directive that any anchor-containing column directive can extend.
-
-```ts
-abstract class NimbleTableColumnContainsAnchorDirective extends RouterLinkWithHref { ... }
-
-@Directive({ selector: 'nimble-table-column-anchor[nimbleRouterLink]' })
-export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends NimbleTableColumnContainsAnchorDirective { ... }
-```
-
-We can get all potential directives as content children:
-
-```ts
-@ContentChildren(NimbleTableColumnContainsAnchorDirective) public anchorColumnDirectives: QueryList<NimbleTableColumnContainsAnchorDirective>;
-```
-
-Each directive has a reference to its associated element, so we can get to the column element. From there, we have access to the `internalUniqueId`, so we can find the match.
-
-Finally, we need to call `RouterLinkWithHref.onClick()` to do the router navigation. However, we'll first need to set up the `routerLink` property with the url:
+Once we have the `href` and the event parameters,if we are handling a plain left-click (`RouterLinkWithHref` [only handles plain left-clicks](https://github.com/angular/angular/blob/9bd9a11f4e21e5a7cc9da18f150f6dd520e7cd1e/packages/router/src/directives/router_link.ts#L302)), we're almost ready to call `RouterLinkWithHref.onClick()` to do the router navigation. We just first need to set up the `routerLink` property with the url:
 
 ```ts
 public doRouterNavigation(href: string): boolean {
@@ -159,8 +123,6 @@ public doRouterNavigation(href: string): boolean {
     return super.onClick(...);
 }
 ```
-
-Note that `RouterLink`/`RouterLinkWithHref` [only handles left-clicks, when no other keys are held down](https://github.com/angular/angular/blob/9bd9a11f4e21e5a7cc9da18f150f6dd520e7cd1e/packages/router/src/directives/router_link.ts#L302). We will check the event state in our table directive, only calling `NimbleTableColumnContainsAnchorDirective.doRouterNavigation()` if it is a plain left-click. Otherwise, we let the default anchor action occur.
 
 ### Blazor integration
 

@@ -347,67 +347,32 @@ const positiveNegativeNumberCellView = PositiveNegativeNumberCellView.compose({
 });
 ```
 
-Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
+### Event Delegation
+
+Because the cell view is not a descendant of the column element, we must add special support for the column to handle events that originate in the cells. A column will define a `columnDelegatedEvents` property which is an array of event names that should be delegated.
 
 ```TS
-type TableColumnButtonCellData = TableStringField<'id'>;
-
-public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
-    ...
-
-    public cellRecordFieldNames = ['id'] as const;
-
-    @attr
-    public idKey: string;
-
-    public getDataRecordFieldNames(): string[] {
-        return [valueKey];
-    }
-
-    public cellViewTag = 'table-cell-view-button';
-
-    public validateCellData(cellData: TCellRecord): void {
-        if (typeof(cellData['id']) !== 'string') {
-            throw new Error('Type for cellData is incorrect!');
-        }
-    }
+TableColumn {
+   abstract readonly columnDelegatedEvents: readonly string[];
 }
 
-class ButtonCellView extends TableCellView<TableColumnButtonCellData> {
-    public onButtonClick(): void {
-        this.$emit('button-click', { data: this.cellRecord.id })
-    }
+AnchorTableColumn extends TableColumn {
+   readonly columnDelegatedEvents = ['click'] as const;
 }
-const buttonCellView = ButtonCellView.compose({
-    baseName: 'table-cell-view-button',
-    template: html<ButtonCellView>`
-        <nimble-button @click="${(x) => x.onButtonClick()}">
-            <span>Press Me</span>
-        </nimble-button>`,
-    styles: /* styling */
+```
+
+Upon connecting a cell view to the DOM, we will attach an event listener for each event type in `columnDelegatedEvents`. The handler will wrap the original event in a new `CustomEvent` and dispatch that to the column. It will also stop propagation on the original event, and prevent default if the `dispatchEvent` call returns `false`.
+
+```TS
+this.addEventListener(delegatedEventName, event => {
+    event.stopPropagation();
+    if (!this.column.dispatchEvent(new CustomEvent('delegated-event', { details: { event }}))) {
+        event.preventDefault();
+    };
 });
 ```
 
-Angular template:
-
-```HTML
-<nimble-table (button-click)="doSomething($event)">
-    <nimble-table-column-button></nimble-table-column-button>
-</nimble-table>
-```
-
-Angular code:
-
-```TS
-private doSomething(CustomEvent e): void {
-    ...
-}
-
-```
-
-The exact pattern for how we expect event APIs to be implemented is TBD. The above is simply illustrative of one approach, but it's safe to say that the goal will be to provide frameworks like Angular the expected event binding APIs.
-
-_Note: The implementation necessary to register the column elements as FAST components is missing, and has been omitted for brevity's sake._
+A column type (or an Angular directive on that type) may register a listener for the `delegated-event` event. This listener will have access to the full original event, including the originating cell view via `event.target`. The cell view can expose anything necessary from its public API.
 
 ### Header Content
 
