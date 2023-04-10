@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Mon, 10 Apr 2023 18:53:34 GMT",
+      "tag": "@ni/nimble-tokens_v4.8.0",
+      "version": "4.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f",
+            "comment": "Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Apr 2023 20:48:27 GMT",
       "tag": "@ni/nimble-tokens_v4.7.3",
       "version": "4.7.3",
