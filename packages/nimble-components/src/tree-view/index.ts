@@ -6,9 +6,12 @@ import {
     isTreeItemElement,
     TreeItem
 } from '@microsoft/fast-foundation';
-import type { AnchorTreeItem } from '../anchor-tree-item';
 import { styles } from './styles';
-import { groupSelectedAttribute, ISelectable, TreeViewSelectionMode } from './types';
+import {
+    groupSelectedAttribute,
+    ISelectable,
+    TreeViewSelectionMode
+} from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
