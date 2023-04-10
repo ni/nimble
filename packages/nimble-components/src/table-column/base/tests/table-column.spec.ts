@@ -1,6 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import { customElement } from '@microsoft/fast-element';
-import { fixture, Fixture, uniqueElementName } from '../../../utilities/tests/fixture';
+import {
+    fixture,
+    Fixture,
+    uniqueElementName
+} from '../../../utilities/tests/fixture';
 import { TableColumnEmpty, tableColumnEmptyTag } from './table-column.fixtures';
 import { TableColumn } from '..';
 
