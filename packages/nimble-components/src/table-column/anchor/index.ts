@@ -32,7 +32,7 @@ declare global {
 /**
  * A table column for displaying links.
  */
-class TableColumnAnchor extends mixinGroupableColumnAPI(
+export class TableColumnAnchor extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)) {
     @attr({ attribute: 'label-field-name' })
     public labelFieldName?: string;
