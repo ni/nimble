@@ -57,17 +57,18 @@ export const styles = css`
     }
 
     .header-row {
-        display: grid;
+        display: flex;
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
         min-width: 100%;
-        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
         left: var(--ni-private-table-scroll-x);
     }
 
-    :host([selection-mode='multiple']) .header-row {
-        grid-template-columns: auto var(--ni-private-table-row-grid-columns) auto;
+    .column-header-container {
+        display: grid;
+        width: 100%;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
     }
 
     .header-scrollbar-spacer {

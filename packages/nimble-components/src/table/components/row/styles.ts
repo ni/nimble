@@ -22,7 +22,7 @@ export const styles = css`
     }
 
     .selection-checkbox {
-        margin: 0px ${standardPadding};
+        margin-left: ${standardPadding};
     }
 
     .selection-checkbox::part(label) {

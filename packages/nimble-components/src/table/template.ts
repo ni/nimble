@@ -48,18 +48,20 @@ export const template = html<Table>`
                         </span>
                     `)}
 
-                    ${repeat(x => x.columns, html<TableColumn>`
-                        ${when(x => !x.columnHidden, html<TableColumn, Table>`
-                            <${tableHeaderTag}
-                                class="header"
-                                sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
-                                ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                            >
-                                <slot name="${x => x.slot}"></slot>
-                            </${tableHeaderTag}>
+                    <span class="column-header-container">
+                        ${repeat(x => x.columns, html<TableColumn>`
+                            ${when(x => !x.columnHidden, html<TableColumn, Table>`
+                                <${tableHeaderTag}
+                                    class="header"
+                                    sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
+                                    ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                >
+                                    <slot name="${x => x.slot}"></slot>
+                                </${tableHeaderTag}>
+                            `)}
                         `)}
-                    `)}
-                    <div class="header-scrollbar-spacer"></div>
+                        <div class="header-scrollbar-spacer"></div>
+                    </span>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
