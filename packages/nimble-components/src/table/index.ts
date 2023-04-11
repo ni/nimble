@@ -282,25 +282,9 @@ export class Table<
     }
 
     /** @internal */
-    public async onRowClick(rowIndex: number): Promise<void> {
-        if (this.selectionMode === TableRowSelectionMode.none) {
-            return;
-        }
-
-        const row = this.table.getRowModel().rows[rowIndex];
-        if (!row) {
-            return;
-        }
-
-        const currentSelection = await this.getSelectedRecordIds();
-        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
-            // The clicked row is already the only selected row. Do nothing.
-            return;
-        }
-
-        this.table.toggleAllRowsSelected(false);
-        row.toggleSelected(true);
-        await this.emitSelectionChangeEvent();
+    public onRowClick(rowIndex: number): boolean {
+        void this.updateSelectionOnRowClickAsync(rowIndex);
+        return true;
     }
 
     /** @internal */
@@ -385,6 +369,27 @@ export class Table<
     private readonly onViewPortScroll = (event: Event): void => {
         this.scrollX = (event.target as HTMLElement).scrollLeft;
     };
+
+    private async updateSelectionOnRowClickAsync(rowIndex: number): Promise<void> {
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return;
+        }
+
+        const row = this.table.getRowModel().rows[rowIndex];
+        if (!row) {
+            return;
+        }
+
+        const currentSelection = await this.getSelectedRecordIds();
+        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
+            // The clicked row is already the only selected row. Do nothing.
+            return;
+        }
+
+        this.table.toggleAllRowsSelected(false);
+        row.toggleSelected(true);
+        await this.emitSelectionChangeEvent();
+    }
 
     private removeColumnObservers(): void {
         this.columnNotifiers.forEach(notifier => {
