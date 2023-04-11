@@ -178,6 +178,9 @@ export class Table<
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
+    // Programmatically updating the selection state of a checkbox fires the 'change' event.
+    // Therefore, selection change events that occur due to programmatically updating
+    // the selection checkbox 'checked' value should be ingored.
     private ignoreSelectionChangeEvents = false;
 
     public constructor() {
@@ -199,8 +202,8 @@ export class Table<
                 expanded: true // Workaround until we can apply a fix to TanStack regarding leveraging our getIsRowExpanded implementation
             },
             enableRowSelection: row => !row.getIsGrouped(),
-            enableMultiRowSelection: true,
-            enableSubRowSelection: true,
+            enableMultiRowSelection: false,
+            enableSubRowSelection: false,
             enableSorting: true,
             enableGrouping: true,
             renderFallbackValue: null,
@@ -312,13 +315,13 @@ export class Table<
             return;
         }
 
-        // Work around for https://github.com/TanStack/table/issues/4759
-        // Manually deselect all leaf rows when a fully selected group is being deselected.
         const rowState = this.tableData[rowIndex];
         if (
             rowState?.isGrouped
             && rowState?.selectionState === TableRowSelectionState.selected
         ) {
+            // Work around for https://github.com/TanStack/table/issues/4759
+            // Manually deselect all leaf rows when a fully selected group is being deselected.
             this.deselectAllLeafRows(rowIndex);
         } else {
             this.table
@@ -335,7 +338,7 @@ export class Table<
     }
 
     /** @internal */
-    public async onSelectionChange(event: CustomEvent): Promise<void> {
+    public async onAllRowsSelectionChange(event: CustomEvent): Promise<void> {
         event.stopPropagation();
 
         if (this.ignoreSelectionChangeEvents) {
@@ -685,25 +688,20 @@ export class Table<
         groupedRow: TanStackRow<TData>
     ): TableRowSelectionState {
         const subRows = groupedRow.subRows ?? [];
-
         let foundSelectedRow = false;
         let foundNotSelectedRow = false;
-
         for (const row of subRows) {
             if (row.getIsGrouped()) {
                 const subGroupRowSelectionState = this.getGroupedRowSelectionState(row);
-                if (
-                    subGroupRowSelectionState
-                    === TableRowSelectionState.notSelected
-                ) {
-                    foundNotSelectedRow = true;
-                } else if (
-                    subGroupRowSelectionState
-                    === TableRowSelectionState.selected
-                ) {
-                    foundSelectedRow = true;
-                } else {
-                    return TableRowSelectionState.partiallySelected;
+                switch (subGroupRowSelectionState) {
+                    case TableRowSelectionState.notSelected:
+                        foundNotSelectedRow = true;
+                        break;
+                    case TableRowSelectionState.selected:
+                        foundSelectedRow = true;
+                        break;
+                    default:
+                        return TableRowSelectionState.partiallySelected;
                 }
             } else if (row.getIsSelected()) {
                 foundSelectedRow = true;

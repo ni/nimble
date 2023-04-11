@@ -61,6 +61,9 @@ export class TableGroupRow extends FoundationElement {
     @observable
     public animationClass = '';
 
+    // Programmatically updating the selection state of a checkbox fires the 'change' event.
+    // Therefore, selection change events that occur due to programmatically updating
+    // the selection checkbox 'checked' value should be ingored.
     private ignoreSelectionChangeEvents = false;
 
     public onGroupExpandToggle(): void {

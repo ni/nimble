@@ -51,18 +51,6 @@ describe('TableGroupRow', () => {
         expect(groupExpandListener.spy).toHaveBeenCalledTimes(1);
     });
 
-    it('clicking group row emits group-expand-toggle event', async () => {
-        await connect();
-        const groupExpandListener = createEventListener(
-            element,
-            'group-expand-toggle'
-        );
-
-        element.click();
-        await groupExpandListener.promise;
-        expect(groupExpandListener.spy).toHaveBeenCalledTimes(1);
-    });
-
     it('shows selection checkbox when row is selectable', async () => {
         await connect();
         element.selectable = true;
