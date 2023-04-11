@@ -2,6 +2,93 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 11 Apr 2023 01:58:34 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d339db767c179e2398ccadc6111d9ab7c72ca6bb",
+            "comment": "Adding icon: file-export"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.9.0",
+            "commit": "d339db767c179e2398ccadc6111d9ab7c72ca6bb"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 23:30:09 GMT",
+      "tag": "@ni/nimble-components_v18.11.1",
+      "version": "18.11.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "45e6b5dfd3ff1b9ae6bc9839c2091302884ceef3",
+            "comment": "Revert icon timing workaround"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 22:26:12 GMT",
+      "tag": "@ni/nimble-components_v18.11.1",
+      "version": "18.11.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e18ddb74acf26b08d26672ae9e6a64de9539e357",
+            "comment": "Storybook updates to support MDX doc composition"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 19:29:13 GMT",
+      "tag": "@ni/nimble-components_v18.11.1",
+      "version": "18.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "49ea4be8b29e5426f01f64811f4cc648316c144f",
+            "comment": "Add the table column internals api for column authors"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 18:53:34 GMT",
+      "tag": "@ni/nimble-components_v18.11.0",
+      "version": "18.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f",
+            "comment": "Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.8.0",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 07 Apr 2023 20:48:27 GMT",
       "tag": "@ni/nimble-components_v18.10.6",
       "version": "18.10.6",
