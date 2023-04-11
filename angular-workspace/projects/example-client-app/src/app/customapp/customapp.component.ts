@@ -39,12 +39,12 @@ export class CustomAppComponent {
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([
-        { stringValue1: 'hello world', stringValue2: 'more text' },
-        { stringValue1: 'foo', stringValue2: 'bar' },
-        { stringValue1: 'candy', stringValue2: 'bar' },
-        { stringValue1: 'dive', stringValue2: 'bar' },
-        { stringValue1: 're', stringValue2: 'bar' },
-        { stringValue1: 'last row', stringValue2: 'yay!' }
+        { stringValue1: 'hello world', stringValue2: 'more text', href: '#', linkLabel: 'this page' },
+        { stringValue1: 'foo', stringValue2: 'bar', href: '/customapp2', linkLabel: 'other page' },
+        { stringValue1: 'candy', stringValue2: 'bar', href: '', linkLabel: 'empty href' },
+        { stringValue1: 'dive', stringValue2: 'bar', linkLabel: 'missing href' },
+        { stringValue1: 're', stringValue2: 'bar', href: '/customapp2', linkLabel: 'other page' },
+        { stringValue1: 'last row', stringValue2: 'yay!', href: '/customapp2', linkLabel: 'other page' }
     ]);
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;

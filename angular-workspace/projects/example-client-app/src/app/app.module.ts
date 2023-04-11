@@ -8,17 +8,20 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
-    NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule, NimbleTableColumnTextModule, NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+    NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule, NimbleTableColumnTextModule,
+    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule, NimbleTableColumnAnchorModule } from '@ni/nimble-angular';
 import { NimbleTableModule } from 'projects/ni/nimble-angular/src/public-api';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
+import { CustomAppComponent2 } from './customapp2/customapp2.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        CustomAppComponent
+        CustomAppComponent,
+        CustomAppComponent2
     ],
     imports: [
         BrowserModule,
@@ -64,11 +67,13 @@ import { HeaderComponent } from './header/header.component';
         NimbleAnchorTreeItemModule,
         NimbleTableModule,
         NimbleTableColumnTextModule,
+        NimbleTableColumnAnchorModule,
         NimbleBannerModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
-                { path: 'customapp', component: CustomAppComponent, title: 'Angular All Components Demo - Nimble Design System - NI' }
+                { path: 'customapp', component: CustomAppComponent, title: 'Angular All Components Demo - Nimble Design System - NI' },
+                { path: 'customapp2', component: CustomAppComponent2, title: 'Angular All Components Demo - Nimble Design System - NI' }
             ],
             { useHash: true }
         )
