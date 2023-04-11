@@ -63,9 +63,7 @@ const component = (
 `;
 
 export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [
-        selectionModeStates
-    ])
+    createMatrix(component, [selectionModeStates])
 );
 
 tableThemeMatrix.play = async (): Promise<void> => {

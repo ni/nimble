@@ -16,7 +16,10 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
-import { TableColumnSortDirection, TableRowSelectionMode } from '../../../table/types';
+import {
+    TableColumnSortDirection,
+    TableRowSelectionMode
+} from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';

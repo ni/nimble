@@ -132,7 +132,9 @@ describe('Table row selection', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.getAttribute('aria-multiselectable')).toEqual('false');
+            expect(element.getAttribute('aria-multiselectable')).toEqual(
+                'false'
+            );
         });
 
         it('aria-multiselectable is "true" with a selection mode of "multiple"', async () => {
@@ -140,7 +142,9 @@ describe('Table row selection', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(element.getAttribute('aria-multiselectable')).toEqual('true');
+            expect(element.getAttribute('aria-multiselectable')).toEqual(
+                'true'
+            );
         });
 
         it('configuration is valid when selection mode is "none" and an id field name is set', async () => {
