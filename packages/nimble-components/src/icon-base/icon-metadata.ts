@@ -229,6 +229,9 @@ export const iconMetadata: {
     IconFileSearch: {
         tags: ['file-viewer']
     },
+    IconFileExport: {
+        tags: ['download']
+    },
     IconFilter: {
         tags: []
     },
