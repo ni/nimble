@@ -21,7 +21,8 @@ class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
         super({
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
-            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+            delegatedEvents: []
         });
     }
 }

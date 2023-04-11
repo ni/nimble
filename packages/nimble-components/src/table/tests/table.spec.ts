@@ -568,7 +568,8 @@ describe('Table', () => {
                     super({
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
-                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                        delegatedEvents: []
                     });
                 }
             }

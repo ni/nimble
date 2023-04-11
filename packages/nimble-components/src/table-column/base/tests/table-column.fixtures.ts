@@ -35,7 +35,8 @@ export class TableColumnEmpty extends TableColumn {
         super({
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
-            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+            delegatedEvents: []
         });
     }
 }

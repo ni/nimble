@@ -1,6 +1,7 @@
 import { observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { TableCellRecord, TableCellState } from '../types';
+import type { TableColumn } from '..';
+import type { DelegatedEventEventDetails, TableCellRecord, TableCellState } from '../types';
 
 /**
  * Base class for table cell views, which are used within the nimble-table-cell.
@@ -18,10 +19,25 @@ export abstract class TableCellView<
     @observable
     public columnConfig!: TColumnConfig;
 
+    public column?: TableColumn<TColumnConfig>;
+
     /**
      * Called if an element inside this cell view has focus, and this row/cell is being recycled.
      * Expected implementation is to commit changes as needed, and blur the focusable element (or close
      * the menu/popup/etc).
      */
     public focusedRecycleCallback(): void {}
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        if (this.column) {
+            for (const delegatedEvent of this.column.columnInternals.delegatedEvents) {
+                this.addEventListener(delegatedEvent, (event: Event) => {
+                    this.column?.dispatchEvent(new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
+                        detail: { originalEvent: event }
+                    }));
+                });
+            }
+        }
+    }
 }

@@ -38,7 +38,8 @@ export class TableColumnText extends mixinGroupableColumnAPI(
         super({
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag
+            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            delegatedEvents: []
         });
         this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
     }
