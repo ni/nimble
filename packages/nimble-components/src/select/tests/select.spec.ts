@@ -67,50 +67,52 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
 }
 
 describe('Select', () => {
-    it('should respect value set before connect is completed', async () => {
-        const { element, connect, disconnect } = await setup();
+    for (let i = 0; i < 200; i++) {
+        it('should respect value set before connect is completed', async () => {
+            const { element, connect, disconnect } = await setup();
 
-        const connectTask = connect();
-        element.value = 'two';
-        await connectTask;
+            const connectTask = connect();
+            element.value = 'two';
+            await connectTask;
 
-        expect(element.value).toBe('two');
+            expect(element.value).toBe('two');
 
-        await disconnect();
-    });
+            await disconnect();
+        });
 
-    it('should respect "open" and "position" attributes when both set', async () => {
-        const position = 'above';
-        const { element, connect, disconnect } = await setup(position, true);
+        it('should respect "open" and "position" attributes when both set', async () => {
+            const position = 'above';
+            const { element, connect, disconnect } = await setup(position, true);
 
-        await connect();
-        await waitForUpdatesAsync();
+            await connect();
+            await waitForUpdatesAsync();
 
-        expect(element.getAttribute('open')).not.toBeNull();
-        expect(element.getAttribute('position')).toBe(position);
+            expect(element.getAttribute('open')).not.toBeNull();
+            expect(element.getAttribute('position')).toBe(position);
 
-        await disconnect();
-    });
+            await disconnect();
+        });
 
-    it('should keep selected value when options change', async () => {
-        const { element, connect, disconnect } = await setup();
-        await connect();
-        element.value = 'two';
-        await waitForUpdatesAsync();
-        expect(element.value).toBe('two');
+        it('should keep selected value when options change', async () => {
+            const { element, connect, disconnect } = await setup();
+            await connect();
+            element.value = 'two';
+            await waitForUpdatesAsync();
+            expect(element.value).toBe('two');
 
-        // Add option zero at the top of the options list
-        // prettier-ignore
-        element.insertAdjacentHTML(
-            'afterbegin',
-            '<nimble-list-option value="zero">Zero</nimble-list-option>'
-        );
-        await waitForUpdatesAsync();
+            // Add option zero at the top of the options list
+            // prettier-ignore
+            element.insertAdjacentHTML(
+                'afterbegin',
+                '<nimble-list-option value="zero">Zero</nimble-list-option>'
+            );
+            await waitForUpdatesAsync();
 
-        expect(element.value).toBe('two');
+            expect(element.value).toBe('two');
 
-        await disconnect();
-    });
+            await disconnect();
+        });
+    }
 
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
@@ -124,25 +126,28 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        it('should limit dropdown height to viewport', async () => {
-            const { element, connect, disconnect } = await setup500Options();
-            await connect();
-            const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
-            await clickAndWaitForOpen(element);
-            // The test is run in an iframe, and the containing window has a Karma header.
-            // It seems the window is sized without accounting for the header, so a header-height's
-            // worth of content is scrolled out of view. The approach we take with the
-            // IntersectionObserver only works if the full iframe is visible, so we scroll the
-            // containing window to the bottom (i.e. scrolling the Karma header out of view and
-            // the bottom of the iframe into view).
-            window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
-            const fullyVisible = await checkFullyInViewport(listbox);
+        for (let i = 0; i < 200; i++) {
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            it(`should limit dropdown height to viewport ${i}`, async () => {
+                const { element, connect, disconnect } = await setup500Options();
+                await connect();
+                const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
+                await clickAndWaitForOpen(element);
+                // The test is run in an iframe, and the containing window has a Karma header.
+                // It seems the window is sized without accounting for the header, so a header-height's
+                // worth of content is scrolled out of view. The approach we take with the
+                // IntersectionObserver only works if the full iframe is visible, so we scroll the
+                // containing window to the bottom (i.e. scrolling the Karma header out of view and
+                // the bottom of the iframe into view).
+                window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
+                const fullyVisible = await checkFullyInViewport(listbox);
 
-            expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
-            expect(fullyVisible).toBeTrue();
+                expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+                expect(fullyVisible).toBeTrue();
 
-            await disconnect();
-        });
+                await disconnect();
+            });
+        }
     });
 
     it('should export its tag', () => {
