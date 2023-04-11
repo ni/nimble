@@ -82,7 +82,10 @@ describe('Select', () => {
 
         it('should respect "open" and "position" attributes when both set', async () => {
             const position = 'above';
-            const { element, connect, disconnect } = await setup(position, true);
+            const { element, connect, disconnect } = await setup(
+                position,
+                true
+            );
 
             await connect();
             await waitForUpdatesAsync();
@@ -139,10 +142,15 @@ describe('Select', () => {
                 // IntersectionObserver only works if the full iframe is visible, so we scroll the
                 // containing window to the bottom (i.e. scrolling the Karma header out of view and
                 // the bottom of the iframe into view).
-                window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
+                window.parent.scrollTo(
+                    0,
+                    window.parent.document.body.scrollHeight
+                );
                 const fullyVisible = await checkFullyInViewport(listbox);
 
-                expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+                expect(listbox.scrollHeight).toBeGreaterThan(
+                    window.innerHeight
+                );
                 expect(fullyVisible).toBeTrue();
 
                 await disconnect();
