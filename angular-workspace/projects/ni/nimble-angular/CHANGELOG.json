@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 11 Apr 2023 02:40:33 GMT",
+      "tag": "@ni/nimble-angular_v16.5.10",
+      "version": "16.5.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "036c36d86d8c009579f1b4734b485785f0173b08",
+            "comment": "Angular row grouping support"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Apr 2023 01:58:34 GMT",
       "tag": "@ni/nimble-angular_v16.5.9",
       "version": "16.5.9",
