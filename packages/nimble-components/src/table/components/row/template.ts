@@ -8,13 +8,16 @@ import { checkboxTag } from '../../../checkbox';
 export const template = html<TableRow>`
     <template role="row" aria-selected=${x => x.ariaSelected}>
         ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
-            <${checkboxTag}
-                ${ref('selectionCheckbox')}
-                class="selection-checkbox"
-                @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
-                @click="${(_, c) => c.event.stopPropagation()}"
-            >
-            </${checkboxTag}>
+            <span role="gridcell" class="checkbox-container">
+                <${checkboxTag}
+                    ${ref('selectionCheckbox')}
+                    role="cell"
+                    class="selection-checkbox"
+                    @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                    @click="${(_, c) => c.event.stopPropagation()}"
+                >
+                </${checkboxTag}>
+            </span>
         `)}
 
         <span ${ref('cellContainer')} class="cell-container">
@@ -23,7 +26,7 @@ export const template = html<TableRow>`
                     <${tableCellTag}
                         class="cell"
                         :cellState="${x => x.cellState}"
-                        :cellViewTemplate="${x => x.column.columnInternals.currentCellViewTemplate}"
+                        :cellViewTemplate="${x => x.column.columnInternals.cellViewTemplate}"
                         ?has-action-menu="${x => !!x.column.actionMenuSlot}"
                         action-menu-label="${x => x.column.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"

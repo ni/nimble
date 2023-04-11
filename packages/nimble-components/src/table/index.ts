@@ -414,6 +414,17 @@ export class Table<
         }
     }
 
+    public override get ariaMultiSelectable(): 'true' | 'false' | null {
+        switch (this.selectionMode) {
+            case TableRowSelectionMode.multiple:
+                return 'true';
+            case TableRowSelectionMode.single:
+                return 'false';
+            default:
+                return null;
+        }
+    }
+
     protected selectionModeChanged(
         _prev: string | undefined,
         _next: string | undefined

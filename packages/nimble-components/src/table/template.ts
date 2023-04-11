@@ -23,7 +23,11 @@ import { checkboxTag } from '../checkbox';
 
 // prettier-ignore
 export const template = html<Table>`
-    <template role="grid" ${children({ property: 'childItems', filter: elements() })}>
+    <template
+        role="grid"
+        aria-multiselectable="${x => x.ariaMultiSelectable}"
+        ${children({ property: 'childItems', filter: elements() })}
+    >
         <div class="table-container" style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -33,13 +37,16 @@ export const template = html<Table>`
             ">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
-                    <${checkboxTag}
-                        ${ref('selectionCheckbox')}
-                        class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
-                        ?hidden="${x => x.selectionMode !== TableRowSelectionMode.multiple}"
-                        @change="${async (x, c) => x.onSelectionChange(c.event as CustomEvent)}"
-                    >
-                    </${checkboxTag}>
+                    ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
+                        <span role="columnheader" class="checkbox-container">
+                            <${checkboxTag}
+                                ${ref('selectionCheckbox')}
+                                class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                                @change="${async (x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                            >
+                            </${checkboxTag}>
+                        </span>
+                    `)}
 
                     ${repeat(x => x.columns, html<TableColumn>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`

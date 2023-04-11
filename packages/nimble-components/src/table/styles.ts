@@ -78,6 +78,10 @@ export const styles = css`
         flex: 1;
     }
 
+    .checkbox-container {
+        display: flex;
+    }
+
     .selection-checkbox {
         margin: 0px ${standardPadding};
     }

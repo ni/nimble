@@ -33,6 +33,12 @@ describe('TableGroupRow', () => {
         expect(document.createElement('nimble-table-group-row')).toBeInstanceOf(TableGroupRow);
     });
 
+    it('should have role of row', async () => {
+        await connect();
+
+        expect(element.getAttribute('role')).toBe('row');
+    });
+
     it('clicking group row emits group-expand-toggle event', async () => {
         await connect();
         const groupExpandListener = createEventListener(

@@ -119,6 +119,30 @@ describe('Table row selection', () => {
             expect(element.selectionMode).toBe(TableRowSelectionMode.none);
         });
 
+        it('aria-multiselectable is not set with a selection mode of "none"', async () => {
+            element.selectionMode = TableRowSelectionMode.none;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.hasAttribute('aria-multiselectable')).toBeFalse();
+        });
+
+        it('aria-multiselectable is "false" with a selection mode of "single"', async () => {
+            element.selectionMode = TableRowSelectionMode.single;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.getAttribute('aria-multiselectable')).toEqual('false');
+        });
+
+        it('aria-multiselectable is "true" with a selection mode of "multiple"', async () => {
+            element.selectionMode = TableRowSelectionMode.multiple;
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(element.getAttribute('aria-multiselectable')).toEqual('true');
+        });
+
         it('configuration is valid when selection mode is "none" and an id field name is set', async () => {
             element.selectionMode = TableRowSelectionMode.none;
             element.idFieldName = 'stringData';

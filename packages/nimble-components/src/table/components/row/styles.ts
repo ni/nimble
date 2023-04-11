@@ -17,6 +17,10 @@ export const styles = css`
         min-width: 100%;
     }
 
+    .checkbox-container {
+        display: flex;
+    }
+
     .selection-checkbox {
         margin: 0px ${standardPadding};
     }
