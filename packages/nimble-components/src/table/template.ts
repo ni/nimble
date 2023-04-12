@@ -36,7 +36,7 @@ export const template = html<Table>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
                             <div class="header-container">
                                 ${when((_, c) => c.index > 0, html<TableColumn, Table>`
-                                    <div class="column-divider left" @mousedown="${(_, c) => c.parent.onDividerMouseDown(c.index - 1)}"></div>
+                                    <div class="column-divider left" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.index)}"></div>
                                 `)}
                                     <${tableHeaderTag}
                                         class="header"
@@ -46,7 +46,7 @@ export const template = html<Table>`
                                         <slot name="${x => x.slot}"></slot>
                                     </${tableHeaderTag}>
                                 ${when((_, c) => c.index < (c.parent as Table).columns.length - 1, html`
-                                    <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onDividerMouseDown(c.index)}"></div>
+                                    <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onRightDividerMouseDown(c.index)}"></div>
                                 `)}
                             </div>
                         `)}

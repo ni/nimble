@@ -334,14 +334,14 @@ export class Table<
         }
     }
 
-    public onDividerMouseDown(columnIndex: number): void {
+    public onRightDividerMouseDown(columnIndex: number): void {
         this.activeColumnDivider = columnIndex;
-        this.currentRowWidth = this.rowHeader.getBoundingClientRect().width - this.virtualizer.headerContainerMarginRight;
-        this.flagNonActiveColumnDividers(columnIndex);
-        this.setColumnsToFixedSize();
-        this.isColumnBeingSized = true;
-        document.addEventListener('mousemove', this.onDividerMouseMove);
-        document.addEventListener('mouseup', this.onDividerMouseUp);
+        this.onDividerMouseDown(columnIndex);
+    }
+
+    public onLeftDividerMouseDown(columnIndex: number): void {
+        this.activeColumnDivider = columnIndex - 1;
+        this.onDividerMouseDown(columnIndex);
     }
 
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
@@ -462,6 +462,15 @@ export class Table<
         void this.updateColumnsFromChildItems();
     }
 
+    private onDividerMouseDown(columnIndex: number): void {
+        this.currentRowWidth = this.rowHeader.getBoundingClientRect().width - this.virtualizer.headerContainerMarginRight;
+        this.flagActiveColumnDividers(columnIndex);
+        this.setColumnsToFixedSize();
+        this.isColumnBeingSized = true;
+        document.addEventListener('mousemove', this.onDividerMouseMove);
+        document.addEventListener('mouseup', this.onDividerMouseUp);
+    }
+
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;
         let deltaX = mouseEvent.movementX > 0
@@ -476,6 +485,14 @@ export class Table<
         if ((canSizeLeft && deltaX < 0) || deltaX > 0) {
             this.performCascadeSizeRight(this.activeColumnDivider!, deltaX);
         }
+    };
+
+    private readonly onDividerMouseUp = (): void => {
+        document.removeEventListener('mousemove', this.onDividerMouseMove);
+        document.removeEventListener('mouseup', this.onDividerMouseUp);
+        this.unflagActiveColumnDividers();
+        this.resetGridSizedColumns();
+        this.isColumnBeingSized = false;
     };
 
     private pinColumnSizeDelta(activeColumnIndex: number, delta: number): number {
@@ -558,31 +575,23 @@ export class Table<
         }
     }
 
-    private readonly onDividerMouseUp = (): void => {
-        document.removeEventListener('mousemove', this.onDividerMouseMove);
-        document.removeEventListener('mouseup', this.onDividerMouseUp);
-        this.unflagNonActiveColumnDividers();
-        this.resetGridSizedColumns();
-        this.isColumnBeingSized = false;
-    };
-
-    private flagNonActiveColumnDividers(activeColumnIndex: number): void {
+    private flagActiveColumnDividers(activeColumnIndex: number): void {
         const firstDividerIndex = activeColumnIndex > 0 ? activeColumnIndex * 2 - 1 : 0;
         const secondDividerIndex = activeColumnIndex < this.columns.length - 1
             ? firstDividerIndex + 1
             : firstDividerIndex;
         const dividers = this.shadowRoot!.querySelectorAll('.column-divider');
         Array.from(dividers).forEach((divider, i) => {
-            if (i < firstDividerIndex || i > secondDividerIndex) {
-                divider.setAttribute('not-active', 'true');
+            if (i >= firstDividerIndex && i <= secondDividerIndex) {
+                divider.setAttribute('active', 'true');
             }
         });
     }
 
-    private unflagNonActiveColumnDividers(): void {
+    private unflagActiveColumnDividers(): void {
         const dividers = this.shadowRoot!.querySelectorAll('.column-divider');
         Array.from(dividers).forEach(divider => {
-            divider.removeAttribute('not-active');
+            divider.removeAttribute('active');
         });
     }
 

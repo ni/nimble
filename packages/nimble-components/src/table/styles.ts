@@ -74,9 +74,10 @@ export const styles = css`
         position: relative;
     }
 
-    .header-container:hover .column-divider:not([not-active]).left,
-    .header-container:hover .column-divider:not([not-active]).right {
+    .header-container:hover .column-divider,
+    .header-container .column-divider[active] {
         display: block;
+        z-index: 1;
     }
 
     .header-scrollbar-spacer {
