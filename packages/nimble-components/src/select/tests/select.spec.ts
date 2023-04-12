@@ -33,9 +33,13 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
         const intersectionObserver = new IntersectionObserver(
             entries => {
                 intersectionObserver.disconnect();
+                // eslint-disable-next-line no-console
                 console.log(`window height: ${window.innerHeight}`);
+                // eslint-disable-next-line no-console
                 console.log(`element height: ${element.offsetHeight}`);
+                // eslint-disable-next-line no-console
                 console.log(`element scroll height: ${element.scrollHeight}`);
+                // eslint-disable-next-line no-console
                 console.log(`element top: ${element.offsetTop}`);
                 if (
                     entries[0]?.isIntersecting
