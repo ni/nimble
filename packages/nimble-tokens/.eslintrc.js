@@ -6,7 +6,7 @@ module.exports = {
     overrides: [
         {
             files: [
-                'source/styledictionary/nimble-extensions.js'
+                'source/styledictionary/*',
             ],
             rules: {
                 // Build scripts will not be in published package and are allowed to use devDependencies

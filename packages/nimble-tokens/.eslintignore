@@ -1,2 +1,3 @@
 dist/*
 dist/styledictionary/*
+source/styledictionary/build.js
