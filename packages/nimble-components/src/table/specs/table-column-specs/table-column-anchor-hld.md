@@ -60,7 +60,7 @@ When cellRecord.href is missing
 </span>
 ```
 
-As seen in the template, we use `mouseover` and `mouseout` handlers to conditionally set, then remove, the `title` attribute to provide a tooltip when text is trucated. This is the same pattern used by the text column type. Note that we set the `underline-hidden` attribute so that the text only gets an underline upon hover.
+As seen in the template, we use `mouseover` and `mouseout` handlers to conditionally set, then remove, the `title` attribute to provide a tooltip when text is truncated. This is the same pattern used by the text column type. Note that we set the `underline-hidden` attribute so that the text only gets an underline upon hover.
 
 One alternative would be to use a native anchor (`<a>`) instead of a `nimble-anchor`, for possible performance gains. I tested scrolling through a table with 10k rows and multiple columns, including five anchor columns. Scrolling performance was not noticably different than without the anchor columns. Consequently, it doesn't seem worth trying to optimize by using native anchors.
 
