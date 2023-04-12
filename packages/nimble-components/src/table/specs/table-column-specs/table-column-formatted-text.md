@@ -13,7 +13,6 @@ Clients will wish to display non-string text data in table columns for use cases
     - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute, 3 seconds"
 6. enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass")
 7. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
-8. combinations of the above in a single column in cases where the source data isn't uniformly typed (e.g. SLE tag values)
 
 In all of the above cases:
 
@@ -31,6 +30,8 @@ We may not choose to support all of the above initially but we should design our
 
 [Date/time column work item](https://github.com/ni/nimble/issues/1014)
 
+[Boolean text column work item](https://github.com/ni/nimble/issues/1103)
+
 [Table Column API](../table-columns-hld.md)
 
 [Table Spec](../README.md)
@@ -41,6 +42,7 @@ We may not choose to support all of the above initially but we should design our
 
 ### Non-goals
 
+-   Combinations of the use cases listed above in a single column. This will be needed in cases where the source data isn't uniformly typed (e.g. SLE tag values or notebook outputs). This HLD focuses on uniform data types; future HLDs will discuss ways to configure multiple types of columns to be conditionally displayed together.
 -   Editable numbers. This is not supported by the text column yet either.
 -   Customizing the styling of the column content (other than possibly text alignment). This is not supported by the text column yet either.
 
@@ -48,13 +50,186 @@ We may not choose to support all of the above initially but we should design our
 
 ## Design
 
-### Alternatives
+### Summary
 
-Below are different alternatives to solve these use cases. Some alternatives will work better for certain use cases and worse for others. We may choose to implement a few of these alternatives in order to provide a great experience for all use cases. See below for an initial proposal.
+Nimble will provide a base class that can be derived from to define columns that call a formatting function to render their data as text. Clients which require app-specific formatting logic to support above use cases like 5 (custom unit logic) will define custom columns in their application that derive from this base class.
 
-At this stage, code examples are meant to be illustrative pseudo-code, not proposed APIs.
+Nimble will also provide several columns that derive from this base class and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 and 7 (enum/boolean and date) coming later. These will be easier to use than the above custom column approach:
+ - the columns will be configurable via HTML attributes, saving clients from writing JS code (a particular challenge in Blazor)
+ - they provide strict type validation of the data record
+ - clients don't need to manage the lifecycle of registering a new column custom element in their application
 
-#### Alternative 1: Use `table-column-text`
+### Formatted text column base class
+
+*Originally called "Alternative 2: Client specifies formatting function"*
+
+When configuring a column, clients could provide a callback function that converts data of any supported type into a formatted string.
+
+There isn't a good way to set a function as an attribute value on a column, so the function would be specified in JS code via clients overriding an abstract base class and registering a new column type:
+
+```html
+<nimble-table>
+    <my-app-progress-column
+        field-name="progress"
+        placeholder="Not started"
+    >
+        Progress
+    <my-app-progress-column>`
+</nimble-table>
+```
+
+```ts
+class MyAppProgressColumn : NimbleFormattedTextColumnBase<number> {
+    public override format(value: number) : string {
+        return `${100 * value}%`;
+    }
+
+    public override shouldUsePlaceholder(value: number | undefined) : boolean {
+        return value === undefined;
+    }
+}
+
+MyAppProgressColumn.registerColumn('my-app-progress-column');
+```
+
+Some of this is prototyped in the [number-column-prototype branch](https://github.com/ni/nimble/compare/main...number-column-prototype?expand=1).
+
+### Nimble formatted text columns
+
+*Originally called "Alternative 3: Nimble provides column implementation for common use cases"*
+
+#### Numeric text column
+
+We will introduce `nimble-table-column-numeric` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
+
+Similar to `nimble-table-column-text`:
+- it will offer attributes to control which field is displayed and placeholder text when that field isn't a number.
+- it will sort and group by the field value, not the display value.
+- it will allow sizing by fractional widths with a minimum pixel width.
+- it will truncate using an ellipsis and show a tooltip on hover when the value is truncated
+
+The primary formatting API will leverage the native browser [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) which gives highly configurable formatting with great documentation. It supports features like locale-specific formatting, decimal separators, thousands separators, digits of precision, and units. Since it doesn't support some unit strings required by clients, the column will also offer ways to set a fixed prefix or suffix on every number.
+
+##### ``nimble-table-column-numeric` API
+
+_*Props/Attrs*_
+- `field-name` - 
+- `placeholder` - The string value to use if the value of the field is `undefined`, `null`, `NaN`, or isn't of type `number`. Note that other "special" values like `Infinity` will be formatted and displayed.
+- TODO: ALIGNMENT
+- `prefix` - A string to append before the formatted value of each cell. It will not include any spacing.
+- `suffix` - A string to append after the formatted value of each cell. It will not include any spacing.
+- `number-format-locales` - Corresponds to the [`locales` parameter of `NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#parameters). Note that initially we will not support an array of locales; if this is necessary we could consider parsing this field as a comma-separated list.
+- `number-format-options-*` - attributes that correspond to the properties of the [`options` parameter of `NumberFormat`]. Each property name will be converted from `camelCase` to `dash-case`. For example, `number-format-options-compact-display="long"` or `number-format-options-currency-display="narrowSymbol"`.
+
+For values being passed through to the `NumberFormat` API we will provide types similar to [the TypeScript types from the browser API](https://github.com/microsoft/TypeScript/blob/0f724c04308e20d93d397e82b11f82ad6f810c44/src/lib/es2020.intl.d.ts#L232). Default values if the attribute is not provided will match the `NumberFormat` API.
+
+```html
+<nimble-table>
+    <nimble-table-column-numeric
+        field-name="progress"
+        number-format-locales="en-US"
+        number-format-options-style="percent"
+        number-format-options-minimum-fraction-digits=2
+    >
+        Progress
+    <nimble-table-column-numeric>
+
+    <nimble-table-column-numeric
+        field-name="count"
+        number-format-locales="en-US"
+        number-format-options-style="decimal"
+        number-format-options-use-grouping=false
+        number-format-options-maximum-fraction-digits=0
+        number-format-options-rounding-mode="trunc"
+    >
+        Count
+    <nimble-table-column-numeric>
+
+    <nimble-table-column-numeric
+        field-name="voltage"
+        number-format-locales="en-US"
+        number-format-options-style="decimal"
+        number-format-options-use-grouping=false
+        suffix=" V"
+    >
+        Voltage
+    <nimble-table-column-numeric>
+</nimble-table>
+```
+
+
+
+####  Boolean Text Column
+
+We will eventually provide an column type that maps boolean values to localized strings. This is an example API but the details will be updated in this document before implementation.
+
+```html
+<nimble-table>
+    <nimble-table-column-boolean-text
+        field-name="testResult"
+        true-message="Pass"
+        false-message="Fail"
+        placeholder="N/A"
+    >
+        Test Result
+    <nimble-table-boolean-text>
+</nimble-table>
+```
+
+##### Example E: Enum Text Column
+
+We will eventually provide an column type that maps enum values to localized strings. This is an example API but the details will be updated in this document before implementation.
+
+```html
+<nimble-table>
+    <nimble-table-column-enum-text
+        field-name="status"
+        placeholder="Unknown"
+    >
+        Status
+        <nimble-list-option slot="enum-string-0" value="0">Pass</nimble-list-option>
+        <nimble-list-option slot="enum-string-1" value="1">Fail</nimble-list-option>
+    <nimble-table-column-enum-text>
+</nimble-table>
+```
+
+### API
+
+_Component Name_
+
+_*Props/Attrs*_
+
+_Type Reference_
+
+### Anatomy
+
+### Angular integration
+
+### Blazor integration
+
+I propose we **would not** encourage Blazor clients to write formatting code in .NET due to performance concerns.
+
+### Visual Appearance
+
+###
+TODO Items I asked Mert to include on hyperlink spec
+
+---
+
+## Implementation
+
+### Alternatives considered
+
+#### Other ways to provide a formatting function
+
+1. setting the formatting function as a property on a column element.
+2. setting an [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) object as a property on a column element.
+
+Both of these require JS code which finds a specific column element and configures it. This is difficult to achieve in Blazor.
+
+#### Use `table-column-text`
+
+*Originally called "Alternative 1"*
 
 With the changes proposed in [HLD for programmatically sorting columns](../table-column-sort-hld.md) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic to populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
 
@@ -95,176 +270,10 @@ table.setData(tableData);
 -   Exposing `operand-data-record-name` to be set by client code rather than column definition
 -   Exposing an API for clients to indicate their data should be styled as numeric data (right aligned)
 
-#### Alternative 2: Client specifies formatting function
 
-When configuring a column, clients could provide a callback function that converts data of any supported type into a formatted string.
+#### Client provides custom column implementation for each use case
 
-There isn't a good way to set a function as an attribute value on a column, so the function would be specified in JS code. One possible mechanism would be for clients to override an abstract base class and register a new column type:
-
-```html
-<nimble-table>
-    <my-app-progress-column
-        field-name="progress"
-    >
-        Progress
-    <my-app-progress-column>`
-</nimble-table>
-```
-
-```ts
-class MyAppProgressColumn : NimbleFormattedTextColumnBase<number> {
-    public override format(value: number) : string {
-        return `${100 * value}%`;
-    }
-
-    public override shouldUsePlaceholder(value: number | undefined) : boolean {
-        return value === undefined;
-    }
-}
-
-MyAppProgressColumn.registerColumn('my-app-progress-column');
-```
-
-Some of this is prototyped in the [number-column-prototype branch](https://github.com/ni/nimble/compare/main...number-column-prototype?expand=1).
-
-Other variants of this idea include:
-
-1. setting the formatting function as a property on a column element.
-2. setting an [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) object as a property on a column element.
-
-**Pros:**
-
--   Small memory footprint and fast data update time because formatting function is called on-demand
--   Powerful; clients can format data however they want, including via browser APIs which are i18n-friendly
--   Easy to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
-
-**Cons:**
-
--   Possible reduced scroll performance because formatting function is called on-demand
--   Requires creating a custom element to do formatting which is non-trivial for clients (must consider naming, registration, sharing, etc)
--   Requires JS code to do formatting which is inconvenient in frameworks like Blazor. I propose we **would not** encourage Blazor clients to write formatting code in .NET due to performance concerns.
--   Some potential for cross-app inconsistency if numeric formatting code isn't shared (versus Alternative 3)
-
-**Implementation Cost:**
-
--   Expose mechanism for providing format function
-
-#### Alternative 3: Nimble provides column implementation for common use cases
-
-For common use cases we could provide column types that expose simplified formatting APIs:
-
-##### Example A: Nimble-designed API for known use cases
-
-```html
-<nimble-table>
-    <nimble-table-column-numeric
-        field-name="progress"
-        digits-width=2
-        suffix="%"
-    >
-        Progress
-    <nimble-table-column-numeric>
-</nimble-table>
-```
-
-##### Example B: Pass through Intl.NumberFormat API
-
-The [NumberFormat API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) gives highly configurable formatting with great documentation. It would solve use cases 1-4 above provided they use [supported units](https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-issanctionedsimpleunitidentifier) (includes `%`, currency, temperature, time). Unfortunately it throws for unsupported units (like volts and amps) and doesn't really support unit conversion. (Aside: it [almost supports](https://stackoverflow.com/a/73974452) our file size column use case but browsers use metric conversions (1KB === 1000B) but we want binary conversions (1KB === 1024B)).
-
-```html
-<nimble-table>
-    <nimble-table-column-numeric
-        field-name="progress"
-        locales="en-US"
-        style="percent"
-        minimum-fraction-digits=2
-    >
-        Progress
-    <nimble-table-column-numeric>
-
-    <nimble-table-column-numeric
-        field-name="count"
-        locales="en-US"
-        style="decimal"
-        use-grouping=false
-        maximum-fraction-digits=0
-        rounding-mode="trunc"
-    >
-        Count
-    <nimble-table-column-numeric>
-</nimble-table>
-```
-
-##### Example C: Provide pre-configured formatters for NumberFormat API
-
-To improve consistency and reduce client configuration, we could provide formatters for common use cases like integers and percent.
-
-```html
-<nimble-table>
-    <nimble-table-column-numeric
-        field-name="progress"
-        nimble-numeric-format="percent"
-    >
-        Progress
-    <nimble-table-column-numeric>
-
-    <nimble-table-column-numeric
-        field-name="count"
-        nimble-numeric-format="integer"
-    >
-        Count
-    <nimble-table-column-numeric>
-</nimble-table>
-```
-
-##### Example D: Boolean Text Column
-
-We may try to provide an easy way for clients to map boolean values to localized strings.
-
-```html
-<nimble-table>
-    <nimble-table-column-boolean-text
-        field-name="testResult"
-        true-message="Pass"
-        false-message="Fail"
-    >
-        Test Result
-    <nimble-table-boolean-text>
-</nimble-table>
-```
-
-##### Example E: Enum Text Column
-
-We may try to provide an easy way for clients to map enum values to localized strings. Here is a concept for an API which probably has issues.
-
-```html
-<nimble-table>
-    <nimble-table-column-enum-text
-        field-name="status"
-    >
-        Status
-        <nimble-list-option slot="enum-string-0" value="0">Pass</nimble-list-option>
-        <nimble-list-option slot="enum-string-1" value="1">Fail</nimble-list-option>
-    <nimble-table-column-enum-text>
-</nimble-table>
-```
-
-**Pros:**
-
--   Easy for clients to use since configuration is declarative. This means Blazor apps could do configuration from .NET code and not need to write JS.
--   Consistent numeric formatting across apps
--   Easy to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
-
-**Cons:**
-
--   Requires Nimble team to design simple but powerful formatting and i18n APIs
--   Can't solve some use cases like app-specific formatting logic
-
-**Implementation Cost:**
-
--   API design and implementation for each new column type
-
-#### Alternative 4: Client provides custom column implementation for each use case
+*Originally called "Alternative 4"*
 
 Nimble already has a mechanism for clients to provide custom columns by deriving from a base class, specifying the data fields / template / styling, and registering the column type with Nimble. We could ask clients to use this mechanism for text column types.
 
@@ -279,36 +288,7 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 -   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 -   Potential cross-app inconsistency if formatting code isn't shared
 
-### Strawman Proposal
 
-For the sake of discussion my initial proposal is:
-
-1. We need to offer an approach for columns that require app-specific formatting logic to support above use cases like 5 (custom unit logic) and 8 (data of unknown type).
-    - I believe the cons of **Client provides a custom column implementation for each use case** are too great so we should invest in an approach that offers clients more consistency and simplicity.
-    - I'm leaning towards **Client specifies formatting function** over **Use `table-column-text`** because it more clearly encodes that the column is numeric, giving better type safety and allowing for more consistent styling. I'd like to do performance profiling to see how it impacts scroll performance before committing to this direction.
-2. I would also like to pursue **Nimble provides column implementation for common use cases** to save clients from having to write JS code. Ideally we would provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 and 7 (enum/boolean and date) coming later.
-
-### API
-
-_Component Name_
-
-_*Props/Attrs*_
-
-_Type Reference_
-
-### Anatomy
-
-### Angular integration
-
-### Blazor integration
-
-### Visual Appearance
-
----
-
-## Implementation
-
-### Alternatives considered
 
 ### States
 
