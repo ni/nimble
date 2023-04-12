@@ -46,6 +46,6 @@ export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLi
         // Let the router handle this navigation
         clickEvent.preventDefault();
         this.routerLink = anchor.href;
-        super.onClick(0, false, false, false, false);
+        this.onClick(0, false, false, false, false);
     }
 }
