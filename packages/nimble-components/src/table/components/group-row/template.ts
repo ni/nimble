@@ -14,7 +14,7 @@ export const template = html<TableGroupRow>`
         style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => x.selectable, html<TableGroupRow>`
-            <span role="gridcell">
+            <span role="gridcell" class="checkbox-container">
                 <${checkboxTag}
                     ${ref('selectionCheckbox')}
                     class="selection-checkbox"

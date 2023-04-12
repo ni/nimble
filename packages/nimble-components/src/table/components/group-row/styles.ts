@@ -71,6 +71,10 @@ export const styles = css`
         }
     }
 
+    .checkbox-container {
+        display: flex;
+    }
+
     .selection-checkbox {
         margin-left: ${standardPadding};
     }
