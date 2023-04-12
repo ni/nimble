@@ -7,6 +7,12 @@ dist/icons/*
 
 dist/fonts/scss
 
+dist/styledictionary/csharp
+dist/styledictionary/css
+dist/styledictionary/js
+dist/styledictionary/scss
+dist/styledictionary/xaml
+
 NimbleTokens/bin
 NimbleTokens/obj
 NimbleTokens/.vs
