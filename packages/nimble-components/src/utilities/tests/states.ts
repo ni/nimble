@@ -8,7 +8,7 @@ export const backgroundStates = [
     },
     {
         name: `"${Theme.color}" theme on dark green`,
-        value: '#04387a',
+        value: '#044123',
         theme: Theme.color
     },
     {
