@@ -2,7 +2,7 @@ import { html, ref, when } from '@microsoft/fast-element';
 import type { TableColumnAnchorCellView } from '.';
 
 export const template = html<TableColumnAnchorCellView>`
-    ${when(x => typeof x.cellRecord.label === 'string' && typeof x.cellRecord.href === 'string', html<TableColumnAnchorCellView>`
+    ${when(x => typeof x.cellRecord.href === 'string', html<TableColumnAnchorCellView>`
     <nimble-anchor
         ${ref('anchor')}
         href="${x => x.cellRecord.href}"
@@ -23,7 +23,7 @@ export const template = html<TableColumnAnchorCellView>`
     >
         ${x => x.content}
     </nimble-anchor>`)}
-    ${when(x => typeof x.cellRecord.label !== 'string' || typeof x.cellRecord.href !== 'string', html<TableColumnAnchorCellView>`
+    ${when(x => typeof x.cellRecord.href !== 'string', html<TableColumnAnchorCellView>`
     <span
         class="${x => (typeof x.cellRecord.label === 'string' ? '' : 'placeholder')}"
         @mouseover="${(x, c) => {
