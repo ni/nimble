@@ -31,9 +31,13 @@ TableColumnAnchorColumnConfig
 
     @volatile
     public get content(): string {
-        return typeof this.cellRecord.label === 'string'
-            ? this.cellRecord.label
-            : this.columnConfig.placeholder;
+        if (typeof this.cellRecord.label === 'string') {
+            return this.cellRecord.label;
+        }
+        if (typeof this.cellRecord.href === 'string') {
+            return this.cellRecord.href;
+        }
+        return this.columnConfig.placeholder;
     }
 
     public override focusedRecycleCallback(): void {
