@@ -1,8 +1,67 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 05 Apr 2023 22:05:06 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Apr 2023 01:58:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.0
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Minor changes
+
+- Adding icon: file-export ([ni/nimble@d339db7](https://github.com/ni/nimble/commit/d339db767c179e2398ccadc6111d9ab7c72ca6bb))
+- Bump @ni/nimble-tokens to v4.9.0
+
+## 18.11.1
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Add the table column internals api for column authors ([ni/nimble@49ea4be](https://github.com/ni/nimble/commit/49ea4be8b29e5426f01f64811f4cc648316c144f))
+
+## 18.11.0
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Minor changes
+
+- Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines ([ni/nimble@b14c239](https://github.com/ni/nimble/commit/b14c239ec88207b6561e90f447c1975e429e086f))
+- Bump @ni/nimble-tokens to v4.8.0
+
+## 18.10.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Update fonts.scss to reference the new nimble-tokens fonts.scss file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
+- Bump @ni/nimble-tokens to v4.7.3
+
+## 18.10.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Support selecting a single row in the table ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+
+## 18.10.4
+
+Thu, 06 Apr 2023 19:46:21 GMT
+
+### Patches
+
+- Programmatic table row grouping ([ni/nimble@b7fbb73](https://github.com/ni/nimble/commit/b7fbb738322e83b315fce68890caaaf4ce56d9e1))
+
+## 18.10.3
+
+Thu, 06 Apr 2023 17:21:40 GMT
+
+### Patches
+
+- Add ariaSelected property to anchor tab ([ni/nimble@b042f21](https://github.com/ni/nimble/commit/b042f218a9cfc31c015e6e38af164265c4f58c9f))
 
 ## 18.10.2
 

@@ -7,28 +7,24 @@ import {
 } from '../../../utilities/tests/fixture';
 import { TableColumn } from '../../base';
 import { mixinFractionalWidthColumnAPI } from '../fractional-width-column';
-import { TableCellView } from '../../base/cell-view';
-
-const columnCellViewName = uniqueElementName();
-
-@customElement({
-    name: columnCellViewName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends TableCellView {}
-
-class TestTableColumnBase extends TableColumn {
-    public cellViewTag = columnCellViewName;
-    public cellRecordFieldNames: readonly string[] = [];
-}
+import {
+    tableColumnEmptyCellViewTag,
+    tableColumnEmptyGroupHeaderViewTag
+} from '../../base/tests/table-column.fixtures';
 
 const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
-class TestTableColumn extends mixinFractionalWidthColumnAPI(
-        TestTableColumnBase
-    ) {}
+class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
+    public constructor() {
+        super({
+            cellRecordFieldNames: [],
+            cellViewTag: tableColumnEmptyCellViewTag,
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+        });
+    }
+}
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TestTableColumn>> {
@@ -48,43 +44,47 @@ describe('FractionalWidthColumn', () => {
         await disconnect();
     });
 
-    it('setting fractionalWidth sets internalFractionalWidth', async () => {
+    it('setting fractionalWidth sets columnInternals.fractionalWidth', async () => {
         await connect();
-        element.internalFractionalWidth = 1;
+        element.columnInternals.fractionalWidth = 1;
 
         element.fractionalWidth = 2;
 
-        expect(element.internalFractionalWidth).toBe(2);
+        expect(element.columnInternals.fractionalWidth).toBe(2);
     });
 
-    it('setting minPixelWidth sets internalMinPixelWidth', async () => {
+    it('setting minPixelWidth sets columnInternals.minPixelWidth', async () => {
         await connect();
-        element.internalMinPixelWidth = 0;
+        element.columnInternals.minPixelWidth = 0;
 
         element.minPixelWidth = 20;
 
-        expect(element.internalMinPixelWidth).toBe(20);
+        expect(element.columnInternals.minPixelWidth).toBe(20);
     });
 
-    it('removing fractionalWidth sets internalFractionalWidth to default', async () => {
+    it('removing fractionalWidth sets columnInternals.fractionalWidth to default', async () => {
         await connect();
-        const defaultFractionalWidth = element.internalFractionalWidth;
+        const defaultFractionalWidth = element.columnInternals.fractionalWidth;
 
         element.fractionalWidth = 2;
-        expect(element.internalFractionalWidth).toBe(2);
+        expect(element.columnInternals.fractionalWidth).toBe(2);
         element.fractionalWidth = null;
 
-        expect(element.internalFractionalWidth).toBe(defaultFractionalWidth);
+        expect(element.columnInternals.fractionalWidth).toBe(
+            defaultFractionalWidth
+        );
     });
 
-    it('removing minPixellWidth sets internalMinPixelWidth to default', async () => {
+    it('removing minPixellWidth sets columnInternals.minPixelWidth to default', async () => {
         await connect();
-        const defaultMinPixelWidth = element.internalMinPixelWidth;
+        const defaultMinPixelWidth = element.columnInternals.minPixelWidth;
 
         element.minPixelWidth = 200;
-        expect(element.internalMinPixelWidth).toBe(200);
+        expect(element.columnInternals.minPixelWidth).toBe(200);
         element.minPixelWidth = null;
 
-        expect(element.internalMinPixelWidth).toBe(defaultMinPixelWidth);
+        expect(element.columnInternals.minPixelWidth).toBe(
+            defaultMinPixelWidth
+        );
     });
 });

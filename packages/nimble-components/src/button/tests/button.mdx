@@ -1,0 +1,11 @@
+import { Canvas, Meta, Controls, Stories, Title, Description } from '@storybook/blocks';
+import * as buttonStories from './button.stories';
+
+<Meta of={buttonStories} />
+
+<Title of={buttonStories} />
+<Description of={buttonStories} />
+
+<Canvas of={buttonStories.outlineButton} />
+<Controls of={buttonStories.outlineButton} />
+<Stories of={buttonStories} />

@@ -46,7 +46,7 @@ For any token metadata changes (e.g. documentation, code snippets, etc.):
 
 These steps require access to Adobe Illustrator and Perforce so will typically be completed by Brandon O'Keefe, Fred Visser, or another designer.
 
-1. Get the latest copy of the icon source file from NI internal Perforce at `\NIComponents\VisualDesign\ProductionAssets\DiagramPaletteAssets_XML\SystemLink\trunk\20.0\source\Nimble_Iconography.ai`.
+1. Get the latest copy of the icon source file from NI internal Perforce at `//NIComponents/VisualDesign/ProductionAssets/DiagramPaletteAssets_XML/Nimble/trunk/20.0/source/Nimble_Iconography.ai`.
 2. Export high-quality, optimized SVG files from the icon source file, by using the **Export for Screens…** workflow within Adobe Illustrator to export SVG files:
 
    1. Choose **File » Export » Export for Screens…**

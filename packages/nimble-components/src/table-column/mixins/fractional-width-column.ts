@@ -3,10 +3,7 @@ import type { TableColumn } from '../base';
 import { defaultMinPixelWidth, defaultFractionalWidth } from '../base/types';
 
 // Pick just the relevant properties the mixin depends on (typescript complains if the mixin declares private / protected base exports)
-type SizedTableColumn = Pick<
-TableColumn,
-'internalFractionalWidth' | 'internalMinPixelWidth'
->;
+type SizedTableColumn = Pick<TableColumn, 'columnInternals'>;
 // prettier-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SizedTableColumnConstructor = abstract new (...args: any[]) => SizedTableColumn;
@@ -21,23 +18,23 @@ export function mixinFractionalWidthColumnAPI<
      * proportionally within a Table.
      */
     abstract class FractionalWidthColumn extends base {
-        public fractionalWidth?: number | null = defaultFractionalWidth;
+        public fractionalWidth?: number | null;
 
-        public minPixelWidth?: number | null = defaultMinPixelWidth;
+        public minPixelWidth?: number | null;
 
         public fractionalWidthChanged(): void {
             if (typeof this.fractionalWidth === 'number') {
-                this.internalFractionalWidth = this.fractionalWidth;
+                this.columnInternals.fractionalWidth = this.fractionalWidth;
             } else {
-                this.internalFractionalWidth = defaultFractionalWidth;
+                this.columnInternals.fractionalWidth = defaultFractionalWidth;
             }
         }
 
         public minPixelWidthChanged(): void {
             if (typeof this.minPixelWidth === 'number') {
-                this.internalMinPixelWidth = this.minPixelWidth;
+                this.columnInternals.minPixelWidth = this.minPixelWidth;
             } else {
-                this.internalMinPixelWidth = defaultMinPixelWidth;
+                this.columnInternals.minPixelWidth = defaultMinPixelWidth;
             }
         }
     }

@@ -18,9 +18,15 @@ describe('Tooltip', () => {
     function isIconVisible(elementName: string): boolean {
         const iconElement = element.shadowRoot?.querySelector(elementName);
         if (!iconElement) {
-            return false;
+            throw new Error(`Cannot find icon with name ${elementName}`);
         }
-        return window.getComputedStyle(iconElement).display !== 'none';
+        const display = window.getComputedStyle(iconElement).display;
+        if (typeof display !== 'string' || display === '') {
+            throw new Error(
+                `Invalid display value was calcualted for ${elementName}`
+            );
+        }
+        return display !== 'none';
     }
 
     beforeEach(async () => {
@@ -117,7 +123,8 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the default state when selected', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('should render the default state when selected #SkipFirefox', async () => {
         element.visible = true;
 
         await connect();
@@ -129,7 +136,8 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the default state when selected and not render an icon when true', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('should render the default state when selected and not render an icon when true #SkipFirefox', async () => {
         element.visible = true;
         element.iconVisible = true;
 
@@ -142,7 +150,8 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the error severity when selected', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('should render the error severity when selected #SkipFirefox', async () => {
         element.visible = true;
         element.severity = 'error';
 
@@ -155,7 +164,8 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the error severity when selected and render the corresponding icon when true', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('should render the error severity when selected and render the corresponding icon when true #SkipFirefox', async () => {
         element.visible = true;
         element.severity = 'error';
         element.iconVisible = true;
@@ -169,7 +179,8 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the information severity when selected', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('should render the information severity when selected #SkipFirefox', async () => {
         element.visible = true;
         element.severity = 'information';
 
@@ -182,7 +193,8 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    it('should render the information severity when selected and render the corresponding icon when true', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('should render the information severity when selected and render the corresponding icon when true #SkipFirefox', async () => {
         element.visible = true;
         element.severity = 'information';
         element.iconVisible = true;

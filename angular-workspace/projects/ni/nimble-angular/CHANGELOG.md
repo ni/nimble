@@ -1,8 +1,73 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 05 Apr 2023 22:05:06 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Apr 2023 02:40:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.10
+
+Tue, 11 Apr 2023 02:40:33 GMT
+
+### Patches
+
+- Angular row grouping support ([ni/nimble@036c36d](https://github.com/ni/nimble/commit/036c36d86d8c009579f1b4734b485785f0173b08))
+
+## 16.5.9
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.0
+
+## 16.5.8
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.1
+
+## 16.5.7
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.0
+
+## 16.5.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.6
+
+## 16.5.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update table validation test and make setData() async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+- Bump @ni/nimble-components to v18.10.5
+
+## 16.5.4
+
+Thu, 06 Apr 2023 19:46:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.4
+
+## 16.5.3
+
+Thu, 06 Apr 2023 17:21:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.3
 
 ## 16.5.2
 
