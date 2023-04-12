@@ -33,6 +33,10 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
         const intersectionObserver = new IntersectionObserver(
             entries => {
                 intersectionObserver.disconnect();
+                console.log(`window height: ${window.innerHeight}`);
+                console.log(`element height: ${element.offsetHeight}`);
+                console.log(`element scroll height: ${element.scrollHeight}`);
+                console.log(`element top: ${element.offsetTop}`);
                 if (
                     entries[0]?.isIntersecting
                     && entries[0].intersectionRatio === 1.0
@@ -67,55 +71,53 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
 }
 
 describe('Select', () => {
-    for (let i = 0; i < 200; i++) {
-        it('should respect value set before connect is completed', async () => {
-            const { element, connect, disconnect } = await setup();
+    it('should respect value set before connect is completed', async () => {
+        const { element, connect, disconnect } = await setup();
 
-            const connectTask = connect();
-            element.value = 'two';
-            await connectTask;
+        const connectTask = connect();
+        element.value = 'two';
+        await connectTask;
 
-            expect(element.value).toBe('two');
+        expect(element.value).toBe('two');
 
-            await disconnect();
-        });
+        await disconnect();
+    });
 
-        it('should respect "open" and "position" attributes when both set', async () => {
-            const position = 'above';
-            const { element, connect, disconnect } = await setup(
-                position,
-                true
-            );
+    it('should respect "open" and "position" attributes when both set', async () => {
+        const position = 'above';
+        const { element, connect, disconnect } = await setup(
+            position,
+            true
+        );
 
-            await connect();
-            await waitForUpdatesAsync();
+        await connect();
+        await waitForUpdatesAsync();
 
-            expect(element.getAttribute('open')).not.toBeNull();
-            expect(element.getAttribute('position')).toBe(position);
+        expect(element.getAttribute('open')).not.toBeNull();
+        expect(element.getAttribute('position')).toBe(position);
 
-            await disconnect();
-        });
+        await disconnect();
+    });
 
-        it('should keep selected value when options change', async () => {
-            const { element, connect, disconnect } = await setup();
-            await connect();
-            element.value = 'two';
-            await waitForUpdatesAsync();
-            expect(element.value).toBe('two');
+    it('should keep selected value when options change', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        element.value = 'two';
+        await waitForUpdatesAsync();
+        expect(element.value).toBe('two');
 
-            // Add option zero at the top of the options list
-            // prettier-ignore
-            element.insertAdjacentHTML(
-                'afterbegin',
-                '<nimble-list-option value="zero">Zero</nimble-list-option>'
-            );
-            await waitForUpdatesAsync();
+        // Add option zero at the top of the options list
+        // prettier-ignore
+        element.insertAdjacentHTML(
+            'afterbegin',
+            '<nimble-list-option value="zero">Zero</nimble-list-option>'
+        );
+        await waitForUpdatesAsync();
 
-            expect(element.value).toBe('two');
+        expect(element.value).toBe('two');
 
-            await disconnect();
-        });
-    }
+        await disconnect();
+    });
 
     describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
