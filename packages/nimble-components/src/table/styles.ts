@@ -5,6 +5,8 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
+    popupBorderColor,
+    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor
@@ -27,6 +29,7 @@ export const styles = css`
         width: 100%;
         font: ${bodyFont};
         color: ${bodyFontColor};
+        cursor: var(--ni-private-table-cursor-override);
     }
 
     .table-viewport {
@@ -50,7 +53,7 @@ export const styles = css`
         top: var(--ni-private-table-row-container-top);
     }
 
-    .header-container {
+    .header-row-container {
         position: sticky;
         top: 0;
     }
@@ -65,12 +68,48 @@ export const styles = css`
         left: var(--ni-private-table-scroll-x);
     }
 
+    .header-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .header-container:hover .column-divider:not([not-active]).left,
+    .header-container:hover .column-divider:not([not-active]).right {
+        display: block;
+    }
+
     .header-scrollbar-spacer {
         width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
 
     .header {
         flex: 1;
+        overflow: hidden;
+    }
+
+    .column-divider {
+        border-left: 2px solid ${popupBorderColor};
+        display: none;
+        height: ${controlSlimHeight};
+        cursor: col-resize;
+        position: absolute;
+    }
+
+    .left { 
+        left: -1px;
+    }
+
+    .right { 
+        left: calc(100% - 1px);
+    }
+
+    .column-divider.left-limit {
+        cursor: e-resize;
+    }
+
+    .column-divider.right-limit {
+        cursor: w-resize;
     }
 
     .row {

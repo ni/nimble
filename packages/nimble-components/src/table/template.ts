@@ -27,21 +27,30 @@ export const template = html<Table>`
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
-            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}
+            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
+            --ni-private-table-cursor-override: ${x => (x.isColumnBeingSized ? 'col-resize' : 'default')};
             ">
-            <div role="rowgroup" class="header-container">
-                <div class="header-row" role="row">
+            <div role="rowgroup" class="header-row-container">
+                <div class="header-row" ${ref('rowHeader')} role="row">
                     ${repeat(x => x.columns, html<TableColumn>`
                         ${when(x => !x.columnHidden, html<TableColumn, Table>`
-                            <${tableHeaderTag}
-                                class="header"
-                                sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
-                                ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                            >
-                                <slot name="${x => x.slot}"></slot>
-                            </${tableHeaderTag}>
+                            <div class="header-container">
+                                ${when((_, c) => c.index > 0, html<TableColumn, Table>`
+                                    <div class="column-divider left" @mousedown="${(_, c) => c.parent.onDividerMouseDown(c.index - 1)}"></div>
+                                `)}
+                                    <${tableHeaderTag}
+                                        class="header"
+                                        sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
+                                        ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                    >
+                                        <slot name="${x => x.slot}"></slot>
+                                    </${tableHeaderTag}>
+                                ${when((_, c) => c.index < (c.parent as Table).columns.length - 1, html`
+                                    <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onDividerMouseDown(c.index)}"></div>
+                                `)}
+                            </div>
                         `)}
-                    `)}
+                    `, { positioning: true })}
                     <div class="header-scrollbar-spacer"></div>
                 </div>
             </div>
