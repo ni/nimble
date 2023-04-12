@@ -124,7 +124,7 @@ const xamlStyleDictionary = StyleDictionary.extend(
                     }
                 ],
                 transformGroup: 'ni-xaml-color',
-                buildPath: 'xaml/'
+                buildPath: '../../dist/styledictionary/xaml/'
             }
         }
     }
@@ -174,7 +174,7 @@ const cSharpClassStyleDictionary = StyleDictionary.extend(
                     }
                 ],
                 transformGroup: 'ni-color-class',
-                buildPath: 'csharp/'
+                buildPath: '../../dist/styledictionary/csharp/'
             }
         }
     }

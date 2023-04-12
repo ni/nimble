@@ -16,7 +16,7 @@ module.exports = {
                 }
             ],
             transformGroup: 'css',
-            buildPath: 'css/'
+            buildPath: '../../dist/styledictionary/css/'
         },
         js: {
             files: [
@@ -26,7 +26,7 @@ module.exports = {
                 }
             ],
             transformGroup: 'js',
-            buildPath: 'js/'
+            buildPath: '../../dist/styledictionary/js/'
         },
         scss: {
             files: [
@@ -36,7 +36,7 @@ module.exports = {
                 }
             ],
             transformGroup: 'scss',
-            buildPath: 'scss/'
+            buildPath: '../../dist/styledictionary/scss/'
         }
     }
 };
