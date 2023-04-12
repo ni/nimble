@@ -104,6 +104,26 @@ describe('Nimble anchor table column', () => {
             expect(directive.placeholder).toBeUndefined();
             expect(nativeElement.placeholder).toBeUndefined();
         });
+
+        it('has expected defaults for fractionalWidth', () => {
+            expect(directive.fractionalWidth).toBeUndefined();
+            expect(nativeElement.fractionalWidth).toBeUndefined();
+        });
+
+        it('has expected defaults for minPixelWidth', () => {
+            expect(directive.minPixelWidth).toBeUndefined();
+            expect(nativeElement.minPixelWidth).toBeUndefined();
+        });
+
+        it('has expected defaults for groupIndex', () => {
+            expect(directive.groupIndex).toBeUndefined();
+            expect(nativeElement.groupIndex).toBeUndefined();
+        });
+
+        it('has expected defaults for groupingDisabled', () => {
+            expect(directive.groupingDisabled).toBeFalse();
+            expect(nativeElement.groupingDisabled).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -120,6 +140,10 @@ describe('Nimble anchor table column', () => {
                     label-field-name="label"
                     href-field-name="href"
                     placeholder="no value"
+                    fractional-width="2"
+                    min-pixel-width="40"
+                    group-index="0"
+                    grouping-disabled
                     >
                 </nimble-table-column-anchor>
             `
@@ -193,6 +217,26 @@ describe('Nimble anchor table column', () => {
             expect(directive.placeholder).toBe('no value');
             expect(nativeElement.placeholder).toBe('no value');
         });
+
+        it('will use template string values for fractionalWidth', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+        });
+
+        it('will use template string values for minPixelWidth', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+        });
+
+        it('will use template string values for groupIndex', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+        });
+
+        it('will use template string values for groupingDisabled', () => {
+            expect(directive.groupingDisabled).toBeTrue();
+            expect(nativeElement.groupingDisabled).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -209,6 +253,10 @@ describe('Nimble anchor table column', () => {
                     [label-field-name]="labelFieldName"
                     [href-field-name]="hrefFieldName"
                     [placeholder]="placeholder"
+                    [fractional-width]="fractionalWidth"
+                    [min-pixel-width]="minPixelWidth"
+                    [group-index]="groupIndex"
+                    [grouping-disabled]="groupingDisabled"
                     >
                     </nimble-table-column-anchor>
             `
@@ -226,6 +274,10 @@ describe('Nimble anchor table column', () => {
             public labelFieldName = 'label';
             public hrefFieldName = 'href';
             public placeholder = 'no value';
+            public fractionalWidth: number | null = 2;
+            public minPixelWidth: number | null = 40;
+            public groupIndex: number | null = 0;
+            public groupingDisabled = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -352,6 +404,83 @@ describe('Nimble anchor table column', () => {
             expect(directive.placeholder).toBe('foo');
             expect(nativeElement.placeholder).toBe('foo');
         });
+
+        it('can be configured with property binding for fractionalWidth', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = 1;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(1);
+            expect(nativeElement.fractionalWidth).toBe(1);
+        });
+
+        it('can be configured with property binding for fractionalWidth updated to null', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(null);
+            expect(nativeElement.fractionalWidth).toBe(null);
+        });
+
+        it('can be configured with property binding for minPixelWidth', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = 50;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(50);
+            expect(nativeElement.minPixelWidth).toBe(50);
+        });
+
+        it('can be configured with property binding for minPixelWidth updated to null', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(null);
+            expect(nativeElement.minPixelWidth).toBe(null);
+        });
+
+        it('can be configured with property binding for groupIndex', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(1);
+            expect(nativeElement.groupIndex).toBe(1);
+        });
+
+        it('can be configured with property binding for groupIndex updated to null', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(null);
+            expect(nativeElement.groupIndex).toBe(null);
+        });
+
+        it('can be configured with property binding for groupingDisabled', () => {
+            expect(directive.groupingDisabled).toBeFalse();
+            expect(nativeElement.groupingDisabled).toBeFalse();
+
+            fixture.componentInstance.groupingDisabled = true;
+            fixture.detectChanges();
+
+            expect(directive.groupingDisabled).toBeTrue();
+            expect(nativeElement.groupingDisabled).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -368,6 +497,10 @@ describe('Nimble anchor table column', () => {
                     [attr.label-field-name]="labelFieldName"
                     [attr.href-field-name]="hrefFieldName"
                     [attr.placeholder]="placeholder"
+                    [attr.fractional-width]="fractionalWidth"
+                    [attr.min-pixel-width]="minPixelWidth"
+                    [attr.group-index]="groupIndex"
+                    [attr.grouping-disabled]="groupingDisabled"
                     >
                     </nimble-table-column-anchor>
             `
@@ -385,6 +518,10 @@ describe('Nimble anchor table column', () => {
             public labelFieldName = 'label';
             public hrefFieldName = 'href';
             public placeholder = 'no value';
+            public fractionalWidth: number | null = 2;
+            public minPixelWidth: number | null = 40;
+            public groupIndex: number | null = 0;
+            public groupingDisabled = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -510,6 +647,83 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.placeholder).toBe('foo');
             expect(nativeElement.placeholder).toBe('foo');
+        });
+
+        it('can be configured with attribute binding for fractionalWidth', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = 1;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(1);
+            expect(nativeElement.fractionalWidth).toBe(1);
+        });
+
+        it('can be configured with attribute binding for fractionalWidth set to null', () => {
+            expect(directive.fractionalWidth).toBe(2);
+            expect(nativeElement.fractionalWidth).toBe(2);
+
+            fixture.componentInstance.fractionalWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.fractionalWidth).toBe(null);
+            expect(nativeElement.fractionalWidth).toBe(null);
+        });
+
+        it('can be configured with attribute binding for minPixelWidth', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = 50;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(50);
+            expect(nativeElement.minPixelWidth).toBe(50);
+        });
+
+        it('can be configured with attribute binding for minPixelWidth set to null', () => {
+            expect(directive.minPixelWidth).toBe(40);
+            expect(nativeElement.minPixelWidth).toBe(40);
+
+            fixture.componentInstance.minPixelWidth = null;
+            fixture.detectChanges();
+
+            expect(directive.minPixelWidth).toBe(null);
+            expect(nativeElement.minPixelWidth).toBe(null);
+        });
+
+        it('can be configured with attribute binding for groupIndex', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(1);
+            expect(nativeElement.groupIndex).toBe(1);
+        });
+
+        it('can be configured with attribute binding for groupIndex updated to null', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(null);
+            expect(nativeElement.groupIndex).toBe(null);
+        });
+
+        it('can be configured with attribute binding for groupingDisabled', () => {
+            expect(directive.groupingDisabled).toBe(false);
+            expect(nativeElement.groupingDisabled).toBe(false);
+
+            fixture.componentInstance.groupingDisabled = true;
+            fixture.detectChanges();
+
+            expect(directive.groupingDisabled).toBe(true);
+            expect(nativeElement.groupingDisabled).toBe(true);
         });
     });
 });
