@@ -1,17 +1,9 @@
-# remove the dsp assets as we don't currently
-# leverage the dsp component definitions
-/assets
-
 dist/icons/*
 !dist/icons/svg
 
 dist/fonts/scss
 
-dist/styledictionary/csharp
-dist/styledictionary/css
-dist/styledictionary/js
-dist/styledictionary/scss
-dist/styledictionary/xaml
+dist/styledictionary
 
 NimbleTokens/bin
 NimbleTokens/obj
