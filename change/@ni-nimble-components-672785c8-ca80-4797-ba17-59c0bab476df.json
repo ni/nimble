@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Move to official Storybook 7 release",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
