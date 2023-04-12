@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Storybook updates for design token build changes",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
