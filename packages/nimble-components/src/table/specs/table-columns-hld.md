@@ -375,7 +375,7 @@ export interface DelegatedEventEventDetails {
 }
 ```
 
-A column type (or an Angular directive on that type) may register a listener for the `delegated-event` event. This listener will have access to the full original event, including the originating cell view via `event.target`. The cell view can expose anything necessary from its public API.
+A client may register a listener for the `delegated-event` event on a table column. This listener will have access to the full original event, including the originating cell view via `event.target`. The cell view can expose anything necessary from its public API.
 
 ```TS
 class AnchorColumnDirective {

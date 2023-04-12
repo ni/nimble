@@ -31,7 +31,7 @@ The column will also take an optional `placeholder` value to use when a record d
 
 ### Cell Template
 
-We will conditionally render either a `nimble-anchor` or a `span` of text. If no label is provided, but we have a URL, we'll render a link with the URL itself as the label.
+We will conditionally render either a `nimble-anchor` or a `span` of text. If no label is provided, but we have a url, we'll render a link with the url itself as the label.
 
 ```html
 When cellRecord.href present
