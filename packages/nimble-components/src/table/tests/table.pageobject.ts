@@ -7,6 +7,7 @@ import type { TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableRow } from '../components/row';
+import { Anchor, anchorTag } from '../../anchor';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -112,6 +113,17 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
+    public getRenderedCellAnchor(
+        rowIndex: number,
+        columnIndex: number
+    ): Anchor {
+        const anchor = this.getRenderedCellView(
+            rowIndex,
+            columnIndex
+        ).shadowRoot!.querySelector(anchorTag);
+        return anchor as Anchor;
+    }
+
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {
         return (
             this.getGroupRowHeaderView(
@@ -132,7 +144,7 @@ export class TablePageObject<T extends TableRecord> {
     public getCellTitle(rowIndex: number, columnIndex: number): string {
         const cellView = this.getRenderedCellView(rowIndex, columnIndex);
         return (
-            cellView.shadowRoot!.querySelector('span')?.getAttribute('title')
+            cellView.shadowRoot!.firstElementChild?.getAttribute('title')
             ?? ''
         );
     }
@@ -143,7 +155,7 @@ export class TablePageObject<T extends TableRecord> {
         event: Event
     ): boolean | undefined {
         const cellView = this.getRenderedCellView(rowIndex, columnIndex);
-        return cellView.shadowRoot!.querySelector('span')?.dispatchEvent(event);
+        return cellView.shadowRoot!.firstElementChild?.dispatchEvent(event);
     }
 
     public getGroupHeaderTitle(groupRowIndex: number): string {

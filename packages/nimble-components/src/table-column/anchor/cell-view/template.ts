@@ -1,10 +1,11 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { TableColumnAnchorCellView } from '.';
+import { anchorTag } from '../../../anchor';
 
 export const template = html<TableColumnAnchorCellView>`
     ${when(
         x => typeof x.cellRecord.href === 'string',
-        html<TableColumnAnchorCellView>` <nimble-anchor
+        html<TableColumnAnchorCellView>` <${anchorTag}
             ${ref('anchor')}
             href="${x => x.cellRecord.href}"
             hreflang="${x => x.columnConfig.hreflang}"
@@ -15,6 +16,7 @@ export const template = html<TableColumnAnchorCellView>`
             type="${x => x.columnConfig.type}"
             download="${x => x.columnConfig.download}"
             underline-hidden
+            title=${x => (x.isValidContentAndHasOverflow ? x.content : null)}
             @mouseover="${x => {
         x.isValidContentAndHasOverflow = !!x.content
                     && x.anchor!.offsetWidth < x.anchor!.scrollWidth;
@@ -24,12 +26,13 @@ export const template = html<TableColumnAnchorCellView>`
     }}"
         >
             ${x => x.content}
-        </nimble-anchor>`
+        </${anchorTag}>`
     )}
     ${when(
         x => typeof x.cellRecord.href !== 'string',
         html<TableColumnAnchorCellView>` <span
             class="${x => (typeof x.cellRecord.label === 'string' ? '' : 'placeholder')}"
+            title=${x => (x.isValidContentAndHasOverflow ? x.content : null)}
             @mouseover="${(x, c) => {
         const span = c.event.target as HTMLElement;
         x.isValidContentAndHasOverflow = !!x.content && span.offsetWidth < span.scrollWidth;
