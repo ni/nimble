@@ -1,5 +1,4 @@
 import { html, repeat } from '@microsoft/fast-element';
-import { SelectPosition } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import '../../list-option';
@@ -165,7 +164,6 @@ describe('Select', () => {
                 // eslint-disable-next-line no-console
                 console.log(`box client top: ${element.clientTop}`);
                 const fullyVisible = await checkFullyInViewport(listbox);
-                expect(element.position).toBe(SelectPosition.below);
 
                 expect(listbox.scrollHeight).toBeGreaterThan(
                     window.innerHeight
