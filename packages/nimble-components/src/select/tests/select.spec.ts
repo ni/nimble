@@ -36,10 +36,6 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                 // eslint-disable-next-line no-console
                 console.log(`window height: ${window.innerHeight}`);
                 // eslint-disable-next-line no-console
-                console.log(
-                    `body scroll height: ${window.parent.document.body.scrollHeight}`
-                );
-                // eslint-disable-next-line no-console
                 console.log(`element offset height: ${element.offsetHeight}`);
                 // eslint-disable-next-line no-console
                 console.log(`element scroll height: ${element.scrollHeight}`);
@@ -130,12 +126,12 @@ describe('Select', () => {
         await disconnect();
     });
 
-    describe('with 100 options', () => {
+    describe('with 500 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
             const viewTemplate = html`
                 <nimble-select>
-                    ${repeat(() => [...Array(100).keys()], html<number>`
+                    ${repeat(() => [...Array(500).keys()], html<number>`
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
                 </nimble-select>
             `;
