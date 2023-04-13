@@ -16,24 +16,25 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     public getGridTemplateColumns(): string {
-        return (
-            this.table.columns
-                ?.filter(column => !column.columnHidden)
-                .reduce((accumulator: string, currentValue) => {
-                    const gap = accumulator === '' ? '' : ' ';
-                    const minPixelWidth = currentValue.internalMinPixelWidth;
-                    if (currentValue.currentPixelWidth) {
-                        const pixelWidth = currentValue.currentPixelWidth;
-                        const gridPixelWidth = pixelWidth > minPixelWidth
-                            ? pixelWidth
-                            : minPixelWidth;
-                        return `${accumulator}${gap}${gridPixelWidth}px`;
-                    }
+        return this.table.columns
+            ?.filter(column => !column.columnHidden)
+            .map(column => {
+                const {
+                    minPixelWidth,
+                    currentPixelWidth,
+                    currentFractionalWidth
+                } = column.columnInternals;
+                if (currentPixelWidth) {
+                    const coercedPixelWidth = Math.max(
+                        minPixelWidth,
+                        currentPixelWidth
+                    );
+                    return `${coercedPixelWidth}px`;
+                }
 
-                    const fractionalWidth = currentValue.currentFractionalWidth;
-                    return `${accumulator}${gap}minmax(${minPixelWidth}px, ${fractionalWidth}fr)`;
-                }, '') ?? ''
-        );
+                return `minmax(${minPixelWidth}px, ${currentFractionalWidth}fr)`;
+            })
+            .join(' ');
     }
 
     /**
@@ -78,8 +79,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     private getColumnPixelWidth(gridSize: number, rowWidth: number): number {
         let totalMagnitude = 0;
         for (const col of this.table.columns) {
-            if (col.currentPixelWidth === undefined) {
-                totalMagnitude += col.currentFractionalWidth;
+            if (col.columnInternals.currentPixelWidth === undefined) {
+                totalMagnitude += col.columnInternals.currentFractionalWidth;
             }
         }
 
@@ -88,13 +89,17 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private getTotalColumnMagnitude(): number {
         return this.table.columns.reduce((accumulator: number, currentValue) => {
-            return accumulator + (currentValue.currentPixelWidth === undefined ? currentValue.currentFractionalWidth : 0);
+            return accumulator + (currentValue.columnInternals.currentPixelWidth === undefined
+                ? currentValue.columnInternals.currentFractionalWidth
+                : 0);
         }, 0);
     }
 
     private getTotalColumnFixedWidth(): number {
         return this.table.columns.reduce((accumulator: number, currentValue) => {
-            return accumulator + (currentValue.currentPixelWidth !== undefined ? currentValue.currentPixelWidth : 0);
+            return accumulator + (currentValue.columnInternals.currentPixelWidth !== undefined
+                ? currentValue.columnInternals.currentPixelWidth
+                : 0);
         }, 0);
     }
 
@@ -104,11 +109,11 @@ export class TableLayoutManager<TData extends TableRecord> {
         const totalFixedSize = this.getTotalColumnFixedWidth();
         let accumulatedTotalSize = 0;
         for (const column of this.table.columns) {
-            if (column.currentPixelWidth === undefined) {
-                column.currentPixelWidth = Math.max((column.currentFractionalWidth / totalMagnitude) * (this.currentRowWidth! - totalFixedSize), column.internalMinPixelWidth);
-                accumulatedTotalSize += column.currentPixelWidth;
+            if (column.columnInternals.currentPixelWidth === undefined) {
+                column.columnInternals.currentPixelWidth = Math.max((column.columnInternals.currentFractionalWidth / totalMagnitude) * (this.currentRowWidth! - totalFixedSize), column.columnInternals.minPixelWidth);
+                accumulatedTotalSize += column.columnInternals.currentPixelWidth;
                 if (accumulatedTotalSize > this.currentRowWidth!) {
-                    column.currentPixelWidth -= (accumulatedTotalSize - this.currentRowWidth!);
+                    column.columnInternals.currentPixelWidth -= (accumulatedTotalSize - this.currentRowWidth!);
                 }
             }
         }
@@ -120,13 +125,13 @@ export class TableLayoutManager<TData extends TableRecord> {
         if (delta > 0) { // size right
             while (currentIndex + 1 < this.table.columns.length) {
                 const column = this.table.columns[currentIndex + 1];
-                availableSpace += Math.floor(column!.currentPixelWidth!) - column!.internalMinPixelWidth;
+                availableSpace += Math.floor(column!.columnInternals.currentPixelWidth!) - column!.columnInternals.minPixelWidth;
                 currentIndex += 1;
             }
         } else if (delta < 0) { // size left
             while (currentIndex >= 0) {
                 const column = this.table.columns[currentIndex];
-                availableSpace += Math.floor(column!.currentPixelWidth!) - column!.internalMinPixelWidth;
+                availableSpace += Math.floor(column!.columnInternals.currentPixelWidth!) - column!.columnInternals.minPixelWidth;
                 currentIndex -= 1;
             }
         }
@@ -140,7 +145,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         let currentIndex = activeColumnIndex;
         while (currentIndex >= 0) {
             const column = this.table.columns[currentIndex];
-            if (Math.floor(column!.currentPixelWidth!) > column!.internalMinPixelWidth) {
+            if (Math.floor(column!.columnInternals.currentPixelWidth!) > column!.columnInternals.minPixelWidth) {
                 return true;
             }
             currentIndex -= 1;
@@ -153,7 +158,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         let currentIndex = activeColumnIndex;
         while (currentIndex < this.table.columns.length) {
             const column = this.table.columns[currentIndex];
-            if (Math.floor(column!.currentPixelWidth!) > column!.internalMinPixelWidth) {
+            if (Math.floor(column!.columnInternals.currentPixelWidth!) > column!.columnInternals.minPixelWidth) {
                 return true;
             }
             currentIndex += 1;
@@ -166,10 +171,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         let currentDelta = delta;
         const leftColumn = this.table.columns[activeColumnIndex];
         const allowedDelta = delta < 0
-            ? Math.min(Math.floor(leftColumn!.currentPixelWidth! - leftColumn!.internalMinPixelWidth), Math.abs(currentDelta))
+            ? Math.min(Math.floor(leftColumn!.columnInternals.currentPixelWidth! - leftColumn!.columnInternals.minPixelWidth), Math.abs(currentDelta))
             : delta;
         const actualDelta = currentDelta < 0 ? -allowedDelta : allowedDelta;
-        leftColumn!.currentPixelWidth! += actualDelta;
+        leftColumn!.columnInternals.currentPixelWidth! += actualDelta;
 
         if (Math.ceil(allowedDelta) < Math.abs(currentDelta) && activeColumnIndex > 0 && delta < 0) {
             currentDelta += allowedDelta;
@@ -181,12 +186,12 @@ export class TableLayoutManager<TData extends TableRecord> {
         let currentDelta = delta;
         const rightColumn = this.table.columns[activeColumnIndex + 1];
         const allowedDelta = delta > 0
-            ? Math.min(Math.floor(rightColumn!.currentPixelWidth! - rightColumn!.internalMinPixelWidth), Math.abs(currentDelta))
+            ? Math.min(Math.floor(rightColumn!.columnInternals.currentPixelWidth! - rightColumn!.columnInternals.minPixelWidth), Math.abs(currentDelta))
             : delta;
         const actualDelta = allowedDelta < 0
             ? Math.ceil(allowedDelta)
             : Math.floor(allowedDelta);
-        rightColumn!.currentPixelWidth! -= actualDelta;
+        rightColumn!.columnInternals.currentPixelWidth! -= actualDelta;
 
         if (actualDelta < Math.abs(currentDelta) && activeColumnIndex < this.table.columns.length - 2 && delta > 0) {
             currentDelta -= allowedDelta;
@@ -220,7 +225,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     private cacheGridSizedColumns(): void {
         this.gridSizedColumns = [];
         for (const column of this.table.columns) {
-            if (column.currentPixelWidth === undefined) {
+            if (column.columnInternals.currentPixelWidth === undefined) {
                 this.gridSizedColumns.push(column);
             }
         }
@@ -231,10 +236,10 @@ export class TableLayoutManager<TData extends TableRecord> {
             return;
         }
 
-        const largestColumnFixedSize = Math.max(...this.gridSizedColumns.map(column => column.currentPixelWidth!)!);
+        const largestColumnFixedSize = Math.max(...this.gridSizedColumns.map(column => column.columnInternals.currentPixelWidth!)!);
         for (const column of this.gridSizedColumns) {
-            column.currentFractionalWidth = column.currentPixelWidth! / largestColumnFixedSize;
-            column.currentPixelWidth = undefined;
+            column.columnInternals.currentFractionalWidth = column.columnInternals.currentPixelWidth! / largestColumnFixedSize;
+            column.columnInternals.currentPixelWidth = undefined;
         }
     }
 }

@@ -190,20 +190,20 @@ describe('Table Column Sizing', () => {
                     await connect();
                     await waitForUpdatesAsync();
 
-                    column1.internalFractionalWidth = columnSizeTest.column1FractionalWidth;
-                    column1.internalPixelWidth = columnSizeTest.column1PixelWidth;
+                    column1.columnInternals.fractionalWidth = columnSizeTest.column1FractionalWidth;
+                    column1.columnInternals.pixelWidth = columnSizeTest.column1PixelWidth;
                     if (
                         typeof columnSizeTest.column1MinPixelWidth === 'number'
                     ) {
-                        column1.internalMinPixelWidth = columnSizeTest.column1MinPixelWidth;
+                        column1.columnInternals.minPixelWidth = columnSizeTest.column1MinPixelWidth;
                     }
 
-                    column2.internalFractionalWidth = columnSizeTest.column2FractionalWidth;
-                    column2.internalPixelWidth = columnSizeTest.column2PixelWidth;
+                    column2.columnInternals.fractionalWidth = columnSizeTest.column2FractionalWidth;
+                    column2.columnInternals.pixelWidth = columnSizeTest.column2PixelWidth;
                     if (
                         typeof columnSizeTest.column2MinPixelWidth === 'number'
                     ) {
-                        column2.internalMinPixelWidth = columnSizeTest.column2MinPixelWidth;
+                        column2.columnInternals.minPixelWidth = columnSizeTest.column2MinPixelWidth;
                     }
 
                     await waitForUpdatesAsync();
@@ -303,14 +303,14 @@ describe('Table Column Sizing', () => {
                     await connect();
                     await waitForUpdatesAsync();
 
-                    column1.internalFractionalWidth = rowScrollTest.column1FractionalWidth;
+                    column1.columnInternals.fractionalWidth = rowScrollTest.column1FractionalWidth;
                     if (rowScrollTest.column1MinPixelWidth !== null) {
-                        column1.internalMinPixelWidth = rowScrollTest.column1MinPixelWidth;
+                        column1.columnInternals.minPixelWidth = rowScrollTest.column1MinPixelWidth;
                     }
 
-                    column2.internalFractionalWidth = rowScrollTest.column2FractionalWidth;
+                    column2.columnInternals.fractionalWidth = rowScrollTest.column2FractionalWidth;
                     if (rowScrollTest.column2MinPixelWidth !== null) {
-                        column2.internalMinPixelWidth = rowScrollTest.column2MinPixelWidth;
+                        column2.columnInternals.minPixelWidth = rowScrollTest.column2MinPixelWidth;
                     }
 
                     await waitForUpdatesAsync();

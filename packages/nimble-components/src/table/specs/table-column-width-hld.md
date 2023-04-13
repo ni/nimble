@@ -35,46 +35,42 @@ There are some column sizing behaviors that we will ultimately expect to support
 
 ### API
 
-To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following properties to `TableColumn`:
+To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following properties to `ColumnInternals`:
 
-```
-abstract class TableColumn {
-    /*
-     * @internal
-     */
-    // when set 'currentFractionalWidth' will be ignored
-    @observable
-    public currentPixelWidth: number | null = null;
-
-    /*
-     * @internal
+```ts
+ColumnInternals<TColumnConfig> {
+    /**
+     * @internal Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the pixelWidth after programmatic or interactive updates.
      */
     @observable
-    public currentFractionalWidth = 1;
+    public currentPixelWidth?: number;
 
-    /*
-     * @internal
+    /**
+     * @internal Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the fractionalWidth after programmatic or interactive updates.
      */
     @observable
-    public internalPixelWidth: number | null = null; // change should update currentPixelWidth
+    public currentFractionalWidth = defaultFractionalWidth;
 
-    /*
-     * @internal
+    /**
+     * Used by column plugins to set a specific pixel width. Sets currentPixelWidth when changed.
      */
     @observable
-    public internalFractionalWidth = 1; // change should update currentFractionalWidth
+    public pixelWidth?: number;
 
-    /*
-     * @internal
+    /**
+     * Used by column plugins to size a column proportionally to the available
+     * width of a row. Sets currentFractionalWidth when changed.
      */
     @observable
-    public internalMinPixelWidth = 88; // the minimum size in pixels according to the design doc
+    public fractionalWidth = defaultFractionalWidth;
 
-    /*
-     * @internal
+    /**
+     * The minimum size in pixels according to the design doc
      */
     @observable
-    public internalDisableResize = false;
+    public minPixelWidth = defaultMinPixelWidth;
 
     ...
 }
@@ -82,9 +78,9 @@ abstract class TableColumn {
 
 Note that these properties are not attributes, and thus are not set by clients on the components via markup. Instead, these properties are meant to be configured by the concrete column implementations (typically initialization), as well as the Table as part of interactive column sizing.
 
-#### `current<>` versus `internal<>` properties
+#### `current<>` versus normal properties
 
-The properties with the `current` suffix are those that the `Table` will use to update as needed based off of user interaction, and thus are not expected to be used by a plugin/mixin author. The `internal` properties are those expected to be set as needed by plugin/mixin authors in response to a change to their own exposed attributes.
+The properties with the `current` prefix are those that the `Table` will use to update as needed based off of user interaction, and thus are not expected to be used by a plugin/mixin author. The other `ColumnInternals` properties are those expected to be set as needed by plugin/mixin authors in response to a change to their own exposed attributes.
 
 #### `currentFractionalWidth` vs `currentPixelWidth` behavior
 
@@ -92,46 +88,39 @@ The properties with the `current` suffix are those that the `Table` will use to 
 -   The values supplied to the `currentPixelWidth` property are meant to be pixel-based values.
 -   The table will use `currentPixelWidth` over `currentFractionalWidth` when both are set.
 
-#### **Mixin Example**
+#### Mixin Example
 
 We can help facilitate proper implementation for concrete column types by providing mixins that define expected attribute APIs.
 
 The following pattern is modeled after Typescript's documented [Constrained mixin pattern](https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins), combining patterns in place in FAST's [`FormAssociated` mixin](https://github.com/microsoft/fast/blob/f8dde59eee21a1152263447d22a76593ee5ed9e5/packages/web-components/fast-foundation/src/form-associated/form-associated.ts#L206).
 
-```
+```ts
 export function mixinFractionalWidthColumnAPI<TBase extends abstract new (...args: any[]) => TableColumn>(base: TBase): TBase {
     abstract class FractionalWidthColumn extends base {
         public fractionalWidth = 1: number | null;
 
-        public disableResize = false;
-
-        public minWidth = null: number | null;
+        public minPixelWidth = null: number | null;
 
         public fractionalWidthChanged(): void {
-            this.internalFractionalWidth = this.fractionalWidth;
+            this.columnInternals.fractionalWidth = this.fractionalWidth;
         }
 
-        public disableResizeChanged(): void {
-            this.internalDisableResize = this.disableResize;
-        }
-
-        public minWidthChanged(): void {
-            if (this.minWidth !== null) {
-                this.internalMinWidth = this.minWidth;
+        public minPixelWidthChanged(): void {
+            if (this.minPixelWidth !== null) {
+                this.columnInternals.minPixelWidth = this.minPixelWidth;
             }
         }
     }
 
     (attr({ attribute: 'fractional-width', converter: nullableNumberConverter }))(FractionalWidthColumn.prototype, "fractionalWidth");
-    (attr({ attribute: 'disable-resize', mode: 'boolean' }))(FractionalWidthColumn.prototype, 'disableResize');
-    (attr({ attribute: 'min-width', converter: nullableNumberConverter }))(FractionalWidthColumn.prototype, 'minWidth');
+    (attr({ attribute: 'min-pixel-width', converter: nullableNumberConverter }))(FractionalWidthColumn.prototype, 'minPixelWidth');
     return FractionalWidthColumn;
 }
 ```
 
 Consuming this mixin pattern would look like the following:
 
-```
+```ts
 export class TableColumnTextBase extends TableColumn<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig> {
@@ -143,16 +132,15 @@ export class TableColumnText extends mixinFractionalWidthColumnAPI(TableColumnTe
 
 The mixin pattern is appropriate for columns since there will be columns that have no fundamental need for various sizing APIs, and thus not add the mixin. Additionally, the mixin is preferred over interfaces, in that the implementation of the public APIs _must_ update the `TableColumn` properties, which an interface can't enforce.
 
-#### **PixelWidth Column Example**
+#### PixelWidth Column Example
 
 At the moment there is no recognized use case for a pixel-width column that would allow a user to resize it. As such, there are no plans to provide a specific pixel-width mixin for columns. Instead, a concrete column desiring a pixel-width behavior (with no resize) could simply do something like the following in its constructor:
 
-```
+```ts
 export class MyPixelWidthColumn : TableColumn<...> {
     public constructor() {
         super();
-        this.currentPixelWidth = 100;
-        this.disableResize = true;
+        this.columnInternals.currentPixelWidth = 100;
     }
 }
 ```
@@ -161,9 +149,9 @@ export class MyPixelWidthColumn : TableColumn<...> {
 
 [Prototype branch](https://github.com/ni/nimble/tree/column-width-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-qheevxtkdu.chromatic.com/?path=/story/table--table))
 
-#### **Using "`display: grid`"**:
+#### Using grid layout
 
-The `currentFractionalWidth` and `currentPixelWidth` properties of `TableColumn` align well with using the CSS "`display: grid;`" mode
+The `currentFractionalWidth` and `currentPixelWidth` properties of `ColumnInternals` align well with using the CSS "`display: grid;`" mode
 and setting `grid-template-columns` to the appropriate combination of values on the container div of the cell elements for either a data row, or the container for the header cells.
 
 Example:

@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import { customElement, html } from '@microsoft/fast-element';
+import { attr, customElement, html } from '@microsoft/fast-element';
 import { Table, tableTag } from '..';
-import type { TableColumn } from '../../table-column/base';
+import { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
 import { TableColumnTextCellView } from '../../table-column/text/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
@@ -14,6 +14,7 @@ import {
 } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from './table.pageobject';
+import { tableColumnEmptyGroupHeaderViewTag } from '../../table-column/base/tests/table-column.fixtures';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -81,7 +82,7 @@ describe('Table', () => {
                         continue;
                     }
 
-                    const dataKey = column.dataRecordFieldNames[0]!;
+                    const dataKey = column.columnInternals.dataRecordFieldNames[0]!;
                     const expectedCellData = rowData[dataKey]!;
                     record[dataKey] = expectedCellData;
                 }
@@ -104,7 +105,8 @@ describe('Table', () => {
                     columnIndex < visibleColumns.length;
                     columnIndex++
                 ) {
-                    const dataKey = visibleColumns[columnIndex]!.dataRecordFieldNames[0]!;
+                    const dataKey = visibleColumns[columnIndex]!.columnInternals
+                        .dataRecordFieldNames[0]!;
                     const expectedCellData = visibleData[rowIndex]![dataKey]!;
                     expect(
                         pageObject.getRenderedCellContent(rowIndex, columnIndex)
@@ -558,8 +560,17 @@ describe('Table', () => {
                 name: focusableColumnName
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            class TestFocusableTableColumn extends TableColumnText {
-                public override cellViewTag = focusableCellViewName;
+            class TestFocusableTableColumn extends TableColumn {
+                @attr({ attribute: 'field-name' })
+                public fieldName?: string;
+
+                public constructor() {
+                    super({
+                        cellViewTag: focusableCellViewName,
+                        cellRecordFieldNames: ['value'],
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+                    });
+                }
             }
 
             it('to render fewer rows (based on viewport size)', async () => {

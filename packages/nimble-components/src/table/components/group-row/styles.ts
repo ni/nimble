@@ -51,7 +51,7 @@ export const styles = css`
         overflow: hidden;
     }
 
-    .group-header-value {
+    .group-header-view {
         padding-left: calc(${standardPadding} / 2);
         user-select: none;
         overflow: hidden;
