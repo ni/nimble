@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 12 Apr 2023 22:32:48 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "25071e6b1ee3264d0b738a56244b5f2b1494c3f0",
+            "comment": "Move to official Storybook 7 release"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Apr 2023 01:58:34 GMT",
       "tag": "@ni/nimble-components_v18.12.0",
       "version": "18.12.0",
