@@ -13,21 +13,24 @@ import { TablePageObject } from './table.pageobject';
 import type { TableColumnText } from '../../table-column/text';
 
 interface SimpleTableRecord extends TableRecord {
-    id?: string;
+    id: string;
     stringData: string;
     stringData2: string;
 }
 
 const simpleTableData = [
     {
+        id: '0',
         stringData: '0',
         stringData2: 'a'
     },
     {
+        id: '1',
         stringData: '1',
         stringData2: 'b'
     },
     {
+        id: '2',
         stringData: '2',
         stringData2: 'c'
     }
@@ -149,7 +152,7 @@ describe('Table row selection', () => {
 
         it('configuration is valid when selection mode is "none" and an id field name is set', async () => {
             element.selectionMode = TableRowSelectionMode.none;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             expect(element.checkValidity()).toBeTrue();
@@ -165,7 +168,7 @@ describe('Table row selection', () => {
 
         it('configuration is valid when selection mode is "single" and an id field name is set', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             expect(element.checkValidity()).toBeTrue();
@@ -182,7 +185,7 @@ describe('Table row selection', () => {
 
         it('configuration is valid when selection mode is "multiple" and an id field name is set', async () => {
             element.selectionMode = TableRowSelectionMode.multiple;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             expect(element.checkValidity()).toBeTrue();
@@ -199,7 +202,7 @@ describe('Table row selection', () => {
 
         it('is cleared when selection mode changes', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
@@ -212,7 +215,7 @@ describe('Table row selection', () => {
 
         it('does not fire selection-change event when selection is cleared when selection mode changes', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
@@ -224,7 +227,7 @@ describe('Table row selection', () => {
 
         it('is cleared when id field name changes', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
@@ -237,7 +240,7 @@ describe('Table row selection', () => {
 
         it('does not fire selection-change event when selection is cleared when id field name changes', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
@@ -249,12 +252,13 @@ describe('Table row selection', () => {
 
         it('is updated when data is updated and no longer includes selected record', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
             await element.setData([
                 {
+                    id: 'new-id',
                     stringData: 'new-record',
                     stringData2: 'with new values'
                 }
@@ -267,7 +271,7 @@ describe('Table row selection', () => {
 
         it('is updated when data is updated and includes only some of the currently selected records', async () => {
             element.selectionMode = TableRowSelectionMode.multiple;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds([
@@ -283,16 +287,18 @@ describe('Table row selection', () => {
 
         it('is unchanged when data is updated but still includes selected record', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
             await element.setData([
                 {
+                    id: 'new-record-id',
                     stringData: 'new-record',
                     stringData2: 'with new values'
                 },
                 {
+                    id: '1',
                     stringData: '1',
                     stringData2: 'updated value'
                 }
@@ -305,12 +311,13 @@ describe('Table row selection', () => {
 
         it('does not fire selection-change event when selection is changed when updating data', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
             await element.setData([
                 {
+                    id: 'new-record-id',
                     stringData: 'new-record',
                     stringData2: 'with new values'
                 }
@@ -322,16 +329,18 @@ describe('Table row selection', () => {
 
         it('does not update selection when data is updated to be invalid', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds(['1']);
             await element.setData([
                 {
+                    id: 'record-id',
                     stringData: 'new-record',
                     stringData2: 'with new values'
                 },
                 {
+                    id: 'record-id',
                     stringData: 'new-record',
                     stringData2: 'with same id'
                 }
@@ -355,7 +364,7 @@ describe('Table row selection', () => {
 
         it('configures rows to hide selection checkbox when selection mode is "single"', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             const rowCount = simpleTableData.length;
@@ -367,7 +376,7 @@ describe('Table row selection', () => {
 
         it('configures rows to show selection checkbox when selection mode is "multiple"', async () => {
             element.selectionMode = TableRowSelectionMode.multiple;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             const rowCount = simpleTableData.length;
@@ -379,7 +388,7 @@ describe('Table row selection', () => {
 
         it('configures rows to be selected when a record ID is selected', async () => {
             element.selectionMode = TableRowSelectionMode.single;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             const selectedIndex = 1;
@@ -399,7 +408,7 @@ describe('Table row selection', () => {
 
         it('configures multiple rows to be selected when a multiple record IDs are selected', async () => {
             element.selectionMode = TableRowSelectionMode.multiple;
-            element.idFieldName = 'stringData';
+            element.idFieldName = 'id';
             await waitForUpdatesAsync();
 
             await element.setSelectedRecordIds([
@@ -417,7 +426,7 @@ describe('Table row selection', () => {
             describe('with selection mode of "none"', () => {
                 beforeEach(async () => {
                     element.selectionMode = TableRowSelectionMode.none;
-                    element.idFieldName = 'stringData';
+                    element.idFieldName = 'id';
                     await waitForUpdatesAsync();
                 });
 
@@ -438,7 +447,7 @@ describe('Table row selection', () => {
             describe('with selection mode of "single"', () => {
                 beforeEach(async () => {
                     element.selectionMode = TableRowSelectionMode.single;
-                    element.idFieldName = 'stringData';
+                    element.idFieldName = 'id';
                     await waitForUpdatesAsync();
                 });
 
@@ -496,7 +505,7 @@ describe('Table row selection', () => {
             describe('with selection mode of "multiple"', () => {
                 beforeEach(async () => {
                     element.selectionMode = TableRowSelectionMode.multiple;
-                    element.idFieldName = 'stringData';
+                    element.idFieldName = 'id';
                     await waitForUpdatesAsync();
                 });
 
@@ -556,7 +565,7 @@ describe('Table row selection', () => {
             describe('with selection mode of "none"', () => {
                 beforeEach(async () => {
                     element.selectionMode = TableRowSelectionMode.none;
-                    element.idFieldName = 'stringData';
+                    element.idFieldName = 'id';
                     await waitForUpdatesAsync();
                 });
 
@@ -581,7 +590,7 @@ describe('Table row selection', () => {
             describe('with selection mode of "single"', () => {
                 beforeEach(async () => {
                     element.selectionMode = TableRowSelectionMode.single;
-                    element.idFieldName = 'stringData';
+                    element.idFieldName = 'id';
                     await waitForUpdatesAsync();
                 });
 
@@ -635,7 +644,7 @@ describe('Table row selection', () => {
             describe('with selection mode of "multiple"', () => {
                 beforeEach(async () => {
                     element.selectionMode = TableRowSelectionMode.multiple;
-                    element.idFieldName = 'stringData';
+                    element.idFieldName = 'id';
                     await waitForUpdatesAsync();
                 });
 
