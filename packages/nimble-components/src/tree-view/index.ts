@@ -33,7 +33,10 @@ export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
 
-    private readonly groupSelectedItems: { item: HTMLElement, count: number }[] = [];
+    private readonly groupSelectedItems: {
+        item: HTMLElement,
+        count: number
+    }[] = [];
 
     public constructor() {
         super();
@@ -67,7 +70,9 @@ export class TreeView extends FoundationTreeView {
     /**
      * @internal
      */
-    public updateGroupSelectionOnRootParentTreeItem(treeItem: ISelectable): void {
+    public updateGroupSelectionOnRootParentTreeItem(
+        treeItem: ISelectable
+    ): void {
         let currentItem: HTMLElement | null | undefined = treeItem;
         while (
             currentItem?.parentElement !== this
@@ -77,7 +82,9 @@ export class TreeView extends FoundationTreeView {
         }
 
         if (currentItem) {
-            const foundIndex = this.groupSelectedItems.findIndex(x => x.item === currentItem);
+            const foundIndex = this.groupSelectedItems.findIndex(
+                x => x.item === currentItem
+            );
             if (foundIndex !== -1) {
                 const record = this.groupSelectedItems[foundIndex];
                 record!.count += treeItem.selected ? 1 : -1;
@@ -89,7 +96,9 @@ export class TreeView extends FoundationTreeView {
                 }
             } else {
                 if (!treeItem.selected) {
-                    throw new Error('Should have found record for previously selected group');
+                    throw new Error(
+                        'Should have found record for previously selected group'
+                    );
                 }
                 this.groupSelectedItems.push({ item: currentItem, count: 1 });
                 currentItem.setAttribute(groupSelectedAttribute, 'true');
@@ -100,7 +109,9 @@ export class TreeView extends FoundationTreeView {
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
     // which is what the FAST TreeItem allows
     private onSelectedChange(event: Event): void {
-        this.updateGroupSelectionOnRootParentTreeItem(event.target as ISelectable);
+        this.updateGroupSelectionOnRootParentTreeItem(
+            event.target as ISelectable
+        );
     }
 
     private canSelect(item: TreeItem): boolean {
