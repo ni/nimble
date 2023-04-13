@@ -36,7 +36,9 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                 // eslint-disable-next-line no-console
                 console.log(`window height: ${window.innerHeight}`);
                 // eslint-disable-next-line no-console
-                console.log(`body scroll height: ${window.parent.document.body.scrollHeight}`);
+                console.log(
+                    `body scroll height: ${window.parent.document.body.scrollHeight}`
+                );
                 // eslint-disable-next-line no-console
                 console.log(`element offset height: ${element.offsetHeight}`);
                 // eslint-disable-next-line no-console
@@ -46,7 +48,11 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                 // eslint-disable-next-line no-console
                 console.log(`element offset top: ${element.offsetTop}`);
                 // eslint-disable-next-line no-console
-                console.log(`--ni-private-select-max-height: ${element.style.getPropertyValue('--ni-private-select-max-height')}`);
+                console.log(
+                    `--ni-private-select-max-height: ${element.style.getPropertyValue(
+                        '--ni-private-select-max-height'
+                    )}`
+                );
                 if (
                     entries[0]?.isIntersecting
                     && entries[0].intersectionRatio === 1.0
