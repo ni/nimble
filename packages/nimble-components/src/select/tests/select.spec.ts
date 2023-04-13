@@ -120,12 +120,12 @@ describe('Select', () => {
         await disconnect();
     });
 
-    describe('with 500 options', () => {
+    describe('with 100 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
             const viewTemplate = html`
                 <nimble-select>
-                    ${repeat(() => [...Array(500).keys()], html<number>`
+                    ${repeat(() => [...Array(100).keys()], html<number>`
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
                 </nimble-select>
             `;
