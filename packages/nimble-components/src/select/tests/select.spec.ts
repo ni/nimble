@@ -22,11 +22,8 @@ async function setup(
 }
 
 async function clickAndWaitForOpen(select: Select): Promise<void> {
-    // select.click();
-    select.open = true;
+    select.click();
     // Takes two updates for listbox to be rendered
-    await waitForUpdatesAsync();
-    await waitForUpdatesAsync();
     await waitForUpdatesAsync();
     await waitForUpdatesAsync();
 }
@@ -44,8 +41,6 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                 );
                 // eslint-disable-next-line no-console
                 console.log(`element offset height: ${element.offsetHeight}`);
-                // eslint-disable-next-line no-console
-                console.log(`element client height: ${element.clientHeight}`);
                 // eslint-disable-next-line no-console
                 console.log(`element scroll height: ${element.scrollHeight}`);
                 // eslint-disable-next-line no-console
@@ -147,7 +142,7 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        for (let i = 0; i < 200; i++) {
+        for (let i = 0; i < 400; i++) {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             it(`should limit dropdown height to viewport ${i}`, async () => {
                 const { element, connect, disconnect } = await setup500Options();
@@ -164,6 +159,10 @@ describe('Select', () => {
                     0,
                     window.parent.document.body.scrollHeight
                 );
+                // eslint-disable-next-line no-console
+                console.log(`box offset top: ${element.offsetTop}`);
+                // eslint-disable-next-line no-console
+                console.log(`box client top: ${element.clientTop}`);
                 const fullyVisible = await checkFullyInViewport(listbox);
 
                 expect(listbox.scrollHeight).toBeGreaterThan(
