@@ -22,8 +22,11 @@ async function setup(
 }
 
 async function clickAndWaitForOpen(select: Select): Promise<void> {
-    select.click();
+    //select.click();
+    select.open = true;
     // Takes two updates for listbox to be rendered
+    await waitForUpdatesAsync();
+    await waitForUpdatesAsync();
     await waitForUpdatesAsync();
     await waitForUpdatesAsync();
 }
