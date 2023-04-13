@@ -159,10 +159,6 @@ describe('Select', () => {
                     0,
                     window.parent.document.body.scrollHeight
                 );
-                // eslint-disable-next-line no-console
-                console.log(`box offset top: ${element.offsetTop}`);
-                // eslint-disable-next-line no-console
-                console.log(`box client top: ${element.clientTop}`);
                 const fullyVisible = await checkFullyInViewport(listbox);
 
                 expect(listbox.scrollHeight).toBeGreaterThan(
