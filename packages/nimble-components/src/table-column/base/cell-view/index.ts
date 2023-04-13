@@ -1,7 +1,11 @@
 import { observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { TableColumn } from '..';
-import type { DelegatedEventEventDetails, TableCellRecord, TableCellState } from '../types';
+import type {
+    DelegatedEventEventDetails,
+    TableCellRecord,
+    TableCellState
+} from '../types';
 
 /**
  * Base class for table cell views, which are used within the nimble-table-cell.
@@ -30,14 +34,19 @@ export abstract class TableCellView<
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        if (this.column) {
-            for (const delegatedEvent of this.column.columnInternals.delegatedEvents) {
-                this.addEventListener(delegatedEvent, (event: Event) => {
-                    this.column?.dispatchEvent(new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
-                        detail: { originalEvent: event }
-                    }));
-                });
-            }
+        if (!this.column) {
+            return;
+        }
+        for (const delegatedEvent of this.column.columnInternals
+            .delegatedEvents) {
+            this.addEventListener(delegatedEvent, (event: Event) => {
+                this.column?.dispatchEvent(
+                    new CustomEvent<DelegatedEventEventDetails>(
+                        'delegated-event',
+                        { detail: { originalEvent: event } }
+                    )
+                );
+            });
         }
     }
 }

@@ -370,7 +370,9 @@ export class Table<
         this.scrollX = (event.target as HTMLElement).scrollLeft;
     };
 
-    private async updateSelectionOnRowClickAsync(rowIndex: number): Promise<void> {
+    private async updateSelectionOnRowClickAsync(
+        rowIndex: number
+    ): Promise<void> {
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }

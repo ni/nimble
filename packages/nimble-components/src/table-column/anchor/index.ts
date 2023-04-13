@@ -33,7 +33,8 @@ declare global {
  * A table column for displaying links.
  */
 export class TableColumnAnchor extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)) {
+    mixinFractionalWidthColumnAPI(TableColumn<TableColumnAnchorColumnConfig>)
+) {
     @attr({ attribute: 'label-field-name' })
     public labelFieldName?: string;
 
@@ -75,12 +76,18 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     }
 
     protected labelFieldNameChanged(): void {
-        this.columnInternals.dataRecordFieldNames = [this.labelFieldName, this.hrefFieldName] as const;
+        this.columnInternals.dataRecordFieldNames = [
+            this.labelFieldName,
+            this.hrefFieldName
+        ] as const;
         this.columnInternals.operandDataRecordFieldName = this.labelFieldName;
     }
 
     protected hrefFieldNameChanged(): void {
-        this.columnInternals.dataRecordFieldNames = [this.labelFieldName, this.hrefFieldName] as const;
+        this.columnInternals.dataRecordFieldNames = [
+            this.labelFieldName,
+            this.hrefFieldName
+        ] as const;
     }
 
     protected placeholderChanged(): void {

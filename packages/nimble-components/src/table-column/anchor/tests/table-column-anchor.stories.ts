@@ -53,10 +53,10 @@ const simpleData = [
     },
     {
         firstName: 'Maggie (no link)',
-        lastName: 'Simpson',
+        lastName: 'Simpson'
     },
     {
-        lastName: 'Simpson',
+        lastName: 'Simpson'
     }
 ];
 

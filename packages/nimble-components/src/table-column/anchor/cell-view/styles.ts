@@ -1,7 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import {
-    controlLabelFontColor
-} from '../../../theme-provider/design-tokens';
+import { controlLabelFontColor } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     nimble-anchor {

@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
     templateUrl: './customapp2.component.html',
     styleUrls: ['./customapp2.component.scss']
 })
-export class CustomAppComponent2 {}
+export class CustomApp2Component {}

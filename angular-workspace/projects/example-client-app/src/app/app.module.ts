@@ -13,7 +13,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
 import { NimbleTableModule } from 'projects/ni/nimble-angular/src/public-api';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
-import { CustomAppComponent2 } from './customapp2/customapp2.component';
+import { CustomApp2Component } from './customapp2/customapp2.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { HeaderComponent } from './header/header.component';
         AppComponent,
         HeaderComponent,
         CustomAppComponent,
-        CustomAppComponent2
+        CustomApp2Component
     ],
     imports: [
         BrowserModule,
@@ -73,7 +73,7 @@ import { HeaderComponent } from './header/header.component';
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
                 { path: 'customapp', component: CustomAppComponent, title: 'Angular All Components Demo - Nimble Design System - NI' },
-                { path: 'customapp2', component: CustomAppComponent2, title: 'Angular All Components Demo - Nimble Design System - NI' }
+                { path: 'customapp2', component: CustomApp2Component, title: 'Angular All Components Demo - Nimble Design System - NI' }
             ],
             { useHash: true }
         )
