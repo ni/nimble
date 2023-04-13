@@ -43,7 +43,7 @@ export class AnchorTreeItem extends AnchorBase {
         super.connectedCallback();
         const treeView = this.getParentTreeView();
         if (treeView && this.selected) {
-            treeView.setGroupSelectionOnRootParentTreeItem(this);
+            treeView.updateGroupSelectionOnRootParentTreeItem(this);
         }
     }
 

@@ -33,6 +33,8 @@ export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
 
+    private readonly groupSelectedItems: { item: HTMLElement, count: number }[] = [];
+
     public constructor() {
         super();
         this.addEventListener('selected-change', event => this.onSelectedChange(event));
@@ -65,19 +67,7 @@ export class TreeView extends FoundationTreeView {
     /**
      * @internal
      */
-    public clearTreeGroupSelection(): void {
-        const currentGroupSelection = this.querySelectorAll<TreeItem>(
-            `[${groupSelectedAttribute}]`
-        );
-        currentGroupSelection?.forEach(treeItem => treeItem.removeAttribute(groupSelectedAttribute));
-    }
-
-    /**
-     * @internal
-     */
-    public setGroupSelectionOnRootParentTreeItem(treeItem: HTMLElement): void {
-        this.clearTreeGroupSelection();
-
+    public updateGroupSelectionOnRootParentTreeItem(treeItem: ISelectable): void {
         let currentItem: HTMLElement | null | undefined = treeItem;
         while (
             currentItem?.parentElement !== this
@@ -87,18 +77,30 @@ export class TreeView extends FoundationTreeView {
         }
 
         if (currentItem) {
-            currentItem.setAttribute(groupSelectedAttribute, 'true');
+            const foundIndex = this.groupSelectedItems.findIndex(x => x.item === currentItem);
+            if (foundIndex !== -1) {
+                const record = this.groupSelectedItems[foundIndex];
+                record!.count += treeItem.selected ? 1 : -1;
+                if (record!.count === 0) {
+                    this.groupSelectedItems.splice(foundIndex, 1);
+                    currentItem.removeAttribute(groupSelectedAttribute);
+                } else if (record!.count < 0) {
+                    throw new Error('Negative ref count in record');
+                }
+            } else {
+                if (!treeItem.selected) {
+                    throw new Error('Should have found record for previously selected group');
+                }
+                this.groupSelectedItems.push({ item: currentItem, count: 1 });
+                currentItem.setAttribute(groupSelectedAttribute, 'true');
+            }
         }
     }
 
     // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
     // which is what the FAST TreeItem allows
     private onSelectedChange(event: Event): void {
-        const toggledElement = event.target as ISelectable;
-        // only process selection
-        if (toggledElement.selected) {
-            this.setGroupSelectionOnRootParentTreeItem(toggledElement);
-        }
+        this.updateGroupSelectionOnRootParentTreeItem(event.target as ISelectable);
     }
 
     private canSelect(item: TreeItem): boolean {
