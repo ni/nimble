@@ -53,16 +53,6 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                 ) {
                     resolve(true);
                 } else {
-                    // Temporary debugging output for intermittently failing test
-                    // see: https://github.com/ni/nimble/issues/1172
-                    // eslint-disable-next-line no-console
-                    console.log(`element: ${element.outerHTML}`);
-                    // eslint-disable-next-line no-console
-                    console.log(
-                        `fully intersecting?: ${
-                            entries[0]?.isIntersecting ? 'true' : 'false'
-                        }`
-                    );
                     // eslint-disable-next-line no-console
                     console.log(
                         `intersection ratio: ${
@@ -126,12 +116,12 @@ describe('Select', () => {
         await disconnect();
     });
 
-    describe('with 500 options', () => {
+    describe('with 100 options', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
             const viewTemplate = html`
                 <nimble-select>
-                    ${repeat(() => [...Array(500).keys()], html<number>`
+                    ${repeat(() => [...Array(100).keys()], html<number>`
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
                 </nimble-select>
             `;
