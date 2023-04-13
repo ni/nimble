@@ -116,8 +116,8 @@ describe('Nimble anchor table column', () => {
         });
 
         it('has expected defaults for groupIndex', () => {
-            expect(directive.groupIndex).toBeUndefined();
-            expect(nativeElement.groupIndex).toBeUndefined();
+            expect(directive.groupIndex).toBeNull();
+            expect(nativeElement.groupIndex).toBeNull();
         });
 
         it('has expected defaults for groupingDisabled', () => {
