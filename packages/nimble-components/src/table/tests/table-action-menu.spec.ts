@@ -73,10 +73,7 @@ describe('Table action menu', () => {
             element,
             'action-menu-beforetoggle'
         );
-        toggleListener = createEventListener(
-            element,
-            'action-menu-toggle'
-        );
+        toggleListener = createEventListener(element, 'action-menu-toggle');
     });
 
     afterEach(async () => {
@@ -232,10 +229,6 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const toggleListener = createEventListener(
-            element,
-            'action-menu-toggle'
-        );
         // Open a menu button for the first row to cause all the menus to be slotted within that row
         await pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
@@ -255,10 +248,6 @@ describe('Table action menu', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const toggleListener = createEventListener(
-            element,
-            'action-menu-toggle'
-        );
         // Open a menu button for the first row to cause all the menus to be slotted within that row
         await pageObject.clickCellActionMenu(1, 0);
         await toggleListener.promise;
@@ -462,9 +451,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleListener.spy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
+            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
             expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -482,9 +471,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleListener.spy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
+            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
             expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -504,9 +493,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleListener.spy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
+            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
             expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -546,9 +535,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleListener.spy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
+            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
             expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -566,9 +555,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleListener.spy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
+            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
             expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -588,9 +577,9 @@ describe('Table action menu', () => {
             expect(currentSelection).toEqual([
                 simpleTableData[rowIndex].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleListener.spy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
+            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
             expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
@@ -611,9 +600,9 @@ describe('Table action menu', () => {
                 simpleTableData[0].stringData,
                 simpleTableData[2].stringData
             ]);
-            expect(getEmittedRecordIdsFromSpy(beforetoggleListener.spy)).toEqual(
-                jasmine.arrayWithExactContents(currentSelection)
-            );
+            expect(
+                getEmittedRecordIdsFromSpy(beforetoggleListener.spy)
+            ).toEqual(jasmine.arrayWithExactContents(currentSelection));
             expect(getEmittedRecordIdsFromSpy(toggleListener.spy)).toEqual(
                 jasmine.arrayWithExactContents(currentSelection)
             );
