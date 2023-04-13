@@ -74,12 +74,6 @@ export const styles = css`
         position: relative;
     }
 
-    .header-container:hover .column-divider,
-    .header-container .column-divider[active] {
-        display: block;
-        z-index: 1;
-    }
-
     .header-scrollbar-spacer {
         width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
@@ -97,12 +91,23 @@ export const styles = css`
         position: absolute;
     }
 
+    .column-divider[active] {
+        display: block;
+        z-index: 1;
+    }
+
     .left { 
         left: -1px;
     }
 
     .right { 
         left: calc(100% - 1px);
+    }
+
+    .header-container:hover .column-divider:not([not-active]).left,
+    .header-container:hover .column-divider:not([not-active]).right {
+        display: block;
+        z-index: 1;
     }
 
     .column-divider.left-limit {
