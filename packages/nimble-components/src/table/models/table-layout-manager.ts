@@ -76,17 +76,6 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.table.isColumnBeingSized = false;
     };
 
-    private getColumnPixelWidth(gridSize: number, rowWidth: number): number {
-        let totalMagnitude = 0;
-        for (const col of this.table.columns) {
-            if (col.columnInternals.currentPixelWidth === undefined) {
-                totalMagnitude += col.columnInternals.currentFractionalWidth;
-            }
-        }
-
-        return (gridSize / totalMagnitude) * rowWidth;
-    }
-
     private getTotalColumnMagnitude(): number {
         return this.table.columns.reduce((accumulator: number, currentValue) => {
             return accumulator + (currentValue.columnInternals.currentPixelWidth === undefined
