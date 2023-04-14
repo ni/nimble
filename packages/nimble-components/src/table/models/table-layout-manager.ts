@@ -10,6 +10,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     private activeColumnDivider?: number;
     private gridSizedColumns?: TableColumn[];
     private currentRowWidth?: number;
+    private initialTablePixelWidth?: number;
+    private initialColumnTotalWidth?: number;
 
     public constructor(table: Table<TData>) {
         this.table = table;
@@ -47,6 +49,8 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.currentRowWidth = this.table.rowHeader.getBoundingClientRect().width - this.table.virtualizer.headerContainerMarginRight;
         this.flagActiveColumnDividers(columnIndex);
         this.setColumnsToFixedSize();
+        this.initialTablePixelWidth = this.table.getBoundingClientRect().width * this.table.tableWidthFactor;
+        this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.table.isColumnBeingSized = true;
         document.addEventListener('mousemove', this.onDividerMouseMove);
         document.addEventListener('mouseup', this.onDividerMouseUp);
@@ -54,18 +58,19 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;
-        let deltaX = mouseEvent.movementX > 0
+        const deltaX = mouseEvent.movementX > 0
             ? Math.floor(mouseEvent.movementX)
             : Math.ceil(mouseEvent.movementX);
-        deltaX = this.pinColumnSizeDelta(this.activeColumnDivider!, deltaX);
-        const canSizeLeft = this.canSizeLeft(this.activeColumnDivider!);
-        const canSizeRight = this.canSizeRight(this.activeColumnDivider! + 1);
-        if ((canSizeRight && deltaX > 0) || deltaX < 0) {
+        // deltaX = this.pinColumnSizeDelta(this.activeColumnDivider!, deltaX);
+        // const canSizeLeft = this.canSizeLeft(this.activeColumnDivider!);
+        // const canSizeRight = this.canSizeRight(this.activeColumnDivider! + 1);
+        if (this.canSizeLeft(this.activeColumnDivider!)) {
             this.performCascadeSizeLeft(this.activeColumnDivider!, deltaX);
         }
-        if ((canSizeLeft && deltaX < 0) || deltaX > 0) {
+        if (this.activeColumnDivider! < this.table.columns.length - 1) {
             this.performCascadeSizeRight(this.activeColumnDivider!, deltaX);
         }
+        this.table.tableWidthFactor = this.getCurrentTotalTableWidth() / this.table.getBoundingClientRect().width;
     };
 
     private readonly onDividerMouseUp = (): void => {
@@ -90,6 +95,10 @@ export class TableLayoutManager<TData extends TableRecord> {
                 ? currentValue.columnInternals.currentPixelWidth
                 : 0);
         }, 0);
+    }
+
+    private getCurrentTotalTableWidth(): number {
+        return this.initialTablePixelWidth! + (this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!);
     }
 
     private setColumnsToFixedSize(): void {
@@ -131,13 +140,13 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private canSizeLeft(activeColumnIndex: number): boolean {
-        let currentIndex = activeColumnIndex;
-        while (currentIndex >= 0) {
-            const column = this.table.columns[currentIndex];
-            if (Math.floor(column!.columnInternals.currentPixelWidth!) > column!.columnInternals.minPixelWidth) {
-                return true;
-            }
-            currentIndex -= 1;
+        if (activeColumnIndex === this.table.columns.length - 1 && this.getCurrentTotalTableWidth() > this.initialTablePixelWidth!) {
+            return false;
+        }
+
+        const column = this.table.columns[activeColumnIndex];
+        if (Math.floor(column!.columnInternals.currentPixelWidth!) > column!.columnInternals.minPixelWidth) {
+            return true;
         }
 
         return false;
@@ -157,7 +166,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private performCascadeSizeLeft(activeColumnIndex: number, delta: number): void {
-        let currentDelta = delta;
+        const currentDelta = delta;
         const leftColumn = this.table.columns[activeColumnIndex];
         const allowedDelta = delta < 0
             ? Math.min(Math.floor(leftColumn!.columnInternals.currentPixelWidth! - leftColumn!.columnInternals.minPixelWidth), Math.abs(currentDelta))
@@ -165,14 +174,14 @@ export class TableLayoutManager<TData extends TableRecord> {
         const actualDelta = currentDelta < 0 ? -allowedDelta : allowedDelta;
         leftColumn!.columnInternals.currentPixelWidth! += actualDelta;
 
-        if (Math.ceil(allowedDelta) < Math.abs(currentDelta) && activeColumnIndex > 0 && delta < 0) {
-            currentDelta += allowedDelta;
-            this.performCascadeSizeLeft(activeColumnIndex - 1, currentDelta);
-        }
+        // if (Math.ceil(allowedDelta) < Math.abs(currentDelta) && activeColumnIndex > 0 && delta < 0) {
+        //     currentDelta += allowedDelta;
+        //     this.performCascadeSizeLeft(activeColumnIndex - 1, currentDelta);
+        // }
     }
 
     private performCascadeSizeRight(activeColumnIndex: number, delta: number): void {
-        let currentDelta = delta;
+        const currentDelta = delta;
         const rightColumn = this.table.columns[activeColumnIndex + 1];
         const allowedDelta = delta > 0
             ? Math.min(Math.floor(rightColumn!.columnInternals.currentPixelWidth! - rightColumn!.columnInternals.minPixelWidth), Math.abs(currentDelta))
@@ -182,10 +191,10 @@ export class TableLayoutManager<TData extends TableRecord> {
             : Math.floor(allowedDelta);
         rightColumn!.columnInternals.currentPixelWidth! -= actualDelta;
 
-        if (actualDelta < Math.abs(currentDelta) && activeColumnIndex < this.table.columns.length - 2 && delta > 0) {
-            currentDelta -= allowedDelta;
-            this.performCascadeSizeRight(activeColumnIndex + 1, currentDelta);
-        }
+        // if (actualDelta < Math.abs(currentDelta) && activeColumnIndex < this.table.columns.length - 2 && delta > 0) {
+        //     currentDelta -= allowedDelta;
+        //     this.performCascadeSizeRight(activeColumnIndex + 1, currentDelta);
+        // }
     }
 
     private flagActiveColumnDividers(activeColumnIndex: number): void {

@@ -165,6 +165,12 @@ export class Table<
     @observable
     public firstSortedColumn?: TableColumn;
 
+    /**
+     * @internal
+     */
+    @observable
+    public tableWidthFactor = 1;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();

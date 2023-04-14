@@ -21,7 +21,9 @@ import { tableGroupRowTag } from './components/group-row';
 
 // prettier-ignore
 export const template = html<Table>`
-    <template role="grid" ${children({ property: 'childItems', filter: elements() })}>
+    <template
+        role="grid"
+        ${children({ property: 'childItems', filter: elements() })}>
         <div class="table-container" style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -29,6 +31,7 @@ export const template = html<Table>`
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
             --ni-private-table-cursor-override: ${x => (x.isColumnBeingSized ? 'col-resize' : 'default')};
+            --ni-private-table-total-width: ${x => x.tableWidthFactor * 100}%;
             ">
             <div role="rowgroup" class="header-row-container">
                 <div class="header-row" ${ref('rowHeader')} role="row">
@@ -45,9 +48,7 @@ export const template = html<Table>`
                                     >
                                         <slot name="${x => x.slot}"></slot>
                                     </${tableHeaderTag}>
-                                ${when((_, c) => c.index < (c.parent as Table).columns.length - 1, html`
-                                    <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onRightDividerMouseDown(c.index)}"></div>
-                                `)}
+                                <div class="column-divider right" @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.index)}"></div>
                             </div>
                         `)}
                     `, { positioning: true })}

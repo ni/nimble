@@ -23,7 +23,7 @@ export const styles = css`
     }
 
     .table-container {
-        overflow: hidden;
+        overflow: auto;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -32,30 +32,10 @@ export const styles = css`
         cursor: var(--ni-private-table-cursor-override);
     }
 
-    .table-viewport {
-        overflow: auto;
-        display: block;
-        height: 100%;
-        position: relative;
-    }
-
-    .table-scroll {
-        pointer-events: none;
-        position: absolute;
-        top: 0px;
-        width: 100%;
-        height: var(--ni-private-table-scroll-height);
-    }
-
-    .table-row-container {
-        width: 100%;
-        position: relative;
-        top: var(--ni-private-table-row-container-top);
-    }
-
     .header-row-container {
         position: sticky;
         top: 0;
+        width: var(--ni-private-table-total-width);
     }
 
     .header-row {
@@ -116,6 +96,29 @@ export const styles = css`
 
     .column-divider.right-limit {
         cursor: w-resize;
+    }
+
+    .table-viewport {
+        overflow-y: auto;
+        display: block;
+        height: 100%;
+        position: relative;
+        width: var(--ni-private-table-total-width);
+        overflow-x: hidden;
+    }
+
+    .table-scroll {
+        pointer-events: none;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: var(--ni-private-table-scroll-height);
+    }
+
+    .table-row-container {
+        width: 100%;
+        position: relative;
+        top: var(--ni-private-table-row-container-top);
     }
 
     .row {
