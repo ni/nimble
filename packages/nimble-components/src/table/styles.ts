@@ -5,9 +5,11 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
+    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
-    fillSelectedColor
+    fillSelectedColor,
+    smallPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -53,16 +55,34 @@ export const styles = css`
     .header-container {
         position: sticky;
         top: 0;
+        background: ${applicationBackgroundColor};
+        display: flex;
+        align-items: center;
+    }
+
+    .header-row-container {
+        display: inline-block;
+        width: 100%;
     }
 
     .header-row {
         display: grid;
-        background: ${applicationBackgroundColor};
+        align-items: center;
         position: relative;
         width: fit-content;
         min-width: 100%;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
         left: var(--ni-private-table-scroll-x);
+    }
+
+    .collapse-button-container {
+        display: inline-block;
+    }
+
+    .collapse-all-button {
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
+        margin-left: calc(${smallPadding} * 2);
     }
 
     .header-scrollbar-spacer {

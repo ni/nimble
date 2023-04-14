@@ -325,6 +325,12 @@ export class Table<
         }
     }
 
+    public handleCollapseAllGroupRows(): void {
+        this.collapsedRows.clear();
+        this.table.getRowModel().rows.forEach(row => this.collapsedRows.add(row.id));
+        this.table.toggleAllRowsExpanded(false);
+    }
+
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();

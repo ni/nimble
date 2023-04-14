@@ -18,6 +18,9 @@ import {
     TableRowSelectionState
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
+import { buttonTag } from '../button';
+import { ButtonAppearance } from '../button/types';
+import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -30,19 +33,31 @@ export const template = html<Table>`
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}
             ">
             <div role="rowgroup" class="header-container">
-                <div class="header-row" role="row">
-                    ${repeat(x => x.columns, html<TableColumn>`
-                        ${when(x => !x.columnHidden, html<TableColumn, Table>`
-                            <${tableHeaderTag}
-                                class="header"
-                                sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
-                                ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                            >
-                                <slot name="${x => x.slot}"></slot>
-                            </${tableHeaderTag}>
+                <div class="collapse-button-container" role="gridcell">
+                    <${buttonTag}
+                        class="collapse-all-button"
+                        content-hidden
+                        appearance="${ButtonAppearance.ghost}"
+                        @click="${x => x.handleCollapseAllGroupRows()}"
+                        >
+                        <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                    </${buttonTag}>
+                </div>
+                <div class="header-row-container">
+                    <div class="header-row" role="row">
+                        ${repeat(x => x.columns, html<TableColumn>`
+                            ${when(x => !x.columnHidden, html<TableColumn, Table>`
+                                <${tableHeaderTag}
+                                    class="header"
+                                    sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
+                                    ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                >
+                                    <slot name="${x => x.slot}"></slot>
+                                </${tableHeaderTag}>
+                            `)}
                         `)}
-                    `)}
-                    <div class="header-scrollbar-spacer"></div>
+                        <div class="header-scrollbar-spacer"></div>
+                    </div>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
