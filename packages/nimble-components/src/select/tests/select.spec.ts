@@ -120,7 +120,7 @@ describe('Select', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
             const viewTemplate = html`
-                <nimble-select position="below">
+                <nimble-select position="above">
                     ${repeat(() => [...Array(100).keys()], html<number>`
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
                 </nimble-select>
