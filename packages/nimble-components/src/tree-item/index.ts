@@ -1,12 +1,14 @@
+import { Notifier, observable, Observable } from '@microsoft/fast-element';
 import {
-    treeItemTemplate as template,
     TreeItem as FoundationTreeItem,
     TreeItemOptions,
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import type { TreeView } from '../tree-view';
+import type { ISelectable, ISelectableSubtree } from '../tree-view/types';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,13 +26,75 @@ declare global {
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-export class TreeItem extends FoundationTreeItem {
+export class TreeItem
+    extends FoundationTreeItem
+    implements ISelectable, ISelectableSubtree {
+    /**
+     * @internal
+     */
+    @observable
+    public subtreeHasSelection = false;
+
+    private childNotifiers: Notifier[] = [];
+
     public override connectedCallback(): void {
         super.connectedCallback();
-        const treeView = this.getParentTreeView();
-        if (treeView && this.selected) {
-            treeView.updateGroupSelectionOnRootParentTreeItem(this);
+        this.observeChildren();
+        this.addEventListener('selected-change', () => this.onSelectedChange());
+    }
+
+    /**
+     * @internal
+     */
+    public handleChange(_source: unknown, _args: unknown): void {
+        this.updateSubtreeHasSelection();
+    }
+
+    /**
+     * @internal
+     */
+    public childItemsChanged(): void {
+        this.observeChildren();
+        this.updateSubtreeHasSelection();
+    }
+
+    /**
+     * @internal
+     */
+    public isGroupSelected(): boolean {
+        const parentTreeView = this.getParentTreeView();
+        return (
+            this.parentElement === parentTreeView && this.subtreeHasSelection
+        );
+    }
+
+    private onSelectedChange(): void {
+        this.updateSubtreeHasSelection();
+    }
+
+    private updateSubtreeHasSelection(): void {
+        this.subtreeHasSelection = this.selected
+            || (this.childItems !== undefined
+                && !!this.childItems.find(
+                    x => (x as ISelectableSubtree).subtreeHasSelection
+                ));
+    }
+
+    private observeChildren(): void {
+        this.removeChildObservers();
+
+        for (const child of this.childItems) {
+            const notifier = Observable.getNotifier(child);
+            notifier.subscribe(this, 'subtreeHasSelection');
+            this.childNotifiers.push(notifier);
         }
+    }
+
+    private removeChildObservers(): void {
+        this.childNotifiers.forEach(notifier => {
+            notifier.unsubscribe(this);
+        });
+        this.childNotifiers = [];
     }
 
     /**

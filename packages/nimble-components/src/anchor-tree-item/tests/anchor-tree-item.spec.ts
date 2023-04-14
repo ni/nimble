@@ -133,7 +133,7 @@ describe('Anchor Tree Item', () => {
             public root1!: TreeItem; // starts off expanded
             public root2!: TreeItem;
             public leaf1!: AnchorTreeItem; // starts off selected
-            public leaf2!: TreeItem;
+            public leaf2!: AnchorTreeItem;
             public leaf3!: AnchorTreeItem;
             public subRoot1!: TreeItem;
             public subRoot2!: TreeItem;
@@ -148,7 +148,7 @@ describe('Anchor Tree Item', () => {
                         <nimble-tree-item ${ref('subRoot1')}>SubRoot
                             <nimble-anchor-tree-item ${ref('leaf1')} href="#" selected>Leaf1</nimble-anchor-tree-item>
                         </nimble-tree-item>
-                        <nimble-tree-item ${ref('leaf2')}>Leaf 2</nimble-tree-item>
+                        <nimble-anchor-tree-item ${ref('leaf2')} href="#">Leaf 2</nimble-anchor-tree-item>
                     </nimble-tree-item>
                     <nimble-tree-item ${ref('root2')}>Root2
                         <nimble-tree-item ${ref('subRoot2')}>SubRoot 2
@@ -194,6 +194,40 @@ describe('Anchor Tree Item', () => {
             expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
             expect(model.root1.hasAttribute('group-selected')).toBe(true);
             expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
+        });
+
+        it('when leaf item is deselected, root parent tree loses "group-selected" attribute', async () => {
+            model.leaf1.selected = false;
+            await waitForUpdatesAsync();
+            expect(model.root1.hasAttribute('group-selected')).toBe(false);
+        });
+
+        it('when second leaf item under same root parent is selected, root parent tree item has "group-selected" attribute', async () => {
+            model.leaf2.selected = true;
+            await waitForUpdatesAsync();
+            expect(model.root1.hasAttribute('group-selected')).toBe(true);
+        });
+
+        it('when selected item is removed, root parent tree loses "group-selected" attribute', async () => {
+            expect(model.leaf1.selected).toBeTrue();
+            model.leaf1.remove();
+            await waitForUpdatesAsync();
+            expect(model.root1.hasAttribute('group-selected')).toBeFalse();
+        });
+
+        it('when non-selected item is removed, root parent tree keeps "group-selected" attribute', async () => {
+            model.leaf2.remove();
+            await waitForUpdatesAsync();
+            expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+        });
+
+        it('when selected item is added to tree, root parent tree gains "group-selected" attribute', async () => {
+            expect(model.leaf1.selected).toBeTrue();
+            model.leaf1.remove();
+            await waitForUpdatesAsync();
+            model.subRoot1.appendChild(model.leaf1);
+            await waitForUpdatesAsync();
+            expect(model.root1.hasAttribute('group-selected')).toBeTrue();
         });
     });
 });

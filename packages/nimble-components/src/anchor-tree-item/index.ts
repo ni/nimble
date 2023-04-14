@@ -1,4 +1,4 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AnchorOptions,
@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { keyArrowLeft, keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
-import type { TreeView } from '../tree-view';
+import type { ISelectable, ISelectableSubtree } from '../tree-view/types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -20,7 +20,9 @@ declare global {
 /**
  * A nimble-styled anchor tree item
  */
-export class AnchorTreeItem extends AnchorBase {
+export class AnchorTreeItem
+    extends AnchorBase
+    implements ISelectable, ISelectableSubtree {
     /**
      * When true, the control will appear selected by user interaction.
      * @public
@@ -39,13 +41,11 @@ export class AnchorTreeItem extends AnchorBase {
     @attr({ mode: 'boolean' })
     public disabled = false;
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        const treeView = this.getParentTreeView();
-        if (treeView && this.selected) {
-            treeView.updateGroupSelectionOnRootParentTreeItem(this);
-        }
-    }
+    /**
+     * @internal
+     */
+    @observable
+    public subtreeHasSelection = false;
 
     /**
      * Whether the tree is nested
@@ -122,15 +122,7 @@ export class AnchorTreeItem extends AnchorBase {
         if (this.$fastController.isConnected) {
             this.$emit('selected-change', this);
         }
-    }
-
-    /**
-     * This was copied directly from the FAST TreeItem implementation
-     * @returns the root tree view
-     */
-    private getParentTreeView(): TreeView | null {
-        const parentNode: Element | null = this.parentElement!.closest("[role='tree']");
-        return parentNode as TreeView;
+        this.subtreeHasSelection = this.selected;
     }
 }
 

@@ -7,11 +7,7 @@ import {
     TreeItem
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import {
-    groupSelectedAttribute,
-    ISelectable,
-    TreeViewSelectionMode
-} from './types';
+import { TreeViewSelectionMode } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -32,16 +28,6 @@ declare global {
 export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
-
-    private readonly groupSelectedItems: {
-        item: HTMLElement,
-        count: number
-    }[] = [];
-
-    public constructor() {
-        super();
-        this.addEventListener('selected-change', event => this.onSelectedChange(event));
-    }
 
     public override handleClick(e: Event): boolean {
         if (e.defaultPrevented) {
@@ -65,53 +51,6 @@ export class TreeView extends FoundationTreeView {
             item.expanded = !item.expanded;
         }
         return true;
-    }
-
-    /**
-     * @internal
-     */
-    public updateGroupSelectionOnRootParentTreeItem(
-        treeItem: ISelectable
-    ): void {
-        let currentItem: HTMLElement | null | undefined = treeItem;
-        while (
-            currentItem?.parentElement !== this
-            && currentItem?.parentElement !== null
-        ) {
-            currentItem = currentItem?.parentElement;
-        }
-
-        if (currentItem) {
-            const foundIndex = this.groupSelectedItems.findIndex(
-                x => x.item === currentItem
-            );
-            if (foundIndex !== -1) {
-                const record = this.groupSelectedItems[foundIndex];
-                record!.count += treeItem.selected ? 1 : -1;
-                if (record!.count === 0) {
-                    this.groupSelectedItems.splice(foundIndex, 1);
-                    currentItem.removeAttribute(groupSelectedAttribute);
-                } else if (record!.count < 0) {
-                    throw new Error('Negative ref count in record');
-                }
-            } else {
-                if (!treeItem.selected) {
-                    throw new Error(
-                        'Should have found record for previously selected group'
-                    );
-                }
-                this.groupSelectedItems.push({ item: currentItem, count: 1 });
-                currentItem.setAttribute(groupSelectedAttribute, 'true');
-            }
-        }
-    }
-
-    // This prevents the toggling of selected state when a TreeItem is clicked multiple times,
-    // which is what the FAST TreeItem allows
-    private onSelectedChange(event: Event): void {
-        this.updateGroupSelectionOnRootParentTreeItem(
-            event.target as ISelectable
-        );
     }
 
     private canSelect(item: TreeItem): boolean {

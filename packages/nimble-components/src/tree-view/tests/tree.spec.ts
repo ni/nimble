@@ -103,23 +103,36 @@ describe('TreeView', () => {
     it('when leaf item is deselected, root parent tree loses "group-selected" attribute', async () => {
         await clickElement(model.leaf3);
         model.leaf3.selected = false;
+        await waitForUpdatesAsync();
         expect(model.root2.hasAttribute('group-selected')).toBe(false);
     });
 
-    it('when secod leaf item under same root parent is selected, root parent tree item has "group-selected" attribute', async () => {
+    it('when second leaf item under same root parent is selected, root parent tree item has "group-selected" attribute', async () => {
         await clickElement(model.leaf1);
         await clickElement(model.leaf2);
         expect(model.root1.hasAttribute('group-selected')).toBe(true);
     });
 
-    it('when two selected leaf items are deselected, "group-selected" is removed after second deselection', () => {
-        model.leaf1.selected = true;
-        model.leaf2.selected = true;
-        expect(model.root1.hasAttribute('group-selected')).toBe(true);
-        model.leaf1.selected = false;
-        expect(model.root1.hasAttribute('group-selected')).toBe(true);
-        model.leaf2.selected = false;
-        expect(model.root1.hasAttribute('group-selected')).toBe(false);
+    it('when selected item is removed, root parent tree loses "group-selected" attribute', async () => {
+        expect(model.leaf2.selected).toBeTrue();
+        model.leaf2.remove();
+        await waitForUpdatesAsync();
+        expect(model.root1.hasAttribute('group-selected')).toBeFalse();
+    });
+
+    it('when non-selected item is removed, root parent tree keeps "group-selected" attribute', async () => {
+        model.leaf1.remove();
+        await waitForUpdatesAsync();
+        expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+    });
+
+    it('when selected item is added to tree, root parent tree gains "group-selected" attribute', async () => {
+        expect(model.leaf2.selected).toBeTrue();
+        model.leaf2.remove();
+        await waitForUpdatesAsync();
+        model.root1.appendChild(model.leaf2);
+        await waitForUpdatesAsync();
+        expect(model.root1.hasAttribute('group-selected')).toBeTrue();
     });
 
     it('when first leaf is clicked twice, leaf remains selected', async () => {
