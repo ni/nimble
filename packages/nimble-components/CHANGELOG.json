@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 13 Apr 2023 18:30:54 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "00bdcea5f139efb4409ccdfe54e02282ca80fea1",
+            "comment": "Anchor table column type HLD"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 12 Apr 2023 22:32:48 GMT",
       "tag": "@ni/nimble-components_v18.12.0",
       "version": "18.12.0",
