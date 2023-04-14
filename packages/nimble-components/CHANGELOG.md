@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 11 Apr 2023 01:58:34 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Apr 2023 14:26:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.1
+
+Fri, 14 Apr 2023 14:26:33 GMT
+
+### Patches
+
+- Add support for multi-select in the table ([ni/nimble@e6e882a](https://github.com/ni/nimble/commit/e6e882acfbaa112cc1d3bb280981dd8768e991b8))
 
 ## 18.12.0
 
