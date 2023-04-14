@@ -56,6 +56,25 @@ public class NimbleTableTests
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
+    [Theory]
+    [InlineData(TableRowSelectionMode.None, null)]
+    [InlineData(TableRowSelectionMode.Single, "single")]
+    [InlineData(TableRowSelectionMode.Multiple, "multiple")]
+    public void TextFieldAppearance_AttributeIsSet(TableRowSelectionMode value, string expectedAttribute)
+    {
+        var table = RenderWithPropertySet<TableRowSelectionMode?, TableRowData>(x => x.SelectionMode, value);
+
+        if (expectedAttribute == null)
+        {
+            Assert.DoesNotContain("selection-mode", table.Markup);
+        }
+        else
+        {
+            var expectedMarkup = $"selection-mode=\"${expectedAttribute}\"";
+            Assert.Contains(expectedMarkup, table.Markup);
+        }
+    }
+
     [Fact]
     public void NimbleTable_WithClassAttribute_HasTableMarkup()
     {
