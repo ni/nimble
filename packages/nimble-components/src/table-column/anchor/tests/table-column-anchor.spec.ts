@@ -70,7 +70,9 @@ describe('TableColumnAnchor', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    'no value'
+                );
             });
         }
 
@@ -95,7 +97,9 @@ describe('TableColumnAnchor', () => {
             firstColumn.placeholder = 'different value';
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('different value');
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                'different value'
+            );
         });
 
         it('changing data from value to null displays placeholder', async () => {
@@ -171,7 +175,11 @@ describe('TableColumnAnchor', () => {
             const focused: string[] = [];
             const disabled: string[] = [];
             for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(value, focused, disabled);
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(
                     `data "${value.name}" renders as "${value.name}"`,
@@ -194,7 +202,11 @@ describe('TableColumnAnchor', () => {
             const focused: string[] = [];
             const disabled: string[] = [];
             for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(value, focused, disabled);
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(
                     `placeholder "${value.name}" renders as "${value.name}"`,
@@ -204,7 +216,8 @@ describe('TableColumnAnchor', () => {
                         await element.setData([{ label: null }]);
                         await waitForUpdatesAsync();
 
-                        const firstColumn = element.columns[0] as TableColumnAnchor;
+                        const firstColumn = element
+                            .columns[0] as TableColumnAnchor;
                         firstColumn.placeholder = value.name;
                         await waitForUpdatesAsync();
 
@@ -219,7 +232,9 @@ describe('TableColumnAnchor', () => {
 
     describe('with href', () => {
         it('changing labelFieldName updates display', async () => {
-            await element.setData([{ label: 'foo', otherLabel: 'bar', link: 'url' }]);
+            await element.setData([
+                { label: 'foo', otherLabel: 'bar', link: 'url' }
+            ]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -245,7 +260,10 @@ describe('TableColumnAnchor', () => {
         const linkOptionData = [
             { name: 'hreflang', accessor: (x: Anchor) => x.hreflang },
             { name: 'ping', accessor: (x: Anchor) => x.ping },
-            { name: 'referrerpolicy', accessor: (x: Anchor) => x.referrerpolicy },
+            {
+                name: 'referrerpolicy',
+                accessor: (x: Anchor) => x.referrerpolicy
+            },
             { name: 'rel', accessor: (x: Anchor) => x.rel },
             { name: 'target', accessor: (x: Anchor) => x.target },
             { name: 'type', accessor: (x: Anchor) => x.type },
@@ -258,7 +276,9 @@ describe('TableColumnAnchor', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                expect(option.accessor(pageObject.getRenderedCellAnchor(0, 0))).toBe(`${option.name} value`);
+                expect(
+                    option.accessor(pageObject.getRenderedCellAnchor(0, 0))
+                ).toBe(`${option.name} value`);
             });
         }
 
@@ -294,14 +314,18 @@ describe('TableColumnAnchor', () => {
                 await element.setData([{ link: null }]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    'no value'
+                );
             });
 
             it('changing url from null to value displays value', async () => {
                 await element.setData([{ link: null }]);
                 await connect();
                 await waitForUpdatesAsync();
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    'no value'
+                );
 
                 await element.setData([{ link: 'foo' }]);
                 await waitForUpdatesAsync();
@@ -349,7 +373,10 @@ describe('TableColumnAnchor', () => {
             element.style.width = '200px';
             await connect();
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseover')
+            );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe(cellContents);
         });
@@ -359,7 +386,10 @@ describe('TableColumnAnchor', () => {
             await element.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseover')
+            );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe('');
         });
@@ -369,9 +399,15 @@ describe('TableColumnAnchor', () => {
             await element.setData([{ label: cellContents, link: 'url' }]);
             await connect();
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseover')
+            );
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseout'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseout')
+            );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe('');
         });
@@ -380,7 +416,11 @@ describe('TableColumnAnchor', () => {
             const focused: string[] = [];
             const disabled: string[] = [];
             for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(value, focused, disabled);
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(
                     `data "${value.name}" renders as "${value.name}"`,
@@ -388,7 +428,9 @@ describe('TableColumnAnchor', () => {
                     async () => {
                         await connect();
 
-                        await element.setData([{ label: value.name, link: 'url' }]);
+                        await element.setData([
+                            { label: value.name, link: 'url' }
+                        ]);
                         await waitForUpdatesAsync();
 
                         expect(pageObject.getRenderedCellContent(0, 0)).toBe(
@@ -403,7 +445,11 @@ describe('TableColumnAnchor', () => {
             const focused: string[] = [];
             const disabled: string[] = [];
             for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(value, focused, disabled);
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(
                     `data "${value.name}" renders as "${value.name}"`,
@@ -411,7 +457,9 @@ describe('TableColumnAnchor', () => {
                     async () => {
                         await connect();
 
-                        await element.setData([{ label: value.name, link: 'url' }]);
+                        await element.setData([
+                            { label: value.name, link: 'url' }
+                        ]);
                         await waitForUpdatesAsync();
 
                         expect(
