@@ -3,7 +3,9 @@
 public enum TableRowSelectionMode
 {
     None,
+#pragma warning disable CA1720 // Identifier contains type name
     Single,
+#pragma warning restore CA1720 // Identifier contains type name
     Multiple
 }
 
