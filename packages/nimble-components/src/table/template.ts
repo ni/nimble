@@ -15,16 +15,22 @@ import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
-    TableRowSelectionState
+    TableRowSelectionState,
+    TableRowSelectionToggleEventDetail
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
 import { buttonTag } from '../button';
 import { ButtonAppearance } from '../button/types';
 import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
+import { checkboxTag } from '../checkbox';
 
 // prettier-ignore
 export const template = html<Table>`
-    <template role="grid" ${children({ property: 'childItems', filter: elements() })}>
+    <template
+        role="grid"
+        aria-multiselectable="${x => x.ariaMultiSelectable}"
+        ${children({ property: 'childItems', filter: elements() })}
+    >
         <div class="table-container" style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -33,18 +39,29 @@ export const template = html<Table>`
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}
             ">
             <div role="rowgroup" class="header-container">
-                <div class="collapse-button-container" role="gridcell">
-                    <${buttonTag}
-                        class="collapse-all-button"
-                        content-hidden
-                        appearance="${ButtonAppearance.ghost}"
-                        @click="${x => x.handleCollapseAllGroupRows()}"
-                        >
-                        <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                    </${buttonTag}>
-                </div>
-                <div class="header-row-container">
-                    <div class="header-row" role="row">
+                <div class="header-row" role="row">
+                    ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
+                        <span role="columnheader" class="checkbox-container">
+                            <${checkboxTag}
+                                ${ref('selectionCheckbox')}
+                                class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                                @change="${async (x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
+                            >
+                            </${checkboxTag}>
+                        </span>
+                    `)}
+                    <span class="collapse-button-container" role="gridcell">
+                        <${buttonTag}
+                            class="collapse-all-button"
+                            content-hidden
+                            appearance="${ButtonAppearance.ghost}"
+                            @click="${x => x.handleCollapseAllGroupRows()}"
+                            style="--ni-private-collapse-button-visibility: ${x => (x.showCollapseAll ? 'visible' : 'hidden')}"
+                            >
+                            <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                        </${buttonTag}>
+                    </span>
+                    <span class="column-header-container">
                         ${repeat(x => x.columns, html<TableColumn>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
                                 <${tableHeaderTag}
@@ -57,7 +74,7 @@ export const template = html<Table>`
                             `)}
                         `)}
                         <div class="header-scrollbar-spacer"></div>
-                    </div>
+                    </span>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
@@ -74,8 +91,11 @@ export const template = html<Table>`
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
+                                    ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
+                                    selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
+                                    @group-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                     @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
-                                    >
+                                >
                                 </${tableGroupRowTag}>
                             `)}
                             ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
@@ -84,12 +104,14 @@ export const template = html<Table>`
                                     record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                     ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                     ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
+                                    ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
                                     :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                     :columns="${(_, c) => c.parent.columns}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     @click="${async (x, c) => c.parent.onRowClick(x.index)}"
-                                    @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
-                                    @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @row-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
+                                    @row-action-menu-beforetoggle="${async (x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @row-action-menu-toggle="${async (_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 >
                                 ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                     ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`

@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { standardPadding } from '../../../theme-provider/design-tokens';
+import { smallPadding, standardPadding } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('grid')}
@@ -9,11 +9,8 @@ export const styles = css`
         --ni-private-table-cell-nesting-level: 0;
         padding: 0px calc(${standardPadding} / 2);
         padding-left: calc(
-            ${standardPadding} / 2 +
-                (
-                    var(--ni-private-table-cell-nesting-level) *
-                        ${standardPadding} * 2
-                )
+            ${smallPadding} * 2 + ${standardPadding} * 2 *
+                var(--ni-private-table-cell-nesting-level)
         );
         align-self: center;
         height: 100%;

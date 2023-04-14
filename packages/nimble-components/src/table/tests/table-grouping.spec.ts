@@ -156,7 +156,7 @@ describe('Table grouping', () => {
         pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
             false,
             true,
             true
@@ -166,7 +166,7 @@ describe('Table grouping', () => {
         await element.setData(newData); // inserts row at beginning
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
             true,
             false,
             true,
@@ -192,12 +192,12 @@ describe('Table grouping', () => {
         pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true]);
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([false, true]);
 
         column2.groupIndex = 1;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
             true,
             true,
             true,
@@ -223,7 +223,7 @@ describe('Table grouping', () => {
         pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true]);
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([false, true]);
 
         column2.groupIndex = 1;
         await waitForUpdatesAsync();
@@ -234,7 +234,7 @@ describe('Table grouping', () => {
         await element.setData(newData);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([true, true]);
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([true, true]);
     });
 
     it('can group by multiple columns', async () => {
@@ -649,4 +649,8 @@ describe('Table grouping', () => {
             ]);
         });
     });
+
+    describe('collapse all button:', () => {
+        it('')
+    })
 });

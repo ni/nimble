@@ -325,69 +325,74 @@ const numberWithUnitCellView = NumberWithUnitCellView.compose({
 
 #### Exposing cell view events externally
 
-<!--
-TODO: Being actively discussed in: https://github.com/ni/nimble/pull/1153#discussion_r1160996644
-
-Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
+Because the cell view is not a descendant of the column element, we must add special support for the column to handle events that originate in the cells. A column will define a `delegatedEvents` property which is an array of event names that should be delegated. As this is a static property, it will be part of the `ColumnInternalsOptions` passed to the base column constructor.
 
 ```TS
-type TableColumnButtonCellData = TableStringField<'id'>;
-
-public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
+export interface ColumnInternalsOptions {
     ...
+    readonly delegatedEvents: readonly string[];
+    ...
+}
 
-    public cellRecordFieldNames = ['id'] as const;
-
-    @attr
-    public idKey: string;
-
-    public getDataRecordFieldNames(): string[] {
-        return [valueKey];
+export class ColumnInternals<TColumnConfig> {
+    ...
+    public readonly delegatedEvents: readonly string[];
+    ...
+    public constructor(options: ColumnInternalsOptions) {
+        this.delegatedEvents = options.delegatedEvents;
+        ...
     }
+}
 
-    public cellViewTag = 'table-cell-view-button';
+AnchorTableColumn extends TableColumn {
+    constructor() {
+        super({
+            delegatedEvents: ['click'],
+            ...
+        });
+    }
+    ...
+}
+```
 
-    public validateCellData(cellData: TCellRecord): void {
-        if (typeof(cellData['id']) !== 'string') {
-            throw new Error('Type for cellData is incorrect!');
+Upon connecting a cell view to the DOM, we will attach an event listener for each event type in `columnInternals.delegatedEvents`. The handler will wrap the original event in a new `CustomEvent` and dispatch that to the column.
+
+```TS
+this.addEventListener(delegatedEventName, event => {
+    this.column.dispatchEvent(new CustomEvent('delegated-event', {
+        details: {
+            originalEvent: event
         }
-    }
-}
-
-class ButtonCellView extends TableCellView<TableColumnButtonCellData> {
-    public onButtonClick(): void {
-        this.$emit('button-click', { data: this.cellRecord.id })
-    }
-}
-const buttonCellView = ButtonCellView.compose({
-    baseName: 'table-cell-view-button',
-    template: html<ButtonCellView>`
-        <nimble-button @click="${(x) => x.onButtonClick()}">
-            <span>Press Me</span>
-        </nimble-button>`,
-    styles: /* styling */
+    }));
 });
 ```
 
-Angular template:
-
-```HTML
-<nimble-table (button-click)="doSomething($event)">
-    <nimble-table-column-button></nimble-table-column-button>
-</nimble-table>
-```
-
-Angular code:
+The `CustomEvent`'s details will be of type `DelegatedEventEventDetails`:
 
 ```TS
-private doSomething(CustomEvent e): void {
-    ...
+export interface DelegatedEventEventDetails {
+    originalEvent: Event;
 }
-
 ```
 
-The exact pattern for how we expect event APIs to be implemented is TBD. The above is simply illustrative of one approach, but it's safe to say that the goal will be to provide frameworks like Angular the expected event binding APIs.
--->
+A client may register a listener for the `delegated-event` event on a table column. This listener will have access to the full original event, including the originating cell view via `event.target`. The cell view can expose anything necessary from its public API.
+
+```TS
+class AnchorColumnDirective {
+  @HostListener('delegated-event', ['$event.details.originalEvent'])
+  onDelegatedEvent(originalEvent: CustomEvent<DelegatedEventEventDetails>) {
+      if (originalEvent.type !== 'click') {
+          return;
+      }
+      if ((originalEvent as MouseEvent).button !== 0) {
+          return;
+      }
+      const cellView = originalEvent.target as TableColumnAnchorCellView;
+      this.doSomething(cellView.anchor.href);
+      originalEvent.preventDefault();
+  }
+}
+```
 
 ### Header Content
 

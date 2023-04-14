@@ -9,7 +9,8 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    smallPadding
+    smallPadding,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -66,15 +67,21 @@ export const styles = css`
     }
 
     .header-row {
-        display: grid;
-        align-items: center;
+        display: flex;
+        background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
         min-width: 100%;
-        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
         left: var(--ni-private-table-scroll-x);
+        align-items: center;
     }
 
+    .column-header-container {
+        display: grid;
+        width: 100%;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+    
     .collapse-button-container {
         display: inline-block;
     }
@@ -83,6 +90,7 @@ export const styles = css`
         width: ${controlSlimHeight};
         height: ${controlSlimHeight};
         margin-left: calc(${smallPadding} * 2);
+        visibility: var(--ni-private-collapse-button-visibility);
     }
 
     .header-scrollbar-spacer {
@@ -91,6 +99,18 @@ export const styles = css`
 
     .header {
         flex: 1;
+    }
+
+    .checkbox-container {
+        display: flex;
+    }
+
+    .selection-checkbox {
+        margin-left: ${standardPadding};
+    }
+
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
     }
 
     .row {
@@ -107,15 +127,18 @@ export const styles = css`
         pointer-events: none;
     }
 
-    :host([selection-mode='single']) .row:hover::before {
+    :host([selection-mode='single']) .row:hover::before,
+    :host([selection-mode='multiple']) .row:hover::before {
         background: ${fillHoverColor};
     }
 
-    :host([selection-mode='single']) .row[selected]::before {
+    :host([selection-mode='single']) .row[selected]::before,
+    :host([selection-mode='multiple']) .row[selected]::before {
         background: ${fillSelectedColor};
     }
 
-    :host([selection-mode='single']) .row[selected]:hover::before {
+    :host([selection-mode='single']) .row[selected]:hover::before,
+    :host([selection-mode='multiple']) .row[selected]:hover::before {
         background: ${fillHoverSelectedColor};
     }
 `.withBehaviors(
@@ -135,15 +158,18 @@ export const styles = css`
                 background: ${fillHoverColor};
             }
 
-            :host([selection-mode='single']) .row:hover::before {
+            :host([selection-mode='single']) .row:hover::before,
+            :host([selection-mode='multiple']) .row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.15)};
             }
 
-            :host([selection-mode='single']) .row[selected]::before {
+            :host([selection-mode='single']) .row[selected]::before,
+            :host([selection-mode='multiple']) .row[selected]::before {
                 background: ${hexToRgbaCssColor(White, 0.25)};
             }
 
-            :host([selection-mode='single']) .row[selected]:hover::before {
+            :host([selection-mode='single']) .row[selected]:hover::before,
+            :host([selection-mode='multiple']) .row[selected]:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.2)};
             }
         `
