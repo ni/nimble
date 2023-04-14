@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 14 Apr 2023 14:26:33 GMT",
+      "tag": "@ni/nimble-components_v18.12.1",
+      "version": "18.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e6e882acfbaa112cc1d3bb280981dd8768e991b8",
+            "comment": "Add support for multi-select in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 13 Apr 2023 18:30:54 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "00bdcea5f139efb4409ccdfe54e02282ca80fea1",
+            "comment": "Anchor table column type HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 12 Apr 2023 22:32:48 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "25071e6b1ee3264d0b738a56244b5f2b1494c3f0",
+            "comment": "Move to official Storybook 7 release"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Apr 2023 01:58:34 GMT",
       "tag": "@ni/nimble-components_v18.12.0",
       "version": "18.12.0",
