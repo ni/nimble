@@ -70,7 +70,7 @@ public class NimbleTableTests
         }
         else
         {
-            var expectedMarkup = $"selection-mode=\"${expectedAttribute}\"";
+            var expectedMarkup = $"selection-mode=\"{expectedAttribute}\"";
             Assert.Contains(expectedMarkup, table.Markup);
         }
     }
