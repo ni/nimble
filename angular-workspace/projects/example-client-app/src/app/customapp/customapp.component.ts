@@ -39,14 +39,7 @@ export class CustomAppComponent {
     public activeAnchorTabId = 'a-tab-2';
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
-    private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([
-        { id: '0', stringValue1: 'hello world', stringValue2: 'more text' },
-        { id: '1', stringValue1: 'foo', stringValue2: 'bar' },
-        { id: '2', stringValue1: 'candy', stringValue2: 'bar' },
-        { id: '3', stringValue1: 'dive', stringValue2: 'bar' },
-        { id: '4', stringValue1: 're', stringValue2: 'bar' },
-        { id: '5', stringValue1: 'last row', stringValue2: 'yay!' }
-    ]);
+    private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
