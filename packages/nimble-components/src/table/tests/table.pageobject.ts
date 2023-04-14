@@ -121,6 +121,9 @@ export class TablePageObject<T extends TableRecord> {
             rowIndex,
             columnIndex
         ).shadowRoot!.querySelector(anchorTag);
+        if (!anchor) {
+            throw new Error(`Anchor not found at cell ${rowIndex},${columnIndex}`);
+        }
         return anchor as Anchor;
     }
 
