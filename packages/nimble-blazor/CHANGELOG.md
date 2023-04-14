@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 05 Apr 2023 17:16:16 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Apr 2023 02:40:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.10
+
+Tue, 11 Apr 2023 02:40:33 GMT
+
+### Patches
+
+- Blazor row grouping support ([ni/nimble@036c36d](https://github.com/ni/nimble/commit/036c36d86d8c009579f1b4734b485785f0173b08))
+
+## 11.8.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update setData() to be async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
 
 ## 11.8.0
 

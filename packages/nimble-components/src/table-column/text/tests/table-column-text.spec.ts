@@ -18,7 +18,7 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-                <${tableColumnTextTag} field-name="field" placeholder="no value">
+                <${tableColumnTextTag} field-name="field" placeholder="no value" group-index="0">
                     Column 1
                 </${tableColumnTextTag}>
                 <${tableColumnTextTag} field-name="noPlaceholder">
@@ -51,7 +51,7 @@ describe('TableColumnText', () => {
     for (const testData of noValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         it(`displays placeholder string when ${testData.description}`, async () => {
-            element.setData(testData.data);
+            await element.setData(testData.data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -60,7 +60,7 @@ describe('TableColumnText', () => {
     }
 
     it('changing fieldName updates display', async () => {
-        element.setData([{ field: 'foo', anotherField: 'bar' }]);
+        await element.setData([{ field: 'foo', anotherField: 'bar' }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -72,7 +72,7 @@ describe('TableColumnText', () => {
     });
 
     it('changing placeholder updates display', async () => {
-        element.setData([{ field: null }]);
+        await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -84,26 +84,26 @@ describe('TableColumnText', () => {
     });
 
     it('changing data from value to null displays placeholder', async () => {
-        element.setData([{ field: 'foo' }]);
+        await element.setData([{ field: 'foo' }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
 
         const updatedValue = { field: null };
         const updatedData = [updatedValue];
-        element.setData(updatedData);
+        await element.setData(updatedData);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
     });
 
     it('changing data from null to value displays value', async () => {
-        element.setData([{ field: null }]);
+        await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
 
-        element.setData([{ field: 'foo' }]);
+        await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
@@ -115,7 +115,7 @@ describe('TableColumnText', () => {
 
         const firstColumn = element.columns[0] as TableColumnText;
         firstColumn.fieldName = undefined;
-        element.setData([{ field: 'foo' }]);
+        await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
@@ -124,7 +124,7 @@ describe('TableColumnText', () => {
     // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
     it('sets title when cell text is ellipsized #SkipFirefox', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -134,7 +134,7 @@ describe('TableColumnText', () => {
 
     it('does not set title when cell text is fully visible', async () => {
         const cellContents = 'short value';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -142,9 +142,9 @@ describe('TableColumnText', () => {
         expect(pageObject.getCellTitle(0, 0)).toBe('');
     });
 
-    it('removes title on mouseout', async () => {
+    it('removes title on mouseout of cell', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        element.setData([{ field: cellContents }]);
+        await element.setData([{ field: cellContents }]);
         await connect();
         await waitForUpdatesAsync();
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -152,6 +152,39 @@ describe('TableColumnText', () => {
         pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
         await waitForUpdatesAsync();
         expect(pageObject.getCellTitle(0, 0)).toBe('');
+    });
+
+    it('sets title when group header text is ellipsized', async () => {
+        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+        await element.setData([{ field: cellContents }]);
+        element.style.width = '200px';
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getGroupHeaderTitle(0)).toBe(cellContents);
+    });
+
+    it('does not set title when group header text is fully visible', async () => {
+        const cellContents = 'foo';
+        await element.setData([{ field: cellContents }]);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getGroupHeaderTitle(0)).toBe('');
+    });
+
+    it('removes title on mouseout of group header', async () => {
+        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
+        await element.setData([{ field: cellContents }]);
+        await connect();
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+        await waitForUpdatesAsync();
+        pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseout'));
+        await waitForUpdatesAsync();
+        expect(pageObject.getGroupHeaderTitle(0)).toBe('');
     });
 
     describe('various string values render as expected', () => {
@@ -166,7 +199,7 @@ describe('TableColumnText', () => {
                 async () => {
                     await connect();
 
-                    element.setData([{ field: value.name }]);
+                    await element.setData([{ field: value.name }]);
                     await waitForUpdatesAsync();
 
                     expect(pageObject.getRenderedCellContent(0, 0)).toBe(
@@ -188,7 +221,7 @@ describe('TableColumnText', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    element.setData([{ field: null }]);
+                    await element.setData([{ field: null }]);
                     await waitForUpdatesAsync();
 
                     const firstColumn = element.columns[0] as TableColumnText;
@@ -198,6 +231,55 @@ describe('TableColumnText', () => {
                     expect(pageObject.getRenderedCellContent(0, 0)).toBe(
                         value.name
                     );
+                }
+            );
+        }
+    });
+
+    describe('various string values render in group header as expected', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of wackyStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `data "${value.name}" renders as "${value.name}"`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await connect();
+
+                    await element.setData([{ field: value.name }]);
+                    await waitForUpdatesAsync();
+
+                    expect(
+                        pageObject.getRenderedGroupHeaderContent(0)
+                    ).toContain(value.name);
+                }
+            );
+        }
+    });
+
+    describe('placeholder assigned various strings render in group header as expected', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of wackyStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `placeholder "${value.name}" renders as "${value.name}"`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await connect();
+                    await element.setData([{ field: null }]);
+                    await waitForUpdatesAsync();
+
+                    const firstColumn = element.columns[0] as TableColumnText;
+                    firstColumn.placeholder = value.name;
+                    await waitForUpdatesAsync();
+
+                    expect(
+                        pageObject.getRenderedGroupHeaderContent(0)
+                    ).toContain(value.name);
                 }
             );
         }

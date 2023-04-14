@@ -5,7 +5,9 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    fillHoverColor
+    fillHoverColor,
+    fillHoverSelectedColor,
+    fillSelectedColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -85,8 +87,16 @@ export const styles = css`
         pointer-events: none;
     }
 
-    .row:hover::before {
+    :host([selection-mode='single']) .row:hover::before {
         background: ${fillHoverColor};
+    }
+
+    :host([selection-mode='single']) .row[selected]::before {
+        background: ${fillSelectedColor};
+    }
+
+    :host([selection-mode='single']) .row[selected]:hover::before {
+        background: ${fillHoverSelectedColor};
     }
 `.withBehaviors(
     themeBehavior(
@@ -105,8 +115,16 @@ export const styles = css`
                 background: ${fillHoverColor};
             }
 
-            .row:hover::before {
+            :host([selection-mode='single']) .row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.15)};
+            }
+
+            :host([selection-mode='single']) .row[selected]::before {
+                background: ${hexToRgbaCssColor(White, 0.25)};
+            }
+
+            :host([selection-mode='single']) .row[selected]:hover::before {
+                background: ${hexToRgbaCssColor(White, 0.2)};
             }
         `
     )

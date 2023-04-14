@@ -30,4 +30,8 @@ export const styles = css`
     :host(:hover) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
+
+    :host([selected]) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
+    }
 `;
