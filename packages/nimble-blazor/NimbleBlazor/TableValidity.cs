@@ -15,6 +15,8 @@ public interface ITableValidity
     public bool MissingColumnId { get; }
 
     public bool DuplicateSortIndex { get; }
+
+    public bool IdFieldNameNotConfigured { get; }
 }
 
 internal class TableValidity : ITableValidity
@@ -36,4 +38,7 @@ internal class TableValidity : ITableValidity
 
     [JsonPropertyName("duplicateSortIndex")]
     public bool DuplicateSortIndex { get; set; }
+
+    [JsonPropertyName("idFieldNameNotConfigured")]
+    public bool IdFieldNameNotConfigured { get; set; }
 }

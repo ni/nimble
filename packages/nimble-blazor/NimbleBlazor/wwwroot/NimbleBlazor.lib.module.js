@@ -88,6 +88,15 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbletablerowselectionchange', {
+        browserEventName: 'selection-change',
+        createEventArgs: event => {
+            return {
+                selectedRecordIds: event.detail.selectedRecordIds
+            };
+        }
+    });
 }
 
 window.NimbleBlazor = {
@@ -113,6 +122,13 @@ window.NimbleBlazor = {
         setData: async function (tableReference, data) {
             const dataObject = JSON.parse(data);
             await tableReference.setData(dataObject);
+        },
+        getSelectedRecordIds: async function (tableReference) {
+            await tableReference.getSelectedRecordIds();
+        },
+        setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
+            const parsedRecordIds = JSON.parse(selectedRecordIds);
+            await tableReference.setSelectedRecordIds(parsedRecordIds);
         },
         checkValidity: function (tableReference) {
             return tableReference.checkValidity();
