@@ -98,7 +98,7 @@ describe('Select', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
             const viewTemplate = html`
-                <nimble-select>
+                <nimble-select position="below">
                     ${repeat(() => [...Array(500).keys()], html<number>`
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
                 </nimble-select>
@@ -106,8 +106,10 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        // Disabled due to intermittancy, see: https://github.com/ni/nimble/issues/1172
-        xit('should limit dropdown height to viewport', async () => {
+        // The select must be set to position the list below, because the interaction
+        // between the karma tester's grid of dots, starting a new dot row, and automatic
+        // scrolling can cause this test to fail when the position is above.
+        it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
