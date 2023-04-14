@@ -124,7 +124,7 @@ window.NimbleBlazor = {
             await tableReference.setData(dataObject);
         },
         getSelectedRecordIds: async function (tableReference) {
-            return await tableReference.getSelectedRecordIds();
+            return tableReference.getSelectedRecordIds();
         },
         setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
             await tableReference.setSelectedRecordIds(selectedRecordIds);
