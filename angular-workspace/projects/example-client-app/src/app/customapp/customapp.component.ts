@@ -9,6 +9,7 @@ interface ComboboxItem {
 }
 
 interface SimpleTableRecord extends TableRecord {
+    id: string;
     stringValue1: string;
     stringValue2: string;
 }
@@ -39,12 +40,12 @@ export class CustomAppComponent {
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([
-        { stringValue1: 'hello world', stringValue2: 'more text' },
-        { stringValue1: 'foo', stringValue2: 'bar' },
-        { stringValue1: 'candy', stringValue2: 'bar' },
-        { stringValue1: 'dive', stringValue2: 'bar' },
-        { stringValue1: 're', stringValue2: 'bar' },
-        { stringValue1: 'last row', stringValue2: 'yay!' }
+        { id: '0', stringValue1: 'hello world', stringValue2: 'more text' },
+        { id: '1', stringValue1: 'foo', stringValue2: 'bar' },
+        { id: '2', stringValue1: 'candy', stringValue2: 'bar' },
+        { id: '3', stringValue1: 'dive', stringValue2: 'bar' },
+        { id: '4', stringValue1: 're', stringValue2: 'bar' },
+        { id: '5', stringValue1: 'last row', stringValue2: 'yay!' }
     ]);
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
@@ -92,6 +93,7 @@ export class CustomAppComponent {
     public onAddTableRow(): void {
         const tableData = this.tableDataSubject.value;
         tableData.push({
+            id: tableData.length.toString(),
             stringValue1: `new string ${tableData.length}`,
             stringValue2: `bar ${tableData.length}`
         });
