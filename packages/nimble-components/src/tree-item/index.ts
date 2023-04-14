@@ -5,8 +5,7 @@ import {
     DesignSystem
 } from '@microsoft/fast-foundation';
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
-import type { TreeView } from '../tree-view';
-import type { ISelectable, ISelectableSubtree } from '../tree-view/types';
+import type { ISelectableSubtree } from '../tree-view/types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -26,9 +25,7 @@ declare global {
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-export class TreeItem
-    extends FoundationTreeItem
-    implements ISelectable, ISelectableSubtree {
+export class TreeItem extends FoundationTreeItem implements ISelectableSubtree {
     /**
      * @internal
      */
@@ -62,9 +59,9 @@ export class TreeItem
      * @internal
      */
     public isGroupSelected(): boolean {
-        const parentTreeView = this.getParentTreeView();
         return (
-            this.parentElement === parentTreeView && this.subtreeHasSelection
+            this.parentElement?.closest("[role='tree']")
+                === this.parentElement && this.subtreeHasSelection
         );
     }
 
@@ -95,15 +92,6 @@ export class TreeItem
             notifier.unsubscribe(this);
         });
         this.childNotifiers = [];
-    }
-
-    /**
-     * This was copied directly from the FAST TreeItem implementation
-     * @returns the root tree view
-     */
-    private getParentTreeView(): TreeView | null {
-        const parentNode: Element | null = this.parentElement!.closest("[role='tree']");
-        return parentNode as TreeView;
     }
 }
 

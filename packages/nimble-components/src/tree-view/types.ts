@@ -9,10 +9,6 @@ export const TreeViewSelectionMode = {
 export type TreeViewSelectionMode =
     (typeof TreeViewSelectionMode)[keyof typeof TreeViewSelectionMode];
 
-export interface ISelectable extends HTMLElement {
-    selected: boolean;
-}
-
 export interface ISelectableSubtree extends HTMLElement {
     subtreeHasSelection: boolean;
 }
