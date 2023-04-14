@@ -68,6 +68,7 @@ export const template = html<Table>`
                                     class="header"
                                     sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
                                     ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                    :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                 >
                                     <slot name="${x => x.slot}"></slot>
                                 </${tableHeaderTag}>
