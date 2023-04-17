@@ -61,11 +61,6 @@ export const styles = css`
         align-items: center;
     }
 
-    .header-row-container {
-        display: inline-block;
-        width: 100%;
-    }
-
     .header-row {
         display: flex;
         background: ${applicationBackgroundColor};
