@@ -1,13 +1,14 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, Notifier, observable, Observable } from '@microsoft/fast-element';
 import {
-    treeViewTemplate as template,
     TreeView as FoundationTreeView,
     DesignSystem,
     isTreeItemElement,
-    TreeItem
+    TreeItem as FoundationTreeItem
 } from '@microsoft/fast-foundation';
+import { TreeItem } from '../tree-item';
 import { styles } from './styles';
-import { TreeViewSelectionMode } from './types';
+import { template } from './template';
+import { TreeViewSelectionMode, ISelectable } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -29,6 +30,11 @@ export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
 
+    @observable
+    public descendants: Element[] = [];
+
+    private itemNotifiers: Notifier[] = [];
+
     public override handleClick(e: Event): boolean {
         if (e.defaultPrevented) {
             // handled, do nothing
@@ -40,7 +46,7 @@ export class TreeView extends FoundationTreeView {
             return true;
         }
 
-        const item: TreeItem = e.target as TreeItem;
+        const item: FoundationTreeItem = e.target as FoundationTreeItem;
         if (item.disabled) {
             return false;
         }
@@ -53,7 +59,14 @@ export class TreeView extends FoundationTreeView {
         return true;
     }
 
-    private canSelect(item: TreeItem): boolean {
+    /**
+     * @internal
+     */
+    public handleChange(_source: unknown, _args: unknown): void {
+        this.updateGroupSelections();
+    }
+
+    private canSelect(item: FoundationTreeItem): boolean {
         switch (this.selectionMode) {
             case TreeViewSelectionMode.all:
                 return true;
@@ -66,9 +79,56 @@ export class TreeView extends FoundationTreeView {
         }
     }
 
-    private itemHasChildren(item: TreeItem): boolean {
+    private itemHasChildren(item: FoundationTreeItem): boolean {
         const treeItemChild = item.querySelector('[role="treeitem"]');
         return treeItemChild !== null;
+    }
+
+    private updateGroupSelections(): void {
+        if (!this.slottedTreeItems) {
+            return;
+        }
+
+        for (const item of this.descendants) {
+            if (item.parentElement === this) {
+                (item as TreeItem).groupSelected = false;
+            }
+        }
+
+        for (let item of this.descendants) {
+            if ((item as unknown as ISelectable).selected) {
+                while (item.parentElement !== null && item.parentElement !== this) {
+                    item = item.parentElement;
+                }
+                if (item instanceof TreeItem) {
+                    item.groupSelected = true;
+                }
+            }
+        }
+    }
+
+    private descendantsChanged(): void {
+        this.observeItems();
+        this.updateGroupSelections();
+    }
+
+    private observeItems(): void {
+        this.removeItemObservers();
+
+        for (const item of this.descendants) {
+            const notifier = Observable.getNotifier(item);
+            notifier.subscribe(this, 'selected');
+            this.itemNotifiers.push(notifier);
+        }
+    }
+
+    private removeItemObservers(): void {
+        if (this.itemNotifiers) {
+            this.itemNotifiers.forEach(notifier => {
+                notifier.unsubscribe(this);
+            });
+        }
+        this.itemNotifiers = [];
     }
 }
 

@@ -81,6 +81,10 @@ describe('TreeView', () => {
         );
     });
 
+    it('should include a role of `tree`', () => {
+        expect(model.treeView.getAttribute('role')).to.equal('tree');
+    });
+
     it('root1 should have "group-selected" attribute set after initialization', () => {
         expect(model.root1.hasAttribute('group-selected')).toBe(true);
         expect(model.root2.hasAttribute('group-selected')).toBe(false);

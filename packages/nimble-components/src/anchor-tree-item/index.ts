@@ -1,4 +1,4 @@
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AnchorOptions,
@@ -7,7 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { keyArrowLeft, keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
-import type { ISelectableSubtree } from '../tree-view/types';
+import type { ISelectable } from '../tree-view/types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -20,7 +20,7 @@ declare global {
 /**
  * A nimble-styled anchor tree item
  */
-export class AnchorTreeItem extends AnchorBase implements ISelectableSubtree {
+export class AnchorTreeItem extends AnchorBase implements ISelectable {
     /**
      * When true, the control will appear selected by user interaction.
      * @public
@@ -38,12 +38,6 @@ export class AnchorTreeItem extends AnchorBase implements ISelectableSubtree {
      */
     @attr({ mode: 'boolean' })
     public disabled = false;
-
-    /**
-     * @internal
-     */
-    @observable
-    public subtreeHasSelection = false;
 
     /**
      * Whether the tree is nested
@@ -120,7 +114,6 @@ export class AnchorTreeItem extends AnchorBase implements ISelectableSubtree {
         if (this.$fastController.isConnected) {
             this.$emit('selected-change', this);
         }
-        this.subtreeHasSelection = this.selected;
     }
 }
 
