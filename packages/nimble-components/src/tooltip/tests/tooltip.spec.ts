@@ -30,7 +30,9 @@ describe('Tooltip', () => {
     }
 
     async function waitUntilLoaded(tooltip: Tooltip): Promise<void> {
-        const region = tooltip.shadowRoot!.querySelector('nimble-anchored-region')!;
+        const region = tooltip.shadowRoot!.querySelector(
+            'nimble-anchored-region'
+        )!;
         return new Promise((resolve, _reject) => {
             region.addEventListener('loaded', () => {
                 resolve();
