@@ -1,6 +1,5 @@
 import { attr, observable, volatile } from '@microsoft/fast-element';
 import {
-    Checkbox,
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
@@ -68,17 +67,7 @@ export class TableRow<
     public menuOpen = false;
 
     /** @internal */
-    @observable
-    public readonly selectionCheckbox?: Checkbox;
-
-    /** @internal */
     public readonly cellContainer!: HTMLSpanElement;
-
-    // Programmatically updating the selection state of a checkbox fires the 'change' event.
-    // Therefore, selection change events that occur due to programmatically updating
-    // the selection checkbox 'checked' value should be ingored.
-    // https://github.com/microsoft/fast/issues/5750
-    private ignoreSelectionChangeEvents = false;
 
     @volatile
     public get columnStates(): ColumnState[] {
@@ -120,15 +109,14 @@ export class TableRow<
         return null;
     }
 
-    public onSelectionChange(event: CustomEvent): void {
-        if (this.ignoreSelectionChangeEvents) {
-            return;
-        }
+    /** @internal */
+    public onSelectionCheckboxClick(event: MouseEvent): void {
+        event.stopImmediatePropagation();
 
-        const checkbox = event.target as Checkbox;
+        const wasSelected = this.selected;
         const detail: TableRowSelectionToggleEventDetail = {
-            oldState: !checkbox.checked,
-            newState: checkbox.checked
+            oldState: wasSelected,
+            newState: !wasSelected
         };
         this.$emit('row-selection-toggle', detail);
     }
@@ -186,22 +174,6 @@ export class TableRow<
         keys: readonly (TableFieldName | undefined)[]
     ): keys is TableFieldName[] {
         return keys.every(key => key !== undefined);
-    }
-
-    private selectedChanged(): void {
-        this.setSelectionCheckboxState();
-    }
-
-    private selectionCheckboxChanged(): void {
-        this.setSelectionCheckboxState();
-    }
-
-    private setSelectionCheckboxState(): void {
-        if (this.selectionCheckbox) {
-            this.ignoreSelectionChangeEvents = true;
-            this.selectionCheckbox.checked = this.selected;
-            this.ignoreSelectionChangeEvents = false;
-        }
     }
 }
 

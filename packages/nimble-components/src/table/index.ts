@@ -49,6 +49,7 @@ import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
+import { keyShift } from '@microsoft/fast-web-utilities';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -171,6 +172,12 @@ export class Table<
     @observable
     public firstSortedColumn?: TableColumn;
 
+    /**
+     * @internal
+     */
+    @observable
+    public disableUserSelect = false;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
@@ -183,6 +190,7 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
+    private lastClickedRowIndex?: number;
 
     public constructor() {
         super();
@@ -276,12 +284,16 @@ export class Table<
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
+        document.addEventListener('keydown', this.onKeyDown);
+        document.addEventListener('keyup', this.onKeyUp);
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
+        document.removeEventListener('keydown', this.onKeyDown);
+        document.removeEventListener('keyup', this.onKeyUp);
     }
 
     public checkValidity(): boolean {
@@ -316,26 +328,60 @@ export class Table<
             return;
         }
 
-        const rowState = this.tableData[rowIndex];
-        if (
-            rowState?.isGrouped
-            && rowState?.selectionState === TableRowSelectionState.selected
-        ) {
-            // Work around for https://github.com/TanStack/table/issues/4759
-            // Manually deselect all leaf rows when a fully selected group is being deselected.
-            this.deselectAllLeafRows(rowIndex);
+        const isShiftSelect = this.disableUserSelect && this.lastClickedRowIndex !== undefined;
+        if (isShiftSelect) {
+            const firstRowToSelect = Math.min(this.lastClickedRowIndex!, rowIndex);
+            const lastRowToSelect = Math.max(this.lastClickedRowIndex!, rowIndex);
+            return this.selectRowRange(firstRowToSelect, lastRowToSelect);
         } else {
-            this.table
-                .getRowModel()
-                .rows[rowIndex]?.toggleSelected(event.detail.newState);
+            this.lastClickedRowIndex = rowIndex;
+            const rowState = this.tableData[rowIndex];
+            if (
+                rowState?.isGrouped
+                && rowState?.selectionState === TableRowSelectionState.selected
+            ) {
+                // Work around for https://github.com/TanStack/table/issues/4759
+                // Manually deselect all leaf rows when a fully selected group is being deselected.
+                this.deselectAllLeafRows(rowIndex);
+            } else {
+                this.table
+                    .getRowModel()
+                    .rows[rowIndex]?.toggleSelected(event.detail.newState);
+            }
+            await this.emitSelectionChangeEvent();
         }
-
-        await this.emitSelectionChangeEvent();
     }
 
     /** @internal */
-    public async onRowClick(rowIndex: number): Promise<void> {
-        return this.selectSingleRow(rowIndex);
+    public async onRowClick(rowIndex: number, event: MouseEvent): Promise<void> {
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return;
+        }
+
+        const row = this.table.getRowModel().rows[rowIndex];
+        if (!row) {
+            return;
+        }
+
+        const isSingleRowSelection = this.selectionMode === TableRowSelectionMode.single
+            || (!event.shiftKey && !event.ctrlKey)
+            || this.lastClickedRowIndex === undefined;
+
+        if (isSingleRowSelection) {
+            this.lastClickedRowIndex = rowIndex;
+            return this.selectSingleRow(row);
+        }
+        if (event.ctrlKey) {
+            this.lastClickedRowIndex = rowIndex;
+            return this.toggleSelectionOfSingleRow(row);
+        }
+        if (event.shiftKey) {
+            const firstRowToSelect = Math.min(this.lastClickedRowIndex!, rowIndex);
+            const lastRowToSelect = Math.max(this.lastClickedRowIndex!, rowIndex);
+            return this.selectRowRange(firstRowToSelect, lastRowToSelect);
+        }
+        debugger;
+        throw new Error('how did I get here??');
     }
 
     /** @internal */
@@ -361,7 +407,7 @@ export class Table<
         if (this.selectionMode !== TableRowSelectionMode.none) {
             const row = this.table.getRowModel().rows[rowIndex];
             if (row && !row.getIsSelected()) {
-                await this.selectSingleRow(rowIndex);
+                await this.selectSingleRow(row);
             } else {
                 recordIds = await this.getSelectedRecordIds();
             }
@@ -465,6 +511,18 @@ export class Table<
 
     private readonly onViewPortScroll = (event: Event): void => {
         this.scrollX = (event.target as HTMLElement).scrollLeft;
+    };
+
+    private readonly onKeyDown = (event: KeyboardEvent): void => {
+        if (event.key === keyShift) {
+            this.disableUserSelect = true;
+        }
+    };
+
+    private readonly onKeyUp = (event: KeyboardEvent): void => {
+        if (event.key === keyShift) {
+            this.disableUserSelect = false;
+        }
     };
 
     private removeColumnObservers(): void {
@@ -652,10 +710,7 @@ export class Table<
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
                 nestingLevel: row.depth,
-                leafItemCount: row
-                    .getLeafRows()
-                    .filter(leafRow => leafRow.getLeafRows().length === 0)
-                    .length,
+                leafItemCount: this.getAllLeafRows(row).length,
                 groupColumn: this.getGroupRowColumn(row)
             };
             return rowState;
@@ -745,16 +800,7 @@ export class Table<
         this.refreshRows();
     }
 
-    private async selectSingleRow(rowIndex: number): Promise<void> {
-        if (this.selectionMode === TableRowSelectionMode.none) {
-            return;
-        }
-
-        const row = this.table.getRowModel().rows[rowIndex];
-        if (!row) {
-            return;
-        }
-
+    private async selectSingleRow(row: TanStackRow<TData>): Promise<void> {
         const currentSelection = await this.getSelectedRecordIds();
         if (currentSelection.length === 1 && currentSelection[0] === row.id) {
             // The clicked row is already the only selected row. Do nothing.
@@ -766,12 +812,41 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
+    private async toggleSelectionOfSingleRow(row: TanStackRow<TData>): Promise<void> {
+        row.toggleSelected();
+        await this.emitSelectionChangeEvent();
+    }
+
+    private async selectRowRange(startRowIndex: number, endRowIndex: number): Promise<void> {
+        // Calling row.toggleSelected() on N number of rows can be very slow. Instead, create
+        // the new selection state and only set it on TanStack once.
+        const newSelection: TanStackRowSelectionState = {};
+        for (let i = startRowIndex; i <= endRowIndex; i++) {
+            const row = this.table.getRowModel().rows[i];
+            if (!row) {
+                continue;
+            }
+
+            // Do not modify the selection state of group rows because their selection state will
+            // be determined by the selection state of all their leaf rows. However, if a group
+            // row is the last in the range, all of its leaf rows should be selected.
+            if (!row.getIsGrouped()) {
+                newSelection[row.id] = true;
+            } else if (i === endRowIndex) {
+                // If the selection is explicitly ending on a group row, select all of its leaf rows.
+                const leafRowIds = this.getAllLeafRows(row).map(x => x.id);
+                for (const id of leafRowIds) {
+                    newSelection[id] = true;
+                }
+            }
+        }
+        this.updateTableOptions({ state: { rowSelection: newSelection } });
+        await this.emitSelectionChangeEvent();
+    }
+
     private deselectAllLeafRows(rowIndex: number): void {
         const groupRow = this.table.getRowModel().rows[rowIndex]!;
-        const leafRowIds = groupRow
-            .getLeafRows()
-            .filter(leafRow => leafRow.getLeafRows().length === 0)
-            .map(leafRow => leafRow.id);
+        const leafRowIds = this.getAllLeafRows(groupRow).map(x => x.id);
 
         const selectionState = this.table.getState().rowSelection;
         for (const id of leafRowIds) {
@@ -783,6 +858,12 @@ export class Table<
                 rowSelection: selectionState
             }
         });
+    }
+
+    private getAllLeafRows(groupRow: TanStackRow<TData>): TanStackRow<TData>[] {
+        return groupRow
+            .getLeafRows()
+            .filter(leafRow => leafRow.getLeafRows().length === 0);
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {

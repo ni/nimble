@@ -128,7 +128,7 @@ describe('TableRow', () => {
         element.hideSelection = false;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox).toBeDefined();
+        expect(pageObject.getSelectionCheckbox()).toBeTruthy();
     });
 
     it('hides selection checkbox when row is selectable and selection is hidden', async () => {
@@ -137,7 +137,7 @@ describe('TableRow', () => {
         element.hideSelection = true;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox).not.toBeDefined();
+        expect(pageObject.getSelectionCheckbox()).toBeFalsy();
     });
 
     it('hides selection checkbox when row is not selectable', async () => {
@@ -146,7 +146,7 @@ describe('TableRow', () => {
         element.hideSelection = false;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox).not.toBeDefined();
+        expect(pageObject.getSelectionCheckbox()).toBeFalsy();
     });
 
     it('selection checkbox is checked when row is selected', async () => {
@@ -156,7 +156,7 @@ describe('TableRow', () => {
         element.selected = true;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox!.checked).toBeTrue();
+        expect(pageObject.getSelectionCheckbox()!.checked).toBeTrue();
     });
 
     it('selection checkbox is not checked when row is not selected', async () => {
@@ -166,7 +166,7 @@ describe('TableRow', () => {
         element.selected = false;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox!.checked).toBeFalse();
+        expect(pageObject.getSelectionCheckbox()!.checked).toBeFalse();
     });
 
     it('selection state can be set before connect()', async () => {
@@ -175,7 +175,7 @@ describe('TableRow', () => {
         element.selected = true;
         await connect();
 
-        expect(element.selectionCheckbox!.checked).toBeTrue();
+        expect(pageObject.getSelectionCheckbox()!.checked).toBeTrue();
     });
 
     it('checking selection checkbox fires "row-selection-toggle" event', async () => {
@@ -185,7 +185,7 @@ describe('TableRow', () => {
         await connect();
 
         const listener = createEventListener(element, 'row-selection-toggle');
-        element.selectionCheckbox!.click();
+        pageObject.getSelectionCheckbox()!.click();
         await listener.promise;
 
         expect(listener.spy).toHaveBeenCalledTimes(1);
@@ -204,7 +204,7 @@ describe('TableRow', () => {
         await connect();
 
         const listener = createEventListener(element, 'row-selection-toggle');
-        element.selectionCheckbox!.click();
+        pageObject.getSelectionCheckbox()!.click();
         await listener.promise;
 
         expect(listener.spy).toHaveBeenCalledTimes(1);
