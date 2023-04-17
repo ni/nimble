@@ -56,6 +56,10 @@ const simpleData = [
         lastName: 'Simpson'
     },
     {
+        lastName: 'Simpson',
+        url: 'https://www.google.com/search?q=simpsons'
+    },
+    {
         lastName: 'Simpson'
     }
 ];
@@ -67,13 +71,13 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     placeholderText: string;
 }
 
-const textColumnDescription = 'The `nimble-table-column-text` column is used to display string fields as text in the `nimble-table`.';
+const anchorColumnDescription = 'The `nimble-table-column-anchor` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: textColumnDescription
+                story: anchorColumnDescription
             }
         }
     },
@@ -102,7 +106,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         labelFieldName: {
             name: 'label-field-name',
             description:
-                'Set this attribute to identify which field in the data record contains the visible text value for each cell in the column. The field values must be of type `string`.',
+                'Set this attribute to identify which field in the data record contains the visible text value for each cell in the column. The field values must be of type `string`. If a given row does not define a property with this name, that row will use the url as the label.',
             options: ['firstName', 'lastName'],
             control: { type: 'radio' }
         },
@@ -116,13 +120,13 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         placeholderText: {
             name: 'placeholder',
             description:
-                'Optionally set this attribute to change the text that is displayed if the label value for a record is `null`, `undefined`, or not present. If unset, an empty string will be displayed.'
+                'Optionally set this attribute to change the text that is displayed if both the label value and url value for a record is `null`, `undefined`, or not present. If none of the three fields are defined, an empty string will be displayed.'
         }
     },
     args: {
         labelFieldName: 'firstName',
         hrefFieldName: 'url',
-        placeholderText: '(no first name provided)',
+        placeholderText: '(no first name or link provided)',
         ...sharedTableArgs(simpleData)
     }
 };
