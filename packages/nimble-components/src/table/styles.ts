@@ -56,9 +56,6 @@ export const styles = css`
     .header-container {
         position: sticky;
         top: 0;
-        background: ${applicationBackgroundColor};
-        display: flex;
-        align-items: center;
     }
 
     .header-row {
