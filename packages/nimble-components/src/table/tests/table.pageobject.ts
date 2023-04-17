@@ -9,6 +9,7 @@ import type { TableGroupHeaderView } from '../../table-column/base/group-header-
 import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableRow } from '../components/row';
 import type { TableGroupRow } from '../components/group-row';
+import { keyShift } from '@microsoft/fast-web-utilities';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -255,9 +256,10 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
-    public async clickRow(rowIndex: number): Promise<void> {
+    public async clickRow(rowIndex: number, modifiers: { shiftKey?: boolean, ctrlKey?: boolean } = { shiftKey: false, ctrlKey: false }): Promise<void> {
         const row = this.getRow(rowIndex);
-        row.click();
+        const event = new MouseEvent('click', modifiers);
+        row.dispatchEvent(event);
         await waitForUpdatesAsync();
     }
 
@@ -300,9 +302,23 @@ export class TablePageObject<T extends TableRecord> {
         return this.getSelectionStateOfCheckbox(checkbox);
     }
 
-    public clickRowSelectionCheckbox(rowIndex: number): void {
+    public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
+        if (shiftKey) {
+            const shiftKeyDownEvent = new KeyboardEvent('keydown', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyDownEvent);
+        }
+
         const checkbox = this.getSelectionCheckboxForRow(rowIndex);
         checkbox!.click();
+
+        if (shiftKey) {
+            const shiftKeyUpEvent = new KeyboardEvent('keyup', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyUpEvent);
+        }
     }
 
     public getGroupRowSelectionState(
@@ -312,9 +328,23 @@ export class TablePageObject<T extends TableRecord> {
         return this.getSelectionStateOfCheckbox(checkbox);
     }
 
-    public clickGroupRowSelectionCheckbox(groupRowIndex: number): void {
+    public clickGroupRowSelectionCheckbox(groupRowIndex: number, shiftKey = false): void {
+        if (shiftKey) {
+            const shiftKeyDownEvent = new KeyboardEvent('keydown', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyDownEvent);
+        }
+
         const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
         checkbox!.click();
+
+        if (shiftKey) {
+            const shiftKeyUpEvent = new KeyboardEvent('keyup', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyUpEvent);
+        }
     }
 
     private getRow(rowIndex: number): TableRow {

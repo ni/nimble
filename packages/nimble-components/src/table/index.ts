@@ -374,17 +374,15 @@ export class Table<
 
         const isSingleRowSelection = this.selectionMode === TableRowSelectionMode.single
             || (!event.shiftKey && !event.ctrlKey)
-            || this.lastClickedRowIndex === undefined;
+            || (!event.ctrlKey && event.shiftKey && this.lastClickedRowIndex === undefined);
 
         if (isSingleRowSelection) {
             this.lastClickedRowIndex = rowIndex;
             await this.selectSingleRow(row);
-        }
-        if (event.ctrlKey) {
+        } else if (event.ctrlKey) {
             this.lastClickedRowIndex = rowIndex;
             await this.toggleSelectionOfSingleRow(row);
-        }
-        if (event.shiftKey) {
+        } else if (event.shiftKey) {
             const firstRowToSelect = Math.min(
                 this.lastClickedRowIndex!,
                 rowIndex
