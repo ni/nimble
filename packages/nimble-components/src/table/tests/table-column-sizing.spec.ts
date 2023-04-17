@@ -51,13 +51,22 @@ async function growTableToGivenRowWidth(
     table: Table<SimpleTableRecord>
 ): Promise<void> {
     if (!table.$fastController.isConnected) {
-        throw Error('You must call \'await connect()\' before calling this method');
+        throw Error(
+            "You must call 'await connect()' before calling this method"
+        );
     }
 
-    const collapseButton = table.shadowRoot?.querySelector('.collapse-all-button');
+    const collapseButton = table.shadowRoot?.querySelector(
+        '.collapse-all-button'
+    );
     const buttonWidth = collapseButton?.getBoundingClientRect().width;
     const buttonStyle = window.getComputedStyle(collapseButton!);
-    table.style.width = `${rowWidth + buttonWidth! + parseFloat(buttonStyle.marginLeft) + parseFloat(buttonStyle.marginRight)}px`;
+    table.style.width = `${
+        rowWidth
+        + buttonWidth!
+        + parseFloat(buttonStyle.marginLeft)
+        + parseFloat(buttonStyle.marginRight)
+    }px`;
     await waitForUpdatesAsync();
 }
 
@@ -92,7 +101,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 200,
-                column2ExpectedRenderedWidth: 200,
+                column2ExpectedRenderedWidth: 200
             },
             {
                 name: 'one column has larger fractionalWidth',
@@ -104,7 +113,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 200,
-                column2ExpectedRenderedWidth: 100,
+                column2ExpectedRenderedWidth: 100
             },
             {
                 name: 'first column set to use pixelWidth',
@@ -116,7 +125,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 300,
+                column2ExpectedRenderedWidth: 300
             },
             {
                 name: 'second column set to use pixelWidth',
@@ -128,7 +137,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: 100,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 300,
-                column2ExpectedRenderedWidth: 100,
+                column2ExpectedRenderedWidth: 100
             },
             {
                 name: 'both columns use pixelWidth',
@@ -140,7 +149,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: 100,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 100,
+                column2ExpectedRenderedWidth: 100
             },
             {
                 name: 'first column has smaller pixelWidth than minPixelWidth, results in column with size of minPixelWidth',
@@ -152,7 +161,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 75,
-                column2ExpectedRenderedWidth: 325,
+                column2ExpectedRenderedWidth: 325
             },
             {
                 name: 'combined minPixelWidth of first column and pixelWidth of second column being greater than table width, results in row size greater than table width',
@@ -164,7 +173,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: 350,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 350,
+                column2ExpectedRenderedWidth: 350
             },
             {
                 name: 'combined pixelWidth of first column and minPixelWidth of second column being greater than table width, results in row size greater than table width',
@@ -176,7 +185,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: 100,
                 column1ExpectedRenderedWidth: 350,
-                column2ExpectedRenderedWidth: 100,
+                column2ExpectedRenderedWidth: 100
             }
         ];
         const focused: string[] = [];
@@ -192,7 +201,10 @@ describe('Table Column Sizing', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    await growTableToGivenRowWidth(columnSizeTest.rowWidth, element);
+                    await growTableToGivenRowWidth(
+                        columnSizeTest.rowWidth,
+                        element
+                    );
                     await element.setData(simpleTableData);
                     await connect();
                     await waitForUpdatesAsync();
