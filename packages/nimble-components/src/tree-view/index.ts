@@ -8,7 +8,7 @@ import {
 import { TreeItem } from '../tree-item';
 import { styles } from './styles';
 import { template } from './template';
-import { TreeViewSelectionMode, ISelectable } from './types';
+import { TreeViewSelectionMode } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -84,16 +84,11 @@ export class TreeView extends FoundationTreeView {
         }
 
         for (let item of this.selectedItems) {
-            if ((item as unknown as ISelectable).selected) {
-                while (
-                    item.parentElement !== null
-                    && item.parentElement !== this
-                ) {
-                    item = item.parentElement;
-                }
-                if (item instanceof TreeItem) {
-                    item.groupSelected = true;
-                }
+            while (item.parentElement !== null && item.parentElement !== this) {
+                item = item.parentElement;
+            }
+            if (item instanceof TreeItem) {
+                item.groupSelected = true;
             }
         }
     }

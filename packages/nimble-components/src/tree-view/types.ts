@@ -8,7 +8,3 @@ export const TreeViewSelectionMode = {
 } as const;
 export type TreeViewSelectionMode =
     (typeof TreeViewSelectionMode)[keyof typeof TreeViewSelectionMode];
-
-export interface ISelectable {
-    selected: boolean;
-}

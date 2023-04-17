@@ -6,7 +6,6 @@ import {
     treeItemTemplate as template
 } from '@microsoft/fast-foundation';
 import { arrowExpanderUp16X16 } from '@ni/nimble-tokens/dist/icons/js';
-import type { ISelectable } from '../tree-view/types';
 import { styles } from './styles';
 
 declare global {
@@ -25,7 +24,7 @@ declare global {
  * Generates HTML Element: \<nimble-tree-item\>
  *
  */
-export class TreeItem extends FoundationTreeItem implements ISelectable {
+export class TreeItem extends FoundationTreeItem {
     @attr({ attribute: 'group-selected', mode: 'boolean' })
     public groupSelected = false;
 }

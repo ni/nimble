@@ -7,7 +7,6 @@ import {
 } from '@microsoft/fast-foundation';
 import { keyArrowLeft, keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
-import type { ISelectable } from '../tree-view/types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -20,7 +19,7 @@ declare global {
 /**
  * A nimble-styled anchor tree item
  */
-export class AnchorTreeItem extends AnchorBase implements ISelectable {
+export class AnchorTreeItem extends AnchorBase {
     /**
      * When true, the control will appear selected by user interaction.
      * @public
