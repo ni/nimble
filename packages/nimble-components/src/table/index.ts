@@ -28,6 +28,7 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
+import { keyShift } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -49,7 +50,6 @@ import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
-import { keyShift } from '@microsoft/fast-web-utilities';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -332,7 +332,7 @@ export class Table<
         if (isShiftSelect) {
             const firstRowToSelect = Math.min(this.lastClickedRowIndex!, rowIndex);
             const lastRowToSelect = Math.max(this.lastClickedRowIndex!, rowIndex);
-            return this.selectRowRange(firstRowToSelect, lastRowToSelect);
+            await this.selectRowRange(firstRowToSelect, lastRowToSelect);
         } else {
             this.lastClickedRowIndex = rowIndex;
             const rowState = this.tableData[rowIndex];
@@ -369,19 +369,17 @@ export class Table<
 
         if (isSingleRowSelection) {
             this.lastClickedRowIndex = rowIndex;
-            return this.selectSingleRow(row);
+            await this.selectSingleRow(row);
         }
         if (event.ctrlKey) {
             this.lastClickedRowIndex = rowIndex;
-            return this.toggleSelectionOfSingleRow(row);
+            await this.toggleSelectionOfSingleRow(row);
         }
         if (event.shiftKey) {
             const firstRowToSelect = Math.min(this.lastClickedRowIndex!, rowIndex);
             const lastRowToSelect = Math.max(this.lastClickedRowIndex!, rowIndex);
-            return this.selectRowRange(firstRowToSelect, lastRowToSelect);
+            await this.selectRowRange(firstRowToSelect, lastRowToSelect);
         }
-        debugger;
-        throw new Error('how did I get here??');
     }
 
     /** @internal */
