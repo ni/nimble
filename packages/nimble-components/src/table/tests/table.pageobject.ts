@@ -198,6 +198,14 @@ export class TablePageObject<T extends TableRecord> {
         return columnCell.getBoundingClientRect().width;
     }
 
+    public getTotalCellRenderedWidth(): number {
+        const row = this.getRow(0);
+        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
+        return Array.from(cells!).reduce((p, c) => {
+            return p + c.getBoundingClientRect().width;
+        }, 0);
+    }
+
     public async scrollToLastRowAsync(): Promise<void> {
         const scrollElement = this.tableElement.viewport;
         scrollElement.scrollTop = scrollElement.scrollHeight;

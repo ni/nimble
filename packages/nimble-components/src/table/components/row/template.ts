@@ -19,10 +19,7 @@ export const template = html<TableRow>`
                 </${checkboxTag}>
             </span>
         `)}
-        <span>
-            <div class="row-front-spacer">
-            </div>
-        </span>
+        <span class="row-front-spacer"></span>
 
         <span ${ref('cellContainer')} class="cell-container">
             ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
