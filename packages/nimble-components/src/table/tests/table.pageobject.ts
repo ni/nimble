@@ -256,6 +256,12 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
+    public async clickGroupRow(groupRowIndex: number): Promise<void> {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        groupRow.click();
+        await waitForUpdatesAsync();
+    }
+
     public async clickRow(rowIndex: number): Promise<void> {
         const row = this.getRow(rowIndex);
         row.click();
@@ -281,7 +287,13 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public isCollapseAllButtonVisible(): boolean {
-        return this.getCollapseAllButton() !== null;
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return (
+                window.getComputedStyle(collapseButton).visibility === 'visible'
+            );
+        }
+        return false;
     }
 
     public isTableSelectionCheckboxVisible(): boolean {
@@ -351,7 +363,7 @@ export class TablePageObject<T extends TableRecord> {
 
     private getCollapseAllButton(): Button | null {
         return this.tableElement.shadowRoot!.querySelector<Button>(
-            'collapse-all-button'
+            '.collapse-all-button'
         );
     }
 

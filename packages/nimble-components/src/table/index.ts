@@ -403,7 +403,10 @@ export class Table<
     /** @internal */
     public handleCollapseAllGroupRows(): void {
         this.collapsedRows.clear();
-        this.table.getRowModel().flatRows.filter(row => row.getIsGrouped()).forEach(row => this.collapsedRows.add(row.id));
+        this.table
+            .getRowModel()
+            .flatRows.filter(row => row.getIsGrouped())
+            .forEach(row => this.collapsedRows.add(row.id));
         this.table.toggleAllRowsExpanded(false);
     }
 
@@ -431,7 +434,10 @@ export class Table<
         }
 
         if (this.updateTracker.updateGroupRows) {
-            this.showCollapseAll = this.columns.find(column => (typeof column.columnInternals.groupIndex === 'number') && !column.columnInternals.groupingDisabled) !== undefined;
+            this.showCollapseAll = this.columns.find(
+                column => typeof column.columnInternals.groupIndex === 'number'
+                        && !column.columnInternals.groupingDisabled
+            ) !== undefined;
         }
     }
 
@@ -668,9 +674,7 @@ export class Table<
                 groupRowValue: row.getIsGrouped()
                     ? row.getValue(row.groupingColumnId!)
                     : undefined,
-                nestingLevel: row.getIsGrouped() || row.depth === 0
-                    ? row.depth
-                    : row.depth - 1,
+                nestingLevel: row.depth,
                 leafItemCount: row
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)

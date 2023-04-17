@@ -81,7 +81,7 @@ export const styles = css`
         width: 100%;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
     }
-    
+
     .collapse-button-container {
         display: inline-block;
     }
