@@ -2,8 +2,7 @@ import { attr, observable } from '@microsoft/fast-element';
 import {
     TreeView as FoundationTreeView,
     DesignSystem,
-    isTreeItemElement,
-    TreeItem as FoundationTreeItem
+    isTreeItemElement
 } from '@microsoft/fast-foundation';
 import { TreeItem } from '../tree-item';
 import { styles } from './styles';
@@ -44,7 +43,7 @@ export class TreeView extends FoundationTreeView {
             return true;
         }
 
-        const item: FoundationTreeItem = e.target as FoundationTreeItem;
+        const item: TreeItem = e.target as TreeItem;
         if (item.disabled) {
             return false;
         }
@@ -57,7 +56,7 @@ export class TreeView extends FoundationTreeView {
         return true;
     }
 
-    private canSelect(item: FoundationTreeItem): boolean {
+    private canSelect(item: TreeItem): boolean {
         switch (this.selectionMode) {
             case TreeViewSelectionMode.all:
                 return true;
@@ -70,7 +69,7 @@ export class TreeView extends FoundationTreeView {
         }
     }
 
-    private itemHasChildren(item: FoundationTreeItem): boolean {
+    private itemHasChildren(item: TreeItem): boolean {
         const treeItemChild = item.querySelector('[role="treeitem"]');
         return treeItemChild !== null;
     }
