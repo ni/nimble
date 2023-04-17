@@ -6,7 +6,7 @@ export const template = html<TreeView>`
     <template
         role="tree"
         ${ref('treeView')}
-        ${children({ property: 'descendants', subtree: true, selector: '*' })}
+        ${children({ property: 'selectedItems', subtree: true, selector: '[role="treeitem"][selected]', attributeFilter: ['role', 'selected'] })}
         @keydown="${(x, c) => x.handleKeyDown(c.event as KeyboardEvent)}"
         @focusin="${(x, c) => x.handleFocus(c.event as FocusEvent)}"
         @focusout="${(x, c) => x.handleBlur(c.event as FocusEvent)}"

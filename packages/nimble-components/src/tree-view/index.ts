@@ -1,9 +1,4 @@
-import {
-    attr,
-    Notifier,
-    observable,
-    Observable
-} from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     TreeView as FoundationTreeView,
     DesignSystem,
@@ -36,9 +31,7 @@ export class TreeView extends FoundationTreeView {
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
 
     @observable
-    public descendants: Element[] = [];
-
-    private itemNotifiers: Notifier[] = [];
+    public selectedItems: Element[] = [];
 
     public override handleClick(e: Event): boolean {
         if (e.defaultPrevented) {
@@ -64,13 +57,6 @@ export class TreeView extends FoundationTreeView {
         return true;
     }
 
-    /**
-     * @internal
-     */
-    public handleChange(_source: unknown, _args: unknown): void {
-        this.updateGroupSelections();
-    }
-
     private canSelect(item: FoundationTreeItem): boolean {
         switch (this.selectionMode) {
             case TreeViewSelectionMode.all:
@@ -89,18 +75,15 @@ export class TreeView extends FoundationTreeView {
         return treeItemChild !== null;
     }
 
-    private updateGroupSelections(): void {
-        if (!this.slottedTreeItems) {
-            return;
-        }
-
-        for (const item of this.descendants) {
-            if (item.parentElement === this) {
-                (item as TreeItem).groupSelected = false;
+    private selectedItemsChanged(): void {
+        for (let i = 0; i < this.childElementCount; i++) {
+            const item = this.children[i]!;
+            if (item instanceof TreeItem) {
+                item.groupSelected = false;
             }
         }
 
-        for (let item of this.descendants) {
+        for (let item of this.selectedItems) {
             if ((item as unknown as ISelectable).selected) {
                 while (
                     item.parentElement !== null
@@ -113,30 +96,6 @@ export class TreeView extends FoundationTreeView {
                 }
             }
         }
-    }
-
-    private descendantsChanged(): void {
-        this.observeItems();
-        this.updateGroupSelections();
-    }
-
-    private observeItems(): void {
-        this.removeItemObservers();
-
-        for (const item of this.descendants) {
-            const notifier = Observable.getNotifier(item);
-            notifier.subscribe(this, 'selected');
-            this.itemNotifiers.push(notifier);
-        }
-    }
-
-    private removeItemObservers(): void {
-        if (this.itemNotifiers) {
-            this.itemNotifiers.forEach(notifier => {
-                notifier.unsubscribe(this);
-            });
-        }
-        this.itemNotifiers = [];
     }
 }
 
