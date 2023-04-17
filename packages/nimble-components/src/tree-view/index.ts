@@ -1,4 +1,9 @@
-import { attr, Notifier, observable, Observable } from '@microsoft/fast-element';
+import {
+    attr,
+    Notifier,
+    observable,
+    Observable
+} from '@microsoft/fast-element';
 import {
     TreeView as FoundationTreeView,
     DesignSystem,
@@ -97,7 +102,10 @@ export class TreeView extends FoundationTreeView {
 
         for (let item of this.descendants) {
             if ((item as unknown as ISelectable).selected) {
-                while (item.parentElement !== null && item.parentElement !== this) {
+                while (
+                    item.parentElement !== null
+                    && item.parentElement !== this
+                ) {
                     item = item.parentElement;
                 }
                 if (item instanceof TreeItem) {
