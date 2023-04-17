@@ -374,7 +374,9 @@ export class Table<
 
         const isSingleRowSelection = this.selectionMode === TableRowSelectionMode.single
             || (!event.shiftKey && !event.ctrlKey)
-            || (!event.ctrlKey && event.shiftKey && this.lastClickedRowIndex === undefined);
+            || (!event.ctrlKey
+                && event.shiftKey
+                && this.lastClickedRowIndex === undefined);
 
         if (isSingleRowSelection) {
             this.lastClickedRowIndex = rowIndex;

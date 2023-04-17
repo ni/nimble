@@ -1,5 +1,4 @@
 import { html } from '@microsoft/fast-element';
-import { keyShift } from '@microsoft/fast-web-utilities';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
@@ -126,7 +125,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-fdescribe('Table row selection', () => {
+describe('Table row selection', () => {
     function getEmittedRecordIdsFromSpy(spy: jasmine.Spy): string[] {
         const event = spy.calls.first()
             .args[0] as CustomEvent<TableRowSelectionEventDetail>;
@@ -643,91 +642,120 @@ fdescribe('Table row selection', () => {
                     clickModifiers: { shiftKey?: boolean, ctrlKey?: boolean },
                     expectedSelection: string[],
                     fireEvent: boolean
-                }[] = [{
-                    name: 'clicking a row with no previous selection selects the clicked row and emits an event',
-                    initialSelection: [],
-                    rowToClick: 0,
-                    clickModifiers: {},
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'CTRL + clicking a row with no previous selection selects the clicked row and emits an event',
-                    initialSelection: [],
-                    rowToClick: 0,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'SHIFT + clicking a row with no previous selection selects the clicked row and emits an event',
-                    initialSelection: [],
-                    rowToClick: 0,
-                    clickModifiers: { shiftKey: true },
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event',
-                    initialSelection: ['1'],
-                    rowToClick: 0,
-                    clickModifiers: {},
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'CTRL + clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event',
-                    initialSelection: ['1'],
-                    rowToClick: 0,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'SHIFT + clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event',
-                    initialSelection: ['1'],
-                    rowToClick: 0,
-                    clickModifiers: { shiftKey: true },
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'clicking the already selected row maintains its selection and does not emit an event',
-                    initialSelection: ['0'],
-                    rowToClick: 0,
-                    clickModifiers: {},
-                    expectedSelection: ['0'],
-                    fireEvent: false
-                }, {
-                    name: 'CTRL + clicking the already selected row maintains its selection and does not emit an event',
-                    initialSelection: ['0'],
-                    rowToClick: 0,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: ['0'],
-                    fireEvent: false
-                }, {
-                    name: 'SHIFT + clicking the already selected row maintains its selection and does not emit an event',
-                    initialSelection: ['0'],
-                    rowToClick: 0,
-                    clickModifiers: { shiftKey: true },
-                    expectedSelection: ['0'],
-                    fireEvent: false
-                }];
+                }[] = [
+                    {
+                        name: 'clicking a row with no previous selection selects the clicked row and emits an event',
+                        initialSelection: [],
+                        rowToClick: 0,
+                        clickModifiers: {},
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'CTRL + clicking a row with no previous selection selects the clicked row and emits an event',
+                        initialSelection: [],
+                        rowToClick: 0,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'SHIFT + clicking a row with no previous selection selects the clicked row and emits an event',
+                        initialSelection: [],
+                        rowToClick: 0,
+                        clickModifiers: { shiftKey: true },
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event',
+                        initialSelection: ['1'],
+                        rowToClick: 0,
+                        clickModifiers: {},
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'CTRL + clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event',
+                        initialSelection: ['1'],
+                        rowToClick: 0,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'SHIFT + clicking a row with a different row previously selected selects the clicked row and deselects the other row and emits an event',
+                        initialSelection: ['1'],
+                        rowToClick: 0,
+                        clickModifiers: { shiftKey: true },
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'clicking the already selected row maintains its selection and does not emit an event',
+                        initialSelection: ['0'],
+                        rowToClick: 0,
+                        clickModifiers: {},
+                        expectedSelection: ['0'],
+                        fireEvent: false
+                    },
+                    {
+                        name: 'CTRL + clicking the already selected row maintains its selection and does not emit an event',
+                        initialSelection: ['0'],
+                        rowToClick: 0,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: ['0'],
+                        fireEvent: false
+                    },
+                    {
+                        name: 'SHIFT + clicking the already selected row maintains its selection and does not emit an event',
+                        initialSelection: ['0'],
+                        rowToClick: 0,
+                        clickModifiers: { shiftKey: true },
+                        expectedSelection: ['0'],
+                        fireEvent: false
+                    }
+                ];
                 const focused: string[] = [];
                 const disabled: string[] = [];
                 for (const configuration of configurations) {
-                    const specType = getSpecTypeByNamedList(configuration, focused, disabled);
+                    const specType = getSpecTypeByNamedList(
+                        configuration,
+                        focused,
+                        disabled
+                    );
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
                     specType(configuration.name, async () => {
-                        await element.setSelectedRecordIds(configuration.initialSelection);
-                        await pageObject.clickRow(configuration.rowToClick, configuration.clickModifiers);
+                        await element.setSelectedRecordIds(
+                            configuration.initialSelection
+                        );
+                        await pageObject.clickRow(
+                            configuration.rowToClick,
+                            configuration.clickModifiers
+                        );
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(jasmine.arrayWithExactContents(configuration.expectedSelection));
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(
+                                configuration.expectedSelection
+                            )
+                        );
                         if (configuration.fireEvent) {
-                            expect(selectionChangeListener.spy).toHaveBeenCalledTimes(
-                                1
-                            );
+                            expect(
+                                selectionChangeListener.spy
+                            ).toHaveBeenCalledTimes(1);
                             const emittedIds = getEmittedRecordIdsFromSpy(
                                 selectionChangeListener.spy
                             );
-                            expect(emittedIds).toEqual(jasmine.arrayWithExactContents(configuration.expectedSelection));
+                            expect(emittedIds).toEqual(
+                                jasmine.arrayWithExactContents(
+                                    configuration.expectedSelection
+                                )
+                            );
                         } else {
-                            expect(selectionChangeListener.spy).not.toHaveBeenCalled();
+                            expect(
+                                selectionChangeListener.spy
+                            ).not.toHaveBeenCalled();
                         }
                     });
                 }
@@ -753,98 +781,128 @@ fdescribe('Table row selection', () => {
                     clickModifiers: { shiftKey?: boolean, ctrlKey?: boolean },
                     expectedSelection: string[],
                     fireEvent: boolean
-                }[] = [{
-                    name: 'clicking a row with no previous selection selects the clicked row and emits an event',
-                    initialSelection: [],
-                    rowToClick: 0,
-                    clickModifiers: {},
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'CTRL + clicking a row with no previous selection selects the clicked row and emits an event',
-                    initialSelection: [],
-                    rowToClick: 0,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'clicking a row with one different row previously selected selects the clicked row and deselects the other row and emits an event',
-                    initialSelection: ['1'],
-                    rowToClick: 0,
-                    clickModifiers: { },
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'CTRL + clicking a row with one different row previously selected selects the clicked row, keeps the other row selected, and emits an event',
-                    initialSelection: ['1'],
-                    rowToClick: 0,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: ['0', '1'],
-                    fireEvent: true
-                }, {
-                    name: 'clicking the already selected row maintains its selection and does not emit an event',
-                    initialSelection: ['0'],
-                    rowToClick: 0,
-                    clickModifiers: {},
-                    expectedSelection: ['0'],
-                    fireEvent: false
-                }, {
-                    name: 'CTRL + clicking the already selected row deselects it and emits an event',
-                    initialSelection: ['0'],
-                    rowToClick: 0,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: [],
-                    fireEvent: true
-                }, {
-                    name: 'clicking a row with multiple different rows previously selected selects the clicked row and deselects the other row and emits an event',
-                    initialSelection: ['1', '2'],
-                    rowToClick: 0,
-                    clickModifiers: {},
-                    expectedSelection: ['0'],
-                    fireEvent: true
-                }, {
-                    name: 'CTRL + clicking a row with multiple different rows previously adds the clicked row to the selection and emits an event',
-                    initialSelection: ['1', '2'],
-                    rowToClick: 0,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: ['0', '1', '2'],
-                    fireEvent: true
-                }, {
-                    name: 'clicking a selected row with multiple rows selected keeps the clicked row selected and deselects others emits an event',
-                    initialSelection: ['1', '2'],
-                    rowToClick: 1,
-                    clickModifiers: {},
-                    expectedSelection: ['1'],
-                    fireEvent: true
-                }, {
-                    name: 'CTRL + clicking a selected row with multiple rows selected deselects the clicked row, keeps others selected, and emits an event',
-                    initialSelection: ['1', '2'],
-                    rowToClick: 1,
-                    clickModifiers: { ctrlKey: true },
-                    expectedSelection: ['2'],
-                    fireEvent: true
-                }];
+                }[] = [
+                    {
+                        name: 'clicking a row with no previous selection selects the clicked row and emits an event',
+                        initialSelection: [],
+                        rowToClick: 0,
+                        clickModifiers: {},
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'CTRL + clicking a row with no previous selection selects the clicked row and emits an event',
+                        initialSelection: [],
+                        rowToClick: 0,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'clicking a row with one different row previously selected selects the clicked row and deselects the other row and emits an event',
+                        initialSelection: ['1'],
+                        rowToClick: 0,
+                        clickModifiers: {},
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'CTRL + clicking a row with one different row previously selected selects the clicked row, keeps the other row selected, and emits an event',
+                        initialSelection: ['1'],
+                        rowToClick: 0,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: ['0', '1'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'clicking the already selected row maintains its selection and does not emit an event',
+                        initialSelection: ['0'],
+                        rowToClick: 0,
+                        clickModifiers: {},
+                        expectedSelection: ['0'],
+                        fireEvent: false
+                    },
+                    {
+                        name: 'CTRL + clicking the already selected row deselects it and emits an event',
+                        initialSelection: ['0'],
+                        rowToClick: 0,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: [],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'clicking a row with multiple different rows previously selected selects the clicked row and deselects the other row and emits an event',
+                        initialSelection: ['1', '2'],
+                        rowToClick: 0,
+                        clickModifiers: {},
+                        expectedSelection: ['0'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'CTRL + clicking a row with multiple different rows previously adds the clicked row to the selection and emits an event',
+                        initialSelection: ['1', '2'],
+                        rowToClick: 0,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: ['0', '1', '2'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'clicking a selected row with multiple rows selected keeps the clicked row selected and deselects others emits an event',
+                        initialSelection: ['1', '2'],
+                        rowToClick: 1,
+                        clickModifiers: {},
+                        expectedSelection: ['1'],
+                        fireEvent: true
+                    },
+                    {
+                        name: 'CTRL + clicking a selected row with multiple rows selected deselects the clicked row, keeps others selected, and emits an event',
+                        initialSelection: ['1', '2'],
+                        rowToClick: 1,
+                        clickModifiers: { ctrlKey: true },
+                        expectedSelection: ['2'],
+                        fireEvent: true
+                    }
+                ];
                 const focused: string[] = [];
                 const disabled: string[] = [];
                 for (const configuration of configurations) {
-                    const specType = getSpecTypeByNamedList(configuration, focused, disabled);
+                    const specType = getSpecTypeByNamedList(
+                        configuration,
+                        focused,
+                        disabled
+                    );
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
                     specType(configuration.name, async () => {
-                        await element.setSelectedRecordIds(configuration.initialSelection);
-                        await pageObject.clickRow(configuration.rowToClick, configuration.clickModifiers);
+                        await element.setSelectedRecordIds(
+                            configuration.initialSelection
+                        );
+                        await pageObject.clickRow(
+                            configuration.rowToClick,
+                            configuration.clickModifiers
+                        );
 
                         const currentSelection = await element.getSelectedRecordIds();
-                        expect(currentSelection).toEqual(jasmine.arrayWithExactContents(configuration.expectedSelection));
+                        expect(currentSelection).toEqual(
+                            jasmine.arrayWithExactContents(
+                                configuration.expectedSelection
+                            )
+                        );
                         if (configuration.fireEvent) {
-                            expect(selectionChangeListener.spy).toHaveBeenCalledTimes(
-                                1
-                            );
+                            expect(
+                                selectionChangeListener.spy
+                            ).toHaveBeenCalledTimes(1);
                             const emittedIds = getEmittedRecordIdsFromSpy(
                                 selectionChangeListener.spy
                             );
-                            expect(emittedIds).toEqual(jasmine.arrayWithExactContents(configuration.expectedSelection));
+                            expect(emittedIds).toEqual(
+                                jasmine.arrayWithExactContents(
+                                    configuration.expectedSelection
+                                )
+                            );
                         } else {
-                            expect(selectionChangeListener.spy).not.toHaveBeenCalled();
+                            expect(
+                                selectionChangeListener.spy
+                            ).not.toHaveBeenCalled();
                         }
                     });
                 }
@@ -852,7 +910,9 @@ fdescribe('Table row selection', () => {
                 it('can select a row range by clicking a row and then clicking a row farther down the table', async () => {
                     const firstRowToSelect = 1;
                     const lastRowToSelect = simpleTableData.length - 2;
-                    const expectedSelection = simpleTableData.slice(1, -1).map(x => x.id);
+                    const expectedSelection = simpleTableData
+                        .slice(1, -1)
+                        .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
 
@@ -860,20 +920,30 @@ fdescribe('Table row selection', () => {
                         element,
                         'selection-change'
                     );
-                    await pageObject.clickRow(lastRowToSelect, { shiftKey: true });
+                    await pageObject.clickRow(lastRowToSelect, {
+                        shiftKey: true
+                    });
                     await multiSelectListener.promise;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                     expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                    const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                 });
 
                 it('can select a row range by clicking a row and then clicking a row farther up the table', async () => {
                     const firstRowToSelect = simpleTableData.length - 2;
                     const lastRowToSelect = 1;
-                    const expectedSelection = simpleTableData.slice(1, -1).map(x => x.id);
+                    const expectedSelection = simpleTableData
+                        .slice(1, -1)
+                        .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
 
@@ -881,20 +951,30 @@ fdescribe('Table row selection', () => {
                         element,
                         'selection-change'
                     );
-                    await pageObject.clickRow(lastRowToSelect, { shiftKey: true });
+                    await pageObject.clickRow(lastRowToSelect, {
+                        shiftKey: true
+                    });
                     await multiSelectListener.promise;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                     expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                    const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                 });
 
                 it('range selection with shift is based on row clicked prior to holding shift', async () => {
                     const firstRowToSelect = 3;
                     const lastRowToSelect = simpleTableData.length - 2;
-                    const expectedSelection = simpleTableData.slice(3, -1).map(x => x.id);
+                    const expectedSelection = simpleTableData
+                        .slice(3, -1)
+                        .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
                     await pageObject.clickRow(0, { shiftKey: true });
@@ -903,14 +983,22 @@ fdescribe('Table row selection', () => {
                         element,
                         'selection-change'
                     );
-                    await pageObject.clickRow(lastRowToSelect, { shiftKey: true });
+                    await pageObject.clickRow(lastRowToSelect, {
+                        shiftKey: true
+                    });
                     await multiSelectListener.promise;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                     expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                    const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                 });
 
                 it('can select multiple rows by clicking their selection checkboxes', async () => {
@@ -945,7 +1033,9 @@ fdescribe('Table row selection', () => {
                 it('can select a range using row checkboxes', async () => {
                     const firstRowToSelect = 1;
                     const lastRowToSelect = simpleTableData.length - 2;
-                    const expectedSelection = simpleTableData.slice(1, -1).map(x => x.id);
+                    const expectedSelection = simpleTableData
+                        .slice(1, -1)
+                        .map(x => x.id);
 
                     pageObject.clickRowSelectionCheckbox(firstRowToSelect);
 
@@ -957,16 +1047,24 @@ fdescribe('Table row selection', () => {
                     await multiSelectListener.promise;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                     expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                    const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                 });
 
                 it('can select a row range by clicking a row and then clicking a row farther up the table', async () => {
                     const firstRowToSelect = simpleTableData.length - 2;
                     const lastRowToSelect = 1;
-                    const expectedSelection = simpleTableData.slice(1, -1).map(x => x.id);
+                    const expectedSelection = simpleTableData
+                        .slice(1, -1)
+                        .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
 
@@ -974,20 +1072,30 @@ fdescribe('Table row selection', () => {
                         element,
                         'selection-change'
                     );
-                    await pageObject.clickRow(lastRowToSelect, { shiftKey: true });
+                    await pageObject.clickRow(lastRowToSelect, {
+                        shiftKey: true
+                    });
                     await multiSelectListener.promise;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                     expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                    const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                 });
 
                 it('range selection with shift is based on row clicked prior to holding shift', async () => {
                     const firstRowToSelect = 3;
                     const lastRowToSelect = simpleTableData.length - 2;
-                    const expectedSelection = simpleTableData.slice(3, -1).map(x => x.id);
+                    const expectedSelection = simpleTableData
+                        .slice(3, -1)
+                        .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
                     await pageObject.clickRow(0, { shiftKey: true });
@@ -996,14 +1104,22 @@ fdescribe('Table row selection', () => {
                         element,
                         'selection-change'
                     );
-                    await pageObject.clickRow(lastRowToSelect, { shiftKey: true });
+                    await pageObject.clickRow(lastRowToSelect, {
+                        shiftKey: true
+                    });
                     await multiSelectListener.promise;
 
                     const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                     expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                    const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                    expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                 });
 
                 describe('header selection checkbox', () => {
@@ -1336,15 +1452,26 @@ fdescribe('Table row selection', () => {
                     element,
                     'selection-change'
                 );
-                await pageObject.clickRow(firstGreenRowIndex, { shiftKey: true });
+                await pageObject.clickRow(firstGreenRowIndex, {
+                    shiftKey: true
+                });
                 await multiSelectListener.promise;
 
-                const expectedSelection = [lastBlueRecordId, firstGreenRecordId];
+                const expectedSelection = [
+                    lastBlueRecordId,
+                    firstGreenRecordId
+                ];
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
                 expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                const emittedIds = getEmittedRecordIdsFromSpy(
+                    multiSelectListener.spy
+                );
+                expect(emittedIds).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
             });
 
             it('shift clicking to a group row selects all rows in the group', async () => {
@@ -1364,15 +1491,27 @@ fdescribe('Table row selection', () => {
                     element,
                     'selection-change'
                 );
-                pageObject.clickGroupRowSelectionCheckbox(greenGroupIndex, true);
+                pageObject.clickGroupRowSelectionCheckbox(
+                    greenGroupIndex,
+                    true
+                );
                 await multiSelectListener.promise;
 
-                const expectedSelection = [lastBlueRecordId, ...allGreenRecordIds];
+                const expectedSelection = [
+                    lastBlueRecordId,
+                    ...allGreenRecordIds
+                ];
                 const currentSelection = await element.getSelectedRecordIds();
-                expect(currentSelection).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
                 expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                const emittedIds = getEmittedRecordIdsFromSpy(multiSelectListener.spy);
-                expect(emittedIds).toEqual(jasmine.arrayWithExactContents(expectedSelection));
+                const emittedIds = getEmittedRecordIdsFromSpy(
+                    multiSelectListener.spy
+                );
+                expect(emittedIds).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
             });
 
             describe('group selection checkbox', () => {
