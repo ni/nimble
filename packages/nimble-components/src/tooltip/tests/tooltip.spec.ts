@@ -29,6 +29,15 @@ describe('Tooltip', () => {
         return display !== 'none';
     }
 
+    async function waitUntilLoaded(tooltip: Tooltip): Promise<void> {
+        const region = tooltip.shadowRoot!.querySelector('nimble-anchored-region')!;
+        return new Promise((resolve, _reject) => {
+            region.addEventListener('loaded', () => {
+                resolve();
+            });
+        });
+    }
+
     beforeEach(async () => {
         ({ element, connect, disconnect, parent } = await setup());
         const button = document.createElement('button');
@@ -123,12 +132,12 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('should render the default state when selected #SkipFirefox', async () => {
+    it('should render the default state when selected', async () => {
         element.visible = true;
 
         await connect();
         await waitForUpdatesAsync();
+        await waitUntilLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -136,13 +145,13 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('should render the default state when selected and not render an icon when true #SkipFirefox', async () => {
+    it('should render the default state when selected and not render an icon when true', async () => {
         element.visible = true;
         element.iconVisible = true;
 
         await connect();
         await waitForUpdatesAsync();
+        await waitUntilLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -150,13 +159,13 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('should render the error severity when selected #SkipFirefox', async () => {
+    it('should render the error severity when selected', async () => {
         element.visible = true;
         element.severity = 'error';
 
         await connect();
         await waitForUpdatesAsync();
+        await waitUntilLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -164,14 +173,14 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('should render the error severity when selected and render the corresponding icon when true #SkipFirefox', async () => {
+    it('should render the error severity when selected and render the corresponding icon when true', async () => {
         element.visible = true;
         element.severity = 'error';
         element.iconVisible = true;
 
         await connect();
         await waitForUpdatesAsync();
+        await waitUntilLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeTrue();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -179,13 +188,13 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('should render the information severity when selected #SkipFirefox', async () => {
+    it('should render the information severity when selected', async () => {
         element.visible = true;
         element.severity = 'information';
 
         await connect();
         await waitForUpdatesAsync();
+        await waitUntilLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -193,14 +202,14 @@ describe('Tooltip', () => {
         await disconnect();
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('should render the information severity when selected and render the corresponding icon when true #SkipFirefox', async () => {
+    it('should render the information severity when selected and render the corresponding icon when true', async () => {
         element.visible = true;
         element.severity = 'information';
         element.iconVisible = true;
 
         await connect();
         await waitForUpdatesAsync();
+        await waitUntilLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeTrue();
