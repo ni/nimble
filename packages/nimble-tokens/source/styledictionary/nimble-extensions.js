@@ -8,17 +8,6 @@ const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
 const StyleDictionary = require('style-dictionary');
-const config = require('./config');
-
-// Workaround to include TypeScript definitions in output.
-// See: https://github.com/AdobeXD/design-system-package-dsp/issues/22
-
-config.platforms.js.files.push({
-    destination: 'tokens.d.ts',
-    format: 'typescript/es6-declarations'
-});
-
-module.exports = config;
 
 StyleDictionary.registerTransform({
     type: 'value',
@@ -110,26 +99,6 @@ StyleDictionary.registerTransformGroup({
     ]
 });
 
-const xamlStyleDictionary = StyleDictionary.extend(
-    {
-        source: [
-            'properties/colors.json'
-        ],
-        platforms: {
-            xaml: {
-                files: [
-                    {
-                        destination: 'colors.xaml',
-                        format: 'xaml/XamlColor'
-                    }
-                ],
-                transformGroup: 'ni-xaml-color',
-                buildPath: '../../dist/styledictionary/xaml/'
-            }
-        }
-    }
-);
-
 // Templates and transforms to build C# token class
 const cSharpClassColorTemplatePath = path.resolve(__dirname, './templates/cSharpClassColor.template');
 console.log(`cSharpClassColor template path: ${cSharpClassColorTemplatePath}`);
@@ -159,26 +128,3 @@ StyleDictionary.registerTransformGroup({
         'color/FromRgb'
     ]
 });
-
-const cSharpClassStyleDictionary = StyleDictionary.extend(
-    {
-        source: [
-            'properties/colors.json',
-        ],
-        platforms: {
-            xaml: {
-                files: [
-                    {
-                        destination: 'colors.cs',
-                        format: 'cSharpClass/Color'
-                    }
-                ],
-                transformGroup: 'ni-color-class',
-                buildPath: '../../dist/styledictionary/csharp/'
-            }
-        }
-    }
-);
-
-xamlStyleDictionary.buildAllPlatforms();
-cSharpClassStyleDictionary.buildAllPlatforms();
