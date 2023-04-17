@@ -17,6 +17,8 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
     }
 
     public getSelectionCheckbox(): Checkbox | null {
-        return this.tableRowElement.shadowRoot!.querySelector('.selection-checkbox');
+        return this.tableRowElement.shadowRoot!.querySelector(
+            '.selection-checkbox'
+        );
     }
 }

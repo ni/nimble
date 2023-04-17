@@ -330,8 +330,14 @@ export class Table<
 
         const isShiftSelect = this.disableUserSelect && this.lastClickedRowIndex !== undefined;
         if (isShiftSelect) {
-            const firstRowToSelect = Math.min(this.lastClickedRowIndex!, rowIndex);
-            const lastRowToSelect = Math.max(this.lastClickedRowIndex!, rowIndex);
+            const firstRowToSelect = Math.min(
+                this.lastClickedRowIndex!,
+                rowIndex
+            );
+            const lastRowToSelect = Math.max(
+                this.lastClickedRowIndex!,
+                rowIndex
+            );
             await this.selectRowRange(firstRowToSelect, lastRowToSelect);
         } else {
             this.lastClickedRowIndex = rowIndex;
@@ -353,7 +359,10 @@ export class Table<
     }
 
     /** @internal */
-    public async onRowClick(rowIndex: number, event: MouseEvent): Promise<void> {
+    public async onRowClick(
+        rowIndex: number,
+        event: MouseEvent
+    ): Promise<void> {
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
@@ -376,8 +385,14 @@ export class Table<
             await this.toggleSelectionOfSingleRow(row);
         }
         if (event.shiftKey) {
-            const firstRowToSelect = Math.min(this.lastClickedRowIndex!, rowIndex);
-            const lastRowToSelect = Math.max(this.lastClickedRowIndex!, rowIndex);
+            const firstRowToSelect = Math.min(
+                this.lastClickedRowIndex!,
+                rowIndex
+            );
+            const lastRowToSelect = Math.max(
+                this.lastClickedRowIndex!,
+                rowIndex
+            );
             await this.selectRowRange(firstRowToSelect, lastRowToSelect);
         }
     }
@@ -810,12 +825,17 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
-    private async toggleSelectionOfSingleRow(row: TanStackRow<TData>): Promise<void> {
+    private async toggleSelectionOfSingleRow(
+        row: TanStackRow<TData>
+    ): Promise<void> {
         row.toggleSelected();
         await this.emitSelectionChangeEvent();
     }
 
-    private async selectRowRange(startRowIndex: number, endRowIndex: number): Promise<void> {
+    private async selectRowRange(
+        startRowIndex: number,
+        endRowIndex: number
+    ): Promise<void> {
         // Calling row.toggleSelected() on N number of rows can be very slow. Instead, create
         // the new selection state and only set it on TanStack once.
         const newSelection: TanStackRowSelectionState = {};

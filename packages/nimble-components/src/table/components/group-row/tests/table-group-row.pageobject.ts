@@ -9,6 +9,8 @@ export class TableGroupRowPageObject {
     public constructor(private readonly tableGroupRowElement: TableGroupRow) {}
 
     public getSelectionCheckbox(): Checkbox | null {
-        return this.tableGroupRowElement.shadowRoot!.querySelector('.selection-checkbox');
+        return this.tableGroupRowElement.shadowRoot!.querySelector(
+            '.selection-checkbox'
+        );
     }
 }
