@@ -19,6 +19,7 @@ export const template = html<TableRow>`
                 </${checkboxTag}>
             </span>
         `)}
+        <!-- This is needed to help align the cell widths exactly with the column headers. -->
         <span class="row-front-spacer"></span>
 
         <span ${ref('cellContainer')} class="cell-container">

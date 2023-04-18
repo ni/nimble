@@ -36,7 +36,8 @@ export const template = html<Table>`
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
-            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}
+            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
+            --ni-private-collapse-button-visibility: ${x => (x.showCollapseAll ? 'visible' : 'hidden')};
             ">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
@@ -56,8 +57,7 @@ export const template = html<Table>`
                             content-hidden
                             appearance="${ButtonAppearance.ghost}"
                             @click="${x => x.handleCollapseAllGroupRows()}"
-                            style="--ni-private-collapse-button-visibility: ${x => (x.showCollapseAll ? 'visible' : 'hidden')}"
-                            >
+                        >
                             <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
                         </${buttonTag}>
                     </span>

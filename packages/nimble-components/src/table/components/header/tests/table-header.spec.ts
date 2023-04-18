@@ -94,4 +94,18 @@ describe('TableHeader', () => {
         expect(sortIcons.ascendingIcon).toBeFalsy();
         expect(sortIcons.descendingIcon).toBeTruthy();
     });
+
+    it('displays grouping indicator icon when grouped', async () => {
+        element.isGrouped = true;
+        await waitForUpdatesAsync();
+
+        const groupingIndicatorIcon = element.shadowRoot?.querySelector('.grouped-indicator');
+        expect(groupingIndicatorIcon).toBeTruthy();
+    });
+
+    it('grouping indicator icon is not shown when not grouped', () => {
+        expect(element.isGrouped).toBeFalse();
+        const groupingIndicatorIcon = element.shadowRoot?.querySelector('.grouped-indicator');
+        expect(groupingIndicatorIcon).toBeFalsy();
+    });
 });

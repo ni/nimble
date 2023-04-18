@@ -51,19 +51,17 @@ async function growTableToGivenRowWidth(
     table: Table<SimpleTableRecord>
 ): Promise<void> {
     if (!table.$fastController.isConnected) {
-        throw Error(
-            "You must call 'await connect()' before calling this method"
-        );
+        throw Error('The element must be connected before calling this method');
     }
 
     const collapseButton = table.shadowRoot?.querySelector(
         '.collapse-all-button'
     );
-    const buttonWidth = collapseButton?.getBoundingClientRect().width;
+    const buttonWidth = collapseButton!.getBoundingClientRect().width;
     const buttonStyle = window.getComputedStyle(collapseButton!);
     table.style.width = `${
         rowWidth
-        + buttonWidth!
+        + buttonWidth
         + parseFloat(buttonStyle.marginLeft)
         + parseFloat(buttonStyle.marginRight)
     }px`;

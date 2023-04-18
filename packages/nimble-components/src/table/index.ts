@@ -434,10 +434,7 @@ export class Table<
         }
 
         if (this.updateTracker.updateGroupRows) {
-            this.showCollapseAll = this.columns.find(
-                column => typeof column.columnInternals.groupIndex === 'number'
-                        && !column.columnInternals.groupingDisabled
-            ) !== undefined;
+            this.showCollapseAll = this.getColumnsParticipatingInGrouping().length > 0;
         }
     }
 

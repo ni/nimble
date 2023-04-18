@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Add collapse-all button",
+  "comment": "Add collapse-all button and grouping indicator to column headers",
   "packageName": "@ni/nimble-components",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"
