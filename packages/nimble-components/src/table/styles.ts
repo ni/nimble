@@ -106,6 +106,7 @@ export const styles = css`
     .group-row {
         background: ${sectionBackgroundColor};
         position: relative;
+        box-sizing: border-box;
     }
 
     .group-row::before {
@@ -123,6 +124,7 @@ export const styles = css`
     .row {
         background: ${applicationBackgroundColor};
         position: relative;
+        box-sizing: border-box;
     }
 
     .row::before {
