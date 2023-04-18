@@ -50,8 +50,8 @@ export class TableGroupRow extends FoundationElement {
     public readonly expandIcon!: HTMLElement;
 
     /**
-    * @internal
-    */
+     * @internal
+     */
     @observable
     public readonly selectionCheckbox?: Checkbox;
 
@@ -80,18 +80,6 @@ export class TableGroupRow extends FoundationElement {
             'transitionend',
             this.removeAnimatingClass
         );
-    }
-
-    /** @internal */
-    public onSelectionCheckboxClick(event: MouseEvent): void {
-        event.stopImmediatePropagation();
-
-        const wasSelected = this.selectionState === TableRowSelectionState.selected;
-        const detail: TableRowSelectionToggleEventDetail = {
-            oldState: wasSelected,
-            newState: !wasSelected
-        };
-        this.$emit('group-selection-toggle', detail);
     }
 
     /** @internal */

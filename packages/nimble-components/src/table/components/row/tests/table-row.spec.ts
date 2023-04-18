@@ -128,7 +128,7 @@ describe('TableRow', () => {
         element.hideSelection = false;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox).toBeTruthy();
+        expect(element.selectionCheckbox).toBeDefined();
     });
 
     it('hides selection checkbox when row is selectable and selection is hidden', async () => {
@@ -137,7 +137,7 @@ describe('TableRow', () => {
         element.hideSelection = true;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox).toBeFalsy();
+        expect(element.selectionCheckbox).not.toBeDefined();
     });
 
     it('hides selection checkbox when row is not selectable', async () => {
@@ -146,7 +146,7 @@ describe('TableRow', () => {
         element.hideSelection = false;
         await waitForUpdatesAsync();
 
-        expect(element.selectionCheckbox).toBeFalsy();
+        expect(element.selectionCheckbox).not.toBeDefined();
     });
 
     it('selection checkbox is checked when row is selected', async () => {

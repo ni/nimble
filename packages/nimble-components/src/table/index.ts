@@ -331,7 +331,7 @@ export class Table<
         const isShiftSelect = this.documentShiftKeyDown
             && this.shiftSelectStartRowId !== undefined;
         if (isShiftSelect) {
-            await this.selectRowRange(this.shiftSelectStartRowId, rowIndex);
+            await this.selectRowsTo(rowIndex);
         } else {
             const rowState = this.tableData[rowIndex];
             this.shiftSelectStartRowId = rowState?.id;
@@ -376,9 +376,10 @@ export class Table<
             await this.selectSingleRow(row);
         } else if (event.ctrlKey) {
             this.shiftSelectStartRowId = row.id;
-            await this.toggleSelectionOfSingleRow(row);
+            row.toggleSelected();
+            await this.emitSelectionChangeEvent();
         } else if (event.shiftKey) {
-            await this.selectRowRange(this.shiftSelectStartRowId, rowIndex);
+            await this.selectRowsTo(rowIndex);
         }
     }
 
@@ -812,22 +813,14 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
-    private async toggleSelectionOfSingleRow(
-        row: TanStackRow<TData>
-    ): Promise<void> {
-        row.toggleSelected();
-        await this.emitSelectionChangeEvent();
-    }
-
     private getRowIndexRange(
-        startRowId: string | undefined,
         endRowIndex: number
     ): [number, number] {
-        if (startRowId === undefined) {
+        if (this.shiftSelectStartRowId === undefined) {
             return [endRowIndex, endRowIndex];
         }
 
-        const startRow = this.table.getRowModel().rowsById[startRowId];
+        const startRow = this.table.getRowModel().rowsById[this.shiftSelectStartRowId];
         if (!startRow) {
             return [endRowIndex, endRowIndex];
         }
@@ -838,12 +831,10 @@ export class Table<
         return [min, max];
     }
 
-    private async selectRowRange(
-        startRowId: string | undefined,
+    private async selectRowsTo(
         clickedRowIndex: number
     ): Promise<void> {
         const [startRowIndex, endRowIndex] = this.getRowIndexRange(
-            startRowId,
             clickedRowIndex
         );
 
