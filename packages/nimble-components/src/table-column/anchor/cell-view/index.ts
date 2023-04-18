@@ -28,6 +28,8 @@ TableColumnAnchorColumnConfig
 
     /** @internal */
     public anchor?: Anchor;
+    /** @internal */
+    public textSpan?: HTMLSpanElement;
 
     @volatile
     public get content(): string {

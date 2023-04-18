@@ -31,11 +31,12 @@ export const template = html<TableColumnAnchorCellView>`
     ${when(
         x => typeof x.cellRecord.href !== 'string',
         html<TableColumnAnchorCellView>` <span
+            ${ref('textSpan')}
             class="${x => (typeof x.cellRecord.label === 'string' ? '' : 'placeholder')}"
             title=${x => (x.isValidContentAndHasOverflow ? x.content : null)}
-            @mouseover="${(x, c) => {
-        const span = c.event.target as HTMLElement;
-        x.isValidContentAndHasOverflow = !!x.content && span.offsetWidth < span.scrollWidth;
+            @mouseover="${x => {
+        x.isValidContentAndHasOverflow = !!x.content
+                    && x.textSpan!.offsetWidth < x.textSpan!.scrollWidth;
     }}"
             @mouseout="${x => {
         x.isValidContentAndHasOverflow = false;
