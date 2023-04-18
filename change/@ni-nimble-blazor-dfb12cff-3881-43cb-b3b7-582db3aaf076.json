@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Blazor support for row selection in the table",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
