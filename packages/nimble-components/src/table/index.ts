@@ -176,7 +176,7 @@ export class Table<
      * @internal
      */
     @observable
-    public disableUserSelect = false;
+    public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
@@ -190,7 +190,7 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    private lastClickedRowIndex?: number;
+    private shiftSelectStartRowIndex?: number;
 
     public constructor() {
         super();
@@ -328,19 +328,19 @@ export class Table<
             return;
         }
 
-        const isShiftSelect = this.disableUserSelect && this.lastClickedRowIndex !== undefined;
+        const isShiftSelect = this.documentShiftKeyDown && this.shiftSelectStartRowIndex !== undefined;
         if (isShiftSelect) {
             const firstRowToSelect = Math.min(
-                this.lastClickedRowIndex!,
+                this.shiftSelectStartRowIndex!,
                 rowIndex
             );
             const lastRowToSelect = Math.max(
-                this.lastClickedRowIndex!,
+                this.shiftSelectStartRowIndex!,
                 rowIndex
             );
             await this.selectRowRange(firstRowToSelect, lastRowToSelect);
         } else {
-            this.lastClickedRowIndex = rowIndex;
+            this.shiftSelectStartRowIndex = rowIndex;
             const rowState = this.tableData[rowIndex];
             if (
                 rowState?.isGrouped
@@ -376,21 +376,21 @@ export class Table<
             || (!event.shiftKey && !event.ctrlKey)
             || (!event.ctrlKey
                 && event.shiftKey
-                && this.lastClickedRowIndex === undefined);
+                && this.shiftSelectStartRowIndex === undefined);
 
         if (isSingleRowSelection) {
-            this.lastClickedRowIndex = rowIndex;
+            this.shiftSelectStartRowIndex = rowIndex;
             await this.selectSingleRow(row);
         } else if (event.ctrlKey) {
-            this.lastClickedRowIndex = rowIndex;
+            this.shiftSelectStartRowIndex = rowIndex;
             await this.toggleSelectionOfSingleRow(row);
         } else if (event.shiftKey) {
             const firstRowToSelect = Math.min(
-                this.lastClickedRowIndex!,
+                this.shiftSelectStartRowIndex!,
                 rowIndex
             );
             const lastRowToSelect = Math.max(
-                this.lastClickedRowIndex!,
+                this.shiftSelectStartRowIndex!,
                 rowIndex
             );
             await this.selectRowRange(firstRowToSelect, lastRowToSelect);
@@ -528,13 +528,13 @@ export class Table<
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
         if (event.key === keyShift) {
-            this.disableUserSelect = true;
+            this.documentShiftKeyDown = true;
         }
     };
 
     private readonly onKeyUp = (event: KeyboardEvent): void => {
         if (event.key === keyShift) {
-            this.disableUserSelect = false;
+            this.documentShiftKeyDown = false;
         }
     };
 
@@ -623,11 +623,13 @@ export class Table<
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
+            this.shiftSelectStartRowIndex = undefined;
         }
         if (this.updateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
+            this.shiftSelectStartRowIndex = undefined;
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.

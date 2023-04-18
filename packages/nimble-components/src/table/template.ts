@@ -29,7 +29,7 @@ export const template = html<Table>`
         ${children({ property: 'childItems', filter: elements() })}
     >
         <div
-            class="${x => (x.disableUserSelect ? 'disable-select table-container' : 'table-container')}"
+            class="${x => (x.documentShiftKeyDown ? 'disable-select table-container' : 'table-container')}"
             style="
                 --ni-private-table-scroll-x: -${x => x.scrollX}px;
                 --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
