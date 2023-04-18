@@ -1,5 +1,9 @@
 import { attr, observable } from '@microsoft/fast-element';
-import { Checkbox, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    Checkbox,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
@@ -43,8 +47,9 @@ export class TableGroupRow extends FoundationElement {
     /**
      * @internal
      */
-    public readonly expandIcon!: HTMLElement;/**
+    public readonly expandIcon!: HTMLElement;
 
+    /**
     * @internal
     */
     @observable
@@ -97,7 +102,9 @@ export class TableGroupRow extends FoundationElement {
 
         const checkbox = event.target as Checkbox;
         const checked = checkbox.checked;
-        this.selectionState = checked ? TableRowSelectionState.selected : TableRowSelectionState.notSelected;
+        this.selectionState = checked
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
         const detail: TableRowSelectionToggleEventDetail = {
             oldState: !checked,
             newState: checked

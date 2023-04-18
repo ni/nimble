@@ -1127,7 +1127,9 @@ describe('Table row selection', () => {
                     const lastRowToSelect = simpleTableData.length - 2;
 
                     // Start with "lastRowToSelect" already selected
-                    await element.setSelectedRecordIds([simpleTableData[lastRowToSelect]!.id]);
+                    await element.setSelectedRecordIds([
+                        simpleTableData[lastRowToSelect]!.id
+                    ]);
                     await waitForUpdatesAsync();
 
                     pageObject.clickRowSelectionCheckbox(firstRowToSelect);
@@ -1139,7 +1141,9 @@ describe('Table row selection', () => {
                     pageObject.clickRowSelectionCheckbox(lastRowToSelect, true);
                     await multiSelectListener.promise;
 
-                    expect(pageObject.getRowSelectionState(lastRowToSelect)).toBe(TableRowSelectionState.selected);
+                    expect(
+                        pageObject.getRowSelectionState(lastRowToSelect)
+                    ).toBe(TableRowSelectionState.selected);
                 });
 
                 it('updating data during shift + click selection selects expected range if starting point is still in the data set', async () => {
@@ -1147,9 +1151,21 @@ describe('Table row selection', () => {
 
                     // Update data to have more rows at the top of the table
                     const newData = [
-                        { id: 'new-id-1', stringData: 'hello', stringData2: 'world' },
-                        { id: 'new-id-2', stringData: 'foo', stringData2: 'bar' },
-                        { id: 'new-id-3', stringData: 'abc', stringData2: '123' },
+                        {
+                            id: 'new-id-1',
+                            stringData: 'hello',
+                            stringData2: 'world'
+                        },
+                        {
+                            id: 'new-id-2',
+                            stringData: 'foo',
+                            stringData2: 'bar'
+                        },
+                        {
+                            id: 'new-id-3',
+                            stringData: 'abc',
+                            stringData2: '123'
+                        },
                         ...simpleTableData
                     ];
                     await element.setData(newData);
@@ -1184,16 +1200,40 @@ describe('Table row selection', () => {
 
                     // Remove a few rows from the data set, including the row
                     const newData = [
-                        { id: 'new-id-1', stringData: 'hello', stringData2: 'world' },
-                        { id: 'new-id-2', stringData: 'foo', stringData2: 'bar' },
-                        { id: 'new-id-3', stringData: 'abc', stringData2: '123' }
+                        {
+                            id: 'new-id-1',
+                            stringData: 'hello',
+                            stringData2: 'world'
+                        },
+                        {
+                            id: 'new-id-2',
+                            stringData: 'foo',
+                            stringData2: 'bar'
+                        },
+                        {
+                            id: 'new-id-3',
+                            stringData: 'abc',
+                            stringData2: '123'
+                        }
                     ];
                     const lastRowToSelect = 2;
                     const expectedSelection = [newData[lastRowToSelect]!.id];
                     await element.setData([
-                        { id: 'new-id-1', stringData: 'hello', stringData2: 'world' },
-                        { id: 'new-id-2', stringData: 'foo', stringData2: 'bar' },
-                        { id: 'new-id-3', stringData: 'abc', stringData2: '123' }
+                        {
+                            id: 'new-id-1',
+                            stringData: 'hello',
+                            stringData2: 'world'
+                        },
+                        {
+                            id: 'new-id-2',
+                            stringData: 'foo',
+                            stringData2: 'bar'
+                        },
+                        {
+                            id: 'new-id-3',
+                            stringData: 'abc',
+                            stringData2: '123'
+                        }
                     ]);
                     await waitForUpdatesAsync();
 
@@ -1621,9 +1661,7 @@ describe('Table row selection', () => {
                     .map(x => x.id);
 
                 // Start with the "green" group selected
-                pageObject.clickGroupRowSelectionCheckbox(
-                    greenGroupIndex
-                );
+                pageObject.clickGroupRowSelectionCheckbox(greenGroupIndex);
                 await pageObject.clickRow(lastBlueRowIndex);
 
                 const multiSelectListener = createEventListener(
@@ -1651,7 +1689,9 @@ describe('Table row selection', () => {
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
-                expect(pageObject.getGroupRowSelectionState(greenGroupIndex)).toBe(TableRowSelectionState.selected);
+                expect(
+                    pageObject.getGroupRowSelectionState(greenGroupIndex)
+                ).toBe(TableRowSelectionState.selected);
             });
 
             describe('group selection checkbox', () => {

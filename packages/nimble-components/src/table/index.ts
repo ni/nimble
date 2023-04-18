@@ -328,7 +328,8 @@ export class Table<
             return;
         }
 
-        const isShiftSelect = this.documentShiftKeyDown && this.shiftSelectStartRowId !== undefined;
+        const isShiftSelect = this.documentShiftKeyDown
+            && this.shiftSelectStartRowId !== undefined;
         if (isShiftSelect) {
             await this.selectRowRange(this.shiftSelectStartRowId, rowIndex);
         } else {
@@ -607,13 +608,13 @@ export class Table<
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
-            this.shiftSelectStartRowIndex = undefined;
+            this.shiftSelectStartRowId = undefined;
         }
         if (this.updateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.shiftSelectStartRowIndex = undefined;
+            this.shiftSelectStartRowId = undefined;
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -832,14 +833,8 @@ export class Table<
         }
 
         const startRowIndex = startRow.index;
-        const min = Math.min(
-            startRowIndex,
-            endRowIndex
-        );
-        const max = Math.max(
-            startRowIndex,
-            endRowIndex
-        );
+        const min = Math.min(startRowIndex, endRowIndex);
+        const max = Math.max(startRowIndex, endRowIndex);
         return [min, max];
     }
 
@@ -847,7 +842,10 @@ export class Table<
         startRowId: string | undefined,
         clickedRowIndex: number
     ): Promise<void> {
-        const [startRowIndex, endRowIndex] = this.getRowIndexRange(startRowId, clickedRowIndex);
+        const [startRowIndex, endRowIndex] = this.getRowIndexRange(
+            startRowId,
+            clickedRowIndex
+        );
 
         // Calling row.toggleSelected() on N number of rows can be very slow. Instead, create
         // the new selection state and only set it on TanStack once.
