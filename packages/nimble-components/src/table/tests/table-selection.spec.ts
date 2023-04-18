@@ -1122,7 +1122,7 @@ describe('Table row selection', () => {
                     );
                 });
 
-                fit('ending range selection by clicking selected checkbox keeps the row selected', async () => {
+                it('ending range selection by clicking selected checkbox keeps the row selected', async () => {
                     const firstRowToSelect = 1;
                     const lastRowToSelect = simpleTableData.length - 2;
 
@@ -1140,6 +1140,81 @@ describe('Table row selection', () => {
                     await multiSelectListener.promise;
 
                     expect(pageObject.getRowSelectionState(lastRowToSelect)).toBe(TableRowSelectionState.selected);
+                });
+
+                it('updating data during shift + click selection selects expected range if starting point is still in the data set', async () => {
+                    pageObject.clickRowSelectionCheckbox(1);
+
+                    // Update data to have more rows at the top of the table
+                    const newData = [
+                        { id: 'new-id-1', stringData: 'hello', stringData2: 'world' },
+                        { id: 'new-id-2', stringData: 'foo', stringData2: 'bar' },
+                        { id: 'new-id-3', stringData: 'abc', stringData2: '123' },
+                        ...simpleTableData
+                    ];
+                    await element.setData(newData);
+                    await waitForUpdatesAsync();
+
+                    const lastRowToSelect = newData.length - 2;
+                    const multiSelectListener = createEventListener(
+                        element,
+                        'selection-change'
+                    );
+                    pageObject.clickRowSelectionCheckbox(lastRowToSelect, true);
+                    await multiSelectListener.promise;
+
+                    const expectedSelection = simpleTableData
+                        .slice(1, -1)
+                        .map(x => x.id);
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
+                    expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
+                });
+
+                it('updating data during shift + click selection selects only last row clicked if the first row is removed from the data set', async () => {
+                    pageObject.clickRowSelectionCheckbox(0);
+
+                    // Remove a few rows from the data set, including the row
+                    const newData = [
+                        { id: 'new-id-1', stringData: 'hello', stringData2: 'world' },
+                        { id: 'new-id-2', stringData: 'foo', stringData2: 'bar' },
+                        { id: 'new-id-3', stringData: 'abc', stringData2: '123' }
+                    ];
+                    const lastRowToSelect = 2;
+                    const expectedSelection = [newData[lastRowToSelect]!.id];
+                    await element.setData([
+                        { id: 'new-id-1', stringData: 'hello', stringData2: 'world' },
+                        { id: 'new-id-2', stringData: 'foo', stringData2: 'bar' },
+                        { id: 'new-id-3', stringData: 'abc', stringData2: '123' }
+                    ]);
+                    await waitForUpdatesAsync();
+
+                    const multiSelectListener = createEventListener(
+                        element,
+                        'selection-change'
+                    );
+                    pageObject.clickRowSelectionCheckbox(lastRowToSelect, true);
+                    await multiSelectListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
+                    expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
                 });
 
                 describe('header selection checkbox', () => {
@@ -1534,7 +1609,7 @@ describe('Table row selection', () => {
                 );
             });
 
-            fit('shift clicking to an already selected group keeps it selected', async () => {
+            it('shift clicking to an already selected group keeps it selected', async () => {
                 const allBlueRecordIds = groupableTableData
                     .filter(x => x.id.includes('blue-'))
                     .map(x => x.id);

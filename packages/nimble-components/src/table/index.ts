@@ -190,7 +190,7 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    private shiftSelectStartRowIndex?: number;
+    private shiftSelectStartRowId?: string;
 
     public constructor() {
         super();
@@ -328,20 +328,12 @@ export class Table<
             return;
         }
 
-        const isShiftSelect = this.documentShiftKeyDown && this.shiftSelectStartRowIndex !== undefined;
+        const isShiftSelect = this.documentShiftKeyDown && this.shiftSelectStartRowId !== undefined;
         if (isShiftSelect) {
-            const firstRowToSelect = Math.min(
-                this.shiftSelectStartRowIndex!,
-                rowIndex
-            );
-            const lastRowToSelect = Math.max(
-                this.shiftSelectStartRowIndex!,
-                rowIndex
-            );
-            await this.selectRowRange(firstRowToSelect, lastRowToSelect);
+            await this.selectRowRange(this.shiftSelectStartRowId, rowIndex);
         } else {
-            this.shiftSelectStartRowIndex = rowIndex;
             const rowState = this.tableData[rowIndex];
+            this.shiftSelectStartRowId = rowState?.id;
             if (
                 rowState?.isGrouped
                 && rowState?.selectionState === TableRowSelectionState.selected
@@ -376,24 +368,16 @@ export class Table<
             || (!event.shiftKey && !event.ctrlKey)
             || (!event.ctrlKey
                 && event.shiftKey
-                && this.shiftSelectStartRowIndex === undefined);
+                && this.shiftSelectStartRowId === undefined);
 
         if (isSingleRowSelection) {
-            this.shiftSelectStartRowIndex = rowIndex;
+            this.shiftSelectStartRowId = row.id;
             await this.selectSingleRow(row);
         } else if (event.ctrlKey) {
-            this.shiftSelectStartRowIndex = rowIndex;
+            this.shiftSelectStartRowId = row.id;
             await this.toggleSelectionOfSingleRow(row);
         } else if (event.shiftKey) {
-            const firstRowToSelect = Math.min(
-                this.shiftSelectStartRowIndex!,
-                rowIndex
-            );
-            const lastRowToSelect = Math.max(
-                this.shiftSelectStartRowIndex!,
-                rowIndex
-            );
-            await this.selectRowRange(firstRowToSelect, lastRowToSelect);
+            await this.selectRowRange(this.shiftSelectStartRowId, rowIndex);
         }
     }
 
@@ -834,10 +818,37 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
-    private async selectRowRange(
-        startRowIndex: number,
+    private getRowIndexRange(
+        startRowId: string | undefined,
         endRowIndex: number
+    ): [number, number] {
+        if (startRowId === undefined) {
+            return [endRowIndex, endRowIndex];
+        }
+
+        const startRow = this.table.getRowModel().rowsById[startRowId];
+        if (!startRow) {
+            return [endRowIndex, endRowIndex];
+        }
+
+        const startRowIndex = startRow.index;
+        const min = Math.min(
+            startRowIndex,
+            endRowIndex
+        );
+        const max = Math.max(
+            startRowIndex,
+            endRowIndex
+        );
+        return [min, max];
+    }
+
+    private async selectRowRange(
+        startRowId: string | undefined,
+        clickedRowIndex: number
     ): Promise<void> {
+        const [startRowIndex, endRowIndex] = this.getRowIndexRange(startRowId, clickedRowIndex);
+
         // Calling row.toggleSelected() on N number of rows can be very slow. Instead, create
         // the new selection state and only set it on TanStack once.
         const newSelection: TanStackRowSelectionState = {};
