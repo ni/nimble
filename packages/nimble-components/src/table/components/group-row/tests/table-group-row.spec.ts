@@ -7,7 +7,6 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail
 } from '../../../types';
-import { TableGroupRowPageObject } from './table-group-row.pageobject';
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TableGroupRow>> {
@@ -21,11 +20,8 @@ describe('TableGroupRow', () => {
     let element: TableGroupRow;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let pageObject: TableGroupRowPageObject;
-
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
-        pageObject = new TableGroupRowPageObject(element);
     });
 
     afterEach(async () => {
@@ -60,7 +56,7 @@ describe('TableGroupRow', () => {
         element.selectable = true;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getSelectionCheckbox()).toBeTruthy();
+        expect(element.selectionCheckbox).toBeDefined();
     });
 
     it('hides selection checkbox when row is not selectable', async () => {
@@ -68,7 +64,7 @@ describe('TableGroupRow', () => {
         element.selectable = false;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getSelectionCheckbox()).toBeFalsy();
+        expect(element.selectionCheckbox).not.toBeDefined();
     });
 
     it('selection checkbox is checked when group is selected', async () => {
@@ -77,8 +73,8 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.selected;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getSelectionCheckbox()!.checked).toBeTrue();
-        expect(pageObject.getSelectionCheckbox()!.indeterminate).toBeFalse();
+        expect(element.selectionCheckbox!.checked).toBeTrue();
+        expect(element.selectionCheckbox!.indeterminate).toBeFalse();
     });
 
     it('selection checkbox is not checked when group is not selected', async () => {
@@ -87,8 +83,8 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.notSelected;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getSelectionCheckbox()!.checked).toBeFalse();
-        expect(pageObject.getSelectionCheckbox()!.indeterminate).toBeFalse();
+        expect(element.selectionCheckbox!.checked).toBeFalse();
+        expect(element.selectionCheckbox!.indeterminate).toBeFalse();
     });
 
     it('selection checkbox is indeterminate when group is partially selected', async () => {
@@ -97,7 +93,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.partiallySelected;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getSelectionCheckbox()!.indeterminate).toBeTrue();
+        expect(element.selectionCheckbox!.indeterminate).toBeTrue();
     });
 
     it('selection state can be set before connect()', async () => {
@@ -105,7 +101,7 @@ describe('TableGroupRow', () => {
         element.selectionState = TableRowSelectionState.partiallySelected;
         await connect();
 
-        expect(pageObject.getSelectionCheckbox()!.indeterminate).toBeTrue();
+        expect(element.selectionCheckbox!.indeterminate).toBeTrue();
     });
 
     it('checking selection checkbox fires "group-selection-toggle" event', async () => {
@@ -114,7 +110,7 @@ describe('TableGroupRow', () => {
         await connect();
 
         const listener = createEventListener(element, 'group-selection-toggle');
-        pageObject.getSelectionCheckbox()!.click();
+        element.selectionCheckbox!.click();
         await listener.promise;
 
         expect(listener.spy).toHaveBeenCalledTimes(1);
@@ -132,7 +128,7 @@ describe('TableGroupRow', () => {
         await connect();
 
         const listener = createEventListener(element, 'group-selection-toggle');
-        pageObject.getSelectionCheckbox()!.click();
+        element.selectionCheckbox!.click();
         await listener.promise;
 
         expect(listener.spy).toHaveBeenCalledTimes(1);
@@ -150,7 +146,7 @@ describe('TableGroupRow', () => {
         await connect();
 
         const listener = createEventListener(element, 'group-selection-toggle');
-        pageObject.getSelectionCheckbox()!.click();
+        element.selectionCheckbox!.click();
         await listener.promise;
 
         expect(listener.spy).toHaveBeenCalledTimes(1);
@@ -182,7 +178,7 @@ describe('TableGroupRow', () => {
             element,
             'group-expand-toggle'
         );
-        pageObject.getSelectionCheckbox()!.click();
+        element.selectionCheckbox!.click();
         await waitForUpdatesAsync();
 
         expect(groupExpandListener.spy).not.toHaveBeenCalled();

@@ -1,5 +1,5 @@
 import { attr, observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { Checkbox, DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
@@ -43,13 +43,24 @@ export class TableGroupRow extends FoundationElement {
     /**
      * @internal
      */
-    public readonly expandIcon!: HTMLElement;
+    public readonly expandIcon!: HTMLElement;/**
+
+    * @internal
+    */
+    @observable
+    public readonly selectionCheckbox?: Checkbox;
 
     /**
      * @internal
      */
     @observable
     public animationClass = '';
+
+    // Programmatically updating the selection state of a checkbox fires the 'change' event.
+    // Therefore, selection change events that occur due to programmatically updating
+    // the selection checkbox 'checked' value should be ingored.
+    // https://github.com/microsoft/fast/issues/5750
+    private ignoreSelectionChangeEvents = false;
 
     public onGroupExpandToggle(): void {
         this.$emit('group-expand-toggle');
@@ -76,6 +87,40 @@ export class TableGroupRow extends FoundationElement {
             newState: !wasSelected
         };
         this.$emit('group-selection-toggle', detail);
+    }
+
+    /** @internal */
+    public onSelectionChange(event: CustomEvent): void {
+        if (this.ignoreSelectionChangeEvents) {
+            return;
+        }
+
+        const checkbox = event.target as Checkbox;
+        const checked = checkbox.checked;
+        this.selectionState = checked ? TableRowSelectionState.selected : TableRowSelectionState.notSelected;
+        const detail: TableRowSelectionToggleEventDetail = {
+            oldState: !checked,
+            newState: checked
+        };
+        this.$emit('group-selection-toggle', detail);
+    }
+
+    private selectionStateChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private selectionCheckboxChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private setSelectionCheckboxState(): void {
+        if (this.selectionCheckbox) {
+            this.ignoreSelectionChangeEvents = true;
+            this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
+            this.selectionCheckbox.indeterminate = this.selectionState
+                === TableRowSelectionState.partiallySelected;
+            this.ignoreSelectionChangeEvents = false;
+        }
     }
 
     private readonly removeAnimatingClass = (): void => {

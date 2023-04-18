@@ -1122,6 +1122,26 @@ describe('Table row selection', () => {
                     );
                 });
 
+                fit('ending range selection by clicking selected checkbox keeps the row selected', async () => {
+                    const firstRowToSelect = 1;
+                    const lastRowToSelect = simpleTableData.length - 2;
+
+                    // Start with "lastRowToSelect" already selected
+                    await element.setSelectedRecordIds([simpleTableData[lastRowToSelect]!.id]);
+                    await waitForUpdatesAsync();
+
+                    pageObject.clickRowSelectionCheckbox(firstRowToSelect);
+
+                    const multiSelectListener = createEventListener(
+                        element,
+                        'selection-change'
+                    );
+                    pageObject.clickRowSelectionCheckbox(lastRowToSelect, true);
+                    await multiSelectListener.promise;
+
+                    expect(pageObject.getRowSelectionState(lastRowToSelect)).toBe(TableRowSelectionState.selected);
+                });
+
                 describe('header selection checkbox', () => {
                     it('is shown', () => {
                         expect(
@@ -1512,6 +1532,51 @@ describe('Table row selection', () => {
                 expect(emittedIds).toEqual(
                     jasmine.arrayWithExactContents(expectedSelection)
                 );
+            });
+
+            fit('shift clicking to an already selected group keeps it selected', async () => {
+                const allBlueRecordIds = groupableTableData
+                    .filter(x => x.id.includes('blue-'))
+                    .map(x => x.id);
+                const lastBlueRecordId = allBlueRecordIds[allBlueRecordIds.length - 1];
+                const lastBlueRowIndex = allBlueRecordIds.length - 1;
+
+                const allGreenRecordIds = groupableTableData
+                    .filter(x => x.id.includes('green-'))
+                    .map(x => x.id);
+
+                // Start with the "green" group selected
+                pageObject.clickGroupRowSelectionCheckbox(
+                    greenGroupIndex
+                );
+                await pageObject.clickRow(lastBlueRowIndex);
+
+                const multiSelectListener = createEventListener(
+                    element,
+                    'selection-change'
+                );
+                pageObject.clickGroupRowSelectionCheckbox(
+                    greenGroupIndex,
+                    true
+                );
+                await multiSelectListener.promise;
+
+                const expectedSelection = [
+                    lastBlueRecordId,
+                    ...allGreenRecordIds
+                ];
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
+                expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(
+                    multiSelectListener.spy
+                );
+                expect(emittedIds).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
+                expect(pageObject.getGroupRowSelectionState(greenGroupIndex)).toBe(TableRowSelectionState.selected);
             });
 
             describe('group selection checkbox', () => {

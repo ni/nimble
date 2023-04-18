@@ -1,4 +1,3 @@
-import type { Checkbox } from '@microsoft/fast-foundation';
 import type { TableRow } from '..';
 import type { TableRecord } from '../../../types';
 import { tableCellTag, TableCell } from '../../cell';
@@ -14,11 +13,5 @@ export class TableRowPageObject<T extends TableRecord = TableRecord> {
         return this.tableRowElement.shadowRoot!.querySelectorAll<TableCell>(
             tableCellTag
         )[columnIndex];
-    }
-
-    public getSelectionCheckbox(): Checkbox | null {
-        return this.tableRowElement.shadowRoot!.querySelector(
-            '.selection-checkbox'
-        );
     }
 }

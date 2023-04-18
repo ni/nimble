@@ -5,7 +5,6 @@ import { buttonTag } from '../../../button';
 import { ButtonAppearance } from '../../../button/types';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { checkboxTag } from '../../../checkbox';
-import { TableRowSelectionState } from '../../types';
 
 // prettier-ignore
 export const template = html<TableGroupRow>`
@@ -17,10 +16,10 @@ export const template = html<TableGroupRow>`
         ${when(x => x.selectable, html<TableGroupRow>`
             <span role="gridcell" class="checkbox-container">
                 <${checkboxTag}
+                    ${ref('selectionCheckbox')}
                     class="selection-checkbox"
-                    :checked="${x => x.selectionState === TableRowSelectionState.selected}"
-                    :indeterminate="${x => x.selectionState === TableRowSelectionState.partiallySelected}"
-                    @click="${(x, c) => x.onSelectionCheckboxClick(c.event as MouseEvent)}"
+                    @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                    @click="${(_, c) => c.event.stopPropagation()}"
                 >
                 </${checkboxTag}>
             </span>

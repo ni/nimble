@@ -10,10 +10,10 @@ export const template = html<TableRow>`
         ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
             <span role="gridcell" class="checkbox-container">
                 <${checkboxTag}
-                    role="cell"
+                    ${ref('selectionCheckbox')}
                     class="selection-checkbox"
-                    :checked="${x => x.selected}"
-                    @click="${(x, c) => x.onSelectionCheckboxClick(c.event as MouseEvent)}"
+                    @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                    @click="${(_, c) => c.event.stopPropagation()}"
                 >
                 </${checkboxTag}>
             </span>
