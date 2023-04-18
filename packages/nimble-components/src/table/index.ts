@@ -813,9 +813,7 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
-    private getRowIndexRange(
-        endRowIndex: number
-    ): [number, number] {
+    private getRowIndexRange(endRowIndex: number): [number, number] {
         if (this.shiftSelectStartRowId === undefined) {
             return [endRowIndex, endRowIndex];
         }
@@ -831,12 +829,8 @@ export class Table<
         return [min, max];
     }
 
-    private async selectRowsTo(
-        clickedRowIndex: number
-    ): Promise<void> {
-        const [startRowIndex, endRowIndex] = this.getRowIndexRange(
-            clickedRowIndex
-        );
+    private async selectRowsTo(clickedRowIndex: number): Promise<void> {
+        const [startRowIndex, endRowIndex] = this.getRowIndexRange(clickedRowIndex);
 
         // Calling row.toggleSelected() on N number of rows can be very slow. Instead, create
         // the new selection state and only set it on TanStack once.
