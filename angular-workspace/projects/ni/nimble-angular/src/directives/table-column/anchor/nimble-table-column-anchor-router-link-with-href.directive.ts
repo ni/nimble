@@ -1,5 +1,5 @@
 import { LocationStrategy } from '@angular/common';
-import { Directive, ElementRef, Inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import type { TableColumnAnchor } from '@ni/nimble-components/dist/esm/table-column/anchor';
 import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/table-column/anchor/cell-view';
@@ -14,14 +14,8 @@ import type { DelegatedEventEventDetails } from '../base/nimble-table-column-bas
     selector: 'nimble-table-column-anchor[nimbleRouterLink]'
 })
 export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLinkWithHref {
-    public constructor(elementRef: ElementRef<TableColumnAnchor>, router: Router, route: ActivatedRoute, @Inject(LocationStrategy) locationStrategy: LocationStrategy) {
-        super(router, route, locationStrategy);
-
-        elementRef.nativeElement.addEventListener('delegated-event', (event: Event) => this.onDelegatedEvent(event));
-    }
-
-    private onDelegatedEvent(event: Event): void {
-        const delegatedEvent = (event as CustomEvent<DelegatedEventEventDetails>).detail.originalEvent;
+    @HostListener('delegated-event', ['$event.details.originalEvent'])
+    private onDelegatedEvent(delegatedEvent: Event): void {
         if (delegatedEvent.type !== 'click') {
             return;
         }
