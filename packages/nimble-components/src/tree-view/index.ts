@@ -29,6 +29,9 @@ export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
 
+    /**
+     * @internal
+     */
     @observable
     public selectedItems: Element[] = [];
 
@@ -90,6 +93,8 @@ export class TreeView extends FoundationTreeView {
                 item.groupSelected = true;
             }
         }
+
+        this.$emit('group-selected-update');
     }
 }
 
