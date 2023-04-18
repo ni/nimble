@@ -12,10 +12,7 @@
 ## Implementation / Design
 
 *Full description of the proposed interaction design.*
-
-## Alternative Implementations / Designs
-
-*Describe any design alternatives and discuss why they were rejected.*
+*Include links or embedded views of design in XD or Figma and provide any additional context.*
 
 ## Open Issues
 

@@ -14,4 +14,6 @@ labels: 'visual design,triage'
 
 ## Acceptance Criteria
 
-- [ ] Visual Design Spec created and reviewed (link)
+- [ ] Visual Design Spec created (link)
+- [ ] Visual Design Spec reviewed by design team
+- [ ] Visual Design Spec reviewed by dev team

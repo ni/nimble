@@ -1,6 +1,6 @@
 ---
 name: 🧑‍🎨 IxD User story
-about: (DEV TEAM ONLY) A small chunk of work to be done by an Interaction Designer
+about: (PO ONLY) A small chunk of work to be done by an Interaction Designer
 title: '(Fully descriptive title)'
 labels: 'IxD,triage'
 ---
@@ -20,16 +20,16 @@ labels: 'IxD,triage'
 - User must be able to enter date with keyboard interaction alone
 - … -->
 
-## Prior Art
+## Non-requirements
 
-<!-- Provide an overview of other common implementations of this component. What does FAST provide out of the box? Material, AzDO, [others](https://storybook.js.org/showcase)?
+<!-- What ideas are out of scope for this component? E.g. For a date picker… 
 
-| Design System | Positives | Negatives |
-|---------------|-----------|-----------|
-| FAST          | …         | …         |
-| Material      | …         | …         | -->
+- User does not need to pick the date from a calendar widget 
+- … -->
+
 
 ## Acceptance Criteria
 
+- [ ] IxD Spec reviewed by design team
+- [ ] IxD Spec reviewed by dev team
 - [ ] IxD Spec submitted (link)
-- [ ] Visual Design work item created with latest requirements
