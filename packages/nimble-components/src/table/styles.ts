@@ -1,6 +1,9 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { PowerGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import {
+    PowerGreen,
+    White
+} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -99,7 +102,7 @@ export const styles = css`
     .selection-checkbox::part(label) {
         padding-left: 0px;
     }
-    
+
     .group-row {
         background: ${sectionBackgroundColor};
         position: relative;
@@ -167,12 +170,12 @@ export const styles = css`
         css`
             .group-row:hover::before,
             .row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.10)};
+                background: ${hexToRgbaCssColor(White, 0.1)};
             }
 
             :host([selection-mode='single']) .row[selected]::before,
             :host([selection-mode='multiple']) .row[selected]::before {
-                background: ${hexToRgbaCssColor(PowerGreen, 0.20)};
+                background: ${hexToRgbaCssColor(PowerGreen, 0.2)};
             }
 
             :host([selection-mode='single']) .row[selected]:hover::before,
