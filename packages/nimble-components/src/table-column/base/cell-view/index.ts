@@ -23,7 +23,10 @@ export abstract class TableCellView<
     @observable
     public columnConfig!: TColumnConfig;
 
+    @observable
     public column?: TableColumn<TColumnConfig>;
+
+    private delegatedEvents: readonly string[] = [];
 
     /**
      * Called if an element inside this cell view has focus, and this row/cell is being recycled.
@@ -32,21 +35,30 @@ export abstract class TableCellView<
      */
     public focusedRecycleCallback(): void {}
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
+    public columnChanged(): void {
+        for (const eventName of this.delegatedEvents) {
+            this.removeEventListener(eventName, this.delgatedEventHandler);
+        }
+        this.delegatedEvents = [];
+        this.delgatedEventHandler = () => {};
+
         if (!this.column) {
             return;
         }
-        for (const delegatedEvent of this.column.columnInternals
-            .delegatedEvents) {
-            this.addEventListener(delegatedEvent, (event: Event) => {
-                this.column?.dispatchEvent(
-                    new CustomEvent<DelegatedEventEventDetails>(
-                        'delegated-event',
-                        { detail: { originalEvent: event } }
-                    )
-                );
-            });
+        this.delegatedEvents = this.column.columnInternals.delegatedEvents;
+        this.delgatedEventHandler = (event: Event) => {
+            this.column?.dispatchEvent(
+                new CustomEvent<DelegatedEventEventDetails>(
+                    'delegated-event',
+                    { detail: { originalEvent: event } }
+                )
+            );
+        };
+
+        for (const delegatedEvent of this.delegatedEvents) {
+            this.addEventListener(delegatedEvent, this.delgatedEventHandler);
         }
     }
+
+    private delgatedEventHandler: (event: Event) => void = () => {};
 }
