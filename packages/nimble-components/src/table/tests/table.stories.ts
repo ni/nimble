@@ -205,7 +205,7 @@ const metadata: Meta<TableArgs> = {
             },
             options: Object.keys(TableRowSelectionMode),
             description:
-                'Controls whether the table supports selecting a single row at a time or no rows. When selection is enabled, `id-field-name` must be specified.',
+                'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
             control: { type: 'radio' }
         },
         getSelectedRecordIds: {

@@ -1,12 +1,14 @@
+import type { Checkbox } from '@microsoft/fast-foundation';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import type { TableRecord } from '../types';
+import { TableRecord, TableRowSelectionState } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableRow } from '../components/row';
+import type { TableGroupRow } from '../components/group-row';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -270,16 +272,49 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public toggleGroupRowExpandedState(groupRowIndex: number): void {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
-        if (groupRowIndex >= groupRows.length) {
-            throw new Error(
-                'Attempting to index past the total number of group rows'
-            );
-        }
+        this.getGroupRow(groupRowIndex).click();
+    }
 
-        groupRows[groupRowIndex]!.click();
+    public isTableSelectionCheckboxVisible(): boolean {
+        const checkbox = this.getSelectionCheckboxForTable();
+        return this.isCheckboxVisible(checkbox);
+    }
+
+    public getTableSelectionState(): TableRowSelectionState {
+        const checkbox = this.getSelectionCheckboxForTable();
+        return this.getSelectionStateOfCheckbox(checkbox);
+    }
+
+    public clickTableSelectionCheckbox(): void {
+        const checkbox = this.getSelectionCheckboxForTable();
+        checkbox!.click();
+    }
+
+    public isRowSelectionCheckboxVisible(rowIndex: number): boolean {
+        const checkbox = this.getSelectionCheckboxForRow(rowIndex);
+        return this.isCheckboxVisible(checkbox);
+    }
+
+    public getRowSelectionState(rowIndex: number): TableRowSelectionState {
+        const checkbox = this.getSelectionCheckboxForRow(rowIndex);
+        return this.getSelectionStateOfCheckbox(checkbox);
+    }
+
+    public clickRowSelectionCheckbox(rowIndex: number): void {
+        const checkbox = this.getSelectionCheckboxForRow(rowIndex);
+        checkbox!.click();
+    }
+
+    public getGroupRowSelectionState(
+        groupRowIndex: number
+    ): TableRowSelectionState {
+        const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
+        return this.getSelectionStateOfCheckbox(checkbox);
+    }
+
+    public clickGroupRowSelectionCheckbox(groupRowIndex: number): void {
+        const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
+        checkbox!.click();
     }
 
     private getRow(rowIndex: number): TableRow {
@@ -303,6 +338,57 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return cells.item(columnIndex);
+    }
+
+    private getSelectionCheckboxForRow(rowIndex: number): Checkbox | null {
+        const row = this.getRow(rowIndex);
+        return row.shadowRoot!.querySelector('.selection-checkbox');
+    }
+
+    private getSelectionCheckboxForGroupRow(
+        groupRowIndex: number
+    ): Checkbox | null {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        return groupRow.shadowRoot!.querySelector('.selection-checkbox');
+    }
+
+    private getSelectionCheckboxForTable(): Checkbox | null {
+        return this.tableElement.shadowRoot!.querySelector<Checkbox>(
+            '.header-row .selection-checkbox'
+        );
+    }
+
+    private isCheckboxVisible(checkbox: Checkbox | null): boolean {
+        return !!checkbox && !checkbox.hidden;
+    }
+
+    private getSelectionStateOfCheckbox(
+        checkbox: Checkbox | null
+    ): TableRowSelectionState {
+        if (!checkbox) {
+            throw new Error('Cannot get selection state from null checkbox');
+        }
+
+        if (checkbox.indeterminate) {
+            return TableRowSelectionState.partiallySelected;
+        }
+        if (checkbox.checked) {
+            return TableRowSelectionState.selected;
+        }
+        return TableRowSelectionState.notSelected;
+    }
+
+    private getGroupRow(groupRowIndex: number): TableGroupRow {
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-group-row'
+        );
+        if (groupRowIndex >= groupRows.length) {
+            throw new Error(
+                'Attempting to index past the total number of group rows'
+            );
+        }
+
+        return groupRows.item(groupRowIndex);
     }
 
     private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
