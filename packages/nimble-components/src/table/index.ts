@@ -306,10 +306,10 @@ export class Table<
     }
 
     /** @internal */
-    public async onRowSelectionToggle(
+    public onRowSelectionToggle(
         rowIndex: number,
         event: CustomEvent<TableRowSelectionToggleEventDetail>
-    ): Promise<void> {
+    ): void {
         event.stopImmediatePropagation();
 
         if (this.selectionMode === TableRowSelectionMode.none) {
@@ -330,7 +330,7 @@ export class Table<
                 .rows[rowIndex]?.toggleSelected(event.detail.newState);
         }
 
-        await this.emitSelectionChangeEvent();
+        void this.emitSelectionChangeEvent();
     }
 
     /** @internal */
@@ -340,7 +340,7 @@ export class Table<
     }
 
     /** @internal */
-    public async onAllRowsSelectionChange(event: CustomEvent): Promise<void> {
+    public onAllRowsSelectionChange(event: CustomEvent): void {
         event.stopPropagation();
 
         if (this.ignoreSelectionChangeEvents) {
@@ -348,51 +348,24 @@ export class Table<
         }
 
         this.table.toggleAllRowsSelected(this.selectionCheckbox!.checked);
-        await this.emitSelectionChangeEvent();
+        void this.emitSelectionChangeEvent();
     }
 
     /** @internal */
-    public async onRowActionMenuBeforeToggle(
+    public onRowActionMenuBeforeToggle(
         rowIndex: number,
         event: CustomEvent<TableActionMenuToggleEventDetail>
-    ): Promise<void> {
+    ): void {
         event.stopImmediatePropagation();
-
-        let recordIds = event.detail.recordIds;
-        if (this.selectionMode !== TableRowSelectionMode.none) {
-            const row = this.table.getRowModel().rows[rowIndex];
-            if (row && !row.getIsSelected()) {
-                await this.selectSingleRow(rowIndex);
-            } else {
-                recordIds = await this.getSelectedRecordIds();
-            }
-        }
-
-        this.openActionMenuRecordId = event.detail.recordIds[0];
-        const detail: TableActionMenuToggleEventDetail = {
-            ...event.detail,
-            recordIds
-        };
-        this.$emit('action-menu-beforetoggle', detail);
+        void this.handleActionMenuBeforeToggleEvent(rowIndex, event);
     }
 
     /** @internal */
-    public async onRowActionMenuToggle(
+    public onRowActionMenuToggle(
         event: CustomEvent<TableActionMenuToggleEventDetail>
-    ): Promise<void> {
+    ): void {
         event.stopImmediatePropagation();
-
-        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
-            ? await this.getSelectedRecordIds()
-            : event.detail.recordIds;
-        const detail: TableActionMenuToggleEventDetail = {
-            ...event.detail,
-            recordIds
-        };
-        this.$emit('action-menu-toggle', detail);
-        if (!event.detail.newState) {
-            this.openActionMenuRecordId = undefined;
-        }
+        void this.handleRowActionMenuToggleEvent(event);
     }
 
     /** @internal */
@@ -462,6 +435,44 @@ export class Table<
 
         this.observeColumns();
         this.updateTracker.trackColumnInstancesChanged();
+    }
+
+    private async handleActionMenuBeforeToggleEvent(
+        rowIndex: number,
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): Promise<void> {
+        let recordIds = event.detail.recordIds;
+        if (this.selectionMode !== TableRowSelectionMode.none) {
+            const row = this.table.getRowModel().rows[rowIndex];
+            if (row && !row.getIsSelected()) {
+                await this.selectSingleRow(rowIndex);
+            } else {
+                recordIds = await this.getSelectedRecordIds();
+            }
+        }
+
+        this.openActionMenuRecordId = event.detail.recordIds[0];
+        const detail: TableActionMenuToggleEventDetail = {
+            ...event.detail,
+            recordIds
+        };
+        this.$emit('action-menu-beforetoggle', detail);
+    }
+
+    private async handleRowActionMenuToggleEvent(
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): Promise<void> {
+        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
+            ? await this.getSelectedRecordIds()
+            : event.detail.recordIds;
+        const detail: TableActionMenuToggleEventDetail = {
+            ...event.detail,
+            recordIds
+        };
+        this.$emit('action-menu-toggle', detail);
+        if (!event.detail.newState) {
+            this.openActionMenuRecordId = undefined;
+        }
     }
 
     private readonly onViewPortScroll = (event: Event): void => {

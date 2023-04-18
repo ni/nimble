@@ -42,7 +42,7 @@ export const template = html<Table>`
                             <${checkboxTag}
                                 ${ref('selectionCheckbox')}
                                 class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
-                                @change="${async (x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
+                                @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
                             >
                             </${checkboxTag}>
                         </span>
@@ -80,7 +80,7 @@ export const template = html<Table>`
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                     ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                     selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
-                                    @group-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
+                                    @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                     @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                 >
                                 </${tableGroupRowTag}>
@@ -96,9 +96,9 @@ export const template = html<Table>`
                                     :columns="${(_, c) => c.parent.columns}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     @click="${(x, c) => c.parent.onRowClick(x.index)}"
-                                    @row-selection-toggle="${async (x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
-                                    @row-action-menu-beforetoggle="${async (x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
-                                    @row-action-menu-toggle="${async (_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
+                                    @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 >
                                 ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                     ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`
