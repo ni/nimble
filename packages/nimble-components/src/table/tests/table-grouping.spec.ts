@@ -62,7 +62,7 @@ describe('Table grouping', () => {
 
         column1.fieldName = 'stringData1';
         column1.groupIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -78,7 +78,7 @@ describe('Table grouping', () => {
         ] as const;
 
         column1.fieldName = 'stringData1';
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -98,7 +98,7 @@ describe('Table grouping', () => {
 
         column1.fieldName = 'stringData1';
         column1.groupIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -120,7 +120,7 @@ describe('Table grouping', () => {
 
         column1.fieldName = 'stringData1';
         column1.groupIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -149,7 +149,7 @@ describe('Table grouping', () => {
 
         column1.fieldName = 'stringData1';
         column1.groupIndex = 0;
-        element.setData(originalData);
+        await element.setData(originalData);
         await connect();
         await waitForUpdatesAsync();
 
@@ -163,7 +163,7 @@ describe('Table grouping', () => {
         ]);
         expect(pageObject.getRenderedRowCount()).toBe(2);
 
-        element.setData(newData); // inserts row at beginning
+        await element.setData(newData); // inserts row at beginning
         await waitForUpdatesAsync();
 
         expect(pageObject.getAllGroupRowExpandedState()).toEqual([
@@ -185,7 +185,7 @@ describe('Table grouping', () => {
 
         column1.fieldName = 'stringData1';
         column1.groupIndex = 0;
-        element.setData(originalData);
+        await element.setData(originalData);
         await connect();
         await waitForUpdatesAsync();
 
@@ -216,7 +216,7 @@ describe('Table grouping', () => {
 
         column1.fieldName = 'stringData1';
         column1.groupIndex = 0;
-        element.setData(originalData);
+        await element.setData(originalData);
         await connect();
         await waitForUpdatesAsync();
 
@@ -231,7 +231,7 @@ describe('Table grouping', () => {
         const newData: readonly SimpleTableRecord[] = [
             { id: '1', stringData1: 'foo', stringData2: 'bar' }
         ];
-        element.setData(newData);
+        await element.setData(newData);
         await waitForUpdatesAsync();
 
         expect(pageObject.getAllGroupRowExpandedState()).toEqual([true, true]);
@@ -249,7 +249,7 @@ describe('Table grouping', () => {
         column1.groupIndex = 1;
         column2.fieldName = 'stringData2';
         column2.groupIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -271,7 +271,7 @@ describe('Table grouping', () => {
         column1.groupIndex = 1;
         column2.fieldName = 'stringData2';
         column2.groupIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -294,7 +294,7 @@ describe('Table grouping', () => {
         column1.fieldName = 'stringData1';
         column1.groupIndex = 1;
         column1.groupingDisabled = true;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -312,7 +312,7 @@ describe('Table grouping', () => {
 
         column1.fieldName = 'stringData1';
         column1.groupIndex = 1;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedGroupRowCount()).toEqual(2);
@@ -338,7 +338,7 @@ describe('Table grouping', () => {
             column1.groupIndex = 0;
             column2.fieldName = 'stringData2';
             column2.groupIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -359,7 +359,7 @@ describe('Table grouping', () => {
             column1.groupIndex = 0;
             column2.fieldName = 'stringData2';
             column2.groupIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -387,7 +387,7 @@ describe('Table grouping', () => {
             column1.groupIndex = 0;
             column2.fieldName = 'stringData2';
             column2.groupIndex = 1;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -452,7 +452,7 @@ describe('Table grouping', () => {
 
             column1.fieldName = 'stringData1';
             column1.groupIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -471,7 +471,7 @@ describe('Table grouping', () => {
             ] as const;
 
             column1.fieldName = 'stringData1';
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -492,7 +492,7 @@ describe('Table grouping', () => {
 
             column1.fieldName = 'stringData1';
             column1.groupIndex = 1;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -516,7 +516,7 @@ describe('Table grouping', () => {
             column1.fieldName = 'stringData1';
             column1.hidden = true;
             column1.groupIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -545,7 +545,7 @@ describe('Table grouping', () => {
             column2.sortIndex = 0;
             column2.sortDirection = TableColumnSortDirection.ascending;
             column2.fieldName = 'stringData2';
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -572,7 +572,7 @@ describe('Table grouping', () => {
             column2.sortIndex = 0;
             column2.sortDirection = TableColumnSortDirection.descending;
             column2.fieldName = 'stringData2';
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -602,7 +602,7 @@ describe('Table grouping', () => {
             column2.groupIndex = 0;
             column2.sortIndex = 0;
             column2.sortDirection = TableColumnSortDirection.descending;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -635,7 +635,7 @@ describe('Table grouping', () => {
             column1.sortDirection = TableColumnSortDirection.descending;
             column2.fieldName = 'stringData2';
             column2.groupIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 

@@ -12,6 +12,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
+import { TableRowSelectionMode } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -24,18 +25,21 @@ export default metadata;
 
 const data = [
     {
+        id: '0',
         firstName: 'Ralph',
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
         quote: "I'm in danger!"
     },
     {
+        id: '1',
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
         quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
+        id: '2',
         firstName: null,
         lastName: null,
         favoriteColor: null,
@@ -43,9 +47,14 @@ const data = [
     }
 ] as const;
 
+const selectionModeStates = Object.values(TableRowSelectionMode);
+type SelectionModeState = (typeof selectionModeStates)[number];
+
 // prettier-ignore
-const component = (): ViewTemplate => html`
-    <${tableTag}>
+const component = (
+    selectionMode: SelectionModeState
+): ViewTemplate => html`
+    <${tableTag} selection-mode="${() => selectionMode}"" id-field-name="id">
         <${tableColumnTextTag} field-name="firstName" placeholder="no value" sort-direction="ascending" sort-index="0" group-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
@@ -54,13 +63,18 @@ const component = (): ViewTemplate => html`
 `;
 
 export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [selectionModeStates])
 );
 
-tableThemeMatrix.play = (): void => {
-    document.querySelectorAll<Table>('nimble-table').forEach(table => {
-        table.setData(data);
-    });
+tableThemeMatrix.play = async (): Promise<void> => {
+    await Promise.all(
+        Array.from(document.querySelectorAll<Table>('nimble-table')).map(
+            async table => {
+                await table.setData(data);
+                await table.setSelectedRecordIds(['1', '2']);
+            }
+        )
+    );
 };
 
 export const hiddenTable: StoryFn = createStory(

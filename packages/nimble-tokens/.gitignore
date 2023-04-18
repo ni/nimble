@@ -5,6 +5,8 @@
 dist/icons/*
 !dist/icons/svg
 
+dist/fonts/scss
+
 NimbleTokens/bin
 NimbleTokens/obj
 NimbleTokens/.vs

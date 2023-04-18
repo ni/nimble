@@ -14,6 +14,7 @@ export const styles = css`
     ${display('flex')}
 
     :host {
+        align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
     }
@@ -33,6 +34,10 @@ export const styles = css`
     }
 
     .expand-collapse-button {
+        margin-left: calc(
+            ${smallPadding} * 2 + ${standardPadding} * 2 *
+                var(--ni-private-table-group-row-indent-level)
+        );
         width: ${controlSlimHeight};
         height: ${controlSlimHeight};
     }
@@ -50,7 +55,7 @@ export const styles = css`
         overflow: hidden;
     }
 
-    .group-header-value {
+    .group-header-view {
         padding-left: calc(${standardPadding} / 2);
         user-select: none;
         overflow: hidden;
@@ -68,5 +73,17 @@ export const styles = css`
         :host([expanded]) .animating {
             transition-duration: 0s;
         }
+    }
+
+    .checkbox-container {
+        display: flex;
+    }
+
+    .selection-checkbox {
+        margin-left: ${standardPadding};
+    }
+
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
     }
 `;

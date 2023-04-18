@@ -1,12 +1,15 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { PowerGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
     fillHoverColor,
-    sectionBackgroundColor
+    sectionBackgroundColor,
+    fillHoverSelectedColor,
+    fillSelectedColor,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -55,12 +58,11 @@ export const styles = css`
     }
 
     .header-row {
-        display: grid;
+        display: flex;
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
         min-width: 100%;
-        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
         left: var(--ni-private-table-scroll-x);
     }
 
@@ -72,6 +74,12 @@ export const styles = css`
         pointer-events: none;
     }
 
+    .column-header-container {
+        display: grid;
+        width: 100%;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
     .header-scrollbar-spacer {
         width: var(--ni-private-table-header-scrollbar-spacer-width);
     }
@@ -80,6 +88,18 @@ export const styles = css`
         flex: 1;
     }
 
+    .checkbox-container {
+        display: flex;
+    }
+
+    .selection-checkbox {
+        margin-left: ${standardPadding};
+    }
+
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
+    }
+    
     .group-row {
         background: ${sectionBackgroundColor};
         position: relative;
@@ -110,8 +130,19 @@ export const styles = css`
         pointer-events: none;
     }
 
-    .row:hover::before {
+    :host([selection-mode='single']) .row:hover::before,
+    :host([selection-mode='multiple']) .row:hover::before {
         background: ${fillHoverColor};
+    }
+
+    :host([selection-mode='single']) .row[selected]::before,
+    :host([selection-mode='multiple']) .row[selected]::before {
+        background: ${fillSelectedColor};
+    }
+
+    :host([selection-mode='single']) .row[selected]:hover::before,
+    :host([selection-mode='multiple']) .row[selected]:hover::before {
+        background: ${fillHoverSelectedColor};
     }
 `.withBehaviors(
     themeBehavior(
@@ -125,6 +156,10 @@ export const styles = css`
             .row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.05)};
             }
+
+            :host([selection-mode='single']) .row:hover::before,
+            :host([selection-mode='multiple']) .row:hover::before {
+                background: ${hexToRgbaCssColor(White, 0.15)};
         `
     ),
     themeBehavior(
@@ -133,6 +168,16 @@ export const styles = css`
             .group-row:hover::before,
             .row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.10)};
+            }
+
+            :host([selection-mode='single']) .row[selected]::before,
+            :host([selection-mode='multiple']) .row[selected]::before {
+                background: ${hexToRgbaCssColor(PowerGreen, 0.20)};
+            }
+
+            :host([selection-mode='single']) .row[selected]:hover::before,
+            :host([selection-mode='multiple']) .row[selected]:hover::before {
+                background: ${hexToRgbaCssColor(PowerGreen, 0.15)};
             }
         `
     )

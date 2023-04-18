@@ -22,13 +22,20 @@ Column custom elements will be provided to the table as slotted elements. The sl
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text data-key="name"></nimble-table-column-text>
-    <nimble-table-column-icon data-key="ready"></nimble-table-column-icon>
+    <nimble-table-column-text data-key="name">Name</nimble-table-column-text>
+    <nimble-table-column-icon data-key="ready">Status</nimble-table-column-icon>
     ...
 </nimble-table>
 ```
 
-These column elements will _not_ have templates/CSS associated with them. Instead, each column element have an associated FAST-based custom element which will be used in each table cell for that column. The ordering of the column elements in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the column elements in the DOM.
+The column elements provide two purposes:
+
+1. The elements themselves will be inserted as the header of the column in the table. In the example above the text column will have a header with the text "Name" shown in the table.
+2. The columns define configuration information to the table for that column.
+
+Each column element has an associated FAST-based custom element which will be used in each table cell for that column.
+
+The ordering of the column elements in the markup will determine the visual ordering of the columns (top to bottom equals left to right...unless in 'rtl'). Re-ordering of columns will be done, at least at first, through the re-ordering of the column elements in the DOM.
 
 The table API to support this could look like the following:
 
@@ -80,9 +87,11 @@ interface TableCellState<TCellRecord extends TableRecord, TColumnConfig> {
 
 This interface could possibly be expanded in the future to communicate relevant table state to the cell template, such as whether or not the row is selected.
 
-### `TableColumn<>`
+### Configuration via the `TableColumn<>` base class
 
-This abstract class is what a column web component (i.e. a slotted column element) must extend.
+This abstract class is what a column web component (i.e. a slotted column element) must extend. The attributes added to the `TableColumn` class are intended to be options configurable by client users.
+
+Column authors have additional configuration options to maintain that are configured via the `ColumnInternalsOptions` constructor parameter and the `TableColumn.columnInternals` reference.
 
 ```TS
 abstract class TableColumn<TColumnConfig = {}> {
@@ -109,43 +118,62 @@ abstract class TableColumn<TColumnConfig = {}> {
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
-    // The relevant, static configuration a column requires its cell view to have access to.
-    columnConfig?: TColumnConfig;
+    // @internal Configuration settings for column plugin authors
+    public readonly columnInternals: ColumnInternals<TColumnConfig>;
 
-    // The tag (element name) of the custom element that renders the cell content for the column.
-    // Should derive from TableCellView<TCellRecord, TColumnConfig>.
-    cellViewTag: string;
-
-    // The names of the fields that should be present in TCellRecord.
-    // This array is parallel with the field names specified by `dataRecordFieldNames`.
-    readonly cellRecordFieldNames: readonly string[];
-
-    // The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
-    // This array is parallel with the field names specified by `cellRecordFieldNames`.
-    dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
-
-    // The name of the data field that will be used for operations on the table, such as sorting and grouping.
-    operandDataRecordFieldName?: TableFieldName;
-
-    /**
-     * @internal
-     *
-     * The operation to use when sorting the table by this column.
-     */
-    @observable
-    public sortOperation: TableColumnSortOperation;
-
-    // Function that allows the table column to validate the type that gets created
-    // for the cell data. This should validate that the types in TCellRecord are correct
-    // for each key defined by `cellRecordFieldNames`.
-    // This function should throw if validation fails.
-    abstract validateCellData(cellData: TCellRecord): void;
+    public constructor(options: ColumnInternalsOptions) {
+        super();
+        this.columnInternals = new ColumnInternals(options);
+    }
 }
 ```
 
-_Note: The `TableColumn` class may be updated to support other features not covered in this HLD such as sorting and grouping._
+_Note: The `TableColumn` class may be updated to support other features not covered in this HLD such as grouping._
 
-### `TableCellView<>`
+### Column author internal configuration
+
+Column authors have a required `ColumnInternalsOptions` constructor parameter argument to define for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
+
+```TS
+export interface ColumnInternalsOptions {
+    // The tag (element name) of the custom element that renders the cell content for the column.
+    // Should derive from TableCellView<TCellRecord, TColumnConfig>.
+    readonly cellViewTag: string;
+
+    // The names of the fields that should be present in TCellRecord.
+    // This array is parallel with the field names specified by `dataRecordFieldNames`.
+    readonly cellRecordFieldNames: readonly TableFieldName[];
+}
+```
+
+```TS
+export class ColumnInternals<TColumnConfig> {
+    // The relevant, static configuration a column requires its cell view to have access to.
+    @observable
+    public columnConfig?: TColumnConfig;
+
+    // The names of the fields from the row's record that correlate to the data that will be in TCellRecord.
+    // This array is parallel with the field names specified by `cellRecordFieldNames`.
+    @observable
+    public dataRecordFieldNames: readonly (TableFieldName | undefined)[] = [];
+
+    // The name of the data field that will be used for operations on the table, such as sorting and grouping.
+    @observable
+    public operandDataRecordFieldName?: TableFieldName;
+
+    // The operation to use when sorting the table by this column.
+    @observable
+    public sortOperation: TableColumnSortOperation;
+
+```
+
+### The `TableCellView<>` base class
+
+Requiring column plugins to create custom elements for use in the table cells has several implications:
+
+-   The elements encapsulate any state needed by the cell
+-   The cell element templates can use `ref` to get references to view elements from their templates, for use in their element code
+-   Simplifies the API needed to respond to events from the table. One example is `TableCellView.focusedRecycleCallback()` which will be called before a row is recycled during a virtualized scroll, giving column plugins the opportunity to commit changes and blur the control in the cell.
 
 ```TS
 abstract class TableCellView<
@@ -169,13 +197,13 @@ abstract class TableCellView<
 }
 ```
 
-Requiring column plugins to create custom elements for use in the table cells has several implications:
+### Example columns
 
--   The elements encapsulate any state needed by the cell
--   The cell element templates can use `ref` to get references to view elements from their templates, for use in their element code
--   Simplifies the API needed to respond to events from the table. One example is `TableCellView.focusedRecycleCallback()` which will be called before a row is recycled during a virtualized scroll, giving column plugins the opportunity to commit changes and blur the control in the cell.
+Given the above classes, a series of column types to handle basic use cases can be written within Nimble.
 
-Given the above classes, a series of column types to handle basic use cases can be written within Nimble. For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
+#### Simple text field
+
+For example, the `TableColumn` implementation we could create for rendering data as a read-only `NimbleTextField` could look like this:
 
 ```TS
 type TableColumnTextCellRecord = TableStringField<'value'>;
@@ -184,33 +212,30 @@ type TableColumnTextColumnConfig = { placeholder: string };
 public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
 
-    public getColumnConfig(): TableColumnTextColumnConfig {
-        return { placeholder: this.placeholder };
-    }
-
-    public cellRecordFieldNames = ['value'] as const;
-
     @attr
     public valueKey: string;
 
     @attr
-    public placeholder: string; // Column auxiliary configuration
+    public placeholder: string;
 
-    public getDataRecordFieldNames(): string[] {
-        return [valueKey];
+    public valueKeyChanged(): void {
+        this.columnInternals.dataRecordFieldNames = [this.valueKey];
     }
 
-    public cellViewTag = 'nimble-table-cell-view-text';
+    public placeholderChanged(): void {
+        this.columnInternals.columnConfig = { placeholder: this.placeholder };
+    }
 
-    public validateCellData(cellData: TCellRecord): void {
-        if (typeof(cellData['value']) !== 'string') {
-            throw new Error('Type for cellData is incorrect!');
-        }
+    constructor() {
+        super({
+            cellViewTag: 'nimble-table-cell-view-text',
+            cellRecordFieldNames: ['value']
+        })
     }
 }
 ```
 
-In the above example, notifications for when the `placeholder` property changed would be handled by the base class, and it would be responsible for any further action. This action could be a combination of things like causing a re-render, and issuing an event that may be publicly visible (such as `column-configuration-changed`). These details will be ironed out outside of this spec.
+In the above example, the column author is responsible for tracking changes to custom properties they add to the public api of the column, such as `valueKey` and `placeholder`, and notifying the table of those changes via the `this.columnInternals` reference.
 
 The corresponding cell element implementation would look like this:
 
@@ -238,12 +263,19 @@ TableColumnTextColumnConfig
 const textCellView = TextCellView.compose({
     baseName: 'table-cell-view-text',
     template: html<TextCellView>`
-        <nimble-text-field ${ref('textField')} readonly="true" value="${x => x.cellRecord.value}" placeholder="${x => x.columnConfig.placeholder}">
+        <nimble-text-field
+            ${ref('textField')}
+            readonly="true"
+            value="${x => x.cellRecord.value}"
+            placeholder="${x => x.columnConfig.placeholder}"
+        >
         </nimble-text-field>`,
     styles: /* styling */
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(textCellView());
 ```
+
+#### Accessing multiple data record fields
 
 Below demonstrates how column elements can access multiple fields from the row's record to use in its rendering:
 
@@ -252,25 +284,25 @@ type TableColumnNumberWithUnitCellData = NumberField<'value'> & TableStringField
 
 public class TableColumnNumberWithUnit extends TableColumn {
     ...
-
-    public cellRecordFieldNames = ['value', 'units'] as const;
-
     @attr
     public valueKey: string;
 
     @attr
     public unitKey: string;
 
-    public cellViewTag = 'nimble-table-cell-view-number-with-unit';
 
-    public getDataRecordFieldNames(): string[] {
-        return [valueKey, unitKey];
+    public valueKeyChanged() { this.updateDataRecordFieldNames(); }
+    public unitKeyChanged() { this.updateDataRecordFieldNames(); }
+
+    private updateDataRecordFieldNames(): void {
+        this.columnInternals.dataRecordFieldNames = [this.valueKey, this.unitKey];
     }
 
-    public validateCellData(cellData: TCellRecord): void {
-        if (!(typeof(cellData['value']) === 'number' && typeof typeof(cellData['units']) === 'string')) {
-            throw new Error('Type for cellData is incorrect!');
-        }
+    constructor() {
+        super({
+            cellViewTag: 'nimble-table-cell-view-number-with-unit',
+            cellRecordFieldNames: ['value', 'units']
+        })
     }
 }
 
@@ -291,123 +323,76 @@ const numberWithUnitCellView = NumberWithUnitCellView.compose({
 });
 ```
 
-Here we have a cell visualized in different ways based on custom logic:
+#### Exposing cell view events externally
+
+Because the cell view is not a descendant of the column element, we must add special support for the column to handle events that originate in the cells. A column will define a `delegatedEvents` property which is an array of event names that should be delegated. As this is a static property, it will be part of the `ColumnInternalsOptions` passed to the base column constructor.
 
 ```TS
-type TableColumnPositiveNegativeNumberCellData = NumberField<'value'>;
-
-const isPositive = (value: number): bool => {
-    return value >= 0;
-}
-
-public class TableColumnPositiveNegativeNumber extends TableColumn {
+export interface ColumnInternalsOptions {
     ...
+    readonly delegatedEvents: readonly string[];
+    ...
+}
 
-    public cellRecordFieldNames = ['value'] as const;
-
-    @attr
-    public valueKey: string;
-
-    public cellViewTag = 'table-cell-view-positive-negative-number';
-
-    public getDataRecordFieldNames(): string[] {
-        return [valueKey];
-    }
-
-    public validateCellData(cellData: TCellRecord): void {
-        if (typeof(cellData['value']) !== 'number') {
-            throw new Error('Type for cellData is incorrect!');
-        }
+export class ColumnInternals<TColumnConfig> {
+    ...
+    public readonly delegatedEvents: readonly string[];
+    ...
+    public constructor(options: ColumnInternalsOptions) {
+        this.delegatedEvents = options.delegatedEvents;
+        ...
     }
 }
 
-class PositiveNegativeNumberCellView extends TableCellView<TableColumnPositiveNegativeNumberCellData> {
-    public get textFieldCssClass(): string {
-        return this.cellRecord.value > 0 ? 'good' : 'bad';
+AnchorTableColumn extends TableColumn {
+    constructor() {
+        super({
+            delegatedEvents: ['click'],
+            ...
+        });
     }
+    ...
 }
-const positiveNegativeNumberCellView = PositiveNegativeNumberCellView.compose({
-    baseName: 'table-cell-view-positive-negative-number',
-    template: html<PositiveNegativeNumberCellView>`
-        <nimble-text-field
-            class="${x => x.textFieldCssClass}"
-            readonly="true"
-            value="${x => x.cellRecord.value}"
-        >
-        </nimble-text-field>`,
-    styles: css`
-        .good {
-            color: green;
-        }
+```
 
-        .bad {
-            color: red;
+Upon connecting a cell view to the DOM, we will attach an event listener for each event type in `columnInternals.delegatedEvents`. The handler will wrap the original event in a new `CustomEvent` and dispatch that to the column.
+
+```TS
+this.addEventListener(delegatedEventName, event => {
+    this.column.dispatchEvent(new CustomEvent('delegated-event', {
+        details: {
+            originalEvent: event
         }
-    `
+    }));
 });
 ```
 
-Finally, here is a column element that allows a user to register a callback for a click event on a button inside the cell template:
+The `CustomEvent`'s details will be of type `DelegatedEventEventDetails`:
 
 ```TS
-type TableColumnButtonCellData = TableStringField<'id'>;
-
-public class TableColumnButton extends TableColumn<TableColumnButtonCellData> {
-    ...
-
-    public cellRecordFieldNames = ['id'] as const;
-
-    @attr
-    public idKey: string;
-
-    public getDataRecordFieldNames(): string[] {
-        return [valueKey];
-    }
-
-    public cellViewTag = 'table-cell-view-button';
-
-    public validateCellData(cellData: TCellRecord): void {
-        if (typeof(cellData['id']) !== 'string') {
-            throw new Error('Type for cellData is incorrect!');
-        }
-    }
+export interface DelegatedEventEventDetails {
+    originalEvent: Event;
 }
-
-class ButtonCellView extends TableCellView<TableColumnButtonCellData> {
-    public onButtonClick(): void {
-        this.$emit('button-click', { data: this.cellRecord.id })
-    }
-}
-const buttonCellView = ButtonCellView.compose({
-    baseName: 'table-cell-view-button',
-    template: html<ButtonCellView>`
-        <nimble-button @click="${(x) => x.onButtonClick()}">
-            <span>Press Me</span>
-        </nimble-button>`,
-    styles: /* styling */
-});
 ```
 
-Angular template:
-
-```HTML
-<nimble-table (button-click)="doSomething($event)">
-    <nimble-table-column-button></nimble-table-column-button>
-</nimble-table>
-```
-
-Angular code:
+A client may register a listener for the `delegated-event` event on a table column. This listener will have access to the full original event, including the originating cell view via `event.target`. The cell view can expose anything necessary from its public API.
 
 ```TS
-private doSomething(CustomEvent e): void {
-    ...
+class AnchorColumnDirective {
+  @HostListener('delegated-event', ['$event.details.originalEvent'])
+  onDelegatedEvent(originalEvent: CustomEvent<DelegatedEventEventDetails>) {
+      if (originalEvent.type !== 'click') {
+          return;
+      }
+      if ((originalEvent as MouseEvent).button !== 0) {
+          return;
+      }
+      const cellView = originalEvent.target as TableColumnAnchorCellView;
+      this.doSomething(cellView.anchor.href);
+      originalEvent.preventDefault();
+  }
 }
-
 ```
-
-The exact pattern for how we expect event APIs to be implemented is TBD. The above is simply illustrative of one approach, but it's safe to say that the goal will be to provide frameworks like Angular the expected event binding APIs.
-
-_Note: The implementation necessary to register the column elements as FAST components is missing, and has been omitted for brevity's sake._
 
 ### Header Content
 

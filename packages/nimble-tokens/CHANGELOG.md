@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 05 Apr 2023 18:54:28 GMT and should not be manually modified.
+This log was last generated on Tue, 11 Apr 2023 01:58:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 4.9.0
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Minor changes
+
+- Adding icon: file-export ([ni/nimble@d339db7](https://github.com/ni/nimble/commit/d339db767c179e2398ccadc6111d9ab7c72ca6bb))
+
+## 4.8.0
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Minor changes
+
+- Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines ([ni/nimble@b14c239](https://github.com/ni/nimble/commit/b14c239ec88207b6561e90f447c1975e429e086f))
+
+## 4.7.3
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Generate a fonts.scss file in addition to the fonts.css file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
 
 ## 4.7.2
 

@@ -105,6 +105,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   What column gets used for sorting?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
+        -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   What is the component to use for interaction? Outline Button? Ghost button?
@@ -178,9 +179,17 @@ Blazor support should be accomplished through the typical integration patterns.
 
 One aspect of note is that the Data property is not attribute based so the connection from the blazor component wrapper Data property to the web component will require additional JSInterop considerations.
 
-### Visual Appearance
+### Visual appearance
 
 Placeholder
+
+### State management
+
+Most of the state on the table is declaratively set through attributes/properties on the table itself or on its columns. Examples of this are sorting state, grouping state, and record IDs. Updates to the declarative state are asynchronously applied in batches for performance reasons. For example, changing the sorting state on two columns as back-to-back updates to the columns will be batched and only cause the table to be updated one time.
+
+State that cannot be set declaratively is applied using asynchronous functions. Examples of this are setting the data and getting/setting the row selection. These asynchronous functions wait on pending batches, then apply their state, and then resolve.
+
+Both declarative and function-based state can be applied before the `nimble-table` element is connected to the DOM.
 
 ---
 

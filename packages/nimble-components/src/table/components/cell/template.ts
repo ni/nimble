@@ -1,4 +1,4 @@
-import { html, ref, ViewTemplate, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@microsoft/fast-element';
 import type { TableCell } from '.';
 import { iconThreeDotsLineTag } from '../../../icons/three-dots-line';
 import { menuButtonTag } from '../../../menu-button';
@@ -17,6 +17,7 @@ export const template = html<TableCell>`
                 appearance="${ButtonAppearance.ghost}"
                 @beforetoggle="${(x, c) => x.onActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
                 @toggle="${(x, c) => x.onActionMenuToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>)}"
+                @click="${(_, c) => c.event.stopPropagation()}"
                 class="action-menu"
             >
                 <${iconThreeDotsLineTag} slot="start"></${iconThreeDotsLineTag}>
@@ -26,11 +27,3 @@ export const template = html<TableCell>`
         `)}
     </template>
 `;
-
-export const createCellViewTemplate = (
-    cellViewTag: string
-): ViewTemplate<TableCell> => html<TableCell>`<${cellViewTag} class="cell-view"
-        :cellRecord="${y => y.cellState?.cellRecord}"
-        :columnConfig="${y => y.cellState?.columnConfig}"
-    >
-    </${cellViewTag}>`;
