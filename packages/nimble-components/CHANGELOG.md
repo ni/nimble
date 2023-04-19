@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 14 Apr 2023 14:26:33 GMT and should not be manually modified.
+This log was last generated on Wed, 19 Apr 2023 17:58:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.2
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Patches
+
+- Storybook updates for design token build changes ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
+- Bump @ni/nimble-tokens to v5.0.0
 
 ## 18.12.1
 

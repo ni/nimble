@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Refactor token build output. This removes some source files from the built package.",
-  "packageName": "@ni/nimble-tokens",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
