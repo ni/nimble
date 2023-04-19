@@ -62,9 +62,13 @@ describe('TreeView', () => {
 
     async function waitForGroupSelectedUpdate(): Promise<void> {
         await new Promise<Promise<void>>(resolve => {
-            model.treeView.addEventListener('group-selected-update', () => {
-                resolve(waitForUpdatesAsync());
-            }, { once: true });
+            model.treeView.addEventListener(
+                'group-selected-update',
+                () => {
+                    resolve(waitForUpdatesAsync());
+                },
+                { once: true }
+            );
         });
     }
 
