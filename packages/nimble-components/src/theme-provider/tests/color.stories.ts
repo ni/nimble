@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
-import nimbleColorsMapJson from '@ni/nimble-tokens/source/styledictionary/properties/colors.json';
+import * as tokens from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { controlLabelFont, controlLabelFontColor } from '../design-tokens';
 
@@ -9,12 +9,13 @@ interface NimbleColor {
     data: string;
 }
 
-const nimbleBaseColors: NimbleColor[] = Object.entries(
-    nimbleColorsMapJson.color
-).map(([key, valueObj]) => ({
-    name: key,
-    data: valueObj.value
-}));
+const colorRegExp = /^#([0-9a-zA-Z]{6})$/;
+const nimbleBaseColors: NimbleColor[] = Object.entries(tokens)
+    .filter(([_key, value]) => colorRegExp.test(value))
+    .map(([key, value]) => ({
+        name: key,
+        data: value
+    }));
 
 const styleMarkup = html`
     <style>
