@@ -19,7 +19,7 @@ interface SimpleTableRecord extends TableRecord {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
+        html`<nimble-table style="width: 700px">
                 <${tableColumnAnchorTag}
                     label-field-name="label"
                     href-field-name="link"
@@ -139,8 +139,7 @@ describe('TableColumnAnchor', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('sets title when cell text is ellipsized #SkipFirefox', async () => {
+        it('sets title when cell text is ellipsized', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await element.setData([{ label: cellContents }]);
             await connect();
@@ -345,8 +344,7 @@ describe('TableColumnAnchor', () => {
             });
         });
 
-        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-        it('sets title when cell text is ellipsized #SkipFirefox', async () => {
+        it('sets title when cell text is ellipsized', async () => {
             const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
             await element.setData([{ label: cellContents, link: 'url' }]);
             await connect();
