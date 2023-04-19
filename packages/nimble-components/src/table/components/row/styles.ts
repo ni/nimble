@@ -1,18 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderWidth,
-    controlHeight,
-    standardPadding,
-    tableRowBorderColor
+    standardPadding
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
-        height: calc(${controlHeight} + 2 * ${borderWidth});
-        border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
         width: fit-content;
         min-width: 100%;
     }

@@ -1,13 +1,10 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    borderWidth,
-    controlHeight,
     controlSlimHeight,
     mediumDelay,
     smallPadding,
-    standardPadding,
-    tableRowBorderColor
+    standardPadding
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
@@ -15,8 +12,6 @@ export const styles = css`
 
     :host {
         align-items: center;
-        height: calc(${controlHeight} + 2 * ${borderWidth});
-        border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
     }
 
     :host([expanded]) .animating,

@@ -12,7 +12,10 @@ import {
     sectionBackgroundColor,
     fillHoverSelectedColor,
     fillSelectedColor,
-    standardPadding
+    standardPadding,
+    controlHeight,
+    borderWidth,
+    tableRowBorderColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -53,6 +56,7 @@ export const styles = css`
         width: 100%;
         position: relative;
         top: var(--ni-private-table-row-container-top);
+        background: ${sectionBackgroundColor};
     }
 
     .header-container {
@@ -106,33 +110,45 @@ export const styles = css`
     .group-row {
         background: ${sectionBackgroundColor};
         position: relative;
+        height: calc(${controlHeight} + 2 * ${borderWidth});
+        border-top: calc(2 * ${borderWidth}) solid transparent;
         box-sizing: border-box;
+        background-clip: padding-box;
     }
 
     .group-row::before {
         content: '';
         width: 100%;
-        height: 100%;
+        height: ${controlHeight};
         position: absolute;
         pointer-events: none;
+        bottom: 0px;
+        background-clip: padding-box;
     }
 
     .group-row:hover::before {
         background: ${fillHoverColor};
+        background-clip: padding-box;
     }
 
     .row {
         background: ${applicationBackgroundColor};
         position: relative;
+        height: calc(${controlHeight} + 2 * ${borderWidth});
+        border-top: calc(2 * ${borderWidth}) solid transparent;
         box-sizing: border-box;
+        background-clip: padding-box;
     }
 
     .row::before {
         content: '';
         width: 100%;
-        height: 100%;
+        height: ${controlHeight};
         position: absolute;
         pointer-events: none;
+        box-sizing: border-box;
+        bottom: 0px;
+        background-clip: padding-box;
     }
 
     :host([selection-mode='single']) .row:hover::before,
@@ -153,25 +169,49 @@ export const styles = css`
     themeBehavior(
         Theme.color,
         css`
-            .group-row {
-                background: #205439;
+            .table-row-container {
+                background: ${applicationBackgroundColor};
             }
 
-            .group-row:hover::before,
-            .row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.05)};
+            .table-row-container::before {
+                content: '';
+                width: 100%;
+                height: 100%;
+                background: ${hexToRgbaCssColor(White, 0.1)};
+                position: absolute;
+            }
+
+            .group-row {
+                background: ${applicationBackgroundColor};
+            }
+
+            .group-row::before {
+                background: ${hexToRgbaCssColor(White, 0.1)};
+            }
+
+            .group-row:hover::before {
+                background: ${hexToRgbaCssColor(White, 0.125)};
             }
 
             :host([selection-mode='single']) .row:hover::before,
             :host([selection-mode='multiple']) .row:hover::before {
+                background: ${hexToRgbaCssColor(White, 0.05)};
+            }
+        
+            :host([selection-mode='single']) .row[selected]::before,
+            :host([selection-mode='multiple']) .row[selected]::before {
+                background: ${hexToRgbaCssColor(White, 0.2)};
+            }
+
+            :host([selection-mode='single']) .row[selected]:hover::before,
+            :host([selection-mode='multiple']) .row[selected]:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.15)};
         `
     ),
     themeBehavior(
         Theme.dark,
         css`
-            .group-row:hover::before,
-            .row:hover::before {
+            .group-row:hover::before {
                 background: ${hexToRgbaCssColor(White, 0.1)};
             }
 
