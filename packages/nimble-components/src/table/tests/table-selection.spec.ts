@@ -1091,7 +1091,9 @@ describe('Table row selection', () => {
                     expect(currentSelection).toEqual(
                         jasmine.arrayWithExactContents(expectedSelection)
                     );
-                    expect(secondMultiSelectListener.spy).toHaveBeenCalledTimes(1);
+                    expect(secondMultiSelectListener.spy).toHaveBeenCalledTimes(
+                        1
+                    );
                     const emittedIds = getEmittedRecordIdsFromSpy(
                         secondMultiSelectListener.spy
                     );

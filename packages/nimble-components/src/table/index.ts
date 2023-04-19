@@ -336,7 +336,9 @@ export class Table<
         const isShiftSelect = this.documentShiftKeyDown
             && this.shiftSelectStartRowId !== undefined;
 
-        const madeSelection = isShiftSelect ? await this.selectRowsTo(rowState.id) : false;
+        const madeSelection = isShiftSelect
+            ? await this.selectRowsTo(rowState.id)
+            : false;
         if (!madeSelection) {
             this.shiftSelectStartRowId = rowState.id;
             if (
@@ -837,20 +839,36 @@ export class Table<
             selectionState: {},
             isInRange: false
         };
-        const foundFullSelection = this.performRowRangeSelection(this.table.getRowModel().rows, clickedRowId, recursiveState);
+        const foundFullSelection = this.performRowRangeSelection(
+            this.table.getRowModel().rows,
+            clickedRowId,
+            recursiveState
+        );
         if (!foundFullSelection) {
             return false;
         }
 
-        this.updateTableOptions({ state: { rowSelection: recursiveState.selectionState } });
+        this.updateTableOptions({
+            state: { rowSelection: recursiveState.selectionState }
+        });
         await this.emitSelectionChangeEvent();
         return true;
     }
 
-    private performRowRangeSelection(rows: TanStackRow<TData>[], clickedRowId: string, recursiveState: { selectionState: TanStackRowSelectionState, isInRange: boolean }): boolean {
+    private performRowRangeSelection(
+        rows: TanStackRow<TData>[],
+        clickedRowId: string,
+        recursiveState: {
+            selectionState: TanStackRowSelectionState,
+            isInRange: boolean
+        }
+    ): boolean {
         for (const row of rows) {
             let isFinalSelectedRow = false;
-            if (row.id === this.shiftSelectStartRowId || row.id === clickedRowId) {
+            if (
+                row.id === this.shiftSelectStartRowId
+                || row.id === clickedRowId
+            ) {
                 if (recursiveState.isInRange) {
                     isFinalSelectedRow = true;
                 }
@@ -872,7 +890,11 @@ export class Table<
             if (isFinalSelectedRow) {
                 return true;
             }
-            const foundFullSelection = this.recursiveFunction(this.getHiddenRowsForRow(row), clickedRowId, recursiveState);
+            const foundFullSelection = this.performRowRangeSelection(
+                this.getHiddenRowsForRow(row),
+                clickedRowId,
+                recursiveState
+            );
             if (foundFullSelection) {
                 return true;
             }
