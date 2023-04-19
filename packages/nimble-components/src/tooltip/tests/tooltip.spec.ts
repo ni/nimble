@@ -29,7 +29,9 @@ describe('Tooltip', () => {
         return display !== 'none';
     }
 
-    async function waitUntilAnchoredRegionLoaded(tooltip: Tooltip): Promise<void> {
+    async function waitUntilAnchoredRegionLoaded(
+        tooltip: Tooltip
+    ): Promise<void> {
         await waitForUpdatesAsync();
         const region = tooltip.shadowRoot!.querySelector(
             'nimble-anchored-region'
