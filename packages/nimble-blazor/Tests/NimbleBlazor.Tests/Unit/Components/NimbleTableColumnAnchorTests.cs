@@ -38,6 +38,15 @@ public class NimbleTableColumnAnchorTests
     }
 
     [Fact]
+    public void NimbleTableColumnAnchor_WithAppearanceAttribute_HasTableMarkup()
+    {
+        var tableColumn = RenderWithPropertySet(x => x.Appearance!, "prominent");
+
+        var expectedMarkup = @"appearance=""prominent""";
+        Assert.Contains(expectedMarkup, tableColumn.Markup);
+    }
+
+    [Fact]
     public void NimbleTableColumnAnchor_WithHrefLangAttribute_HasTableMarkup()
     {
         var tableColumn = RenderWithPropertySet(x => x.HrefLang!, "en");

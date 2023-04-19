@@ -26,6 +26,12 @@ public partial class NimbleTableColumnAnchor : NimbleTableColumn
     public string? Placeholder { get; set; }
 
     /// <summary>
+    /// The appearance of the anchor.
+    /// </summary>
+    [Parameter]
+    public AnchorAppearance? Appearance { get; set; }
+
+    /// <summary>
     /// Hints at the human language of the linked URL. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a for more information.
     /// </summary>
     [Parameter]

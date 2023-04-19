@@ -24,6 +24,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                     label-field-name="label"
                     href-field-name="link"
                     placeholder="no value"
+                    appearance="prominent"
                     hreflang="hreflang value"
                     ping="ping value"
                     referrerpolicy="referrerpolicy value"
@@ -255,6 +256,16 @@ describe('TableColumnAnchor', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellAnchor(0, 0).href).toBe('bar');
+        });
+
+        it('sets appearance on anchor', async () => {
+            await element.setData([{ link: 'foo' }]);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(
+                pageObject.getRenderedCellAnchor(0, 0).appearance
+            ).toBe('prominent');
         });
 
         const linkOptionData = [

@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnAnchor } from '@ni/nimble-components/dist/esm/table-column/anchor';
+import type { AnchorAppearance } from '../../anchor/nimble-anchor.directive';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
 
 export type { TableColumnAnchor };
@@ -37,6 +38,14 @@ export class NimbleTableColumnAnchorDirective {
 
     @Input() public set placeholder(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
+    }
+
+    public get appearance(): AnchorAppearance {
+        return this.elementRef.nativeElement.appearance;
+    }
+
+    @Input() public set appearance(value: AnchorAppearance) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
     public get hreflang(): string | undefined {

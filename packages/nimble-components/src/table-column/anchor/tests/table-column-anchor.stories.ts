@@ -12,6 +12,7 @@ import {
     sharedTableArgTypes
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
+import { AnchorAppearance } from '../../../anchor/types';
 
 const columnTypeOverviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`.
 See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
@@ -29,7 +30,12 @@ const metadata: Meta<SharedTableArgs> = {
     },
     // prettier-ignore
     argTypes: {
-        ...sharedTableArgTypes
+        ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        },
     }
 };
 
@@ -69,6 +75,7 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     labelFieldName: string;
     hrefFieldName: string;
     placeholderText: string;
+    appearance: keyof typeof AnchorAppearance;
 }
 
 const anchorColumnDescription = 'The `nimble-table-column-anchor` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
@@ -92,6 +99,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 label-field-name="${x => x.labelFieldName}"
                 href-field-name="${x => x.hrefFieldName}"
                 placeholder="${x => x.placeholderText}"
+                appearance="${x => x.appearance}"
             >
             First Name
             </${tableColumnAnchorTag}>
@@ -121,12 +129,19 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             name: 'placeholder',
             description:
                 'Optionally set this attribute to change the text that is displayed if both the label value and url value for a record is `null`, `undefined`, or not present. If none of the three fields are defined, an empty string will be displayed.'
+        },
+        appearance: {
+            options: Object.keys(AnchorAppearance),
+            control: { type: 'radio' },
+            description:
+                'Set to `prominent` to make the anchor appear in a different color than normal text.'
         }
     },
     args: {
         labelFieldName: 'firstName',
         hrefFieldName: 'url',
         placeholderText: '(no first name or link provided)',
+        appearance: 'default',
         ...sharedTableArgs(simpleData)
     }
 };

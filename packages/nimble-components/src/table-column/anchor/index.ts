@@ -10,10 +10,12 @@ import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import type { TableStringField } from '../../table/types';
 import { tableColumnAnchorCellViewTag } from './cell-view';
 import { tableColumnTextGroupHeaderTag } from '../text/group-header-view';
+import type { AnchorAppearance } from '../../anchor/types';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
     placeholder: string;
+    appearance: AnchorAppearance;
     hreflang?: string;
     ping?: string;
     referrerpolicy?: string;
@@ -43,6 +45,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 
     @attr
     public placeholder?: string;
+
+    @attr
+    public appearance?: AnchorAppearance;
 
     @attr
     public hreflang?: string;
@@ -94,6 +99,10 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         this.updateColumnConfig();
     }
 
+    protected appearanceChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected hreflangChanged(): void {
         this.updateColumnConfig();
     }
@@ -125,6 +134,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     private updateColumnConfig(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder ?? '',
+            appearance: this.appearance,
             hreflang: this.hreflang,
             ping: this.ping,
             referrerpolicy: this.referrerpolicy,

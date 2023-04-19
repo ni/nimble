@@ -105,6 +105,11 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.placeholder).toBeUndefined();
         });
 
+        it('has expected defaults for appearance', () => {
+            expect(directive.appearance).toBeUndefined();
+            expect(nativeElement.appearance).toBeUndefined();
+        });
+
         it('has expected defaults for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBeUndefined();
             expect(nativeElement.fractionalWidth).toBeUndefined();
@@ -140,6 +145,7 @@ describe('Nimble anchor table column', () => {
                     label-field-name="label"
                     href-field-name="href"
                     placeholder="no value"
+                    appearance="prominent"
                     fractional-width="2"
                     min-pixel-width="40"
                     group-index="0"
@@ -218,6 +224,11 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.placeholder).toBe('no value');
         });
 
+        it('will use template string values for appearance', () => {
+            expect(directive.appearance).toBe('prominent');
+            expect(nativeElement.appearance).toBe('prominent');
+        });
+
         it('will use template string values for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -253,6 +264,7 @@ describe('Nimble anchor table column', () => {
                     [label-field-name]="labelFieldName"
                     [href-field-name]="hrefFieldName"
                     [placeholder]="placeholder"
+                    [appearance]="appearance"
                     [fractional-width]="fractionalWidth"
                     [min-pixel-width]="minPixelWidth"
                     [group-index]="groupIndex"
@@ -274,6 +286,7 @@ describe('Nimble anchor table column', () => {
             public labelFieldName = 'label';
             public hrefFieldName = 'href';
             public placeholder = 'no value';
+            public appearance: string | undefined = 'prominent';
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -405,6 +418,17 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.placeholder).toBe('foo');
         });
 
+        it('can be configured with property binding for appearance', () => {
+            expect(directive.appearance).toBe('prominent');
+            expect(nativeElement.appearance).toBe('prominent');
+
+            fixture.componentInstance.appearance = undefined;
+            fixture.detectChanges();
+
+            expect(directive.appearance).toBeUndefined();
+            expect(nativeElement.appearance).toBeUndefined();
+        });
+
         it('can be configured with property binding for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -497,6 +521,7 @@ describe('Nimble anchor table column', () => {
                     [attr.label-field-name]="labelFieldName"
                     [attr.href-field-name]="hrefFieldName"
                     [attr.placeholder]="placeholder"
+                    [attr.appearance]="appearance"
                     [attr.fractional-width]="fractionalWidth"
                     [attr.min-pixel-width]="minPixelWidth"
                     [attr.group-index]="groupIndex"
@@ -518,6 +543,7 @@ describe('Nimble anchor table column', () => {
             public labelFieldName = 'label';
             public hrefFieldName = 'href';
             public placeholder = 'no value';
+            public appearance: string | undefined = 'prominent';
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -647,6 +673,17 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.placeholder).toBe('foo');
             expect(nativeElement.placeholder).toBe('foo');
+        });
+
+        it('can be configured with attribute binding for appearance', () => {
+            expect(directive.appearance).toBe('prominent');
+            expect(nativeElement.appearance).toBe('prominent');
+
+            fixture.componentInstance.appearance = undefined;
+            fixture.detectChanges();
+
+            expect(directive.appearance).toBeUndefined();
+            expect(nativeElement.appearance).toBeUndefined();
         });
 
         it('can be configured with attribute binding for fractionalWidth', () => {
