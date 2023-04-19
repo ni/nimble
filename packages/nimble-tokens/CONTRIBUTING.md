@@ -20,25 +20,11 @@
 
 ## Editing Tokens
 
-New tokens are added to this package with the [Adobe XD Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=Adobe.xd&ssr=false#overview).
+Tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
 
-The source of truth for the colors, fonts, and component design tokens in this repository is an Adobe XD [Design Library file](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/) maintained by the Visual Design team.
-
-For changes to any token values, work with the Visual Design team to update the library, and then perform the following steps:
-
-1. Open the XD extension (invoke [Show All Commands](https://code.visualstudio.com/docs/getstarted/keybindings#_navigation) and execute command `XD: Toggle Adobe XD Panel`) and load the nimble-tokens-dsp package by selecting the `nimble-tokens` folder.
-2. Click the **DSP Setting** button (bottom left). If the button is not available, open the XD extension settings to confirm that the `XD: Global Editor` setting is **checked** for both user and workspace.
-3. Scroll to the bottom of the DSP Setting page and click the **Re-import** button to update the CC LIBRARY LINK.
-4. Save the settings change.
-5. Click the **Start Editing** button and then the **Stop Editing** button to trigger the StyleDictionary token build.
-6. Commit these changes to the repo.
-
-For any token metadata changes (e.g. documentation, code snippets, etc.):
-
-1. Follow step 1 above.
-2. Click the **Start Editing** button and make your changes.
-3. Click the **Stop Editing** button to trigger a token build.
-4. Commit these changes to the repo.
+1. Edit the JSON files in `source/styledictionary/properties`. Long term these tokens will be sourced from a Figma design spec but for now it's OK to make manual edits.
+2. Rebuild the generated token files by running the repository's build command, `npm run build`.
+3. Test your changes locally and create a PR using the normal process.
 
 ## Updating icons
 
