@@ -51,11 +51,6 @@ export const styles = css`
         top: var(--ni-private-table-row-container-top);
     }
 
-    .header-container {
-        position: sticky;
-        top: 0;
-    }
-
     .header-row {
         display: flex;
         background: ${applicationBackgroundColor};

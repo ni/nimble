@@ -1,8 +1,9 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../types';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableColumn } from '../../../table-column/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,6 +21,14 @@ export class TableHeader extends FoundationElement {
 
     @attr({ attribute: 'first-sorted-column', mode: 'boolean' })
     public firstSortedColumn = false;
+
+    @observable
+    public possibleColumns: TableColumn[] = [];
+
+    /** @internal */
+    public onColumnSelectionChange(toggledColumn: TableColumn): void {
+        toggledColumn.columnHidden = !toggledColumn.columnHidden;
+    }
 
     protected sortDirectionChanged(
         _prev: TableColumnSortDirection | undefined,

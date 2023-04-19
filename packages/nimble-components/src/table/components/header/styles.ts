@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     controlHeight,
+    controlSlimHeight,
     iconColor,
     standardPadding,
     tableHeaderFont,
@@ -18,10 +19,20 @@ export const styles = css`
         font: ${tableHeaderFont};
         color: ${tableHeaderFontColor};
         ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
+    }
+
+    .title {
         text-transform: uppercase;
     }
 
     .sort-indicator {
+        flex-shrink: 0;
         padding: 0px calc(${standardPadding} / 2);
+    }
+
+    .column-menu {
+        margin-left: auto;
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
     }
 `;

@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { standardPadding } from '../../../theme-provider/design-tokens';
+import { controlSlimHeight, standardPadding } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('grid')}
@@ -30,5 +30,8 @@ export const styles = css`
 
     .action-menu {
         display: var(--ni-private-table-cell-action-menu-display);
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
+        align-self: center;
     }
 `;
