@@ -40,7 +40,7 @@ public class NimbleTableColumnAnchorTests
     [Fact]
     public void NimbleTableColumnAnchor_WithAppearanceAttribute_HasTableMarkup()
     {
-        var tableColumn = RenderWithPropertySet(x => x.Appearance!, "prominent");
+        var tableColumn = RenderWithPropertySet(x => x.Appearance!, AnchorAppearance.Prominent);
 
         var expectedMarkup = @"appearance=""prominent""";
         Assert.Contains(expectedMarkup, tableColumn.Markup);
