@@ -4,7 +4,7 @@ import type { DelegatedEventEventDetails } from '../types';
 import {
     tableColumnEmptyCellViewTag,
     TableColumnDelegatesClickAndKeydown,
-    TableColumnEmpty,
+    TableColumnEmpty
 } from './table-column.fixtures';
 
 async function setup(): Promise<Fixture<TableCellView>> {
@@ -31,7 +31,9 @@ describe('TableCellView', () => {
         let gotClickOnDelegatingColumn = false;
         let gotKeydownOnDelegatingColumn = false;
         delegatingColumn.addEventListener('delegated-event', event => {
-            const delegatedEvent = ((event as CustomEvent).detail as DelegatedEventEventDetails).originalEvent;
+            const delegatedEvent = (
+                (event as CustomEvent).detail as DelegatedEventEventDetails
+            ).originalEvent;
             if (delegatedEvent.type === 'click') {
                 gotClickOnDelegatingColumn = true;
             } else if (delegatedEvent.type === 'keydown') {
@@ -43,7 +45,9 @@ describe('TableCellView', () => {
         let gotClickOnEmptyColumn = false;
         let gotKeydownOnEmptyColumn = false;
         emptyColumn.addEventListener('delegated-event', event => {
-            const delegatedEvent = ((event as CustomEvent).detail as DelegatedEventEventDetails).originalEvent;
+            const delegatedEvent = (
+                (event as CustomEvent).detail as DelegatedEventEventDetails
+            ).originalEvent;
             if (delegatedEvent.type === 'click') {
                 gotClickOnEmptyColumn = true;
             } else if (delegatedEvent.type === 'keydown') {

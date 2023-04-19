@@ -48,10 +48,9 @@ export abstract class TableCellView<
         this.delegatedEvents = this.column.columnInternals.delegatedEvents;
         this.delgatedEventHandler = (event: Event) => {
             this.column?.dispatchEvent(
-                new CustomEvent<DelegatedEventEventDetails>(
-                    'delegated-event',
-                    { detail: { originalEvent: event } }
-                )
+                new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
+                    detail: { originalEvent: event }
+                })
             );
         };
 
