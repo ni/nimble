@@ -263,9 +263,9 @@ describe('TableColumnAnchor', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(
-                pageObject.getRenderedCellAnchor(0, 0).appearance
-            ).toBe('prominent');
+            expect(pageObject.getRenderedCellAnchor(0, 0).appearance).toBe(
+                'prominent'
+            );
         });
 
         const linkOptionData = [
