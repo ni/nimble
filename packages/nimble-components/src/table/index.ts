@@ -191,6 +191,7 @@ export class Table<
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
     private shiftSelectStartRowId?: string;
+    private shiftSelectStartRowIndex?: number;
 
     public constructor() {
         super();
@@ -327,17 +328,20 @@ export class Table<
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
+        const rowState = this.tableData[rowIndex];
+        if (!rowState) {
+            return;
+        }
 
         const isShiftSelect = this.documentShiftKeyDown
             && this.shiftSelectStartRowId !== undefined;
-        if (isShiftSelect) {
-            await this.selectRowsTo(rowIndex);
-        } else {
-            const rowState = this.tableData[rowIndex];
-            this.shiftSelectStartRowId = rowState?.id;
+
+        const madeSelection = isShiftSelect ? await this.selectRowsTo(rowState.id) : false;
+        if (!madeSelection) {
+            this.shiftSelectStartRowId = rowState.id;
             if (
-                rowState?.isGrouped
-                && rowState?.selectionState === TableRowSelectionState.selected
+                rowState.isGrouped
+                && rowState.selectionState === TableRowSelectionState.selected
             ) {
                 // Work around for https://github.com/TanStack/table/issues/4759
                 // Manually deselect all leaf rows when a fully selected group is being deselected.
@@ -379,7 +383,11 @@ export class Table<
             row.toggleSelected();
             await this.emitSelectionChangeEvent();
         } else if (event.shiftKey) {
-            await this.selectRowsTo(rowIndex);
+            const madeSelection = await this.selectRowsTo(row.id);
+            if (!madeSelection) {
+                this.shiftSelectStartRowId = row.id;
+                await this.selectSingleRow(row);
+            }
         }
     }
 
@@ -698,6 +706,7 @@ export class Table<
 
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
+        this.shiftSelectStartRowIndex = undefined;
 
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
@@ -813,49 +822,73 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
-    private getRowIndexRange(endRowIndex: number): [number, number] {
+    /**
+     * Tries to select all rows between `this.shiftSelectStartRowId` and `clickedRowId`.
+     * @param clickedRowId The ID of the row to select to, with the selection starting at `this.shiftSelectStartRowId`.
+     * @returns Whether or not the selection was made. The selection will not be made if rows associated with both
+     * `this.shiftSelectStartRowId` and `clickedRowId` cannot be found.
+     */
+    private async selectRowsTo(clickedRowId: string): Promise<boolean> {
         if (this.shiftSelectStartRowId === undefined) {
-            return [endRowIndex, endRowIndex];
+            return false;
         }
 
-        const startRow = this.table.getRowModel().rowsById[this.shiftSelectStartRowId];
-        if (!startRow) {
-            return [endRowIndex, endRowIndex];
+        const recursiveState = {
+            selectionState: {},
+            isInRange: false
+        };
+        const foundFullSelection = this.performRowRangeSelection(this.table.getRowModel().rows, clickedRowId, recursiveState);
+        if (!foundFullSelection) {
+            return false;
         }
 
-        const startRowIndex = startRow.index;
-        const min = Math.min(startRowIndex, endRowIndex);
-        const max = Math.max(startRowIndex, endRowIndex);
-        return [min, max];
+        this.updateTableOptions({ state: { rowSelection: recursiveState.selectionState } });
+        await this.emitSelectionChangeEvent();
+        return true;
     }
 
-    private async selectRowsTo(clickedRowIndex: number): Promise<void> {
-        const [startRowIndex, endRowIndex] = this.getRowIndexRange(clickedRowIndex);
-
-        // Calling row.toggleSelected() on N number of rows can be very slow. Instead, create
-        // the new selection state and only set it on TanStack once.
-        const newSelection: TanStackRowSelectionState = {};
-        for (let i = startRowIndex; i <= endRowIndex; i++) {
-            const row = this.table.getRowModel().rows[i];
-            if (!row) {
-                continue;
+    private performRowRangeSelection(rows: TanStackRow<TData>[], clickedRowId: string, recursiveState: { selectionState: TanStackRowSelectionState, isInRange: boolean }): boolean {
+        for (const row of rows) {
+            let isFinalSelectedRow = false;
+            if (row.id === this.shiftSelectStartRowId || row.id === clickedRowId) {
+                if (recursiveState.isInRange) {
+                    isFinalSelectedRow = true;
+                }
+                recursiveState.isInRange = true;
             }
 
-            // Do not modify the selection state of group rows because their selection state will
-            // be determined by the selection state of all their leaf rows. However, if a group
-            // row is the last in the range, all of its leaf rows should be selected.
-            if (!row.getIsGrouped()) {
-                newSelection[row.id] = true;
-            } else if (i === endRowIndex) {
-                // If the selection is explicitly ending on a group row, select all of its leaf rows.
-                const leafRowIds = this.getAllLeafRows(row).map(x => x.id);
-                for (const id of leafRowIds) {
-                    newSelection[id] = true;
+            if (recursiveState.isInRange) {
+                if (!row.getIsGrouped()) {
+                    recursiveState.selectionState[row.id] = true;
+                } else if (isFinalSelectedRow) {
+                    // If the selection is explicitly ending on a group row, select all of its leaf rows.
+                    const leafRowIds = this.getAllLeafRows(row).map(x => x.id);
+                    for (const id of leafRowIds) {
+                        recursiveState.selectionState[id] = true;
+                    }
                 }
             }
+
+            if (isFinalSelectedRow) {
+                return true;
+            }
+            const foundFullSelection = this.recursiveFunction(this.getHiddenRowsForRow(row), clickedRowId, recursiveState);
+            if (foundFullSelection) {
+                return true;
+            }
         }
-        this.updateTableOptions({ state: { rowSelection: newSelection } });
-        await this.emitSelectionChangeEvent();
+
+        return false;
+    }
+
+    private getHiddenRowsForRow(row: TanStackRow<TData>): TanStackRow<TData>[] {
+        // If the passed row can be expanded but isn't currently expanded, return
+        // its children. Otherwise, return an empty array.
+        if (!row.getCanExpand() || row.getIsExpanded()) {
+            return [];
+        }
+
+        return row.subRows;
     }
 
     private deselectAllLeafRows(rowIndex: number): void {

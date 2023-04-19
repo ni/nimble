@@ -915,6 +915,7 @@ describe('Table row selection', () => {
                         .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
+                    await selectionChangeListener.promise;
 
                     const multiSelectListener = createEventListener(
                         element,
@@ -946,38 +947,7 @@ describe('Table row selection', () => {
                         .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
-
-                    const multiSelectListener = createEventListener(
-                        element,
-                        'selection-change'
-                    );
-                    await pageObject.clickRow(lastRowToSelect, {
-                        shiftKey: true
-                    });
-                    await multiSelectListener.promise;
-
-                    const currentSelection = await element.getSelectedRecordIds();
-                    expect(currentSelection).toEqual(
-                        jasmine.arrayWithExactContents(expectedSelection)
-                    );
-                    expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
-                    const emittedIds = getEmittedRecordIdsFromSpy(
-                        multiSelectListener.spy
-                    );
-                    expect(emittedIds).toEqual(
-                        jasmine.arrayWithExactContents(expectedSelection)
-                    );
-                });
-
-                it('range selection with shift is based on row clicked prior to holding shift', async () => {
-                    const firstRowToSelect = 3;
-                    const lastRowToSelect = simpleTableData.length - 2;
-                    const expectedSelection = simpleTableData
-                        .slice(3, -1)
-                        .map(x => x.id);
-
-                    await pageObject.clickRow(firstRowToSelect);
-                    await pageObject.clickRow(0, { shiftKey: true });
+                    await selectionChangeListener.promise;
 
                     const multiSelectListener = createEventListener(
                         element,
@@ -1038,6 +1008,7 @@ describe('Table row selection', () => {
                         .map(x => x.id);
 
                     pageObject.clickRowSelectionCheckbox(firstRowToSelect);
+                    await selectionChangeListener.promise;
 
                     const multiSelectListener = createEventListener(
                         element,
@@ -1067,6 +1038,7 @@ describe('Table row selection', () => {
                         .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
+                    await selectionChangeListener.promise;
 
                     const multiSelectListener = createEventListener(
                         element,
@@ -1098,24 +1070,30 @@ describe('Table row selection', () => {
                         .map(x => x.id);
 
                     await pageObject.clickRow(firstRowToSelect);
+                    await selectionChangeListener.promise;
+                    const firstMultiSelectListener = createEventListener(
+                        element,
+                        'selection-change'
+                    );
                     await pageObject.clickRow(0, { shiftKey: true });
+                    await firstMultiSelectListener.promise;
 
-                    const multiSelectListener = createEventListener(
+                    const secondMultiSelectListener = createEventListener(
                         element,
                         'selection-change'
                     );
                     await pageObject.clickRow(lastRowToSelect, {
                         shiftKey: true
                     });
-                    await multiSelectListener.promise;
+                    await secondMultiSelectListener.promise;
 
                     const currentSelection = await element.getSelectedRecordIds();
                     expect(currentSelection).toEqual(
                         jasmine.arrayWithExactContents(expectedSelection)
                     );
-                    expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
+                    expect(secondMultiSelectListener.spy).toHaveBeenCalledTimes(1);
                     const emittedIds = getEmittedRecordIdsFromSpy(
-                        multiSelectListener.spy
+                        secondMultiSelectListener.spy
                     );
                     expect(emittedIds).toEqual(
                         jasmine.arrayWithExactContents(expectedSelection)
@@ -1133,6 +1111,7 @@ describe('Table row selection', () => {
                     await waitForUpdatesAsync();
 
                     pageObject.clickRowSelectionCheckbox(firstRowToSelect);
+                    await selectionChangeListener.promise;
 
                     const multiSelectListener = createEventListener(
                         element,
@@ -1148,6 +1127,7 @@ describe('Table row selection', () => {
 
                 it('updating data during shift + click selection selects expected range if starting point is still in the data set', async () => {
                     pageObject.clickRowSelectionCheckbox(1);
+                    await selectionChangeListener.promise;
 
                     // Update data to have more rows at the top of the table
                     const newData = [
@@ -1197,6 +1177,7 @@ describe('Table row selection', () => {
 
                 it('updating data during shift + click selection selects only last row clicked if the first row is removed from the data set', async () => {
                     pageObject.clickRowSelectionCheckbox(0);
+                    await selectionChangeListener.promise;
 
                     // Remove a few rows from the data set, including the row
                     const newData = [
@@ -1582,11 +1563,58 @@ describe('Table row selection', () => {
                 const firstGreenRowIndex = allBlueRecordIds.length;
 
                 await pageObject.clickRow(lastBlueRowIndex);
+                await selectionChangeListener.promise;
 
                 const multiSelectListener = createEventListener(
                     element,
                     'selection-change'
                 );
+                await pageObject.clickRow(firstGreenRowIndex, {
+                    shiftKey: true
+                });
+                await multiSelectListener.promise;
+
+                const expectedSelection = [
+                    lastBlueRecordId,
+                    firstGreenRecordId
+                ];
+                const currentSelection = await element.getSelectedRecordIds();
+                expect(currentSelection).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
+                expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
+                const emittedIds = getEmittedRecordIdsFromSpy(
+                    multiSelectListener.spy
+                );
+                expect(emittedIds).toEqual(
+                    jasmine.arrayWithExactContents(expectedSelection)
+                );
+            });
+
+            it('shift clicking from a row that becomes hidden selects expected range', async () => {
+                const allBlueRecordIds = groupableTableData
+                    .filter(x => x.id.includes('blue-'))
+                    .map(x => x.id);
+                const lastBlueRecordId = allBlueRecordIds[allBlueRecordIds.length - 1];
+                const lastBlueRowIndex = allBlueRecordIds.length - 1;
+
+                const allGreenRecordIds = groupableTableData
+                    .filter(x => x.id.includes('green-'))
+                    .map(x => x.id);
+                const firstGreenRecordId = allGreenRecordIds[0];
+
+                await pageObject.clickRow(lastBlueRowIndex);
+                await selectionChangeListener.promise;
+                // Collapse the group that the shift starting point was in
+                pageObject.toggleGroupRowExpandedState(blueGroupIndex);
+                await waitForUpdatesAsync();
+
+                const multiSelectListener = createEventListener(
+                    element,
+                    'selection-change'
+                );
+                // The first green row is now the first non-group row in the table because the blue group is collapsed
+                const firstGreenRowIndex = 0;
                 await pageObject.clickRow(firstGreenRowIndex, {
                     shiftKey: true
                 });
@@ -1621,6 +1649,7 @@ describe('Table row selection', () => {
                     .map(x => x.id);
 
                 await pageObject.clickRow(lastBlueRowIndex);
+                await selectionChangeListener.promise;
 
                 const multiSelectListener = createEventListener(
                     element,
@@ -1663,6 +1692,7 @@ describe('Table row selection', () => {
                 // Start with the "green" group selected
                 pageObject.clickGroupRowSelectionCheckbox(greenGroupIndex);
                 await pageObject.clickRow(lastBlueRowIndex);
+                await selectionChangeListener.promise;
 
                 const multiSelectListener = createEventListener(
                     element,
