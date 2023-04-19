@@ -8,5 +8,7 @@
   ],
   "xd.globalEditor": true,
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
   "omnisharp.useModernNet": true
 }
