@@ -19,15 +19,6 @@ export const styles = css`
         transition: ${mediumDelay} ease-in-out;
     }
 
-    .group-row-container {
-        display: flex;
-        align-items: center;
-        padding-left: calc(
-            ${smallPadding} * 2 + ${standardPadding} * 2 *
-                var(--ni-private-table-group-row-indent-level)
-        );
-    }
-
     .expand-collapse-button {
         margin-left: calc(
             ${smallPadding} * 2 + ${standardPadding} * 2 *
