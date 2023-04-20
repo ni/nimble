@@ -43,9 +43,7 @@ TableColumnAnchorColumnConfig
     }
 
     public override focusedRecycleCallback(): void {
-        if (this.anchor) {
-            this.anchor.blur();
-        }
+        this.anchor?.blur();
     }
 }
 

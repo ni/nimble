@@ -37,16 +37,16 @@ export abstract class TableCellView<
 
     public columnChanged(): void {
         for (const eventName of this.delegatedEvents) {
-            this.removeEventListener(eventName, this.delgatedEventHandler);
+            this.removeEventListener(eventName, this.delegatedEventHandler);
         }
         this.delegatedEvents = [];
-        this.delgatedEventHandler = () => {};
+        this.delegatedEventHandler = () => {};
 
         if (!this.column) {
             return;
         }
         this.delegatedEvents = this.column.columnInternals.delegatedEvents;
-        this.delgatedEventHandler = (event: Event) => {
+        this.delegatedEventHandler = (event: Event) => {
             this.column?.dispatchEvent(
                 new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
                     detail: { originalEvent: event }
@@ -55,9 +55,9 @@ export abstract class TableCellView<
         };
 
         for (const delegatedEvent of this.delegatedEvents) {
-            this.addEventListener(delegatedEvent, this.delgatedEventHandler);
+            this.addEventListener(delegatedEvent, this.delegatedEventHandler);
         }
     }
 
-    private delgatedEventHandler: (event: Event) => void = () => {};
+    private delegatedEventHandler: (event: Event) => void = () => {};
 }

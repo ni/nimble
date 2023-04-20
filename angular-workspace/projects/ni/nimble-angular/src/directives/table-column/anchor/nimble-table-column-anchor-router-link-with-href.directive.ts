@@ -24,19 +24,10 @@ export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLi
             return;
         }
 
-        // Only handle plain left-clicks
-        if (clickEvent.button !== 0 || clickEvent.ctrlKey || clickEvent.shiftKey || clickEvent.altKey || clickEvent.metaKey) {
-            return;
-        }
-
-        // Only handle when the target is the default: the current browsing context
-        if (typeof anchor.target === 'string' && anchor.target !== '_self') {
-            return;
-        }
-
         // Let the router handle this navigation
-        clickEvent.preventDefault();
         this.routerLink = anchor.href;
-        this.onClick(0, false, false, false, false);
+        if (!this.onClick(clickEvent.button, clickEvent.ctrlKey, clickEvent.shiftKey, clickEvent.altKey, clickEvent.metaKey)) {
+            clickEvent.preventDefault();
+        }
     }
 }

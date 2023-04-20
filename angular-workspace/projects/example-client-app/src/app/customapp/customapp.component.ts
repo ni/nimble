@@ -11,6 +11,8 @@ interface ComboboxItem {
 interface SimpleTableRecord extends TableRecord {
     stringValue1: string;
     stringValue2: string;
+    href?: string;
+    linkLabel?: string;
 }
 
 @Component({
@@ -93,7 +95,9 @@ export class CustomAppComponent {
         const tableData = this.tableDataSubject.value;
         tableData.push({
             stringValue1: `new string ${tableData.length}`,
-            stringValue2: `bar ${tableData.length}`
+            stringValue2: `bar ${tableData.length}`,
+            href: 'https://nimble.ni.dev',
+            linkLabel: 'Nimble'
         });
         this.tableDataSubject.next(tableData);
     }

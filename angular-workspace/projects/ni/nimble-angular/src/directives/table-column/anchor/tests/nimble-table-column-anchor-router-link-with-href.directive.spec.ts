@@ -81,7 +81,7 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     });
 
     it('navigates via router.navigateByUrl when link is clicked', fakeAsync(() => {
-        innerAnchor!.click();
+        innerAnchor.click();
         tick();
 
         const expectedDestinationUrl = '/page1?param1=true';
@@ -100,7 +100,7 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     ];
     secondaryClickTests.forEach(test => {
         it(`does not do router navigation for non-primary-mouse link clicks for ${test.testName}`, fakeAsync(() => {
-            innerAnchor!.dispatchEvent(new MouseEvent('click', {
+            innerAnchor.dispatchEvent(new MouseEvent('click', {
                 ...{
                     bubbles: true,
                     cancelable: true
