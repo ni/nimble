@@ -11,7 +11,7 @@ import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/t
     selector: 'nimble-table-column-anchor[nimbleRouterLink]'
 })
 export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLinkWithHref {
-    @HostListener('delegated-event', ['$event.details.originalEvent'])
+    @HostListener('delegated-event', ['$event.detail.originalEvent'])
     private onDelegatedEvent(delegatedEvent: Event): void {
         if (delegatedEvent.type !== 'click') {
             return;
