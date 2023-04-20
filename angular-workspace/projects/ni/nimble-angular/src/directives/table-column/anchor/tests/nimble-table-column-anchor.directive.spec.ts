@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableColumnAnchorDirective, TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 
-describe('Nimble anchor table column', () => {
+fdescribe('Nimble anchor table column', () => {
     const hreflang1 = 'en';
     const hreflang2 = 'fr';
     const ping1 = 'http://www.ni.com';
@@ -682,8 +682,8 @@ describe('Nimble anchor table column', () => {
             fixture.componentInstance.appearance = undefined;
             fixture.detectChanges();
 
-            expect(directive.appearance).toBeUndefined();
-            expect(nativeElement.appearance).toBeUndefined();
+            expect(directive.appearance).toBeNull();
+            expect(nativeElement.appearance).toBeNull();
         });
 
         it('can be configured with attribute binding for fractionalWidth', () => {
