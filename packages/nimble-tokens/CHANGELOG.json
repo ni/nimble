@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 19 Apr 2023 17:58:44 GMT",
+      "tag": "@ni/nimble-tokens_v5.0.0",
+      "version": "5.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "203525bfb38afb4d440c54a8bc8950e4748bf748",
+            "comment": "Refactor token build output. This removes some source files from the built package."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 11 Apr 2023 01:58:34 GMT",
       "tag": "@ni/nimble-tokens_v4.9.0",
       "version": "4.9.0",

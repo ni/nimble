@@ -1,11 +1,12 @@
 import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import type { Table } from '@ni/nimble-components/dist/esm/table';
-import type { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableActionMenuToggleEventDetail } from '@ni/nimble-components/dist/esm/table/types';
+import type { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableActionMenuToggleEventDetail, TableRowSelectionEventDetail } from '@ni/nimble-components/dist/esm/table/types';
+import { TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
 import type { Observable, Subscription } from 'rxjs';
 
 export type { Table };
-export type { TableActionMenuToggleEventDetail };
-export { TableRecord, TableFieldName, TableFieldValue, TableValidity };
+export type { TableActionMenuToggleEventDetail, TableRowSelectionEventDetail };
+export { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableRowSelectionMode };
 
 /**
  * Directive to provide Angular integration for the table element.
@@ -41,6 +42,16 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         this.renderer.setProperty(this.elementRef.nativeElement, 'idFieldName', value);
     }
 
+    public get selectionMode(): TableRowSelectionMode {
+        return this.elementRef.nativeElement.selectionMode;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('selection-mode') public set selectionMode(value: TableRowSelectionMode) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
+    }
+
     public get validity(): TableValidity {
         return this.elementRef.nativeElement.validity;
     }
@@ -60,5 +71,13 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
 
     public async setData(data: readonly TData[]): Promise<void> {
         return this.elementRef.nativeElement.setData(data);
+    }
+
+    public async getSelectedRecordIds(): Promise<string[]> {
+        return this.elementRef.nativeElement.getSelectedRecordIds();
+    }
+
+    public async setSelectedRecordIds(recordIds: string[]): Promise<void> {
+        return this.elementRef.nativeElement.setSelectedRecordIds(recordIds);
     }
 }
