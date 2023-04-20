@@ -169,59 +169,59 @@ export const styles = css`
         Theme.color,
         css`
             .table-row-container {
-                background: ${applicationBackgroundColor};
+                background-color: ${applicationBackgroundColor};
             }
 
             .table-row-container::before {
                 content: '';
                 width: 100%;
                 height: 100%;
-                background: ${hexToRgbaCssColor(White, 0.1)};
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
                 position: absolute;
             }
 
             .group-row {
-                background: ${applicationBackgroundColor};
+                background-color: ${applicationBackgroundColor};
             }
 
             .group-row::before {
-                background: ${hexToRgbaCssColor(White, 0.1)};
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
             }
 
             .group-row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.125)};
+                background-color: ${hexToRgbaCssColor(White, 0.125)};
             }
 
             :host([selection-mode='single']) .row:hover::before,
             :host([selection-mode='multiple']) .row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.05)};
+                background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
         
             :host([selection-mode='single']) .row[selected]::before,
             :host([selection-mode='multiple']) .row[selected]::before {
-                background: ${hexToRgbaCssColor(White, 0.2)};
+                background-color: ${hexToRgbaCssColor(White, 0.2)};
             }
 
             :host([selection-mode='single']) .row[selected]:hover::before,
             :host([selection-mode='multiple']) .row[selected]:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.15)};
+                background-color: ${hexToRgbaCssColor(White, 0.15)};
         `
     ),
     themeBehavior(
         Theme.dark,
         css`
             .group-row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.1)};
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
             }
 
             :host([selection-mode='single']) .row[selected]::before,
             :host([selection-mode='multiple']) .row[selected]::before {
-                background: ${hexToRgbaCssColor(PowerGreen, 0.2)};
+                background-color: ${hexToRgbaCssColor(PowerGreen, 0.2)};
             }
 
             :host([selection-mode='single']) .row[selected]:hover::before,
             :host([selection-mode='multiple']) .row[selected]:hover::before {
-                background: ${hexToRgbaCssColor(PowerGreen, 0.15)};
+                background-color: ${hexToRgbaCssColor(PowerGreen, 0.15)};
             }
         `
     )
