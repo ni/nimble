@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
@@ -10,13 +9,8 @@ import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -54,29 +48,29 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const menuButtonBelowOpenLightThemeWhiteBackground: Story = createFixedThemeStory(
+export const menuButtonBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     lightThemeWhiteBackground
 );
-export const menuButtonAboveOpenLightThemeWhiteBackground: Story = createFixedThemeStory(
+export const menuButtonAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     lightThemeWhiteBackground
 );
 
-export const menuButtonBelowOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+export const menuButtonBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     colorThemeDarkGreenBackground
 );
-export const menuButtonAboveOpenColorThemeDarkGreenBackground: Story = createFixedThemeStory(
+export const menuButtonAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     colorThemeDarkGreenBackground
 );
 
-export const menuButtonBelowOpenDarkThemeBlackBackground: Story = createFixedThemeStory(
+export const menuButtonBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component(positionStates[0]),
     darkThemeBlackBackground
 );
-export const menuButtonAboveOpenDarkThemeBlackBackground: Story = createFixedThemeStory(
+export const menuButtonAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
     component(positionStates[1]),
     darkThemeBlackBackground
 );

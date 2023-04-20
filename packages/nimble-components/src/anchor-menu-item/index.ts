@@ -3,9 +3,7 @@ import {
     DesignSystem,
     AnchorOptions,
     MenuItem as FoundationMenuItem,
-    MenuItemColumnCount,
-    StartEnd,
-    applyMixins
+    MenuItemColumnCount
 } from '@microsoft/fast-foundation';
 import { keyEnter } from '@microsoft/fast-web-utilities';
 import { AnchorBase } from '../anchor-base';
@@ -49,7 +47,7 @@ export class AnchorMenuItem extends AnchorBase {
      * @internal
      */
     public clickHandler(e: MouseEvent): boolean {
-        e.stopImmediatePropagation();
+        e.stopPropagation();
         return true;
     }
 
@@ -62,7 +60,7 @@ export class AnchorMenuItem extends AnchorBase {
         }
         switch (e.key) {
             case keyEnter:
-                e.stopImmediatePropagation();
+                e.stopPropagation();
                 break;
             default:
         }
@@ -95,6 +93,8 @@ export class AnchorMenuItem extends AnchorBase {
     }
 }
 
+// FoundationAnchor already applies the StartEnd mixin, so we don't need to do it here.
+
 const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
     baseName: 'anchor-menu-item',
     template,
@@ -103,10 +103,6 @@ const nimbleAnchorMenuItem = AnchorMenuItem.compose<AnchorOptions>({
         delegatesFocus: true
     }
 });
-
-/* eslint-disable-next-line */
-export interface AnchorMenuItem extends StartEnd {}
-applyMixins(AnchorMenuItem, StartEnd);
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')

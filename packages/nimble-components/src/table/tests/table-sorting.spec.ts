@@ -66,7 +66,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -82,7 +82,7 @@ describe('Table sorting', () => {
         ] as const;
 
         column1.fieldName = 'stringData1';
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -104,7 +104,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -122,7 +122,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.descending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -141,7 +141,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -160,7 +160,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.descending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -179,7 +179,7 @@ describe('Table sorting', () => {
         column1.sortDirection = TableColumnSortDirection.descending;
         column1.sortIndex = 0;
         column1.columnHidden = true;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -197,7 +197,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.descending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -220,7 +220,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -246,7 +246,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -264,7 +264,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -288,7 +288,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -306,7 +306,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -328,7 +328,7 @@ describe('Table sorting', () => {
         column1.fieldName = 'field.name.with.dots';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -353,13 +353,13 @@ describe('Table sorting', () => {
         column1.fieldName = 'stringData1';
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
-        element.setData(originalData);
+        await element.setData(originalData);
         await connect();
         await waitForUpdatesAsync();
 
         expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
 
-        element.setData(newData);
+        await element.setData(newData);
         await waitForUpdatesAsync();
 
         expect(getRenderedRecordIds()).toEqual(['4', '2', '3', '1']);
@@ -379,7 +379,7 @@ describe('Table sorting', () => {
         column2.fieldName = 'stringData2';
         column2.sortDirection = TableColumnSortDirection.descending;
         column2.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -400,7 +400,7 @@ describe('Table sorting', () => {
         column2.fieldName = 'stringData2';
         column2.sortDirection = TableColumnSortDirection.descending;
         column2.sortIndex = 0;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -520,7 +520,7 @@ describe('Table sorting', () => {
         column2.fieldName = 'stringData1';
         column2.sortDirection = TableColumnSortDirection.ascending;
         column2.sortIndex = 1;
-        element.setData(data);
+        await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
 
@@ -542,7 +542,7 @@ describe('Table sorting', () => {
             column2.fieldName = 'stringData2';
             column2.sortDirection = TableColumnSortDirection.ascending;
             column2.sortIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -565,7 +565,7 @@ describe('Table sorting', () => {
             column2.fieldName = 'stringData2';
             column2.sortDirection = TableColumnSortDirection.none;
             column2.sortIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -588,7 +588,7 @@ describe('Table sorting', () => {
             column2.fieldName = 'stringData2';
             column2.sortDirection = TableColumnSortDirection.ascending;
             column2.sortIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -618,7 +618,7 @@ describe('Table sorting', () => {
             column2.fieldName = 'stringData2';
             column2.sortDirection = TableColumnSortDirection.ascending;
             column2.sortIndex = 1;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -669,7 +669,7 @@ describe('Table sorting', () => {
             column1.fieldName = 'stringData1';
             column1.sortDirection = TableColumnSortDirection.descending;
             column1.sortIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -693,7 +693,7 @@ describe('Table sorting', () => {
             column1.fieldName = 'stringData1';
             column1.sortDirection = TableColumnSortDirection.descending;
             column1.sortIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -717,7 +717,7 @@ describe('Table sorting', () => {
             column1.fieldName = 'stringData1';
             column1.sortDirection = TableColumnSortDirection.descending;
             column1.sortIndex = 0;
-            element.setData(data);
+            await element.setData(data);
             await connect();
             await waitForUpdatesAsync();
 

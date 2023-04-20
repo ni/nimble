@@ -1,8 +1,157 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 15 Mar 2023 15:36:39 GMT and should not be manually modified.
+This log was last generated on Wed, 19 Apr 2023 17:58:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.2
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Patches
+
+- Storybook updates for design token build changes ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
+- Bump @ni/nimble-tokens to v5.0.0
+
+## 18.12.1
+
+Fri, 14 Apr 2023 14:26:33 GMT
+
+### Patches
+
+- Add support for multi-select in the table ([ni/nimble@e6e882a](https://github.com/ni/nimble/commit/e6e882acfbaa112cc1d3bb280981dd8768e991b8))
+
+## 18.12.0
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Minor changes
+
+- Adding icon: file-export ([ni/nimble@d339db7](https://github.com/ni/nimble/commit/d339db767c179e2398ccadc6111d9ab7c72ca6bb))
+- Bump @ni/nimble-tokens to v4.9.0
+
+## 18.11.1
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Add the table column internals api for column authors ([ni/nimble@49ea4be](https://github.com/ni/nimble/commit/49ea4be8b29e5426f01f64811f4cc648316c144f))
+
+## 18.11.0
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Minor changes
+
+- Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines ([ni/nimble@b14c239](https://github.com/ni/nimble/commit/b14c239ec88207b6561e90f447c1975e429e086f))
+- Bump @ni/nimble-tokens to v4.8.0
+
+## 18.10.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Update fonts.scss to reference the new nimble-tokens fonts.scss file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
+- Bump @ni/nimble-tokens to v4.7.3
+
+## 18.10.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Support selecting a single row in the table ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+
+## 18.10.4
+
+Thu, 06 Apr 2023 19:46:21 GMT
+
+### Patches
+
+- Programmatic table row grouping ([ni/nimble@b7fbb73](https://github.com/ni/nimble/commit/b7fbb738322e83b315fce68890caaaf4ce56d9e1))
+
+## 18.10.3
+
+Thu, 06 Apr 2023 17:21:40 GMT
+
+### Patches
+
+- Add ariaSelected property to anchor tab ([ni/nimble@b042f21](https://github.com/ni/nimble/commit/b042f218a9cfc31c015e6e38af164265c4f58c9f))
+
+## 18.10.2
+
+Wed, 05 Apr 2023 22:05:06 GMT
+
+### Patches
+
+- Fix radio button focus ring scrolling bug ([ni/nimble@5598883](https://github.com/ni/nimble/commit/5598883e3910e0d4712e1a2623740fc928f6b1c8))
+
+## 18.10.1
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Upgrade to typescript 4.7.4 ([ni/nimble@2dd4d31](https://github.com/ni/nimble/commit/2dd4d31306ba122fb8f5378cd83e8abc83bfa618))
+- Bump @ni/nimble-tokens to v4.7.2
+
+## 18.10.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Anchor tree item component ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+
+## 18.9.1
+
+Tue, 04 Apr 2023 23:23:52 GMT
+
+### Patches
+
+- Table updates: use custom element (TableCellView) in cells, cells are notified of row recycling, action menus are closed on scroll/ row recycles. ([ni/nimble@91172d9](https://github.com/ni/nimble/commit/91172d95006601f5bb57a8831238e114f837dbf5))
+
+## 18.9.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state and update of focus state visuals for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+
+## 18.8.4
+
+Mon, 03 Apr 2023 21:31:32 GMT
+
+### Patches
+
+- Allow events to bubble enough for Angular nimbleRouterLink directive to work ([ni/nimble@9bcfe99](https://github.com/ni/nimble/commit/9bcfe9997a520cf952e63fd48440dc23f13ec63d))
+
+## 18.8.3
+
+Mon, 03 Apr 2023 18:19:24 GMT
+
+### Patches
+
+- Change menu to explicit side-effect import of anchored-region ([ni/nimble@ed97369](https://github.com/ni/nimble/commit/ed97369fe171c4f2535e651e09a0a20214bbebcc))
+
+## 18.8.2
+
+Sat, 01 Apr 2023 05:14:36 GMT
+
+### Patches
+
+- Add missing anchored region import to menu component as part of Storybook 7 upgrade ([ni/nimble@b2ab12c](https://github.com/ni/nimble/commit/b2ab12c6ab80c0ad5bad389893dd52e9a04995be))
+
+## 18.8.1
+
+Wed, 22 Mar 2023 20:54:34 GMT
+
+### Patches
+
+- Update table header styling to not reserve space for sort icon ([ni/nimble@459bc0e](https://github.com/ni/nimble/commit/459bc0e425822ee15ba62c557f86dd78b92d4158))
 
 ## 18.8.0
 

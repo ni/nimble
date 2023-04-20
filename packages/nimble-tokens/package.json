@@ -1,11 +1,13 @@
 {
   "name": "@ni/nimble-tokens",
-  "version": "4.7.1",
+  "version": "5.0.0",
   "description": "Design tokens for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico",
+    "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss && npm run build:style-dictionary",
     "build:svg-to-ts": "svg-to-ts-constants --config build/svg-to-ts-config.js",
     "build:svg-to-ico": "node build/svg-to-ico.js",
+    "build:generate-font-scss": "node build/generate-font-scss.js",
+    "build:style-dictionary": "cd source/styledictionary && node build.js",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts:watch": "tsc -p ./tsconfig.json -w",
     "format": "eslint . --fix",
@@ -15,8 +17,7 @@
     "pack:nuget": "cross-env-shell dotnet pack ./NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
     "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
-    "invoke-publish:npm": "npm publish",
-    "style-dictionary": "cd dist/styledictionary && node build.js"
+    "invoke-publish:npm": "npm publish"
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,7 @@
     "style-dictionary": "3.7.2",
     "svg-to-ico": "^1.0.11",
     "svg-to-ts": "^9.0.0",
-    "typescript": "~4.6.4"
+    "typescript": "~4.7.4"
   },
   "files": [
     "dist/styledictionary/css/**",

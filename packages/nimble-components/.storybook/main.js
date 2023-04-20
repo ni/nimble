@@ -1,45 +1,53 @@
-const CircularDependencyPlugin = require('circular-dependency-plugin');
+import remarkGfm from 'remark-gfm';
+import CircularDependencyPlugin from 'circular-dependency-plugin';
 
-module.exports = {
-    core: {
-        builder: 'webpack5'
+export const stories = [
+    '../docs/**/*.mdx',
+    '../src/**/*.mdx',
+    '../src/**/*.stories.ts'
+];
+export const addons = [
+    {
+        name: '@storybook/addon-essentials',
+        options: {
+            outline: false
+        }
     },
-    stories: ['../src/**/*.stories.@(ts|mdx)', '../docs/**/*.stories.mdx'],
-    addons: [
-        {
-            name: '@storybook/addon-essentials',
-            options: {
-                outline: false
-            }
-        },
-        'storybook-addon-xd-designs',
-        '@storybook/addon-a11y',
-        '@storybook/addon-interactions'
-    ],
-    features: {
-        previewCsfV3: true,
-        previewMdx2: true
-    },
-    webpackFinal: config => {
-        config.module.rules.push({
-            test: /\.ts$/,
-            use: [
-                {
-                    loader: require.resolve('ts-loader')
+    {
+        name: '@storybook/addon-docs',
+        options: {
+            mdxPluginOptions: {
+                mdxCompileOptions: {
+                    remarkPlugins: [remarkGfm]
                 }
-            ]
-        });
-        config.plugins.push(
-            new CircularDependencyPlugin({
-                exclude: /node_modules/,
-                failOnError: process.env.NODE_ENV === 'production'
-            })
-        );
-        config.performance = {
-            hints: false
-        };
-
-        return config;
+            }
+        }
     },
-    staticDirs: ['public']
+    '@storybook/addon-a11y',
+    '@storybook/addon-interactions'
+];
+export function webpackFinal(config) {
+    config.module.rules.push({
+        test: /\.ts$/,
+        use: [
+            {
+                loader: require.resolve('ts-loader')
+            }
+        ]
+    });
+    config.plugins.push(
+        new CircularDependencyPlugin({
+            exclude: /node_modules/,
+            failOnError: process.env.NODE_ENV === 'production'
+        })
+    );
+    config.performance = {
+        hints: false
+    };
+    return config;
+}
+export const staticDirs = ['public'];
+export const framework = {
+    name: '@storybook/html-webpack5',
+    options: {}
 };

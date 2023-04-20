@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { AnchorAppearance } from '../types';
@@ -21,17 +20,13 @@ interface AnchorArgs {
 
 const metadata: Meta<AnchorArgs> = {
     title: 'Anchor',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component:
                     'Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bfadf499-caf5-4ca0-9814-e777fbae0d46/specs/'
         },
         actions: {}
     },

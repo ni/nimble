@@ -5,7 +5,7 @@ namespace NimbleBlazor;
 /// <summary>
 /// A link styled as a tab
 /// </summary>
-public partial class NimbleAnchorTab : ComponentBase
+public partial class NimbleAnchorTab : NimbleAnchorBase
 {
     /// <summary>
     /// The child content of the element.

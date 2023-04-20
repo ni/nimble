@@ -30,6 +30,8 @@ export interface TableValidity {
     readonly duplicateColumnId: boolean;
     readonly missingColumnId: boolean;
     readonly duplicateSortIndex: boolean;
+    readonly duplicateGroupIndex: boolean;
+    readonly idFieldNameNotConfigured: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -49,3 +51,44 @@ export const TableColumnSortDirection = {
 } as const;
 export type TableColumnSortDirection =
     (typeof TableColumnSortDirection)[keyof typeof TableColumnSortDirection];
+
+/**
+ * The selection modes of rows in the table.
+ */
+export const TableRowSelectionMode = {
+    none: undefined,
+    single: 'single',
+    multiple: 'multiple'
+} as const;
+export type TableRowSelectionMode =
+    (typeof TableRowSelectionMode)[keyof typeof TableRowSelectionMode];
+
+/**
+ * @internal
+ *
+ * The possible selection states that the table or a table row can be in.
+ */
+export const TableRowSelectionState = {
+    notSelected: 'notSelected',
+    selected: 'selected',
+    partiallySelected: 'partiallySelected'
+} as const;
+export type TableRowSelectionState =
+    (typeof TableRowSelectionState)[keyof typeof TableRowSelectionState];
+
+/**
+ * @internal
+ *
+ * Internal event detail type for a row's selection state changing
+ */
+export interface TableRowSelectionToggleEventDetail {
+    oldState: boolean;
+    newState: boolean;
+}
+
+/**
+ * Event detail type for row selection events in the table.
+ */
+export interface TableRowSelectionEventDetail {
+    selectedRecordIds: string[];
+}

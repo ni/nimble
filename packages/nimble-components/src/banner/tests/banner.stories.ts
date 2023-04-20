@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { BannerSeverity } from '../types';
 import { bannerGapSize } from '../../theme-provider/design-tokens';
@@ -42,16 +42,13 @@ should be spaced apart using the \`${bannerGapSize.cssCustomProperty}\` design t
 
 const metadata: Meta<BannerArgs> = {
     title: 'Banner',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/29c405f7-08ea-48b6-973f-546970b9dbab/specs/'
         },
         actions: {
             handles: ['toggle']
@@ -87,7 +84,7 @@ export const _banner: StoryObj<BannerArgs> = {
         </${bannerTag}>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
-    storyName: 'Banner',
+    name: 'Banner',
     argTypes: {
         open: {
             description: 'Controls whether the banner is visible.'

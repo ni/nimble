@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 10 Mar 2023 22:17:50 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Apr 2023 14:12:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.12
+
+Tue, 18 Apr 2023 14:12:28 GMT
+
+### Patches
+
+- Blazor support for row selection in the table ([ni/nimble@2281770](https://github.com/ni/nimble/commit/228177017cae5427fd0bb3a535b0087c17c3bb32))
+
+## 11.8.10
+
+Tue, 11 Apr 2023 02:40:33 GMT
+
+### Patches
+
+- Blazor row grouping support ([ni/nimble@036c36d](https://github.com/ni/nimble/commit/036c36d86d8c009579f1b4734b485785f0173b08))
+
+## 11.8.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update setData() to be async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+
+## 11.8.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Blazor support for anchor tree item ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+
+## 11.7.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+
+## 11.6.0
+
+Mon, 03 Apr 2023 17:06:25 GMT
+
+### Minor changes
+
+- Fix bug where NimbleTab would respond to `change` event from children components, causing tabs to change. Also made NimbleTabs.UpdateActiveId private. ([ni/nimble@67c3790](https://github.com/ni/nimble/commit/67c3790a9412dcb482959971edef0040028556e9))
+
+## 11.5.0
+
+Tue, 28 Mar 2023 22:52:47 GMT
+
+### Minor changes
+
+- Blazor support for anchor menu item component ([ni/nimble@fcc2f9c](https://github.com/ni/nimble/commit/fcc2f9c0a871020f8da04213e561c0953a71d62c))
+
+## 11.4.0
+
+Thu, 16 Mar 2023 22:00:14 GMT
+
+### Minor changes
+
+- Add missing properties to NimbleAnchorTab ([ni/nimble@e1746f2](https://github.com/ni/nimble/commit/e1746f201eb7919b8e44ab53caa7eba95f036ffd))
 
 ## 11.3.3
 

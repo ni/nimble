@@ -1,4 +1,5 @@
 import { observable } from '@microsoft/fast-element';
+import type { Table as TanStackTable } from '@tanstack/table-core';
 import {
     Virtualizer as TanStackVirtualizer,
     VirtualizerOptions,
@@ -10,6 +11,7 @@ import {
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
+import { TableCellView } from '../../table-column/base/cell-view';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -30,11 +32,16 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
+    private readonly tanStackTable: TanStackTable<TData>;
     private readonly viewportResizeObserver: ResizeObserver;
     private virtualizer?: TanStackVirtualizer<HTMLElement, HTMLElement>;
 
-    public constructor(table: Table<TData>) {
+    public constructor(
+        table: Table<TData>,
+        tanStackTable: TanStackTable<TData>
+    ) {
         this.table = table;
+        this.tanStackTable = tanStackTable;
         this.viewportResizeObserver = new ResizeObserver(entries => {
             const borderBoxSize = entries[0]?.borderBoxSize[0];
             if (borderBoxSize) {
@@ -79,7 +86,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         const rowHeight = parseFloat(controlHeight.getValueFor(this.table))
             + 2 * parseFloat(borderWidth.getValueFor(this.table));
         return {
-            count: this.table.tableData.length,
+            count: this.tanStackTable.getRowModel().rows.length,
             getScrollElement: () => {
                 return this.table.viewport;
             },
@@ -95,6 +102,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     }
 
     private handleVirtualizerChange(): void {
+        this.notifyFocusedCellRecycling();
         const virtualizer = this.virtualizer!;
         this.visibleItems = virtualizer.getVirtualItems();
         this.allRowsHeight = virtualizer.getTotalSize();
@@ -109,5 +117,28 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
 
         this.rowContainerYOffset = rowContainerYOffset;
+    }
+
+    private notifyFocusedCellRecycling(): void {
+        let tableFocusedElement = this.table.shadowRoot!.activeElement;
+        while (
+            tableFocusedElement !== null
+            && !(tableFocusedElement instanceof TableCellView)
+        ) {
+            if (tableFocusedElement.shadowRoot) {
+                tableFocusedElement = tableFocusedElement.shadowRoot.activeElement;
+            } else {
+                break;
+            }
+        }
+        if (tableFocusedElement instanceof TableCellView) {
+            tableFocusedElement.focusedRecycleCallback();
+        }
+        if (this.table.openActionMenuRecordId !== undefined) {
+            const activeRow = this.table.rowElements.find(
+                row => row.recordId === this.table.openActionMenuRecordId
+            );
+            activeRow?.closeOpenActionMenus();
+        }
     }
 }

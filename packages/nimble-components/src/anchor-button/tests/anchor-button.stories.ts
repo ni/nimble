@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
@@ -33,17 +32,13 @@ interface AnchorButtonArgs {
 
 const metadata: Meta<AnchorButtonArgs> = {
     title: 'Anchor Button',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component:
                     'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
         },
         actions: {}
     },

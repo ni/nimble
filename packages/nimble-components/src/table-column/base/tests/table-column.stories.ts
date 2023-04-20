@@ -1,18 +1,25 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import {
     createUserSelectedThemeStory,
     usageWarning
 } from '../../../utilities/tests/storybook';
-import { ExampleSortType } from './types';
+import {
+    ExampleColumnFractionalWidthType,
+    ExampleGroupingDisabledType,
+    ExampleGroupType,
+    ExampleSortType
+} from './types';
 import { tableTag } from '../../../table';
 import {
     SharedTableArgs,
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
-import { TableColumnSortDirection } from '../../../table/types';
+import {
+    TableColumnSortDirection,
+    TableRowSelectionMode
+} from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';
@@ -67,16 +74,11 @@ information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Configuration',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
         }
     },
     // prettier-ignore
@@ -85,6 +87,8 @@ const metadata: Meta<SharedTableArgs> = {
     <${tableTag}
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
+        id-field-name="firstName"
+        selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
     >
         <${tableColumnTextTag}
             field-name="firstName"
@@ -157,6 +161,8 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             ${when(x => x.columnOrder === 'FirstName, LastName', html`
                 <${tableColumnTextTag}
@@ -228,6 +234,8 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
                 field-name="firstName"
@@ -285,6 +293,8 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -377,6 +387,8 @@ export const sorting: StoryObj<SortingTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
                 field-name="firstName"
@@ -453,6 +465,307 @@ export const sorting: StoryObj<SortingTableArgs> = {
                 direction: sortData[matchingIndex]!.sortDirection,
                 index: matchingIndex
             };
+        }
+    }
+};
+
+const groupedRowOptions = {
+    [ExampleGroupType.none]: [],
+    [ExampleGroupType.firstName]: [
+        {
+            columnId: 'first-name-column'
+        }
+    ],
+    [ExampleGroupType.lastName]: [
+        {
+            columnId: 'last-name-column'
+        }
+    ],
+    [ExampleGroupType.firstThenLastName]: [
+        {
+            columnId: 'first-name-column'
+        },
+        {
+            columnId: 'last-name-column'
+        }
+    ],
+    [ExampleGroupType.lastThenFirstName]: [
+        {
+            columnId: 'last-name-column'
+        },
+        {
+            columnId: 'first-name-column'
+        }
+    ]
+} as const;
+
+const groupingDisabledOptions = {
+    [ExampleGroupingDisabledType.firstName]: {
+        columnId: 'first-name-column'
+    },
+    [ExampleGroupingDisabledType.lastName]: {
+        columnId: 'last-name-column'
+    }
+};
+
+function getColumnGroupData(
+    columnId: string,
+    groupType: ExampleGroupType
+): { index: number | undefined } {
+    const groupData = groupedRowOptions[groupType];
+    const matchingIndex = groupData.findIndex(
+        groupedColumn => groupedColumn.columnId === columnId
+    );
+    if (matchingIndex === -1) {
+        return {
+            index: undefined
+        };
+    }
+
+    return {
+        index: matchingIndex
+    };
+}
+
+function getGroupingDisabledData(
+    columnId: string,
+    groupDisabledTypes: ExampleGroupingDisabledType[]
+): boolean {
+    const groupingDisabledData = groupDisabledTypes.map(
+        x => groupingDisabledOptions[x]
+    );
+    return groupingDisabledData.findIndex(x => x.columnId === columnId) >= 0;
+}
+
+const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented under a collapsible row.
+There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is configured with a group-index, the precedence is determined by the value of group-index on each column.`;
+
+const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
+
+interface GroupingTableArgs extends SharedTableArgs {
+    groupedColumns: ExampleGroupType;
+    groupingDisabled: ExampleGroupingDisabledType[];
+}
+
+export const grouping: StoryObj<GroupingTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: groupedRowsDescription
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<GroupingTableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
+        >
+            <${tableColumnTextTag}
+                field-name="firstName"
+                group-index="${x => getColumnGroupData('first-name-column', x.groupedColumns).index}"
+                grouping-disabled="${x => getGroupingDisabledData('first-name-column', x.groupingDisabled)}"
+            >
+                First Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="lastName"
+                group-index="${x => getColumnGroupData('last-name-column', x.groupedColumns).index}"
+                grouping-disabled="${x => getGroupingDisabledData('last-name-column', x.groupingDisabled)}"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="favoriteColor"
+            >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="quote"
+            >
+                Quote
+            </${tableColumnTextTag}>
+
+        </${tableTag}>
+    `),
+    argTypes: {
+        groupedColumns: {
+            name: 'Group configuration',
+            description: groupedRowsDescription,
+            options: Object.values(ExampleGroupType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleGroupType.none]: 'None',
+                    [ExampleGroupType.firstName]: 'Group by first name',
+                    [ExampleGroupType.lastName]: 'Group by last name',
+                    [ExampleGroupType.firstThenLastName]:
+                        'Group by first name then last.',
+                    [ExampleGroupType.lastThenFirstName]:
+                        'Group by last name then first.'
+                }
+            }
+        },
+        groupingDisabled: {
+            name: 'Grouping disabled configuration',
+            description: groupingDisabledDescription,
+            control: {
+                type: 'check',
+                labels: {
+                    [ExampleGroupingDisabledType.firstName]:
+                        'Disable first name grouping',
+                    [ExampleGroupingDisabledType.lastName]:
+                        'Disable last name grouping'
+                }
+            },
+            options: Object.values(ExampleGroupingDisabledType)
+        }
+    },
+    args: {
+        groupedColumns: ExampleGroupType.lastName,
+        groupingDisabled: []
+    }
+};
+
+interface ColumnWidthTableArgs extends SharedTableArgs {
+    fractionalWidth: ExampleColumnFractionalWidthType;
+    minPixelWidth: number;
+    getColumnWidthData: (
+        columnId: string,
+        args: ColumnWidthTableArgs
+    ) => number | undefined;
+}
+
+const fractionalWidthOptions = {
+    [ExampleColumnFractionalWidthType.default]: [],
+    [ExampleColumnFractionalWidthType.firstColumnHalfSize]: [
+        {
+            columnId: 'first-name-column',
+            width: 0.5
+        }
+    ],
+    [ExampleColumnFractionalWidthType.firstColumTwiceSize]: [
+        {
+            columnId: 'first-name-column',
+            width: 2
+        }
+    ],
+    [ExampleColumnFractionalWidthType.thirdColumnHalfFourthColumnTwice]: [
+        {
+            columnId: 'favorite-color-column',
+            width: 0.5
+        },
+        {
+            columnId: 'quote-column',
+            width: 2
+        }
+    ]
+} as const;
+
+const fractionalWidthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
+The default value for \`fractional-width\` is 1, and columns that don't support \`fractional-width\` explicitly, or another API responsible for managing the width of the column, will also behave as if they have a \`fractional-width\` of 1.`;
+
+const minPixelWidthDescription = `Table columns that support having a \`fractional-width\` can also be configured to have a minimum width such that its width
+will never shrink below the specified pixel width.`;
+
+export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
+    parameters: {
+        docs: {
+            description: {
+                story: fractionalWidthDescription
+            }
+        }
+    },
+    // prettier-ignore
+    render: createUserSelectedThemeStory(html<ColumnWidthTableArgs>`
+        ${usageWarning('table')}
+        <${tableTag}
+            ${ref('tableRef')}
+            data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
+        >
+           <${tableColumnTextTag}
+                field-name="firstName"
+                fractional-width="${x => x.getColumnWidthData('first-name-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+            >
+                First Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="lastName"
+                fractional-width="${x => x.getColumnWidthData('last-name-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+            >
+                Last Name
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="favoriteColor"
+                fractional-width="${x => x.getColumnWidthData('favorite-color-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+           >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="quote"
+                placeholder="${'<pacifier noise>'}"
+                fractional-width="${x => x.getColumnWidthData('quote-column', x)}"
+                min-pixel-width="${x => x.minPixelWidth}"
+            >
+                Quote
+            </${tableColumnTextTag}>
+        </${tableTag}>
+    `),
+    argTypes: {
+        fractionalWidth: {
+            name: 'Fractional width configuration',
+            description: fractionalWidthDescription,
+            options: Object.values(ExampleColumnFractionalWidthType),
+            control: {
+                type: 'radio',
+                labels: {
+                    [ExampleColumnFractionalWidthType.default]: 'Default',
+                    [ExampleColumnFractionalWidthType.firstColumnHalfSize]:
+                        'First column half size',
+                    [ExampleColumnFractionalWidthType.firstColumTwiceSize]:
+                        'First column double size',
+                    [ExampleColumnFractionalWidthType.thirdColumnHalfFourthColumnTwice]:
+                        'Third column half size, fourth column double size'
+                }
+            }
+        },
+        minPixelWidth: {
+            name: 'min-pixel-width',
+            description: minPixelWidthDescription,
+            control: {
+                type: 'number'
+            }
+        },
+        getColumnWidthData: {
+            table: {
+                disable: true
+            }
+        }
+    },
+    args: {
+        fractionalWidth: ExampleColumnFractionalWidthType.default,
+        minPixelWidth: 100,
+        getColumnWidthData: (
+            columnId: string,
+            args: ColumnWidthTableArgs
+        ): number | undefined => {
+            const widthData = fractionalWidthOptions[args.fractionalWidth];
+            const matchingIndex = widthData?.findIndex(
+                column => column.columnId === columnId
+            );
+            if (matchingIndex === -1) {
+                return 1;
+            }
+
+            return widthData[matchingIndex]?.width;
         }
     }
 };

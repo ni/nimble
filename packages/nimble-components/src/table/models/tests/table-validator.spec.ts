@@ -1,4 +1,4 @@
-import type { TableRecord, TableValidity } from '../../types';
+import { TableRecord, TableRowSelectionMode, TableValidity } from '../../types';
 import { TableValidator } from '../table-validator';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
@@ -12,7 +12,7 @@ describe('TableValidator', () => {
     function getInvalidKeys(
         tableValidator: TableValidator<TableRecord>
     ): string[] {
-        return Object.entries(tableValidator)
+        return Object.entries(tableValidator.getValidity())
             .filter(([_, value]) => value)
             .map(([key, _]) => key);
     }
@@ -27,6 +27,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
+            expect(validator.areRecordIdsValid()).toBeTrue();
             expect(getInvalidKeys(validator)).toEqual([]);
         });
 
@@ -39,6 +40,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, undefined);
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
+            expect(validator.areRecordIdsValid()).toBeTrue();
             expect(getInvalidKeys(validator)).toEqual([]);
         });
 
@@ -51,6 +53,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents(['duplicateRecordId'])
             );
@@ -65,6 +68,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'numberField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents(['invalidRecordId'])
             );
@@ -79,6 +83,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
+            expect(validator.areRecordIdsValid()).toBeTrue();
             expect(getInvalidKeys(validator)).toEqual([]);
         });
 
@@ -91,6 +96,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents(['invalidRecordId'])
             );
@@ -105,6 +111,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents(['invalidRecordId'])
             );
@@ -119,6 +126,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'missingField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents(['missingRecordId'])
             );
@@ -136,6 +144,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents([
                     'missingRecordId',
@@ -154,10 +163,12 @@ describe('TableValidator', () => {
             let isValid = validator.validateRecordIds(data, 'missingField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
 
             isValid = validator.validateRecordIds(data, undefined);
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
+            expect(validator.areRecordIdsValid()).toBeTrue();
         });
 
         it('setting a valid ID field name makes an invalid configuration valid', () => {
@@ -169,10 +180,12 @@ describe('TableValidator', () => {
             let isValid = validator.validateRecordIds(data, 'missingField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
 
             isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
+            expect(validator.areRecordIdsValid()).toBeTrue();
         });
 
         it('setting invalid ID field name makes a valid configuration invalid', () => {
@@ -184,10 +197,12 @@ describe('TableValidator', () => {
             let isValid = validator.validateRecordIds(data, 'stringField');
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
+            expect(validator.areRecordIdsValid()).toBeTrue();
 
             isValid = validator.validateRecordIds(data, 'missingField');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
         });
 
         it('ID field name can be an empty string', () => {
@@ -201,6 +216,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, '');
             expect(isValid).toBeTrue();
             expect(validator.isValid()).toBeTrue();
+            expect(validator.areRecordIdsValid()).toBeTrue();
             expect(getInvalidKeys(validator)).toEqual([]);
         });
 
@@ -215,6 +231,7 @@ describe('TableValidator', () => {
             const isValid = validator.validateRecordIds(data, '');
             expect(isValid).toBeFalse();
             expect(validator.isValid()).toBeFalse();
+            expect(validator.areRecordIdsValid()).toBeFalse();
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents(['duplicateRecordId'])
             );
@@ -387,6 +404,262 @@ describe('TableValidator', () => {
                 );
             });
         }
+    });
+
+    describe('column group index validation', () => {
+        const columnConfigurations: {
+            groupIndices: number[],
+            isValid: boolean,
+            invalidKeys: (keyof TableValidity)[],
+            name: string
+        }[] = [
+            {
+                groupIndices: [1, 2, 3],
+                isValid: true,
+                invalidKeys: [],
+                name: 'unique group indices is valid'
+            },
+            {
+                groupIndices: [1, 2, 2],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: 'duplicate group indices is invalid'
+            },
+            {
+                groupIndices: [],
+                isValid: true,
+                invalidKeys: [],
+                name: 'group indices are not required'
+            },
+            {
+                groupIndices: [-Infinity, -Infinity],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate '-Infinity' values are detected"
+            },
+            {
+                groupIndices: [Infinity, Infinity],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate 'Infinity' values are detected"
+            },
+            {
+                groupIndices: [Math.PI, Math.PI],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate 'Math.PI' values are detected"
+            },
+            {
+                groupIndices: [NaN, NaN],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate 'NaN' values are detected"
+            },
+            {
+                groupIndices: [0, -0],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: "duplicate '0' and '-0' values are detected"
+            },
+            {
+                groupIndices: [1.25, 1.25],
+                isValid: false,
+                invalidKeys: ['duplicateGroupIndex'],
+                name: 'duplicate decimal values are detected'
+            },
+            {
+                groupIndices: [
+                    1.25,
+                    NaN,
+                    Math.PI,
+                    -0,
+                    Infinity,
+                    -Infinity,
+                    1e6
+                ],
+                isValid: true,
+                invalidKeys: [],
+                name: 'special numeric values are valid'
+            }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const columnConfiguration of columnConfigurations) {
+            const specType = getSpecTypeByNamedList(
+                columnConfiguration,
+                focused,
+                disabled
+            );
+            specType(columnConfiguration.name, () => {
+                const tableValidator = new TableValidator();
+                const isValid = tableValidator.validateColumnGroupIndices(
+                    columnConfiguration.groupIndices
+                );
+
+                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(tableValidator.isValid()).toBe(
+                    columnConfiguration.invalidKeys.length === 0
+                );
+                expect(getInvalidKeys(tableValidator)).toEqual(
+                    jasmine.arrayWithExactContents(
+                        columnConfiguration.invalidKeys
+                    )
+                );
+            });
+        }
+    });
+
+    describe('row selection mode validation', () => {
+        const selectionConfigurations: {
+            selectionMode: TableRowSelectionMode,
+            idFieldName: string | undefined,
+            isValid: boolean,
+            invalidKeys: (keyof TableValidity)[],
+            name: string
+        }[] = [
+            {
+                selectionMode: TableRowSelectionMode.none,
+                idFieldName: 'my-id',
+                isValid: true,
+                invalidKeys: [],
+                name: 'selection mode of "none" with an id field name specified is valid'
+            },
+            {
+                selectionMode: TableRowSelectionMode.none,
+                idFieldName: undefined,
+                isValid: true,
+                invalidKeys: [],
+                name: 'selection mode of "none" without an id field name specified is valid'
+            },
+            {
+                selectionMode: TableRowSelectionMode.single,
+                idFieldName: 'my-id',
+                isValid: true,
+                invalidKeys: [],
+                name: 'selection mode of "single" with an id field name specified is valid'
+            },
+            {
+                selectionMode: TableRowSelectionMode.single,
+                idFieldName: undefined,
+                isValid: false,
+                invalidKeys: ['idFieldNameNotConfigured'],
+                name: 'selection mode of "single" without an id field name specified is invalid'
+            },
+            {
+                selectionMode: TableRowSelectionMode.multiple,
+                idFieldName: 'my-id',
+                isValid: true,
+                invalidKeys: [],
+                name: 'selection mode of "multiple" with an id field name specified is valid'
+            },
+            {
+                selectionMode: TableRowSelectionMode.multiple,
+                idFieldName: undefined,
+                isValid: false,
+                invalidKeys: ['idFieldNameNotConfigured'],
+                name: 'selection mode of "multiple" without an id field name specified is invalid'
+            }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const selectionConfiguration of selectionConfigurations) {
+            const specType = getSpecTypeByNamedList(
+                selectionConfiguration,
+                focused,
+                disabled
+            );
+            specType(selectionConfiguration.name, () => {
+                const tableValidator = new TableValidator();
+                const isValid = tableValidator.validateSelectionMode(
+                    selectionConfiguration.selectionMode,
+                    selectionConfiguration.idFieldName
+                );
+
+                expect(isValid).toBe(selectionConfiguration.isValid);
+                expect(tableValidator.isValid()).toBe(
+                    selectionConfiguration.isValid
+                );
+                expect(getInvalidKeys(tableValidator)).toEqual(
+                    jasmine.arrayWithExactContents(
+                        selectionConfiguration.invalidKeys
+                    )
+                );
+            });
+        }
+    });
+
+    describe('getPresentRecordIds', () => {
+        it('filters out record IDs that are not in the data set', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-3'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents(['value-2'])
+            );
+        });
+
+        it('returns all record IDs if they are all in the data set', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents(['value-1', 'value-2'])
+            );
+        });
+
+        it('filters out records that previously were in the data set but no longer are', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, 'stringField');
+
+            const newData = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-3', numberField: 11 }
+            ];
+            validator.validateRecordIds(newData, 'stringField');
+
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents(['value-1'])
+            );
+        });
+
+        it('filters out all records when there is no id field name', () => {
+            const data = [
+                { stringField: 'value-1', numberField: 10 },
+                { stringField: 'value-2', numberField: 11 }
+            ];
+            validator.validateRecordIds(data, undefined);
+
+            const presentRecordIds = validator.getPresentRecordIds([
+                'value-2',
+                'value-1'
+            ]);
+            expect(presentRecordIds).toEqual(
+                jasmine.arrayWithExactContents([])
+            );
+        });
     });
 
     describe('validation checks do not reset unrelated state', () => {

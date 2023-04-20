@@ -16,10 +16,13 @@ function getSortIcons(element: TableHeader): {
     ascendingIcon: HTMLElement | null,
     descendingIcon: HTMLElement | null
 } {
-    const sortIndicatorContainer = element.shadowRoot!.querySelector('.sort-indicator')!;
     return {
-        ascendingIcon: sortIndicatorContainer.querySelector(iconArrowUpTag),
-        descendingIcon: sortIndicatorContainer.querySelector(iconArrowDownTag)
+        ascendingIcon: element.shadowRoot!.querySelector(
+            `${iconArrowUpTag}.sort-indicator`
+        ),
+        descendingIcon: element.shadowRoot!.querySelector(
+            `${iconArrowDownTag}.sort-indicator`
+        )
     };
 }
 
@@ -57,7 +60,8 @@ describe('TableHeader', () => {
         expect(sortIcons.descendingIcon).toBeFalsy();
     });
 
-    it('has correct state when sorted ascending', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('has correct state when sorted ascending #SkipFirefox', async () => {
         element.sortDirection = TableColumnSortDirection.ascending;
         element.firstSortedColumn = true;
         await waitForUpdatesAsync();
@@ -68,7 +72,8 @@ describe('TableHeader', () => {
         expect(sortIcons.descendingIcon).toBeFalsy();
     });
 
-    it('has correct state when sorted descending', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('has correct state when sorted descending #SkipFirefox', async () => {
         element.sortDirection = TableColumnSortDirection.descending;
         element.firstSortedColumn = true;
         await waitForUpdatesAsync();

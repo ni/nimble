@@ -1,4 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import {
@@ -61,8 +61,8 @@ const component = html`
     </${toolbarTag}>
 `;
 
-export const toolbarThemeMatrix: Story = createMatrixThemeStory(component);
+export const toolbarThemeMatrix: StoryFn = createMatrixThemeStory(component);
 
-export const hiddenToolbar: Story = createStory(
+export const hiddenToolbar: StoryFn = createStory(
     hiddenWrapper(html`<${toolbarTag} hidden>Hidden Toolbar</${toolbarTag}>`)
 );
