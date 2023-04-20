@@ -14,8 +14,7 @@ import {
     fillSelectedColor,
     standardPadding,
     controlHeight,
-    borderWidth,
-    tableRowBorderColor
+    borderWidth
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
