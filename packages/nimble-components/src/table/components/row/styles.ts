@@ -30,7 +30,8 @@ export const styles = css`
     }
 
     .row-front-spacer {
-        min-width: ${controlHeight};
+        width: ${controlHeight};
+        flex: 0 0 auto;
     }
 
     .cell-container {

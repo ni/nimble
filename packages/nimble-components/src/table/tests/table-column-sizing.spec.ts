@@ -46,7 +46,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-async function growTableToGivenRowWidth(
+async function sizeTableToGivenRowWidth(
     rowWidth: number,
     table: Table<SimpleTableRecord>
 ): Promise<void> {
@@ -199,7 +199,7 @@ describe('Table Column Sizing', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    await growTableToGivenRowWidth(
+                    await sizeTableToGivenRowWidth(
                         columnSizeTest.rowWidth,
                         element
                     );
@@ -246,12 +246,12 @@ describe('Table Column Sizing', () => {
 
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
             await connect();
-            await growTableToGivenRowWidth(400, element);
+            await sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
-            await growTableToGivenRowWidth(300, element);
+            await sizeTableToGivenRowWidth(300, element);
             await waitForUpdatesAsync();
 
             const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
@@ -262,7 +262,7 @@ describe('Table Column Sizing', () => {
 
         it('hidden column results in other column filling whole space', async () => {
             await connect();
-            await growTableToGivenRowWidth(400, element);
+            await sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
@@ -309,7 +309,7 @@ describe('Table Column Sizing', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    await growTableToGivenRowWidth(300, element);
+                    await sizeTableToGivenRowWidth(300, element);
                     await element.setData(largeTableData);
                     await connect();
                     await waitForUpdatesAsync();

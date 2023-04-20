@@ -74,15 +74,15 @@ export const styles = css`
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
     }
 
-    .collapse-button-container {
-        display: inline-block;
-    }
-
     .collapse-all-button {
         width: ${controlSlimHeight};
         height: ${controlSlimHeight};
         margin-left: calc(${smallPadding} * 2);
-        visibility: var(--ni-private-collapse-button-visibility);
+        visibility: hidden;
+    }
+
+    .collapse-all-button.visible {
+        visibility: visible;
     }
 
     .header-scrollbar-spacer {

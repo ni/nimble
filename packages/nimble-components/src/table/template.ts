@@ -51,9 +51,9 @@ export const template = html<Table>`
                             </${checkboxTag}>
                         </span>
                     `)}
-                    <span class="collapse-button-container" role="gridcell">
+                    <span role="gridcell">
                         <${buttonTag}
-                            class="collapse-all-button"
+                            class="${x => `collapse-all-button ${(x.showCollapseAll ? 'visible' : '')}`}"
                             content-hidden
                             appearance="${ButtonAppearance.ghost}"
                             @click="${x => x.handleCollapseAllGroupRows()}"

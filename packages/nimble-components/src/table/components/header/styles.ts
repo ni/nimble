@@ -21,4 +21,9 @@ export const styles = css`
         text-transform: uppercase;
         gap: calc(${standardPadding} / 2);
     }
+
+    .sort-indicator,
+    .grouped-indicator {
+        flex: 0 0 auto;
+    }
 `;
