@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 19 Apr 2023 17:58:44 GMT",
+      "tag": "@ni/nimble-components_v18.12.2",
+      "version": "18.12.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "203525bfb38afb4d440c54a8bc8950e4748bf748",
+            "comment": "Storybook updates for design token build changes"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v5.0.0",
+            "commit": "203525bfb38afb4d440c54a8bc8950e4748bf748"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Apr 2023 14:26:33 GMT",
       "tag": "@ni/nimble-components_v18.12.1",
       "version": "18.12.1",
