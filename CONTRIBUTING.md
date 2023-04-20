@@ -46,9 +46,9 @@ Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages y
 
 ## Documentation policies
 
-1. Documentation for consumers of Nimble should go in `README.md` files. 
-2. Documentation for contributors should go in `CONTRIBUTING.md` files. 
-3. Documentation is hierarchical throughout the repo: 
+1. Documentation for consumers of Nimble should go in `README.md` files.
+2. Documentation for contributors should go in `CONTRIBUTING.md` files.
+3. Documentation is hierarchical throughout the repo:
    - repo-wide documentation exists at the root
    - package-specific documentation exists for each package
    - documentation of specific utilities or components can exist next to the source or in dedicated `docs` folders throughout the repo. Be sure to link to lower-level documents from higher-level ones to aid in discovery.
@@ -81,7 +81,7 @@ The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-aud
 
 #### Vulnerabilities with fixes available
 
-1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue. 
+1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue.
 2. If the actual issue is with a sub-dependency which has published a fix, we can update that sub-dependency via `npm audit fix`. This should be accompanied by appropriate testing of the new version. We should also ensure there is an issue on the direct dependency's repository asking them to uptake the fixed sub-dependency.
 
 #### Vulnerabilities without fixes available
@@ -107,18 +107,18 @@ This repository uses automated linting and automated lint formatting. Use `npm r
 
 To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
 
-The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Defualt Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed. The workspace configuration file also specifies that the formatter should be run on a file when it is saved. If you want to disable this, the option is `File >> Preferences >> Settings >> Workspace >> Text Editor >> Format On Save`. Or to modify it directly in `.vscode/settings.json`, set `editor.formatOnSave` to `false`.
 
 ### Watch scripts for development
 
 When creating a new component in the `nimble-components` package, it's often sufficient to run the `npm run storybook -w @ni/nimble-components` command to preview the component during development. However, when integration components with Angular or when modifying multiple packages, it's necessary to rebuild multiple components as you modify them. To run `*:watch` scripts for all packages simultaneously, this repository uses VS Code Tasks to automatically launch the scripts in configured terminal tabs.
 
-To launch the watch scripts, open **View»Command palette…** and type `run task`. Select `Tasks: Run Task` and then select `Create Watch Terminals` and press enter. 
+To launch the watch scripts, open **View»Command palette…** and type `run task`. Select `Tasks: Run Task` and then select `Create Watch Terminals` and press enter.
 
 You can also configure this task to execute via a keyboard shortcut by [configuring](https://code.visualstudio.com/docs/getstarted/keybindings) the keybindings.json file to include the following:
 
 ```json
-{   
+{
     "key": "ctrl+shift+\\",
     "command": "workbench.action.tasks.runTask",
     "args": "Create Watch Terminals"
