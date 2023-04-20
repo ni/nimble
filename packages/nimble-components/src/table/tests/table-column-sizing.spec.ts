@@ -103,51 +103,51 @@ describe('Table Column Sizing', () => {
             },
             {
                 name: 'one column has larger fractionalWidth',
-                rowWidth: 300,
+                rowWidth: 600,
                 column1FractionalWidth: 2,
                 column1PixelWidth: undefined,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 200,
-                column2ExpectedRenderedWidth: 100
+                column1ExpectedRenderedWidth: 400,
+                column2ExpectedRenderedWidth: 200
             },
             {
                 name: 'first column set to use pixelWidth',
-                rowWidth: 400,
+                rowWidth: 600,
                 column1FractionalWidth: 1,
-                column1PixelWidth: 100,
+                column1PixelWidth: 200,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 300
+                column1ExpectedRenderedWidth: 200,
+                column2ExpectedRenderedWidth: 400
             },
             {
                 name: 'second column set to use pixelWidth',
-                rowWidth: 400,
+                rowWidth: 600,
                 column1FractionalWidth: 1,
                 column1PixelWidth: undefined,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
-                column2PixelWidth: 100,
+                column2PixelWidth: 200,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 300,
-                column2ExpectedRenderedWidth: 100
+                column1ExpectedRenderedWidth: 400,
+                column2ExpectedRenderedWidth: 200
             },
             {
                 name: 'both columns use pixelWidth',
                 rowWidth: 400,
                 column1FractionalWidth: 1,
-                column1PixelWidth: 100,
+                column1PixelWidth: 300,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
-                column2PixelWidth: 100,
+                column2PixelWidth: 300,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 100
+                column1ExpectedRenderedWidth: 300,
+                column2ExpectedRenderedWidth: 300
             },
             {
                 name: 'first column has smaller pixelWidth than minPixelWidth, results in column with size of minPixelWidth',
