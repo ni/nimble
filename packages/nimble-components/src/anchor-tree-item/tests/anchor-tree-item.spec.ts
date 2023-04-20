@@ -164,18 +164,6 @@ describe('Anchor Tree Item', () => {
         let disconnect: () => Promise<void>;
         let model: Model;
 
-        async function waitForGroupSelectedUpdate(): Promise<void> {
-            await new Promise<Promise<void>>(resolve => {
-                model.treeView.addEventListener(
-                    'group-selected-update',
-                    () => {
-                        resolve(waitForUpdatesAsync());
-                    },
-                    { once: true }
-                );
-            });
-        }
-
         beforeEach(async () => {
             model = new Model();
             ({ connect, disconnect } = await setup(model));
@@ -194,14 +182,16 @@ describe('Anchor Tree Item', () => {
 
         it('when leaf item is selected, only root parent tree item has "group-selected" attribute', async () => {
             model.leaf3.selected = true;
-            await waitForGroupSelectedUpdate();
+            await waitForUpdatesAsync(); // reflect selected property to attribute
+            await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
             expect(model.root2.hasAttribute('group-selected')).toBeTrue();
             expect(model.subRoot2.hasAttribute('group-selected')).toBeFalse();
             expect(model.root1.hasAttribute('group-selected')).toBeFalse();
             expect(model.leaf3.hasAttribute('group-selected')).toBeFalse();
 
             model.leaf1.selected = true;
-            await waitForGroupSelectedUpdate();
+            await waitForUpdatesAsync(); // reflect selected property to attribute
+            await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
             expect(model.root2.hasAttribute('group-selected')).toBeFalse();
             expect(model.subRoot2.hasAttribute('group-selected')).toBeFalse();
             expect(model.root1.hasAttribute('group-selected')).toBeTrue();
@@ -210,26 +200,28 @@ describe('Anchor Tree Item', () => {
 
         it('when leaf item is deselected, root parent tree loses "group-selected" attribute', async () => {
             model.leaf1.selected = false;
-            await waitForGroupSelectedUpdate();
+            await waitForUpdatesAsync(); // reflect selected property to attribute
+            await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
             expect(model.root1.hasAttribute('group-selected')).toBeFalse();
         });
 
         it('when second leaf item under same root parent is selected, root parent tree item has "group-selected" attribute', async () => {
             model.leaf2.selected = true;
-            await waitForGroupSelectedUpdate();
+            await waitForUpdatesAsync(); // reflect selected property to attribute
+            await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
             expect(model.root1.hasAttribute('group-selected')).toBeTrue();
         });
 
         it('when selected item is removed, root parent tree loses "group-selected" attribute', async () => {
             expect(model.leaf1.selected).toBeTrue();
             model.leaf1.remove();
-            await waitForGroupSelectedUpdate();
+            await waitForUpdatesAsync();
             expect(model.root1.hasAttribute('group-selected')).toBeFalse();
         });
 
         it('when non-selected item is removed, root parent tree keeps "group-selected" attribute', async () => {
             model.leaf2.remove();
-            await waitForGroupSelectedUpdate();
+            await waitForUpdatesAsync();
             expect(model.root1.hasAttribute('group-selected')).toBeTrue();
         });
 
@@ -238,7 +230,7 @@ describe('Anchor Tree Item', () => {
             model.leaf1.remove();
             await waitForUpdatesAsync();
             model.subRoot1.appendChild(model.leaf1);
-            await waitForGroupSelectedUpdate();
+            await waitForUpdatesAsync();
             expect(model.root1.hasAttribute('group-selected')).toBeTrue();
         });
     });
