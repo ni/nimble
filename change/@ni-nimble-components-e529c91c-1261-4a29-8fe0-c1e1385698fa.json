@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Updating row styling. Showing tooltip for column header.",
+  "comment": "Updating row styling.",
   "packageName": "@ni/nimble-components",
   "email": "26874831+atmgrifter00@users.noreply.github.com",
   "dependentChangeType": "patch"
