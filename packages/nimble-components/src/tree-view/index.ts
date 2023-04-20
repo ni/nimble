@@ -93,8 +93,6 @@ export class TreeView extends FoundationTreeView {
                 item.groupSelected = true;
             }
         }
-
-        this.$emit('group-selected-update');
     }
 }
 
