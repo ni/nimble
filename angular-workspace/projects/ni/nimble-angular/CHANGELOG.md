@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 19 Apr 2023 17:58:44 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Apr 2023 14:11:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.13
+
+Thu, 20 Apr 2023 14:11:37 GMT
+
+### Patches
+
+- Angular support for row selection in the table ([ni/nimble@b569273](https://github.com/ni/nimble/commit/b56927365c467310598d6c7e448369f5e8226a84))
 
 ## 16.5.12
 

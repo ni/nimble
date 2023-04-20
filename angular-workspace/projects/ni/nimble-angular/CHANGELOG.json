@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 20 Apr 2023 14:11:37 GMT",
+      "tag": "@ni/nimble-angular_v16.5.13",
+      "version": "16.5.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b56927365c467310598d6c7e448369f5e8226a84",
+            "comment": "Angular support for row selection in the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 19 Apr 2023 17:58:44 GMT",
       "tag": "@ni/nimble-angular_v16.5.12",
       "version": "16.5.12",
