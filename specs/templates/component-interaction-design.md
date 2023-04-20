@@ -1,15 +1,16 @@
 # Interaction Design (IxD) [Template]
 
-## Problem Statement
+## Overview
 
-*Brief description of the reason for this work and an executive summary of the proposed design.*
+*The name of the component, along with a high-level description.*
 
-## Links To Relevant Work Items and Reference Material
+### Background
 
-*Include links to the work items this design addresses.*
-*Include links to any other meaningful reference material.*
+*Relevant historical or background information*
+*Link to Interaction Design issue*
+*Link to relevant work items, related existing issues, etc.*
 
-## Implementation / Design
+## Design
 
 *Full description of the proposed interaction design.*
 *Include links or embedded views of design in XD or Figma and provide any additional context.*

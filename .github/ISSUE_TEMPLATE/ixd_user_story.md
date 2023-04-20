@@ -10,10 +10,11 @@ labels: 'IxD,triage'
 ## 📌 Request Background
 
 <!-- A short description of the request and requester. E.g. Who is the client and how do they expect to use the component? -->
+<!-- Link to New Component issue -->
 
 ## Core Requirements
 
-<!-- Outline the essential requirements of the component. E.g. For a date picker… 
+<!-- Outline the essential requirements of the component. What does the user need to be able to do with the component? E.g. For a date picker… 
 
 - User must to be able to specify a _specific date_ for use in filter query
 - User should not be able to specify an invalid date
@@ -30,6 +31,6 @@ labels: 'IxD,triage'
 
 ## Acceptance Criteria
 
+- [ ] IxD Spec submitted (link)
 - [ ] IxD Spec reviewed by design team
 - [ ] IxD Spec reviewed by dev team
-- [ ] IxD Spec submitted (link)
