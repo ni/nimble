@@ -1,9 +1,6 @@
-import { LocationStrategy } from '@angular/common';
-import { Directive, ElementRef, HostListener, Inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
-import type { TableColumnAnchor } from '@ni/nimble-components/dist/esm/table-column/anchor';
+import { Directive, HostListener } from '@angular/core';
+import { RouterLinkWithHref } from '@angular/router';
 import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/table-column/anchor/cell-view';
-import type { DelegatedEventEventDetails } from '../base/nimble-table-column-base.directive';
 
 /**
  * Directive to handle nimble-table-column-anchor RouterLink support.
