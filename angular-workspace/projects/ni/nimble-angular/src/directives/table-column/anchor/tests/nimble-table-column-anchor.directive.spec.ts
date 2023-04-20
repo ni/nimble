@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableColumnAnchorDirective, TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 
-fdescribe('Nimble anchor table column', () => {
+describe('Nimble anchor table column', () => {
     const hreflang1 = 'en';
     const hreflang2 = 'fr';
     const ping1 = 'http://www.ni.com';
