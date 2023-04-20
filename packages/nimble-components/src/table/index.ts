@@ -191,7 +191,6 @@ export class Table<
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
     private shiftSelectStartRowId?: string;
-    private shiftSelectStartRowIndex?: number;
 
     public constructor() {
         super();
@@ -328,6 +327,7 @@ export class Table<
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
+
         const rowState = this.tableData[rowIndex];
         if (!rowState) {
             return;
@@ -362,6 +362,8 @@ export class Table<
         rowIndex: number,
         event: MouseEvent
     ): Promise<void> {
+        event.stopImmediatePropagation();
+
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
@@ -708,7 +710,6 @@ export class Table<
 
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
-        this.shiftSelectStartRowIndex = undefined;
 
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {

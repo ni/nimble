@@ -258,10 +258,7 @@ export class TablePageObject<T extends TableRecord> {
 
     public async clickRow(
         rowIndex: number,
-        modifiers: { shiftKey?: boolean, ctrlKey?: boolean } = {
-            shiftKey: false,
-            ctrlKey: false
-        }
+        modifiers: { shiftKey?: boolean, ctrlKey?: boolean } = {}
     ): Promise<void> {
         const row = this.getRow(rowIndex);
         const event = new MouseEvent('click', modifiers);
