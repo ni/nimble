@@ -1,5 +1,5 @@
 {
-  "type": "minor",
+  "type": "patch",
   "comment": "Anchor table column type",
   "packageName": "@ni/nimble-angular",
   "email": "7282195+m-akinc@users.noreply.github.com",
