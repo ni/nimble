@@ -80,6 +80,9 @@ export class Table<
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
+    @attr({ attribute: 'collapse-all-button-label' })
+    public collapseAllButtonLabel?: string;
+
     /**
      * @internal
      */

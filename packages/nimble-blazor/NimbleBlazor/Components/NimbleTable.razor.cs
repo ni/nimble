@@ -24,9 +24,21 @@ public partial class NimbleTable<TData> : ComponentBase
     [Inject]
     private IJSRuntime? JSRuntime { get; set; }
 
+    /// <summary>
+    /// Gets or sets the field to use in the table's data as the unique row identifier
+    /// </summary>
     [Parameter]
     public string? IdFieldName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the label for the collapse all button
+    /// </summary>
+    [Parameter]
+    public string? CollapseAllButtonLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets the row selection mode for the table.
+    /// </summary>
     [Parameter]
     public TableRowSelectionMode? SelectionMode { get; set; }
 

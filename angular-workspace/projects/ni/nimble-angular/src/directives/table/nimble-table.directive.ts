@@ -52,6 +52,16 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         this.renderer.setProperty(this.elementRef.nativeElement, 'selectionMode', value);
     }
 
+    public get collapseAllButtonLabel(): string | undefined {
+        return this.elementRef.nativeElement.collapseAllButtonLabel;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('collapse-all-button-label') public set collapseAllButtonLabel(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'collapseAllButtonLabel', value);
+    }
+
     public get validity(): TableValidity {
         return this.elementRef.nativeElement.validity;
     }
