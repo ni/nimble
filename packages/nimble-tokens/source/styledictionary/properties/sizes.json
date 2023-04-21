@@ -1,49 +1,4 @@
 {
   "size": {
-    "Body-line-height": {
-      "value": "18"
-    },
-    "ControlLabel_1-line-height": {
-      "value": "16"
-    },
-    "GroupLabel_1-line-height": {
-      "value": "16"
-    },
-    "Headline_2-line-height": {
-      "value": "40"
-    },
-    "Headline_1-line-height": {
-      "value": "32"
-    },
-    "Title_3-line-height": {
-      "value": "32"
-    },
-    "Title_2-line-height": {
-      "value": "28"
-    },
-    "Title_1-line-height": {
-      "value": "24"
-    },
-    "Subtitle_2-line-height": {
-      "value": "20"
-    },
-    "Subtitle_1-line-height": {
-      "value": "16"
-    },
-    "Link-line-height": {
-      "value": "18"
-    },
-    "Placeholder-line-height": {
-      "value": "18"
-    },
-    "BodyEmphasized-line-height": {
-      "value": "18"
-    },
-    "ButtonLabel_1-line-height": {
-      "value": "16"
-    },
-    "TooltipCaption-line-height": {
-      "value": "14"
-    }
   }
 }
