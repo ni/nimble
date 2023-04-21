@@ -25,6 +25,9 @@ declare global {
  *
  */
 export class TreeItem extends FoundationTreeItem {
+    /**
+     * @internal
+     */
     @attr({ attribute: 'group-selected', mode: 'boolean' })
     public groupSelected = false;
 }
