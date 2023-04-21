@@ -32,6 +32,11 @@ export const TableColumnSortOperation = {
 export type TableColumnSortOperation =
     (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
 
+/**
+ * This width is derived from a combination of minimum widths of various visuals
+ * that can be present in a column header, the spacing between them, and a size
+ * for the header text to show at least one character.
+ */
 export const defaultMinPixelWidth = 121;
 
 export const defaultFractionalWidth = 1;

@@ -52,7 +52,7 @@ export const template = html<Table>`
                     `)}
                     <span role="gridcell">
                         <${buttonTag}
-                            class="${x => `collapse-all-button ${(x.showCollapseAll ? 'visible' : '')}`}"
+                            class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                             content-hidden
                             appearance="${ButtonAppearance.ghost}"
                             @click="${x => x.handleCollapseAllGroupRows()}"

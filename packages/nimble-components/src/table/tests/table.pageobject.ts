@@ -184,7 +184,9 @@ export class TablePageObject<T extends TableRecord> {
         table: Table<T>
     ): Promise<void> {
         if (!table.$fastController.isConnected) {
-            throw Error('The element must be connected before calling this method');
+            throw Error(
+                'The element must be connected before calling this method'
+            );
         }
 
         const collapseButton = this.getCollapseAllButton();
