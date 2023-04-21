@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { processUpdates, waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 import type { TableColumnAnchor } from '../nimble-table-column-anchor.directive';
-import type { Table } from '../../../table/nimble-table.directive';
+import { Table, TablePageObject } from '../../../table/nimble-table.directive';
 import type { Anchor } from '../../../anchor/nimble-anchor.directive';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 
@@ -64,11 +64,8 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
         testHostComponent = fixture.componentInstance;
         await testHostComponent.table.nativeElement.setData(data);
         await waitForUpdatesAsync();
-        anchor = testHostComponent.table.nativeElement
-            .shadowRoot!.querySelector('.row')!
-            .shadowRoot!.querySelector('.cell')!
-            .shadowRoot!.querySelector('.cell-view')!
-            .shadowRoot!.querySelector('nimble-anchor')!;
+        const pageObject = new TablePageObject(testHostComponent.table.nativeElement);
+        anchor = pageObject.getRenderedCellAnchor(0, 0);
         innerAnchor = anchor!.shadowRoot!.querySelector('a')!;
         routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
         anchorClickHandlerSpy = jasmine.createSpy('click');
