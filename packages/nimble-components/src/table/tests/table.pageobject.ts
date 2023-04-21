@@ -179,6 +179,26 @@ export class TablePageObject<T extends TableRecord> {
         return tableRowContainer!.scrollWidth;
     }
 
+    public async sizeTableToGivenRowWidth(
+        rowWidth: number,
+        table: Table<T>
+    ): Promise<void> {
+        if (!table.$fastController.isConnected) {
+            throw Error('The element must be connected before calling this method');
+        }
+
+        const collapseButton = this.getCollapseAllButton();
+        const buttonWidth = collapseButton!.getBoundingClientRect().width;
+        const buttonStyle = window.getComputedStyle(collapseButton!);
+        table.style.width = `${
+            rowWidth
+            + buttonWidth
+            + parseFloat(buttonStyle.marginLeft)
+            + parseFloat(buttonStyle.marginRight)
+        }px`;
+        await waitForUpdatesAsync();
+    }
+
     public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
         if (columnIndex >= this.tableElement.columns.length) {
             throw new Error(

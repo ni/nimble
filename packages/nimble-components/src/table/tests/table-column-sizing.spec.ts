@@ -46,28 +46,6 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-async function sizeTableToGivenRowWidth(
-    rowWidth: number,
-    table: Table<SimpleTableRecord>
-): Promise<void> {
-    if (!table.$fastController.isConnected) {
-        throw Error('The element must be connected before calling this method');
-    }
-
-    const collapseButton = table.shadowRoot?.querySelector(
-        '.collapse-all-button'
-    );
-    const buttonWidth = collapseButton!.getBoundingClientRect().width;
-    const buttonStyle = window.getComputedStyle(collapseButton!);
-    table.style.width = `${
-        rowWidth
-        + buttonWidth
-        + parseFloat(buttonStyle.marginLeft)
-        + parseFloat(buttonStyle.marginRight)
-    }px`;
-    await waitForUpdatesAsync();
-}
-
 describe('Table Column Sizing', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
@@ -199,7 +177,7 @@ describe('Table Column Sizing', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    await sizeTableToGivenRowWidth(
+                    await pageObject.sizeTableToGivenRowWidth(
                         columnSizeTest.rowWidth,
                         element
                     );
@@ -246,12 +224,12 @@ describe('Table Column Sizing', () => {
 
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
             await connect();
-            await sizeTableToGivenRowWidth(400, element);
+            await pageObject.sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
-            await sizeTableToGivenRowWidth(300, element);
+            await pageObject.sizeTableToGivenRowWidth(300, element);
             await waitForUpdatesAsync();
 
             const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
@@ -262,7 +240,7 @@ describe('Table Column Sizing', () => {
 
         it('hidden column results in other column filling whole space', async () => {
             await connect();
-            await sizeTableToGivenRowWidth(400, element);
+            await pageObject.sizeTableToGivenRowWidth(400, element);
             await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
@@ -309,7 +287,7 @@ describe('Table Column Sizing', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    await sizeTableToGivenRowWidth(300, element);
+                    await pageObject.sizeTableToGivenRowWidth(300, element);
                     await element.setData(largeTableData);
                     await connect();
                     await waitForUpdatesAsync();

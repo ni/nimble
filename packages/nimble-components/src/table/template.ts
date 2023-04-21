@@ -37,7 +37,6 @@ export const template = html<Table>`
             --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
-            --ni-private-collapse-button-visibility: ${x => (x.showCollapseAll ? 'visible' : 'hidden')};
             ">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
