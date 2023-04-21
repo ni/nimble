@@ -1,175 +1,658 @@
 {
   "color": {
-    "SL_LegacyBlue": {
-      "value": "#009FF5ff"
+    "brand": {
+      "brand100": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 1)",
+        "type": "color"
+      },
+      "forestgreen": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(7, 64, 35, 1)",
+        "type": "color"
+      },
+      "indigodark1": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(87, 83, 158, 1)",
+        "type": "color"
+      },
+      "niindigo": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(142, 120, 183, 1)",
+        "type": "color"
+      }
     },
-    "Information100_DarkUI": {
-      "value": "#A46EFFff"
+    "digitalgreenlight": {
+      "digitalgreenlight100": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 1)",
+        "type": "color"
+      },
+      "digitalgreenlight85": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 0.85)",
+        "type": "color"
+      },
+      "digitalgreenlight60": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 0.6)",
+        "type": "color"
+      },
+      "digitalgreenlight50": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 0.5)",
+        "type": "color"
+      },
+      "digitaldarkgreen40": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 0.4)",
+        "type": "color"
+      },
+      "digitalgreenlight30": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 0.3)",
+        "type": "color"
+      },
+      "digitalgreenlight20": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 0.2)",
+        "type": "color"
+      },
+      "digitalgreenlight15": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 155, 101, 0.15)",
+        "type": "color"
+      }
     },
-    "Information100_LightUI": {
-      "value": "#804AD9ff"
+    "digitalgreendark": {
+      "digitalgreendark110": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 97, 63, 1)",
+        "type": "color"
+      },
+      "digitalgreendark100": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 133, 87, 1)",
+        "type": "color"
+      },
+      "digitalgreendark85": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 107, 70, 0.85)",
+        "type": "color"
+      },
+      "digitalgreendark60": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 107, 70, 0.6)",
+        "type": "color"
+      },
+      "digitalgreendark50": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 107, 70, 0.5)",
+        "type": "color"
+      },
+      "digitaldarkgreen40": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 107, 70, 0.4)",
+        "type": "color"
+      },
+      "digitalgreendark30": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 107, 70, 0.3)",
+        "type": "color"
+      },
+      "digitalgreendark20": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 107, 70, 0.2)",
+        "type": "color"
+      },
+      "digitalgreendark10": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 107, 70, 0.1)",
+        "type": "color"
+      }
     },
-    "Warning100_DarkUI": {
-      "value": "#FF8126ff"
+    "powergreen": {
+      "powergreen100": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(50, 235, 150, 1)",
+        "type": "color"
+      },
+      "powergreen85": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(50, 235, 150, 0.85)",
+        "type": "color"
+      },
+      "powergreen50": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(50, 235, 150, 0.5)",
+        "type": "color"
+      },
+      "powergreen30": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(50, 235, 150, 0.3)",
+        "type": "color"
+      },
+      "powergreen20": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(50, 235, 150, 0.2)",
+        "type": "color"
+      },
+      "powergreen15": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(50, 235, 150, 0.15)",
+        "type": "color"
+      },
+      "powergreen10": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(50, 235, 150, 0.1)",
+        "type": "color"
+      }
     },
-    "Pass100_LightUI": {
-      "value": "#009921ff"
+    "black": {
+      "opaque": {
+        "black100100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(0, 0, 0, 1)",
+          "type": "color"
+        },
+        "black95100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(14, 15, 15, 1)",
+          "type": "color"
+        },
+        "black91100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(22, 22, 23, 1)",
+          "type": "color"
+        },
+        "black88100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(37, 37, 38, 1)",
+          "type": "color"
+        },
+        "black85100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(54, 55, 56, 1)",
+          "type": "color"
+        },
+        "black82100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(67, 68, 69, 1)",
+          "type": "color"
+        },
+        "black80100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(80, 81, 83, 1)",
+          "type": "color"
+        },
+        "black75100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(129, 131, 134, 1)",
+          "type": "color"
+        },
+        "black50100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(174, 176, 179, 1)",
+          "type": "color"
+        },
+        "black30100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(211, 213, 214, 1)",
+          "type": "color"
+        },
+        "black22100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(230, 230, 230, 1)",
+          "type": "color"
+        },
+        "black15100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(241, 241, 242, 1)",
+          "type": "color"
+        },
+        "black7100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(245, 245, 245, 1)",
+          "type": "color"
+        }
+      },
+      "transparent": {
+        "black91": {
+          "black9185": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(22, 22, 23, 0.85)",
+            "type": "color"
+          },
+          "black9175": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(22, 22, 23, 0.75)",
+            "type": "color"
+          },
+          "black9160": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(22, 22, 23, 0.6)",
+            "type": "color"
+          },
+          "black9130": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(22, 22, 23, 0.3)",
+            "type": "color"
+          },
+          "black9120": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(22, 22, 23, 0.2)",
+            "type": "color"
+          },
+          "black9115": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(22, 22, 23, 0.15)",
+            "type": "color"
+          },
+          "black9110": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(22, 22, 23, 0.1)",
+            "type": "color"
+          }
+        },
+        "black15": {
+          "black1585": {
+            "category": "color",
+            "exportKey": "color",
+            "comment": "Dark UI icon, text, etc.",
+            "value": "rgba(241, 241, 242, 0.85)",
+            "type": "color"
+          },
+          "black1575": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(241, 241, 242, 0.75)",
+            "type": "color"
+          },
+          "black1560": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(241, 241, 242, 0.6)",
+            "type": "color"
+          },
+          "black1540": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(217, 217, 217, 0.4)",
+            "type": "color"
+          },
+          "black1530": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(241, 241, 242, 0.3)",
+            "type": "color"
+          },
+          "black1520": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(241, 241, 242, 0.2)",
+            "type": "color"
+          },
+          "black1515": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(241, 241, 242, 0.15)",
+            "type": "color"
+          },
+          "black1510": {
+            "category": "color",
+            "exportKey": "color",
+            "value": "rgba(241, 241, 242, 0.1)",
+            "type": "color"
+          }
+        }
+      }
     },
-    "Pass100_DarkUI": {
-      "value": "#00C12Bff"
+    "white": {
+      "white100": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 1)",
+        "type": "color"
+      },
+      "white85": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 0.85)",
+        "type": "color"
+      },
+      "white75": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 0.75)",
+        "type": "color"
+      },
+      "white60": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 0.6)",
+        "type": "color"
+      },
+      "white30": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 0.3)",
+        "type": "color"
+      },
+      "white20": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 0.2)",
+        "type": "color"
+      },
+      "white15": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 0.15)",
+        "type": "color"
+      },
+      "white10": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(255, 255, 255, 0.1)",
+        "type": "color"
+      }
     },
-    "WarningTypography_LightUI": {
-      "value": "#D3440Dff"
+    "passDark": {
+      "pass100": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(77, 255, 117, 1)",
+        "type": "color"
+      },
+      "pass30": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(77, 255, 117, 0.3)",
+        "type": "color"
+      }
     },
-    "PassTypography_LightUI": {
-      "value": "#00801Cff"
+    "passLight": {
+      "pass100": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 193, 43, 1)",
+        "type": "color"
+      },
+      "pass85": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 193, 43, 0.85)",
+        "type": "color"
+      },
+      "pass30": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 193, 43, 0.3)",
+        "type": "color"
+      },
+      "pass15": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 193, 43, 0.15)",
+        "type": "color"
+      }
     },
-    "Fail100_LightUI": {
-      "value": "#C4000Cff"
+    "selection100": {
+      "100Percent": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 184, 136, 1)",
+        "type": "color"
+      },
+      "20Percent": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 184, 136, 0.2)",
+        "type": "color"
+      },
+      "15Percent": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 184, 136, 0.15)",
+        "type": "color"
+      },
+      "10Percent": {
+        "category": "color",
+        "exportKey": "color",
+        "value": "rgba(0, 184, 136, 0.1)",
+        "type": "color"
+      }
     },
-    "Fail100_DarkUI": {
-      "value": "#FF4646ff"
+    "information": {
+      "light": {
+        "information100Lightui": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(128, 74, 217, 1)",
+          "type": "color"
+        },
+        "information85": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(128, 74, 217, 0.85)",
+          "type": "color"
+        },
+        "information30": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(128, 74, 217, 0.3)",
+          "type": "color"
+        },
+        "information15": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(128, 74, 217, 0.15)",
+          "type": "color"
+        }
+      },
+      "dark": {
+        "information100Darkui": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(164, 110, 255, 1)",
+          "type": "color"
+        },
+        "information85": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(164, 110, 255, 0.85)",
+          "type": "color"
+        },
+        "information30": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(164, 110, 255, 0.3)",
+          "type": "color"
+        },
+        "information15": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(164, 110, 255, 0.15)",
+          "type": "color"
+        }
+      }
     },
-    "Black75": {
-      "value": "#818386ff"
+    "warning": {
+      "light": {
+        "warning100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 75, 0, 1)",
+          "type": "color"
+        },
+        "warning85": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 75, 0, 0.85)",
+          "type": "color"
+        },
+        "warning30": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 75, 0, 0.3)",
+          "type": "color"
+        },
+        "warning15": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 75, 0, 0.15)",
+          "type": "color"
+        },
+        "typography100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(211, 68, 13, 1)",
+          "type": "color"
+        }
+      },
+      "dark": {
+        "warning100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 129, 38, 1)",
+          "type": "color"
+        },
+        "warning85": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 129, 38, 0.85)",
+          "type": "color"
+        },
+        "warning30": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 129, 38, 0.3)",
+          "type": "color"
+        },
+        "warning15": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 129, 38, 0.15)",
+          "type": "color"
+        }
+      }
     },
-    "Black15": {
-      "value": "#F1F1F2ff"
+    "fail": {
+      "dark": {
+        "fail100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 70, 99, 1)",
+          "type": "color"
+        },
+        "fail85": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 70, 70, 0.85)",
+          "type": "color"
+        },
+        "fail30": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(255, 70, 70, 0.3)",
+          "type": "color"
+        },
+        "fail15": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(196, 0, 12, 0.15)",
+          "type": "color"
+        },
+        "banner": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(214, 52, 52, 1)",
+          "type": "color"
+        }
+      },
+      "light": {
+        "fail100": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(196, 0, 12, 1)",
+          "type": "color"
+        },
+        "fail85": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(196, 0, 12, 0.85)",
+          "type": "color"
+        },
+        "fail30": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(196, 0, 12, 0.3)",
+          "type": "color"
+        },
+        "fail15": {
+          "category": "color",
+          "exportKey": "color",
+          "value": "rgba(196, 0, 12, 0.15)",
+          "type": "color"
+        }
+      }
     },
-    "Black7": {
-      "value": "#F5F5F5ff"
-    },
-    "White": {
-      "value": "#FFFFFFff"
-    },
-    "Black88": {
-      "value": "#252526ff"
-    },
-    "Black85": {
-      "value": "#363738ff"
-    },
-    "Black80": {
-      "value": "#505153ff"
-    },
-    "Black": {
-      "value": "#000000ff"
-    },
-    "Black95": {
-      "value": "#0E0F0Fff"
-    },
-    "Black91": {
-      "value": "#161617ff"
-    },
-    "ForestGreen": {
-      "value": "#074023ff"
-    },
-    "DigitalGreenLight": {
-      "value": "#009B65ff"
-    },
-    "Brand85": {
-      "value": "#26A97Cff"
-    },
-    "Brand100": {
-      "value": "#009B65ff"
-    },
-    "Fail85": {
-      "value": "#CF1A37ff"
-    },
-    "NI Sky": {
-      "value": "#3CB4E7ff"
-    },
-    "Banner_Fail_100_DarkUI": {
-      "value": "#D63434ff"
-    },
-    "Warning100LightUI": {
-      "value": "#FF4B00ff"
-    },
-    "Black30": {
-      "value": "#D3D5D6ff"
-    },
-    "Black50": {
-      "value": "#AEB0B3ff"
-    },
-    "DigitalGreenDark": {
-      "value": "#006B46ff"
-    },
-    "PowerGreen": {
-      "value": "#32EB96ff"
-    },
-    "Black22": {
-      "value": "#E6E6E6ff"
-    },
-    "CMYK NI Pale Green": {
-      "value": "#CCDCC8ff"
-    },
-    "RGB NI Pale Green": {
-      "value": "#CDDCC8ff"
-    },
-    "RGB NI Forest Green": {
-      "value": "#044123ff"
-    },
-    "CMYK NI Nickel": {
-      "value": "#AEA19Aff"
-    },
-    "CMYK NI Forest Green": {
-      "value": "#044123ff"
-    },
-    "RGB NI Green": {
-      "value": "#03B585ff"
-    },
-    "CMYK NI Green": {
-      "value": "#03B585ff"
-    },
-    "CMYK NI Honey Dark 3": {
-      "value": "#292011ff"
-    },
-    "Black82": {
-      "value": "#434445ff"
-    },
-    "IndigoDark1": {
-      "value": "#57539Eff"
-    },
-    "IndigoDark2": {
-      "value": "#312E7Fff"
-    },
-    "NI Honey Light": {
-      "value": "#FFE76Bff"
-    },
-    "NI Scarlet": {
-      "value": "#EF463Fff"
-    },
-    "NI Fern": {
-      "value": "#76BC43ff"
-    },
-    "NI Scarlet Dark 3": {
-      "value": "#371615ff"
-    },
-    "NI Scarlet Dark 1": {
-      "value": "#CD1722ff"
-    },
-    "NI Fern Dark 1": {
-      "value": "#499146ff"
-    },
-    "NI Sea": {
-      "value": "#00ABA5ff"
-    },
-    "NI Sea Light": {
-      "value": "#A5D8C8ff"
-    },
-    "NI Tulip": {
-      "value": "#E54C8Aff"
-    },
-    "NI Indigo": {
-      "value": "#8E78B7ff"
-    },
-    "NI Plum Dark 1": {
-      "value": "#8C459Aff"
-    },
-    "NI Indigo Dark 2": {
-      "value": "#312E7Fff"
-    },
-    "NI Sea Dark 2": {
-      "value": "#00685Fff"
+    "textHighlight": {
+      "highlightText": {
+        "category": "color",
+        "exportKey": "color",
+        "comment": "Generic color",
+        "value": "rgba(24, 160, 251, 0.3)",
+        "type": "color"
+      }
     }
   }
 }

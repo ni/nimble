@@ -1,337 +1,1375 @@
 {
   "font": {
-    "Title_2": {
-      "family": {
-        "value": "Source Sans Pro"
+    "headline2": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 29.100000381469727,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Noto Serif",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0.29,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 40,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "ControlLabel_1": {
-      "family": {
-        "value": "Source Sans Pro"
+    "headline1": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 25,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Semibold"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Noto Serif",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0.25,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 32,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Body": {
-      "family": {
-        "value": "Source Sans Pro"
+    "title3": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 19,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0.19,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 24,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Header0": {
-      "family": {
-        "value": "Noto Serif"
+    "title2": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 22,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0.22,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 28,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "SubHeader": {
-      "family": {
-        "value": "Source Sans Pro"
+    "title1": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 25,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Noto Serif",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0.25,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 32,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Header1": {
-      "family": {
-        "value": "Noto Serif"
+    "subtitle2": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 300,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Light",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 20,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "GroupLabel_1": {
-      "family": {
-        "value": "Source Sans Pro"
+    "subtitle1": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 12.800000190734863,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Semibold"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 300,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Light",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "ButtonLabel_1": {
-      "family": {
-        "value": "Source Sans Pro"
+    "linkStandard1": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 12.800000190734863,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Title_1": {
-      "family": {
-        "value": "Source Sans Pro"
+    "placeholder": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 12.800000190734863,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Link_ColorUI": {
-      "family": {
-        "value": "Source Sans Pro"
+    "bodyemphasizedLarge": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 600,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "SemiBold",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Link_DarkUI": {
-      "family": {
-        "value": "Source Sans Pro"
+    "bodyLarge": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Headline_2": {
-      "family": {
-        "value": "Noto Serif"
+    "bodyemphasized": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 12.800000190734863,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 600,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "SemiBold",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Placeholder": {
-      "family": {
-        "value": "Source Sans Pro"
+    "body": {
+      "category": "font",
+      "exportKey": "font",
+      "comment": "use for placeholder text in text fields",
+      "fontSize": {
+        "value": 12.800000190734863,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Tooltip_Caption": {
-      "family": {
-        "value": "Source Sans Pro"
+    "inputLabel": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 12.800000190734863,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "BodyEmphasized": {
-      "family": {
-        "value": "Source Sans Pro"
+    "grouplabel1": {
+      "category": "font",
+      "exportKey": "font",
+      "comment": "use Body at 60% Opacity",
+      "fontSize": {
+        "value": 11,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Semibold"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "uppercase",
+        "type": "string"
       }
     },
-    "Subtitle_1": {
-      "family": {
-        "value": "Source Sans Pro"
+    "controllabel1": {
+      "category": "font",
+      "exportKey": "font",
+      "comment": "use opacity of 60%",
+      "fontSize": {
+        "value": 11,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Light"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 600,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "SemiBold",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Title_3": {
-      "family": {
-        "value": "Source Sans Pro"
+    "buttonlabel1": {
+      "category": "font",
+      "exportKey": "font",
+      "comment": "same as Body but at 60%",
+      "fontSize": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 600,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "SemiBold",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Subtitle_2": {
-      "family": {
-        "value": "Source Sans Pro"
+    "tooltipCaption": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 11,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Light"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Inter",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Link_LightUI": {
-      "family": {
-        "value": "Source Sans Pro"
+    "grouplabelExpander": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Inter",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": 18,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Headline_1": {
-      "family": {
-        "value": "Noto Serif"
+    "link1": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "underline",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "ControlLabel_1_Chinese_Mac": {
-      "family": {
-        "value": "Noto Sans"
+    "link2": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 14,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Bold"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "ButtonLabel_1_Chinese_Mac": {
-      "family": {
-        "value": "Noto Sans"
+    "errorHelper": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 11,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": "normal",
+        "type": "string",
+        "unit": "auto"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Body_Chinese_Mac": {
-      "family": {
-        "value": "Noto Sans"
+    "bodyXtLarge": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
+      },
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
+      },
+      "fontWeight": {
+        "value": 400,
+        "type": "number"
+      },
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
+      },
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
+      },
+      "_fontStyleOld": {
+        "value": "Regular",
+        "type": "string"
+      },
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
+      },
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
+      },
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     },
-    "Error_ColorUI": {
-      "family": {
-        "value": "Source Sans Pro"
+    "bodyemphasizedXtLarge": {
+      "category": "font",
+      "exportKey": "font",
+      "fontSize": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
       },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "Link_Visited_LightUI": {
-      "family": {
-        "value": "Source Sans Pro"
+      "textDecoration": {
+        "value": "none",
+        "type": "string"
       },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "Error_LightUI": {
-      "family": {
-        "value": "Source Sans Pro"
+      "fontFamily": {
+        "value": "Source Sans Pro",
+        "type": "string"
       },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "Error_DarkUI": {
-      "family": {
-        "value": "Source Sans Pro"
+      "fontWeight": {
+        "value": 600,
+        "type": "number"
       },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "Link_Selection100_LightUI": {
-      "family": {
-        "value": "Source Sans Pro"
+      "fontStyle": {
+        "value": "normal",
+        "type": "string"
       },
-      "weight": {
-        "value": "Regular"
-      }
-    },
-    "Grid_Header": {
-      "family": {
-        "value": "Source Sans Pro"
+      "fontStretch": {
+        "value": "normal",
+        "type": "string"
       },
-      "weight": {
-        "value": "Semibold"
-      }
-    },
-    "GroupLabel_Expander": {
-      "family": {
-        "value": "Source Sans Pro"
+      "_fontStyleOld": {
+        "value": "SemiBold",
+        "type": "string"
       },
-      "weight": {
-        "value": "Semibold"
-      }
-    }
-  },
-  "size": {
-    "font": {
-      "Title_2": {
-        "value": "22"
+      "letterSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "percent"
       },
-      "ControlLabel_1": {
-        "value": "11"
+      "lineHeight": {
+        "value": 16,
+        "type": "number",
+        "unit": "pixel"
       },
-      "Body": {
-        "value": "14"
+      "paragraphIndent": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
       },
-      "Header0": {
-        "value": "36"
+      "paragraphSpacing": {
+        "value": 0,
+        "type": "number",
+        "unit": "pixel"
       },
-      "SubHeader": {
-        "value": "12"
-      },
-      "Header1": {
-        "value": "24"
-      },
-      "GroupLabel_1": {
-        "value": "11"
-      },
-      "ButtonLabel_1": {
-        "value": "12.800000190734863"
-      },
-      "Title_1": {
-        "value": "19"
-      },
-      "Link_ColorUI": {
-        "value": "14"
-      },
-      "Link_DarkUI": {
-        "value": "14"
-      },
-      "Headline_2": {
-        "value": "29.100000381469727"
-      },
-      "Placeholder": {
-        "value": "14"
-      },
-      "Tooltip_Caption": {
-        "value": "11"
-      },
-      "BodyEmphasized": {
-        "value": "14"
-      },
-      "Subtitle_1": {
-        "value": "12.800000190734863"
-      },
-      "Title_3": {
-        "value": "25"
-      },
-      "Subtitle_2": {
-        "value": "16"
-      },
-      "Link_LightUI": {
-        "value": "14"
-      },
-      "Headline_1": {
-        "value": "25"
-      },
-      "ControlLabel_1_Chinese_Mac": {
-        "value": "11"
-      },
-      "ButtonLabel_1_Chinese_Mac": {
-        "value": "11"
-      },
-      "Body_Chinese_Mac": {
-        "value": "13"
-      },
-      "Error_ColorUI": {
-        "value": "11"
-      },
-      "Link_Visited_LightUI": {
-        "value": "14"
-      },
-      "Error_LightUI": {
-        "value": "11"
-      },
-      "Error_DarkUI": {
-        "value": "11"
-      },
-      "Link_Selection100_LightUI": {
-        "value": "14"
-      },
-      "Grid_Header": {
-        "value": "12.800000190734863"
-      },
-      "GroupLabel_Expander": {
-        "value": "14"
+      "textCase": {
+        "value": "none",
+        "type": "string"
       }
     }
   }
