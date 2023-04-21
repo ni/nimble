@@ -20,11 +20,31 @@
 
 ## Editing Tokens
 
+Most tokens are sourced in a Figma design spec, stored in this repository in the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) JSON format, and built into platform-specific output.
+
+### Exporting tokens from Figma to Style Dictionary format
+
+1. Ensure you have edit access to [Nimble Styles](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN) in Figma. If you don't have access you can ask someone else to perform these steps or request access from Brandon O'Keefe. You will need a free Figma account associated with your ni.com email address.
+2. Open the above document in Figma (web or desktop client is fine).
+3. In the Resources menu, select the Plugins tab and find the [Design Tokens](https://www.figma.com/community/plugin/888356646278934516/Design-Tokens) plugin. If this menu isn't visible you probably don't have edit access to this Figma document.
+   ![Design Tokens Plugin](./docs/figma-design-tokens-plugin.png)
+4. Select **Run** then **Export Design Token File**.
+5. Select which tokens you want to export then click **Save and Export** and enter the JSON file name.
+   - for color tokens, select **Colors** and name the file `colors.json`.
+   - for font tokens, select **Font Styles** and name the file `fonts.json`.
+   - for size tokens, select **Sizes** and name the file `sizes.json`.
+6. Note the location of the exported JSON file(s) (typically your Downloads folder) and proceed to the next section to import the file into this repo.
+
+### Modifying tokens in Nimble
+
 Tokens are generated using the [Style Dictionary](https://amzn.github.io/style-dictionary/#/) build system, which transforms platform-agnostic token definition files into platform-specific output. These JSON definition files are the source of truth for the colors, fonts, and component design tokens in this repository. To modify the generated tokens, complete these steps:
 
-1. Edit the JSON files in `source/styledictionary/properties`. Long term these tokens will be sourced from a Figma design spec but for now it's OK to make manual edits.
+1. Edit the JSON files in `source/styledictionary/properties`. This will typically be done by copying exported JSON from Figma (see above).
+   - *Note: If you are adding tokens manually, contact Brandon O'Keefe to add corresponding values to Figma.*
 2. Rebuild the generated token files by running the repository's build command, `npm run build`.
-3. Test your changes locally and create a PR using the normal process.
+3. Test your changes locally. Ensure that new tokens render in Storybook correctly and that usages are updated if any tokens changed names.
+4. Consider adding [`nimble-components` theme-aware tokens that use the new values](/packages/nimble-components/README.md#theming).
+5. Create a PR using the normal process.
 
 ## Updating icons
 
