@@ -78,8 +78,7 @@ export class TreeView extends FoundationTreeView {
     }
 
     private selectedItemsChanged(): void {
-        for (let i = 0; i < this.childElementCount; i++) {
-            const item = this.children[i]!;
+        for (const item of Array.from(this.children)) {
             if (item instanceof TreeItem) {
                 item.groupSelected = false;
             }
