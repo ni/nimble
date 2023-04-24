@@ -202,11 +202,6 @@ describe('Nimble table', () => {
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.none);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.none);
         });
-
-        it('has expected defaults for collapseAllButtonLabel', () => {
-            expect(directive.collapseAllButtonLabel).toEqual(undefined);
-            expect(nativeElement.collapseAllButtonLabel).toEqual(undefined);
-        });
     });
 
     describe('with property bound values', () => {
@@ -221,7 +216,6 @@ describe('Nimble table', () => {
                     [data$]="data$"
                     [idFieldName]="idFieldName"
                     [selectionMode]="selectionMode"
-                    [collapseAllButtonLabel]="collapseAllButtonLabel"
                 >
                 </nimble-table>
             `
@@ -233,7 +227,6 @@ describe('Nimble table', () => {
             public data$ = new Observable<SimpleRecord[]>();
             public idFieldName = 'field1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
-            public collapseAllButtonLabel = 'Collapse All';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -281,17 +274,6 @@ describe('Nimble table', () => {
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.single);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.single);
         });
-
-        it('can be configured with property binding for collapseAllButtonLabel', () => {
-            expect(directive.collapseAllButtonLabel).toEqual(fixture.componentInstance.collapseAllButtonLabel);
-            expect(nativeElement.collapseAllButtonLabel).toEqual(fixture.componentInstance.collapseAllButtonLabel);
-
-            fixture.componentInstance.collapseAllButtonLabel = 'foo';
-            fixture.detectChanges();
-
-            expect(directive.collapseAllButtonLabel).toEqual('foo');
-            expect(nativeElement.collapseAllButtonLabel).toEqual('foo');
-        });
     });
 
     describe('with attribute bound values', () => {
@@ -305,7 +287,6 @@ describe('Nimble table', () => {
                 <nimble-table #table
                     [attr.id-field-name]="idFieldName"
                     [attr.selection-mode]="selectionMode"
-                    [attr.collapse-all-button-label]="collapseAllButtonLabel"
                 >
                 </nimble-table>
             `
@@ -320,7 +301,6 @@ describe('Nimble table', () => {
 
             public idFieldName = 'field1';
             public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
-            public collapseAllButtonLabel = 'Collapse All';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -358,17 +338,6 @@ describe('Nimble table', () => {
 
             expect(directive.selectionMode).toEqual(TableRowSelectionMode.single);
             expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.single);
-        });
-
-        it('can be configured with attribute binding for collapseAllButtonLabel', () => {
-            expect(directive.collapseAllButtonLabel).toEqual(fixture.componentInstance.collapseAllButtonLabel);
-            expect(nativeElement.collapseAllButtonLabel).toEqual(fixture.componentInstance.collapseAllButtonLabel);
-
-            fixture.componentInstance.collapseAllButtonLabel = 'foo';
-            fixture.detectChanges();
-
-            expect(directive.collapseAllButtonLabel).toEqual('foo');
-            expect(nativeElement.collapseAllButtonLabel).toEqual('foo');
         });
     });
 });

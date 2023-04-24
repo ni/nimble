@@ -331,24 +331,6 @@ describe('Table grouping', () => {
         expect(pageObject.getRenderedRowCount()).toEqual(4);
     });
 
-    it('collapse all button has label from attribute', async () => {
-        const data: readonly SimpleTableRecord[] = [
-            { id: '1', stringData1: 'hello' },
-            { id: '2', stringData1: 'good bye' },
-            { id: '3', stringData1: 'hello' },
-            { id: '4', stringData1: 'good bye' }
-        ] as const;
-
-        column1.fieldName = 'stringData1';
-        column1.groupIndex = 1;
-        element.collapseAllButtonLabel = 'foo';
-        await element.setData(data);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(pageObject.getCollapseAllButtonLabel()).toBe('foo');
-    });
-
     describe('group index validation', () => {
         it('multiple columns with the same group index does not render rows', async () => {
             const data: readonly SimpleTableRecord[] = [

@@ -326,10 +326,6 @@ export class TablePageObject<T extends TableRecord> {
         return false;
     }
 
-    public getCollapseAllButtonLabel(): string | null | undefined {
-        return this.getCollapseAllButton()?.textContent?.trim();
-    }
-
     public isTableSelectionCheckboxVisible(): boolean {
         const checkbox = this.getSelectionCheckboxForTable();
         return this.isCheckboxVisible(checkbox);

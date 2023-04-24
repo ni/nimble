@@ -563,7 +563,6 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             data-unused="${x => x.updateData(x)}"
             id-field-name="firstName"
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
-            collapse-all-button-label="Collapse All"
         >
             <${tableColumnTextTag}
                 field-name="firstName"

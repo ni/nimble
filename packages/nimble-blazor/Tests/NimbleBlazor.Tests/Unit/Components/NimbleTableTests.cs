@@ -76,15 +76,6 @@ public class NimbleTableTests
     }
 
     [Fact]
-    public void NimbleTable_WithCollapseAllButtonLabelAttribute_HasTableMarkup()
-    {
-        var table = RenderWithPropertySet<string, TableRowData>(x => x.CollapseAllButtonLabel!, "Collapse All");
-
-        var expectedMarkup = @"collapse-all-button-label=""Collapse All""";
-        Assert.Contains(expectedMarkup, table.Markup);
-    }
-
-    [Fact]
     public void NimbleTable_WithClassAttribute_HasTableMarkup()
     {
         IDictionary<string, object> classAttribute = new Dictionary<string, object>();

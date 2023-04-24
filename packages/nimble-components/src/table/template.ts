@@ -58,7 +58,6 @@ export const template = html<Table>`
                             @click="${x => x.handleCollapseAllGroupRows()}"
                         >
                             <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                            ${x => x.collapseAllButtonLabel}
                         </${buttonTag}>
                     </span>
                     <span class="column-header-container">
