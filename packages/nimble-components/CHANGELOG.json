@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 21 Apr 2023 16:14:07 GMT",
+      "tag": "@ni/nimble-components_v18.12.3",
+      "version": "18.12.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8689083addde5db28d5b0c0f16972216c27f42a0",
+            "comment": "Anchor tree item selection sets group selection state"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Apr 2023 16:03:28 GMT",
       "tag": "@ni/nimble-components_v18.12.2",
       "version": "18.12.2",
