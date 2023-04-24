@@ -1135,13 +1135,13 @@ describe('Table row selection', () => {
                     const lastRowToSelect = simpleTableData.length - 2;
                     const expectedSelection = [
                         '0',
-                        ...simpleTableData
-                            .slice(3, -1)
-                            .map(x => x.id)
+                        ...simpleTableData.slice(3, -1).map(x => x.id)
                     ];
 
                     // Select the first row while pressing CTRL so that the initial selection isn't cleared
-                    await pageObject.clickRow(firstRowToSelect, { ctrlKey: true });
+                    await pageObject.clickRow(firstRowToSelect, {
+                        ctrlKey: true
+                    });
                     await selectionChangeListener.promise;
 
                     const multiSelectListener = createEventListener(
@@ -1157,9 +1157,7 @@ describe('Table row selection', () => {
                     expect(currentSelection).toEqual(
                         jasmine.arrayWithExactContents(expectedSelection)
                     );
-                    expect(multiSelectListener.spy).toHaveBeenCalledTimes(
-                        1
-                    );
+                    expect(multiSelectListener.spy).toHaveBeenCalledTimes(1);
                     const emittedIds = getEmittedRecordIdsFromSpy(
                         multiSelectListener.spy
                     );
