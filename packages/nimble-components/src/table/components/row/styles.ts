@@ -1,11 +1,18 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { PowerGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     borderWidth,
     controlHeight,
+    fillHoverColor,
+    fillHoverSelectedColor,
+    fillSelectedColor,
     standardPadding
 } from '../../../theme-provider/design-tokens';
+import { Theme } from '../../../theme-provider/types';
+import { hexToRgbaCssColor } from '../../../utilities/style/colors';
+import { themeBehavior } from '../../../utilities/style/theme';
 
 export const styles = css`
     ${display('flex')}
@@ -28,6 +35,19 @@ export const styles = css`
         box-sizing: border-box;
         bottom: 0px;
         background-clip: padding-box;
+        position: absolute;
+    }
+
+    :host([selectable]:hover)::before {
+        background-color: ${fillHoverColor};
+    }
+
+    :host([selected])::before {
+        background-color: ${fillSelectedColor};
+    }
+
+    :host([selected]:hover)::before {
+        background-color: ${fillHoverSelectedColor};
     }
 
     .checkbox-container {
@@ -65,4 +85,32 @@ export const styles = css`
     :host([selected]) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
-`;
+`.withBehaviors(
+    themeBehavior(
+        Theme.color,
+        css`
+            :host([selectable]:not([selected]):hover)::before {
+                background-color: ${hexToRgbaCssColor(White, 0.05)};
+            }
+
+            :host([selected])::before {
+                background-color: ${hexToRgbaCssColor(White, 0.2)};
+            }
+
+            :host([selected]:hover)::before,
+                background-color: ${hexToRgbaCssColor(White, 0.15)};
+    `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            :host([selected])::before {
+                background-color: ${hexToRgbaCssColor(PowerGreen, 0.2)};
+            }
+
+            :host([selected]:hover)::before {
+                background-color: ${hexToRgbaCssColor(PowerGreen, 0.15)};
+            }
+    `
+    )
+);

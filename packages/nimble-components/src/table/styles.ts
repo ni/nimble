@@ -1,16 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    fillHoverColor,
-    fillHoverSelectedColor,
-    fillSelectedColor,
     standardPadding,
     tableRowBorderColor
 } from '../theme-provider/design-tokens';
@@ -108,74 +104,19 @@ export const styles = css`
         position: relative;
     }
 
-    .group-row::before {
-        position: absolute;
-    }
-
     .row {
         position: relative;
-    }
-
-    .row::before {
-        position: absolute;
-    }
-
-    :host([selection-mode='single']) .row:hover::before,
-    :host([selection-mode='multiple']) .row:hover::before {
-        background-color: ${fillHoverColor};
-    }
-
-    :host([selection-mode='single']) .row[selected]::before,
-    :host([selection-mode='multiple']) .row[selected]::before {
-        background-color: ${fillSelectedColor};
-    }
-
-    :host([selection-mode='single']) .row[selected]:hover::before,
-    :host([selection-mode='multiple']) .row[selected]:hover::before {
-        background-color: ${fillHoverSelectedColor};
     }
 `.withBehaviors(
     themeBehavior(
         Theme.color,
         css`
-            .table-row-container {
-                background-color: ${applicationBackgroundColor};
-            }
-
             .table-row-container::before {
                 content: '';
                 width: 100%;
                 height: 100%;
                 background-color: ${hexToRgbaCssColor(White, 0.1)};
                 position: absolute;
-            }
-
-            :host([selection-mode='single']) .row:hover::before,
-            :host([selection-mode='multiple']) .row:hover::before {
-                background-color: ${hexToRgbaCssColor(White, 0.05)};
-            }
-
-            :host([selection-mode='single']) .row[selected]::before,
-            :host([selection-mode='multiple']) .row[selected]::before {
-                background-color: ${hexToRgbaCssColor(White, 0.2)};
-            }
-
-            :host([selection-mode='single']) .row[selected]:hover::before,
-            :host([selection-mode='multiple']) .row[selected]:hover::before {
-                background-color: ${hexToRgbaCssColor(White, 0.15)};
-        `
-    ),
-    themeBehavior(
-        Theme.dark,
-        css`
-            :host([selection-mode='single']) .row[selected]::before,
-            :host([selection-mode='multiple']) .row[selected]::before {
-                background-color: ${hexToRgbaCssColor(PowerGreen, 0.2)};
-            }
-
-            :host([selection-mode='single']) .row[selected]:hover::before,
-            :host([selection-mode='multiple']) .row[selected]:hover::before {
-                background-color: ${hexToRgbaCssColor(PowerGreen, 0.15)};
             }
         `
     )
