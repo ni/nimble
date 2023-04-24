@@ -832,17 +832,27 @@ export class Table<
         }
 
         const allRows = this.getAllOrderedRows();
-        const shiftSelectStartRowIndex = allRows.findIndex(x => x.id === this.shiftSelectStartRowId);
+        const shiftSelectStartRowIndex = allRows.findIndex(
+            x => x.id === this.shiftSelectStartRowId
+        );
         if (shiftSelectStartRowIndex === -1) {
             return false;
         }
 
         const newSelection: TanStackRowSelectionState = this.table.getState().rowSelection;
         if (this.previousShiftSelectRowEndId) {
-            const oldClickedRowIndex = allRows.findIndex(x => x.id === this.previousShiftSelectRowEndId);
+            const oldClickedRowIndex = allRows.findIndex(
+                x => x.id === this.previousShiftSelectRowEndId
+            );
             if (oldClickedRowIndex !== -1) {
-                const firstRowIndex = Math.min(oldClickedRowIndex, shiftSelectStartRowIndex);
-                const lastRowIndex = Math.max(oldClickedRowIndex, shiftSelectStartRowIndex);
+                const firstRowIndex = Math.min(
+                    oldClickedRowIndex,
+                    shiftSelectStartRowIndex
+                );
+                const lastRowIndex = Math.max(
+                    oldClickedRowIndex,
+                    shiftSelectStartRowIndex
+                );
 
                 for (let i = firstRowIndex; i <= lastRowIndex; i++) {
                     delete newSelection[allRows[i]!.id];
@@ -851,8 +861,14 @@ export class Table<
         }
 
         const clickedRowIndex = allRows.findIndex(x => x.id === clickedRowId);
-        const firstRowIndex = Math.min(clickedRowIndex, shiftSelectStartRowIndex);
-        const lastRowIndex = Math.max(clickedRowIndex, shiftSelectStartRowIndex);
+        const firstRowIndex = Math.min(
+            clickedRowIndex,
+            shiftSelectStartRowIndex
+        );
+        const lastRowIndex = Math.max(
+            clickedRowIndex,
+            shiftSelectStartRowIndex
+        );
 
         for (let i = firstRowIndex; i <= lastRowIndex; i++) {
             const row = allRows[i]!;
@@ -882,7 +898,9 @@ export class Table<
         return this.getOrderedRows(topLevelRows);
     }
 
-    private getOrderedRows(topLevelRows: TanStackRow<TData>[]): TanStackRow<TData>[] {
+    private getOrderedRows(
+        topLevelRows: TanStackRow<TData>[]
+    ): TanStackRow<TData>[] {
         const allRows: TanStackRow<TData>[] = [];
         for (const row of topLevelRows) {
             allRows.push(row);
@@ -893,7 +911,9 @@ export class Table<
         return allRows;
     }
 
-    private updateShiftSelectionState(newShiftSelectStartRowId: string | undefined): void {
+    private updateShiftSelectionState(
+        newShiftSelectStartRowId: string | undefined
+    ): void {
         this.shiftSelectStartRowId = newShiftSelectStartRowId;
         this.previousShiftSelectRowEndId = undefined;
     }
