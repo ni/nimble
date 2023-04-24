@@ -1,22 +1,48 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
+    applicationBackgroundColor,
+    borderWidth,
+    controlHeight,
     controlSlimHeight,
+    fillHoverColor,
     mediumDelay,
+    sectionBackgroundColor,
     smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
+import { Theme } from '../../../theme-provider/types';
+import { hexToRgbaCssColor } from '../../../utilities/style/colors';
+import { themeBehavior } from '../../../utilities/style/theme';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
         align-items: center;
+        background-color: ${sectionBackgroundColor};
+        height: calc(${controlHeight} + 2 * ${borderWidth});
+        border-top: calc(2 * ${borderWidth}) solid transparent;
+        box-sizing: border-box;
+        background-clip: padding-box;
     }
 
     :host([expanded]) .animating,
     :host .animating {
         transition: ${mediumDelay} ease-in-out;
+    }
+
+    :host::before {
+        content: '';
+        width: 100%;
+        height: ${controlHeight};
+        pointer-events: none;
+        bottom: 0px;
+    }
+
+    :host(:hover)::before {
+        background-color: ${fillHoverColor};
     }
 
     .expand-collapse-button {
@@ -72,4 +98,29 @@ export const styles = css`
     .selection-checkbox::part(label) {
         padding-left: 0px;
     }
-`;
+`.withBehaviors(
+    themeBehavior(
+        Theme.color,
+        css`
+            :host {
+                background-color: ${applicationBackgroundColor};
+            }
+
+            :host::before {
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
+            }
+
+            :host(:hover)::before {
+                background-color: ${hexToRgbaCssColor(White, 0.125)};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            :host(:hover)::before {
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
+            }
+        `
+    )
+);

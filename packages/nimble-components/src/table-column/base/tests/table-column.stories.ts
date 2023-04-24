@@ -32,6 +32,12 @@ const simpleData = [
         quote: "I'm in danger!"
     },
     {
+        firstName: 'Quincy',
+        lastName: 'Wiggum',
+        favoriteColor: 'Blue',
+        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity."
+    },
+    {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
