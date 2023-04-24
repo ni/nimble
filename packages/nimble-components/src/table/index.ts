@@ -191,6 +191,7 @@ export class Table<
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
     private shiftSelectStartRowId?: string;
+    private previousShiftSelectRowEndId?: string;
 
     public constructor() {
         super();
@@ -337,10 +338,10 @@ export class Table<
             && this.shiftSelectStartRowId !== undefined;
 
         const madeSelection = isShiftSelect
-            ? await this.selectRowsTo(rowState.id)
+            ? await this.updateRangeSelection(rowState.id)
             : false;
         if (!madeSelection) {
-            this.shiftSelectStartRowId = rowState.id;
+            this.updateShiftSelectionState(rowState.id);
             if (
                 rowState.isGrouped
                 && rowState.selectionState === TableRowSelectionState.selected
@@ -380,16 +381,16 @@ export class Table<
                 && this.shiftSelectStartRowId === undefined);
 
         if (isSingleRowSelection) {
-            this.shiftSelectStartRowId = row.id;
+            this.updateShiftSelectionState(row.id);
             await this.selectSingleRow(row);
         } else if (event.ctrlKey) {
-            this.shiftSelectStartRowId = row.id;
+            this.updateShiftSelectionState(row.id);
             row.toggleSelected();
             await this.emitSelectionChangeEvent();
         } else if (event.shiftKey) {
-            const madeSelection = await this.selectRowsTo(row.id);
+            const madeSelection = await this.updateRangeSelection(row.id);
             if (!madeSelection) {
-                this.shiftSelectStartRowId = row.id;
+                this.updateShiftSelectionState(row.id);
                 await this.selectSingleRow(row);
             }
         }
@@ -621,13 +622,13 @@ export class Table<
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
-            this.shiftSelectStartRowId = undefined;
+            this.updateShiftSelectionState(undefined);
         }
         if (this.updateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.shiftSelectStartRowId = undefined;
+            this.updateShiftSelectionState(undefined);
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -825,93 +826,76 @@ export class Table<
         await this.emitSelectionChangeEvent();
     }
 
-    /**
-     * Tries to select all rows between `this.shiftSelectStartRowId` and `clickedRowId`.
-     * @param clickedRowId The ID of the row to select to, with the selection starting at `this.shiftSelectStartRowId`.
-     * @returns Whether or not the selection was made. The selection will not be made if rows associated with both
-     * `this.shiftSelectStartRowId` and `clickedRowId` cannot be found.
-     */
-    private async selectRowsTo(clickedRowId: string): Promise<boolean> {
+    private async updateRangeSelection(clickedRowId: string): Promise<boolean> {
         if (this.shiftSelectStartRowId === undefined) {
             return false;
         }
 
-        const recursiveState = {
-            selectionState: {},
-            isInRange: false
-        };
-        const foundFullSelection = this.performRowRangeSelection(
-            this.table.getRowModel().rows,
-            clickedRowId,
-            recursiveState
-        );
-        if (!foundFullSelection) {
+        const allRows = this.getAllOrderedRows();
+        const shiftSelectStartRowIndex = allRows.findIndex(x => x.id === this.shiftSelectStartRowId);
+        if (shiftSelectStartRowIndex === -1) {
             return false;
         }
 
+        const newSelection: TanStackRowSelectionState = this.table.getState().rowSelection;
+        if (this.previousShiftSelectRowEndId) {
+            const oldClickedRowIndex = allRows.findIndex(x => x.id === this.previousShiftSelectRowEndId);
+            if (oldClickedRowIndex !== -1) {
+                const firstRowIndex = Math.min(oldClickedRowIndex, shiftSelectStartRowIndex);
+                const lastRowIndex = Math.max(oldClickedRowIndex, shiftSelectStartRowIndex);
+
+                for (let i = firstRowIndex; i <= lastRowIndex; i++) {
+                    delete newSelection[allRows[i]!.id];
+                }
+            }
+        }
+
+        const clickedRowIndex = allRows.findIndex(x => x.id === clickedRowId);
+        const firstRowIndex = Math.min(clickedRowIndex, shiftSelectStartRowIndex);
+        const lastRowIndex = Math.max(clickedRowIndex, shiftSelectStartRowIndex);
+
+        for (let i = firstRowIndex; i <= lastRowIndex; i++) {
+            const row = allRows[i]!;
+            if (!row.getIsGrouped()) {
+                newSelection[row.id] = true;
+            }
+        }
+
+        const clickedRow = allRows[clickedRowIndex]!;
+        if (clickedRow.getIsGrouped() && clickedRowIndex === lastRowIndex) {
+            const leafRowIds = this.getAllLeafRows(clickedRow).map(x => x.id);
+            for (const id of leafRowIds) {
+                newSelection[id] = true;
+            }
+        }
+
         this.updateTableOptions({
-            state: { rowSelection: recursiveState.selectionState }
+            state: { rowSelection: newSelection }
         });
         await this.emitSelectionChangeEvent();
+        this.previousShiftSelectRowEndId = clickedRowId;
         return true;
     }
 
-    private performRowRangeSelection(
-        rows: TanStackRow<TData>[],
-        clickedRowId: string,
-        recursiveState: {
-            selectionState: TanStackRowSelectionState,
-            isInRange: boolean
-        }
-    ): boolean {
-        for (const row of rows) {
-            let isFinalSelectedRow = false;
-            if (
-                row.id === this.shiftSelectStartRowId
-                || row.id === clickedRowId
-            ) {
-                if (recursiveState.isInRange) {
-                    isFinalSelectedRow = true;
-                }
-                recursiveState.isInRange = true;
-            }
-
-            if (recursiveState.isInRange) {
-                if (!row.getIsGrouped()) {
-                    recursiveState.selectionState[row.id] = true;
-                } else if (isFinalSelectedRow) {
-                    // If the selection is explicitly ending on a group row, select all of its leaf rows.
-                    const leafRowIds = this.getAllLeafRows(row).map(x => x.id);
-                    for (const id of leafRowIds) {
-                        recursiveState.selectionState[id] = true;
-                    }
-                }
-            }
-
-            if (isFinalSelectedRow) {
-                return true;
-            }
-            const foundFullSelection = this.performRowRangeSelection(
-                this.getHiddenRowsForRow(row),
-                clickedRowId,
-                recursiveState
-            );
-            if (foundFullSelection) {
-                return true;
-            }
-        }
-
-        return false;
+    private getAllOrderedRows(): TanStackRow<TData>[] {
+        const topLevelRows = this.table.getPreExpandedRowModel().rows;
+        return this.getOrderedRows(topLevelRows);
     }
 
-    private getHiddenRowsForRow(row: TanStackRow<TData>): TanStackRow<TData>[] {
-        // If the passed row can be expanded but isn't currently expanded, return
-        // its children. Otherwise, return an empty array.
-        if (!row.getCanExpand() || row.getIsExpanded()) {
-            return [];
+    private getOrderedRows(topLevelRows: TanStackRow<TData>[]): TanStackRow<TData>[] {
+        const allRows: TanStackRow<TData>[] = [];
+        for (const row of topLevelRows) {
+            allRows.push(row);
+            if (row.subRows) {
+                allRows.push(...this.getOrderedRows(row.subRows));
+            }
         }
+        return allRows;
+    }
 
-        return row.subRows;
+    private updateShiftSelectionState(newShiftSelectStartRowId: string | undefined): void {
+        this.shiftSelectStartRowId = newShiftSelectStartRowId;
+        this.previousShiftSelectRowEndId = undefined;
     }
 
     private deselectAllLeafRows(rowIndex: number): void {
