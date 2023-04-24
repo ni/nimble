@@ -1127,6 +1127,47 @@ describe('Table row selection', () => {
                     ).toBe(TableRowSelectionState.selected);
                 });
 
+                it('selecting a range using shift + click does not deselect existing selection', async () => {
+                    await element.setSelectedRecordIds(['0']);
+                    await waitForUpdatesAsync();
+
+                    const firstRowToSelect = 3;
+                    const lastRowToSelect = simpleTableData.length - 2;
+                    const expectedSelection = [
+                        '0',
+                        ...simpleTableData
+                            .slice(3, -1)
+                            .map(x => x.id)
+                    ];
+
+                    // Select the first row while pressing CTRL so that the initial selection isn't cleared
+                    await pageObject.clickRow(firstRowToSelect, { ctrlKey: true });
+                    await selectionChangeListener.promise;
+
+                    const multiSelectListener = createEventListener(
+                        element,
+                        'selection-change'
+                    );
+                    await pageObject.clickRow(lastRowToSelect, {
+                        shiftKey: true
+                    });
+                    await multiSelectListener.promise;
+
+                    const currentSelection = await element.getSelectedRecordIds();
+                    expect(currentSelection).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
+                    expect(multiSelectListener.spy).toHaveBeenCalledTimes(
+                        1
+                    );
+                    const emittedIds = getEmittedRecordIdsFromSpy(
+                        multiSelectListener.spy
+                    );
+                    expect(emittedIds).toEqual(
+                        jasmine.arrayWithExactContents(expectedSelection)
+                    );
+                });
+
                 it('updating data during shift + click selection selects expected range if starting point is still in the data set', async () => {
                     pageObject.clickRowSelectionCheckbox(1);
                     await selectionChangeListener.promise;
