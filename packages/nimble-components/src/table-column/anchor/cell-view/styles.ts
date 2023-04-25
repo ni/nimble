@@ -6,6 +6,12 @@ import {
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
+    :host {
+        width: fit-content;
+        height: fit-content;
+        align-self: center;
+    }
+
     nimble-anchor {
         white-space: nowrap;
         overflow: hidden;
