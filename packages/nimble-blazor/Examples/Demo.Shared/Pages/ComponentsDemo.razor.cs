@@ -72,6 +72,7 @@ namespace Demo.Shared.Pages
                 numberOfRows.ToString(null, null),
                 null,
                 null,
+                null,
                 null);
 
             TableData = tableData;

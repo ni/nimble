@@ -20,12 +20,6 @@ public partial class NimbleTableColumnAnchor : NimbleTableColumn
     public string HrefFieldName { get; set; } = null!;
 
     /// <summary>
-    /// The text to show when no label value is available for a particular cell in the column of a <see cref="NimbleTable{TData}"/>
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// The appearance of the anchor.
     /// </summary>
     [Parameter]
