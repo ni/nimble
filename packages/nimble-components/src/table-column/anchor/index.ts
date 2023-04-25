@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { TableColumn } from '../base';
