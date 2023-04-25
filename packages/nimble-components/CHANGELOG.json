@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 25 Apr 2023 18:09:46 GMT",
+      "tag": "@ni/nimble-components_v18.12.4",
+      "version": "18.12.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a0427f9ccd40f1a1a2ce5c4014df91ab4e1b55a",
+            "comment": "Updating row styling."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 21 Apr 2023 16:14:07 GMT",
       "tag": "@ni/nimble-components_v18.12.3",
       "version": "18.12.3",
