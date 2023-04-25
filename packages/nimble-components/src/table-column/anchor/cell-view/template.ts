@@ -25,6 +25,10 @@ export const template = html<TableColumnAnchorCellView>`
             @mouseout="${x => {
                 x.isValidContentAndHasOverflow = false;
             }}"
+            @click="${(_x, c) => {
+                c.event.stopPropagation();
+                return true;
+            }}"
         >
             ${x => x.content}
         </${anchorTag}>`)}
