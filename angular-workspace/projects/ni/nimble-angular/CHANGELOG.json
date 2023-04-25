@@ -2,6 +2,51 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 21 Apr 2023 16:14:07 GMT",
+      "tag": "@ni/nimble-angular_v16.5.14",
+      "version": "16.5.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.12.3",
+            "commit": "8689083addde5db28d5b0c0f16972216c27f42a0"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Apr 2023 14:11:37 GMT",
+      "tag": "@ni/nimble-angular_v16.5.13",
+      "version": "16.5.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "b56927365c467310598d6c7e448369f5e8226a84",
+            "comment": "Angular support for row selection in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 19 Apr 2023 17:58:44 GMT",
+      "tag": "@ni/nimble-angular_v16.5.12",
+      "version": "16.5.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.12.2",
+            "commit": "203525bfb38afb4d440c54a8bc8950e4748bf748"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Apr 2023 14:26:33 GMT",
       "tag": "@ni/nimble-angular_v16.5.11",
       "version": "16.5.11",

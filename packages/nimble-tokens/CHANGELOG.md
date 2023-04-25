@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 11 Apr 2023 01:58:34 GMT and should not be manually modified.
+This log was last generated on Wed, 19 Apr 2023 17:58:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.0
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Major changes
+
+- Refactor token build output. This removes some source files from the built package. ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
 
 ## 4.9.0
 

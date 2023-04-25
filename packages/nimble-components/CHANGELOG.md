@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 14 Apr 2023 14:26:33 GMT and should not be manually modified.
+This log was last generated on Fri, 21 Apr 2023 16:14:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.3
+
+Fri, 21 Apr 2023 16:14:07 GMT
+
+### Patches
+
+- Anchor tree item selection sets group selection state ([ni/nimble@8689083](https://github.com/ni/nimble/commit/8689083addde5db28d5b0c0f16972216c27f42a0))
+
+## 18.12.2
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Patches
+
+- Storybook updates for design token build changes ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
+- Bump @ni/nimble-tokens to v5.0.0
 
 ## 18.12.1
 
