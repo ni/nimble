@@ -2,6 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
+    applicationBackgroundColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
@@ -20,7 +21,7 @@ export const styles = css`
     :host {
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
-        border-top: calc(2 * ${borderWidth}) solid transparent;
+        border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
         box-sizing: border-box;
         background-clip: padding-box;
     }
@@ -101,7 +102,7 @@ export const styles = css`
         Theme.color,
         css`
             :host(:hover)::before {
-                background-color: ${hexToRgbaCssColor(White, 0.025)};
+                background-color: ${hexToRgbaCssColor(White, 0.05)};
             }
         `
     ),

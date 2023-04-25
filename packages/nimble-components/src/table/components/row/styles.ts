@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { PowerGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     borderWidth,
@@ -38,7 +38,7 @@ export const styles = css`
         position: absolute;
     }
 
-    :host([selectable]:hover)::before {
+    :host([selectable]:not([selected]):hover)::before {
         background-color: ${fillHoverColor};
     }
 
@@ -94,23 +94,12 @@ export const styles = css`
             }
 
             :host([selected])::before {
-                background-color: ${hexToRgbaCssColor(White, 0.2)};
-            }
-
-            :host([selected]:hover)::before,
-                background-color: ${hexToRgbaCssColor(White, 0.15)};
-    `
-    ),
-    themeBehavior(
-        Theme.dark,
-        css`
-            :host([selected])::before {
-                background-color: ${hexToRgbaCssColor(PowerGreen, 0.2)};
+                background-color: ${hexToRgbaCssColor(White, 0.25)};
             }
 
             :host([selected]:hover)::before {
-                background-color: ${hexToRgbaCssColor(PowerGreen, 0.15)};
+                background-color: ${hexToRgbaCssColor(White, 0.20)};
             }
-    `
+        `
     )
 );

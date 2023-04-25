@@ -1,8 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import {
-    White
-} from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -64,14 +62,6 @@ export const styles = css`
         width: fit-content;
         min-width: 100%;
         left: var(--ni-private-table-scroll-x);
-    }
-
-    .header-row::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        pointer-events: none;
     }
 
     .column-header-container {
