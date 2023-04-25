@@ -1,15 +1,19 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
+    applicationBackgroundColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
     fillHoverColor,
     mediumDelay,
     smallPadding,
-    standardPadding,
-    tableRowBorderColor
+    standardPadding
 } from '../../../theme-provider/design-tokens';
+import { Theme } from '../../../theme-provider/types';
+import { hexToRgbaCssColor } from '../../../utilities/style/colors';
+import { themeBehavior } from '../../../utilities/style/theme';
 
 export const styles = css`
     ${display('flex')}
@@ -17,16 +21,26 @@ export const styles = css`
     :host {
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
-        border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
-    }
-
-    :host(:hover) {
-        background: ${fillHoverColor};
+        border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
+        box-sizing: border-box;
     }
 
     :host([expanded]) .animating,
     :host .animating {
         transition: ${mediumDelay} ease-in-out;
+    }
+
+    :host::before {
+        content: '';
+        width: 100%;
+        height: ${controlHeight};
+        pointer-events: none;
+        bottom: 0px;
+        position: absolute;
+    }
+
+    :host(:hover)::before {
+        background-color: ${fillHoverColor};
     }
 
     .expand-collapse-button {
@@ -82,4 +96,21 @@ export const styles = css`
     .selection-checkbox::part(label) {
         padding-left: 0px;
     }
-`;
+`.withBehaviors(
+    themeBehavior(
+        Theme.color,
+        css`
+            :host(:hover)::before {
+                background-color: ${hexToRgbaCssColor(White, 0.05)};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            :host(:hover)::before {
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
+            }
+        `
+    )
+);
