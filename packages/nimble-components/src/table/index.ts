@@ -63,7 +63,7 @@ interface TableRowState<TData extends TableRecord = TableRecord> {
     isGrouped: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
-    nestingLevel?: number;
+    nestingLevel: number;
     leafItemCount?: number;
     groupColumn?: TableColumn;
 }
@@ -154,6 +154,12 @@ export class Table<
      */
     @observable
     public readonly selectionCheckbox?: Checkbox;
+
+    /**
+     * @internal
+     */
+    @observable
+    public showCollapseAll = false;
 
     /**
      * @internal
@@ -369,6 +375,16 @@ export class Table<
     }
 
     /** @internal */
+    public handleCollapseAllGroupRows(): void {
+        this.collapsedRows.clear();
+        this.table
+            .getRowModel()
+            .flatRows.filter(row => row.getIsGrouped())
+            .forEach(row => this.collapsedRows.add(row.id));
+        this.table.toggleAllRowsExpanded(false);
+    }
+
+    /** @internal */
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
@@ -389,6 +405,10 @@ export class Table<
 
         if (this.updateTracker.updateColumnWidths) {
             this.updateRowGridColumns();
+        }
+
+        if (this.updateTracker.updateGroupRows) {
+            this.showCollapseAll = this.getColumnsParticipatingInGrouping().length > 0;
         }
     }
 

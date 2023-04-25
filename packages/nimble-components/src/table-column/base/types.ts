@@ -43,6 +43,19 @@ export const TableColumnSortOperation = {
 export type TableColumnSortOperation =
     (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
 
-export const defaultMinPixelWidth = 88;
+const groupIconSize = 16;
+const sortIconSize = 16;
+const spacing = 8;
+const menuDropdownSize = 24;
+const oneCharPlusEllipsisSize = 21;
+export const defaultMinPixelWidth = spacing
+    + oneCharPlusEllipsisSize
+    + spacing
+    + sortIconSize
+    + spacing
+    + groupIconSize
+    + spacing
+    + menuDropdownSize
+    + spacing;
 
 export const defaultFractionalWidth = 1;

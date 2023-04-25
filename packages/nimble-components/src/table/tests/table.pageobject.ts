@@ -10,6 +10,7 @@ import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
+import type { Button } from '../../button';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -82,7 +83,7 @@ export class TablePageObject<T extends TableRecord> {
         ).length;
     }
 
-    public getAllGroupRowExpandedState(): boolean[] {
+    public getAllGroupRowsExpandedState(): boolean[] {
         const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-group-row'
         );
@@ -194,6 +195,28 @@ export class TablePageObject<T extends TableRecord> {
         return tableRowContainer!.scrollWidth;
     }
 
+    public async sizeTableToGivenRowWidth(
+        rowWidth: number,
+        table: Table<T>
+    ): Promise<void> {
+        if (!table.$fastController.isConnected) {
+            throw Error(
+                'The element must be connected before calling this method'
+            );
+        }
+
+        const collapseButton = this.getCollapseAllButton();
+        const buttonWidth = collapseButton!.getBoundingClientRect().width;
+        const buttonStyle = window.getComputedStyle(collapseButton!);
+        table.style.width = `${
+            rowWidth
+            + buttonWidth
+            + parseFloat(buttonStyle.marginLeft)
+            + parseFloat(buttonStyle.marginRight)
+        }px`;
+        await waitForUpdatesAsync();
+    }
+
     public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
         if (columnIndex >= this.tableElement.columns.length) {
             throw new Error(
@@ -211,6 +234,14 @@ export class TablePageObject<T extends TableRecord> {
 
         const columnCell = cells![columnIndex]!;
         return columnCell.getBoundingClientRect().width;
+    }
+
+    public getTotalCellRenderedWidth(): number {
+        const row = this.getRow(0);
+        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
+        return Array.from(cells!).reduce((p, c) => {
+            return p + c.getBoundingClientRect().width;
+        }, 0);
     }
 
     public async scrollToLastRowAsync(): Promise<void> {
@@ -271,6 +302,12 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
+    public async clickGroupRow(groupRowIndex: number): Promise<void> {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        groupRow.click();
+        await waitForUpdatesAsync();
+    }
+
     public async clickRow(rowIndex: number): Promise<void> {
         const row = this.getRow(rowIndex);
         row.click();
@@ -289,6 +326,20 @@ export class TablePageObject<T extends TableRecord> {
 
     public toggleGroupRowExpandedState(groupRowIndex: number): void {
         this.getGroupRow(groupRowIndex).click();
+    }
+
+    public clickCollapseAllButton(): void {
+        this.getCollapseAllButton()?.click();
+    }
+
+    public isCollapseAllButtonVisible(): boolean {
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return (
+                window.getComputedStyle(collapseButton).visibility === 'visible'
+            );
+        }
+        return false;
     }
 
     public isTableSelectionCheckboxVisible(): boolean {
@@ -354,6 +405,12 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return cells.item(columnIndex);
+    }
+
+    private getCollapseAllButton(): Button | null {
+        return this.tableElement.shadowRoot!.querySelector<Button>(
+            '.collapse-all-button'
+        );
     }
 
     private getSelectionCheckboxForRow(rowIndex: number): Checkbox | null {
