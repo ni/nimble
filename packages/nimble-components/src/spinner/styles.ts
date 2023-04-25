@@ -18,6 +18,7 @@ export const styles = css`
     }
 
     div.container {
+        animation-play-state: inherit;
         margin: max(2px, 6.25%);
         flex: 1;
         ${
@@ -41,6 +42,7 @@ export const styles = css`
         margin: auto;
         animation-duration: 1600ms;
         animation-iteration-count: infinite;
+        animation-play-state: inherit;
         animation-timing-function: cubic-bezier(0.65, 0, 0.35, 0);
     }
 
