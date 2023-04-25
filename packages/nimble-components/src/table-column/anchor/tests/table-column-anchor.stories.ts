@@ -78,7 +78,16 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     appearance: keyof typeof AnchorAppearance;
 }
 
-const anchorColumnDescription = 'The `nimble-table-column-anchor` column is used to display string fields as links or text in the `nimble-table`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.';
+const anchorColumnDescription = `The \`nimble-table-column-anchor\` column is used to display string fields as links or text in the \`nimble-table\`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.
+
+In an Angular app, \`nimble-table-column-anchor\` can integrate with the router by applying the attribute \`nimbleRouterLink\`. This will cause the router to be invoked when navigating to the paths given in the table data. Other properties supported by the \`RouterLink\` directive (e.g. \`queryParams\`, \`state\`, \`replaceUrl\`) can also be set on \`nimble-table-column-anchor\`.
+\`\`\`
+<nimble-table-column-anchor nimbleRouterLink [queryParams]="{ id: 'foo' }" replaceUrl>
+    Link
+</nimble-table-column-anchor>
+\`\`\`
+Note that these property values apply to every link in the column and cannot be configured on a per-link basis.
+`;
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     parameters: {
