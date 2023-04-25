@@ -36,9 +36,9 @@ const groupIconSize = 16;
 const sortIconSize = 16;
 const spacing = 8;
 const menuDropdownSize = 24;
-const oneCharPlusEllipsis = 21;
+const oneCharPlusEllipsisSize = 21;
 export const defaultMinPixelWidth = spacing
-    + oneCharPlusEllipsis
+    + oneCharPlusEllipsisSize
     + spacing
     + sortIconSize
     + spacing
