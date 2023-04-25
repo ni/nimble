@@ -19,6 +19,9 @@ import {
     TableRowSelectionToggleEventDetail
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
+import { buttonTag } from '../button';
+import { ButtonAppearance } from '../button/types';
+import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 import { checkboxTag } from '../checkbox';
 
 // prettier-ignore
@@ -33,7 +36,7 @@ export const template = html<Table>`
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
-            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''}
+            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
             ">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
@@ -47,7 +50,16 @@ export const template = html<Table>`
                             </${checkboxTag}>
                         </span>
                     `)}
-
+                    <span role="gridcell">
+                        <${buttonTag}
+                            class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
+                            content-hidden
+                            appearance="${ButtonAppearance.ghost}"
+                            @click="${x => x.handleCollapseAllGroupRows()}"
+                        >
+                            <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                        </${buttonTag}>
+                    </span>
                     <span class="column-header-container">
                         ${repeat(x => x.columns, html<TableColumn>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
@@ -55,6 +67,7 @@ export const template = html<Table>`
                                     class="header"
                                     sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
                                     ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                    :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                 >
                                     <slot name="${x => x.slot}"></slot>
                                 </${tableHeaderTag}>

@@ -5,6 +5,8 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
+    controlSlimHeight,
+    smallPadding,
     standardPadding,
     tableRowBorderColor
 } from '../theme-provider/design-tokens';
@@ -62,12 +64,24 @@ export const styles = css`
         width: fit-content;
         min-width: 100%;
         left: var(--ni-private-table-scroll-x);
+        align-items: center;
     }
 
     .column-header-container {
         display: grid;
         width: 100%;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    .collapse-all-button {
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
+        margin-left: calc(${smallPadding} * 2);
+        visibility: hidden;
+    }
+
+    .collapse-all-button.visible {
+        visibility: visible;
     }
 
     .header-scrollbar-spacer {

@@ -61,6 +61,11 @@ export const styles = css`
         padding-left: 0px;
     }
 
+    .row-front-spacer {
+        width: ${controlHeight};
+        flex: 0 0 auto;
+    }
+
     .cell-container {
         display: grid;
         width: 100%;

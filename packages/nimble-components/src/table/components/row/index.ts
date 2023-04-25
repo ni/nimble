@@ -106,7 +106,7 @@ export class TableRow<
                     columnConfig: {}
                 };
             }
-            const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
+            const cellIndentLevel = i === 0 && this.nestingLevel > 0 ? this.nestingLevel - 1 : 0;
             return { column, cellState, cellIndentLevel };
         });
     }
