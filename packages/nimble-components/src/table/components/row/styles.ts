@@ -97,7 +97,7 @@ export const styles = css`
             }
 
             :host([selected]:hover)::before {
-                background-color: ${hexToRgbaCssColor(White, 0.20)};
+                background-color: ${hexToRgbaCssColor(White, 0.2)};
             }
         `
     )
