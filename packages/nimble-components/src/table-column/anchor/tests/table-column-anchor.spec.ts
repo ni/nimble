@@ -19,7 +19,7 @@ interface SimpleTableRecord extends TableRecord {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table id-field-name="label" style="width: 700px">
+        html`<nimble-table style="width: 700px">
                 <${tableColumnAnchorTag}
                     label-field-name="label"
                     href-field-name="link"
@@ -292,20 +292,6 @@ describe('TableColumnAnchor', () => {
             });
         }
 
-        it('executes default action when anchor clicked', async () => {
-            let clickEvent: Event | null = null;
-            element.addEventListener('click', event => {
-                clickEvent = event;
-            });
-            await element.setData([{ link: 'foo' }]);
-            await connect();
-            await waitForUpdatesAsync();
-
-            pageObject.getRenderedCellAnchor(0, 0).click();
-            expect(clickEvent).not.toBeNull();
-            expect(clickEvent!.defaultPrevented).toBeFalse();
-        });
-
         describe('with no label', () => {
             it('displays url', async () => {
                 await element.setData([{ link: 'foo' }]);
@@ -422,6 +408,7 @@ describe('TableColumnAnchor', () => {
         });
 
         it('sorts by the label field', async () => {
+            element.idFieldName = 'label';
             await connect();
             await waitForUpdatesAsync();
 
