@@ -29,6 +29,15 @@ public class NimbleTableColumnAnchorTests
     }
 
     [Fact]
+    public void NimbleTableColumnAnchor_WithPlaceholderAttribute_HasTableMarkup()
+    {
+        var tableColumn = RenderWithPropertySet(x => x.Placeholder!, "No Value");
+
+        var expectedMarkup = @"placeholder=""No Value""";
+        Assert.Contains(expectedMarkup, tableColumn.Markup);
+    }
+
+    [Fact]
     public void NimbleTableColumnAnchor_WithAppearanceAttribute_HasTableMarkup()
     {
         var tableColumn = RenderWithPropertySet(x => x.Appearance!, AnchorAppearance.Prominent);
