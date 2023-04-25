@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using NimbleBlazor;
 
 namespace Demo.Shared.Pages
@@ -62,9 +61,17 @@ namespace Demo.Shared.Pages
             var tableData = new Person[numberOfRows + 1];
             for (int i = 0; i < numberOfRows; i++)
             {
-                tableData[i] = new Person(Faker.Name.First(), Faker.Name.Last(), "https://nimble.ni.dev");
+                tableData[i] = new Person(
+                    i.ToString(null, null),
+                    Faker.Name.First(),
+                    Faker.Name.Last(),
+                    "https://nimble.ni.dev");
             }
-            tableData[numberOfRows] = new Person(null, null, null);
+            tableData[numberOfRows] = new Person(
+                numberOfRows.ToString(null, null),
+                null,
+                null,
+                null);
 
             TableData = tableData;
         }
@@ -72,13 +79,15 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string? firstName, string? lastName, string? link)
+        public Person(string id, string? firstName, string? lastName, string? link)
         {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             Link = link;
         }
 
+        public string Id { get; }
         public string? FirstName { get; }
         public string? LastName { get; }
         public string? Link { get; }

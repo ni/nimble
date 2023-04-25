@@ -10,6 +10,7 @@ interface ComboboxItem {
 }
 
 interface SimpleTableRecord extends TableRecord {
+    id: string;
     stringValue1: string;
     stringValue2: string;
     href?: string;
@@ -41,14 +42,7 @@ export class CustomAppComponent {
     public activeAnchorTabId = 'a-tab-2';
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
-    private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([
-        { stringValue1: 'hello world', stringValue2: 'more text', href: 'https://www.ni.com', linkLabel: 'NI' },
-        { stringValue1: 'foo', stringValue2: 'bar', href: 'https://www.google.com', linkLabel: 'Google' },
-        { stringValue1: 'candy', stringValue2: 'bar', href: '', linkLabel: 'empty href' },
-        { stringValue1: 'dive', stringValue2: 'bar', linkLabel: 'missing href' },
-        { stringValue1: 're', stringValue2: 'bar', href: 'https://nimble.ni.dev', linkLabel: 'Nimble' },
-        { stringValue1: 'last row', stringValue2: 'yay!', href: 'https://www.ni.com' }
-    ]);
+    private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
@@ -95,6 +89,7 @@ export class CustomAppComponent {
     public onAddTableRow(): void {
         const tableData = this.tableDataSubject.value;
         tableData.push({
+            id: tableData.length.toString(),
             stringValue1: `new string ${tableData.length}`,
             stringValue2: `bar ${tableData.length}`,
             href: '/customapp',
