@@ -3,7 +3,7 @@ import type { Table } from '../../../table';
 import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
-import type { TableRecord } from '../../../table/types';
+import { TableColumnSortDirection, TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/tests/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
@@ -19,7 +19,7 @@ interface SimpleTableRecord extends TableRecord {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
+        html`<nimble-table id-field-name="label" style="width: 700px">
                 <${tableColumnAnchorTag}
                     label-field-name="label"
                     href-field-name="link"
@@ -420,6 +420,35 @@ describe('TableColumnAnchor', () => {
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe('');
         });
+
+        it('sorts by the label field', async () => {
+            await connect();
+            await waitForUpdatesAsync();
+
+            const firstColumn = element.columns[0] as TableColumnAnchor;
+            firstColumn.sortDirection = TableColumnSortDirection.ascending;
+            firstColumn.sortIndex = 0;
+            await element.setData([
+                { label: 'd', link: 'foo3' },
+                { label: 'a', link: 'foo4' },
+                { label: 'c', link: 'foo1' },
+                { label: 'e', link: 'foo5' },
+                { label: 'b', link: 'foo2' }
+            ]);
+            await waitForUpdatesAsync();
+
+            expect(getRenderedRecordIds()).toEqual(['a', 'b', 'c', 'd', 'e']);
+        });
+
+        function getRenderedRecordIds(): string[] {
+            const ids: string[] = [];
+            const numberOfRows = pageObject.getRenderedRowCount();
+            for (let rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {
+                ids.push(pageObject.getRecordId(rowIndex) ?? '');
+            }
+
+            return ids;
+        }
 
         describe('various string values render as expected', () => {
             const focused: string[] = [];
