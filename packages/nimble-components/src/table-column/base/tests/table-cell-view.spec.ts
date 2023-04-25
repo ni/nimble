@@ -30,6 +30,7 @@ describe('TableCellView', () => {
         const delegatingColumn = new TableColumnDelegatesClickAndKeydown();
         let gotClickOnDelegatingColumn = false;
         let gotKeydownOnDelegatingColumn = false;
+        let gotOtherEventOnDelegatingColumn = false;
         delegatingColumn.addEventListener('delegated-event', event => {
             const delegatedEvent = (
                 (event as CustomEvent).detail as DelegatedEventEventDetails
@@ -38,12 +39,15 @@ describe('TableCellView', () => {
                 gotClickOnDelegatingColumn = true;
             } else if (delegatedEvent.type === 'keydown') {
                 gotKeydownOnDelegatingColumn = true;
+            } else {
+                gotOtherEventOnDelegatingColumn = true;
             }
         });
         // Configure column that delegates no events
         const emptyColumn = new TableColumnEmpty();
         let gotClickOnEmptyColumn = false;
         let gotKeydownOnEmptyColumn = false;
+        let gotOtherEventOnEmptyColumn = false;
         emptyColumn.addEventListener('delegated-event', event => {
             const delegatedEvent = (
                 (event as CustomEvent).detail as DelegatedEventEventDetails
@@ -52,22 +56,29 @@ describe('TableCellView', () => {
                 gotClickOnEmptyColumn = true;
             } else if (delegatedEvent.type === 'keydown') {
                 gotKeydownOnEmptyColumn = true;
+            } else {
+                gotOtherEventOnEmptyColumn = true;
             }
         });
 
         element.column = delegatingColumn;
         element.dispatchEvent(new PointerEvent('click'));
         element.dispatchEvent(new KeyboardEvent('keydown'));
+        element.dispatchEvent(new MouseEvent('mouseover'));
         expect(gotClickOnDelegatingColumn).toBeTrue();
         expect(gotKeydownOnDelegatingColumn).toBeTrue();
+        expect(gotOtherEventOnDelegatingColumn).toBeFalse();
         element.column = emptyColumn; // should no longer delegate events to either column
         gotClickOnDelegatingColumn = false;
         gotKeydownOnDelegatingColumn = false;
         element.dispatchEvent(new PointerEvent('click'));
         element.dispatchEvent(new KeyboardEvent('keydown'));
+        element.dispatchEvent(new MouseEvent('mouseover'));
         expect(gotClickOnEmptyColumn).toBeFalse();
         expect(gotKeydownOnEmptyColumn).toBeFalse();
+        expect(gotOtherEventOnEmptyColumn).toBeFalse();
         expect(gotClickOnDelegatingColumn).toBeFalse();
         expect(gotKeydownOnDelegatingColumn).toBeFalse();
+        expect(gotOtherEventOnDelegatingColumn).toBeFalse();
     });
 });
