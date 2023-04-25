@@ -34,7 +34,6 @@ export const styles = css`
         pointer-events: none;
         box-sizing: border-box;
         bottom: 0px;
-        background-clip: padding-box;
         position: absolute;
     }
 
