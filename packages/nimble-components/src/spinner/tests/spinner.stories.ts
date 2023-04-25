@@ -1,5 +1,7 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import isChromatic from 'chromatic/isChromatic';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     spinnerLargeHeight,
@@ -34,12 +36,6 @@ const metadata: Meta<SpinnerArgs> = {
             description: {
                 component: overviewText
             }
-        },
-
-        // Spinner animation causes snapshot changes in chromatic
-        // See https://github.com/ni/nimble/issues/983
-        chromatic: {
-            disableSnapshot: true
         }
     },
     argTypes: {
@@ -77,10 +73,11 @@ const metadata: Meta<SpinnerArgs> = {
             }
         }
     },
+    // Disable animation in Chromatic because it intermittently causes shapshot differences
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${spinnerTag}
-            style="${x => spinnerSize[x.size]}"
+            style="${x => spinnerSize[x.size]}; ${isChromatic() ? 'animation-play-state:paused' : ''}"
         >
         </${spinnerTag}>
     `),
