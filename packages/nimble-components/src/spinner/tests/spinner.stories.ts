@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import isChromatic from 'chromatic/isChromatic';
+import { isChromatic } from '../../utilities/tests/isChromatic';
 
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {

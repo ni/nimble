@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import isChromatic from 'chromatic/isChromatic';
+import { isChromatic } from '../../utilities/tests/isChromatic';
 
 import {
     createMatrix,
