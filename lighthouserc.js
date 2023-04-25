@@ -10,7 +10,7 @@ module.exports = {
     assert: {
       assertions: {
         'categories:performance': ['warn', {minScore: 0.9}],
-        'categories:accessibility': ['error', {minScore: 0.88}]
+        'categories:accessibility': ['error', {minScore: 0.88}] // TODO: reset to 0.9 as part of https://github.com/ni/nimble/issues/1090
       }
     },
     upload: {

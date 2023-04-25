@@ -32,11 +32,19 @@ export const TableColumnSortOperation = {
 export type TableColumnSortOperation =
     (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
 
-/**
- * This width is derived from a combination of the widths of various visuals
- * that can be present in a column header, the spacing between them, and a size
- * for the header text to show at least one character with an ellipsis.
- */
-export const defaultMinPixelWidth = 121;
+const groupIconSize = 16;
+const sortIconSize = 16;
+const spacing = 8;
+const menuDropdownSize = 24;
+const oneCharPlusEllipsis = 21;
+export const defaultMinPixelWidth = spacing
+    + oneCharPlusEllipsis
+    + spacing
+    + sortIconSize
+    + spacing
+    + groupIconSize
+    + spacing
+    + menuDropdownSize
+    + spacing;
 
 export const defaultFractionalWidth = 1;
