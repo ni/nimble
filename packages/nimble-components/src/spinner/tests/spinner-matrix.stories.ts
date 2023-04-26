@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { isChromatic } from '../../utilities/tests/isChromatic';
 
 import {
     createMatrix,
@@ -20,13 +21,7 @@ import { spinnerTag } from '..';
 const metadata: Meta = {
     title: 'Tests/Spinner',
     parameters: {
-        ...sharedMatrixParameters(),
-
-        // Spinner animation causes snapshot changes in chromatic
-        // See https://github.com/ni/nimble/issues/983
-        chromatic: {
-            disableSnapshot: true
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -39,11 +34,14 @@ const sizeStates = [
 ];
 type SizeState = (typeof sizeStates)[number];
 
+// Disable animation in Chromatic because it intermittently causes shapshot differences
+// prettier-ignore
 const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
     </span>
-    <${spinnerTag} style="${() => state}"></${spinnerTag}>
+    <${spinnerTag} style="${() => state}; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
+    </${spinnerTag}>
 `;
 
 export const spinnerThemeMatrix: StoryFn = createMatrixThemeStory(

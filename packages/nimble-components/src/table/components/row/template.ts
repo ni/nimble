@@ -19,6 +19,9 @@ export const template = html<TableRow>`
                 </${checkboxTag}>
             </span>
         `)}
+        ${'' /* This is needed to help align the cell widths exactly with the column headers, due to the space reserved for
+                the collapse-all button in the header. */}
+        <span class="row-front-spacer"></span>
 
         <span ${ref('cellContainer')} class="cell-container">
             ${repeat(x => x.columnStates, html<ColumnState, TableRow>`
