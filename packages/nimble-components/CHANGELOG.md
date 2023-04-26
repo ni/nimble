@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 25 Apr 2023 18:09:46 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Apr 2023 20:41:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.5
+
+Tue, 25 Apr 2023 20:41:37 GMT
+
+### Patches
+
+- Adding collapse-all-button ([ni/nimble@6c2fa63](https://github.com/ni/nimble/commit/6c2fa633203e7877536314d01d11b96866ba5376))
 
 ## 18.12.4
 
