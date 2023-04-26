@@ -106,9 +106,6 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        // The select must be set to position the list below, because the interaction
-        // between the karma tester's grid of dots, starting a new dot row, and automatic
-        // scrolling can cause this test to fail when the position is above.
         it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
