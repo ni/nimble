@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 25 Apr 2023 20:41:37 GMT",
+      "tag": "@ni/nimble-components_v18.12.5",
+      "version": "18.12.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6c2fa633203e7877536314d01d11b96866ba5376",
+            "comment": "Adding collapse-all-button"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Apr 2023 18:09:46 GMT",
       "tag": "@ni/nimble-components_v18.12.4",
       "version": "18.12.4",
