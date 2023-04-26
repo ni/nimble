@@ -49,8 +49,6 @@ These attributes are part of the public API for the column, and will be set by c
 
 ^ Note: If the sorting state has been modified by interactive sorting, `sort-direction` and `sort-index` will not reflect those updates, only the `currentSortDirection` and `currentSortIndex` properties will.
 
-^ Note: If the sorting state has been modified by interactive sorting, `sort-direction` and `sort-index` will not reflect those updates, only the `currentSortDirection` and `currentSortIndex` properties will.
-
 #### Summary of new properties on the `ColumnInternals` reference
 
 These are internal properties on the column, and are not intended to be used by clients of the table.
