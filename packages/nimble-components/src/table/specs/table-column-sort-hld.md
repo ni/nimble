@@ -30,11 +30,7 @@ The column definition will also be responsible for specifying the appropriate so
 
 For performance reasons, the table will not support custom sort functions on a column. Additionally, a column can only be sorted based on a single field within the table's data. These requirements guard against performance degradations from inefficient custom sort functions.
 
-Interactive sorting will be controlled by a new `sortMode` property on the `Table` (of type `TableInteractiveSortMode`):
-
--   None (`undefined`, default): Interactive sorting is disabled
--   Single (`'single'`): Zero or one columns can be interactively sorted at one time by the user
--   Multiple (`'multiple'`): Any number of columns can be interactively sorted at one time by the user
+Interactive sorting will be enabled by default. Table consumers can disable sorting on individual columns via the `sorting-disabled` attribute (see the next section).
 
 See the "Interactive Sorting UX" section below for the specific interactions for sorting.
 
@@ -42,23 +38,35 @@ See the "Interactive Sorting UX" section below for the specific interactions for
 
 These attributes are part of the public API for the column, and will be set by clients of the table.
 
-| attribute name   | type                                                                                                         | default value                   | description                                                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| sort-direction   | `TableColumnSortDirection`, defined as `{none: undefined, ascending: 'ascending', descending: 'descending'}` | `TableColumnSortDirection.none` | The direction the column is sorted                                                                                          |
-| sort-index       | `number` or `null` \*                                                                                        | `null`                          | The index for sorting the column. When multiple columns are sorted, they will be sorted from lowest index to highest index. |
-| column-hidden    | `boolean`                                                                                                    | `false`                         | When set to true, do not render the column as part of the table                                                             |
-| sorting-disabled | `boolean`                                                                                                    | `false`                         | When set to true, sorting is disabled for this column (both interactive and programmatic sorting)                           |
+| attribute name   | type                                                                                                         | default value                   | description                                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| sort-direction   | `TableColumnSortDirection`, defined as `{none: undefined, ascending: 'ascending', descending: 'descending'}` | `TableColumnSortDirection.none` | The direction the column is sorted ^                                                                                          |
+| sort-index       | `number` or `null` \*                                                                                        | `null`                          | The index for sorting the column. When multiple columns are sorted, they will be sorted from lowest index to highest index. ^ |
+| column-hidden    | `boolean`                                                                                                    | `false`                         | When set to true, do not render the column as part of the table                                                               |
+| sorting-disabled | `boolean`                                                                                                    | `false`                         | When set to true, sorting is disabled for this column (both interactive and programmatic sorting)                             |
 
 \* Note: The `sort-index` attribute is `number | null` because of the plan to use the `nullableNumberConverter` provided by FAST. That converter uses the value of `null` to represent non-number types rather than `undefined`, which is common within the nimble repo.
 
+^ Note: If the sorting state has been modified by interactive sorting, `sort-direction` and `sort-index` will not reflect those updates, only the `currentSortDirection` and `currentSortIndex` properties will.
+
 #### Summary of new properties on the base table column
 
-These are internal properties on the column. They will be set by a concrete implementation of a column, and they are not intended to be used by clients of the table.
+These are internal properties on the column, and are not intended to be used by clients of the table.
+
+These properties will be set by a concrete implementation of a column:
 
 | property name              | type                                                                                                                        | description                                                                                            |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | operandDataRecordFieldName | `string` or `undefined`                                                                                                     | The name of the data field that will be used for operations on the table, such as sorting and grouping |
 | sortOperation              | `TableColumnSortOperation`, initially defined as `{ basic: 'basic', localeAwareCaseSensitive: 'localeAwareCaseSensitive' }` | The operation to use for sorting                                                                       |
+|                            |
+
+These properties will be kept up-to-date by the table itself:
+
+| property name        | type                       | description                                                                                  |
+| -------------------- | -------------------------- | -------------------------------------------------------------------------------------------- |
+| currentSortDirection | `TableColumnSortDirection` | The current sort direction (equals `sortDirection` until/unless interactive sorting is done) |
+| currentSortIndex     | `number` or `null`         | The current sort index (equals `sortIndex` until/unless interactive sorting is done)         |
 
 #### Events
 
@@ -67,12 +75,12 @@ After any interactive sort operation, a `column-sort-change` event will be fired
 ```ts
 interface TableColumnSortState {
     columnId: string;
-    sortIndex: number;
+    currentSortIndex: number;
     sortDirection: TableColumnSortDirection;
 }
 
 export interface TableColumnSortEventDetail {
-    /** sorted by sort index (ascending) */
+    /** sorted by current sort index (ascending) */
     sortedColumns: TableColumnSortState[];
 }
 ```
@@ -100,19 +108,17 @@ Each column that is sorted ascending will have `aria-sort="ascending"` set on th
 The UX/ interactions for interactive sorting are captured in [#885: UX Design for basic column/row interactions](https://github.com/ni/nimble/issues/885).  
 To summarize:
 
-If the table `sortMode` is `single` or `multiple`:  
 Single-clicking a column header will cycle the column from unsorted, to ascending sort, descending sort, then back to unsorted.
 
--   Any other columns that were also sorted become unsorted (i.e. `sortDirection` => none/ `undefined`, `sortIndex` => `undefined` for those columns)
--   The clicked column gets a sort index of `0` when sorted, and `undefined` if it's transitioning back to unsorted.
+-   Any other columns that were also sorted become unsorted (i.e. `currentSortDirection` => none/ `undefined`, `currentSortIndex` => `undefined` for those columns)
+-   The clicked column gets a `currentSortIndex` of `0` when sorted, and `undefined` if it's transitioning back to unsorted.
 
-If the table `sortMode` is `multiple` only:  
 Shift-clicking a column header will cycle the column from unsorted, to ascending sort, descending sort, then back to unsorted.
 
 -   Any other columns that were already sorted maintain their sorting
 -   If the clicked column was already sorted, its sort index does not change
--   If the clicked column is transitioning to unsorted, its sort index will be set to `undefined`
--   If the clicked column is transitioning to being sorted, it will get a sort index of `0` if no other columns were already sorted, or `max(alreadySortedColumn1SortIndex, ..., alreadySortedColumnNSortIndex) + 1` if there were existing sorted columns
+-   If the clicked column is transitioning to unsorted, its `currentSortIndex` will be set to `undefined`
+-   If the clicked column is transitioning to being sorted, it will get a `currentSortIndex` of `0` if no other columns were already sorted, or `max(alreadySortedColumn1SortIndex, ..., alreadySortedColumnNSortIndex) + 1` if there were existing sorted columns
 
 If interactive sorting is enabled, sorting menu items also appear in the column header menu:  
 ![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)  
@@ -153,5 +159,4 @@ The base table column could provide a way for a client to override the sort fiel
 
 ## Open Issues
 
--   Should the interactive sort mode default to None or Multiple?
--   Property naming: `sortMode` vs `interactiveSortMode`
+None
