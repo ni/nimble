@@ -2,7 +2,7 @@
 
 ## Overview
 
-*The name of the component, along with a high-level description.*
+*The name of the component, along with high-level description of what the design includes.*
 
 ### Background
 
@@ -17,5 +17,4 @@
 
 ## Open Issues
 
-*Describe any open issues with the design that you need feedback on before proceeding.*
-*It is expected that these issues will be resolved during the review process and this section will be removed when this documented in pulled into source.*
+*Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers being incorporated in the spec document.*
