@@ -120,8 +120,9 @@ Shift-clicking a column header will cycle the column from unsorted, to ascending
 -   If the clicked column is transitioning to unsorted, its `currentSortIndex` will be set to `undefined`
 -   If the clicked column is transitioning to being sorted, it will get a `currentSortIndex` of `0` if no other columns were already sorted, or `max(alreadySortedColumn1SortIndex, ..., alreadySortedColumnNSortIndex) + 1` if there were existing sorted columns
 
-If interactive sorting is enabled, sorting menu items also appear in the column header menu:  
+If sorting is enabled for a column, sorting menu items also appear in the column header menu:
 ![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)  
+If sorting is disabled for a column, and no other enabled items are in the column header menu, the column header menu button will not appear.  
 Updating sorting via the menu will always unsort any other columns that were already sorted, even when the current column is being unsorted too.
 
 For columns with `sorting-disabled` set to true, clicking/Shift-clicking the column header will not affect the sort state, the sort menu options will not appear in the column header menu, and programmatic sorting is disabled (setting `sortIndex`/`sortDirection` will have no effect if `sorting-disabled` is also `true`).
