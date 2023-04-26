@@ -47,6 +47,15 @@ public class NimbleTableColumnAnchorTests
     }
 
     [Fact]
+    public void NimbleTableColumnAnchor_WithUnderlineHiddenAttribute_HasTableMarkup()
+    {
+        var tableColumn = RenderWithPropertySet(x => x.UnderlineHidden, true);
+
+        var expectedMarkup = @"underline-hidden";
+        Assert.Contains(expectedMarkup, tableColumn.Markup);
+    }
+
+    [Fact]
     public void NimbleTableColumnAnchor_WithHrefLangAttribute_HasTableMarkup()
     {
         var tableColumn = RenderWithPropertySet(x => x.HrefLang!, "en");

@@ -24,7 +24,7 @@ export const template = html<TableColumnAnchorCellView>`
                 target="${x => x.columnConfig.target}"
                 type="${x => x.columnConfig.type}"
                 download="${x => x.columnConfig.download}"
-                underline-hidden
+                underline-hidden="${x => x.columnConfig.underlineHidden}"
                 appearance="${x => x.columnConfig.appearance}"
                 title=${x => (x.isValidContentAndHasOverflow ? x.content : null)}
                 @mouseover="${x => {

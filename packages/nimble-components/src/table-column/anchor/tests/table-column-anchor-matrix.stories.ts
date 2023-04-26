@@ -41,11 +41,18 @@ const appearanceStates: [string, string | undefined][] = Object.entries(
 ).map(([key, value]) => [pascalCase(key), value]);
 type AppearanceState = (typeof appearanceStates)[number];
 
+const underlineHiddenStates: [string, boolean | undefined][] = [
+    ['Underline Hidden', true],
+    ['', undefined]
+];
+type UnderlineHiddenState = (typeof underlineHiddenStates)[number];
+
 // prettier-ignore
 const component = (
-    [appearanceName, appearance]: AppearanceState
+    [appearanceName, appearance]: AppearanceState,
+    [underlineHiddenName, underlineHidden]: UnderlineHiddenState
 ): ViewTemplate => html`
-    <label style="color: var(--ni-nimble-control-label-font-color); font: var(--ni-nimble-control-label-font)">${appearanceName} Anchor Table Column</label>
+    <label style="color: var(--ni-nimble-control-label-font-color); font: var(--ni-nimble-control-label-font)">${appearanceName} ${underlineHiddenName} Anchor Table Column</label>
     <${tableTag} id-field-name="id" style="height: 300px">
         <${tableColumnAnchorTag}
             label-field-name="firstName"
@@ -53,6 +60,7 @@ const component = (
             placeholder="no value"
             group-index="0"
             appearance="${() => appearance}"
+            underline-hidden="${() => underlineHidden}"
         >
             <${iconUserTag}></${iconUserTag}>
         </${tableColumnAnchorTag}>
@@ -60,7 +68,7 @@ const component = (
 `;
 
 export const tableColumnAnchorThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component, [appearanceStates])
+    createMatrix(component, [appearanceStates, underlineHiddenStates])
 );
 
 tableColumnAnchorThemeMatrix.play = async (): Promise<void> => {

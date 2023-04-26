@@ -76,6 +76,7 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
     hrefFieldName: string;
     placeholderText: string;
     appearance: keyof typeof AnchorAppearance;
+    underlineHidden: boolean;
 }
 
 const anchorColumnDescription = `The \`nimble-table-column-anchor\` column is used to display string fields as links or text in the \`nimble-table\`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.
@@ -109,6 +110,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 href-field-name="${x => x.hrefFieldName}"
                 placeholder="${x => x.placeholderText}"
                 appearance="${x => x.appearance}"
+                ?underline-hidden="${x => x.underlineHidden}"
             >
             Link Column
             </${tableColumnAnchorTag}>
@@ -143,6 +145,11 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             control: { type: 'radio' },
             description:
                 'Set to `prominent` to make the anchor appear in a different color than normal text.'
+        },
+        underlineHidden: {
+            name: 'underline-hidden',
+            defaultValue: { summary: 'false' },
+            description: 'Causes the underline to be hidden except on hover.'
         }
     },
     args: {
@@ -150,6 +157,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
         hrefFieldName: 'url',
         placeholderText: '(no first name or link provided)',
         appearance: 'default',
+        underlineHidden: false,
         ...sharedTableArgs(simpleData)
     }
 };

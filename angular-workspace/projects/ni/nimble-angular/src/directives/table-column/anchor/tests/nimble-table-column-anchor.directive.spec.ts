@@ -110,6 +110,11 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.appearance).toBeUndefined();
         });
 
+        it('has expected defaults for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeFalse();
+            expect(nativeElement.underlineHidden).toBeFalse();
+        });
+
         it('has expected defaults for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBeUndefined();
             expect(nativeElement.fractionalWidth).toBeUndefined();
@@ -146,6 +151,7 @@ describe('Nimble anchor table column', () => {
                     href-field-name="href"
                     placeholder="no value"
                     appearance="prominent"
+                    underline-hidden
                     fractional-width="2"
                     min-pixel-width="40"
                     group-index="0"
@@ -229,6 +235,11 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.appearance).toBe('prominent');
         });
 
+        it('will use template string values for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeTrue();
+            expect(nativeElement.underlineHidden).toBeTrue();
+        });
+
         it('will use template string values for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -265,6 +276,7 @@ describe('Nimble anchor table column', () => {
                     [href-field-name]="hrefFieldName"
                     [placeholder]="placeholder"
                     [appearance]="appearance"
+                    [underline-hidden]="underlineHidden"
                     [fractional-width]="fractionalWidth"
                     [min-pixel-width]="minPixelWidth"
                     [group-index]="groupIndex"
@@ -287,6 +299,7 @@ describe('Nimble anchor table column', () => {
             public hrefFieldName = 'href';
             public placeholder = 'no value';
             public appearance: string | undefined = 'prominent';
+            public underlineHidden = true;
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -429,6 +442,17 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.appearance).toBeUndefined();
         });
 
+        it('can be configured with property binding for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeTrue();
+            expect(nativeElement.underlineHidden).toBeTrue();
+
+            fixture.componentInstance.underlineHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.underlineHidden).toBeFalse();
+            expect(nativeElement.underlineHidden).toBeFalse();
+        });
+
         it('can be configured with property binding for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -522,6 +546,7 @@ describe('Nimble anchor table column', () => {
                     [attr.href-field-name]="hrefFieldName"
                     [attr.placeholder]="placeholder"
                     [attr.appearance]="appearance"
+                    [attr.underline-hidden]="underlineHidden"
                     [attr.fractional-width]="fractionalWidth"
                     [attr.min-pixel-width]="minPixelWidth"
                     [attr.group-index]="groupIndex"
@@ -544,6 +569,7 @@ describe('Nimble anchor table column', () => {
             public hrefFieldName = 'href';
             public placeholder = 'no value';
             public appearance: string | undefined = 'prominent';
+            public underlineHidden = true;
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -684,6 +710,17 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.appearance).toBeNull();
             expect(nativeElement.appearance).toBeNull();
+        });
+
+        it('can be configured with attribute binding for underlineHidden', () => {
+            expect(directive.underlineHidden).toBeTrue();
+            expect(nativeElement.underlineHidden).toBeTrue();
+
+            fixture.componentInstance.underlineHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.underlineHidden).toBeFalse();
+            expect(nativeElement.underlineHidden).toBeFalse();
         });
 
         it('can be configured with attribute binding for fractionalWidth', () => {

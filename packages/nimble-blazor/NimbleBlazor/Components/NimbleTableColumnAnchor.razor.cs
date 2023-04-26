@@ -32,6 +32,12 @@ public partial class NimbleTableColumnAnchor : NimbleTableColumn
     public AnchorAppearance? Appearance { get; set; }
 
     /// <summary>
+    /// Whether the underline is hidden except on hover.
+    /// </summary>
+    [Parameter]
+    public bool UnderlineHidden { get; set; }
+
+    /// <summary>
     /// Hints at the human language of the linked URL. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a for more information.
     /// </summary>
     [Parameter]

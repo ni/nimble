@@ -15,6 +15,7 @@ export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
     placeholder: string;
     appearance: AnchorAppearance;
+    underlineHidden?: boolean;
     hreflang?: string;
     ping?: string;
     referrerpolicy?: string;
@@ -47,6 +48,9 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 
     @attr
     public appearance?: AnchorAppearance;
+
+    @attr({ attribute: 'underline-hidden', mode: 'boolean' })
+    public underlineHidden = false;
 
     @attr
     public hreflang?: string;
@@ -102,6 +106,10 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         this.updateColumnConfig();
     }
 
+    protected underlineHiddenChanged(): void {
+        this.updateColumnConfig();
+    }
+
     protected hreflangChanged(): void {
         this.updateColumnConfig();
     }
@@ -134,6 +142,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder ?? '',
             appearance: this.appearance,
+            underlineHidden: this.underlineHidden,
             hreflang: this.hreflang,
             ping: this.ping,
             referrerpolicy: this.referrerpolicy,

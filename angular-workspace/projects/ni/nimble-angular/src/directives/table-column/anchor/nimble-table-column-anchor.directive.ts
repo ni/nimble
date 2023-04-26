@@ -48,6 +48,16 @@ export class NimbleTableColumnAnchorDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'appearance', value);
     }
 
+    public get underlineHidden(): boolean {
+        return this.elementRef.nativeElement.underlineHidden;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('underline-hidden') public set underlineHidden(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'underlineHidden', toBooleanProperty(value));
+    }
+
     public get hreflang(): string | undefined {
         return this.elementRef.nativeElement.hreflang;
     }
