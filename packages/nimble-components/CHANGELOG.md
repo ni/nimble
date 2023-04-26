@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 25 Apr 2023 20:41:37 GMT and should not be manually modified.
+This log was last generated on Wed, 26 Apr 2023 17:40:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.6
+
+Wed, 26 Apr 2023 17:40:07 GMT
+
+### Patches
+
+- Spinner now allows internal configuration of animation play state ([ni/nimble@e946415](https://github.com/ni/nimble/commit/e9464153249e21394b06fc5e92cc19c002cf6828))
 
 ## 18.12.5
 
