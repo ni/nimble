@@ -42,7 +42,7 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                     resolve(false);
                 }
             },
-            { threshold: 1.0 }
+            { threshold: 1.0, root: document }
         );
         intersectionObserver.observe(element);
     });
@@ -111,13 +111,6 @@ describe('Select', () => {
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
             await clickAndWaitForOpen(element);
-            // The test is run in an iframe, and the containing window has a Karma header.
-            // It seems the window is sized without accounting for the header, so a header-height's
-            // worth of content is scrolled out of view. The approach we take with the
-            // IntersectionObserver only works if the full iframe is visible, so we scroll the
-            // containing window to the bottom (i.e. scrolling the Karma header out of view and
-            // the bottom of the iframe into view).
-            window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
             const fullyVisible = await checkFullyInViewport(listbox);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
