@@ -149,7 +149,12 @@ export async function fixture<TElement = HTMLElement>(
     options: FixtureOptions = {}
 ): Promise<Fixture<TElement>> {
     const document = options.document || globalThis.document;
-    const parent = options.parent || document.createElement("div");
+    const parent = options.parent || Object.assign(document.createElement("div"), {
+        // Position the fixture in the top-left corner of the page.
+        // Prevents intermittencies related to controls being pushed out of the
+        // view port by test runner page content, i.e. jasmine reporter content
+        style: 'position: absolute; top: 0; left: 0;'
+    });
     const source = options.source || {};
     const context = options.context || defaultExecutionContext;
 

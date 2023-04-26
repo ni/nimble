@@ -1,11 +1,6 @@
-@import "@ni/nimble-tokens/dist/fonts/css/fonts.css";
-@import "@ni/nimble-tokens/dist/styledictionary/scss/variables.scss";
+@import "@ni/nimble-tokens/dist/styledictionary/scss/variables";
+@import "@ni/nimble-components/dist/fonts";
 @import "@ni/nimble-components/dist/tokens";
-// Importing Noto Serif as workaround until we include it with system
-// Issue for including Noto Serif captured at 
-// https://github.com/ni/nimble/issues/899
-@import url('https://fonts.googleapis.com/css2?family=Noto%20Serif&display=swap');
-
 
 $rgb-ni-sky-light: #A5DDED;
 $rgb-labview: #FFC60B;

@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 06 Apr 2023 21:12:10 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Apr 2023 14:12:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.12
+
+Tue, 18 Apr 2023 14:12:28 GMT
+
+### Patches
+
+- Blazor support for row selection in the table ([ni/nimble@2281770](https://github.com/ni/nimble/commit/228177017cae5427fd0bb3a535b0087c17c3bb32))
+
+## 11.8.10
+
+Tue, 11 Apr 2023 02:40:33 GMT
+
+### Patches
+
+- Blazor row grouping support ([ni/nimble@036c36d](https://github.com/ni/nimble/commit/036c36d86d8c009579f1b4734b485785f0173b08))
 
 ## 11.8.5
 

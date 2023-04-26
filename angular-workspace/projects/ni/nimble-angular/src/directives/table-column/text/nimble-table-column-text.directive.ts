@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-column/text';
 import { NimbleTableColumnBaseDirective } from '../base/nimble-table-column-base.directive';
-import { NumberValueOrAttribute, toNullableNumberProperty } from '../../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
 
 export type { TableColumnText };
 
@@ -48,6 +48,26 @@ export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirecti
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('min-pixel-width') public set minPixelWidth(value: NumberValueOrAttribute | null | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'minPixelWidth', toNullableNumberProperty(value));
+    }
+
+    public get groupIndex(): number | null | undefined {
+        return this.elementRef.nativeElement.groupIndex;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('group-index') public set groupIndex(value: NumberValueOrAttribute | null | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'groupIndex', toNullableNumberProperty(value));
+    }
+
+    public get groupingDisabled(): boolean {
+        return this.elementRef.nativeElement.groupingDisabled;
+    }
+
+    // Renaming because property should have camel casing, but attribute should not
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('grouping-disabled') public set groupingDisabled(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'groupingDisabled', toBooleanProperty(value));
     }
 
     public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnText>) {

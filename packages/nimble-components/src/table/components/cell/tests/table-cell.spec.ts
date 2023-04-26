@@ -9,7 +9,7 @@ import {
 import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 import { TableCellView } from '../../../../table-column/base/cell-view';
-import { createCellViewTemplate } from '../template';
+import { createCellViewTemplate } from '../../../../table-column/base/cell-view/template';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;

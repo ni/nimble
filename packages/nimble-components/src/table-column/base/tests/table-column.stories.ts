@@ -16,7 +16,10 @@ import {
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
-import { TableColumnSortDirection } from '../../../table/types';
+import {
+    TableColumnSortDirection,
+    TableRowSelectionMode
+} from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';
@@ -27,6 +30,12 @@ const simpleData = [
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
         quote: "I'm in danger!"
+    },
+    {
+        firstName: 'Quincy',
+        lastName: 'Wiggum',
+        favoriteColor: 'Blue',
+        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity."
     },
     {
         firstName: 'Milhouse',
@@ -84,6 +93,8 @@ const metadata: Meta<SharedTableArgs> = {
     <${tableTag}
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
+        id-field-name="firstName"
+        selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
     >
         <${tableColumnTextTag}
             field-name="firstName"
@@ -156,6 +167,8 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             ${when(x => x.columnOrder === 'FirstName, LastName', html`
                 <${tableColumnTextTag}
@@ -227,6 +240,8 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
                 field-name="firstName"
@@ -284,6 +299,8 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -376,6 +393,8 @@ export const sorting: StoryObj<SortingTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
                 field-name="firstName"
@@ -548,6 +567,8 @@ export const grouping: StoryObj<GroupingTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
             <${tableColumnTextTag}
                 field-name="firstName"
@@ -670,6 +691,8 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            id-field-name="firstName"
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
         >
            <${tableColumnTextTag}
                 field-name="firstName"

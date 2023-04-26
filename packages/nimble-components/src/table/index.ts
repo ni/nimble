@@ -5,7 +5,11 @@ import {
     Notifier,
     DOM
 } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    Checkbox,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import {
     ColumnDef as TanStackColumnDef,
     TableState as TanStackTableState,
@@ -38,6 +42,7 @@ import {
     TableRowSelectionEventDetail,
     TableRowSelectionMode,
     TableRowSelectionState,
+    TableRowSelectionToggleEventDetail,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
@@ -45,6 +50,7 @@ import { getTanStackSortingFunction } from './models/sort-operations';
 import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
+import { ColumnInternals } from '../table-column/base/models/column-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -59,7 +65,7 @@ interface TableRowState<TData extends TableRecord = TableRecord> {
     isGrouped: boolean;
     groupRowValue?: unknown;
     isExpanded: boolean;
-    nestingLevel?: number;
+    nestingLevel: number;
     leafItemCount?: number;
     groupColumn?: TableColumn;
 }
@@ -133,6 +139,12 @@ export class Table<
     @observable
     public rowGridColumns?: string;
 
+    /**
+     * @internal
+     */
+    @observable
+    public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
+
     public get validity(): TableValidity {
         return this.tableValidator.getValidity();
     }
@@ -141,6 +153,18 @@ export class Table<
      * @internal
      */
     public readonly viewport!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly selectionCheckbox?: Checkbox;
+
+    /**
+     * @internal
+     */
+    @observable
+    public showCollapseAll = false;
 
     /**
      * @internal
@@ -165,6 +189,11 @@ export class Table<
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
+    // Programmatically updating the selection state of a checkbox fires the 'change' event.
+    // Therefore, selection change events that occur due to programmatically updating
+    // the selection checkbox 'checked' value should be ingored.
+    // https://github.com/microsoft/fast/issues/5750
+    private ignoreSelectionChangeEvents = false;
 
     public constructor() {
         super();
@@ -184,7 +213,9 @@ export class Table<
                 grouping: [],
                 expanded: true // Workaround until we can apply a fix to TanStack regarding leveraging our getIsRowExpanded implementation
             },
-            enableRowSelection: false,
+            enableRowSelection: row => !row.getIsGrouped(),
+            enableMultiRowSelection: false,
+            enableSubRowSelection: false,
             enableSorting: true,
             enableGrouping: true,
             renderFallbackValue: null,
@@ -276,55 +307,115 @@ export class Table<
      * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof TableColumn && typeof args === 'string') {
+        if (
+            (source instanceof TableColumn
+                || source instanceof ColumnInternals)
+            && typeof args === 'string'
+        ) {
             this.updateTracker.trackColumnPropertyChanged(args);
         }
     }
 
     /** @internal */
-    public async onRowClick(rowIndex: number): Promise<void> {
+    public async onRowSelectionToggle(
+        rowIndex: number,
+        event: CustomEvent<TableRowSelectionToggleEventDetail>
+    ): Promise<void> {
+        event.stopImmediatePropagation();
+
         if (this.selectionMode === TableRowSelectionMode.none) {
             return;
         }
 
-        const row = this.table.getRowModel().rows[rowIndex];
-        if (!row) {
-            return;
+        const rowState = this.tableData[rowIndex];
+        if (
+            rowState?.isGrouped
+            && rowState?.selectionState === TableRowSelectionState.selected
+        ) {
+            // Work around for https://github.com/TanStack/table/issues/4759
+            // Manually deselect all leaf rows when a fully selected group is being deselected.
+            this.deselectAllLeafRows(rowIndex);
+        } else {
+            this.table
+                .getRowModel()
+                .rows[rowIndex]?.toggleSelected(event.detail.newState);
         }
 
-        const currentSelection = await this.getSelectedRecordIds();
-        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
-            // The clicked row is already the only selected row. Do nothing.
-            return;
-        }
-
-        this.table.toggleAllRowsSelected(false);
-        row.toggleSelected(true);
         await this.emitSelectionChangeEvent();
     }
 
     /** @internal */
-    public onRowActionMenuBeforeToggle(
-        event: CustomEvent<TableActionMenuToggleEventDetail>
-    ): void {
-        event.stopImmediatePropagation();
-
-        this.openActionMenuRecordId = event.detail.recordIds[0];
-        this.$emit('action-menu-beforetoggle', event.detail);
+    public async onRowClick(rowIndex: number): Promise<void> {
+        return this.selectSingleRow(rowIndex);
     }
 
     /** @internal */
-    public onRowActionMenuToggle(
+    public async onAllRowsSelectionChange(event: CustomEvent): Promise<void> {
+        event.stopPropagation();
+
+        if (this.ignoreSelectionChangeEvents) {
+            return;
+        }
+
+        this.table.toggleAllRowsSelected(this.selectionCheckbox!.checked);
+        await this.emitSelectionChangeEvent();
+    }
+
+    /** @internal */
+    public async onRowActionMenuBeforeToggle(
+        rowIndex: number,
         event: CustomEvent<TableActionMenuToggleEventDetail>
-    ): void {
+    ): Promise<void> {
         event.stopImmediatePropagation();
 
-        this.$emit('action-menu-toggle', event.detail);
+        let recordIds = event.detail.recordIds;
+        if (this.selectionMode !== TableRowSelectionMode.none) {
+            const row = this.table.getRowModel().rows[rowIndex];
+            if (row && !row.getIsSelected()) {
+                await this.selectSingleRow(rowIndex);
+            } else {
+                recordIds = await this.getSelectedRecordIds();
+            }
+        }
+
+        this.openActionMenuRecordId = event.detail.recordIds[0];
+        const detail: TableActionMenuToggleEventDetail = {
+            ...event.detail,
+            recordIds
+        };
+        this.$emit('action-menu-beforetoggle', detail);
+    }
+
+    /** @internal */
+    public async onRowActionMenuToggle(
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): Promise<void> {
+        event.stopImmediatePropagation();
+
+        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
+            ? await this.getSelectedRecordIds()
+            : event.detail.recordIds;
+        const detail: TableActionMenuToggleEventDetail = {
+            ...event.detail,
+            recordIds
+        };
+        this.$emit('action-menu-toggle', detail);
         if (!event.detail.newState) {
             this.openActionMenuRecordId = undefined;
         }
     }
 
+    /** @internal */
+    public handleCollapseAllGroupRows(): void {
+        this.collapsedRows.clear();
+        this.table
+            .getRowModel()
+            .flatRows.filter(row => row.getIsGrouped())
+            .forEach(row => this.collapsedRows.add(row.id));
+        this.table.toggleAllRowsExpanded(false);
+    }
+
+    /** @internal */
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
@@ -409,6 +500,21 @@ export class Table<
         if (this.updateTracker.updateColumnWidths) {
             this.updateRowGridColumns();
         }
+
+        if (this.updateTracker.updateGroupRows) {
+            this.showCollapseAll = this.getColumnsParticipatingInGrouping().length > 0;
+        }
+    }
+
+    public override get ariaMultiSelectable(): 'true' | 'false' | null {
+        switch (this.selectionMode) {
+            case TableRowSelectionMode.multiple:
+                return 'true';
+            case TableRowSelectionMode.single:
+                return 'false';
+            default:
+                return null;
+        }
     }
 
     protected selectionModeChanged(
@@ -485,6 +591,11 @@ export class Table<
             const notifier = Observable.getNotifier(column);
             notifier.subscribe(this);
             this.columnNotifiers.push(notifier);
+            const notifierInternals = Observable.getNotifier(
+                column.columnInternals
+            );
+            notifierInternals.subscribe(this);
+            this.columnNotifiers.push(notifier);
         }
     }
 
@@ -498,8 +609,8 @@ export class Table<
 
     private getColumnsParticipatingInGrouping(): TableColumn[] {
         return this.columns.filter(
-            x => !x.internalGroupingDisabled
-                && typeof x.internalGroupIndex === 'number'
+            x => !x.columnInternals.groupingDisabled
+                && typeof x.columnInternals.groupIndex === 'number'
         );
     }
 
@@ -532,7 +643,8 @@ export class Table<
             updatedOptions.state.rowSelection = {};
         }
         if (this.updateTracker.updateSelectionMode) {
-            updatedOptions.enableRowSelection = this.selectionMode !== TableRowSelectionMode.none;
+            updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
+            updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
         }
         if (this.updateTracker.requiresTanStackDataReset) {
@@ -577,7 +689,7 @@ export class Table<
         );
         this.tableValidator.validateColumnGroupIndices(
             this.getColumnsParticipatingInGrouping().map(
-                x => x.internalGroupIndex!
+                x => x.columnInternals.groupIndex!
             )
         );
         this.validateWithData(this.table.options.data);
@@ -596,15 +708,33 @@ export class Table<
         this.$emit('selection-change', detail);
     }
 
+    private selectionStateChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private selectionCheckboxChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private setSelectionCheckboxState(): void {
+        if (this.selectionCheckbox) {
+            this.ignoreSelectionChangeEvents = true;
+            this.selectionCheckbox.checked = this.selectionState === TableRowSelectionState.selected;
+            this.selectionCheckbox.indeterminate = this.selectionState
+                === TableRowSelectionState.partiallySelected;
+            this.ignoreSelectionChangeEvents = false;
+        }
+    }
+
     private refreshRows(): void {
+        this.selectionState = this.getTableSelectionState();
+
         const rows = this.table.getRowModel().rows;
         this.tableData = rows.map(row => {
             const rowState: TableRowState<TData> = {
                 record: row.original,
                 id: row.id,
-                selectionState: row.getIsSelected()
-                    ? TableRowSelectionState.selected
-                    : TableRowSelectionState.notSelected,
+                selectionState: this.getRowSelectionState(row),
                 isGrouped: row.getIsGrouped(),
                 isExpanded: row.getIsExpanded(),
                 groupRowValue: row.getIsGrouped()
@@ -622,12 +752,71 @@ export class Table<
         this.virtualizer.dataChanged();
     }
 
+    private getTableSelectionState(): TableRowSelectionState {
+        if (this.table.getIsAllRowsSelected()) {
+            return TableRowSelectionState.selected;
+        }
+        if (this.table.getIsSomeRowsSelected()) {
+            return TableRowSelectionState.partiallySelected;
+        }
+        return TableRowSelectionState.notSelected;
+    }
+
+    private getRowSelectionState(
+        row: TanStackRow<TData>
+    ): TableRowSelectionState {
+        if (row.getIsGrouped()) {
+            return this.getGroupedRowSelectionState(row);
+        }
+
+        return row.getIsSelected()
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
+    }
+
+    private getGroupedRowSelectionState(
+        groupedRow: TanStackRow<TData>
+    ): TableRowSelectionState {
+        const subRows = groupedRow.subRows ?? [];
+        let foundSelectedRow = false;
+        let foundNotSelectedRow = false;
+        for (const row of subRows) {
+            if (row.getIsGrouped()) {
+                const subGroupRowSelectionState = this.getGroupedRowSelectionState(row);
+                switch (subGroupRowSelectionState) {
+                    case TableRowSelectionState.notSelected:
+                        foundNotSelectedRow = true;
+                        break;
+                    case TableRowSelectionState.selected:
+                        foundSelectedRow = true;
+                        break;
+                    default:
+                        return TableRowSelectionState.partiallySelected;
+                }
+            } else if (row.getIsSelected()) {
+                foundSelectedRow = true;
+            } else {
+                foundNotSelectedRow = true;
+            }
+
+            if (foundSelectedRow && foundNotSelectedRow) {
+                return TableRowSelectionState.partiallySelected;
+            }
+        }
+
+        return foundSelectedRow
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
+    }
+
     private getGroupRowColumn(
         row: TanStackRow<TData>
     ): TableColumn | undefined {
         const groupedId = row.groupingColumnId;
         if (groupedId !== undefined) {
-            return this.columns.find(c => c.internalUniqueId === groupedId);
+            return this.columns.find(
+                c => c.columnInternals.uniqueId === groupedId
+            );
         }
 
         return undefined;
@@ -643,6 +832,46 @@ export class Table<
         };
         this.table.setOptions(this.options);
         this.refreshRows();
+    }
+
+    private async selectSingleRow(rowIndex: number): Promise<void> {
+        if (this.selectionMode === TableRowSelectionMode.none) {
+            return;
+        }
+
+        const row = this.table.getRowModel().rows[rowIndex];
+        if (!row) {
+            return;
+        }
+
+        const currentSelection = await this.getSelectedRecordIds();
+        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
+            // The clicked row is already the only selected row. Do nothing.
+            return;
+        }
+
+        this.table.toggleAllRowsSelected(false);
+        row.toggleSelected(true);
+        await this.emitSelectionChangeEvent();
+    }
+
+    private deselectAllLeafRows(rowIndex: number): void {
+        const groupRow = this.table.getRowModel().rows[rowIndex]!;
+        const leafRowIds = groupRow
+            .getLeafRows()
+            .filter(leafRow => leafRow.getLeafRows().length === 0)
+            .map(leafRow => leafRow.id);
+
+        const selectionState = this.table.getState().rowSelection;
+        for (const id of leafRowIds) {
+            delete selectionState[id];
+        }
+
+        this.updateTableOptions({
+            state: {
+                rowSelection: selectionState
+            }
+        });
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
@@ -709,7 +938,7 @@ export class Table<
 
         return sortedColumns.map(column => {
             return {
-                id: column.internalUniqueId,
+                id: column.columnInternals.uniqueId,
                 desc:
                     column.sortDirection === TableColumnSortDirection.descending
             };
@@ -718,10 +947,10 @@ export class Table<
 
     private calculateTanStackGroupingState(): TanStackGroupingState {
         const groupedColumns = this.getColumnsParticipatingInGrouping().sort(
-            (x, y) => x.internalGroupIndex! - y.internalGroupIndex!
+            (x, y) => x.columnInternals.groupIndex! - y.columnInternals.groupIndex!
         );
 
-        return groupedColumns.map(column => column.internalUniqueId);
+        return groupedColumns.map(column => column.columnInternals.uniqueId);
     }
 
     private calculateTanStackRowIdFunction():
@@ -739,15 +968,17 @@ export class Table<
     private calculateTanStackColumns(): TanStackColumnDef<TData>[] {
         return this.columns.map(column => {
             return {
-                id: column.internalUniqueId,
+                id: column.columnInternals.uniqueId,
                 accessorFn: (data: TData): TableFieldValue => {
-                    const fieldName = column.operandDataRecordFieldName;
+                    const fieldName = column.columnInternals.operandDataRecordFieldName;
                     if (typeof fieldName !== 'string') {
                         return undefined;
                     }
                     return data[fieldName];
                 },
-                sortingFn: getTanStackSortingFunction(column.sortOperation)
+                sortingFn: getTanStackSortingFunction(
+                    column.columnInternals.sortOperation
+                )
             };
         });
     }
@@ -761,10 +992,13 @@ export class Table<
 
         const tanstackSelectionState: TanStackRowSelectionState = {};
         const selectableRecordIds = this.tableValidator.getPresentRecordIds(recordIdsToSelect);
-        if (selectableRecordIds.length) {
-            // In single selection mode, only select the first record ID that is requested
-            const firstSelectableRecordId = selectableRecordIds[0]!;
-            tanstackSelectionState[firstSelectableRecordId] = true;
+        for (const recordId of selectableRecordIds) {
+            tanstackSelectionState[recordId] = true;
+
+            if (this.selectionMode === TableRowSelectionMode.single) {
+                // In single selection mode, only select the first record ID that is requested
+                break;
+            }
         }
 
         return tanstackSelectionState;

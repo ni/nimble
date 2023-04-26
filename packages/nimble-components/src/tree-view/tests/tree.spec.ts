@@ -81,6 +81,10 @@ describe('TreeView', () => {
         );
     });
 
+    it('should include a role of `tree`', () => {
+        expect(model.treeView.getAttribute('role')).toBe('tree');
+    });
+
     it('root1 should have "group-selected" attribute set after initialization', () => {
         expect(model.root1.hasAttribute('group-selected')).toBe(true);
         expect(model.root2.hasAttribute('group-selected')).toBe(false);
@@ -88,16 +92,58 @@ describe('TreeView', () => {
 
     it('when leaf item is selected, only root parent tree item has "group-selected" attribute', async () => {
         await clickElement(model.leaf3);
+        await waitForUpdatesAsync(); // reflect selected property to attribute
+        await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
         expect(model.root2.hasAttribute('group-selected')).toBe(true);
         expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
         expect(model.root1.hasAttribute('group-selected')).toBe(false);
         expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
 
         await clickElement(model.leaf1);
+        await waitForUpdatesAsync(); // reflect selected property to attribute
+        await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
         expect(model.root2.hasAttribute('group-selected')).toBe(false);
         expect(model.subRoot2.hasAttribute('group-selected')).toBe(false);
         expect(model.root1.hasAttribute('group-selected')).toBe(true);
         expect(model.leaf3.hasAttribute('group-selected')).toBe(false);
+    });
+
+    it('when leaf item is deselected, root parent tree loses "group-selected" attribute', async () => {
+        await clickElement(model.leaf3);
+        model.leaf3.selected = false;
+        await waitForUpdatesAsync(); // reflect selected property to attribute
+        await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
+        expect(model.root2.hasAttribute('group-selected')).toBe(false);
+    });
+
+    it('when second leaf item under same root parent is selected, root parent tree item has "group-selected" attribute', async () => {
+        await clickElement(model.leaf1);
+        await clickElement(model.leaf2);
+        await waitForUpdatesAsync(); // reflect selected property to attribute
+        await waitForUpdatesAsync(); // FAST updates selectedItems (based on attribute change)
+        expect(model.root1.hasAttribute('group-selected')).toBe(true);
+    });
+
+    it('when selected item is removed, root parent tree loses "group-selected" attribute', async () => {
+        expect(model.leaf2.selected).toBeTrue();
+        model.leaf2.remove();
+        await waitForUpdatesAsync();
+        expect(model.root1.hasAttribute('group-selected')).toBeFalse();
+    });
+
+    it('when non-selected item is removed, root parent tree keeps "group-selected" attribute', async () => {
+        model.leaf1.remove();
+        await waitForUpdatesAsync();
+        expect(model.root1.hasAttribute('group-selected')).toBeTrue();
+    });
+
+    it('when selected item is added to tree, root parent tree gains "group-selected" attribute', async () => {
+        expect(model.leaf2.selected).toBeTrue();
+        model.leaf2.remove();
+        await waitForUpdatesAsync();
+        model.root1.appendChild(model.leaf2);
+        await waitForUpdatesAsync();
+        expect(model.root1.hasAttribute('group-selected')).toBeTrue();
     });
 
     it('when first leaf is clicked twice, leaf remains selected', async () => {

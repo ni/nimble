@@ -2,6 +2,36 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 18 Apr 2023 14:12:28 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.12",
+      "version": "11.8.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "228177017cae5427fd0bb3a535b0087c17c3bb32",
+            "comment": "Blazor support for row selection in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Apr 2023 02:40:33 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.10",
+      "version": "11.8.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "036c36d86d8c009579f1b4734b485785f0173b08",
+            "comment": "Blazor row grouping support"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Apr 2023 21:12:10 GMT",
       "tag": "@ni/nimble-blazor_v11.8.5",
       "version": "11.8.5",

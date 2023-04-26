@@ -1,8 +1,104 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 06 Apr 2023 21:12:10 GMT and should not be manually modified.
+This log was last generated on Wed, 26 Apr 2023 17:40:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.17
+
+Wed, 26 Apr 2023 17:40:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.6
+
+## 16.5.16
+
+Tue, 25 Apr 2023 20:41:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.5
+
+## 16.5.15
+
+Tue, 25 Apr 2023 18:09:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.4
+
+## 16.5.14
+
+Fri, 21 Apr 2023 16:14:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.3
+
+## 16.5.13
+
+Thu, 20 Apr 2023 14:11:37 GMT
+
+### Patches
+
+- Angular support for row selection in the table ([ni/nimble@b569273](https://github.com/ni/nimble/commit/b56927365c467310598d6c7e448369f5e8226a84))
+
+## 16.5.12
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.2
+
+## 16.5.11
+
+Fri, 14 Apr 2023 14:26:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.1
+
+## 16.5.10
+
+Tue, 11 Apr 2023 02:40:33 GMT
+
+### Patches
+
+- Angular row grouping support ([ni/nimble@036c36d](https://github.com/ni/nimble/commit/036c36d86d8c009579f1b4734b485785f0173b08))
+
+## 16.5.9
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.0
+
+## 16.5.8
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.1
+
+## 16.5.7
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.0
+
+## 16.5.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.6
 
 ## 16.5.5
 

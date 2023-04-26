@@ -9,14 +9,6 @@ async function setup(): Promise<Fixture<Tooltip>> {
     return fixture<Tooltip>(html`<nimble-tooltip></nimble-tooltip>`);
 }
 
-// For some reason, on Firefox, it takes two calls to waitForUpdatesAsync before
-// the icon elements have computed styles. If we call it just once, getComputedStyles()
-// returns an empty styles object.
-async function waitForIconVisibilityCheck(): Promise<void> {
-    await waitForUpdatesAsync();
-    await waitForUpdatesAsync();
-}
-
 describe('Tooltip', () => {
     let parent: HTMLElement;
     let element: Tooltip;
@@ -26,15 +18,29 @@ describe('Tooltip', () => {
     function isIconVisible(elementName: string): boolean {
         const iconElement = element.shadowRoot?.querySelector(elementName);
         if (!iconElement) {
-            return false;
+            throw new Error(`Cannot find icon with name ${elementName}`);
         }
         const display = window.getComputedStyle(iconElement).display;
-        if (display === '') {
-            throw new Error('Value of display was unexpectedly empty');
+        if (typeof display !== 'string' || display === '') {
+            throw new Error(
+                `Invalid display value was calcualted for ${elementName}`
+            );
         }
-        return (
-            display === 'block' || display === 'inline' || display === 'flex'
-        );
+        return display !== 'none';
+    }
+
+    async function waitUntilAnchoredRegionLoaded(
+        tooltip: Tooltip
+    ): Promise<void> {
+        await waitForUpdatesAsync();
+        const region = tooltip.shadowRoot!.querySelector(
+            'nimble-anchored-region'
+        )!;
+        return new Promise((resolve, _reject) => {
+            region.addEventListener('loaded', () => {
+                resolve();
+            });
+        });
     }
 
     beforeEach(async () => {
@@ -135,7 +141,7 @@ describe('Tooltip', () => {
         element.visible = true;
 
         await connect();
-        await waitForIconVisibilityCheck();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -148,7 +154,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForIconVisibilityCheck();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -161,7 +167,7 @@ describe('Tooltip', () => {
         element.severity = 'error';
 
         await connect();
-        await waitForIconVisibilityCheck();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -175,7 +181,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForIconVisibilityCheck();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeTrue();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -188,7 +194,7 @@ describe('Tooltip', () => {
         element.severity = 'information';
 
         await connect();
-        await waitForIconVisibilityCheck();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -202,7 +208,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForIconVisibilityCheck();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeTrue();

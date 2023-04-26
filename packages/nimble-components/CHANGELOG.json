@@ -2,6 +2,270 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Apr 2023 17:40:07 GMT",
+      "tag": "@ni/nimble-components_v18.12.6",
+      "version": "18.12.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9464153249e21394b06fc5e92cc19c002cf6828",
+            "comment": "Spinner now allows internal configuration of animation play state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Apr 2023 16:54:36 GMT",
+      "tag": "@ni/nimble-components_v18.12.5",
+      "version": "18.12.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d28634e8abf51499a336478c7699059284956514",
+            "comment": "Fix disabled select test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Apr 2023 20:41:37 GMT",
+      "tag": "@ni/nimble-components_v18.12.5",
+      "version": "18.12.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6c2fa633203e7877536314d01d11b96866ba5376",
+            "comment": "Adding collapse-all-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Apr 2023 18:09:46 GMT",
+      "tag": "@ni/nimble-components_v18.12.4",
+      "version": "18.12.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a0427f9ccd40f1a1a2ce5c4014df91ab4e1b55a",
+            "comment": "Updating row styling."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 21 Apr 2023 16:14:07 GMT",
+      "tag": "@ni/nimble-components_v18.12.3",
+      "version": "18.12.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "8689083addde5db28d5b0c0f16972216c27f42a0",
+            "comment": "Anchor tree item selection sets group selection state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Apr 2023 16:03:28 GMT",
+      "tag": "@ni/nimble-components_v18.12.2",
+      "version": "18.12.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "26ae1a703d8f0eea2e640d6caf456b071a4a061e",
+            "comment": "Fix six tooltip tests that were failing on Firefox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 19 Apr 2023 17:58:44 GMT",
+      "tag": "@ni/nimble-components_v18.12.2",
+      "version": "18.12.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "203525bfb38afb4d440c54a8bc8950e4748bf748",
+            "comment": "Storybook updates for design token build changes"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v5.0.0",
+            "commit": "203525bfb38afb4d440c54a8bc8950e4748bf748"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Apr 2023 14:26:33 GMT",
+      "tag": "@ni/nimble-components_v18.12.1",
+      "version": "18.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e6e882acfbaa112cc1d3bb280981dd8768e991b8",
+            "comment": "Add support for multi-select in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 13 Apr 2023 18:30:54 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "00bdcea5f139efb4409ccdfe54e02282ca80fea1",
+            "comment": "Anchor table column type HLD"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 12 Apr 2023 22:32:48 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "25071e6b1ee3264d0b738a56244b5f2b1494c3f0",
+            "comment": "Move to official Storybook 7 release"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Apr 2023 01:58:34 GMT",
+      "tag": "@ni/nimble-components_v18.12.0",
+      "version": "18.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d339db767c179e2398ccadc6111d9ab7c72ca6bb",
+            "comment": "Adding icon: file-export"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.9.0",
+            "commit": "d339db767c179e2398ccadc6111d9ab7c72ca6bb"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 23:30:09 GMT",
+      "tag": "@ni/nimble-components_v18.11.1",
+      "version": "18.11.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "45e6b5dfd3ff1b9ae6bc9839c2091302884ceef3",
+            "comment": "Revert icon timing workaround"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 22:26:12 GMT",
+      "tag": "@ni/nimble-components_v18.11.1",
+      "version": "18.11.1",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e18ddb74acf26b08d26672ae9e6a64de9539e357",
+            "comment": "Storybook updates to support MDX doc composition"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 19:29:13 GMT",
+      "tag": "@ni/nimble-components_v18.11.1",
+      "version": "18.11.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "49ea4be8b29e5426f01f64811f4cc648316c144f",
+            "comment": "Add the table column internals api for column authors"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 18:53:34 GMT",
+      "tag": "@ni/nimble-components_v18.11.0",
+      "version": "18.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f",
+            "comment": "Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.8.0",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Apr 2023 20:48:27 GMT",
+      "tag": "@ni/nimble-components_v18.10.6",
+      "version": "18.10.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ce0d505f4f79cd384aa4224f7faf2b66d4941138",
+            "comment": "Update fonts.scss to reference the new nimble-tokens fonts.scss file"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v4.7.3",
+            "commit": "ce0d505f4f79cd384aa4224f7faf2b66d4941138"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 06 Apr 2023 21:12:10 GMT",
       "tag": "@ni/nimble-components_v18.10.5",
       "version": "18.10.5",
