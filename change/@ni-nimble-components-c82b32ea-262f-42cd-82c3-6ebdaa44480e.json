@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Spinner now respects CSS configuration of animation-play-state",
+  "comment": "Spinner now allows internal configuration of animation play state",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
