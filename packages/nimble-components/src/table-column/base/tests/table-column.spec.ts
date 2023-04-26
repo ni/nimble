@@ -5,34 +5,20 @@ import {
     Fixture,
     uniqueElementName
 } from '../../../utilities/tests/fixture';
+import {
+    TableColumnEmpty,
+    tableColumnEmptyCellViewTag,
+    tableColumnEmptyGroupHeaderViewTag,
+    tableColumnEmptyTag
+} from './table-column.fixtures';
 import { TableColumn } from '..';
-import { TableCellView } from '../cell-view';
 
-const columnName = uniqueElementName();
-const columnCellViewName = uniqueElementName();
-
-@customElement({
-    name: columnCellViewName
-})
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class TestTableColumnCellView extends TableCellView {}
-
-@customElement({
-    name: columnName
-})
-class TestTableColumn extends TableColumn {
-    public cellViewTag = columnCellViewName;
-    public cellRecordFieldNames: readonly string[] = [];
-    public groupHeaderViewTag = '';
-}
-
-// prettier-ignore
-async function setup(): Promise<Fixture<TestTableColumn>> {
-    return fixture(columnName);
+async function setup(): Promise<Fixture<TableColumnEmpty>> {
+    return fixture(tableColumnEmptyTag);
 }
 
 describe('TableColumn', () => {
-    let element: TestTableColumn;
+    let element: TableColumnEmpty;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
@@ -44,21 +30,112 @@ describe('TableColumn', () => {
         await disconnect();
     });
 
-    it('setting internalFractionalWidth sets currentFractionalWidth', async () => {
+    it('setting columnInternals.fractionalWidth sets columnInternals.currentFractionalWidth', async () => {
         await connect();
-        element.currentFractionalWidth = 1;
+        element.columnInternals.currentFractionalWidth = 1;
 
-        element.internalFractionalWidth = 2;
+        element.columnInternals.fractionalWidth = 2;
 
-        expect(element.currentFractionalWidth).toBe(2);
+        expect(element.columnInternals.currentFractionalWidth).toBe(2);
     });
 
-    it('setting internalPixelWidth sets currentPixelWidth', async () => {
+    it('setting columnInternals.pixelWidth sets columnInternals.currentPixelWidth', async () => {
         await connect();
-        element.currentPixelWidth = 100;
+        element.columnInternals.currentPixelWidth = 100;
 
-        element.internalPixelWidth = 200;
+        element.columnInternals.pixelWidth = 200;
 
-        expect(element.currentPixelWidth).toBe(200);
+        expect(element.columnInternals.currentPixelWidth).toBe(200);
+    });
+
+    describe('with a custom constructor', () => {
+        // Seems subject to change how errors are handled during custom
+        // element construction: https://github.com/WICG/webcomponents/issues/635
+        // Right now they are propagated to the global error handler.
+
+        // Manually cast the globalErrorSpy
+        // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/61819#issuecomment-1502152632
+        function castSpy(spy: Error): jasmine.Spy<(err: Error) => void> {
+            return spy as unknown as jasmine.Spy<(err: Error) => void>;
+        }
+
+        describe('that is a default constructor without ColumnInternalsOptions', () => {
+            const columnName = uniqueElementName();
+            @customElement({
+                name: columnName
+            })
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class TestTableColumn extends TableColumn {}
+
+            it('throws when instantiated', async () => {
+                await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
+                    const spy = castSpy(globalErrorSpy);
+                    document.createElement(columnName);
+                    await Promise.resolve();
+                    expect(spy).toHaveBeenCalledTimes(1);
+                    expect(spy.calls.first().args[0].message).toMatch(
+                        'ColumnInternalsOptions must be provided'
+                    );
+                });
+            });
+        });
+
+        describe('that passes an invalid cellViewTag', () => {
+            const columnName = uniqueElementName();
+            @customElement({
+                name: columnName
+            })
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class TestTableColumn extends TableColumn {
+                public constructor() {
+                    super({
+                        cellRecordFieldNames: [],
+                        cellViewTag: 'div',
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+                    });
+                }
+            }
+
+            it('throws when instantiated', async () => {
+                await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
+                    const spy = castSpy(globalErrorSpy);
+                    document.createElement(columnName);
+                    await Promise.resolve();
+                    expect(spy).toHaveBeenCalledTimes(1);
+                    expect(spy.calls.first().args[0].message).toMatch(
+                        'must evaluate to an element extending TableCellView'
+                    );
+                });
+            });
+        });
+
+        describe('that passes an invalid groupHeaderViewTag', () => {
+            const columnName = uniqueElementName();
+            @customElement({
+                name: columnName
+            })
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            class TestTableColumn extends TableColumn {
+                public constructor() {
+                    super({
+                        cellRecordFieldNames: [],
+                        cellViewTag: tableColumnEmptyCellViewTag,
+                        groupHeaderViewTag: 'div'
+                    });
+                }
+            }
+
+            it('throws when instantiated', async () => {
+                await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
+                    const spy = castSpy(globalErrorSpy);
+                    document.createElement(columnName);
+                    await Promise.resolve();
+                    expect(spy).toHaveBeenCalledTimes(1);
+                    expect(spy.calls.first().args[0].message).toMatch(
+                        'must evaluate to an element extending TableGroupHeaderView'
+                    );
+                });
+            });
+        });
     });
 });

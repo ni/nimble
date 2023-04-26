@@ -15,6 +15,7 @@ export const styles = css`
     :host {
         height: ${spinnerSmallHeight};
         aspect-ratio: 1 / 1;
+        --ni-private-spinner-animation-play-state: running;
     }
 
     div.container {
@@ -41,6 +42,7 @@ export const styles = css`
         margin: auto;
         animation-duration: 1600ms;
         animation-iteration-count: infinite;
+        animation-play-state: var(--ni-private-spinner-animation-play-state);
         animation-timing-function: cubic-bezier(0.65, 0, 0.35, 0);
     }
 

@@ -1,12 +1,15 @@
+import type { Checkbox } from '@microsoft/fast-foundation';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import type { TableRecord } from '../types';
+import { TableRecord, TableRowSelectionState } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableRow } from '../components/row';
+import type { TableGroupRow } from '../components/group-row';
+import type { Button } from '../../button';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -79,7 +82,7 @@ export class TablePageObject<T extends TableRecord> {
         ).length;
     }
 
-    public getAllGroupRowExpandedState(): boolean[] {
+    public getAllGroupRowsExpandedState(): boolean[] {
         const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-group-row'
         );
@@ -176,6 +179,28 @@ export class TablePageObject<T extends TableRecord> {
         return tableRowContainer!.scrollWidth;
     }
 
+    public async sizeTableToGivenRowWidth(
+        rowWidth: number,
+        table: Table<T>
+    ): Promise<void> {
+        if (!table.$fastController.isConnected) {
+            throw Error(
+                'The element must be connected before calling this method'
+            );
+        }
+
+        const collapseButton = this.getCollapseAllButton();
+        const buttonWidth = collapseButton!.getBoundingClientRect().width;
+        const buttonStyle = window.getComputedStyle(collapseButton!);
+        table.style.width = `${
+            rowWidth
+            + buttonWidth
+            + parseFloat(buttonStyle.marginLeft)
+            + parseFloat(buttonStyle.marginRight)
+        }px`;
+        await waitForUpdatesAsync();
+    }
+
     public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
         if (columnIndex >= this.tableElement.columns.length) {
             throw new Error(
@@ -193,6 +218,14 @@ export class TablePageObject<T extends TableRecord> {
 
         const columnCell = cells![columnIndex]!;
         return columnCell.getBoundingClientRect().width;
+    }
+
+    public getTotalCellRenderedWidth(): number {
+        const row = this.getRow(0);
+        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
+        return Array.from(cells!).reduce((p, c) => {
+            return p + c.getBoundingClientRect().width;
+        }, 0);
     }
 
     public async scrollToLastRowAsync(): Promise<void> {
@@ -253,6 +286,12 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
+    public async clickGroupRow(groupRowIndex: number): Promise<void> {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        groupRow.click();
+        await waitForUpdatesAsync();
+    }
+
     public async clickRow(rowIndex: number): Promise<void> {
         const row = this.getRow(rowIndex);
         row.click();
@@ -270,16 +309,63 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     public toggleGroupRowExpandedState(groupRowIndex: number): void {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
-        if (groupRowIndex >= groupRows.length) {
-            throw new Error(
-                'Attempting to index past the total number of group rows'
+        this.getGroupRow(groupRowIndex).click();
+    }
+
+    public clickCollapseAllButton(): void {
+        this.getCollapseAllButton()?.click();
+    }
+
+    public isCollapseAllButtonVisible(): boolean {
+        const collapseButton = this.getCollapseAllButton();
+        if (collapseButton) {
+            return (
+                window.getComputedStyle(collapseButton).visibility === 'visible'
             );
         }
+        return false;
+    }
 
-        groupRows[groupRowIndex]!.click();
+    public isTableSelectionCheckboxVisible(): boolean {
+        const checkbox = this.getSelectionCheckboxForTable();
+        return this.isCheckboxVisible(checkbox);
+    }
+
+    public getTableSelectionState(): TableRowSelectionState {
+        const checkbox = this.getSelectionCheckboxForTable();
+        return this.getSelectionStateOfCheckbox(checkbox);
+    }
+
+    public clickTableSelectionCheckbox(): void {
+        const checkbox = this.getSelectionCheckboxForTable();
+        checkbox!.click();
+    }
+
+    public isRowSelectionCheckboxVisible(rowIndex: number): boolean {
+        const checkbox = this.getSelectionCheckboxForRow(rowIndex);
+        return this.isCheckboxVisible(checkbox);
+    }
+
+    public getRowSelectionState(rowIndex: number): TableRowSelectionState {
+        const checkbox = this.getSelectionCheckboxForRow(rowIndex);
+        return this.getSelectionStateOfCheckbox(checkbox);
+    }
+
+    public clickRowSelectionCheckbox(rowIndex: number): void {
+        const checkbox = this.getSelectionCheckboxForRow(rowIndex);
+        checkbox!.click();
+    }
+
+    public getGroupRowSelectionState(
+        groupRowIndex: number
+    ): TableRowSelectionState {
+        const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
+        return this.getSelectionStateOfCheckbox(checkbox);
+    }
+
+    public clickGroupRowSelectionCheckbox(groupRowIndex: number): void {
+        const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
+        checkbox!.click();
     }
 
     private getRow(rowIndex: number): TableRow {
@@ -305,6 +391,63 @@ export class TablePageObject<T extends TableRecord> {
         return cells.item(columnIndex);
     }
 
+    private getCollapseAllButton(): Button | null {
+        return this.tableElement.shadowRoot!.querySelector<Button>(
+            '.collapse-all-button'
+        );
+    }
+
+    private getSelectionCheckboxForRow(rowIndex: number): Checkbox | null {
+        const row = this.getRow(rowIndex);
+        return row.shadowRoot!.querySelector('.selection-checkbox');
+    }
+
+    private getSelectionCheckboxForGroupRow(
+        groupRowIndex: number
+    ): Checkbox | null {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        return groupRow.shadowRoot!.querySelector('.selection-checkbox');
+    }
+
+    private getSelectionCheckboxForTable(): Checkbox | null {
+        return this.tableElement.shadowRoot!.querySelector<Checkbox>(
+            '.header-row .selection-checkbox'
+        );
+    }
+
+    private isCheckboxVisible(checkbox: Checkbox | null): boolean {
+        return !!checkbox && !checkbox.hidden;
+    }
+
+    private getSelectionStateOfCheckbox(
+        checkbox: Checkbox | null
+    ): TableRowSelectionState {
+        if (!checkbox) {
+            throw new Error('Cannot get selection state from null checkbox');
+        }
+
+        if (checkbox.indeterminate) {
+            return TableRowSelectionState.partiallySelected;
+        }
+        if (checkbox.checked) {
+            return TableRowSelectionState.selected;
+        }
+        return TableRowSelectionState.notSelected;
+    }
+
+    private getGroupRow(groupRowIndex: number): TableGroupRow {
+        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
+            'nimble-table-group-row'
+        );
+        if (groupRowIndex >= groupRows.length) {
+            throw new Error(
+                'Attempting to index past the total number of group rows'
+            );
+        }
+
+        return groupRows.item(groupRowIndex);
+    }
+
     private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
         const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-group-row'
@@ -316,9 +459,7 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         const groupRow = groupRows[groupRowIndex];
-        return groupRow!.shadowRoot!.querySelector(
-            groupRow!.groupColumn!.groupHeaderViewTag!
-        )!;
+        return groupRow!.shadowRoot!.querySelector('.group-header-view')!;
     }
 
     private getHeaderContentElement(

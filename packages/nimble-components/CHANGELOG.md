@@ -1,8 +1,92 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 06 Apr 2023 21:12:10 GMT and should not be manually modified.
+This log was last generated on Wed, 26 Apr 2023 17:40:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.12.6
+
+Wed, 26 Apr 2023 17:40:07 GMT
+
+### Patches
+
+- Spinner now allows internal configuration of animation play state ([ni/nimble@e946415](https://github.com/ni/nimble/commit/e9464153249e21394b06fc5e92cc19c002cf6828))
+
+## 18.12.5
+
+Tue, 25 Apr 2023 20:41:37 GMT
+
+### Patches
+
+- Adding collapse-all-button ([ni/nimble@6c2fa63](https://github.com/ni/nimble/commit/6c2fa633203e7877536314d01d11b96866ba5376))
+
+## 18.12.4
+
+Tue, 25 Apr 2023 18:09:46 GMT
+
+### Patches
+
+- Updating row styling. ([ni/nimble@2a0427f](https://github.com/ni/nimble/commit/2a0427f9ccd40f1a1a2ce5c4014df91ab4e1b55a))
+
+## 18.12.3
+
+Fri, 21 Apr 2023 16:14:07 GMT
+
+### Patches
+
+- Anchor tree item selection sets group selection state ([ni/nimble@8689083](https://github.com/ni/nimble/commit/8689083addde5db28d5b0c0f16972216c27f42a0))
+
+## 18.12.2
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Patches
+
+- Storybook updates for design token build changes ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
+- Bump @ni/nimble-tokens to v5.0.0
+
+## 18.12.1
+
+Fri, 14 Apr 2023 14:26:33 GMT
+
+### Patches
+
+- Add support for multi-select in the table ([ni/nimble@e6e882a](https://github.com/ni/nimble/commit/e6e882acfbaa112cc1d3bb280981dd8768e991b8))
+
+## 18.12.0
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Minor changes
+
+- Adding icon: file-export ([ni/nimble@d339db7](https://github.com/ni/nimble/commit/d339db767c179e2398ccadc6111d9ab7c72ca6bb))
+- Bump @ni/nimble-tokens to v4.9.0
+
+## 18.11.1
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Add the table column internals api for column authors ([ni/nimble@49ea4be](https://github.com/ni/nimble/commit/49ea4be8b29e5426f01f64811f4cc648316c144f))
+
+## 18.11.0
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Minor changes
+
+- Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines ([ni/nimble@b14c239](https://github.com/ni/nimble/commit/b14c239ec88207b6561e90f447c1975e429e086f))
+- Bump @ni/nimble-tokens to v4.8.0
+
+## 18.10.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Update fonts.scss to reference the new nimble-tokens fonts.scss file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
+- Bump @ni/nimble-tokens to v4.7.3
 
 ## 18.10.5
 

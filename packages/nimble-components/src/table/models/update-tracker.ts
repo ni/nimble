@@ -2,6 +2,7 @@ import { DOM } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
+import type { ColumnInternals } from '../../table-column/base/models/column-internals';
 
 interface BooleanCollection {
     [key: string]: boolean;
@@ -21,6 +22,18 @@ interface RequiredUpdates extends BooleanCollection {
 const isColumnProperty = (
     changedProperty: string,
     ...args: (keyof TableColumn)[]
+): boolean => {
+    for (const arg of args) {
+        if (changedProperty === arg) {
+            return true;
+        }
+    }
+    return false;
+};
+
+const isColumnInternalsProperty = (
+    changedProperty: string,
+    ...args: (keyof ColumnInternals<unknown>)[]
 ): boolean => {
     for (const arg of args) {
         if (changedProperty === arg) {
@@ -114,7 +127,7 @@ export class UpdateTracker<TData extends TableRecord> {
         if (isColumnProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;
         } else if (
-            isColumnProperty(
+            isColumnInternalsProperty(
                 changedColumnProperty,
                 'operandDataRecordFieldName',
                 'sortOperation'
@@ -130,22 +143,22 @@ export class UpdateTracker<TData extends TableRecord> {
         ) {
             this.requiredUpdates.columnSort = true;
         } else if (
-            isColumnProperty(
+            isColumnProperty(changedColumnProperty, 'columnHidden')
+            || isColumnInternalsProperty(
                 changedColumnProperty,
                 'currentFractionalWidth',
                 'currentPixelWidth',
-                'internalMinPixelWidth',
-                'columnHidden'
+                'minPixelWidth'
             )
         ) {
             this.requiredUpdates.columnWidths = true;
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
         } else if (
-            isColumnProperty(
+            isColumnInternalsProperty(
                 changedColumnProperty,
-                'internalGroupIndex',
-                'internalGroupingDisabled'
+                'groupIndex',
+                'groupingDisabled'
             )
         ) {
             this.requiredUpdates.groupRows = true;

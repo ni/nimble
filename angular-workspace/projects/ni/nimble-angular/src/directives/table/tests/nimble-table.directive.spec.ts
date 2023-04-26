@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { processUpdates, Table, TableRecord, TableValidity } from '@ni/nimble-angular';
 import { Observable, Subject } from 'rxjs';
-import { NimbleTableDirective } from '../nimble-table.directive';
+import { NimbleTableDirective, TableRowSelectionMode } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
 
 describe('Nimble table', () => {
@@ -197,6 +197,11 @@ describe('Nimble table', () => {
             expect(directive.idFieldName).toEqual(undefined);
             expect(nativeElement.idFieldName).toEqual(undefined);
         });
+
+        it('has expected defaults for selectionMode', () => {
+            expect(directive.selectionMode).toEqual(TableRowSelectionMode.none);
+            expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.none);
+        });
     });
 
     describe('with property bound values', () => {
@@ -207,7 +212,12 @@ describe('Nimble table', () => {
 
         @Component({
             template: `
-                <nimble-table #table [data$]="data$" [idFieldName]="idFieldName"></nimble-table>
+                <nimble-table #table
+                    [data$]="data$"
+                    [idFieldName]="idFieldName"
+                    [selectionMode]="selectionMode"
+                >
+                </nimble-table>
             `
         })
         class TestHostComponent {
@@ -216,6 +226,7 @@ describe('Nimble table', () => {
 
             public data$ = new Observable<SimpleRecord[]>();
             public idFieldName = 'field1';
+            public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -252,6 +263,17 @@ describe('Nimble table', () => {
             expect(directive.idFieldName).toEqual('field2');
             expect(nativeElement.idFieldName).toEqual('field2');
         });
+
+        it('can be configured with property binding for selectionMode', () => {
+            expect(directive.selectionMode).toEqual(fixture.componentInstance.selectionMode);
+            expect(nativeElement.selectionMode).toEqual(fixture.componentInstance.selectionMode);
+
+            fixture.componentInstance.selectionMode = TableRowSelectionMode.single;
+            fixture.detectChanges();
+
+            expect(directive.selectionMode).toEqual(TableRowSelectionMode.single);
+            expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.single);
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -263,7 +285,9 @@ describe('Nimble table', () => {
         @Component({
             template: `
                 <nimble-table #table
-                    [attr.id-field-name]="idFieldName">
+                    [attr.id-field-name]="idFieldName"
+                    [attr.selection-mode]="selectionMode"
+                >
                 </nimble-table>
             `
         })
@@ -276,6 +300,7 @@ describe('Nimble table', () => {
             }] as const;
 
             public idFieldName = 'field1';
+            public selectionMode: TableRowSelectionMode = TableRowSelectionMode.multiple;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -302,6 +327,17 @@ describe('Nimble table', () => {
 
             expect(directive.idFieldName).toEqual('field2');
             expect(nativeElement.idFieldName).toEqual('field2');
+        });
+
+        it('can be configured with attribute binding for selectionMode', () => {
+            expect(directive.selectionMode).toEqual(fixture.componentInstance.selectionMode);
+            expect(nativeElement.selectionMode).toEqual(fixture.componentInstance.selectionMode);
+
+            fixture.componentInstance.selectionMode = TableRowSelectionMode.single;
+            fixture.detectChanges();
+
+            expect(directive.selectionMode).toEqual(TableRowSelectionMode.single);
+            expect(nativeElement.selectionMode).toEqual(TableRowSelectionMode.single);
         });
     });
 });

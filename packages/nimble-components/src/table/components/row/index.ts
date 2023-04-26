@@ -1,12 +1,17 @@
 import { attr, observable, volatile } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    Checkbox,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
 import type {
     TableActionMenuToggleEventDetail,
     TableFieldName,
-    TableRecord
+    TableRecord,
+    TableRowSelectionToggleEventDetail
 } from '../../types';
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
@@ -44,6 +49,9 @@ export class TableRow<
     @attr({ mode: 'boolean' })
     public selected = false;
 
+    @attr({ attribute: 'hide-selection', mode: 'boolean' })
+    public hideSelection = false;
+
     @observable
     public dataRecord?: TDataRecord;
 
@@ -59,22 +67,35 @@ export class TableRow<
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
+    /** @internal */
+    @observable
+    public readonly selectionCheckbox?: Checkbox;
+
+    /** @internal */
+    public readonly cellContainer!: HTMLSpanElement;
+
+    // Programmatically updating the selection state of a checkbox fires the 'change' event.
+    // Therefore, selection change events that occur due to programmatically updating
+    // the selection checkbox 'checked' value should be ingored.
+    // https://github.com/microsoft/fast/issues/5750
+    private ignoreSelectionChangeEvents = false;
+
     @volatile
     public get columnStates(): ColumnState[] {
         return this.columns.map((column, i) => {
-            const fieldNames = column.dataRecordFieldNames;
+            const fieldNames = column.columnInternals.dataRecordFieldNames;
             let cellState: TableCellState;
             if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
                 const cellDataValues = fieldNames.map(
                     field => this.dataRecord![field]
                 );
                 const cellRecord = Object.fromEntries(
-                    column.cellRecordFieldNames.map((k, j) => [
+                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
                         k,
                         cellDataValues[j]
                     ])
                 );
-                const columnConfig = column.columnConfig ?? {};
+                const columnConfig = column.columnInternals.columnConfig ?? {};
                 cellState = {
                     cellRecord,
                     columnConfig
@@ -85,7 +106,7 @@ export class TableRow<
                     columnConfig: {}
                 };
             }
-            const cellIndentLevel = i === 0 ? this.nestingLevel : 0;
+            const cellIndentLevel = i === 0 && this.nestingLevel > 0 ? this.nestingLevel - 1 : 0;
             return { column, cellState, cellIndentLevel };
         });
     }
@@ -99,12 +120,25 @@ export class TableRow<
         return null;
     }
 
+    public onSelectionChange(event: CustomEvent): void {
+        if (this.ignoreSelectionChangeEvents) {
+            return;
+        }
+
+        const checkbox = event.target as Checkbox;
+        const detail: TableRowSelectionToggleEventDetail = {
+            oldState: !checkbox.checked,
+            newState: checkbox.checked
+        };
+        this.$emit('row-selection-toggle', detail);
+    }
+
     public onCellActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
     ): void {
         this.currentActionMenuColumn = column;
-        this.emitToggleEvent(
+        this.emitActionMenuToggleEvent(
             'row-action-menu-beforetoggle',
             event.detail,
             column
@@ -116,21 +150,25 @@ export class TableRow<
         column: TableColumn
     ): void {
         this.menuOpen = event.detail.newState;
-        this.emitToggleEvent('row-action-menu-toggle', event.detail, column);
+        this.emitActionMenuToggleEvent(
+            'row-action-menu-toggle',
+            event.detail,
+            column
+        );
     }
 
     public closeOpenActionMenus(): void {
         if (this.menuOpen) {
-            const cellWithMenuOpen = Array.from(this.shadowRoot!.children).find(
-                c => c instanceof TableCell && c.menuOpen
-            ) as TableCell;
+            const cellWithMenuOpen = Array.from(
+                this.cellContainer.children
+            ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
             if (cellWithMenuOpen?.actionMenuButton?.open) {
                 cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
             }
         }
     }
 
-    private emitToggleEvent(
+    private emitActionMenuToggleEvent(
         eventType: string,
         menuButtonEventDetail: MenuButtonToggleEventDetail,
         column: TableColumn
@@ -148,6 +186,22 @@ export class TableRow<
         keys: readonly (TableFieldName | undefined)[]
     ): keys is TableFieldName[] {
         return keys.every(key => key !== undefined);
+    }
+
+    private selectedChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private selectionCheckboxChanged(): void {
+        this.setSelectionCheckboxState();
+    }
+
+    private setSelectionCheckboxState(): void {
+        if (this.selectionCheckbox) {
+            this.ignoreSelectionChangeEvents = true;
+            this.selectionCheckbox.checked = this.selected;
+            this.ignoreSelectionChangeEvents = false;
+        }
     }
 }
 
