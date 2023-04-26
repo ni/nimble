@@ -3,7 +3,7 @@ import { attr, customElement, html } from '@microsoft/fast-element';
 import { Table, tableTag } from '..';
 import { TableColumn } from '../../table-column/base';
 import { TableColumnText } from '../../table-column/text';
-import { TableColumnTextCellView } from '../../table-column/text/cell-view';
+import { TableColumnTextCellView } from '../../table-column/text-base/cell-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { controlHeight } from '../../theme-provider/design-tokens';
 import { createEventListener } from '../../utilities/tests/component';

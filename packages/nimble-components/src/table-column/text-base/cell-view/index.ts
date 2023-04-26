@@ -3,7 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import type {
     TableColumnTextCellRecord,
     TableColumnTextColumnConfig
-} from '..';
+} from '../../text';
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
