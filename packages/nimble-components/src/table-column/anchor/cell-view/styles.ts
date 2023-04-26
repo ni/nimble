@@ -8,6 +8,7 @@ import {
 export const styles = css`
     :host {
         width: fit-content;
+        max-width: 100%;
         height: fit-content;
         align-self: center;
     }
