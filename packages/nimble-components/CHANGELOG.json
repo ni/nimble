@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Apr 2023 16:54:36 GMT",
+      "tag": "@ni/nimble-components_v18.12.5",
+      "version": "18.12.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d28634e8abf51499a336478c7699059284956514",
+            "comment": "Fix disabled select test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Apr 2023 20:41:37 GMT",
       "tag": "@ni/nimble-components_v18.12.5",
       "version": "18.12.5",
