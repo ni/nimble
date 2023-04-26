@@ -156,7 +156,7 @@ describe('Table grouping', () => {
         pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
             false,
             true,
             true
@@ -166,7 +166,7 @@ describe('Table grouping', () => {
         await element.setData(newData); // inserts row at beginning
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
             true,
             false,
             true,
@@ -192,12 +192,15 @@ describe('Table grouping', () => {
         pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true]);
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
+            false,
+            true
+        ]);
 
         column2.groupIndex = 1;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
             true,
             true,
             true,
@@ -223,7 +226,10 @@ describe('Table grouping', () => {
         pageObject.toggleGroupRowExpandedState(0); // collapse first group
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([false, true]);
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([
+            false,
+            true
+        ]);
 
         column2.groupIndex = 1;
         await waitForUpdatesAsync();
@@ -234,7 +240,7 @@ describe('Table grouping', () => {
         await element.setData(newData);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getAllGroupRowExpandedState()).toEqual([true, true]);
+        expect(pageObject.getAllGroupRowsExpandedState()).toEqual([true, true]);
     });
 
     it('can group by multiple columns', async () => {
@@ -647,6 +653,136 @@ describe('Table grouping', () => {
                 '2',
                 '5'
             ]);
+        });
+    });
+
+    describe('collapse all button:', () => {
+        it('becomes visible when column becomes grouped', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello' },
+                { id: '2', stringData1: 'good bye' },
+                { id: '3', stringData1: 'hello' },
+                { id: '4', stringData1: 'good bye' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+
+            column1.groupIndex = 0;
+            await waitForUpdatesAsync();
+            expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+        });
+
+        it('becomes hidden when grouping is removed', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello' },
+                { id: '2', stringData1: 'good bye' },
+                { id: '3', stringData1: 'hello' },
+                { id: '4', stringData1: 'good bye' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 0;
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+
+            column1.groupIndex = null;
+            await waitForUpdatesAsync();
+            expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+        });
+
+        it('becomes hidden when grouping is disabled', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello' },
+                { id: '2', stringData1: 'good bye' },
+                { id: '3', stringData1: 'hello' },
+                { id: '4', stringData1: 'good bye' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 0;
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+            expect(pageObject.isCollapseAllButtonVisible()).toBeTrue();
+
+            column1.groupingDisabled = true;
+            await waitForUpdatesAsync();
+            expect(pageObject.isCollapseAllButtonVisible()).toBeFalse();
+        });
+
+        it('when clicked, collapses all expanded rows', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello' },
+                { id: '2', stringData1: 'good bye' },
+                { id: '3', stringData1: 'hello' },
+                { id: '4', stringData1: 'good bye' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 0;
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(4);
+            pageObject.clickCollapseAllButton();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(pageObject.getRenderedGroupRowCount()).toBe(2);
+        });
+
+        it('clicked when everything is already collapsed, does nothing', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello' },
+                { id: '2', stringData1: 'good bye' },
+                { id: '3', stringData1: 'hello' },
+                { id: '4', stringData1: 'good bye' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 0;
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+            pageObject.clickCollapseAllButton();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(pageObject.getRenderedGroupRowCount()).toBe(2);
+
+            pageObject.clickCollapseAllButton();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(pageObject.getRenderedGroupRowCount()).toBe(2);
+        });
+
+        it('after collapse all of fully expanded multi-column grouping, expanding a group has a collapsed sub-group', async () => {
+            const data: readonly SimpleTableRecord[] = [
+                { id: '1', stringData1: 'hello' },
+                { id: '2', stringData1: 'good bye' },
+                { id: '3', stringData1: 'hello' },
+                { id: '4', stringData1: 'good bye' }
+            ] as const;
+
+            column1.fieldName = 'stringData1';
+            column1.groupIndex = 0;
+            column2.fieldName = 'id';
+            column2.groupIndex = 1;
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+            pageObject.clickCollapseAllButton();
+            await waitForUpdatesAsync();
+
+            await pageObject.clickGroupRow(0);
+            expect(pageObject.getRenderedRowCount()).toBe(0);
+            expect(pageObject.getRenderedGroupRowCount()).toBe(4); // id 1 and 3 shown under 'hello' plus un-expanded 'good bye'
         });
     });
 });

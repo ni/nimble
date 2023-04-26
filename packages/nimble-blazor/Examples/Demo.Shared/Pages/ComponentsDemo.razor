@@ -206,7 +206,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Table</div>
-            <NimbleTable @bind-Data="TableData" class="table">
+            <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
                     FieldName="FirstName"
                     Placeholder="no value"

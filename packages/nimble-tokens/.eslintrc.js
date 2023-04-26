@@ -5,8 +5,11 @@ module.exports = {
     ],
     overrides: [
         {
+            parserOptions: {
+                ecmaVersion: '2020'
+            },
             files: [
-                'dist/styledictionary/nimble-extensions.js'
+                'source/styledictionary/*.js',
             ],
             rules: {
                 // Build scripts will not be in published package and are allowed to use devDependencies
