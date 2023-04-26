@@ -106,8 +106,7 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        // Disabled due to intermittancy, see: https://github.com/ni/nimble/issues/1172
-        xit('should limit dropdown height to viewport', async () => {
+        it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
