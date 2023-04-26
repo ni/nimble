@@ -110,7 +110,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 placeholder="${x => x.placeholderText}"
                 appearance="${x => x.appearance}"
             >
-            First Name
+            Link Column
             </${tableColumnAnchorTag}>
             <${tableColumnTextTag}
                 field-name="lastName"
