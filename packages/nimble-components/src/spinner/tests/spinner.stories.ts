@@ -77,7 +77,7 @@ const metadata: Meta<SpinnerArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${spinnerTag}
-            style="${x => spinnerSize[x.size]}; ${isChromatic() ? 'animation-play-state:paused' : ''}"
+            style="${x => spinnerSize[x.size]}; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
         </${spinnerTag}>
     `),

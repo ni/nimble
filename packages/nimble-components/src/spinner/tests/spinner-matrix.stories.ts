@@ -40,7 +40,7 @@ const component = ([stateName, state]: SizeState): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
     </span>
-    <${spinnerTag} style="${() => state}; ${isChromatic() ? 'animation-play-state:paused' : ''}">
+    <${spinnerTag} style="${() => state}; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
     </${spinnerTag}>
 `;
 
