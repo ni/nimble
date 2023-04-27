@@ -5,6 +5,7 @@ import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { processUpdates, waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
+import { NimbleTableColumnAnchorRouterLinkWithHrefDirective } from '../nimble-table-column-anchor-router-link-with-href.directive';
 import type { TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 import { Table, TablePageObject } from '../../../table/nimble-table.directive';
 import type { Anchor } from '../../../anchor/nimble-anchor.directive';
@@ -28,6 +29,7 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     class TestHostComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;
         @ViewChild('column', { static: true }) public column: ElementRef<TableColumnAnchor>;
+        @ViewChild('column', { read: NimbleTableColumnAnchorRouterLinkWithHrefDirective }) public directive: NimbleTableColumnAnchorRouterLinkWithHrefDirective;
     }
 
     @Component({ template: '' })
@@ -89,6 +91,13 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
             }
         }));
         expect(location.path()).toEqual(expectedDestinationUrl);
+    }));
+
+    it('leaves urlTree null before and after clicking', fakeAsync(() => {
+        expect(testHostComponent.directive.urlTree).toBeNull();
+        innerAnchor.click();
+        tick();
+        expect(testHostComponent.directive.urlTree).toBeNull();
     }));
 
     const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [

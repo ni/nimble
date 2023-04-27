@@ -29,5 +29,6 @@ export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLi
         if (!this.onClick(clickEvent.button, clickEvent.ctrlKey, clickEvent.shiftKey, clickEvent.altKey, clickEvent.metaKey)) {
             clickEvent.preventDefault();
         }
+        this.routerLink = null;
     }
 }
