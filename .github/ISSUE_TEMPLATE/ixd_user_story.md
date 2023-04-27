@@ -1,5 +1,5 @@
 ---
-name: 🧑‍🎨 IxD User story
+name: 🧑‍💼 IxD User story
 about: (PO ONLY) A small chunk of work to be done by an Interaction Designer
 title: '(Fully descriptive title)'
 labels: 'IxD,triage'

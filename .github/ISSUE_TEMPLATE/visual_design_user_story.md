@@ -16,7 +16,7 @@ labels: 'visual design,triage'
 
 <!-- Outline the essential requirements of the component visual design. What states, variations, or other constraints are required? E.g. For a date picker… 
 
-- Component needs block and outline states
+- Component needs block and outline appearances
 - Component needs to fit in an editable table cell and in a details panel 
 - Reuse the existing calendar icon
 - … -->
@@ -25,7 +25,7 @@ labels: 'visual design,triage'
 
 <!-- What ideas are out of scope for this component? E.g. For a date picker… 
 
-- Component does not need a ghost state
+- Component does not need a ghost appearance
 - … -->
 
 
