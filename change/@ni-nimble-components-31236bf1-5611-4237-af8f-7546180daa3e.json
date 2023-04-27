@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "new IxD spec & template process",
+  "comment": "new process for work item templates and design specs",
   "packageName": "@ni/nimble-components",
   "email": "1458528+fredvisser@users.noreply.github.com",
   "dependentChangeType": "none"

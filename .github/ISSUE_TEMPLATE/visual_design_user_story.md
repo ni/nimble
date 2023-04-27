@@ -1,8 +1,8 @@
 ---
-name: 🧑‍🎨 Visual Design User story
+name: 🧑‍🎨 Visual Design (ViD) User story
 about: (DEV TEAM ONLY) A small chunk of work to be done by Visual Designer
 title: '(Fully descriptive title)'
-labels: 'visual design,triage'
+labels: 'ViD,triage'
 ---
 
 <!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-datepicker Visual Design" rather than just "Visual Design" -->

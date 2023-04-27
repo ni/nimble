@@ -1,5 +1,5 @@
 ---
-name: 🧑‍💼 IxD User story
+name: 🧑‍💼 Interaction Design (IxD) User story
 about: (PO ONLY) A small chunk of work to be done by an Interaction Designer
 title: '(Fully descriptive title)'
 labels: 'IxD,triage'
@@ -31,6 +31,6 @@ labels: 'IxD,triage'
 
 ## Acceptance Criteria
 
-- [ ] IxD Spec submitted (link)
-- [ ] IxD Spec reviewed by design team
-- [ ] IxD Spec reviewed by dev team
+- [ ] Interaction Design Spec submitted (link)
+- [ ] Interaction Design Spec reviewed by design team
+- [ ] Interaction Design Spec reviewed by dev team

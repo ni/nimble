@@ -10,6 +10,12 @@
 *Link to Interaction Design issue*
 *Link to relevant work items, related existing issues, etc.*
 
+## Usage
+
+*How, when, and where should you use this component?*
+*Compare this component with other related components. How does it differ?*
+*How should you decide between related components?*
+
 ## Design
 
 *Full description of the proposed interaction design.*

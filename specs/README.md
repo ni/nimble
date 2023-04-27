@@ -16,3 +16,5 @@ The process to create and approve a spec is:
 2. Fill in the fields of the spec. Be sure to remove any boilerplate from the spec template which was not used. 
 3. Create a pull request for the branch to discuss the spec with Nimble maintainers. You can set the Beachball change type for the PR as `none`.
 4. Approval and merging of the pull request indicates approval to proceed with the proposed approach! 🥳
+
+![Nimble spec process diagram](/docs/nimble-spec-process.png)

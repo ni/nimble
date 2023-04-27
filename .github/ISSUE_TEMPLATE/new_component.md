@@ -22,8 +22,8 @@ labels: 'enhancement'
 IBUTING](https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTRIBUTING.md) for details -->
 
 - [ ] nimble-{name} spec
-- [ ] nimble-{name} IxD spec
-- [ ] nimble-{name} visual design spec
+- [ ] nimble-{name} Interaction Design spec
+- [ ] nimble-{name} Visual Design spec
 - [ ] nimble-{name} custom element
 - [ ] nimble-{name} unit tests
 - [ ] nimble-{name} Storybook tests
