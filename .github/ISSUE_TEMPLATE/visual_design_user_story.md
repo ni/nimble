@@ -10,7 +10,7 @@ labels: 'ViD,triage'
 ## 📌 Request Background
 
 <!-- A short description of the request and requester. E.g. Who is the client and how do they expect to use the component? -->
-<!-- Link to IxD spec -->
+<!-- Link to Interaction Design spec -->
 
 ## Core Requirements
 
