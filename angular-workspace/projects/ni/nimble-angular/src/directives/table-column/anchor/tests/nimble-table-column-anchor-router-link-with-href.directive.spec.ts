@@ -100,6 +100,12 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
         expect(testHostComponent.directive.urlTree).toBeNull();
     }));
 
+    it('throws error when setting routerLink', () => {
+        expect(() => {
+            testHostComponent.directive.routerLink = 'foo';
+        }).toThrowError();
+    });
+
     const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [
         { testName: 'middle mouse click', clickArgs: { button: 1 } },
         { testName: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }

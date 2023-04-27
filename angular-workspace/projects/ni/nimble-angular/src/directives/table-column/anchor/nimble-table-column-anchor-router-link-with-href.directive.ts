@@ -11,6 +11,10 @@ import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/t
     selector: 'nimble-table-column-anchor[nimbleRouterLink]'
 })
 export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLinkWithHref {
+    public set routerLink(_commands: unknown[] | string | null | undefined) {
+        throw new Error('Directly configuring the routerLink url is not supported. The router url is configured via the href-field-name of the column.');
+    }
+
     @HostListener('delegated-event', ['$event.detail.originalEvent'])
     private onDelegatedEvent(delegatedEvent: Event): void {
         if (delegatedEvent.type !== 'click') {
@@ -18,17 +22,17 @@ export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLi
         }
 
         const clickEvent = delegatedEvent as MouseEvent;
-        const anchor = (delegatedEvent.target as TableColumnAnchorCellView).anchor;
+        const href = (delegatedEvent.target as TableColumnAnchorCellView).cellRecord.href;
 
-        if (!anchor) {
+        if (!href) {
             return;
         }
 
         // Let the router handle this navigation
-        this.routerLink = anchor.href;
+        super.routerLink = href;
         if (!this.onClick(clickEvent.button, clickEvent.ctrlKey, clickEvent.shiftKey, clickEvent.altKey, clickEvent.metaKey)) {
             clickEvent.preventDefault();
         }
-        this.routerLink = null;
+        super.routerLink = null;
     }
 }
