@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 27 Apr 2023 15:21:27 GMT",
+      "tag": "@ni/nimble-components_v18.12.6",
+      "version": "18.12.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e30ebef7734f0c3aa6cee7cae818e024164003ea",
+            "comment": "Remove scrolling from select visibility test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Apr 2023 17:40:07 GMT",
       "tag": "@ni/nimble-components_v18.12.6",
       "version": "18.12.6",
