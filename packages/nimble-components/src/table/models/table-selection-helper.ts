@@ -10,9 +10,9 @@ export abstract class SelectionStateManager<TData extends TableRecord> {
         this.table = table;
     }
 
-    public abstract handleRowSelectionToggle(rowId: string, isSelecting: boolean, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean): Promise<void>;
+    public abstract handleRowSelectionToggle(rowId: string | undefined, isSelecting: boolean, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean): Promise<void>;
 
-    public abstract handleRowClick(rowId: string, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean, ctrlKey: boolean): Promise<void>;
+    public abstract handleRowClick(rowId: string | undefined, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean, ctrlKey: boolean): Promise<void>;
 
     public reset(): void {}
 }
@@ -28,11 +28,19 @@ export class NoSelectionStateManager<TData extends TableRecord> extends Selectio
 }
 
 export class SingleSelectionStateManager<TData extends TableRecord> extends SelectionStateManager<TData> {
-    public override async handleRowSelectionToggle(rowId: string, isSelecting: boolean, _currentSelection: { [rowId: string]: boolean }, _shiftKey: boolean): Promise<void> {
+    public override async handleRowSelectionToggle(rowId: string | undefined, isSelecting: boolean, _currentSelection: { [rowId: string]: boolean }, _shiftKey: boolean): Promise<void> {
+        if (!rowId) {
+            return;
+        }
+
         await this.table.toggleIsRowSelected(rowId, isSelecting);
     }
 
-    public override async handleRowClick(rowId: string, _currentSelection: { [rowId: string]: boolean }, _shiftKey: boolean, _ctrlKey: boolean): Promise<void> {
+    public override async handleRowClick(rowId: string | undefined, _currentSelection: { [rowId: string]: boolean }, _shiftKey: boolean, _ctrlKey: boolean): Promise<void> {
+        if (!rowId) {
+            return;
+        }
+
         await this.table.selectSingleRow(rowId);
     }
 }
@@ -41,7 +49,11 @@ export class MultiSelectionStateManager<TData extends TableRecord> extends Selec
     private shiftSelectStartRowId?: string;
     private previousShiftSelectRowEndId?: string;
 
-    public override async handleRowSelectionToggle(rowId: string, isSelecting: boolean, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean): Promise<void> {
+    public override async handleRowSelectionToggle(rowId: string | undefined, isSelecting: boolean, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean): Promise<void> {
+        if (!rowId) {
+            return;
+        }
+
         if (shiftKey) {
             const madeRangeSelection = await this.tryUpdateRangeSelection(rowId, currentSelection);
             if (madeRangeSelection) {
@@ -53,7 +65,11 @@ export class MultiSelectionStateManager<TData extends TableRecord> extends Selec
         await this.table.toggleIsRowSelected(rowId, isSelecting);
     }
 
-    public override async handleRowClick(rowId: string, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean, ctrlKey: boolean): Promise<void> {
+    public override async handleRowClick(rowId: string | undefined, currentSelection: { [rowId: string]: boolean }, shiftKey: boolean, ctrlKey: boolean): Promise<void> {
+        if (!rowId) {
+            return;
+        }
+
         if (ctrlKey) {
             this.shiftSelectStartRowId = rowId;
             await this.table.toggleIsRowSelected(rowId);

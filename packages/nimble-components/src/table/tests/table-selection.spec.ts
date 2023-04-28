@@ -125,7 +125,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     );
 }
 
-fdescribe('Table row selection', () => {
+describe('Table row selection', () => {
     function getEmittedRecordIdsFromSpy(spy: jasmine.Spy): string[] {
         const event = spy.calls.first()
             .args[0] as CustomEvent<TableRowSelectionEventDetail>;

@@ -317,10 +317,6 @@ export class Table<
         event.stopImmediatePropagation();
 
         const rowId = this.tableData[rowIndex]?.id;
-        if (!rowId) {
-            return;
-        }
-
         await this.selectionManager.handleRowSelectionToggle(
             rowId,
             event.detail.newState,
@@ -360,10 +356,6 @@ export class Table<
         event.stopImmediatePropagation();
 
         const rowId = this.tableData[rowIndex]?.id;
-        if (!rowId) {
-            return;
-        }
-
         await this.selectionManager.handleRowClick(
             rowId,
             this.table.getState().rowSelection,
@@ -391,17 +383,13 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
-        let recordIds = event.detail.recordIds;
-        if (this.selectionMode !== TableRowSelectionMode.none) {
-            const row = this.table.getRowModel().rows[rowIndex];
-            if (row && !row.getIsSelected()) {
-                await this.selectSingleRow(row.id);
-            } else {
-                recordIds = await this.getSelectedRecordIds();
-            }
-        }
+        const rowId = this.tableData[rowIndex]?.id;
+        await this.selectionManager.handleRowSelectionToggle(rowId, true, this.table.getState().rowSelection, false);
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
+        const recordIds = this.selectionMode === TableRowSelectionMode.none
+            ? [this.openActionMenuRecordId!]
+            : await this.getSelectedRecordIds();
         const detail: TableActionMenuToggleEventDetail = {
             ...event.detail,
             recordIds
@@ -702,7 +690,7 @@ export class Table<
                 ? row.getValue(row.groupingColumnId!)
                 : undefined,
             nestingLevel: row.depth,
-            leafItemCount: this.getAllLeafRows(row).length,
+            leafItemCount: this.getAllLeafRowIds(row.id).length,
             groupColumn: this.getGroupRowColumn(row)
         };
     }
@@ -831,7 +819,7 @@ export class Table<
 
     private deselectAllLeafRows(rowId: string): void {
         const groupRow = this.table.getRowModel().rowsById[rowId]!;
-        const leafRowIds = this.getAllLeafRows(groupRow).map(x => x.id);
+        const leafRowIds = this.getAllLeafRowIds(groupRow.id);
 
         const selectionState = this.table.getState().rowSelection;
         for (const id of leafRowIds) {
@@ -843,12 +831,6 @@ export class Table<
                 rowSelection: selectionState
             }
         });
-    }
-
-    private getAllLeafRows(groupRow: TanStackRow<TData>): TanStackRow<TData>[] {
-        return groupRow
-            .getLeafRows()
-            .filter(leafRow => leafRow.getLeafRows().length === 0);
     }
 
     /** @internal */
