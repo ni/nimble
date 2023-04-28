@@ -5,7 +5,7 @@ title: '(Fully descriptive title)'
 labels: 'IxD,triage'
 ---
 
-<!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-datepicker Interaction Design" rather than just "Interaction Design" -->
+<!-- Ensure the title can be understood without the parent item's context, e.g. "nimble-datepicker interaction design request" rather than just "Interaction Design" -->
 
 ## 📌 Request Background
 

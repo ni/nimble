@@ -15,6 +15,8 @@
 *How, when, and where should you use this component?*
 *Compare this component with other related components. How does it differ?*
 *How should you decide between related components?*
+*Should the component support alternate visual styles? (e.g. primary, outline, block, ghost, disabled)*
+*When should you use alternate visual styles?*
 
 ## Design
 
