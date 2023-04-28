@@ -29,7 +29,7 @@ export class TableColumnNumericText extends TableColumnTextBase {
             cellViewTag: tableColumnNumericTextCellViewTag,
             groupHeaderViewTag: tableColumnNumericTextGroupHeaderTag
         });
-        this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+        this.columnInternals.sortOperation = TableColumnSortOperation.basic;
     }
 }
 

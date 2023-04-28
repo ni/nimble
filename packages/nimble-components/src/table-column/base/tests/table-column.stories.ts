@@ -362,6 +362,12 @@ const sortedOptions = {
             sortDirection: TableColumnSortDirection.descending
         }
     ],
+    [ExampleSortType.thirdColumnAscending]: [
+        {
+            columnId: 'age-column',
+            sortDirection: TableColumnSortDirection.ascending
+        }
+    ],
     [ExampleSortType.secondColumnDescendingFirstColumnAscending]: [
         {
             columnId: 'last-name-column',
@@ -416,6 +422,12 @@ export const sorting: StoryObj<SortingTableArgs> = {
             >
                 Last Name
             </${tableColumnTextTag}>
+            <${tableColumnNumericTextTag}
+                field-name="age"
+                sort-direction="${x => x.getColumnSortData('age-column', x).direction}" sort-index="${x => x.getColumnSortData('age-column', x).index}"
+            >
+                Age
+            </${tableColumnNumericTextTag}>
             <${tableColumnTextTag}
                 field-name="favoriteColor"
                 sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
@@ -444,6 +456,8 @@ export const sorting: StoryObj<SortingTableArgs> = {
                         'First name ascending',
                     [ExampleSortType.firstColumnDescending]:
                         'First name descending',
+                    [ExampleSortType.thirdColumnAscending]:
+                        'Age ascending',
                     [ExampleSortType.secondColumnDescendingFirstColumnAscending]:
                         'Last name descending then first name ascending'
                 }
