@@ -1,10 +1,10 @@
 import { html, ref } from '@microsoft/fast-element';
-import type { TableColumnTextGroupHeaderView } from '.';
+import type { TableColumnTextGroupHeaderViewBase } from '.';
 
-export const template = html<TableColumnTextGroupHeaderView>`
+export const template = html<TableColumnTextGroupHeaderViewBase>`
     <span
         ${ref('textSpan')}
-        class="${x => (typeof x.groupHeaderValue === 'string' ? '' : 'placeholder')}"
+        class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
         @mouseover="${x => x.updateTitleOverflow()}"
         @mouseout="${x => x.clearTitleOverflow()}"
         title="${x => (x.isValidContentAndHasOverflow && x.content

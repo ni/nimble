@@ -1,7 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../../text-base/cell-view/template';
 import type { TableColumnTextCellRecord, TableColumnTextColumnConfig } from '..';
-import { styles } from '../../base/styles';
+import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
 declare global {

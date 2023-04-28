@@ -11,6 +11,18 @@ export type TableFieldName = string;
 export type TableFieldValue = string | number | boolean | null | undefined;
 
 /**
+ * TableFieldValue describes the type associated with values within
+ * a table's string records.
+ */
+export type TableStringFieldValue = string | null | undefined;
+
+/**
+ * TableFieldValue describes the type associated with values within
+ * a table's string records.
+ */
+export type TableNumberFieldValue = number | null | undefined;
+
+/**
  * TableRecord describes the data structure that backs a single row in a table.
  * It is made up of fields, which are key/value pairs that have a key of type
  * TableFieldName and a value of type TableFieldValue.
@@ -20,11 +32,11 @@ export interface TableRecord {
 }
 
 export type TableStringField<FieldName extends TableFieldName> = {
-    [name in FieldName]: string | null | undefined;
+    [name in FieldName]: TableStringFieldValue;
 };
 
 export type TableNumberField<FieldName extends TableFieldName> = {
-    [name in FieldName]: number | null | undefined;
+    [name in FieldName]: TableNumberFieldValue;
 };
 
 export interface TableValidity {

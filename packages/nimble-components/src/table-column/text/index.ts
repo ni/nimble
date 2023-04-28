@@ -6,7 +6,7 @@ import type { TableStringField } from '../../table/types';
 import { TableColumnSortOperation } from '../base/types';
 import { TableColumnTextBase } from '../text-base';
 import { tableColumnTextCellViewTag } from './cell-view';
-import { tableColumnTextGroupHeaderTag } from '../text-base/group-header-view';
+import { tableColumnTextGroupHeaderTag } from './group-header-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 export interface TableColumnTextColumnConfig {

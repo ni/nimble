@@ -6,7 +6,7 @@ import type { TableNumberField } from '../../table/types';
 import { TableColumnSortOperation } from '../base/types';
 import { TableColumnTextBase } from '../text-base';
 import { tableColumnNumericTextCellViewTag } from './cell-view';
-import { tableColumnTextGroupHeaderTag } from '../text-base/group-header-view';
+import { tableColumnTextGroupHeaderTag } from '../text/group-header-view';
 
 export type TableColumnNumericTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumericTextColumnConfig {

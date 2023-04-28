@@ -1,8 +1,9 @@
 import { observable } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
+import type { TableFieldValue } from '../../../table/types';
 
 export interface TableGroupHeaderState<
-    TGroupValue = unknown,
+    TGroupValue = TableFieldValue,
     TColumnConfig = unknown
 > {
     groupHeaderValue: TGroupValue;
@@ -15,7 +16,7 @@ export interface TableGroupHeaderState<
  * type (linked via TableColumn.groupHeaderViewTag).
  */
 export abstract class TableGroupHeaderView<
-    TGroupValue = unknown,
+    TGroupValue = TableFieldValue,
     TColumnConfig = unknown
 >
     extends FoundationElement
