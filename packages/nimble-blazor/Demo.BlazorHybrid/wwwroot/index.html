@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo.Hybrid</title>
+    <base href="/" />
+    <!-- This is the style that should always match the name of your project -->
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="Demo.Hybrid.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">Loading...</div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webview.js"></script>
+    <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
+    <!-- This script is a workaround needed for Nimble Blazor to work in Blazor Hybrid.
+         See https://github.com/dotnet/aspnetcore/issues/42349 -->
+    <script src="_content/NimbleBlazor/NimbleBlazor.Hybrid.workaround.js" type="module"></script>
+</body>
+
+</html>

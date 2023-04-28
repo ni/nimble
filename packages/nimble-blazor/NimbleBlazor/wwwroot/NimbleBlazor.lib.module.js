@@ -7,7 +7,18 @@
  * JavaScript initializer for NimbleBlazor project, see
  * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
  */
+
 export function afterStarted(Blazor) {
+    if (window.NimbleBlazor && window.NimbleBlazor.calledAfterStarted) {
+        /* eslint-disable */
+        console.warn('Attempted afterStarted initialization multiple times.')
+        return;
+    }
+
+    if (window.NimbleBlazor) {
+        window.NimbleBlazor.calledAfterStarted = true;
+    }
+
     // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
     // Necessary because the control's value property is always just the value 'on', so we need to look
     // at the checked property to correctly get the value.
@@ -100,6 +111,7 @@ export function afterStarted(Blazor) {
 }
 
 window.NimbleBlazor = {
+    calledAfterStarted: false,
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();
