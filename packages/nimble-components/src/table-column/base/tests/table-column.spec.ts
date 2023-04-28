@@ -91,7 +91,8 @@ describe('TableColumn', () => {
                     super({
                         cellRecordFieldNames: [],
                         cellViewTag: 'div',
-                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                        delegatedEvents: []
                     });
                 }
             }
@@ -120,7 +121,8 @@ describe('TableColumn', () => {
                     super({
                         cellRecordFieldNames: [],
                         cellViewTag: tableColumnEmptyCellViewTag,
-                        groupHeaderViewTag: 'div'
+                        groupHeaderViewTag: 'div',
+                        delegatedEvents: []
                     });
                 }
             }
