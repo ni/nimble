@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
+import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { TableColumnSortDirection } from '@ni/nimble-components/dist/esm/table/types';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
 
-export { TableColumnSortDirection };
+export { TableColumnSortDirection, DelegatedEventEventDetails };
 
 /**
  * Base class for table column directives.
