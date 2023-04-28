@@ -1,6 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 
-import type { TableColumnTextCellView } from '.';
+import type { TableColumnTextCellView } from '../../text/cell-view';
 
 export const template = html<TableColumnTextCellView>`
     <span

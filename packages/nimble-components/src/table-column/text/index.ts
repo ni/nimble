@@ -5,7 +5,7 @@ import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
 import { TableColumnSortOperation } from '../base/types';
 import { TableColumnTextBase } from '../text-base';
-import { tableColumnTextCellViewTag } from '../text-base/cell-view';
+import { tableColumnTextCellViewTag } from './cell-view';
 import { tableColumnTextGroupHeaderTag } from '../text-base/group-header-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
