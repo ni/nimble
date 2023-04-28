@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type {
@@ -7,6 +8,7 @@ import type {
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableCellRecord } from '../../base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,12 +17,12 @@ declare global {
 }
 
 /**
- * A cell view for displaying strings
+ * A cell view base class for displaying fields of any type as text.
  */
-export class TableColumnTextCellView extends TableCellView<
-TableColumnTextCellRecord,
-TableColumnTextColumnConfig
-> {
+export abstract class TableColumnTextCellViewBase<
+    TCellRecord extends TableCellRecord = TableCellRecord,
+    TColumnConfig = unknown
+> extends TableCellView<TCellRecord, TColumnConfig> {
     /** @internal */
     @observable
     public isValidContentAndHasOverflow = false;
@@ -28,11 +30,34 @@ TableColumnTextColumnConfig
     /** @internal */
     public textSpan!: HTMLElement;
 
+    public abstract get text(): string;
+
+    public abstract get placeholder(): string;
+
+    public abstract get shouldUsePlaceholder(): boolean;
+
     @volatile
     public get content(): string {
-        return typeof this.cellRecord.value === 'string'
-            ? this.cellRecord.value
-            : this.columnConfig.placeholder;
+        return this.shouldUsePlaceholder
+            ? this.placeholder
+            : this.text;
+    }
+}
+
+/**
+ * A cell view for displaying strings as text
+ */
+export class TableColumnTextCellView extends TableColumnTextCellViewBase<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
+    public override get text(): string {
+        return this.cellRecord.value!;
+    }
+
+    public override get placeholder(): string {
+        return this.columnConfig.placeholder;
+    }
+
+    public override get shouldUsePlaceholder(): boolean {
+        return typeof this.cellRecord.value !== 'string';
     }
 }
 

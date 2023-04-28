@@ -5,7 +5,7 @@ import type { TableColumnTextCellView } from '.';
 export const template = html<TableColumnTextCellView>`
     <span
         ${ref('textSpan')}
-        class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
+        class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
         @mouseover="${x => {
         x.isValidContentAndHasOverflow = !!x.content && x.textSpan.offsetWidth < x.textSpan.scrollWidth;
     }}"

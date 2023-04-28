@@ -2,19 +2,16 @@
 import { attr } from '@microsoft/fast-element';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { TableColumn } from '../base';
-import { TableColumnSortOperation } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { tableColumnTextGroupHeaderTag } from './group-header-view';
-import { tableColumnTextCellViewTag } from './cell-view';
 
 export interface TableColumnTextColumnConfig {
     placeholder: string;
 }
 
 /**
- * The table column for displaying strings.
+ * The base class for table columns to display fields of any type as text.
  */
-export class TableColumnTextBase extends mixinGroupableColumnAPI(
+export abstract class TableColumnTextBase extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(TableColumn<TableColumnTextColumnConfig>)
 ) {
     @attr({ attribute: 'field-name' })
@@ -22,15 +19,6 @@ export class TableColumnTextBase extends mixinGroupableColumnAPI(
 
     @attr
     public placeholder?: string;
-
-    public constructor() {
-        super({
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag
-        });
-        this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
-    }
 
     protected fieldNameChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.fieldName];
