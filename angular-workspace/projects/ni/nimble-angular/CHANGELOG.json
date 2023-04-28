@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 28 Apr 2023 15:33:54 GMT",
+      "tag": "@ni/nimble-angular_v16.5.18",
+      "version": "16.5.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "78d39d34d9ee9a8852ba6eeb40119157493e7f76",
+            "comment": "Anchor table column type"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.12.7",
+            "commit": "78d39d34d9ee9a8852ba6eeb40119157493e7f76"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Apr 2023 17:40:07 GMT",
       "tag": "@ni/nimble-angular_v16.5.17",
       "version": "16.5.17",
