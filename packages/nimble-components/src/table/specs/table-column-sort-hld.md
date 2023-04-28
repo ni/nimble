@@ -4,10 +4,12 @@
 
 There is a requirement to have table columns that can be sorted, both programmatically and interactively.
 
-### Out of Scope of this HLD
+### Out of scope of this HLD
 
 -   Keyboard interactions for interactive sorting (see [#1137](https://github.com/ni/nimble/issues/1137))
 -   Focusable element behavior for the column header (see [#1151](https://github.com/ni/nimble/issues/1151))
+-   Event for interactive sorting
+    -   We're omitting an event to begin with - we think it may be more relevant in conjunction with table persistance / view config management, see [#870](https://github.com/ni/nimble/issues/870)
 
 ## Links To Relevant Work Items and Reference Material
 
