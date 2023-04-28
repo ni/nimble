@@ -52,7 +52,10 @@ import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
-import { SelectionStateManager, rowSelectionStateManagerFactory } from './models/table-selection-helper';
+import {
+    SelectionStateManager,
+    createSelectionManager
+} from './models/table-selection-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -211,7 +214,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.selectionManager = rowSelectionStateManagerFactory(this);
+        this.selectionManager = createSelectionManager(this);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -326,7 +329,10 @@ export class Table<
     }
 
     /** @internal */
-    public async toggleIsRowSelected(rowId: string, isSelecting?: boolean): Promise<void> {
+    public async toggleIsRowSelected(
+        rowId: string,
+        isSelecting?: boolean
+    ): Promise<void> {
         const rowState = this.tableData.find(x => x.id === rowId);
         if (!rowState) {
             return;
@@ -384,7 +390,12 @@ export class Table<
         event.stopImmediatePropagation();
 
         const rowId = this.tableData[rowIndex]?.id;
-        await this.selectionManager.handleRowSelectionToggle(rowId, true, this.table.getState().rowSelection, false);
+        await this.selectionManager.handleRowSelectionToggle(
+            rowId,
+            true,
+            this.table.getState().rowSelection,
+            false
+        );
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
         const recordIds = this.selectionMode === TableRowSelectionMode.none
@@ -592,7 +603,7 @@ export class Table<
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.selectionManager = rowSelectionStateManagerFactory(this);
+            this.selectionManager = createSelectionManager(this);
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -675,7 +686,9 @@ export class Table<
 
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
-        this.tableData = this.table.getRowModel().rows.map(row => this.getRowStateFromRow(row));
+        this.tableData = this.table
+            .getRowModel()
+            .rows.map(row => this.getRowStateFromRow(row));
         this.virtualizer.dataChanged();
     }
 
@@ -797,7 +810,9 @@ export class Table<
     }
 
     /** @internal */
-    public async updateSelectionState(updatedSelection: { [rowId: string]: boolean }): Promise<void> {
+    public async updateSelectionState(updatedSelection: {
+        [rowId: string]: boolean
+    }): Promise<void> {
         this.updateTableOptions({
             state: { rowSelection: updatedSelection }
         });
