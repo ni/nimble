@@ -6,15 +6,18 @@ import { template } from '../base/template';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import type { TableStringField } from '../../table/types';
 import { TableColumn } from '../base';
-import { TableColumnSortOperation } from '../base/types';
+import {
+    TableColumnWithPlaceholderColumnConfig,
+    TableColumnSortOperation
+} from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
-export interface TableColumnTextColumnConfig {
-    placeholder: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableColumnTextColumnConfig
+    extends TableColumnWithPlaceholderColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -38,7 +41,8 @@ export class TableColumnText extends mixinGroupableColumnAPI(
         super({
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag
+            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            delegatedEvents: []
         });
         this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
     }

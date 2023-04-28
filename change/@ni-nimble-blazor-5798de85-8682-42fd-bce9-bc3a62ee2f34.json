@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Anchor table column type",
+  "packageName": "@ni/nimble-blazor",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

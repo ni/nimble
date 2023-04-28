@@ -21,7 +21,8 @@ class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
         super({
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
-            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+            delegatedEvents: []
         });
     }
 }
