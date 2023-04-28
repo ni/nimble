@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 27 Apr 2023 15:21:27 GMT",
+      "tag": "@ni/nimble-components_v18.12.6",
+      "version": "18.12.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e30ebef7734f0c3aa6cee7cae818e024164003ea",
+            "comment": "Remove scrolling from select visibility test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Apr 2023 17:40:07 GMT",
+      "tag": "@ni/nimble-components_v18.12.6",
+      "version": "18.12.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9464153249e21394b06fc5e92cc19c002cf6828",
+            "comment": "Spinner now allows internal configuration of animation play state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Apr 2023 16:54:36 GMT",
+      "tag": "@ni/nimble-components_v18.12.5",
+      "version": "18.12.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d28634e8abf51499a336478c7699059284956514",
+            "comment": "Fix disabled select test"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Apr 2023 20:41:37 GMT",
       "tag": "@ni/nimble-components_v18.12.5",
       "version": "18.12.5",
