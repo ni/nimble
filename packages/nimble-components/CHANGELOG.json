@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 28 Apr 2023 16:13:58 GMT",
+      "tag": "@ni/nimble-components_v18.12.7",
+      "version": "18.12.7",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "000d9f3fc945a88c6b9edffba8cb52a742679be5",
+            "comment": "new process for work item templates and design specs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Apr 2023 15:33:55 GMT",
       "tag": "@ni/nimble-components_v18.12.7",
       "version": "18.12.7",
