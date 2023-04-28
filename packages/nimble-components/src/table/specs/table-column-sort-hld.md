@@ -63,33 +63,12 @@ These properties will be set by a concrete implementation of a column:
 
 These properties will be kept up-to-date by the table itself:
 
-| property name        | type                       | description                                                                                  |
-| -------------------- | -------------------------- | -------------------------------------------------------------------------------------------- |
-| currentSortDirection | `TableColumnSortDirection` | The current sort direction (equals `sortDirection` until/unless interactive sorting is done) |
-| currentSortIndex     | `number` or `null`         | The current sort index (equals `sortIndex` until/unless interactive sorting is done)         |
+| property name        | type                       | description                   |
+| -------------------- | -------------------------- | ----------------------------- |
+| currentSortDirection | `TableColumnSortDirection` | The current sort direction \* |
+| currentSortIndex     | `number` or `null`         | The current sort index \*     |
 
-#### Events
-
-After any interactive sort operation, a `column-sort-change` event will be fired, with event details of type `TableColumnSortEventDetail`:
-
-```ts
-interface TableColumnSortState {
-    columnId: string;
-    currentSortIndex: number;
-    sortDirection: TableColumnSortDirection;
-}
-
-export interface TableColumnSortEventDetail {
-    /** sorted by current sort index (ascending) */
-    sortedColumns: TableColumnSortState[];
-}
-```
-
-Since each change to interactive sorting can affect the sort state of multiple columns, the event details contain the new sort state of all columns still participating in sorting.
-
-Programmatic changes to `sortIndex`/`sortDirection` of columns will not fire the `column-sort-change` event, only interactive changes by the user will.
-
-The event is not cancelable.
+\* Note: These properties equal `sortDirection`/`sortIndex` until an interactive sort operation is done. Once an interactive sort occurs, the values of `currentSortIndex` for all sorted columns will be normalized to `0..(n-1)` (for `n` sorted columns).
 
 ### Validation
 
@@ -115,10 +94,9 @@ Single-clicking a column header will cycle the column from unsorted, to ascendin
 
 Shift-clicking a column header will cycle the column from unsorted, to ascending sort, descending sort, then back to unsorted.
 
--   Any other columns that were already sorted maintain their sorting
--   If the clicked column was already sorted, its sort index does not change
+-   Any other columns that were already sorted remain sorted (their `currentSortIndex` values will be normalized to `0..(n-1)`, for `n` sorted columns)
 -   If the clicked column is transitioning to unsorted, its `currentSortIndex` will be set to `undefined`
--   If the clicked column is transitioning to being sorted, it will get a `currentSortIndex` of `0` if no other columns were already sorted, or `max(alreadySortedColumn1SortIndex, ..., alreadySortedColumnNSortIndex) + 1` if there were existing sorted columns
+-   If the clicked column is transitioning to being sorted, it will get a `currentSortIndex` of `0` if no other columns were already sorted, or `n` if there were `n` other columns already sorted
 
 If sorting is enabled for a column, sorting menu items also appear in the column header menu:
 ![Sorting via Column Header Menu](./spec-images/HeaderMenuSorting.png)  
