@@ -6,7 +6,7 @@ import type { TableNumberField } from '../../table/types';
 import { TableColumnSortOperation } from '../base/types';
 import { TableColumnTextBase } from '../text-base';
 import { tableColumnNumericTextCellViewTag } from './cell-view';
-import { tableColumnTextGroupHeaderTag } from '../text/group-header-view';
+import { tableColumnNumericTextGroupHeaderTag } from './group-header-view';
 
 export type TableColumnNumericTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumericTextColumnConfig {
@@ -27,7 +27,7 @@ export class TableColumnNumericText extends TableColumnTextBase {
         super({
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnNumericTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag
+            groupHeaderViewTag: tableColumnNumericTextGroupHeaderTag
         });
         this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
     }

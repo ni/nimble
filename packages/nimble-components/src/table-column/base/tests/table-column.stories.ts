@@ -23,49 +23,57 @@ import {
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';
+import { tableColumnNumericTextTag } from '../../numeric-text';
 
 const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
-        quote: "I'm in danger!"
+        quote: "I'm in danger!",
+        age: 8
     },
     {
         firstName: 'Quincy',
         lastName: 'Wiggum',
         favoriteColor: 'Blue',
-        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity."
+        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity.",
+        age: 48
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
-        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
+        age: 8
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Hi diddly-ho neighbor!'
+        quote: 'Hi diddly-ho neighbor!',
+        age: 48
     },
     {
         firstName: 'Maude',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling."
+        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling.",
+        age: 38
     },
     {
         firstName: 'Rod',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Lies make baby Jesus cry.'
+        quote: 'Lies make baby Jesus cry.',
+        age: 9
     },
     {
         firstName: 'Todd',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Dad, should I poke Rod with a sharp thing like the mouse did?'
+        quote: 'Dad, should I poke Rod with a sharp thing like the mouse did?',
+        age: 8
     },
     {
         firstName: 'Maggie',
@@ -502,6 +510,11 @@ const groupedRowOptions = {
         {
             columnId: 'first-name-column'
         }
+    ],
+    [ExampleGroupType.age]: [
+        {
+            columnId: 'age-column'
+        }
     ]
 } as const;
 
@@ -584,6 +597,12 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             >
                 Last Name
             </${tableColumnTextTag}>
+            <${tableColumnNumericTextTag}
+                field-name="age"
+                group-index="${x => getColumnGroupData('age-column', x.groupedColumns).index}"
+            >
+                Age
+            </${tableColumnNumericTextTag}>
             <${tableColumnTextTag}
                 field-name="favoriteColor"
             >
@@ -611,7 +630,8 @@ export const grouping: StoryObj<GroupingTableArgs> = {
                     [ExampleGroupType.firstThenLastName]:
                         'Group by first name then last.',
                     [ExampleGroupType.lastThenFirstName]:
-                        'Group by last name then first.'
+                        'Group by last name then first.',
+                    [ExampleGroupType.age]: 'Group by age',
                 }
             }
         },

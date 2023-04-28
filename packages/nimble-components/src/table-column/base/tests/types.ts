@@ -13,7 +13,8 @@ export const ExampleGroupType = {
     firstName: 'FirstName',
     lastName: 'LastName',
     firstThenLastName: 'FirstThenLastName',
-    lastThenFirstName: 'LastThenFirstName'
+    lastThenFirstName: 'LastThenFirstName',
+    age: 'Age'
 } as const;
 export type ExampleGroupType =
     (typeof ExampleGroupType)[keyof typeof ExampleGroupType];
