@@ -23,6 +23,10 @@ export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: string | null | undefined;
 };
 
+export type TableNumberField<FieldName extends TableFieldName> = {
+    [name in FieldName]: number | null | undefined;
+};
+
 export interface TableValidity {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
