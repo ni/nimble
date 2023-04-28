@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
     attr,
     Observable,
@@ -42,6 +43,7 @@ import {
     TableRowSelectionMode,
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
+    TableRowState,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
@@ -50,23 +52,12 @@ import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
+import { SelectionStateManager, rowSelectionStateManagerFactory } from './models/table-selection-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table': Table;
     }
-}
-
-interface TableRowState<TData extends TableRecord = TableRecord> {
-    record: TData;
-    id: string;
-    selectionState: TableRowSelectionState;
-    isGrouped: boolean;
-    groupRowValue?: unknown;
-    isExpanded: boolean;
-    nestingLevel?: number;
-    leafItemCount?: number;
-    groupColumn?: TableColumn;
 }
 
 /**
@@ -182,6 +173,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
+    private selectionManager: SelectionStateManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
@@ -190,8 +182,6 @@ export class Table<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
-    private shiftSelectStartRowId?: string;
-    private previousShiftSelectRowEndId?: string;
 
     public constructor() {
         super();
@@ -221,6 +211,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.selectionManager = rowSelectionStateManagerFactory(this);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -325,37 +316,40 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
-        if (this.selectionMode === TableRowSelectionMode.none) {
+        const rowId = this.tableData[rowIndex]?.id;
+        if (!rowId) {
             return;
         }
 
-        const rowState = this.tableData[rowIndex];
+        await this.selectionManager.handleRowSelectionToggle(
+            rowId,
+            event.detail.newState,
+            this.table.getState().rowSelection,
+            this.documentShiftKeyDown
+        );
+    }
+
+    /** @internal */
+    public async toggleIsRowSelected(rowId: string, isSelecting?: boolean): Promise<void> {
+        const rowState = this.tableData.find(x => x.id === rowId);
         if (!rowState) {
             return;
         }
 
-        const isShiftSelect = this.documentShiftKeyDown
-            && this.shiftSelectStartRowId !== undefined;
-
-        const madeSelection = isShiftSelect
-            ? await this.updateRangeSelection(rowState.id)
-            : false;
-        if (!madeSelection) {
-            this.updateShiftSelectionState(rowState.id);
-            if (
-                rowState.isGrouped
-                && rowState.selectionState === TableRowSelectionState.selected
-            ) {
-                // Work around for https://github.com/TanStack/table/issues/4759
-                // Manually deselect all leaf rows when a fully selected group is being deselected.
-                this.deselectAllLeafRows(rowIndex);
-            } else {
-                this.table
-                    .getRowModel()
-                    .rows[rowIndex]?.toggleSelected(event.detail.newState);
-            }
-            await this.emitSelectionChangeEvent();
+        if (
+            rowState.isGrouped
+            && rowState.selectionState === TableRowSelectionState.selected
+        ) {
+            // Work around for https://github.com/TanStack/table/issues/4759
+            // Manually deselect all leaf rows when a fully selected group is being deselected.
+            this.deselectAllLeafRows(rowState.id);
+        } else {
+            this.table
+                .getRowModel()
+                .rowsById[rowId]?.toggleSelected(isSelecting);
         }
+
+        await this.emitSelectionChangeEvent();
     }
 
     /** @internal */
@@ -365,35 +359,17 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
-        if (this.selectionMode === TableRowSelectionMode.none) {
+        const rowId = this.tableData[rowIndex]?.id;
+        if (!rowId) {
             return;
         }
 
-        const row = this.table.getRowModel().rows[rowIndex];
-        if (!row) {
-            return;
-        }
-
-        const isSingleRowSelection = this.selectionMode === TableRowSelectionMode.single
-            || (!event.shiftKey && !event.ctrlKey)
-            || (!event.ctrlKey
-                && event.shiftKey
-                && this.shiftSelectStartRowId === undefined);
-
-        if (isSingleRowSelection) {
-            this.updateShiftSelectionState(row.id);
-            await this.selectSingleRow(row);
-        } else if (event.ctrlKey) {
-            this.updateShiftSelectionState(row.id);
-            row.toggleSelected();
-            await this.emitSelectionChangeEvent();
-        } else if (event.shiftKey) {
-            const madeSelection = await this.updateRangeSelection(row.id);
-            if (!madeSelection) {
-                this.updateShiftSelectionState(row.id);
-                await this.selectSingleRow(row);
-            }
-        }
+        await this.selectionManager.handleRowClick(
+            rowId,
+            this.table.getState().rowSelection,
+            event.shiftKey,
+            event.ctrlKey
+        );
     }
 
     /** @internal */
@@ -419,7 +395,7 @@ export class Table<
         if (this.selectionMode !== TableRowSelectionMode.none) {
             const row = this.table.getRowModel().rows[rowIndex];
             if (row && !row.getIsSelected()) {
-                await this.selectSingleRow(row);
+                await this.selectSingleRow(row.id);
             } else {
                 recordIds = await this.getSelectedRecordIds();
             }
@@ -622,13 +598,13 @@ export class Table<
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
-            this.updateShiftSelectionState(undefined);
+            this.selectionManager.reset();
         }
         if (this.updateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.updateShiftSelectionState(undefined);
+            this.selectionManager = rowSelectionStateManagerFactory(this);
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -711,25 +687,24 @@ export class Table<
 
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
-
-        const rows = this.table.getRowModel().rows;
-        this.tableData = rows.map(row => {
-            const rowState: TableRowState<TData> = {
-                record: row.original,
-                id: row.id,
-                selectionState: this.getRowSelectionState(row),
-                isGrouped: row.getIsGrouped(),
-                isExpanded: row.getIsExpanded(),
-                groupRowValue: row.getIsGrouped()
-                    ? row.getValue(row.groupingColumnId!)
-                    : undefined,
-                nestingLevel: row.depth,
-                leafItemCount: this.getAllLeafRows(row).length,
-                groupColumn: this.getGroupRowColumn(row)
-            };
-            return rowState;
-        });
+        this.tableData = this.table.getRowModel().rows.map(row => this.getRowStateFromRow(row));
         this.virtualizer.dataChanged();
+    }
+
+    private getRowStateFromRow(row: TanStackRow<TData>): TableRowState<TData> {
+        return {
+            record: row.original,
+            id: row.id,
+            selectionState: this.getRowSelectionState(row),
+            isGrouped: row.getIsGrouped(),
+            isExpanded: row.getIsExpanded(),
+            groupRowValue: row.getIsGrouped()
+                ? row.getValue(row.groupingColumnId!)
+                : undefined,
+            nestingLevel: row.depth,
+            leafItemCount: this.getAllLeafRows(row).length,
+            groupColumn: this.getGroupRowColumn(row)
+        };
     }
 
     private getTableSelectionState(): TableRowSelectionState {
@@ -814,88 +789,31 @@ export class Table<
         this.refreshRows();
     }
 
-    private async selectSingleRow(row: TanStackRow<TData>): Promise<void> {
+    /** @internal */
+    public async selectSingleRow(rowId: string): Promise<void> {
         const currentSelection = await this.getSelectedRecordIds();
-        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
+        if (currentSelection.length === 1 && currentSelection[0] === rowId) {
             // The clicked row is already the only selected row. Do nothing.
             return;
         }
 
         this.table.toggleAllRowsSelected(false);
-        row.toggleSelected(true);
+        this.table.getRowModel().rowsById[rowId]?.toggleSelected(true);
         await this.emitSelectionChangeEvent();
     }
 
-    private async updateRangeSelection(clickedRowId: string): Promise<boolean> {
-        if (this.shiftSelectStartRowId === undefined) {
-            return false;
-        }
+    /** @internal */
+    public getAllOrderedRows(): TableRowState<TData>[] {
+        const topLevelRows = this.table.getPreExpandedRowModel().rows;
+        return this.getOrderedRows(topLevelRows).map(row => this.getRowStateFromRow(row));
+    }
 
-        const allRows = this.getAllOrderedRows();
-        const shiftSelectStartRowIndex = allRows.findIndex(
-            x => x.id === this.shiftSelectStartRowId
-        );
-        if (shiftSelectStartRowIndex === -1) {
-            return false;
-        }
-
-        const newSelection: TanStackRowSelectionState = this.table.getState().rowSelection;
-        if (this.previousShiftSelectRowEndId) {
-            const oldClickedRowIndex = allRows.findIndex(
-                x => x.id === this.previousShiftSelectRowEndId
-            );
-            if (oldClickedRowIndex !== -1) {
-                const firstRowIndex = Math.min(
-                    oldClickedRowIndex,
-                    shiftSelectStartRowIndex
-                );
-                const lastRowIndex = Math.max(
-                    oldClickedRowIndex,
-                    shiftSelectStartRowIndex
-                );
-
-                for (let i = firstRowIndex; i <= lastRowIndex; i++) {
-                    delete newSelection[allRows[i]!.id];
-                }
-            }
-        }
-
-        const clickedRowIndex = allRows.findIndex(x => x.id === clickedRowId);
-        const firstRowIndex = Math.min(
-            clickedRowIndex,
-            shiftSelectStartRowIndex
-        );
-        const lastRowIndex = Math.max(
-            clickedRowIndex,
-            shiftSelectStartRowIndex
-        );
-
-        for (let i = firstRowIndex; i <= lastRowIndex; i++) {
-            const row = allRows[i]!;
-            if (!row.getIsGrouped()) {
-                newSelection[row.id] = true;
-            }
-        }
-
-        const clickedRow = allRows[clickedRowIndex]!;
-        if (clickedRow.getIsGrouped() && clickedRowIndex === lastRowIndex) {
-            const leafRowIds = this.getAllLeafRows(clickedRow).map(x => x.id);
-            for (const id of leafRowIds) {
-                newSelection[id] = true;
-            }
-        }
-
+    /** @internal */
+    public async updateSelectionState(updatedSelection: { [rowId: string]: boolean }): Promise<void> {
         this.updateTableOptions({
-            state: { rowSelection: newSelection }
+            state: { rowSelection: updatedSelection }
         });
         await this.emitSelectionChangeEvent();
-        this.previousShiftSelectRowEndId = clickedRowId;
-        return true;
-    }
-
-    private getAllOrderedRows(): TanStackRow<TData>[] {
-        const topLevelRows = this.table.getPreExpandedRowModel().rows;
-        return this.getOrderedRows(topLevelRows);
     }
 
     private getOrderedRows(
@@ -911,15 +829,8 @@ export class Table<
         return allRows;
     }
 
-    private updateShiftSelectionState(
-        newShiftSelectStartRowId: string | undefined
-    ): void {
-        this.shiftSelectStartRowId = newShiftSelectStartRowId;
-        this.previousShiftSelectRowEndId = undefined;
-    }
-
-    private deselectAllLeafRows(rowIndex: number): void {
-        const groupRow = this.table.getRowModel().rows[rowIndex]!;
+    private deselectAllLeafRows(rowId: string): void {
+        const groupRow = this.table.getRowModel().rowsById[rowId]!;
         const leafRowIds = this.getAllLeafRows(groupRow).map(x => x.id);
 
         const selectionState = this.table.getState().rowSelection;
@@ -938,6 +849,19 @@ export class Table<
         return groupRow
             .getLeafRows()
             .filter(leafRow => leafRow.getLeafRows().length === 0);
+    }
+
+    /** @internal */
+    public getAllLeafRowIds(id: string): string[] {
+        const row = this.table.getRowModel().flatRows.find(x => x.id === id);
+        if (!row?.getIsGrouped()) {
+            return [];
+        }
+
+        return row
+            .getLeafRows()
+            .filter(leafRow => leafRow.getLeafRows().length === 0)
+            .map(leafRow => leafRow.id);
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
