@@ -17,6 +17,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
+	<PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
+  </ItemGroup>
+	
+  <ItemGroup>
     <None Include="wwwroot\index.html" />
   </ItemGroup>
 
@@ -25,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Examples\Demo.Shared\Demo.Shared.csproj" />
+    <ProjectReference Include="..\Demo.Shared\Demo.Shared.csproj" />
   </ItemGroup>
 
 </Project>
