@@ -176,17 +176,29 @@ _Content_
 Cell view:
 
 ```HTML
-${repeat(x => (x.column as TableColumnMapping).mappings,
-    html<TableColumnMapping, TableColumnMappingCellView>`
-        ${when((x, c) => x.key === (c.parent as TableColumnMappingCellView).cellRecord.value,
-            html<TableColumnMapping>`
-                ${repeat(x => x.mappedTemplate,
-                    html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
-                )}
-            `
-        )}
-    `
-)}
+<div
+    ${ref('wrapper')}
+    class="wrapper"
+    @mouseover="${x => {
+        x.isValidContentAndHasOverflow = !!x.wrapper.innerText && x.wrapper.offsetWidth < x.wrapper.scrollWidth;
+    }}"
+    @mouseout="${x => {
+        x.isValidContentAndHasOverflow = false;
+    }}"
+    title=${x => (x.isValidContentAndHasOverflow ? x.wrapper.innerText : null)}
+>
+    ${repeat(x => (x.column as TableColumnMapping).mappings,
+        html<TableColumnMapping, TableColumnMappingCellView>`
+            ${when((x, c) => x.key === (c.parent as TableColumnMappingCellView).cellRecord.value,
+                html<TableColumnMapping>`
+                    ${repeat(x => x.mappedTemplate,
+                        html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
+                    )}
+                `
+            )}
+        `
+    )}
+</div>
 ```
 
 Header view:
@@ -194,17 +206,29 @@ Header view:
 Note the following requires that `TableColumnMappingHeaderView` has a reference to the column with which it is associated. This is needed to enumerate the column's mapping elements.
 
 ```HTML
-${repeat(x => (x.column as TableColumnMapping).mappings,
-    html<TableColumnMapping, TableColumnMappingHeaderView>`
-        ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
-            html<TableColumnMapping>`
-                ${repeat(x => x.mappedTemplate,
-                    html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
-                )}
-            `
-        )}
-    `
-)}
+<div
+    ${ref('wrapper')}
+    class="wrapper"
+    @mouseover="${x => {
+        x.isValidContentAndHasOverflow = !!x.wrapper.innerText && x.wrapper.offsetWidth < x.wrapper.scrollWidth;
+    }}"
+    @mouseout="${x => {
+        x.isValidContentAndHasOverflow = false;
+    }}"
+    title=${x => (x.isValidContentAndHasOverflow ? x.wrapper.innerText : null)}
+>
+    ${repeat(x => (x.column as TableColumnMapping).mappings,
+        html<TableColumnMapping, TableColumnMappingHeaderView>`
+            ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
+                html<TableColumnMapping>`
+                    ${repeat(x => x.mappedTemplate,
+                        html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
+                    )}
+                `
+            )}
+        `
+    )}
+</div>
 ```
 
 For each mapping, if the key matches the value for this row, get the mapping's contained `template` and render its `innerHTML`.
