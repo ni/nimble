@@ -337,10 +337,7 @@ export class Table<
     }
 
     /** @internal */
-    public onRowClick(
-        rowIndex: number,
-        event: MouseEvent
-    ): boolean {
+    public onRowClick(rowIndex: number, event: MouseEvent): boolean {
         const selectionChanged = this.selectionManager.handleRowClick(
             this.tableData[rowIndex],
             event.shiftKey,
@@ -492,7 +489,9 @@ export class Table<
         }
     }
 
-    private async getActionMenuToggleEventDetail(originalEvent: CustomEvent<TableActionMenuToggleEventDetail>): Promise<TableActionMenuToggleEventDetail> {
+    private async getActionMenuToggleEventDetail(
+        originalEvent: CustomEvent<TableActionMenuToggleEventDetail>
+    ): Promise<TableActionMenuToggleEventDetail> {
         const recordIds = this.selectionMode === TableRowSelectionMode.multiple
             ? await this.getSelectedRecordIds()
             : [this.openActionMenuRecordId!];
