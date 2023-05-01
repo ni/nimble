@@ -398,7 +398,8 @@ export class Table<
         allowMultiSort: boolean
     ): void {
         const allSortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.columnInternals.currentSortIndex! - y.columnInternals.currentSortIndex!
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
         );
 
         const columnIndex = allSortedColumns.indexOf(column);
@@ -589,7 +590,8 @@ export class Table<
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
             x => !x.sortingDisabled
-                && x.columnInternals.currentSortDirection !== TableColumnSortDirection.none
+                && x.columnInternals.currentSortDirection
+                    !== TableColumnSortDirection.none
                 && typeof x.columnInternals.currentSortIndex === 'number'
         );
     }
@@ -672,7 +674,9 @@ export class Table<
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
-            this.getColumnsParticipatingInSorting().map(x => x.columnInternals.currentSortIndex!)
+            this.getColumnsParticipatingInSorting().map(
+                x => x.columnInternals.currentSortIndex!
+            )
         );
         this.tableValidator.validateColumnGroupIndices(
             this.getColumnsParticipatingInGrouping().map(
@@ -917,7 +921,8 @@ export class Table<
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.columnInternals.currentSortIndex! - y.columnInternals.currentSortIndex!
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
         );
         this.firstSortedColumn = sortedColumns.length
             ? sortedColumns[0]
@@ -927,7 +932,8 @@ export class Table<
             return {
                 id: column.columnInternals.uniqueId,
                 desc:
-                    column.columnInternals.currentSortDirection === TableColumnSortDirection.descending
+                    column.columnInternals.currentSortDirection
+                    === TableColumnSortDirection.descending
             };
         });
     }

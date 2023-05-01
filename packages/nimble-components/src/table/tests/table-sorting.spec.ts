@@ -737,13 +737,30 @@ describe('Table sorting', () => {
 
     describe('interactive sorting', () => {
         const data: readonly SimpleTableRecord[] = [
-            { id: '1', stringData1: 'a1', stringData2: 'b1', stringData3: 'c1' },
-            { id: '2', stringData1: 'a2', stringData2: 'b2', stringData3: 'c2' },
-            { id: '3', stringData1: 'a3', stringData2: 'b3', stringData3: 'c3' },
+            {
+                id: '1',
+                stringData1: 'a1',
+                stringData2: 'b1',
+                stringData3: 'c1'
+            },
+            {
+                id: '2',
+                stringData1: 'a2',
+                stringData2: 'b2',
+                stringData3: 'c2'
+            },
+            {
+                id: '3',
+                stringData1: 'a3',
+                stringData2: 'b3',
+                stringData3: 'c3'
+            },
             { id: '4', stringData1: 'a4', stringData2: 'b4', stringData3: 'c4' }
         ] as const;
 
-        async function shiftClickOnTableHeader(header: TableHeader): Promise<void> {
+        async function shiftClickOnTableHeader(
+            header: TableHeader
+        ): Promise<void> {
             const clickEvent = new MouseEvent('click', {
                 shiftKey: true,
                 bubbles: true
@@ -762,36 +779,71 @@ describe('Table sorting', () => {
             pageObject.getHeaderElement(0).click();
             await waitForUpdatesAsync();
 
-            expect(column1.sortDirection).toEqual(TableColumnSortDirection.descending);
+            expect(column1.sortDirection).toEqual(
+                TableColumnSortDirection.descending
+            );
             expect(column1.sortIndex).toEqual(5);
         });
 
-        const directionLabel: (direction: TableColumnSortDirection) => string = direction => `${direction ?? 'no'}-sort`;
-        const directionCyclingTests: { initialDirection: TableColumnSortDirection, expectedDirectionAfterClick: TableColumnSortDirection }[] = [
-            { initialDirection: TableColumnSortDirection.none, expectedDirectionAfterClick: TableColumnSortDirection.ascending },
-            { initialDirection: TableColumnSortDirection.ascending, expectedDirectionAfterClick: TableColumnSortDirection.descending },
-            { initialDirection: TableColumnSortDirection.descending, expectedDirectionAfterClick: TableColumnSortDirection.none }
+        const directionLabel: (
+            direction: TableColumnSortDirection
+        ) => string = direction => `${direction ?? 'no'}-sort`;
+        const directionCyclingTests: {
+            initialDirection: TableColumnSortDirection,
+            expectedDirectionAfterClick: TableColumnSortDirection
+        }[] = [
+            {
+                initialDirection: TableColumnSortDirection.none,
+                expectedDirectionAfterClick: TableColumnSortDirection.ascending
+            },
+            {
+                initialDirection: TableColumnSortDirection.ascending,
+                expectedDirectionAfterClick: TableColumnSortDirection.descending
+            },
+            {
+                initialDirection: TableColumnSortDirection.descending,
+                expectedDirectionAfterClick: TableColumnSortDirection.none
+            }
         ];
         directionCyclingTests.forEach(test => {
-            it(`${directionLabel(test.initialDirection)} columns become ${directionLabel(test.expectedDirectionAfterClick)} when clicked`, async () => {
+            it(`${directionLabel(
+                test.initialDirection
+            )} columns become ${directionLabel(
+                test.expectedDirectionAfterClick
+            )} when clicked`, async () => {
                 await element.setData(data);
                 column1.sortDirection = test.initialDirection;
-                column1.sortIndex = test.initialDirection === TableColumnSortDirection.none ? undefined : 0;
+                column1.sortIndex = test.initialDirection === TableColumnSortDirection.none
+                    ? undefined
+                    : 0;
                 await connect();
                 await waitForUpdatesAsync();
 
                 pageObject.getHeaderElement(0).click();
                 await waitForUpdatesAsync();
 
-                expect(column1.columnInternals.currentSortDirection).toEqual(test.expectedDirectionAfterClick);
-                const expectedSortIndex = test.expectedDirectionAfterClick === TableColumnSortDirection.none ? undefined : 0;
-                expect(column1.columnInternals.currentSortIndex).toEqual(expectedSortIndex);
+                expect(column1.columnInternals.currentSortDirection).toEqual(
+                    test.expectedDirectionAfterClick
+                );
+                const expectedSortIndex = test.expectedDirectionAfterClick
+                    === TableColumnSortDirection.none
+                    ? undefined
+                    : 0;
+                expect(column1.columnInternals.currentSortIndex).toEqual(
+                    expectedSortIndex
+                );
             });
 
-            it(`${directionLabel(test.initialDirection)} columns become ${directionLabel(test.expectedDirectionAfterClick)} when Shift-clicked, and other sorted columns stay sorted`, async () => {
+            it(`${directionLabel(
+                test.initialDirection
+            )} columns become ${directionLabel(
+                test.expectedDirectionAfterClick
+            )} when Shift-clicked, and other sorted columns stay sorted`, async () => {
                 await element.setData(data);
                 column1.sortDirection = test.initialDirection;
-                column1.sortIndex = test.initialDirection === TableColumnSortDirection.none ? undefined : 1;
+                column1.sortIndex = test.initialDirection === TableColumnSortDirection.none
+                    ? undefined
+                    : 1;
                 column2.sortDirection = TableColumnSortDirection.ascending;
                 column2.sortIndex = 0;
                 await connect();
@@ -799,10 +851,19 @@ describe('Table sorting', () => {
 
                 await shiftClickOnTableHeader(pageObject.getHeaderElement(0));
 
-                expect(column1.columnInternals.currentSortDirection).toEqual(test.expectedDirectionAfterClick);
-                const expectedSortIndex = test.expectedDirectionAfterClick === TableColumnSortDirection.none ? undefined : 1;
-                expect(column1.columnInternals.currentSortIndex).toEqual(expectedSortIndex);
-                expect(column2.columnInternals.currentSortDirection).toEqual(TableColumnSortDirection.ascending);
+                expect(column1.columnInternals.currentSortDirection).toEqual(
+                    test.expectedDirectionAfterClick
+                );
+                const expectedSortIndex = test.expectedDirectionAfterClick
+                    === TableColumnSortDirection.none
+                    ? undefined
+                    : 1;
+                expect(column1.columnInternals.currentSortIndex).toEqual(
+                    expectedSortIndex
+                );
+                expect(column2.columnInternals.currentSortDirection).toEqual(
+                    TableColumnSortDirection.ascending
+                );
                 expect(column2.columnInternals.currentSortIndex).toEqual(0);
             });
         });
@@ -820,11 +881,17 @@ describe('Table sorting', () => {
 
             await shiftClickOnTableHeader(pageObject.getHeaderElement(1));
 
-            expect(column1.columnInternals.currentSortDirection).toEqual(TableColumnSortDirection.ascending);
+            expect(column1.columnInternals.currentSortDirection).toEqual(
+                TableColumnSortDirection.ascending
+            );
             expect(column1.columnInternals.currentSortIndex).toEqual(1);
-            expect(column2.columnInternals.currentSortDirection).toEqual(TableColumnSortDirection.descending);
+            expect(column2.columnInternals.currentSortDirection).toEqual(
+                TableColumnSortDirection.descending
+            );
             expect(column2.columnInternals.currentSortIndex).toEqual(0);
-            expect(column3.columnInternals.currentSortDirection).toEqual(TableColumnSortDirection.ascending);
+            expect(column3.columnInternals.currentSortDirection).toEqual(
+                TableColumnSortDirection.ascending
+            );
             expect(column3.columnInternals.currentSortIndex).toEqual(2);
         });
     });

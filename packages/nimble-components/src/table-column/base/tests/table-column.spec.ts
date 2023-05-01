@@ -53,7 +53,9 @@ describe('TableColumn', () => {
         await connect();
         element.sortDirection = TableColumnSortDirection.descending;
 
-        expect(element.columnInternals.currentSortDirection).toBe(TableColumnSortDirection.descending);
+        expect(element.columnInternals.currentSortDirection).toBe(
+            TableColumnSortDirection.descending
+        );
     });
 
     it('setting sortIndex sets columnInternals.currentSortIndex', async () => {

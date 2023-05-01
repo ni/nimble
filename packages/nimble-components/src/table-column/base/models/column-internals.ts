@@ -1,6 +1,9 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
-import type { TableColumnSortDirection, TableFieldName } from '../../../table/types';
+import type {
+    TableColumnSortDirection,
+    TableFieldName
+} from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {
     TableColumnSortOperation,
