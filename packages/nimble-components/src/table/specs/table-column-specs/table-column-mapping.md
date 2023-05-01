@@ -18,7 +18,7 @@ The `nimble-table-column-mapping` is a component that supports rendering a speci
     -   boolean
 -   Supported output:
     -   Text
-    -   One or more icons with colors via icon severity property
+    -   One or more Nimble icons (with colors via icon severity property)
     -   Nimble spinner
     -   Mixed icons and text
     -   (empty)
@@ -77,6 +77,27 @@ In addition to the `nimble-table-column-mapping` element, there are `nimble-mapp
 </nimble-table>
 ```
 
+Note that the `key` attribute values are always given as strings. In the case of boolean or number mappings, this value is parsed to the appropriate type, so that it can properly be compared to the values from the row records.
+
+```TS
+import {
+    attr,
+    booleanConverter,
+    nullableNumberConverter
+} from '@microsoft/fast-element';
+
+export class TableColumnNumberMapping extends TableColumnMapping {
+    @attr({ converter: nullableNumberConverter })
+    public override key: number | null = null;
+}
+
+export class TableColumnBooleanMapping extends TableColumnMapping {
+    @attr({ converter: booleanConverter })
+    public override key: boolean | null = null;
+}
+
+```
+
 **Alternatives:**
 
 1. This mapping API was originally conceived to implement an icon column type. We could stick to the original, limited scope and define just a `nimble-table-column-icon` (mapping strings to icons). However we will likely need to take a very similar approach to implement columns supporting boolean and enum input types. It would be natural and efficient to have a single column type to support all three, and potentially other use cases in the future.
@@ -102,6 +123,8 @@ In addition to the `nimble-table-column-mapping` element, there are `nimble-mapp
 
 ### API
 
+#### Column element:
+
 _Component Name_
 
 -   `nimble-table-column-mapping`
@@ -115,7 +138,7 @@ _Content_
 -   column title (text)
 -   1 or more `nimble-mapping-*` elements
 
----
+#### Mapping elements:
 
 _Component Name_
 
@@ -154,6 +177,24 @@ Cell view:
 ${repeat(x => (x.column as TableColumnMapping).mappings,
     html<TableColumnMapping, TableColumnMappingCellView>`
         ${when((x, c) => x.key === (c.parent as TableColumnMappingCellView).cellRecord.value,
+            html<TableColumnMapping>`
+                ${repeat(x => x.mappedTemplate,
+                    html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
+                )}
+            `
+        )}
+    `
+)}
+```
+
+Header view:
+
+Note the following requires that `TableColumnMappingHeaderView` has a reference to the column with which it is associated. This is needed to enumerate the column's mapping elements.
+
+```HTML
+${repeat(x => (x.column as TableColumnMapping).mappings,
+    html<TableColumnMapping, TableColumnMappingHeaderView>`
+        ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
             html<TableColumnMapping>`
                 ${repeat(x => x.mappedTemplate,
                     html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
@@ -219,6 +260,8 @@ N/A
 
 Text, icons, and spinner are not interactive and cannot receive keyboard focus.
 
+The cell will not introduce any items into the accessibility tree other than the elements in the mapped template. Those items will already have appropriate accessibility tree representations.
+
 We will instruct clients to provide an accessible name for each icon/spinner, either via the `title` or `aria-label` attribute. `aria-labelledby` is not an option, because it requires defining an `id` which will not be unique when duplicated accross multiple rows.
 
 ### Globalization
@@ -241,6 +284,7 @@ None
 
 -   Unit tests will be written verifying the usual component expectations, plus:
     -   behavior in the presence of non-unique mapping keys
+    -   error thrown when non-parsable value is given to number/boolean mappings
     -   error thrown when mapping contents are not a single template element
 -   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
 -   Visual Chromatic tests will be created
@@ -258,3 +302,5 @@ Documented in Storybook
 ## Open Issues
 
 -   Should we throw an error if the user includes unsupported elements in the `nimble-mapping-*` template? Or is documenting the restrictions sufficient?
+-   Can we give `TableColumnMappingHeaderView` a reference to the column with which it is associated?
+-   Blazor support not working?
