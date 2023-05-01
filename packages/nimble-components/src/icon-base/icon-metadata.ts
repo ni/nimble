@@ -13,6 +13,9 @@ export const iconMetadata: {
     IconAdd: {
         tags: ['add-input-field']
     },
+    IconArrowDown: {
+        tags: ['sort', 'arrow', 'down', 'descending']
+    },
     IconArrowDownRightAndArrowUpLeft: {
         tags: ['resize', 'collapse']
     },
@@ -51,6 +54,9 @@ export const iconMetadata: {
     },
     IconArrowsRepeat: {
         tags: ['status', 'looping']
+    },
+    IconArrowUp: {
+        tags: ['sort', 'arrow', 'up', 'ascending']
     },
     IconBars: {
         tags: ['hamburger-menu']
@@ -223,8 +229,14 @@ export const iconMetadata: {
     IconFileSearch: {
         tags: ['file-viewer']
     },
+    IconFileExport: {
+        tags: ['download']
+    },
     IconFilter: {
         tags: []
+    },
+    IconFloppyDisk: {
+        tags: ['save']
     },
     IconFloppyDiskCheckmark: {
         tags: ['save', 'no-unsaved-changed']
@@ -420,6 +432,15 @@ export const iconMetadata: {
     },
     IconTrueFalseRectangle: {
         tags: ['tdms-boolean-channel']
+    },
+    IconTriangleTwoLinesHorizontal: {
+        tags: ['collapse-all']
+    },
+    IconTwoSquaresInBrackets: {
+        tags: ['group-by']
+    },
+    IconTwoTrianglesBetweenLines: {
+        tags: ['size-column-to-content']
     },
     IconUnlink: {
         tags: ['link-broken']

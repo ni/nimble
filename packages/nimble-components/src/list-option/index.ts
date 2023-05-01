@@ -43,3 +43,4 @@ const nimbleListOption = ListOption.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleListOption());
+export const listOptionTag = DesignSystem.tagFor(ListOption);

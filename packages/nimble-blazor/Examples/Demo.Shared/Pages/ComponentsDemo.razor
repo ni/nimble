@@ -10,6 +10,10 @@
     </p>
     <div class="container">
         <div class="sub-container">
+            <div class="container-label">Anchor</div>
+            <NimbleAnchor Href="#">Site root</NimbleAnchor>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Breadcrumb</div>
             <NimbleBreadcrumb>
                 <NimbleBreadcrumbItem Href="#">Page 1</NimbleBreadcrumbItem>
@@ -18,10 +22,32 @@
             </NimbleBreadcrumb>
         </div>
         <div class="sub-container">
+            <div class="container-label">Banner</div>
+            <NimbleBanner @bind-Open="@BannerOpen" Severity="BannerSeverity.Information">
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
+            </NimbleBanner>
+            <NimbleCheckbox @bind-Value="@BannerOpen">Show banner</NimbleCheckbox>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Buttons</div>
             <NimbleButton Appearance="ButtonAppearance.Outline">Outline Button</NimbleButton>
             <NimbleButton Appearance="ButtonAppearance.Block">Block Button</NimbleButton>
             <NimbleButton Appearance="ButtonAppearance.Ghost">Ghost Button</NimbleButton>
+            <NimbleButton ContentHidden="true" Appearance="ButtonAppearance.Outline">
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                Icon Button
+            </NimbleButton>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Anchor</div>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Outline">Outline Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Block">Block Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" Appearance="ButtonAppearance.Ghost">Ghost Anchor Button</NimbleAnchorButton>
+            <NimbleAnchorButton Href="#" ContentHidden="true" Appearance="ButtonAppearance.Outline">
+                <NimbleIconKey slot="start"></NimbleIconKey>
+                Icon Button
+            </NimbleAnchorButton>
         </div>
         <div class="sub-container">
             <div class="container-label">Buttons - Toggle</div>
@@ -105,6 +131,7 @@
                 <hr>
                 <header>Header 2</header>
                 <NimbleMenuItem>Item 4</NimbleMenuItem>
+                <NimbleAnchorMenuItem Href="#">Item 5 (link)</NimbleAnchorMenuItem>
             </NimbleMenu>
         </div>
         <div class="sub-container">
@@ -165,6 +192,10 @@
             </NimbleCombobox>
         </div>
         <div class="sub-container">
+            <div class="container-label">Spinner</div>
+            <NimbleSpinner></NimbleSpinner>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Switch</div>
             <NimbleSwitch>Switch</NimbleSwitch>
             <NimbleSwitch Value="true">
@@ -174,11 +205,36 @@
             </NimbleSwitch>
         </div>
         <div class="sub-container">
+            <div class="container-label">Table</div>
+            <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
+                <NimbleTableColumnText
+                    FieldName="FirstName"
+                    Placeholder="no value"
+                    ColumnId="first-name-column"
+                    ActionMenuSlot="action-menu"
+                    ActionMenuLabel="Action menu"
+                    SortDirection="TableColumnSortDirection.Ascending"
+                    SortIndex="0"
+                >
+                    <NimbleIconKey title="First Name"></NimbleIconKey>
+                </NimbleTableColumnText>
+                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
+                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value" GroupIndex="0">Last Name</NimbleTableColumnText>
+
+                <NimbleMenu slot="action-menu">
+                    <NimbleMenuItem>Item 1</NimbleMenuItem>
+                    <NimbleMenuItem>Item 2</NimbleMenuItem>
+                    <NimbleMenuItem>Item 3</NimbleMenuItem>
+                </NimbleMenu>
+            </NimbleTable>
+        </div>
+        <NimbleButton class="table-update-button" @onclick=@(_ => UpdateTableData(100))>Update Data</NimbleButton>
+        <div class="sub-container">
             <div class="container-label">Tabs</div>
             <NimbleTabs @bind-ActiveId="@ActiveTabId">
-                <NimbleTab>Tab 1</NimbleTab>
-                <NimbleTab>Tab 2</NimbleTab>
-                <NimbleTab Disabled="true">Tab 3 (Disabled)</NimbleTab>
+                <NimbleTab id="tab-1">Tab 1</NimbleTab>
+                <NimbleTab id="tab-2">Tab 2</NimbleTab>
+                <NimbleTab id="tab-3" Disabled="true">Tab 3 (Disabled)</NimbleTab>
                 <NimbleTabsToolbar>
                     <NimbleButton>Toolbar Button</NimbleButton>
                 </NimbleTabsToolbar>
@@ -187,15 +243,38 @@
                 </NimbleTabPanel>
                 <NimbleTabPanel>
                     <div class="container-label">Tab 2 content</div>
+                    <NimbleTextField Placeholder="Enter text into Tab here" />
                 </NimbleTabPanel>
                 <NimbleTabPanel>
                     <div class="container-label">Tab 3 content</div>
                 </NimbleTabPanel>
             </NimbleTabs>
-            <NimbleSelect @bind-Value="@ActiveTabId">
+            <label id="activeTab">
+                Active tab:
+            </label>
+            <NimbleSelect @bind-Value="@ActiveTabId" aria-labelledby="activeTab">
                 <NimbleListOption Value="tab-1">Tab 1</NimbleListOption>
                 <NimbleListOption Value="tab-2">Tab 2</NimbleListOption>
                 <NimbleListOption Value="tab-3">Tab 3</NimbleListOption>
+            </NimbleSelect>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tabs - Anchor</div>
+            <NimbleAnchorTabs ActiveId="@ActiveAnchorTabId">
+                <NimbleAnchorTab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</NimbleAnchorTab>
+                <NimbleAnchorTab id="a-tab-2" href="https://ni.com">Tab 2</NimbleAnchorTab>
+                <NimbleAnchorTab id="a-tab-3" Disabled="true">Tab 3 (Disabled)</NimbleAnchorTab>
+                <NimbleTabsToolbar>
+                    <NimbleButton>Toolbar Button</NimbleButton>
+                </NimbleTabsToolbar>
+            </NimbleAnchorTabs>
+            <label id="activeAnchorTab">
+                Active tab:
+            </label>
+            <NimbleSelect @bind-Value="@ActiveAnchorTabId" aria-labelledby="activeAnchorTab">
+                <NimbleListOption Value="a-tab-1">Tab 1</NimbleListOption>
+                <NimbleListOption Value="a-tab-2">Tab 2</NimbleListOption>
+                <NimbleListOption Value="a-tab-3">Tab 3</NimbleListOption>
             </NimbleSelect>
         </div>
         <div class="sub-container">
@@ -234,7 +313,7 @@
                 <NimbleTreeItem>
                     Parent 1
                     <NimbleTreeItem>Child 1</NimbleTreeItem>
-                    <NimbleTreeItem>Child 2</NimbleTreeItem>
+                    <NimbleAnchorTreeItem Href="https://nimble.ni.dev">Child 2 (link)</NimbleAnchorTreeItem>
                     <NimbleTreeItem Disabled="true">Child 3</NimbleTreeItem>
                 </NimbleTreeItem>
                 <NimbleTreeItem Expanded="true">

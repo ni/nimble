@@ -3,4 +3,4 @@ export const ExampleContentType = {
     longContent: 'LongContent'
 } as const;
 export type ExampleContentType =
-    typeof ExampleContentType[keyof typeof ExampleContentType];
+    (typeof ExampleContentType)[keyof typeof ExampleContentType];

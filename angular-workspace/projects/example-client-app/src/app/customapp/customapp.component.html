@@ -4,6 +4,19 @@
             component docs</a> for additional usage details.</p>
     <div class="container">
         <div class="sub-container">
+            <div class="container-label">Anchor</div>
+            <div><nimble-anchor href="#" appearance="prominent">Site root</nimble-anchor></div>
+            Let's try it <nimble-anchor nimbleRouterLink="/customapp" underline-visible>using nimbleRouterLink</nimble-anchor>.
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Banner</div>
+            <nimble-banner [(open)]="bannerOpen" severity="information">
+                <span slot="title">Title of the banner</span>
+                This is the message text of this banner. It tells you something interesting.
+            </nimble-banner>
+            <nimble-checkbox [(ngModel)]="bannerOpen">Show banner</nimble-checkbox>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Breadcrumb</div>
             <nimble-breadcrumb>
                 <nimble-breadcrumb-item href="#">Page 1</nimble-breadcrumb-item>
@@ -22,6 +35,12 @@
             <nimble-toggle-button appearance="outline">Outline Toggle Button</nimble-toggle-button>
             <nimble-toggle-button appearance="block">Block Toggle Button</nimble-toggle-button>
             <nimble-toggle-button appearance="ghost">Ghost Toggle Button</nimble-toggle-button>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Buttons - Anchor</div>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="outline">Outline Anchor Button</nimble-anchor-button>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor Button</nimble-anchor-button>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor Button</nimble-anchor-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Card Button</div>
@@ -90,6 +109,7 @@
                 <hr>
                 <header>Header 2</header>
                 <nimble-menu-item>Item 4</nimble-menu-item>
+                <nimble-anchor-menu-item nimbleRouterLink="/customapp">Item 5 (link)</nimble-anchor-menu-item>
             </nimble-menu>
         </div>
         <div class="sub-container">
@@ -151,6 +171,10 @@
             </nimble-combobox>
         </div>
         <div class="sub-container">
+            <div class="container-label">Spinner</div>
+            <nimble-spinner aria-label="Loading example content"></nimble-spinner>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Switch</div>
             <nimble-switch>Switch</nimble-switch>
             <nimble-switch checked>
@@ -160,11 +184,45 @@
             </nimble-switch>
         </div>
         <div class="sub-container">
+            <div class="container-label">Table</div>
+            <nimble-table [data$]="tableData$" id-field-name="id" selection-mode="multiple">
+                <nimble-table-column-text
+                    field-name="stringValue1"
+                    action-menu-slot="action-menu"
+                    action-menu-label="Action menu"
+                    fractional-width="2"
+                    min-pixel-width="300"
+                    sort-direction="ascending"
+                    sort-index="0"
+                >
+                    <nimble-icon-check title="String 1"></nimble-icon-check>
+                </nimble-table-column-text>
+                <nimble-table-column-anchor
+                    nimbleRouterLink
+                    [queryParams]="{ word: 'foo' }"
+                    queryParamsHandling="merge"
+                    href-field-name="href"
+                    label-field-name="linkLabel"
+                >
+                    Link
+                </nimble-table-column-anchor>
+                <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
+
+                <nimble-menu slot="action-menu">
+                    <nimble-menu-item>Item 1</nimble-menu-item>
+                    <nimble-menu-item>Item 2</nimble-menu-item>
+                    <nimble-menu-item>Item 3</nimble-menu-item>
+                </nimble-menu>
+            </nimble-table>
+            <nimble-button class="add-table-row-button" (click)="onAddTableRow()">Add row</nimble-button>
+            <nimble-text-field class="query-param-word" readonly [ngModel]="(route.queryParams | async)!.word">Link Query Param Word</nimble-text-field>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Tabs</div>
-            <nimble-tabs>
-                <nimble-tab>Tab 1</nimble-tab>
-                <nimble-tab>Tab 2</nimble-tab>
-                <nimble-tab disabled>Tab 3 (Disabled)</nimble-tab>
+            <nimble-tabs [(activeid)]="activeTabId">
+                <nimble-tab id="tab-1">Tab 1</nimble-tab>
+                <nimble-tab id="tab-2">Tab 2</nimble-tab>
+                <nimble-tab id="tab-3" disabled>Tab 3 (Disabled)</nimble-tab>
                 <nimble-tabs-toolbar>
                     <nimble-button (click)="onTabToolbarButtonClick()">Toolbar button</nimble-button>
                 </nimble-tabs-toolbar>
@@ -178,6 +236,33 @@
                     <div class="container-label">Tab 3 content</div>
                 </nimble-tab-panel>
             </nimble-tabs>
+            <label id="activeTabLabel">
+                Active tab:
+            </label>
+            <nimble-select [(ngModel)]="activeTabId" aria-labelledby="activeTabLabel">
+                <nimble-list-option value="tab-1">Tab 1</nimble-list-option>
+                <nimble-list-option value="tab-2">Tab 2</nimble-list-option>
+                <nimble-list-option value="tab-3">Tab 3</nimble-list-option>
+            </nimble-select>
+        </div>
+        <div class="sub-container">
+            <div class="container-label">Tabs - Anchor</div>
+            <nimble-anchor-tabs [activeid]="activeAnchorTabId">
+                <nimble-anchor-tab id="a-tab-1" href="https://nimble.ni.dev">Tab 1</nimble-anchor-tab>
+                <nimble-anchor-tab id="a-tab-2" href="https://ni.com">Tab 2</nimble-anchor-tab>
+                <nimble-anchor-tab disabled id="a-tab-3" href="https://google.com">Tab 3 (Disabled)</nimble-anchor-tab>
+                <nimble-tabs-toolbar>
+                    <nimble-button (click)="onTabToolbarButtonClick()">Toolbar button</nimble-button>
+                </nimble-tabs-toolbar>
+            </nimble-anchor-tabs>
+            <label id="activeAnchorTabLabel">
+                Active tab:
+            </label>
+            <nimble-select [(ngModel)]="activeAnchorTabId" aria-labelledby="activeAnchorTabLabel">
+                <nimble-list-option value="a-tab-1">Tab 1</nimble-list-option>
+                <nimble-list-option value="a-tab-2">Tab 2</nimble-list-option>
+                <nimble-list-option value="a-tab-3">Tab 3</nimble-list-option>
+            </nimble-select>
         </div>
         <div class="sub-container">
             <div class="container-label">Text Area</div>
@@ -217,7 +302,7 @@
                 <nimble-tree-item>
                     Parent 1
                     <nimble-tree-item>Child 1</nimble-tree-item>
-                    <nimble-tree-item>Child 2</nimble-tree-item>
+                    <nimble-anchor-tree-item nimbleRouterLink="/customapp">Child 2 (link)</nimble-anchor-tree-item>
                     <nimble-tree-item disabled>Child 3</nimble-tree-item>
                 </nimble-tree-item>
                 <nimble-tree-item expanded>

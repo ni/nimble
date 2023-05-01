@@ -1,0 +1,13 @@
+﻿@namespace NimbleBlazor
+@typeparam TData
+<nimble-table
+    @ref="_table"
+    id-field-name="@IdFieldName"
+    selection-mode="@SelectionMode.ToAttributeValue()"
+    @attributes="AdditionalAttributes"
+    @onnimbleactionmenubeforetoggle="(__value) => HandleActionMenuBeforeToggle(__value)"
+    @onnimbleactionmenutoggle="(__value) => HandleActionMenuToggle(__value)"
+    @onnimbletablerowselectionchange="(__value) => HandleSelectionChange(__value)"
+>
+    @ChildContent
+</nimble-table>

@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import { ButtonAppearance } from '../types';
@@ -13,17 +12,16 @@ import {
     createStory
 } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
+import { menuButtonTag } from '..';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 
 const metadata: Meta = {
     title: 'Tests/Menu Button',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -37,12 +35,12 @@ const partVisibilityStates = [
     [true, true, true],
     [false, true, true]
 ] as const;
-type PartVisibilityState = typeof partVisibilityStates[number];
+type PartVisibilityState = (typeof partVisibilityStates)[number];
 
 const appearanceStates = Object.entries(ButtonAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
@@ -50,23 +48,23 @@ const component = (
     [disabledName, disabled]: DisabledState,
     [appearanceName, appearance]: AppearanceState
 ): ViewTemplate => html`
-    <nimble-menu-button
+    <${menuButtonTag}
         appearance="${() => appearance}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         style="margin-right: 8px; margin-bottom: 8px;">
-            ${when(() => iconVisible, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${() => `${appearanceName!} Menu Button ${disabledName}`}
-            ${when(() => endIconVisible, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
+            ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
-        <nimble-menu slot="menu">
-            <nimble-menu-item>Item 1</nimble-menu-item>
-            <nimble-menu-item>Item 2</nimble-menu-item>
-        </nimble-menu>
-    </nimble-menu-button>
+        <${menuTag} slot="menu">
+            <${menuItemTag}>Item 1</${menuItemTag}>
+            <${menuItemTag}>Item 2</${menuItemTag}>
+        </${menuTag}>
+    </${menuButtonTag}>
 `;
 
-export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
+export const menuButtonThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         partVisibilityStates,
         disabledStates,
@@ -74,8 +72,8 @@ export const menuButtonThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenMenuButton: Story = createStory(
+export const hiddenMenuButton: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-menu-button hidden>Hidden Menu Button</nimble-menu-button>`
+        html`<${menuButtonTag} hidden>Hidden Menu Button</${menuButtonTag}>`
     )
 );

@@ -47,3 +47,15 @@ export const toNumberProperty = (value: NumberValueOrAttribute): number => {
     // Are identical (use ToNumeric algorithm), went with Number() for clarity
     return Number(value);
 };
+
+/**
+ * Converts values from templates (number representation as a string) or number bindings to a number property representation.
+ * The values of `null` and `undefined` are also supported, and they are not converted.
+ */
+export const toNullableNumberProperty = (value: NumberValueOrAttribute | null | undefined): number | null | undefined => {
+    if (value === undefined || value === null) {
+        return value;
+    }
+
+    return toNumberProperty(value);
+};

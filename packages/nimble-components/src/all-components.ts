@@ -4,7 +4,14 @@
  * that are required instead of leveraging this file.
  */
 
+import './anchor';
+import './anchor-button';
+import './anchor-menu-item';
+import './anchor-tab';
+import './anchor-tabs';
+import './anchor-tree-item';
 import './anchored-region';
+import './banner';
 import './breadcrumb';
 import './breadcrumb-item';
 import './button';
@@ -22,9 +29,13 @@ import './number-field';
 import './radio';
 import './radio-group';
 import './select';
+import './spinner';
 import './switch';
 import './tab';
 import './tab-panel';
+import './table';
+import './table-column/anchor';
+import './table-column/text';
 import './tabs';
 import './tabs-toolbar';
 import './text-area';
@@ -35,3 +46,4 @@ import './toolbar';
 import './tooltip';
 import './tree-item';
 import './tree-view';
+import './wafer-map';

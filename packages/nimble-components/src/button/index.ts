@@ -5,7 +5,10 @@ import {
     buttonTemplate as template,
     DesignSystem
 } from '@microsoft/fast-foundation';
-import type { ButtonPattern } from '../patterns/button/types';
+import type {
+    ButtonPattern,
+    ButtonAppearanceVariantPattern
+} from '../patterns/button/types';
 import { styles } from './styles';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
 
@@ -18,7 +21,9 @@ declare global {
 /**
  * A nimble-styled HTML button
  */
-export class Button extends FoundationButton implements ButtonPattern {
+export class Button
+    extends FoundationButton
+    implements ButtonPattern, ButtonAppearanceVariantPattern {
     /**
      * @public
      * @remarks
@@ -64,3 +69,4 @@ const nimbleButton = Button.compose<ButtonOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
+export const buttonTag = DesignSystem.tagFor(Button);

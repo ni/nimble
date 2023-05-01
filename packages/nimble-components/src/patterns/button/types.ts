@@ -22,6 +22,16 @@ export interface ButtonPattern {
 }
 
 /**
+ * Interface for buttons that support appearance variants.
+ */
+export interface ButtonAppearanceVariantPattern {
+    /**
+     * The appearance variant the button should have.
+     */
+    appearanceVariant: ButtonAppearanceVariant;
+}
+
+/**
  * Types of button appearance.
  * @public
  */
@@ -31,4 +41,15 @@ export const ButtonAppearance = {
     block: 'block'
 } as const;
 export type ButtonAppearance =
-    typeof ButtonAppearance[keyof typeof ButtonAppearance];
+    (typeof ButtonAppearance)[keyof typeof ButtonAppearance];
+
+/**
+ * Types of button appearance variants.
+ * @public
+ */
+export const ButtonAppearanceVariant = {
+    default: undefined,
+    primary: 'primary'
+} as const;
+export type ButtonAppearanceVariant =
+    (typeof ButtonAppearanceVariant)[keyof typeof ButtonAppearanceVariant];

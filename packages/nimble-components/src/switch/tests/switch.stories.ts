@@ -1,8 +1,8 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import { switchTag } from '..';
 
 interface SwitchArgs {
     label: string;
@@ -21,16 +21,13 @@ pressed or not pressed and can optionally allow for a partially pressed state.`;
 
 const metadata: Meta<SwitchArgs> = {
     title: 'Switch',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs/'
         },
         actions: {
             handles: ['change']
@@ -38,14 +35,14 @@ const metadata: Meta<SwitchArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-switch
+        <${switchTag}
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
         >
             ${when(x => x.label, html<SwitchArgs>`${x => x.label}`)}
             ${when(x => x.checkedMessage, html<SwitchArgs>`<span slot="checked-message">${x => x.checkedMessage}</span>`)}
             ${when(x => x.uncheckedMessage, html<SwitchArgs>`<span slot="unchecked-message">${x => x.uncheckedMessage}</span>`)}
-        </nimble-switch>
+        </${switchTag}>
     `),
     args: {
         label: 'Switch',

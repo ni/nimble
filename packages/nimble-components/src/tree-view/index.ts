@@ -1,12 +1,12 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
-    treeViewTemplate as template,
     TreeView as FoundationTreeView,
     DesignSystem,
-    isTreeItemElement,
-    TreeItem
+    isTreeItemElement
 } from '@microsoft/fast-foundation';
+import { TreeItem } from '../tree-item';
 import { styles } from './styles';
+import { template } from './template';
 import { TreeViewSelectionMode } from './types';
 
 declare global {
@@ -28,6 +28,12 @@ declare global {
 export class TreeView extends FoundationTreeView {
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TreeViewSelectionMode = TreeViewSelectionMode.all;
+
+    /**
+     * @internal
+     */
+    @observable
+    public selectedItems: Element[] = [];
 
     public override handleClick(e: Event): boolean {
         if (e.defaultPrevented) {
@@ -70,6 +76,23 @@ export class TreeView extends FoundationTreeView {
         const treeItemChild = item.querySelector('[role="treeitem"]');
         return treeItemChild !== null;
     }
+
+    private selectedItemsChanged(): void {
+        for (const item of Array.from(this.children)) {
+            if (item instanceof TreeItem) {
+                item.groupSelected = false;
+            }
+        }
+
+        for (let item of this.selectedItems) {
+            while (item.parentElement !== null && item.parentElement !== this) {
+                item = item.parentElement;
+            }
+            if (item instanceof TreeItem) {
+                item.groupSelected = true;
+            }
+        }
+    }
 }
 
 const nimbleTreeView = TreeView.compose({
@@ -80,3 +103,4 @@ const nimbleTreeView = TreeView.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTreeView());
+export const treeViewTag = DesignSystem.tagFor(TreeView);

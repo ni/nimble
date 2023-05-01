@@ -45,7 +45,7 @@ Note: When the token is accessed as a CSS Custom Property it needs to use the `v
 
 CSS Custom Properties should generally not be used directly within nimble components. Any CSS Custom Property that a control uses that can be manipulated outside of the control is part of the control's public API and should be defined as a design token.
 
-If a CSS Custom Property is used completely internally to a control, for example it calculates a style inside its shadow root that it uses in multiple places inside its shadow root, then it should not be defined in the design system and should have the `--ni-private-` prefix.
+If a CSS Custom Property is used completely internally to a control, for example it calculates a style inside its shadow root that it uses in multiple places inside its shadow root, then it should not be defined in the design system and should have the `--ni-private-` prefix and include the name of the control to avoid name collisions. For example: `--ni-private-spinner-bits-background-color`.
 
 ### Theme-specific styles
 

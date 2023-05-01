@@ -2,6 +2,486 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 28 Apr 2023 15:33:54 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.18",
+      "version": "11.8.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "78d39d34d9ee9a8852ba6eeb40119157493e7f76",
+            "comment": "Anchor table column type"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Apr 2023 14:12:28 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.12",
+      "version": "11.8.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "228177017cae5427fd0bb3a535b0087c17c3bb32",
+            "comment": "Blazor support for row selection in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Apr 2023 02:40:33 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.10",
+      "version": "11.8.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "036c36d86d8c009579f1b4734b485785f0173b08",
+            "comment": "Blazor row grouping support"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Apr 2023 21:12:10 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.5",
+      "version": "11.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "16d3c53c367518f8c670696c997fbc8d5e89bea0",
+            "comment": "Update setData() to be async"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 06 Apr 2023 15:10:28 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.2",
+      "version": "11.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9e49658a43773ec9281184a0996d35c8027b6bee",
+            "comment": "Fix broken link in NimbleBlazor README"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Apr 2023 17:16:16 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.0",
+      "version": "11.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "1827debb2b303a140bee1b23a01f8d94dbc35247",
+            "comment": "Blazor support for anchor tree item"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 04 Apr 2023 19:42:20 GMT",
+      "tag": "@ni/nimble-blazor_v11.7.0",
+      "version": "11.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "32bd2adecfea401853993df53e8307e060ceb45a",
+            "comment": "Error state for text area component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 03 Apr 2023 17:06:25 GMT",
+      "tag": "@ni/nimble-blazor_v11.6.0",
+      "version": "11.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "6438377+tatwood2@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "67c3790a9412dcb482959971edef0040028556e9",
+            "comment": "Fix bug where NimbleTab would respond to `change` event from children components, causing tabs to change. Also made NimbleTabs.UpdateActiveId private."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 28 Mar 2023 22:52:47 GMT",
+      "tag": "@ni/nimble-blazor_v11.5.0",
+      "version": "11.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "fcc2f9c0a871020f8da04213e561c0953a71d62c",
+            "comment": "Blazor support for anchor menu item component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 16 Mar 2023 22:00:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.4.0",
+      "version": "11.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e1746f201eb7919b8e44ab53caa7eba95f036ffd",
+            "comment": "Add missing properties to NimbleAnchorTab"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 22:17:50 GMT",
+      "tag": "@ni/nimble-blazor_v11.3.3",
+      "version": "11.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d38391e69c9984de80bf7f4a41cfbcc0181e0d16",
+            "comment": "Programmatic table column width API"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Mar 2023 16:20:35 GMT",
+      "tag": "@ni/nimble-blazor_v11.3.1",
+      "version": "11.3.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "79c20d76d6425fc5d737d05acaf62ae47a689cd5",
+            "comment": "Update page title in example apps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 02 Mar 2023 17:48:40 GMT",
+      "tag": "@ni/nimble-blazor_v11.2.7",
+      "version": "11.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "1a1e630c2741fd00d73f6b6be700aada832143c4",
+            "comment": "Add programmatic column sorting support to the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 21 Feb 2023 20:30:27 GMT",
+      "tag": "@ni/nimble-blazor_v11.2.2",
+      "version": "11.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "8fcdeb884b9be29b92b4e273991fbc96f077d744",
+            "comment": "Allow table columns to be marked as hidden"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 20 Feb 2023 15:59:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.2.0",
+      "version": "11.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e3870e99f628096689cefede40b9d5222f3e2a84",
+            "comment": "Blazor wrapper for banner"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Feb 2023 19:44:11 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.15",
+      "version": "11.1.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0cc63e618d789506063b68d2b153059df2d21b1f",
+            "comment": "Provide ability to specify an action menu for a table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 17:27:05 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.11",
+      "version": "11.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a88731d393687500fc23f86437a73bc6c947e17f",
+            "comment": "Add column IDs to table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 15:44:48 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.9",
+      "version": "11.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9b954486247d818d9f5326c1942d51d6a6d0af7b",
+            "comment": "Support dynamic arbitrary header content"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 30 Jan 2023 19:00:43 GMT",
+      "tag": "@ni/nimble-blazor_v11.1.0",
+      "version": "11.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e",
+            "comment": "Nimble dependencies updated to latest"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 27 Jan 2023 15:05:13 GMT",
+      "tag": "@ni/nimble-blazor_v11.0.2",
+      "version": "11.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "f19bf610f46683eae4c80f2bdd5967d76e63124a",
+            "comment": "Update Blazor Table to call `setData()` rather than setting the `data` property."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 26 Jan 2023 18:50:13 GMT",
+      "tag": "@ni/nimble-blazor_v11.0.0",
+      "version": "11.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c39e8c80af79ada2a696372c93161355187944af",
+            "comment": "Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle'"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 25 Jan 2023 17:37:11 GMT",
+      "tag": "@ni/nimble-blazor_v10.1.0",
+      "version": "10.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0671e34c7650008aa063fa0145cee62d4a981dd7",
+            "comment": "Support for anchor tabs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 18 Jan 2023 22:26:41 GMT",
+      "tag": "@ni/nimble-blazor_v10.0.7",
+      "version": "10.0.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a882a4ce55fb60b786dfde385fa97863536c45d6",
+            "comment": "Add table row ID and validity support to Blazor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 14 Jan 2023 00:16:05 GMT",
+      "tag": "@ni/nimble-blazor_v10.0.3",
+      "version": "10.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5",
+            "comment": "Adding Blazor support for TableColumnText"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.4",
+      "version": "9.4.4",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 05 Jan 2023 18:31:08 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.2",
+      "version": "9.4.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ac9e6c938436ccafae57842cc549c8c1ff183470",
+            "comment": "Update the Blazor example app to remove explict table scroll styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Jan 2023 21:51:15 GMT",
+      "tag": "@ni/nimble-blazor_v9.4.0",
+      "version": "9.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "5a509a200990916575422b9c1e05d7cd1825331f",
+            "comment": "Add NimbleTable to Blazor"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 04 Jan 2023 19:22:07 GMT",
+      "tag": "@ni/nimble-blazor_v9.3.0",
+      "version": "9.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "882539ab732f9dba3851f971cff75a394ffe0a3d",
+            "comment": "Blazor wrappers for anchor and anchor button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 17 Dec 2022 01:10:46 GMT",
+      "tag": "@ni/nimble-blazor_v9.2.0",
+      "version": "9.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "d415c78ce868a56367e0c77df766be2fbceb4750",
+            "comment": "Blazor integration for spinner"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Dec 2022 15:17:52 GMT",
+      "tag": "@ni/nimble-blazor_v9.1.17",
+      "version": "9.1.17",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "ae5dc64c3896137aeffb3772f6aa350a915450b7",
+            "comment": "Remove unused styling of dialog from example apps"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Dec 2022 23:46:10 GMT",
+      "tag": "@ni/nimble-blazor_v9.1.12",
+      "version": "9.1.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "51222434a77511d23ea7fcd624d4fca1b3a565d3",
+            "comment": "Patch change to test pipeline, no changes to uptake."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Nov 2022 23:51:38 GMT",
+      "tag": "@ni/nimble-blazor_v9.1.9",
+      "version": "9.1.9",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3ff74ec1486e824339f81b27729aa052b083cd5e",
+            "comment": "Changes from updated require-await lint rule configuration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Nov 2022 18:56:28 GMT",
       "tag": "@ni/nimble-blazor_v9.1.5",
       "version": "9.1.5",

@@ -10,7 +10,6 @@ import {
     suffixFromTokenName
 } from '../design-token-names';
 import { comments } from '../design-token-comments';
-import '../../all-components';
 
 import {
     bodyFont,
@@ -19,6 +18,7 @@ import {
     groupHeaderFontColor,
     groupHeaderTextTransform
 } from '../design-tokens';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 type TokenName = keyof typeof tokenNames;
 const tokenNameKeys = Object.keys(tokenNames) as TokenName[];
@@ -32,6 +32,7 @@ interface TokenArgs {
 
 const metadata: Meta = {
     title: 'Tokens/Theme-aware Tokens',
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
@@ -104,6 +105,7 @@ const tokenTemplates: {
     FontSize: stringValueTemplate,
     TextTransform: stringValueTemplate,
     FontFamily: stringValueTemplate,
+    BoxShadow: stringValueTemplate,
     Font: fontTemplate,
     Size: stringValueTemplate,
     Width: stringValueTemplate,
@@ -183,4 +185,14 @@ export const themeAwareTokens: StoryObj<TokenArgs> = {
     `)
 };
 
-themeAwareTokens.storyName = 'Theme-aware Tokens';
+themeAwareTokens.name = 'Theme-aware Tokens';
+
+// Setting token default values is done as part of the FAST render queue so it needs to be cleared before reading them
+// https://github.com/microsoft/fast/blob/bbf4e532cf9263727ef1bd8afbc30d79d1104c03/packages/web-components/fast-foundation/src/design-token/custom-property-manager.ts#LL154C3-L154C3
+// This uses Storybook's "loaders" feature to await the queue. https://storybook.js.org/docs/html/writing-stories/loaders
+themeAwareTokens.loaders = [
+    async () => {
+        await waitForUpdatesAsync();
+        return {};
+    }
+];

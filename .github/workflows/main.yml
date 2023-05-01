@@ -7,29 +7,39 @@ on:
       - '**'
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_SERVICE_USER: "rajsite"
   GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Required for changelog detection
+          # Required for beachball changelog detection
+          fetch-depth: 0
+          # Must checkout with a token that can push to protected branches for beachball
+          # Cannot rely on GITHUB_TOKEN with workflow contents permission
+          # See: https://github.com/orgs/community/discussions/40971
           token: ${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
 
       # Install dependencies
-      - uses: actions/setup-dotnet@v2
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
+      # Specify npm version
+      # See: https://github.com/actions/setup-node/issues/529
+      - run: npm i -g npm@8
       - run: npm ci
+
+      # print a log of outdated npm dependencies
+      # only informational so swallow error codes
+      - run: npm outdated || exit 0
 
       # Audit
       - run: npm audit --only=prod
@@ -41,7 +51,7 @@ jobs:
 
       # Pack
       - run: npm run pack
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: packages
           path: |
@@ -49,14 +59,21 @@ jobs:
             packages/**/*.nupkg
             angular-workspace/**/*.tgz
           if-no-files-found: error
+      # The actions/upload-pages-artifact@v1 results in unexpected warning messages, workaround for:
+      # https://github.com/actions/upload-pages-artifact/issues/45
+      - name: Pages file permission workaround
+        run: chmod -c -R +rX packages/site/dist
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'packages/site/dist'
 
       # Publish to Chromatic (from any push)
       - name: Publish to Chromatic
         if: github.event_name == 'push'
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: "!startsWith(github.ref, 'refs/heads/main')" # Use TurboSnap for PR builds
           workingDir: ./packages/nimble-components
           storybookBuildDir: ../../packages/site/dist/storybook
           exitOnceUploaded: true # Do not wait for test results
@@ -92,19 +109,6 @@ jobs:
           git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
           git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
 
-      # Publish site to GitHub Pages (only from main)
-      - name: Install ruby
-        if: startsWith(github.ref, 'refs/heads/main')
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-      - name: Install dependencies
-        if: startsWith(github.ref, 'refs/heads/main')
-        run: gem install dpl
-      - name: Deploy to GitHub Pages
-        if: startsWith(github.ref, 'refs/heads/main')
-        run: dpl --provider=pages --repo=ni/nimble --local_dir=packages/site/dist --skip_cleanup --name="${{ env.GITHUB_SERVICE_USER }}" --email="${{ env.GITHUB_SERVICE_EMAIL }}" --github-token=${{ secrets.GITHUBPAGESDEPLOYTOKEN }}
-
       # Update package versions, tag, and publish to npm (only from main)
       - name: Beachball publish
         if: startsWith(github.ref, 'refs/heads/main')
@@ -112,3 +116,18 @@ jobs:
           NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
           NUGET_SECRET_TOKEN: ${{ secrets.NUGET_TOKEN }}
         run: npm run invoke-publish
+
+  pages:
+    needs: build
+    if: startsWith(github.ref, 'refs/heads/main')
+    runs-on: ubuntu-22.04
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

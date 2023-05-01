@@ -46,9 +46,9 @@ Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages y
 
 ## Documentation policies
 
-1. Documentation for consumers of Nimble should go in `README.md` files. 
-2. Documentation for contributors should go in `CONTRIBUTING.md` files. 
-3. Documentation is hierarchical throughout the repo: 
+1. Documentation for consumers of Nimble should go in `README.md` files.
+2. Documentation for contributors should go in `CONTRIBUTING.md` files.
+3. Documentation is hierarchical throughout the repo:
    - repo-wide documentation exists at the root
    - package-specific documentation exists for each package
    - documentation of specific utilities or components can exist next to the source or in dedicated `docs` folders throughout the repo. Be sure to link to lower-level documents from higher-level ones to aid in discovery.
@@ -60,6 +60,8 @@ This repo generally follows the [NI JavaScript and TypeScript Styleguide](https:
 
 ## Pull request policies
 
+Each pull request should add a small increment of high-quality well-tested value to Nimble. To keep PRs small you can add functionality incrementally but each PR should contain appropriate tests for the functionality being added and shouldn't introduce technical debt to be fixed later.
+
 ### Beachball change file
 
 This repository uses [beachball](https://microsoft.github.io/beachball/) to automate publishing its packages to NPM. The basic workflow is as follows:
@@ -69,7 +71,7 @@ This repository uses [beachball](https://microsoft.github.io/beachball/) to auto
 3. A pipeline will run for each newly created git tag and invoke the `npm run publish` command for the associated package.
 
 When generating a change file, follow these guidelines:
-1. Follow [semantic versioning](https://semver.org) when choosing the change type.
+1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as in-development](/packages/nimble-components/CONTRIBUTING.md/#Marking-a-component-as-in-development) may use `patch` version bumps even for breaking changes.
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 
@@ -79,7 +81,7 @@ The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-aud
 
 #### Vulnerabilities with fixes available
 
-1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue. 
+1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue.
 2. If the actual issue is with a sub-dependency which has published a fix, we can update that sub-dependency via `npm audit fix`. This should be accompanied by appropriate testing of the new version. We should also ensure there is an issue on the direct dependency's repository asking them to uptake the fixed sub-dependency.
 
 #### Vulnerabilities without fixes available
@@ -95,7 +97,9 @@ If a fix for the vulnerability isn't available or if it isn't practical to uptak
 This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual component review, and adds GitHub status checks to the build pipeline. The workflow is as follows:
 
 1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
-2. The `UI Review` status check is designed to collect feedback from UX and visual designers. Using the Chromatic review tooling, invite designers to review and approve the component changes.
+2. The `UI Review` status check is designed to collect feedback from UX and visual designers. Rather than blocking PR completion on this feedback, you can also approve this check by validating the story changes yourself. However, you should still demo your changes to relevant designers either in a team meeting or one-on-one. This can happen either before or after the PR completes, as long as designer feedback is addressed promptly. If you don't have access to a designer, please reach out to Nimble team members for help.
+
+The PR pipeline also generates a live Storybook site for each PR. Developers, designers, and PR reviewers can also use this to inspect component appearance and behavior.
 
 ### Linting
 
@@ -103,18 +107,20 @@ This repository uses automated linting and automated lint formatting. Use `npm r
 
 To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
 
-The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Defualt Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+
+You may wish to have the formatter run every time you save a file. This would help ensure you don't forget to run the formatter and end up with a failing PR build. If you want this behavior, turn it on in your user settings: `File >> Preferences >> Settings >> User >> Text Editor >> Format On Save`. We leave this option unset in the workspace settings so that it does not override the user setting.
 
 ### Watch scripts for development
 
 When creating a new component in the `nimble-components` package, it's often sufficient to run the `npm run storybook -w @ni/nimble-components` command to preview the component during development. However, when integration components with Angular or when modifying multiple packages, it's necessary to rebuild multiple components as you modify them. To run `*:watch` scripts for all packages simultaneously, this repository uses VS Code Tasks to automatically launch the scripts in configured terminal tabs.
 
-To launch the watch scripts, open **View»Command palette…** and type `run task`. Select `Tasks: Run Task` and then select `Create Watch Terminals` and press enter. 
+To launch the watch scripts, open **View»Command palette…** and type `run task`. Select `Tasks: Run Task` and then select `Create Watch Terminals` and press enter.
 
 You can also configure this task to execute via a keyboard shortcut by [configuring](https://code.visualstudio.com/docs/getstarted/keybindings) the keybindings.json file to include the following:
 
 ```json
-{   
+{
     "key": "ctrl+shift+\\",
     "command": "workbench.action.tasks.runTask",
     "args": "Create Watch Terminals"
@@ -123,7 +129,7 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 
 ### Code owners
 
-Pull Requests require the approval of at least one code owner. Owners are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
 
 ### Completing pull requests
 

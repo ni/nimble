@@ -30,13 +30,13 @@ From the `nimble` directory:
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
 
-## Visual design spec process
-
-Components added to Nimble are based on specs created by NI visual designers. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
-
 ## Component spec process
 
-Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
+Before building a new component, 3 specification documents need to be created:
+
+1. An interaction design (IxD) spec to get agreement on the component's behavior and other core requirements. The spec process is described in the [`/specs` folder](/specs/README.md).
+2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec can be created in Adobe XD or Figma, and linked to the component work item and Storybook documentation. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
+3. A technical design spec to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
 
@@ -63,13 +63,29 @@ Before building a new component, create a spec document to get agreement on the 
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Create changelists for your work by running the following from the `nimble` directory:
+5. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
+   For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
+
+    - To open Storybook with WebKit, after running the Storybook command, run the command `npm run storybook-open-webkit -w @ni/nimble-components` from the `nimble` directory.
+    - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
+
+6. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
-6. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+7. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
 
 ## Develop new components
+
+### Marking a component as in development
+
+If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+
+1. In the component status table, set its status to ⚠️
+2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
+3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+
+Be sure to remove these warnings when the component is complete!
 
 ### Folder structure
 
@@ -81,6 +97,9 @@ Create a new folder named after your component with some core files:
 | index.ts                               | Contains the component class definition and registration. All TypeScript logic contained in the component belongs here.                                                                                                                                                    |
 | styles.ts                              | Contains the styles relevant to this component. Note: Style property values that can be shared across components belong in [theme-provider/design-tokens.ts](/packages/nimble-components/src/theme-provider/design-tokens.ts).                                             |
 | template.ts                            | Contains the template definition for components that don't use a fast-foundation template.                                                                                                                                                                                 |
+| types.ts                               | Contains any enum-like types defined by the component                                                                                                                                                                                                                      |
+| models/                                | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                                                                         |
+| components/                            | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                                                                |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
@@ -96,7 +115,7 @@ All components should have an import added to `src/all-components.ts` so they ar
 
 If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
 
-If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
+If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
 Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
 
@@ -125,7 +144,7 @@ const nimbleButton = Button.compose({
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 
-Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(NimbleComponentClass)` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
+Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `import { componentNameTag } ...;` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
 
 #### Build a new component without leveraging FAST Foundation or existing Nimble components
 
@@ -177,7 +196,7 @@ It is common in web development to represent variations of control states using 
 
 ##### Attribute common value patterns
 
--   When applicable, the default value for an attribute that is allowed to be unconfigured should have the enum name `default` and be the enum value `undefined`.
+-   When applicable, the default value for an attribute that is allowed to be unconfigured should be first in the enum object, have a descriptive enum name, such as `default`, `none`, etc, based on the context, and be the enum value `undefined`.
 -   States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
 
     Avoid shorthands, i.e. `warn`, `info` and avoid alternatives, i.e. `pass`, `fail`, `invalid`.
@@ -275,6 +294,16 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
 
+### Export component tag
+
+Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
+
+```ts
+export const buttonTag = DesignSystem.tagFor(Button);
+```
+
+Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.
+
 ### TypeScript integration
 
 For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
@@ -313,6 +342,16 @@ const nimbleButton = Button.compose({
 });
 ```
 
+### Leverage mixins for shared APIs across components
+
+TypeScript and the FAST library each offer patterns and/or mechanisms to alter the APIs for a component via a mixin.
+
+FAST provides an `applyMixins` function (which is just an implementation of the [Alternative Pattern](https://www.typescriptlang.org/docs/handbook/mixins.html#alternative-pattern) described in the Typscript docs) to alter the API of a given component with a set of provided mixin classes. For an example, see how the [ToggleButton StartEnd mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/toggle-button/index.ts#L44) is applied.
+
+Another pattern in use within in Nimble is the [Constrained Mixin](https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins) pattern. An example in Nimble is the [FractionalWidth mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/mixins/fractional-width-column.ts#L16) which `TableColumnText`, for example, [ultimately extends](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/text/index.ts#L61). This offers the ability for a mixin to extend the functionality of another concrete type and interface with its implementation.
+
+The 'Constrained Mixin' pattern is used for applying mixins that are defined within Nimble, as they do not fundamentally alter existing types, and the `applyMixins` FAST method is used for consuming mixins exported from the FAST library.
+
 ## Unit tests
 
 Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
@@ -333,6 +372,8 @@ The following commands can be run from the `nimble` directory:
 
     You can also take the page url and open it in a different browser to test interactively.
 
+-   `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
+
 ### Test utilities
 
 Test utilities located in [`/src/testing`](/packages/nimble-components/src/testing) may be used for testing:
@@ -345,6 +386,17 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 #### Fixtures
 
 The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
+
+### Disabling tests
+
+If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#SkipFirefox`, `#SkipWebkit`, or `#SkipChrome` to the test name:
+
+```ts
+// Firefox skipped, see: https://github.com/ni/nimble/issues/####
+it('sets title when cell text is ellipsized #SkipFirefox', ...);
+```
+
+Before disabling a test, you **must** have investigated the failure and attempted to find a proper resolution. If you still end up needing to disable it, there must be an issue in this repo tracking the failure, and you must add a comment in the source linking to that issue.
 
 ## Theming
 

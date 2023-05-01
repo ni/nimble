@@ -1,0 +1,15 @@
+@namespace NimbleBlazor
+@inherits NimbleAnchorBase
+<nimble-anchor
+    href="@Href"
+    hreflang="@HrefLang"
+    ping="@Ping"
+    referrerpolicy="@ReferrerPolicy"
+    rel="@Rel"
+    target="@Target"
+    type="@Type"
+    underline-hidden="@UnderlineHidden"
+    appearance="@Appearance.ToAttributeValue()"
+    @attributes="AdditionalAttributes">
+    @ChildContent
+</nimble-anchor>

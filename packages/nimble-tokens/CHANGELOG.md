@@ -1,8 +1,104 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 11 Nov 2022 14:59:30 GMT and should not be manually modified.
+This log was last generated on Wed, 19 Apr 2023 17:58:44 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 5.0.0
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Major changes
+
+- Refactor token build output. This removes some source files from the built package. ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
+
+## 4.9.0
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Minor changes
+
+- Adding icon: file-export ([ni/nimble@d339db7](https://github.com/ni/nimble/commit/d339db767c179e2398ccadc6111d9ab7c72ca6bb))
+
+## 4.8.0
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Minor changes
+
+- Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines ([ni/nimble@b14c239](https://github.com/ni/nimble/commit/b14c239ec88207b6561e90f447c1975e429e086f))
+
+## 4.7.3
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Generate a fonts.scss file in addition to the fonts.css file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
+
+## 4.7.2
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Upgrade to typescript 4.7.4 ([ni/nimble@2dd4d31](https://github.com/ni/nimble/commit/2dd4d31306ba122fb8f5378cd83e8abc83bfa618))
+
+## 4.7.1
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Created fallback `@font-face` definitions for local fonts to more closely match the design system fonts. These fallbacks can be used to reduce font swap jitter on initial page load. ([ni/nimble@29c1ec3](https://github.com/ni/nimble/commit/29c1ec36b4284fff6e104f61a1c483f94945870c))
+
+## 4.7.0
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Minor changes
+
+- Add font asset for Noto Serif ([ni/nimble@d9e4787](https://github.com/ni/nimble/commit/d9e478746435367f4909d7592d859747f4b67145))
+
+## 4.6.0
+
+Fri, 10 Feb 2023 19:40:36 GMT
+
+### Minor changes
+
+- Add icons for column sorting ([ni/nimble@4df842d](https://github.com/ni/nimble/commit/4df842d8bc104a9f02d4f73c76f778c6f7b71ef8))
+
+## 4.5.0
+
+Fri, 10 Feb 2023 15:26:34 GMT
+
+### Minor changes
+
+- Add new save icon ([ni/nimble@b5ca27c](https://github.com/ni/nimble/commit/b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb))
+
+## 4.4.0
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Minor changes
+
+- Nimble dependencies updated to latest ([ni/nimble@e1da136](https://github.com/ni/nimble/commit/e1da13662d82fa41f81f038335e6a142355de29e))
+
+## 4.3.2
+
+Wed, 11 Jan 2023 20:34:04 GMT
+
+### Patches
+
+- Update styleguide versions ([ni/nimble@d36bef4](https://github.com/ni/nimble/commit/d36bef4533df1908c92f4cb0e795ffb647bda627))
+
+## 4.3.1
+
+Mon, 09 Jan 2023 20:12:13 GMT
+
+### Patches
+
+- Update assembly to .net 6 ([ni/nimble@2d84f9c](https://github.com/ni/nimble/commit/2d84f9cf515f7bfd25f89e9b84ebf60dc5f217e8))
 
 ## 4.3.0
 

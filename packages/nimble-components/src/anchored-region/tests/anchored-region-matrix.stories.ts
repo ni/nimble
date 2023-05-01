@@ -1,4 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -6,13 +6,13 @@ import {
 } from '../../utilities/tests/matrix';
 import { createStory } from '../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import {
     bodyFont,
     bodyFontColor,
     borderHoverColor,
     applicationBackgroundColor
 } from '../../theme-provider/design-tokens';
+import { anchoredRegionTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Anchored Region',
@@ -30,14 +30,14 @@ const horizontalPositionStates = [
     ['Right', 'right'],
     ['Center', 'center']
 ] as const;
-type HorizontalPositionState = typeof horizontalPositionStates[number];
+type HorizontalPositionState = (typeof horizontalPositionStates)[number];
 
 const verticalPositionStates = [
     ['Top', 'top'],
     ['Bottom', 'bottom'],
     ['Center', 'center']
 ] as const;
-type VerticalPositionState = typeof verticalPositionStates[number];
+type VerticalPositionState = (typeof verticalPositionStates)[number];
 
 const component = (
     [horizontalPositionName, horizontalPosition]: HorizontalPositionState,
@@ -77,7 +77,7 @@ const component = (
         >
             Anchor element
         </div>
-        <nimble-anchored-region
+        <${anchoredRegionTag}
             anchor="${() => `${verticalPosition}_${horizontalPosition}`}"
             fixed-placement="true"
             auto-update-mode="auto"
@@ -89,16 +89,16 @@ const component = (
             <div class="anchoredRegion">
                 ${horizontalPositionName} ${verticalPositionName}
             </div>
-        </nimble-anchored-region>
+        </${anchoredRegionTag}>
         <div></div>
     </div>`;
 
-export const anchoredRegionThemeMatrix: Story = createStory(
+export const anchoredRegionThemeMatrix: StoryFn = createStory(
     createMatrix(component, [horizontalPositionStates, verticalPositionStates])
 );
 
-export const hiddenAnchoredRegion: Story = createStory(
+export const hiddenAnchoredRegion: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-anchored-region hidden>Hidden Anchored Region</nimble-anchored-regionx>`
+        html`<${anchoredRegionTag} hidden>Hidden Anchored Region</${anchoredRegionTag}>`
     )
 );

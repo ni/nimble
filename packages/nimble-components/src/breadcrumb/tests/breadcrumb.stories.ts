@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import { BreadcrumbAppearance } from '../types';
+import { breadcrumbTag } from '..';
+import { breadcrumbItemTag } from '../../breadcrumb-item';
 
 interface BreadcrumbArgs {
     options: ItemArgs[];
@@ -29,16 +29,12 @@ for information on using this component in Angular with RouterLink directives.`;
 
 const metadata: Meta<BreadcrumbArgs> = {
     title: 'Breadcrumb',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/7b53bb3e-439b-4f13-9d5f-55adc7da8a2e/specs/'
         },
         actions: {}
     }
@@ -49,22 +45,22 @@ export default metadata;
 export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-breadcrumb
+        <${breadcrumbTag}
             appearance="${x => BreadcrumbAppearance[x.appearance]}"
         >
             ${repeat(x => x.options, html<ItemArgs, BreadcrumbArgs>`
-                <nimble-breadcrumb-item
+                <${breadcrumbItemTag}
                     href="${x => x.href}"
                     target="${x => x.target}"
                     @click="${(_x, c) => c.parent.allowNavigation}"
                 >
                     ${x => x.label}
-                </nimble-breadcrumb-item>
+                </${breadcrumbItemTag}>
             `)}
-        </nimble-breadcrumb>
+        </${breadcrumbTag}>
 `),
     // eslint-disable-next-line storybook/no-redundant-story-name
-    storyName: 'Standard Breadcrumb',
+    name: 'Standard Breadcrumb',
     argTypes: {
         options: {
             description:
@@ -98,15 +94,15 @@ export const _standardBreadcrumb: StoryObj<BreadcrumbArgs> = {
 
 export const breadcrumbItem: StoryObj<BreadcrumbItemArgs> = {
     render: createUserSelectedThemeStory(html`
-        <nimble-breadcrumb>
-            <nimble-breadcrumb-item
+        <${breadcrumbTag}>
+            <${breadcrumbItemTag}
                 href="${x => x.href}"
                 target="${x => x.target}"
                 @click="${x => x.allowNavigation}"
             >
                 Breadcrumb Item
-            </nimble-breadcrumb-item>
-        </nimble-breadcrumb>
+            </${breadcrumbItemTag}>
+        </${breadcrumbTag}>
     `),
     argTypes: {
         href: {

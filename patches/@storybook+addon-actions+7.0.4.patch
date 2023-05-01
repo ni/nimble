@@ -1,0 +1,10 @@
+diff --git a/node_modules/@storybook/addon-actions/dist/decorator.d.ts b/node_modules/@storybook/addon-actions/dist/decorator.d.ts
+index 0497cfe..3b84204 100644
+--- a/node_modules/@storybook/addon-actions/dist/decorator.d.ts
++++ b/node_modules/@storybook/addon-actions/dist/decorator.d.ts
+@@ -1,4 +1,4 @@
+-import * as lib_preview_api_dist_storybook_channel_mock_a19cd233 from 'lib/preview-api/dist/storybook-channel-mock-a19cd233';
++import * as lib_preview_api_dist_storybook_channel_mock_a19cd233 from '@storybook/preview-api/dist/storybook-channel-mock-a19cd233';
+ 
+ declare const withActions: lib_preview_api_dist_storybook_channel_mock_a19cd233.M;
+ 

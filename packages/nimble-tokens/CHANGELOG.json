@@ -2,6 +2,216 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Wed, 19 Apr 2023 17:58:44 GMT",
+      "tag": "@ni/nimble-tokens_v5.0.0",
+      "version": "5.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "203525bfb38afb4d440c54a8bc8950e4748bf748",
+            "comment": "Refactor token build output. This removes some source files from the built package."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Apr 2023 01:58:34 GMT",
+      "tag": "@ni/nimble-tokens_v4.9.0",
+      "version": "4.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d339db767c179e2398ccadc6111d9ab7c72ca6bb",
+            "comment": "Adding icon: file-export"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 10 Apr 2023 18:53:34 GMT",
+      "tag": "@ni/nimble-tokens_v4.8.0",
+      "version": "4.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b14c239ec88207b6561e90f447c1975e429e086f",
+            "comment": "Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 07 Apr 2023 20:48:27 GMT",
+      "tag": "@ni/nimble-tokens_v4.7.3",
+      "version": "4.7.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "ce0d505f4f79cd384aa4224f7faf2b66d4941138",
+            "comment": "Generate a fonts.scss file in addition to the fonts.css file"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 05 Apr 2023 18:54:28 GMT",
+      "tag": "@ni/nimble-tokens_v4.7.2",
+      "version": "4.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2dd4d31306ba122fb8f5378cd83e8abc83bfa618",
+            "comment": "Upgrade to typescript 4.7.4"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 01 Mar 2023 18:28:57 GMT",
+      "tag": "@ni/nimble-tokens_v4.7.1",
+      "version": "4.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "29c1ec36b4284fff6e104f61a1c483f94945870c",
+            "comment": "Created fallback `@font-face` definitions for local fonts to more closely match the design system fonts. These fallbacks can be used to reduce font swap jitter on initial page load."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 14 Feb 2023 16:15:37 GMT",
+      "tag": "@ni/nimble-tokens_v4.7.0",
+      "version": "4.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d9e478746435367f4909d7592d859747f4b67145",
+            "comment": "Add font asset for Noto Serif"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Feb 2023 19:40:36 GMT",
+      "tag": "@ni/nimble-tokens_v4.6.0",
+      "version": "4.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "4df842d8bc104a9f02d4f73c76f778c6f7b71ef8",
+            "comment": "Add icons for column sorting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 10 Feb 2023 15:26:34 GMT",
+      "tag": "@ni/nimble-tokens_v4.5.0",
+      "version": "4.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb",
+            "comment": "Add new save icon"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 06 Feb 2023 15:05:44 GMT",
+      "tag": "@ni/nimble-tokens_v4.4.0",
+      "version": "4.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "c47e8f7a9064e5bd618453226f702f933fda23af",
+            "comment": "Update icon import instructions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 30 Jan 2023 19:00:43 GMT",
+      "tag": "@ni/nimble-tokens_v4.4.0",
+      "version": "4.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "e1da13662d82fa41f81f038335e6a142355de29e",
+            "comment": "Nimble dependencies updated to latest"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 11 Jan 2023 20:34:04 GMT",
+      "tag": "@ni/nimble-tokens_v4.3.2",
+      "version": "4.3.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "d36bef4533df1908c92f4cb0e795ffb647bda627",
+            "comment": "Update styleguide versions"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 09 Jan 2023 20:12:13 GMT",
+      "tag": "@ni/nimble-tokens_v4.3.1",
+      "version": "4.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "2d84f9cf515f7bfd25f89e9b84ebf60dc5f217e8",
+            "comment": "Update assembly to .net 6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Nov 2022 23:51:38 GMT",
+      "tag": "@ni/nimble-tokens_v4.3.0",
+      "version": "4.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "3ff74ec1486e824339f81b27729aa052b083cd5e",
+            "comment": "Changes from updated require-await lint rule configuration"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 11 Nov 2022 14:59:30 GMT",
       "tag": "@ni/nimble-tokens_v4.3.0",
       "version": "4.3.0",

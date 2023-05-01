@@ -1,11 +1,8 @@
-import {
-    DesignSystem,
-    Select as FoundationSelect
-} from '@microsoft/fast-foundation';
-import { DOM, html, repeat } from '@microsoft/fast-element';
+import { html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Select } from '..';
+import { Select, selectTag } from '..';
 import '../../list-option';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(
     position?: string,
@@ -27,8 +24,8 @@ async function setup(
 async function clickAndWaitForOpen(select: Select): Promise<void> {
     select.click();
     // Takes two updates for listbox to be rendered
-    await DOM.nextUpdate();
-    await DOM.nextUpdate();
+    await waitForUpdatesAsync();
+    await waitForUpdatesAsync();
 }
 
 async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
@@ -45,7 +42,11 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                     resolve(false);
                 }
             },
-            { threshold: 1.0 }
+            // As of now, passing a document as root is not supported on Safari:
+            // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#browser_compatibility
+            // If we begin running these tests on Safari, we may need to skip those that use this function.
+            // This issue tracks expanding testing to Safari: https://github.com/ni/nimble/issues/990
+            { threshold: 1.0, root: document }
         );
         intersectionObserver.observe(element);
     });
@@ -69,7 +70,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup(position, true);
 
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('open')).not.toBeNull();
         expect(element.getAttribute('position')).toBe(position);
@@ -81,7 +82,7 @@ describe('Select', () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         element.value = 'two';
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.value).toBe('two');
 
         // Add option zero at the top of the options list
@@ -90,7 +91,7 @@ describe('Select', () => {
             'afterbegin',
             '<nimble-list-option value="zero">Zero</nimble-list-option>'
         );
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.value).toBe('two');
 
@@ -114,13 +115,6 @@ describe('Select', () => {
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
             await clickAndWaitForOpen(element);
-            // The test is run in an iframe, and the containing window has a Karma header.
-            // It seems the window is sized without accounting for the header, so a header-height's
-            // worth of content is scrolled out of view. The approach we take with the
-            // IntersectionObserver only works if the full iframe is visible, so we scroll the
-            // containing window to the bottom (i.e. scrolling the Karma header out of view and
-            // the bottom of the iframe into view).
-            window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
             const fullyVisible = await checkFullyInViewport(listbox);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
@@ -130,8 +124,8 @@ describe('Select', () => {
         });
     });
 
-    it('should have its tag returned by tagFor(FoundationSelect)', () => {
-        expect(DesignSystem.tagFor(FoundationSelect)).toBe('nimble-select');
+    it('should export its tag', () => {
+        expect(selectTag).toBe('nimble-select');
     });
 
     it('can construct an element instance', () => {

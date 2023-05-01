@@ -4,13 +4,21 @@
     "private": true,
     "description": "A meta package used for creating GitHub pages site contents",
     "scripts": {
-        "build": "eleventy",
+        "build": "npm run build:landing && npm run build:eleventy",
+        "build:eleventy": "eleventy",
+        "build:landing": "tsc && vite build landing",
         "pack": "npm pack",
         "lint": "eslint .",
-        "start": "eleventy --serve"
+        "start:eleventy": "eleventy --serve",
+        "start:landing": "vite landing"
+    },
+    "dependencies": {
+        "@ni/nimble-components": "*"
     },
     "devDependencies": {
-        "@11ty/eleventy": "^1.0.2"
+        "@11ty/eleventy": "^1.0.2",
+        "typescript": "~4.7.4",
+        "vite": "^4.0.4"
     },
     "files": [
         "dist",

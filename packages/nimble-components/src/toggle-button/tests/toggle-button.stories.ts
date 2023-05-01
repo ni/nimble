@@ -1,9 +1,16 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ButtonAppearance } from '../types';
-import '../../all-components';
+import {
+    contentHiddenDescription,
+    endIconDescription,
+    iconDescription
+} from '../../patterns/button/tests/doc-strings';
+import { toggleButtonTag } from '..';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
 
 interface ToggleButtonArgs {
     label: string;
@@ -21,23 +28,15 @@ indicate that sound is muted by setting the pressed state true. Important: it is
 not change when its state changes. In this example, when the pressed state is true, the label remains "Mute" so a
 screen reader would say something like "Mute toggle button pressed".`;
 
-const endIconDescription = `When including an icon after the text content, set \`slot="end"\` on the icon to ensure proper styling.
-
-This icon will be hidden when \`contentHidden\` is set to \`true\`
-.`;
-
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Toggle Button',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
         },
         actions: {
             handles: ['change']
@@ -48,9 +47,11 @@ const metadata: Meta<ToggleButtonArgs> = {
             options: Object.values(ButtonAppearance),
             control: { type: 'radio' }
         },
+        contentHidden: {
+            description: contentHiddenDescription
+        },
         icon: {
-            description:
-                'When including an icon, set `slot="start"` on the icon to ensure proper styling.'
+            description: iconDescription
         },
         endIcon: {
             description: endIconDescription
@@ -58,16 +59,16 @@ const metadata: Meta<ToggleButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-toggle-button
+        <${toggleButtonTag}
             ?checked="${x => x.checked}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => x.appearance}"
         >
-            ${when(x => x.icon, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${x => x.label}
-            ${when(x => x.endIcon, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
-        </nimble-toggle-button>
+            ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
+        </${toggleButtonTag}>
     `),
     args: {
         label: 'Ghost Toggle Button',
