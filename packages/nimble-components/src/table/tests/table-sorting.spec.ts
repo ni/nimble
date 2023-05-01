@@ -1,7 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumnText } from '../../table-column/text';
-import type { TableHeader } from '../components/header';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
@@ -758,14 +757,14 @@ describe('Table sorting', () => {
             { id: '4', stringData1: 'a4', stringData2: 'b4', stringData3: 'c4' }
         ] as const;
 
-        async function shiftClickOnTableHeader(
-            header: TableHeader
+        async function shiftClickOnElement(
+            elementToClick: HTMLElement
         ): Promise<void> {
             const clickEvent = new MouseEvent('click', {
                 shiftKey: true,
                 bubbles: true
             } as MouseEventInit);
-            header.dispatchEvent(clickEvent);
+            elementToClick.dispatchEvent(clickEvent);
             await waitForUpdatesAsync();
         }
 
@@ -849,7 +848,7 @@ describe('Table sorting', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                await shiftClickOnTableHeader(pageObject.getHeaderElement(0));
+                await shiftClickOnElement(pageObject.getHeaderElement(0));
 
                 expect(column1.columnInternals.currentSortDirection).toEqual(
                     test.expectedDirectionAfterClick
@@ -879,7 +878,7 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            await shiftClickOnTableHeader(pageObject.getHeaderElement(1));
+            await shiftClickOnElement(pageObject.getHeaderElement(1));
 
             expect(column1.columnInternals.currentSortDirection).toEqual(
                 TableColumnSortDirection.ascending

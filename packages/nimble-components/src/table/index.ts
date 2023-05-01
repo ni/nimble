@@ -416,7 +416,7 @@ export class Table<
             } else {
                 newSortDirection = TableColumnSortDirection.descending;
             }
-        } else if (!columnAlreadySorted) {
+        } else {
             allSortedColumns.push(column);
         }
         column.columnInternals.currentSortDirection = newSortDirection;
