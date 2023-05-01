@@ -120,7 +120,6 @@ export class TableRow<
         return null;
     }
 
-    /** @internal */
     public onSelectionChange(event: CustomEvent): void {
         if (this.ignoreSelectionChangeEvents) {
             return;

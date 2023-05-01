@@ -25,10 +25,8 @@ export class MultiSelectionManager<
         shiftKey: boolean
     ): boolean {
         if (shiftKey) {
-            const madeRangeSelection = this.tryUpdateRangeSelection(
-                rowState.id
-            );
-            if (madeRangeSelection) {
+            if (this.tryUpdateRangeSelection(rowState.id)) {
+                // Made a range selection
                 return true;
             }
         }
@@ -52,10 +50,8 @@ export class MultiSelectionManager<
         }
 
         if (shiftKey) {
-            const madeRangeSelection = this.tryUpdateRangeSelection(
-                rowState.id
-            );
-            if (madeRangeSelection) {
+            if (this.tryUpdateRangeSelection(rowState.id)) {
+                // Made a range selection
                 return true;
             }
         }
@@ -161,7 +157,6 @@ export class MultiSelectionManager<
             if (row.getIsGrouped()) {
                 continue;
             }
-
             this.updateSelectionStateForRow(selection, row.id, isSelecting);
         }
 
@@ -190,7 +185,6 @@ export class MultiSelectionManager<
         if (!id) {
             return -1;
         }
-
         return rows.findIndex(x => x.id === id);
     }
 }

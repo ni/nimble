@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import {
     attr,
     Observable,
@@ -797,16 +796,6 @@ export class Table<
         };
         this.table.setOptions(this.options);
         this.refreshRows();
-    }
-
-    /** @internal */
-    public async updateSelectionState(updatedSelection: {
-        [rowId: string]: boolean
-    }): Promise<void> {
-        this.updateTableOptions({
-            state: { rowSelection: updatedSelection }
-        });
-        await this.emitSelectionChangeEvent();
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
