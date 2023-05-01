@@ -1,11 +1,11 @@
 import { html } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumnText } from '../../table-column/text';
+import type { TableHeader } from '../components/header';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
-import { TablePageObject } from './table.pageobject';
-import type { TableHeader } from '../components/header';
+import { TablePageObject } from '../testing/table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
