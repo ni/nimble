@@ -234,7 +234,7 @@ We will support fixed or fractional widths for this column type.
 
 ### Angular integration
 
-An Angular directive will be created for the component. The component will not have form association, so a `ControlValueAccessor` will not be created.
+Angular directives will be created for the column component and the mapping components. The component will not have form association, so a `ControlValueAccessor` will not be created.
 
 ### Blazor integration
 
@@ -243,6 +243,8 @@ A Blazor wrapper will be created for the component. _Initial attempts at prototy
 ### Visual Appearance
 
 Appearance can vary based on mapped html, but can only include text, icons, and Nimble spinner.
+
+The cell view (and header view) will be responsible for styling the contents of the mapping `template`. This will include alignment and spacing (`--ni-nimble-small-padding`).
 
 ---
 
