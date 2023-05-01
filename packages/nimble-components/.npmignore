@@ -2,6 +2,7 @@
 !/dist/*.*
 !/dist/esm/**
 /dist/esm/**/tests
+!/dist/esm/**/tests/**/*.pageobject.js
 
 # The storybook build ends up making a duplicate
 # typescript build of nimble-components inside the dist folder
