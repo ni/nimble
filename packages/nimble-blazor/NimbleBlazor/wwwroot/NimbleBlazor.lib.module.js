@@ -11,7 +11,10 @@
 // DELETESTART
 export function afterStarted(Blazor) {
 // DELETEEND
-    if (!window.NimbleBlazor?.calledAfterStarted) {
+    if (!window.NimbleBlazor || !window.NimbleBlazor.calledAfterStarted) {
+        if (!Blazor) {
+            throw new Error('Blazor not ready to initialize Nimble with!');
+        }
         if (!window.NimbleBlazor) {
             window.NimbleBlazor = { calledAfterStarted: true };
         }
@@ -110,7 +113,7 @@ export function afterStarted(Blazor) {
 // DELETEEND
 
 window.NimbleBlazor = {
-    calledAfterStarted: window.NimbleBlazor?.calledAfterStarted ?? false,
+    calledAfterStarted: (window.NimbleBlazor !== undefined) ? window.NimbleBlazor.calledAfterStarted : false,
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();
