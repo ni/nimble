@@ -3,7 +3,8 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
-// Must import here. Cannot re-export from directive, because cannot import in non-test code.
+// This is a workaround until nimble-angular exposes `testing` entrypoints:
+// https://github.com/ni/nimble/issues/172#issuecomment-1529958809
 // eslint-disable-next-line no-restricted-imports
 import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import { processUpdates, waitForUpdatesAsync } from '../../../../testing/async-helpers';
