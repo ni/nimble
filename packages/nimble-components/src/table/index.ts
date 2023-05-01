@@ -52,10 +52,7 @@ import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
-import {
-    SelectionStateManager,
-    createSelectionManager
-} from './models/table-selection-helper';
+import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -176,7 +173,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
-    private selectionManager: SelectionStateManager<TData>;
+    private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
@@ -214,7 +211,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.selectionManager = createSelectionManager(this.table, this.selectionMode);
+        this.selectionManager = new InteractiveSelectionManager(this.table, this.selectionMode);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -574,13 +571,13 @@ export class Table<
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
-            this.selectionManager.reset();
+            this.selectionManager.handleSelectionReset();
         }
         if (this.updateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.selectionManager = createSelectionManager(this.table, this.selectionMode);
+            this.selectionManager.handleSelectionModeChanged(this.selectionMode);
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
