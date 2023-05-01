@@ -160,3 +160,23 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
+## Handling intermittent test failures
+
+Intermittent test failures can be a huge drain on productivity as they can cause unrelated failures in builds and block merging PRs or creating releases. Particularly when accepting contributions from different timezones and from contributors outside of the design team without the tribal knowledge of what tests fail intermittently.
+
+The general policy is that if intermittent failures are found they should be addressed in main immediately.
+
+Some resolutions for an intermittent test are:
+
+1. Immediately submit a PR to address the underlying issue of the failure. This can be done if the change can be approved and merged by end of day of when the issue was discovered and if there is high confidence in the change.
+2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled and a tech debt issue created to handle the intermittent test. Then the new issue itself must be handled as follows.
+
+### Handling new intermittent test tech debt issues
+
+The policy is that intermittent test tech debt issues should be actively assigned and worked on. Intermittent tests should not be disabled and allowed to be unaddressed for extended periods of time.
+
+Some ways to make progress on an intermittent test tech debt issue are:
+
+1. In a branch a developer can try and re-enable the test and reproduce the failure by including additional logging, etc. Creating a PR is not necessary to queue a build in nimble; every commit has an associated build and will re-run the tests.
+2. If the failure is too intermittent to detect by manually queuing builds in a branch and needs additional logging and executions in main, then modify the test so that it will not fail the test suite and add the additional logging needed to make it run in main. Actively monitor the change and have a pre-defined date to disable the test and re-evaluate how to handle the issue.
