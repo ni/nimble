@@ -1,6 +1,6 @@
 import { observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { TableColumnTextColumnConfig } from '..';
+import type { TableColumnWithPlaceholderColumnConfig } from '../../base/types';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import { template } from './template';
 import { styles } from './styles';
@@ -16,7 +16,7 @@ declare global {
  */
 export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
 string | null | undefined,
-TableColumnTextColumnConfig
+TableColumnWithPlaceholderColumnConfig
 > {
     /** @internal */
     public textSpan!: HTMLElement;

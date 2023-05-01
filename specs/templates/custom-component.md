@@ -7,6 +7,7 @@
 ### Background
 
 *Relevant historical or background information*
+*Link to Interaction Design spec*
 *Link to Visual Design spec*
 *Link to relevant work items, related existing issues, etc.*
 
