@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-mapping` is a component that supports rendering a specific number, boolean, or string value as mapped, predefined, html fragments (with content restrictions).
+The `nimble-table-column-mapping` is a component that supports rendering specific number, boolean, or string values as mapped, predefined, html fragments (with content restrictions).
 
 ### Background
 
@@ -97,6 +97,8 @@ export class TableColumnBooleanMapping extends TableColumnMapping {
 }
 
 ```
+
+When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, we could provide support for a default mapping (i.e. `nimble-mapping-default`) that would be rendered when no other values matched. However this doesn't seem worth the effort/complexity.
 
 **Alternatives:**
 
@@ -246,12 +248,6 @@ Appearance can vary based on mapped html, but can only include text, icons, and 
 
 ## Implementation
 
-_Important aspects of the planned implementation with careful consideration of web standards and integration._
-
-_Highlight any alternative implementations you considered in each section._
-
-_If you think a section doesn't apply or don't know what to write, please DO NOT delete it. Either mark it "N/A" or leave it blank and the Nimble team can help you fill it in._
-
 ### States
 
 N/A
@@ -283,7 +279,9 @@ None
 ### Test Plan
 
 -   Unit tests will be written verifying the usual component expectations, plus:
+    -   renders mapping matching the cell value (string, number, and boolean)
     -   behavior in the presence of non-unique mapping keys
+    -   nothing rendered when value matches no mappings
     -   error thrown when non-parsable value is given to number/boolean mappings
     -   error thrown when mapping contents are not a single template element
 -   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
