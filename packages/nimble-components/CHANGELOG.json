@@ -2,6 +2,111 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 28 Apr 2023 16:13:58 GMT",
+      "tag": "@ni/nimble-components_v18.12.7",
+      "version": "18.12.7",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "000d9f3fc945a88c6b9edffba8cb52a742679be5",
+            "comment": "new process for work item templates and design specs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 28 Apr 2023 15:33:55 GMT",
+      "tag": "@ni/nimble-components_v18.12.7",
+      "version": "18.12.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "78d39d34d9ee9a8852ba6eeb40119157493e7f76",
+            "comment": "Anchor table column type"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 27 Apr 2023 15:21:27 GMT",
+      "tag": "@ni/nimble-components_v18.12.6",
+      "version": "18.12.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e30ebef7734f0c3aa6cee7cae818e024164003ea",
+            "comment": "Remove scrolling from select visibility test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Apr 2023 17:40:07 GMT",
+      "tag": "@ni/nimble-components_v18.12.6",
+      "version": "18.12.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9464153249e21394b06fc5e92cc19c002cf6828",
+            "comment": "Spinner now allows internal configuration of animation play state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 26 Apr 2023 16:54:36 GMT",
+      "tag": "@ni/nimble-components_v18.12.5",
+      "version": "18.12.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d28634e8abf51499a336478c7699059284956514",
+            "comment": "Fix disabled select test"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Apr 2023 20:41:37 GMT",
+      "tag": "@ni/nimble-components_v18.12.5",
+      "version": "18.12.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6c2fa633203e7877536314d01d11b96866ba5376",
+            "comment": "Adding collapse-all-button"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Apr 2023 18:09:46 GMT",
+      "tag": "@ni/nimble-components_v18.12.4",
+      "version": "18.12.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a0427f9ccd40f1a1a2ce5c4014df91ab4e1b55a",
+            "comment": "Updating row styling."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 21 Apr 2023 16:14:07 GMT",
       "tag": "@ni/nimble-components_v18.12.3",
       "version": "18.12.3",

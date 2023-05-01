@@ -2,6 +2,7 @@ import { attr, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
+import type { TableColumn } from '../../../table-column/base';
 import type {
     TableCellRecord,
     TableCellState
@@ -24,6 +25,9 @@ export class TableCell<
 > extends FoundationElement {
     @observable
     public cellState?: TableCellState<TCellRecord>;
+
+    @observable
+    public column?: TableColumn;
 
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;

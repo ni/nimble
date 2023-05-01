@@ -15,6 +15,17 @@ export interface TableCellState<
     columnConfig: TColumnConfig;
 }
 
+export interface TableColumnWithPlaceholderColumnConfig {
+    placeholder: string;
+}
+
+/**
+ * The event details for the 'delegated-event' CustomEvent
+ */
+export interface DelegatedEventEventDetails {
+    originalEvent: Event;
+}
+
 /**
  * The possible operations to use when sorting a table column.
  */
@@ -32,6 +43,19 @@ export const TableColumnSortOperation = {
 export type TableColumnSortOperation =
     (typeof TableColumnSortOperation)[keyof typeof TableColumnSortOperation];
 
-export const defaultMinPixelWidth = 88;
+const groupIconSize = 16;
+const sortIconSize = 16;
+const spacing = 8;
+const menuDropdownSize = 24;
+const oneCharPlusEllipsisSize = 21;
+export const defaultMinPixelWidth = spacing
+    + oneCharPlusEllipsisSize
+    + spacing
+    + sortIconSize
+    + spacing
+    + groupIconSize
+    + spacing
+    + menuDropdownSize
+    + spacing;
 
 export const defaultFractionalWidth = 1;

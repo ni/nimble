@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "18.12.3",
+  "version": "18.12.7",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -99,7 +99,7 @@
     "@storybook/theming": "^7.0.4",
     "@types/jasmine": "^4.3.1",
     "@types/webpack-env": "^1.15.2",
-    "babel-loader": "^ 9.1.2",
+    "babel-loader": "^9.1.2",
     "circular-dependency-plugin": "^5.2.0",
     "css-loader": "^6.7.3",
     "dotenv-webpack": "^8.0.1",

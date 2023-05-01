@@ -150,6 +150,12 @@ export class Table<
     /**
      * @internal
      */
+    @observable
+    public showCollapseAll = false;
+
+    /**
+     * @internal
+     */
     public readonly rowContainer!: HTMLElement;
 
     /**
@@ -313,10 +319,10 @@ export class Table<
     }
 
     /** @internal */
-    public async onRowSelectionToggle(
+    public onRowSelectionToggle(
         rowIndex: number,
         event: CustomEvent<TableRowSelectionToggleEventDetail>
-    ): Promise<void> {
+    ): void {
         event.stopImmediatePropagation();
 
         const selectionChanged = this.selectionManager.handleRowSelectionToggle(
@@ -326,17 +332,15 @@ export class Table<
         );
 
         if (selectionChanged) {
-            await this.emitSelectionChangeEvent();
+            void this.emitSelectionChangeEvent();
         }
     }
 
     /** @internal */
-    public async onRowClick(
+    public onRowClick(
         rowIndex: number,
         event: MouseEvent
-    ): Promise<void> {
-        event.stopImmediatePropagation();
-
+    ): boolean {
         const selectionChanged = this.selectionManager.handleRowClick(
             this.tableData[rowIndex],
             event.shiftKey,
@@ -344,12 +348,14 @@ export class Table<
         );
 
         if (selectionChanged) {
-            await this.emitSelectionChangeEvent();
+            void this.emitSelectionChangeEvent();
         }
+
+        return true;
     }
 
     /** @internal */
-    public async onAllRowsSelectionChange(event: CustomEvent): Promise<void> {
+    public onAllRowsSelectionChange(event: CustomEvent): void {
         event.stopPropagation();
 
         if (this.ignoreSelectionChangeEvents) {
@@ -357,51 +363,34 @@ export class Table<
         }
 
         this.table.toggleAllRowsSelected(this.selectionCheckbox!.checked);
-        await this.emitSelectionChangeEvent();
+        void this.emitSelectionChangeEvent();
     }
 
     /** @internal */
-    public async onRowActionMenuBeforeToggle(
+    public onRowActionMenuBeforeToggle(
         rowIndex: number,
         event: CustomEvent<TableActionMenuToggleEventDetail>
-    ): Promise<void> {
+    ): void {
         event.stopImmediatePropagation();
-
-        const selectionChanged = this.selectionManager.handleActionMenuOpening(
-            this.tableData[rowIndex]
-        );
-        if (selectionChanged) {
-            await this.emitSelectionChangeEvent();
-        }
-
-        this.openActionMenuRecordId = event.detail.recordIds[0];
-        const recordIds = this.selectionMode === TableRowSelectionMode.none
-            ? [this.openActionMenuRecordId!]
-            : await this.getSelectedRecordIds();
-        const detail: TableActionMenuToggleEventDetail = {
-            ...event.detail,
-            recordIds
-        };
-        this.$emit('action-menu-beforetoggle', detail);
+        void this.handleActionMenuBeforeToggleEvent(rowIndex, event);
     }
 
     /** @internal */
-    public async onRowActionMenuToggle(
+    public onRowActionMenuToggle(
         event: CustomEvent<TableActionMenuToggleEventDetail>
-    ): Promise<void> {
+    ): void {
         event.stopImmediatePropagation();
+        void this.handleRowActionMenuToggleEvent(event);
+    }
 
-        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
-            ? await this.getSelectedRecordIds()
-            : event.detail.recordIds;
-        const detail: TableActionMenuToggleEventDetail = {
-            ...event.detail,
-            recordIds
-        };
-        this.$emit('action-menu-toggle', detail);
-        if (!event.detail.newState) {
-            this.openActionMenuRecordId = undefined;
-        }
+    /** @internal */
+    public handleCollapseAllGroupRows(): void {
+        this.collapsedRows.clear();
+        this.table
+            .getRowModel()
+            .flatRows.filter(row => row.getIsGrouped())
+            .forEach(row => this.collapsedRows.add(row.id));
+        this.table.toggleAllRowsExpanded(false);
     }
 
     /** @internal */
@@ -425,6 +414,10 @@ export class Table<
 
         if (this.updateTracker.updateColumnWidths) {
             this.updateRowGridColumns();
+        }
+
+        if (this.updateTracker.updateGroupRows) {
+            this.showCollapseAll = this.getColumnsParticipatingInGrouping().length > 0;
         }
     }
 
@@ -471,6 +464,42 @@ export class Table<
 
         this.observeColumns();
         this.updateTracker.trackColumnInstancesChanged();
+    }
+
+    private async handleActionMenuBeforeToggleEvent(
+        rowIndex: number,
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): Promise<void> {
+        const selectionChanged = this.selectionManager.handleActionMenuOpening(
+            this.tableData[rowIndex]
+        );
+        if (selectionChanged) {
+            await this.emitSelectionChangeEvent();
+        }
+
+        this.openActionMenuRecordId = event.detail.recordIds[0];
+        const detail = await this.getActionMenuToggleEventDetail(event);
+        this.$emit('action-menu-beforetoggle', detail);
+    }
+
+    private async handleRowActionMenuToggleEvent(
+        event: CustomEvent<TableActionMenuToggleEventDetail>
+    ): Promise<void> {
+        const detail = await this.getActionMenuToggleEventDetail(event);
+        this.$emit('action-menu-toggle', detail);
+        if (!event.detail.newState) {
+            this.openActionMenuRecordId = undefined;
+        }
+    }
+
+    private async getActionMenuToggleEventDetail(originalEvent: CustomEvent<TableActionMenuToggleEventDetail>): Promise<TableActionMenuToggleEventDetail> {
+        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
+            ? await this.getSelectedRecordIds()
+            : [this.openActionMenuRecordId!];
+        return {
+            ...originalEvent.detail,
+            recordIds
+        };
     }
 
     private readonly onViewPortScroll = (event: Event): void => {

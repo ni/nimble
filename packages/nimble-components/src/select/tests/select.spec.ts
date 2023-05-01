@@ -42,7 +42,11 @@ async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
                     resolve(false);
                 }
             },
-            { threshold: 1.0 }
+            // As of now, passing a document as root is not supported on Safari:
+            // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#browser_compatibility
+            // If we begin running these tests on Safari, we may need to skip those that use this function.
+            // This issue tracks expanding testing to Safari: https://github.com/ni/nimble/issues/990
+            { threshold: 1.0, root: document }
         );
         intersectionObserver.observe(element);
     });
@@ -106,19 +110,11 @@ describe('Select', () => {
             return fixture<Select>(viewTemplate);
         }
 
-        // Disabled due to intermittancy, see: https://github.com/ni/nimble/issues/1172
-        xit('should limit dropdown height to viewport', async () => {
+        it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
             const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
             await clickAndWaitForOpen(element);
-            // The test is run in an iframe, and the containing window has a Karma header.
-            // It seems the window is sized without accounting for the header, so a header-height's
-            // worth of content is scrolled out of view. The approach we take with the
-            // IntersectionObserver only works if the full iframe is visible, so we scroll the
-            // containing window to the bottom (i.e. scrolling the Karma header out of view and
-            // the bottom of the iframe into view).
-            window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
             const fullyVisible = await checkFullyInViewport(listbox);
 
             expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);

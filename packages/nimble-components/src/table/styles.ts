@@ -5,10 +5,10 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    fillHoverColor,
-    fillHoverSelectedColor,
-    fillSelectedColor,
-    standardPadding
+    controlSlimHeight,
+    smallPadding,
+    standardPadding,
+    tableRowBorderColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -53,6 +53,7 @@ export const styles = css`
         width: 100%;
         position: relative;
         top: var(--ni-private-table-row-container-top);
+        background-color: ${tableRowBorderColor};
     }
 
     .header-container {
@@ -67,12 +68,24 @@ export const styles = css`
         width: fit-content;
         min-width: 100%;
         left: var(--ni-private-table-scroll-x);
+        align-items: center;
     }
 
     .column-header-container {
         display: grid;
         width: 100%;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    .collapse-all-button {
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
+        margin-left: calc(${smallPadding} * 2);
+        visibility: hidden;
+    }
+
+    .collapse-all-button.visible {
+        visibility: visible;
     }
 
     .header-scrollbar-spacer {
@@ -95,64 +108,23 @@ export const styles = css`
         padding-left: 0px;
     }
 
-    .row {
-        background: ${applicationBackgroundColor};
+    .group-row {
         position: relative;
-        box-sizing: border-box;
     }
 
-    .row::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    :host([selection-mode='single']) .row:hover::before,
-    :host([selection-mode='multiple']) .row:hover::before {
-        background: ${fillHoverColor};
-    }
-
-    :host([selection-mode='single']) .row[selected]::before,
-    :host([selection-mode='multiple']) .row[selected]::before {
-        background: ${fillSelectedColor};
-    }
-
-    :host([selection-mode='single']) .row[selected]:hover::before,
-    :host([selection-mode='multiple']) .row[selected]:hover::before {
-        background: ${fillHoverSelectedColor};
+    .row {
+        position: relative;
     }
 `.withBehaviors(
     themeBehavior(
         Theme.color,
         css`
-            .header-row::before {
+            .table-row-container::before {
                 content: '';
                 width: 100%;
                 height: 100%;
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
                 position: absolute;
-                background: ${fillHoverColor};
-                pointer-events: none;
-            }
-
-            .row::before {
-                background: ${fillHoverColor};
-            }
-
-            :host([selection-mode='single']) .row:hover::before,
-            :host([selection-mode='multiple']) .row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.15)};
-            }
-
-            :host([selection-mode='single']) .row[selected]::before,
-            :host([selection-mode='multiple']) .row[selected]::before {
-                background: ${hexToRgbaCssColor(White, 0.25)};
-            }
-
-            :host([selection-mode='single']) .row[selected]:hover::before,
-            :host([selection-mode='multiple']) .row[selected]:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.2)};
             }
         `
     )
