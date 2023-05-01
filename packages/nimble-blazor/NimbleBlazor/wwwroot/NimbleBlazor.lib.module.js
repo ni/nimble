@@ -9,107 +9,110 @@
  */
 
 export function afterStarted(Blazor) {
-    if (!window.NimbleBlazor.calledAfterStarted) {
-        if (!Blazor) {
-            throw new Error('Blazor not ready to initialize Nimble with!');
-        }
-
-        window.NimbleBlazor.calledAfterStarted = true;
-
-        // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
-        // Necessary because the control's value property is always just the value 'on', so we need to look
-        // at the checked property to correctly get the value.
-        Blazor.registerCustomEventType('nimblecheckedchange', {
-            browserEventName: 'change',
-            createEventArgs: event => {
-                return {
-                    checked: event.target.currentChecked
-                };
-            }
-        });
-        // Used by NimbleTabs.razor
-        // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
-        // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.
-        // 'localName' check is required to guard against children's change event trickling into the NimbleTabs.
-        Blazor.registerCustomEventType('nimbletabsactiveidchange', {
-            browserEventName: 'change',
-            createEventArgs: event => {
-                if (event.target.localName === 'nimble-tabs') {
-                    return {
-                        activeId: event.target.activeid
-                    };
-                }
-                return null;
-            }
-        });
-        // Used by NimbleMenuButton.razor
-        Blazor.registerCustomEventType('nimblemenubuttontoggle', {
-            browserEventName: 'toggle',
-            createEventArgs: event => {
-                return {
-                    newState: event.detail.newState,
-                    oldState: event.detail.oldState
-                };
-            }
-        });
-        // Used by NimbleMenuButton.razor
-        Blazor.registerCustomEventType('nimblemenubuttonbeforetoggle', {
-            browserEventName: 'beforetoggle',
-            createEventArgs: event => {
-                return {
-                    newState: event.detail.newState,
-                    oldState: event.detail.oldState
-                };
-            }
-        });
-        // Used by NimbleBanner.razor
-        Blazor.registerCustomEventType('nimblebannertoggle', {
-            browserEventName: 'toggle',
-            createEventArgs: event => {
-                return {
-                    newState: event.detail.newState,
-                    oldState: event.detail.oldState
-                };
-            }
-        });
-        // Used by NimbleTable.razor
-        Blazor.registerCustomEventType('nimbleactionmenubeforetoggle', {
-            browserEventName: 'action-menu-beforetoggle',
-            createEventArgs: event => {
-                return {
-                    newState: event.detail.newState,
-                    oldState: event.detail.oldState,
-                    recordIds: event.detail.recordIds,
-                    columnId: event.detail.columnId
-                };
-            }
-        });
-        // Used by NimbleTable.razor
-        Blazor.registerCustomEventType('nimbleactionmenutoggle', {
-            browserEventName: 'action-menu-toggle',
-            createEventArgs: event => {
-                return {
-                    newState: event.detail.newState,
-                    oldState: event.detail.oldState,
-                    recordIds: event.detail.recordIds,
-                    columnId: event.detail.columnId
-                };
-            }
-        });
-        // Used by NimbleTable.razor
-        Blazor.registerCustomEventType('nimbletablerowselectionchange', {
-            browserEventName: 'selection-change',
-            createEventArgs: event => {
-                return {
-                    selectedRecordIds: event.detail.selectedRecordIds
-                };
-            }
-        });
+    if (window.NimbleBlazor.calledAfterStarted) {
+        console.warn('Attempted to initialize Nimble Blazor multiple times!'); // eslint-disable-line
+        return;
     }
+
+    if (!Blazor) {
+        throw new Error('Blazor not ready to initialize Nimble with!');
+    }
+
+    window.NimbleBlazor.calledAfterStarted = true;
+
+    // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
+    // Necessary because the control's value property is always just the value 'on', so we need to look
+    // at the checked property to correctly get the value.
+    Blazor.registerCustomEventType('nimblecheckedchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            return {
+                checked: event.target.currentChecked
+            };
+        }
+    });
+    // Used by NimbleTabs.razor
+    // Necessary because the tab control uses a 'change' event but not a value/currentValue property,
+    // and we do want to be notified of activeid changes (via the change event) for 2-way binding support.
+    // 'localName' check is required to guard against children's change event trickling into the NimbleTabs.
+    Blazor.registerCustomEventType('nimbletabsactiveidchange', {
+        browserEventName: 'change',
+        createEventArgs: event => {
+            if (event.target.localName === 'nimble-tabs') {
+                return {
+                    activeId: event.target.activeid
+                };
+            }
+            return null;
+        }
+    });
+    // Used by NimbleMenuButton.razor
+    Blazor.registerCustomEventType('nimblemenubuttontoggle', {
+        browserEventName: 'toggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
+    // Used by NimbleMenuButton.razor
+    Blazor.registerCustomEventType('nimblemenubuttonbeforetoggle', {
+        browserEventName: 'beforetoggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
+    // Used by NimbleBanner.razor
+    Blazor.registerCustomEventType('nimblebannertoggle', {
+        browserEventName: 'toggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState
+            };
+        }
+    });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbleactionmenubeforetoggle', {
+        browserEventName: 'action-menu-beforetoggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState,
+                recordIds: event.detail.recordIds,
+                columnId: event.detail.columnId
+            };
+        }
+    });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbleactionmenutoggle', {
+        browserEventName: 'action-menu-toggle',
+        createEventArgs: event => {
+            return {
+                newState: event.detail.newState,
+                oldState: event.detail.oldState,
+                recordIds: event.detail.recordIds,
+                columnId: event.detail.columnId
+            };
+        }
+    });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbletablerowselectionchange', {
+        browserEventName: 'selection-change',
+        createEventArgs: event => {
+            return {
+                selectedRecordIds: event.detail.selectedRecordIds
+            };
+        }
+    });
 }
 
-window.NimbleBlazor = (window.NimbleBlazor === undefined)
-    ? {
+if (!window.NimbleBlazor) {
+    window.NimbleBlazor = {
         calledAfterStarted: false,
         Dialog: {
             show: async function (dialogReference) {
@@ -147,5 +150,7 @@ window.NimbleBlazor = (window.NimbleBlazor === undefined)
                 return tableReference.validity;
             }
         }
-    }
-    : window.NimbleBlazor;
+    };
+} else {
+    console.warn('Attempting to initialize NimbleBlazor multiple times!'); // eslint-disable-line
+}
