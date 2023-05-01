@@ -1,81 +1,176 @@
 /* eslint-disable jsdoc/require-jsdoc */
 /* eslint-disable max-classes-per-file */
-import { TableRecord, TableRowSelectionMode, TableRowState } from '../types';
-import type { Table } from '..';
+import type {
+    Table as TanStackTable,
+    Row as TanStackRow,
+    RowSelectionState as TanStackRowSelectionState
+} from '@tanstack/table-core';
+import { TableRecord, TableRowSelectionMode, TableRowSelectionState, TableRowState } from '../types';
 
 export abstract class SelectionStateManager<TData extends TableRecord> {
-    protected table: Table<TData>;
+    protected tanStackTable: TanStackTable<TData>;
 
-    public constructor(table: Table<TData>) {
-        this.table = table;
+    public constructor(tanStackTable: TanStackTable<TData>) {
+        this.tanStackTable = tanStackTable;
     }
 
     public abstract handleRowSelectionToggle(
-        rowId: string | undefined,
+        rowState: TableRowState | undefined,
         isSelecting: boolean,
-        currentSelection: { [rowId: string]: boolean },
         shiftKey: boolean
-    ): Promise<void>;
+    ): boolean;
 
     public abstract handleRowClick(
-        rowId: string | undefined,
-        currentSelection: { [rowId: string]: boolean },
+        rowState: TableRowState | undefined,
         shiftKey: boolean,
         ctrlKey: boolean
-    ): Promise<void>;
+    ): boolean;
+
+    public abstract handleActionMenuOpening(
+        rowState: TableRowState | undefined
+    ): boolean;
 
     public reset(): void {}
+
+    protected toggleIsRowSelected(
+        rowState: TableRowState,
+        isSelecting?: boolean
+    ): void {
+        if (
+            rowState.isGrouped
+            && rowState.selectionState === TableRowSelectionState.selected
+        ) {
+            // Work around for https://github.com/TanStack/table/issues/4759
+            // Manually deselect all leaf rows when a fully selected group is being deselected.
+            this.deselectAllLeafRows(rowState.id);
+        } else {
+            this.tanStackTable.getRow(rowState.id).toggleSelected(isSelecting);
+        }
+    }
+
+    protected selectSingleRow(rowState: TableRowState): boolean {
+        if (rowState.isGrouped) {
+            throw new Error('function not intended to select grouped rows');
+        }
+
+        const currentSelection = this.tanStackTable.getState().rowSelection;
+        const selectedRecordIds: string[] = [];
+        Object.entries(currentSelection).forEach(
+            ([recordId, isSelected]) => {
+                if (isSelected) {
+                    selectedRecordIds.push(recordId);
+                }
+            }
+        );
+
+        if (selectedRecordIds.length === 1 && selectedRecordIds[0] === rowState.id) {
+            // The clicked row is already the only selected row. Do nothing.
+            return false;
+        }
+
+        const newSelectionState: TanStackRowSelectionState = {};
+        newSelectionState[rowState.id] = true;
+        this.tanStackTable.setRowSelection(newSelectionState);
+        return true;
+    }
+
+    protected deselectAllLeafRows(rowId: string): void {
+        const groupRow = this.tanStackTable.getRow(rowId);
+        const leafRowIds = this.getAllLeafRowIds(groupRow.id);
+
+        const selectionState = this.tanStackTable.getState().rowSelection;
+        for (const id of leafRowIds) {
+            delete selectionState[id];
+        }
+
+        this.tanStackTable.setRowSelection(selectionState);
+    }
+
+    protected getAllLeafRowIds(id: string): string[] {
+        const row = this.tanStackTable.getRowModel().flatRows.find(x => x.id === id);
+        if (!row?.getIsGrouped()) {
+            return [];
+        }
+
+        return row
+            .getLeafRows()
+            .filter(leafRow => leafRow.getLeafRows().length === 0)
+            .map(leafRow => leafRow.id);
+    }
+
+    protected getAllOrderedRows(): TanStackRow<TData>[] {
+        const topLevelRows = this.tanStackTable.getPreExpandedRowModel().rows;
+        return this.getOrderedRows(topLevelRows);
+    }
+
+    private getOrderedRows(
+        topLevelRows: TanStackRow<TData>[]
+    ): TanStackRow<TData>[] {
+        const allRows: TanStackRow<TData>[] = [];
+        for (const row of topLevelRows) {
+            allRows.push(row);
+            if (row.subRows?.length) {
+                allRows.push(...this.getOrderedRows(row.subRows));
+            }
+        }
+        return allRows;
+    }
 }
 
 export class NoSelectionStateManager<
     TData extends TableRecord
 > extends SelectionStateManager<TData> {
-    public override async handleRowSelectionToggle(
-        _rowId: string,
+    public override handleRowSelectionToggle(
+        _rowState: TableRowState | undefined,
         _isSelecting: boolean,
-        _currentSelection: { [rowId: string]: boolean },
         _shiftKey: boolean
-    ): Promise<void> {
-        return Promise.resolve();
+    ): boolean {
+        return false;
     }
 
-    public override async handleRowClick(
-        _rowId: string,
-        _currentSelection: { [rowId: string]: boolean },
+    public override handleRowClick(
+        _rowState: TableRowState | undefined,
         _shiftKey: boolean,
         _ctrlKey: boolean
-    ): Promise<void> {
-        return Promise.resolve();
+    ): boolean {
+        return false;
+    }
+
+    public override handleActionMenuOpening(_rowState: TableRowState | undefined): boolean {
+        return false;
     }
 }
 
 export class SingleSelectionStateManager<
     TData extends TableRecord
 > extends SelectionStateManager<TData> {
-    public override async handleRowSelectionToggle(
-        rowId: string | undefined,
+    public override handleRowSelectionToggle(
+        rowState: TableRowState | undefined,
         isSelecting: boolean,
-        _currentSelection: { [rowId: string]: boolean },
         _shiftKey: boolean
-    ): Promise<void> {
-        if (!rowId) {
-            return;
+    ): boolean {
+        if (!rowState) {
+            return false;
         }
 
-        await this.table.toggleIsRowSelected(rowId, isSelecting);
+        this.toggleIsRowSelected(rowState, isSelecting);
+        return true;
     }
 
-    public override async handleRowClick(
-        rowId: string | undefined,
-        _currentSelection: { [rowId: string]: boolean },
+    public override handleRowClick(
+        rowState: TableRowState | undefined,
         _shiftKey: boolean,
         _ctrlKey: boolean
-    ): Promise<void> {
-        if (!rowId) {
-            return;
+    ): boolean {
+        if (!rowState) {
+            return false;
         }
 
-        await this.table.selectSingleRow(rowId);
+        return this.selectSingleRow(rowState);
+    }
+
+    public override handleActionMenuOpening(rowState: TableRowState | undefined): boolean {
+        return this.handleRowClick(rowState, false, false);
     }
 }
 
@@ -85,61 +180,65 @@ export class MultiSelectionStateManager<
     private shiftSelectStartRowId?: string;
     private previousShiftSelectRowEndId?: string;
 
-    public override async handleRowSelectionToggle(
-        rowId: string | undefined,
+    public override handleRowSelectionToggle(
+        rowState: TableRowState | undefined,
         isSelecting: boolean,
-        currentSelection: { [rowId: string]: boolean },
         shiftKey: boolean
-    ): Promise<void> {
-        if (!rowId) {
-            return;
+    ): boolean {
+        if (!rowState) {
+            return false;
         }
 
         if (shiftKey) {
-            const madeRangeSelection = await this.tryUpdateRangeSelection(
-                rowId,
-                currentSelection
+            const madeRangeSelection = this.tryUpdateRangeSelection(
+                rowState.id
             );
             if (madeRangeSelection) {
-                return;
+                return true;
             }
         }
 
-        this.shiftSelectStartRowId = rowId;
+        this.shiftSelectStartRowId = rowState.id;
         this.previousShiftSelectRowEndId = undefined;
-        await this.table.toggleIsRowSelected(rowId, isSelecting);
+        this.toggleIsRowSelected(rowState, isSelecting);
+        return true;
     }
 
-    public override async handleRowClick(
-        rowId: string | undefined,
-        currentSelection: { [rowId: string]: boolean },
+    public override handleRowClick(
+        rowState: TableRowState | undefined,
         shiftKey: boolean,
         ctrlKey: boolean
-    ): Promise<void> {
-        if (!rowId) {
-            return;
+    ): boolean {
+        if (!rowState) {
+            return false;
         }
 
         if (ctrlKey) {
-            this.shiftSelectStartRowId = rowId;
+            this.shiftSelectStartRowId = rowState.id;
             this.previousShiftSelectRowEndId = undefined;
-            await this.table.toggleIsRowSelected(rowId);
-            return;
+            this.toggleIsRowSelected(rowState);
+            return true;
         }
 
         if (shiftKey) {
-            const madeRangeSelection = await this.tryUpdateRangeSelection(
-                rowId,
-                currentSelection
+            const madeRangeSelection = this.tryUpdateRangeSelection(
+                rowState.id
             );
             if (madeRangeSelection) {
-                return;
+                return true;
             }
         }
 
-        this.shiftSelectStartRowId = rowId;
+        this.shiftSelectStartRowId = rowState.id;
         this.previousShiftSelectRowEndId = undefined;
-        await this.table.selectSingleRow(rowId);
+        return this.selectSingleRow(rowState);
+    }
+
+    public override handleActionMenuOpening(rowState: TableRowState | undefined): boolean {
+        if (!rowState || rowState.selectionState === TableRowSelectionState.selected) {
+            return false;
+        }
+        return this.selectSingleRow(rowState);
     }
 
     public override reset(): void {
@@ -147,15 +246,14 @@ export class MultiSelectionStateManager<
         this.previousShiftSelectRowEndId = undefined;
     }
 
-    private async tryUpdateRangeSelection(
-        rowId: string,
-        currentSelection: { [rowId: string]: boolean }
-    ): Promise<boolean> {
+    private tryUpdateRangeSelection(
+        rowId: string
+    ): boolean {
         if (this.shiftSelectStartRowId === undefined) {
             return false;
         }
 
-        const allRows = this.table.getAllOrderedRows();
+        const allRows = this.getAllOrderedRows();
         const selectionStartIndex = this.getRowIndexForId(
             this.shiftSelectStartRowId,
             allRows
@@ -164,9 +262,7 @@ export class MultiSelectionStateManager<
             return false;
         }
 
-        const updatedSelection: { [rowId: string]: boolean } = {
-            ...currentSelection
-        };
+        const updatedSelection = this.tanStackTable.getState().rowSelection;
         this.removePreviousRangeSelection(
             updatedSelection,
             selectionStartIndex,
@@ -179,15 +275,15 @@ export class MultiSelectionStateManager<
             allRows
         );
         this.previousShiftSelectRowEndId = rowId;
-        await this.table.updateSelectionState(updatedSelection);
+        this.tanStackTable.setRowSelection(updatedSelection);
 
         return true;
     }
 
     private removePreviousRangeSelection(
-        selection: { [rowId: string]: boolean },
+        selection: TanStackRowSelectionState,
         shiftSelectStartRowIndex: number,
-        allRows: TableRowState[]
+        allRows: TanStackRow<TData>[]
     ): void {
         const previousRangeEndIndex = this.getRowIndexForId(
             this.previousShiftSelectRowEndId,
@@ -203,10 +299,10 @@ export class MultiSelectionStateManager<
     }
 
     private addNewRangeSelection(
-        selection: { [rowId: string]: boolean },
+        selection: TanStackRowSelectionState,
         endRangeRowId: string,
         shiftSelectStartRowIndex: number,
-        allRows: TableRowState[]
+        allRows: TanStackRow<TData>[]
     ): void {
         const newRangeEndIndex = this.getRowIndexForId(endRangeRowId, allRows);
         this.updateSelectionStateForRange(
@@ -219,10 +315,10 @@ export class MultiSelectionStateManager<
     }
 
     private updateSelectionStateForRange(
-        selection: { [rowId: string]: boolean },
+        selection: TanStackRowSelectionState,
         rangeStartIndex: number,
         rangeEndIndex: number,
-        allRows: TableRowState[],
+        allRows: TanStackRow<TData>[],
         isSelecting: boolean
     ): void {
         if (rangeStartIndex === -1 || rangeEndIndex === -1) {
@@ -233,41 +329,31 @@ export class MultiSelectionStateManager<
         const lastRowIndex = Math.max(rangeStartIndex, rangeEndIndex);
         for (let i = firstRowIndex; i <= lastRowIndex; i++) {
             const row = allRows[i]!;
-            if (row.isGrouped) {
+            if (row.getIsGrouped()) {
                 continue;
             }
 
-            if (isSelecting) {
-                selection[row.id] = true;
-            } else {
-                delete selection[row.id];
-            }
+            this.updateSelectionStateForRow(selection, row.id, isSelecting);
         }
 
         const endRangeRow = allRows[rangeEndIndex]!;
-        if (endRangeRow.isGrouped) {
-            this.handleGroupRowToggle(selection, endRangeRow.id, isSelecting);
+        if (endRangeRow.getIsGrouped()) {
+            this.getAllLeafRowIds(endRangeRow.id)
+                .forEach(id => this.updateSelectionStateForRow(selection, id, isSelecting));
         }
     }
 
-    private handleGroupRowToggle(
-        selection: { [rowId: string]: boolean },
-        groupRowId: string,
-        isSelecting: boolean
-    ): void {
-        const leafIds = this.table.getAllLeafRowIds(groupRowId);
-        for (const id of leafIds) {
-            if (isSelecting) {
-                selection[id] = true;
-            } else {
-                delete selection[id];
-            }
+    private updateSelectionStateForRow(selection: TanStackRowSelectionState, rowId: string, isSelecting: boolean): void {
+        if (isSelecting) {
+            selection[rowId] = true;
+        } else {
+            delete selection[rowId];
         }
     }
 
     private getRowIndexForId(
         id: string | undefined,
-        rows: TableRowState[]
+        rows: TanStackRow<TData>[]
     ): number {
         if (!id) {
             return -1;
@@ -278,15 +364,16 @@ export class MultiSelectionStateManager<
 }
 
 export function createSelectionManager<TData extends TableRecord>(
-    table: Table<TData>
+    tanstackTable: TanStackTable<TData>,
+    selectionMode: TableRowSelectionMode
 ): SelectionStateManager<TData> {
-    switch (table.selectionMode) {
+    switch (selectionMode) {
         case TableRowSelectionMode.multiple:
-            return new MultiSelectionStateManager(table);
+            return new MultiSelectionStateManager(tanstackTable);
         case TableRowSelectionMode.single:
-            return new SingleSelectionStateManager(table);
+            return new SingleSelectionStateManager(tanstackTable);
         case TableRowSelectionMode.none:
-            return new NoSelectionStateManager(table);
+            return new NoSelectionStateManager(tanstackTable);
         default:
             throw new Error('unknown selection mode found');
     }

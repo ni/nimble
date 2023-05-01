@@ -214,7 +214,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.selectionManager = createSelectionManager(this);
+        this.selectionManager = createSelectionManager(this.table, this.selectionMode);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -319,39 +319,15 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
-        const rowId = this.tableData[rowIndex]?.id;
-        await this.selectionManager.handleRowSelectionToggle(
-            rowId,
+        const selectionChanged = this.selectionManager.handleRowSelectionToggle(
+            this.tableData[rowIndex],
             event.detail.newState,
-            this.table.getState().rowSelection,
             this.documentShiftKeyDown
         );
-    }
 
-    /** @internal */
-    public async toggleIsRowSelected(
-        rowId: string,
-        isSelecting?: boolean
-    ): Promise<void> {
-        const rowState = this.tableData.find(x => x.id === rowId);
-        if (!rowState) {
-            return;
+        if (selectionChanged) {
+            await this.emitSelectionChangeEvent();
         }
-
-        if (
-            rowState.isGrouped
-            && rowState.selectionState === TableRowSelectionState.selected
-        ) {
-            // Work around for https://github.com/TanStack/table/issues/4759
-            // Manually deselect all leaf rows when a fully selected group is being deselected.
-            this.deselectAllLeafRows(rowState.id);
-        } else {
-            this.table
-                .getRowModel()
-                .rowsById[rowId]?.toggleSelected(isSelecting);
-        }
-
-        await this.emitSelectionChangeEvent();
     }
 
     /** @internal */
@@ -361,13 +337,15 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
-        const rowId = this.tableData[rowIndex]?.id;
-        await this.selectionManager.handleRowClick(
-            rowId,
-            this.table.getState().rowSelection,
+        const selectionChanged = this.selectionManager.handleRowClick(
+            this.tableData[rowIndex],
             event.shiftKey,
             event.ctrlKey
         );
+
+        if (selectionChanged) {
+            await this.emitSelectionChangeEvent();
+        }
     }
 
     /** @internal */
@@ -389,13 +367,12 @@ export class Table<
     ): Promise<void> {
         event.stopImmediatePropagation();
 
-        const rowId = this.tableData[rowIndex]?.id;
-        await this.selectionManager.handleRowSelectionToggle(
-            rowId,
-            true,
-            this.table.getState().rowSelection,
-            false
+        const selectionChanged = this.selectionManager.handleActionMenuOpening(
+            this.tableData[rowIndex]
         );
+        if (selectionChanged) {
+            await this.emitSelectionChangeEvent();
+        }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
         const recordIds = this.selectionMode === TableRowSelectionMode.none
@@ -603,7 +580,7 @@ export class Table<
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.selectionManager = createSelectionManager(this);
+            this.selectionManager = createSelectionManager(this.table, this.selectionMode);
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -686,26 +663,28 @@ export class Table<
 
     private refreshRows(): void {
         this.selectionState = this.getTableSelectionState();
-        this.tableData = this.table
-            .getRowModel()
-            .rows.map(row => this.getRowStateFromRow(row));
-        this.virtualizer.dataChanged();
-    }
 
-    private getRowStateFromRow(row: TanStackRow<TData>): TableRowState<TData> {
-        return {
-            record: row.original,
-            id: row.id,
-            selectionState: this.getRowSelectionState(row),
-            isGrouped: row.getIsGrouped(),
-            isExpanded: row.getIsExpanded(),
-            groupRowValue: row.getIsGrouped()
-                ? row.getValue(row.groupingColumnId!)
-                : undefined,
-            nestingLevel: row.depth,
-            leafItemCount: this.getAllLeafRowIds(row.id).length,
-            groupColumn: this.getGroupRowColumn(row)
-        };
+        const rows = this.table.getRowModel().rows;
+        this.tableData = rows.map(row => {
+            const rowState: TableRowState<TData> = {
+                record: row.original,
+                id: row.id,
+                selectionState: this.getRowSelectionState(row),
+                isGrouped: row.getIsGrouped(),
+                isExpanded: row.getIsExpanded(),
+                groupRowValue: row.getIsGrouped()
+                    ? row.getValue(row.groupingColumnId!)
+                    : undefined,
+                nestingLevel: row.depth,
+                leafItemCount: row
+                    .getLeafRows()
+                    .filter(leafRow => leafRow.getLeafRows().length === 0)
+                    .length,
+                groupColumn: this.getGroupRowColumn(row)
+            };
+            return rowState;
+        });
+        this.virtualizer.dataChanged();
     }
 
     private getTableSelectionState(): TableRowSelectionState {
@@ -791,25 +770,6 @@ export class Table<
     }
 
     /** @internal */
-    public async selectSingleRow(rowId: string): Promise<void> {
-        const currentSelection = await this.getSelectedRecordIds();
-        if (currentSelection.length === 1 && currentSelection[0] === rowId) {
-            // The clicked row is already the only selected row. Do nothing.
-            return;
-        }
-
-        this.table.toggleAllRowsSelected(false);
-        this.table.getRowModel().rowsById[rowId]?.toggleSelected(true);
-        await this.emitSelectionChangeEvent();
-    }
-
-    /** @internal */
-    public getAllOrderedRows(): TableRowState<TData>[] {
-        const topLevelRows = this.table.getPreExpandedRowModel().rows;
-        return this.getOrderedRows(topLevelRows).map(row => this.getRowStateFromRow(row));
-    }
-
-    /** @internal */
     public async updateSelectionState(updatedSelection: {
         [rowId: string]: boolean
     }): Promise<void> {
@@ -817,48 +777,6 @@ export class Table<
             state: { rowSelection: updatedSelection }
         });
         await this.emitSelectionChangeEvent();
-    }
-
-    private getOrderedRows(
-        topLevelRows: TanStackRow<TData>[]
-    ): TanStackRow<TData>[] {
-        const allRows: TanStackRow<TData>[] = [];
-        for (const row of topLevelRows) {
-            allRows.push(row);
-            if (row.subRows) {
-                allRows.push(...this.getOrderedRows(row.subRows));
-            }
-        }
-        return allRows;
-    }
-
-    private deselectAllLeafRows(rowId: string): void {
-        const groupRow = this.table.getRowModel().rowsById[rowId]!;
-        const leafRowIds = this.getAllLeafRowIds(groupRow.id);
-
-        const selectionState = this.table.getState().rowSelection;
-        for (const id of leafRowIds) {
-            delete selectionState[id];
-        }
-
-        this.updateTableOptions({
-            state: {
-                rowSelection: selectionState
-            }
-        });
-    }
-
-    /** @internal */
-    public getAllLeafRowIds(id: string): string[] {
-        const row = this.table.getRowModel().flatRows.find(x => x.id === id);
-        if (!row?.getIsGrouped()) {
-            return [];
-        }
-
-        return row
-            .getLeafRows()
-            .filter(leafRow => leafRow.getLeafRows().length === 0)
-            .map(leafRow => leafRow.id);
     }
 
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
