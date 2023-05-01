@@ -12,7 +12,7 @@ labels: 'enhancement'
 ## 💁 Proposed Solution
 
 - FAST component: <!-- e.g. https://explore.fast.design/components/fast-button -->
-- Visual Design: <!-- e.g. https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7) -->
+- Other reference components: <!-- e.g. https://material.angular.io/components/button/overview -->
 
 <!-- List any requirements/features beyond what is provided by the FAST component. -->
 
@@ -22,6 +22,8 @@ labels: 'enhancement'
 IBUTING](https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTRIBUTING.md) for details -->
 
 - [ ] nimble-{name} spec
+- [ ] nimble-{name} Interaction Design spec
+- [ ] nimble-{name} Visual Design spec
 - [ ] nimble-{name} custom element
 - [ ] nimble-{name} unit tests
 - [ ] nimble-{name} Storybook tests

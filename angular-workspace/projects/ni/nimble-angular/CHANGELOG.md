@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 26 Apr 2023 17:40:07 GMT and should not be manually modified.
+This log was last generated on Fri, 28 Apr 2023 15:33:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.18
+
+Fri, 28 Apr 2023 15:33:54 GMT
+
+### Patches
+
+- Anchor table column type ([ni/nimble@78d39d3](https://github.com/ni/nimble/commit/78d39d34d9ee9a8852ba6eeb40119157493e7f76))
+- Bump @ni/nimble-components to v18.12.7
 
 ## 16.5.17
 
