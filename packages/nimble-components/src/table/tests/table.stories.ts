@@ -131,7 +131,6 @@ const metadata: Meta<TableArgs> = {
             handles: [
                 'action-menu-beforetoggle',
                 'action-menu-toggle',
-                'column-sort-change',
                 'selection-change'
             ]
         }
