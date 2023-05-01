@@ -8,16 +8,14 @@
  * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
  */
 
-// DELETESTART
 export function afterStarted(Blazor) {
-// DELETEEND
-    if (!window.NimbleBlazor || !window.NimbleBlazor.calledAfterStarted) {
+    if (!window.NimbleBlazor.calledAfterStarted) {
         if (!Blazor) {
             throw new Error('Blazor not ready to initialize Nimble with!');
         }
-        if (!window.NimbleBlazor) {
-            window.NimbleBlazor = { calledAfterStarted: true };
-        }
+
+        window.NimbleBlazor.calledAfterStarted = true;
+
         // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
         // Necessary because the control's value property is always just the value 'on', so we need to look
         // at the checked property to correctly get the value.
@@ -108,46 +106,46 @@ export function afterStarted(Blazor) {
             }
         });
     }
-    // DELETESTART
 }
-// DELETEEND
 
-window.NimbleBlazor = {
-    calledAfterStarted: (window.NimbleBlazor !== undefined) ? window.NimbleBlazor.calledAfterStarted : false,
-    Dialog: {
-        show: async function (dialogReference) {
-            const reason = await dialogReference.show();
-            return reason === window.customElements.get('nimble-dialog').UserDismissed;
+window.NimbleBlazor = (window.NimbleBlazor === undefined)
+    ? {
+        calledAfterStarted: false,
+        Dialog: {
+            show: async function (dialogReference) {
+                const reason = await dialogReference.show();
+                return reason === window.customElements.get('nimble-dialog').UserDismissed;
+            },
+            close: function (dialogReference) {
+                dialogReference.close();
+            }
         },
-        close: function (dialogReference) {
-            dialogReference.close();
-        }
-    },
-    Drawer: {
-        show: async function (drawerReference) {
-            const reason = await drawerReference.show();
-            return reason === window.customElements.get('nimble-drawer').UserDismissed;
+        Drawer: {
+            show: async function (drawerReference) {
+                const reason = await drawerReference.show();
+                return reason === window.customElements.get('nimble-drawer').UserDismissed;
+            },
+            close: function (drawerReference) {
+                drawerReference.close();
+            }
         },
-        close: function (drawerReference) {
-            drawerReference.close();
-        }
-    },
-    Table: {
-        setData: async function (tableReference, data) {
-            const dataObject = JSON.parse(data);
-            await tableReference.setData(dataObject);
-        },
-        getSelectedRecordIds: async function (tableReference) {
-            return tableReference.getSelectedRecordIds();
-        },
-        setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
-            await tableReference.setSelectedRecordIds(selectedRecordIds);
-        },
-        checkValidity: function (tableReference) {
-            return tableReference.checkValidity();
-        },
-        getValidity: function (tableReference) {
-            return tableReference.validity;
+        Table: {
+            setData: async function (tableReference, data) {
+                const dataObject = JSON.parse(data);
+                await tableReference.setData(dataObject);
+            },
+            getSelectedRecordIds: async function (tableReference) {
+                return tableReference.getSelectedRecordIds();
+            },
+            setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
+                await tableReference.setSelectedRecordIds(selectedRecordIds);
+            },
+            checkValidity: function (tableReference) {
+                return tableReference.checkValidity();
+            },
+            getValidity: function (tableReference) {
+                return tableReference.validity;
+            }
         }
     }
-};
+    : window.NimbleBlazor;
