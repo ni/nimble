@@ -5,7 +5,7 @@ import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { backgroundStates } from '../../utilities/tests/states';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
