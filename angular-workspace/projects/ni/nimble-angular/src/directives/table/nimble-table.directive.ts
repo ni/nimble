@@ -2,12 +2,11 @@ import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/cor
 import type { Table } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableActionMenuToggleEventDetail, TableRowSelectionEventDetail } from '@ni/nimble-components/dist/esm/table/types';
 import { TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
-import { TablePageObject } from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 import type { Observable, Subscription } from 'rxjs';
 
 export type { Table };
 export type { TableActionMenuToggleEventDetail, TableRowSelectionEventDetail };
-export { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableRowSelectionMode, TablePageObject };
+export { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableRowSelectionMode };
 
 /**
  * Directive to provide Angular integration for the table element.

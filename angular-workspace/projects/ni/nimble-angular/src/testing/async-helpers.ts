@@ -1,3 +1,5 @@
+// This is the one production file that is allowed to access testing code.
+// eslint-disable-next-line no-restricted-imports
 import { processUpdates, waitForUpdatesAsync as waitForUpdatesAsyncOriginal } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 
 export { processUpdates };
