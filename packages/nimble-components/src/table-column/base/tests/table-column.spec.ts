@@ -12,6 +12,7 @@ import {
     tableColumnEmptyTag
 } from './table-column.fixtures';
 import { TableColumn } from '..';
+import { TableColumnSortDirection } from '../../../table/types';
 
 async function setup(): Promise<Fixture<TableColumnEmpty>> {
     return fixture(tableColumnEmptyTag);
@@ -46,6 +47,20 @@ describe('TableColumn', () => {
         element.columnInternals.pixelWidth = 200;
 
         expect(element.columnInternals.currentPixelWidth).toBe(200);
+    });
+
+    it('setting sortDirection sets columnInternals.currentSortDirection', async () => {
+        await connect();
+        element.sortDirection = TableColumnSortDirection.descending;
+
+        expect(element.columnInternals.currentSortDirection).toBe(TableColumnSortDirection.descending);
+    });
+
+    it('setting sortIndex sets columnInternals.currentSortIndex', async () => {
+        await connect();
+        element.sortIndex = 1;
+
+        expect(element.columnInternals.currentSortIndex).toBe(1);
     });
 
     describe('with a custom constructor', () => {

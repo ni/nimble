@@ -65,7 +65,7 @@ export const template = html<Table>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
                                 <${tableHeaderTag}
                                     class="header"
-                                    sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
+                                    sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                     ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
                                     @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                     :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}

@@ -35,9 +35,7 @@ import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
-    TableColumnSortEventDetail,
     TableFieldValue,
-    TableInteractiveSortMode,
     TableRecord,
     TableRowSelectionEventDetail,
     TableRowSelectionMode,
@@ -81,9 +79,6 @@ export class Table<
 
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
-
-    @attr({ attribute: 'sort-mode' })
-    public sortMode: TableInteractiveSortMode = TableInteractiveSortMode.none;
 
     /**
      * @internal
@@ -400,62 +395,42 @@ export class Table<
      */
     public toggleColumnSort(
         column: TableColumn,
-        shiftKeyPressed: boolean
+        allowMultiSort: boolean
     ): void {
-        if (this.sortMode === TableInteractiveSortMode.none) {
-            return;
-        }
+        const allSortedColumns = this.getColumnsParticipatingInSorting().sort(
+            (x, y) => x.columnInternals.currentSortIndex! - y.columnInternals.currentSortIndex!
+        );
 
-        const allowMultiSort = this.sortMode === TableInteractiveSortMode.multiple
-            && shiftKeyPressed;
-        const allSortedColumns = this.getColumnsParticipatingInSorting();
-        const otherSortedColumns = allSortedColumns.filter(c => c !== column);
-        const columnAlreadySorted = allSortedColumns.length > otherSortedColumns.length;
+        const columnIndex = allSortedColumns.indexOf(column);
+        const columnAlreadySorted = columnIndex > -1;
 
-        let sortIndex = 0;
+        const oldSortDirection = column.columnInternals.currentSortDirection;
+        let newSortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+
         if (columnAlreadySorted) {
-            sortIndex = column.sortIndex!;
-        } else if (
-            allowMultiSort
-            && !columnAlreadySorted
-            && otherSortedColumns.length > 0
-        ) {
-            sortIndex = Math.max(...otherSortedColumns.map(c => c.sortIndex!)) + 1;
+            if (oldSortDirection === TableColumnSortDirection.descending) {
+                allSortedColumns.splice(columnIndex, 1);
+                newSortDirection = TableColumnSortDirection.none;
+                column.columnInternals.currentSortIndex = undefined;
+            } else {
+                newSortDirection = TableColumnSortDirection.descending;
+            }
+        } else if (!columnAlreadySorted) {
+            allSortedColumns.push(column);
         }
-        switch (column.sortDirection) {
-            case TableColumnSortDirection.ascending:
-                column.sortDirection = TableColumnSortDirection.descending;
-                break;
-            case TableColumnSortDirection.descending:
-                column.sortDirection = TableColumnSortDirection.none;
-                break;
-            case TableColumnSortDirection.none:
-            default:
-                column.sortDirection = TableColumnSortDirection.ascending;
-                break;
-        }
-        column.sortIndex = column.sortDirection === TableColumnSortDirection.none
-            ? undefined
-            : sortIndex;
-        if (!allowMultiSort) {
-            for (const columnToUnsort of otherSortedColumns) {
-                columnToUnsort.sortIndex = undefined;
-                columnToUnsort.sortDirection = TableColumnSortDirection.none;
+        column.columnInternals.currentSortDirection = newSortDirection;
+
+        for (let i = 0; i < allSortedColumns.length; i++) {
+            const currentColumn = allSortedColumns[i]!;
+            if (allowMultiSort) {
+                allSortedColumns[i]!.columnInternals.currentSortIndex = i;
+            } else if (currentColumn === column) {
+                currentColumn.columnInternals.currentSortIndex = 0;
+            } else {
+                currentColumn.columnInternals.currentSortIndex = undefined;
+                currentColumn.columnInternals.currentSortDirection = TableColumnSortDirection.none;
             }
         }
-
-        const newSortedColumns = this.getColumnsParticipatingInSorting()
-            .sort((x, y) => x.sortIndex! - y.sortIndex!)
-            .map(c => {
-                return {
-                    columnId: c.columnId!,
-                    sortIndex: c.sortIndex!,
-                    sortDirection: c.sortDirection
-                };
-            });
-        this.$emit('column-sort-change', {
-            sortedColumns: newSortedColumns
-        } as TableColumnSortEventDetail);
     }
 
     /**
@@ -614,8 +589,8 @@ export class Table<
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
             x => !x.sortingDisabled
-                && x.sortDirection !== TableColumnSortDirection.none
-                && typeof x.sortIndex === 'number'
+                && x.columnInternals.currentSortDirection !== TableColumnSortDirection.none
+                && typeof x.columnInternals.currentSortIndex === 'number'
         );
     }
 
@@ -697,7 +672,7 @@ export class Table<
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
-            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
+            this.getColumnsParticipatingInSorting().map(x => x.columnInternals.currentSortIndex!)
         );
         this.tableValidator.validateColumnGroupIndices(
             this.getColumnsParticipatingInGrouping().map(
@@ -942,7 +917,7 @@ export class Table<
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.sortIndex! - y.sortIndex!
+            (x, y) => x.columnInternals.currentSortIndex! - y.columnInternals.currentSortIndex!
         );
         this.firstSortedColumn = sortedColumns.length
             ? sortedColumns[0]
@@ -952,7 +927,7 @@ export class Table<
             return {
                 id: column.columnInternals.uniqueId,
                 desc:
-                    column.sortDirection === TableColumnSortDirection.descending
+                    column.columnInternals.currentSortDirection === TableColumnSortDirection.descending
             };
         });
     }

@@ -49,4 +49,12 @@ export abstract class TableColumn<
         }
         this.columnInternals = new ColumnInternals(options);
     }
+
+    protected sortDirectionChanged(): void {
+        this.columnInternals.currentSortDirection = this.sortDirection;
+    }
+
+    protected sortIndexChanged(): void {
+        this.columnInternals.currentSortIndex = this.sortIndex;
+    }
 }

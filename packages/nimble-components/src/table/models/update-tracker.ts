@@ -135,11 +135,11 @@ export class UpdateTracker<TData extends TableRecord> {
         ) {
             this.requiredUpdates.columnDefinition = true;
         } else if (
-            isColumnProperty(
+            isColumnProperty(changedColumnProperty, 'sortingDisabled')
+            || isColumnInternalsProperty(
                 changedColumnProperty,
-                'sortIndex',
-                'sortDirection',
-                'sortingDisabled'
+                'currentSortDirection',
+                'currentSortIndex'
             )
         ) {
             this.requiredUpdates.columnSort = true;
