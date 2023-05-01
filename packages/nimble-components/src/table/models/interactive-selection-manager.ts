@@ -1,6 +1,4 @@
-import type {
-    Table as TanStackTable
-} from '@tanstack/table-core';
+import type { Table as TanStackTable } from '@tanstack/table-core';
 import { TableRecord, TableRowState, TableRowSelectionMode } from '../types';
 import type { SelectionManagerBase } from './selection-managers/selection-manager-base';
 import { DisabledSelectionManager } from './selection-managers/disabled-selection-manager';
@@ -15,7 +13,10 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
     private readonly tanStackTable: TanStackTable<TData>;
     private selectionManager: SelectionManagerBase<TData>;
 
-    public constructor(tanStackTable: TanStackTable<TData>, selectionMode: TableRowSelectionMode) {
+    public constructor(
+        tanStackTable: TanStackTable<TData>,
+        selectionMode: TableRowSelectionMode
+    ) {
         this.tanStackTable = tanStackTable;
         this.selectionManager = this.createSelectionManager(selectionMode);
     }
@@ -29,7 +30,11 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
             return false;
         }
 
-        return this.selectionManager.handleRowSelectionToggle(rowState, isSelecting, shiftKey);
+        return this.selectionManager.handleRowSelectionToggle(
+            rowState,
+            isSelecting,
+            shiftKey
+        );
     }
 
     public handleRowClick(
@@ -41,7 +46,11 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
             return false;
         }
 
-        return this.selectionManager.handleRowClick(rowState, shiftKey, ctrlKey);
+        return this.selectionManager.handleRowClick(
+            rowState,
+            shiftKey,
+            ctrlKey
+        );
     }
 
     public handleActionMenuOpening(
@@ -54,7 +63,9 @@ export class InteractiveSelectionManager<TData extends TableRecord> {
         return this.selectionManager.handleActionMenuOpening(rowState);
     }
 
-    public handleSelectionModeChanged(selectionMode: TableRowSelectionMode): void {
+    public handleSelectionModeChanged(
+        selectionMode: TableRowSelectionMode
+    ): void {
         this.selectionManager = this.createSelectionManager(selectionMode);
     }
 

@@ -3,7 +3,11 @@ import type {
     Row as TanStackRow,
     RowSelectionState as TanStackRowSelectionState
 } from '@tanstack/table-core';
-import { TableRecord, TableRowSelectionState, TableRowState } from '../../types';
+import {
+    TableRecord,
+    TableRowSelectionState,
+    TableRowState
+} from '../../types';
 
 /**
  * Abstract base class for handling behavior associated with interactive row selection of the table.
@@ -27,9 +31,7 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
         ctrlKey: boolean
     ): boolean;
 
-    public abstract handleActionMenuOpening(
-        rowState: TableRowState
-    ): boolean;
+    public abstract handleActionMenuOpening(rowState: TableRowState): boolean;
 
     public reset(): void {}
 
@@ -56,15 +58,16 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
 
         const currentSelection = this.tanStackTable.getState().rowSelection;
         const selectedRecordIds: string[] = [];
-        Object.entries(currentSelection).forEach(
-            ([recordId, isSelected]) => {
-                if (isSelected) {
-                    selectedRecordIds.push(recordId);
-                }
+        Object.entries(currentSelection).forEach(([recordId, isSelected]) => {
+            if (isSelected) {
+                selectedRecordIds.push(recordId);
             }
-        );
+        });
 
-        if (selectedRecordIds.length === 1 && selectedRecordIds[0] === rowState.id) {
+        if (
+            selectedRecordIds.length === 1
+            && selectedRecordIds[0] === rowState.id
+        ) {
             // The clicked row is already the only selected row. Do nothing.
             return false;
         }
@@ -88,7 +91,9 @@ export abstract class SelectionManagerBase<TData extends TableRecord> {
     }
 
     protected getAllLeafRowIds(id: string): string[] {
-        const row = this.tanStackTable.getRowModel().flatRows.find(x => x.id === id);
+        const row = this.tanStackTable
+            .getRowModel()
+            .flatRows.find(x => x.id === id);
         if (!row?.getIsGrouped()) {
             return [];
         }

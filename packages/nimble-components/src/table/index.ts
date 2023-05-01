@@ -211,7 +211,10 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.selectionManager = new InteractiveSelectionManager(this.table, this.selectionMode);
+        this.selectionManager = new InteractiveSelectionManager(
+            this.table,
+            this.selectionMode
+        );
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -577,7 +580,9 @@ export class Table<
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
-            this.selectionManager.handleSelectionModeChanged(this.selectionMode);
+            this.selectionManager.handleSelectionModeChanged(
+                this.selectionMode
+            );
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.

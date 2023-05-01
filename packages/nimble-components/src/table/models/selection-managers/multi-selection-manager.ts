@@ -2,7 +2,11 @@ import type {
     Row as TanStackRow,
     RowSelectionState as TanStackRowSelectionState
 } from '@tanstack/table-core';
-import { TableRecord, TableRowSelectionState, TableRowState } from '../../types';
+import {
+    TableRecord,
+    TableRowSelectionState,
+    TableRowState
+} from '../../types';
 import { SelectionManagerBase } from './selection-manager-base';
 
 /**
@@ -73,9 +77,7 @@ export class MultiSelectionManager<
         this.previousShiftSelectRowEndId = undefined;
     }
 
-    private tryUpdateRangeSelection(
-        rowId: string
-    ): boolean {
+    private tryUpdateRangeSelection(rowId: string): boolean {
         if (this.shiftSelectStartRowId === undefined) {
             return false;
         }
@@ -165,12 +167,15 @@ export class MultiSelectionManager<
 
         const endRangeRow = allRows[rangeEndIndex]!;
         if (endRangeRow.getIsGrouped()) {
-            this.getAllLeafRowIds(endRangeRow.id)
-                .forEach(id => this.updateSelectionStateForRow(selection, id, isSelecting));
+            this.getAllLeafRowIds(endRangeRow.id).forEach(id => this.updateSelectionStateForRow(selection, id, isSelecting));
         }
     }
 
-    private updateSelectionStateForRow(selection: TanStackRowSelectionState, rowId: string, isSelecting: boolean): void {
+    private updateSelectionStateForRow(
+        selection: TanStackRowSelectionState,
+        rowId: string,
+        isSelecting: boolean
+    ): void {
         if (isSelecting) {
             selection[rowId] = true;
         } else {
