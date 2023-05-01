@@ -111,7 +111,9 @@ export function afterStarted(Blazor) {
     });
 }
 
-if (!window.NimbleBlazor) {
+if (window.NimbleBlazor) {
+    console.warn('Attempting to initialize NimbleBlazor multiple times!'); // eslint-disable-line
+} else {
     window.NimbleBlazor = {
         calledAfterStarted: false,
         Dialog: {
@@ -151,6 +153,4 @@ if (!window.NimbleBlazor) {
             }
         }
     };
-} else {
-    console.warn('Attempting to initialize NimbleBlazor multiple times!'); // eslint-disable-line
 }
