@@ -163,14 +163,14 @@ npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 
 ## Handling intermittent test failures
 
-Intermittent test failures can be a huge drain on productivity as they can cause unrelated failures in builds and block merging PRs or creating releases. Particularly when accepting contributions from different timezones and from contributors outside of the design team without the tribal knowledge of what tests fail intermittently.
+Intermittent test failures can be a huge drain on productivity as they can cause unrelated failures in builds and block merging PRs or creating releases. Particularly when accepting contributions from different timezones and from contributors outside of the Nimble team without the tribal knowledge of what tests fail intermittently.
 
 The general policy is that if intermittent failures are found they should be addressed in main immediately.
 
 Some resolutions for an intermittent test are:
 
-1. Immediately submit a PR to address the underlying issue of the failure. This can be done if the change can be approved and merged by end of day of when the issue was discovered and if there is high confidence in the change.
-2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled and a tech debt issue created to handle the intermittent test. Then the new issue itself must be handled as follows.
+1. Immediately submit a PR to address the underlying issue causing the failure. This can be done if the change can be approved and merged by the end of the day that the issue was discovered and if there is high confidence in the change.
+2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled and a tech debt issue created to handle the intermittent test. The disabled test should include a comment linking to the corresponding issue. Then the new issue itself must be handled as follows.
 
 ### Handling new intermittent test tech debt issues
 
