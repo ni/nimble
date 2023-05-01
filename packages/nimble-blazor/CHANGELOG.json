@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 28 Apr 2023 15:33:54 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.18",
+      "version": "11.8.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "78d39d34d9ee9a8852ba6eeb40119157493e7f76",
+            "comment": "Anchor table column type"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Apr 2023 14:12:28 GMT",
       "tag": "@ni/nimble-blazor_v11.8.12",
       "version": "11.8.12",

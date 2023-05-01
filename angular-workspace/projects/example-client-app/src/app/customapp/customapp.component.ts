@@ -1,5 +1,6 @@
 /* eslint-disable no-alert */
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -12,6 +13,8 @@ interface SimpleTableRecord extends TableRecord {
     id: string;
     stringValue1: string;
     stringValue2: string;
+    href?: string;
+    linkLabel?: string;
 }
 
 @Component({
@@ -44,7 +47,7 @@ export class CustomAppComponent {
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
 
-    public constructor() {
+    public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
     }
 
@@ -88,7 +91,9 @@ export class CustomAppComponent {
         tableData.push({
             id: tableData.length.toString(),
             stringValue1: `new string ${tableData.length}`,
-            stringValue2: `bar ${tableData.length}`
+            stringValue2: `bar ${tableData.length}`,
+            href: '/customapp',
+            linkLabel: 'Link'
         });
         this.tableDataSubject.next(tableData);
     }

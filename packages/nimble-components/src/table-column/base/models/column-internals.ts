@@ -29,6 +29,11 @@ export interface ColumnInternalsOptions {
      * The element this tag refers to must derive from TableGroupHeaderView.
      */
     readonly groupHeaderViewTag: string;
+
+    /**
+     * The names of events that should be delegated from the cell view to the column.
+     */
+    readonly delegatedEvents: readonly string[];
 }
 
 /**
@@ -50,6 +55,11 @@ export class ColumnInternals<TColumnConfig> {
      * Template for the cell view
      */
     public readonly cellViewTemplate: ViewTemplate<TableCell>;
+
+    /**
+     * The names of events that should be delegated from the cell view to the column.
+     */
+    public readonly delegatedEvents: readonly string[];
 
     /**
      * The relevant, static configuration a column requires its cell view to have access to.
@@ -134,6 +144,7 @@ export class ColumnInternals<TColumnConfig> {
         this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
             options.groupHeaderViewTag
         );
+        this.delegatedEvents = options.delegatedEvents;
     }
 
     protected fractionalWidthChanged(): void {

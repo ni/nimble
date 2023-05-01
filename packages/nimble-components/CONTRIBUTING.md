@@ -30,13 +30,13 @@ From the `nimble` directory:
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
 
-## Visual design spec process
-
-Components added to Nimble are based on specs created by NI visual designers. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
-
 ## Component spec process
 
-Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
+Before building a new component, 3 specification documents need to be created:
+
+1. An interaction design (IxD) spec to get agreement on the component's behavior and other core requirements. The spec process is described in the [`/specs` folder](/specs/README.md).
+2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec can be created in Adobe XD or Figma, and linked to the component work item and Storybook documentation. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
+3. A technical design spec to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
 
