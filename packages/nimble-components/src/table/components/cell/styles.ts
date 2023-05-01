@@ -1,6 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    controlSlimHeight,
     smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
@@ -32,5 +33,8 @@ export const styles = css`
         margin-left: auto;
         flex-shrink: 0;
         flex-grow: 0;
+        width: ${controlSlimHeight};
+        height: ${controlSlimHeight};
+        align-self: center;
     }
 `;
