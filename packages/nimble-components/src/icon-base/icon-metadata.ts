@@ -229,6 +229,9 @@ export const iconMetadata: {
     IconFileSearch: {
         tags: ['file-viewer']
     },
+    IconFileExport: {
+        tags: ['download']
+    },
     IconFilter: {
         tags: []
     },
@@ -429,6 +432,15 @@ export const iconMetadata: {
     },
     IconTrueFalseRectangle: {
         tags: ['tdms-boolean-channel']
+    },
+    IconTriangleTwoLinesHorizontal: {
+        tags: ['collapse-all']
+    },
+    IconTwoSquaresInBrackets: {
+        tags: ['group-by']
+    },
+    IconTwoTrianglesBetweenLines: {
+        tags: ['size-column-to-content']
     },
     IconUnlink: {
         tags: ['link-broken']

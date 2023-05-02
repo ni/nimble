@@ -545,6 +545,20 @@ describe('TableValidator', () => {
                 isValid: false,
                 invalidKeys: ['idFieldNameNotConfigured'],
                 name: 'selection mode of "single" without an id field name specified is invalid'
+            },
+            {
+                selectionMode: TableRowSelectionMode.multiple,
+                idFieldName: 'my-id',
+                isValid: true,
+                invalidKeys: [],
+                name: 'selection mode of "multiple" with an id field name specified is valid'
+            },
+            {
+                selectionMode: TableRowSelectionMode.multiple,
+                idFieldName: undefined,
+                isValid: false,
+                invalidKeys: ['idFieldNameNotConfigured'],
+                name: 'selection mode of "multiple" without an id field name specified is invalid'
             }
         ];
 

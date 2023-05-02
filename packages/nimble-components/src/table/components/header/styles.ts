@@ -19,9 +19,11 @@ export const styles = css`
         color: ${tableHeaderFontColor};
         ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
         text-transform: uppercase;
+        gap: calc(${standardPadding} / 2);
     }
 
-    .sort-indicator {
-        padding: 0px calc(${standardPadding} / 2);
+    .sort-indicator,
+    .grouped-indicator {
+        flex: 0 0 auto;
     }
 `;

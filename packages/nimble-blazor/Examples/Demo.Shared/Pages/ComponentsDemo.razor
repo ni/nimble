@@ -206,7 +206,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Table</div>
-            <NimbleTable @bind-Data="TableData" class="table">
+            <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
                     FieldName="FirstName"
                     Placeholder="no value"
@@ -218,7 +218,7 @@
                 >
                     <NimbleIconKey title="First Name"></NimbleIconKey>
                 </NimbleTableColumnText>
-                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value">Last Name</NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value" GroupIndex="0">Last Name</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">
                     <NimbleMenuItem>Item 1</NimbleMenuItem>

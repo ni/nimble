@@ -106,6 +106,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
         -   [Formatted Text Columns](table-column-specs/table-column-formatted-text.md)
+        -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   What is the component to use for interaction? Outline Button? Ghost button?
