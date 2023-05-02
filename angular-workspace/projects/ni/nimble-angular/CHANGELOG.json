@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 01 May 2023 20:33:27 GMT",
+      "tag": "@ni/nimble-angular_v16.5.19",
+      "version": "16.5.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "1416056e356ce9338db8fe067d9850d65d9c0346",
+            "comment": "Fix bad import"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v18.13.0",
+            "commit": "1416056e356ce9338db8fe067d9850d65d9c0346"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Apr 2023 15:33:54 GMT",
       "tag": "@ni/nimble-angular_v16.5.18",
       "version": "16.5.18",

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 02 May 2023 15:07:15 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.20",
+      "version": "11.8.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "da1d0f27d9b555f2b7df2d112122dda0520826f0",
+            "comment": "Create Blazor Hybrid example app. Provide workaround for Blazor Hybrid to work with Nimble Blazor."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Apr 2023 15:33:54 GMT",
       "tag": "@ni/nimble-blazor_v11.8.18",
       "version": "11.8.18",
