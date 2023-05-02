@@ -70,7 +70,7 @@ These properties will be kept up-to-date by the table itself:
 | currentSortDirection | `TableColumnSortDirection` | The current sort direction \* |
 | currentSortIndex     | `number` or `null`         | The current sort index \*     |
 
-\* Note: These properties equal `sortDirection`/`sortIndex` until an interactive sort operation is done. Once an interactive sort occurs, the values of `currentSortIndex` for all sorted columns will be normalized to `0..(n-1)` (for `n` sorted columns).
+\* Note: These properties equal `sortDirection`/`sortIndex` until an interactive sort operation is done, or `sorting-disabled` is `true`. Once an interactive sort occurs, the values of `currentSortIndex` for all sorted columns will be normalized to `0..(n-1)` (for `n` sorted columns). If `sorting-disabled` is true, `currentSortDirection` and `currentSortIndex` will equal `undefined`.
 
 ### Validation
 
@@ -105,7 +105,12 @@ If sorting is enabled for a column, sorting menu items also appear in the column
 If sorting is disabled for a column, and no other enabled items are in the column header menu, the column header menu button will not appear.  
 Updating sorting via the menu will always unsort any other columns that were already sorted, even when the current column is being unsorted too.
 
-For columns with `sorting-disabled` set to true, clicking/Shift-clicking the column header will not affect the sort state, the sort menu options will not appear in the column header menu, and programmatic sorting is disabled (setting `sortIndex`/`sortDirection` will have no effect if `sorting-disabled` is also `true`).
+For columns with `sorting-disabled` set to true:
+
+-   Clicking/Shift-clicking the column header will not affect the sort state
+-   The sort menu options will not appear in the column header menu
+-   Programmatic sorting is disabled (setting `sortIndex`/`sortDirection` will have no effect if `sorting-disabled` is also `true`)
+-   `currentSortDirection` and `currentSortIndex` will equal `undefined`
 
 ## Testing Considerations
 
