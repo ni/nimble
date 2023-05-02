@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 #nullable enable
 namespace NimbleBlazor.Tests.Unit;
 
-public abstract class GroupableBaseTests<T> where T : ComponentBase, GroupableColumn
+public abstract class GroupableBaseTests<T> where T : ComponentBase, IGroupableColumn
 {
     protected void NimbleTableColumn_WithGroupIndexAttribute_HasTableMarkup()
     {

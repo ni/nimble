@@ -3,7 +3,7 @@ namespace NimbleBlazor;
 /// <summary>
 /// API for table columns supporting grouping
 /// </summary>
-public interface GroupableColumn
+public interface IGroupableColumn
 {
     public int? GroupIndex { get; set; }
 

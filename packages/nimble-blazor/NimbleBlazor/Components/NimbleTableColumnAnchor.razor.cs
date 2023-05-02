@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnAnchor : NimbleTableColumn, FractionalWidthColumn, GroupableColumn
+public partial class NimbleTableColumnAnchor : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn
 {
     /// <summary>
     /// Gets or sets the link label field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display

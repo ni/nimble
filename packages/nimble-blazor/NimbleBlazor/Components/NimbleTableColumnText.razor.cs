@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnText : NimbleTableColumn, FractionalWidthColumn, GroupableColumn
+public partial class NimbleTableColumnText : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn
 {
     /// <summary>
     /// Gets or sets the field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display

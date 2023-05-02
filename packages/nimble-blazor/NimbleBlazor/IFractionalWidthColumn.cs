@@ -3,7 +3,7 @@ namespace NimbleBlazor;
 /// <summary>
 /// API for table columns supporting fractional width
 /// </summary>
-public interface FractionalWidthColumn
+public interface IFractionalWidthColumn
 {
     public double FractionalWidth { get; set; }
 

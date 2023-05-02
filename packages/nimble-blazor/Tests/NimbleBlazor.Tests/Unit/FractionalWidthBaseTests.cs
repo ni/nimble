@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 #nullable enable
 namespace NimbleBlazor.Tests.Unit;
 
-public abstract class FractionalWidthBaseTests<T> where T : ComponentBase, FractionalWidthColumn
+public abstract class FractionalWidthBaseTests<T> where T : ComponentBase, IFractionalWidthColumn
 {
     protected void NimbleTableColumn_WithFractionalWidthAttribute_HasTableMarkup()
     {
