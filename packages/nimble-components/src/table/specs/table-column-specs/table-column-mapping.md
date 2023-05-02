@@ -20,7 +20,7 @@ The `nimble-table-column-mapping` is a component that supports rendering specifi
     -   Text
     -   One or more Nimble icons (with colors via icon severity property)
     -   Nimble spinner
-    -   Mixed icons and text
+    -   One span of text preceded and/or followed by icons/spinner
     -   (empty)
 
 ### Non-goals
@@ -79,6 +79,8 @@ In addition to the `nimble-table-column-mapping` element, there are `nimble-mapp
 
 Note that the `key` attribute values are always given as strings. In the case of boolean or number mappings, this value is parsed to the appropriate type, so that it can properly be compared to the values from the row records.
 
+If a template includes text, that text should be within a `span` element, otherwise, when the text is too long for the cell, it it will not be ellipsized and there will be no tooltip to show the full value.
+
 ```TS
 import {
     attr,
@@ -134,6 +136,7 @@ _Component Name_
 _Props/Attrs_
 
 -   `field-name`: string
+-   `pixel-width`: number - set to the desired fixed column width, else will have a fractional width
 
 _Content_
 
@@ -254,7 +257,7 @@ Sorting has the same issue as grouping, where visually identical cells could end
 
 ### Sizing
 
-We will support fixed or fractional widths for this column type.
+We will support fixed or fractional widths for this column type. We will introduce a new mixin for fixed-width support that exposes a `pixel-width` property. If this is set, the column will have a fixed width, otherwise it defaults to fractional width. There is an undocumented minimum column width, so a client may set `pixel-width` to 1 to end up with that minimum width.
 
 ### Angular integration
 
