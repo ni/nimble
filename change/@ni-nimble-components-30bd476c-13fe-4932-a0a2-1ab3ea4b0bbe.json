@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update table column sorting HLD to cover interactive sorting",
-  "packageName": "@ni/nimble-components",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
