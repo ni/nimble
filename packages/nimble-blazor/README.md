@@ -96,7 +96,7 @@ Note: This approach requires periodically updating the Nimble tokens SCSS files 
 
 ### Using Nimble Blazor in a Blazor Hybrid app
 
-There is currently an [issue in ASP.NET Core](https://github.com/dotnet/aspnetcore/issues/42349) that prevents the necessary Javascript that Nimble Blazor relies on from loading in a Blazor Hybrid application. The Demo.Hybrid project illustrates the current required steps for getting Nimble Blazor to work properly. This simply involves adding the script `NimbleBlazor.HybridWorkaround.js` in the `index.html` file in `wwwroot`:
+There is currently an [issue in ASP.NET Core](https://github.com/dotnet/aspnetcore/issues/42349) that prevents the necessary JavaScript that Nimble Blazor relies on from loading in a Blazor Hybrid application. The Demo.Hybrid project illustrates the current required steps for getting Nimble Blazor to work properly. This simply involves adding the script `NimbleBlazor.HybridWorkaround.js` in the `index.html` file in `wwwroot`:
 
 wwwroot/index.html
 ```html

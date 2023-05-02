@@ -12,6 +12,10 @@ module.exports = {
                 [{
                     group: ['@microsoft/fast-*'],
                     message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
+                },
+                {
+                    group: ['@ni/nimble-components/**/tests', '@ni/nimble-components/**/testing'],
+                    message: 'Do not use test code/utilities in production code.'
                 }]
             }],
 

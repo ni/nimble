@@ -15,7 +15,7 @@ import {
     TableRecord,
     TableRowSelectionMode
 } from '../types';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
