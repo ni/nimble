@@ -113,44 +113,44 @@ export function afterStarted(Blazor) {
 
 if (window.NimbleBlazor) {
     console.warn('Attempting to initialize NimbleBlazor multiple times!'); // eslint-disable-line
-} else {
-    window.NimbleBlazor = {
-        calledAfterStarted: false,
-        Dialog: {
-            show: async function (dialogReference) {
-                const reason = await dialogReference.show();
-                return reason === window.customElements.get('nimble-dialog').UserDismissed;
-            },
-            close: function (dialogReference) {
-                dialogReference.close();
-            }
-        },
-        Drawer: {
-            show: async function (drawerReference) {
-                const reason = await drawerReference.show();
-                return reason === window.customElements.get('nimble-drawer').UserDismissed;
-            },
-            close: function (drawerReference) {
-                drawerReference.close();
-            }
-        },
-        Table: {
-            setData: async function (tableReference, data) {
-                const dataObject = JSON.parse(data);
-                await tableReference.setData(dataObject);
-            },
-            getSelectedRecordIds: async function (tableReference) {
-                return tableReference.getSelectedRecordIds();
-            },
-            setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
-                await tableReference.setSelectedRecordIds(selectedRecordIds);
-            },
-            checkValidity: function (tableReference) {
-                return tableReference.checkValidity();
-            },
-            getValidity: function (tableReference) {
-                return tableReference.validity;
-            }
-        }
-    };
 }
+
+window.NimbleBlazor = window.NimbleBlazor ?? {
+    calledAfterStarted: false,
+    Dialog: {
+        show: async function (dialogReference) {
+            const reason = await dialogReference.show();
+            return reason === window.customElements.get('nimble-dialog').UserDismissed;
+        },
+        close: function (dialogReference) {
+            dialogReference.close();
+        }
+    },
+    Drawer: {
+        show: async function (drawerReference) {
+            const reason = await drawerReference.show();
+            return reason === window.customElements.get('nimble-drawer').UserDismissed;
+        },
+        close: function (drawerReference) {
+            drawerReference.close();
+        }
+    },
+    Table: {
+        setData: async function (tableReference, data) {
+            const dataObject = JSON.parse(data);
+            await tableReference.setData(dataObject);
+        },
+        getSelectedRecordIds: async function (tableReference) {
+            return tableReference.getSelectedRecordIds();
+        },
+        setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
+            await tableReference.setSelectedRecordIds(selectedRecordIds);
+        },
+        checkValidity: function (tableReference) {
+            return tableReference.checkValidity();
+        },
+        getValidity: function (tableReference) {
+            return tableReference.validity;
+        }
+    }
+};

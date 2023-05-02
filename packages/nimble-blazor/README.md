@@ -105,7 +105,7 @@ wwwroot/index.html
     <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
     <!-- This script is a workaround needed for Nimble Blazor to work in Blazor Hybrid.
          See https://github.com/dotnet/aspnetcore/issues/42349 -->
-    <script src="_content/NimbleBlazor/NimbleBlazor.HybridWorkaround.js" type="module"></script>
+    <script src="_content/NimbleBlazor/NimbleBlazor.HybridWorkaround.js"></script>
 </body>
 ```
 
