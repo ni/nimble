@@ -1,3 +1,6 @@
+// This is a workaround until nimble-angular exposes `testing` entrypoints:
+// https://github.com/ni/nimble/issues/172#issuecomment-1529958809
+// eslint-disable-next-line no-restricted-imports
 import { processUpdates, waitForUpdatesAsync as waitForUpdatesAsyncOriginal } from '@ni/nimble-components/dist/esm/testing/async-helpers';
 
 export { processUpdates };
