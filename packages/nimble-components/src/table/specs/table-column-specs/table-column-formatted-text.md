@@ -11,8 +11,7 @@ Clients will wish to display non-string data as text in table columns for use ca
 5. numeric values with custom unit logic. Examples:
     - a file size column that could show the value 1000 as "1000 bytes" but the value 1024 as "1KB"
     - an elapsed time column that could show 63 seconds as "00:01:03" or "1 minute, 3 seconds"
-6. enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass")
-7. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
+6. date/time values formatted in various ways ("October 27", "yesterday", "2023-12-28 08:27")
 
 In all of the above cases:
 
@@ -30,8 +29,6 @@ We may not choose to support all of the above initially but we should design our
 
 [Date/time column work item](https://github.com/ni/nimble/issues/1014)
 
-[Boolean text column work item](https://github.com/ni/nimble/issues/1103)
-
 [Table Column API](../table-columns-hld.md)
 
 [Table Spec](../README.md)
@@ -46,6 +43,7 @@ We may not choose to support all of the above initially but we should design our
 -   Editable numbers. This is not supported by the text column yet either.
 -   Numeric formatting for `nimble-number-field`. While we may choose to expose similar APIs for its numeric formatting, the complexities of it being an editable input control make this out of scope for now.
 -   Customizing the styling of the column content (other than possibly text alignment). This is not supported by the text column yet either.
+-   Enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass"). These will likely use the [mapping column being discussed elsewhere](https://github.com/ni/nimble/pull/1220).
 
 ---
 
@@ -55,7 +53,7 @@ We may not choose to support all of the above initially but we should design our
 
 Nimble will provide base classes that can be derived from to define columns that call a formatting function to render their data as text. Clients which require app-specific formatting logic to support above use cases like 5 (custom unit logic) will define custom columns in their application that derive from these base classes.
 
-Nimble will also provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 and 7 (enum/boolean and date) coming later. These will be easier to use than the above custom column approach:
+Nimble will also provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 (date) coming later. These will be easier to use than the above custom column approach:
 
 -   the columns will be configurable via HTML attributes, saving clients from writing JS code (a particular challenge in Blazor)
 -   they provide strict type validation of the data field
@@ -198,39 +196,9 @@ The API will be specified in a future update to this document. Below is **an exa
 </nimble-table>
 ```
 
-#### Boolean Text Column
+##### Date Column
 
-Nimble could introduce `nimble-table-column-boolean` which maps boolean values to localized strings. The API will be specified in a future update to this document but here is an example.
-
-```html
-<nimble-table>
-    <nimble-table-column-boolean-text
-        field-name="testResult"
-        true-message="Pass"
-        false-message="Fail"
-        placeholder="N/A"
-    >
-        Test Result
-    <nimble-table-boolean-text>
-</nimble-table>
-```
-
-##### Enum Text Column
-
-Nimble could introduce a column type that maps enum values to localized strings. This is an example API but the details will be updated in this document before implementation.
-
-```html
-<nimble-table>
-    <nimble-table-column-enum-text
-        field-name="status"
-        placeholder="Unknown"
-    >
-        Status
-        <nimble-list-option slot="enum-string-0" value="0">Pass</nimble-list-option>
-        <nimble-list-option slot="enum-string-1" value="1">Fail</nimble-list-option>
-    <nimble-table-column-enum-text>
-</nimble-table>
-```
+Nimble could introduce `nimble-table-column-date-text` which maps date-time values to localized strings. The API will be specified in a future update to this document. It will need to consider cases like date formatting (both for locale and other reasons) and how to provide localized strings.
 
 ### API
 
@@ -347,4 +315,4 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 ## Open Issues
 
 1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns). We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
-2. Resolve overlap between this document and the [Mapping Table Column proposal](https://github.com/ni/nimble/pull/1220/).
+2. Column names
