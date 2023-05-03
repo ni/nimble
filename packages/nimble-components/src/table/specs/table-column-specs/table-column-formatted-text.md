@@ -39,10 +39,10 @@ We may not choose to support all of the above initially but we should design our
 
 ### Non-goals
 
--   Combinations of the use cases listed above in a single column. This will be needed in cases where the source data isn't uniformly typed (e.g. SLE tag values or notebook outputs). This HLD focuses on uniform data types; future HLDs will discuss ways to configure multiple types of columns to be conditionally displayed together.
+-   Combinations of the use cases listed above in a single column. This will be needed in cases where the source data isn't uniformly typed (e.g. SLE tag values or notebook outputs). This HLD focuses on uniform data types; future HLDs may discuss ways to configure multiple types of columns to be conditionally displayed together.
 -   Editable numbers. This is not supported by the text column yet either.
 -   Numeric formatting for `nimble-number-field`. While we may choose to expose similar APIs for its numeric formatting, the complexities of it being an editable input control make this out of scope for now.
--   Customizing the styling of the column content (other than possibly text alignment). This is not supported by the text column yet either.
+-   Customizing the styling of the column content (other than text alignment). This is not supported by the text column yet either.
 -   Enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass"). These will likely use the [mapping column being discussed elsewhere](https://github.com/ni/nimble/pull/1220).
 
 ---
@@ -60,8 +60,6 @@ Nimble will also provide several columns that derive from these base classes and
 -   clients don't need to manage the lifecycle of registering a new column custom element in their application
 
 ### Formatted text column base classes
-
-_Originally called "Alternative 2: Client specifies formatting function"_
 
 Nimble will provide abstract base classes, templates, and styles which handle rendering a string as text. Just like `nimble-table-column-text` today, these columns will:
 
@@ -159,8 +157,6 @@ This is prototyped in the [formatted-text-column branch](https://github.com/ni/n
 
 ### Nimble formatted text columns
 
-_Originally called "Alternative 3: Nimble provides column implementation for common use cases"_
-
 #### Text column
 
 `nimble-table-column-text` will continue to present the same API it does today, but will derive from the base classes described above.
@@ -234,8 +230,6 @@ All of these require JS code which finds a specific column element and configure
 
 #### Use `table-column-text`
 
-_Originally called "Alternative 1"_
-
 With the changes proposed in [HLD for programmatically sorting columns](../table-column-sort-hld.md) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic to populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
 
 ```html
@@ -277,8 +271,6 @@ table.setData(tableData);
 
 #### Client provides custom column implementation for each use case
 
-_Originally called "Alternative 4"_
-
 Nimble already has a mechanism for clients to provide custom columns by deriving from a base class, specifying the data fields / template / styling, and registering the column type with Nimble. We could ask clients to use this mechanism for text column types.
 
 **Pros:**
@@ -314,5 +306,5 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 ## Open Issues
 
-1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns). We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
+1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns and numeric columns with non-uniform formatting). We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
 2. Column names
