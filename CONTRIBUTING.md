@@ -165,7 +165,7 @@ npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 
 Intermittent test failures can be a huge drain on productivity as they can cause unrelated failures in builds and block merging PRs or creating releases. Particularly when accepting contributions from different timezones and from contributors outside of the Nimble team without the tribal knowledge of what tests fail intermittently.
 
-The general policy is that if intermittent failures are found they should be addressed in main immediately.
+The general policy is that intermittent failures that can fail a build, such as jasmine unit tests or chromatic status checks, should be addressed in main immediately.
 
 Some resolutions for an intermittent test are:
 
