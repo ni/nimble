@@ -162,9 +162,10 @@ Nimble will provide several columns that derive from the above base classes and 
 #### Column naming
 
 Columns which render as text will use the following naming scheme: `nimble-table-column[-type]-text`.
- - All columns start with `nimble-table-column-`.
- - The `-type` section distinguishes between columns that render as text but require different configuration (e.g. `-numeric` or `-date`). We omit it for `nimble-table-column-text` since it seems redundant and would be a low-value breaking change.
- - Adding `-text` allows for future column types that render the same data in different ways with different configuration. e.g. `numeric-progress`, `numeric-input`.
+
+-   All columns start with `nimble-table-column-`.
+-   The `-type` section distinguishes between columns that render as text but require different configuration (e.g. `-numeric` or `-date`). We omit it for `nimble-table-column-text` since it seems redundant and would be a low-value breaking change.
+-   Adding `-text` allows for future column types that render the same data in different ways with different configuration. e.g. `numeric-progress`, `numeric-input`.
 
 #### Text column
 
