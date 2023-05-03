@@ -260,9 +260,10 @@ I propose we **would not** encourage Blazor clients to write formatting code in 
 #### Other ways to provide a formatting function
 
 1. setting the formatting function as a property on a column element.
-2. setting an [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) object as a property on a column element.
+2. registering a formatter with Nimble using a unique string name and then configuring the column to use that formatter by an attribute (described in more detail [in Milan's comment](https://github.com/ni/nimble/pull/1054#discussion_r1136319757))
+3. setting an [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) object as a property on a column element.
 
-Both of these require JS code which finds a specific column element and configures it. This is difficult to achieve in Blazor.
+All of these require JS code which finds a specific column element and configures it. This is difficult to achieve in Blazor.
 
 #### Use `table-column-text`
 
