@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 02 May 2023 23:44:37 GMT",
+      "tag": "@ni/nimble-components_v18.13.0",
+      "version": "18.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9657d09a213bff664be5d395568d4282e110c839",
+            "comment": "Update table column sorting HLD to cover interactive sorting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 01 May 2023 20:33:27 GMT",
       "tag": "@ni/nimble-components_v18.13.0",
       "version": "18.13.0",
