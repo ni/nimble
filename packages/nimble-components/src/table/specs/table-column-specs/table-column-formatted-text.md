@@ -157,13 +157,22 @@ This is prototyped in the [formatted-text-column branch](https://github.com/ni/n
 
 ### Nimble formatted text columns
 
+Nimble will provide several columns that derive from the above base classes and provide higher level text formatting APIs for specific data types.
+
+#### Column naming
+
+Columns which render as text will use the following naming scheme: `nimble-table-column[-type]-text`.
+ - All columns start with `nimble-table-column-`.
+ - The `-type` section distinguishes between columns that render as text but require different configuration (e.g. `-numeric` or `-date`). We omit it for `nimble-table-column-text` since it seems redundant and would be a low-value breaking change.
+ - Adding `-text` allows for future column types that render the same data in different ways with different configuration. e.g. `numeric-progress`, `numeric-input`.
+
 #### Text column
 
 `nimble-table-column-text` will continue to present the same API it does today, but will derive from the base classes described above.
 
-#### Number column
+#### Numeric column
 
-Nimble could introduce `nimble-table-column-number` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
+Nimble could introduce `nimble-table-column-numeric-text` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
 
 The API will be specified in a future update to this document. Below is **an example API** that leverages the native browser [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat): this is intended to help visualize what the API _could_ look like, but isn't yet finalized.
 
@@ -194,7 +203,11 @@ The API will be specified in a future update to this document. Below is **an exa
 
 ##### Date Column
 
-Nimble could introduce `nimble-table-column-date-text` which maps date-time values to localized strings. The API will be specified in a future update to this document. It will need to consider cases like date formatting (both for locale and other reasons) and how to provide localized strings.
+Nimble could introduce `nimble-table-column-date-text` which maps date-time values to localized strings. The API will be specified in a future update to this document. It will need to consider cases like date formatting (both for locale and other reasons) and how to provide localized strings, possibly by exposing [the native browser `Intl.DateTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat).
+
+---
+
+_These sections will be populated in a future update_
 
 ### API
 
@@ -209,8 +222,6 @@ _Type Reference_
 ### Angular integration
 
 ### Blazor integration
-
-I propose we **would not** encourage Blazor clients to write formatting code in .NET due to performance concerns.
 
 ### Visual Appearance
 
@@ -284,6 +295,10 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 -   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 -   Potential cross-app inconsistency if formatting code isn't shared
 
+---
+
+_These sections will be populated in a future update_
+
 ### States
 
 ### Accessibility
@@ -307,4 +322,3 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 ## Open Issues
 
 1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns and numeric columns with non-uniform formatting). We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
-2. Column names
