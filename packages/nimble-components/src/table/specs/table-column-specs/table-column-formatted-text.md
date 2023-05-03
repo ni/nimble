@@ -322,4 +322,4 @@ _These sections will be populated in a future update_
 
 ## Open Issues
 
-1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns and numeric columns with non-uniform formatting). We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
+1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns and numeric columns with non-uniform formatting). We'll update the HLD with a recommendation when we start working on columns that need it (you're welcome to comment with ideas now though).
