@@ -35,44 +35,44 @@ The `nimble-table-column-mapping` is a component that supports rendering specifi
 
 ## Design
 
-In addition to the `nimble-table-column-mapping` element, there are `nimble-mapping-<input type>` elements to define mappings between values and html fragments. Below is an example of how these elements would be used within a `nimble-table`:
+In addition to the `nimble-table-column-mapping` element, there is a `nimble-mapping` element to define mappings between values and html fragments. Below is an example of how these elements would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-mapping field-name="status">
+    <nimble-table-column-mapping field-name="status" data-type="string">
         Status
-        <nimble-mapping-string key="fail">
+        <nimble-mapping key="fail">
             <template>
                 <nimble-icon-xmark severity="error" title="Failed"></nimble-icon-xmark>
             </template>
-        </nimble-mapping-string>
-        <nimble-mapping-string key="error">
+        </nimble-mapping>
+        <nimble-mapping key="error">
             <template>
                 <nimble-icon-xmark severity="error" title="Errored"></nimble-icon-xmark>
             </template>
-        </nimble-mapping-string>
-        <nimble-mapping-string key="pass">
+        </nimble-mapping>
+        <nimble-mapping key="pass">
             <template>
                 <nimble-icon-check severity="success" title="Passed"></nimble-icon-check>
             </template>
-        </nimble-mapping-string>
-        <nimble-mapping-string key="running">
+        </nimble-mapping>
+        <nimble-mapping key="running">
             <template>
                 <nimble-spinner title="Running"></nimble-spinner>
             </template>
-        </nimble-mapping-string>
+        </nimble-mapping>
     </nimble-table-column-mapping>
-    <nimble-table-column-mapping field-name="required">
+    <nimble-table-column-mapping field-name="required" data-type="boolean">
         Required?
-        <nimble-mapping-boolean key="true">
+        <nimble-mapping key="true">
             <template>
                 <nimble-icon-check title="Required"></nimble-icon-check>
             </template>
-        </nimble-mapping-boolean>
-        <nimble-mapping-boolean key="false">
+        </nimble-mapping>
+        <nimble-mapping key="false">
             <template>
             </template>
-        </nimble-mapping-boolean>
+        </nimble-mapping>
     </nimble-table-column-mapping>
 </nimble-table>
 ```
@@ -136,25 +136,23 @@ _Component Name_
 _Props/Attrs_
 
 -   `field-name`: string
+-   `data-type`: 'string' | 'boolean' | 'number'
 -   `pixel-width`: number - set to the desired fixed column width, else will have a fractional width
 
 _Content_
 
 -   column title (text)
--   1 or more `nimble-mapping-*` elements
+-   1 or more `nimble-mapping` elements
 
 #### Mapping elements:
 
 _Component Name_
 
--   `nimble-mapping-string` (maps string values)
--   `nimble-mapping-number` (maps number values)
--   `nimble-mapping-boolean` (maps boolean values)
+-   `nimble-mapping`
 
 _Props/Attrs_
 
--   `key`: string (property type matches component type, e.g. `number` for number mapping)
--   `description`: string
+-   `key`: string | boolean | number
 
 _Content_
 
@@ -204,9 +202,9 @@ Cell view:
 </div>
 ```
 
-Header view:
+Group header view:
 
-Note the following requires that `TableColumnMappingHeaderView` has a reference to the column with which it is associated. This is needed to enumerate the column's mapping elements.
+Note the following requires that `TableColumnMappingGroupHeaderView` has a reference to the column with which it is associated. This is needed to enumerate the column's mapping elements.
 
 ```HTML
 <div
@@ -236,7 +234,7 @@ Note the following requires that `TableColumnMappingHeaderView` has a reference 
 
 For each mapping, if the key matches the value for this row, get the mapping's contained `template` and render its `innerHTML`.
 
-#### `nimble-mapping-string/number/boolean`
+#### `nimble-mapping`
 
 ```HTML
 <template slot="mapping">
