@@ -2,7 +2,7 @@
 
 ## Overview
 
-Clients will wish to display non-string text data in table columns for use cases like the following:
+Clients will wish to display non-string data as text in table columns for use cases like the following:
 
 1. integer data like counts, formatted to be displayed with no trailing decimals ("4", "100")
 2. floating point data formatted to display values in standard ways ("3.1415", "1.04E47", "Infinity", "-0.03")
@@ -16,7 +16,7 @@ Clients will wish to display non-string text data in table columns for use cases
 
 In all of the above cases:
 
--   data should be sortable and groupable by its actual numeric value, not the string representation
+-   data should be sortable and groupable by its actual value, not the string representation
 -   text styling like font and alignment should be provided by Nimble
 -   columns should support i18n behaviors like decimal separators, date/time formats, and localized content
 -   there should be an option to show "placeholder" text if no value is specified
@@ -172,35 +172,10 @@ This is prototyped in the [formatted-text-column branch](https://github.com/ni/n
 
 Nimble could introduce `nimble-table-column-number` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
 
-The API will be specified in a future update to this HLD.
-
-The primary formatting API will leverage the native browser [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) which gives highly configurable formatting with great documentation. It supports features like locale-specific formatting, decimal separators, thousands separators, digits of precision, and units. Since it doesn't support some unit strings required by clients, the column will also offer ways to set a fixed prefix or suffix on every number.
-
-##### ``nimble-table-column-number` API
-
-_*Props/Attrs*_
-- `field-name` - 
-- `placeholder` - The string value to use if the value of the field is `undefined`, `null`, `NaN`, or isn't of type `number`. Note that other "special" values like `Infinity` will be formatted and displayed.
-- TODO: ALIGNMENT
-- `prefix` - A string to append before the formatted value of each cell. It will not include any spacing.
-- `suffix` - A string to append after the formatted value of each cell. It will not include any spacing.
-- `number-format-locales` - Corresponds to the [`locales` parameter of `NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#parameters). Note that initially we will not support an array of locales; if this is necessary we could consider parsing this field as a comma-separated list.
-- `number-format-options-*` - attributes that correspond to the properties of the [`options` parameter of `NumberFormat`]. Each property name will be converted from `camelCase` to `dash-case`. For example, `number-format-options-compact-display="long"` or `number-format-options-currency-display="narrowSymbol"`.
-
-For values being passed through to the `NumberFormat` API we will provide types similar to [the TypeScript types from the browser API](https://github.com/microsoft/TypeScript/blob/0f724c04308e20d93d397e82b11f82ad6f810c44/src/lib/es2020.intl.d.ts#L232). Default values if the attribute is not provided will match the `NumberFormat` API.
-
+The API will be specified in a future update to this document. Below is **an example API** that leverages the native browser [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat): this is intended to help visualize what the API *could* look like, but isn't yet finalized.
 ```html
 <nimble-table>
-    <nimble-table-column-numeric
-        field-name="progress"
-        number-format-locales="en-US"
-        number-format-options-style="percent"
-        number-format-options-minimum-fraction-digits=2
-    >
-        Progress
-    <nimble-table-column-numeric>
-
-    <nimble-table-column-numeric
+    <nimble-table-column-number
         field-name="count"
         number-format-locales="en-US"
         number-format-options-style="decimal"
@@ -209,9 +184,9 @@ For values being passed through to the `NumberFormat` API we will provide types 
         number-format-options-rounding-mode="trunc"
     >
         Count
-    <nimble-table-column-numeric>
+    </nimble-table-column-number>
 
-    <nimble-table-column-numeric
+    <nimble-table-column-number
         field-name="voltage"
         number-format-locales="en-US"
         number-format-options-style="decimal"
@@ -219,15 +194,13 @@ For values being passed through to the `NumberFormat` API we will provide types 
         suffix=" V"
     >
         Voltage
-    <nimble-table-column-numeric>
+    </nimble-table-column-number>
 </nimble-table>
 ```
 
-
-
 ####  Boolean Text Column
 
-We will eventually provide an column type that maps boolean values to localized strings. This is an example API but the details will be updated in this document before implementation.
+Nimble could introduce `nimble-table-column-boolean` which maps boolean values to localized strings. The API will be specified in a future update to this document but here is an example.
 
 ```html
 <nimble-table>
@@ -242,9 +215,9 @@ We will eventually provide an column type that maps boolean values to localized 
 </nimble-table>
 ```
 
-##### Example E: Enum Text Column
+##### Enum Text Column
 
-We will eventually provide an column type that maps enum values to localized strings. This is an example API but the details will be updated in this document before implementation.
+Nimble could introduce a column type that maps enum values to localized strings. This is an example API but the details will be updated in this document before implementation.
 
 ```html
 <nimble-table>
@@ -277,8 +250,6 @@ I propose we **would not** encourage Blazor clients to write formatting code in 
 
 ### Visual Appearance
 
-###
-TODO Items I asked Mert to include on hyperlink spec
 
 ---
 
@@ -355,7 +326,6 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 -   Potential cross-app inconsistency if formatting code isn't shared
 
 
-
 ### States
 
 ### Accessibility
@@ -379,4 +349,4 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 ## Open Issues
 
 1. API to configure text alignment of column content and column headers (e.g. right align numeric columns but left align string columns). We'll update the HLD with a recommendation once we reach consensus on which alternatives to pursue (you're welcome to comment with ideas now though).
-2. The APIs in this document are examples, not yet proposals. Once we agree on high-level direction I will do more prototyping to propose concrete APIs.
+2. Resolve overlap between this document and the [Mapping Table Column proposal](https://github.com/ni/nimble/pull/1220/).
