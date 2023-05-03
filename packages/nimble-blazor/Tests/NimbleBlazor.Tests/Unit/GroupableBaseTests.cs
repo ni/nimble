@@ -1,8 +1,8 @@
 using System;
 using System.Linq.Expressions;
 using Bunit;
-using Xunit;
 using Microsoft.AspNetCore.Components;
+using Xunit;
 #nullable enable
 namespace NimbleBlazor.Tests.Unit;
 
