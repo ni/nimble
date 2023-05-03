@@ -9,7 +9,7 @@ import {
     TableRowSelectionMode,
     TableRowSelectionState
 } from '../types';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
 import type { TableColumnText } from '../../table-column/text';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
