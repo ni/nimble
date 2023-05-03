@@ -113,7 +113,7 @@ DesignSystem.getOrCreate().withPrefix('my-app').register(myAppProgressColumn());
 export const myAppProgressColumnTag = DesignSystem.tagFor(MyAppProgressColumn);
 ```
 
-**\*Specify formatting of cells and group headers in their custom elements**
+**Specify formatting of cells and group headers in their custom elements**
 
 ```ts
 export class MyAppProgressColumnCellView extends TableColumnTextCellViewBase<
