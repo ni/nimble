@@ -56,28 +56,31 @@ We may not choose to support all of the above initially but we should design our
 Nimble will provide base classes that can be derived from to define columns that call a formatting function to render their data as text. Clients which require app-specific formatting logic to support above use cases like 5 (custom unit logic) will define custom columns in their application that derive from these base classes.
 
 Nimble will also provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 and 7 (enum/boolean and date) coming later. These will be easier to use than the above custom column approach:
- - the columns will be configurable via HTML attributes, saving clients from writing JS code (a particular challenge in Blazor)
- - they provide strict type validation of the data field
- - clients don't need to manage the lifecycle of registering a new column custom element in their application
+
+-   the columns will be configurable via HTML attributes, saving clients from writing JS code (a particular challenge in Blazor)
+-   they provide strict type validation of the data field
+-   clients don't need to manage the lifecycle of registering a new column custom element in their application
 
 ### Formatted text column base classes
 
-*Originally called "Alternative 2: Client specifies formatting function"*
+_Originally called "Alternative 2: Client specifies formatting function"_
 
 Nimble will provide abstract base classes, templates, and styles which handle rendering a string as text. Just like `nimble-table-column-text` today, these columns will:
-- offer attributes to control which field is displayed and placeholder text when that field isn't a number.
-- sort and group by the field value, not the display value.
-- allow sizing by fractional widths with a minimum pixel width.
-- truncate using an ellipsis and show a tooltip on hover when the value is truncated
+
+-   offer attributes to control which field is displayed and placeholder text when that field isn't a number.
+-   sort and group by the field value, not the display value.
+-   allow sizing by fractional widths with a minimum pixel width.
+-   truncate using an ellipsis and show a tooltip on hover when the value is truncated
 
 The base classes provided will be:
-- `TableColumnTextBase` - specifies the custom element logic to configure the column
-- `TableColumnTextCellViewBase` - derives from `TableCellView` to specify the custom element logic that renders a cell
-- `TableColumnTextGroupHeaderViewBase` - derives from `TableGroupHeaderView` to specify the custom element logic that renders a group row
+
+-   `TableColumnTextBase` - specifies the custom element logic to configure the column
+-   `TableColumnTextCellViewBase` - derives from `TableCellView` to specify the custom element logic that renders a cell
+-   `TableColumnTextGroupHeaderViewBase` - derives from `TableGroupHeaderView` to specify the custom element logic that renders a group row
 
 Both clients and Nimble itself will derive from these base classes to specify the type of data that the column supports and how to convert it to a string. They will register the derived classes as custom elements using the same FAST APIs that Nimble itself uses.
 
-*** Use column custom element in an application**
+**Use column custom element in an application**
 
 ```html
 <nimble-table>
@@ -90,7 +93,7 @@ Both clients and Nimble itself will derive from these base classes to specify th
 </nimble-table>
 ```
 
-***Define and register column custom element**
+**Define and register column custom element**
 
 ```ts
 export class MyAppProgressColumn extends TableColumnTextBase {
@@ -110,18 +113,16 @@ const myAppProgressColumn = MyAppProgressColumn.compose({
     styles
 });
 
-DesignSystem.getOrCreate()
-    .withPrefix('my-app')
-    .register(myAppProgressColumn());
+DesignSystem.getOrCreate().withPrefix('my-app').register(myAppProgressColumn());
 export const myAppProgressColumnTag = DesignSystem.tagFor(MyAppProgressColumn);
 ```
 
-***Specify formatting of cells and group headers in their custom elements**
+**\*Specify formatting of cells and group headers in their custom elements**
 
 ```ts
 export class MyAppProgressColumnCellView extends TableColumnTextCellViewBase<
-TableColumnNumericTextCellRecord,
-TableColumnNumericTextColumnConfig
+    TableColumnNumericTextCellRecord,
+    TableColumnNumericTextColumnConfig
 > {
     public override get text(): string {
         return `${100 * this.cellRecord.value}%`;
@@ -137,8 +138,8 @@ TableColumnNumericTextColumnConfig
 }
 
 export class MyAppProgressColumnGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
-TableNumberFieldValue,
-TableColumnNumericTextColumnConfig
+    TableNumberFieldValue,
+    TableColumnNumericTextColumnConfig
 > {
     public override get text(): string {
         return `${100 * this.groupHeaderValue}%`;
@@ -158,10 +159,9 @@ TableColumnNumericTextColumnConfig
 
 This is prototyped in the [formatted-text-column branch](https://github.com/ni/nimble/compare/main...users/jattas/formatted-text-column?expand=1).
 
-
 ### Nimble formatted text columns
 
-*Originally called "Alternative 3: Nimble provides column implementation for common use cases"*
+_Originally called "Alternative 3: Nimble provides column implementation for common use cases"_
 
 #### Text column
 
@@ -169,18 +169,18 @@ This is prototyped in the [formatted-text-column branch](https://github.com/ni/n
 
 #### Number column
 
-
 Nimble could introduce `nimble-table-column-number` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
 
-The API will be specified in a future update to this document. Below is **an example API** that leverages the native browser [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat): this is intended to help visualize what the API *could* look like, but isn't yet finalized.
+The API will be specified in a future update to this document. Below is **an example API** that leverages the native browser [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat): this is intended to help visualize what the API _could_ look like, but isn't yet finalized.
+
 ```html
 <nimble-table>
     <nimble-table-column-number
         field-name="count"
         number-format-locales="en-US"
         number-format-options-style="decimal"
-        number-format-options-use-grouping=false
-        number-format-options-maximum-fraction-digits=0
+        number-format-options-use-grouping="false"
+        number-format-options-maximum-fraction-digits="0"
         number-format-options-rounding-mode="trunc"
     >
         Count
@@ -190,7 +190,7 @@ The API will be specified in a future update to this document. Below is **an exa
         field-name="voltage"
         number-format-locales="en-US"
         number-format-options-style="decimal"
-        number-format-options-use-grouping=false
+        number-format-options-use-grouping="false"
         suffix=" V"
     >
         Voltage
@@ -198,7 +198,7 @@ The API will be specified in a future update to this document. Below is **an exa
 </nimble-table>
 ```
 
-####  Boolean Text Column
+#### Boolean Text Column
 
 Nimble could introduce `nimble-table-column-boolean` which maps boolean values to localized strings. The API will be specified in a future update to this document but here is an example.
 
@@ -250,7 +250,6 @@ I propose we **would not** encourage Blazor clients to write formatting code in 
 
 ### Visual Appearance
 
-
 ---
 
 ## Implementation
@@ -267,7 +266,7 @@ All of these require JS code which finds a specific column element and configure
 
 #### Use `table-column-text`
 
-*Originally called "Alternative 1"*
+_Originally called "Alternative 1"_
 
 With the changes proposed in [HLD for programmatically sorting columns](../table-column-sort-hld.md) to allow a column to be sorted by a different data field than the one being used for display, many of the above use cases could be met with minor changes to the existing text column. Clients would write custom logic to populate their data with a new string field that contains formatted values. Then they would configure the table to display that string field while sorting by the original numeric field.
 
@@ -308,10 +307,9 @@ table.setData(tableData);
 -   Exposing `operand-data-record-name` to be set by client code rather than column definition
 -   Exposing an API for clients to indicate their data should be styled as numeric data (right aligned)
 
-
 #### Client provides custom column implementation for each use case
 
-*Originally called "Alternative 4"*
+_Originally called "Alternative 4"_
 
 Nimble already has a mechanism for clients to provide custom columns by deriving from a base class, specifying the data fields / template / styling, and registering the column type with Nimble. We could ask clients to use this mechanism for text column types.
 
@@ -325,7 +323,6 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 -   Higher burden on clients to specify template, styling, numeric formatting, etc in JS. This is especially burdensome in frameworks like Blazor.
 -   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 -   Potential cross-app inconsistency if formatting code isn't shared
-
 
 ### States
 
