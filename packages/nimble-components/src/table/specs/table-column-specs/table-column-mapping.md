@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-mapping` is a component that supports rendering specific number, boolean, or string values as mapped, predefined, html fragments (with content restrictions).
+The `nimble-table-column-mapping` is a component that supports rendering specific number, boolean, or string values as mapped icons, spinners, or text. `nimble-table-column-icon` is a specialized version of `nimble-table-column-mapping` which defaults to having a minimal, fixed width. The actual mappings are defined by child elements `nimble-mapping-icon`, `nimble-mapping-spinner`, and `nimble-mapping-text`.
 
 ### Background
 
@@ -18,9 +18,8 @@ The `nimble-table-column-mapping` is a component that supports rendering specifi
     -   boolean
 -   Supported output:
     -   Text
-    -   One or more Nimble icons (with colors via icon severity property)
-    -   Nimble spinner
-    -   One span of text preceded and/or followed by icons/spinner
+    -   Icon
+    -   Spinner
     -   (empty)
 
 ### Non-goals
@@ -28,106 +27,85 @@ The `nimble-table-column-mapping` is a component that supports rendering specifi
 -   Non-Nimble icon support
 -   Arbitrary icon colors
 -   Hyperlink icons
+-   Mixed text and icons
 -   Non-icon, non-spinner Nimble components
--   Arbitrary html
 
 ---
 
 ## Design
 
-In addition to the `nimble-table-column-mapping` element, there is a `nimble-mapping` element to define mappings between values and html fragments. Below is an example of how these elements would be used within a `nimble-table`:
+Below is an example of how these elements would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-mapping field-name="status" data-type="string">
+    <nimble-table-column-icon field-name="status">
         Status
-        <nimble-mapping key="fail">
-            <template>
-                <nimble-icon-xmark severity="error" title="Failed"></nimble-icon-xmark>
-            </template>
-        </nimble-mapping>
-        <nimble-mapping key="error">
-            <template>
-                <nimble-icon-xmark severity="error" title="Errored"></nimble-icon-xmark>
-            </template>
-        </nimble-mapping>
-        <nimble-mapping key="pass">
-            <template>
-                <nimble-icon-check severity="success" title="Passed"></nimble-icon-check>
-            </template>
-        </nimble-mapping>
-        <nimble-mapping key="running">
-            <template>
-                <nimble-spinner title="Running"></nimble-spinner>
-            </template>
-        </nimble-mapping>
+        <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" label="Failed"></nimble-mapping-icon>
+        <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" label="Errored"></nimble-mapping-icon>
+        <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" label="Passed"></nimble-mapping-icon>
+        <nimble-mapping-spinner key="running" label="Running..."></nimble-mapping-spinner>
+    </nimble-table-column-icon>
+    <nimble-table-column-mapping field-name="errorCode" data-type="number">
+        Error Code
+        <nimble-mapping-text key="1" label="A bad thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key="2" label="A worse thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key="3" label="A terrible thing happened"></nimble-mapping-text>
     </nimble-table-column-mapping>
-    <nimble-table-column-mapping field-name="required" data-type="boolean">
-        Required?
-        <nimble-mapping key="true">
-            <template>
-                <nimble-icon-check title="Required"></nimble-icon-check>
-            </template>
-        </nimble-mapping>
-        <nimble-mapping key="false">
-            <template>
-            </template>
-        </nimble-mapping>
-    </nimble-table-column-mapping>
+    <nimble-table-column-icon field-name="archived" data-type="boolean">
+        Archived
+        <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived"></nimble-mapping-icon>
+    </nimble-table-column-icon>
 </nimble-table>
 ```
 
 Note that the `key` attribute values are always given as strings. In the case of boolean or number mappings, this value is parsed to the appropriate type, so that it can properly be compared to the values from the row records.
 
-If a template includes text, that text should be within a `span` element, otherwise, when the text is too long for the cell, it it will not be ellipsized and there will be no tooltip to show the full value.
+When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, we could provide support for marking a mapping with a `default` attribute that would cause it to be chosen when no other values matched. This would be equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`. I don't think we need to support this initially.
 
-```TS
-import {
-    attr,
-    booleanConverter,
-    nullableNumberConverter
-} from '@microsoft/fast-element';
+If multiple mappings in a column have the same key, an error will be thrown.
 
-export class TableColumnNumberMapping extends TableColumnMapping {
-    @attr({ converter: nullableNumberConverter })
-    public override key: number | null = null;
-}
+If an invalid `icon` value is passed to `nimble-mapping-icon`, an error will be thrown.
 
-export class TableColumnBooleanMapping extends TableColumnMapping {
-    @attr({ converter: booleanConverter })
-    public override key: boolean | null = null;
-}
+`nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. Any others will result in an error being thrown. `nimble-table-column-mapping` supports all mapping elements.
 
-```
-
-When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, we could provide support for a default mapping (i.e. `nimble-mapping-default`) that would be rendered when no other values matched. However this doesn't seem worth the effort/complexity.
+Text in a grouping header or in the cell will be ellipsized and gain a tooltip when the full text is too long to display.
 
 **Alternatives:**
 
-1. This mapping API was originally conceived to implement an icon column type. We could stick to the original, limited scope and define just a `nimble-table-column-icon` (mapping strings to icons). However we will likely need to take a very similar approach to implement columns supporting boolean and enum input types. It would be natural and efficient to have a single column type to support all three, and potentially other use cases in the future.
+An earlier version of this spec proposed mapping elements with `template` elements as content instead of relying on attribute configuration. The template element would define the mapped html to render. We would impose restrictions on the types of supported elements that could be provided in the template.
 
-2. We could make the mapping table column an abstract base type, then derive more specific column types from it, e.g. `nimble-table-column-icon`, `nimble-table-column-enum`, `nimble-table-column-boolean`. However, this doesn't actually make much sense, because there is overlap between the icon column and the enum/boolean columns.
+Pros:
 
-    Mappings of column types:
+-   It would not require updates to the API if we needed to support new types of mapped content (e.g. icon with text), or if the mapped content itself got new configuration options (e.g. a scaling factor for icons).
+-   Undefined element types caught at compile time.
 
-    - icon column:
-        - number -> icon/spinner
-        - string -> icon/spinner
-        - boolean -> icon/spinner
-    - enum column:
-        - number -> text
-        - string -> text
-        - number -> icon/spinner
-        - string -> icon/spinner
-    - boolean column:
-        - boolean -> text
-        - boolean -> icon/spinner
+Cons:
 
-    An icon column would cover half the use cases of enum and boolean columns. The remaining use cases would be covered by something like a mapped text column. This could be confusing to distinguish from our text column. Additionally, if we are going to have a column that maps numbers/strings/booleans to text, it might as well generalize to icons as well. In which case, we don't need a distinct icon column.
+-   Verbose. Requires user to create `template` element and wrap text in `span`s for styling purposes.
+-   Requires difficult validation to ensure only supported elements are present in the `template`.
+-   Could allow users to provide inline styling.
+-   Blazor: cannot put Blazor components inside `template`--must use raw Nimble elements without type safety
 
 ### API
 
-#### Column element:
+#### Icon column element:
+
+_Component Name_
+
+-   `nimble-table-column-icon`
+
+_Props/Attrs_
+
+-   `field-name`: string
+-   `data-type`: 'string' | 'boolean' | 'number' (defaults to 'string')
+-   `pixel-width`: number (defaults to minimum width supported by table)
+
+_Content_
+
+-   column title (text)
+-   1 or more `nimble-mapping-icon` or `nimble-mapping-spinner` elements
+
+#### General mapping column element:
 
 _Component Name_
 
@@ -136,27 +114,50 @@ _Component Name_
 _Props/Attrs_
 
 -   `field-name`: string
--   `data-type`: 'string' | 'boolean' | 'number'
--   `pixel-width`: number - set to the desired fixed column width, else will have a fractional width
+-   `data-type`: 'string' | 'boolean' | 'number' (defaults to 'string')
+-   `pixel-width`: number (set to the desired fixed column width, else will have a fractional width)
+-   `fractional-width`: number (defaults to 1)
+-   `min-pixel-width`: number (defaults to minimum supported by table)
 
 _Content_
 
 -   column title (text)
--   1 or more `nimble-mapping` elements
+-   1 or more `nimble-mapping-*` elements
 
-#### Mapping elements:
+#### Mapping element (icon):
 
 _Component Name_
 
--   `nimble-mapping`
+-   `nimble-mapping-icon`
 
 _Props/Attrs_
 
--   `key`: string | boolean | number
+-   `key`: string (will also have a private, typed version of this property)
+-   `icon`: string - name of the Nimble icon element
+-   `severity`: string - one of the supported enum values. Controls color of the icon.
+-   `label`: string - localized value used as the accessible name and `title` of the icon
 
-_Content_
+#### Mapping element (spinner):
 
--   exactly one `template` element, containg some combination of text, Nimble icons, or `nimble-spinner`
+_Component Name_
+
+-   `nimble-mapping-spinner`
+
+_Props/Attrs_
+
+-   `key`: string (will also have a private, typed version of this property)
+-   `label`: string - localized value used as the accessible name and `title` of the spinner
+
+#### Mapping element (text):
+
+_Component Name_
+
+-   `nimble-mapping-spinner`
+
+_Props/Attrs_
+
+-   `key`: string (will also have a private, typed version of this property)
+-   `label`: string - display text
 
 ### Anatomy
 
@@ -176,100 +177,73 @@ _Content_
 
 Cell view:
 
+The cell view relies on the matched mapping to provide a template to render.
+
 ```HTML
-<div
-    ${ref('wrapper')}
-    class="wrapper"
-    @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.wrapper.innerText && x.wrapper.offsetWidth < x.wrapper.scrollWidth;
-    }}"
-    @mouseout="${x => {
-        x.isValidContentAndHasOverflow = false;
-    }}"
-    title=${x => (x.isValidContentAndHasOverflow ? x.wrapper.innerText : null)}
->
-    ${repeat(x => (x.column as TableColumnMapping).mappings,
-        html<TableColumnMapping, TableColumnMappingCellView>`
-            ${when((x, c) => x.key === (c.parent as TableColumnMappingCellView).cellRecord.value,
-                html<TableColumnMapping>`
-                    ${repeat(x => x.mappedTemplate,
-                        html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
-                    )}
-                `
-            )}
-        `
-    )}
-</div>
+${repeat(x => (x.column as TableColumnMapping).mappings,
+    html<TableColumnMapping, TableColumnMappingCellView>`
+        ${when((x, c) => x.typedKey === (c.parent as TableColumnMappingCellView).cellRecord.value,
+            html<TableColumnMapping>`${x => x.cellViewTemplate}`
+        )}
+    `
+)}
 ```
 
 Group header view:
 
+Similarly, the group header view relies on the matched mapping to provide a template to render.
+
 Note the following requires that `TableColumnMappingGroupHeaderView` has a reference to the column with which it is associated. This is needed to enumerate the column's mapping elements.
 
 ```HTML
-<div
-    ${ref('wrapper')}
-    class="wrapper"
-    @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.wrapper.innerText && x.wrapper.offsetWidth < x.wrapper.scrollWidth;
-    }}"
-    @mouseout="${x => {
-        x.isValidContentAndHasOverflow = false;
-    }}"
-    title=${x => (x.isValidContentAndHasOverflow ? x.wrapper.innerText : null)}
->
-    ${repeat(x => (x.column as TableColumnMapping).mappings,
-        html<TableColumnMapping, TableColumnMappingHeaderView>`
-            ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
-                html<TableColumnMapping>`
-                    ${repeat(x => x.mappedTemplate,
-                        html<HTMLTemplateElement>`${x => new ViewTemplate(x.innerHTML, [])}`
-                    )}
-                `
-            )}
-        `
-    )}
-</div>
+${repeat(x => (x.column as TableColumnMapping).mappings,
+    html<TableColumnMapping, TableColumnMappingHeaderView>`
+        ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
+            html<TableColumnMapping>`${x => x.groupHeaderViewTemplate}`
+        )}
+    `
+)}
 ```
 
-For each mapping, if the key matches the value for this row, get the mapping's contained `template` and render its `innerHTML`.
-
-#### `nimble-mapping`
+#### `nimble-mapping-*`
 
 ```HTML
-<template slot="mapping">
-    <slot
-        ${slotted({ property: 'mappedTemplate', filter: x => x instanceof HTMLTemplateElement })}
-    >
-    </slot>
-</template>
+<template slot="mapping"></template>
+```
+
+#### `nimble-mapping-icon`
+
+Cell view template:
+
+```
+
 ```
 
 ### Grouping
 
-Will support grouping by the record value. The grouping header will display the rendered html mapped to that value. If multiple different values map to the same rendered html (e.g. icon), there may be separate groups that visually look like they should be combined into one group. We could instead render the record value into the header, but that value is not otherwise exposed to the user. It may not even have much meaning (e.g. some numeric code). I think it is more reasonable to display the rendered html.
+Will support grouping by the record value. The grouping header will display the rendered icon/spinner/text. In the case of an icon/spinner, it will also be followed by the `label` text. This will disambiguate cases where multiple record values map to the same icon (assuming the labels are different). Text in a grouping header will be ellipsized and gain a tooltip if there is not enough room to display it all.
 
 ### Sorting
 
-Sorting has the same issue as grouping, where visually identical cells could end up not sorted contiguously. Again, I believe this is reasonable.
+Sorting will be based on the record value. For icons, if multiple values map the to same icon, it is possible that sorting will result in the instances of a certain icon not being all together in one span of rows. The user may think they should be all together, but this is a corner case that we can't/shouldn't do anything about.
 
 ### Sizing
 
-We will support fixed or fractional widths for this column type. We will introduce a new mixin for fixed-width support that exposes a `pixel-width` property. If this is set, the column will have a fixed width, otherwise it defaults to fractional width. There is an undocumented minimum column width, so a client may set `pixel-width` to 1 to end up with that minimum width.
+`nimble-table-column-icon` will support only a fixed width. We will introduce a new mixin for fixed-width support that exposes a `pixel-width` property. The default value will be the minimum supported by the table, which is still significantly larger than the width of an icon.
+
+`nimble-table-column-mapping` will support fixed or fractional widths. If `pixel-width` is set, the column will have a fixed width, otherwise it defaults to a fractional width of 1. The client may configure `fractional-width` and/or `min-pixel-width`.
 
 ### Angular integration
 
-Angular directives will be created for the column component and the mapping components. The component will not have form association, so a `ControlValueAccessor` will not be created.
+Angular directives will be created for the column components and the mapping components. No component has form association, so a `ControlValueAccessor` will not be created.
 
 ### Blazor integration
 
-A Blazor wrapper will be created for the component. _Initial attempts at prototyping resulted in exceptions being thrown and no icons being rendered. This is an open issue._
+Blazor wrappers will be created for the components.
 
 ### Visual Appearance
 
-Appearance can vary based on mapped html, but can only include text, icons, and Nimble spinner.
-
-The cell view (and header view) will be responsible for styling the contents of the mapping `template`. This will include alignment and spacing (`--ni-nimble-small-padding`).
+The cell view (and group header view) will be responsible for styling the templates returned by the mappings. This will include alignment and spacing (`--ni-nimble-small-padding`). Unfortunately, because the mappings cannot provide CSS to go with the templates they return, some implementation knowledge will leak from the mappings to the cell/group header views. For example, we must set `flex-shrink: 0` on all elements so that icons do not get smaller in a group header when the adjacent label takes up all the space.
 
 ---
 
@@ -281,11 +255,7 @@ N/A
 
 ### Accessibility
 
-Text, icons, and spinner are not interactive and cannot receive keyboard focus.
-
-The cell will not introduce any items into the accessibility tree other than the elements in the mapped template. Those items will already have appropriate accessibility tree representations.
-
-We will instruct clients to provide an accessible name for each icon/spinner, either via the `title` or `aria-label` attribute. `aria-labelledby` is not an option, because it requires defining an `id` which will not be unique when duplicated accross multiple rows.
+Text, icons, and spinner are not interactive and cannot receive keyboard focus. These items already have proper accessibility roles, and we will set accessible names (`aria-label`) based on the `label` value provided by the client.
 
 ### Globalization
 
@@ -307,10 +277,12 @@ None
 
 -   Unit tests will be written verifying the usual component expectations, plus:
     -   renders mapping matching the cell value (string, number, and boolean)
-    -   behavior in the presence of non-unique mapping keys
     -   nothing rendered when value matches no mappings
+    -   error thrown when non-unique mapping keys exist
     -   error thrown when non-parsable value is given to number/boolean mappings
-    -   error thrown when mapping contents are not a single template element
+    -   error thrown when invalid icon name given
+    -   error thrown when icon column has a `nimble-mapping-text` element
+    -   grouping header for icon column includes label
 -   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
 -   Visual Chromatic tests will be created
 
@@ -325,7 +297,3 @@ Documented in Storybook
 ---
 
 ## Open Issues
-
--   Should we throw an error if the user includes unsupported elements in the `nimble-mapping-*` template? Or is documenting the restrictions sufficient?
--   Can we give `TableColumnMappingHeaderView` a reference to the column with which it is associated?
--   Blazor support not working?
