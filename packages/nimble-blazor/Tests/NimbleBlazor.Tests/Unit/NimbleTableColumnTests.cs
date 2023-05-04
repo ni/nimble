@@ -7,7 +7,8 @@ namespace NimbleBlazor.Tests.Unit;
 
 public abstract class NimbleTableColumnTests<T> where T : NimbleTableColumn
 {
-    protected void NimbleTableColumn_WithSortIndexAttribute_HasTableMarkup()
+    [Fact]
+    public void NimbleTableColumn_WithSortIndexAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet(x => x.SortIndex!, 0);
 
@@ -15,7 +16,8 @@ public abstract class NimbleTableColumnTests<T> where T : NimbleTableColumn
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
-    protected void NimbleTableColumn_WithSortDirectionAttribute_HasTableMarkup()
+    [Fact]
+    public void NimbleTableColumn_WithSortDirectionAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet(x => x.SortDirection!, TableColumnSortDirection.Descending);
 

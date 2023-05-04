@@ -8,7 +8,8 @@ namespace NimbleBlazor.Tests.Unit;
 
 public abstract class GroupableBaseTests<T> where T : ComponentBase, IGroupableColumn
 {
-    protected void NimbleTableColumn_WithGroupIndexAttribute_HasTableMarkup()
+    [Fact]
+    public void NimbleTableColumn_WithGroupIndexAttribute_HasTableMarkup()
     {
         var tableColumn = RenderWithPropertySet(x => x.GroupIndex!, 0);
 
@@ -16,7 +17,8 @@ public abstract class GroupableBaseTests<T> where T : ComponentBase, IGroupableC
         Assert.Contains(expectedMarkup, tableColumn.Markup);
     }
 
-    protected void NimbleTableColumn_WithGroupingDisabledAttribute_HasTableMarkup()
+    [Fact]
+    public void NimbleTableColumn_WithGroupingDisabledAttribute_HasTableMarkup()
     {
         var tableColumn = RenderWithPropertySet(x => x.GroupingDisabled!, true);
 

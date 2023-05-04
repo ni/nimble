@@ -8,7 +8,8 @@ namespace NimbleBlazor.Tests.Unit;
 
 public abstract class FractionalWidthBaseTests<T> where T : ComponentBase, IFractionalWidthColumn
 {
-    protected void NimbleTableColumn_WithFractionalWidthAttribute_HasTableMarkup()
+    [Fact]
+    public void NimbleTableColumn_WithFractionalWidthAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet(x => x.FractionalWidth!, 2);
 
@@ -16,7 +17,8 @@ public abstract class FractionalWidthBaseTests<T> where T : ComponentBase, IFrac
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
-    protected void NimbleTableColumn_WithMinPixelWidthAttribute_HasTableMarkup()
+    [Fact]
+    public void NimbleTableColumn_WithMinPixelWidthAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet(x => x.MinPixelWidth!, 40);
 
