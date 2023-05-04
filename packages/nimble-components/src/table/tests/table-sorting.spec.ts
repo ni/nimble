@@ -527,6 +527,80 @@ describe('Table sorting', () => {
         expect(getRenderedRecordIds()).toEqual(['3', '4', '1', '2']);
     });
 
+    it('disables sorting when sortingDisabled is true (set before connect), with currentSortIndex/currentSortDirection resolving to undefined/none', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'abc' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 0;
+        column1.sortingDisabled = true;
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(getRenderedRecordIds()).toEqual(['1', '2', '3', '4']);
+        expect(column1.columnInternals.currentSortDirection).toEqual(
+            TableColumnSortDirection.none
+        );
+        expect(column1.columnInternals.currentSortIndex).toBeUndefined();
+    });
+
+    it('disables sorting when sortingDisabled is true (set after connect), with currentSortIndex/currentSortDirection resolving to undefined/none', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'abc' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 0;
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.sortingDisabled = true;
+        await waitForUpdatesAsync();
+
+        expect(getRenderedRecordIds()).toEqual(['1', '2', '3', '4']);
+        expect(column1.columnInternals.currentSortDirection).toEqual(
+            TableColumnSortDirection.none
+        );
+        expect(column1.columnInternals.currentSortIndex).toBeUndefined();
+    });
+
+    it('allows programmatic sorting after sortingDisabled is set back to false', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'abc' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 0;
+        column1.sortingDisabled = true;
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.sortingDisabled = false;
+        await waitForUpdatesAsync();
+
+        expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
+        expect(column1.columnInternals.currentSortDirection).toEqual(
+            TableColumnSortDirection.ascending
+        );
+        expect(column1.columnInternals.currentSortIndex).toEqual(0);
+    });
+
     describe('sort index validation', () => {
         it('multiple columns with the same sort index and a sort direction is invalid and does not render rows', async () => {
             const data: readonly SimpleTableRecord[] = [
@@ -757,26 +831,14 @@ describe('Table sorting', () => {
             { id: '4', stringData1: 'a4', stringData2: 'b4', stringData3: 'c4' }
         ] as const;
 
-        async function shiftClickOnElement(
-            elementToClick: HTMLElement
-        ): Promise<void> {
-            const clickEvent = new MouseEvent('click', {
-                shiftKey: true,
-                bubbles: true
-            } as MouseEventInit);
-            elementToClick.dispatchEvent(clickEvent);
-            await waitForUpdatesAsync();
-        }
-
-        it('does not affect sortIndex / sortDirection', async () => {
+        it('does not affect sortIndex / sortDirection for the interactively sorted column', async () => {
             await element.setData(data);
             column1.sortIndex = 5;
             column1.sortDirection = TableColumnSortDirection.descending;
             await connect();
             await waitForUpdatesAsync();
 
-            pageObject.getHeaderElement(0).click();
-            await waitForUpdatesAsync();
+            await pageObject.clickColumnHeader(0);
 
             expect(column1.sortDirection).toEqual(
                 TableColumnSortDirection.descending
@@ -818,8 +880,7 @@ describe('Table sorting', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                pageObject.getHeaderElement(0).click();
-                await waitForUpdatesAsync();
+                await pageObject.clickColumnHeader(0);
 
                 expect(column1.columnInternals.currentSortDirection).toEqual(
                     test.expectedDirectionAfterClick
@@ -848,7 +909,7 @@ describe('Table sorting', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                await shiftClickOnElement(pageObject.getHeaderElement(0));
+                await pageObject.clickColumnHeader(0, true);
 
                 expect(column1.columnInternals.currentSortDirection).toEqual(
                     test.expectedDirectionAfterClick
@@ -878,7 +939,7 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            await shiftClickOnElement(pageObject.getHeaderElement(1));
+            await pageObject.clickColumnHeader(1, true);
 
             expect(column1.columnInternals.currentSortDirection).toEqual(
                 TableColumnSortDirection.ascending
