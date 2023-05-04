@@ -846,6 +846,20 @@ describe('Table sorting', () => {
             expect(column1.sortIndex).toEqual(5);
         });
 
+        it('is disabled for columns with sortingDisabled set to true (with no modifications to currentSortDirection / currentSortIndex)', async () => {
+            await element.setData(data);
+            column1.sortingDisabled = true;
+            await connect();
+            await waitForUpdatesAsync();
+
+            await pageObject.clickColumnHeader(0);
+
+            expect(column1.columnInternals.currentSortDirection).toEqual(
+                TableColumnSortDirection.none
+            );
+            expect(column1.columnInternals.currentSortIndex).toBeUndefined();
+        });
+
         const directionLabel: (
             direction: TableColumnSortDirection
         ) => string = direction => `${direction ?? 'no'}-sort`;

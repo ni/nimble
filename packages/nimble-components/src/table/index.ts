@@ -397,6 +397,10 @@ export class Table<
         column: TableColumn,
         allowMultiSort: boolean
     ): void {
+        if (column.sortingDisabled) {
+            return;
+        }
+
         const allSortedColumns = this.getColumnsParticipatingInSorting().sort(
             (x, y) => x.columnInternals.currentSortIndex!
                 - y.columnInternals.currentSortIndex!
