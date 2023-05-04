@@ -35,3 +35,24 @@ public class NimbleTableColumnTextTests
         return context.RenderComponent<NimbleTableColumnText>(p => p.Add(propertyGetter, propertyValue));
     }
 }
+
+/// <summary>
+/// Tests for NimbleTableColumn API on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextBaseTests : NimbleTableColumnTests<NimbleTableColumnText>
+{
+}
+
+/// <summary>
+/// Tests for FractionalWidthAPI on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextFractionalWidthTests : FractionalWidthBaseTests<NimbleTableColumnText>
+{
+}
+
+/// <summary>
+/// Tests for GroupableAPI on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextGroupableTests : GroupableBaseTests<NimbleTableColumnText>
+{
+}

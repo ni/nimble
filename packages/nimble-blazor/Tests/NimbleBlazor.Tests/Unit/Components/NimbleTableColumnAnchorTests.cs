@@ -125,3 +125,24 @@ public class NimbleTableColumnAnchorTests
         return context.RenderComponent<NimbleTableColumnAnchor>(p => p.Add(propertyGetter, propertyValue));
     }
 }
+
+/// <summary>
+/// Tests for NimbleTableColumn API on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorBaseTests : NimbleTableColumnTests<NimbleTableColumnAnchor>
+{
+}
+
+/// <summary>
+/// Tests for FractionalWidthAPI on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorFractionalWidthTests : FractionalWidthBaseTests<NimbleTableColumnAnchor>
+{
+}
+
+/// <summary>
+/// Tests for GroupableAPI on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorGroupableTests : GroupableBaseTests<NimbleTableColumnAnchor>
+{
+}
