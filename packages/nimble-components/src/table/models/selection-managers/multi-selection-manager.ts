@@ -87,20 +87,20 @@ export class MultiSelectionManager<
             return false;
         }
 
-        const updatedSelection = this.tanStackTable.getState().rowSelection;
+        const selectionState = this.tanStackTable.getState().rowSelection;
         this.removePreviousRangeSelection(
-            updatedSelection,
+            selectionState,
             selectionStartIndex,
             allRows
         );
         this.addNewRangeSelection(
-            updatedSelection,
+            selectionState,
             rowId,
             selectionStartIndex,
             allRows
         );
         this.previousShiftSelectRowEndId = rowId;
-        this.tanStackTable.setRowSelection(updatedSelection);
+        this.tanStackTable.setRowSelection(selectionState);
 
         return true;
     }
