@@ -31,7 +31,8 @@ export const template = html<Table>`
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
-        <div class="table-container" style="
+        <div class="${x => (x.documentShiftKeyDown ? 'disable-select table-container' : 'table-container')}"
+            style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;

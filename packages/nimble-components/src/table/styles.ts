@@ -21,6 +21,10 @@ export const styles = css`
         height: 480px;
     }
 
+    .disable-select {
+        user-select: none;
+    }
+
     .table-container {
         overflow: hidden;
         display: flex;
