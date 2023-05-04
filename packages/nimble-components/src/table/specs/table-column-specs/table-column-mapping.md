@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-mapping` is a component that supports rendering specific number, boolean, or string values as mapped icons, spinners, or text. `nimble-table-column-icon` is a specialized version of `nimble-table-column-mapping` which defaults to having a minimal, fixed width. The actual mappings are defined by child elements `nimble-mapping-icon`, `nimble-mapping-spinner`, and `nimble-mapping-text`.
+The `nimble-table-column-mapping` is a component that supports rendering specific number, boolean, or string values as mapped text. `nimble-table-column-icon` is a specialized version of `nimble-table-column-mapping` that instead maps values to icons and/or spinners and has a minimal, fixed width. The actual mappings are defined by child elements `nimble-mapping-icon`, `nimble-mapping-spinner`, and `nimble-mapping-text`.
 
 ### Background
 
@@ -43,15 +43,15 @@ Below is an example of how these elements would be used within a `nimble-table`:
         <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" label="Failed"></nimble-mapping-icon>
         <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" label="Errored"></nimble-mapping-icon>
         <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" label="Passed"></nimble-mapping-icon>
-        <nimble-mapping-spinner key="running" label="Running..."></nimble-mapping-spinner>
+        <nimble-mapping-spinner key="running" label="Running"></nimble-mapping-spinner>
     </nimble-table-column-icon>
-    <nimble-table-column-mapping field-name="errorCode" data-type="number">
+    <nimble-table-column-mapping field-name="errorCode">
         Error Code
         <nimble-mapping-text key="1" label="A bad thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="2" label="A worse thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="3" label="A terrible thing happened"></nimble-mapping-text>
     </nimble-table-column-mapping>
-    <nimble-table-column-icon field-name="archived" data-type="boolean">
+    <nimble-table-column-icon field-name="archived">
         Archived
         <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived"></nimble-mapping-icon>
     </nimble-table-column-icon>
@@ -60,13 +60,13 @@ Below is an example of how these elements would be used within a `nimble-table`:
 
 Note that the `key` attribute values are always given as strings. In the case of boolean or number mappings, this value is parsed to the appropriate type, so that it can properly be compared to the values from the row records.
 
-When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, we could provide support for marking a mapping with a `default` attribute that would cause it to be chosen when no other values matched. This would be equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`. I don't think we need to support this initially.
+When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, if one of the mappings has the `default` attribute, it will match when no other mappings have. This is equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`.
 
-If multiple mappings in a column have the same key, an error will be thrown.
+If multiple mappings in a column have the same key, an error flag will be set on the table's validity object.
 
-If an invalid `icon` value is passed to `nimble-mapping-icon`, an error will be thrown.
+If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the table's validity object. An invalid `icon` value is any element that does not derive from `Icon`.
 
-`nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. Any others will result in an error being thrown. `nimble-table-column-mapping` supports all mapping elements.
+`nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. `nimble-table-column-mapping` supports only `nimble-mapping-string`. Unsupported mappings will result in an error flag being set on the table's validity object.
 
 Text in a grouping header or in the cell will be ellipsized and gain a tooltip when the full text is too long to display.
 
@@ -97,12 +97,11 @@ _Component Name_
 _Props/Attrs_
 
 -   `field-name`: string
--   `data-type`: 'string' | 'boolean' | 'number' (defaults to 'string')
--   `pixel-width`: number (defaults to minimum width supported by table)
+-   `pixel-width`: number (set to the desired fixed column width, else will use a default fixed width)
 
 _Content_
 
--   column title (text)
+-   column title (text or icon)
 -   1 or more `nimble-mapping-icon` or `nimble-mapping-spinner` elements
 
 #### General mapping column element:
@@ -114,15 +113,13 @@ _Component Name_
 _Props/Attrs_
 
 -   `field-name`: string
--   `data-type`: 'string' | 'boolean' | 'number' (defaults to 'string')
--   `pixel-width`: number (set to the desired fixed column width, else will have a fractional width)
 -   `fractional-width`: number (defaults to 1)
 -   `min-pixel-width`: number (defaults to minimum supported by table)
 
 _Content_
 
--   column title (text)
--   1 or more `nimble-mapping-*` elements
+-   column title (text or icon)
+-   1 or more `nimble-mapping-text` elements
 
 #### Mapping element (icon):
 
@@ -135,7 +132,8 @@ _Props/Attrs_
 -   `key`: string (will also have a private, typed version of this property)
 -   `icon`: string - name of the Nimble icon element
 -   `severity`: string - one of the supported enum values. Controls color of the icon.
--   `label`: string - localized value used as the accessible name and `title` of the icon
+-   `label`: string - localized value used as the accessible name and `title` of the icon. Will also be displayed in the group header.
+-   `default`: boolean - presence causes this mapping to be used when no others match the value
 
 #### Mapping element (spinner):
 
@@ -146,7 +144,8 @@ _Component Name_
 _Props/Attrs_
 
 -   `key`: string (will also have a private, typed version of this property)
--   `label`: string - localized value used as the accessible name and `title` of the spinner
+-   `label`: string - localized value used as the accessible name and `title` of the spinner. Will also be displayed in the group header.
+-   `default`: boolean - presence causes this mapping to be used when no others match the value
 
 #### Mapping element (text):
 
@@ -158,6 +157,7 @@ _Props/Attrs_
 
 -   `key`: string (will also have a private, typed version of this property)
 -   `label`: string - display text
+-   `default`: boolean - presence causes this mapping to be used when no others match the value
 
 ### Anatomy
 
@@ -181,9 +181,9 @@ The cell view relies on the matched mapping to provide a template to render.
 
 ```HTML
 ${repeat(x => (x.column as TableColumnMapping).mappings,
-    html<TableColumnMapping, TableColumnMappingCellView>`
+    html<Mapping, TableColumnMappingCellView>`
         ${when((x, c) => x.typedKey === (c.parent as TableColumnMappingCellView).cellRecord.value,
-            html<TableColumnMapping>`${x => x.cellViewTemplate}`
+            html<Mapping>`${x => x.cellViewTemplate}`
         )}
     `
 )}
@@ -197,9 +197,9 @@ Note the following requires that `TableColumnMappingGroupHeaderView` has a refer
 
 ```HTML
 ${repeat(x => (x.column as TableColumnMapping).mappings,
-    html<TableColumnMapping, TableColumnMappingHeaderView>`
+    html<Mapping, TableColumnMappingHeaderView>`
         ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
-            html<TableColumnMapping>`${x => x.groupHeaderViewTemplate}`
+            html<Mapping>`${x => x.groupHeaderViewTemplate}`
         )}
     `
 )}
@@ -215,13 +215,38 @@ ${repeat(x => (x.column as TableColumnMapping).mappings,
 
 Cell view template:
 
+```HTML
+<${this.icon}
+    title="${x => x.label}"
+    aria-label="${x => x.label}"
+    severity="${x => x.severity}">
+</${this.icon}>
 ```
 
+Group header view template:
+
+```HTML
+<${this.icon}
+    title="${x => x.label}"
+    aria-label="${x => x.label}"
+    severity="${x => x.severity}">
+</${this.icon}>
+<span
+    ${ref('span')}
+    @mouseover="${x => {
+        x.isValidContentAndHasOverflow = !!x.label && x.span!.offsetWidth < x.span!.scrollWidth;
+    }}"
+    @mouseout="${x => {
+        x.isValidContentAndHasOverflow = false;
+    }}"
+    title=${x => (x.isValidContentAndHasOverflow ? x.label : null)}>
+    ${x => x.label}
+</span>`;
 ```
 
 ### Grouping
 
-Will support grouping by the record value. The grouping header will display the rendered icon/spinner/text. In the case of an icon/spinner, it will also be followed by the `label` text. This will disambiguate cases where multiple record values map to the same icon (assuming the labels are different). Text in a grouping header will be ellipsized and gain a tooltip if there is not enough room to display it all.
+Grouping will be based on the record value. The grouping header will display the rendered icon/spinner/text. In the case of an icon/spinner, it will also be followed by the `label` text. This will disambiguate cases where multiple record values map to the same icon (assuming the labels are different). Text in a grouping header will be ellipsized and gain a tooltip if there is not enough room to display it all.
 
 ### Sorting
 
