@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Reuse tests for common table column APIs",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
