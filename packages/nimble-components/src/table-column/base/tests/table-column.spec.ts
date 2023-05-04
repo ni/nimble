@@ -65,6 +65,34 @@ describe('TableColumn', () => {
         expect(element.columnInternals.currentSortIndex).toBe(1);
     });
 
+    it('disallows programmatic sorting when sortingDisabled is true', async () => {
+        await connect();
+        element.sortingDisabled = true;
+
+        element.sortIndex = 0;
+        element.sortDirection = TableColumnSortDirection.ascending;
+
+        expect(element.columnInternals.currentSortIndex).toBeUndefined();
+        expect(element.columnInternals.currentSortDirection).toEqual(
+            TableColumnSortDirection.none
+        );
+    });
+
+    it('if sortIndex/sortDirection are set when sortingDisabled is true, currentSortIndex/currentSortDirection will get those values when sortingDisabled is set to false', async () => {
+        await connect();
+        element.sortingDisabled = true;
+
+        element.sortIndex = 0;
+        element.sortDirection = TableColumnSortDirection.ascending;
+
+        element.sortingDisabled = false;
+
+        expect(element.columnInternals.currentSortIndex).toEqual(0);
+        expect(element.columnInternals.currentSortDirection).toEqual(
+            TableColumnSortDirection.ascending
+        );
+    });
+
     describe('with a custom constructor', () => {
         // Seems subject to change how errors are handled during custom
         // element construction: https://github.com/WICG/webcomponents/issues/635

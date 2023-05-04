@@ -53,11 +53,15 @@ export abstract class TableColumn<
     }
 
     protected sortDirectionChanged(): void {
-        this.columnInternals.currentSortDirection = this.sortDirection;
+        if (!this.sortingDisabled) {
+            this.columnInternals.currentSortDirection = this.sortDirection;
+        }
     }
 
     protected sortIndexChanged(): void {
-        this.columnInternals.currentSortIndex = this.sortIndex;
+        if (!this.sortingDisabled) {
+            this.columnInternals.currentSortIndex = this.sortIndex;
+        }
     }
 
     protected sortingDisabledChanged(): void {
