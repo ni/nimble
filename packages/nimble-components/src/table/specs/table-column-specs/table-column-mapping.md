@@ -66,7 +66,7 @@ If multiple mappings in a column have the same key, an error flag will be set on
 
 If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the table's validity object. An invalid `icon` value is any element that cannot be resolved or that does not derive from `Icon`.
 
-`nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. `nimble-table-column-mapping` supports only `nimble-mapping-string`. Unsupported mappings will result in an error flag being set on the table's validity object.
+`nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. `nimble-table-column-mapping` supports only `nimble-mapping-text`. Unsupported mappings will result in an error flag being set on the table's validity object.
 
 Text in a grouping header or in the cell will be ellipsized and gain a tooltip when the full text is too long to display.
 
@@ -129,7 +129,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string (will also have a private, typed version of this property)
+-   `key`: string | number | boolean
 -   `icon`: string - name of the Nimble icon element
 -   `severity`: string - one of the supported enum values. Controls color of the icon.
 -   `label`: string - localized value used as the accessible name and `title` of the icon. Will also be displayed in the group header.
@@ -143,7 +143,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string (will also have a private, typed version of this property)
+-   `key`: string | number | boolean
 -   `label`: string - localized value used as the accessible name and `title` of the spinner. Will also be displayed in the group header.
 -   `default`: boolean - presence causes this mapping to be used when no others match the value
 
@@ -151,11 +151,11 @@ _Props/Attrs_
 
 _Component Name_
 
--   `nimble-mapping-spinner`
+-   `nimble-mapping-text`
 
 _Props/Attrs_
 
--   `key`: string (will also have a private, typed version of this property)
+-   `key`: string | number | boolean
 -   `label`: string - display text
 -   `default`: boolean - presence causes this mapping to be used when no others match the value
 
