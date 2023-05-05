@@ -65,6 +65,7 @@ export abstract class TableColumn<
     }
 
     protected sortingDisabledChanged(): void {
+        // Ignore the default value sortingDisabled initialization from undefined to false (which runs before columnInternals is initialized)
         if (this.columnInternals) {
             if (this.sortingDisabled) {
                 this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
