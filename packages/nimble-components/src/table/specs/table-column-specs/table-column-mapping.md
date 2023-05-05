@@ -64,7 +64,7 @@ When none of the given mappings match the record value for a cell, that cell wil
 
 If multiple mappings in a column have the same key, an error flag will be set on the table's validity object.
 
-If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the table's validity object. An invalid `icon` value is any element that does not derive from `Icon`.
+If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the table's validity object. An invalid `icon` value is any element that cannot be resolved or that does not derive from `Icon`.
 
 `nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. `nimble-table-column-mapping` supports only `nimble-mapping-string`. Unsupported mappings will result in an error flag being set on the table's validity object.
 
@@ -246,7 +246,11 @@ Group header view template:
 
 ### Grouping
 
-Grouping will be based on the record value. The grouping header will display the rendered icon/spinner/text. In the case of an icon/spinner, it will also be followed by the `label` text. This will disambiguate cases where multiple record values map to the same icon (assuming the labels are different). Text in a grouping header will be ellipsized and gain a tooltip if there is not enough room to display it all.
+Grouping will be based on the record value. The grouping header will display the rendered icon/spinner/text. In the case of an icon/spinner, it will also be followed by the `label` text. This will disambiguate cases where multiple record values map to the same icon (assuming the labels are different).
+
+For values that do not match any mapping, we will display the raw data value. While this introduces inconsistency, it seems preferable to the alternative, which is having multiple, separate groupings with a blank header (well, with just the item count in parens). Even in the case where there is a default mapping, we would still end up with separate groups with the identical default mapped icon and/or text, which is just a bad.
+
+Text in a grouping header will be ellipsized and gain a tooltip if there is not enough room to display it all.
 
 ### Sorting
 
@@ -309,6 +313,7 @@ None
     -   error thrown when icon column has a `nimble-mapping-text` element
     -   grouping header for icon column includes label
 -   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
+-   Verify manually that several mapping columns with thousands of elements scrolls performantly.
 -   Visual Chromatic tests will be created
 
 ### Tooling
