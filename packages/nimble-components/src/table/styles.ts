@@ -78,7 +78,6 @@ export const styles = css`
     }
 
     .collapse-all-button {
-        width: ${controlSlimHeight};
         height: ${controlSlimHeight};
         margin-left: calc(${smallPadding} * 2);
         visibility: hidden;
