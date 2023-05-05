@@ -48,7 +48,6 @@ export const styles = css`
             ${smallPadding} * 2 + ${standardPadding} * 2 *
                 var(--ni-private-table-group-row-indent-level)
         );
-        width: ${controlSlimHeight};
         height: ${controlSlimHeight};
     }
 
