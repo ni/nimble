@@ -9,6 +9,7 @@ import { TableColumnSortDirection } from '../../types';
 export const template = html<TableHeader>`
     <template role="columnheader"
         aria-sort="${x => x.ariaSort}"
+        ${'' /* Prevent header double clicks from selecting text */}
         @mousedown="${(_x, c) => !((c.event as MouseEvent).detail > 1)}"
     >
         <slot></slot>
