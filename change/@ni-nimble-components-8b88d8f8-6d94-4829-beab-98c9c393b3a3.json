@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Prevent double click select text on header",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
