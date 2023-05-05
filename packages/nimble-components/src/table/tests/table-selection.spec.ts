@@ -648,7 +648,10 @@ describe('Table row selection', () => {
                         name: string,
                         initialSelection: string[],
                         rowToClick: number,
-                        clickModifiers: { shiftKey?: boolean, ctrlKey?: boolean },
+                        clickModifiers: {
+                            shiftKey?: boolean,
+                            ctrlKey?: boolean
+                        },
                         expectedSelection: string[]
                     }[] = [
                         {
@@ -738,7 +741,10 @@ describe('Table row selection', () => {
                         name: string,
                         initialSelection: string[],
                         rowToClick: number,
-                        clickModifiers: { shiftKey?: boolean, ctrlKey?: boolean }
+                        clickModifiers: {
+                            shiftKey?: boolean,
+                            ctrlKey?: boolean
+                        }
                     }[] = [
                         {
                             name: 'clicking the already selected row maintains its selection',
@@ -913,13 +919,9 @@ describe('Table row selection', () => {
 
                     const currentSelection = await element.getSelectedRecordIds();
                     expect(currentSelection).toEqual(
-                        jasmine.arrayWithExactContents(
-                            ['0']
-                        )
+                        jasmine.arrayWithExactContents(['0'])
                     );
-                    expect(
-                        selectionChangeListener.spy
-                    ).not.toHaveBeenCalled();
+                    expect(selectionChangeListener.spy).not.toHaveBeenCalled();
                 });
 
                 describe('SHIFT + click selection', () => {
