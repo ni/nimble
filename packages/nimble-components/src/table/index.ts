@@ -28,6 +28,7 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
+import { keyShift } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -177,6 +178,12 @@ export class Table<
     @observable
     public firstSortedColumn?: TableColumn;
 
+    /**
+     * @internal
+     */
+    @observable
+    public documentShiftKeyDown = false;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
@@ -282,12 +289,16 @@ export class Table<
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
+        document.addEventListener('keydown', this.onKeyDown);
+        document.addEventListener('keyup', this.onKeyUp);
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
+        document.removeEventListener('keydown', this.onKeyDown);
+        document.removeEventListener('keyup', this.onKeyUp);
     }
 
     public checkValidity(): boolean {
@@ -388,6 +399,54 @@ export class Table<
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
+    }
+
+    /**
+     * @internal
+     */
+    public toggleColumnSort(
+        column: TableColumn,
+        allowMultiSort: boolean
+    ): void {
+        if (column.sortingDisabled) {
+            return;
+        }
+
+        const allSortedColumns = this.getColumnsParticipatingInSorting().sort(
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
+        );
+
+        const columnIndex = allSortedColumns.indexOf(column);
+        const columnAlreadySorted = columnIndex > -1;
+
+        const oldSortDirection = column.columnInternals.currentSortDirection;
+        let newSortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+
+        if (columnAlreadySorted) {
+            if (oldSortDirection === TableColumnSortDirection.descending) {
+                allSortedColumns.splice(columnIndex, 1);
+                newSortDirection = TableColumnSortDirection.none;
+                column.columnInternals.currentSortIndex = undefined;
+            } else {
+                newSortDirection = TableColumnSortDirection.descending;
+            }
+        } else {
+            allSortedColumns.push(column);
+        }
+        column.columnInternals.currentSortDirection = newSortDirection;
+
+        for (let i = 0; i < allSortedColumns.length; i++) {
+            const currentColumn = allSortedColumns[i]!;
+            if (allowMultiSort) {
+                allSortedColumns[i]!.columnInternals.currentSortIndex = i;
+            } else if (currentColumn === column) {
+                currentColumn.columnInternals.currentSortIndex = 0;
+            } else {
+                currentColumn.columnInternals.currentSortIndex = undefined;
+                currentColumn.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+            }
+        }
     }
 
     /**
@@ -499,6 +558,18 @@ export class Table<
         this.scrollX = (event.target as HTMLElement).scrollLeft;
     };
 
+    private readonly onKeyDown = (event: KeyboardEvent): void => {
+        if (event.key === keyShift) {
+            this.documentShiftKeyDown = true;
+        }
+    };
+
+    private readonly onKeyUp = (event: KeyboardEvent): void => {
+        if (event.key === keyShift) {
+            this.documentShiftKeyDown = false;
+        }
+    };
+
     private removeColumnObservers(): void {
         this.columnNotifiers.forEach(notifier => {
             notifier.unsubscribe(this);
@@ -545,8 +616,10 @@ export class Table<
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
-            x => x.sortDirection !== TableColumnSortDirection.none
-                && typeof x.sortIndex === 'number'
+            x => !x.sortingDisabled
+                && x.columnInternals.currentSortDirection
+                    !== TableColumnSortDirection.none
+                && typeof x.columnInternals.currentSortIndex === 'number'
         );
     }
 
@@ -628,7 +701,9 @@ export class Table<
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
-            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
+            this.getColumnsParticipatingInSorting().map(
+                x => x.columnInternals.currentSortIndex!
+            )
         );
         this.tableValidator.validateColumnGroupIndices(
             this.getColumnsParticipatingInGrouping().map(
@@ -873,7 +948,8 @@ export class Table<
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.sortIndex! - y.sortIndex!
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
         );
         this.firstSortedColumn = sortedColumns.length
             ? sortedColumns[0]
@@ -883,7 +959,8 @@ export class Table<
             return {
                 id: column.columnInternals.uniqueId,
                 desc:
-                    column.sortDirection === TableColumnSortDirection.descending
+                    column.columnInternals.currentSortDirection
+                    === TableColumnSortDirection.descending
             };
         });
     }

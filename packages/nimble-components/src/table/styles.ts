@@ -13,12 +13,17 @@ import {
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
         height: 480px;
+    }
+
+    .disable-select {
+        ${userSelectNone}
     }
 
     .table-container {
