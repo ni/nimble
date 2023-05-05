@@ -16,6 +16,7 @@ import {
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
+import { disableSelect } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('block')}
@@ -90,7 +91,7 @@ export const styles = css`
         padding-left: 10px;
         font: inherit;
         font-size: ${bodyFontSize};
-        user-select: none;
+        ${disableSelect}
         position: relative;
         margin-inline-start: ${iconSize};
     }

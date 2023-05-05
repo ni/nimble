@@ -24,6 +24,7 @@ import { hexToRgbaCssColor } from '../../utilities/style/colors';
 import { focusVisible } from '../../utilities/style/focus';
 import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
+import { disableSelect } from '../../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -35,7 +36,7 @@ export const styles = css`
         height: ${controlHeight};
         position: relative;
         justify-content: center;
-        user-select: none;
+        ${disableSelect}
         min-width: 250px;
         outline: none;
         vertical-align: top;
