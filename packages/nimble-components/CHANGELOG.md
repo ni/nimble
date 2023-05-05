@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 05 May 2023 20:18:38 GMT and should not be manually modified.
+This log was last generated on Fri, 05 May 2023 21:44:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.13.3
+
+Fri, 05 May 2023 21:44:18 GMT
+
+### Patches
+
+- Interactive sorting support for the table ([ni/nimble@ec21375](https://github.com/ni/nimble/commit/ec2137514d0a4c1b99323d80b911f05c41d41145))
 
 ## 18.13.2
 
