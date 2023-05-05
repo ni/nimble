@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 05 May 2023 15:27:55 GMT",
+      "tag": "@ni/nimble-components_v18.13.1",
+      "version": "18.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "592c535b6f1e43b007db4da8b2ed9b226e06d644",
+            "comment": "Update size of the table's action menu"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 May 2023 23:44:37 GMT",
       "tag": "@ni/nimble-components_v18.13.0",
       "version": "18.13.0",

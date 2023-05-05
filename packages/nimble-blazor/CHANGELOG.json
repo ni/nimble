@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 04 May 2023 21:32:30 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.20",
+      "version": "11.8.20",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "7eef206cb51d9c580aea026bc556e9b48995aad8",
+            "comment": "Reuse tests for common table column APIs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 02 May 2023 15:07:15 GMT",
       "tag": "@ni/nimble-blazor_v11.8.20",
       "version": "11.8.20",

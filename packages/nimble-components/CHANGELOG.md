@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 01 May 2023 20:33:27 GMT and should not be manually modified.
+This log was last generated on Fri, 05 May 2023 15:27:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.13.1
+
+Fri, 05 May 2023 15:27:55 GMT
+
+### Patches
+
+- Update size of the table's action menu ([ni/nimble@592c535](https://github.com/ni/nimble/commit/592c535b6f1e43b007db4da8b2ed9b226e06d644))
 
 ## 18.13.0
 
