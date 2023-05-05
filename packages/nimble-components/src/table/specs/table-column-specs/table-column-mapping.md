@@ -254,7 +254,9 @@ Text in a grouping header will be ellipsized and gain a tooltip if there is not 
 
 ### Sorting
 
-Sorting will be based on the record value. For icons, if multiple values map the to same icon, it is possible that sorting will result in the instances of a certain icon not being all together in one span of rows. The user may think they should be all together, but this is a corner case that we can't/shouldn't do anything about.
+Sorting will be based on the record value. For boolean and number values, a basic sort (just using basic comparison/equality operators) is the clear choice. For string values, it is less clear. In the case where the strings are enum values, they are likely to be non-localized, English strings. In that case, even if there is a semantically meaningful sort order (i.e. "NOT_STARTED" < "RUNNING" < "DONE"), we can't sort that way. Settling for a basic sort in this case seems just as reasonable as anything else. If the strings are localized, it's more likely the client would use a text column instead. If we did want to support a different sorting method for strings than booleans/numbers, it would be awkward to implement. We would have update the column's sort method when the data changes, and the column would have to determine the data type for its field, which might require looking at multiple records (e.g. if the first didn't define that field). For these reasons, we will just use a basic sort for all supported data types (string, boolean and number).
+
+For icons, if multiple values map the to same icon, it is possible that sorting will result in the instances of a certain icon not being all together in one span of rows. The user may think they should be all together, but this is a corner case that we can't/shouldn't do anything about.
 
 ### Sizing
 
