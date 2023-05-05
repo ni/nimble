@@ -13,7 +13,7 @@ import {
     bodyFontSize
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
-import { disableSelect } from '../utilities/style/user-select';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('block')}
@@ -83,7 +83,7 @@ export const styles = css`
         padding-left: 10px;
         font: inherit;
         font-size: ${bodyFontSize};
-        ${disableSelect}
+        ${userSelectNone}
         position: relative;
         margin-inline-start: ${iconSize};
     }

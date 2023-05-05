@@ -1,6 +1,6 @@
 import { cssPartial } from '@microsoft/fast-element';
 
-export const disableSelect = cssPartial`
+export const userSelectNone = cssPartial`
     user-select: none;
     -webkit-user-select: none;
 `;

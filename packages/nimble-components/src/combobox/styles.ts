@@ -13,7 +13,7 @@ import { styles as errorStyles } from '../patterns/error/styles';
 import { focusVisible } from '../utilities/style/focus';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { DropdownAppearance } from '../select/types';
-import { disableSelect } from '../utilities/style/user-select';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${dropdownStyles}
@@ -29,7 +29,7 @@ export const styles = css`
 
     :host([disabled]) *,
     :host([disabled]) {
-        ${disableSelect}
+        ${userSelectNone}
         color: ${bodyDisabledFontColor};
     }
 

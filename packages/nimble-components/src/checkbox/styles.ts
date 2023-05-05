@@ -14,7 +14,7 @@ import {
     smallDelay,
     buttonLabelFont
 } from '../theme-provider/design-tokens';
-import { disableSelect } from '../utilities/style/user-select';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -24,7 +24,7 @@ export const styles = css`
         align-items: center;
         cursor: pointer;
         outline: none;
-        ${disableSelect}
+        ${userSelectNone}
     }
 
     :host([disabled]) {

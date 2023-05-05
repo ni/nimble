@@ -14,7 +14,7 @@ import {
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
-import { disableSelect } from '../../../utilities/style/user-select';
+import { userSelectNone } from '../../../utilities/style/user-select';
 
 export const styles = css`
     ${display('flex')}
@@ -67,7 +67,7 @@ export const styles = css`
 
     .group-header-view {
         padding-left: calc(${standardPadding} / 2);
-        ${disableSelect}
+        ${userSelectNone}
         overflow: hidden;
         display: flex;
     }
@@ -75,7 +75,7 @@ export const styles = css`
     .group-row-child-count {
         padding-left: 2px;
         pointer-events: none;
-        ${disableSelect}
+        ${userSelectNone}
     }
 
     @media (prefers-reduced-motion) {

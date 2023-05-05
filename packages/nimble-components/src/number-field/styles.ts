@@ -18,7 +18,7 @@ import {
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { NumberFieldAppearance } from './types';
 import { styles as errorStyles } from '../patterns/error/styles';
-import { disableSelect } from '../utilities/style/user-select';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-block')}
@@ -27,7 +27,7 @@ export const styles = css`
     :host {
         font: ${bodyFont};
         outline: none;
-        ${disableSelect}
+        ${userSelectNone}
         color: ${bodyFontColor};
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-height-within-border: calc(
@@ -79,7 +79,7 @@ export const styles = css`
         content: ' ';
         color: transparent;
         width: 0px;
-        ${disableSelect}
+        ${userSelectNone}
     }
 
     .root::after {
