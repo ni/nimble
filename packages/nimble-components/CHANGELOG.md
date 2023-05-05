@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 05 May 2023 15:27:55 GMT and should not be manually modified.
+This log was last generated on Fri, 05 May 2023 20:18:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.13.2
+
+Fri, 05 May 2023 20:18:38 GMT
+
+### Patches
+
+- Introduce shared user-select styling ([ni/nimble@cb2bf64](https://github.com/ni/nimble/commit/cb2bf64825e963d86ebe8bd740ebc52196edcd76))
 
 ## 18.13.1
 
