@@ -307,10 +307,10 @@ None
 -   Unit tests will be written verifying the usual component expectations, plus:
     -   renders mapping matching the cell value (string, number, and boolean)
     -   nothing rendered when value matches no mappings
-    -   error thrown when non-unique mapping keys exist
-    -   error thrown when non-parsable value is given to number/boolean mappings
-    -   error thrown when invalid icon name given
-    -   error thrown when icon column has a `nimble-mapping-text` element
+    -   validation error when non-unique mapping keys exist
+    -   validation error when non-parsable value is given to number/boolean mappings
+    -   validation error when invalid icon name given
+    -   validation error when icon column has a `nimble-mapping-text` element
     -   grouping header for icon column includes label
 -   Verify manually that the column content appears in the accessibility tree and can be read by a screen reader.
 -   Verify manually that several mapping columns with thousands of elements scrolls performantly.
