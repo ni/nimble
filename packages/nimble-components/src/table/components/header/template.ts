@@ -7,7 +7,10 @@ import { TableColumnSortDirection } from '../../types';
 
 // prettier-ignore
 export const template = html<TableHeader>`
-    <template role="columnheader" aria-sort="${x => x.ariaSort}">
+    <template role="columnheader"
+        aria-sort="${x => x.ariaSort}"
+        @mousedown="${(_x, c) => !((c.event as MouseEvent).detail > 1)}"
+    >
         <slot></slot>
 
         ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html`
