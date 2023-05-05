@@ -23,6 +23,7 @@ export const styles = css`
 
     .disable-select {
         user-select: none;
+        -webkit-user-select: none;
     }
 
     .table-container {

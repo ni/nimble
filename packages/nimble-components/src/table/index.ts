@@ -340,7 +340,7 @@ export class Table<
         const selectionChanged = this.selectionManager.handleRowClick(
             this.tableData[rowIndex],
             event.shiftKey,
-            event.ctrlKey
+            event.ctrlKey || event.metaKey
         );
 
         if (selectionChanged) {
