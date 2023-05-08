@@ -1,3 +1,5 @@
+import type { TableColumn } from '../table-column/base';
+
 /**
  * TableFieldName describes the type associated with keys within
  * a table's records.
@@ -91,4 +93,21 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+/**
+ * @internal
+ *
+ * Internal representation of a row in the table
+ */
+export interface TableRowState<TData extends TableRecord = TableRecord> {
+    record: TData;
+    id: string;
+    selectionState: TableRowSelectionState;
+    isGrouped: boolean;
+    groupRowValue?: unknown;
+    isExpanded: boolean;
+    nestingLevel?: number;
+    leafItemCount?: number;
+    groupColumn?: TableColumn;
 }
