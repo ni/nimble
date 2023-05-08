@@ -21,6 +21,10 @@ labels: 'enhancement'
 <!-- Refer to [CONTR
 IBUTING](https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTRIBUTING.md) for details -->
 
+- [ ] nimble-{name} interaction design issue
+- [ ] nimble-{name} interaction design spec
+- [ ] nimble-{name} visual design issue
+- [ ] nimble-{name} visual design spec
 - [ ] nimble-{name} spec
 - [ ] nimble-{name} Interaction Design spec
 - [ ] nimble-{name} Visual Design spec
