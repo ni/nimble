@@ -40,29 +40,31 @@ Below is an example of how these elements would be used within a `nimble-table`:
 <nimble-table>
     <nimble-table-column-icon field-name="status">
         Status
-        <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" label="Failed"></nimble-mapping-icon>
-        <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" label="Errored"></nimble-mapping-icon>
-        <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" label="Passed"></nimble-mapping-icon>
-        <nimble-mapping-spinner key="running" label="Running"></nimble-mapping-spinner>
+        <nimble-mapping-icon key-string="fail" icon="nimble-icon-xmark" severity="error" label="Failed"></nimble-mapping-icon>
+        <nimble-mapping-icon key-string="error" icon="nimble-icon-xmark" severity="error" label="Errored"></nimble-mapping-icon>
+        <nimble-mapping-icon key-string="pass" icon="nimble-icon-check" severity="success" label="Passed"></nimble-mapping-icon>
+        <nimble-mapping-spinner key-string="running" label="Running"></nimble-mapping-spinner>
     </nimble-table-column-icon>
     <nimble-table-column-mapping field-name="errorCode">
         Error Code
-        <nimble-mapping-text key="1" label="A bad thing happened"></nimble-mapping-text>
-        <nimble-mapping-text key="2" label="A worse thing happened"></nimble-mapping-text>
-        <nimble-mapping-text key="3" label="A terrible thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key-number="1" label="A bad thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key-number="2" label="A worse thing happened"></nimble-mapping-text>
+        <nimble-mapping-text key-number="3" label="A terrible thing happened"></nimble-mapping-text>
     </nimble-table-column-mapping>
     <nimble-table-column-icon field-name="archived">
         Archived
-        <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived"></nimble-mapping-icon>
+        <nimble-mapping-icon key-boolean="true" icon="nimble-icon-database" label="Archived"></nimble-mapping-icon>
     </nimble-table-column-icon>
 </nimble-table>
 ```
 
-Note that the `key` attribute values are always given as strings. In the case of boolean or number mappings, this value is parsed to the appropriate type, so that it can properly be compared to the values from the row records.
+Note that the key value must be assigned to one of three typed attributes: `key-string`, `key-number`, or `key-boolean`. Having three separate, typed attributes is necessary to support this API in Blazor.
 
 When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, if one of the mappings has the `default` attribute, it will match when no other mappings have. This is equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`.
 
 If multiple mappings in a column have the same key, an error flag will be set on the table's validity object.
+
+If a mapping specifies more than one key, an error flag will be set on the table's validity object.
 
 If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the table's validity object. An invalid `icon` value is any element that cannot be resolved or that does not derive from `Icon`.
 
@@ -129,7 +131,9 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string | number | boolean
+-   `key-string`: string | null (only one of the key properties should be set at a time)
+-   `key-number`: number | null
+-   `key-boolean`: boolean | null
 -   `icon`: string - name of the Nimble icon element
 -   `severity`: string - one of the supported enum values. Controls color of the icon.
 -   `label`: string - localized value used as the accessible name and `title` of the icon. Will also be displayed in the group header.
@@ -143,7 +147,9 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string | number | boolean
+-   `key-string`: string | null (only one of the key properties should be set at a time)
+-   `key-number`: number | null
+-   `key-boolean`: boolean | null
 -   `label`: string - localized value used as the accessible name and `title` of the spinner. Will also be displayed in the group header.
 -   `default`: boolean - presence causes this mapping to be used when no others match the value
 
@@ -155,7 +161,9 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string | number | boolean
+-   `key-string`: string | null (only one of the key properties should be set at a time)
+-   `key-number`: number | null
+-   `key-boolean`: boolean | null
 -   `label`: string - display text
 -   `default`: boolean - presence causes this mapping to be used when no others match the value
 
@@ -180,13 +188,24 @@ Cell view:
 The cell view relies on the matched mapping to provide a template to render.
 
 ```HTML
-${repeat(x => (x.column as TableColumnMapping).mappings,
-    html<Mapping, TableColumnMappingCellView>`
-        ${when((x, c) => x.typedKey === (c.parent as TableColumnMappingCellView).cellRecord.value,
-            html<Mapping>`${x => x.cellViewTemplate}`
-        )}
-    `
-)}
+<div ${ref('wrapper') class="wrapper"}>
+    ${repeat(x => (x.column as TableColumnMapping).mappings,
+        html<Mapping, TableColumnMappingCellView>`
+            ${when((x, c) => x.nonNullKey() === (c.parent as TableColumnMappingCellView).cellRecord.value,
+                html<Mapping>`${x => x.cellViewTemplate}`
+            )}
+        `
+    )}
+</div>
+${when(x => x.wrapper.childElementCount === 0, html<TableColumnMappingCellView>`
+    ${repeat(x => (x.column as TableColumnMapping).mappings,
+        html<Mapping, TableColumnMappingCellView>`
+            ${when((x, c) => x.default,
+                html<Mapping>`${x => x.cellViewTemplate}`
+            )}
+        `
+    )}
+`)}
 ```
 
 Group header view:
@@ -198,11 +217,15 @@ Note the following requires that `TableColumnMappingGroupHeaderView` has a refer
 ```HTML
 ${repeat(x => (x.column as TableColumnMapping).mappings,
     html<Mapping, TableColumnMappingHeaderView>`
-        ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
+        ${when((x, c) => x.nonNullKey() === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
             html<Mapping>`${x => x.groupHeaderViewTemplate}`
         )}
     `
 )}
+</div>
+${when(x => x.wrapper.childElementCount === 0, html<TableColumnCellView>`
+    ${x => x.cellRecord.value)}}
+`)}
 ```
 
 #### `nimble-mapping-*`
@@ -310,7 +333,8 @@ None
     -   renders mapping matching the cell value (string, number, and boolean)
     -   nothing rendered when value matches no mappings
     -   validation error when non-unique mapping keys exist
-    -   validation error when non-parsable value is given to number/boolean mappings
+    -   validation error when multiple mappings marked as default
+    -   validation error when multiple key-\* properties set on a mapping
     -   validation error when invalid icon name given
     -   validation error when icon column has a `nimble-mapping-text` element
     -   grouping header for icon column includes label
