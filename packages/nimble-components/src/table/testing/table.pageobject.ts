@@ -72,6 +72,18 @@ export class TablePageObject<T extends TableRecord> {
         return headers[columnIndex]!.getBoundingClientRect().width;
     }
 
+    public async clickColumnHeader(
+        columnIndex: number,
+        shiftKeyDown = false
+    ): Promise<void> {
+        const clickEvent = new MouseEvent('click', {
+            shiftKey: shiftKeyDown,
+            bubbles: true
+        } as MouseEventInit);
+        this.getHeaderElement(columnIndex).dispatchEvent(clickEvent);
+        await waitForUpdatesAsync();
+    }
+
     public getRenderedRowCount(): number {
         return this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-row'

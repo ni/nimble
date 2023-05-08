@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 05 May 2023 15:27:55 GMT and should not be manually modified.
+This log was last generated on Mon, 08 May 2023 14:01:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.13.4
+
+Mon, 08 May 2023 14:01:25 GMT
+
+### Patches
+
+- Prevent double click select text on header ([ni/nimble@0bee650](https://github.com/ni/nimble/commit/0bee650663f75e1a497ff7334fa144e5acbb53ac))
+
+## 18.13.3
+
+Fri, 05 May 2023 21:44:18 GMT
+
+### Patches
+
+- Interactive sorting support for the table ([ni/nimble@ec21375](https://github.com/ni/nimble/commit/ec2137514d0a4c1b99323d80b911f05c41d41145))
+
+## 18.13.2
+
+Fri, 05 May 2023 20:18:38 GMT
+
+### Patches
+
+- Introduce shared user-select styling ([ni/nimble@cb2bf64](https://github.com/ni/nimble/commit/cb2bf64825e963d86ebe8bd740ebc52196edcd76))
 
 ## 18.13.1
 

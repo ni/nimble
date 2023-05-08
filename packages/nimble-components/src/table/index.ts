@@ -398,6 +398,54 @@ export class Table<
     /**
      * @internal
      */
+    public toggleColumnSort(
+        column: TableColumn,
+        allowMultiSort: boolean
+    ): void {
+        if (column.sortingDisabled) {
+            return;
+        }
+
+        const allSortedColumns = this.getColumnsParticipatingInSorting().sort(
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
+        );
+
+        const columnIndex = allSortedColumns.indexOf(column);
+        const columnAlreadySorted = columnIndex > -1;
+
+        const oldSortDirection = column.columnInternals.currentSortDirection;
+        let newSortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+
+        if (columnAlreadySorted) {
+            if (oldSortDirection === TableColumnSortDirection.descending) {
+                allSortedColumns.splice(columnIndex, 1);
+                newSortDirection = TableColumnSortDirection.none;
+                column.columnInternals.currentSortIndex = undefined;
+            } else {
+                newSortDirection = TableColumnSortDirection.descending;
+            }
+        } else {
+            allSortedColumns.push(column);
+        }
+        column.columnInternals.currentSortDirection = newSortDirection;
+
+        for (let i = 0; i < allSortedColumns.length; i++) {
+            const currentColumn = allSortedColumns[i]!;
+            if (allowMultiSort) {
+                allSortedColumns[i]!.columnInternals.currentSortIndex = i;
+            } else if (currentColumn === column) {
+                currentColumn.columnInternals.currentSortIndex = 0;
+            } else {
+                currentColumn.columnInternals.currentSortIndex = undefined;
+                currentColumn.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+            }
+        }
+    }
+
+    /**
+     * @internal
+     */
     public update(): void {
         this.validate();
         if (this.updateTracker.requiresTanStackUpdate) {
@@ -562,8 +610,10 @@ export class Table<
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
-            x => x.sortDirection !== TableColumnSortDirection.none
-                && typeof x.sortIndex === 'number'
+            x => !x.sortingDisabled
+                && x.columnInternals.currentSortDirection
+                    !== TableColumnSortDirection.none
+                && typeof x.columnInternals.currentSortIndex === 'number'
         );
     }
 
@@ -649,7 +699,9 @@ export class Table<
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
-            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
+            this.getColumnsParticipatingInSorting().map(
+                x => x.columnInternals.currentSortIndex!
+            )
         );
         this.tableValidator.validateColumnGroupIndices(
             this.getColumnsParticipatingInGrouping().map(
@@ -854,7 +906,8 @@ export class Table<
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.sortIndex! - y.sortIndex!
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
         );
         this.firstSortedColumn = sortedColumns.length
             ? sortedColumns[0]
@@ -864,7 +917,8 @@ export class Table<
             return {
                 id: column.columnInternals.uniqueId,
                 desc:
-                    column.sortDirection === TableColumnSortDirection.descending
+                    column.columnInternals.currentSortDirection
+                    === TableColumnSortDirection.descending
             };
         });
     }

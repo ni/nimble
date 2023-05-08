@@ -31,15 +31,14 @@ export const template = html<Table>`
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
-        <div
-            class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
+        <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
             style="
-                --ni-private-table-scroll-x: -${x => x.scrollX}px;
-                --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
-                --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
-                --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
-                --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
-        ">
+            --ni-private-table-scroll-x: -${x => x.scrollX}px;
+            --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
+            --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
+            --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
+            --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
+            ">
             <div role="rowgroup" class="header-container">
                 <div class="header-row" role="row">
                     ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
@@ -67,8 +66,9 @@ export const template = html<Table>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
                                 <${tableHeaderTag}
                                     class="header"
-                                    sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
+                                    sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                     ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                    @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                     :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                 >
                                     <slot name="${x => x.slot}"></slot>
