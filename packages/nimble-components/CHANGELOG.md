@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 May 2023 14:01:25 GMT and should not be manually modified.
+This log was last generated on Mon, 08 May 2023 16:14:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.13.5
+
+Mon, 08 May 2023 16:14:00 GMT
+
+### Patches
+
+- Add support for CTRL and SHIFT clicks in the table ([ni/nimble@461f55a](https://github.com/ni/nimble/commit/461f55a8fe1913b24312828e6608024e45cfef7c))
 
 ## 18.13.4
 

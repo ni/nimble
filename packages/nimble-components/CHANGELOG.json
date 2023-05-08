@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 May 2023 16:14:00 GMT",
+      "tag": "@ni/nimble-components_v18.13.5",
+      "version": "18.13.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "461f55a8fe1913b24312828e6608024e45cfef7c",
+            "comment": "Add support for CTRL and SHIFT clicks in the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 May 2023 14:01:25 GMT",
       "tag": "@ni/nimble-components_v18.13.4",
       "version": "18.13.4",
