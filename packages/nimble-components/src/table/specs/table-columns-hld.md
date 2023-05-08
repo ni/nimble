@@ -407,6 +407,55 @@ Clients should be allowed to use arbitrary content for the display part of a hea
 </nimble-table>
 ```
 
+### Validation
+
+A column should expose a property that communicates the validity of the column:
+
+```TS
+interface Validator {
+    isValid(): boolean;
+}
+
+class TableColumn {
+    public abstract readonly columnValidity: Validator;
+}
+```
+
+Each column type may define its own Validator type to handle the specifics of that column type's configuration:
+
+```TS
+class TableColumnIconValidator implements Validator {
+    private hasMultipleDefaultMappings: boolean;
+    private hasUnsupportedMappingTypes: boolean;
+    ...
+    public isValid(): boolean {
+        return !this.hasMultipleDefaultMappings
+            && !this.hasUnsupportedMappingTypes
+            ...
+    }
+}
+```
+
+The table's validity object has a property to represent the validity of all of its columns:
+
+```TS
+export class TableValidator<TData extends TableRecord> implements Validator {
+    private invalidColumnConfiguration: boolean; // true if one or more invalid columns
+    public isValid(): boolean {
+        ...
+        && !this.invalidColumnConfiguration
+        ...
+    }
+
+    public validateColumns(columns: TableColumn[]): boolean {
+        this.invalidColumnConfiguration = columns.some(x => !x.columnValidity.isValid());
+        return !this.invalidColumnConfiguration;
+    }
+}
+```
+
+The `validateColumns()` function is one of the multiple validation functions called from `validate()`, which in turn is called when a queued update is executed.
+
 ## Alternative Implementations / Designs
 
 ### Programmatic API
