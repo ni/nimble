@@ -118,7 +118,7 @@ If a record does not exist in the table's data, it will not be selected. If mult
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
 const metadata: Meta<TableArgs> = {
-    title: 'Table',
+    title: 'Components/Table',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

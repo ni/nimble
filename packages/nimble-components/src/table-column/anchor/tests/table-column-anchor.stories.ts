@@ -19,7 +19,7 @@ See the **Table** page for information about configuring the table itself and th
 information about common column configuration.`;
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Table Column Types',
+    title: 'Components/Table Column Types',
     tags: ['autodocs'],
     parameters: {
         docs: {

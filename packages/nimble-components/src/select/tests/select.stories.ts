@@ -22,8 +22,7 @@ interface OptionArgs {
 }
 
 const metadata: Meta<SelectArgs> = {
-    title: 'Select',
-    tags: ['autodocs'],
+    title: 'Components/Select',
     decorators: [withActions],
     parameters: {
         docs: {

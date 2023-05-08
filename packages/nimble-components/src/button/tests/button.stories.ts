@@ -31,7 +31,7 @@ a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".
 If you want a button that triggers navigation to a URL, use the \`nimble-anchor-button\` instead.`;
 
 const metadata: Meta<ButtonArgs> = {
-    title: 'Button',
+    title: 'Components/Button',
     decorators: [withActions],
     parameters: {
         docs: {

@@ -15,7 +15,7 @@ interface RadioGroupArgs {
 }
 
 const metadata: Meta<RadioGroupArgs> = {
-    title: 'Radio Group',
+    title: 'Components/Radio Group',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

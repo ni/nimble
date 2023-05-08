@@ -1,0 +1,11 @@
+import { Canvas, Meta, Controls, Stories, Title, Description } from '@storybook/blocks';
+import * as comboboxStories from './combobox.stories';
+
+<Meta of={comboboxStories} />
+
+<Title of={comboboxStories} />
+<Description of={comboboxStories} />
+
+<Canvas of={comboboxStories.outlineCombobox} />
+<Controls of={comboboxStories.outlineCombobox} />
+<Stories of={comboboxStories} />

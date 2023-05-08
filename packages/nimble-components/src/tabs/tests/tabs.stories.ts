@@ -25,7 +25,7 @@ horizontal scrolling. Content may be any height; the tab panel will display a ve
 If you want a sequence of tabs that navigate to different URLs, use the Anchor Tabs component instead.`;
 
 const metadata: Meta<TabsArgs> = {
-    title: 'Tabs',
+    title: 'Components/Tabs',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

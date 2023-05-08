@@ -1,0 +1,31 @@
+import { Meta, Story } from '@storybook/blocks';
+import * as comboboxStories from '../../src/combobox/tests/combobox.stories';
+import * as buttonStories from '../../src/button/tests/button.stories';
+
+<Meta title="Usage/Appearance Modes"/>
+
+# Appearance Modes & Variant Usage
+
+### Appearance Modes
+
+Components in the Nimble Design System include support for several distinct appearance modes.
+
+Most Nimble components include 3 appearance modes – **underline**, **outline**, & **block**.
+
+| Appearance Mode | Combobox Example                                 | When to use?                                  |
+|-----------------|--------------------------------------------------|-----------------------------------------------|
+| Underline       | <Story of={comboboxStories.underlineCombobox} /> | ?                                             |
+| Outline         | <Story of={comboboxStories.outlineCombobox} />   | ?                                             |
+| Block           | <Story of={comboboxStories.blockCombobox} />     | ?                                             |
+
+Some Nimble components (i.e. Button & Anchor Button) use a **ghost** appearance instead of an underline.
+
+| Appearance Mode | Button Example                                   | When to use?                                  |
+|-----------------|--------------------------------------------------|-----------------------------------------------|
+| Ghost           | <Story of={buttonStories.ghostButton} />         | ?                                             |
+| Outline         | <Story of={buttonStories.outlineButton} />       | ?                                             |
+| Block           | <Story of={buttonStories.blockButton} />         | ?                                             |
+
+### Appearance Variants
+
+Some Nimble components support further variants (e.g. primary, default )

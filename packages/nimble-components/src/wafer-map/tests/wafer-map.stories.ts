@@ -84,7 +84,7 @@ const getHighLightedValueSets = (
 };
 
 const metadata: Meta<WaferMapArgs> = {
-    title: 'WaferMap',
+    title: 'Components/WaferMap',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

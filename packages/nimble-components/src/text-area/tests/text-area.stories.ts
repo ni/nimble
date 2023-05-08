@@ -29,7 +29,7 @@ If you configure your text area to be resizable (with the \`resize\` attribute) 
 `;
 
 const metadata: Meta<TextAreaArgs> = {
-    title: 'Text Area',
+    title: 'Components/Text Area',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

@@ -29,7 +29,7 @@ This icon will be hidden when \`contentHidden\` is set to \`true\`
 .`;
 
 const metadata: Meta<MenuButtonArgs> = {
-    title: 'Menu Button',
+    title: 'Components/Menu Button',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

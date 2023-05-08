@@ -24,7 +24,7 @@ to another "anchor" element. Additionally, the anchored region can react to the 
 available space, or even resize itself based on that space.`;
 
 const metadata: Meta<AnchoredRegionArgs> = {
-    title: 'Tests/Anchored Region',
+    title: 'Components/Tests/Anchored Region',
     parameters: {
         docs: {
             description: {

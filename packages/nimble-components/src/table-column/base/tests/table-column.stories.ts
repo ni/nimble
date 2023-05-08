@@ -79,7 +79,7 @@ See **Table** for information about configuring the table itself and **Table Col
 information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Table Column Configuration',
+    title: 'Components/Table Column Configuration',
     parameters: {
         docs: {
             description: {
