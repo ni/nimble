@@ -2,6 +2,111 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 08 May 2023 16:14:00 GMT",
+      "tag": "@ni/nimble-components_v18.13.5",
+      "version": "18.13.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "461f55a8fe1913b24312828e6608024e45cfef7c",
+            "comment": "Add support for CTRL and SHIFT clicks in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 May 2023 14:01:25 GMT",
+      "tag": "@ni/nimble-components_v18.13.4",
+      "version": "18.13.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0bee650663f75e1a497ff7334fa144e5acbb53ac",
+            "comment": "Prevent double click select text on header"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 05 May 2023 21:44:18 GMT",
+      "tag": "@ni/nimble-components_v18.13.3",
+      "version": "18.13.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec2137514d0a4c1b99323d80b911f05c41d41145",
+            "comment": "Interactive sorting support for the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 05 May 2023 20:18:38 GMT",
+      "tag": "@ni/nimble-components_v18.13.2",
+      "version": "18.13.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb2bf64825e963d86ebe8bd740ebc52196edcd76",
+            "comment": "Introduce shared user-select styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 05 May 2023 15:27:55 GMT",
+      "tag": "@ni/nimble-components_v18.13.1",
+      "version": "18.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "592c535b6f1e43b007db4da8b2ed9b226e06d644",
+            "comment": "Update size of the table's action menu"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 May 2023 23:44:37 GMT",
+      "tag": "@ni/nimble-components_v18.13.0",
+      "version": "18.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9657d09a213bff664be5d395568d4282e110c839",
+            "comment": "Update table column sorting HLD to cover interactive sorting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 May 2023 20:33:27 GMT",
+      "tag": "@ni/nimble-components_v18.13.0",
+      "version": "18.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1416056e356ce9338db8fe067d9850d65d9c0346",
+            "comment": "Export table page object "
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Apr 2023 16:13:58 GMT",
       "tag": "@ni/nimble-components_v18.12.7",
       "version": "18.12.7",

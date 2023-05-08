@@ -11,7 +11,6 @@ export const template = html<TableRow>`
             <span role="gridcell" class="checkbox-container">
                 <${checkboxTag}
                     ${ref('selectionCheckbox')}
-                    role="cell"
                     class="selection-checkbox"
                     @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                     @click="${(_, c) => c.event.stopPropagation()}"

@@ -118,55 +118,31 @@ public class NimbleTableColumnAnchorTests
         Assert.Contains(expectedMarkup, tableColumn.Markup);
     }
 
-    [Fact]
-    public void NimbleTableColumnAnchor_WithMinPixelWidthAttribute_HasTableMarkup()
-    {
-        var tableColumn = RenderWithPropertySet(x => x.MinPixelWidth!, 40);
-
-        var expectedMarkup = @"min-pixel-width=""40""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
-    }
-
-    [Fact]
-    public void NimbleTableColumnAnchor_WithSortIndexAttribute_HasTableMarkup()
-    {
-        var tableColumn = RenderWithPropertySet(x => x.SortIndex!, 0);
-
-        var expectedMarkup = @"sort-index=""0""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
-    }
-
-    [Fact]
-    public void NimbleTableColumnAnchor_WithSortDirectionAttribute_HasTableMarkup()
-    {
-        var tableColumn = RenderWithPropertySet(x => x.SortDirection!, TableColumnSortDirection.Descending);
-
-        var expectedMarkup = @"sort-direction=""descending""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
-    }
-
-    [Fact]
-    public void NimbleTableColumnAnchor_WithGroupIndexAttribute_HasTableMarkup()
-    {
-        var tableColumn = RenderWithPropertySet(x => x.GroupIndex!, 0);
-
-        var expectedMarkup = @"group-index=""0""";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
-    }
-
-    [Fact]
-    public void NimbleTableColumnAnchor_WithGroupingDisabledAttribute_HasTableMarkup()
-    {
-        var tableColumn = RenderWithPropertySet(x => x.GroupingDisabled!, true);
-
-        var expectedMarkup = @"grouping-disabled";
-        Assert.Contains(expectedMarkup, tableColumn.Markup);
-    }
-
     private IRenderedComponent<NimbleTableColumnAnchor> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTableColumnAnchor, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleTableColumnAnchor>(p => p.Add(propertyGetter, propertyValue));
     }
+}
+
+/// <summary>
+/// Tests for NimbleTableColumn API on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorBaseTests : NimbleTableColumnTests<NimbleTableColumnAnchor>
+{
+}
+
+/// <summary>
+/// Tests for FractionalWidthAPI on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorFractionalWidthTests : FractionalWidthBaseTests<NimbleTableColumnAnchor>
+{
+}
+
+/// <summary>
+/// Tests for GroupableAPI on <see cref="NimbleTableColumnAnchor"/>
+/// </summary>
+public class NimbleTableColumnAnchorGroupableTests : GroupableBaseTests<NimbleTableColumnAnchor>
+{
 }

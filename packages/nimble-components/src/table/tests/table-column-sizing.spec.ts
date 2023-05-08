@@ -4,7 +4,7 @@ import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
@@ -38,7 +38,7 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData">                
+            <nimble-table-column-text id="first-column" field-name="stringData">
             </nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">
             </nimble-table-column-text>
