@@ -1,3 +1,5 @@
+import type { FoundationElement } from '@microsoft/fast-foundation';
+
 /**
  * TableFieldName describes the type associated with keys within
  * a table's records.
@@ -91,4 +93,8 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+export interface UpdaTable extends FoundationElement {
+    update(): void;
 }
