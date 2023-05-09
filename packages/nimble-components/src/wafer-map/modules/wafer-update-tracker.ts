@@ -1,11 +1,11 @@
-import type { UpdaTable } from '../../utilities/types';
+import type { WaferMap } from '..';
 import { UpdateTracker } from '../../utilities/update-tracker';
 
 /**
  * Helper class to track what updates are needed to the wafer based on configuration
  * changes.
  */
-export class WaferUpdateTracker<Type extends UpdaTable> extends UpdateTracker<Type> {
+export class WaferUpdateTracker extends UpdateTracker<WaferMap> {
     public trackQuadrantChanged(): void {
         this.requiredUpdates.quadrant = true;
         this.queueUpdate();

@@ -1,4 +1,3 @@
-import type { UpdaTable } from '../../utilities/types';
 import type { ColumnInternals } from '../../table-column/base/models/column-internals';
 import type { TableColumn } from '../../table-column/base';
 import { UpdateTracker } from '../../utilities/update-tracker';
@@ -27,11 +26,22 @@ const isColumnInternalsProperty = (
     return false;
 };
 
+interface RequiredUpdates {
+    rowIds: boolean;
+    groupRows: boolean;
+    columnIds: boolean;
+    columnSort: boolean;
+    columnWidths: boolean;
+    columnDefinition: boolean;
+    actionMenuSlots: boolean;
+    selectionMode: boolean;
+}
+
 /**
  * Helper class to track what updates are needed to the table based on configuration
  * changes.
  */
-export class TableUpdateTracker<Type extends UpdaTable> extends UpdateTracker<Type> {
+export class TableUpdateTracker extends UpdateTracker<RequiredUpdates> {
     public get updateRowIds(): boolean | undefined {
         return this.requiredUpdates.rowIds;
     }

@@ -1,18 +1,26 @@
 import { DOM } from '@microsoft/fast-element';
-import { RequiredUpdates } from './required-updates';
 import type { UpdaTable } from './types';
 
 /**
+ * custom update bingo card
+ */
+type RequiredUpdates<Type> = {
+    [Property in keyof Type]: boolean;
+};
+/**
  * custom update bingo card helper
  */
-export class UpdateTracker<Type extends UpdaTable> {
+export class UpdateTracker<Type> {
     protected requiredUpdates: RequiredUpdates<Type>;
-    private readonly baseInstance: Type;
+    private readonly baseInstance: UpdaTable;
     private updateQueued = false;
 
-    public constructor(baseInstance: Type) {
+    public constructor(baseInstance: UpdaTable) {
         this.baseInstance = baseInstance;
-        this.requiredUpdates = new RequiredUpdates(baseInstance);
+        this.requiredUpdates = {} as RequiredUpdates<Type>;
+        for (const key of Object.keys(this.requiredUpdates) as (keyof Type)[]) {
+            this.requiredUpdates[key] = false;
+        }
     }
 
     public trackAllStateChanged(): void {
@@ -40,7 +48,7 @@ export class UpdateTracker<Type extends UpdaTable> {
     }
 
     private setAllKeys(value: boolean): void {
-        Object.keys(this.requiredUpdates).forEach(key => {
+        (Object.keys(this.requiredUpdates) as (keyof Type)[]).forEach(key => {
             this.requiredUpdates[key] = value;
         });
     }
