@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Combobox and select lists float above UI. Removes support for Position property on both components.",
+  "packageName": "@ni/nimble-blazor",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
