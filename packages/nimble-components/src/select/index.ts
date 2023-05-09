@@ -58,8 +58,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     /**
-     * Overrides the `setPositioning()` method in Select.
-     * This breaks functionality for the `positionAttribute`, `position`, `forcedPosition`, and `maxHeight` properties.
+     * This implementation comes from FAST. We took their implementation to use the floating-ui
+     * package for floating the listbox above other UI elements.
+     * See: https://github.com/microsoft/fast/pull/6452
      */
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
@@ -116,8 +117,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
     }
 
     /**
-     * overrides the `openChanged()` method in Select.
-     * `this.setPositioning()` has to be called on the next tick so the position is measured correctly.
+     * This implementation comes from FAST. We took their implementation to use the floating-ui
+     * package for floating the listbox above other UI elements.
+     * See: https://github.com/microsoft/fast/pull/6452
      */
     protected override openChanged(
         _prev: boolean | undefined,

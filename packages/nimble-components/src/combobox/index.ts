@@ -71,6 +71,11 @@ export class Combobox extends FoundationCombobox implements ErrorPattern {
      */
     public cleanup: () => void = () => {};
 
+    /**
+     * This implementation comes from FAST. We took their implementation to use the floating-ui
+     * package for floating the listbox above other UI elements.
+     * See: https://github.com/microsoft/fast/pull/6452
+     */
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
             return;
@@ -209,6 +214,11 @@ export class Combobox extends FoundationCombobox implements ErrorPattern {
         return returnValue;
     }
 
+    /**
+     * This implementation comes from FAST. We took their implementation to use the floating-ui
+     * package for floating the listbox above other UI elements.
+     * See: https://github.com/microsoft/fast/pull/6452
+     */
     protected override openChanged(): void {
         if (this.dropdownButton) {
             this.dropdownButton.checked = this.open;
