@@ -3,6 +3,7 @@ import {
     computePosition,
     flip,
     hide,
+    offset,
     size
 } from '@floating-ui/dom';
 import { attr, DOM, html } from '@microsoft/fast-element';
@@ -76,6 +77,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
                     placement: 'bottom',
                     strategy: 'fixed',
                     middleware: [
+                        offset(4), // smallPadding
                         flip(),
                         size({
                             apply: ({ availableHeight, rects }) => {

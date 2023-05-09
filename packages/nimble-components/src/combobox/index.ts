@@ -3,6 +3,7 @@ import {
     computePosition,
     flip,
     hide,
+    offset,
     size
 } from '@floating-ui/dom';
 import { attr, DOM, html, observable, ref } from '@microsoft/fast-element';
@@ -89,6 +90,7 @@ export class Combobox extends FoundationCombobox implements ErrorPattern {
                     placement: 'bottom',
                     strategy: 'fixed',
                     middleware: [
+                        offset(4), // smallPadding
                         flip(),
                         size({
                             apply: ({ availableHeight, rects }) => {

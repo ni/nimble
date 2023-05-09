@@ -155,24 +155,6 @@ export const styles = css`
         display: none;
     }
 
-    :host([open][position='above']) .listbox {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    :host([open][position='below']) .listbox {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    :host([open][position='above']) .listbox {
-        bottom: ${controlHeight};
-    }
-
-    :host([open][position='below']) .listbox {
-        top: calc(${controlHeight} + ${smallPadding});
-    }
-
     .selected-value {
         flex: auto;
         font-family: inherit;
