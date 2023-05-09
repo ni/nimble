@@ -52,6 +52,7 @@ export const styles = css`
 
     .table-row-container {
         width: fit-content;
+        min-width: 100%;
         position: relative;
         top: var(--ni-private-table-row-container-top);
         background-color: ${tableRowBorderColor};
