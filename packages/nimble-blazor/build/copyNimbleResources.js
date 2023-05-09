@@ -5,7 +5,7 @@ const fs = require('fs');
 const destinationDirectory = path.resolve(__dirname, '../NimbleBlazor/wwwroot');
 console.log(`Destination directory for blazor assets: "${destinationDirectory}"`);
 
-const nimbleComponentsPath = resolvePackagePath('@ni/nimble-components');
+const nimbleComponentsPath = resolvePackagePath('@ni/nimble-bundle');
 const nimbleTokensPath = resolvePackagePath('@ni/nimble-tokens');
 
 const componentsBasePath = path.resolve(nimbleComponentsPath, 'dist');

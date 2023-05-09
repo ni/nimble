@@ -1,0 +1,32 @@
+{
+    "name": "@ni/nimble-bundle",
+    "version": "1.0.0",
+    "description": "Pre-bundled nimble-components to use in prototypes",
+    "scripts": {
+        "build": "npm run bundle-components",
+        "bundle-components": "rollup --bundleConfigAsCjs --config"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ni/nimble.git"
+    },
+    "author": {
+        "name": "National Instruments"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ni/nimble/issues"
+    },
+    "homepage": "https://github.com/ni/nimble#readme",
+    "devDependencies": {
+        "@ni/nimble-components": "^18.13.5",
+        "@rollup/plugin-commonjs": "^24.0.1",
+        "@rollup/plugin-node-resolve": "^15.0.1",
+        "@rollup/plugin-replace": "^5.0.1",
+        "@rollup/plugin-terser": "^0.4.0",
+        "rollup": "^3.10.1",
+        "rollup-plugin-sourcemaps": "^0.6.3",
+        "rollup-plugin-visualizer": "^5.9.0",
+        "vite": "^4.3.5"
+    }
+}
