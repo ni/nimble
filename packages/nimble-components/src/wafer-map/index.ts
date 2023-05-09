@@ -19,6 +19,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import { WaferUpdateTracker } from './modules/wafer-update-tracker';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -136,12 +137,14 @@ export class WaferMap extends FoundationElement {
 
     private eventCoordinator?: EventCoordinator;
     private resizeObserver?: ResizeObserver;
+    private readonly waferUpdateTracker = new WaferUpdateTracker(this);
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
+        this.waferUpdateTracker?.trackAllStateChanged();
         this.resizeObserver = this.createResizeObserver();
     }
 
@@ -153,34 +156,16 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public render(): void {
-        this.renderQueued = false;
-        this.initializeInternalModules();
-        this.renderer?.drawWafer();
-    }
-
-    private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
+    public update(): void {
+        if (this.waferUpdateTracker.updateHoverPosition) {
+            this.renderer?.renderHover();
+        } else {
+            this.eventCoordinator?.detachEvents();
+            this.dataManager = new DataManager(this);
+            this.renderer = new RenderingModule(this);
+            this.eventCoordinator = new EventCoordinator(this);
+            this.renderer?.drawWafer();
         }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
-        }
-    }
-
-    private queueRenderHover(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        DOM.queueUpdate(() => this.renderer?.renderHover());
-    }
-
-    private initializeInternalModules(): void {
-        this.eventCoordinator?.detachEvents();
-        this.dataManager = new DataManager(this);
-        this.renderer = new RenderingModule(this);
-        this.eventCoordinator = new EventCoordinator(this);
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -202,56 +187,56 @@ export class WaferMap extends FoundationElement {
     }
 
     private quadrantChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackQuadrantChanged();
     }
 
     private orientationChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackOrientationChanged();
     }
 
     private maxCharactersChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackMaxCharactersChanged();
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackDieLabelsHiddenChanged();
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackDieLabelsSuffixChanged();
     }
 
     private colorScaleModeChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackColorScaleModeChanged();
     }
 
     private highlightedValuesChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackHighlightedValuesChanged();
     }
 
     private diesChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackDiesChanged();
     }
 
     private colorScaleChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackColorScaleChanged();
     }
 
     private transformChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackTransformChanged();
     }
 
     private canvasWidthChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackCanvasWidthChanged();
     }
 
     private canvasHeightChanged(): void {
-        this.queueRender();
+        this.waferUpdateTracker.trackCanvasHeightChanged();
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.queueRenderHover();
+        this.waferUpdateTracker.trackHoverDieChanged();
     }
 }
 

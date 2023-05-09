@@ -34,7 +34,7 @@ describe('WaferMap', () => {
     describe('render flow', () => {
         let spy: jasmine.Spy;
         beforeEach(() => {
-            spy = spyOn(element, 'render');
+            spy = spyOn(element, 'update');
         });
 
         it('will render once after quadrant changes', () => {
