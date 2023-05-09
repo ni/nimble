@@ -50,7 +50,7 @@ public partial class NimbleButton : ComponentBase
 ```
     <nimble-button>@ChildContent</nimble-button>
 ```
-- Always add an `AdditionalAttributes` parameter that captures unmatched values, so that attributes not declared explicitly can still be passed along to the Nimble element:
+- Always add an `AdditionalAttributes` parameter that captures unmatched values, so that attributes not declared explicitly, such as the common `class` or `id` attributes, can still be passed along to the Nimble element:
 ```CS
 [Parameter(CaptureUnmatchedValues = true)]
 public IDictionary<string, object>? AdditionalAttributes { get; set; }
