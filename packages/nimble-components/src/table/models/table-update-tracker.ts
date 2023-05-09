@@ -42,39 +42,39 @@ interface RequiredUpdates {
  * changes.
  */
 export class TableUpdateTracker extends UpdateTracker<RequiredUpdates> {
-    public get updateRowIds(): boolean | undefined {
+    public get updateRowIds(): boolean {
         return this.requiredUpdates.rowIds;
     }
 
-    public get updateGroupRows(): boolean | undefined {
+    public get updateGroupRows(): boolean {
         return this.requiredUpdates.groupRows;
     }
 
-    public get updateColumnIds(): boolean | undefined {
+    public get updateColumnIds(): boolean {
         return this.requiredUpdates.columnIds;
     }
 
-    public get updateColumnSort(): boolean | undefined {
+    public get updateColumnSort(): boolean {
         return this.requiredUpdates.columnSort;
     }
 
-    public get updateColumnWidths(): boolean | undefined {
+    public get updateColumnWidths(): boolean {
         return this.requiredUpdates.columnWidths;
     }
 
-    public get updateColumnDefinition(): boolean | undefined {
+    public get updateColumnDefinition(): boolean {
         return this.requiredUpdates.columnDefinition;
     }
 
-    public get updateActionMenuSlots(): boolean | undefined {
+    public get updateActionMenuSlots(): boolean {
         return this.requiredUpdates.actionMenuSlots;
     }
 
-    public get updateSelectionMode(): boolean | undefined {
+    public get updateSelectionMode(): boolean {
         return this.requiredUpdates.selectionMode;
     }
 
-    public get requiresTanStackUpdate(): boolean | undefined {
+    public get requiresTanStackUpdate(): boolean {
         return (
             this.requiredUpdates.rowIds
             || this.requiredUpdates.columnSort
@@ -84,7 +84,7 @@ export class TableUpdateTracker extends UpdateTracker<RequiredUpdates> {
         );
     }
 
-    public get requiresTanStackDataReset(): boolean | undefined {
+    public get requiresTanStackDataReset(): boolean {
         return (
             this.requiredUpdates.rowIds || this.requiredUpdates.columnDefinition
         );
