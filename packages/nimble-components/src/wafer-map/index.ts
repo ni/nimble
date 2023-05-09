@@ -1,6 +1,5 @@
 import {
     attr,
-    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -157,7 +156,7 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public update(): void {
-        if (this.waferUpdateTracker.updateHoverPosition) {
+        if (this.waferUpdateTracker.update('hoverDie')) {
             this.renderer?.renderHover();
         } else {
             this.eventCoordinator?.detachEvents();
@@ -187,56 +186,56 @@ export class WaferMap extends FoundationElement {
     }
 
     private quadrantChanged(): void {
-        this.waferUpdateTracker.trackQuadrantChanged();
+        this.waferUpdateTracker.track('quadrant');
     }
 
     private orientationChanged(): void {
-        this.waferUpdateTracker.trackOrientationChanged();
+        this.waferUpdateTracker.track('orientation');
     }
 
     private maxCharactersChanged(): void {
-        this.waferUpdateTracker.trackMaxCharactersChanged();
+        this.waferUpdateTracker.track('maxCharacters');
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.waferUpdateTracker.trackDieLabelsHiddenChanged();
+        this.waferUpdateTracker.track('dieLabelsHidden');
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.waferUpdateTracker.trackDieLabelsSuffixChanged();
+        this.waferUpdateTracker.track('dieLabelsSuffix');
     }
 
     private colorScaleModeChanged(): void {
-        this.waferUpdateTracker.trackColorScaleModeChanged();
+        this.waferUpdateTracker.track('colorScaleMode');
     }
 
     private highlightedValuesChanged(): void {
-        this.waferUpdateTracker.trackHighlightedValuesChanged();
+        this.waferUpdateTracker.track('highlightedValues');
     }
 
     private diesChanged(): void {
-        this.waferUpdateTracker.trackDiesChanged();
+        this.waferUpdateTracker.track('dies');
     }
 
     private colorScaleChanged(): void {
-        this.waferUpdateTracker.trackColorScaleChanged();
+        this.waferUpdateTracker.track('colorScale');
     }
 
     private transformChanged(): void {
-        this.waferUpdateTracker.trackTransformChanged();
+        this.waferUpdateTracker.track('transform');
     }
 
     private canvasWidthChanged(): void {
-        this.waferUpdateTracker.trackCanvasWidthChanged();
+        this.waferUpdateTracker.track('canvasWidth');
     }
 
     private canvasHeightChanged(): void {
-        this.waferUpdateTracker.trackCanvasHeightChanged();
+        this.waferUpdateTracker.track('canvasHeight');
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.waferUpdateTracker.trackHoverDieChanged();
+        this.waferUpdateTracker.track('hoverDie');
     }
 }
 

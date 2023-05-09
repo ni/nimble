@@ -23,20 +23,28 @@ export class UpdateTracker<Type> {
         }
     }
 
-    public trackAllStateChanged(): void {
-        this.setAllKeys(true);
+    public get hasPendingUpdates(): boolean {
+        return this.updateQueued;
+    }
+
+    public track<Property extends keyof Type>(key: Property): void {
+        this.requiredUpdates[key] = true;
         this.queueUpdate();
     }
 
-    public get hasPendingUpdates(): boolean {
-        return this.updateQueued;
+    public update<Property extends keyof Type>(key: Property): boolean {
+        return this.requiredUpdates[key];
+    }
+
+    public trackAllStateChanged(): void {
+        this.setAllKeys(true);
+        this.queueUpdate();
     }
 
     protected queueUpdate(): void {
         if (!this.baseInstance.$fastController.isConnected) {
             return;
         }
-
         if (!this.updateQueued) {
             this.updateQueued = true;
             DOM.queueUpdate(() => {
@@ -52,4 +60,5 @@ export class UpdateTracker<Type> {
             this.requiredUpdates[key] = value;
         });
     }
+
 }
