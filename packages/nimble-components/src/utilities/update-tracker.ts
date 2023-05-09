@@ -1,6 +1,6 @@
 import { DOM } from '@microsoft/fast-element';
 import { RequiredUpdates } from './required-updates';
-import type { UpdaTable } from '../types';
+import type { UpdaTable } from './types';
 
 /**
  * custom update bingo card helper

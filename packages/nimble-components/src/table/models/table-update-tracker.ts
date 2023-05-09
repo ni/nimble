@@ -1,7 +1,7 @@
-import type { UpdaTable } from '../types';
+import type { UpdaTable } from '../../utilities/types';
 import type { ColumnInternals } from '../../table-column/base/models/column-internals';
 import type { TableColumn } from '../../table-column/base';
-import { UpdateTracker } from './update-tracker';
+import { UpdateTracker } from '../../utilities/update-tracker';
 
 const isColumnProperty = (
     changedProperty: string,
