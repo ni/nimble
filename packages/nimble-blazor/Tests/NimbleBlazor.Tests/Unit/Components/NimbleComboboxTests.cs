@@ -23,16 +23,6 @@ public class NimbleComboboxTests
     }
 
     [Theory]
-    [InlineData(Position.Below, "below")]
-    [InlineData(Position.Above, "above")]
-    public void ComboboxPosition_AttributeIsSet(Position value, string expectedAttribute)
-    {
-        var combobox = RenderWithPropertySet(x => x.Position, value);
-
-        Assert.Contains(expectedAttribute, combobox.Markup);
-    }
-
-    [Theory]
     [InlineData(AutoComplete.Both, "both")]
     [InlineData(AutoComplete.List, "list")]
     [InlineData(AutoComplete.Inline, "inline")]

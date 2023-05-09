@@ -4,15 +4,9 @@ import { Select, selectTag } from '..';
 import '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
-async function setup(
-    position?: string,
-    open?: boolean
-): Promise<Fixture<Select>> {
+async function setup(open?: boolean): Promise<Fixture<Select>> {
     const viewTemplate = html`
-        <nimble-select
-            ${position !== undefined ? `position="${position}"` : ''}
-            ${open ? 'open' : ''}
-        >
+        <nimble-select ${open ? 'open' : ''}>
             <nimble-list-option value="one">One</nimble-list-option>
             <nimble-list-option value="two">Two</nimble-list-option>
             <nimble-list-option value="three">Three</nimble-list-option>
@@ -65,15 +59,13 @@ describe('Select', () => {
         await disconnect();
     });
 
-    it('should respect "open" and "position" attributes when both set', async () => {
-        const position = 'above';
-        const { element, connect, disconnect } = await setup(position, true);
+    it('should respect "open" attribute when set', async () => {
+        const { element, connect, disconnect } = await setup(true);
 
         await connect();
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('open')).not.toBeNull();
-        expect(element.getAttribute('position')).toBe(position);
 
         await disconnect();
     });

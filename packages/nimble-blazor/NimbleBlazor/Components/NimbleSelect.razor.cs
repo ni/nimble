@@ -18,9 +18,6 @@ public partial class NimbleSelect : NimbleInputBase<string?>
     public bool? Disabled { get; set; }
 
     [Parameter]
-    public Position? Position { get; set; }
-
-    [Parameter]
     public DropdownAppearance? Appearance { get; set; }
 
     /// <summary>

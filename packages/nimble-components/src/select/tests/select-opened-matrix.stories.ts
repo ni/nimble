@@ -1,5 +1,5 @@
 import type { StoryFn, Meta } from '@storybook/html';
-import { html, ViewTemplate } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
@@ -15,18 +15,9 @@ const metadata: Meta = {
 
 export default metadata;
 
-const positionStates = [
-    ['below', 'margin-bottom: 120px;'],
-    ['above', 'margin-top: 120px;']
-] as const;
-type PositionState = (typeof positionStates)[number];
-
 // prettier-ignore
-const component = ([
-    position,
-    positionStyle
-]: PositionState): ViewTemplate => html`
-    <${selectTag} open position="${() => position}" style="${() => positionStyle}">
+const component = html`
+    <${selectTag} open>
         <${listOptionTag} value="1">Option 1</${listOptionTag}>
         <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
@@ -45,29 +36,8 @@ if (remaining.length > 0) {
     throw new Error('New backgrounds need to be supported');
 }
 
-export const selectBelowOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
-    lightThemeWhiteBackground
-);
-export const selectAboveOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
-    lightThemeWhiteBackground
-);
+export const selectOpenLightThemeWhiteBackground: StoryFn = createFixedThemeStory(component, lightThemeWhiteBackground);
 
-export const selectBelowOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
-    colorThemeDarkGreenBackground
-);
-export const selectAboveOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
-    colorThemeDarkGreenBackground
-);
+export const selectOpenColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
 
-export const selectBelowOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[0]),
-    darkThemeBlackBackground
-);
-export const selectAboveOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    component(positionStates[1]),
-    darkThemeBlackBackground
-);
+export const selectOpenDarkThemeBlackBackground: StoryFn = createFixedThemeStory(component, darkThemeBlackBackground);

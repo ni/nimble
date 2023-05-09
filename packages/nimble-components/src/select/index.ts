@@ -1,4 +1,11 @@
-import { attr, html } from '@microsoft/fast-element';
+import {
+    autoUpdate,
+    computePosition,
+    flip,
+    hide,
+    size
+} from '@floating-ui/dom';
+import { attr, DOM, html } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Select as FoundationSelect,
@@ -16,6 +23,10 @@ declare global {
     interface HTMLElementTagNameMap {
         'nimble-select': Select;
     }
+}
+
+interface IHasIndexWhenOpened {
+    indexWhenOpened: number;
 }
 
 /**
@@ -38,15 +49,58 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
-    // Workaround for https://github.com/microsoft/fast/issues/5123
+    /** @internal */
+    public cleanup: () => void = () => {};
+
+    public override disconnectedCallback(): void {
+        this.cleanup?.();
+        super.disconnectedCallback();
+    }
+
+    /**
+     * Overrides the `setPositioning()` method in Select.
+     * This breaks functionality for the `positionAttribute`, `position`, `forcedPosition`, and `maxHeight` properties.
+     */
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
             return;
         }
-        super.setPositioning();
-        this.updateListboxMaxHeightCssVariable();
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-misused-promises
+        this.cleanup = autoUpdate(this, this.listbox, async () => {
+            const { middlewareData, x, y } = await computePosition(
+                this.control,
+                this.listbox,
+                {
+                    placement: 'bottom',
+                    strategy: 'fixed',
+                    middleware: [
+                        flip(),
+                        size({
+                            apply: ({ availableHeight, rects }) => {
+                                Object.assign(this.listbox.style, {
+                                    maxHeight: `${availableHeight}px`,
+                                    width: `${rects.reference.width}px`
+                                });
+                            }
+                        }),
+                        hide()
+                    ]
+                }
+            );
+
+            if (middlewareData.hide?.referenceHidden) {
+                this.open = false;
+                return;
+            }
+
+            Object.assign(this.listbox.style, {
+                position: 'fixed',
+                top: '0',
+                left: '0',
+                transform: `translate(${x}px, ${y}px)`
+            });
+        });
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5773
@@ -61,17 +115,35 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
     }
 
-    private maxHeightChanged(): void {
-        this.updateListboxMaxHeightCssVariable();
-    }
-
-    private updateListboxMaxHeightCssVariable(): void {
-        if (this.listbox) {
-            this.listbox.style.setProperty(
-                '--ni-private-select-max-height',
-                `${this.maxHeight}px`
-            );
+    /**
+     * overrides the `openChanged()` method in Select.
+     * `this.setPositioning()` has to be called on the next tick so the position is measured correctly.
+     */
+    protected override openChanged(
+        _prev: boolean | undefined,
+        _next: boolean
+    ): void {
+        if (!this.collapsible) {
+            return;
         }
+        if (this.open) {
+            this.ariaControls = this.listboxId;
+            this.ariaExpanded = 'true';
+
+            DOM.queueUpdate(() => this.setPositioning());
+            this.focusAndScrollOptionIntoView();
+            // We need to update indexWhenOpened, but it is private.
+            (this as unknown as IHasIndexWhenOpened).indexWhenOpened = this.selectedIndex;
+
+            // focus is directed to the element when `open` is changed programmatically
+            DOM.queueUpdate(() => this.focus());
+            return;
+        }
+
+        this.cleanup?.();
+
+        this.ariaControls = '';
+        this.ariaExpanded = 'false';
     }
 }
 

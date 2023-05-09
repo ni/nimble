@@ -6,7 +6,6 @@
         @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
         disabled="@Disabled"
         name="@Name"
-        position="@Position.ToAttributeValue()"
         appearance="@Appearance.ToAttributeValue()"
         error-text="@ErrorText"
         error-visible="@ErrorVisible"

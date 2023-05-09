@@ -22,16 +22,6 @@ public class NimbleSelectTests
         Assert.Contains(expectedMarkup, select.Markup);
     }
 
-    [Theory]
-    [InlineData(Position.Below, "below")]
-    [InlineData(Position.Above, "above")]
-    public void SelectPosition_AttributeIsSet(Position value, string expectedAttribute)
-    {
-        var select = RenderWithPropertySet(x => x.Position, value);
-
-        Assert.Contains(expectedAttribute, select.Markup);
-    }
-
     [Fact]
     public void SelectErrorText_AttributeIsSet()
     {

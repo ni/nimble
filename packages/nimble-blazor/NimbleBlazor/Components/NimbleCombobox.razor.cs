@@ -22,12 +22,6 @@ public partial class NimbleCombobox : NimbleInputBase<string?>
     public bool? Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the position of the popup relative to the combobox
-    /// </summary>
-    [Parameter]
-    public Position? Position { get; set; }
-
-    /// <summary>
     /// Gets or sets the appearance of the combobox
     /// </summary>
     [Parameter]

@@ -139,10 +139,6 @@ export const styles = css`
         position: absolute;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(
-            var(--ni-private-select-max-height) - 2 *
-                var(--ni-private-listbox-padding)
-        );
         z-index: 1;
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};

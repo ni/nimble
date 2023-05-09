@@ -5,7 +5,6 @@
         current-value="@CurrentValueAsString"
         @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
         disabled="@Disabled"
-        position="@Position.ToAttributeValue()"
         autocomplete="@AutoComplete.ToAttributeValue()"
         appearance="@Appearance.ToAttributeValue()"
         placeholder="@Placeholder"

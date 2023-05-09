@@ -6,15 +6,9 @@ import '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
-async function setup(
-    position?: string,
-    open?: boolean
-): Promise<Fixture<Combobox>> {
+async function setup(open?: boolean): Promise<Fixture<Combobox>> {
     const viewTemplate = html`
-        <nimble-combobox
-            ${position !== undefined ? `position="${position}"` : ''}
-            ${open ? 'open' : ''}
-        >
+        <nimble-combobox ${open ? 'open' : ''}>
             <nimble-list-option value="one">One</nimble-list-option>
             <nimble-list-option value="two">Two</nimble-list-option>
             <nimble-list-option value="three">Three</nimble-list-option>
@@ -46,15 +40,13 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    it('should respect "open" and "position" attributes when both set', async () => {
-        const position = 'above';
-        const { element, connect, disconnect } = await setup(position, true);
+    it('should respect "open" attribute when set', async () => {
+        const { element, connect, disconnect } = await setup(true);
 
         await connect();
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('open')).not.toBeNull();
-        expect(element.getAttribute('position')).toBe(position);
 
         await disconnect();
     });
@@ -125,7 +117,7 @@ describe('Combobox', () => {
     });
 
     it('clicking dropdown button when popup is open should close menu', async () => {
-        const { element, connect, disconnect } = await setup(undefined, true);
+        const { element, connect, disconnect } = await setup(true);
         await connect();
 
         element.dropdownButton?.control.click();
@@ -137,7 +129,7 @@ describe('Combobox', () => {
     });
 
     it('clicking dropdown button when popup is open should cause button to be unchecked', async () => {
-        const { element, connect, disconnect } = await setup(undefined, true);
+        const { element, connect, disconnect } = await setup(true);
         await connect();
 
         element.dropdownButton?.control.click();
@@ -149,7 +141,7 @@ describe('Combobox', () => {
     });
 
     it('setting open programmatically should update checked state of button', async () => {
-        const { element, connect, disconnect } = await setup(undefined, false);
+        const { element, connect, disconnect } = await setup(false);
         await connect();
 
         element.open = true;
@@ -161,7 +153,7 @@ describe('Combobox', () => {
     });
 
     it('clicking dropdown after dropdown closed with button should cause button to be checked', async () => {
-        const { element, connect, disconnect } = await setup(undefined, true);
+        const { element, connect, disconnect } = await setup(true);
         await connect();
 
         element.dropdownButton?.control.click(); // open should be false

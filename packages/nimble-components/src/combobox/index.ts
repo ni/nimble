@@ -1,4 +1,11 @@
-import { attr, html, observable, ref } from '@microsoft/fast-element';
+import {
+    autoUpdate,
+    computePosition,
+    flip,
+    hide,
+    size
+} from '@floating-ui/dom';
+import { attr, DOM, html, observable, ref } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Combobox as FoundationCombobox,
@@ -18,7 +25,6 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
-import type { DropdownPattern } from '../patterns/dropdown/types';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 
 declare global {
@@ -30,9 +36,7 @@ declare global {
 /**
  * A nimble-styed HTML combobox
  */
-export class Combobox
-    extends FoundationCombobox
-    implements DropdownPattern, ErrorPattern {
+export class Combobox extends FoundationCombobox implements ErrorPattern {
     @attr
     public appearance: DropdownAppearance = DropdownAppearance.underline;
 
@@ -60,14 +64,53 @@ export class Combobox
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
 
-    // Workaround for https://github.com/microsoft/fast/issues/5123
+    /**
+     * Cleanup function for the listbox positioner.
+     *
+     * @public
+     */
+    public cleanup: () => void = () => {};
+
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
-            // Don't call setPositioning() until we're connected,
-            // since this.forcedPosition isn't initialized yet.
             return;
         }
-        super.setPositioning();
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        this.cleanup = autoUpdate(this, this.listbox, async () => {
+            const { middlewareData, x, y } = await computePosition(
+                this,
+                this.listbox,
+                {
+                    placement: 'bottom',
+                    strategy: 'fixed',
+                    middleware: [
+                        flip(),
+                        size({
+                            apply: ({ availableHeight, rects }) => {
+                                Object.assign(this.listbox.style, {
+                                    maxHeight: `${availableHeight}px`,
+                                    width: `${rects.reference.width}px`
+                                });
+                            }
+                        }),
+                        hide()
+                    ]
+                }
+            );
+
+            if (middlewareData.hide?.referenceHidden) {
+                this.open = false;
+                this.cleanup();
+                return;
+            }
+
+            Object.assign(this.listbox.style, {
+                position: 'fixed',
+                top: '0',
+                left: '0',
+                transform: `translate(${x}px, ${y}px)`
+            });
+        });
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/5773
@@ -167,10 +210,24 @@ export class Combobox
     }
 
     protected override openChanged(): void {
-        super.openChanged();
         if (this.dropdownButton) {
             this.dropdownButton.checked = this.open;
         }
+        if (this.open) {
+            this.ariaControls = this.listboxId;
+            this.ariaExpanded = 'true';
+
+            DOM.queueUpdate(() => this.setPositioning());
+            this.focusAndScrollOptionIntoView();
+
+            // focus is directed to the element when `open` is changed programmatically
+            DOM.queueUpdate(() => this.focus());
+
+            return;
+        }
+
+        this.ariaControls = '';
+        this.ariaExpanded = 'false';
     }
 
     // Workaround for https://github.com/microsoft/fast/issues/6041.
