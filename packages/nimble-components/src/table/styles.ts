@@ -51,7 +51,7 @@ export const styles = css`
     }
 
     .table-row-container {
-        width: 100%;
+        width: fit-content;
         position: relative;
         top: var(--ni-private-table-row-container-top);
         background-color: ${tableRowBorderColor};
