@@ -186,56 +186,56 @@ export class WaferMap extends FoundationElement {
     }
 
     private quadrantChanged(): void {
-        this.waferUpdateTracker.track('quadrant');
+        this.waferUpdateTracker?.track('quadrant');
     }
 
     private orientationChanged(): void {
-        this.waferUpdateTracker.track('orientation');
+        this.waferUpdateTracker?.track('orientation');
     }
 
     private maxCharactersChanged(): void {
-        this.waferUpdateTracker.track('maxCharacters');
+        this.waferUpdateTracker?.track('maxCharacters');
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.waferUpdateTracker.track('dieLabelsHidden');
+        this.waferUpdateTracker?.track('dieLabelsHidden');
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.waferUpdateTracker.track('dieLabelsSuffix');
+        this.waferUpdateTracker?.track('dieLabelsSuffix');
     }
 
     private colorScaleModeChanged(): void {
-        this.waferUpdateTracker.track('colorScaleMode');
+        this.waferUpdateTracker?.track('colorScaleMode');
     }
 
     private highlightedValuesChanged(): void {
-        this.waferUpdateTracker.track('highlightedValues');
+        this.waferUpdateTracker?.track('highlightedValues');
     }
 
     private diesChanged(): void {
-        this.waferUpdateTracker.track('dies');
+        this.waferUpdateTracker?.track('dies');
     }
 
     private colorScaleChanged(): void {
-        this.waferUpdateTracker.track('colorScale');
+        this.waferUpdateTracker?.track('colorScale');
     }
 
     private transformChanged(): void {
-        this.waferUpdateTracker.track('transform');
+        this.waferUpdateTracker?.track('transform');
     }
 
     private canvasWidthChanged(): void {
-        this.waferUpdateTracker.track('canvasWidth');
+        this.waferUpdateTracker?.track('canvasWidth');
     }
 
     private canvasHeightChanged(): void {
-        this.waferUpdateTracker.track('canvasHeight');
+        this.waferUpdateTracker?.track('canvasHeight');
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.waferUpdateTracker.track('hoverDie');
+        this.waferUpdateTracker?.track('hoverDie');
     }
 }
 
