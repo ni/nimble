@@ -619,7 +619,18 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             >
                 Last Name
             </${tableColumnTextTag}>
-        </${tableTag}>
+            <${tableColumnTextTag}
+                field-name="favoriteColor"
+            >
+                Favorite Color
+            </${tableColumnTextTag}>
+            <${tableColumnTextTag}
+                field-name="quote"
+            >
+                Quote
+            </${tableColumnTextTag}>
+            
+    </${tableTag}>
     `),
     argTypes: {
         groupedColumns: {
