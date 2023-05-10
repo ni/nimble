@@ -20,6 +20,7 @@ export const styles = css`
         ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
         text-transform: uppercase;
         gap: calc(${standardPadding} / 2);
+        cursor: default;
     }
 
     .sort-indicator,

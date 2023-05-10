@@ -12,7 +12,7 @@ For Nimble Blazor development on Windows, the suggested tools to install are:
 - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
 - Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
 - (Optional) Enable IIS (see "Enabling IIS", below)
-- ASP.NET Core Runtime 6.0.x (6.0.3 or higher): Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- ASP.NET Core Runtime 6.0.4xx: Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 In Visual Studio, run either the `Demo.Server` or `Demo.Projects` to see the Blazor demo apps.
 

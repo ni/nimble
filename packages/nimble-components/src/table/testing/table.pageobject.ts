@@ -1,4 +1,5 @@
 import type { Checkbox } from '@microsoft/fast-foundation';
+import { keyShift } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
 import { TableRecord, TableRowSelectionState } from '../types';
@@ -8,6 +9,7 @@ import type { TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
 import { TableCellView } from '../../table-column/base/cell-view';
 import type { TableRow } from '../components/row';
+import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 
@@ -70,6 +72,18 @@ export class TablePageObject<T extends TableRecord> {
         return headers[columnIndex]!.getBoundingClientRect().width;
     }
 
+    public async clickColumnHeader(
+        columnIndex: number,
+        shiftKeyDown = false
+    ): Promise<void> {
+        const clickEvent = new MouseEvent('click', {
+            shiftKey: shiftKeyDown,
+            bubbles: true
+        } as MouseEventInit);
+        this.getHeaderElement(columnIndex).dispatchEvent(clickEvent);
+        await waitForUpdatesAsync();
+    }
+
     public getRenderedRowCount(): number {
         return this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-row'
@@ -115,6 +129,22 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
+    public getRenderedCellAnchor(
+        rowIndex: number,
+        columnIndex: number
+    ): Anchor {
+        const anchor = this.getRenderedCellView(
+            rowIndex,
+            columnIndex
+        ).shadowRoot!.querySelector(anchorTag);
+        if (!anchor) {
+            throw new Error(
+                `Anchor not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return anchor as Anchor;
+    }
+
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {
         return (
             this.getGroupRowHeaderView(
@@ -135,8 +165,7 @@ export class TablePageObject<T extends TableRecord> {
     public getCellTitle(rowIndex: number, columnIndex: number): string {
         const cellView = this.getRenderedCellView(rowIndex, columnIndex);
         return (
-            cellView.shadowRoot!.querySelector('span')?.getAttribute('title')
-            ?? ''
+            cellView.shadowRoot!.firstElementChild?.getAttribute('title') ?? ''
         );
     }
 
@@ -146,7 +175,7 @@ export class TablePageObject<T extends TableRecord> {
         event: Event
     ): boolean | undefined {
         const cellView = this.getRenderedCellView(rowIndex, columnIndex);
-        return cellView.shadowRoot!.querySelector('span')?.dispatchEvent(event);
+        return cellView.shadowRoot!.firstElementChild?.dispatchEvent(event);
     }
 
     public getGroupHeaderTitle(groupRowIndex: number): string {
@@ -292,9 +321,13 @@ export class TablePageObject<T extends TableRecord> {
         await waitForUpdatesAsync();
     }
 
-    public async clickRow(rowIndex: number): Promise<void> {
+    public async clickRow(
+        rowIndex: number,
+        modifiers: { shiftKey?: boolean, ctrlKey?: boolean } = {}
+    ): Promise<void> {
         const row = this.getRow(rowIndex);
-        row.click();
+        const event = new MouseEvent('click', modifiers);
+        row.dispatchEvent(event);
         await waitForUpdatesAsync();
     }
 
@@ -351,9 +384,23 @@ export class TablePageObject<T extends TableRecord> {
         return this.getSelectionStateOfCheckbox(checkbox);
     }
 
-    public clickRowSelectionCheckbox(rowIndex: number): void {
+    public clickRowSelectionCheckbox(rowIndex: number, shiftKey = false): void {
+        if (shiftKey) {
+            const shiftKeyDownEvent = new KeyboardEvent('keydown', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyDownEvent);
+        }
+
         const checkbox = this.getSelectionCheckboxForRow(rowIndex);
         checkbox!.click();
+
+        if (shiftKey) {
+            const shiftKeyUpEvent = new KeyboardEvent('keyup', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyUpEvent);
+        }
     }
 
     public getGroupRowSelectionState(
@@ -363,9 +410,26 @@ export class TablePageObject<T extends TableRecord> {
         return this.getSelectionStateOfCheckbox(checkbox);
     }
 
-    public clickGroupRowSelectionCheckbox(groupRowIndex: number): void {
+    public clickGroupRowSelectionCheckbox(
+        groupRowIndex: number,
+        shiftKey = false
+    ): void {
+        if (shiftKey) {
+            const shiftKeyDownEvent = new KeyboardEvent('keydown', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyDownEvent);
+        }
+
         const checkbox = this.getSelectionCheckboxForGroupRow(groupRowIndex);
         checkbox!.click();
+
+        if (shiftKey) {
+            const shiftKeyUpEvent = new KeyboardEvent('keyup', {
+                key: keyShift
+            } as KeyboardEventInit);
+            document.dispatchEvent(shiftKeyUpEvent);
+        }
     }
 
     private getRow(rowIndex: number): TableRow {

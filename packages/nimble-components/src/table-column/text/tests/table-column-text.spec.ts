@@ -4,7 +4,7 @@ import { TableColumnText, tableColumnTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
-import { TablePageObject } from '../../../table/tests/table.pageobject';
+import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
@@ -17,7 +17,7 @@ interface SimpleTableRecord extends TableRecord {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
+        html`<nimble-table style="width: 700px">
                 <${tableColumnTextTag} field-name="field" placeholder="no value" group-index="0">
                     Column 1
                 </${tableColumnTextTag}>
@@ -121,8 +121,7 @@ describe('TableColumnText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
     });
 
-    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
-    it('sets title when cell text is ellipsized #SkipFirefox', async () => {
+    it('sets title when cell text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
         await element.setData([{ field: cellContents }]);
         await connect();

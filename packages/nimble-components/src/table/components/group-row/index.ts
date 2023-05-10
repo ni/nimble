@@ -89,9 +89,13 @@ export class TableGroupRow extends FoundationElement {
         }
 
         const checkbox = event.target as Checkbox;
+        const checked = checkbox.checked;
+        this.selectionState = checked
+            ? TableRowSelectionState.selected
+            : TableRowSelectionState.notSelected;
         const detail: TableRowSelectionToggleEventDetail = {
-            oldState: !checkbox.checked,
-            newState: checkbox.checked
+            oldState: !checked,
+            newState: checked
         };
         this.$emit('group-selection-toggle', detail);
     }

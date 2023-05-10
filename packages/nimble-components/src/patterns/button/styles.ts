@@ -67,7 +67,7 @@ export const styles = css`
     }
 
     :host([content-hidden]) .control {
-        width: ${controlHeight};
+        aspect-ratio: 1 / 1;
         padding: 0px;
     }
 

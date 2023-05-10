@@ -126,9 +126,11 @@ export class TableRow<
         }
 
         const checkbox = event.target as Checkbox;
+        const checked = checkbox.checked;
+        this.selected = checked;
         const detail: TableRowSelectionToggleEventDetail = {
-            oldState: !checkbox.checked,
-            newState: checkbox.checked
+            oldState: !checked,
+            newState: checked
         };
         this.$emit('row-selection-toggle', detail);
     }

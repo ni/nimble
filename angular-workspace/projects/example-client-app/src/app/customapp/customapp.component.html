@@ -197,6 +197,15 @@
                 >
                     <nimble-icon-check title="String 1"></nimble-icon-check>
                 </nimble-table-column-text>
+                <nimble-table-column-anchor
+                    nimbleRouterLink
+                    [queryParams]="{ word: 'foo' }"
+                    queryParamsHandling="merge"
+                    href-field-name="href"
+                    label-field-name="linkLabel"
+                >
+                    Link
+                </nimble-table-column-anchor>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
 
                 <nimble-menu slot="action-menu">
@@ -206,6 +215,7 @@
                 </nimble-menu>
             </nimble-table>
             <nimble-button class="add-table-row-button" (click)="onAddTableRow()">Add row</nimble-button>
+            <nimble-text-field class="query-param-word" readonly [ngModel]="(route.queryParams | async)!.word">Link Query Param Word</nimble-text-field>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>

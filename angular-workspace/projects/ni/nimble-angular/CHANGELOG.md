@@ -1,8 +1,66 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 26 Apr 2023 17:40:07 GMT and should not be manually modified.
+This log was last generated on Mon, 08 May 2023 16:14:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.24
+
+Mon, 08 May 2023 16:14:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.5
+
+## 16.5.23
+
+Mon, 08 May 2023 14:01:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.4
+
+## 16.5.22
+
+Fri, 05 May 2023 21:44:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.3
+
+## 16.5.21
+
+Fri, 05 May 2023 20:18:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.2
+
+## 16.5.20
+
+Fri, 05 May 2023 15:27:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.1
+
+## 16.5.19
+
+Mon, 01 May 2023 20:33:27 GMT
+
+### Patches
+
+- Fix bad import ([ni/nimble@1416056](https://github.com/ni/nimble/commit/1416056e356ce9338db8fe067d9850d65d9c0346))
+- Bump @ni/nimble-components to v18.13.0
+
+## 16.5.18
+
+Fri, 28 Apr 2023 15:33:54 GMT
+
+### Patches
+
+- Anchor table column type ([ni/nimble@78d39d3](https://github.com/ni/nimble/commit/78d39d34d9ee9a8852ba6eeb40119157493e7f76))
+- Bump @ni/nimble-components to v18.12.7
 
 ## 16.5.17
 

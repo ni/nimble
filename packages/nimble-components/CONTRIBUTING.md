@@ -30,13 +30,13 @@ From the `nimble` directory:
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
 
-## Visual design spec process
-
-Components added to Nimble are based on specs created by NI visual designers. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
-
 ## Component spec process
 
-Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
+Before building a new component, 3 specification documents need to be created:
+
+1. An interaction design (IxD) spec to get agreement on the component's behavior and other core requirements. The spec process is described in the [`/specs` folder](/specs/README.md).
+2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec can be created in Adobe XD or Figma, and linked to the component work item and Storybook documentation. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
+3. A technical design spec to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
 
@@ -100,6 +100,7 @@ Create a new folder named after your component with some core files:
 | types.ts                               | Contains any enum-like types defined by the component                                                                                                                                                                                                                      |
 | models/                                | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                                                                         |
 | components/                            | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                                                                |
+| testing/component-name.pageobject.ts   | Page object to ease testing of this component.                                                                                                                                                                                                                             |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |

@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 18 Apr 2023 14:12:28 GMT and should not be manually modified.
+This log was last generated on Tue, 02 May 2023 15:07:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.8.20
+
+Tue, 02 May 2023 15:07:15 GMT
+
+### Patches
+
+- Create Blazor Hybrid example app. Provide workaround for Blazor Hybrid to work with Nimble Blazor. ([ni/nimble@da1d0f2](https://github.com/ni/nimble/commit/da1d0f27d9b555f2b7df2d112122dda0520826f0))
+
+## 11.8.18
+
+Fri, 28 Apr 2023 15:33:54 GMT
+
+### Patches
+
+- Anchor table column type ([ni/nimble@78d39d3](https://github.com/ni/nimble/commit/78d39d34d9ee9a8852ba6eeb40119157493e7f76))
 
 ## 11.8.12
 
