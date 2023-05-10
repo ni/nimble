@@ -629,8 +629,8 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             >
                 Quote
             </${tableColumnTextTag}>
-            
-    </${tableTag}>
+
+        </${tableTag}>
     `),
     argTypes: {
         groupedColumns: {
