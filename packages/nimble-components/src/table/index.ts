@@ -129,12 +129,6 @@ export class Table<
      * @internal
      */
     @observable
-    public groupRowGridColumns?: string;
-
-    /**
-     * @internal
-     */
-    @observable
     public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
 
     public get validity(): TableValidity {
@@ -694,8 +688,6 @@ export class Table<
         this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
             this.columns
         );
-
-        this.groupRowGridColumns = TableLayoutHelper.getGroupRowGridTemplateColumns(this.columns);
     }
 
     private validate(): void {
