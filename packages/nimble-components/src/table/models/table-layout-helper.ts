@@ -1,5 +1,4 @@
 import type { TableColumn } from '../../table-column/base';
-import { controlHeight } from '../../theme-provider/design-tokens';
 
 /**
  * This class provides helper methods for managing the layout of cells within
