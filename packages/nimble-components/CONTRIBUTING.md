@@ -404,6 +404,17 @@ Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
 
+## Component naming
+
+Component custom element names are specified in `index.ts` when registering the element. Use the following structure when naming components.
+
+`nimble[-category][-variant]-presentation`
+
+1. All Nimble custom elements are prefixed with `nimble-` to avoid name collisions with other component libraries. Applications should choose their own unique prefix if they define their own elements.
+2. **category** can be used to group similar components together alphabetically. Examples include `icon` and `table-column`.
+3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
+4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
+
 ## Token naming
 
 Public names for theme-aware tokens are specified in `src/theme-provider/design-token-names.ts`. Use the following structure when creating new tokens.

@@ -69,6 +69,37 @@ template:
 </template>
 ```
 
+### Column Type Philosophy
+
+These guidelines capture how we decide when to create a new column type and how we name those column types.
+
+New columns can be created for any of the following use cases:
+1. a new visual presentation is needed. For example, displaying a number in a progress bar or as text would be two different columns.
+2. the same presentation requires significantly different configuration for different use cases. For example, displaying a text representation of a number and a date require different formatting options so they would be different columns.
+
+Note that displaying data of different types but with the same presentation and configuration should not typically require a new column type. For example, a single column type maps string, numeric, and boolean enumerated values to a text presentation.
+
+Columns should follow the [Nimble components naming scheme](/packages/nimble-components/CONTRIBUTING.md#component-naming) with these rules:
+-   the "category" is `table-column`
+-   the "presentation" describes the cell visual. For example, `text`, `anchor`, or `progress`
+-   the "variant" can be different configurations of those presentations. For example, `numeric-text` or `date-text`.
+
+Some potential column names following this convention are listed below.
+
+```
+nimble-table-column-anchor
+nimble-table-column-text
+nimble-table-column-numeric-text
+nimble-table-column-date-text
+nimble-table-column-progress
+nimble-table-column-text-field
+nimble-table-column-number-field
+nimble-table-column-mapping
+nimble-table-column-icon
+```
+
+Note: Despite currently being presented as text, the mapping column is not `nimble-table-column-mapping-text` because it may render with alternate presentations in the future (e.g. icon + text) so "mapping" is considered the presentation.
+
 ### Framework Integration
 
 Column elements, and the associated elements used in table cells, will always be FAST-based custom elements. Framework-specific constructs/content are not supported. Standard column types (e.g. text-field, link, icon, etc) will be provided by Nimble. For non-standard column types, clients will be expected to implement a custom column type, which the rest of this document describes in detail.
