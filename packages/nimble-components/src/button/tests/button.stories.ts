@@ -103,6 +103,13 @@ export const ghostButton: StoryObj<ButtonArgs> = {
 export const blockButton: StoryObj<ButtonArgs> = {
     args: { label: 'Block Button', appearance: ButtonAppearance.block }
 };
+export const primaryBlockButton: StoryObj<ButtonArgs> = {
+    args: {
+        label: 'Primary Block Button',
+        appearance: ButtonAppearance.block,
+        appearanceVariant: ButtonAppearanceVariant.primary
+    }
+};
 export const iconButton: StoryObj<ButtonArgs> = {
     args: {
         label: 'Icon Button',
