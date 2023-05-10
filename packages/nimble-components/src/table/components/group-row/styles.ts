@@ -17,13 +17,14 @@ import { themeBehavior } from '../../../utilities/style/theme';
 import { userSelectNone } from '../../../utilities/style/user-select';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('grid')}
 
     :host {
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
         box-sizing: border-box;
+        grid-template-columns: var(--ni-private-table-group-row-grid-columns) auto;
     }
 
     :host([expanded]) .animating,
@@ -74,6 +75,7 @@ export const styles = css`
 
     .group-row-child-count {
         padding-left: 2px;
+        padding-right: calc(${standardPadding} / 2);
         pointer-events: none;
         ${userSelectNone}
     }
