@@ -67,7 +67,7 @@ We'll strongly encourage clients to prefer columns defined in Nimble as these wi
 
 Nimble will provide abstract base classes, templates, and styles which handle rendering a string as text. Just like `nimble-table-column-text` today, these columns will:
 
--   offer attributes to control which field is displayed and placeholder text when that field isn't a number.
+-   offer attributes to control which field is displayed and placeholder text when that field isn't of type "number" (values like Infinity and NaN are considered numbers and will be displayed as such).
 -   sort and group by the field value, not the display value.
 -   allow sizing by fractional widths with a minimum pixel width.
 -   truncate using an ellipsis and show a tooltip on hover when the value is truncated
