@@ -25,7 +25,16 @@ export const styles = css`
         border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
         box-sizing: border-box;
         grid-template-columns:
-            var(--ni-private-table-group-row-multi-select-size)
+            calc(
+                ${controlHeight} *
+                    (var(--ni-private-table-group-row-indent-level) + 1)
+            )
+            1fr;
+    }
+
+    :host([selectable]) {
+        grid-template-columns:
+            ${controlHeight}
             calc(
                 ${controlHeight} *
                     (var(--ni-private-table-group-row-indent-level) + 1)

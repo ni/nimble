@@ -11,10 +11,7 @@ export const template = html<TableGroupRow>`
     <template
         role="row"
         @click=${x => x.onGroupExpandToggle()}
-        style="
-            --ni-private-table-group-row-indent-level: ${x => x.nestingLevel};
-            --ni-private-table-group-row-multi-select-size: ${x => x.selectSize};
-            "
+        style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
     >
         ${when(x => x.selectable, html<TableGroupRow>`
             <span role="gridcell" class="checkbox-container">

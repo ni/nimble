@@ -1,4 +1,4 @@
-import { attr, observable, volatile } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import {
     Checkbox,
     DesignSystem,
@@ -11,7 +11,6 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail
 } from '../../types';
-import { controlHeight } from '../../../theme-provider/design-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -44,11 +43,6 @@ export class TableGroupRow extends FoundationElement {
 
     @attr({ attribute: 'selection-state' })
     public selectionState: TableRowSelectionState = TableRowSelectionState.notSelected;
-
-    @volatile
-    public get selectSize(): string {
-        return this.selectable ? `${controlHeight.getValueFor(this)}` : '';
-    }
 
     /**
      * @internal
