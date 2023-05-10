@@ -74,12 +74,14 @@ template:
 These guidelines capture how we decide when to create a new column type and how we name those column types.
 
 New columns can be created for any of the following use cases:
+
 1. a new visual presentation is needed. For example, displaying a number in a progress bar or as text would be two different columns.
 2. the same presentation requires significantly different configuration for different use cases. For example, displaying a text representation of a number and a date require different formatting options so they would be different columns.
 
 Note that displaying data of different types but with the same presentation and configuration should not typically require a new column type. For example, a single column type maps string, numeric, and boolean enumerated values to a text presentation.
 
 Columns should follow the [Nimble components naming scheme](/packages/nimble-components/CONTRIBUTING.md#component-naming) with these rules:
+
 -   the "category" is `table-column`
 -   the "presentation" describes the cell visual. For example, `text`, `anchor`, or `progress`
 -   the "variant" can be different configurations of those presentations. For example, `numeric-text` or `date-text`.

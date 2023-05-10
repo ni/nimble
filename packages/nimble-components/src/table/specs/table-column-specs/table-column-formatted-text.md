@@ -53,7 +53,7 @@ We may not choose to support all of the above initially but we should design our
 
 Nimble will provide base classes that can be derived from to define columns that call a formatting function to render their data as text.
 
-Nimble will provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 (date) coming later. 
+Nimble will provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 (date) coming later.
 
 Clients which require app-specific formatting logic to support above use cases like 5 (custom unit logic) will define custom columns in their application that derive from these base classes.
 
@@ -319,8 +319,9 @@ _These sections will be populated in a future update_
 ### Test Plan
 
 This will be filled out in more detail, but some reminders:
-- handle number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER -n) as numbers
-- handle non-number edge cases (strings containing numbers, undefined, null)
+
+-   handle number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER -n) as numbers
+-   handle non-number edge cases (strings containing numbers, undefined, null)
 
 ### Tooling
 
