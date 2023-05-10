@@ -318,6 +318,10 @@ _These sections will be populated in a future update_
 
 ### Test Plan
 
+This will be filled out in more detail, but some reminders:
+- handle number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER -n) as numbers
+- handle non-number edge cases (strings containing numbers, undefined, null)
+
 ### Tooling
 
 ### Documentation
