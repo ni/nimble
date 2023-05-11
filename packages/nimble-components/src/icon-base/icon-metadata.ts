@@ -208,14 +208,14 @@ export const iconMetadata: {
     IconDownload: {
         tags: []
     },
+    IconDownRightFromSquare: {
+        tags: ['import']
+    },
     IconElectronicChipZoomed: {
         tags: ['data-preparation']
     },
     IconExclamationMark: {
         tags: ['error', 'warning']
-    },
-    IconUpRightFromSquare: {
-        tags: ['export']
     },
     IconEye: {
         tags: ['details', 'view']
@@ -226,14 +226,14 @@ export const iconMetadata: {
     IconFile: {
         tags: ['file-tdms']
     },
+    IconFileArrowCurvedRight: {
+        tags: ['export']
+    },
     IconFileDrawer: {
         tags: ['box', 'repository-manager']
     },
     IconFileSearch: {
         tags: ['file-viewer']
-    },
-    IconFileArrowCurvedRight: {
-        tags: ['export']
     },
     IconFilter: {
         tags: []
@@ -285,9 +285,6 @@ export const iconMetadata: {
     },
     IconHourglass: {
         tags: ['history', 'timer']
-    },
-    IconDownRightFromSquare: {
-        tags: ['import']
     },
     IconIndeterminantCheckbox: {
         tags: ['selection']
@@ -453,6 +450,9 @@ export const iconMetadata: {
     },
     IconUpload: {
         tags: []
+    },
+    IconUpRightFromSquare: {
+        tags: ['export']
     },
     IconUser: {
         tags: ['admin', 'account']
