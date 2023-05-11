@@ -214,6 +214,9 @@ export const iconMetadata: {
     IconExclamationMark: {
         tags: ['error', 'warning']
     },
+    IconUpRightFromSquare: {
+        tags: ['export']
+    },
     IconEye: {
         tags: ['details', 'view']
     },
@@ -230,7 +233,10 @@ export const iconMetadata: {
         tags: ['file-viewer']
     },
     IconFileExport: {
-        tags: ['download']
+        tags: ['export', 'deprecated']
+    },
+    IconFileArrowCurvedRight: {
+        tags: ['export']
     },
     IconFilter: {
         tags: []
@@ -282,6 +288,9 @@ export const iconMetadata: {
     },
     IconHourglass: {
         tags: ['history', 'timer']
+    },
+    IconDownRightFromSquare: {
+        tags: ['import']
     },
     IconIndeterminantCheckbox: {
         tags: ['selection']
@@ -362,7 +371,7 @@ export const iconMetadata: {
         tags: []
     },
     IconShareSquare: {
-        tags: ['export']
+        tags: ['export', 'deprecated']
     },
     IconShieldCheck: {
         tags: ['secure']
