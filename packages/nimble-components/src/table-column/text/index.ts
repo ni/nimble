@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';

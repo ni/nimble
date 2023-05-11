@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { attr } from '@microsoft/fast-element';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { TableColumn } from '../base';

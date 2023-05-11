@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { observable, volatile } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type { TableCellRecord } from '../../base/types';
