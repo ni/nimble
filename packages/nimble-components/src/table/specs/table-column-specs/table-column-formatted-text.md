@@ -165,11 +165,12 @@ Nimble will provide several columns that derive from the above base classes and 
 
 #### Column naming
 
-Follows the [/packages/nimble-components/src/table/specs
-/table-columns-hld.md#column-type-philosophy](Column Type Philosophy) where:
-- category: `table-column`
-- presentation: `text`
-- variants: Different variants are allowed for configurations that vary significantly / don't make sense to add to `table-column-text`, ie for a `table-column-numeric-text` or `table-column-date-text`
+Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs
+/table-columns-hld.md#column-type-philosophy) where:
+
+-   category: `table-column`
+-   presentation: `text`
+-   variants: Different variants are allowed for configurations that vary significantly / don't make sense to add to `table-column-text`, ie for a `table-column-numeric-text` or `table-column-date-text`
 
 #### Text column
 
