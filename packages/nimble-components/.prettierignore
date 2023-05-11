@@ -4,6 +4,7 @@
 !*.ts
 !*.js
 !*.md
+!*.mdx
 !*.json
 !src/
 !/.storybook/
@@ -12,6 +13,7 @@
 !src/**/*.ts
 !src/**/*.js
 !src/**/*.md
+!src/**/*.mdx
 !src/**/*.json
 
 /.storybook/*.*

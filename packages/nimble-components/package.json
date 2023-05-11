@@ -119,7 +119,7 @@
     "karma-webkit-launcher": "^2.1.0",
     "karma-webpack": "^5.0.0",
     "playwright": "^1.30.0",
-    "prettier": "^2.0.0",
+    "prettier": "^2.8.8",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
     "puppeteer": "^10.1.0",
