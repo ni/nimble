@@ -232,9 +232,6 @@ export const iconMetadata: {
     IconFileSearch: {
         tags: ['file-viewer']
     },
-    IconFileExport: {
-        tags: ['export', 'deprecated']
-    },
     IconFileArrowCurvedRight: {
         tags: ['export']
     },
@@ -369,9 +366,6 @@ export const iconMetadata: {
     },
     IconShareNodes: {
         tags: []
-    },
-    IconShareSquare: {
-        tags: ['export', 'deprecated']
     },
     IconShieldCheck: {
         tags: ['secure']

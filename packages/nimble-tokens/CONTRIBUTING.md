@@ -28,6 +28,18 @@ Tokens are generated using the [Style Dictionary](https://amzn.github.io/style-d
 
 ## Updating icons
 
+### Icon naming
+
+Prefer [FontAwesome](https://fontawesome.com) names for icons. I.e. Minimize the use of metaphors, and choose descriptive and unambiguous names. 
+Add all appropriate metaphors/synonyms to the `icon-metadata.ts` file, so we can search for icons in Storybook via names or metaphors.
+
+E.g. 
+| Descriptive name       | Poor name              |
+|------------------------|------------------------|
+| `key`                  | `access-control`       |
+| `cog`                  | `system-configuration` |
+| `arrow-left-from-line` | `logout`               |
+
 ### Extract icons from Adobe Illustrator
 
 These steps require access to Adobe Illustrator and Perforce so will typically be completed by Brandon O'Keefe, Fred Visser, or another designer.
