@@ -1,8 +1,8 @@
 import { html, ref } from '@microsoft/fast-element';
 
-import type { TableColumnTextCellView } from '../../text/cell-view';
+import type { TableColumnTextCellViewBase } from '.';
 
-export const template = html<TableColumnTextCellView>`
+export const template = html<TableColumnTextCellViewBase>`
     <span
         ${ref('textSpan')}
         class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
