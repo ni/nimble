@@ -8,7 +8,9 @@ import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
  * The base class for table columns that display fields of any type as text.
  */
 export abstract class TableColumnTextBase extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumn<TableColumnWithPlaceholderColumnConfig>)
+    mixinFractionalWidthColumnAPI(
+        TableColumn<TableColumnWithPlaceholderColumnConfig>
+    )
 ) {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
