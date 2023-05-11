@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Refactor to create base classes for table columns that display text",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
