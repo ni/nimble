@@ -214,6 +214,9 @@ export const iconMetadata: {
     IconExclamationMark: {
         tags: ['error', 'warning']
     },
+    IconExport: {
+        tags: ['share']
+    },
     IconEye: {
         tags: ['details', 'view']
     },
@@ -229,7 +232,7 @@ export const iconMetadata: {
     IconFileSearch: {
         tags: ['file-viewer']
     },
-    IconFileExport: {
+    IconFileExtract: {
         tags: ['download']
     },
     IconFilter: {
@@ -282,6 +285,9 @@ export const iconMetadata: {
     },
     IconHourglass: {
         tags: ['history', 'timer']
+    },
+    IconImport: {
+        tags: []
     },
     IconIndeterminantCheckbox: {
         tags: ['selection']
