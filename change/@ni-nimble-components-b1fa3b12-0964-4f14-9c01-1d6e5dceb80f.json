@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Marked 'share-square' and 'file-export' icons as deprecated. Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons.",
+  "packageName": "@ni/nimble-components",
+  "email": "1458528+fredvisser@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
