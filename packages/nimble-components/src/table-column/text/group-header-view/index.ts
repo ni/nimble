@@ -3,7 +3,7 @@ import type { TableStringFieldValue } from '../../../table/types';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import { template } from '../../text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
-import type { TableColumnWithPlaceholderColumnConfig } from '../../base/types';
+import type { TableColumnTextColumnConfig } from '..';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,7 +15,7 @@ declare global {
  */
 export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableStringFieldValue,
-TableColumnWithPlaceholderColumnConfig
+TableColumnTextColumnConfig
 > {
     public override get text(): string {
         return this.groupHeaderValue!;

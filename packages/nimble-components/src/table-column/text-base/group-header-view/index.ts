@@ -1,13 +1,14 @@
 import { observable, volatile } from '@microsoft/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
+import type { TableColumnWithPlaceholderColumnConfig } from '../../base/types';
 
 /**
  * The group header view base class for displaying fields of any type as text.
  */
 export abstract class TableColumnTextGroupHeaderViewBase<
     TGroupValue = TableFieldValue,
-    TColumnConfig = unknown
+    TColumnConfig = TableColumnWithPlaceholderColumnConfig
 > extends TableGroupHeaderView<TGroupValue, TColumnConfig> {
     /** @internal */
     public textSpan!: HTMLElement;
