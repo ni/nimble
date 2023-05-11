@@ -227,7 +227,7 @@ export const iconMetadata: {
         tags: ['file-tdms']
     },
     IconFileArrowCurvedRight: {
-        tags: ['export']
+        tags: ['export', 'extract']
     },
     IconFileDrawer: {
         tags: ['box', 'repository-manager']
