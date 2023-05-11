@@ -17,10 +17,10 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     @observable
     public isValidContentAndHasOverflow = false;
 
-    /** Returns the text to render in the cell when it contains a valid value */
+    /** Returns the text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder() is false) */
     public abstract get text(): string;
 
-    /** Returns the text to render in the cell when it contains an invalid value */
+    /** Returns the text to render in the cell when it contains an invalid value (i.e. when shouldUsePlaceholder() is true) */
     public abstract get placeholder(): string;
 
     /** Return whether to display the placeholder value or the text value */
