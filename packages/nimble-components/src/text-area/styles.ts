@@ -18,6 +18,7 @@ import {
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextAreaAppearance } from './types';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -26,7 +27,7 @@ export const styles = css`
     :host {
         font: ${bodyFont};
         outline: none;
-        user-select: none;
+        ${userSelectNone}
         color: ${bodyFontColor};
         flex-direction: column;
         vertical-align: top;

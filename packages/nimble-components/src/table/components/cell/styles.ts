@@ -1,12 +1,13 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    controlSlimHeight,
     smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('grid')}
+    ${display('flex')}
 
     :host {
         --ni-private-table-cell-nesting-level: 0;
@@ -17,7 +18,6 @@ export const styles = css`
         );
         align-self: center;
         height: 100%;
-        grid-template-columns: 1fr auto;
         /* A default value that will be overridden by the row */
         --ni-private-table-cell-action-menu-display: block;
     }
@@ -30,5 +30,10 @@ export const styles = css`
 
     .action-menu {
         display: var(--ni-private-table-cell-action-menu-display);
+        margin-left: auto;
+        flex-shrink: 0;
+        flex-grow: 0;
+        height: ${controlSlimHeight};
+        align-self: center;
     }
 `;

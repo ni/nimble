@@ -1,6 +1,9 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
-import type { TableFieldName } from '../../../table/types';
+import type {
+    TableColumnSortDirection,
+    TableFieldName
+} from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {
     TableColumnSortOperation,
@@ -29,6 +32,11 @@ export interface ColumnInternalsOptions {
      * The element this tag refers to must derive from TableGroupHeaderView.
      */
     readonly groupHeaderViewTag: string;
+
+    /**
+     * The names of events that should be delegated from the cell view to the column.
+     */
+    readonly delegatedEvents: readonly string[];
 }
 
 /**
@@ -50,6 +58,11 @@ export class ColumnInternals<TColumnConfig> {
      * Template for the cell view
      */
     public readonly cellViewTemplate: ViewTemplate<TableCell>;
+
+    /**
+     * The names of events that should be delegated from the cell view to the column.
+     */
+    public readonly delegatedEvents: readonly string[];
 
     /**
      * The relevant, static configuration a column requires its cell view to have access to.
@@ -128,12 +141,27 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public currentPixelWidth?: number;
 
+    /**
+     * @internal Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the sortIndex after programmatic or interactive updates.
+     */
+    @observable
+    public currentSortIndex?: number | null;
+
+    /**
+     * @internal Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the sortDirection after programmatic or interactive updates.
+     */
+    @observable
+    public currentSortDirection: TableColumnSortDirection;
+
     public constructor(options: ColumnInternalsOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
         this.groupHeaderViewTemplate = createGroupHeaderViewTemplate(
             options.groupHeaderViewTag
         );
+        this.delegatedEvents = options.delegatedEvents;
     }
 
     protected fractionalWidthChanged(): void {

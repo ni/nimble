@@ -64,10 +64,14 @@ namespace Demo.Shared.Pages
                 tableData[i] = new Person(
                     i.ToString(null, null),
                     Faker.Name.First(),
-                    Faker.Name.Last());
+                    Faker.Name.Last(),
+                    "https://nimble.ni.dev",
+                    "Link");
             }
             tableData[numberOfRows] = new Person(
                 numberOfRows.ToString(null, null),
+                null,
+                null,
                 null,
                 null);
 
@@ -77,16 +81,20 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string id, string? firstName, string? lastName)
+        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
+            Href = href;
+            LinkLabel = linkLabel;
         }
 
         public string Id { get; }
         public string? FirstName { get; }
         public string? LastName { get; }
+        public string? Href { get; }
+        public string? LinkLabel { get; }
     }
 
     public enum DialogResult

@@ -353,13 +353,15 @@ const sortedOptions = {
     [ExampleSortType.firstColumnAscending]: [
         {
             columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.ascending
+            sortDirection: TableColumnSortDirection.ascending,
+            sortingDisabled: false
         }
     ],
     [ExampleSortType.firstColumnDescending]: [
         {
             columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.descending
+            sortDirection: TableColumnSortDirection.descending,
+            sortingDisabled: false
         }
     ],
     [ExampleSortType.thirdColumnAscending]: [
@@ -371,11 +373,25 @@ const sortedOptions = {
     [ExampleSortType.secondColumnDescendingFirstColumnAscending]: [
         {
             columnId: 'last-name-column',
-            sortDirection: TableColumnSortDirection.descending
+            sortDirection: TableColumnSortDirection.descending,
+            sortingDisabled: false
         },
         {
             columnId: 'first-name-column',
-            sortDirection: TableColumnSortDirection.ascending
+            sortDirection: TableColumnSortDirection.ascending,
+            sortingDisabled: false
+        }
+    ],
+    [ExampleSortType.firstColumnAscendingSecondColumnDisabled]: [
+        {
+            columnId: 'first-name-column',
+            sortDirection: TableColumnSortDirection.ascending,
+            sortingDisabled: false
+        },
+        {
+            columnId: 'last-name-column',
+            sortDirection: TableColumnSortDirection.none,
+            sortingDisabled: true
         }
     ]
 } as const;
@@ -383,6 +399,8 @@ const sortedOptions = {
 const sortedColumnsDescription = `A column within the table is configured to be sorted by specifying a \`sort-direction\` and a \`sort-index\` on
 it. The \`sort-direction\` indicates the direction to sort (\`ascending\` or \`descending\`), and the \`sort-index\` specifies the sort precedence
 of the column within the set of all sorted columns. Columns within the table will be sorted from lowest \`sort-index\` to highest \`sort-index\`. 
+Columns can be interactively sorted by the user by clicking/Shift-clicking on the column headers (which will not change \`sort-index\` or \`sort-direction\`).
+To disable sorting on a column (both programmatic and interactive sorting), set \`sorting-disabled\` to \`true\` on it.
 Sorting is based on the underlying field values in the column, not the rendered values.`;
 
 interface SortingTableArgs extends SharedTableArgs {
@@ -390,7 +408,11 @@ interface SortingTableArgs extends SharedTableArgs {
     getColumnSortData: (
         columnId: string,
         args: SortingTableArgs
-    ) => { direction: TableColumnSortDirection, index: number | undefined };
+    ) => {
+        direction: TableColumnSortDirection,
+        sortingDisabled: boolean,
+        index: number | undefined
+    };
 }
 
 export const sorting: StoryObj<SortingTableArgs> = {
@@ -412,13 +434,17 @@ export const sorting: StoryObj<SortingTableArgs> = {
         >
             <${tableColumnTextTag}
                 field-name="firstName"
-                sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}" sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
+                sort-direction="${x => x.getColumnSortData('first-name-column', x).direction}"
+                sort-index="${x => x.getColumnSortData('first-name-column', x).index}"
+                sorting-disabled="${x => x.getColumnSortData('first-name-column', x).sortingDisabled}"
             >
                 First Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="lastName"
-                sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}" sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
+                sort-direction="${x => x.getColumnSortData('last-name-column', x).direction}"
+                sort-index="${x => x.getColumnSortData('last-name-column', x).index}"
+                sorting-disabled="${x => x.getColumnSortData('last-name-column', x).sortingDisabled}"
             >
                 Last Name
             </${tableColumnTextTag}>
@@ -430,13 +456,17 @@ export const sorting: StoryObj<SortingTableArgs> = {
             </${tableColumnNumericTextTag}>
             <${tableColumnTextTag}
                 field-name="favoriteColor"
-                sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}" sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
+                sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}"
+                sort-index="${x => x.getColumnSortData('favorite-color-column', x).index}"
+                sorting-disabled="${x => x.getColumnSortData('favorite-color-column', x).sortingDisabled}"
             >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
-                sort-direction="${x => x.getColumnSortData('quote-column', x).direction}" sort-index="${x => x.getColumnSortData('quote-column', x).index}"
+                sort-direction="${x => x.getColumnSortData('quote-column', x).direction}"
+                sort-index="${x => x.getColumnSortData('quote-column', x).index}"
+                sorting-disabled="${x => x.getColumnSortData('quote-column', x).sortingDisabled}"
             >
                 Quote
             </${tableColumnTextTag}>
@@ -459,7 +489,9 @@ export const sorting: StoryObj<SortingTableArgs> = {
                     [ExampleSortType.thirdColumnAscending]:
                         'Age ascending',
                     [ExampleSortType.secondColumnDescendingFirstColumnAscending]:
-                        'Last name descending then first name ascending'
+                        'Last name descending then first name ascending',
+                    [ExampleSortType.firstColumnAscendingSecondColumnDisabled]:
+                        'First name ascending; sorting disabled for last name'
                 }
             }
         },
@@ -476,6 +508,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
             args: SortingTableArgs
         ): {
             direction: TableColumnSortDirection,
+            sortingDisabled: boolean,
             index: number | undefined
         } => {
             const sortData = sortedOptions[args.sortedColumns];
@@ -485,12 +518,14 @@ export const sorting: StoryObj<SortingTableArgs> = {
             if (matchingIndex === -1) {
                 return {
                     direction: TableColumnSortDirection.none,
+                    sortingDisabled: false,
                     index: undefined
                 };
             }
 
             return {
                 direction: sortData[matchingIndex]!.sortDirection,
+                sortingDisabled: sortData[matchingIndex]!.sortingDisabled,
                 index: matchingIndex
             };
         }

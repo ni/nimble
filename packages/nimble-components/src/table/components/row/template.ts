@@ -11,7 +11,6 @@ export const template = html<TableRow>`
             <span role="gridcell" class="checkbox-container">
                 <${checkboxTag}
                     ${ref('selectionCheckbox')}
-                    role="cell"
                     class="selection-checkbox"
                     @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                     @click="${(_, c) => c.event.stopPropagation()}"
@@ -30,6 +29,7 @@ export const template = html<TableRow>`
                         class="cell"
                         :cellState="${x => x.cellState}"
                         :cellViewTemplate="${x => x.column.columnInternals.cellViewTemplate}"
+                        :column="${x => x.column}"
                         ?has-action-menu="${x => !!x.column.actionMenuSlot}"
                         action-menu-label="${x => x.column.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"

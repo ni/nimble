@@ -4,7 +4,8 @@ export const ExampleSortType = {
     firstColumnDescending: 'FirstColumnDescending',
     secondColumnDescendingFirstColumnAscending:
         'SecondColumnDescendingFirstColumnAscending',
-    thirdColumnAscending: 'ThirdColumnAscending'
+    firstColumnAscendingSecondColumnDisabled:
+        'FirstColumnAscendingSecondColumnDisabled'
 } as const;
 export type ExampleSortType =
     (typeof ExampleSortType)[keyof typeof ExampleSortType];

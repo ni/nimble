@@ -3,15 +3,18 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
-import { TableColumnSortOperation } from '../base/types';
 import { TableColumnTextBase } from '../text-base';
-import { tableColumnTextCellViewTag } from './cell-view';
+import {
+    TableColumnWithPlaceholderColumnConfig,
+    TableColumnSortOperation
+} from '../base/types';
 import { tableColumnTextGroupHeaderTag } from './group-header-view';
+import { tableColumnTextCellViewTag } from './cell-view';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
-export interface TableColumnTextColumnConfig {
-    placeholder: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableColumnTextColumnConfig
+    extends TableColumnWithPlaceholderColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,7 +30,8 @@ export class TableColumnText extends TableColumnTextBase {
         super({
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag
+            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            delegatedEvents: []
         });
         this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
     }

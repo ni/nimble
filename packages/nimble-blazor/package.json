@@ -1,14 +1,15 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "11.8.17",
+  "version": "11.8.25",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run generate-icons && npm run build:release && npm run build:client",
+    "build": "npm run generate-icons && npm run generate-hybrid && npm run build:release && npm run build:client",
     "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
     "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
     "generate-icons:run": "node build/generate-icons/dist/index.js",
+    "generate-hybrid": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",

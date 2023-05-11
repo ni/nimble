@@ -13,7 +13,7 @@ import {
     uniqueElementName
 } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
 import { tableColumnEmptyGroupHeaderViewTag } from '../../table-column/base/tests/table-column.fixtures';
 
 interface SimpleTableRecord extends TableRecord {
@@ -568,7 +568,8 @@ describe('Table', () => {
                     super({
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
-                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                        delegatedEvents: []
                     });
                 }
             }
