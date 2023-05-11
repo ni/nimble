@@ -1,10 +1,29 @@
-import { Canvas, Meta, Controls, Stories, Title, Description } from '@storybook/blocks';
+import {
+    Canvas,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
 import * as comboboxStories from './combobox.stories';
 
 <Meta of={comboboxStories} />
 
 <Title of={comboboxStories} />
-<Description of={comboboxStories} />
+
+Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area.
+
+The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
+list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.
+
+### Usage
+
+See [Combobox, Select, & Menu Button Usage](?path=/docs/usage-combobox-select-menu-button--docs) for information about
+when you should use this component.
+
+See [Appearance Mode Usage](?path=/docs/usage-appearance-modes--docs) for information about when you should choose the
+**underline**, **outline**, or **block** appearance.
 
 <Canvas of={comboboxStories.outlineCombobox} />
 <Controls of={comboboxStories.outlineCombobox} />

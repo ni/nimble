@@ -1,0 +1,28 @@
+import {
+    Canvas,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as menuButtonStories from './menu-button.stories';
+
+<Meta of={menuButtonStories} />
+
+<Title of={menuButtonStories} />
+
+Per [W3C](https://w3c.github.io/aria-practices/#menubutton), a menu button is a button that opens a menu. It is
+often styled as a typical push button with a downward pointing arrow or triangle to hint that activating the button will display a menu.
+
+### Usage
+
+See [Combobox, Select, & Menu Button Usage](?path=/docs/usage-combobox-select-menu-button--docs) for information about
+when you should use this component.
+
+See [Appearance Mode Usage](?path=/docs/usage-appearance-modes--docs) for information about when you should choose the
+**ghost**, **outline**, or **block** appearance.
+
+<Canvas of={menuButtonStories.outlineButton} />
+<Controls of={menuButtonStories.outlineButton} />
+<Stories of={menuButtonStories} />

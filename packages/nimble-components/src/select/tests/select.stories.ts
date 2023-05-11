@@ -25,12 +25,6 @@ const metadata: Meta<SelectArgs> = {
     title: 'Components/Select',
     decorators: [withActions],
     parameters: {
-        docs: {
-            description: {
-                component:
-                    "Select is a control for selecting amongst a set of options. Its value comes from the `value` of the currently selected `nimble-list-option`, or, if no value exists for that option, the option's content. Upon clicking on the element, the other options are visible. The user cannot manually enter values, and thus the list cannot be filtered."
-            }
-        },
         actions: {
             handles: ['change']
         }

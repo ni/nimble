@@ -1,4 +1,11 @@
-import { Canvas, Meta, Controls, Stories, Title, Description } from '@storybook/blocks';
+import {
+    Canvas,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
 import * as selectStories from './select.stories';
 
 <Meta of={selectStories} />
@@ -11,12 +18,12 @@ The value comes from the `value` of the currently selected `nimble-list-option`,
 that option, the option's content. Upon clicking on the element, the other options are visible. The user cannot
 manually enter values, and thus the list cannot be filtered.
 
-### Usage 
+### Usage
 
 See [Combobox, Select, & Menu Button Usage](?path=/docs/usage-combobox-select-menu-button--docs) for information about
-when it's correct to use this component.
+when you should use this component.
 
-See [Appearance Mode Usage](?path=/docs/usage-appearance-modes--docs) for information about when to choose the
+See [Appearance Mode Usage](?path=/docs/usage-appearance-modes--docs) for information about when you should choose the
 **underline**, **outline**, or **block** appearance.
 
 <Canvas of={selectStories.outlineSelect} />
