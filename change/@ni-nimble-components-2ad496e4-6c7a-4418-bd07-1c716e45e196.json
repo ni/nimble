@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Add icons for import and export. Rename icon from `file-export` to `file-extract`.",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
