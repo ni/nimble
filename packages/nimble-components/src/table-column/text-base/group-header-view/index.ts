@@ -3,8 +3,7 @@ import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
 
 /**
- * The abstract base class for custom elements used to render a group row header for a group representing rows
- * grouped by a TableColumnTextBase column.
+ * The group header view base class for displaying fields of any type as text.
  */
 export abstract class TableColumnTextGroupHeaderViewBase<
     TGroupValue = TableFieldValue,

@@ -3,7 +3,7 @@ import { TableCellView } from '../../base/cell-view';
 import type { TableCellRecord } from '../../base/types';
 
 /**
- * A cell view base class for displaying fields of any type as text.
+ * The cell view base class for displaying fields of any type as text.
  */
 export abstract class TableColumnTextCellViewBase<
     TCellRecord extends TableCellRecord = TableCellRecord,

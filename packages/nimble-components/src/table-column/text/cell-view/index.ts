@@ -14,7 +14,7 @@ declare global {
 }
 
 /**
- * A cell view for displaying strings as text
+ * A cell view for displaying string fields as text
  */
 export class TableColumnTextCellView extends TableColumnTextCellViewBase<
 TableColumnTextCellRecord,

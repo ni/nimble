@@ -11,8 +11,7 @@ declare global {
     }
 }
 /**
- * The custom element used to render a group row header for a group representing rows
- * grouped by a TableColumnText column.
+ * The group header view for displaying string fields as text.
  */
 export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableStringFieldValue,

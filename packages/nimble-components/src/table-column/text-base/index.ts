@@ -8,7 +8,7 @@ export interface TableColumnTextColumnConfig {
 }
 
 /**
- * The base class for table columns to display fields of any type as text.
+ * The base class for table columns that display fields of any type as text.
  */
 export abstract class TableColumnTextBase extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(TableColumn<TableColumnTextColumnConfig>)
