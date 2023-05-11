@@ -25,9 +25,7 @@ export abstract class TableColumnTextGroupHeaderViewBase<
 
     @volatile
     public get content(): string {
-        return this.shouldUsePlaceholder
-            ? this.placeholder
-            : this.text;
+        return this.shouldUsePlaceholder ? this.placeholder : this.text;
     }
 
     /** @internal */

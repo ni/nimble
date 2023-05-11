@@ -1,6 +1,9 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { template } from '../../text-base/cell-view/template';
-import type { TableColumnTextCellRecord, TableColumnTextColumnConfig } from '..';
+import type {
+    TableColumnTextCellRecord,
+    TableColumnTextColumnConfig
+} from '..';
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
@@ -13,7 +16,10 @@ declare global {
 /**
  * A cell view for displaying strings as text
  */
-export class TableColumnTextCellView extends TableColumnTextCellViewBase<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
+export class TableColumnTextCellView extends TableColumnTextCellViewBase<
+TableColumnTextCellRecord,
+TableColumnTextColumnConfig
+> {
     public override get text(): string {
         return this.cellRecord.value!;
     }

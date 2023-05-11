@@ -25,8 +25,6 @@ export abstract class TableColumnTextCellViewBase<
 
     @volatile
     public get content(): string {
-        return this.shouldUsePlaceholder
-            ? this.placeholder
-            : this.text;
+        return this.shouldUsePlaceholder ? this.placeholder : this.text;
     }
 }
