@@ -364,12 +364,6 @@ const sortedOptions = {
             sortingDisabled: false
         }
     ],
-    [ExampleSortType.thirdColumnAscending]: [
-        {
-            columnId: 'age-column',
-            sortDirection: TableColumnSortDirection.ascending
-        }
-    ],
     [ExampleSortType.secondColumnDescendingFirstColumnAscending]: [
         {
             columnId: 'last-name-column',
@@ -486,8 +480,6 @@ export const sorting: StoryObj<SortingTableArgs> = {
                         'First name ascending',
                     [ExampleSortType.firstColumnDescending]:
                         'First name descending',
-                    [ExampleSortType.thirdColumnAscending]:
-                        'Age ascending',
                     [ExampleSortType.secondColumnDescendingFirstColumnAscending]:
                         'Last name descending then first name ascending',
                     [ExampleSortType.firstColumnAscendingSecondColumnDisabled]:

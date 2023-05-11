@@ -27,7 +27,8 @@ export class TableColumnNumericText extends TableColumnTextBase {
         super({
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnNumericTextCellViewTag,
-            groupHeaderViewTag: tableColumnNumericTextGroupHeaderTag
+            groupHeaderViewTag: tableColumnNumericTextGroupHeaderTag,
+            delegatedEvents: []
         });
         this.columnInternals.sortOperation = TableColumnSortOperation.basic;
     }
