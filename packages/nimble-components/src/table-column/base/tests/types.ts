@@ -15,8 +15,7 @@ export const ExampleGroupType = {
     firstName: 'FirstName',
     lastName: 'LastName',
     firstThenLastName: 'FirstThenLastName',
-    lastThenFirstName: 'LastThenFirstName',
-    age: 'Age'
+    lastThenFirstName: 'LastThenFirstName'
 } as const;
 export type ExampleGroupType =
     (typeof ExampleGroupType)[keyof typeof ExampleGroupType];

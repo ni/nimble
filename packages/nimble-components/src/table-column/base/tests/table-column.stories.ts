@@ -23,57 +23,49 @@ import {
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';
-import { tableColumnNumericTextTag } from '../../numeric-text';
 
 const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
-        quote: "I'm in danger!",
-        age: 8
+        quote: "I'm in danger!"
     },
     {
         firstName: 'Quincy',
         lastName: 'Wiggum',
         favoriteColor: 'Blue',
-        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity.",
-        age: 48
+        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity."
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
-        quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
-        age: 8
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Hi diddly-ho neighbor!',
-        age: 48
+        quote: 'Hi diddly-ho neighbor!'
     },
     {
         firstName: 'Maude',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling.",
-        age: 38
+        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling."
     },
     {
         firstName: 'Rod',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Lies make baby Jesus cry.',
-        age: 9
+        quote: 'Lies make baby Jesus cry.'
     },
     {
         firstName: 'Todd',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Dad, should I poke Rod with a sharp thing like the mouse did?',
-        age: 8
+        quote: 'Dad, should I poke Rod with a sharp thing like the mouse did?'
     },
     {
         firstName: 'Maggie',
@@ -442,12 +434,6 @@ export const sorting: StoryObj<SortingTableArgs> = {
             >
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumericTextTag}
-                field-name="age"
-                sort-direction="${x => x.getColumnSortData('age-column', x).direction}" sort-index="${x => x.getColumnSortData('age-column', x).index}"
-            >
-                Age
-            </${tableColumnNumericTextTag}>
             <${tableColumnTextTag}
                 field-name="favoriteColor"
                 sort-direction="${x => x.getColumnSortData('favorite-color-column', x).direction}"
@@ -551,11 +537,6 @@ const groupedRowOptions = {
         {
             columnId: 'first-name-column'
         }
-    ],
-    [ExampleGroupType.age]: [
-        {
-            columnId: 'age-column'
-        }
     ]
 } as const;
 
@@ -638,12 +619,6 @@ export const grouping: StoryObj<GroupingTableArgs> = {
             >
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumericTextTag}
-                field-name="age"
-                group-index="${x => getColumnGroupData('age-column', x.groupedColumns).index}"
-            >
-                Age
-            </${tableColumnNumericTextTag}>
             <${tableColumnTextTag}
                 field-name="favoriteColor"
             >
@@ -671,8 +646,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
                     [ExampleGroupType.firstThenLastName]:
                         'Group by first name then last.',
                     [ExampleGroupType.lastThenFirstName]:
-                        'Group by last name then first.',
-                    [ExampleGroupType.age]: 'Group by age',
+                        'Group by last name then first.'
                 }
             }
         },
