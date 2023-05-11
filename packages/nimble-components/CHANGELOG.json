@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 11 May 2023 03:00:34 GMT",
+      "tag": "@ni/nimble-components_v18.13.5",
+      "version": "18.13.5",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "394c07f8fe9761bf152ee96901041fac829f90f1",
+            "comment": "Add design document for table columns containing formatted text"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 08 May 2023 16:14:00 GMT",
       "tag": "@ni/nimble-components_v18.13.5",
       "version": "18.13.5",
