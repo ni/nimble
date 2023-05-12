@@ -30,15 +30,15 @@ Tokens are generated using the [Style Dictionary](https://amzn.github.io/style-d
 
 ### Icon naming
 
-Prefer [FontAwesome](https://fontawesome.com) names for icons. I.e. Minimize the use of metaphors, and choose descriptive and unambiguous names. 
-Add all appropriate metaphors/synonyms to the `icon-metadata.ts` file, so we can search for icons in Storybook via names or metaphors.
+Prefer [FontAwesome](https://fontawesome.com) names for icons. I.e. Minimize the use of metaphors; choose descriptive and unambiguous names instead.
 
-E.g. 
-| Descriptive name       | Poor name              |
+| ✅ Descriptive name    | ❌ Metaphor            |
 |------------------------|------------------------|
 | `key`                  | `access-control`       |
 | `cog`                  | `system-configuration` |
 | `arrow-left-from-line` | `logout`               |
+
+Add all appropriate metaphors and synonyms to the `icon-metadata.ts` file, so clients can quickly find icons in Storybook.
 
 ### Extract icons from Adobe Illustrator
 
