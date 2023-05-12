@@ -151,11 +151,25 @@ _Functions_
 
 _Events_
 
--   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. The event details include the following:
+-   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
     -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
     -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
     -   `recordIds` - string array - The IDs of the records that the menu is associated with.
     -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `action-menu-toggle` - An event that is emitted when the action menu opens or closes. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element transitioned in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element transitioned out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `column-configuration-change` - An event that is emitted when a user interactively changes the configuration of a column, such as by sorting or resizing the column. See [the table column interaction events HLD](./table-column-interaction-events.md) for more information. The event details include the following:
+    -   `columns` - array of column configuration details - The columns that are currently in the table in the order specified in the DOM, along with their current configuration. Each entry in the array contains:
+        -   `columnId` - string | undefined - The column ID of the column.
+        -   `sortIndex` - number | undefined - The current sort index of the column.
+        -   `sortDirection` - TableColumnSortDirection - The direction the column is sorted.
+        -   `groupIndex` - number | undefined - The current group index of the column.
+        -   `hidden` - boolean - Whether or not the column is currently hidden.
+        -   `fractionalWidth` - number - The current fractional width of the column.
+        -   `pixelWidth` - number | undefined - The current pixel width of the column. The value will be undefined if the column is not configured to be a fixed-width column.
 
 ### Anatomy
 
