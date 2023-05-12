@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E5C31FAF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Hybrid", "Examples\Demo.Hybrid\Demo.Hybrid.csproj", "{EAC50129-EF2E-4E7B-98D0-64502E97ED8B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Tests.Acceptance", "NimbleBlazor.Acceptance.Tests\NimbleBlazor.Tests.Acceptance.csproj", "{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{EAC50129-EF2E-4E7B-98D0-64502E97ED8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAC50129-EF2E-4E7B-98D0-64502E97ED8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAC50129-EF2E-4E7B-98D0-64502E97ED8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{6A1D0B77-BBF2-415E-B3A8-FAB00879F07C} = {638B1C16-782F-4C91-A09C-3569957356DF}
 		{8B6E367C-E472-4E68-98D2-968CFCF6939D} = {638B1C16-782F-4C91-A09C-3569957356DF}
 		{EAC50129-EF2E-4E7B-98D0-64502E97ED8B} = {638B1C16-782F-4C91-A09C-3569957356DF}
+		{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B} = {E5C31FAF-7DEF-494F-A0D2-C9A4875F2132}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38E2A588-0714-41E7-9BA3-D89622560FF9}
