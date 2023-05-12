@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 12 May 2023 17:59:07 GMT",
+      "tag": "@ni/nimble-tokens_v6.0.0",
+      "version": "6.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "1e040752c74ea8fc0df586a2a54525e15d5c8b29",
+            "comment": "Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 19 Apr 2023 17:58:44 GMT",
       "tag": "@ni/nimble-tokens_v5.0.0",
       "version": "5.0.0",

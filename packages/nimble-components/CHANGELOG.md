@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 11 May 2023 18:44:25 GMT and should not be manually modified.
+This log was last generated on Fri, 12 May 2023 17:59:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.0.0
+
+Fri, 12 May 2023 17:59:07 GMT
+
+### Major changes
+
+- Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons. ([ni/nimble@1e04075](https://github.com/ni/nimble/commit/1e040752c74ea8fc0df586a2a54525e15d5c8b29))
+- Bump @ni/nimble-tokens to v6.0.0
 
 ## 18.13.6
 
