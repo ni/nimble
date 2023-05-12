@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "HLD for event emitted when interactively changing a table column's configuration",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
