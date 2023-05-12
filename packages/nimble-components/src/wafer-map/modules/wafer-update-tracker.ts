@@ -6,14 +6,29 @@ import { UpdateTracker } from '../../utilities/update-tracker';
  * changes.
  */
 export class WaferUpdateTracker extends UpdateTracker<WaferMap> {
-    public get requiresDataManagerUpdate(): boolean {
+    public get requiresContainerDimensionsUpdate(): boolean {
         return (
             this.requiredUpdates.canvasWidth
             || this.requiredUpdates.canvasHeight
-            || this.requiredUpdates.quadrant
+        );
+    }
+
+    public get requiresScalesUpdate(): boolean {
+        return (
+            this.requiredUpdates.quadrant
             || this.requiredUpdates.dies
-            || this.requiredUpdates.maxCharacters
-            || this.requiredUpdates.colorScale
+        );
+    }
+
+    public get requiresLabelsFontSizeUpdate(): boolean {
+        return (
+            this.requiredUpdates.maxCharacters
+        );
+    }
+
+    public get requiresDiesRenderInfoUpdate(): boolean {
+        return (
+            this.requiredUpdates.colorScale
             || this.requiredUpdates.colorScaleMode
             || this.requiredUpdates.highlightedValues
             || this.requiredUpdates.dieLabelsHidden

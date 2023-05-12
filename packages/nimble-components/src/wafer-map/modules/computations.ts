@@ -17,26 +17,58 @@ interface GridDimensions {
  * Computations calculates and stores different measures which are used in the Wafermap
  */
 export class Computations {
-    public readonly containerDimensions: Dimensions;
-    public readonly dieDimensions: Dimensions;
-    public readonly radius: number;
-    public readonly margin: Margin;
+    public get containerDimensions(): Dimensions {
+        return this._containerDimensions;
+    }
 
-    public readonly horizontalScale: ScaleBand<number>;
-    public readonly verticalScale: ScaleBand<number>;
+    public get dieDimensions(): Dimensions {
+        return this._dieDimensions;
+    }
 
-    public readonly invertedHorizontalScale: ScaleQuantile<number, number>;
-    public readonly invertedVerticalScale: ScaleQuantile<number, number>;
+    public get radius(): number {
+        return this._radius;
+    }
 
+    public get margin(): Margin {
+        return this._margin;
+    }
+
+    public get horizontalScale(): ScaleBand<number> {
+        return this._horizontalScale;
+    }
+
+    public get verticalScale(): ScaleBand<number> {
+        return this._verticalScale;
+    }
+
+    public get invertedHorizontalScale(): ScaleQuantile<number, number> {
+        return this._invertedHorizontalScale;
+    }
+
+    public get invertedVerticalScale(): ScaleQuantile<number, number> {
+        return this._invertedVerticalScale;
+    }
+
+    private _containerDimensions!: Dimensions;
+    private _dieDimensions!: Dimensions;
+    private _radius!: number;
+    private _margin!: Margin;
+    private _horizontalScale!: ScaleBand<number>;
+    private _verticalScale!: ScaleBand<number>;
+    private _invertedHorizontalScale!: ScaleQuantile<number, number>;
+    private _invertedVerticalScale!: ScaleQuantile<number, number>;
     private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
 
     public constructor(wafermap: WaferMap) {
+        this.updateContainerDimensions(wafermap);
+    }
+
+    public updateContainerDimensions(wafermap: WaferMap): void {
         const canvasDimensions = {
             width: wafermap.canvasWidth,
             height: wafermap.canvasHeight
         };
-        const gridDimensions = this.calculateGridDimensions(wafermap.dies);
         const canvasDiameter = Math.min(
             canvasDimensions.width,
             canvasDimensions.height
@@ -53,42 +85,51 @@ export class Computations {
             bottom: canvasDiameter * this.baseMarginPercentage,
             left: canvasDiameter * this.baseMarginPercentage
         };
-        this.margin = this.calculateMarginAddition(baseMargin, canvasMargin);
-        this.containerDimensions = this.calculateContainerDimensions(
+        this._margin = this.calculateMarginAddition(baseMargin, canvasMargin);
+        this._containerDimensions = this.calculateContainerDimensions(
             canvasDimensions,
-            this.margin
+            this._margin
         );
         const containerDiameter = Math.min(
-            this.containerDimensions.width,
-            this.containerDimensions.height
+            this._containerDimensions.width,
+            this._containerDimensions.height
+        );
+        this._radius = containerDiameter / 2;
+        this.updateScales(wafermap);
+    }
+
+    public updateScales(wafermap: WaferMap): void {
+        const containerDiameter = Math.min(
+            this._containerDimensions.width,
+            this._containerDimensions.height
+        );
+        const gridDimensions = this.calculateGridDimensions(wafermap.dies);
+        // this scale is used for positioning the dies on the canvas
+        this._horizontalScale = this.createHorizontalScale(
+            wafermap.quadrant,
+            gridDimensions,
+            containerDiameter
+        );
+        this._invertedHorizontalScale = this.createInvertedHorizontalScale(
+            wafermap.quadrant,
+            gridDimensions,
+            containerDiameter
         );
         // this scale is used for positioning the dies on the canvas
-        this.horizontalScale = this.createHorizontalScale(
+        this._verticalScale = this.createVerticalScale(
             wafermap.quadrant,
             gridDimensions,
             containerDiameter
         );
-        this.invertedHorizontalScale = this.createInvertedHorizontalScale(
+        this._invertedVerticalScale = this.createInvertedVerticalScale(
             wafermap.quadrant,
             gridDimensions,
             containerDiameter
         );
-        // this scale is used for positioning the dies on the canvas
-        this.verticalScale = this.createVerticalScale(
-            wafermap.quadrant,
-            gridDimensions,
-            containerDiameter
-        );
-        this.invertedVerticalScale = this.createInvertedVerticalScale(
-            wafermap.quadrant,
-            gridDimensions,
-            containerDiameter
-        );
-        this.dieDimensions = {
+        this._dieDimensions = {
             width: this.horizontalScale.bandwidth(),
             height: this.verticalScale.bandwidth()
         };
-        this.radius = containerDiameter / 2;
     }
 
     private calculateGridDimensions(

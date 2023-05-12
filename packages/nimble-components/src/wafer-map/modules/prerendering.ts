@@ -1,5 +1,4 @@
 import {
-    ScaleBand,
     ScaleLinear,
     scaleLinear,
     ScaleOrdinal,
@@ -9,23 +8,30 @@ import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
 import type {
     Dimensions,
-    Margin,
     DieRenderInfo,
     WaferMapColorScale
 } from '../types';
 import type { WaferMap } from '..';
+import type { DataManager } from './data-manager';
 
 /**
  * Prerendering prepares render-ready dies data to be used by the rendering module
  */
 export class Prerendering {
-    public readonly labelsFontSize: number;
+    public get labelsFontSize(): number {
+        return this._labelsFontSize;
+    }
 
-    public readonly diesRenderInfo: DieRenderInfo[];
+    public get diesRenderInfo(): DieRenderInfo[] {
+        return this._diesRenderInfo;
+    }
 
-    public readonly d3ColorScale:
+    public d3ColorScale!:
     | ScaleOrdinal<string, string>
     | ScaleLinear<string, string>;
+
+    private _labelsFontSize!: number;
+    private _diesRenderInfo!: DieRenderInfo[];
 
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
@@ -34,38 +40,57 @@ export class Prerendering {
 
     public constructor(
         wafermap: WaferMap,
-        horizontalScale: ScaleBand<number>,
-        verticalScale: ScaleBand<number>,
-        dieDimensions: Readonly<Dimensions>,
-        margin: Readonly<Margin>
+        dataManager: DataManager
     ) {
+        this.updateLabelsFontSize(wafermap, dataManager);
+    }
+
+    public updateLabelsFontSize(
+        wafermap: WaferMap,
+        dataManager: DataManager
+    ): void {
+        this._labelsFontSize = this.calculateLabelsFontSize(
+            dataManager.dieDimensions,
+            wafermap.maxCharacters
+        );
+        this.updateDiesRenderInfo(wafermap, dataManager);
+    }
+
+    public updateDiesRenderInfo(
+        wafermap: WaferMap,
+        dataManager: DataManager
+    ): void {
         this.d3ColorScale = this.createD3ColorScale(
             wafermap.colorScale,
             wafermap.colorScaleMode
         );
 
-        this.labelsFontSize = this.calculateLabelsFontSize(
-            dieDimensions,
-            wafermap.maxCharacters
-        );
+        const margin = dataManager.margin;
+        const horizontalScale = dataManager.horizontalScale;
+        const verticalScale = dataManager.verticalScale;
 
-        this.diesRenderInfo = [];
+        const colorScaleMode = wafermap.colorScaleMode;
+        const highlightedValues = wafermap.highlightedValues;
+        const maxCharacters = wafermap.maxCharacters;
+        const dieLabelsHidden = wafermap.dieLabelsHidden;
+        const dieLabelsSuffix = wafermap.dieLabelsSuffix;
+        this._diesRenderInfo = [];
         for (const die of wafermap.dies) {
             const scaledX = horizontalScale(die.x) ?? 0;
             const scaledY = verticalScale(die.y) ?? 0;
-            this.diesRenderInfo.push({
+            this._diesRenderInfo.push({
                 x: scaledX + margin.right,
                 y: scaledY + margin.top,
                 fillStyle: this.calculateFillStyle(
                     die.value,
-                    wafermap.colorScaleMode,
-                    wafermap.highlightedValues
+                    colorScaleMode,
+                    highlightedValues
                 ),
                 text: this.buildLabel(
                     die.value,
-                    wafermap.maxCharacters,
-                    wafermap.dieLabelsHidden,
-                    wafermap.dieLabelsSuffix
+                    maxCharacters,
+                    dieLabelsHidden,
+                    dieLabelsSuffix
                 )
             });
         }

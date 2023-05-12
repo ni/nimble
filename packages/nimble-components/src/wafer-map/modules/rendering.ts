@@ -22,6 +22,7 @@ export class RenderingModule {
         this.renderDies();
         this.renderText();
         this.wafermap.canvasContext.restore();
+        this.renderHover();
     }
 
     public renderHover(): void {

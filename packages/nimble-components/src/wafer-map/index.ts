@@ -140,11 +140,7 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.canvasContext = this.canvas.getContext('2d', {
-            willReadFrequently: true
-        })!;
-        this.waferUpdateTracker?.trackAllStateChanged();
-        this.resizeObserver = this.createResizeObserver();
+        this.initialize();
     }
 
     public override disconnectedCallback(): void {
@@ -156,24 +152,65 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public update(): void {
-        let snowball = false;
-        if (this.waferUpdateTracker.requiresDataManagerUpdate) {
+        if (this.waferUpdateTracker.requiresContainerDimensionsUpdate) {
             this.eventCoordinator?.detachEvents();
-            this.dataManager = new DataManager(this);
-            snowball = true;
-        }
-        if (snowball || this.waferUpdateTracker.requiresRenderingModuleUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.renderer = new RenderingModule(this);
-            snowball = true;
-        }
-        if (snowball) {
+            this.updateContainerDimensions();
             this.eventCoordinator = new EventCoordinator(this);
-            this.renderer?.drawWafer();
-        }
-        if (snowball || this.waferUpdateTracker.requiresRenderHoverUpdate) {
+        } else if (this.waferUpdateTracker.requiresScalesUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateScales();
+            this.eventCoordinator = new EventCoordinator(this);
+        } else if (this.waferUpdateTracker.requiresLabelsFontSizeUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateLabelsFontSize();
+            this.eventCoordinator = new EventCoordinator(this);
+        } else if (this.waferUpdateTracker.requiresDiesRenderInfoUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateDiesRenderInfo();
+            this.eventCoordinator = new EventCoordinator(this);
+        } else if (this.waferUpdateTracker.requiresRenderingModuleUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateRenderingModule();
+            this.eventCoordinator = new EventCoordinator(this);
+        } else if (this.waferUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer?.renderHover();
         }
+    }
+
+    private updateContainerDimensions(): void {
+        this.dataManager?.updateContainerDimensions(this);
+        this.updateRenderingModule();
+    }
+
+    private updateScales(): void {
+        this.dataManager?.updateScales(this);
+        this.updateRenderingModule();
+    }
+
+    private updateLabelsFontSize(): void {
+        this.dataManager?.updateLabelsFontSize(this);
+        this.updateRenderingModule();
+    }
+
+    private updateDiesRenderInfo(): void {
+        this.dataManager?.updateDiesRenderInfo(this);
+        this.updateRenderingModule();
+    }
+
+    private updateRenderingModule(): void {
+        this.renderer = new RenderingModule(this);
+        this.renderer?.drawWafer();
+    }
+
+    private initialize(): void {
+        this.canvasContext = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        })!;
+        this.dataManager = new DataManager(this);
+        this.renderer = new RenderingModule(this);
+        this.eventCoordinator = new EventCoordinator(this);
+        this.resizeObserver = this.createResizeObserver();
+        this.waferUpdateTracker?.trackAllStateChanged();
     }
 
     private createResizeObserver(): ResizeObserver {
