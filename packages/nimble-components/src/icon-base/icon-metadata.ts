@@ -208,6 +208,9 @@ export const iconMetadata: {
     IconDownload: {
         tags: []
     },
+    IconDownRightFromSquare: {
+        tags: ['import']
+    },
     IconElectronicChipZoomed: {
         tags: ['data-preparation']
     },
@@ -223,14 +226,14 @@ export const iconMetadata: {
     IconFile: {
         tags: ['file-tdms']
     },
+    IconFileArrowCurvedRight: {
+        tags: ['export', 'extract']
+    },
     IconFileDrawer: {
         tags: ['box', 'repository-manager']
     },
     IconFileSearch: {
         tags: ['file-viewer']
-    },
-    IconFileExport: {
-        tags: ['download']
     },
     IconFilter: {
         tags: []
@@ -361,9 +364,6 @@ export const iconMetadata: {
     IconShareNodes: {
         tags: []
     },
-    IconShareSquare: {
-        tags: ['export']
-    },
     IconShieldCheck: {
         tags: ['secure']
     },
@@ -450,6 +450,9 @@ export const iconMetadata: {
     },
     IconUpload: {
         tags: []
+    },
+    IconUpRightFromSquare: {
+        tags: ['export']
     },
     IconUser: {
         tags: ['admin', 'account']

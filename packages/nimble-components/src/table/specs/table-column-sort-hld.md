@@ -8,8 +8,6 @@ There is a requirement to have table columns that can be sorted, both programmat
 
 -   Keyboard interactions for interactive sorting (see [#1137](https://github.com/ni/nimble/issues/1137))
 -   Focusable element behavior for the column header (see [#1151](https://github.com/ni/nimble/issues/1151))
--   Event for interactive sorting
-    -   We're omitting an event to begin with - we think it may be more relevant in conjunction with table persistance / view config management, see [#870](https://github.com/ni/nimble/issues/870)
 
 ## Links To Relevant Work Items and Reference Material
 
@@ -83,6 +81,10 @@ Each column that is sorted will have an appropriate icon displayed in the header
 ### Accessibility
 
 Each column that is sorted ascending will have `aria-sort="ascending"` set on the header, and each column that is sorted descending will have `aria-sort="descending"` set on the header.
+
+### Interactive Sorting Event
+
+When a column is sorted interactively, either by clicking on the column header or by using the column menu, the `column-configuration-change` event will be emitted by the table. The details of this event are covered in the [Table Column Interaction Events HLD](./table-column-interaction-events.md).
 
 ### Interactive Sorting UX
 
