@@ -163,7 +163,7 @@ _Events_
     -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
 -   `column-configuration-change` - An event that is emitted when a user interactively changes the configuration of a column, such as by sorting or resizing the column. See [the table column interaction events HLD](./table-column-interaction-events.md) for more information. The event details include the following:
     -   `columns` - array of column configuration details - The columns that are currently in the table in the order specified in the DOM, along with their current configuration. Each entry in the array contains:
-        -   `columnId` - string | undefined - The column ID of the column. 
+        -   `columnId` - string | undefined - The column ID of the column.
         -   `sortIndex` - number | undefined - The current sort index of the column.
         -   `sortDirection` - TableColumnSortDirection - The direction the column is sorted.
         -   `groupIndex` - number | undefined - The current group index of the column.
