@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 12 May 2023 17:59:07 GMT and should not be manually modified.
+This log was last generated on Fri, 12 May 2023 23:44:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.0.1
+
+Fri, 12 May 2023 23:44:48 GMT
+
+### Patches
+
+- Refactor to create base classes for table columns that display text ([ni/nimble@c00161d](https://github.com/ni/nimble/commit/c00161dc10ec928b14f3c7cfe0b14a6a05f5551e))
 
 ## 19.0.0
 
