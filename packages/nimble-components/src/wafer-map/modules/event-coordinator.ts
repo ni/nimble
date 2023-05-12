@@ -14,17 +14,22 @@ export class EventCoordinator {
     private readonly zoomHandler: ZoomHandler;
     private readonly hoverHandler: HoverHandler;
 
-    public constructor(private readonly wafermap: WaferMap) {
+    public constructor(wafermap: WaferMap) {
         this.zoomHandler = new ZoomHandler(wafermap);
-        this.hoverHandler = new HoverHandler(wafermap);
+        this.hoverHandler = new HoverHandler();
 
-        this.attachEvents();
+        this.attachEvents(wafermap);
     }
 
-    public detachEvents(): void {
-        this.wafermap.removeEventListener('mousemove', this.onMouseMove);
-        this.wafermap.removeEventListener('mouseout', this.onMouseOut);
-        this.wafermap.canvas.removeEventListener('wheel', this.onWheelMove);
+    public updateEvents(wafermap: Readonly<WaferMap>): void {
+        this.zoomHandler.updateZoomBehavior(wafermap);
+        this.attachEvents(wafermap);
+    }
+
+    public detachEvents(wafermap: Readonly<WaferMap>): void {
+        wafermap.removeEventListener('mousemove', this.onMouseMove);
+        wafermap.removeEventListener('mouseout', this.onMouseOut);
+        wafermap.canvas.removeEventListener('wheel', this.onWheelMove);
     }
 
     private readonly onWheelMove = (event: Event): void => {
@@ -39,10 +44,10 @@ export class EventCoordinator {
         this.hoverHandler.mouseout(event);
     };
 
-    private attachEvents(): void {
-        this.wafermap.addEventListener('mousemove', this.onMouseMove);
-        this.wafermap.addEventListener('mouseout', this.onMouseOut);
-        this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
+    private attachEvents(wafermap: Readonly<WaferMap>): void {
+        wafermap.addEventListener('mousemove', this.onMouseMove);
+        wafermap.addEventListener('mouseout', this.onMouseOut);
+        wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
             passive: false
         });
     }

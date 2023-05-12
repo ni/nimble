@@ -6,6 +6,7 @@ import { DieRenderInfo, HoverDieOpacity } from '../types';
  */
 export class RenderingModule {
     private dies!: DieRenderInfo[];
+    private readonly minDieDim = 50;
 
     public constructor(wafermap: Readonly<WaferMap>) {
         this.sortDies(wafermap);
@@ -97,7 +98,7 @@ export class RenderingModule {
         const approxTextHeight = wafermap.canvasContext.measureText('M');
 
         const dieDimensions = wafermap.dataManager!.dieDimensions;
-        if (dieSize >= 50) {
+        if (dieSize >= this.minDieDim) {
             for (const die of this.dies) {
                 wafermap.canvasContext.fillText(
                     die.text,

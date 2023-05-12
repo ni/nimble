@@ -10,6 +10,7 @@ import type { WaferMap } from '..';
 
 interface ZoomEvent {
     transform: ZoomTransform;
+    sourceEvent: WheelEvent;
 }
 
 /**
@@ -20,11 +21,15 @@ export class ZoomHandler {
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
-    private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
+    private zoomBehavior!: ZoomBehavior<Element, unknown>;
 
     public constructor(private readonly wafermap: WaferMap) {
-        this.zoomBehavior = this.createZoomBehavior();
-        this.zoomBehavior(select(this.wafermap.canvas as Element));
+        this.updateZoomBehavior(wafermap);
+    }
+
+    public updateZoomBehavior(wafermap: Readonly<WaferMap>): void {
+        this.zoomBehavior = this.createZoomBehavior(wafermap);
+        this.zoomBehavior(select(wafermap.canvas as Element));
     }
 
     private rescale(event: ZoomEvent): void {
@@ -32,7 +37,7 @@ export class ZoomHandler {
         if (transform.k === this.minScale) {
             this.zoomTransform = zoomIdentity;
             this.zoomBehavior.transform(
-                select(this.wafermap.canvas as Element),
+                select(event.sourceEvent.target as Element),
                 zoomIdentity
             );
         } else {
@@ -42,25 +47,25 @@ export class ZoomHandler {
         this.wafermap.transform = this.zoomTransform;
     }
 
-    private createZoomBehavior(): ZoomBehavior<Element, unknown> {
+    private createZoomBehavior(wafermap: Readonly<WaferMap>): ZoomBehavior<Element, unknown> {
         const zoomBehavior = zoom()
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
-                    this.wafermap.canvasWidth * this.wafermap.canvasHeight,
-                    this.wafermap.dataManager!.containerDimensions.width
-                        * this.wafermap.dataManager!.containerDimensions.height
+                    wafermap.canvasWidth * wafermap.canvasHeight,
+                    wafermap.dataManager!.containerDimensions.width
+                        * wafermap.dataManager!.containerDimensions.height
                 )
             ])
             .translateExtent([
                 this.minExtentPoint,
                 [
-                    this.wafermap.canvasWidth + this.extentPadding,
-                    this.wafermap.canvasHeight + this.extentPadding
+                    wafermap.canvasWidth + this.extentPadding,
+                    wafermap.canvasHeight + this.extentPadding
                 ]
             ])
             .filter((event: Event) => {
-                const transform = zoomTransform(this.wafermap.canvas);
+                const transform = zoomTransform(wafermap.canvas);
                 const filterEval = transform.k >= this.minScale || event.type === 'wheel';
                 return filterEval;
             })

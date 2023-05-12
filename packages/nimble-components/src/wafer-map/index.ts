@@ -162,28 +162,22 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public update(): void {
-        if (this.waferUpdateTracker.requiresContainerDimensionsUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateContainerDimensions();
-            this.eventCoordinator = new EventCoordinator(this);
-        } else if (this.waferUpdateTracker.requiresScalesUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateScales();
-            this.eventCoordinator = new EventCoordinator(this);
-        } else if (this.waferUpdateTracker.requiresLabelsFontSizeUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateLabelsFontSize();
-            this.eventCoordinator = new EventCoordinator(this);
-        } else if (this.waferUpdateTracker.requiresDiesRenderInfoUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateDiesRenderInfo();
-            this.eventCoordinator = new EventCoordinator(this);
-        } else if (this.waferUpdateTracker.requiresRenderingModuleUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateRenderingModule();
-            this.eventCoordinator = new EventCoordinator(this);
-        } else if (this.waferUpdateTracker.requiresRenderHoverUpdate) {
+        if (this.waferUpdateTracker.requiresRenderHoverUpdate) {
             this.updateRenderHover();
+        } else {
+            this.eventCoordinator?.detachEvents(this);
+            if (this.waferUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.updateContainerDimensions();
+            } else if (this.waferUpdateTracker.requiresScalesUpdate) {
+                this.updateScales();
+            } else if (this.waferUpdateTracker.requiresLabelsFontSizeUpdate) {
+                this.updateLabelsFontSize();
+            } else if (this.waferUpdateTracker.requiresDiesRenderInfoUpdate) {
+                this.updateDiesRenderInfo();
+            } else if (this.waferUpdateTracker.requiresRenderingModuleUpdate) {
+                this.updateRenderingModule();
+            }
+            this.eventCoordinator?.updateEvents(this);
         }
     }
 
@@ -216,6 +210,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private initialize(): void {
+        this.canvas.width = this.clientWidth;
+        this.canvas.height = this.clientHeight;
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
