@@ -7,6 +7,8 @@ Some clients need to know when a user interactively changes the configuration of
 -   Sorting a column
 -   Grouping by a column
 -   Resizing a column
+-   Reordering columns
+-   Changing the visibility of a column
 
 ### Out of scope of this HLD
 
@@ -34,12 +36,12 @@ export interface TableColumnConfigurationChangeEventDetail {
  */
 export interface TableColumnConfiguration {
     columnId?: string;
-    sortIndex?: number | null;
+    sortIndex?: number;
     sortDirection: TableColumnSortDirection;
-    groupIndex?: number | null;
+    groupIndex?: number;
     hidden: boolean;
     fractionalWidth: number;
-    pixelWidth?: number | null;
+    pixelWidth?: number;
 }
 ```
 
