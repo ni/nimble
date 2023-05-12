@@ -15,7 +15,7 @@ export abstract class TableColumnTextGroupHeaderViewBase<
 
     /** @internal */
     @observable
-    public isValidContentAndHasOverflow = false;
+    public hasOverflow = false;
 
     /** Returns the text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder() is false) */
     public abstract get text(): string;
@@ -33,11 +33,11 @@ export abstract class TableColumnTextGroupHeaderViewBase<
 
     /** @internal */
     public updateTitleOverflow(): void {
-        this.isValidContentAndHasOverflow = this.textSpan.offsetWidth < this.textSpan.scrollWidth;
+        this.hasOverflow = this.textSpan.offsetWidth < this.textSpan.scrollWidth;
     }
 
     /** @internal */
     public clearTitleOverflow(): void {
-        this.isValidContentAndHasOverflow = false;
+        this.hasOverflow = false;
     }
 }

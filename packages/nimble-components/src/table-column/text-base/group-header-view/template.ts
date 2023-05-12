@@ -7,9 +7,7 @@ export const template = html<TableColumnTextGroupHeaderViewBase>`
         class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
         @mouseover="${x => x.updateTitleOverflow()}"
         @mouseout="${x => x.clearTitleOverflow()}"
-        title="${x => (x.isValidContentAndHasOverflow && x.content
-        ? x.content
-        : undefined)}"
+        title="${x => (x.hasOverflow && x.content ? x.content : undefined)}"
     >
         ${x => x.content}
     </span>
