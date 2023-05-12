@@ -2,6 +2,72 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 12 May 2023 18:53:51 GMT",
+      "tag": "@ni/nimble-components_v19.0.0",
+      "version": "19.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7e4551f6f7a2bcd3066c0945789d4fe5119015d3",
+            "comment": "HLD for event emitted when interactively changing a table column's configuration"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 May 2023 17:59:07 GMT",
+      "tag": "@ni/nimble-components_v19.0.0",
+      "version": "19.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1e040752c74ea8fc0df586a2a54525e15d5c8b29",
+            "comment": "Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.0.0",
+            "commit": "1e040752c74ea8fc0df586a2a54525e15d5c8b29"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 May 2023 16:30:07 GMT",
+      "tag": "@ni/nimble-components_v18.13.6",
+      "version": "18.13.6",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "300bbb93c758dbdd8dc37ee353db09abcca9f0ee",
+            "comment": "Update prettier to support MDX files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 May 2023 18:44:25 GMT",
+      "tag": "@ni/nimble-components_v18.13.6",
+      "version": "18.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "588e269cb3992753153a835a407c6694e4abe6b8",
+            "comment": "Fix row styling issue"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 May 2023 03:00:34 GMT",
       "tag": "@ni/nimble-components_v18.13.5",
       "version": "18.13.5",
