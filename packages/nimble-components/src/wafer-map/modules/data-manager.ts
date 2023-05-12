@@ -58,7 +58,7 @@ export class DataManager {
     private readonly prerendering: Prerendering;
     private dataMap: Map<string, WaferMapDie>;
 
-    public constructor(wafermap: WaferMap) {
+    public constructor(wafermap: Readonly<WaferMap>) {
         this.computations = new Computations(wafermap);
 
         this.prerendering = new Prerendering(wafermap, this);
@@ -68,12 +68,12 @@ export class DataManager {
         );
     }
 
-    public updateContainerDimensions(wafermap: WaferMap): void {
+    public updateContainerDimensions(wafermap: Readonly<WaferMap>): void {
         this.computations.updateContainerDimensions(wafermap);
         this.updateLabelsFontSize(wafermap);
     }
 
-    public updateScales(wafermap: WaferMap): void {
+    public updateScales(wafermap: Readonly<WaferMap>): void {
         this.computations.updateScales(wafermap);
         this.dataMap = new Map(
             wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
@@ -81,11 +81,11 @@ export class DataManager {
         this.updateLabelsFontSize(wafermap);
     }
 
-    public updateLabelsFontSize(wafermap: WaferMap): void {
+    public updateLabelsFontSize(wafermap: Readonly<WaferMap>): void {
         this.prerendering.updateLabelsFontSize(wafermap, this);
     }
 
-    public updateDiesRenderInfo(wafermap: WaferMap): void {
+    public updateDiesRenderInfo(wafermap: Readonly<WaferMap>): void {
         this.prerendering.updateDiesRenderInfo(wafermap, this);
     }
 

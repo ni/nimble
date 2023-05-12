@@ -39,15 +39,15 @@ export class Prerendering {
     private readonly nanDieColor = 'rgba(122,122,122,1)';
 
     public constructor(
-        wafermap: WaferMap,
-        dataManager: DataManager
+        wafermap: Readonly<WaferMap>,
+        dataManager: Readonly<DataManager>
     ) {
         this.updateLabelsFontSize(wafermap, dataManager);
     }
 
     public updateLabelsFontSize(
-        wafermap: WaferMap,
-        dataManager: DataManager
+        wafermap: Readonly<WaferMap>,
+        dataManager: Readonly<DataManager>
     ): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
             dataManager.dieDimensions,
@@ -57,8 +57,8 @@ export class Prerendering {
     }
 
     public updateDiesRenderInfo(
-        wafermap: WaferMap,
-        dataManager: DataManager
+        wafermap: Readonly<WaferMap>,
+        dataManager: Readonly<DataManager>
     ): void {
         this.d3ColorScale = this.createD3ColorScale(
             wafermap.colorScale,

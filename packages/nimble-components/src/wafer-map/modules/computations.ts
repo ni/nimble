@@ -60,11 +60,11 @@ export class Computations {
     private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
 
-    public constructor(wafermap: WaferMap) {
+    public constructor(wafermap: Readonly<WaferMap>) {
         this.updateContainerDimensions(wafermap);
     }
 
-    public updateContainerDimensions(wafermap: WaferMap): void {
+    public updateContainerDimensions(wafermap: Readonly<WaferMap>): void {
         const canvasDimensions = {
             width: wafermap.canvasWidth,
             height: wafermap.canvasHeight
@@ -98,7 +98,7 @@ export class Computations {
         this.updateScales(wafermap);
     }
 
-    public updateScales(wafermap: WaferMap): void {
+    public updateScales(wafermap: Readonly<WaferMap>): void {
         const containerDiameter = Math.min(
             this._containerDimensions.width,
             this._containerDimensions.height
