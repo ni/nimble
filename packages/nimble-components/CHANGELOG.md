@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 May 2023 16:14:00 GMT and should not be manually modified.
+This log was last generated on Thu, 11 May 2023 18:44:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 18.13.6
+
+Thu, 11 May 2023 18:44:25 GMT
+
+### Patches
+
+- Fix row styling issue ([ni/nimble@588e269](https://github.com/ni/nimble/commit/588e269cb3992753153a835a407c6694e4abe6b8))
 
 ## 18.13.5
 
