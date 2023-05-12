@@ -17,6 +17,7 @@
 !src/**/*.mdx
 !src/**/*.json
 
+/docs/**/*.*
 !docs/**/*.mdx
 
 /.storybook/*.*
