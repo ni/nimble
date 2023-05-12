@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Update prettier to support MDX files",
-  "packageName": "@ni/nimble-components",
-  "email": "1458528+fredvisser@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
