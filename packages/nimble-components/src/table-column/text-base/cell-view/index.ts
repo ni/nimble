@@ -16,13 +16,25 @@ export abstract class TableColumnTextCellViewBase<
     /** @internal */
     public textSpan!: HTMLElement;
 
-    /** Returns the text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder() is false) */
+    /**
+     * Returns the text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder() is false).
+     * If the implementation has branching code paths then it must be marked with @volatile.
+     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
+     */
     public abstract get text(): string;
 
-    /** Returns the text to render in the cell when it contains an invalid value (i.e. when shouldUsePlaceholder() is true) */
+    /**
+     * Returns the text to render in the cell when it contains an invalid value (i.e. when shouldUsePlaceholder() is true).
+     * If the implementation has branching code paths then it must be marked with @volatile.
+     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
+     */
     public abstract get placeholder(): string;
 
-    /** Return whether to display the placeholder value or the text value */
+    /**
+     * Returns whether to display the placeholder value or the text value
+     * If the implementation has branching code paths then it must be marked with @volatile.
+     * https://www.fast.design/docs/fast-element/observables-and-state/#observable-features
+     * */
     public abstract get shouldUsePlaceholder(): boolean;
 
     @volatile
