@@ -151,6 +151,16 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
+    public setHoverData(hoverWidth: number, hoverHeight: number, hoverOpacity: HoverDieOpacity, hoverTransform: string): void {
+        this.hoverWidth = hoverWidth;
+        this.hoverHeight = hoverHeight;
+        this.hoverOpacity = hoverOpacity;
+        this.hoverTransform = hoverTransform;
+    }
+
+    /**
+     * @internal
+     */
     public update(): void {
         if (this.waferUpdateTracker.requiresContainerDimensionsUpdate) {
             this.eventCoordinator?.detachEvents();
@@ -173,7 +183,7 @@ export class WaferMap extends FoundationElement {
             this.updateRenderingModule();
             this.eventCoordinator = new EventCoordinator(this);
         } else if (this.waferUpdateTracker.requiresRenderHoverUpdate) {
-            this.renderer?.renderHover();
+            this.updateRenderHover();
         }
     }
 
@@ -198,8 +208,11 @@ export class WaferMap extends FoundationElement {
     }
 
     private updateRenderingModule(): void {
-        this.renderer = new RenderingModule(this);
-        this.renderer?.drawWafer();
+        this.renderer?.drawWafer(this);
+    }
+
+    private updateRenderHover(): void {
+        this.renderer?.renderHover(this);
     }
 
     private initialize(): void {

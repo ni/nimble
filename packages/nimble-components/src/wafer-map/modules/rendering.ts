@@ -1,60 +1,59 @@
 import type { WaferMap } from '..';
-import { DieRenderInfo, Dimensions, HoverDieOpacity } from '../types';
+import { DieRenderInfo, HoverDieOpacity } from '../types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class RenderingModule {
-    private readonly dies: DieRenderInfo[];
-    private readonly dimensions: Dimensions;
-    private readonly labelFontSize: number;
+    private dies!: DieRenderInfo[];
 
-    public constructor(private readonly wafermap: WaferMap) {
-        this.dies = wafermap.dataManager!.diesRenderInfo;
-        this.dimensions = wafermap.dataManager!.dieDimensions;
-        this.labelFontSize = wafermap.dataManager!.labelsFontSize;
+    public constructor(wafermap: Readonly<WaferMap>) {
+        this.sortDies(wafermap);
+    //     this.dies = wafermap.dataManager!.diesRenderInfo;
+    //     this.dimensions = wafermap.dataManager!.dieDimensions;
+    //     this.labelFontSize = wafermap.dataManager!.labelsFontSize;
     }
 
-    public drawWafer(): void {
-        this.wafermap.canvasContext.save();
-        this.clearCanvas();
-        this.scaleCanvas();
-        this.renderDies();
-        this.renderText();
-        this.wafermap.canvasContext.restore();
-        this.renderHover();
+    public drawWafer(wafermap: Readonly<WaferMap>): void {
+        wafermap.canvasContext.save();
+        this.clearCanvas(wafermap);
+        this.scaleCanvas(wafermap);
+        this.sortDies(wafermap);
+        this.renderDies(wafermap);
+        this.renderText(wafermap);
+        wafermap.canvasContext.restore();
+        this.renderHover(wafermap);
     }
 
-    public renderHover(): void {
-        this.wafermap.hoverWidth = this.wafermap.dataManager!.dieDimensions.width
-            * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this.wafermap.dataManager!.dieDimensions.height
-            * this.wafermap.transform.k;
-        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
-            ? HoverDieOpacity.hide
-            : HoverDieOpacity.show;
-        this.wafermap.hoverTransform = this.calculateHoverTransform();
+    public renderHover(wafermap: Readonly<WaferMap>): void {
+        wafermap.setHoverData(
+            wafermap.dataManager!.dieDimensions.width * wafermap.transform.k,
+            wafermap.dataManager!.dieDimensions.height * wafermap.transform.k,
+            wafermap.hoverDie === undefined ? HoverDieOpacity.hide
+                : HoverDieOpacity.show,
+            this.calculateHoverTransform(wafermap)
+        );
     }
 
-    private calculateHoverTransform(): string {
-        if (this.wafermap.hoverDie !== undefined) {
-            const scaledX = this.wafermap.dataManager!.horizontalScale(
-                this.wafermap.hoverDie.x
+    private calculateHoverTransform(wafermap: Readonly<WaferMap>): string {
+        if (wafermap.hoverDie !== undefined) {
+            const scaledX = wafermap.dataManager!.horizontalScale(
+                wafermap.hoverDie.x
             )!;
-            const scaledY = this.wafermap.dataManager!.verticalScale(
-                this.wafermap.hoverDie.y
+            const scaledY = wafermap.dataManager!.verticalScale(
+                wafermap.hoverDie.y
             )!;
-            const transformedPoint = this.wafermap.transform.apply([
-                scaledX + this.wafermap.dataManager!.margin.left,
-                scaledY + this.wafermap.dataManager!.margin.top
+            const transformedPoint = wafermap.transform.apply([
+                scaledX + wafermap.dataManager!.margin.left,
+                scaledY + wafermap.dataManager!.margin.top
             ]);
             return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
         }
         return '';
     }
 
-    private renderDies(): void {
-        this.dies.sort((a, b) => {
+    private sortDies(wafermap: Readonly<WaferMap>): void {
+        this.dies = wafermap.dataManager!.diesRenderInfo.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
             }
@@ -64,68 +63,71 @@ export class RenderingModule {
 
             return 0;
         });
+    }
 
+    private renderDies(wafermap: Readonly<WaferMap>): void {
         let prev: DieRenderInfo | undefined;
 
         for (const die of this.dies) {
             if (!prev) {
-                this.wafermap.canvasContext.fillStyle = die.fillStyle;
+                wafermap.canvasContext.fillStyle = die.fillStyle;
             }
             if (prev && die.fillStyle !== prev.fillStyle && die.fillStyle) {
-                this.wafermap.canvasContext.fillStyle = die.fillStyle;
+                wafermap.canvasContext.fillStyle = die.fillStyle;
             }
-            this.wafermap.canvasContext.fillRect(
+            wafermap.canvasContext.fillRect(
                 die.x,
                 die.y,
-                this.dimensions.width,
-                this.dimensions.height
+                wafermap.dataManager!.dieDimensions.width,
+                wafermap.dataManager!.dieDimensions.height
             );
             prev = die;
         }
     }
 
-    private renderText(): void {
-        const dieSize = this.dimensions.width
-            * this.dimensions.height
-            * (this.wafermap.transform.k || 1);
-        const fontsize = this.labelFontSize;
-        this.wafermap.canvasContext.font = `${fontsize.toString()}px sans-serif`;
-        this.wafermap.canvasContext.fillStyle = '#ffffff';
-        this.wafermap.canvasContext.textAlign = 'center';
-        this.wafermap.canvasContext.lineCap = 'butt';
-        const approxTextHeight = this.wafermap.canvasContext.measureText('M');
+    private renderText(wafermap: Readonly<WaferMap>): void {
+        const dieSize = wafermap.dataManager!.dieDimensions.width
+            * wafermap.dataManager!.dieDimensions.height
+            * (wafermap.transform.k || 1);
+        const fontsize = wafermap.dataManager!.labelsFontSize;
+        wafermap.canvasContext.font = `${fontsize.toString()}px sans-serif`;
+        wafermap.canvasContext.fillStyle = '#ffffff';
+        wafermap.canvasContext.textAlign = 'center';
+        wafermap.canvasContext.lineCap = 'butt';
+        const approxTextHeight = wafermap.canvasContext.measureText('M');
 
+        const dieDimensions = wafermap.dataManager!.dieDimensions;
         if (dieSize >= 50) {
             for (const die of this.dies) {
-                this.wafermap.canvasContext.fillText(
+                wafermap.canvasContext.fillText(
                     die.text,
-                    die.x + this.dimensions.width / 2,
+                    die.x + dieDimensions.width / 2,
                     die.y
-                        + this.dimensions.height / 2
+                        + dieDimensions.height / 2
                         + approxTextHeight.width / 2,
-                    this.dimensions.width - (this.dimensions.width / 100) * 20
+                    dieDimensions.width - (dieDimensions.width / 100) * 20
                 );
             }
         }
     }
 
-    private clearCanvas(): void {
-        this.wafermap.canvasContext.clearRect(
+    private clearCanvas(wafermap: Readonly<WaferMap>): void {
+        wafermap.canvasContext.clearRect(
             0,
             0,
-            this.wafermap.canvasWidth * this.wafermap.transform.k,
-            this.wafermap.canvasHeight * this.wafermap.transform.k
+            wafermap.canvasWidth * wafermap.transform.k,
+            wafermap.canvasHeight * wafermap.transform.k
         );
     }
 
-    private scaleCanvas(): void {
-        this.wafermap.canvasContext.translate(
-            this.wafermap.transform.x,
-            this.wafermap.transform.y
+    private scaleCanvas(wafermap: Readonly<WaferMap>): void {
+        wafermap.canvasContext.translate(
+            wafermap.transform.x,
+            wafermap.transform.y
         );
-        this.wafermap.canvasContext.scale(
-            this.wafermap.transform.k,
-            this.wafermap.transform.k
+        wafermap.canvasContext.scale(
+            wafermap.transform.k,
+            wafermap.transform.k
         );
     }
 }
