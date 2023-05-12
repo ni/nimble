@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 12 May 2023 16:30:07 GMT",
+      "tag": "@ni/nimble-components_v18.13.6",
+      "version": "18.13.6",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "300bbb93c758dbdd8dc37ee353db09abcca9f0ee",
+            "comment": "Update prettier to support MDX files"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 11 May 2023 18:44:25 GMT",
       "tag": "@ni/nimble-components_v18.13.6",
       "version": "18.13.6",
