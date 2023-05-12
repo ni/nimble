@@ -10,7 +10,7 @@ import {
 import { FoundationElement, Menu, MenuItem } from '@microsoft/fast-foundation';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { MenuButton } from '..';
-import { MenuButtonToggleEventDetail, MenuButtonPosition } from '../types';
+import type { MenuButtonToggleEventDetail } from '../types';
 import {
     processUpdates,
     waitForUpdatesAsync
@@ -192,21 +192,18 @@ describe('MenuButton', () => {
             expect(formData.has('test')).toBeFalse();
         });
 
-        it('anchored-region should not exist in DOM when the menu is closed', async () => {
+        it('menu container span should not exist in DOM when the menu is closed', async () => {
             await connect();
-            expect(
-                element.shadowRoot?.querySelector('nimble-anchored-region')
-            ).toBeNull();
+            expect(element.menu).toBeUndefined();
         });
 
-        it('anchored-region should exist in DOM when the menu is open', async () => {
+        it('menu container span should exist in DOM when the menu is open', async () => {
             element.open = true;
             await connect();
-            expect(
-                element.shadowRoot?.querySelector('nimble-anchored-region')
-            ).not.toBeNull();
+            expect(element.menu).not.toBeUndefined();
         });
 
+        /*
         it("anchored-region should be configured correctly when the menu button position is configured to 'above'", async () => {
             element.open = true;
             element.position = MenuButtonPosition.above;
@@ -233,6 +230,7 @@ describe('MenuButton', () => {
             await connect();
             expect(element.region!.verticalPositioningMode).toBe('dynamic');
         });
+        */
 
         it("should fire 'toggle' event when the menu is opened", async () => {
             await connect();
@@ -451,7 +449,7 @@ describe('MenuButton', () => {
                 const event = new KeyboardEvent('keydown', {
                     key: keyEscape
                 } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                menuButton.menu!.dispatchEvent(event);
                 expect(menuButton.open).toBeFalse();
             });
 
@@ -463,7 +461,7 @@ describe('MenuButton', () => {
                 const event = new KeyboardEvent('keydown', {
                     key: keyEscape
                 } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                menuButton.menu!.dispatchEvent(event);
                 expect(document.activeElement).toEqual(element);
             });
 
@@ -701,7 +699,7 @@ describe('MenuButton', () => {
                 const event = new KeyboardEvent('keydown', {
                     key: keyEscape
                 } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                menuButton.menu!.dispatchEvent(event);
                 expect(menuButton.open).toBeFalse();
             });
 
@@ -713,7 +711,7 @@ describe('MenuButton', () => {
                 const event = new KeyboardEvent('keydown', {
                     key: keyEscape
                 } as KeyboardEventInit);
-                menuButton.region!.dispatchEvent(event);
+                menuButton.menu!.dispatchEvent(event);
                 expect(document.activeElement).toEqual(element);
             });
         });

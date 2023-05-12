@@ -10,6 +10,7 @@ interface SelectArgs {
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
+    dropDownPosition: string;
     options: OptionArgs[];
     appearance: string;
 }
@@ -41,6 +42,7 @@ const metadata: Meta<SelectArgs> = {
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
             ?disabled="${x => x.disabled}"
+            position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
@@ -54,6 +56,10 @@ const metadata: Meta<SelectArgs> = {
         </${selectTag}>
     `),
     argTypes: {
+        dropDownPosition: {
+            options: [undefined, 'above', 'below'],
+            control: { type: 'select' }
+        },
         appearance: {
             options: Object.values(DropdownAppearance),
             control: { type: 'radio' }
@@ -69,6 +75,7 @@ const metadata: Meta<SelectArgs> = {
         disabled: false,
         errorVisible: false,
         errorText: 'Value is invalid',
+        dropDownPosition: undefined,
         appearance: DropdownAppearance.underline,
         options: [
             { label: 'Option 1', value: '1', disabled: false },

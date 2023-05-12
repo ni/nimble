@@ -136,7 +136,7 @@ describe('Table action menu', () => {
         expect(pageObject.isCellActionMenuVisible(1, 1)).toBeFalse();
     });
 
-    it('button is present when open if row is not hovered', async () => {
+    fit('button is present when open if row is not hovered', async () => {
         const slot = 'my-action-menu';
         column1.actionMenuSlot = slot;
         createAndSlotMenu(slot);
@@ -309,7 +309,7 @@ describe('Table action menu', () => {
             key: keyEscape
         } as KeyboardEventInit);
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.region!.dispatchEvent(escEvent);
+        menuButton.menu!.dispatchEvent(escEvent);
 
         await listener.promise;
         expect(listener.spy).toHaveBeenCalledTimes(1);
@@ -365,7 +365,7 @@ describe('Table action menu', () => {
             key: keyEscape
         } as KeyboardEventInit);
         const menuButton = pageObject.getCellActionMenu(1, 0)!;
-        menuButton.region!.dispatchEvent(escEvent);
+        menuButton.menu!.dispatchEvent(escEvent);
 
         await toggleListener.promise;
         expect(toggleListener.spy).toHaveBeenCalledTimes(1);

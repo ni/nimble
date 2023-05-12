@@ -1,4 +1,13 @@
-import { attr, observable } from '@microsoft/fast-element';
+import {
+    autoPlacement,
+    autoUpdate,
+    computePosition,
+    flip,
+    hide,
+    shift,
+    size
+} from '@floating-ui/dom';
+import { attr, DOM, observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     eventChange,
@@ -12,7 +21,6 @@ import { styles } from './styles';
 import { template } from './template';
 import { MenuButtonToggleEventDetail, MenuButtonPosition } from './types';
 import type { ButtonPattern } from '../patterns/button/types';
-import type { AnchoredRegion } from '../anchored-region';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -51,7 +59,7 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
 
     /** @internal */
     @observable
-    public readonly region?: AnchoredRegion;
+    public readonly menu?: HTMLSpanElement;
 
     /** @internal */
     @observable
@@ -65,70 +73,116 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        if (this.region) {
-            this.region.removeEventListener(
-                eventChange,
-                this.menuChangeHandler
+        if (this.menu) {
+            this.menu.removeEventListener(eventChange, this.menuChangeHandler);
+        }
+        this.cleanup?.();
+    }
+
+    public setPositioning(): void {
+        if (!this.$fastController.isConnected || !this.menu?.isConnected) {
+            return;
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-misused-promises
+        this.cleanup = autoUpdate(this, this.menu, async () => {
+            const middlewareArray = [
+                size({
+                    apply: ({ availableHeight }) => {
+                        Object.assign(this.menu!.style, {
+                            maxHeight: `${availableHeight}px`,
+                            width: 'fit-content'
+                        });
+                    }
+                }),
+                shift(),
+                hide()
+            ];
+            if (this.position === MenuButtonPosition.auto) {
+                middlewareArray.push(
+                    autoPlacement({
+                        allowedPlacements: ['top-start', 'bottom-start']
+                    })
+                );
+            }
+            const { middlewareData, x, y } = await computePosition(
+                this.toggleButton!,
+                this.menu!,
+                {
+                    placement:
+                        this.position === MenuButtonPosition.above
+                            ? 'top-start'
+                            : 'bottom-start',
+                    strategy: 'fixed',
+                    middleware: middlewareArray
+                }
             );
-        }
+
+            if (middlewareData.hide?.referenceHidden) {
+                this.open = false;
+                return;
+            }
+
+            Object.assign(this.menu!.style, {
+                position: 'fixed',
+                top: '0',
+                left: '0',
+                transform: `translate(${x}px, ${y}px)`
+            });
+        });
     }
 
-    public toggleButtonChanged(
-        _prev: ToggleButton | undefined,
-        _next: ToggleButton | undefined
-    ): void {
-        if (this.region && this.toggleButton) {
-            this.region.anchorElement = this.toggleButton;
-        }
-    }
-
-    public regionChanged(
-        prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
+    public menuChanged(
+        prev: HTMLSpanElement | undefined,
+        _next: HTMLSpanElement | undefined
     ): void {
         if (prev) {
             prev.removeEventListener(eventChange, this.menuChangeHandler);
         }
 
-        if (this.region) {
-            if (this.toggleButton) {
-                this.region.anchorElement = this.toggleButton;
-            }
-            this.region.addEventListener(eventChange, this.menuChangeHandler, {
+        if (this.menu) {
+            this.menu.addEventListener(eventChange, this.menuChangeHandler, {
                 capture: true
             });
         }
     }
 
-    public openChanged(_prev: boolean | undefined, _next: boolean): void {
+    public openChanged(prev: boolean | undefined, next: boolean): void {
         if (this.toggleButton) {
             this.toggleButton.checked = this.open;
         }
 
-        if (!this.open) {
-            // Only fire an event here if the menu is changing to being closed. Otherwise,
-            // wait until the menu is actually opened before firing the event.
+        if (this.open) {
+            // Apparently it takes two DOM updates before the "menu" span
+            // is connected to the DOM, which we need to happen before we
+            // call setPositioning.
+            DOM.queueUpdate(() => {
+                DOM.queueUpdate(() => {
+                    this.setPositioning();
+
+                    requestAnimationFrame(() => {
+                        if (this.focusLastItemWhenOpened) {
+                            this.focusLastMenuItem();
+                            this.focusLastItemWhenOpened = false;
+                        } else {
+                            this.focusMenu();
+                        }
+                        const eventDetail: MenuButtonToggleEventDetail = {
+                            oldState: prev ?? false,
+                            newState: next
+                        };
+                        this.$emit('toggle', eventDetail);
+                    });
+                });
+            });
+        } else {
+            this.cleanup?.();
             const eventDetail: MenuButtonToggleEventDetail = {
-                oldState: true,
-                newState: false
+                oldState: prev ?? false,
+                newState: next
             };
             this.$emit('toggle', eventDetail);
         }
-    }
-
-    public regionLoadedHandler(): void {
-        if (this.focusLastItemWhenOpened) {
-            this.focusLastMenuItem();
-            this.focusLastItemWhenOpened = false;
-        } else {
-            this.focusMenu();
-        }
-
-        const eventDetail: MenuButtonToggleEventDetail = {
-            oldState: false,
-            newState: true
-        };
-        this.$emit('toggle', eventDetail);
     }
 
     public focusoutHandler(e: FocusEvent): boolean {
@@ -180,6 +234,8 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
                 return true;
         }
     }
+
+    private cleanup: () => void = () => {};
 
     private setOpen(newValue: boolean): void {
         if (this.open === newValue) {

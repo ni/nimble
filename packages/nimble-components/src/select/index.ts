@@ -1,4 +1,5 @@
 import {
+    autoPlacement,
     autoUpdate,
     computePosition,
     flip,
@@ -15,7 +16,10 @@ import {
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
-import { DropdownAppearance } from '../patterns/dropdown/types';
+import {
+    DropdownAppearance,
+    DropdownPosition
+} from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
@@ -70,25 +74,35 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-misused-promises
         this.cleanup = autoUpdate(this, this.listbox, async () => {
+            const middlewareArray = [
+                offset(4), // smallPadding
+                size({
+                    apply: ({ availableHeight, rects }) => {
+                        Object.assign(this.listbox.style, {
+                            maxHeight: `${availableHeight}px`,
+                            width: `${rects.reference.width}px`
+                        });
+                    }
+                }),
+                hide()
+            ];
+            if (this.positionAttribute === undefined) {
+                middlewareArray.push(
+                    autoPlacement({
+                        allowedPlacements: ['top-start', 'bottom-start']
+                    })
+                );
+            }
             const { middlewareData, x, y } = await computePosition(
                 this.control,
                 this.listbox,
                 {
-                    placement: 'bottom',
+                    placement:
+                        this.positionAttribute === DropdownPosition.above
+                            ? 'top-start'
+                            : 'bottom-start',
                     strategy: 'fixed',
-                    middleware: [
-                        offset(4), // smallPadding
-                        flip(),
-                        size({
-                            apply: ({ availableHeight, rects }) => {
-                                Object.assign(this.listbox.style, {
-                                    maxHeight: `${availableHeight}px`,
-                                    width: `${rects.reference.width}px`
-                                });
-                            }
-                        }),
-                        hide()
-                    ]
+                    middleware: middlewareArray
                 }
             );
 

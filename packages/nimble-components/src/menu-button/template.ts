@@ -1,7 +1,6 @@
 import { html, ref, slotted, when } from '@microsoft/fast-element';
 import type { MenuButton } from '.';
 import { toggleButtonTag } from '../toggle-button';
-import { anchoredRegionTag } from '../anchored-region';
 
 // prettier-ignore
 export const template = html<MenuButton>`
@@ -30,21 +29,13 @@ export const template = html<MenuButton>`
         ${when(
         x => x.open,
         html<MenuButton>`
-            <${anchoredRegionTag}
-                fixed-placement="true"
-                auto-update-mode="auto"
-                horizontal-inset="true"
-                horizontal-positioning-mode="dynamic"
-                vertical-positioning-mode="${x => (x.position === 'auto' ? 'dynamic' : 'locktodefault')}"
-                vertical-default-position="${x => (x.position === 'above' ? 'top' : 'bottom')}"
-                @loaded="${x => x.regionLoadedHandler()}"
+            <span
+                ${ref('menu')}
+                part="menu"
                 @keydown="${(x, c) => x.menuKeyDownHandler(c.event as KeyboardEvent)}"
-                ${ref('region')}
             >
-                <span part="menu">
-                    <slot name="menu" ${slotted({ property: 'slottedMenus' })}></slot>
-                </span>
-            </${anchoredRegionTag}>
+                <slot name="menu" ${slotted({ property: 'slottedMenus' })}></slot>
+            </span>
         `
     )}
     </template>

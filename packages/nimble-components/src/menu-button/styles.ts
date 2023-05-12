@@ -14,6 +14,10 @@ export const styles = css`
         height: 100%;
     }
 
+    [part='menu'] {
+        z-index: 1;
+    }
+
     slot[name='menu']::slotted(*) {
         margin-top: ${smallPadding};
         margin-bottom: ${smallPadding};
