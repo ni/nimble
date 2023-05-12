@@ -60,5 +60,4 @@ export class UpdateTracker<Type> {
             this.requiredUpdates[key] = value;
         });
     }
-
 }

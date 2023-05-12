@@ -156,14 +156,23 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public update(): void {
-        if (this.waferUpdateTracker.update('hoverDie')) {
-            this.renderer?.renderHover();
-        } else {
+        let snowball = false;
+        if (this.waferUpdateTracker.requiresDataManagerUpdate) {
             this.eventCoordinator?.detachEvents();
             this.dataManager = new DataManager(this);
+            snowball = true;
+        }
+        if (snowball || this.waferUpdateTracker.requiresRenderingModuleUpdate) {
+            this.eventCoordinator?.detachEvents();
             this.renderer = new RenderingModule(this);
+            snowball = true;
+        }
+        if (snowball) {
             this.eventCoordinator = new EventCoordinator(this);
             this.renderer?.drawWafer();
+        }
+        if (snowball || this.waferUpdateTracker.requiresRenderHoverUpdate) {
+            this.renderer?.renderHover();
         }
     }
 
