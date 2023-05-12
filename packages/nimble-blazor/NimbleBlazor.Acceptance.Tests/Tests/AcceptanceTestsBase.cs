@@ -9,7 +9,7 @@ namespace NimbleBlazor.Tests.Acceptance
         private PlaywrightFixture _playwrightFixture;
         private readonly BlazorServerWebHostFixture _blazorServerClassFixture;
 
-        public AcceptanceTestsBase(
+        protected AcceptanceTestsBase(
             PlaywrightFixture playwrightFixture,
             BlazorServerWebHostFixture blazorServerClassFixture)
         {
