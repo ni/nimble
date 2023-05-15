@@ -1,5 +1,6 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
     usageWarning
@@ -24,7 +25,6 @@ import {
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';
-import { withActions } from '@storybook/addon-actions/decorator';
 
 const simpleData = [
     {

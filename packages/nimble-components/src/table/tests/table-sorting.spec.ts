@@ -3,7 +3,11 @@ import type { Table } from '..';
 import type { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import { TableColumnConfigurationChangeEventDetail, TableColumnSortDirection, TableRecord } from '../types';
+import {
+    TableColumnConfigurationChangeEventDetail,
+    TableColumnSortDirection,
+    TableRecord
+} from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import { createEventListener } from '../../utilities/tests/component';
 
@@ -613,7 +617,10 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const listener = createEventListener(element, 'column-configuration-change');
+        const listener = createEventListener(
+            element,
+            'column-configuration-change'
+        );
         column1.sortDirection = TableColumnSortDirection.ascending;
         column1.sortIndex = 0;
         await waitForUpdatesAsync();
@@ -994,37 +1001,45 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const listener = createEventListener(element, 'column-configuration-change');
+            const listener = createEventListener(
+                element,
+                'column-configuration-change'
+            );
             await pageObject.clickColumnHeader(0);
 
             expect(listener.spy).toHaveBeenCalled();
-            const args = listener.spy.calls.first().args[0] as CustomEvent<TableColumnConfigurationChangeEventDetail>;
+            const args = listener.spy.calls.first()
+                .args[0] as CustomEvent<TableColumnConfigurationChangeEventDetail>;
             expect(args.detail).toEqual({
-                columns: [{
-                    columnId: 'column-1',
-                    hidden: false,
-                    sortIndex: 0,
-                    sortDirection: TableColumnSortDirection.ascending,
-                    groupIndex: undefined,
-                    fractionalWidth: 1,
-                    pixelWidth: undefined
-                }, {
-                    columnId: 'column-2',
-                    hidden: false,
-                    sortIndex: undefined,
-                    sortDirection: TableColumnSortDirection.none,
-                    groupIndex: undefined,
-                    fractionalWidth: 1,
-                    pixelWidth: undefined
-                }, {
-                    columnId: 'column-3',
-                    hidden: false,
-                    sortIndex: undefined,
-                    sortDirection: TableColumnSortDirection.none,
-                    groupIndex: undefined,
-                    fractionalWidth: 1,
-                    pixelWidth: undefined
-                }]
+                columns: [
+                    {
+                        columnId: 'column-1',
+                        hidden: false,
+                        sortIndex: 0,
+                        sortDirection: TableColumnSortDirection.ascending,
+                        groupIndex: undefined,
+                        fractionalWidth: 1,
+                        pixelWidth: undefined
+                    },
+                    {
+                        columnId: 'column-2',
+                        hidden: false,
+                        sortIndex: undefined,
+                        sortDirection: TableColumnSortDirection.none,
+                        groupIndex: undefined,
+                        fractionalWidth: 1,
+                        pixelWidth: undefined
+                    },
+                    {
+                        columnId: 'column-3',
+                        hidden: false,
+                        sortIndex: undefined,
+                        sortDirection: TableColumnSortDirection.none,
+                        groupIndex: undefined,
+                        fractionalWidth: 1,
+                        pixelWidth: undefined
+                    }
+                ]
             });
         });
 
@@ -1034,7 +1049,10 @@ describe('Table sorting', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            const listener = createEventListener(element, 'column-configuration-change');
+            const listener = createEventListener(
+                element,
+                'column-configuration-change'
+            );
             await pageObject.clickColumnHeader(0);
 
             expect(listener.spy).not.toHaveBeenCalled();
