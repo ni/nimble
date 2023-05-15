@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
@@ -46,11 +47,18 @@ public class TableColumnConfigurationEventArgs : EventArgs
 public class TableColumnConfiguration
 {
     public string? ColumnId { get; set; }
+
     public int? SortIndex { get; set; }
+
+    [JsonConverter(typeof(TableColumnSortDirectionConverter))]
     public TableColumnSortDirection SortDirection { get; set; }
+
     public int? GroupIndex { get; set; }
+
     public bool Hidden { get; set; }
+
     public double FractionalWidth { get; set; }
+
     public double? PixelWidth { get; set; }
 }
 
