@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 May 2023 16:14:00 GMT and should not be manually modified.
+This log was last generated on Fri, 12 May 2023 23:44:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.0.1
+
+Fri, 12 May 2023 23:44:48 GMT
+
+### Patches
+
+- Refactor to create base classes for table columns that display text ([ni/nimble@c00161d](https://github.com/ni/nimble/commit/c00161dc10ec928b14f3c7cfe0b14a6a05f5551e))
+
+## 19.0.0
+
+Fri, 12 May 2023 17:59:07 GMT
+
+### Major changes
+
+- Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons. ([ni/nimble@1e04075](https://github.com/ni/nimble/commit/1e040752c74ea8fc0df586a2a54525e15d5c8b29))
+- Bump @ni/nimble-tokens to v6.0.0
+
+## 18.13.6
+
+Thu, 11 May 2023 18:44:25 GMT
+
+### Patches
+
+- Fix row styling issue ([ni/nimble@588e269](https://github.com/ni/nimble/commit/588e269cb3992753153a835a407c6694e4abe6b8))
 
 ## 18.13.5
 
