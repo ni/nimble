@@ -2,8 +2,7 @@ import { attr, html, observable, ref } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Combobox as FoundationCombobox,
-    ComboboxOptions,
-    comboboxTemplate as template
+    ComboboxOptions
 } from '@microsoft/fast-foundation';
 import {
     keyArrowDown,
@@ -20,6 +19,8 @@ import { styles } from './styles';
 import type { ErrorPattern } from '../patterns/error/types';
 import type { DropdownPattern } from '../patterns/dropdown/types';
 import { DropdownAppearance } from '../patterns/dropdown/types';
+import type { AnchoredRegion } from '../anchored-region';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -57,8 +58,32 @@ export class Combobox
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
+    @observable
+    public region?: AnchoredRegion;
+
+    @observable
+    public controlWrapper?: HTMLElement;
+
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
+
+    public regionChanged(
+        _prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
+        if (this.region && this.controlWrapper) {
+            this.region.anchorElement = this.controlWrapper;
+        }
+    }
+
+    public controlWrapperChanged(
+        _prev: HTMLElement | undefined,
+        _next: HTMLElement | undefined
+    ): void {
+        if (this.region && this.controlWrapper) {
+            this.region.anchorElement = this.controlWrapper;
+        }
+    }
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {

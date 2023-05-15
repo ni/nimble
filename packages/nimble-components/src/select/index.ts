@@ -1,9 +1,9 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, html, observable } from '@microsoft/fast-element';
 import {
+    AnchoredRegion,
     DesignSystem,
     Select as FoundationSelect,
-    SelectOptions,
-    selectTemplate as template
+    SelectOptions
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
@@ -11,6 +11,7 @@ import { DropdownAppearance } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -37,6 +38,27 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
+
+    @observable
+    public region?: AnchoredRegion;
+
+    public regionChanged(
+        _prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
+        if (this.region && this.control) {
+            this.region.anchorElement = this.control;
+        }
+    }
+
+    public controlChanged(
+        _prev: HTMLElement | undefined,
+        _next: HTMLElement | undefined
+    ): void {
+        if (this.region && this.control) {
+            this.region.anchorElement = this.control;
+        }
+    }
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
