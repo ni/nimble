@@ -50,7 +50,12 @@ public partial class NimbleButton : ComponentBase
 ```
     <nimble-button>@ChildContent</nimble-button>
 ```
-- Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide) 
+- Always add an `AdditionalAttributes` parameter that captures unmatched values, so that attributes not declared explicitly, such as the common `class` or `id` attributes, can still be passed along to the Nimble element:
+```CS
+[Parameter(CaptureUnmatchedValues = true)]
+public IDictionary<string, object>? AdditionalAttributes { get; set; }
+```
+- Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide)
 
 ### 2-way Binding Support, Handling DOM Events
 
@@ -90,7 +95,7 @@ Visual Studio Code commands are included to build and run the example projects:
 
 ### Enabling IIS
 
-Click Start, open "Turn Windows features on or off", and configure "Web Management Tools" and "World Wide Web Services" in the following way:  
+Click Start, open "Turn Windows features on or off", and configure "Web Management Tools" and "World Wide Web Services" in the following way:
 ![IIS Feature Configuration](/packages/nimble-blazor/docs/WindowsFeatures-IIS.jpg)
 ### Running published output
 

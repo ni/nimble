@@ -22,6 +22,15 @@ public class NimbleRadioGroupTests
         Assert.Contains(expectedMarkup, radioGroup.Markup);
     }
 
+    [Fact]
+    public void NimbleRadioGroup_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleRadioGroup>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(Orientation.Horizontal, "horizontal")]
     [InlineData(Orientation.Vertical, "vertical")]
