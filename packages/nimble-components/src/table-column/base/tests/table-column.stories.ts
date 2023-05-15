@@ -13,6 +13,7 @@ import {
 import { tableTag } from '../../../table';
 import {
     SharedTableArgs,
+    sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
@@ -23,6 +24,7 @@ import {
 import { iconUserTag } from '../../../icons/user';
 import { iconCommentTag } from '../../../icons/comment';
 import { tableColumnTextTag } from '../../text';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const simpleData = [
     {
@@ -80,11 +82,15 @@ information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Configuration',
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
+        },
+        actions: {
+            handles: sharedTableActions
         }
     },
     // prettier-ignore

@@ -102,6 +102,26 @@ export interface TableRowSelectionEventDetail {
 }
 
 /**
+ * Event detail type for interactive column configuration changes.
+ */
+export interface TableColumnConfigurationChangeEventDetail {
+    columns: TableColumnConfiguration[];
+}
+
+/**
+ * A representation of the current configuration of a column within the table.
+ */
+export interface TableColumnConfiguration {
+    columnId?: string;
+    sortIndex?: number;
+    sortDirection: TableColumnSortDirection;
+    groupIndex?: number;
+    hidden: boolean;
+    fractionalWidth: number;
+    pixelWidth?: number;
+}
+
+/**
  * @internal
  *
  * Internal representation of a row in the table
