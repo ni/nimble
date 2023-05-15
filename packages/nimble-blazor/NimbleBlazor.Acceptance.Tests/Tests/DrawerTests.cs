@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Playwright;
+﻿using Microsoft.Playwright;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Acceptance
