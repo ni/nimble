@@ -178,7 +178,7 @@ It is common in web development to represent variations of control states using 
 -   Do not use attribute names that conflict with native attribute names:
     -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
     -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
-    -   Avoid any names that are [reserved words)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words] in JavaScript.
+    -   Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
 -   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts
