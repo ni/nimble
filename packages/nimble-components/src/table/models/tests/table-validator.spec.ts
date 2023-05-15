@@ -1,4 +1,10 @@
-import { TableRecord, TableRowSelectionMode, TableValidity } from '../../types';
+import {
+    TableRecord,
+    TableRowSelectionMode,
+    TableValidity,
+    Validatable,
+    ValidityObject
+} from '../../types';
 import { TableValidator } from '../table-validator';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
@@ -236,6 +242,82 @@ describe('TableValidator', () => {
                 jasmine.arrayWithExactContents(['duplicateRecordId'])
             );
         });
+    });
+
+    describe('column config validation', () => {
+        const columnConfigurations: {
+            columns: Validatable[],
+            isValid: boolean,
+            name: string
+        }[] = [
+            {
+                // eslint-disable-next-line @typescript-eslint/brace-style
+                columns: [
+                    {
+                        checkValidity(): boolean {
+                            return true;
+                        },
+                        get validity(): ValidityObject {
+                            return {};
+                        }
+                    },
+                    {
+                        checkValidity(): boolean {
+                            return false;
+                        },
+                        get validity(): ValidityObject {
+                            return {};
+                        }
+                    }
+                ],
+                isValid: false,
+                name: 'is invalid when any column returns false from checkValidity'
+            },
+            {
+                // eslint-disable-next-line @typescript-eslint/brace-style
+                columns: [
+                    {
+                        checkValidity(): boolean {
+                            return true;
+                        },
+                        get validity(): ValidityObject {
+                            return {};
+                        }
+                    },
+                    {
+                        checkValidity(): boolean {
+                            return true;
+                        },
+                        get validity(): ValidityObject {
+                            return {};
+                        }
+                    }
+                ],
+                isValid: true,
+                name: 'is valid when all columns return true from checkValidity'
+            }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const columnConfiguration of columnConfigurations) {
+            const specType = getSpecTypeByNamedList(
+                columnConfiguration,
+                focused,
+                disabled
+            );
+            specType(columnConfiguration.name, () => {
+                const tableValidator = new TableValidator();
+                const isValid = tableValidator.validateColumnConfigurations(
+                    columnConfiguration.columns
+                );
+
+                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(tableValidator.isValid()).toBe(
+                    columnConfiguration.isValid
+                );
+            });
+        }
     });
 
     describe('column ID validation', () => {

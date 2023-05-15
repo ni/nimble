@@ -1,10 +1,21 @@
-import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
+import {
+    TableRecord,
+    TableRowSelectionMode,
+    TableValidity,
+    Validatable,
+    ValidityObject
+} from '../types';
+
+export interface Validator {
+    isValid(): boolean;
+    getValidity(): ValidityObject;
+}
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
  * is valid and report which aspects of the configuration are valid or invalid.
  */
-export class TableValidator<TData extends TableRecord> {
+export class TableValidator<TData extends TableRecord> implements Validator {
     private duplicateRecordId = false;
     private missingRecordId = false;
     private invalidRecordId = false;
@@ -13,6 +24,7 @@ export class TableValidator<TData extends TableRecord> {
     private duplicateSortIndex = false;
     private duplicateGroupIndex = false;
     private idFieldNameNotConfigured = false;
+    private invalidColumnConfiguration = false;
 
     private readonly recordIds = new Set<string>();
 
@@ -25,7 +37,8 @@ export class TableValidator<TData extends TableRecord> {
             missingColumnId: this.missingColumnId,
             duplicateSortIndex: this.duplicateSortIndex,
             duplicateGroupIndex: this.duplicateGroupIndex,
-            idFieldNameNotConfigured: this.idFieldNameNotConfigured
+            idFieldNameNotConfigured: this.idFieldNameNotConfigured,
+            invalidColumnConfiguration: this.invalidColumnConfiguration
         };
     }
 
@@ -128,6 +141,11 @@ export class TableValidator<TData extends TableRecord> {
     public validateColumnGroupIndices(groupIndices: number[]): boolean {
         this.duplicateGroupIndex = !this.validateIndicesAreUnique(groupIndices);
         return !this.duplicateGroupIndex;
+    }
+
+    public validateColumnConfigurations(columns: Validatable[]): boolean {
+        this.invalidColumnConfiguration = columns.some(x => !x.checkValidity());
+        return !this.invalidColumnConfiguration;
     }
 
     public getPresentRecordIds(requestedRecordIds: string[]): string[] {

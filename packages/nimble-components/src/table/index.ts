@@ -43,7 +43,8 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
     TableRowState,
-    TableValidity
+    TableValidity,
+    Validatable
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -62,9 +63,9 @@ declare global {
 /**
  * A nimble-styled table.
  */
-export class Table<
-    TData extends TableRecord = TableRecord
-> extends FoundationElement {
+export class Table<TData extends TableRecord = TableRecord>
+    extends FoundationElement
+    implements Validatable {
     @attr({ attribute: 'id-field-name' })
     public idFieldName?: string;
 
@@ -313,7 +314,11 @@ export class Table<
                 || source instanceof ColumnInternals)
             && typeof args === 'string'
         ) {
-            this.updateTracker.trackColumnPropertyChanged(args);
+            if (args === 'validConfiguration') {
+                this.tableValidator.validateColumnConfigurations(this.columns);
+            } else {
+                this.updateTracker.trackColumnPropertyChanged(args);
+            }
         }
     }
 
@@ -708,6 +713,7 @@ export class Table<
                 x => x.columnInternals.groupIndex!
             )
         );
+        this.tableValidator.validateColumnConfigurations(this.columns);
         this.validateWithData(this.table.options.data);
     }
 

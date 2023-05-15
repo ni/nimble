@@ -71,6 +71,12 @@ export class ColumnInternals<TColumnConfig> {
     public columnConfig?: TColumnConfig;
 
     /**
+     * Whether this column has a valid configuration.
+     */
+    @observable
+    public validConfiguration = false;
+
+    /**
      * The name of the data field that will be used for operations on the table, such as sorting and grouping.
      */
     @observable
