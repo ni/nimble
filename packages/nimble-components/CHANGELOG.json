@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 15 May 2023 18:32:11 GMT",
+      "tag": "@ni/nimble-components_v19.0.1",
+      "version": "19.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac618e167adcaeb67d57602ba3b3a34f1c475a4c",
+            "comment": "Avoid reserved keywords as attribute names"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 May 2023 23:44:48 GMT",
+      "tag": "@ni/nimble-components_v19.0.1",
+      "version": "19.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c00161dc10ec928b14f3c7cfe0b14a6a05f5551e",
+            "comment": "Refactor to create base classes for table columns that display text"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 12 May 2023 18:53:51 GMT",
       "tag": "@ni/nimble-components_v19.0.0",
       "version": "19.0.0",

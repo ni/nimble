@@ -19,4 +19,13 @@ public class NimbleSwitchTests
 
         Assert.Contains(expectedMarkup, switchComponent.Markup);
     }
+
+    [Fact]
+    public void NimbleSwitch_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleSwitch>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
 }

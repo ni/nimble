@@ -22,6 +22,15 @@ public class NimbleBannerTests
         Assert.Contains(expectedMarkup, banner.Markup);
     }
 
+    [Fact]
+    public void NimbleBanner_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleBanner>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(BannerSeverity.Default, "<nimble-banner((?!severity).)*>")]
     [InlineData(BannerSeverity.Error, "severity=\"error\"")]
