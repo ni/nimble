@@ -38,20 +38,20 @@ Below is an example of how these elements would be used within a `nimble-table`:
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-icon field-name="status" data-type="string">
+    <nimble-table-column-icon field-name="status" key-type="string">
         Status
         <nimble-mapping-icon key="fail" icon="nimble-icon-xmark" severity="error" label="Failed"></nimble-mapping-icon>
         <nimble-mapping-icon key="error" icon="nimble-icon-xmark" severity="error" label="Errored"></nimble-mapping-icon>
         <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" label="Passed"></nimble-mapping-icon>
         <nimble-mapping-spinner key="running" label="Running"></nimble-mapping-spinner>
     </nimble-table-column-icon>
-    <nimble-table-column-mapping field-name="errorCode" data-type="number">
+    <nimble-table-column-mapping field-name="errorCode" key-type="number">
         Error Code
         <nimble-mapping-text key="1" label="A bad thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="2" label="A worse thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="3" label="A terrible thing happened"></nimble-mapping-text>
     </nimble-table-column-mapping>
-    <nimble-table-column-icon field-name="archived" data-type="boolean">
+    <nimble-table-column-icon field-name="archived" key-type="boolean">
         Archived
         <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived"></nimble-mapping-icon>
     </nimble-table-column-icon>
@@ -62,7 +62,9 @@ Each column contains mapping elements that define what to render when the cell's
 
 When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, if one of the mappings has the `default` attribute, it will match when no other mappings have. This is equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`.
 
-Validation will be performed to ensure each mapping's key value can be converted to the `data-type` of the column. If not, an error flag will be set on the column's validation object. Note that whenever an error flag is set on the column's validation object, a generic `invalidColumnConfiguration` flag is also set on the table, putting it in an invalid state as well.
+The column will translate its contained mapping elements into a map that is stored in the `columnConfig`.
+
+Validation will be performed to ensure each mapping's key value can be converted to the `key-type` of the column. If not, an error flag will be set on the column's validation object. Note that whenever an error flag is set on the column's validation object, a generic `invalidColumnConfiguration` flag is also set on the table, putting it in an invalid state as well.
 
 If multiple mappings in a column have the same key, an error flag will be set on the column's validity object.
 
@@ -99,7 +101,7 @@ _Component Name_
 _Props/Attrs_
 
 -   `field-name`: string
--   `data-type`: 'string' | 'number' | 'boolean' | null (defaults to 'string')
+-   `key-type`: 'string' | 'number' | 'boolean'
 -   `pixel-width`: number (set to the desired fixed column width, else will use a default fixed width)
 
 _Content_
@@ -116,7 +118,7 @@ _Component Name_
 _Props/Attrs_
 
 -   `field-name`: string
--   `data-type`: 'string' | 'number' | 'boolean' | null (defaults to 'string')
+-   `key-type`: 'string' | 'number' | 'boolean'
 -   `fractional-width`: number (defaults to 1)
 -   `min-pixel-width`: number (defaults to minimum supported by table)
 
@@ -185,7 +187,7 @@ The cell view relies on the matched mapping to provide a template to render.
 
 ```HTML
 <div ${ref('wrapper') class="wrapper"}>
-    ${repeat(x => (x.column as TableColumnMapping).mappings,
+    ${repeat(x => x.columnConfig.mappings,
         html<Mapping, TableColumnMappingCellView>`
             ${when((x, c) => x.key === (c.parent as TableColumnMappingCellView).cellRecord.value,
                 html<Mapping>`${x => x.cellViewTemplate}`
@@ -194,7 +196,7 @@ The cell view relies on the matched mapping to provide a template to render.
     )}
 </div>
 ${when(x => x.wrapper.childElementCount === 0, html<TableColumnMappingCellView>`
-    ${repeat(x => (x.column as TableColumnMapping).mappings,
+    ${repeat(x => x.columnConfig.mappings,
         html<Mapping, TableColumnMappingCellView>`
             ${when((x, c) => x.default,
                 html<Mapping>`${x => x.cellViewTemplate}`
@@ -208,11 +210,9 @@ Group header view:
 
 Similarly, the group header view relies on the matched mapping to provide a template to render.
 
-Note the following requires that `TableColumnMappingGroupHeaderView` has a reference to the column with which it is associated. This is needed to enumerate the column's mapping elements.
-
 ```HTML
 <div ${ref('wrapper') class="wrapper"}>
-    ${repeat(x => (x.column as TableColumnMapping).mappings,
+    ${repeat(x => x.columnConfig.mappings,
         html<Mapping, TableColumnMappingHeaderView>`
             ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
                 html<Mapping>`${x => x.groupHeaderViewTemplate}`
@@ -233,7 +233,7 @@ ${when(x => x.wrapper.childElementCount === 0, html<TableColumnCellView>`
 
 #### `nimble-mapping-icon`
 
-Cell view template:
+`mapping.cellViewTemplate`:
 
 ```HTML
 <${this.icon}
@@ -243,7 +243,7 @@ Cell view template:
 </${this.icon}>
 ```
 
-Group header view template:
+`mapping.groupHeaderViewTemplate`:
 
 ```HTML
 <${this.icon}
@@ -290,12 +290,12 @@ Angular directives will be created for the column components and the mapping com
 
 ### Blazor integration
 
-Blazor wrappers will be created for the components. Mapping components will be generic in the type of the key:
+Blazor wrappers will be created for the components. Columns will be generic in the type of the key, and will cascade that type parameter to contained mapping elements (see [`CascadingTypeParameter`](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/generic-type-support?view=aspnetcore-7.0#cascaded-generic-type-support)):
 
 ```HTML
-<NimbleTableColumnMapping Field="NumberData" DataType="number">
-    <NimbleMappingText TKey=int Key="1" Label="foo"></NimbleMappingText>
-    <NimbleMappingText TKey=int Key="2" Label="bar"></NimbleMappingText>
+<NimbleTableColumnMapping TKey=int Field="NumberData">
+    <NimbleMappingText Key="1" Label="foo"></NimbleMappingText>
+    <NimbleMappingText Key="2" Label="bar"></NimbleMappingText>
 </NimbleTableColumnMapping>
 ```
 
@@ -338,7 +338,7 @@ None
     -   nothing rendered when value matches no mappings
     -   validation error when non-unique mapping keys exist
     -   validation error when multiple mappings marked as default
-    -   validation error when multiple key-\* properties set on a mapping
+    -   validation error when mapping key is null and not marked default
     -   validation error when invalid icon name given
     -   validation error when icon column has a `nimble-mapping-text` element
     -   grouping header for icon column includes label
