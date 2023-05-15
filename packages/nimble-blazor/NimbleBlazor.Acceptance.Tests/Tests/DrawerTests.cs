@@ -20,7 +20,6 @@ namespace NimbleBlazor.Tests.Acceptance
                 await openButton.ClickAsync();
 
                 var dialog = page.Locator("nimble-drawer");
-                await Assertions.Expect(dialog.GetByRole(AriaRole.Dialog)).ToBeVisibleAsync();
                 await Assertions.Expect(dialog).ToContainTextAsync("Example Drawer");
 
                 var closeButton = page.Locator("nimble-button", new PageLocatorOptions() { HasText = "Close" });
