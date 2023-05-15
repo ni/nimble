@@ -60,7 +60,7 @@ Below is an example of how these elements would be used within a `nimble-table`:
 
 Each column contains mapping elements that define what to render when the cell's value matches the given `key` value.
 
-When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, if one of the mappings has the `default` attribute, it will match when no other mappings have. This is equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`.
+When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, if one of the mappings has the `default-mapping` attribute, it will match when no other mappings have. This is equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`.
 
 The column will translate its contained mapping elements into a map that is stored in the `columnConfig`.
 
@@ -139,7 +139,7 @@ _Props/Attrs_
 -   `icon`: string - name of the Nimble icon element
 -   `severity`: string - one of the supported enum values. Controls color of the icon.
 -   `label`: string - localized value used as the accessible name and `title` of the icon. Will also be displayed in the group header.
--   `default`: boolean - presence causes this mapping to be used when no others match the value
+-   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
 #### Mapping element (spinner):
 
@@ -151,7 +151,7 @@ _Props/Attrs_
 
 -   `key`: string | number | boolean | null
 -   `label`: string - localized value used as the accessible name and `title` of the spinner. Will also be displayed in the group header.
--   `default`: boolean - presence causes this mapping to be used when no others match the value
+-   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
 #### Mapping element (text):
 
@@ -163,7 +163,7 @@ _Props/Attrs_
 
 -   `key`: string | number | boolean | null
 -   `label`: string - display text
--   `default`: boolean - presence causes this mapping to be used when no others match the value
+-   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
 ### Anatomy
 
@@ -198,7 +198,7 @@ The cell view relies on the matched mapping to provide a template to render.
 ${when(x => x.wrapper.childElementCount === 0, html<TableColumnMappingCellView>`
     ${repeat(x => x.columnConfig.mappings,
         html<Mapping, TableColumnMappingCellView>`
-            ${when((x, c) => x.default,
+            ${when((x, c) => x.defaultMapping,
                 html<Mapping>`${x => x.cellViewTemplate}`
             )}
         `
