@@ -165,8 +165,7 @@ Nimble will provide several columns that derive from the above base classes and 
 
 #### Column naming
 
-Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs
-/table-columns-hld.md#column-type-philosophy) where:
+Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs/table-columns-hld.md#column-type-philosophy) where:
 
 -   category: `table-column`
 -   presentation: `text`
