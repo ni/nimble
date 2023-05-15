@@ -186,13 +186,13 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 -   `prefix` - a string which will be appended before each value (e.g. `'$'`). Defaults to `''`.
 -   `suffix` - a string which will be appended after each value (e.g. `'%'` or `' V'`). Defaults to `''`. Spacing will be at the discretion of clients, but Nimble will recommend including a space except for non-letter units like `%`, `°`, and `°C`.
 -   `format` - a string which can take one of the following values
-    -   `null` - use the default formatter, which will use [`Number.toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString#description). This displays integers with no trailing zeros, limits to about 16 significant digits, and switches to exponential notation for very large and small numbers.
+    -   `null` - use the default formatter, which will format similarly to [`Number.toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString#description). This displays integers with no trailing zeros, limits to about 16 significant digits, and switches to exponential notation for very large and small numbers. It will be implemented using `Intl.NumberFormat` to achieve more consistent i18n (`toString` always uses a `.` separator and displays the English word for "Infinity").
     -   `'intl'` - use [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) configured with values specified in other attributes.
-    -   This could be extended to other pre-configured formats in future.
--   `intl-locales` - when format is `intl`, this string is passed to the `locales` parameter of the `NumberFormat` constructor. Note that the constructor parameter accepts an array of fallback locales but Nimble will not initially support passing multiple locales.
+    -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
+-   `locales` - a string containing a comma-separated list of locales to pass to the `locales` parameter of the `NumberFormat` constructor.
 -   `intl-*` - when format is `intl`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `NumberFormat` constructor. For example, `options.maximumFractionDigits` will be set to the value of `intl-maximum-fraction-digits`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
-This column will display the `placeholder` when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"NaN"` and `"-0"` but leads to a slight inconsistency for Infinity values: `toString()` displays `"Infinity"` but `NumberFormat` displays `"∞"`.
+This column will display the `placeholder` when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"`, `"NaN"` and `"-0"`.
 
 ##### Examples
 
@@ -205,7 +205,7 @@ This column will display the `placeholder` when `typeof` the value is not `"numb
     <nimble-table-column-number-text
         field-name="voltage"
         format="intl"
-        intl-locales="en-US"
+        locales="en-US"
         intl-style="decimal"
         intl-use-grouping="false"
         suffix=" V"
