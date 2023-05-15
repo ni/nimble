@@ -11,10 +11,7 @@ internal class TableColumnSortDirectionConverter : JsonConverter<TableColumnSort
         return TableColumnSortDirectionExtensions.EnumValues.FirstOrDefault(x => x.Value == value).Key;
     }
 
-    public override void Write(
-            Utf8JsonWriter writer,
-            TableColumnSortDirection value,
-            JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, TableColumnSortDirection value, JsonSerializerOptions options)
     {
         var convertedValue = (value as TableColumnSortDirection?).ToAttributeValue();
         writer.WriteStringValue(convertedValue);

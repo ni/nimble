@@ -1,7 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace NimbleBlazor;
+﻿namespace NimbleBlazor;
 
 public enum TableColumnSortDirection
 {
