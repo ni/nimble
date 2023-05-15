@@ -8,10 +8,14 @@
     {
         public static void Main(string[] arguments)
         {
-            var hostFixture = new BlazorServerWebHostFixture();
-            hostFixture.InitializeAsync().Wait();
-            Console.WriteLine($"Listening at {hostFixture.ServerAddress!.AbsoluteUri}, press any key to exit.");
-            Console.ReadKey();
+            var builder = WebApplication.CreateBuilder(arguments);
+
+            var startup = new Startup(builder.Configuration);
+            startup.ConfigureServices(builder.Services);
+            var app = builder.Build();
+            startup.Configure(app);
+
+            app.Run();
         }
     }
 }
