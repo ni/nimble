@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 15 May 2023 14:59:04 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.29",
+      "version": "11.8.29",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c5827276a724ddd368d0acf35b1d29956971639f",
+            "comment": "Ensure components can take additional attributes"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 May 2023 21:32:30 GMT",
       "tag": "@ni/nimble-blazor_v11.8.20",
       "version": "11.8.20",
