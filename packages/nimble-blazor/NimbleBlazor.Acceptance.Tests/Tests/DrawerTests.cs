@@ -19,13 +19,15 @@ namespace NimbleBlazor.Tests.Acceptance
                 var openButton = page.Locator("nimble-button", new PageLocatorOptions() { HasText = "Open" });
                 await openButton.ClickAsync();
 
-                var dialog = page.Locator("nimble-drawer");
-                await Assertions.Expect(dialog).ToContainTextAsync("Example Drawer");
+                var drawer = page.Locator("nimble-drawer");
+                var drawerInnerDialog = drawer.GetByRole(AriaRole.Dialog);
+                await Assertions.Expect(drawerInnerDialog).ToBeVisibleAsync();
+                await Assertions.Expect(drawer).ToContainTextAsync("Example Drawer");
 
                 var closeButton = page.Locator("nimble-button", new PageLocatorOptions() { HasText = "Close" });
                 await closeButton.ClickAsync();
 
-                await Assertions.Expect(dialog).Not.ToBeVisibleAsync();
+                await Assertions.Expect(drawerInnerDialog).Not.ToBeVisibleAsync();
 
                 var textField = page.Locator("nimble-text-field");
                 await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "Custom Close Reason");

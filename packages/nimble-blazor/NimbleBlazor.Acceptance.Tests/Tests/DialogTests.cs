@@ -20,12 +20,14 @@ namespace NimbleBlazor.Tests.Acceptance
                 await openButton.ClickAsync();
 
                 var dialog = page.Locator("nimble-dialog");
+                var innerDialog = dialog.GetByRole(AriaRole.Dialog);
+                await Assertions.Expect(innerDialog).ToBeVisibleAsync();
                 await Assertions.Expect(dialog).ToContainTextAsync("Example Dialog");
 
                 var closeButton = page.Locator("nimble-button", new PageLocatorOptions() { HasText = "Close" });
                 await closeButton.ClickAsync();
 
-                await Assertions.Expect(dialog).Not.ToBeVisibleAsync();
+                await Assertions.Expect(innerDialog).Not.ToBeVisibleAsync();
 
                 var textField = page.Locator("nimble-text-field");
                 await Assertions.Expect(textField).ToHaveAttributeAsync("current-value", "Custom Close Reason");
