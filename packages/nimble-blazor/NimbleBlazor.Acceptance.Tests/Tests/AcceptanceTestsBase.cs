@@ -29,6 +29,7 @@ namespace NimbleBlazor.Tests.Acceptance
         {
             var page = await BrowserContext.NewPageAsync();
             await NavigateToPageAsync(page, route);
+            await WaitForNimbleBlazorInitializationAsync(page);
             return new AsyncDisposablePage(page);
         }
 
@@ -36,6 +37,11 @@ namespace NimbleBlazor.Tests.Acceptance
         {
             var address = new Uri(_blazorServerClassFixture.ServerAddress!, route).AbsoluteUri;
             await page.GotoAsync(address);
+        }
+
+        private async Task WaitForNimbleBlazorInitializationAsync(IPage page)
+        {
+            await page.WaitForFunctionAsync("window.NimbleBlazor && window.NimbleBlazor.calledAfterStarted === true");
         }
 
         protected sealed class AsyncDisposablePage : IAsyncDisposable
