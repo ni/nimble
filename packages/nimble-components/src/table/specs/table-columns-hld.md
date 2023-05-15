@@ -91,7 +91,7 @@ Some potential column names following this convention are listed below.
 ```
 nimble-table-column-anchor
 nimble-table-column-text
-nimble-table-column-numeric-text
+nimble-table-column-number-text
 nimble-table-column-date-text
 nimble-table-column-progress
 nimble-table-column-text-field

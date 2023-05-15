@@ -163,6 +163,8 @@ This is prototyped in the [formatted-text-column branch](https://github.com/ni/n
 
 Nimble will provide several columns that derive from the above base classes and provide higher level text formatting APIs for specific data types.
 
+All columns will include a `field-name` string attribute to select the field to display and a `placeholder` string attribute to specify the text to display if the field value isn't in the expected format (more details about expected formats for each column type).
+
 #### Column naming
 
 Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs/table-columns-hld.md#column-type-philosophy) where:
@@ -175,40 +177,56 @@ Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs
 
 `nimble-table-column-text` will continue to present the same API it does today, but will derive from the base classes described above.
 
-#### Numeric column
+#### Number column
 
-Nimble could introduce `nimble-table-column-numeric-text` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
+Nimble will introduce `nimble-table-column-number-text` which formats a numeric field value and displays it as text. It will offer sufficient configuration to support use cases 1-4 above.
 
-The API will be specified in a future update to this document. Below is **an example API** that leverages the native browser [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat): this is intended to help visualize what the API _could_ look like, but isn't yet finalized.
+##### API
+
+-   `prefix` - a string which will be appended before each value (e.g. `'$'`). Defaults to `''`.
+-   `suffix` - a string which will be appended after each value (e.g. `'%'` or `' V'`). Defaults to `''`. Spacing will be at the discretion of clients, but Nimble will recommend including a space except for non-letter units like `%`, `°`, and `°C`.
+-   `format` - a string which can take one of the following values
+    -   `null` - use the default formatter, which will use [`Number.toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString#description). This displays integers with no trailing zeros, limits to about 16 significant digits, and switches to exponential notation for very large and small numbers.
+    -   `'intl'` - use [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) configured with values specified in other attributes.
+    -   This could be extended to other pre-configured formats in future.
+-   `intl-locales` - when format is `intl`, this string is passed to the `locales` parameter of the `NumberFormat` constructor. Note that the constructor parameter accepts an array of fallback locales but Nimble will not initially support passing multiple locales.
+-   `intl-*` - when format is `intl`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `NumberFormat` constructor. For example, `options.maximumFractionDigits` will be set to the value of `intl-maximum-fraction-digits`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
+
+This column will display the `placeholder` when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"NaN"` and `"-0"` but leads to a slight inconsistency for Infinity values: `toString()` displays `"Infinity"` but `NumberFormat` displays `"∞"`.
+
+##### Examples
 
 ```html
 <nimble-table>
-    <nimble-table-column-number
-        field-name="count"
-        number-format-locales="en-US"
-        number-format-options-style="decimal"
-        number-format-options-use-grouping="false"
-        number-format-options-maximum-fraction-digits="0"
-        number-format-options-rounding-mode="trunc"
-    >
+    <nimble-table-column-number-text field-name="count" placeholder="Not found">
         Count
-    </nimble-table-column-number>
+    </nimble-table-column-number-text>
 
-    <nimble-table-column-number
+    <nimble-table-column-number-text
         field-name="voltage"
-        number-format-locales="en-US"
-        number-format-options-style="decimal"
-        number-format-options-use-grouping="false"
+        format="intl"
+        intl-locales="en-US"
+        intl-style="decimal"
+        intl-use-grouping="false"
         suffix=" V"
     >
         Voltage
-    </nimble-table-column-number>
+    </nimble-table-column-number-text>
 </nimble-table>
 ```
 
-##### Date Column
+#### Date Column
 
-Nimble could introduce `nimble-table-column-date-text` which maps date-time values to localized strings. The API will be specified in a future update to this document. It will need to consider cases like date formatting (both for locale and other reasons) and how to provide localized strings, possibly by exposing [the native browser `Intl.DateTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat).
+Nimble will introduce `nimble-table-column-date-text` which maps [JavaScript `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) values to localized strings.
+
+Its API will leverage [the native browser `Intl.DateTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) which offers extensive date and time formatting options and internationalization.
+
+#### Elapsed Time Column
+
+Nimble will introduce `nimble-table-column-elapsed-time-text` which maps seconds stored as `Number`s to localized strings.
+
+https://tc39.es/proposal-temporal/docs/duration.html
+https://tc39.es/proposal-intl-duration-format/
 
 ---
 
@@ -299,6 +317,12 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 -   Higher burden on clients to specify template, styling, numeric formatting, etc in JS. This is especially burdensome in frameworks like Blazor.
 -   Difficult to enforce styling differences between string and numeric columns (e.g. right vs left text alignment)
 -   Potential cross-app inconsistency if formatting code isn't shared
+
+### Other number/date/time formatting APIs
+
+1. Existing SLE applications use the [Angular DatePipe](https://angular.io/api/common/DatePipe). This offers similar options to the `Intl.DateTimeFormat` (including locale-specific formatting) but would be a challenge to support in non-Angular applications.
+2. The TC39 ECMAScript standard is working on [a proposal for Temporal](https://github.com/tc39/proposal-temporal), which includes a new [immutable format for representing time](https://tc39.es/proposal-temporal/docs/index.html) and namespace for manipulating it. It's in Stage 3 meaning the API isn't expected to change and [polyfills](https://github.com/tc39/proposal-temporal#polyfills) are available.
+3. There are numerous libraries for formatting including the standards-based [Format.js](https://formatjs.io/), the opinionated [moment.js](https://momentjs.com/docs/), and [various successors](https://momentjs.com/docs/#/-project-status/recommendations/). We may choose to depend on one in the future to expose additional formatting options but will start with browser APIs as they require no additional dependencies.
 
 ---
 
