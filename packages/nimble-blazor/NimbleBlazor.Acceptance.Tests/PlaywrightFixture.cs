@@ -15,7 +15,6 @@ public class PlaywrightFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        await InstallChromiumAsync();
         _playwright = await Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(
             new BrowserTypeLaunchOptions()
@@ -42,10 +41,5 @@ public class PlaywrightFixture : IAsyncLifetime
             await _browser.DisposeAsync();
         }
         _playwright?.Dispose();
-    }
-
-    private Task InstallChromiumAsync()
-    {
-        return Task.FromResult(PlaywrightProgram.Main(new string[] { "install", "chromium" }));
     }
 }

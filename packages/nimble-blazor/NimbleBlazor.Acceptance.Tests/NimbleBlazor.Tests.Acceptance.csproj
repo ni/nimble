@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+  <Import Project="$(ProjectDir)../Playwright.PackageVersion.props" />
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -23,7 +24,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.30.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="$(PkgMicrosoft_Playwright_Version)" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.4.1" />

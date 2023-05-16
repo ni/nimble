@@ -3,6 +3,7 @@
   "version": "11.8.29",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
+    "postinstall": "node createPlaywrightVersionPropertiesFile.js",
     "build": "npm run generate-icons && npm run generate-hybrid && npm run build:release && npm run build:client",
     "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
     "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
@@ -43,6 +44,7 @@
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
+    "playwright": "1.30.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
