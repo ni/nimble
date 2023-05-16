@@ -77,15 +77,32 @@ Before building a new component, 3 specification documents need to be created:
 
 ## Develop new components
 
-### Marking a component as in development
+### Marking a component as experimental / in-development / incubating
 
-If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+If a component is not ready for general use, it should be marked as "experimental" to indicate that status to clients. A component could be in this state if it:
+ - is still in development
+ - is currently application-specific and hasn't yet been generalized for broader use
+ - is missing important features like interaction design, visual design, accessibility, or framework integration
+
+Experimental contributions may compromise on the above capabilities but they still must abide by other repository requirements like:
+ - coding conventions (element naming, linting, code quality)
+ - unit and Chromatic test coverage
+ - Storybook documentation
+ - semantic versioning
+ - TODO: NAMING
+
+To do this:
 
 1. In the component status table, set its status to ⚠️
-2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
-3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+2. In the component Storybook documentation:
+    - add a red text banner to the page indicating that the component is not ready for general use
+    - start the Storybook name with "Experimental/" so that it appears in a separate section of the documentation page
+3. Add CODEOWNERS from both the contributing team and the Nimble team
 
-Be sure to remove these warnings when the component is complete!
+Be sure to remove these markings when the component is complete!
+
+TODO: Localization
+TODO: API design / dependencies / smart vs dumb components
 
 ### Folder structure
 
