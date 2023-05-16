@@ -2,15 +2,18 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
-import { TableColumnSortOperation } from '../base/types';
+import {
+    TableColumnSortOperation,
+    TableColumnWithPlaceholderColumnConfig
+} from '../base/types';
 import { TableColumnTextBase } from '../text-base';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
-export interface TableColumnNumberTextColumnConfig {
-    placeholder: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableColumnNumberTextColumnConfig
+    extends TableColumnWithPlaceholderColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {
