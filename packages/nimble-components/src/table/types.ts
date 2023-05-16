@@ -103,6 +103,11 @@ export interface TableRowSelectionEventDetail {
 
 /**
  * Event detail type for interactive column configuration changes.
+ *
+ * The column-configuration-change event is emitted when a column's configuration
+ * is modified programmatically, such as by clicking on the column's header to sort
+ * the column. The items in the `columns` array are specified in the same order as
+ * the columns are listed in the DOM.
  */
 export interface TableColumnConfigurationChangeEventDetail {
     columns: TableColumnConfiguration[];
