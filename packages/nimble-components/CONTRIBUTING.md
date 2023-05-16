@@ -80,16 +80,18 @@ Before building a new component, 3 specification documents need to be created:
 ### Marking a component as experimental / in-development / incubating
 
 If a component is not ready for general use, it should be marked as "experimental" to indicate that status to clients. A component could be in this state if it:
- - is still in development
- - is currently application-specific and hasn't yet been generalized for broader use
- - is missing important features like interaction design, visual design, accessibility, or framework integration
+
+-   is still in development
+-   is currently application-specific and hasn't yet been generalized for broader use
+-   is missing important features like interaction design, visual design, accessibility, or framework integration
 
 Experimental contributions may compromise on the above capabilities but they still must abide by other repository requirements like:
- - coding conventions (element naming, linting, code quality)
- - unit and Chromatic test coverage
- - Storybook documentation
- - semantic versioning
- - TODO: NAMING
+
+-   coding conventions (element naming, linting, code quality)
+-   unit and Chromatic test coverage
+-   Storybook documentation
+-   semantic versioning
+-   TODO: NAMING
 
 To do this:
 
