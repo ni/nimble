@@ -1,11 +1,6 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { Validator } from '../../table/models/table-validator';
-import {
-    TableColumnSortDirection,
-    Validatable,
-    ValidityObject
-} from '../../table/types';
+import { TableColumnSortDirection, ValidityObject } from '../../table/types';
 import {
     ColumnInternalsOptions,
     ColumnInternals
@@ -14,9 +9,9 @@ import {
 /**
  * The base class for table columns
  */
-export abstract class TableColumn<TColumnConfig = unknown>
-    extends FoundationElement
-    implements Validatable {
+export abstract class TableColumn<
+    TColumnConfig = unknown
+> extends FoundationElement {
     @attr({ attribute: 'column-id' })
     public columnId?: string;
 
@@ -45,8 +40,6 @@ export abstract class TableColumn<TColumnConfig = unknown>
      */
     public readonly columnInternals: ColumnInternals<TColumnConfig>;
 
-    protected validator: Validator;
-
     public constructor(options: ColumnInternalsOptions) {
         super();
         if (!options) {
@@ -57,22 +50,14 @@ export abstract class TableColumn<TColumnConfig = unknown>
         this.columnInternals = new ColumnInternals(options);
         this.columnInternals.currentSortDirection = this.sortDirection;
         this.columnInternals.currentSortIndex = this.sortIndex;
-        this.validator = {
-            isValid(): boolean {
-                return true;
-            },
-            getValidity(): ValidityObject {
-                return {};
-            }
-        };
     }
 
     public checkValidity(): boolean {
-        return this.validator.isValid();
+        return this.columnInternals.validator.isValid();
     }
 
     public get validity(): ValidityObject {
-        return this.validator.getValidity();
+        return this.columnInternals.validator.getValidity();
     }
 
     protected sortDirectionChanged(): void {

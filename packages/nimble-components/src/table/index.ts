@@ -43,8 +43,7 @@ import {
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
     TableRowState,
-    TableValidity,
-    Validatable
+    TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
@@ -63,9 +62,9 @@ declare global {
 /**
  * A nimble-styled table.
  */
-export class Table<TData extends TableRecord = TableRecord>
-    extends FoundationElement
-    implements Validatable {
+export class Table<
+    TData extends TableRecord = TableRecord
+> extends FoundationElement {
     @attr({ attribute: 'id-field-name' })
     public idFieldName?: string;
 

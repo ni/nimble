@@ -1,12 +1,7 @@
-import {
-    TableRecord,
-    TableRowSelectionMode,
-    TableValidity,
-    Validatable,
-    ValidityObject
-} from '../../types';
+import { TableRecord, TableRowSelectionMode, TableValidity } from '../../types';
 import { TableValidator } from '../table-validator';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { TableColumnValidationTest } from '../../../table-column/base/tests/table-column.fixtures';
 
 describe('TableValidator', () => {
     let validator: TableValidator<TableRecord>;
@@ -246,52 +241,22 @@ describe('TableValidator', () => {
 
     describe('column config validation', () => {
         const columnConfigurations: {
-            columns: Validatable[],
+            columns: TableColumnValidationTest[],
             isValid: boolean,
             name: string
         }[] = [
             {
-                // eslint-disable-next-line @typescript-eslint/brace-style
                 columns: [
-                    {
-                        checkValidity(): boolean {
-                            return true;
-                        },
-                        get validity(): ValidityObject {
-                            return {};
-                        }
-                    },
-                    {
-                        checkValidity(): boolean {
-                            return false;
-                        },
-                        get validity(): ValidityObject {
-                            return {};
-                        }
-                    }
+                    new TableColumnValidationTest(true, true),
+                    new TableColumnValidationTest(true, false)
                 ],
                 isValid: false,
                 name: 'is invalid when any column returns false from checkValidity'
             },
             {
-                // eslint-disable-next-line @typescript-eslint/brace-style
                 columns: [
-                    {
-                        checkValidity(): boolean {
-                            return true;
-                        },
-                        get validity(): ValidityObject {
-                            return {};
-                        }
-                    },
-                    {
-                        checkValidity(): boolean {
-                            return true;
-                        },
-                        get validity(): ValidityObject {
-                            return {};
-                        }
-                    }
+                    new TableColumnValidationTest(true, true),
+                    new TableColumnValidationTest(true, true)
                 ],
                 isValid: true,
                 name: 'is valid when all columns return true from checkValidity'
@@ -318,6 +283,30 @@ describe('TableValidator', () => {
                 );
             });
         }
+
+        it('updates when column validity changes to invalid', () => {
+            const tableValidator = new TableValidator();
+            const column = new TableColumnValidationTest(true, true);
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeTrue();
+            column.foo = false;
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeFalse();
+        });
+
+        it('updates when column validity changes to valid', () => {
+            const tableValidator = new TableValidator();
+            const column = new TableColumnValidationTest(false, true);
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeFalse();
+            column.foo = true;
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeTrue();
+        });
     });
 
     describe('column ID validation', () => {

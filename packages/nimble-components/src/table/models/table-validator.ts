@@ -1,21 +1,11 @@
-import {
-    TableRecord,
-    TableRowSelectionMode,
-    TableValidity,
-    Validatable,
-    ValidityObject
-} from '../types';
-
-export interface Validator {
-    isValid(): boolean;
-    getValidity(): ValidityObject;
-}
+import type { TableColumn } from '../../table-column/base';
+import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
 
 /**
  * Helper class for the nimble-table to validate that the table's configuration
  * is valid and report which aspects of the configuration are valid or invalid.
  */
-export class TableValidator<TData extends TableRecord> implements Validator {
+export class TableValidator<TData extends TableRecord> {
     private duplicateRecordId = false;
     private missingRecordId = false;
     private invalidRecordId = false;
@@ -143,8 +133,10 @@ export class TableValidator<TData extends TableRecord> implements Validator {
         return !this.duplicateGroupIndex;
     }
 
-    public validateColumnConfigurations(columns: Validatable[]): boolean {
-        this.invalidColumnConfiguration = columns.some(x => !x.checkValidity());
+    public validateColumnConfigurations(columns: TableColumn[]): boolean {
+        this.invalidColumnConfiguration = columns.some(
+            x => !x.columnInternals.validConfiguration
+        );
         return !this.invalidColumnConfiguration;
     }
 

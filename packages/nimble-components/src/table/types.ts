@@ -31,11 +31,6 @@ export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
 
-export interface Validatable {
-    checkValidity(): boolean;
-    get validity(): ValidityObject;
-}
-
 export interface ValidityObject {
     [key: string]: boolean;
 }
