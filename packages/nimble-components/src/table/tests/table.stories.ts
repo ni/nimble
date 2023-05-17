@@ -70,7 +70,7 @@ const dataSetIdFieldNames = {
     [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
-const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column. 
+const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
 For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.`;
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
@@ -109,6 +109,7 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 -   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
 -   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
+-   \`invalidColumnConfiguration\`: \`true\` when one or more columns have an invalid configuration
 -   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
 -   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
 `;
