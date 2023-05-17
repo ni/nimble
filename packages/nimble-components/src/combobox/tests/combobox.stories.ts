@@ -34,7 +34,7 @@ const metadata: Meta<ComboboxArgs> = {
     parameters: {
         docs: {
             description: {
-                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area. 
+                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area.
                      The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
                      list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
             }
@@ -45,6 +45,21 @@ const metadata: Meta<ComboboxArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        <!--
+            On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
+            to be confined to the div. We remove the transform to allow the dropdown to escape the div, but
+            that also breaks zooming behavior (just on the Docs page), so we remove the zoom buttons there.
+        -->
+        <style class="code-hide">
+            [scale] {
+                transform: none !important;
+            }
+            button[title="Zoom in"],
+            button[title="Zoom out"],
+            button[title="Reset zoom"] {
+                display: none;
+            }
+        </style>
         <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"

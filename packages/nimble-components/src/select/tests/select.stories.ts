@@ -38,6 +38,21 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        <!--
+            On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
+            to be confined to the div. We remove the transform to allow the dropdown to escape the div, but
+            that also breaks zooming behavior (just on the Docs page), so we remove the zoom buttons there.
+        -->
+        <style class="code-hide">
+            [scale] {
+                transform: none !important;
+            }
+            button[title="Zoom in"],
+            button[title="Zoom out"],
+            button[title="Reset zoom"] {
+                display: none;
+            }
+        </style>
         <${selectTag}
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"
