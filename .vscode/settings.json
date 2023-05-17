@@ -8,5 +8,11 @@
   ],
   "xd.globalEditor": true,
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "omnisharp.useModernNet": true
+  "omnisharp.useModernNet": true,
+  "karmaTestExplorer.projectWorkspaces": [
+    "packages/nimble-components"
+  ],
+  "karmaTestExplorer.testFiles": [
+    "src/**/*.spec.ts"
+  ]
 }
