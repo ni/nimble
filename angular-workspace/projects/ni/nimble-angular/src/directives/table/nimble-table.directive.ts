@@ -7,6 +7,8 @@ import type { Observable, Subscription } from 'rxjs';
 export type { Table };
 export type { TableActionMenuToggleEventDetail, TableRowSelectionEventDetail };
 export { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableRowSelectionMode };
+// eslint-disable-next-line no-restricted-imports
+export * from '@ni/nimble-components/dist/esm/table/testing/table.pageobject';
 
 /**
  * Directive to provide Angular integration for the table element.
