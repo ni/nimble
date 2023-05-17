@@ -5,6 +5,7 @@ import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
 import { ColumnValidator } from '../models/column-validator';
+import type { ColumnInternals } from '../models/column-internals';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 /**
@@ -63,19 +64,19 @@ export class TableColumnDelegatesClickAndKeydown extends TableColumn {
 /**
  * Column validator used by TableColumnValidationTest
  */
-export class TestColumnValidator extends ColumnValidator {
-    public constructor() {
-        super(['invalidFoo', 'invalidBar']);
+export class TestColumnValidator extends ColumnValidator<
+readonly ['invalidFoo', 'invalidBar']
+> {
+    public constructor(columnInternals: ColumnInternals<unknown>) {
+        super(columnInternals, ['invalidFoo', 'invalidBar'] as const);
     }
 
     public validateFoo(isValid: boolean): boolean {
-        this.configValidity.invalidFoo = !isValid;
-        return !this.configValidity.invalidFoo;
+        return this.setConditionValue('invalidFoo', !isValid);
     }
 
     public validateBar(isValid: boolean): boolean {
-        this.configValidity.invalidBar = !isValid;
-        return !this.configValidity.invalidBar;
+        return this.setConditionValue('invalidBar', !isValid);
     }
 }
 
@@ -93,27 +94,25 @@ export class TableColumnValidationTest extends TableColumn {
     @attr()
     public bar: boolean;
 
+    private readonly validator: TestColumnValidator;
+
     public constructor(foo = true, bar = true) {
         super({
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: [],
-            validator: new TestColumnValidator()
+            delegatedEvents: []
         });
+        this.validator = new TestColumnValidator(this.columnInternals);
         this.foo = foo;
         this.bar = bar;
     }
 
     private fooChanged(): void {
-        (this.columnInternals.validator as TestColumnValidator).validateFoo(
-            !!this.foo
-        );
+        this.validator.validateFoo(!!this.foo);
     }
 
     private barChanged(): void {
-        (this.columnInternals.validator as TestColumnValidator).validateBar(
-            !!this.bar
-        );
+        this.validator.validateBar(!!this.bar);
     }
 }

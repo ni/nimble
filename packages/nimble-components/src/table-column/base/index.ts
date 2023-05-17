@@ -53,11 +53,11 @@ export abstract class TableColumn<
     }
 
     public checkValidity(): boolean {
-        return this.columnInternals.validator.isValid();
+        return true;
     }
 
     public get validity(): ValidityObject {
-        return this.columnInternals.validator.getValidity();
+        return {};
     }
 
     protected sortDirectionChanged(): void {

@@ -13,7 +13,6 @@ import {
 import type { TableGroupRow } from '../../../table/components/group-row';
 import { createGroupHeaderViewTemplate } from '../group-header-view/template';
 import { createCellViewTemplate } from '../cell-view/template';
-import { ColumnValidator } from './column-validator';
 
 export interface ColumnInternalsOptions {
     /**
@@ -38,11 +37,6 @@ export interface ColumnInternalsOptions {
      * The names of events that should be delegated from the cell view to the column.
      */
     readonly delegatedEvents: readonly string[];
-
-    /**
-     * An optional validator object used to validate the state of the column. If not provided, a default is used.
-     */
-    readonly validator?: ColumnValidator;
 }
 
 /**
@@ -80,9 +74,7 @@ export class ColumnInternals<TColumnConfig> {
      * Whether this column has a valid configuration.
      */
     @observable
-    public get validConfiguration(): boolean {
-        return this.validator.isValid();
-    }
+    public validConfiguration = true;
 
     /**
      * The name of the data field that will be used for operations on the table, such as sorting and grouping.
@@ -169,11 +161,6 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public currentSortDirection: TableColumnSortDirection;
 
-    /**
-     * @internal
-     */
-    public readonly validator: ColumnValidator;
-
     public constructor(options: ColumnInternalsOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
@@ -181,7 +168,6 @@ export class ColumnInternals<TColumnConfig> {
             options.groupHeaderViewTag
         );
         this.delegatedEvents = options.delegatedEvents;
-        this.validator = options.validator ?? new ColumnValidator([]);
     }
 
     protected fractionalWidthChanged(): void {
