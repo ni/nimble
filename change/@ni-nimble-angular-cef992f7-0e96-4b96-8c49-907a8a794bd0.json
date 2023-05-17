@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Export table page object from nimble-angular",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
