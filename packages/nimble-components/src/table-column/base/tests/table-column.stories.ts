@@ -1,5 +1,6 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
     usageWarning
@@ -13,6 +14,7 @@ import {
 import { tableTag } from '../../../table';
 import {
     SharedTableArgs,
+    sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
@@ -80,11 +82,15 @@ information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Configuration',
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
+        },
+        actions: {
+            handles: sharedTableActions
         }
     },
     // prettier-ignore

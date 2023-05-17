@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 17 May 2023 21:33:40 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.30",
+      "version": "11.8.30",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "71351b15e45f68adb8b08db2168b5faf499a49f9",
+            "comment": "Add support for the column-configuration-change event to the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 15 May 2023 14:59:04 GMT",
       "tag": "@ni/nimble-blazor_v11.8.29",
       "version": "11.8.29",
