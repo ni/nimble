@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add support for the column-configuration-change event to the table",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
