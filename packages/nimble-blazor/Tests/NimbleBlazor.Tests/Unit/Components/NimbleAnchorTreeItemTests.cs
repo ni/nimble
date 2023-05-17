@@ -23,6 +23,15 @@ public class NimbleAnchorTreeItemTests : NimbleAnchorBaseTests<NimbleAnchorTreeI
     }
 
     [Fact]
+    public void NimbleAnchorTreeItem_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorTreeItem>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void AnchorTreeItemSelected_AttributeIsSet()
     {
         var anchorTreeItem = RenderWithPropertySet(x => x.Selected, true);

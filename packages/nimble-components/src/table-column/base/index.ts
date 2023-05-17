@@ -30,6 +30,9 @@ export abstract class TableColumn<
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
+    @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
+    public sortingDisabled = false;
+
     /**
      * @internal
      *
@@ -45,5 +48,32 @@ export abstract class TableColumn<
             );
         }
         this.columnInternals = new ColumnInternals(options);
+        this.columnInternals.currentSortDirection = this.sortDirection;
+        this.columnInternals.currentSortIndex = this.sortIndex;
+    }
+
+    protected sortDirectionChanged(): void {
+        if (!this.sortingDisabled) {
+            this.columnInternals.currentSortDirection = this.sortDirection;
+        }
+    }
+
+    protected sortIndexChanged(): void {
+        if (!this.sortingDisabled) {
+            this.columnInternals.currentSortIndex = this.sortIndex;
+        }
+    }
+
+    protected sortingDisabledChanged(): void {
+        // Ignore the default value sortingDisabled initialization from undefined to false (which runs before columnInternals is initialized)
+        if (this.columnInternals) {
+            if (this.sortingDisabled) {
+                this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+                this.columnInternals.currentSortIndex = undefined;
+            } else {
+                this.columnInternals.currentSortDirection = this.sortDirection;
+                this.columnInternals.currentSortIndex = this.sortIndex;
+            }
+        }
     }
 }

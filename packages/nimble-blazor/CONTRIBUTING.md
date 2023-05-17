@@ -12,7 +12,7 @@ For Nimble Blazor development on Windows, the suggested tools to install are:
 - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
 - Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
 - (Optional) Enable IIS (see "Enabling IIS", below)
-- ASP.NET Core Runtime 6.0.x (6.0.3 or higher): Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- ASP.NET Core Runtime 6.0.4xx: Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 In Visual Studio, run either the `Demo.Server` or `Demo.Projects` to see the Blazor demo apps.
 
@@ -50,7 +50,12 @@ public partial class NimbleButton : ComponentBase
 ```
     <nimble-button>@ChildContent</nimble-button>
 ```
-- Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide) 
+- Always add an `AdditionalAttributes` parameter that captures unmatched values, so that attributes not declared explicitly, such as the common `class` or `id` attributes, can still be passed along to the Nimble element:
+```CS
+[Parameter(CaptureUnmatchedValues = true)]
+public IDictionary<string, object>? AdditionalAttributes { get; set; }
+```
+- Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide)
 
 ### 2-way Binding Support, Handling DOM Events
 
@@ -90,7 +95,7 @@ Visual Studio Code commands are included to build and run the example projects:
 
 ### Enabling IIS
 
-Click Start, open "Turn Windows features on or off", and configure "Web Management Tools" and "World Wide Web Services" in the following way:  
+Click Start, open "Turn Windows features on or off", and configure "Web Management Tools" and "World Wide Web Services" in the following way:
 ![IIS Feature Configuration](/packages/nimble-blazor/docs/WindowsFeatures-IIS.jpg)
 ### Running published output
 

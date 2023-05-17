@@ -1,8 +1,81 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 28 Apr 2023 15:33:55 GMT and should not be manually modified.
+This log was last generated on Fri, 12 May 2023 23:44:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.0.1
+
+Fri, 12 May 2023 23:44:48 GMT
+
+### Patches
+
+- Refactor to create base classes for table columns that display text ([ni/nimble@c00161d](https://github.com/ni/nimble/commit/c00161dc10ec928b14f3c7cfe0b14a6a05f5551e))
+
+## 19.0.0
+
+Fri, 12 May 2023 17:59:07 GMT
+
+### Major changes
+
+- Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons. ([ni/nimble@1e04075](https://github.com/ni/nimble/commit/1e040752c74ea8fc0df586a2a54525e15d5c8b29))
+- Bump @ni/nimble-tokens to v6.0.0
+
+## 18.13.6
+
+Thu, 11 May 2023 18:44:25 GMT
+
+### Patches
+
+- Fix row styling issue ([ni/nimble@588e269](https://github.com/ni/nimble/commit/588e269cb3992753153a835a407c6694e4abe6b8))
+
+## 18.13.5
+
+Mon, 08 May 2023 16:14:00 GMT
+
+### Patches
+
+- Add support for CTRL and SHIFT clicks in the table ([ni/nimble@461f55a](https://github.com/ni/nimble/commit/461f55a8fe1913b24312828e6608024e45cfef7c))
+
+## 18.13.4
+
+Mon, 08 May 2023 14:01:25 GMT
+
+### Patches
+
+- Prevent double click select text on header ([ni/nimble@0bee650](https://github.com/ni/nimble/commit/0bee650663f75e1a497ff7334fa144e5acbb53ac))
+
+## 18.13.3
+
+Fri, 05 May 2023 21:44:18 GMT
+
+### Patches
+
+- Interactive sorting support for the table ([ni/nimble@ec21375](https://github.com/ni/nimble/commit/ec2137514d0a4c1b99323d80b911f05c41d41145))
+
+## 18.13.2
+
+Fri, 05 May 2023 20:18:38 GMT
+
+### Patches
+
+- Introduce shared user-select styling ([ni/nimble@cb2bf64](https://github.com/ni/nimble/commit/cb2bf64825e963d86ebe8bd740ebc52196edcd76))
+
+## 18.13.1
+
+Fri, 05 May 2023 15:27:55 GMT
+
+### Patches
+
+- Update size of the table's action menu ([ni/nimble@592c535](https://github.com/ni/nimble/commit/592c535b6f1e43b007db4da8b2ed9b226e06d644))
+
+## 18.13.0
+
+Mon, 01 May 2023 20:33:27 GMT
+
+### Minor changes
+
+- Export table page object  ([ni/nimble@1416056](https://github.com/ni/nimble/commit/1416056e356ce9338db8fe067d9850d65d9c0346))
 
 ## 18.12.7
 

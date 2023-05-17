@@ -19,4 +19,13 @@ public class NimbleCardButtonTests
 
         Assert.Contains(expectedMarkup, cardButton.Markup);
     }
+
+    [Fact]
+    public void NimbleCardButton_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleCardButton>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
 }

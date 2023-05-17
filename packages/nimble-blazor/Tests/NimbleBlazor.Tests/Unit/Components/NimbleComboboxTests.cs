@@ -22,6 +22,15 @@ public class NimbleComboboxTests
         Assert.Contains(expectedMarkup, combobox.Markup);
     }
 
+    [Fact]
+    public void NimbleCombobox_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleCombobox>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(Position.Below, "below")]
     [InlineData(Position.Above, "above")]

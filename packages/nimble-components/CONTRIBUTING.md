@@ -100,6 +100,7 @@ Create a new folder named after your component with some core files:
 | types.ts                               | Contains any enum-like types defined by the component                                                                                                                                                                                                                      |
 | models/                                | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                                                                         |
 | components/                            | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                                                                |
+| testing/component-name.pageobject.ts   | Page object to ease testing of this component.                                                                                                                                                                                                                             |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
@@ -177,6 +178,7 @@ It is common in web development to represent variations of control states using 
 -   Do not use attribute names that conflict with native attribute names:
     -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
     -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+    -   Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
 -   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts
@@ -403,6 +405,17 @@ Before disabling a test, you **must** have investigated the failure and attempte
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Component naming
+
+Component custom element names are specified in `index.ts` when registering the element. Use the following structure when naming components.
+
+`nimble[-category][-variant]-presentation`
+
+1. All Nimble custom elements are prefixed with `nimble-` to avoid name collisions with other component libraries. Applications should choose their own unique prefix if they define their own elements.
+2. **category** can be used to group similar components together alphabetically. Examples include `icon` and `table-column`.
+3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
+4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
 
 ## Token naming
 

@@ -23,6 +23,15 @@ public class NimbleBreadcrumbTests
     }
 
     [Fact]
+    public void NimbleBreadcrumb_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleBreadcrumb>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleBreadcrumbItem_Rendered_HasBreadcrumbItemMarkup()
     {
         var context = new TestContext();

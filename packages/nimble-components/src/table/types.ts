@@ -1,3 +1,5 @@
+import type { TableColumn } from '../table-column/base';
+
 /**
  * TableFieldName describes the type associated with keys within
  * a table's records.
@@ -11,6 +13,12 @@ export type TableFieldName = string;
 export type TableFieldValue = string | number | boolean | null | undefined;
 
 /**
+ * TableStringFieldValue describes the type associated with values within
+ * a table's string records.
+ */
+export type TableStringFieldValue = string | null | undefined;
+
+/**
  * TableRecord describes the data structure that backs a single row in a table.
  * It is made up of fields, which are key/value pairs that have a key of type
  * TableFieldName and a value of type TableFieldValue.
@@ -20,7 +28,7 @@ export interface TableRecord {
 }
 
 export type TableStringField<FieldName extends TableFieldName> = {
-    [name in FieldName]: string | null | undefined;
+    [name in FieldName]: TableStringFieldValue;
 };
 
 export interface TableValidity {
@@ -91,4 +99,21 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+/**
+ * @internal
+ *
+ * Internal representation of a row in the table
+ */
+export interface TableRowState<TData extends TableRecord = TableRecord> {
+    record: TData;
+    id: string;
+    selectionState: TableRowSelectionState;
+    isGrouped: boolean;
+    groupRowValue?: unknown;
+    isExpanded: boolean;
+    nestingLevel?: number;
+    leafItemCount?: number;
+    groupColumn?: TableColumn;
 }
