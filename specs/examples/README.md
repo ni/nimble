@@ -31,7 +31,7 @@ This HLD sketches out the organization and requirements of new examples and of t
 - Blazor
   - Examples will just publish as Blazor WASM as that is most compatible with static hosting and there is not significant value in making each example show Blazor WASM, Blazor Server, and Blazor Hybrid.
   - Blazor WASM examples will not have the routing restrictions we have for the all-components examples. This will make the URLs to the sub routes less useful if copy and pasted but allow better examples demonstrating routing.
-  - While additional routes in examples are not prevented, they should be discouraged except for the use-case of demonstrating routing. It's likely extra routes make for a less coherent and targetted example anyway.
+  - While additional routes in examples are not prevented, they should be discouraged except for the use-case of demonstrating routing. It's likely extra routes make for a less coherent and targeted example anyway.
 
 ### Migrate CDN Builds to a separate package
 
@@ -40,7 +40,7 @@ Part of this proposal is to migrate the prebuilt all-components bundles from nim
 This has a couple benefits:
 - Avoids confusion within the Nimble Components package. Currently nothing prevents a user from accidentally mixing usage of the normal nimble component es modules, the all-components.js es module, or the all-components-bundle.js built output. 
 
-  Mixing them is very likely to break the application in hard to predict ways by creating multiple singletons in global scope, duplicating element registrations, etc. Moving them all to a separate package can eleminate possible confusion.
+  Mixing them is very likely to break the application in hard to predict ways by creating multiple singletons in global scope, duplicating element registrations, etc. Moving them all to a separate package can eliminate possible confusion.
 - Can inline all the related content, i.e. the needed nimble fonts can be copied from nimble-tokens into the cdn package making the package standalone. Doing that with the nimble-components package would not be appropriate.
 - Proposed package name `@ni/nimble-bundle`
     - Alternative names:
@@ -67,7 +67,7 @@ This has a couple benefits:
   - Alternatives:
     - Don't introduce a breaking change, keep the existing `wwwroot` file structure in Nimble Blazor
       - Pros: Not a breaking change
-      - Cons: Nimble Blazor continues to maintian an alternate structure of bundled output
+      - Cons: Nimble Blazor continues to maintain an alternate structure of bundled output
 
 ### File structure
 
@@ -87,7 +87,7 @@ Examples will be organized as follows:
 
 Notes:
 - A subfolder per `<framework>`, i.e.: `vanilla`, `cdn`, `angular`, `blazor`
-- Examples should be specific and targetted
+- Examples should be specific and targeted
   - Large examples or examples with multiple routes should be discouraged (but are not prohibited as to allow for examples demonstrating routing).
 - Each example participates in the monorepo build
 - Each example follows Web Chapter conventions:
@@ -139,7 +139,7 @@ Should we publish the examples to GitHub pages as well as make them accessible f
 
 Pros:
 - Easier to open on mobile devices
-- More relaible manual stress test environment (don't have to consider additional injected page content)
+- More reliable manual stress test environment (don't have to consider additional injected page content)
 
 Cons:
 - Our current GitHub pages build is very large. Should research shrinking the size before adding significantly more content.
@@ -150,3 +150,8 @@ Open Questions:
 - Should all the examples be included in the Chromatic build like we do the angular client and blazor client apps?
 - Site should include a nice high-level index page for examples. Maybe inspired by https://examples.deno.land/
 - Can we strip out some content from the GitHub build like the storybook module meta data
+
+### Avoid regressing build performance
+
+- Don't have a clear idea yet how build performance is impacted
+- Can potentially mitigate by using a build orchestrator as discussed in [#376](https://github.com/ni/nimble/issues/376).
