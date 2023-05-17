@@ -52,6 +52,8 @@ ComboboxOptions
                     </slot>
                 </div>
             </slot>
+            <slot name="user-end">
+            </slot>
             ${endSlotTemplate(context, definition)}
         </div>
         <${anchoredRegionTag}

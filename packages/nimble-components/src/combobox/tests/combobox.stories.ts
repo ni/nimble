@@ -58,6 +58,9 @@ const metadata: Meta<ComboboxArgs> = {
             ${repeat(x => x.options, html<OptionArgs>`
                 <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
             `)}
+            <div slot="user-end">
+                Foo
+            </div>
         </${comboboxTag}>
     `),
     argTypes: {

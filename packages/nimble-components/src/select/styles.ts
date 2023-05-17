@@ -3,6 +3,7 @@ import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
 import { borderWidth } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
+import { focusVisible } from '../utilities/style/focus';
 import { DropdownAppearance } from './types';
 
 export const styles = css`
@@ -15,8 +16,27 @@ export const styles = css`
     }
     [part='selected-value'] {
         order: 1;
+        pointer-events: none
     }
 
+    .selected-value {
+        -webkit-appearance: none;
+        background: transparent;
+        border: none;
+        color: inherit;
+        margin: auto 0;
+        width: 100%;
+        font: inherit;
+        height: var(--ni-private-height-within-border);
+    }
+
+    .selected-value:hover,
+    .selected-value:disabled,
+    .selected-value:active,
+    .selected-value${focusVisible} {
+        outline: none;
+    }
+    
     [part='indicator'] {
         order: 3;
     }

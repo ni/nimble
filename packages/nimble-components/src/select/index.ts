@@ -12,6 +12,7 @@ import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
+import type { ListOption } from '../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -40,7 +41,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
     public errorVisible = false;
 
     @observable
+    public controlWrapper?: HTMLElement;
+
+    @observable
     public region?: AnchoredRegion;
+
+    private _filter = '';
+    private filteredOptions: ListOption[] = [];
 
     public regionChanged(
         _prev: AnchoredRegion | undefined,
@@ -81,6 +88,75 @@ export class Select extends FoundationSelect implements ErrorPattern {
         if (value) {
             this.value = value;
         }
+    }
+
+    /**
+     * Handle content changes on the control input.
+     *
+     * @param e - the input event
+     * @internal
+     */
+    public inputHandler(e: InputEvent): boolean {
+        this._filter = (this.control as HTMLInputElement).value;
+        this.filterOptions();
+
+        this.selectedIndex = this.options
+            .map(option => option.text)
+            .indexOf((this.control as HTMLInputElement).value);
+
+        if (e.inputType.includes('deleteContent') || !this._filter.length) {
+            return true;
+        }
+
+        this.open = true;
+
+        return true;
+    }
+
+    /**
+     * Handle keyup actions for value input and text field manipulations.
+     *
+     * @param e - the keyboard event
+     * @internal
+     */
+    public keyupHandler(e: KeyboardEvent): boolean {
+        const key = e.key;
+
+        switch (key) {
+            case 'ArrowLeft':
+            case 'ArrowRight':
+            case 'Backspace':
+            case 'Delete':
+            case 'Home':
+            case 'End': {
+                this._filter = (this.control as HTMLInputElement).value;
+                this.selectedIndex = -1;
+                this.filterOptions();
+                break;
+            }
+            default:
+        }
+
+        return true;
+    }
+
+    /**
+     * Filter available options by text value.
+     *
+     * @public
+     */
+    private filterOptions(): void {
+        const filter = this._filter.toLowerCase();
+
+        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().startsWith(this._filter.toLowerCase()));
+
+        if (!this.filteredOptions.length && !filter) {
+            this.filteredOptions = this._options;
+        }
+
+        this._options.forEach(o => {
+            o.hidden = !this.filteredOptions.includes(o);
+        });
     }
 
     private maxHeightChanged(): void {
