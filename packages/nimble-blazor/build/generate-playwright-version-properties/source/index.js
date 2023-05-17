@@ -2,8 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const resolvedPlaywrightPackageJsonPath = require.resolve('playwright/package.json');
-// eslint-disable-next-line import/no-dynamic-require
-const playwrightVersion = require(resolvedPlaywrightPackageJsonPath).version;
+const playwrightVersion = JSON.parse(fs.readFileSync(resolvedPlaywrightPackageJsonPath, 'utf8')).version;
 
 const templatePath = path.resolve(__dirname, 'Playwright.PackageVersion.template');
 const templateContents = fs.readFileSync(templatePath, 'utf8');
