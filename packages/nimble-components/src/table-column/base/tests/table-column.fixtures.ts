@@ -71,12 +71,12 @@ readonly ['invalidFoo', 'invalidBar']
         super(columnInternals, ['invalidFoo', 'invalidBar'] as const);
     }
 
-    public validateFoo(isValid: boolean): boolean {
-        return this.setConditionValue('invalidFoo', !isValid);
+    public validateFoo(isValid: boolean): void {
+        this.setConditionValue('invalidFoo', !isValid);
     }
 
-    public validateBar(isValid: boolean): boolean {
-        return this.setConditionValue('invalidBar', !isValid);
+    public validateBar(isValid: boolean): void {
+        this.setConditionValue('invalidBar', !isValid);
     }
 }
 
@@ -88,15 +88,15 @@ export const tableColumnValidationTestTag = 'nimble-test-table-column-validation
     name: tableColumnValidationTestTag
 })
 export class TableColumnValidationTest extends TableColumn {
-    @attr()
+    @attr({ mode: 'boolean' })
     public foo: boolean;
 
-    @attr()
+    @attr({ mode: 'boolean' })
     public bar: boolean;
 
     private readonly validator: TestColumnValidator;
 
-    public constructor(foo = true, bar = true) {
+    public constructor() {
         super({
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
@@ -104,15 +104,15 @@ export class TableColumnValidationTest extends TableColumn {
             delegatedEvents: []
         });
         this.validator = new TestColumnValidator(this.columnInternals);
-        this.foo = foo;
-        this.bar = bar;
+        this.foo = false;
+        this.bar = false;
     }
 
     private fooChanged(): void {
-        this.validator.validateFoo(!!this.foo);
+        this.validator.validateFoo(this.foo);
     }
 
     private barChanged(): void {
-        this.validator.validateBar(!!this.bar);
+        this.validator.validateBar(this.bar);
     }
 }

@@ -1,7 +1,10 @@
 import { TableRecord, TableRowSelectionMode, TableValidity } from '../../types';
 import { TableValidator } from '../table-validator';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
-import { TableColumnValidationTest } from '../../../table-column/base/tests/table-column.fixtures';
+import {
+    TableColumnValidationTest,
+    tableColumnValidationTestTag
+} from '../../../table-column/base/tests/table-column.fixtures';
 
 describe('TableValidator', () => {
     let validator: TableValidator<TableRecord>;
@@ -247,16 +250,28 @@ describe('TableValidator', () => {
         }[] = [
             {
                 columns: [
-                    new TableColumnValidationTest(true, true),
-                    new TableColumnValidationTest(true, false)
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: true }
+                    ) as TableColumnValidationTest,
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: false }
+                    ) as TableColumnValidationTest
                 ],
                 isValid: false,
                 name: 'is invalid when any column returns false from checkValidity'
             },
             {
                 columns: [
-                    new TableColumnValidationTest(true, true),
-                    new TableColumnValidationTest(true, true)
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: true }
+                    ) as TableColumnValidationTest,
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: true }
+                    ) as TableColumnValidationTest
                 ],
                 isValid: true,
                 name: 'is valid when all columns return true from checkValidity'
@@ -286,7 +301,10 @@ describe('TableValidator', () => {
 
         it('updates when column validity changes to invalid', () => {
             const tableValidator = new TableValidator();
-            const column = new TableColumnValidationTest(true, true);
+            const column = Object.assign(
+                document.createElement(tableColumnValidationTestTag),
+                { foo: true, bar: true }
+            ) as TableColumnValidationTest;
             expect(
                 tableValidator.validateColumnConfigurations([column])
             ).toBeTrue();
@@ -298,7 +316,10 @@ describe('TableValidator', () => {
 
         it('updates when column validity changes to valid', () => {
             const tableValidator = new TableValidator();
-            const column = new TableColumnValidationTest(false, true);
+            const column = Object.assign(
+                document.createElement(tableColumnValidationTestTag),
+                { foo: false, bar: true }
+            ) as TableColumnValidationTest;
             expect(
                 tableValidator.validateColumnConfigurations([column])
             ).toBeFalse();

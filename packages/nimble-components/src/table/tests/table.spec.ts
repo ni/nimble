@@ -859,8 +859,8 @@ describe('Table', () => {
         async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
             return fixture<Table<SimpleTableRecord>>(
                 html`<nimble-table>
-                    <${tableColumnValidationTestTag} foo="true" bar="true" id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
-                    <${tableColumnValidationTestTag} foo="true" bar="true" id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>
+                    <${tableColumnValidationTestTag} foo bar id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
+                    <${tableColumnValidationTestTag} foo bar id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>
                 </nimble-table>`
             );
         }
@@ -886,6 +886,19 @@ describe('Table', () => {
             expect(element.checkValidity()).toBeFalse();
             expect(element.validity.invalidColumnConfiguration).toBeTrue();
             column1.foo = true;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+        });
+
+        it('updates invalidColumnConfiguration when invalid column removed', async () => {
+            await connect();
+
+            column1.foo = false;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.invalidColumnConfiguration).toBeTrue();
+            element.children[0]?.remove();
             await waitForUpdatesAsync();
             expect(element.checkValidity()).toBeTrue();
             expect(element.validity.invalidColumnConfiguration).toBeFalse();

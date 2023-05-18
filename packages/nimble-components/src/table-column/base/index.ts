@@ -53,7 +53,7 @@ export abstract class TableColumn<
     }
 
     public checkValidity(): boolean {
-        return true;
+        return this.columnInternals.validConfiguration;
     }
 
     public get validity(): ValidityObject {

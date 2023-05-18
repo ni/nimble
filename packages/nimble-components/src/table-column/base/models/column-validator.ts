@@ -1,15 +1,15 @@
 import type { ValidityObject } from '../../../table/types';
 import type { ColumnInternals } from './column-internals';
 
-type ObjectFromList<T extends readonly string[], V = string> = {
-    [K in T extends readonly (infer U)[] ? U : never]: V;
+type ObjectFromList<T extends readonly string[]> = {
+    [K in T extends readonly (infer U)[] ? U : never]: boolean;
 };
 
 /**
  * Base column validator
  */
 export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
-    protected configValidity: ObjectFromList<ValidityFlagNames, boolean>;
+    protected configValidity: ObjectFromList<ValidityFlagNames>;
 
     public constructor(
         private readonly columnInternals: ColumnInternals<unknown>,
@@ -28,28 +28,34 @@ export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
         );
     }
 
+    /**
+     * @returns whether the entire column configuration is valid
+     */
     public isValid(): boolean {
         return Object.values(this.configValidity).every(x => !x);
     }
 
+    /**
+     * @returns an object containing flags for various ways the configuation can be invalid
+     */
     public getValidity(): ValidityObject {
         return {
             ...this.configValidity
         };
     }
 
+    /**
+     * Sets a particular validity condition flag's value, e.g. "hasInvalidFooValue" = true
+     */
     protected setConditionValue(
         name: ValidityFlagNames extends readonly (infer U)[] ? U : never,
         isInvalid: boolean
-    ): boolean {
+    ): void {
         this.configValidity[name] = isInvalid;
         this.updateColumnInternalsFlag();
-        return !isInvalid;
     }
 
     private updateColumnInternalsFlag(): void {
-        this.columnInternals.validConfiguration = Object.values(
-            this.configValidity
-        ).every(x => !x);
+        this.columnInternals.validConfiguration = this.isValid();
     }
 }
