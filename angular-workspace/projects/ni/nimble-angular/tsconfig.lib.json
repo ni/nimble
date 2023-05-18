@@ -14,20 +14,6 @@
       "es2020"
     ]
   },
-  "paths": {
-    "@ni/nimble-angular": [
-      "./src/public-apis.ts",
-      "./src"
-    ],
-    "@ni/nimble-angular/table": [
-      "./table/public-apis.ts",
-      "./table"
-    ],
-    "@ni/nimble-angular/table/testing": [
-      "./table/testing/public-apis.ts",
-      "./table/testing"
-    ]
-  },
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
