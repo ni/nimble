@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E5C31FAF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Hybrid", "Examples\Demo.Hybrid\Demo.Hybrid.csproj", "{EAC50129-EF2E-4E7B-98D0-64502E97ED8B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Tests.Acceptance", "NimbleBlazor.Acceptance.Tests\NimbleBlazor.Tests.Acceptance.csproj", "{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NimbleBlazor.Tests.Acceptance", "Tests\NimbleBlazor.Tests.Acceptance\NimbleBlazor.Tests.Acceptance.csproj", "{7C65AEA1-8CA2-48DC-81FE-CE39295BDD4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

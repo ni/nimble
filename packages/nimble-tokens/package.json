@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:svg-to-ts && npm run build:ts && npm run build:svg-to-ico && npm run build:generate-font-scss && npm run build:style-dictionary",
     "build:svg-to-ts": "svg-to-ts-constants --config build/svg-to-ts-config.js",
-    "build:svg-to-ico": "node build/svg-to-ico.js",
+    "build:svg-to-ico": "node --inspect build/svg-to-ico.js",
     "build:generate-font-scss": "node build/generate-font-scss.js",
     "build:style-dictionary": "cd source/styledictionary && node build.js",
     "build:ts": "tsc -p ./tsconfig.json",
