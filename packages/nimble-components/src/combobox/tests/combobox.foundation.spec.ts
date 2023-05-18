@@ -444,8 +444,7 @@ describe('Combobox', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        // The compiler expects labels to be Node[][], but at runtime it seems to be Node[]
-        expect(element.labels[0] as unknown as Node).toEqual(label);
+        expect(element.labels[0]).toContain(label);
 
         label.click();
 
