@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 12 May 2023 23:44:48 GMT and should not be manually modified.
+This log was last generated on Wed, 17 May 2023 21:33:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.0.2
+
+Wed, 17 May 2023 21:33:40 GMT
+
+### Patches
+
+- Add column-configuration-change event to the nimble-table ([ni/nimble@71351b1](https://github.com/ni/nimble/commit/71351b15e45f68adb8b08db2168b5faf499a49f9))
 
 ## 19.0.1
 
