@@ -23,6 +23,15 @@ getTestBed().initTestEnvironment(
         teardown: { destroyAfterEach: false }
     }
 );
+// Then we find all the tests by iterating through the entry points.
+// [
+//     // When adding new entry points, they must be required here for tests to be included.
+//     require.context('./src', true, /\.spec\.ts$/),
+//     require.context('./table', true, /\.spec\.ts$/)
+// ].forEach(context => {
+//     // And load the modules.
+//     context.keys().map(context);
+// });
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.

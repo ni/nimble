@@ -10,7 +10,9 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
-import { NimbleTableModule, NimbleTableColumnTextModule, NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table';
+import { NimbleTableModule } from '@ni/nimble-angular/table';
+import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
+import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { AnchorMenuItem } from '@ni/nimble-components/dist/esm/anchor-menu-item';
 import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { AnchorMenuItem };
 

@@ -1,1 +1,1 @@
-export * from './src/table.pageobject';
+export * from './table.pageobject';

@@ -9,6 +9,7 @@ import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.mod
 import { NimbleTableColumnAnchorRouterLinkWithHrefDirective } from '../nimble-table-column-anchor-router-link-with-href.directive';
 import type { TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
+import type { Table } from '../../../table/nimble-table.directive';
 
 describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     const data = [
