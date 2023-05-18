@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 17 May 2023 21:33:40 GMT",
+      "tag": "@ni/nimble-angular_v16.5.28",
+      "version": "16.5.28",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "71351b15e45f68adb8b08db2168b5faf499a49f9",
+            "comment": "Add support for the column-configuration-change event to the table directive"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.0.2",
+            "commit": "71351b15e45f68adb8b08db2168b5faf499a49f9"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 12 May 2023 23:44:48 GMT",
       "tag": "@ni/nimble-angular_v16.5.27",
       "version": "16.5.27",
