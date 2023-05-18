@@ -22,7 +22,7 @@ We can instead have the default theme observe the system configured theme prefer
 
 Currently the global default theme cannot be configured in nimble. What this means in practice is that an application must place a `nimble-theme-provider` as high up as possible in the DOM tree in order to override the theme configuration for that part of the tree.
 
-This becomes a pain point for contexts where you might not own the root of the DOM tree let alone the abilitiy to reparent the entire application under a new node. It also feels unnecessary if you really just need to override the default configuration once and not for different parts of the DOM tree.
+This becomes a pain point for contexts where you might not own the root of the DOM tree let alone the ability to reparent the entire application under a new node. It also feels unnecessary if you really just need to override the default configuration once and not for different parts of the DOM tree.
 
 ### Override Local Configuration
 
@@ -54,7 +54,7 @@ I'm actually more convinced now that we shouldn't change it just because the exi
 
 Matches the API of the local configuration element but has the behavior of overriding the global default behavior. Can likely [share a base class as done in prototyping](https://github.com/ni/nimble/blob/theme-auto-2-revenge-of-theme-auto/packages/nimble-components/src/theme-base/index.ts#L10).
 
-This makes the global configurration defined by the global configuration element instead of reactive. Reactive global behavior can be restored by clearing the element configuration, for example `el.theme='light';` to override and `el.theme=undefined;` to unset and restore reactive behavior. 
+This makes the global configuration defined by the global configuration element instead of reactive. Reactive global behavior can be restored by clearing the element configuration, for example `el.theme='light';` to override and `el.theme=undefined;` to unset and restore reactive behavior. 
 
 During prototyping in various prime days one thing I tried to address but found challenging was what the behavior should be if multiple global configuration elements were used on a page. I think it's unlikely to be an issue / could be something we try to address if it seems like something multiple clients are accidentally running into. The behavior will be whichever global configuration element most recently updated a configuration token will have set the value. Won't try and track them or guess which should be allowed or blocked, etc.
 
@@ -67,15 +67,15 @@ Alternative:
 
 Have the `theme` configuration token react to the browser [`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
 
-Have the `direction` configuration token react via MutationObserver to the `<html>` `dir` attribute configuration. See [FAST discussion](https://github.com/microsoft/fast/issues/5547#issuecomment-1027419532) about how the direction token should align with the dir attribute. See [W3C dir reccomendations](https://www.w3.org/International/questions/qa-html-dir#quickanswer).
+Have the `direction` configuration token react via MutationObserver to the `<html>` `dir` attribute configuration. See [FAST discussion](https://github.com/microsoft/fast/issues/5547#issuecomment-1027419532) about how the direction token should align with the `dir` attribute. See [W3C dir recommendations](https://www.w3.org/International/questions/qa-html-dir#quickanswer).
 
-Note: This only addressess the top-level `<html dir>` definition and does not try to address the `dir` attribute placement on arbitrary children in the tree. Being responsive to the `<html dir>` seems like a strict improvement on current behavior and more sophisticated behavior can be investigated in the future.
+Note: This only addresses the top-level `<html dir>` definition and does not try to address the `dir` attribute placement on arbitrary children in the tree. Being responsive to the `<html dir>` seems like a strict improvement on current behavior and more sophisticated behavior can be investigated in the future.
 
 Breaking change: For pages that do not currently have a wrapping theme-provider they will observe that the page now responds to the system theme configuration. The docs say a wrapping theme-provider is required even though it really isn't and is hard coded to the light theme. So technically, for an app that correctly followed the docs, this is not a breaking change.
 
 ### Separate design tokens from elements
 
-The proposed element additions make the the placement of the `design-tokens` import undesireable. The current `design-tokens` import also has some unfavorable qualities:
+The proposed element additions make the the placement of the `design-tokens` import undesirable. The current `design-tokens` import also has some unfavorable qualities:
 
 - Because the theme token is currently defined in the theme-provider element, using just `design-tokens` in an application requires by accident (not necessity) the theme-provider registration. With the out-of-the-box reactive global configuration it is possible that applications don't need any theme-provider / nimble element registration at all and just want theme-aware token registration (for example documentation pages)
 - The import path looks funny as a child of theme provider
