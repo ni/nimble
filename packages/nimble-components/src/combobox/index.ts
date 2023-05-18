@@ -58,32 +58,20 @@ export class Combobox
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
+    /**
+     * @internal
+     */
     @observable
     public region?: AnchoredRegion;
 
+    /**
+     * @internal
+     */
     @observable
     public controlWrapper?: HTMLElement;
 
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
-
-    public regionChanged(
-        _prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (this.region && this.controlWrapper) {
-            this.region.anchorElement = this.controlWrapper;
-        }
-    }
-
-    public controlWrapperChanged(
-        _prev: HTMLElement | undefined,
-        _next: HTMLElement | undefined
-    ): void {
-        if (this.region && this.controlWrapper) {
-            this.region.anchorElement = this.controlWrapper;
-        }
-    }
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
@@ -198,9 +186,40 @@ export class Combobox
         }
     }
 
+    private regionChanged(
+        _prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
+        if (this.region && this.controlWrapper) {
+            this.region.anchorElement = this.controlWrapper;
+        }
+    }
+
+    private controlWrapperChanged(
+        _prev: HTMLElement | undefined,
+        _next: HTMLElement | undefined
+    ): void {
+        if (this.region && this.controlWrapper) {
+            this.region.anchorElement = this.controlWrapper;
+        }
+    }
+
     // Workaround for https://github.com/microsoft/fast/issues/6041.
     private ariaLabelChanged(_oldValue: string, _newValue: string): void {
         this.updateInputAriaLabel();
+    }
+
+    private maxHeightChanged(): void {
+        this.updateListboxMaxHeightCssVariable();
+    }
+
+    private updateListboxMaxHeightCssVariable(): void {
+        if (this.listbox) {
+            this.listbox.style.setProperty(
+                '--ni-private-select-max-height',
+                `${this.maxHeight}px`
+            );
+        }
     }
 
     private updateInputAriaLabel(): void {

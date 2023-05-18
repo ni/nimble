@@ -74,8 +74,9 @@ SelectOptions
             class="anchoredRegion"
             fixed-placement
             auto-update-mode="auto"
-            vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'bottom' : 'top')}"
-            vertical-positioning-mode="dynamic"
+            vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"
+            vertical-positioning-mode="${x => (!x.positionAttribute ? 'dynamic' : 'locktodefault')}"
+            vertical-scaling="fill"
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor">

@@ -139,10 +139,7 @@ export const styles = css`
         position: absolute;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(
-            var(--ni-private-select-max-height) - 2 *
-                var(--ni-private-listbox-padding)
-        );
+        max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
         z-index: 1;
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
@@ -169,12 +166,11 @@ export const styles = css`
         border-top-right-radius: 0;
     }
 
-    :host([open][position='above']) .listbox {
-        bottom: ${controlHeight};
+    :host([open][position='above']) .anchoredRegion {
     }
 
-    :host([open][position='below']) .listbox {
-        top: calc(${controlHeight} + ${smallPadding});
+    :host([open][position='below']) .anchoredRegion {
+        padding-top: ${smallPadding};
     }
 
     .selected-value {

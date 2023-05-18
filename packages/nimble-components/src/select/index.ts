@@ -39,26 +39,11 @@ export class Select extends FoundationSelect implements ErrorPattern {
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 
+    /**
+     * @internal
+     */
     @observable
     public region?: AnchoredRegion;
-
-    public regionChanged(
-        _prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (this.region && this.control) {
-            this.region.anchorElement = this.control;
-        }
-    }
-
-    public controlChanged(
-        _prev: HTMLElement | undefined,
-        _next: HTMLElement | undefined
-    ): void {
-        if (this.region && this.control) {
-            this.region.anchorElement = this.control;
-        }
-    }
 
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
@@ -80,6 +65,24 @@ export class Select extends FoundationSelect implements ErrorPattern {
         super.slottedOptionsChanged(prev, next);
         if (value) {
             this.value = value;
+        }
+    }
+
+    private regionChanged(
+        _prev: AnchoredRegion | undefined,
+        _next: AnchoredRegion | undefined
+    ): void {
+        if (this.region && this.control) {
+            this.region.anchorElement = this.control;
+        }
+    }
+
+    private controlChanged(
+        _prev: HTMLElement | undefined,
+        _next: HTMLElement | undefined
+    ): void {
+        if (this.region && this.control) {
+            this.region.anchorElement = this.control;
         }
     }
 
