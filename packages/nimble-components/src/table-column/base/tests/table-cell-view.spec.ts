@@ -1,6 +1,10 @@
 import { customElement } from '@microsoft/fast-element';
 import { TableColumn } from '..';
-import { fixture, Fixture } from '../../../utilities/tests/fixture';
+import {
+    fixture,
+    Fixture,
+    uniqueElementName
+} from '../../../utilities/tests/fixture';
 import type { TableCellView } from '../cell-view';
 import type { DelegatedEventEventDetails } from '../types';
 import {
@@ -18,7 +22,7 @@ describe('TableCellView', () => {
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
-    const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-delegates';
+    const tableColumnDelegatesClickAndKeydownTag = uniqueElementName();
     /**
      * Simple empty table column with 'click' and 'keydown' event delegation for testing
      */

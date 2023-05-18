@@ -304,7 +304,7 @@ describe('TableValidator', () => {
             const column = Object.assign(
                 document.createElement(tableColumnValidationTestTag),
                 { foo: true, bar: true }
-            ) as TableColumnValidationTest;
+            );
             expect(
                 tableValidator.validateColumnConfigurations([column])
             ).toBeTrue();
@@ -319,7 +319,7 @@ describe('TableValidator', () => {
             const column = Object.assign(
                 document.createElement(tableColumnValidationTestTag),
                 { foo: false, bar: true }
-            ) as TableColumnValidationTest;
+            );
             expect(
                 tableValidator.validateColumnConfigurations([column])
             ).toBeFalse();

@@ -870,6 +870,7 @@ describe('Table', () => {
             column1 = element.querySelector<TableColumnValidationTest>(
                 '#first-column'
             )!;
+            await connect();
         });
 
         afterEach(async () => {
@@ -877,8 +878,6 @@ describe('Table', () => {
         });
 
         it('updates invalidColumnConfiguration and validity when column state changes', async () => {
-            await connect();
-
             expect(element.checkValidity()).toBeTrue();
             expect(element.validity.invalidColumnConfiguration).toBeFalse();
             column1.foo = false;
@@ -892,8 +891,6 @@ describe('Table', () => {
         });
 
         it('updates invalidColumnConfiguration when invalid column removed', async () => {
-            await connect();
-
             column1.foo = false;
             await waitForUpdatesAsync();
             expect(element.checkValidity()).toBeFalse();

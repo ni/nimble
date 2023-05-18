@@ -43,14 +43,16 @@ export class TableColumnEmpty extends TableColumn {
     }
 }
 
+const configValidity = ['invalidFoo', 'invalidBar'] as const;
+
 /**
  * Column validator used by TableColumnValidationTest
  */
 export class TestColumnValidator extends ColumnValidator<
-readonly ['invalidFoo', 'invalidBar']
+    typeof configValidity
 > {
     public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, ['invalidFoo', 'invalidBar'] as const);
+        super(columnInternals, configValidity);
     }
 
     public validateFoo(isValid: boolean): void {
@@ -59,6 +61,12 @@ readonly ['invalidFoo', 'invalidBar']
 
     public validateBar(isValid: boolean): void {
         this.setConditionValue('invalidBar', !isValid);
+    }
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-test-table-column-validation': TableColumnValidationTest;
     }
 }
 
