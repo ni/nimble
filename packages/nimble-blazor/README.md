@@ -10,7 +10,7 @@ NI-styled UI components for Blazor applications
 
 This repo contains:
 1. Blazor components and styles matching the NI brand. These are published as a Nuget package to be consumed by either Blazor WebAssembly or Blazor Server applications.
-2. Two Blazor demo applications that consume the components: a Blazor WebAssembly application (`Demo.Client`) and a Blazor Server application (`Demo.Server`).
+2. Three Blazor demo applications that consume the components: a Blazor WebAssembly application (`Demo.Client`), a Blazor Server application (`Demo.Server`), and a Blazor Hybrid application (`Demo.Hybrid`).
 
 ## Getting Started
 
@@ -81,7 +81,7 @@ More complete examples can be found in the Demo.Client/Server example projects.
 ### Using Nimble Design Tokens (CSS/SCSS)
 
 Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.  
-For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Property Names"](https://ni.github.io/nimble/storybook/?path=/story/tokens-property-names--property-names&args=propertyFormat:CSS).
+For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Theme-aware tokens"](https://nimble.ni.dev/storybook/?path=/story/tokens-theme-aware-tokens--theme-aware-tokens&args=propertyFormat:CSS).
 
 **Experimental: Manually including Nimble Tokens SCSS files**  
 There are currently extra manual steps required to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):
@@ -93,6 +93,21 @@ There are currently extra manual steps required to use the Nimble design tokens 
 
 The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.  
 Note: This approach requires periodically updating the Nimble tokens SCSS files manually (whenever the Nimble Blazor NuGet version is updated).
+
+### Using Nimble Blazor in a Blazor Hybrid app
+
+There is currently an [issue in ASP.NET Core](https://github.com/dotnet/aspnetcore/issues/42349) that prevents the necessary JavaScript that Nimble Blazor relies on from loading in a Blazor Hybrid application. The Demo.Hybrid project illustrates the current required steps for getting Nimble Blazor to work properly. This simply involves adding the script `NimbleBlazor.HybridWorkaround.js` in the `index.html` file in `wwwroot`:
+
+wwwroot/index.html
+```html
+    ...
+    <script src="_framework/blazor.webview.js"></script>
+    <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
+    <!-- This script is a workaround needed for Nimble Blazor to work in Blazor Hybrid.
+         See https://github.com/dotnet/aspnetcore/issues/42349 -->
+    <script src="_content/NimbleBlazor/NimbleBlazor.HybridWorkaround.js"></script>
+</body>
+```
 
 ## Contributing
 

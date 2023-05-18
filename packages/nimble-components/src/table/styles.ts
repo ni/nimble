@@ -5,17 +5,25 @@ import {
     applicationBackgroundColor,
     bodyFont,
     bodyFontColor,
-    fillHoverColor
+    controlSlimHeight,
+    smallPadding,
+    standardPadding,
+    tableRowBorderColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
         height: 480px;
+    }
+
+    .disable-select {
+        ${userSelectNone}
     }
 
     .table-container {
@@ -43,9 +51,11 @@ export const styles = css`
     }
 
     .table-row-container {
-        width: 100%;
+        width: fit-content;
+        min-width: 100%;
         position: relative;
         top: var(--ni-private-table-row-container-top);
+        background-color: ${tableRowBorderColor};
     }
 
     .header-container {
@@ -54,13 +64,29 @@ export const styles = css`
     }
 
     .header-row {
-        display: grid;
+        display: flex;
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
         min-width: 100%;
-        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
         left: var(--ni-private-table-scroll-x);
+        align-items: center;
+    }
+
+    .column-header-container {
+        display: grid;
+        width: 100%;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    .collapse-all-button {
+        height: ${controlSlimHeight};
+        margin-left: calc(${smallPadding} * 2);
+        visibility: hidden;
+    }
+
+    .collapse-all-button.visible {
+        visibility: visible;
     }
 
     .header-scrollbar-spacer {
@@ -71,42 +97,35 @@ export const styles = css`
         flex: 1;
     }
 
-    .row {
-        background: ${applicationBackgroundColor};
+    .checkbox-container {
+        display: flex;
+    }
+
+    .selection-checkbox {
+        margin-left: ${standardPadding};
+    }
+
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
+    }
+
+    .group-row {
         position: relative;
-        box-sizing: border-box;
     }
 
-    .row::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    .row:hover::before {
-        background: ${fillHoverColor};
+    .row {
+        position: relative;
     }
 `.withBehaviors(
     themeBehavior(
         Theme.color,
         css`
-            .header-row::before {
+            .table-row-container::before {
                 content: '';
                 width: 100%;
                 height: 100%;
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
                 position: absolute;
-                background: ${fillHoverColor};
-                pointer-events: none;
-            }
-
-            .row::before {
-                background: ${fillHoverColor};
-            }
-
-            .row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
     )

@@ -2,6 +2,7 @@ import { DOM } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
+import type { ColumnInternals } from '../../table-column/base/models/column-internals';
 
 interface BooleanCollection {
     [key: string]: boolean;
@@ -9,16 +10,30 @@ interface BooleanCollection {
 
 interface RequiredUpdates extends BooleanCollection {
     rowIds: boolean;
+    groupRows: boolean;
     columnIds: boolean;
     columnSort: boolean;
     columnWidths: boolean;
     columnDefinition: boolean;
     actionMenuSlots: boolean;
+    selectionMode: boolean;
 }
 
 const isColumnProperty = (
     changedProperty: string,
     ...args: (keyof TableColumn)[]
+): boolean => {
+    for (const arg of args) {
+        if (changedProperty === arg) {
+            return true;
+        }
+    }
+    return false;
+};
+
+const isColumnInternalsProperty = (
+    changedProperty: string,
+    ...args: (keyof ColumnInternals<unknown>)[]
 ): boolean => {
     for (const arg of args) {
         if (changedProperty === arg) {
@@ -35,11 +50,13 @@ const isColumnProperty = (
 export class UpdateTracker<TData extends TableRecord> {
     private readonly requiredUpdates: RequiredUpdates = {
         rowIds: false,
+        groupRows: false,
         columnIds: false,
         columnSort: false,
         columnWidths: false,
         columnDefinition: false,
-        actionMenuSlots: false
+        actionMenuSlots: false,
+        selectionMode: false
     };
 
     private readonly table: Table<TData>;
@@ -51,6 +68,10 @@ export class UpdateTracker<TData extends TableRecord> {
 
     public get updateRowIds(): boolean {
         return this.requiredUpdates.rowIds;
+    }
+
+    public get updateGroupRows(): boolean {
+        return this.requiredUpdates.groupRows;
     }
 
     public get updateColumnIds(): boolean {
@@ -73,11 +94,17 @@ export class UpdateTracker<TData extends TableRecord> {
         return this.requiredUpdates.actionMenuSlots;
     }
 
+    public get updateSelectionMode(): boolean {
+        return this.requiredUpdates.selectionMode;
+    }
+
     public get requiresTanStackUpdate(): boolean {
         return (
             this.requiredUpdates.rowIds
             || this.requiredUpdates.columnSort
             || this.requiredUpdates.columnDefinition
+            || this.requiredUpdates.groupRows
+            || this.requiredUpdates.selectionMode
         );
     }
 
@@ -92,11 +119,15 @@ export class UpdateTracker<TData extends TableRecord> {
         this.queueUpdate();
     }
 
+    public get hasPendingUpdates(): boolean {
+        return this.updateQueued;
+    }
+
     public trackColumnPropertyChanged(changedColumnProperty: string): void {
         if (isColumnProperty(changedColumnProperty, 'columnId')) {
             this.requiredUpdates.columnIds = true;
         } else if (
-            isColumnProperty(
+            isColumnInternalsProperty(
                 changedColumnProperty,
                 'operandDataRecordFieldName',
                 'sortOperation'
@@ -104,25 +135,34 @@ export class UpdateTracker<TData extends TableRecord> {
         ) {
             this.requiredUpdates.columnDefinition = true;
         } else if (
-            isColumnProperty(
+            isColumnProperty(changedColumnProperty, 'sortingDisabled')
+            || isColumnInternalsProperty(
                 changedColumnProperty,
-                'sortIndex',
-                'sortDirection'
+                'currentSortDirection',
+                'currentSortIndex'
             )
         ) {
             this.requiredUpdates.columnSort = true;
         } else if (
-            isColumnProperty(
+            isColumnProperty(changedColumnProperty, 'columnHidden')
+            || isColumnInternalsProperty(
                 changedColumnProperty,
                 'currentFractionalWidth',
                 'currentPixelWidth',
-                'internalMinPixelWidth',
-                'columnHidden'
+                'minPixelWidth'
             )
         ) {
             this.requiredUpdates.columnWidths = true;
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
             this.requiredUpdates.actionMenuSlots = true;
+        } else if (
+            isColumnInternalsProperty(
+                changedColumnProperty,
+                'groupIndex',
+                'groupingDisabled'
+            )
+        ) {
+            this.requiredUpdates.groupRows = true;
         }
 
         this.queueUpdate();
@@ -134,12 +174,18 @@ export class UpdateTracker<TData extends TableRecord> {
         this.requiredUpdates.columnSort = true;
         this.requiredUpdates.columnWidths = true;
         this.requiredUpdates.actionMenuSlots = true;
+        this.requiredUpdates.groupRows = true;
 
         this.queueUpdate();
     }
 
     public trackIdFieldNameChanged(): void {
         this.requiredUpdates.rowIds = true;
+        this.queueUpdate();
+    }
+
+    public trackSelectionModeChanged(): void {
+        this.requiredUpdates.selectionMode = true;
         this.queueUpdate();
     }
 

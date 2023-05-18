@@ -1,22 +1,20 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { Meta, StoryFn } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
 import { createFixedThemeStory } from '../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../utilities/tests/matrix';
-import type { Table } from '..';
+import { Table, tableTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { backgroundStates } from '../../utilities/tests/states';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
+import { iconUserTag } from '../../icons/user';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
+import { tableColumnTextTag } from '../../table-column/text';
 
 const metadata: Meta = {
     title: 'Tests/Table',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -42,25 +40,25 @@ const data = [
 
 // prettier-ignore
 const component = html`
-    <nimble-table>
-        <nimble-table-column-text
+    <${tableTag}>
+        <${tableColumnTextTag}
             field-name="firstName"
             placeholder="no value"
             action-menu-slot="action-menu"
             action-menu-label="Menu"
         >
-            <nimble-icon-user></nimble-icon-user>
-        </nimble-table-column-text>
-        <nimble-table-column-text field-name="lastName" placeholder="no value">Last Name</nimble-table-column-text>
-        <nimble-table-column-text field-name="favoriteColor" placeholder="no value">Favorite Color</nimble-table-column-text>
+            <${iconUserTag}></${iconUserTag}>
+        </${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value">Favorite Color</${tableColumnTextTag}>
 
-        <nimble-menu slot="action-menu">
-            <nimble-menu-item>Item 1</nimble-menu-item>
-            <nimble-menu-item>Item 2</nimble-menu-item>
-            <nimble-menu-item>Item 3</nimble-menu-item>
-            <nimble-menu-item>Item 4</nimble-menu-item>
-        </nimble-menu>
-    </nimble-table>
+        <${menuTag} slot="action-menu">
+            <${menuItemTag}>Item 1</${menuItemTag}>
+            <${menuItemTag}>Item 2</${menuItemTag}>
+            <${menuItemTag}>Item 3</${menuItemTag}>
+            <${menuItemTag}>Item 4</${menuItemTag}>
+        </${menuTag}>
+    </${tableTag}>
 `;
 
 const [
@@ -76,21 +74,21 @@ if (remaining.length > 0) {
 
 const playFunction = async (): Promise<void> => {
     const table = document.querySelector<Table>('nimble-table')!;
-    table.setData(data);
+    await table.setData(data);
     await waitForUpdatesAsync();
 
     const pageObject = new TablePageObject(table);
     await pageObject.clickCellActionMenu(0, 0);
 };
 
-export const tableActionMenuOpenedLightThemeWhiteBackground: Story = createFixedThemeStory(component, lightThemeWhiteBackground);
+export const tableActionMenuOpenedLightThemeWhiteBackground: StoryFn = createFixedThemeStory(component, lightThemeWhiteBackground);
 
 tableActionMenuOpenedLightThemeWhiteBackground.play = playFunction;
 
-export const tableActionMenuOpenedColorThemeDarkGreenBackground: Story = createFixedThemeStory(component, colorThemeDarkGreenBackground);
+export const tableActionMenuOpenedColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(component, colorThemeDarkGreenBackground);
 
 tableActionMenuOpenedColorThemeDarkGreenBackground.play = playFunction;
 
-export const tableActionMenuOpenedDarkThemeBlackBackground: Story = createFixedThemeStory(component, darkThemeBlackBackground);
+export const tableActionMenuOpenedDarkThemeBlackBackground: StoryFn = createFixedThemeStory(component, darkThemeBlackBackground);
 
 tableActionMenuOpenedDarkThemeBlackBackground.play = playFunction;

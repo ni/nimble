@@ -1,4 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
@@ -20,6 +20,7 @@ import { treeViewTag } from '..';
 import { iconCogTag } from '../../icons/cog';
 import { iconDatabaseTag } from '../../icons/database';
 import { treeItemTag } from '../../tree-item';
+import { anchorTreeItemTag } from '../../anchor-tree-item';
 
 const metadata: Meta = {
     title: 'Tests/Tree View',
@@ -65,10 +66,10 @@ const component = (
             ${when(() => iconVisible, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
                 Nested Item 2
             </${treeItemTag}>
-            <${treeItemTag} ?disabled="${() => disabled}">
+            <${anchorTreeItemTag} ?disabled="${() => disabled}" href="#">
             ${when(() => iconVisible, html`<${iconCogTag} slot="start"></${iconCogTag}>`)}
-                Nested Item 3
-            </${treeItemTag}>
+                Nested Item 3 (link)
+            </${anchorTreeItemTag}>
             <${treeItemTag} hidden>
                 Nested Item 4
             </${treeItemTag}>
@@ -78,7 +79,7 @@ const component = (
 
 export default metadata;
 
-export const treeViewThemeMatrix: Story = createMatrixThemeStory(
+export const treeViewThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         expandedStates,
@@ -87,7 +88,7 @@ export const treeViewThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenTreeView: Story = createStory(
+export const hiddenTreeView: StoryFn = createStory(
     hiddenWrapper(
         html`<${treeViewTag} hidden>
             <${treeItemTag}>Item 1</${treeItemTag}>
@@ -95,12 +96,13 @@ export const hiddenTreeView: Story = createStory(
     )
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
             <${treeViewTag}>
                 Inner text
                 <${treeItemTag}>Tree item</${treeItemTag}>
+                <${anchorTreeItemTag}>Anchor tree item</${anchorTreeItemTag}>
             </${treeViewTag}>
         `
     )

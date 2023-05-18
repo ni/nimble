@@ -14,7 +14,6 @@ Add a `docs.description.component` string to the component `parameters` object. 
 ```ts
 const metadata: Meta<ComponentArgs> = {
     title: 'SomeComponent',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {

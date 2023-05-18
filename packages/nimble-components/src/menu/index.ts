@@ -5,6 +5,10 @@ import {
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
 
+// FAST menu template requires an anchored region is available using tagFor DI
+// Register anchored region explicitly to make sure it is defined for the template
+import '../anchored-region';
+
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-menu': Menu;

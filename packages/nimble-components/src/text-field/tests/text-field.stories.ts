@@ -1,6 +1,6 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TextFieldAppearance, TextFieldType } from '../types';
 import { textFieldTag } from '..';
@@ -33,16 +33,13 @@ consuming application must implement that functionality.
 
 const metadata: Meta<TextFieldArgs> = {
     title: 'Text Field',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: 'A single-line text field.'
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2/specs/'
         },
         actions: {
             handles: ['change', 'input']

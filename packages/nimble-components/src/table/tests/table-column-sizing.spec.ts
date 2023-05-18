@@ -4,7 +4,7 @@ import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
@@ -38,7 +38,7 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table>
-            <nimble-table-column-text id="first-column" field-name="stringData">                
+            <nimble-table-column-text id="first-column" field-name="stringData">
             </nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">
             </nimble-table-column-text>
@@ -69,7 +69,7 @@ describe('Table Column Sizing', () => {
         const columnSizeTests = [
             {
                 name: 'both columns have same fractionalWidth',
-                tableWidth: 400,
+                rowWidth: 400,
                 column1FractionalWidth: 1,
                 column1PixelWidth: undefined,
                 column1MinPixelWidth: undefined,
@@ -77,64 +77,59 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 200,
-                column2ExpectedRenderedWidth: 200,
-                rowExpectedRenderedWidth: 400
+                column2ExpectedRenderedWidth: 200
             },
             {
                 name: 'one column has larger fractionalWidth',
-                tableWidth: 300,
+                rowWidth: 600,
                 column1FractionalWidth: 2,
                 column1PixelWidth: undefined,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 200,
-                column2ExpectedRenderedWidth: 100,
-                rowExpectedRenderedWidth: 300
+                column1ExpectedRenderedWidth: 400,
+                column2ExpectedRenderedWidth: 200
             },
             {
                 name: 'first column set to use pixelWidth',
-                tableWidth: 400,
+                rowWidth: 600,
                 column1FractionalWidth: 1,
-                column1PixelWidth: 100,
+                column1PixelWidth: 200,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 300,
-                rowExpectedRenderedWidth: 400
+                column1ExpectedRenderedWidth: 200,
+                column2ExpectedRenderedWidth: 400
             },
             {
                 name: 'second column set to use pixelWidth',
-                tableWidth: 400,
+                rowWidth: 600,
                 column1FractionalWidth: 1,
                 column1PixelWidth: undefined,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
-                column2PixelWidth: 100,
+                column2PixelWidth: 200,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 300,
-                column2ExpectedRenderedWidth: 100,
-                rowExpectedRenderedWidth: 400
+                column1ExpectedRenderedWidth: 400,
+                column2ExpectedRenderedWidth: 200
             },
             {
                 name: 'both columns use pixelWidth',
-                tableWidth: 400,
+                rowWidth: 400,
                 column1FractionalWidth: 1,
-                column1PixelWidth: 100,
+                column1PixelWidth: 300,
                 column1MinPixelWidth: undefined,
                 column2FractionalWidth: 1,
-                column2PixelWidth: 100,
+                column2PixelWidth: 300,
                 column2MinPixelWidth: undefined,
-                column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 100,
-                rowExpectedRenderedWidth: 400
+                column1ExpectedRenderedWidth: 300,
+                column2ExpectedRenderedWidth: 300
             },
             {
                 name: 'first column has smaller pixelWidth than minPixelWidth, results in column with size of minPixelWidth',
-                tableWidth: 400,
+                rowWidth: 400,
                 column1FractionalWidth: 1,
                 column1PixelWidth: 50,
                 column1MinPixelWidth: 75,
@@ -142,12 +137,11 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 75,
-                column2ExpectedRenderedWidth: 325,
-                rowExpectedRenderedWidth: 400
+                column2ExpectedRenderedWidth: 325
             },
             {
                 name: 'combined minPixelWidth of first column and pixelWidth of second column being greater than table width, results in row size greater than table width',
-                tableWidth: 400,
+                rowWidth: 400,
                 column1FractionalWidth: 1,
                 column1PixelWidth: undefined,
                 column1MinPixelWidth: 100,
@@ -155,12 +149,11 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: 350,
                 column2MinPixelWidth: undefined,
                 column1ExpectedRenderedWidth: 100,
-                column2ExpectedRenderedWidth: 350,
-                rowExpectedRenderedWidth: 450
+                column2ExpectedRenderedWidth: 350
             },
             {
                 name: 'combined pixelWidth of first column and minPixelWidth of second column being greater than table width, results in row size greater than table width',
-                tableWidth: 400,
+                rowWidth: 400,
                 column1FractionalWidth: 1,
                 column1PixelWidth: 350,
                 column1MinPixelWidth: undefined,
@@ -168,8 +161,7 @@ describe('Table Column Sizing', () => {
                 column2PixelWidth: undefined,
                 column2MinPixelWidth: 100,
                 column1ExpectedRenderedWidth: 350,
-                column2ExpectedRenderedWidth: 100,
-                rowExpectedRenderedWidth: 450
+                column2ExpectedRenderedWidth: 100
             }
         ];
         const focused: string[] = [];
@@ -185,25 +177,28 @@ describe('Table Column Sizing', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    element.style.width = `${columnSizeTest.tableWidth.toString()}px`;
-                    element.setData(simpleTableData);
+                    await pageObject.sizeTableToGivenRowWidth(
+                        columnSizeTest.rowWidth,
+                        element
+                    );
+                    await element.setData(simpleTableData);
                     await connect();
                     await waitForUpdatesAsync();
 
-                    column1.internalFractionalWidth = columnSizeTest.column1FractionalWidth;
-                    column1.internalPixelWidth = columnSizeTest.column1PixelWidth;
+                    column1.columnInternals.fractionalWidth = columnSizeTest.column1FractionalWidth;
+                    column1.columnInternals.pixelWidth = columnSizeTest.column1PixelWidth;
                     if (
                         typeof columnSizeTest.column1MinPixelWidth === 'number'
                     ) {
-                        column1.internalMinPixelWidth = columnSizeTest.column1MinPixelWidth;
+                        column1.columnInternals.minPixelWidth = columnSizeTest.column1MinPixelWidth;
                     }
 
-                    column2.internalFractionalWidth = columnSizeTest.column2FractionalWidth;
-                    column2.internalPixelWidth = columnSizeTest.column2PixelWidth;
+                    column2.columnInternals.fractionalWidth = columnSizeTest.column2FractionalWidth;
+                    column2.columnInternals.pixelWidth = columnSizeTest.column2PixelWidth;
                     if (
                         typeof columnSizeTest.column2MinPixelWidth === 'number'
                     ) {
-                        column2.internalMinPixelWidth = columnSizeTest.column2MinPixelWidth;
+                        column2.columnInternals.minPixelWidth = columnSizeTest.column2MinPixelWidth;
                     }
 
                     await waitForUpdatesAsync();
@@ -211,8 +206,6 @@ describe('Table Column Sizing', () => {
                     const column2RenderedWidth = pageObject.getCellRenderedWidth(1);
                     const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
                     const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
-                    const rowWidth = pageObject.getRowWidth();
-                    const tableWidth = element.getBoundingClientRect().width;
                     expect(column1RenderedWidth).toBe(
                         columnSizeTest.column1ExpectedRenderedWidth
                     );
@@ -225,22 +218,18 @@ describe('Table Column Sizing', () => {
                     expect(header2RenderedWidth).toBe(
                         columnSizeTest.column2ExpectedRenderedWidth
                     );
-                    expect(rowWidth).toBe(
-                        columnSizeTest.rowExpectedRenderedWidth
-                    );
-                    expect(tableWidth).toBe(columnSizeTest.tableWidth);
                 }
             );
         }
 
         it('resizing table with fractionalWidth columns changes column rendered widths', async () => {
             await connect();
-            element.style.width = '400px';
-            element.setData(simpleTableData);
+            await pageObject.sizeTableToGivenRowWidth(400, element);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
-            element.style.width = '300px';
+            await pageObject.sizeTableToGivenRowWidth(300, element);
             await waitForUpdatesAsync();
 
             const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
@@ -251,8 +240,8 @@ describe('Table Column Sizing', () => {
 
         it('hidden column results in other column filling whole space', async () => {
             await connect();
-            element.style.width = '400px';
-            element.setData(simpleTableData);
+            await pageObject.sizeTableToGivenRowWidth(400, element);
+            await element.setData(simpleTableData);
             await connect();
             await waitForUpdatesAsync();
 
@@ -298,19 +287,19 @@ describe('Table Column Sizing', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await connect();
-                    element.style.width = '300px';
-                    element.setData(largeTableData);
+                    await pageObject.sizeTableToGivenRowWidth(300, element);
+                    await element.setData(largeTableData);
                     await connect();
                     await waitForUpdatesAsync();
 
-                    column1.internalFractionalWidth = rowScrollTest.column1FractionalWidth;
+                    column1.columnInternals.fractionalWidth = rowScrollTest.column1FractionalWidth;
                     if (rowScrollTest.column1MinPixelWidth !== null) {
-                        column1.internalMinPixelWidth = rowScrollTest.column1MinPixelWidth;
+                        column1.columnInternals.minPixelWidth = rowScrollTest.column1MinPixelWidth;
                     }
 
-                    column2.internalFractionalWidth = rowScrollTest.column2FractionalWidth;
+                    column2.columnInternals.fractionalWidth = rowScrollTest.column2FractionalWidth;
                     if (rowScrollTest.column2MinPixelWidth !== null) {
-                        column2.internalMinPixelWidth = rowScrollTest.column2MinPixelWidth;
+                        column2.columnInternals.minPixelWidth = rowScrollTest.column2MinPixelWidth;
                     }
 
                     await waitForUpdatesAsync();

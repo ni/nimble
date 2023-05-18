@@ -18,9 +18,29 @@ describe('Tooltip', () => {
     function isIconVisible(elementName: string): boolean {
         const iconElement = element.shadowRoot?.querySelector(elementName);
         if (!iconElement) {
-            return false;
+            throw new Error(`Cannot find icon with name ${elementName}`);
         }
-        return window.getComputedStyle(iconElement).display !== 'none';
+        const display = window.getComputedStyle(iconElement).display;
+        if (typeof display !== 'string' || display === '') {
+            throw new Error(
+                `Invalid display value was calcualted for ${elementName}`
+            );
+        }
+        return display !== 'none';
+    }
+
+    async function waitUntilAnchoredRegionLoaded(
+        tooltip: Tooltip
+    ): Promise<void> {
+        await waitForUpdatesAsync();
+        const region = tooltip.shadowRoot!.querySelector(
+            'nimble-anchored-region'
+        )!;
+        return new Promise((resolve, _reject) => {
+            region.addEventListener('loaded', () => {
+                resolve();
+            });
+        });
     }
 
     beforeEach(async () => {
@@ -121,7 +141,7 @@ describe('Tooltip', () => {
         element.visible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -134,7 +154,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -147,7 +167,7 @@ describe('Tooltip', () => {
         element.severity = 'error';
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -161,7 +181,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeTrue();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -174,7 +194,7 @@ describe('Tooltip', () => {
         element.severity = 'information';
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -188,7 +208,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await waitForUpdatesAsync();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeTrue();

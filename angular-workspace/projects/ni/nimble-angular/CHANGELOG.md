@@ -1,8 +1,287 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 22 Mar 2023 20:54:34 GMT and should not be manually modified.
+This log was last generated on Wed, 17 May 2023 21:33:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.28
+
+Wed, 17 May 2023 21:33:40 GMT
+
+### Patches
+
+- Add support for the column-configuration-change event to the table directive ([ni/nimble@71351b1](https://github.com/ni/nimble/commit/71351b15e45f68adb8b08db2168b5faf499a49f9))
+- Bump @ni/nimble-components to v19.0.2
+
+## 16.5.27
+
+Fri, 12 May 2023 23:44:48 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.0.1
+
+## 16.5.26
+
+Fri, 12 May 2023 17:59:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.0.0
+
+## 16.5.25
+
+Thu, 11 May 2023 18:44:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.6
+
+## 16.5.24
+
+Mon, 08 May 2023 16:14:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.5
+
+## 16.5.23
+
+Mon, 08 May 2023 14:01:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.4
+
+## 16.5.22
+
+Fri, 05 May 2023 21:44:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.3
+
+## 16.5.21
+
+Fri, 05 May 2023 20:18:38 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.2
+
+## 16.5.20
+
+Fri, 05 May 2023 15:27:55 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.13.1
+
+## 16.5.19
+
+Mon, 01 May 2023 20:33:27 GMT
+
+### Patches
+
+- Fix bad import ([ni/nimble@1416056](https://github.com/ni/nimble/commit/1416056e356ce9338db8fe067d9850d65d9c0346))
+- Bump @ni/nimble-components to v18.13.0
+
+## 16.5.18
+
+Fri, 28 Apr 2023 15:33:54 GMT
+
+### Patches
+
+- Anchor table column type ([ni/nimble@78d39d3](https://github.com/ni/nimble/commit/78d39d34d9ee9a8852ba6eeb40119157493e7f76))
+- Bump @ni/nimble-components to v18.12.7
+
+## 16.5.17
+
+Wed, 26 Apr 2023 17:40:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.6
+
+## 16.5.16
+
+Tue, 25 Apr 2023 20:41:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.5
+
+## 16.5.15
+
+Tue, 25 Apr 2023 18:09:46 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.4
+
+## 16.5.14
+
+Fri, 21 Apr 2023 16:14:07 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.3
+
+## 16.5.13
+
+Thu, 20 Apr 2023 14:11:37 GMT
+
+### Patches
+
+- Angular support for row selection in the table ([ni/nimble@b569273](https://github.com/ni/nimble/commit/b56927365c467310598d6c7e448369f5e8226a84))
+
+## 16.5.12
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.2
+
+## 16.5.11
+
+Fri, 14 Apr 2023 14:26:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.1
+
+## 16.5.10
+
+Tue, 11 Apr 2023 02:40:33 GMT
+
+### Patches
+
+- Angular row grouping support ([ni/nimble@036c36d](https://github.com/ni/nimble/commit/036c36d86d8c009579f1b4734b485785f0173b08))
+
+## 16.5.9
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.12.0
+
+## 16.5.8
+
+Mon, 10 Apr 2023 19:29:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.1
+
+## 16.5.7
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.11.0
+
+## 16.5.6
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.6
+
+## 16.5.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update table validation test and make setData() async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+- Bump @ni/nimble-components to v18.10.5
+
+## 16.5.4
+
+Thu, 06 Apr 2023 19:46:21 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.4
+
+## 16.5.3
+
+Thu, 06 Apr 2023 17:21:40 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.3
+
+## 16.5.2
+
+Wed, 05 Apr 2023 22:05:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.2
+
+## 16.5.1
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.10.1
+
+## 16.5.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Angular support for anchor tree item ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+- Bump @ni/nimble-components to v18.10.0
+
+## 16.4.1
+
+Tue, 04 Apr 2023 23:23:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.9.1
+
+## 16.4.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+- Bump @ni/nimble-components to v18.9.0
+
+## 16.3.0
+
+Mon, 03 Apr 2023 21:31:32 GMT
+
+### Minor changes
+
+- Angular integration for anchor menu item component ([ni/nimble@9bcfe99](https://github.com/ni/nimble/commit/9bcfe9997a520cf952e63fd48440dc23f13ec63d))
+- Bump @ni/nimble-components to v18.8.4
+
+## 16.2.9
+
+Mon, 03 Apr 2023 18:19:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.3
+
+## 16.2.8
+
+Sat, 01 Apr 2023 05:14:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v18.8.2
 
 ## 16.2.7
 

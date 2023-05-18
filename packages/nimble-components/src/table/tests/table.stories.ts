@@ -1,12 +1,13 @@
 import { html, ref } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import {
     createUserSelectedThemeStory,
     usageWarning
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
+import { TableRowSelectionMode } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -14,9 +15,12 @@ import { tableColumnTextTag } from '../../table-column/text';
 
 interface TableArgs {
     data: ExampleDataType;
+    selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
+    setSelectedRecordIds: undefined;
+    getSelectedRecordIds: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
 }
@@ -90,6 +94,8 @@ const idFieldNameDescription = `An optional string attribute that specifies the 
 If the attribute is not specified, a default ID will be generated. If the attribute is invalid, no rows in the table will be rendered,
 and the table will enter an invalid state according to the \`validity\` property and \`checkValidity()\` function.
 
+While the ID is optional, it is required when row selection is enabled.
+
 The attribute is invalid in the following conditions:
 -   Multiple records were found with the same ID. This will cause \`validity.duplicateRecordId\` to be \`true\`.
 -   A record was found that did not have a field with the name specified by \`id-field-name\`. This will cause \`validity.missingRecordId\` to be \`true\`.
@@ -104,23 +110,30 @@ The object's type is \`TableValidityState\`, and it contains the following boole
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
 -   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
 -   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
+-   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
 `;
+
+const setSelectedRecordIdsDescription = `A function that makes the rows associated with the provided record IDs selected in the table.
+If a record does not exist in the table's data, it will not be selected. If multiple record IDs are specified when the table's selection
+mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
 const metadata: Meta<TableArgs> = {
     title: 'Table',
-    decorators: [withXD],
+    tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/'
-        },
         actions: {
-            handles: ['action-menu-beforetoggle', 'action-menu-toggle']
+            handles: [
+                'action-menu-beforetoggle',
+                'action-menu-toggle',
+                'selection-change',
+                'column-configuration-change'
+            ]
         }
     },
     // prettier-ignore
@@ -128,6 +141,7 @@ const metadata: Meta<TableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
+            selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
@@ -186,6 +200,26 @@ const metadata: Meta<TableArgs> = {
                 }
             }
         },
+        selectionMode: {
+            table: {
+                defaultValue: { summary: 'none' }
+            },
+            options: Object.keys(TableRowSelectionMode),
+            description:
+                'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
+            control: { type: 'radio' }
+        },
+        getSelectedRecordIds: {
+            name: 'getSelectedRecordIds()',
+            description:
+                'A function that returns an array of record IDs that represent the selected row(s) in the table.',
+            control: false
+        },
+        setSelectedRecordIds: {
+            name: 'setSelectedRecordIds()',
+            description: setSelectedRecordIdsDescription,
+            control: false
+        },
         idFieldName: {
             name: 'id-field-name',
             table: {
@@ -217,6 +251,7 @@ const metadata: Meta<TableArgs> = {
     },
     args: {
         data: ExampleDataType.simpleData,
+        selectionMode: TableRowSelectionMode.single,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
@@ -226,7 +261,7 @@ const metadata: Meta<TableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
-                x.tableRef.setData(dataSets[x.data]);
+                await x.tableRef.setData(dataSets[x.data]);
             })();
         }
     }

@@ -47,10 +47,16 @@ module.exports = config => {
         basePath,
         browserDisconnectTimeout: 10000,
         processKillTimeout: 10000,
-        frameworks: ['source-map-support', 'jasmine', 'webpack'],
+        frameworks: [
+            'source-map-support',
+            'jasmine',
+            'webpack',
+            'jasmine-spec-tags'
+        ],
         plugins: [
             'karma-jasmine',
             'karma-jasmine-html-reporter',
+            'karma-jasmine-spec-tags',
             'karma-webpack',
             'karma-source-map-support',
             'karma-sourcemap-loader',
@@ -124,6 +130,14 @@ module.exports = config => {
             ChromeHeadlessOpt: {
                 base: 'ChromeHeadless',
                 flags: [...commonChromeFlags]
+            },
+            FirefoxDebugging: {
+                base: 'Firefox',
+                debug: true
+            },
+            WebkitDebugging: {
+                base: 'Webkit',
+                debug: true
             }
         },
         client: {

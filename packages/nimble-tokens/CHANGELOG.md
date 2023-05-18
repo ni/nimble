@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 01 Mar 2023 18:28:57 GMT and should not be manually modified.
+This log was last generated on Fri, 12 May 2023 17:59:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.0.0
+
+Fri, 12 May 2023 17:59:07 GMT
+
+### Major changes
+
+- Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons. ([ni/nimble@1e04075](https://github.com/ni/nimble/commit/1e040752c74ea8fc0df586a2a54525e15d5c8b29))
+
+## 5.0.0
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Major changes
+
+- Refactor token build output. This removes some source files from the built package. ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
+
+## 4.9.0
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Minor changes
+
+- Adding icon: file-export ([ni/nimble@d339db7](https://github.com/ni/nimble/commit/d339db767c179e2398ccadc6111d9ab7c72ca6bb))
+
+## 4.8.0
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Minor changes
+
+- Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines ([ni/nimble@b14c239](https://github.com/ni/nimble/commit/b14c239ec88207b6561e90f447c1975e429e086f))
+
+## 4.7.3
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Generate a fonts.scss file in addition to the fonts.css file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
+
+## 4.7.2
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Upgrade to typescript 4.7.4 ([ni/nimble@2dd4d31](https://github.com/ni/nimble/commit/2dd4d31306ba122fb8f5378cd83e8abc83bfa618))
 
 ## 4.7.1
 

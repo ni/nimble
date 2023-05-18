@@ -11,9 +11,18 @@ namespace NimbleBlazor.Tests.Unit.Components;
 public class NimbleTableColumnTextTests
 {
     [Fact]
+    public void NimbleTableColumnText_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnText>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleTableColumnText_WithFieldNameAttribute_HasTableMarkup()
     {
-        var table = RenderWithPropertySet<string>(x => x.FieldName!, "FirstName");
+        var table = RenderWithPropertySet(x => x.FieldName!, "FirstName");
 
         var expectedMarkup = @"field-name=""FirstName""";
         Assert.Contains(expectedMarkup, table.Markup);
@@ -22,27 +31,9 @@ public class NimbleTableColumnTextTests
     [Fact]
     public void NimbleTableColumnText_WithPlaceholderAttribute_HasTableMarkup()
     {
-        var table = RenderWithPropertySet<string>(x => x.Placeholder!, "No Value");
+        var table = RenderWithPropertySet(x => x.Placeholder!, "No Value");
 
         var expectedMarkup = @"placeholder=""No Value""";
-        Assert.Contains(expectedMarkup, table.Markup);
-    }
-
-    [Fact]
-    public void NimbleTableColumnText_WithFractionalWidthAttribute_HasTableMarkup()
-    {
-        var table = RenderWithPropertySet<double>(x => x.FractionalWidth!, 2);
-
-        var expectedMarkup = @"fractional-width=""2""";
-        Assert.Contains(expectedMarkup, table.Markup);
-    }
-
-    [Fact]
-    public void NimbleTableColumnText_WithMinPixelWidthAttribute_HasTableMarkup()
-    {
-        var table = RenderWithPropertySet<double?>(x => x.MinPixelWidth!, 40);
-
-        var expectedMarkup = @"min-pixel-width=""40""";
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
@@ -52,4 +43,25 @@ public class NimbleTableColumnTextTests
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleTableColumnText>(p => p.Add(propertyGetter, propertyValue));
     }
+}
+
+/// <summary>
+/// Tests for NimbleTableColumn API on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextBaseTests : NimbleTableColumnTests<NimbleTableColumnText>
+{
+}
+
+/// <summary>
+/// Tests for FractionalWidthAPI on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextFractionalWidthTests : FractionalWidthBaseTests<NimbleTableColumnText>
+{
+}
+
+/// <summary>
+/// Tests for GroupableAPI on <see cref="NimbleTableColumnText"/>
+/// </summary>
+public class NimbleTableColumnTextGroupableTests : GroupableBaseTests<NimbleTableColumnText>
+{
 }

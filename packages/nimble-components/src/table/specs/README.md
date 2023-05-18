@@ -105,11 +105,13 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   What column gets used for sorting?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
+        -   [Formatted Text Columns](table-column-specs/table-column-formatted-text.md)
+        -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
--   Row Selection
+-   [Row Selection](table-row-selection.md)
     -   Define the anatomy of row selection in the table DOM
         -   Indeterminate checkbox at the far left of each row?
         -   Selected row CSS/design
@@ -149,11 +151,25 @@ _Functions_
 
 _Events_
 
--   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. The event details include the following:
+-   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
     -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
     -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
     -   `recordIds` - string array - The IDs of the records that the menu is associated with.
     -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `action-menu-toggle` - An event that is emitted when the action menu opens or closes. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element transitioned in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element transitioned out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `column-configuration-change` - An event that is emitted when a user interactively changes the configuration of a column, such as by sorting or resizing the column. See [the table column interaction events HLD](./table-column-interaction-events.md) for more information. The event details include the following:
+    -   `columns` - array of column configuration details - The columns that are currently in the table in the order specified in the DOM, along with their current configuration. Each entry in the array contains:
+        -   `columnId` - string | undefined - The column ID of the column.
+        -   `sortIndex` - number | undefined - The current sort index of the column.
+        -   `sortDirection` - TableColumnSortDirection - The direction the column is sorted.
+        -   `groupIndex` - number | undefined - The current group index of the column.
+        -   `hidden` - boolean - Whether or not the column is currently hidden.
+        -   `fractionalWidth` - number - The current fractional width of the column.
+        -   `pixelWidth` - number | undefined - The current pixel width of the column. The value will be undefined if the column is not configured to be a fixed-width column.
 
 ### Anatomy
 
@@ -178,9 +194,17 @@ Blazor support should be accomplished through the typical integration patterns.
 
 One aspect of note is that the Data property is not attribute based so the connection from the blazor component wrapper Data property to the web component will require additional JSInterop considerations.
 
-### Visual Appearance
+### Visual appearance
 
 Placeholder
+
+### State management
+
+Most of the state on the table is declaratively set through attributes/properties on the table itself or on its columns. Examples of this are sorting state, grouping state, and record IDs. Updates to the declarative state are asynchronously applied in batches for performance reasons. For example, changing the sorting state on two columns as back-to-back updates to the columns will be batched and only cause the table to be updated one time.
+
+State that cannot be set declaratively is applied using asynchronous functions. Examples of this are setting the data and getting/setting the row selection. These asynchronous functions wait on pending batches, then apply their state, and then resolve.
+
+Both declarative and function-based state can be applied before the `nimble-table` element is connected to the DOM.
 
 ---
 

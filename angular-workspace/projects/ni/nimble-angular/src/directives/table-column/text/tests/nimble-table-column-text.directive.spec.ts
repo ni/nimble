@@ -34,6 +34,8 @@ describe('NimbleTableColumnText', () => {
                         min-pixel-width="40"
                         sort-direction="${TableColumnSortDirection.ascending}"
                         sort-index="0"
+                        group-index="0"
+                        grouping-disabled
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -108,9 +110,14 @@ describe('NimbleTableColumnText', () => {
             expect(nativeElement.minPixelWidth).toBe(40);
         });
 
-        it('will use template string values for minPixelWidth', () => {
-            expect(directive.minPixelWidth).toBe(40);
-            expect(nativeElement.minPixelWidth).toBe(40);
+        it('will use template string values for groupIndex', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+        });
+
+        it('will use template string values for groupingDisabled', () => {
+            expect(directive.groupingDisabled).toBeTrue();
+            expect(nativeElement.groupingDisabled).toBeTrue();
         });
     });
 
@@ -130,6 +137,8 @@ describe('NimbleTableColumnText', () => {
                         [min-pixel-width]="minPixelWidth"
                         [sort-direction]="sortDirection"
                         [sort-index]="sortIndex"
+                        [group-index]="groupIndex"
+                        [grouping-disabled]="groupingDisabled"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -147,6 +156,8 @@ describe('NimbleTableColumnText', () => {
             public columnHidden = true;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
+            public groupIndex: number | null = 0;
+            public groupingDisabled = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -306,6 +317,39 @@ describe('NimbleTableColumnText', () => {
             expect(directive.minPixelWidth).toBe(null);
             expect(nativeElement.minPixelWidth).toBe(null);
         });
+
+        it('can be configured with property binding for groupIndex', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(1);
+            expect(nativeElement.groupIndex).toBe(1);
+        });
+
+        it('can be configured with property binding for groupIndex updated to null', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(null);
+            expect(nativeElement.groupIndex).toBe(null);
+        });
+
+        it('can be configured with property binding for groupingDisabled', () => {
+            expect(directive.groupingDisabled).toBeFalse();
+            expect(nativeElement.groupingDisabled).toBeFalse();
+
+            fixture.componentInstance.groupingDisabled = true;
+            fixture.detectChanges();
+
+            expect(directive.groupingDisabled).toBeTrue();
+            expect(nativeElement.groupingDisabled).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -324,6 +368,8 @@ describe('NimbleTableColumnText', () => {
                         [attr.min-pixel-width]="minPixelWidth"
                         [attr.sort-direction]="sortDirection"
                         [attr.sort-index]="sortIndex"
+                        [attr.group-index]="groupIndex"
+                        [attr.grouping-disabled]="groupingDisabled"
                     ></nimble-table-column-text>
                 </nimble-table>
             `
@@ -341,6 +387,8 @@ describe('NimbleTableColumnText', () => {
             public columnHidden = true;
             public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
             public sortIndex: number | null = 0;
+            public groupIndex: number | null = 0;
+            public groupingDisabled = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -499,6 +547,39 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.minPixelWidth).toBe(null);
             expect(nativeElement.minPixelWidth).toBe(null);
+        });
+
+        it('can be configured with attribute binding for groupIndex', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(1);
+            expect(nativeElement.groupIndex).toBe(1);
+        });
+
+        it('can be configured with attribute binding for groupIndex updated to null', () => {
+            expect(directive.groupIndex).toBe(0);
+            expect(nativeElement.groupIndex).toBe(0);
+
+            fixture.componentInstance.groupIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.groupIndex).toBe(null);
+            expect(nativeElement.groupIndex).toBe(null);
+        });
+
+        it('can be configured with attribute binding for groupingDisabled', () => {
+            expect(directive.groupingDisabled).toBe(false);
+            expect(nativeElement.groupingDisabled).toBe(false);
+
+            fixture.componentInstance.groupingDisabled = true;
+            fixture.detectChanges();
+
+            expect(directive.groupingDisabled).toBe(true);
+            expect(nativeElement.groupingDisabled).toBe(true);
         });
     });
 });

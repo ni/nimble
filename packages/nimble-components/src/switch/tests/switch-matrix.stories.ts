@@ -1,5 +1,4 @@
-import type { Meta, Story } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate, when } from '@microsoft/fast-element';
 import {
     createMatrix,
@@ -15,13 +14,8 @@ import { switchTag } from '..';
 
 const metadata: Meta = {
     title: 'Tests/Switch',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -54,18 +48,18 @@ const component = (
     </${switchTag}>
 `;
 
-export const switchThemeMatrix: Story = createMatrixThemeStory(
+export const switchThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [checkedStates, disabledStates, messagesStates])
 );
 
 // prettier-ignore
-export const hiddenSwitch: Story = createStory(
+export const hiddenSwitch: StoryFn = createStory(
     hiddenWrapper(
         html`<${switchTag} hidden>Hidden Switch</${switchTag}>`
     )
 );
 
-export const heightTest: Story = createStory(
+export const heightTest: StoryFn = createStory(
     html`
         <div style="display: flex; flex-direction: column">
             <${switchTag} style="border: 1px dashed; width: 200px">

@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Bunit;
 using Xunit;
 
@@ -18,6 +20,15 @@ public class NimbleTextAreaTests
         var textField = context.RenderComponent<NimbleTextArea>();
 
         Assert.Contains(expectedMarkup, textField.Markup);
+    }
+
+    [Fact]
+    public void NimbleTextArea_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTextArea>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
     }
 
     [Theory]
@@ -42,6 +53,22 @@ public class NimbleTextAreaTests
         Assert.Contains(expectedAttribute, textArea.Markup);
     }
 
+    [Fact]
+    public void TextAreaErrorText_AttributeIsSet()
+    {
+        var textArea = RenderWithPropertySet(x => x.ErrorText, "bad value");
+
+        Assert.Contains("error-text=\"bad value\"", textArea.Markup);
+    }
+
+    [Fact]
+    public void TextAreaErrorVisible_AttributeIsSet()
+    {
+        var textArea = RenderWithPropertySet(x => x.ErrorVisible, true);
+
+        Assert.Contains("error-visible", textArea.Markup);
+    }
+
     private IRenderedComponent<NimbleTextArea> RenderNimbleTextArea(TextAreaResize textAreaResize)
     {
         var context = new TestContext();
@@ -54,5 +81,12 @@ public class NimbleTextAreaTests
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         return context.RenderComponent<NimbleTextArea>(p => p.Add(x => x.Appearance, appearance));
+    }
+
+    private IRenderedComponent<NimbleTextArea> RenderWithPropertySet<TProperty>(Expression<Func<NimbleTextArea, TProperty>> propertyGetter, TProperty propertyValue)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        return context.RenderComponent<NimbleTextArea>(p => p.Add(propertyGetter, propertyValue));
     }
 }

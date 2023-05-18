@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, repeat } from '@microsoft/fast-element';
-import nimbleColorsMapJson from '@ni/nimble-tokens/dist/styledictionary/properties/colors.json';
+import * as tokens from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { controlLabelFont, controlLabelFontColor } from '../design-tokens';
 
@@ -10,12 +9,13 @@ interface NimbleColor {
     data: string;
 }
 
-const nimbleBaseColors: NimbleColor[] = Object.entries(
-    nimbleColorsMapJson.color
-).map(([key, valueObj]) => ({
-    name: key,
-    data: valueObj.value
-}));
+const colorRegExp = /^#([0-9a-zA-Z]{6})$/;
+const nimbleBaseColors: NimbleColor[] = Object.entries(tokens)
+    .filter(([_key, value]) => colorRegExp.test(value))
+    .map(([key, value]) => ({
+        name: key,
+        data: value
+    }));
 
 const styleMarkup = html`
     <style>
@@ -53,16 +53,12 @@ Most client applications shouldn't use these tokens directly. See the <a href="h
 
 const metadata: Meta = {
     title: 'Tokens/Base Colors',
-    decorators: [withXD],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/89e665af-d24c-4f5e-b547-294caeccd29a/specs/'
         }
     }
 };

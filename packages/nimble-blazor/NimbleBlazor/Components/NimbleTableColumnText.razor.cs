@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnText : NimbleTableColumn
+public partial class NimbleTableColumnText : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn
 {
     /// <summary>
     /// Gets or sets the field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display
@@ -32,4 +32,18 @@ public partial class NimbleTableColumnText : NimbleTableColumn
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Specifies the grouping precedence of the column within the set of all columns participating in grouping.
+    /// Columns are rendered in the grouping tree from lowest group-index as the tree root to highest
+    /// group-index as tree leaves.
+    /// </summary>
+    [Parameter]
+    public int? GroupIndex { get; set; }
+
+    /// <summary>
+    /// Whether or not this column can be used to group rows by
+    /// </summary>
+    [Parameter]
+    public bool? GroupingDisabled { get; set; }
 }

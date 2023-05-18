@@ -131,6 +131,7 @@
                 <hr>
                 <header>Header 2</header>
                 <NimbleMenuItem>Item 4</NimbleMenuItem>
+                <NimbleAnchorMenuItem Href="#">Item 5 (link)</NimbleAnchorMenuItem>
             </NimbleMenu>
         </div>
         <div class="sub-container">
@@ -205,7 +206,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Table</div>
-            <NimbleTable @bind-Data="TableData" class="table">
+            <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
                     FieldName="FirstName"
                     Placeholder="no value"
@@ -217,7 +218,8 @@
                 >
                     <NimbleIconKey title="First Name"></NimbleIconKey>
                 </NimbleTableColumnText>
-                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value">Last Name</NimbleTableColumnText>
+                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
+                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value" GroupIndex="0">Last Name</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">
                     <NimbleMenuItem>Item 1</NimbleMenuItem>
@@ -241,6 +243,7 @@
                 </NimbleTabPanel>
                 <NimbleTabPanel>
                     <div class="container-label">Tab 2 content</div>
+                    <NimbleTextField Placeholder="Enter text into Tab here" />
                 </NimbleTabPanel>
                 <NimbleTabPanel>
                     <div class="container-label">Tab 3 content</div>
@@ -310,7 +313,7 @@
                 <NimbleTreeItem>
                     Parent 1
                     <NimbleTreeItem>Child 1</NimbleTreeItem>
-                    <NimbleTreeItem>Child 2</NimbleTreeItem>
+                    <NimbleAnchorTreeItem Href="https://nimble.ni.dev">Child 2 (link)</NimbleAnchorTreeItem>
                     <NimbleTreeItem Disabled="true">Child 3</NimbleTreeItem>
                 </NimbleTreeItem>
                 <NimbleTreeItem Expanded="true">

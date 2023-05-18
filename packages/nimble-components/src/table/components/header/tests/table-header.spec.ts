@@ -1,10 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import { TableHeader } from '..';
-import { iconArrowDownTag } from '../../../../icons/arrow-down';
-import { iconArrowUpTag } from '../../../../icons/arrow-up';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../../utilities/tests/fixture';
 import { TableColumnSortDirection } from '../../../types';
+import { TableHeaderPageObject } from './table-header-pageobject';
 
 async function setup(): Promise<Fixture<TableHeader>> {
     return fixture<TableHeader>(
@@ -12,27 +11,15 @@ async function setup(): Promise<Fixture<TableHeader>> {
     );
 }
 
-function getSortIcons(element: TableHeader): {
-    ascendingIcon: HTMLElement | null,
-    descendingIcon: HTMLElement | null
-} {
-    return {
-        ascendingIcon: element.shadowRoot!.querySelector(
-            `${iconArrowUpTag}.sort-indicator`
-        ),
-        descendingIcon: element.shadowRoot!.querySelector(
-            `${iconArrowDownTag}.sort-indicator`
-        )
-    };
-}
-
 describe('TableHeader', () => {
     let element: TableHeader;
+    let pageObject: TableHeaderPageObject;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
+        pageObject = new TableHeaderPageObject(element);
         await connect();
     });
 
@@ -55,31 +42,30 @@ describe('TableHeader', () => {
 
     it('has correct state when not sorted', () => {
         expect(element.hasAttribute('aria-sort')).toBeFalse();
-        const sortIcons = getSortIcons(element);
-        expect(sortIcons.ascendingIcon).toBeFalsy();
-        expect(sortIcons.descendingIcon).toBeFalsy();
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
     });
 
-    it('has correct state when sorted ascending', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('has correct state when sorted ascending #SkipFirefox', async () => {
         element.sortDirection = TableColumnSortDirection.ascending;
         element.firstSortedColumn = true;
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-sort')).toEqual('ascending');
-        const sortIcons = getSortIcons(element);
-        expect(sortIcons.ascendingIcon).toBeTruthy();
-        expect(sortIcons.descendingIcon).toBeFalsy();
+        expect(pageObject.isSortAscendingIconVisible()).toBeTrue();
+        expect(pageObject.isSortDescendingIconVisible()).toBeFalse();
     });
 
-    it('has correct state when sorted descending', async () => {
+    // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+    it('has correct state when sorted descending #SkipFirefox', async () => {
         element.sortDirection = TableColumnSortDirection.descending;
         element.firstSortedColumn = true;
         await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-sort')).toEqual('descending');
-        const sortIcons = getSortIcons(element);
-        expect(sortIcons.ascendingIcon).toBeFalsy();
-        expect(sortIcons.descendingIcon).toBeTruthy();
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
     });
 
     it('does not configure aria-sort if it is not the first sorted column', async () => {
@@ -88,8 +74,19 @@ describe('TableHeader', () => {
         await waitForUpdatesAsync();
 
         expect(element.hasAttribute('aria-sort')).toBeFalse();
-        const sortIcons = getSortIcons(element);
-        expect(sortIcons.ascendingIcon).toBeFalsy();
-        expect(sortIcons.descendingIcon).toBeTruthy();
+        expect(pageObject.isSortAscendingIconVisible()).toBeFalse();
+        expect(pageObject.isSortDescendingIconVisible()).toBeTrue();
+    });
+
+    it('displays grouping indicator icon when grouped', async () => {
+        element.isGrouped = true;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeTrue();
+    });
+
+    it('grouping indicator icon is not shown when not grouped', () => {
+        expect(element.isGrouped).toBeFalse();
+        expect(pageObject.isGroupIndicatorIconVisible()).toBeFalse();
     });
 });

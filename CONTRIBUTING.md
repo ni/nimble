@@ -46,9 +46,9 @@ Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages y
 
 ## Documentation policies
 
-1. Documentation for consumers of Nimble should go in `README.md` files. 
-2. Documentation for contributors should go in `CONTRIBUTING.md` files. 
-3. Documentation is hierarchical throughout the repo: 
+1. Documentation for consumers of Nimble should go in `README.md` files.
+2. Documentation for contributors should go in `CONTRIBUTING.md` files.
+3. Documentation is hierarchical throughout the repo:
    - repo-wide documentation exists at the root
    - package-specific documentation exists for each package
    - documentation of specific utilities or components can exist next to the source or in dedicated `docs` folders throughout the repo. Be sure to link to lower-level documents from higher-level ones to aid in discovery.
@@ -81,7 +81,7 @@ The repository runs [`npm audit`](https://docs.npmjs.com/cli/v8/commands/npm-aud
 
 #### Vulnerabilities with fixes available
 
-1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue. 
+1. Update the direct dependency which brings in the vulnerability to a version that addresses the issue.
 2. If the actual issue is with a sub-dependency which has published a fix, we can update that sub-dependency via `npm audit fix`. This should be accompanied by appropriate testing of the new version. We should also ensure there is an issue on the direct dependency's repository asking them to uptake the fixed sub-dependency.
 
 #### Vulnerabilities without fixes available
@@ -107,18 +107,20 @@ This repository uses automated linting and automated lint formatting. Use `npm r
 
 To enable linting and formatting during development, install the recommended VS Code extensions. The list of recommended VS Code extensions can be found in `.vscode/extensions.json`.
 
-The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Defualt Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+The default formatter for the workspace should be already configured by `.vscode/settings.json`. To configure it manually go to `File >> Preferences >> Settings >> Workspace >> Text Editor >> Default Formatter` and select `Prettier ESLint`. The `Prettier ESLint` option assumes that the recommended VS Code extensions are installed.
+
+You may wish to have the formatter run every time you save a file. This would help ensure you don't forget to run the formatter and end up with a failing PR build. If you want this behavior, turn it on in your user settings: `File >> Preferences >> Settings >> User >> Text Editor >> Format On Save`. We leave this option unset in the workspace settings so that it does not override the user setting.
 
 ### Watch scripts for development
 
 When creating a new component in the `nimble-components` package, it's often sufficient to run the `npm run storybook -w @ni/nimble-components` command to preview the component during development. However, when integration components with Angular or when modifying multiple packages, it's necessary to rebuild multiple components as you modify them. To run `*:watch` scripts for all packages simultaneously, this repository uses VS Code Tasks to automatically launch the scripts in configured terminal tabs.
 
-To launch the watch scripts, open **View»Command palette…** and type `run task`. Select `Tasks: Run Task` and then select `Create Watch Terminals` and press enter. 
+To launch the watch scripts, open **View»Command palette…** and type `run task`. Select `Tasks: Run Task` and then select `Create Watch Terminals` and press enter.
 
 You can also configure this task to execute via a keyboard shortcut by [configuring](https://code.visualstudio.com/docs/getstarted/keybindings) the keybindings.json file to include the following:
 
 ```json
-{   
+{
     "key": "ctrl+shift+\\",
     "command": "workbench.action.tasks.runTask",
     "args": "Create Watch Terminals"
@@ -158,3 +160,23 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
+## Handling intermittent test failures
+
+Intermittent test failures can be a huge drain on productivity as they can cause unrelated failures in builds and block merging PRs or creating releases. Particularly when accepting contributions from different timezones and from contributors outside of the Nimble team without the tribal knowledge of what tests fail intermittently.
+
+The general policy is that intermittent failures that can fail a build, such as jasmine unit tests or chromatic status checks, should be addressed in main immediately.
+
+Some resolutions for an intermittent test are:
+
+1. Immediately submit a PR to address the underlying issue causing the failure. This can be done if the change can be approved and merged by the end of the day that the issue was discovered and if there is high confidence in the change.
+2. If the underlying issue is not well-known or the fix does not give high confidence in resolving the intermittent test then the test should be disabled and a tech debt issue created to handle the intermittent test. The disabled test should include a comment linking to the corresponding issue. Then the new issue itself must be handled as follows.
+
+### Handling new intermittent test tech debt issues
+
+The policy is that intermittent test tech debt issues should be actively assigned and worked on. Intermittent tests should not be disabled and allowed to be unaddressed for extended periods of time.
+
+Some ways to make progress on an intermittent test tech debt issue are:
+
+1. In a branch a developer can try and re-enable the test and reproduce the failure by including additional logging, etc. Creating a PR is not necessary to queue a build in nimble; every commit has an associated build and will re-run the tests.
+2. If the failure is too intermittent to detect by manually queuing builds in a branch and needs additional logging and executions in main, then modify the test so that it will not fail the test suite and add the additional logging needed to make it run in main. Actively monitor the change and have a pre-defined date to disable the test and re-evaluate how to handle the issue.

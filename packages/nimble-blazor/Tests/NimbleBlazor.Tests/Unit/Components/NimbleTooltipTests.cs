@@ -22,6 +22,15 @@ public class NimbleTooltipTests
         Assert.Contains(expectedMarkup, tooltip.Markup);
     }
 
+    [Fact]
+    public void NimbleTooltip_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTooltip>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(TooltipSeverity.Default, "<nimble-tooltip>")]
     [InlineData(TooltipSeverity.Error, "severity=\"error\"")]
