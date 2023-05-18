@@ -24,12 +24,12 @@ export class ZoomHandler {
     private zoomBehavior!: ZoomBehavior<Element, unknown>;
 
     public constructor(private readonly wafermap: WaferMap) {
-        this.updateZoomBehavior(wafermap);
+        this.updateZoomBehavior();
     }
 
-    public updateZoomBehavior(wafermap: Readonly<WaferMap>): void {
-        this.zoomBehavior = this.createZoomBehavior(wafermap);
-        this.zoomBehavior(select(wafermap.canvas as Element));
+    public updateZoomBehavior(): void {
+        this.zoomBehavior = this.createZoomBehavior();
+        this.zoomBehavior(select(this.wafermap.canvas as Element));
     }
 
     private rescale(event: ZoomEvent): void {
@@ -47,25 +47,25 @@ export class ZoomHandler {
         this.wafermap.transform = this.zoomTransform;
     }
 
-    private createZoomBehavior(wafermap: Readonly<WaferMap>): ZoomBehavior<Element, unknown> {
+    private createZoomBehavior(): ZoomBehavior<Element, unknown> {
         const zoomBehavior = zoom()
             .scaleExtent([
                 1.1,
                 this.getZoomMax(
-                    wafermap.canvasWidth * wafermap.canvasHeight,
-                    wafermap.dataManager!.containerDimensions.width
-                        * wafermap.dataManager!.containerDimensions.height
+                    this.wafermap.canvasWidth * this.wafermap.canvasHeight,
+                    this.wafermap.dataManager!.containerDimensions.width
+                        * this.wafermap.dataManager!.containerDimensions.height
                 )
             ])
             .translateExtent([
                 this.minExtentPoint,
                 [
-                    wafermap.canvasWidth + this.extentPadding,
-                    wafermap.canvasHeight + this.extentPadding
+                    this.wafermap.canvasWidth + this.extentPadding,
+                    this.wafermap.canvasHeight + this.extentPadding
                 ]
             ])
             .filter((event: Event) => {
-                const transform = zoomTransform(wafermap.canvas);
+                const transform = zoomTransform(this.wafermap.canvas);
                 const filterEval = transform.k >= this.minScale || event.type === 'wheel';
                 return filterEval;
             })

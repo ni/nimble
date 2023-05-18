@@ -5,33 +5,34 @@ import { PointCoordinates, WaferMapQuadrant } from '../types';
  * HoverHandler deals with user interactions and events like hovering
  */
 export class HoverHandler {
+    public constructor(private readonly wafermap: WaferMap) {}
+
     public mousemove(event: MouseEvent): void {
-        const wafermap = event.target as WaferMap;
         const mousePosition: PointCoordinates = {
             x: event.offsetX,
             y: event.offsetY
         };
 
-        if (!this.hoversOverDie(wafermap, mousePosition)) {
-            wafermap.hoverDie = undefined;
+        if (!this.hoversOverDie(this.wafermap, mousePosition)) {
+            this.wafermap.hoverDie = undefined;
             return;
         }
 
         // get original mouse position in case we are in zoom.
-        const invertedPoint = wafermap.transform.invert([
+        const invertedPoint = this.wafermap.transform.invert([
             mousePosition.x,
             mousePosition.y
         ]);
 
         const dieCoordinates = this.calculateDieCoordinates(
-            wafermap,
+            this.wafermap,
             {
                 x: invertedPoint[0],
                 y: invertedPoint[1]
             }
         );
 
-        wafermap.hoverDie = wafermap.dataManager!.getWaferMapDie(dieCoordinates);
+        this.wafermap.hoverDie = this.wafermap.dataManager!.getWaferMapDie(dieCoordinates);
     }
 
     public mouseout(event: MouseEvent): void {

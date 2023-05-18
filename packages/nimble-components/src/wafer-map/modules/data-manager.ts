@@ -58,7 +58,7 @@ export class DataManager {
     private readonly prerendering: Prerendering;
     private dataMap: Map<string, WaferMapDie>;
 
-    public constructor(wafermap: Readonly<WaferMap>) {
+    public constructor(private readonly wafermap: WaferMap) {
         this.computations = new Computations(wafermap);
 
         this.prerendering = new Prerendering(wafermap, this);
@@ -68,25 +68,25 @@ export class DataManager {
         );
     }
 
-    public updateContainerDimensions(wafermap: Readonly<WaferMap>): void {
-        this.computations.updateContainerDimensions(wafermap);
-        this.updateLabelsFontSize(wafermap);
+    public updateContainerDimensions(): void {
+        this.computations.updateContainerDimensions();
+        this.updateLabelsFontSize();
     }
 
-    public updateScales(wafermap: Readonly<WaferMap>): void {
-        this.computations.updateScales(wafermap);
+    public updateScales(): void {
+        this.computations.updateScales();
         this.dataMap = new Map(
-            wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
+            this.wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
         );
-        this.updateLabelsFontSize(wafermap);
+        this.updateLabelsFontSize();
     }
 
-    public updateLabelsFontSize(wafermap: Readonly<WaferMap>): void {
-        this.prerendering.updateLabelsFontSize(wafermap, this);
+    public updateLabelsFontSize(): void {
+        this.prerendering.updateLabelsFontSize();
     }
 
-    public updateDiesRenderInfo(wafermap: Readonly<WaferMap>): void {
-        this.prerendering.updateDiesRenderInfo(wafermap, this);
+    public updateDiesRenderInfo(): void {
+        this.prerendering.updateDiesRenderInfo();
     }
 
     public getWaferMapDie(point: PointCoordinates): WaferMapDie | undefined {

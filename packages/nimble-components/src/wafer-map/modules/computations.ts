@@ -60,14 +60,14 @@ export class Computations {
     private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
 
-    public constructor(wafermap: Readonly<WaferMap>) {
-        this.updateContainerDimensions(wafermap);
+    public constructor(private readonly wafermap: WaferMap) {
+        this.updateContainerDimensions();
     }
 
-    public updateContainerDimensions(wafermap: Readonly<WaferMap>): void {
+    public updateContainerDimensions(): void {
         const canvasDimensions = {
-            width: wafermap.canvasWidth,
-            height: wafermap.canvasHeight
+            width: this.wafermap.canvasWidth,
+            height: this.wafermap.canvasHeight
         };
         const canvasDiameter = Math.min(
             canvasDimensions.width,
@@ -95,34 +95,35 @@ export class Computations {
             this._containerDimensions.height
         );
         this._radius = containerDiameter / 2;
-        this.updateScales(wafermap);
+        this.updateScales();
     }
 
-    public updateScales(wafermap: Readonly<WaferMap>): void {
+    public updateScales(): void {
         const containerDiameter = Math.min(
             this._containerDimensions.width,
             this._containerDimensions.height
         );
-        const gridDimensions = this.calculateGridDimensions(wafermap.dies);
+        const gridDimensions = this.calculateGridDimensions(this.wafermap.dies);
         // this scale is used for positioning the dies on the canvas
+        const quadrant = this.wafermap.quadrant;
         this._horizontalScale = this.createHorizontalScale(
-            wafermap.quadrant,
+            quadrant,
             gridDimensions,
             containerDiameter
         );
         this._invertedHorizontalScale = this.createInvertedHorizontalScale(
-            wafermap.quadrant,
+            quadrant,
             gridDimensions,
             containerDiameter
         );
         // this scale is used for positioning the dies on the canvas
         this._verticalScale = this.createVerticalScale(
-            wafermap.quadrant,
+            quadrant,
             gridDimensions,
             containerDiameter
         );
         this._invertedVerticalScale = this.createInvertedVerticalScale(
-            wafermap.quadrant,
+            quadrant,
             gridDimensions,
             containerDiameter
         );

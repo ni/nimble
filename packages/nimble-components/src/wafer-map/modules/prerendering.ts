@@ -39,43 +39,37 @@ export class Prerendering {
     private readonly nanDieColor = 'rgba(122,122,122,1)';
 
     public constructor(
-        wafermap: Readonly<WaferMap>,
-        dataManager: Readonly<DataManager>
+        private readonly wafermap: WaferMap,
+        private readonly dataManager: Readonly<DataManager>
     ) {
-        this.updateLabelsFontSize(wafermap, dataManager);
+        this.updateLabelsFontSize();
     }
 
-    public updateLabelsFontSize(
-        wafermap: Readonly<WaferMap>,
-        dataManager: Readonly<DataManager>
-    ): void {
+    public updateLabelsFontSize(): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
-            dataManager.dieDimensions,
-            wafermap.maxCharacters
+            this.dataManager.dieDimensions,
+            this.wafermap.maxCharacters
         );
-        this.updateDiesRenderInfo(wafermap, dataManager);
+        this.updateDiesRenderInfo();
     }
 
-    public updateDiesRenderInfo(
-        wafermap: Readonly<WaferMap>,
-        dataManager: Readonly<DataManager>
-    ): void {
+    public updateDiesRenderInfo(): void {
         this.d3ColorScale = this.createD3ColorScale(
-            wafermap.colorScale,
-            wafermap.colorScaleMode
+            this.wafermap.colorScale,
+            this.wafermap.colorScaleMode
         );
 
-        const margin = dataManager.margin;
-        const horizontalScale = dataManager.horizontalScale;
-        const verticalScale = dataManager.verticalScale;
+        const margin = this.dataManager.margin;
+        const horizontalScale = this.dataManager.horizontalScale;
+        const verticalScale = this.dataManager.verticalScale;
 
-        const colorScaleMode = wafermap.colorScaleMode;
-        const highlightedValues = wafermap.highlightedValues;
-        const maxCharacters = wafermap.maxCharacters;
-        const dieLabelsHidden = wafermap.dieLabelsHidden;
-        const dieLabelsSuffix = wafermap.dieLabelsSuffix;
+        const colorScaleMode = this.wafermap.colorScaleMode;
+        const highlightedValues = this.wafermap.highlightedValues;
+        const maxCharacters = this.wafermap.maxCharacters;
+        const dieLabelsHidden = this.wafermap.dieLabelsHidden;
+        const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
         this._diesRenderInfo = [];
-        for (const die of wafermap.dies) {
+        for (const die of this.wafermap.dies) {
             const scaledX = horizontalScale(die.x) ?? 0;
             const scaledY = verticalScale(die.y) ?? 0;
             this._diesRenderInfo.push({
