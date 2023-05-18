@@ -5,6 +5,12 @@
     "paths": {
       "@ni/nimble-angular": [
         "dist/ni/nimble-angular"
+      ],
+      "@ni/nimble-angular/table": [
+        "dist/ni/nimble-angular/table"
+      ],
+      "@ni/nimble-angular/table/testing": [
+        "dist/ni/nimble-angular/table/testing"
       ]
     },
     "baseUrl": "./",

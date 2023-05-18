@@ -1,9 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnAnchor } from '@ni/nimble-components/dist/esm/table-column/anchor';
-import type { AnchorAppearance } from '../../anchor/nimble-anchor.directive';
+import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
+// import { toBooleanProperty } from 'projects/ni/nimble-angular/src/directives/utilities/template-value-helpers';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
 
 export type { TableColumnAnchor };
+export { AnchorAppearance };
 
 /**
  * Directive to provide Angular integration for the table column element for links.
