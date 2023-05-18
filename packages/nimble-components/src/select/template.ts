@@ -76,17 +76,16 @@ SelectOptions
             auto-update-mode="auto"
             vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"
             vertical-positioning-mode="${x => (!x.positionAttribute ? 'dynamic' : 'locktodefault')}"
-            vertical-scaling="fill"
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
-            horizontal-scaling="anchor">
+            horizontal-scaling="anchor"
+            ?hidden="${x => (x.collapsible ? !x.open : false)}">
             <div
                 class="listbox"
                 id="${x => x.listboxId}"
                 part="listbox"
                 role="listbox"
                 ?disabled="${x => x.disabled}"
-                ?hidden="${x => (x.collapsible ? !x.open : false)}"
                 ${ref('listbox')}
             >
                 <slot

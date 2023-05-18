@@ -442,9 +442,9 @@ describe('Combobox', () => {
         parent.insertBefore(label, element);
 
         await connect();
-        await waitForUpdatesAsync();
+        // await waitForUpdatesAsync();
 
-        expect(element.labels[0]).toContain(label);
+        expect(element.labels as unknown as Node[]).toContain(label);
 
         label.click();
 
@@ -592,6 +592,8 @@ describe('Combobox', () => {
             );
 
             expect(option2.selected).toBeTrue();
+
+            await disconnect();
         });
     });
 
@@ -630,5 +632,7 @@ describe('Combobox', () => {
         element.dispatchEvent(enterEvent); // commit value
 
         expect((element as Combobox).control.value).toEqual('three');
+
+        await disconnect();
     });
 });

@@ -130,13 +130,16 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
+    .anchoredRegion[hidden] {
+        visibility: hidden;
+    }
+
     .listbox {
         box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
         left: 0;
         overflow-y: auto;
-        position: absolute;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
         max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
@@ -152,10 +155,6 @@ export const styles = css`
         padding: var(--ni-private-listbox-padding);
     }
 
-    .listbox[hidden] {
-        display: none;
-    }
-
     :host([open][position='above']) .listbox {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -167,6 +166,7 @@ export const styles = css`
     }
 
     :host([open][position='above']) .anchoredRegion {
+        padding-bottom: ${smallPadding};
     }
 
     :host([open][position='below']) .anchoredRegion {
@@ -205,16 +205,6 @@ export const styles = css`
 
     :host([disabled]) .indicator slot[name='indicator'] svg {
         fill: ${bodyDisabledFontColor};
-    }
-
-    slot[name='listbox'] {
-        display: none;
-        width: 100%;
-    }
-
-    :host([open]) slot[name='listbox'] {
-        display: flex;
-        position: absolute;
     }
 
     .end {
