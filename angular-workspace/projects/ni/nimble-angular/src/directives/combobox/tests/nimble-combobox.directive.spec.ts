@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ComboboxAutocomplete, DropdownAppearance } from '../../../public-api';
 import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
+import { ComboboxAutocomplete, DropdownAppearance } from '../../../public-api';
 import { Combobox, NimbleComboboxDirective } from '../nimble-combobox.directive';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
 

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
-import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-combobox-control-value-accessor.directive';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-combobox-control-value-accessor.directive';
 
 /**
  * Directive to provide Angular integration for the list option when used with a combobox.
