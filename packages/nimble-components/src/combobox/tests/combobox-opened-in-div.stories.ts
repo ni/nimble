@@ -25,12 +25,14 @@ const component = ([
     position,
     positionStyle
 ]: PositionState): ViewTemplate => html`
-    <div style="overflow: auto; border: 2px solid red; ${() => positionStyle}">
-        <${comboboxTag} open position="${() => position}">
-            <${listOptionTag} value="1">Option 1</${listOptionTag}>
-            <${listOptionTag} value="2">Option 2</${listOptionTag}>
-            <${listOptionTag} value="3">Option 3</${listOptionTag}>
-        </${comboboxTag}>
+    <div style=${() => (position === 'below' ? 'height: 150px' : null)}>
+        <div style="overflow: auto; border: 2px solid red; ${() => positionStyle}">
+            <${comboboxTag} open position="${() => position}">
+                <${listOptionTag} value="1">Option 1</${listOptionTag}>
+                <${listOptionTag} value="2">Option 2</${listOptionTag}>
+                <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            </${comboboxTag}>
+        </div>
     </div>
 `;
 
