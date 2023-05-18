@@ -77,34 +77,33 @@ Before building a new component, 3 specification documents need to be created:
 
 ## Develop new components
 
-### Marking a component as experimental / in-development / incubating
+### Marking a component as incubating
 
-If a component is not ready for general use, it should be marked as "experimental" to indicate that status to clients. A component could be in this state if it:
+If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
 
--   is still in development
--   is currently application-specific and hasn't yet been generalized for broader use
--   is missing important features like interaction design, visual design, accessibility, or framework integration
+-   It is still in development.
+-   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
+-   It is missing important features like interaction design, visual design, accessibility, or framework integration.
 
-Experimental contributions may compromise on the above capabilities but they still must abide by other repository requirements like:
+Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
 
--   coding conventions (element naming, linting, code quality)
--   unit and Chromatic test coverage
+-   Coding conventions (element naming, linting, code quality)
+-   Unit and Chromatic test coverage
 -   Storybook documentation
--   semantic versioning
--   TODO: NAMING
 
-To do this:
+To mark a component as incubating:
 
 1. In the component status table, set its status to ⚠️
 2. In the component Storybook documentation:
     - add a red text banner to the page indicating that the component is not ready for general use
-    - start the Storybook name with "Experimental/" so that it appears in a separate section of the documentation page
-3. Add CODEOWNERS from both the contributing team and the Nimble team
+    - start the Storybook name with "Incubating/" so that it appears in a separate section of the documentation page
+3. Place the component under `src/incubating`. This layout of components in that folder should match the layout of components in `src`.
+4. Add CODEOWNERS from both the contributing team and the Nimble team.
 
-Be sure to remove these markings when the component is complete!
+To move a component out of incubating status:
 
-TODO: Localization
-TODO: API design / dependencies / smart vs dumb components
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete.
+2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
 

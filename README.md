@@ -64,6 +64,11 @@ NOTE: To update the component status:
     2. Create a PR to update this README with the entire contents of the generated 'M' column in the spreadsheet
 -->
 
+Legend:
+ - :white_check_mark: means the component is ready for general use
+ - :warning: is used for components that are "incubating". These are not ready for general use and may make breaking changes without a "major" semantic version bump.
+ - :o: means the component doesn't exist yet. Please submit requests by commenting on the linked issue.
+
 | Components             | Design | Issue | Web Components     | Angular Integration | Blazor Integration |
 |------------------------|--------|--------|--------------------|---------------------|--------------------|
 | Accordion | |  [Issue](https://github.com/ni/nimble/issues/533) | :o: | :o: | :o: |
@@ -99,7 +104,7 @@ NOTE: To update the component status:
 | Spinner | [XD](https://xd.adobe.com/view/6fc414f4-1660-4bff-4552-3e62baaa9e1e-19f5/screen/ced36959-68d6-440f-a0cc-031bc29d7e98/) |  [Issue](https://github.com/ni/nimble/issues/346) | [:white_check_mark: - SB](https://nimble.ni.dev/storybook/?path=/docs/spinner--spinner) | :white_check_mark: | :white_check_mark: |
 | Split Icon Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece) |  [Issue](https://github.com/ni/nimble/issues/298) | :o: | :o: | :o: |
 | Switch | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/3698340b-8162-4e5d-bf7a-20194612b3a7/) |  [Issue](https://github.com/ni/nimble/issues/387) | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/switch--switch-story) | :white_check_mark: | :white_check_mark: |
-| Table | [XD](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/) |  [Issue](https://github.com/orgs/ni/projects/11) | [:warning: - SB](https://ni.github.io/nimble/storybook/?path=/docs/table--table) | :warning: | :o: |
+| Table | [XD](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/) |  [Issue](https://github.com/orgs/ni/projects/11) | [:warning: - SB](https://ni.github.io/nimble/storybook/?path=/docs/table--table) | :warning: | :warning: |
 | Tabs | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/b2aa2c0c-03b7-4571-8e0d-de88baf0814b) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/tabs--tabs) | :white_check_mark: | :white_check_mark: |
 | Text and Icon Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/a378bcdb-5c4b-4298-b3b1-28d8b1a37af2) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :white_check_mark: | :white_check_mark: |
 | Text Button | [XD](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102) | | [:white_check_mark: - SB](https://ni.github.io/nimble/storybook/?path=/docs/button--outline-button) | :white_check_mark: | :white_check_mark: |
