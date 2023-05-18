@@ -43,24 +43,6 @@ export class TableColumnEmpty extends TableColumn {
     }
 }
 
-export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-delegates';
-/**
- * Simple empty table column with 'click' and 'keydown' event delegation for testing
- */
-@customElement({
-    name: tableColumnDelegatesClickAndKeydownTag
-})
-export class TableColumnDelegatesClickAndKeydown extends TableColumn {
-    public constructor() {
-        super({
-            cellRecordFieldNames: [],
-            cellViewTag: tableColumnEmptyCellViewTag,
-            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: ['click', 'keydown']
-        });
-    }
-}
-
 /**
  * Column validator used by TableColumnValidationTest
  */

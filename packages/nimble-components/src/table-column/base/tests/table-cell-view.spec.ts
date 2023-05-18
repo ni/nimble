@@ -1,10 +1,12 @@
+import { customElement } from '@microsoft/fast-element';
+import { TableColumn } from '..';
 import { fixture, Fixture } from '../../../utilities/tests/fixture';
 import type { TableCellView } from '../cell-view';
 import type { DelegatedEventEventDetails } from '../types';
 import {
     tableColumnEmptyCellViewTag,
-    TableColumnDelegatesClickAndKeydown,
-    TableColumnEmpty
+    TableColumnEmpty,
+    tableColumnEmptyGroupHeaderViewTag
 } from './table-column.fixtures';
 
 async function setup(): Promise<Fixture<TableCellView>> {
@@ -15,6 +17,24 @@ describe('TableCellView', () => {
     let element: TableCellView;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+
+    const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-delegates';
+    /**
+     * Simple empty table column with 'click' and 'keydown' event delegation for testing
+     */
+    @customElement({
+        name: tableColumnDelegatesClickAndKeydownTag
+    })
+    class TableColumnDelegatesClickAndKeydown extends TableColumn {
+        public constructor() {
+            super({
+                cellRecordFieldNames: [],
+                cellViewTag: tableColumnEmptyCellViewTag,
+                groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                delegatedEvents: ['click', 'keydown']
+            });
+        }
+    }
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
@@ -27,7 +47,9 @@ describe('TableCellView', () => {
     it('delegates event(s) configured by assigned column', async () => {
         await connect();
         // Configure column that delegates click and keydown
-        const delegatingColumn = new TableColumnDelegatesClickAndKeydown();
+        const delegatingColumn = document.createElement(
+            tableColumnDelegatesClickAndKeydownTag
+        ) as TableColumnDelegatesClickAndKeydown;
         let gotClickOnDelegatingColumn = false;
         let gotKeydownOnDelegatingColumn = false;
         let gotOtherEventOnDelegatingColumn = false;
