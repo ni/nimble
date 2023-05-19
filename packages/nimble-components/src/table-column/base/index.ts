@@ -1,10 +1,11 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import { TableColumnSortDirection, ValidityObject } from '../../table/types';
+import { TableColumnSortDirection } from '../../table/types';
 import {
     ColumnInternalsOptions,
     ColumnInternals
 } from './models/column-internals';
+import type { TableColumnValidity } from './types';
 
 /**
  * The base class for table columns
@@ -56,7 +57,7 @@ export abstract class TableColumn<
         return this.columnInternals.validConfiguration;
     }
 
-    public get validity(): ValidityObject {
+    public get validity(): TableColumnValidity {
         return {};
     }
 

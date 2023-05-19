@@ -1,4 +1,4 @@
-import type { ValidityObject } from '../../../table/types';
+import type { TableColumnValidity } from '../types';
 import type { ColumnInternals } from './column-internals';
 
 type ObjectFromList<T extends readonly string[]> = {
@@ -38,7 +38,7 @@ export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
     /**
      * @returns an object containing flags for various ways the configuation can be invalid
      */
-    public getValidity(): ValidityObject {
+    public getValidity(): TableColumnValidity {
         return {
             ...this.configValidity
         };

@@ -72,7 +72,8 @@ declare global {
 
 export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
 /**
- * Test column type used to verify column config validation
+ * Test column type used to verify column config validation.
+ * The foo and bar properties are only considered valid when their values are true.
  */
 @customElement({
     name: tableColumnValidationTestTag
