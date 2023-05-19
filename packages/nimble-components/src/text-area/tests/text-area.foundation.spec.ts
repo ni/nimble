@@ -1,25 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable @typescript-eslint/dot-notation */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/quotes */
+// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/text-area/text-area.spec.ts
 import assert from 'assert';
 import { TextArea } from '..';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
-const FASTTextArea = TextArea.compose({
+const textArea = TextArea.compose({
     baseName: 'text-area',
     template
 });
 
-async function setup() {
-    const { element, connect, disconnect, parent } = await fixture(
-        FASTTextArea()
-    );
+async function setup(): Promise<{
+    element: TextArea,
+    connect: () => Promise<void>,
+    disconnect: () => Promise<void>,
+    parent: HTMLElement
+}> {
+    const { element, connect, disconnect, parent } = await fixture(textArea());
 
     return { element, connect, disconnect, parent };
 }
@@ -213,7 +209,7 @@ describe('TextArea', () => {
         const { element, connect, disconnect } = await setup();
 
         await connect();
-        expect(element.value).toEqual(element['initialValue']);
+        expect(element.value).toEqual(element.initialValue);
 
         await disconnect();
     });
@@ -581,7 +577,7 @@ describe('TextArea', () => {
             const event = new Event('change', {
                 key: 'a'
             } as KeyboardEventInit);
-            let wasChanged: boolean = false;
+            let wasChanged = false;
 
             await connect();
 
@@ -591,7 +587,7 @@ describe('TextArea', () => {
                 wasChanged = true;
             });
 
-            let textarea = element.shadowRoot?.querySelector('textarea');
+            const textarea = element.shadowRoot?.querySelector('textarea');
             textarea?.dispatchEvent(event);
 
             expect(wasChanged).toBeTrue();
@@ -617,6 +613,7 @@ describe('TextArea', () => {
 
             form.reset();
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             assert((element as TextArea).value === '');
 
             await disconnect();
@@ -641,6 +638,7 @@ describe('TextArea', () => {
 
             form.reset();
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             assert((element as TextArea).value === 'attr-value');
 
             await disconnect();
@@ -663,10 +661,12 @@ describe('TextArea', () => {
 
             form.reset();
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             assert((element as TextArea).value === 'attr-value');
 
             element.setAttribute('value', 'new-attr-value');
 
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             assert((element as TextArea).value === 'new-attr-value');
 
             await disconnect();
