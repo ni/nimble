@@ -75,11 +75,15 @@ The C# code for a property supporting 2-way binding will look like this:
 
 ## Testing
 
-### Automated Unit Tests (NimbleBlazor.Tests)
+### Automated Unit Tests
+
+Test Project: `NimbleBlazor.Tests`
 
 Testing the Nimble Blazor components is possible through the use of xUnit and bUnit. Each Nimble Blazor component should have a corresponding test file.
 
-### Automated Acceptance Tests using Playwright (NimbleBlazor.Tests.Acceptance)
+### Automated Acceptance Tests
+
+Test Project: `NimbleBlazor.Tests.Acceptance`
 
 In order to fully test the Nimble Blazor components, consider writing new automated acceptance tests for new/modified components. Any component which requires custom JS code in `NimbleBlazor.lib.module.js` should generally have corresponding acceptance tests, because the bUnit tests in `NimbleBlazor.Tests` are unable to exercise/test that JavaScript code.
 
