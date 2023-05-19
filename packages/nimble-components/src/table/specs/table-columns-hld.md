@@ -409,7 +409,7 @@ Clients should be allowed to use arbitrary content for the display part of a hea
 
 ### Validation
 
-A column's internals includes a `validConfiguration` flag that should be set `false` when the column has invalid configuration. There is a base `ColumnValidator` type that manages the state of that flag. It also manages a set of flags that represent specific ways that the column's configuration can be invalid. These validity flags can be returned as an object.
+A table column's public validation API consists of a `checkValidity()` function and a `validity` property. The `checkValidity()` function simply returns the value of a `validConfiguration` flag from the column's internals which should be `true` when the column's configuration is valid, and `false` when it is not. The `validity` property's value is an object that describes the specific ways the configuration may be invalid. By default, it returns an empty object. If a column type has configuration which can be invalid, it should define a column validator object to manage this state. There is a base `ColumnValidator` type that manages the state of the `columnInternals.validConfiguration` flag. It also manages an object suitable to be returned by the `validity` property. It is up to the column author to override the `validity` accessor to return this object.
 
 ```TS
 export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
@@ -434,7 +434,7 @@ export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
     }
 ```
 
-Each column type may define its own `ColumnValidator` type to handle the specifics of that column type's configuration:
+By deriving from this base type, a column can easily validate specific conditions of its validity:
 
 ```TS
 const configValidity = [
