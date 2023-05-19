@@ -6,23 +6,8 @@
       "@ni/nimble-angular": [
         "dist/ni/nimble-angular"
       ],
-      "@ni/nimble-angular/internal-utilities": [
-        "dist/ni/nimble-angular/internal-utilities"
-      ],
-      "@ni/nimble-angular/table": [
-        "dist/ni/nimble-angular/table"
-      ],
-      "@ni/nimble-angular/table/testing": [
-        "dist/ni/nimble-angular/table/testing"
-      ],
-      "@ni/nimble-angular/table-column": [
-        "dist/ni/nimble-angular/table-column"
-      ],
-      "@ni/nimble-angular/table-column/anchor": [
-        "dist/ni/nimble-angular/table-column/anchor"
-      ],
-      "@ni/nimble-angular/table-column/text": [
-        "dist/ni/nimble-angular/table-column/text"
+      "@ni/nimble-angular/*": [
+        "dist/ni/nimble-angular/*"
       ]
     },
     "baseUrl": "./",
