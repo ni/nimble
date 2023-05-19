@@ -5,11 +5,10 @@ import { CommonModule, Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
 import { TablePageObject } from '@ni/nimble-angular/table/testing';
+import { NimbleTableModule, Table } from '@ni/nimble-angular/table';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 import { NimbleTableColumnAnchorRouterLinkWithHrefDirective } from '../nimble-table-column-anchor-router-link-with-href.directive';
 import type { TableColumnAnchor } from '../nimble-table-column-anchor.directive';
-import { NimbleTableModule } from '../../../table/nimble-table.module';
-import type { Table } from '../../../table/nimble-table.directive';
 
 describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     const data = [
