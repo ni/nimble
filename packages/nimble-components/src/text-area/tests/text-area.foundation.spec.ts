@@ -1,5 +1,4 @@
 // Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/text-area/text-area.spec.ts
-import assert from 'assert';
 import { TextArea } from '..';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
@@ -608,13 +607,12 @@ describe('TextArea', () => {
 
             element.value = 'test-value';
 
-            assert(element.getAttribute('value') === null);
-            assert(element.value === 'test-value');
+            expect(element.getAttribute('value')).toBeNull();
+            expect(element.value).toEqual('test-value');
 
             form.reset();
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            assert((element as TextArea).value === '');
+            expect(element.value).toEqual('');
 
             await disconnect();
         });
@@ -632,14 +630,13 @@ describe('TextArea', () => {
 
             element.value = 'test-value';
 
-            assert(element.getAttribute('value') === 'attr-value');
+            expect(element.getAttribute('value')).toEqual('attr-value');
 
-            assert(element.value === 'test-value');
+            expect(element.value).toEqual('test-value');
 
             form.reset();
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            assert((element as TextArea).value === 'attr-value');
+            expect(element.value).toEqual('attr-value');
 
             await disconnect();
         });
@@ -657,17 +654,15 @@ describe('TextArea', () => {
 
             element.setAttribute('value', 'attr-value');
 
-            assert(element.value === 'test-value');
+            expect(element.value).toEqual('test-value');
 
             form.reset();
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            assert((element as TextArea).value === 'attr-value');
+            expect(element.value).toEqual('attr-value');
 
             element.setAttribute('value', 'new-attr-value');
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            assert((element as TextArea).value === 'new-attr-value');
+            expect(element.value).toEqual('new-attr-value');
 
             await disconnect();
         });
