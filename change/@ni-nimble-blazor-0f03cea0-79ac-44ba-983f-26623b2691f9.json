@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Acceptance/e2e tests for Nimble Blazor using Playwright (first pass)",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
