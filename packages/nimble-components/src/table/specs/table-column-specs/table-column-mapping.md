@@ -135,7 +135,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string | number | boolean | null
+-   `key`: string | number | boolean | undefined
 -   `icon`: string - name of the Nimble icon element
 -   `severity`: string - one of the supported enum values. Controls color of the icon.
 -   `label`: string - localized value used as the accessible name and `title` of the icon. Will also be displayed in the group header.
@@ -149,7 +149,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string | number | boolean | null
+-   `key`: string | number | boolean | undefined
 -   `label`: string - localized value used as the accessible name and `title` of the spinner. Will also be displayed in the group header.
 -   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
@@ -161,7 +161,7 @@ _Component Name_
 
 _Props/Attrs_
 
--   `key`: string | number | boolean | null
+-   `key`: string | number | boolean | undefined
 -   `label`: string - display text
 -   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
@@ -186,24 +186,7 @@ Cell view:
 The cell view relies on the matched mapping to provide a template to render.
 
 ```HTML
-<div ${ref('wrapper') class="wrapper"}>
-    ${repeat(x => x.columnConfig.mappings,
-        html<Mapping, TableColumnMappingCellView>`
-            ${when((x, c) => x.key === (c.parent as TableColumnMappingCellView).cellRecord.value,
-                html<Mapping>`${x => x.cellViewTemplate}`
-            )}
-        `
-    )}
-</div>
-${when(x => x.wrapper.childElementCount === 0, html<TableColumnMappingCellView>`
-    ${repeat(x => x.columnConfig.mappings,
-        html<Mapping, TableColumnMappingCellView>`
-            ${when((x, c) => x.defaultMapping,
-                html<Mapping>`${x => x.cellViewTemplate}`
-            )}
-        `
-    )}
-`)}
+html<TableColumnMappingCellView>`${x => x.getMappingToRender().cellViewTemplate}`
 ```
 
 Group header view:
@@ -211,18 +194,7 @@ Group header view:
 Similarly, the group header view relies on the matched mapping to provide a template to render.
 
 ```HTML
-<div ${ref('wrapper') class="wrapper"}>
-    ${repeat(x => x.columnConfig.mappings,
-        html<Mapping, TableColumnMappingHeaderView>`
-            ${when((x, c) => x.key === (c.parent as TableColumnMappingHeaderView).groupHeaderValue,
-                html<Mapping>`${x => x.groupHeaderViewTemplate}`
-            )}
-        `
-    )}
-</div>
-${when(x => x.wrapper.childElementCount === 0, html<TableColumnCellView>`
-    ${x => x.cellRecord.value)}}
-`)}
+html<TableColumnMappingHeaderView>`${x => x.getMappingToRender().groupHeaderViewTemplate}`
 ```
 
 #### `nimble-mapping-*`
@@ -268,7 +240,7 @@ ${when(x => x.wrapper.childElementCount === 0, html<TableColumnCellView>`
 
 Grouping will be based on the record value. The grouping header will display the rendered icon/spinner/text. In the case of an icon/spinner, it will also be followed by the `label` text. This will disambiguate cases where multiple record values map to the same icon (assuming the labels are different).
 
-For values that do not match any mapping, we will display the raw data value. While this introduces inconsistency, it seems preferable to the alternative, which is having multiple, separate groupings with a blank header (well, with just the item count in parens). Even in the case where there is a default mapping, we would still end up with separate groups with the identical default mapped icon and/or text, which is just a bad.
+For values that do not match any mapping, we will display the raw data value. While this introduces inconsistency, it seems preferable to the alternative, which is having multiple, separate groupings with a blank header (well, with just the item count in parens). Even in the case where there is a default mapping, we would still end up with separate groups with the identical default mapped icon and/or text, which is just as bad.
 
 Text in a grouping header will be ellipsized and gain a tooltip if there is not enough room to display it all.
 
