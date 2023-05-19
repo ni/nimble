@@ -409,37 +409,71 @@ Clients should be allowed to use arbitrary content for the display part of a hea
 
 ### Validation
 
-A column should expose a property that communicates the validity of the column:
+A column's internals includes a `validConfiguration` flag that should be set `false` when the column has invalid configuration. There is a base `ColumnValidator` type that manages the state of that flag. It also manages a set of flags that represent specific ways that the column's configuration can be invalid. These validity flags can be returned as an object.
 
 ```TS
-interface Validator {
-    isValid(): boolean;
-}
+export class ColumnValidator<ValidityFlagNames extends readonly string[]> {
+    protected configValidity: ObjectFromList<ValidityFlagNames>;
 
-class TableColumn {
-    public abstract readonly columnValidity: Validator;
+    public isValid(): boolean {
+        return Object.values(this.configValidity).every(x => !x);
+    }
+
+    public getValidity(): ValidityObject {
+        return {
+            ...this.configValidity
+        };
+    }
+
+    protected setConditionValue(
+        name: ValidityFlagNames extends readonly (infer U)[] ? U : never,
+        isInvalid: boolean
+    ): void {
+        this.configValidity[name] = isInvalid;
+        this.updateColumnInternalsFlag();
+    }
+```
+
+Each column type may define its own `ColumnValidator` type to handle the specifics of that column type's configuration:
+
+```TS
+const configValidity = [
+    'hasMultipleDefaultMappings',
+    'hasUnsupportedMappingTypes',
+    ...
+] as const;
+
+class TableColumnIconValidator extends ColumnValidator<typeof configValidity> {
+    public constructor(columnInternals: ColumnInternals<unknown>) {
+        super(columnInternals, configValidity);
+    }
+
+    public validateNoMultipleDefaultMappings(mappings: Mapping[]): void {
+        ...
+        this.setConditionValue('hasMultipleDefaultMappings', foundMultiple);
+    }
+
+    public validateNoUnsupportedMappingTypes(mappings: Mapping[]): void {
+        ...
+        this.setConditionValue('hasUnsupportedMappingTypes', foundUnsupported);
+    }
+    ...
 }
 ```
 
-Each column type may define its own Validator type to handle the specifics of that column type's configuration:
+The column type will respond to changes in properties by calling the validator's validation functions:
 
 ```TS
-class TableColumnIconValidator implements Validator {
-    private hasMultipleDefaultMappings: boolean;
-    private hasUnsupportedMappingTypes: boolean;
-    ...
-    public isValid(): boolean {
-        return !this.hasMultipleDefaultMappings
-            && !this.hasUnsupportedMappingTypes
-            ...
-    }
+private mappingsChanged(): void {
+    this.validator.validateNoMultipleDefaultMappings(this.mappings);
+    this.validator.validateNoUnsupportedMappingTypes(this.mappings);
 }
 ```
 
 The table's validity object has a property to represent the validity of all of its columns:
 
 ```TS
-export class TableValidator<TData extends TableRecord> implements Validator {
+export class TableValidator<TData extends TableRecord> {
     private invalidColumnConfiguration: boolean; // true if one or more invalid columns
     public isValid(): boolean {
         ...
@@ -448,7 +482,7 @@ export class TableValidator<TData extends TableRecord> implements Validator {
     }
 
     public validateColumns(columns: TableColumn[]): boolean {
-        this.invalidColumnConfiguration = columns.some(x => !x.columnValidity.isValid());
+        this.invalidColumnConfiguration = columns.some(x => !x.checkValidity());
         return !this.invalidColumnConfiguration;
     }
 }
