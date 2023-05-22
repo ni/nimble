@@ -162,7 +162,7 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 
 ### Column author internal configuration
 
-Column authors have to implement a `getColumnInternalsOptions` returning a `ColumnInternalsOptions` for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
+Column authors have to implement a `getColumnInternalsOptions` method returning a `ColumnInternalsOptions` object for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
 
 ```TS
 export interface ColumnInternalsOptions {
