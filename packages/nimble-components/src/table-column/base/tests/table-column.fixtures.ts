@@ -1,9 +1,11 @@
 /* eslint-disable max-classes-per-file, @typescript-eslint/no-unused-vars */
 
-import { customElement } from '@microsoft/fast-element';
+import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
+import { ColumnValidator } from '../models/column-validator';
+import type { ColumnInternals } from '../models/column-internals';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 /**
@@ -41,20 +43,69 @@ export class TableColumnEmpty extends TableColumn {
     }
 }
 
-export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-delegates';
+const configValidity = ['invalidFoo', 'invalidBar'] as const;
+
 /**
- * Simple empty table column with 'click' and 'keydown' event delegation for testing
+ * Column validator used by TableColumnValidationTest
+ */
+export class TestColumnValidator extends ColumnValidator<
+    typeof configValidity
+> {
+    public constructor(columnInternals: ColumnInternals<unknown>) {
+        super(columnInternals, configValidity);
+    }
+
+    public validateFoo(isValid: boolean): void {
+        this.setConditionValue('invalidFoo', !isValid);
+    }
+
+    public validateBar(isValid: boolean): void {
+        this.setConditionValue('invalidBar', !isValid);
+    }
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'nimble-test-table-column-validation': TableColumnValidationTest;
+    }
+}
+
+export const tableColumnValidationTestTag = 'nimble-test-table-column-validation';
+/**
+ * Test column type used to verify column config validation.
+ * The foo and bar properties are only considered valid when their values are true.
  */
 @customElement({
-    name: tableColumnDelegatesClickAndKeydownTag
+    name: tableColumnValidationTestTag
 })
-export class TableColumnDelegatesClickAndKeydown extends TableColumn {
+export class TableColumnValidationTest extends TableColumn {
+    @attr({ mode: 'boolean' })
+    public foo: boolean;
+
+    @attr({ mode: 'boolean' })
+    public bar: boolean;
+
+    private readonly validator: TestColumnValidator;
+
     public constructor() {
         super({
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: ['click', 'keydown']
+            delegatedEvents: []
         });
+        this.validator = new TestColumnValidator(this.columnInternals);
+        // Initializing in constructor instead of in property declaration because it triggers
+        // our foo/barChanged handlers, which should not be run before the validator is initialized.
+        this.foo = false;
+        this.bar = false;
+    }
+
+    private fooChanged(): void {
+        this.validator.validateFoo(this.foo);
+    }
+
+    private barChanged(): void {
+        this.validator.validateBar(this.bar);
     }
 }
