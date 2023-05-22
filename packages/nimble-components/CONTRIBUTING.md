@@ -2,7 +2,7 @@
 
 ## Package overview
 
-This package contains a library of NI-styled web components.
+This package contains a library of NI-styled web components, buit using [custom elements](https://web.dev/custom-elements-v1/).
 
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
