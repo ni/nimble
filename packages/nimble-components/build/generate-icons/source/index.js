@@ -6,7 +6,8 @@
  */
 import { pascalCase, spinalCase } from '@microsoft/fast-web-utilities';
 import * as icons from '@ni/nimble-tokens/dist/icons/js';
-import { iconMetadata } from '../../../dist/esm/icon-base/icon-metadata';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { iconMetadata } from '@ni/nimble-components/dist/esm/icon-base/icon-metadata';
 
 const fs = require('fs');
 const path = require('path');
