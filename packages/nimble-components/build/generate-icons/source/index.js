@@ -23,13 +23,13 @@ const mdxFilePrefix = `import { Meta, Title, IconItem } from '@storybook/blocks'
 import * as iconStories from '../icon-base/tests/icons.stories';
 
 <Meta of={iconStories} />
-<Title of={iconStories} />
-`;
+<Title of={iconStories} />`;
 
-const mdxIconTablePrefix = `
-| Icon | Synonyms |
+let mdxTable = `| Icon | Synonyms |
 | ---- | -------- |
 `;
+
+let mdxImportStatements = '';
 
 const iconsDirectory = path.resolve(__dirname, '../../../src/icons');
 
@@ -40,12 +40,11 @@ if (fs.existsSync(iconsDirectory)) {
 }
 console.log(`Creating icons directory "${iconsDirectory}"`);
 fs.mkdirSync(iconsDirectory);
+fs.mkdirSync(path.resolve(iconsDirectory, 'tests'));
 console.log('Finished creating icons directory');
 
 console.log('Writing icon component files');
 let allIconsFileContents = `${generatedFilePrefix}\n`;
-let mdxFileContents = `${mdxFilePrefix}\n`;
-let mdxTableFileContents = `${mdxIconTablePrefix}`;
 let fileCount = 0;
 
 for (const key of Object.keys(icons)) {
@@ -58,8 +57,6 @@ for (const key of Object.keys(icons)) {
     const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
 
     const iconSynonyms = iconMetadata[className];
-    const mdxImportStatements = `import { ${tagName} } from './${fileName}';`;
-    const mdxIconTableRow = `| <IconItem name="${fileName}"><${elementName} /></IconItem> | ${iconSynonyms?.tags.join(', ')} |`;
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
@@ -89,9 +86,10 @@ export const ${tagName} = DesignSystem.tagFor(${className});
     fs.writeFileSync(filePath, componentFileContents, { encoding: 'utf-8' });
     fileCount += 1;
 
-    allIconsFileContents = allIconsFileContents.concat(`export { ${className} } from './${fileName}';\n`);
-    mdxFileContents = mdxFileContents.concat(`${mdxImportStatements}\n`);
-    mdxTableFileContents = mdxTableFileContents.concat(`${mdxIconTableRow}\n`);
+    allIconsFileContents += `export { ${className} } from './${fileName}';\n`;
+
+    mdxImportStatements += `import { ${tagName} } from './${fileName}';\n`;
+    mdxTable += `| <IconItem name="${fileName}"><${elementName} /></IconItem> | ${iconSynonyms?.tags.join(', ')} |\n`;
 }
 console.log(`Finshed writing ${fileCount} icon component files`);
 
@@ -100,8 +98,12 @@ console.log('Writing all-icons file');
 fs.writeFileSync(allIconsFilePath, allIconsFileContents, { encoding: 'utf-8' });
 console.log('Finished writing all-icons file');
 
-const iconsMDXFilePath = path.resolve(iconsDirectory, 'icons.mdx');
+const mdxFileContents = `
+${mdxFilePrefix}\n
+${mdxImportStatements}
+${mdxTable}`;
+
+const iconsMDXFilePath = path.resolve(iconsDirectory, 'tests/icons.mdx');
 console.log('Writing icons.mdx file');
-mdxFileContents = mdxFileContents.concat(`${mdxTableFileContents}`);
 fs.writeFileSync(iconsMDXFilePath, mdxFileContents, { encoding: 'utf-8' });
 console.log('Finished writing icons.mdx file');
