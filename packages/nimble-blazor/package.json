@@ -19,7 +19,7 @@
     "format:js": "eslint . --fix",
     "test": "dotnet test -c Release",
     "pack": "cross-env-shell dotnet pack NimbleBlazor -c Release -p:PackageVersion=$npm_package_version --output dist",
-    "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
+    "invoke-publish": "npm run pack && npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:npm": "echo \"noop command to swallow npm args\"",
     "copy-resources": "node build/copyNimbleResources.js"
