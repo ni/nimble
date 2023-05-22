@@ -9,6 +9,7 @@ import {
 } from '../base/types';
 import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
+import { ColumnInternals } from '../base/models/column-internals';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -25,15 +26,13 @@ declare global {
  * The table column for displaying string fields as text.
  */
 export class TableColumnText extends TableColumnTextBase {
-    public constructor() {
-        super({
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
-            delegatedEvents: []
-        });
-        this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
-    }
+    override columnInternals = new ColumnInternals<TableColumnTextColumnConfig>({
+        cellRecordFieldNames: ['value'],
+        cellViewTag: tableColumnTextCellViewTag,
+        groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+        delegatedEvents: [],
+        sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+    });
 }
 
 const nimbleTableColumnText = TableColumnText.compose({

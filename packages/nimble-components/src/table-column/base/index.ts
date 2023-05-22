@@ -1,8 +1,7 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../table/types';
-import {
-    ColumnInternalsOptions,
+import type {
     ColumnInternals
 } from './models/column-internals';
 
@@ -38,19 +37,7 @@ export abstract class TableColumn<
      *
      * Column properties configurable by plugin authors
      */
-    public readonly columnInternals: ColumnInternals<TColumnConfig>;
-
-    public constructor(options: ColumnInternalsOptions) {
-        super();
-        if (!options) {
-            throw new Error(
-                'ColumnInternalsOptions must be provided to constructor'
-            );
-        }
-        this.columnInternals = new ColumnInternals(options);
-        this.columnInternals.currentSortDirection = this.sortDirection;
-        this.columnInternals.currentSortIndex = this.sortIndex;
-    }
+    public abstract readonly columnInternals: ColumnInternals<TColumnConfig>;
 
     protected sortDirectionChanged(): void {
         if (!this.sortingDisabled) {
@@ -65,15 +52,12 @@ export abstract class TableColumn<
     }
 
     protected sortingDisabledChanged(): void {
-        // Ignore the default value sortingDisabled initialization from undefined to false (which runs before columnInternals is initialized)
-        if (this.columnInternals) {
-            if (this.sortingDisabled) {
-                this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
-                this.columnInternals.currentSortIndex = undefined;
-            } else {
-                this.columnInternals.currentSortDirection = this.sortDirection;
-                this.columnInternals.currentSortIndex = this.sortIndex;
-            }
+        if (this.sortingDisabled) {
+            this.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+            this.columnInternals.currentSortIndex = undefined;
+        } else {
+            this.columnInternals.currentSortDirection = this.sortDirection;
+            this.columnInternals.currentSortIndex = this.sortIndex;
         }
     }
 }

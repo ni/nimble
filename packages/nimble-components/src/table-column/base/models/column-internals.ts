@@ -1,6 +1,6 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
-import type {
+import {
     TableColumnSortDirection,
     TableFieldName
 } from '../../../table/types';
@@ -37,6 +37,11 @@ export interface ColumnInternalsOptions {
      * The names of events that should be delegated from the cell view to the column.
      */
     readonly delegatedEvents: readonly string[];
+
+    /**
+     * The sort operation to use for the column (defaults to TableColumnSortOperation.basic)
+     */
+    readonly sortOperation?: TableColumnSortOperation;
 }
 
 /**
@@ -153,7 +158,7 @@ export class ColumnInternals<TColumnConfig> {
      * the resolved value of the sortDirection after programmatic or interactive updates.
      */
     @observable
-    public currentSortDirection: TableColumnSortDirection;
+    public currentSortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
     public constructor(options: ColumnInternalsOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
@@ -162,6 +167,7 @@ export class ColumnInternals<TColumnConfig> {
             options.groupHeaderViewTag
         );
         this.delegatedEvents = options.delegatedEvents;
+        this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
     }
 
     protected fractionalWidthChanged(): void {

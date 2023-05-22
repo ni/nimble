@@ -4,6 +4,7 @@ import { customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
+import { ColumnInternals } from '../models/column-internals';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 /**
@@ -31,14 +32,12 @@ export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
     name: tableColumnEmptyTag
 })
 export class TableColumnEmpty extends TableColumn {
-    public constructor() {
-        super({
-            cellRecordFieldNames: [],
-            cellViewTag: tableColumnEmptyCellViewTag,
-            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: []
-        });
-    }
+    override columnInternals = new ColumnInternals({
+        cellRecordFieldNames: [],
+        cellViewTag: tableColumnEmptyCellViewTag,
+        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+        delegatedEvents: []
+    });
 }
 
 export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-delegates';
@@ -49,12 +48,10 @@ export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-
     name: tableColumnDelegatesClickAndKeydownTag
 })
 export class TableColumnDelegatesClickAndKeydown extends TableColumn {
-    public constructor() {
-        super({
-            cellRecordFieldNames: [],
-            cellViewTag: tableColumnEmptyCellViewTag,
-            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-            delegatedEvents: ['click', 'keydown']
-        });
-    }
+    override columnInternals = new ColumnInternals({
+        cellRecordFieldNames: [],
+        cellViewTag: tableColumnEmptyCellViewTag,
+        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+        delegatedEvents: ['click', 'keydown']
+    });
 }
