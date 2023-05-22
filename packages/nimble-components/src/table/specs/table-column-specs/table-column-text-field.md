@@ -75,10 +75,12 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
     }
 
     constuctor() {
-        super({
-            cellRecordFieldNames: ['value'],
-            ...
-        })
+        protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+            return {
+                cellRecordFieldNames: ['value'],
+                ...
+            };
+        }
     }
     ...
 }
