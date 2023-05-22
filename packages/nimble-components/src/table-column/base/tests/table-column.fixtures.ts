@@ -95,6 +95,8 @@ export class TableColumnValidationTest extends TableColumn {
             delegatedEvents: []
         });
         this.validator = new TestColumnValidator(this.columnInternals);
+        // Initializing in constructor instead of in property declaration because it triggers
+        // our foo/barChanged handlers, which should not be run before the validator is initialized.
         this.foo = false;
         this.bar = false;
     }
