@@ -5,6 +5,7 @@ import {
     ColumnInternalsOptions,
     ColumnInternals
 } from './models/column-internals';
+import type { TableColumnValidity } from './types';
 
 /**
  * The base class for table columns
@@ -50,6 +51,14 @@ export abstract class TableColumn<
         this.columnInternals = new ColumnInternals(options);
         this.columnInternals.currentSortDirection = this.sortDirection;
         this.columnInternals.currentSortIndex = this.sortIndex;
+    }
+
+    public checkValidity(): boolean {
+        return this.columnInternals.validConfiguration;
+    }
+
+    public get validity(): TableColumnValidity {
+        return {};
     }
 
     protected sortDirectionChanged(): void {

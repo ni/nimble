@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 22 May 2023 18:39:33 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.0",
+      "version": "11.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a",
+            "comment": "Introduce column configuration validation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 19 May 2023 20:46:44 GMT",
       "tag": "@ni/nimble-blazor_v11.8.30",
       "version": "11.8.30",

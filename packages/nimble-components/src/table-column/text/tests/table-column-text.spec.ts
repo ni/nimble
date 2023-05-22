@@ -43,6 +43,15 @@ describe('TableColumnText', () => {
         await disconnect();
     });
 
+    it('reports column configuration valid', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const firstColumn = element.columns[0] as TableColumnText;
+
+        expect(firstColumn.checkValidity()).toBeTrue();
+    });
+
     const noValueData = [
         { description: 'field not present', data: [{ unused: 'foo' }] },
         { description: 'value is null', data: [{ field: null }] },
