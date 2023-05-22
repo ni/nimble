@@ -32,7 +32,7 @@ export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
     name: tableColumnEmptyTag
 })
 export class TableColumnEmpty extends TableColumn {
-    override columnInternals = new ColumnInternals({
+    public override columnInternals = new ColumnInternals({
         cellRecordFieldNames: [],
         cellViewTag: tableColumnEmptyCellViewTag,
         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
@@ -48,7 +48,7 @@ export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-
     name: tableColumnDelegatesClickAndKeydownTag
 })
 export class TableColumnDelegatesClickAndKeydown extends TableColumn {
-    override columnInternals = new ColumnInternals({
+    public override columnInternals = new ColumnInternals({
         cellRecordFieldNames: [],
         cellViewTag: tableColumnEmptyCellViewTag,
         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,

@@ -112,7 +112,7 @@ describe('TableColumn', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestTableColumn extends TableColumn {
-                override columnInternals = new ColumnInternals({
+                public override columnInternals = new ColumnInternals({
                     cellRecordFieldNames: [],
                     cellViewTag: 'div',
                     groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
@@ -140,7 +140,7 @@ describe('TableColumn', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestTableColumn extends TableColumn {
-                override columnInternals = new ColumnInternals({
+                public override columnInternals = new ColumnInternals({
                     cellRecordFieldNames: [],
                     cellViewTag: tableColumnEmptyCellViewTag,
                     groupHeaderViewTag: 'div',

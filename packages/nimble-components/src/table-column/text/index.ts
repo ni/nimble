@@ -26,7 +26,7 @@ declare global {
  * The table column for displaying string fields as text.
  */
 export class TableColumnText extends TableColumnTextBase {
-    override columnInternals = new ColumnInternals<TableColumnTextColumnConfig>({
+    public override columnInternals = new ColumnInternals<TableColumnTextColumnConfig>({
         cellRecordFieldNames: ['value'],
         cellViewTag: tableColumnTextCellViewTag,
         groupHeaderViewTag: tableColumnTextGroupHeaderTag,

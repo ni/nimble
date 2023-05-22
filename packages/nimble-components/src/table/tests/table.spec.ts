@@ -562,7 +562,7 @@ describe('Table', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestFocusableTableColumn extends TableColumn {
-                override columnInternals = new ColumnInternals({
+                public override columnInternals = new ColumnInternals({
                     cellViewTag: focusableCellViewName,
                     cellRecordFieldNames: ['value'],
                     groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
@@ -571,7 +571,6 @@ describe('Table', () => {
 
                 @attr({ attribute: 'field-name' })
                 public fieldName?: string;
-
             }
 
             it('to render fewer rows (based on viewport size)', async () => {

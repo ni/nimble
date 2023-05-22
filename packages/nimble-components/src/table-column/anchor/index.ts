@@ -74,7 +74,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
     @attr
     public download?: string;
 
-    override columnInternals = new ColumnInternals<TableColumnAnchorColumnConfig>({
+    public override columnInternals = new ColumnInternals<TableColumnAnchorColumnConfig>({
         cellRecordFieldNames: ['label', 'href'],
         cellViewTag: tableColumnAnchorCellViewTag,
         groupHeaderViewTag: tableColumnTextGroupHeaderTag,

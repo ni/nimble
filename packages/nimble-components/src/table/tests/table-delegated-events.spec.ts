@@ -24,7 +24,7 @@ const columnName = uniqueElementName();
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumn extends TableColumn {
-    override columnInternals = new ColumnInternals({
+    public override columnInternals = new ColumnInternals({
         cellRecordFieldNames: ['value'],
         cellViewTag: tableColumnTextCellViewTag,
         groupHeaderViewTag: tableColumnTextGroupHeaderTag,

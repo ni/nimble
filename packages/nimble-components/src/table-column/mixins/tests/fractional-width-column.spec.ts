@@ -18,7 +18,7 @@ const columnName = uniqueElementName();
     name: columnName
 })
 class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
-    override columnInternals = new ColumnInternals({
+    public override columnInternals = new ColumnInternals({
         cellRecordFieldNames: [],
         cellViewTag: tableColumnEmptyCellViewTag,
         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
