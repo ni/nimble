@@ -40,6 +40,9 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         actions: {
             handles: ['toggle', 'beforetoggle']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     argTypes: {
@@ -61,6 +64,16 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        <style class="code-hide">
+            [scale] {
+                transform: none !important;
+            }
+            button[title="Zoom in"],
+            button[title="Zoom out"],
+            button[title="Reset zoom"] {
+                display: none;
+            }
+        </style>
         <${menuButtonTag}
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"

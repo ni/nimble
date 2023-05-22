@@ -41,6 +41,9 @@ const metadata: Meta<ComboboxArgs> = {
         },
         actions: {
             handles: ['change', 'input']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     // prettier-ignore

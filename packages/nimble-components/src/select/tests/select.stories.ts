@@ -34,6 +34,9 @@ const metadata: Meta<SelectArgs> = {
         },
         actions: {
             handles: ['change']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     // prettier-ignore
