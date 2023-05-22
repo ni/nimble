@@ -9,6 +9,13 @@ import { ColumnInternals, ColumnInternalsOptions } from './models/column-interna
 export abstract class TableColumn<
     TColumnConfig = unknown
 > extends FoundationElement {
+    /**
+     * @internal
+     *
+     * Column properties configurable by plugin authors
+     */
+    public readonly columnInternals: ColumnInternals<TColumnConfig> = new ColumnInternals(this.getColumnInternalsOptions());
+
     @attr({ attribute: 'column-id' })
     public columnId?: string;
 
@@ -29,13 +36,6 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
     public sortingDisabled = false;
-
-    /**
-     * @internal
-     *
-     * Column properties configurable by plugin authors
-     */
-    public readonly columnInternals: ColumnInternals<TColumnConfig> = new ColumnInternals(this.getColumnInternalsOptions());
 
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 
