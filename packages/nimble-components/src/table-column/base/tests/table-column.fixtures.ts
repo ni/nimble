@@ -4,7 +4,10 @@ import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
-import type { ColumnInternalsOptions, ColumnInternals } from '../models/column-internals';
+import type {
+    ColumnInternalsOptions,
+    ColumnInternals
+} from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
