@@ -15,7 +15,7 @@ import {
 import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import { tableColumnEmptyGroupHeaderViewTag } from '../../table-column/base/tests/table-column.fixtures';
-import { ColumnInternals } from '../../table-column/base/models/column-internals';
+import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -562,15 +562,17 @@ describe('Table', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestFocusableTableColumn extends TableColumn {
-                public override columnInternals = new ColumnInternals({
-                    cellViewTag: focusableCellViewName,
-                    cellRecordFieldNames: ['value'],
-                    groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                    delegatedEvents: []
-                });
-
                 @attr({ attribute: 'field-name' })
                 public fieldName?: string;
+
+                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                    return {
+                        cellViewTag: focusableCellViewName,
+                        cellRecordFieldNames: ['value'],
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                        delegatedEvents: []
+                    };
+                }
             }
 
             it('to render fewer rows (based on viewport size)', async () => {

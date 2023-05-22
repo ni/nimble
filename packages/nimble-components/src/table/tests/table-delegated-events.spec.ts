@@ -12,7 +12,7 @@ import {
 } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { ColumnInternals } from '../../table-column/base/models/column-internals';
+import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 
 interface SimpleTableRecord extends TableRecord {
     foo: string;
@@ -24,12 +24,14 @@ const columnName = uniqueElementName();
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumn extends TableColumn {
-    public override columnInternals = new ColumnInternals({
-        cellRecordFieldNames: ['value'],
-        cellViewTag: tableColumnTextCellViewTag,
-        groupHeaderViewTag: tableColumnTextGroupHeaderTag,
-        delegatedEvents: ['click', 'keydown']
-    });
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: ['value'],
+            cellViewTag: tableColumnTextCellViewTag,
+            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            delegatedEvents: ['click', 'keydown']
+        };
+    }
 }
 
 // prettier-ignore

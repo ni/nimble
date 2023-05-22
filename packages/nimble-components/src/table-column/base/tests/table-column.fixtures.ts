@@ -4,7 +4,7 @@ import { customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
-import { ColumnInternals } from '../models/column-internals';
+import type { ColumnInternalsOptions } from '../models/column-internals';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 /**
@@ -32,12 +32,14 @@ export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
     name: tableColumnEmptyTag
 })
 export class TableColumnEmpty extends TableColumn {
-    public override columnInternals = new ColumnInternals({
-        cellRecordFieldNames: [],
-        cellViewTag: tableColumnEmptyCellViewTag,
-        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-        delegatedEvents: []
-    });
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: [],
+            cellViewTag: tableColumnEmptyCellViewTag,
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+            delegatedEvents: []
+        };
+    }
 }
 
 export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-delegates';
@@ -48,10 +50,12 @@ export const tableColumnDelegatesClickAndKeydownTag = 'nimble-test-table-column-
     name: tableColumnDelegatesClickAndKeydownTag
 })
 export class TableColumnDelegatesClickAndKeydown extends TableColumn {
-    public override columnInternals = new ColumnInternals({
-        cellRecordFieldNames: [],
-        cellViewTag: tableColumnEmptyCellViewTag,
-        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-        delegatedEvents: ['click', 'keydown']
-    });
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: [],
+            cellViewTag: tableColumnEmptyCellViewTag,
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+            delegatedEvents: ['click', 'keydown']
+        };
+    }
 }

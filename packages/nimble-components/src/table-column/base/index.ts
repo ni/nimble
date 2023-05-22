@@ -1,7 +1,7 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../table/types';
-import type { ColumnInternals } from './models/column-internals';
+import { ColumnInternals, ColumnInternalsOptions } from './models/column-internals';
 
 /**
  * The base class for table columns
@@ -35,7 +35,9 @@ export abstract class TableColumn<
      *
      * Column properties configurable by plugin authors
      */
-    public abstract readonly columnInternals: ColumnInternals<TColumnConfig>;
+    public readonly columnInternals: ColumnInternals<TColumnConfig> = new ColumnInternals(this.getColumnInternalsOptions());
+
+    protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 
     protected sortDirectionChanged(): void {
         if (!this.sortingDisabled) {

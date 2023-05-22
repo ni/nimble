@@ -11,19 +11,21 @@ import {
     tableColumnEmptyCellViewTag,
     tableColumnEmptyGroupHeaderViewTag
 } from '../../base/tests/table-column.fixtures';
-import { ColumnInternals } from '../../base/models/column-internals';
+import type { ColumnInternalsOptions } from '../../base/models/column-internals';
 
 const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
 class TestTableColumn extends mixinFractionalWidthColumnAPI(TableColumn) {
-    public override columnInternals = new ColumnInternals({
-        cellRecordFieldNames: [],
-        cellViewTag: tableColumnEmptyCellViewTag,
-        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-        delegatedEvents: []
-    });
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: [],
+            cellViewTag: tableColumnEmptyCellViewTag,
+            groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+            delegatedEvents: []
+        };
+    }
 }
 
 // prettier-ignore

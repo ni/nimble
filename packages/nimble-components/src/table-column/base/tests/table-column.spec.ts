@@ -13,7 +13,7 @@ import {
 } from './table-column.fixtures';
 import { TableColumn } from '..';
 import { TableColumnSortDirection } from '../../../table/types';
-import { ColumnInternals } from '../models/column-internals';
+import type { ColumnInternalsOptions } from '../models/column-internals';
 
 async function setup(): Promise<Fixture<TableColumnEmpty>> {
     return fixture(tableColumnEmptyTag);
@@ -112,12 +112,14 @@ describe('TableColumn', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestTableColumn extends TableColumn {
-                public override columnInternals = new ColumnInternals({
-                    cellRecordFieldNames: [],
-                    cellViewTag: 'div',
-                    groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
-                    delegatedEvents: []
-                });
+                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                    return {
+                        cellRecordFieldNames: [],
+                        cellViewTag: 'div',
+                        groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
+                        delegatedEvents: []
+                    };
+                }
             }
 
             it('throws when instantiated', async () => {
@@ -140,12 +142,14 @@ describe('TableColumn', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestTableColumn extends TableColumn {
-                public override columnInternals = new ColumnInternals({
-                    cellRecordFieldNames: [],
-                    cellViewTag: tableColumnEmptyCellViewTag,
-                    groupHeaderViewTag: 'div',
-                    delegatedEvents: []
-                });
+                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                    return {
+                        cellRecordFieldNames: [],
+                        cellViewTag: tableColumnEmptyCellViewTag,
+                        groupHeaderViewTag: 'div',
+                        delegatedEvents: []
+                    };
+                }
             }
 
             it('throws when instantiated', async () => {
