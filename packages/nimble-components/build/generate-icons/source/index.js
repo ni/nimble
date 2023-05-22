@@ -20,7 +20,7 @@ const generatedFilePrefix = `// AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY
 // See generation source in nimble-components/build/generate-icons\n`;
 
 const mdxFilePrefix = `import { Meta, Title, IconItem } from '@storybook/blocks';
-import * as iconStories from '../icon-base/tests/icons.stories';
+import * as iconStories from '../../icon-base/tests/icons.stories';
 
 <Meta of={iconStories} />
 <Title of={iconStories} />`;
@@ -88,7 +88,7 @@ export const ${tagName} = DesignSystem.tagFor(${className});
 
     allIconsFileContents += `export { ${className} } from './${fileName}';\n`;
 
-    mdxImportStatements += `import { ${tagName} } from './${fileName}';\n`;
+    mdxImportStatements += `import { ${tagName} } from '../${fileName}';\n`;
     mdxTable += `| <IconItem name="${fileName}"><${elementName} /></IconItem> | ${iconSynonyms?.tags.join(', ')} |\n`;
 }
 console.log(`Finshed writing ${fileCount} icon component files`);
