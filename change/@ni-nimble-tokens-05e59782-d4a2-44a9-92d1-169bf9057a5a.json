@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Align nuget and npm package versions",
+  "packageName": "@ni/nimble-tokens",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
