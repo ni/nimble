@@ -5,6 +5,7 @@ import {
     ColumnInternals,
     ColumnInternalsOptions
 } from './models/column-internals';
+import type { TableColumnValidity } from './types';
 
 /**
  * The base class for table columns
@@ -39,6 +40,14 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
     public sortingDisabled = false;
+
+    public checkValidity(): boolean {
+        return this.columnInternals.validConfiguration;
+    }
+
+    public get validity(): TableColumnValidity {
+        return {};
+    }
 
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 

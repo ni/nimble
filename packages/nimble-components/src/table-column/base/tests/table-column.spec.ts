@@ -32,6 +32,12 @@ describe('TableColumn', () => {
         await disconnect();
     });
 
+    it('reports column configuration valid', async () => {
+        await connect();
+
+        expect(element.checkValidity()).toBeTrue();
+    });
+
     it('setting columnInternals.fractionalWidth sets columnInternals.currentFractionalWidth', async () => {
         await connect();
         element.columnInternals.currentFractionalWidth = 1;
