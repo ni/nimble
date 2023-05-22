@@ -3,7 +3,10 @@ import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../list-option';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    popupFixStyling
+} from '../../utilities/tests/storybook';
 import {
     DropdownAppearance,
     DropdownPosition
@@ -48,21 +51,7 @@ const metadata: Meta<ComboboxArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <!--
-            On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
-            to be confined to the div. We remove the transform to allow the dropdown to escape the div, but
-            that also breaks zooming behavior (just on the Docs page), so we remove the zoom buttons there.
-        -->
-        <style class="code-hide">
-            [scale] {
-                transform: none !important;
-            }
-            button[title="Zoom in"],
-            button[title="Zoom out"],
-            button[title="Reset zoom"] {
-                display: none;
-            }
-        </style>
+        ${popupFixStyling}
         <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"

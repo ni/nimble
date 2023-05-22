@@ -1,7 +1,10 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    popupFixStyling
+} from '../../utilities/tests/storybook';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
@@ -64,16 +67,7 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <style class="code-hide">
-            [scale] {
-                transform: none !important;
-            }
-            button[title="Zoom in"],
-            button[title="Zoom out"],
-            button[title="Reset zoom"] {
-                display: none;
-            }
-        </style>
+        ${popupFixStyling}
         <${menuButtonTag}
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"

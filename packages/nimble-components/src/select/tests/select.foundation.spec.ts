@@ -1,10 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable object-curly-newline */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable no-restricted-imports */
-/* eslint-disable @typescript-eslint/quotes */
-import { DOM } from '@microsoft/fast-element';
+// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/select/select.spec.ts
 import {
     ListboxOption,
     listboxOptionTemplate
@@ -16,6 +10,7 @@ import {
     keyHome
 } from '@microsoft/fast-web-utilities';
 import { Select } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
@@ -23,7 +18,7 @@ import { template } from '../template';
  * Timeout for use in async tets.
  */
 export async function timeout(ms = 0): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
         window.setTimeout(() => {
             // eslint-disable-next-line no-void
             resolve(void 0);
@@ -32,20 +27,29 @@ export async function timeout(ms = 0): Promise<void> {
 }
 
 describe('Select', () => {
-    const FASTSelect = Select.compose({
+    const select = Select.compose({
         baseName: 'select',
         template
     });
 
-    const FASTOption = ListboxOption.compose({
+    const option = ListboxOption.compose({
         baseName: 'option',
         template: listboxOptionTemplate
     });
 
-    async function setup() {
+    async function setup(): Promise<{
+        element: Select,
+        connect: () => Promise<void>,
+        disconnect: () => Promise<void>,
+        document: Document,
+        option1: ListboxOption,
+        option2: ListboxOption,
+        option3: ListboxOption,
+        parent: HTMLElement
+    }> {
         const { element, connect, disconnect, parent } = await fixture([
-            FASTSelect(),
-            FASTOption()
+            select(),
+            option()
         ]);
 
         const option1 = document.createElement('fast-option') as ListboxOption;
@@ -97,7 +101,7 @@ describe('Select', () => {
 
         element.disabled = false;
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-disabled')).toEqual('false');
 
@@ -136,7 +140,9 @@ describe('Select', () => {
     });
 
     it('should set its value to the first enabled option', async () => {
-        const { element, connect, disconnect, option1, option2, option3 } = await setup();
+        const {
+            element, connect, disconnect, option1, option2, option3
+        } = await setup();
 
         await connect();
 
@@ -151,7 +157,9 @@ describe('Select', () => {
     });
 
     it('should set its value to the first enabled option when disabled', async () => {
-        const { element, connect, disconnect, option1, option2, option3 } = await setup();
+        const {
+            element, connect, disconnect, option1, option2, option3
+        } = await setup();
         element.disabled = true;
 
         await connect();
@@ -167,7 +175,9 @@ describe('Select', () => {
     });
 
     it('should select the first option with a `selected` attribute', async () => {
-        const { element, connect, disconnect, option1, option2, option3 } = await setup();
+        const {
+            element, connect, disconnect, option1, option2, option3
+        } = await setup();
 
         option2.setAttribute('selected', '');
 
@@ -184,7 +194,9 @@ describe('Select', () => {
     });
 
     it('should select the first option with a `selected` attribute when disabled', async () => {
-        const { element, connect, disconnect, option1, option2, option3 } = await setup();
+        const {
+            element, connect, disconnect, option1, option2, option3
+        } = await setup();
         element.disabled = true;
 
         option2.setAttribute('selected', '');
@@ -287,7 +299,7 @@ describe('Select', () => {
 
         element.click();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-expanded')).toEqual('true');
 
@@ -325,7 +337,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeFalse();
@@ -357,7 +369,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeFalse();
@@ -385,7 +397,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeFalse();
@@ -415,7 +427,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeFalse();
@@ -567,7 +579,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeTrue();
@@ -597,7 +609,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeTrue();
@@ -627,7 +639,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeTrue();
@@ -653,7 +665,7 @@ describe('Select', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeTrue();
@@ -663,8 +675,7 @@ describe('Select', () => {
             await disconnect();
         });
 
-        // eslint-disable-next-line func-names, prefer-arrow-callback
-        it('with a sequence of directional inputs', async function () {
+        it('with a sequence of directional inputs', async () => {
             const { element, connect, disconnect } = await setup();
 
             await connect();
@@ -855,7 +866,7 @@ describe('Select', () => {
 
                 element.value = 'two';
             }),
-            DOM.nextUpdate().then(() => false)
+            waitForUpdatesAsync().then(() => false)
         ]);
 
         expect(wasChanged).toBeFalse();
@@ -880,7 +891,7 @@ describe('Select', () => {
 
                 element.value = 'two';
             }),
-            DOM.nextUpdate().then(() => false)
+            waitForUpdatesAsync().then(() => false)
         ]);
 
         expect(wasChanged).toBeFalse();
@@ -919,11 +930,13 @@ describe('Select', () => {
     });
 
     it('should set the `aria-activedescendant` attribute to the ID of the currently selected option', async () => {
-        const { connect, disconnect, element, option1, option2, option3 } = await setup();
+        const {
+            connect, disconnect, element, option1, option2, option3
+        } = await setup();
 
         await connect();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-activedescendant')).toEqual(
             option1.id
@@ -931,7 +944,7 @@ describe('Select', () => {
 
         element.selectNextOption();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-activedescendant')).toEqual(
             option2.id
@@ -939,7 +952,7 @@ describe('Select', () => {
 
         element.selectNextOption();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-activedescendant')).toEqual(
             option3.id
@@ -961,13 +974,13 @@ describe('Select', () => {
 
         element.open = true;
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-controls')).toEqual(listboxId);
 
         element.open = false;
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-controls')).toEqual('');
 

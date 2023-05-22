@@ -157,3 +157,19 @@ export const usageWarning = (componentName: string): string => `
 WARNING - The ${componentName} is still in development and considered
 experimental. It is not recommended for application use.
 </div>`;
+
+// On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
+// to be confined to the div. We remove the transform to allow the dropdown to escape the div, but
+// that also breaks zooming behavior, so we remove the zoom buttons on the docs page.
+export const popupFixStyling = `
+<style class="code-hide">
+    [scale] {
+        transform: none !important;
+    }
+    button[title="Zoom in"],
+    button[title="Zoom out"],
+    button[title="Reset zoom"] {
+        display: none;
+    }
+</style>
+`;

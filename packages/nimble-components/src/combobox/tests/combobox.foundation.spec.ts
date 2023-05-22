@@ -1,13 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable object-curly-newline */
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable array-bracket-spacing */
-/* eslint-disable no-restricted-imports */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/quotes */
-import { DOM } from '@microsoft/fast-element';
+// Based on tests in FAST repo: https://github.com/microsoft/fast/blob/085cb27d348ed6f59d080c167fa62aeaa1e3940e/packages/web-components/fast-foundation/src/combobox/combobox.spec.ts
 import {
     ComboboxAutocomplete,
     ListboxOption,
@@ -24,20 +15,29 @@ import { fixture } from '../../utilities/tests/fixture';
 import { template } from '../template';
 
 describe('Combobox', () => {
-    const FASTCombobox = Combobox.compose({
+    const combobox = Combobox.compose({
         baseName: 'combobox',
         template
     });
 
-    const FASTOption = ListboxOption.compose({
+    const option = ListboxOption.compose({
         baseName: 'option',
         template: listboxOptionTemplate
     });
 
-    async function setup() {
+    async function setup(): Promise<{
+        element: Combobox,
+        connect: () => Promise<void>,
+        disconnect: () => Promise<void>,
+        document: Document,
+        option1: ListboxOption,
+        option2: ListboxOption,
+        option3: ListboxOption,
+        parent: HTMLElement
+    }> {
         const { element, connect, disconnect, parent } = await fixture([
-            FASTCombobox(),
-            FASTOption()
+            combobox(),
+            option()
         ]);
 
         element.id = 'combobox';
@@ -90,7 +90,7 @@ describe('Combobox', () => {
 
         element.disabled = false;
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.getAttribute('aria-disabled')).toEqual('false');
 
@@ -194,7 +194,7 @@ describe('Combobox', () => {
                 element.addEventListener('change', () => resolve(true));
                 element.dispatchEvent(event);
             }),
-            DOM.nextUpdate().then(() => false)
+            waitForUpdatesAsync().then(() => false)
         ]);
 
         expect(wasChanged).toBeFalse();
@@ -225,8 +225,8 @@ describe('Combobox', () => {
                     element.addEventListener('change', () => resolve(true));
 
                     // fake a key entered value
-                    (element as Combobox).control.value = 'a';
-                    (element as Combobox).control.dispatchEvent(
+                    element.control.value = 'a';
+                    element.control.dispatchEvent(
                         new InputEvent('input', {
                             data: 'a',
                             inputType: 'insertText'
@@ -235,11 +235,11 @@ describe('Combobox', () => {
 
                     element.dispatchEvent(enterEvent);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeTrue();
-            expect((element as Combobox).value).toEqual('a');
+            expect(element.value).toEqual('a');
 
             await disconnect();
         });
@@ -256,8 +256,7 @@ describe('Combobox', () => {
             key: keyArrowDown
         } as KeyboardEventInit);
         element.dispatchEvent(keyDownEvent);
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         const wasChanged = await Promise.race([
             new Promise(resolve => {
@@ -268,7 +267,7 @@ describe('Combobox', () => {
                     new FocusEvent('focusout', { relatedTarget: element })
                 );
             }),
-            DOM.nextUpdate().then(() => false)
+            waitForUpdatesAsync().then(() => false)
         ]);
 
         expect(wasChanged).toBeTrue();
@@ -295,7 +294,7 @@ describe('Combobox', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeFalse();
@@ -325,7 +324,7 @@ describe('Combobox', () => {
                     element.addEventListener('change', () => resolve(true));
                     element.dispatchEvent(event);
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeFalse();
@@ -352,7 +351,7 @@ describe('Combobox', () => {
 
                     element.value = 'two';
                 }),
-                DOM.nextUpdate().then(() => false)
+                waitForUpdatesAsync().then(() => false)
             ]);
 
             expect(wasChanged).toBeFalse();
@@ -425,7 +424,7 @@ describe('Combobox', () => {
 
             form.reset();
 
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
 
             expect(element.value).toEqual('two');
 
@@ -454,11 +453,13 @@ describe('Combobox', () => {
     });
 
     it("should set the control's `aria-activedescendant` property to the ID of the currently selected option while open", async () => {
-        const { connect, disconnect, element, option1, option2, option3 } = await setup();
+        const {
+            connect, disconnect, element, option1, option2, option3
+        } = await setup();
 
         await connect();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control).toBeDefined();
 
@@ -474,7 +475,7 @@ describe('Combobox', () => {
 
         element.open = true;
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
             ''
@@ -482,7 +483,7 @@ describe('Combobox', () => {
 
         element.selectNextOption();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
             option1.id
@@ -490,7 +491,7 @@ describe('Combobox', () => {
 
         element.selectNextOption();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
             option2.id
@@ -498,7 +499,7 @@ describe('Combobox', () => {
 
         element.selectNextOption();
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
             option3.id
@@ -506,7 +507,7 @@ describe('Combobox', () => {
 
         element.value = 'other';
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-activedescendant')).toEqual(
             ''
@@ -532,7 +533,7 @@ describe('Combobox', () => {
 
         element.open = true;
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-controls')).toEqual(
             listboxId
@@ -540,7 +541,7 @@ describe('Combobox', () => {
 
         element.open = false;
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-controls')).toEqual('');
 
@@ -554,40 +555,40 @@ describe('Combobox', () => {
 
             await connect();
 
-            (element as Combobox).autocomplete = mode;
+            element.autocomplete = mode;
 
             expect(option2.selected).toBeFalse();
 
             // fake a key entered value
-            (element as Combobox).control.value = 't';
-            (element as Combobox).control.dispatchEvent(
+            element.control.value = 't';
+            element.control.dispatchEvent(
                 new InputEvent('input', { data: 't', inputType: 'insertText' })
             );
 
             expect(option2.selected).toBeFalse(); // 'two' not selected
             expect(option3.selected).toBeFalse(); // 'three' not selected
 
-            (element as Combobox).control.value = 'tw';
-            (element as Combobox).control.dispatchEvent(
+            element.control.value = 'tw';
+            element.control.dispatchEvent(
                 new InputEvent('input', { data: 'w', inputType: 'insertText' })
             );
 
-            (element as Combobox).control.value = 'two';
-            (element as Combobox).control.dispatchEvent(
+            element.control.value = 'two';
+            element.control.dispatchEvent(
                 new InputEvent('input', { data: 'o', inputType: 'insertText' })
             );
 
             expect(option2.selected).toBeTrue();
 
-            (element as Combobox).control.value = 'twos';
-            (element as Combobox).control.dispatchEvent(
+            element.control.value = 'twos';
+            element.control.dispatchEvent(
                 new InputEvent('input', { data: 's', inputType: 'insertText' })
             );
 
             expect(option2.selected).toBeFalse();
 
-            (element as Combobox).control.value = 'two';
-            (element as Combobox).control.dispatchEvent(
+            element.control.value = 'two';
+            element.control.dispatchEvent(
                 new InputEvent('input', { inputType: 'deleteContentBackward' })
             );
 
@@ -603,24 +604,24 @@ describe('Combobox', () => {
         await connect();
 
         element.value = 'three';
-        (element as Combobox).autocomplete = 'list';
+        element.autocomplete = 'list';
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control).toBeDefined();
 
-        (element as Combobox).control.value = 't';
-        (element as Combobox).control.dispatchEvent(
+        element.control.value = 't';
+        element.control.dispatchEvent(
             new InputEvent('input', { inputType: 'deleteContentBackward' })
         ); // filter dropdown
-        (element as Combobox).open = false;
+        element.open = false;
 
         const keyDownEvent = new KeyboardEvent('keydown', {
             key: keyArrowDown
         } as KeyboardEventInit);
         element.dispatchEvent(keyDownEvent); // open dropdown
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
         expect(element.hasAttribute('open')).toBeTrue();
 
         element.dispatchEvent(keyDownEvent); // select "two"
@@ -631,7 +632,7 @@ describe('Combobox', () => {
         } as KeyboardEventInit);
         element.dispatchEvent(enterEvent); // commit value
 
-        expect((element as Combobox).control.value).toEqual('three');
+        expect(element.control.value).toEqual('three');
 
         await disconnect();
     });
