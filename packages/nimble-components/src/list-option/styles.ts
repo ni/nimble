@@ -19,6 +19,7 @@ export const styles = css`
         font: ${bodyFont};
         cursor: pointer;
         justify-content: left;
+        align-items: center;
         height: ${controlHeight};
     }
 
@@ -60,6 +61,11 @@ export const styles = css`
     :host([disabled]) {
         color: ${bodyDisabledFontColor};
         cursor: default;
+    }
+
+    [part='start'],
+    [part='end'] {
+        display: contents;
     }
 
     .content[disabled] {

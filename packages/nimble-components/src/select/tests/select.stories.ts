@@ -1,10 +1,11 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { iconCheckTag } from '../../icons/check';
 
 interface SelectArgs {
     disabled: boolean;
@@ -19,6 +20,7 @@ interface OptionArgs {
     label: string;
     value: string;
     disabled: boolean;
+    iconSlot?: string;
 }
 
 const metadata: Meta<SelectArgs> = {
@@ -50,6 +52,7 @@ const metadata: Meta<SelectArgs> = {
                     value="${x => x.value}"
                     ?disabled="${x => x.disabled}"
                 >
+                    ${when(x => x.iconSlot, html<OptionArgs>`<${iconCheckTag} slot="${x => x.iconSlot}"></${iconCheckTag}>`)}
                     ${x => x.label}
                 </${listOptionTag}>
             `)}
@@ -78,8 +81,13 @@ const metadata: Meta<SelectArgs> = {
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
         options: [
-            { label: 'Option 1', value: '1', disabled: false },
-            { label: 'Option 2', value: '2', disabled: true },
+            {
+                label: 'Option 1',
+                value: '1',
+                disabled: false,
+                iconSlot: 'start'
+            },
+            { label: 'Option 2', value: '2', disabled: true, iconSlot: 'end' },
             { label: 'Option 3', value: '3', disabled: false },
             { label: 'Option 4', value: '4', disabled: false },
             { label: 'Option 5', value: '5', disabled: false },

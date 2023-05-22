@@ -5,6 +5,7 @@ import { sharedMatrixParameters } from '../../utilities/tests/matrix';
 import { backgroundStates } from '../../utilities/tests/states';
 import { comboboxTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { iconCheckTag } from '../../icons/check';
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
@@ -29,8 +30,8 @@ const component = ([
     positionStyle
 ]: PositionState): ViewTemplate => html`
     <${comboboxTag} open position="${() => position}" style="${() => positionStyle}">
-        <${listOptionTag} value="1">Option 1</${listOptionTag}>
-        <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+        <${listOptionTag} value="1"><${iconCheckTag} slot="start"></${iconCheckTag}>Option 1</${listOptionTag}>
+        <${listOptionTag} value="2" disabled><${iconCheckTag} slot="end"></${iconCheckTag}> Option 2</${listOptionTag}>
         <${listOptionTag} value="3">Option 3</${listOptionTag}>
         <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
     </${comboboxTag}>
