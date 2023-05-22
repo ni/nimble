@@ -35,6 +35,7 @@ import { styles } from './styles';
 import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
+    TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
@@ -445,6 +446,8 @@ export class Table<
                 currentColumn.columnInternals.currentSortDirection = TableColumnSortDirection.none;
             }
         }
+
+        this.emitColumnConfigurationChangeEvent();
     }
 
     /**
@@ -719,6 +722,21 @@ export class Table<
     private validateWithData(data: TableRecord[]): void {
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
+    }
+
+    private emitColumnConfigurationChangeEvent(): void {
+        const detail: TableColumnConfigurationChangeEventDetail = {
+            columns: this.columns.map(column => ({
+                columnId: column.columnId,
+                sortIndex: column.columnInternals.currentSortIndex ?? undefined,
+                sortDirection: column.columnInternals.currentSortDirection,
+                groupIndex: column.columnInternals.groupIndex,
+                hidden: column.columnHidden,
+                fractionalWidth: column.columnInternals.currentFractionalWidth,
+                pixelWidth: column.columnInternals.currentPixelWidth
+            }))
+        };
+        this.$emit('column-configuration-change', detail);
     }
 
     private async emitSelectionChangeEvent(): Promise<void> {
