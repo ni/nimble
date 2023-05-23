@@ -3,8 +3,13 @@ import type { Table } from '..';
 import type { TableColumnText } from '../../table-column/text';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import { TableColumnSortDirection, TableRecord } from '../types';
+import {
+    TableColumnConfigurationChangeEventDetail,
+    TableColumnSortDirection,
+    TableRecord
+} from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
+import { createEventListener } from '../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {
     id: string;
@@ -17,9 +22,9 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table id-field-name="id">
-            <nimble-table-column-text id="first-column" field-name="stringData1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2"></nimble-table-column-text>
-            <nimble-table-column-text id="third-column" field-name="stringData3"></nimble-table-column-text>
+            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
+            <nimble-table-column-text id="third-column" field-name="stringData3" column-id="column-3"></nimble-table-column-text>
         </nimble-table>`
     );
 }
@@ -601,6 +606,28 @@ describe('Table sorting', () => {
         expect(column1.columnInternals.currentSortIndex).toEqual(0);
     });
 
+    it('does not emit "column-configuration-change" when sorting changes programmatically', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'abc' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const listener = createEventListener(
+            element,
+            'column-configuration-change'
+        );
+        column1.sortDirection = TableColumnSortDirection.ascending;
+        column1.sortIndex = 0;
+        await waitForUpdatesAsync();
+
+        expect(listener.spy).not.toHaveBeenCalled();
+    });
+
     describe('sort index validation', () => {
         it('multiple columns with the same sort index and a sort direction is invalid and does not render rows', async () => {
             const data: readonly SimpleTableRecord[] = [
@@ -967,6 +994,68 @@ describe('Table sorting', () => {
                 TableColumnSortDirection.ascending
             );
             expect(column3.columnInternals.currentSortIndex).toEqual(2);
+        });
+
+        it('emits "column-configuration-change" when sorting is enabled on the column', async () => {
+            await element.setData(data);
+            await connect();
+            await waitForUpdatesAsync();
+
+            const listener = createEventListener(
+                element,
+                'column-configuration-change'
+            );
+            await pageObject.clickColumnHeader(0);
+
+            expect(listener.spy).toHaveBeenCalled();
+            const args = listener.spy.calls.first()
+                .args[0] as CustomEvent<TableColumnConfigurationChangeEventDetail>;
+            expect(args.detail).toEqual({
+                columns: [
+                    {
+                        columnId: 'column-1',
+                        hidden: false,
+                        sortIndex: 0,
+                        sortDirection: TableColumnSortDirection.ascending,
+                        groupIndex: undefined,
+                        fractionalWidth: 1,
+                        pixelWidth: undefined
+                    },
+                    {
+                        columnId: 'column-2',
+                        hidden: false,
+                        sortIndex: undefined,
+                        sortDirection: TableColumnSortDirection.none,
+                        groupIndex: undefined,
+                        fractionalWidth: 1,
+                        pixelWidth: undefined
+                    },
+                    {
+                        columnId: 'column-3',
+                        hidden: false,
+                        sortIndex: undefined,
+                        sortDirection: TableColumnSortDirection.none,
+                        groupIndex: undefined,
+                        fractionalWidth: 1,
+                        pixelWidth: undefined
+                    }
+                ]
+            });
+        });
+
+        it('does not emit "column-configuration-change" when sorting is disabled on the column', async () => {
+            await element.setData(data);
+            column1.sortingDisabled = true;
+            await connect();
+            await waitForUpdatesAsync();
+
+            const listener = createEventListener(
+                element,
+                'column-configuration-change'
+            );
+            await pageObject.clickColumnHeader(0);
+
+            expect(listener.spy).not.toHaveBeenCalled();
         });
     });
 });

@@ -2,6 +2,66 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 22 May 2023 18:39:33 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.0",
+      "version": "11.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a",
+            "comment": "Introduce column configuration validation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 May 2023 20:46:44 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.30",
+      "version": "11.8.30",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3bcb03ff246b80b94005765d754465b9a1a2f34c",
+            "comment": "Acceptance/e2e tests for Nimble Blazor using Playwright (first pass)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 May 2023 21:33:40 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.30",
+      "version": "11.8.30",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "71351b15e45f68adb8b08db2168b5faf499a49f9",
+            "comment": "Add support for the column-configuration-change event to the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 May 2023 14:59:04 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.29",
+      "version": "11.8.29",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c5827276a724ddd368d0acf35b1d29956971639f",
+            "comment": "Ensure components can take additional attributes"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 04 May 2023 21:32:30 GMT",
       "tag": "@ni/nimble-blazor_v11.8.20",
       "version": "11.8.20",

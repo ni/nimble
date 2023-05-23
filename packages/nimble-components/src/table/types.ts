@@ -31,7 +31,11 @@ export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
 
-export interface TableValidity {
+export interface ValidityObject {
+    [key: string]: boolean;
+}
+
+export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
     readonly invalidRecordId: boolean;
@@ -40,6 +44,7 @@ export interface TableValidity {
     readonly duplicateSortIndex: boolean;
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
+    readonly invalidColumnConfiguration: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -99,6 +104,31 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+/**
+ * Event detail type for interactive column configuration changes.
+ *
+ * The column-configuration-change event is emitted when a column's configuration
+ * is modified programmatically, such as by clicking on the column's header to sort
+ * the column. The items in the `columns` array are specified in the same order as
+ * the columns are listed in the DOM.
+ */
+export interface TableColumnConfigurationChangeEventDetail {
+    columns: TableColumnConfiguration[];
+}
+
+/**
+ * A representation of the current configuration of a column within the table.
+ */
+export interface TableColumnConfiguration {
+    columnId?: string;
+    sortIndex?: number;
+    sortDirection: TableColumnSortDirection;
+    groupIndex?: number;
+    hidden: boolean;
+    fractionalWidth: number;
+    pixelWidth?: number;
 }
 
 /**

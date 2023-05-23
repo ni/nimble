@@ -13,6 +13,7 @@ import {
 } from './table-column.fixtures';
 import { TableColumn } from '..';
 import { TableColumnSortDirection } from '../../../table/types';
+import type { ColumnInternalsOptions } from '../models/column-internals';
 
 async function setup(): Promise<Fixture<TableColumnEmpty>> {
     return fixture(tableColumnEmptyTag);
@@ -29,6 +30,12 @@ describe('TableColumn', () => {
 
     afterEach(async () => {
         await disconnect();
+    });
+
+    it('reports column configuration valid', async () => {
+        await connect();
+
+        expect(element.checkValidity()).toBeTrue();
     });
 
     it('setting columnInternals.fractionalWidth sets columnInternals.currentFractionalWidth', async () => {
@@ -104,27 +111,6 @@ describe('TableColumn', () => {
             return spy as unknown as jasmine.Spy<(err: Error) => void>;
         }
 
-        describe('that is a default constructor without ColumnInternalsOptions', () => {
-            const columnName = uniqueElementName();
-            @customElement({
-                name: columnName
-            })
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            class TestTableColumn extends TableColumn {}
-
-            it('throws when instantiated', async () => {
-                await jasmine.spyOnGlobalErrorsAsync(async globalErrorSpy => {
-                    const spy = castSpy(globalErrorSpy);
-                    document.createElement(columnName);
-                    await Promise.resolve();
-                    expect(spy).toHaveBeenCalledTimes(1);
-                    expect(spy.calls.first().args[0].message).toMatch(
-                        'ColumnInternalsOptions must be provided'
-                    );
-                });
-            });
-        });
-
         describe('that passes an invalid cellViewTag', () => {
             const columnName = uniqueElementName();
             @customElement({
@@ -132,13 +118,13 @@ describe('TableColumn', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestTableColumn extends TableColumn {
-                public constructor() {
-                    super({
+                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                    return {
                         cellRecordFieldNames: [],
                         cellViewTag: 'div',
                         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
                         delegatedEvents: []
-                    });
+                    };
                 }
             }
 
@@ -162,13 +148,13 @@ describe('TableColumn', () => {
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             class TestTableColumn extends TableColumn {
-                public constructor() {
-                    super({
+                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                    return {
                         cellRecordFieldNames: [],
                         cellViewTag: tableColumnEmptyCellViewTag,
                         groupHeaderViewTag: 'div',
                         delegatedEvents: []
-                    });
+                    };
                 }
             }
 

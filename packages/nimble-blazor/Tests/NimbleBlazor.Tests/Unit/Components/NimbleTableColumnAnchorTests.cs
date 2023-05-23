@@ -11,6 +11,15 @@ namespace NimbleBlazor.Tests.Unit.Components;
 public class NimbleTableColumnAnchorTests
 {
     [Fact]
+    public void NimbleTableColumnAnchor_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnAnchor>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleTableColumnAnchor_WithLabelFieldNameAttribute_HasTableMarkup()
     {
         var tableColumn = RenderWithPropertySet(x => x.LabelFieldName!, "FirstName");

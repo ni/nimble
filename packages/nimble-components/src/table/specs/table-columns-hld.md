@@ -124,10 +124,13 @@ This interface could possibly be expanded in the future to communicate relevant 
 
 This abstract class is what a column web component (i.e. a slotted column element) must extend. The attributes added to the `TableColumn` class are intended to be options configurable by client users.
 
-Column authors have additional configuration options to maintain that are configured via the `ColumnInternalsOptions` constructor parameter and the `TableColumn.columnInternals` reference.
+Column authors have additional configuration options to maintain that are configured via implementing the `getColumnInternalsOptions` abstract method and the `TableColumn.columnInternals` reference.
 
 ```TS
 abstract class TableColumn<TColumnConfig = {}> {
+    // @internal Configuration settings for column plugin authors
+    public readonly columnInternals = new ColumnInternals<TColumnConfig>(this.getColumnInternalsOptions());
+
     // An optional ID to associated with the column.
     @attr({ attribute: 'column-id' })
     columnId?: string;
@@ -151,13 +154,7 @@ abstract class TableColumn<TColumnConfig = {}> {
     @attr({ attribute: 'sort-direction' })
     public sortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
 
-    // @internal Configuration settings for column plugin authors
-    public readonly columnInternals: ColumnInternals<TColumnConfig>;
-
-    public constructor(options: ColumnInternalsOptions) {
-        super();
-        this.columnInternals = new ColumnInternals(options);
-    }
+    protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 }
 ```
 
@@ -165,7 +162,7 @@ _Note: The `TableColumn` class may be updated to support other features not cove
 
 ### Column author internal configuration
 
-Column authors have a required `ColumnInternalsOptions` constructor parameter argument to define for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
+Column authors have to implement a `getColumnInternalsOptions` method returning a `ColumnInternalsOptions` object for static configuration and a `columnInternals` object that can be manipulated for dynamic configuration at runtime.
 
 ```TS
 export interface ColumnInternalsOptions {
@@ -259,11 +256,11 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
         this.columnInternals.columnConfig = { placeholder: this.placeholder };
     }
 
-    constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellViewTag: 'nimble-table-cell-view-text',
             cellRecordFieldNames: ['value']
-        })
+        };
     }
 }
 ```
@@ -331,11 +328,11 @@ public class TableColumnNumberWithUnit extends TableColumn {
         this.columnInternals.dataRecordFieldNames = [this.valueKey, this.unitKey];
     }
 
-    constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellViewTag: 'nimble-table-cell-view-number-with-unit',
             cellRecordFieldNames: ['value', 'units']
-        })
+        };
     }
 }
 
@@ -377,12 +374,12 @@ export class ColumnInternals<TColumnConfig> {
     }
 }
 
-AnchorTableColumn extends TableColumn {
-    constructor() {
-        super({
+export class AnchorTableColumn extends TableColumn {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             delegatedEvents: ['click'],
             ...
-        });
+        };
     }
     ...
 }

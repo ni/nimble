@@ -24,5 +24,6 @@ public partial class NimbleTabs : ComponentBase
         }
     }
 
+    [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

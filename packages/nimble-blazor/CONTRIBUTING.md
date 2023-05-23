@@ -14,7 +14,7 @@ For Nimble Blazor development on Windows, the suggested tools to install are:
 - (Optional) Enable IIS (see "Enabling IIS", below)
 - ASP.NET Core Runtime 6.0.4xx: Choose "Hosting Bundle" under ASP.NET Core Runtime, on the [.NET 6.0 Download Page](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
-In Visual Studio, run either the `Demo.Server` or `Demo.Projects` to see the Blazor demo apps.
+In Visual Studio, run either the `Demo.Server` or `Demo.Client` project to see the Blazor demo apps.
 
 ### Mac / Visual Studio Code
 Install [Visual Studio Code](https://code.visualstudio.com/), and install the suggested extensions that appear once you open the NimbleBlazor project folders.
@@ -50,7 +50,12 @@ public partial class NimbleButton : ComponentBase
 ```
     <nimble-button>@ChildContent</nimble-button>
 ```
-- Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide) 
+- Always add an `AdditionalAttributes` parameter that captures unmatched values, so that attributes not declared explicitly, such as the common `class` or `id` attributes, can still be passed along to the Nimble element:
+```CS
+[Parameter(CaptureUnmatchedValues = true)]
+public IDictionary<string, object>? AdditionalAttributes { get; set; }
+```
+- Code style conventions are enforced by the [NI C# Style Guide](https://github.com/ni/csharp-styleguide)
 
 ### 2-way Binding Support, Handling DOM Events
 
@@ -70,9 +75,25 @@ The C# code for a property supporting 2-way binding will look like this:
 
 ## Testing
 
-### Automated
+### Automated Unit Tests
+
+Test Project: `NimbleBlazor.Tests`
 
 Testing the Nimble Blazor components is possible through the use of xUnit and bUnit. Each Nimble Blazor component should have a corresponding test file.
+
+### Automated Acceptance Tests
+
+Test Project: `NimbleBlazor.Tests.Acceptance`
+
+In order to fully test the Nimble Blazor components, consider writing new automated acceptance tests for new/modified components. Any component which requires custom JS code in `NimbleBlazor.lib.module.js` should generally have corresponding acceptance tests, because the bUnit tests in `NimbleBlazor.Tests` are unable to exercise/test that JavaScript code.
+
+The `NimbleBlazor.Tests.Acceptance` project starts a local Blazor.Server app which serves Razor pages that host the Nimble components. Then, xUnit-based acceptance tests start a Chromium instance using [Playwright](https://playwright.dev/), load those Razor pages, and interact with them.
+
+To add a new acceptance test:
+- Add a new Razor file that uses that component in the `Pages` subfolder, with the name `[ComponentName][FunctionalityUnderTest].razor`, e.g. `DialogOpenAndClose.razor`. Add any necessary code to initialize the component in a `@code` section in the same file. If you'll interact with the component as the test runs, you may need to add other Nimble components like buttons to trigger new actions on your component under test.
+- In the `Tests` subfolder, add a new class `[ComponentName]Tests.cs` if it doesn't already exist. Add a new test method in that class. Load your Razor file with the `NewPageForRouteAsync(routeName)` method. Using the Playwright APIs, interact with the components on the page, and make assertions about the state of the component under test.
+
+See the existing acceptance tests for examples of using the Playwright APIs. Additionally, see [Getting Started with Playwright Tests (Skyline End2EndTests)](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/End2EndTests/Getting%20Started%20with%20Playwright%20Tests.md&_a=preview) and the [Playwright .NET docs on writing tests](https://playwright.dev/dotnet/docs/writing-tests).
 
 ### Example App / Manual Testing
 
@@ -90,7 +111,7 @@ Visual Studio Code commands are included to build and run the example projects:
 
 ### Enabling IIS
 
-Click Start, open "Turn Windows features on or off", and configure "Web Management Tools" and "World Wide Web Services" in the following way:  
+Click Start, open "Turn Windows features on or off", and configure "Web Management Tools" and "World Wide Web Services" in the following way:
 ![IIS Feature Configuration](/packages/nimble-blazor/docs/WindowsFeatures-IIS.jpg)
 ### Running published output
 

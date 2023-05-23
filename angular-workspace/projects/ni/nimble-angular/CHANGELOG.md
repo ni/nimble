@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 12 May 2023 23:44:48 GMT and should not be manually modified.
+This log was last generated on Tue, 23 May 2023 16:09:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.30
+
+Tue, 23 May 2023 16:09:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.1.1
+
+## 16.5.29
+
+Mon, 22 May 2023 18:39:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.1.0
+
+## 16.5.28
+
+Wed, 17 May 2023 21:33:40 GMT
+
+### Patches
+
+- Add support for the column-configuration-change event to the table directive ([ni/nimble@71351b1](https://github.com/ni/nimble/commit/71351b15e45f68adb8b08db2168b5faf499a49f9))
+- Bump @ni/nimble-components to v19.0.2
 
 ## 16.5.27
 
