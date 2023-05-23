@@ -1,3 +1,4 @@
+import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -9,11 +10,13 @@ import {
 import { TableColumnTextBase } from '../text-base';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
+import type { Format } from './types';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableColumnNumberTextColumnConfig
-    extends TableColumnWithPlaceholderColumnConfig {}
+    extends TableColumnWithPlaceholderColumnConfig {
+    format: Format;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -25,6 +28,14 @@ declare global {
  * The table column for displaying number fields as text.
  */
 export class TableColumnNumberText extends TableColumnTextBase {
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: format
+     */
+    @attr
+    public format: Format;
+
     public constructor() {
         super({
             cellRecordFieldNames: ['value'],
@@ -33,6 +44,18 @@ export class TableColumnNumberText extends TableColumnTextBase {
             delegatedEvents: []
         });
         this.columnInternals.sortOperation = TableColumnSortOperation.basic;
+    }
+
+
+    protected formatChanged(): void {
+        this.updateColumnConfig();
+    }
+
+    private updateColumnConfig(): void {
+        this.columnInternals.columnConfig = {
+            placeholder: this.placeholder ?? '',
+            format: this.format
+        };
     }
 }
 
