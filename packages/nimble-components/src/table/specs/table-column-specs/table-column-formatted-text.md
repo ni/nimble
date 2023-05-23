@@ -195,7 +195,7 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
     -   `'custom'` - use [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) configured with values specified in other attributes. Will be displayed left-aligned by default (since Nimble can't know if the provided configuration will produce consistent decimal separators).
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. For all modes besides `custom` Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887) (e.g. `useGrouping: false` to achieve `1000` rather than `1,000` and `signDisplay: auto` to achieve `1` rather than `+1`).
--   `locales` - a string containing a comma-separated list of locales to pass to the `locales` parameter of the `Intl.NumberFormat` constructor which is used by all format modes.
+-   `locales` - a string containing a comma-separated list of locales to pass to the `locales` parameter of the `Intl.NumberFormat` constructor which is used by all format modes. This means numbers will be formatted with locale-specific decimal separators.
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2.
 -   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `NumberFormat` constructor. For example, `options.maximumFractionDigits` will be set to the value of `custom-maximum-fraction-digits`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
@@ -273,7 +273,7 @@ This column will display the `placeholder` for a date when it's not `instanceof 
 
 #### Elapsed Time Column
 
-Nimble will introduce a column type that maps time duration to localized strings. Its API will be discussed in a future update to this document. Ideally it might use [Temporal duration values](https://tc39.es/proposal-temporal/docs/duration.html) formatted with [`Intl.DurationFormat`](https://tc39.es/proposal-intl-duration-format/) but those APIs are not yet approved for implementation in browsers.
+Nimble could introduce a column type that maps time duration to localized strings (e.g. "1 minute, 10 seconds"). Its API will be discussed in a future update to this document. Ideally it might use [Temporal duration values](https://tc39.es/proposal-temporal/docs/duration.html) formatted with [`Intl.DurationFormat`](https://tc39.es/proposal-intl-duration-format/) but those APIs are not yet approved for implementation in browsers.
 
 ---
 
@@ -348,7 +348,7 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 ### Other number/date/time formatting APIs
 
 1. Existing SLE applications use the [Angular DatePipe](https://angular.io/api/common/DatePipe). This offers similar options to the `Intl.DateTimeFormat` (including locale-specific formatting) but would be a challenge to support in non-Angular applications.
-2. The TC39 ECMAScript standard is working on [a proposal for Temporal](https://github.com/tc39/proposal-temporal), which includes a new [immutable format for representing time](https://tc39.es/proposal-temporal/docs/index.html) and namespace for manipulating it. It's in Stage 3 meaning the API isn't expected to change and [polyfills](https://github.com/tc39/proposal-temporal#polyfills) are available.
+2. The TC39 ECMAScript standard is working on [a proposal for Temporal](https://github.com/tc39/proposal-temporal), which includes a new [immutable format for representing time](https://tc39.es/proposal-temporal/docs/index.html) and namespace for manipulating it. It's in Stage 3 meaning the API isn't expected to change and [polyfills](https://github.com/tc39/proposal-temporal#polyfills) are available. Since the formatting APIs that browsers support today are sufficient, we propose to use them instead.
 3. There are numerous libraries for formatting including the standards-based [Format.js](https://formatjs.io/), the opinionated [moment.js](https://momentjs.com/docs/), and [various successors](https://momentjs.com/docs/#/-project-status/recommendations/). We may choose to depend on one in the future to expose additional formatting options but will start with browser APIs as they require no additional dependencies.
 
 ---
@@ -406,3 +406,4 @@ Standard Storybook documentation for column APIs.
 ## Open Issues
 
 1. Should we represent dates using a numeric value (milliseconds since the Unix epoch) to avoid mutability concerns?
+2. Visual design recommends that column header text alignment match data alignment. Once we prototype this we may hit implementation concerns (e.g. clash with proposed header menu button).
