@@ -1,6 +1,9 @@
+import { DOM } from '@microsoft/fast-element';
 import type { ColumnInternals } from '../../table-column/base/models/column-internals';
 import type { TableColumn } from '../../table-column/base';
 import { UpdateTracker } from '../../utilities/update-tracker';
+import type { Table } from '..';
+import type { TableRecord } from '../types';
 
 const isColumnProperty = (
     changedProperty: string,
@@ -26,22 +29,39 @@ const isColumnInternalsProperty = (
     return false;
 };
 
-interface RequiredUpdates {
-    rowIds: boolean;
-    groupRows: boolean;
-    columnIds: boolean;
-    columnSort: boolean;
-    columnWidths: boolean;
-    columnDefinition: boolean;
-    actionMenuSlots: boolean;
-    selectionMode: boolean;
-}
-
 /**
  * Helper class to track what updates are needed to the table based on configuration
  * changes.
  */
-export class TableUpdateTracker extends UpdateTracker<RequiredUpdates> {
+export class TableUpdateTracker<TData extends TableRecord> extends UpdateTracker<[
+    'rowIds',
+    'groupRows',
+    'columnIds',
+    'columnSort',
+    'columnWidths',
+    'columnDefinition',
+    'actionMenuSlots',
+    'selectionMode'
+]> {
+    private updateQueued = false;
+
+    public constructor(private readonly table: Table<TData>) {
+        super([
+            'rowIds',
+            'groupRows',
+            'columnIds',
+            'columnSort',
+            'columnWidths',
+            'columnDefinition',
+            'actionMenuSlots',
+            'selectionMode'
+        ]);
+    }
+
+    public get hasPendingUpdates(): boolean {
+        return this.updateQueued;
+    }
+
     public get updateRowIds(): boolean {
         return this.requiredUpdates.rowIds;
     }
@@ -153,5 +173,19 @@ export class TableUpdateTracker extends UpdateTracker<RequiredUpdates> {
     public trackSelectionModeChanged(): void {
         this.requiredUpdates.selectionMode = true;
         this.queueUpdate();
+    }
+
+    protected override queueUpdate(): void {
+        if (!this.table.isConnected) {
+            return;
+        }
+        if (!this.updateQueued) {
+            this.updateQueued = true;
+            DOM.queueUpdate(() => {
+                this.table.update();
+                this.setAllKeys(false);
+                this.updateQueued = false;
+            });
+        }
     }
 }

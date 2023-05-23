@@ -180,7 +180,7 @@ export class Table<
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
-    private readonly tableUpdateTracker = new TableUpdateTracker(this);
+    private readonly tableUpdateTracker: TableUpdateTracker<TData>;
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
@@ -218,6 +218,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.tableUpdateTracker = new TableUpdateTracker(this);
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -515,7 +516,7 @@ export class Table<
         this.isInitialized = true;
         // Initialize the controller to ensure that FAST functionality such as Observables work as expected.
         this.$fastController.onConnectedCallback();
-        this.tableUpdateTracker.trackAllStateChanged();
+        this.tableUpdateTracker.trackAll();
         this.observeColumns();
     }
 

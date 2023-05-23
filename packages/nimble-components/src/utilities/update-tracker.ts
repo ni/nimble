@@ -1,63 +1,44 @@
-import { DOM } from '@microsoft/fast-element';
-import type { UpdaTable } from './types';
-
 /**
  * custom update bingo card
  */
-type RequiredUpdates<Type> = {
-    [Property in keyof Type]: boolean;
+type ObjectFromList<T extends readonly string[], V = string> = {
+    [K in (T extends readonly (infer U)[] ? U : never)]: V
 };
 /**
  * custom update bingo card helper
  */
-export class UpdateTracker<Type> {
-    protected requiredUpdates: RequiredUpdates<Type>;
-    private readonly baseInstance: UpdaTable;
-    private updateQueued = false;
+export abstract class UpdateTracker<TrackedProperties extends readonly string[]> {
+    public requiredUpdates: ObjectFromList<TrackedProperties, boolean>;
 
-    public constructor(baseInstance: UpdaTable) {
-        this.baseInstance = baseInstance;
-        this.requiredUpdates = {} as RequiredUpdates<Type>;
-        for (const key of Object.keys(this.requiredUpdates) as (keyof Type)[]) {
-            this.requiredUpdates[key] = false;
-        }
+    public constructor(requiredUpdates: TrackedProperties) {
+        type RequiredUpdates = typeof this.requiredUpdates;
+        this.requiredUpdates = {} as RequiredUpdates;
+        this.requiredUpdates = requiredUpdates.reduce<RequiredUpdates>((r, key): RequiredUpdates => {
+            return {
+                ...r,
+                [key]: false
+            };
+        }, this.requiredUpdates);
     }
 
-    public get hasPendingUpdates(): boolean {
-        return this.updateQueued;
-    }
-
-    public track<Property extends keyof Type>(key: Property): void {
+    public track(key: keyof ObjectFromList<TrackedProperties, boolean>): void {
         this.requiredUpdates[key] = true;
         this.queueUpdate();
     }
 
-    public update<Property extends keyof Type>(key: Property): boolean {
-        return this.requiredUpdates[key];
-    }
-
-    public trackAllStateChanged(): void {
+    public trackAll(): void {
         this.setAllKeys(true);
         this.queueUpdate();
     }
 
-    protected queueUpdate(): void {
-        if (!this.baseInstance.$fastController.isConnected) {
-            return;
-        }
-        if (!this.updateQueued) {
-            this.updateQueued = true;
-            DOM.queueUpdate(() => {
-                this.baseInstance.update();
-                this.setAllKeys(false);
-                this.updateQueued = false;
-            });
-        }
-    }
-
-    private setAllKeys(value: boolean): void {
-        (Object.keys(this.requiredUpdates) as (keyof Type)[]).forEach(key => {
-            this.requiredUpdates[key] = value;
-        });
+    protected abstract queueUpdate(): void;
+    protected setAllKeys(value: boolean): void {
+        type RequiredUpdates = typeof this.requiredUpdates;
+        this.requiredUpdates = Object.keys(this.requiredUpdates).reduce<RequiredUpdates>((r, key): RequiredUpdates => {
+            return {
+                ...r,
+                [key]: value
+            };
+        }, this.requiredUpdates);
     }
 }
