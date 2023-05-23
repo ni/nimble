@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 23 May 2023 21:28:16 GMT",
+      "tag": "@ni/nimble-angular_v16.5.32",
+      "version": "16.5.32",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9362324d727f9938f5a850f094591c07c10fbb27",
+            "comment": "- Create secondary entrypoints for the table, table columns, and table testing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 May 2023 20:18:10 GMT",
       "tag": "@ni/nimble-angular_v16.5.31",
       "version": "16.5.31",

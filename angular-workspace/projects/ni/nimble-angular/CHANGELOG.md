@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 23 May 2023 20:18:10 GMT and should not be manually modified.
+This log was last generated on Tue, 23 May 2023 21:28:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.5.32
+
+Tue, 23 May 2023 21:28:16 GMT
+
+### Patches
+
+- - Create secondary entrypoints for the table, table columns, and table testing ([ni/nimble@9362324](https://github.com/ni/nimble/commit/9362324d727f9938f5a850f094591c07c10fbb27))
 
 ## 16.5.31
 

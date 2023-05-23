@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "- Create secondary entrypoints for the table, table columns, and table testing",
-  "packageName": "@ni/nimble-angular",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
