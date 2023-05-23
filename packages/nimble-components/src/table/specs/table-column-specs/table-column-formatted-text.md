@@ -97,13 +97,13 @@ Both clients and Nimble itself will derive from these base classes to specify th
 
 ```ts
 export class MyAppProgressColumn extends TableColumnTextBase {
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnNumericTextCellViewTag,
-            groupHeaderViewTag: tableColumnNumericTextGroupHeaderTag
-        });
-        this.columnInternals.sortOperation = TableColumnSortOperation.basic;
+            groupHeaderViewTag: tableColumnNumericTextGroupHeaderTag,
+            sortOperation: TableColumnSortOperation.basic
+        };
     }
 }
 

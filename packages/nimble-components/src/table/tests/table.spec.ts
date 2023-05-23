@@ -19,6 +19,7 @@ import {
     TableColumnValidationTest,
     tableColumnValidationTestTag
 } from '../../table-column/base/tests/table-column.fixtures';
+import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -568,13 +569,13 @@ describe('Table', () => {
                 @attr({ attribute: 'field-name' })
                 public fieldName?: string;
 
-                public constructor() {
-                    super({
+                protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+                    return {
                         cellViewTag: focusableCellViewName,
                         cellRecordFieldNames: ['value'],
                         groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
                         delegatedEvents: []
-                    });
+                    };
                 }
             }
 

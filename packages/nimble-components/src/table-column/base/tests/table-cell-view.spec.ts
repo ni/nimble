@@ -12,6 +12,7 @@ import {
     TableColumnEmpty,
     tableColumnEmptyGroupHeaderViewTag
 } from './table-column.fixtures';
+import type { ColumnInternalsOptions } from '../models/column-internals';
 
 async function setup(): Promise<Fixture<TableCellView>> {
     return fixture(tableColumnEmptyCellViewTag);
@@ -30,13 +31,13 @@ describe('TableCellView', () => {
         name: tableColumnDelegatesClickAndKeydownTag
     })
     class TableColumnDelegatesClickAndKeydown extends TableColumn {
-        public constructor() {
-            super({
+        protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+            return {
                 cellRecordFieldNames: [],
                 cellViewTag: tableColumnEmptyCellViewTag,
                 groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
                 delegatedEvents: ['click', 'keydown']
-            });
+            };
         }
     }
 
