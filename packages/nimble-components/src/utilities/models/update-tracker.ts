@@ -1,7 +1,7 @@
 import { Tracker } from './tracker';
 
 /**
- * Generic Update Tracker Utility
+ * Generic Update Tracker Utility extends Tracker Utility
  */
 export abstract class UpdateTracker<
     TrackedProperties extends readonly string[]

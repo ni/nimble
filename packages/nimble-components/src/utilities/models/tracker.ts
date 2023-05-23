@@ -3,7 +3,7 @@ type ObjectFromList<T extends readonly string[], V = string> = {
 };
 
 /**
- * custom update bingo card helper
+ * Generic Tracker which sets or resets flags and utilities
  */
 export abstract class Tracker<WhimsList extends readonly string[]> {
     private _whims: ObjectFromList<WhimsList, boolean>;
