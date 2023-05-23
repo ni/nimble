@@ -26,8 +26,6 @@ IBUTING](https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTR
 - [ ] nimble-{name} visual design issue
 - [ ] nimble-{name} visual design spec
 - [ ] nimble-{name} spec
-- [ ] nimble-{name} Interaction Design spec
-- [ ] nimble-{name} Visual Design spec
 - [ ] nimble-{name} custom element
 - [ ] nimble-{name} unit tests
 - [ ] nimble-{name} Storybook tests
