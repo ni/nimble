@@ -136,7 +136,12 @@ export class WaferMap extends FoundationElement {
 
     private eventCoordinator?: EventCoordinator;
     private resizeObserver?: ResizeObserver;
-    private readonly waferUpdateTracker = new WaferUpdateTracker(this);
+    private readonly waferUpdateTracker: WaferUpdateTracker;
+
+    public constructor() {
+        super();
+        this.waferUpdateTracker = new WaferUpdateTracker(this);
+    }
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -219,7 +224,7 @@ export class WaferMap extends FoundationElement {
         this.renderer = new RenderingModule(this);
         this.eventCoordinator = new EventCoordinator(this);
         this.resizeObserver = this.createResizeObserver();
-        this.waferUpdateTracker?.trackAllStateChanged();
+        this.waferUpdateTracker.trackAll();
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -242,10 +247,6 @@ export class WaferMap extends FoundationElement {
 
     private quadrantChanged(): void {
         this.waferUpdateTracker?.track('quadrant');
-    }
-
-    private orientationChanged(): void {
-        this.waferUpdateTracker?.track('orientation');
     }
 
     private maxCharactersChanged(): void {

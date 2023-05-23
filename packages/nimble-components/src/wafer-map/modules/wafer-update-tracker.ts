@@ -1,3 +1,4 @@
+import { DOM } from '@microsoft/fast-element';
 import type { WaferMap } from '..';
 import { UpdateTracker } from '../../utilities/update-tracker';
 
@@ -5,7 +6,38 @@ import { UpdateTracker } from '../../utilities/update-tracker';
  * Helper class to track what updates are needed to the wafer based on configuration
  * changes.
  */
-export class WaferUpdateTracker extends UpdateTracker<WaferMap> {
+export class WaferUpdateTracker extends UpdateTracker<[
+    'canvasWidth',
+    'canvasHeight',
+    'quadrant',
+    'dies',
+    'maxCharacters',
+    'colorScale',
+    'colorScaleMode',
+    'highlightedValues',
+    'dieLabelsHidden',
+    'dieLabelsSuffix',
+    'transform',
+    'hoverDie'
+]> {
+    private updateQueued = false;
+    public constructor(private readonly wafermap: WaferMap) {
+        super([
+            'canvasWidth',
+            'canvasHeight',
+            'quadrant',
+            'dies',
+            'maxCharacters',
+            'colorScale',
+            'colorScaleMode',
+            'highlightedValues',
+            'dieLabelsHidden',
+            'dieLabelsSuffix',
+            'transform',
+            'hoverDie'
+        ]);
+    }
+
     public get requiresContainerDimensionsUpdate(): boolean {
         return (
             this.requiredUpdates.canvasWidth
@@ -46,5 +78,19 @@ export class WaferUpdateTracker extends UpdateTracker<WaferMap> {
         return (
             this.requiredUpdates.hoverDie
         );
+    }
+
+    protected override queueUpdate(): void {
+        if (!this.wafermap.isConnected) {
+            return;
+        }
+        if (!this.updateQueued) {
+            this.updateQueued = true;
+            DOM.queueUpdate(() => {
+                this.wafermap.update();
+                this.setAllKeys(false);
+                this.updateQueued = false;
+            });
+        }
     }
 }
