@@ -186,13 +186,18 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 ##### API
 
 -   `prefix` - a string which will be appended before each value (e.g. `'$'`). Defaults to `''`.
--   `suffix` - a string which will be appended after each value (e.g. `'%'` or `' V'`). Defaults to `''`. Spacing will be at the discretion of clients, but Nimble will recommend including a space before the unit except for non-letter units like `%`, `°`, and `°C`. This [matches the Chicago Manual of Style](https://www.chicagomanualofstyle.org/book/ed17/part2/ch09/psec016.html) (requires VPN) which is NI's documentation style guide.
--   `format` - a string which can take one of the following values
-    -   `null` - use the default formatter, which will format similarly to [`Number.toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString#description). This displays integers with no trailing zeros, limits to about 16 significant digits, and switches to exponential notation for very large and small numbers. It will be implemented using `Intl.NumberFormat` to achieve more consistent i18n (`toString` always uses a `.` separator and displays the English word for "Infinity").
-    -   `'intl'` - use [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) configured with values specified in other attributes.
+-   `suffix` - a string which will be appended after each value (e.g. `'%'` or `' V'`). Defaults to `''`. Spacing will be at the discretion of clients, but Nimble will recommend including a space before the unit except for symbol units like `%`, `"`, `°`, and `°C`. This [matches the Chicago Manual of Style](https://www.chicagomanualofstyle.org/book/ed17/part2/ch09/psec016.html) (requires VPN) which is NI's documentation style guide.
+-   `alignment` - a string value matching `"left"`, `"right"`, or `null` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `null` Nimble will choose left or right based on the value of `format`. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
+-   `format` - a string which controls how the number is formatted for display. It can take one of the following values:
+    -   `null` - use a default formatter, which will format similarly to [`Number.toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString#description). This displays integers with no trailing zeros, limits to about 16 significant digits, and switches to exponential notation for very large and small numbers. Instead of using `toString()` it will be implemented using `Intl.NumberFormat` to achieve more consistent i18n (`toString` always uses a `.` separator and displays the English word for "Infinity"). Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
+    -   `'integer'` - format all values as integers, rounding to nearest if the value isn't an integer and never displaying exponential notation. Will be displayed right-aligned by default.
+    -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. Will be displayed right-aligned by default.
+    -   `'custom'` - use [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) configured with values specified in other attributes. Will be displayed left-aligned by default (since Nimble can't know if the provided configuration will produce consistent decimal separators).
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
--   `locales` - a string containing a comma-separated list of locales to pass to the `locales` parameter of the `NumberFormat` constructor.
--   `intl-*` - when format is `intl`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `NumberFormat` constructor. For example, `options.maximumFractionDigits` will be set to the value of `intl-maximum-fraction-digits`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
+    -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. For all modes besides `custom` Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887) (e.g. `useGrouping: false` to achieve `1000` rather than `1,000` and `signDisplay: auto` to achieve `1` rather than `+1`).
+-   `locales` - a string containing a comma-separated list of locales to pass to the `locales` parameter of the `Intl.NumberFormat` constructor which is used by all format modes.
+-   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2.
+-   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `NumberFormat` constructor. For example, `options.maximumFractionDigits` will be set to the value of `custom-maximum-fraction-digits`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
 This column will display the `placeholder` when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"`, `"NaN"` and `"-0"`.
 
@@ -200,16 +205,27 @@ This column will display the `placeholder` when `typeof` the value is not `"numb
 
 ```html
 <nimble-table>
-    <nimble-table-column-number-text field-name="count" placeholder="Not found">
+    <nimble-table-column-number-text
+        field-name="numericTag"
+        placeholder="Not set"
+    >
+        Tag
+    </nimble-table-column-number-text>
+
+    <nimble-table-column-number-text
+        field-name="count"
+        format="integer"
+        placeholder="Not found"
+    >
         Count
     </nimble-table-column-number-text>
 
     <nimble-table-column-number-text
         field-name="voltage"
-        format="intl"
+        format="custom"
         locales="en-US"
-        intl-style="decimal"
-        intl-use-grouping="false"
+        custom-style="decimal"
+        custom-use-grouping="false"
         suffix=" V"
     >
         Voltage
@@ -223,14 +239,16 @@ Nimble will introduce `nimble-table-column-date-text` which maps [JavaScript `Da
 
 Note that mutating a `Date` object does not cause the value to be rendered again.
 
+**Open question**: Should we represent dates using a numeric value (milliseconds since the Unix epoch) to avoid mutability concerns?
+
 ##### API
 
 -   `format` - a string which can take one of the following values
     -   `null` - use the default formatter, which will display values similar to `Dec 19, 2020, 9:23:16 PM` and include support for localization. It will be implemented using `Intl.DateTimeFormat` with `options.dateStyle` and `options.timeStyle` set to `"medium"`.
-    -   `'intl'` - use [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) configured with values specified in other attributes.
+    -   `'custom'` - use [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) configured with values specified in other attributes.
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
--   `locales` - a string containing a comma-separated list of locales to pass to the `locales` parameter of the `DateTimeFormat` constructor.
--   `intl-*` - when format is `intl`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `intl-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
+-   `locales` - a string containing a comma-separated list of locales to pass to the `locales` parameter of the `DateTimeFormat` constructor which is used by all format modes.
+-   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `custom-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
 This column will display the `placeholder` for a date when it's not `instanceof Date` or when `isNaN(date)` returns `true` (i.e. if the value is `null`, `undefined`, not present, has a non-`Date` runtime data type, or is an invalid `Date`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)).
 
@@ -244,9 +262,9 @@ This column will display the `placeholder` for a date when it's not `instanceof 
 
     <nimble-table-column-date-text
         field-name="dueDate"
-        format="intl"
+        format="custom"
         locales="en-US"
-        intl-date-style="full"
+        custom-date-style="full"
     >
         Due Date
     </nimble-table-column-date-text>
@@ -387,5 +405,4 @@ Standard Storybook documentation for column APIs.
 
 ## Open Issues
 
-1. API to configure text alignment of column content, placeholder text, and column headers (e.g. right align numeric columns but left align string columns and numeric columns with non-uniform formatting; [more discussion here](https://github.com/ni/nimble/issues/887)). We'll update the HLD with a recommendation when we start working on columns that need it (you're welcome to comment with ideas now though).
-2. Type names
+1. Should we represent dates using a numeric value (milliseconds since the Unix epoch) to avoid mutability concerns?
