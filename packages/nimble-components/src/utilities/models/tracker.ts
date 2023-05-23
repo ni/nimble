@@ -5,31 +5,30 @@ type ObjectFromList<T extends readonly string[], V = string> = {
 /**
  * custom update bingo card helper
  */
-export abstract class Tracker<
-    WhimsList extends readonly string[]
-> {
-    private whims: ObjectFromList<WhimsList, boolean>;
+export abstract class Tracker<WhimsList extends readonly string[]> {
+    private _whims: ObjectFromList<WhimsList, boolean>;
 
     public constructor(whimsList: WhimsList) {
-        type Whims = typeof this.whims;
-        this.whims = {} as Whims;
-        this.whims = whimsList.reduce<Whims>(
-            (r, key): Whims => {
-                return {
-                    ...r,
-                    [key]: false
-                };
-            },
-            this.whims
-        );
+        type Whims = typeof this._whims;
+        this._whims = {} as Whims;
+        this._whims = whimsList.reduce<Whims>((r, key): Whims => {
+            return {
+                ...r,
+                [key]: false
+            };
+        }, this._whims);
+    }
+
+    public get whims(): ObjectFromList<WhimsList, boolean> {
+        return this._whims;
     }
 
     public track(key: keyof ObjectFromList<WhimsList, boolean>): void {
-        this.whims[key] = true;
+        this._whims[key] = true;
     }
 
     public untrack(key: keyof ObjectFromList<WhimsList, boolean>): void {
-        this.whims[key] = false;
+        this._whims[key] = false;
     }
 
     public trackAll(): void {
@@ -41,22 +40,23 @@ export abstract class Tracker<
     }
 
     public allTracked(): boolean {
-        return Object.values(this.whims).every(x => !x);
+        return Object.values(this._whims).every(x => !x);
     }
 
     public anyTracked(): boolean {
-        return Object.values(this.whims).some(x => !x);
+        return Object.values(this._whims).some(x => !x);
     }
 
     protected setAllKeys(value: boolean): void {
-        type Whims = typeof this.whims;
-        this.whims = Object.keys(
-            this.whims
-        ).reduce<Whims>((r, key): Whims => {
-            return {
-                ...r,
-                [key]: value
-            };
-        }, this.whims);
+        type Whims = typeof this._whims;
+        this._whims = Object.keys(this._whims).reduce<Whims>(
+            (r, key): Whims => {
+                return {
+                    ...r,
+                    [key]: value
+                };
+            },
+            this._whims
+        );
     }
 }

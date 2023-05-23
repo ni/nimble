@@ -10,12 +10,14 @@ export abstract class UpdateTracker<
         super(requiredUpdates);
     }
 
-    public trackProperty(key: TrackedProperties extends readonly (infer U)[] ? U : never): void {
+    public trackAndQueue(
+        key: TrackedProperties extends readonly (infer U)[] ? U : never
+    ): void {
         this.track(key);
         this.queueUpdate();
     }
 
-    public trackAllProperties(): void {
+    public trackAllAndQueue(): void {
         this.trackAll();
         this.queueUpdate();
     }
