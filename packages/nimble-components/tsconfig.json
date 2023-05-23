@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "incremental": true,
+        "tsBuildInfoFile": ".tsbuildinfo",
         "declaration": true,
         "esModuleInterop": true,
         "moduleResolution": "node",
