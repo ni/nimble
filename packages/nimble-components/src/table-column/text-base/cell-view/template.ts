@@ -1,11 +1,11 @@
 import { html, ref } from '@microsoft/fast-element';
 
-import type { TableColumnTextCellView } from '.';
+import type { TableColumnTextCellViewBase } from '.';
 
-export const template = html<TableColumnTextCellView>`
+export const template = html<TableColumnTextCellViewBase>`
     <span
         ${ref('textSpan')}
-        class="${x => (typeof x.cellRecord.value === 'string' ? '' : 'placeholder')}"
+        class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
         @mouseover="${x => {
         x.isValidContentAndHasOverflow = !!x.content && x.textSpan.offsetWidth < x.textSpan.scrollWidth;
     }}"

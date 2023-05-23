@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-components",
-  "version": "18.13.5",
+  "version": "19.1.1",
   "description": "Styled web components for the NI Nimble Design System",
   "scripts": {
     "build": "npm run generate-icons && npm run build-components && npm run bundle-components && npm run generate-scss && npm run build-storybook",
@@ -61,7 +61,7 @@
     "@microsoft/fast-element": "^1.10.1",
     "@microsoft/fast-foundation": "^2.47.1-0",
     "@microsoft/fast-web-utilities": "^6.0.0",
-    "@ni/nimble-tokens": "^5.0.0",
+    "@ni/nimble-tokens": "^6.0.0",
     "@tanstack/table-core": "^8.7.0",
     "@tanstack/virtual-core": "^3.0.0-beta.44",
     "@types/d3-array": "^3.0.4",
@@ -119,7 +119,7 @@
     "karma-webkit-launcher": "^2.1.0",
     "karma-webpack": "^5.0.0",
     "playwright": "^1.30.0",
-    "prettier": "^2.0.0",
+    "prettier": "^2.8.8",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",
     "puppeteer": "^10.1.0",

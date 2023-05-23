@@ -22,6 +22,15 @@ public class NimbleAnchorTests : NimbleAnchorBaseTests<NimbleAnchor>
         Assert.Contains(expectedMarkup, anchor.Markup);
     }
 
+    [Fact]
+    public void NimbleAnchor_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchor>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(AnchorAppearance.Default, "<nimble-anchor>")]
     [InlineData(AnchorAppearance.Prominent, "appearance=\"prominent\"")]
