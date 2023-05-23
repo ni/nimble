@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 22 May 2023 18:39:33 GMT and should not be manually modified.
+This log was last generated on Tue, 23 May 2023 16:09:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.1.1
+
+Tue, 23 May 2023 16:09:57 GMT
+
+### Patches
+
+- Move ColumnInternals to abstract property ([ni/nimble@c03b36b](https://github.com/ni/nimble/commit/c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d))
 
 ## 19.1.0
 

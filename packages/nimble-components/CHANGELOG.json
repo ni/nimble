@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 23 May 2023 16:09:57 GMT",
+      "tag": "@ni/nimble-components_v19.1.1",
+      "version": "19.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d",
+            "comment": "Move ColumnInternals to abstract property"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 May 2023 22:18:29 GMT",
       "tag": "@ni/nimble-components_v19.1.0",
       "version": "19.1.0",
