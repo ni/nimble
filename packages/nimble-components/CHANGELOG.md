@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 May 2023 16:09:57 GMT and should not be manually modified.
+This log was last generated on Tue, 23 May 2023 20:18:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.1.2
+
+Tue, 23 May 2023 20:18:10 GMT
+
+### Patches
+
+- Use anchored region in Select and Combobox ([ni/nimble@e9f0332](https://github.com/ni/nimble/commit/e9f03324de6ad96d901099b8cf0341b75c5fd881))
 
 ## 19.1.1
 
