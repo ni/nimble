@@ -3,7 +3,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    popupFixStyling
+    disableStorybookZoomTransform
 } from '../../utilities/tests/storybook';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
@@ -67,7 +67,7 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        ${popupFixStyling}
+        ${disableStorybookZoomTransform}
         <${menuButtonTag}
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"

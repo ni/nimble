@@ -130,7 +130,7 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
-    .anchoredRegion[hidden] {
+    .anchored-region[hidden] {
         visibility: hidden;
     }
 
@@ -165,11 +165,11 @@ export const styles = css`
         border-top-right-radius: 0;
     }
 
-    :host([open][position='above']) .anchoredRegion {
+    :host([open][position='above']) .anchored-region {
         padding-bottom: ${smallPadding};
     }
 
-    :host([open][position='below']) .anchoredRegion {
+    :host([open][position='below']) .anchored-region {
         padding-top: ${smallPadding};
     }
 

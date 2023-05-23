@@ -3,7 +3,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    popupFixStyling
+    disableStorybookZoomTransform
 } from '../../utilities/tests/storybook';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
@@ -44,7 +44,7 @@ const metadata: Meta<SelectArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        ${popupFixStyling}
+        ${disableStorybookZoomTransform}
         <${selectTag}
             ?error-visible="${x => x.errorVisible}"
             error-text="${x => x.errorText}"

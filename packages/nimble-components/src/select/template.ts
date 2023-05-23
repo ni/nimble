@@ -71,7 +71,7 @@ SelectOptions
     )}
         <${anchoredRegionTag}
             ${ref('region')}
-            class="anchoredRegion"
+            class="anchored-region"
             fixed-placement
             auto-update-mode="auto"
             vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"

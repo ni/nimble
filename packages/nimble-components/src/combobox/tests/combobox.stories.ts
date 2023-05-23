@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../list-option';
 import {
     createUserSelectedThemeStory,
-    popupFixStyling
+    disableStorybookZoomTransform
 } from '../../utilities/tests/storybook';
 import {
     DropdownAppearance,
@@ -51,7 +51,7 @@ const metadata: Meta<ComboboxArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        ${popupFixStyling}
+        ${disableStorybookZoomTransform}
         <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"
