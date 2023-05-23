@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Use Wireit for nimble-components build and support Karma Test Explorer extension",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
