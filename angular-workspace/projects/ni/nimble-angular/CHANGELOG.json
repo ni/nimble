@@ -2,6 +2,29 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 22 May 2023 18:39:33 GMT",
+      "tag": "@ni/nimble-angular_v16.5.29",
+      "version": "16.5.29",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a",
+            "comment": "Change test code to account for new type property"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.1.0",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 May 2023 21:33:40 GMT",
       "tag": "@ni/nimble-angular_v16.5.28",
       "version": "16.5.28",

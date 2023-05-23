@@ -14,7 +14,11 @@ import {
 } from '../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
-import { tableColumnEmptyGroupHeaderViewTag } from '../../table-column/base/tests/table-column.fixtures';
+import {
+    tableColumnEmptyGroupHeaderViewTag,
+    TableColumnValidationTest,
+    tableColumnValidationTestTag
+} from '../../table-column/base/tests/table-column.fixtures';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -842,6 +846,59 @@ describe('Table', () => {
 
             expect(table.checkValidity()).toBeFalse();
             expect(table.validity.duplicateRecordId).toBeTrue();
+        });
+    });
+
+    describe('with validatable columns', () => {
+        let element: Table<SimpleTableRecord>;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+        let column1: TableColumnValidationTest;
+
+        // prettier-ignore
+        async function setupWithTestColumns(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<nimble-table>
+                    <${tableColumnValidationTestTag} foo bar id="first-column" field-name="stringData">Col 1</${tableColumnValidationTestTag}>
+                    <${tableColumnValidationTestTag} foo bar id="second-column" field-name="moreStringData">Col 2</${tableColumnValidationTestTag}>
+                </nimble-table>`
+            );
+        }
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setupWithTestColumns());
+            column1 = element.querySelector<TableColumnValidationTest>(
+                '#first-column'
+            )!;
+            await connect();
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('updates invalidColumnConfiguration and validity when column state changes', async () => {
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+            column1.foo = false;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.invalidColumnConfiguration).toBeTrue();
+            column1.foo = true;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidColumnConfiguration).toBeFalse();
+        });
+
+        it('updates invalidColumnConfiguration when invalid column removed', async () => {
+            column1.foo = false;
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeFalse();
+            expect(element.validity.invalidColumnConfiguration).toBeTrue();
+            element.children[0]?.remove();
+            await waitForUpdatesAsync();
+            expect(element.checkValidity()).toBeTrue();
+            expect(element.validity.invalidColumnConfiguration).toBeFalse();
         });
     });
 });
