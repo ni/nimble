@@ -4,8 +4,11 @@ import { attr, customElement } from '@microsoft/fast-element';
 import { TableCellView } from '../cell-view';
 import { TableGroupHeaderView } from '../group-header-view';
 import { TableColumn } from '..';
+import type {
+    ColumnInternalsOptions,
+    ColumnInternals
+} from '../models/column-internals';
 import { ColumnValidator } from '../models/column-validator';
-import type { ColumnInternals } from '../models/column-internals';
 
 export const tableColumnEmptyCellViewTag = 'nimble-test-table-column-empty-cell-view';
 /**
@@ -33,13 +36,13 @@ export const tableColumnEmptyTag = 'nimble-test-table-column-empty';
     name: tableColumnEmptyTag
 })
 export class TableColumnEmpty extends TableColumn {
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
             delegatedEvents: []
-        });
+        };
     }
 }
 
@@ -79,26 +82,22 @@ export const tableColumnValidationTestTag = 'nimble-test-table-column-validation
     name: tableColumnValidationTestTag
 })
 export class TableColumnValidationTest extends TableColumn {
-    @attr({ mode: 'boolean' })
-    public foo: boolean;
+    /* @internal */
+    public readonly validator = new TestColumnValidator(this.columnInternals);
 
     @attr({ mode: 'boolean' })
-    public bar: boolean;
+    public foo = false;
 
-    private readonly validator: TestColumnValidator;
+    @attr({ mode: 'boolean' })
+    public bar = false;
 
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
             delegatedEvents: []
-        });
-        this.validator = new TestColumnValidator(this.columnInternals);
-        // Initializing in constructor instead of in property declaration because it triggers
-        // our foo/barChanged handlers, which should not be run before the validator is initialized.
-        this.foo = false;
-        this.bar = false;
+        };
     }
 
     private fooChanged(): void {
