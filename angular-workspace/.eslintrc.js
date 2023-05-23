@@ -49,6 +49,19 @@ module.exports = {
                 }
             ]
         }
+    }, {
+        files: ['**/testing/**'],
+        rules: {
+            'no-restricted-imports': [
+                'error', {
+                    patterns:
+                    [{
+                        group: ['@microsoft/fast-*'],
+                        message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
+                    }]
+                }
+            ]
+        }
     },
     {
         files: ['*.html'],
