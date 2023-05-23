@@ -3,7 +3,10 @@ import { html, repeat } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import { listOptionTag } from '../../list-option';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    disableStorybookZoomTransform
+} from '../../utilities/tests/storybook';
 import {
     DropdownAppearance,
     DropdownPosition
@@ -34,17 +37,21 @@ const metadata: Meta<ComboboxArgs> = {
     parameters: {
         docs: {
             description: {
-                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area. 
+                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area.
                      The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
                      list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
             }
         },
         actions: {
             handles: ['change', 'input']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        ${disableStorybookZoomTransform}
         <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"
