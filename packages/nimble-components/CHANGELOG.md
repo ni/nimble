@@ -1,8 +1,65 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 08 May 2023 16:14:00 GMT and should not be manually modified.
+This log was last generated on Tue, 23 May 2023 20:18:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.1.2
+
+Tue, 23 May 2023 20:18:10 GMT
+
+### Patches
+
+- Use anchored region in Select and Combobox ([ni/nimble@e9f0332](https://github.com/ni/nimble/commit/e9f03324de6ad96d901099b8cf0341b75c5fd881))
+
+## 19.1.1
+
+Tue, 23 May 2023 16:09:57 GMT
+
+### Patches
+
+- Move ColumnInternals to abstract property ([ni/nimble@c03b36b](https://github.com/ni/nimble/commit/c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d))
+
+## 19.1.0
+
+Mon, 22 May 2023 18:39:33 GMT
+
+### Minor changes
+
+- Introduce column configuration validation ([ni/nimble@c23fbe5](https://github.com/ni/nimble/commit/c23fbe55a607508ecc94d7e9d475dc478629cf8a))
+
+## 19.0.2
+
+Wed, 17 May 2023 21:33:40 GMT
+
+### Patches
+
+- Add column-configuration-change event to the nimble-table ([ni/nimble@71351b1](https://github.com/ni/nimble/commit/71351b15e45f68adb8b08db2168b5faf499a49f9))
+
+## 19.0.1
+
+Fri, 12 May 2023 23:44:48 GMT
+
+### Patches
+
+- Refactor to create base classes for table columns that display text ([ni/nimble@c00161d](https://github.com/ni/nimble/commit/c00161dc10ec928b14f3c7cfe0b14a6a05f5551e))
+
+## 19.0.0
+
+Fri, 12 May 2023 17:59:07 GMT
+
+### Major changes
+
+- Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons. ([ni/nimble@1e04075](https://github.com/ni/nimble/commit/1e040752c74ea8fc0df586a2a54525e15d5c8b29))
+- Bump @ni/nimble-tokens to v6.0.0
+
+## 18.13.6
+
+Thu, 11 May 2023 18:44:25 GMT
+
+### Patches
+
+- Fix row styling issue ([ni/nimble@588e269](https://github.com/ni/nimble/commit/588e269cb3992753153a835a407c6694e4abe6b8))
 
 ## 18.13.5
 

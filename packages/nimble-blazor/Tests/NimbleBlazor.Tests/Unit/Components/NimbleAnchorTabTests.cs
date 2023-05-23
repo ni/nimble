@@ -23,6 +23,15 @@ public class NimbleAnchorTabTests : NimbleAnchorBaseTests<NimbleAnchorTab>
     }
 
     [Fact]
+    public void NimbleAnchorTab_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorTab>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void AnchorTabDisabled_AttributeIsSet()
     {
         var anchorTab = RenderWithPropertySet(x => x.Disabled, true);
