@@ -24,13 +24,10 @@ export class HoverHandler {
             mousePosition.y
         ]);
 
-        const dieCoordinates = this.calculateDieCoordinates(
-            this.wafermap,
-            {
-                x: invertedPoint[0],
-                y: invertedPoint[1]
-            }
-        );
+        const dieCoordinates = this.calculateDieCoordinates(this.wafermap, {
+            x: invertedPoint[0],
+            y: invertedPoint[1]
+        });
 
         this.wafermap.hoverDie = this.wafermap.dataManager!.getWaferMapDie(dieCoordinates);
     }

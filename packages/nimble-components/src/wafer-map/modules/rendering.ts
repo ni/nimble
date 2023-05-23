@@ -10,9 +10,9 @@ export class RenderingModule {
 
     public constructor(private readonly wafermap: WaferMap) {
         this.sortDies();
-    //     this.dies = this.wafermap.dataManager!.diesRenderInfo;
-    //     this.dimensions = this.wafermap.dataManager!.dieDimensions;
-    //     this.labelFontSize = this.wafermap.dataManager!.labelsFontSize;
+        //     this.dies = this.wafermap.dataManager!.diesRenderInfo;
+        //     this.dimensions = this.wafermap.dataManager!.dieDimensions;
+        //     this.labelFontSize = this.wafermap.dataManager!.labelsFontSize;
     }
 
     public drawWafer(): void {
@@ -28,9 +28,12 @@ export class RenderingModule {
 
     public renderHover(): void {
         this.wafermap.setHoverData(
-            this.wafermap.dataManager!.dieDimensions.width * this.wafermap.transform.k,
-            this.wafermap.dataManager!.dieDimensions.height * this.wafermap.transform.k,
-            this.wafermap.hoverDie === undefined ? HoverDieOpacity.hide
+            this.wafermap.dataManager!.dieDimensions.width
+                * this.wafermap.transform.k,
+            this.wafermap.dataManager!.dieDimensions.height
+                * this.wafermap.transform.k,
+            this.wafermap.hoverDie === undefined
+                ? HoverDieOpacity.hide
                 : HoverDieOpacity.show,
             this.calculateHoverTransform()
         );

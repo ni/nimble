@@ -343,10 +343,7 @@ describe('Wafermap Prerendering module', () => {
             };
             const dataManagerMock: Pick<
             DataManager,
-            | 'horizontalScale'
-            | 'verticalScale'
-            | 'dieDimensions'
-            | 'margin'
+            'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
             > = {
                 horizontalScale: getScaleBand([], []),
                 verticalScale: getScaleBand([], []),
@@ -404,10 +401,7 @@ describe('Wafermap Prerendering module', () => {
             };
             const dataManagerMock: Pick<
             DataManager,
-            | 'horizontalScale'
-            | 'verticalScale'
-            | 'dieDimensions'
-            | 'margin'
+            'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
             > = {
                 horizontalScale: getScaleBand([], []),
                 verticalScale: getScaleBand([], []),
@@ -456,10 +450,7 @@ describe('Wafermap Prerendering module', () => {
             };
             const dataManagerMock: Pick<
             DataManager,
-            | 'horizontalScale'
-            | 'verticalScale'
-            | 'dieDimensions'
-            | 'margin'
+            'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
             > = {
                 horizontalScale: getScaleBand([], []),
                 verticalScale: getScaleBand([], []),
@@ -517,10 +508,7 @@ describe('Wafermap Prerendering module', () => {
             };
             const dataManagerMock: Pick<
             DataManager,
-            | 'horizontalScale'
-            | 'verticalScale'
-            | 'dieDimensions'
-            | 'margin'
+            'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
             > = {
                 horizontalScale: getScaleBand([], []),
                 verticalScale: getScaleBand([], []),

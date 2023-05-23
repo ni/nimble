@@ -1,16 +1,7 @@
-import {
-    ScaleLinear,
-    scaleLinear,
-    ScaleOrdinal,
-    scaleOrdinal
-} from 'd3-scale';
+import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
-import type {
-    Dimensions,
-    DieRenderInfo,
-    WaferMapColorScale
-} from '../types';
+import type { Dimensions, DieRenderInfo, WaferMapColorScale } from '../types';
 import type { WaferMap } from '..';
 import type { DataManager } from './data-manager';
 

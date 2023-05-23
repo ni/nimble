@@ -156,7 +156,12 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public setHoverData(hoverWidth: number, hoverHeight: number, hoverOpacity: HoverDieOpacity, hoverTransform: string): void {
+    public setHoverData(
+        hoverWidth: number,
+        hoverHeight: number,
+        hoverOpacity: HoverDieOpacity,
+        hoverTransform: string
+    ): void {
         this.hoverWidth = hoverWidth;
         this.hoverHeight = hoverHeight;
         this.hoverOpacity = hoverOpacity;

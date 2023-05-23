@@ -6,7 +6,8 @@ import { UpdateTracker } from '../../utilities/update-tracker';
  * Helper class to track what updates are needed to the wafer based on configuration
  * changes.
  */
-export class WaferUpdateTracker extends UpdateTracker<[
+export class WaferUpdateTracker extends UpdateTracker<
+[
     'canvasWidth',
     'canvasHeight',
     'quadrant',
@@ -19,7 +20,8 @@ export class WaferUpdateTracker extends UpdateTracker<[
     'dieLabelsSuffix',
     'transform',
     'hoverDie'
-]> {
+]
+> {
     private updateQueued = false;
     public constructor(private readonly wafermap: WaferMap) {
         super([
@@ -46,16 +48,11 @@ export class WaferUpdateTracker extends UpdateTracker<[
     }
 
     public get requiresScalesUpdate(): boolean {
-        return (
-            this.requiredUpdates.quadrant
-            || this.requiredUpdates.dies
-        );
+        return this.requiredUpdates.quadrant || this.requiredUpdates.dies;
     }
 
     public get requiresLabelsFontSizeUpdate(): boolean {
-        return (
-            this.requiredUpdates.maxCharacters
-        );
+        return this.requiredUpdates.maxCharacters;
     }
 
     public get requiresDiesRenderInfoUpdate(): boolean {
@@ -69,15 +66,11 @@ export class WaferUpdateTracker extends UpdateTracker<[
     }
 
     public get requiresRenderingModuleUpdate(): boolean {
-        return (
-            this.requiredUpdates.transform
-        );
+        return this.requiredUpdates.transform;
     }
 
     public get requiresRenderHoverUpdate(): boolean {
-        return (
-            this.requiredUpdates.hoverDie
-        );
+        return this.requiredUpdates.hoverDie;
     }
 
     protected override queueUpdate(): void {

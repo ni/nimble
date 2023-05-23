@@ -33,16 +33,20 @@ const isColumnInternalsProperty = (
  * Helper class to track what updates are needed to the table based on configuration
  * changes.
  */
-export class TableUpdateTracker<TData extends TableRecord> extends UpdateTracker<[
-    'rowIds',
-    'groupRows',
-    'columnIds',
-    'columnSort',
-    'columnWidths',
-    'columnDefinition',
-    'actionMenuSlots',
-    'selectionMode'
-]> {
+export class TableUpdateTracker<
+    TData extends TableRecord
+> extends UpdateTracker<
+    [
+        'rowIds',
+        'groupRows',
+        'columnIds',
+        'columnSort',
+        'columnWidths',
+        'columnDefinition',
+        'actionMenuSlots',
+        'selectionMode'
+    ]
+    > {
     private updateQueued = false;
 
     public constructor(private readonly table: Table<TData>) {
