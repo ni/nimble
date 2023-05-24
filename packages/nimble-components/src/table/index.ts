@@ -35,6 +35,7 @@ import { styles } from './styles';
 import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
+    TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
@@ -313,7 +314,11 @@ export class Table<
                 || source instanceof ColumnInternals)
             && typeof args === 'string'
         ) {
-            this.updateTracker.trackColumnPropertyChanged(args);
+            if (args === 'validConfiguration') {
+                this.tableValidator.validateColumnConfigurations(this.columns);
+            } else {
+                this.updateTracker.trackColumnPropertyChanged(args);
+            }
         }
     }
 
@@ -441,6 +446,8 @@ export class Table<
                 currentColumn.columnInternals.currentSortDirection = TableColumnSortDirection.none;
             }
         }
+
+        this.emitColumnConfigurationChangeEvent();
     }
 
     /**
@@ -708,12 +715,28 @@ export class Table<
                 x => x.columnInternals.groupIndex!
             )
         );
+        this.tableValidator.validateColumnConfigurations(this.columns);
         this.validateWithData(this.table.options.data);
     }
 
     private validateWithData(data: TableRecord[]): void {
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
+    }
+
+    private emitColumnConfigurationChangeEvent(): void {
+        const detail: TableColumnConfigurationChangeEventDetail = {
+            columns: this.columns.map(column => ({
+                columnId: column.columnId,
+                sortIndex: column.columnInternals.currentSortIndex ?? undefined,
+                sortDirection: column.columnInternals.currentSortDirection,
+                groupIndex: column.columnInternals.groupIndex,
+                hidden: column.columnHidden,
+                fractionalWidth: column.columnInternals.currentFractionalWidth,
+                pixelWidth: column.columnInternals.currentPixelWidth
+            }))
+        };
+        this.$emit('column-configuration-change', detail);
     }
 
     private async emitSelectionChangeEvent(): Promise<void> {

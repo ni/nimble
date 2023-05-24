@@ -1,5 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
     usageWarning
@@ -7,6 +8,7 @@ import {
 import { tableTag } from '../../../table';
 import { tableColumnAnchorTag } from '..';
 import {
+    sharedTableActions,
     SharedTableArgs,
     sharedTableArgs,
     sharedTableArgTypes
@@ -20,12 +22,16 @@ information about common column configuration.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Types',
+    decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: columnTypeOverviewText
             }
+        },
+        actions: {
+            handles: sharedTableActions
         }
     },
     // prettier-ignore

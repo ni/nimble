@@ -70,7 +70,7 @@ const dataSetIdFieldNames = {
     [ExampleDataType.largeDataSet]: 'id'
 } as const;
 
-const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column. 
+const overviewText = `The \`nimble-table\` is a component that offers a way to render tabular data in a variety of ways in each column.
 For information about configuring table columns, see **Table Column Configuration** and **Table Column Types**.`;
 
 const dataDescription = `To set the data on the table, call \`setData()\` with an array data records. Each record is made up of fields,
@@ -102,14 +102,16 @@ The attribute is invalid in the following conditions:
 -   A record was found where \`id-field-name\` did not refer to a value of type \`string\`. This will cause \`validity.invalidRecordId\` to be \`true\`.`;
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the table's configuration can be in.
-The object's type is \`TableValidityState\`, and it contains the following boolean properties:
+The object's type is \`TableValidity\`, and it contains the following boolean properties:
 
 -   \`duplicateRecordId\`: \`true\` when multiple records were found with the same ID
 -   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
 -   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
 -   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
+-   \`invalidColumnConfiguration\`: \`true\` when one or more columns have an invalid configuration. Call \`checkValidity()\` on each column to see which configuration is invalid and read the \`validity\` property of a column for more information about why it's invalid.
 -   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
+-   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
 -   \`idFieldNameNotConfigured\`: \`true\` when a feature that requires \`id-field-name\` to be configured, such as row selection, is enabled but an \`id-field-name\` is not set
 `;
 
@@ -131,7 +133,8 @@ const metadata: Meta<TableArgs> = {
             handles: [
                 'action-menu-beforetoggle',
                 'action-menu-toggle',
-                'selection-change'
+                'selection-change',
+                'column-configuration-change'
             ]
         }
     },
