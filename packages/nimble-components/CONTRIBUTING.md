@@ -2,7 +2,7 @@
 
 ## Package overview
 
-This package contains a library of NI-styled web components.
+This package contains a library of NI-styled web components. Components are built using [custom elements](https://web.dev/custom-elements-v1/) and [Shadow DOM](https://web.dev/shadowdom-v1/) which are native features in modern browsers.
 
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
@@ -118,7 +118,11 @@ If Fast Foundation contains a component similar to what you're adding, create a 
 
 If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
-Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
+Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template). When copying over unit tests:
+
+1. Put the FAST tests in a separate file named `<component>.foundation.spec.ts`
+2. Update the code to follow NI coding conventions (i.e. linting and formatting)
+3. Add a comment at the top of the file that links to the original source in FAST
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -178,6 +182,7 @@ It is common in web development to represent variations of control states using 
 -   Do not use attribute names that conflict with native attribute names:
     -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
     -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+    -   Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
 -   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts

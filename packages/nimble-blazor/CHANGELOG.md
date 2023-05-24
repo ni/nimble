@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 02 May 2023 15:07:15 GMT and should not be manually modified.
+This log was last generated on Mon, 22 May 2023 18:39:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.9.0
+
+Mon, 22 May 2023 18:39:33 GMT
+
+### Minor changes
+
+- Introduce column configuration validation ([ni/nimble@c23fbe5](https://github.com/ni/nimble/commit/c23fbe55a607508ecc94d7e9d475dc478629cf8a))
+
+## 11.8.30
+
+Wed, 17 May 2023 21:33:40 GMT
+
+### Patches
+
+- Add support for the column-configuration-change event to the table ([ni/nimble@71351b1](https://github.com/ni/nimble/commit/71351b15e45f68adb8b08db2168b5faf499a49f9))
+
+## 11.8.29
+
+Mon, 15 May 2023 14:59:04 GMT
+
+### Patches
+
+- Ensure components can take additional attributes ([ni/nimble@c582727](https://github.com/ni/nimble/commit/c5827276a724ddd368d0acf35b1d29956971639f))
 
 ## 11.8.20
 

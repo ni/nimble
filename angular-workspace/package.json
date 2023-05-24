@@ -7,6 +7,7 @@
     "start": "ng serve",
     "build": "wireit",
     "build:library": "wireit",
+    "watch:library": "npm run generate-icons && ng build @ni/nimble-angular --watch",
     "build:application": "wireit",
     "generate-icons": "wireit",
     "pack": "npm run pack:library && npm run pack:application",
