@@ -11,6 +11,7 @@ import { TableColumnTextBase } from '../text-base';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import type { Format } from './types';
+import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig
@@ -37,15 +38,19 @@ export class TableColumnNumberText extends TableColumnTextBase {
     public format: Format;
 
     public constructor() {
-        super({
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnNumberTextCellViewTag,
-            groupHeaderViewTag: tableColumnNumberTextGroupHeaderTag,
-            delegatedEvents: []
-        });
+        super();
         this.columnInternals.sortOperation = TableColumnSortOperation.basic;
     }
 
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: ['value'],
+            cellViewTag: tableColumnNumberTextCellViewTag,
+            groupHeaderViewTag: tableColumnNumberTextGroupHeaderTag,
+            delegatedEvents: [],
+            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+        };
+    }
 
     protected formatChanged(): void {
         this.updateColumnConfig();
