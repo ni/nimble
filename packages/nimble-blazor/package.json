@@ -3,13 +3,11 @@
   "version": "11.8.28",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run generate-icons && npm run generate-hybrid && npm run build:release && npm run build:client",
-    "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
-    "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
-    "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node build/generate-icons/dist/index.js",
-    "generate-hybrid": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
+    "build": "wireit",
+    "build:release": "wireit",
+    "build:client": "wireit",
+    "generate-icons": "wireit",
+    "generate-hybrid": "wireit",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",
@@ -22,6 +20,39 @@
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:npm": "echo \"noop command to swallow npm args\"",
     "copy-resources": "node build/copyNimbleResources.js"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": ["generate-hybrid", "build:release", "build:client"]
+    },
+    "build:release": {
+      "command": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
+      "dependencies": ["generate-icons"],
+      "files": [".eslintrc.js", "CodeAnalysisDictionary.xml", "NimbleBlazor.sln", "Examples", "NimbleBlazor", "Tests", "!**/{bin,obj}"],
+      "output": ["NimbleBlazor/bin/Release", "Examples/Demo.Client/bin/Release", "Examples/Demo.Hybrid/bin/Release", "Examples/Demo.Server/bin/Release", "Examples/Demo.Shared/bin/Release", "Tests/NimbleBlazor.Tests/bin/Release" ]
+    },
+    "generate-hybrid": {
+      "command": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
+      "files": ["build/generate-hybrid/rollup.config.js", "build/generate-hybrid/source/NimbleBlazor.HybridWorkaround.js"],
+      "output": ["NimbleBlazor/wwwroot/NimbleBlazor.HybridWorkaround.js"]
+    },
+    "generate-icons": {
+      "command": "node build/generate-icons/dist/index.js",
+      "dependencies": ["generate-icons:bundle"],
+      "files": ["build/generate-icons/dist/index.js"],
+      "output": ["NimbleBlazor/Components/Icons"]
+    },
+    "generate-icons:bundle": {
+      "command": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
+      "files": ["build/generate-icons/rollup.config.js", "build/generate-icons/source/index.js"],
+      "output": ["build/generate-icons/dist/index.js"]
+    },
+    "build:client": {
+      "command": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
+      "dependencies": ["build:release"],
+      "files": ["Examples/Demo.Client", "!Examples/Demo.Client/{bin,obj}"],
+      "output": ["dist/blazor-client-app"]
+    }
   },
   "repository": {
     "type": "git",
@@ -46,6 +77,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
-    "rollup": "^3.10.1"
+    "rollup": "^3.10.1",
+    "wireit": "^0.9.5"
   }
 }

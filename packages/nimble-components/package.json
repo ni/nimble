@@ -42,7 +42,7 @@
   },
   "wireit": {
     "build": {
-      "dependencies": ["bundle-components", "generate-scss", "build-storybook"]
+      "dependencies": ["../nimble-tokens:build", "bundle-components", "generate-scss", "build-storybook"]
     },
     "generate-icons": {
       "command": "node build/generate-icons/dist/index.js",
