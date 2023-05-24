@@ -256,7 +256,7 @@ Sorting will be based on the record value. For boolean and number values, a basi
 
 We would need new support for sorting this way. We could define a new sorting option, "enumerated sort", where the column provides an ordered list of values, and the table sorts the column based on that given order. To compare the relative order of two values, we at have to search the list, making the sort operation a bit more expensive, but still probably reasonable except in the case of enums with many values. I propose we use a basic sort for the initial submission of the column type, but we have a follow-on PR to add the "enumerated sort" and adopt that for the mapping/icon column.
 
-For icons, if multiple values map the to same icon, it is possible that sorting will result in the instances of a certain icon not being all together in one span of rows. The user may think they should be all together, but this is a corner case that we can't/shouldn't do anything about.
+For icons, if multiple values map the to same icon, it is possible that sorting will result in the instances of a certain icon not being all together in one span of rows. Users will be expected to provide visually distinct icons for each mapping as the column will not enforce or validate distinct icons for each mapping.
 
 ### Sizing
 
