@@ -19,11 +19,7 @@
     "build-components:watch": "tsc -p ./tsconfig.json -w",
     "bundle-components": "wireit",
     "generate-icons": "wireit",
-    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
-    "generate-icons:run": "node build/generate-icons/dist/index.js",
     "generate-scss": "wireit",
-    "generate-scss:bundle": "rollup --bundleConfigAsCjs --config build/generate-scss/rollup.config.js",
-    "generate-scss:run": "node build/generate-scss/dist/index.js",
     "tdd": "npm run build-components && npm run test-chrome",
     "tdd:watch": "npm run build-components:watch & npm run test-chrome:watch",
     "tdd-firefox": "npm run build-components && npm run test-firefox",
@@ -49,9 +45,15 @@
       "dependencies": ["bundle-components", "generate-scss", "build-storybook"]
     },
     "generate-icons": {
-      "command": "npm run generate-icons:bundle && npm run generate-icons:run",
-      "files": ["../nimble-tokens/dist", "build/generate-icons"],
-      "output": ["icons/*.ts"]
+      "command": "node build/generate-icons/dist/index.js",
+      "dependencies": ["generate-icons:bundle"],
+      "files": ["build/generate-icons/dist/index.js", "../nimble-tokens/dist"],
+      "output": ["src/icons/*.ts"]
+    },
+    "generate-icons:bundle": {
+      "command": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
+      "files": ["build/generate-icons/source/index.js", "build/generate-icons/rollup.config.js"],
+      "output": ["build/generate-icons/dist/index.js"]
     },
     "build-components": {
       "command": "tsc --build --pretty ./tsconfig.json",
@@ -67,10 +69,16 @@
       "output": ["dist/all-components-bundle.*"]
     },
     "generate-scss": {
-      "command": "npm run generate-scss:bundle && npm run generate-scss:run",
-      "dependencies": ["build-components"],
-      "files": ["dist/esm/theme-provider/design-token-names.js", "dist/esm/theme-provider/design-token-comments.js", "build/generate-scss"],
+      "command": "node build/generate-scss/dist/index.js",
+      "dependencies": ["generate-scss:bundle"],
+      "files": ["build/generate-scss/dist/index.js"],
       "output": ["dist/fonts.scss", "dist/tokens.scss", "dist/tokens-internal.scss"]
+    },
+    "generate-scss:bundle": {
+      "command": "rollup --bundleConfigAsCjs --config build/generate-scss/rollup.config.js",
+      "dependencies": ["build-components"],
+      "files": ["build/generate-scss/rollup.config.js, build/generate-scss/source/index.js, dist/esm/theme-provider/design-token-names.js", "dist/esm/theme-provider/design-token-comments.js"],
+      "output": ["build/generate-scss/dist/index.js"]
     },
     "build-storybook": {
       "command": "storybook build -o dist/storybook --webpack-stats-json --quiet",
