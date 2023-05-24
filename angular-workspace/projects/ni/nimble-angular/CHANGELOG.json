@@ -2,6 +2,74 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 23 May 2023 21:28:16 GMT",
+      "tag": "@ni/nimble-angular_v16.5.32",
+      "version": "16.5.32",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9362324d727f9938f5a850f094591c07c10fbb27",
+            "comment": "- Create secondary entrypoints for the table, table columns, and table testing"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 20:18:10 GMT",
+      "tag": "@ni/nimble-angular_v16.5.31",
+      "version": "16.5.31",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.1.2",
+            "commit": "e9f03324de6ad96d901099b8cf0341b75c5fd881"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 16:09:57 GMT",
+      "tag": "@ni/nimble-angular_v16.5.30",
+      "version": "16.5.30",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.1.1",
+            "commit": "c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 May 2023 18:39:33 GMT",
+      "tag": "@ni/nimble-angular_v16.5.29",
+      "version": "16.5.29",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a",
+            "comment": "Change test code to account for new type property"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.1.0",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 May 2023 21:33:40 GMT",
       "tag": "@ni/nimble-angular_v16.5.28",
       "version": "16.5.28",

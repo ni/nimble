@@ -1,0 +1,29 @@
+﻿@page "/DialogOpenAndClose"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+
+<NimbleButton @onclick="OpenDialogAsync">Open</NimbleButton>
+
+<NimbleDialog TCloseReason="string" @ref="_dialog">
+    Example Dialog
+    <NimbleButton @onclick="CloseDialogAsync">Close</NimbleButton>
+</NimbleDialog>
+
+<NimbleTextField @bind-Value="DialogCloseReason" @ref="_textField"></NimbleTextField>
+
+@code {
+    private NimbleDialog<string>? _dialog;
+    private NimbleTextField? _textField;
+    private string? DialogCloseReason { get; set; }
+
+    public async Task OpenDialogAsync()
+    {
+        var response = await _dialog!.ShowAsync();
+        DialogCloseReason = response.Value;
+    }
+
+    public async Task CloseDialogAsync()
+    {
+        await _dialog!.CloseAsync("Custom Close Reason");
+    }
+}

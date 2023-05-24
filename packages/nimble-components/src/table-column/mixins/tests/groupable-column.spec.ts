@@ -11,19 +11,20 @@ import {
     tableColumnEmptyCellViewTag,
     tableColumnEmptyGroupHeaderViewTag
 } from '../../base/tests/table-column.fixtures';
+import type { ColumnInternalsOptions } from '../../base/models/column-internals';
 
 const columnName = uniqueElementName();
 @customElement({
     name: columnName
 })
 class TestTableColumn extends mixinGroupableColumnAPI(TableColumn) {
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: [],
             cellViewTag: tableColumnEmptyCellViewTag,
             groupHeaderViewTag: tableColumnEmptyGroupHeaderViewTag,
             delegatedEvents: []
-        });
+        };
     }
 }
 
