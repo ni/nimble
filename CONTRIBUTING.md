@@ -8,9 +8,10 @@ This repository uses the following tooling. See below for more info.
 
 1. A monorepo containing multiple packages managed via [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 2. Linting via [ESLint](https://eslint.org/) following the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide)
-3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html) and [Jasmine](https://jasmine.github.io/)
-4. Releases via [beachball](https://microsoft.github.io/beachball/)
-5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+3. Build via [Wireit](https://github.com/google/wireit)
+4. Testing via [Karma](http://karma-runner.github.io/6.3/index.html) and [Jasmine](https://jasmine.github.io/)
+5. Releases via [beachball](https://microsoft.github.io/beachball/)
+6. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
 
 ### Helpful links
 
@@ -57,6 +58,10 @@ Now that you can build the monorepo see the `CONTRIBUTING.md` for the packages y
 ## Coding conventions
 
 This repo generally follows the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide). Some packages list additional conventions in their `CONTRIBUTING.md`.
+
+## Running tests
+
+It is recommended to use the VSCode extension [Karma Test Explorer](https://marketplace.visualstudio.com/items?itemName=lucono.karma-test-explorer) for running and debugging individual tests. This extension allows you to start running/debugging a test from the source code, without modifying the source to mark the test as focused (i.e. `fit` or `fdescribe`). Best of all, it allows debugging from inside VSCode, rather than in the browser.
 
 ## Pull request policies
 

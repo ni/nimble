@@ -73,7 +73,7 @@
       "output": ["dist/fonts.scss", "dist/tokens.scss", "dist/tokens-internal.scss"]
     },
     "build-storybook": {
-      "command": "storybook build -o dist/storybook --webpack-stats-json",
+      "command": "storybook build -o dist/storybook --webpack-stats-json --quiet",
       "dependencies": ["build-components"],
       "files": ["src"],
       "output": ["dist/storybook"]
