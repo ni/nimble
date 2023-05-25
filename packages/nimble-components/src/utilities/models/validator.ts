@@ -1,3 +1,4 @@
+import type { ValidityObject } from '../../table/types';
 import { Tracker } from './tracker';
 
 /**
@@ -14,7 +15,7 @@ export class Validator<
         return this.noneTracked();
     }
 
-    public getValidationFlags(): typeof this.trackedItems {
+    public getValidationFlags(): ValidityObject {
         return this.trackedItems;
     }
 }
