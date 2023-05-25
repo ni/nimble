@@ -1,0 +1,29 @@
+﻿@page "/DrawerOpenAndClose"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@inherits LayoutComponentBase
+
+<NimbleButton @onclick="OpenDrawerAsync">Open</NimbleButton>
+
+<NimbleDrawer TCloseReason="string" @ref="_drawer">
+    Example Drawer
+    <NimbleButton @onclick="CloseDrawerAsync">Close</NimbleButton>
+</NimbleDrawer>
+
+<NimbleTextField @bind-Value="DrawerCloseReason" @ref="_textField"></NimbleTextField>
+
+@code {
+    private NimbleDrawer<string>? _drawer;
+    private NimbleTextField? _textField;
+    private string? DrawerCloseReason { get; set; }
+
+    public async Task OpenDrawerAsync()
+    {
+        var response = await _drawer!.ShowAsync();
+        DrawerCloseReason = response.Value;
+    }
+
+    public async Task CloseDrawerAsync()
+    {
+        await _drawer!.CloseAsync("Custom Close Reason");
+    }
+}

@@ -314,7 +314,11 @@ export class Table<
                 || source instanceof ColumnInternals)
             && typeof args === 'string'
         ) {
-            this.updateTracker.trackColumnPropertyChanged(args);
+            if (args === 'validConfiguration') {
+                this.tableValidator.validateColumnConfigurations(this.columns);
+            } else {
+                this.updateTracker.trackColumnPropertyChanged(args);
+            }
         }
     }
 
@@ -711,6 +715,7 @@ export class Table<
                 x => x.columnInternals.groupIndex!
             )
         );
+        this.tableValidator.validateColumnConfigurations(this.columns);
         this.validateWithData(this.table.options.data);
     }
 

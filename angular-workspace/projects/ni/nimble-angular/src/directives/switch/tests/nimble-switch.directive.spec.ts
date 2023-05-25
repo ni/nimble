@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
+import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleSwitchDirective } from '../nimble-switch.directive';
 import { NimbleSwitchModule } from '../nimble-switch.module';
 import type { Switch } from '../nimble-switch.directive';
