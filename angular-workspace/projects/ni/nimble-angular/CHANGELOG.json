@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 25 May 2023 15:39:06 GMT",
+      "tag": "@ni/nimble-angular_v16.6.0",
+      "version": "16.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "fdfdf1db998b916bc4b3f14291d58ac0cb27f7fa",
+            "comment": "NimbleTableColumnAnchorDirective extends base table column directive"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 May 2023 21:28:16 GMT",
       "tag": "@ni/nimble-angular_v16.5.32",
       "version": "16.5.32",

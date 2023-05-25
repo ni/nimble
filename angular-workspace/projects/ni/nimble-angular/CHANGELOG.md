@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 23 May 2023 21:28:16 GMT and should not be manually modified.
+This log was last generated on Thu, 25 May 2023 15:39:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.6.0
+
+Thu, 25 May 2023 15:39:06 GMT
+
+### Minor changes
+
+- NimbleTableColumnAnchorDirective extends base table column directive ([ni/nimble@fdfdf1d](https://github.com/ni/nimble/commit/fdfdf1db998b916bc4b3f14291d58ac0cb27f7fa))
 
 ## 16.5.32
 
