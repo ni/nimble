@@ -42,7 +42,7 @@ async function clickAndWaitForOpen(combo: Combobox): Promise<void> {
     await regionLoadedListener.promise;
 }
 
-fdescribe('Combobox', () => {
+describe('Combobox', () => {
     it('should set aria-disabled attribute when property is set', async () => {
         const { element, connect, disconnect } = await setup();
 
