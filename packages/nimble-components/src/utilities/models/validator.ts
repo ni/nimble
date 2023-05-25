@@ -1,9 +1,9 @@
 import { Tracker } from './tracker';
 
 /**
- * Generic Validator Utility extends Tracker Utility
+ * Generic Validator Utility extends Tracker Utility for validation purposes
  */
-export abstract class Validator<
+export class Validator<
     ValidationFlags extends readonly string[]
 > extends Tracker<ValidationFlags> {
     public constructor(validationFlags: ValidationFlags) {
@@ -11,6 +11,10 @@ export abstract class Validator<
     }
 
     public isValid(): boolean {
-        return this.allTracked();
+        return this.noneTracked();
+    }
+
+    public getValidationFlags(): typeof this.trackedItems {
+        return this.trackedItems;
     }
 }

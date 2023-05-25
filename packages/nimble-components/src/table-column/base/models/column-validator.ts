@@ -26,9 +26,7 @@ export class ColumnValidator<
      * @returns an object containing flags for various ways the configuation can be invalid
      */
     public getValidity(): TableColumnValidity {
-        return {
-            ...this.whims
-        };
+        return this.getValidationFlags();
     }
 
     /**

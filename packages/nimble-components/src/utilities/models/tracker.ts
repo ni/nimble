@@ -1,34 +1,43 @@
-type ObjectFromList<T extends readonly string[], V = string> = {
-    [K in T extends readonly (infer U)[] ? U : never]: V;
+type ObjectFromList<T extends readonly string[]> = {
+    [K in T extends readonly (infer U)[] ? U : never]: boolean;
 };
 
 /**
- * Generic Tracker which sets or resets flags and utilities
+ * Generic Tracker which sets or resets provided flags
  */
-export abstract class Tracker<WhimsList extends readonly string[]> {
-    private _whims: ObjectFromList<WhimsList, boolean>;
+export class Tracker<TrackedItemsList extends readonly string[]> {
+    private trackedItemsState: ObjectFromList<TrackedItemsList>;
 
-    public constructor(whimsList: WhimsList) {
-        type Whims = typeof this._whims;
-        this._whims = {} as Whims;
-        this._whims = whimsList.reduce<Whims>((r, key): Whims => {
-            return {
-                ...r,
-                [key]: false
-            };
-        }, this._whims);
+    public constructor(trackedItemsList: TrackedItemsList) {
+        type TrackedItems = typeof this.trackedItemsState;
+        this.trackedItemsState = {} as TrackedItems;
+        this.trackedItemsState = trackedItemsList.reduce<TrackedItems>(
+            (r, key): TrackedItems => {
+                return {
+                    ...r,
+                    [key]: false
+                };
+            },
+            this.trackedItemsState
+        );
     }
 
-    public get whims(): ObjectFromList<WhimsList, boolean> {
-        return this._whims;
+    public get trackedItems(): ObjectFromList<TrackedItemsList> {
+        return this.trackedItemsState;
     }
 
-    public track(key: keyof ObjectFromList<WhimsList, boolean>): void {
-        this._whims[key] = true;
+    public trackedItemState(
+        key: keyof ObjectFromList<TrackedItemsList>
+    ): boolean {
+        return this.trackedItemsState[key];
     }
 
-    public untrack(key: keyof ObjectFromList<WhimsList, boolean>): void {
-        this._whims[key] = false;
+    public track(key: keyof ObjectFromList<TrackedItemsList>): void {
+        this.trackedItemsState[key] = true;
+    }
+
+    public untrack(key: keyof ObjectFromList<TrackedItemsList>): void {
+        this.trackedItemsState[key] = false;
     }
 
     public trackAll(): void {
@@ -36,27 +45,30 @@ export abstract class Tracker<WhimsList extends readonly string[]> {
     }
 
     public untrackAll(): void {
-        this.setAllKeys(true);
+        this.setAllKeys(false);
     }
 
     public allTracked(): boolean {
-        return Object.values(this._whims).every(x => !x);
+        return Object.values(this.trackedItemsState).every(x => x);
     }
 
     public anyTracked(): boolean {
-        return Object.values(this._whims).some(x => !x);
+        return Object.values(this.trackedItemsState).some(x => x);
+    }
+
+    public noneTracked(): boolean {
+        return Object.values(this.trackedItemsState).every(x => !x);
     }
 
     protected setAllKeys(value: boolean): void {
-        type Whims = typeof this._whims;
-        this._whims = Object.keys(this._whims).reduce<Whims>(
-            (r, key): Whims => {
-                return {
-                    ...r,
-                    [key]: value
-                };
-            },
-            this._whims
-        );
+        type TrackedItems = typeof this.trackedItemsState;
+        this.trackedItemsState = Object.keys(
+            this.trackedItemsState
+        ).reduce<TrackedItems>((r, key): TrackedItems => {
+            return {
+                ...r,
+                [key]: value
+            };
+        }, this.trackedItemsState);
     }
 }

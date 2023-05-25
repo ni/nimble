@@ -63,49 +63,52 @@ export class TableUpdateTracker<
     }
 
     public get updateRowIds(): boolean {
-        return this.whims.rowIds;
+        return this.trackedItemState('rowIds');
     }
 
     public get updateGroupRows(): boolean {
-        return this.whims.groupRows;
+        return this.trackedItemState('groupRows');
     }
 
     public get updateColumnIds(): boolean {
-        return this.whims.columnIds;
+        return this.trackedItemState('columnIds');
     }
 
     public get updateColumnSort(): boolean {
-        return this.whims.columnSort;
+        return this.trackedItemState('columnSort');
     }
 
     public get updateColumnWidths(): boolean {
-        return this.whims.columnWidths;
+        return this.trackedItemState('columnWidths');
     }
 
     public get updateColumnDefinition(): boolean {
-        return this.whims.columnDefinition;
+        return this.trackedItemState('columnDefinition');
     }
 
     public get updateActionMenuSlots(): boolean {
-        return this.whims.actionMenuSlots;
+        return this.trackedItemState('actionMenuSlots');
     }
 
     public get updateSelectionMode(): boolean {
-        return this.whims.selectionMode;
+        return this.trackedItemState('selectionMode');
     }
 
     public get requiresTanStackUpdate(): boolean {
         return (
-            this.whims.rowIds
-            || this.whims.columnSort
-            || this.whims.columnDefinition
-            || this.whims.groupRows
-            || this.whims.selectionMode
+            this.trackedItemState('rowIds')
+            || this.trackedItemState('columnSort')
+            || this.trackedItemState('columnDefinition')
+            || this.trackedItemState('groupRows')
+            || this.trackedItemState('selectionMode')
         );
     }
 
     public get requiresTanStackDataReset(): boolean {
-        return this.whims.rowIds || this.whims.columnDefinition;
+        return (
+            this.trackedItemState('rowIds')
+            || this.trackedItemState('columnDefinition')
+        );
     }
 
     public trackAllStateChanged(): void {
