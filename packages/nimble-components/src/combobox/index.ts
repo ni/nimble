@@ -70,6 +70,26 @@ export class Combobox
     @observable
     public controlWrapper?: HTMLElement;
 
+    public override get value(): string {
+        return super.value;
+    }
+
+    // This override is to work around an issue in FAST where an old filter value
+    // is used after programmatically setting the value property.
+    // See: https://github.com/microsoft/fast/issues/6749
+    public override set value(next: string) {
+        super.value = next;
+        if (!this.valueUpdatedByInput) {
+            // Using index notation to avoid error from accessing private member
+            // eslint-disable-next-line @typescript-eslint/dot-notation
+            this['filter'] = '';
+            this.filterOptions();
+            this.selectedIndex = this.options
+                .map(option => option.text)
+                .indexOf(this.value);
+        }
+    }
+
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
 
@@ -143,8 +163,8 @@ export class Combobox
         if (!this.valueUpdatedByInput) {
             this.valueBeforeTextUpdate = this.value;
         }
-        this.value = this.control.value;
         this.valueUpdatedByInput = true;
+        this.value = this.control.value;
         return returnValue;
     }
 
