@@ -1,6 +1,6 @@
 import { Tracker } from '../tracker';
 
-fdescribe('The Tracker Utility', () => {
+describe('The Tracker Utility', () => {
     let tracker: Tracker<['a', 'b']>;
 
     beforeEach(() => {
