@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TableColumnSortDirection } from '@ni/nimble-angular/table-column';
 import { NimbleTableColumnAnchorDirective, TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
 
@@ -115,6 +116,36 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.underlineHidden).toBeFalse();
         });
 
+        it('has expected defaults for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBeUndefined();
+            expect(nativeElement.actionMenuSlot).toBeUndefined();
+        });
+
+        it('has expected defaults for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBeUndefined();
+            expect(nativeElement.actionMenuLabel).toBeUndefined();
+        });
+
+        it('has expected defaults for columnId', () => {
+            expect(directive.columnId).toBeUndefined();
+            expect(nativeElement.columnId).toBeUndefined();
+        });
+
+        it('has expected defaults for columnHidden', () => {
+            expect(directive.columnHidden).toBe(false);
+            expect(nativeElement.columnHidden).toBe(false);
+        });
+
+        it('has expected defaults for sortDirection', () => {
+            expect(directive.sortDirection).toBeUndefined();
+            expect(nativeElement.sortDirection).toBeUndefined();
+        });
+
+        it('has expected defaults for sortIndex', () => {
+            expect(directive.sortIndex).toBeUndefined();
+            expect(nativeElement.sortIndex).toBeUndefined();
+        });
+
         it('has expected defaults for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBeUndefined();
             expect(nativeElement.fractionalWidth).toBeUndefined();
@@ -140,6 +171,7 @@ describe('Nimble anchor table column', () => {
         @Component({
             template: `
                 <nimble-table-column-anchor #column
+                    column-id="my-column"
                     hreflang="${hreflang1}"
                     ping="${ping1}"
                     referrerpolicy="${referrerpolicy1}"
@@ -152,6 +184,11 @@ describe('Nimble anchor table column', () => {
                     placeholder="no value"
                     appearance="prominent"
                     underline-hidden
+                    action-menu-slot="my-slot"
+                    action-menu-label="my menu"
+                    column-hidden="true"
+                    sort-direction="${TableColumnSortDirection.ascending}"
+                    sort-index="0"
                     fractional-width="2"
                     min-pixel-width="40"
                     group-index="0"
@@ -240,6 +277,36 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.underlineHidden).toBeTrue();
         });
 
+        it('will use template string values for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+        });
+
+        it('will use template string values for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+        });
+
+        it('will use template string values for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+        });
+
+        it('will use template string value for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+        });
+
+        it('will use template string values for sortDirection', () => {
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.ascending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.ascending);
+        });
+
+        it('will use template string value for sortIndex', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+        });
+
         it('will use template string values for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -265,6 +332,7 @@ describe('Nimble anchor table column', () => {
         @Component({
             template: `
                 <nimble-table-column-anchor #column
+                    [column-id]="columnId"
                     [hreflang]="hreflang"
                     [ping]="ping"
                     [referrerpolicy]="referrerpolicy"
@@ -277,6 +345,11 @@ describe('Nimble anchor table column', () => {
                     [placeholder]="placeholder"
                     [appearance]="appearance"
                     [underline-hidden]="underlineHidden"
+                    [actionMenuSlot]="actionMenuSlot"
+                    [actionMenuLabel]="actionMenuLabel"
+                    [column-hidden]="columnHidden"
+                    [sort-direction]="sortDirection"
+                    [sort-index]="sortIndex"
                     [fractional-width]="fractionalWidth"
                     [min-pixel-width]="minPixelWidth"
                     [group-index]="groupIndex"
@@ -300,6 +373,12 @@ describe('Nimble anchor table column', () => {
             public placeholder = 'no value';
             public appearance: string | undefined = 'prominent';
             public underlineHidden = true;
+            public columnId = 'my-column';
+            public columnHidden = true;
+            public actionMenuSlot = 'my-slot';
+            public actionMenuLabel = 'my menu';
+            public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+            public sortIndex: number | null = 0;
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -453,6 +532,83 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.underlineHidden).toBeFalse();
         });
 
+        it('can be configured with property binding for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+
+            fixture.componentInstance.actionMenuSlot = 'new-slot';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuSlot).toBe('new-slot');
+            expect(nativeElement.actionMenuSlot).toBe('new-slot');
+        });
+
+        it('can be configured with property binding for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+
+            fixture.componentInstance.actionMenuLabel = 'another menu';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuLabel).toBe('another menu');
+            expect(nativeElement.actionMenuLabel).toBe('another menu');
+        });
+
+        it('can be configured with property binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
+        });
+
+        it('can be configured with property binding for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+
+            fixture.componentInstance.columnHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.columnHidden).toBe(false);
+            expect(nativeElement.columnHidden).toBe(false);
+        });
+
+        it('can be configured with property binding for sortDirection', () => {
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.ascending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.ascending);
+
+            fixture.componentInstance.sortDirection = TableColumnSortDirection.descending;
+            fixture.detectChanges();
+
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.descending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.descending);
+        });
+
+        it('can be configured with property binding for sortIndex', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(1);
+            expect(nativeElement.sortIndex).toBe(1);
+        });
+
+        it('can be configured with property binding for sortIndex updated to null', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(null);
+            expect(nativeElement.sortIndex).toBe(null);
+        });
+
         it('can be configured with property binding for fractionalWidth', () => {
             expect(directive.fractionalWidth).toBe(2);
             expect(nativeElement.fractionalWidth).toBe(2);
@@ -534,7 +690,8 @@ describe('Nimble anchor table column', () => {
     describe('with attribute bound values', () => {
         @Component({
             template: `
-            <nimble-table-column-anchor #column
+                <nimble-table-column-anchor #column
+                    [attr.column-id]="columnId"
                     [attr.hreflang]="hreflang"
                     [attr.ping]="ping"
                     [attr.referrerpolicy]="referrerpolicy"
@@ -547,12 +704,17 @@ describe('Nimble anchor table column', () => {
                     [attr.placeholder]="placeholder"
                     [attr.appearance]="appearance"
                     [attr.underline-hidden]="underlineHidden"
+                    [attr.action-menu-slot]="actionMenuSlot"
+                    [attr.action-menu-label]="actionMenuLabel"
+                    [attr.column-hidden]="columnHidden"
+                    [attr.sort-direction]="sortDirection"
+                    [attr.sort-index]="sortIndex"
                     [attr.fractional-width]="fractionalWidth"
                     [attr.min-pixel-width]="minPixelWidth"
                     [attr.group-index]="groupIndex"
                     [attr.grouping-disabled]="groupingDisabled"
                     >
-                    </nimble-table-column-anchor>
+                </nimble-table-column-anchor>
             `
         })
         class TestHostComponent {
@@ -570,6 +732,12 @@ describe('Nimble anchor table column', () => {
             public placeholder = 'no value';
             public appearance: string | undefined = 'prominent';
             public underlineHidden = true;
+            public columnId = 'my-column';
+            public columnHidden = true;
+            public actionMenuSlot = 'my-slot';
+            public actionMenuLabel = 'my menu';
+            public sortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+            public sortIndex: number | null = 0;
             public fractionalWidth: number | null = 2;
             public minPixelWidth: number | null = 40;
             public groupIndex: number | null = 0;
@@ -721,6 +889,83 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.underlineHidden).toBeFalse();
             expect(nativeElement.underlineHidden).toBeFalse();
+        });
+
+        it('can be configured with attribute binding for actionMenuSlot', () => {
+            expect(directive.actionMenuSlot).toBe('my-slot');
+            expect(nativeElement.actionMenuSlot).toBe('my-slot');
+
+            fixture.componentInstance.actionMenuSlot = 'new-slot';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuSlot).toBe('new-slot');
+            expect(nativeElement.actionMenuSlot).toBe('new-slot');
+        });
+
+        it('can be configured with attribute binding for actionMenuLabel', () => {
+            expect(directive.actionMenuLabel).toBe('my menu');
+            expect(nativeElement.actionMenuLabel).toBe('my menu');
+
+            fixture.componentInstance.actionMenuLabel = 'another menu';
+            fixture.detectChanges();
+
+            expect(directive.actionMenuLabel).toBe('another menu');
+            expect(nativeElement.actionMenuLabel).toBe('another menu');
+        });
+
+        it('can be configured with attribute binding for columnId', () => {
+            expect(directive.columnId).toBe('my-column');
+            expect(nativeElement.columnId).toBe('my-column');
+
+            fixture.componentInstance.columnId = 'new-column';
+            fixture.detectChanges();
+
+            expect(directive.columnId).toBe('new-column');
+            expect(nativeElement.columnId).toBe('new-column');
+        });
+
+        it('can be configured with attribute binding for columnHidden', () => {
+            expect(directive.columnHidden).toBe(true);
+            expect(nativeElement.columnHidden).toBe(true);
+
+            fixture.componentInstance.columnHidden = false;
+            fixture.detectChanges();
+
+            expect(directive.columnHidden).toBe(false);
+            expect(nativeElement.columnHidden).toBe(false);
+        });
+
+        it('can be configured with attribute binding for sortDirection', () => {
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.ascending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.ascending);
+
+            fixture.componentInstance.sortDirection = TableColumnSortDirection.descending;
+            fixture.detectChanges();
+
+            expect(directive.sortDirection).toBe(TableColumnSortDirection.descending);
+            expect(nativeElement.sortDirection).toBe(TableColumnSortDirection.descending);
+        });
+
+        it('can be configured with attribute binding for sortIndex', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = 1;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(1);
+            expect(nativeElement.sortIndex).toBe(1);
+        });
+
+        it('can be configured with attribute binding for sortIndex updated to null', () => {
+            expect(directive.sortIndex).toBe(0);
+            expect(nativeElement.sortIndex).toBe(0);
+
+            fixture.componentInstance.sortIndex = null;
+            fixture.detectChanges();
+
+            expect(directive.sortIndex).toBe(null);
+            expect(nativeElement.sortIndex).toBe(null);
         });
 
         it('can be configured with attribute binding for fractionalWidth', () => {

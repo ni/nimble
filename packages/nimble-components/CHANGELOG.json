@@ -2,6 +2,66 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 23 May 2023 20:18:10 GMT",
+      "tag": "@ni/nimble-components_v19.1.2",
+      "version": "19.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9f03324de6ad96d901099b8cf0341b75c5fd881",
+            "comment": "Use anchored region in Select and Combobox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 16:41:52 GMT",
+      "tag": "@ni/nimble-components_v19.1.1",
+      "version": "19.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eb414bd845ad761e5270f7499473f29cf75bb664",
+            "comment": "Minor improvements to contributing docs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 16:09:57 GMT",
+      "tag": "@ni/nimble-components_v19.1.1",
+      "version": "19.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d",
+            "comment": "Move ColumnInternals to abstract property"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 May 2023 22:18:29 GMT",
+      "tag": "@ni/nimble-components_v19.1.0",
+      "version": "19.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d9f258b90a5b8170c580f4f94c85a75b6850999",
+            "comment": "Add text area tests from FAST repo"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 May 2023 18:39:33 GMT",
       "tag": "@ni/nimble-components_v19.1.0",
       "version": "19.1.0",
