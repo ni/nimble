@@ -6,38 +6,38 @@ type ObjectFromList<T extends readonly string[]> = {
  * Generic Tracker which sets or resets provided flags
  */
 export class Tracker<TrackedItemsList extends readonly string[]> {
-    private trackedItemsState: ObjectFromList<TrackedItemsList>;
+    private trackedItems: ObjectFromList<TrackedItemsList>;
 
     public constructor(trackedItemsList: TrackedItemsList) {
-        type TrackedItems = typeof this.trackedItemsState;
-        this.trackedItemsState = {} as TrackedItems;
-        this.trackedItemsState = trackedItemsList.reduce<TrackedItems>(
+        type TrackedItems = typeof this.trackedItems;
+        this.trackedItems = {} as TrackedItems;
+        this.trackedItems = trackedItemsList.reduce<TrackedItems>(
             (r, key): TrackedItems => {
                 return {
                     ...r,
                     [key]: false
                 };
             },
-            this.trackedItemsState
+            this.trackedItems
         );
     }
 
-    public get trackedItems(): ObjectFromList<TrackedItemsList> {
-        return this.trackedItemsState;
+    public getTrackedItems(): ObjectFromList<TrackedItemsList> {
+        return { ...this.trackedItems };
     }
 
     public trackedItemState(
         key: keyof ObjectFromList<TrackedItemsList>
     ): boolean {
-        return this.trackedItemsState[key];
+        return this.trackedItems[key];
     }
 
     public track(key: keyof ObjectFromList<TrackedItemsList>): void {
-        this.trackedItemsState[key] = true;
+        this.trackedItems[key] = true;
     }
 
     public untrack(key: keyof ObjectFromList<TrackedItemsList>): void {
-        this.trackedItemsState[key] = false;
+        this.trackedItems[key] = false;
     }
 
     public trackAll(): void {
@@ -49,26 +49,27 @@ export class Tracker<TrackedItemsList extends readonly string[]> {
     }
 
     public allTracked(): boolean {
-        return Object.values(this.trackedItemsState).every(x => x);
+        return Object.values(this.trackedItems).every(x => x);
     }
 
     public anyTracked(): boolean {
-        return Object.values(this.trackedItemsState).some(x => x);
+        return Object.values(this.trackedItems).some(x => x);
     }
 
     public noneTracked(): boolean {
-        return Object.values(this.trackedItemsState).every(x => !x);
+        return Object.values(this.trackedItems).every(x => !x);
     }
 
-    protected setAllKeys(value: boolean): void {
-        type TrackedItems = typeof this.trackedItemsState;
-        this.trackedItemsState = Object.keys(
-            this.trackedItemsState
-        ).reduce<TrackedItems>((r, key): TrackedItems => {
-            return {
-                ...r,
-                [key]: value
-            };
-        }, this.trackedItemsState);
+    private setAllKeys(value: boolean): void {
+        type TrackedItems = typeof this.trackedItems;
+        this.trackedItems = Object.keys(this.trackedItems).reduce<TrackedItems>(
+            (r, key): TrackedItems => {
+                return {
+                    ...r,
+                    [key]: value
+                };
+            },
+            this.trackedItems
+        );
     }
 }

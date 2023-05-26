@@ -10,17 +10,5 @@ export abstract class UpdateTracker<
         super(requiredUpdates);
     }
 
-    public trackAndQueue(
-        key: TrackedProperties extends readonly (infer U)[] ? U : never
-    ): void {
-        this.track(key);
-        this.queueUpdate();
-    }
-
-    public trackAllAndQueue(): void {
-        this.trackAll();
-        this.queueUpdate();
-    }
-
     protected abstract queueUpdate(): void;
 }

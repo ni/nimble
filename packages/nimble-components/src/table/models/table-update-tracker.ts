@@ -29,37 +29,28 @@ const isColumnInternalsProperty = (
     return false;
 };
 
+const trackedItems = [
+    'rowIds',
+    'groupRows',
+    'columnIds',
+    'columnSort',
+    'columnWidths',
+    'columnDefinition',
+    'actionMenuSlots',
+    'selectionMode'
+] as const;
+
 /**
  * Helper class to track what updates are needed to the table based on configuration
  * changes.
  */
 export class TableUpdateTracker<
     TData extends TableRecord
-> extends UpdateTracker<
-    [
-        'rowIds',
-        'groupRows',
-        'columnIds',
-        'columnSort',
-        'columnWidths',
-        'columnDefinition',
-        'actionMenuSlots',
-        'selectionMode'
-    ]
-    > {
+> extends UpdateTracker<typeof trackedItems> {
     private updateQueued = false;
 
     public constructor(private readonly table: Table<TData>) {
-        super([
-            'rowIds',
-            'groupRows',
-            'columnIds',
-            'columnSort',
-            'columnWidths',
-            'columnDefinition',
-            'actionMenuSlots',
-            'selectionMode'
-        ]);
+        super(trackedItems);
     }
 
     public get updateRowIds(): boolean {
@@ -112,7 +103,7 @@ export class TableUpdateTracker<
     }
 
     public trackAllStateChanged(): void {
-        this.setAllKeys(true);
+        this.trackAll();
         this.queueUpdate();
     }
 
@@ -177,11 +168,13 @@ export class TableUpdateTracker<
     }
 
     public trackIdFieldNameChanged(): void {
-        this.trackAndQueue('rowIds');
+        this.track('rowIds');
+        this.queueUpdate();
     }
 
     public trackSelectionModeChanged(): void {
-        this.trackAndQueue('selectionMode');
+        this.track('selectionMode');
+        this.queueUpdate();
     }
 
     protected override queueUpdate(): void {
@@ -193,7 +186,7 @@ export class TableUpdateTracker<
             this.updateQueued = true;
             DOM.queueUpdate(() => {
                 this.table.update();
-                this.setAllKeys(false);
+                this.untrackAll();
                 this.updateQueued = false;
             });
         }

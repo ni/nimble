@@ -9,24 +9,28 @@ describe('The Tracker Utility', () => {
 
     it('can track the specified items', () => {
         tracker.track('a');
-        expect(tracker.trackedItems.a).toBeTrue();
+        expect(tracker.getTrackedItems().a).toBeTrue();
     });
 
     it('can untrack the specified items', () => {
         tracker.track('a');
         tracker.untrack('a');
-        expect(tracker.trackedItems.a).toBeFalse();
+        expect(tracker.getTrackedItems().a).toBeFalse();
     });
 
     it('can track all the specified items at once', () => {
         tracker.trackAll();
-        expect(tracker.trackedItems.a && tracker.trackedItems.b).toBeTrue();
+        expect(
+            tracker.getTrackedItems().a && tracker.getTrackedItems().b
+        ).toBeTrue();
     });
 
     it('can untrack all the specified items at once', () => {
         tracker.trackAll();
         tracker.untrackAll();
-        expect(tracker.trackedItems.a || tracker.trackedItems.b).toBeFalse();
+        expect(
+            tracker.getTrackedItems().a || tracker.getTrackedItems().b
+        ).toBeFalse();
     });
 
     it('can check if all items are tracked', () => {

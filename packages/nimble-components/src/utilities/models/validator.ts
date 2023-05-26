@@ -16,6 +16,6 @@ export class Validator<
     }
 
     public getValidationFlags(): ValidityObject {
-        return this.trackedItems;
+        return this.getTrackedItems();
     }
 }
