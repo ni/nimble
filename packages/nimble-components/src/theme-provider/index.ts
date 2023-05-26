@@ -1,13 +1,13 @@
 import {
     DesignSystem,
-    DesignToken,
-    FoundationElement
+    DesignToken
 } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
 import { Theme } from './types';
+import { ThemeProviderBase } from '../labels/theme-provider-base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -32,7 +32,7 @@ export const theme = DesignToken.create<Theme>({
  * the values of design tokens that provide colors and fonts as CSS custom properties to any descendant components.
  * @internal
  */
-export class ThemeProvider extends FoundationElement {
+export class ThemeProvider extends ThemeProviderBase {
     @attr({
         attribute: 'direction'
     })

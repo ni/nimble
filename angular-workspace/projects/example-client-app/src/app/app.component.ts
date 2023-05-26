@@ -9,4 +9,5 @@ import { Theme } from '@ni/nimble-angular';
 })
 export class AppComponent {
     public theme: Theme = Theme.light;
+    public customizedNimbleLabelNumberFieldIncrement = $localize`Inc (app-provided)`;
 }

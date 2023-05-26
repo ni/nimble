@@ -1,2 +1,4 @@
 /src/directives/icons
-
+#/src/directives/labels/nimble-labels.ts
+#/src/directives/labels/nimble-theme-provider-initialize-all-labels.directive.ts
+#/src/directives/theme-provider/nimble-theme-provider-base.directive.ts

@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -21,6 +22,7 @@
   <ItemGroup>
     <AdditionalFiles Include="..\..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
     <PackageReference Include="Faker.NETCore" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="6.0.0-preview.3.21201.13" />
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
   </ItemGroup>
 
@@ -34,6 +36,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\NimbleBlazor\NimbleBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\NimbleLabels.resx">
+      <SubType>Designer</SubType>
+      <IncludeInPackage>true</IncludeInPackage>
+      <copyToOutput>true</copyToOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NimbleLabels.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

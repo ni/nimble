@@ -1,4 +1,4 @@
-<nimble-theme-provider [theme]="theme">
+<nimble-theme-provider [theme]="theme" initializeAllLabels [labelNumberFieldIncrement]="customizedNimbleLabelNumberFieldIncrement" labelNumberFieldDecrement="Dec (app-provided)" i18n-labelNumberFieldDecrement>
     <example-header [(theme)]="theme"></example-header>
     <div class="router-outlet-wrapper">
         <router-outlet></router-outlet>

@@ -18,4 +18,16 @@ public partial class NimbleThemeProvider : ComponentBase
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    /// <summary>
+    /// LabelNumberFieldIncrement
+    /// </summary>
+    [Parameter]
+    public string? LabelNumberFieldIncrement { get; set; }
+
+    /// <summary>
+    /// LabelNumberFieldDecrement
+    /// </summary>
+    [Parameter]
+    public string? LabelNumberFieldDecrement { get; set; }
 }

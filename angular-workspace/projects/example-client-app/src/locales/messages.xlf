@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="3259901837032373292" datatype="html">
+        <source>Dec (app-provided)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/example-client-app/src/app/app.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7638075564680026029" datatype="html">
+        <source>Inc (app-provided)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/example-client-app/src/app/app.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="529510153551286303" datatype="html">
+        <source>Increment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/ni/nimble-angular/src/directives/labels/nimble-labels.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">nimble-label-number-field-increment</note>
+      </trans-unit>
+      <trans-unit id="6018541405681438267" datatype="html">
+        <source>Decrement</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/ni/nimble-angular/src/directives/labels/nimble-labels.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">nimble-label-number-field-decrement</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

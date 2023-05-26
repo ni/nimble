@@ -23,11 +23,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="NimbleResources\NimbleLabels.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="CodeAnalysisDictionary.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="..\CodeAnalysisDictionary.xml" Link="CodeAnalysisDictionary.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="NimbleResources\NimbleLabels.resx" copyToOutput="true">
+      <IncludeInPackage>true</IncludeInPackage>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

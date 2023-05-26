@@ -8,6 +8,8 @@
     <RootNamespace>NimbleBlazor.Tests</RootNamespace>
 
     <AssemblyName>NimbleBlazor.Tests</AssemblyName>
+
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

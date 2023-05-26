@@ -13,6 +13,7 @@ import { buttonTag } from '../button';
 import { iconMinusWideTag } from '../icons/minus-wide';
 import { iconAddTag } from '../icons/add';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { labelNumberFieldDecrement, labelNumberFieldIncrement } from '../labels';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -64,28 +65,26 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: html`
+    stepDownGlyph: html<NumberField>`
         <${buttonTag}
             class="step-up-down-button"
             appearance="ghost"
-            content-hidden
             tabindex="-1"
         >
-            "Decrement"
+            ${x => labelNumberFieldDecrement.getValueFor(x)}
             <${iconMinusWideTag}
                 slot="start"
             >
             </${iconMinusWideTag}>
         </${buttonTag}>
     `,
-    stepUpGlyph: html`
+    stepUpGlyph: html<NumberField>`
         <${buttonTag}
             class="step-up-down-button"
             appearance="ghost"
-            content-hidden
             tabindex="-1"
         >
-            "Increment"
+            ${x => labelNumberFieldIncrement.getValueFor(x)}
             <${iconAddTag}
                 slot="start">
             </${iconAddTag}>

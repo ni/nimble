@@ -10,6 +10,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+import { NimbleLabelsModule } from 'projects/ni/nimble-angular/src/directives/labels/nimble-labels.module';
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
@@ -28,6 +29,7 @@ import { HeaderComponent } from './header/header.component';
         FormsModule,
         ReactiveFormsModule,
         NimbleThemeProviderModule,
+        NimbleLabelsModule,
         NimbleTextAreaModule,
         NimbleTextFieldModule,
         NimbleNumberFieldModule,
