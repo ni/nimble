@@ -9,6 +9,7 @@ import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import type { TableStringField } from '../../table/types';
 import { tableColumnSelectCellViewTag } from './cell-view';
 import { tableColumnTextGroupHeaderTag } from '../text/group-header-view';
+import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnSelectCellRecord = TableStringField<'items' | 'selected-item'>;
 export interface TableColumnSelectColumnConfig {
@@ -36,14 +37,14 @@ export class TableColumnSelect extends mixinGroupableColumnAPI(
     @attr
     public placeholder?: string;
 
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: ['items', 'selected-item'],
             cellViewTag: tableColumnSelectCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderTag,
-            delegatedEvents: ['click']
-        });
-        this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
+            delegatedEvents: ['click'],
+            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+        };
     }
 
     protected itemsFieldNameChanged(): void {
