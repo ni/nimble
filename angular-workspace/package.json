@@ -25,13 +25,13 @@
     "build:application": {
       "command": "ng build example-client-app",
       "dependencies": ["build:library"],
-      "files": ["projects/example-client-app"],
+      "files": ["projects/example-client-app", "angular.json", "tsconfig.json"],
       "output": ["dist/example-client-app"]
     },
     "build:library": {
       "command": "ng build @ni/nimble-angular",
       "dependencies": ["generate-icons"],
-      "files": ["projects/ni/nimble-angular"],
+      "files": ["projects/ni/nimble-angular", "angular.json", "tsconfig.json"],
       "output": ["dist/ni/nimble-angular"]
     },
     "generate-icons": {
