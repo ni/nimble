@@ -183,23 +183,26 @@ export class WaferMap extends FoundationElement {
 
         const cx = 220;
         const cy = 250;
-        const radius = 150;
-        const startAngle = 2 * Math.PI + 0.12;
-        const endAngle = 2 * Math.PI - 0.12;
+        const radius = 200;
+        const cropAngle = 0.12; //radians
+        const startAngle = 2 * Math.PI + cropAngle;
+        const endAngle = 2 * Math.PI - cropAngle;
+        const notchDiameter = Math.sin(cropAngle * 2) * radius;
+        const notchRadius = notchDiameter / 2;
 
         const arc = new PIXI.Graphics();
-        arc.lineStyle(5, 0x3333DD, 1);
+        arc.lineStyle(3, 0x3333DD, 1);
         arc.arc(cx, cy, radius, startAngle, endAngle);
         this.pixiApp.stage.addChild(arc);
 
         const c2x = cx + radius;
         const c2y = cy;
-        const radius2 = 20;
+        const radius2 = notchRadius;
         const startAngle2 = Math.PI / 2;
         const endAngle2 = 3 * Math.PI / 2;
 
         const arc2 = new PIXI.Graphics();
-        arc2.lineStyle(5, 0x3333DD, 1);
+        arc2.lineStyle(3, 0x3333DD, 1);
         arc2.arc(c2x, c2y, radius2, startAngle2, endAngle2);
         this.pixiApp.stage.addChild(arc2);
     }
