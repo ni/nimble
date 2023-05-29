@@ -33,8 +33,8 @@ export class Computations {
 
     public constructor(wafermap: WaferMap) {
         const canvasDimensions = {
-            width: wafermap.canvasWidth,
-            height: wafermap.canvasHeight
+            width: wafermap.clientWidth,
+            height: wafermap.clientHeight
         };
         const gridDimensions = this.calculateGridDimensions(wafermap.dies);
         const canvasDiameter = Math.min(

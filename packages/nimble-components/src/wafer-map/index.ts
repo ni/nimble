@@ -9,10 +9,11 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
 import { styles } from './styles';
-// import { DataManager } from './modules/data-manager';
+import { DataManager } from './modules/data-manager';
 // import { RenderingModule } from './modules/rendering';
 // import { EventCoordinator } from './modules/event-coordinator';
 import {
+    DieRenderInfo,
     HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
@@ -74,10 +75,10 @@ export class WaferMap extends FoundationElement {
      */
     public readonly wafermapContainer!: HTMLElement;
 
-    // /**
-    //  * @internal
-    //  */
-    // public dataManager?: DataManager;
+    /**
+     * @internal
+     */
+    public dataManager?: DataManager;
 
     /**
      * @internal
@@ -152,11 +153,13 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public render(graphics: PIXI.Graphics): void {
+        this.initializeInternalModules();
+        const cont = this.generateParticleContainer();
         if (!this.pixiApp) {
             this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true });
             this.wafermapContainer.appendChild(this.pixiApp.view);
         }
-        this.pixiApp.stage.addChild(graphics);
+        this.pixiApp.stage.addChild(cont);
     }
 
     private queueRender(graphics: PIXI.Graphics): void {
@@ -167,6 +170,10 @@ export class WaferMap extends FoundationElement {
             this.renderQueued = true;
             DOM.queueUpdate(() => this.render(graphics));
         }
+    }
+
+    private initializeInternalModules(): void {
+        this.dataManager = new DataManager(this);
     }
 
     private quadrantChanged(): void {
@@ -208,6 +215,37 @@ export class WaferMap extends FoundationElement {
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
         // this.queueRenderHover();
+    }
+
+    private generateParticleContainer(): PIXI.ParticleContainer {
+        let dies: DieRenderInfo[];
+        dies = this.dataManager?.diesRenderInfo as DieRenderInfo[];
+        const dimension = this.dataManager?.dieDimensions;
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const container = new PIXI.ParticleContainer(
+            1000000,
+            {
+                vertices: true,
+                scale: true,
+                position: true,
+                rotation: true,
+                uvs: true,
+                alpha: true,
+            }
+        );
+
+        for (let die of dies) {
+            const waferDie = new PIXI.Sprite(PIXI.Texture.WHITE);
+            waferDie.tint = 0xDE3249;
+            waferDie.height = dimension?.height as number;
+            waferDie.width = dimension?.width as number;
+            waferDie.position.x = die.x;
+            waferDie.position.y = die.y;
+            container.addChild(waferDie);
+        }
+
+        return container;
     }
 }
 
