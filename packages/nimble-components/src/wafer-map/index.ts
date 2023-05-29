@@ -1,16 +1,17 @@
 import {
     attr,
-    DOM,
+    // DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
+import * as PIXI from 'pixi.js';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
 import { styles } from './styles';
-import { DataManager } from './modules/data-manager';
-import { RenderingModule } from './modules/rendering';
-import { EventCoordinator } from './modules/event-coordinator';
+// import { DataManager } from './modules/data-manager';
+// import { RenderingModule } from './modules/rendering';
+// import { EventCoordinator } from './modules/event-coordinator';
 import {
     HoverDieOpacity,
     WaferMapColorScale,
@@ -71,16 +72,16 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public readonly zoomContainer!: HTMLElement;
+    public readonly wafermapContainer!: HTMLElement;
 
-    /**
-     * @internal
-     */
-    public dataManager?: DataManager;
-    /**
-     * @internal
-     */
-    public renderer?: RenderingModule;
+    // /**
+    //  * @internal
+    //  */
+    // public dataManager?: DataManager;
+    // /**
+    //  * @internal
+    //  */
+    // public renderer?: RenderingModule;
 
     /**
      * @internal
@@ -134,67 +135,36 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private eventCoordinator?: EventCoordinator;
-    // private resizeObserver?: ResizeObserver;
-
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.render();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        // this.resizeObserver!.unobserve(this);
     }
 
     /**
      * @internal
      */
     public render(): void {
-        this.renderQueued = false;
-        // this.initializeInternalModules();
-        // this.renderer?.drawWafer();
+        const app = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true });
+        this.wafermapContainer.appendChild(app.view);
+        const graphics = new PIXI.Graphics();
+        graphics.beginFill(0xDE3249);
+        graphics.drawRect(50, 50, 100, 100);
+        graphics.endFill();
+        app.stage.addChild(graphics);
     }
 
     private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
-        }
+
     }
 
     private queueRenderHover(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        DOM.queueUpdate(() => this.renderer?.renderHover());
     }
 
     private initializeInternalModules(): void {
-        this.eventCoordinator?.detachEvents();
-        this.dataManager = new DataManager(this);
-        this.renderer = new RenderingModule(this);
-        this.eventCoordinator = new EventCoordinator(this);
-    }
-
-    private createResizeObserver(): ResizeObserver {
-        const resizeObserver = new ResizeObserver(entries => {
-            const entry = entries[0];
-            if (entry === undefined) {
-                return;
-            }
-            const { height, width } = entry.contentRect;
-            // Updating the canvas size clears its contents so update it explicitly instead of
-            // via template bindings so we can confirm that it happens before render
-            this.canvas.width = width;
-            this.canvas.height = height;
-            this.canvasWidth = width;
-            this.canvasHeight = height;
-        });
-        resizeObserver.observe(this);
-        return resizeObserver;
     }
 
     private quadrantChanged(): void {
