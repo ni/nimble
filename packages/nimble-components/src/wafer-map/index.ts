@@ -1,10 +1,11 @@
+import * as PIXI from 'pixi.js';
 import {
     attr,
     DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
-import * as PIXI from 'pixi.js';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { template } from './template';
@@ -20,7 +21,6 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
-import { Black, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -158,8 +158,6 @@ export class WaferMap extends FoundationElement {
         waferDie.position.x = 1;
         waferDie.position.y = 1;
         waferDie.interactive = true;
-        waferDie.onmouseenter = (e: Event) => {console.log(e);}
-
         this.dieSprites.addChild(waferDie);
 
         if (this.dieSprites !== undefined) {
@@ -181,25 +179,26 @@ export class WaferMap extends FoundationElement {
         }
         this.pixiApp.stage.addChild(dieSprites);
 
-        const cx = 220;
-        const cy = 250;
+        const c1x = 220; // c1 center x position
+        const c1y = 250; // c1 center y position
         const radius = 200;
-        const cropAngle = 0.12; //radians
-        const startAngle = 2 * Math.PI + cropAngle;
-        const endAngle = 2 * Math.PI - cropAngle;
+        const cropAngle = 0.12; // radians
+        const c1OrientationAngle = 3 * Math.PI / 2; // radians
+        const startAngle = c1OrientationAngle + cropAngle;
+        const endAngle = c1OrientationAngle - cropAngle;
         const notchDiameter = Math.sin(cropAngle * 2) * radius;
         const notchRadius = notchDiameter / 2;
 
         const arc = new PIXI.Graphics();
         arc.lineStyle(3, 0x3333DD, 1);
-        arc.arc(cx, cy, radius, startAngle, endAngle);
+        arc.arc(c1x, c1y, radius, startAngle, endAngle);
         this.pixiApp.stage.addChild(arc);
 
-        const c2x = cx + radius;
-        const c2y = cy;
+        const c2x = c1x;
+        const c2y = c1y - radius;
         const radius2 = notchRadius;
-        const startAngle2 = Math.PI / 2;
-        const endAngle2 = 3 * Math.PI / 2;
+        const startAngle2 = 0;
+        const endAngle2 = Math.PI;
 
         const arc2 = new PIXI.Graphics();
         arc2.lineStyle(3, 0x3333DD, 1);
