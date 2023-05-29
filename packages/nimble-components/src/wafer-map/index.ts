@@ -179,8 +179,8 @@ export class WaferMap extends FoundationElement {
         }
         this.pixiApp.stage.addChild(dieSprites);
 
-        const c1x = 220; // c1 center x position
-        const c1y = 250; // c1 center y position
+        const c1x = this.wafermapContainer.clientWidth / 2; // c1 center x position
+        const c1y = this.wafermapContainer.clientHeight / 2; // c1 center y position
         const radius = 200;
         const cropAngle = 0.12; // radians
         const c1OrientationAngle = 3 * Math.PI / 2; // radians
