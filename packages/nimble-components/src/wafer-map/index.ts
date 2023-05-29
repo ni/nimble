@@ -20,6 +20,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import { Black, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -131,17 +132,39 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
+    /**
+     * @internal
+     */
+    @observable public dieSprites?: PIXI.ParticleContainer;
+
     private pixiApp?: PIXI.Application<HTMLCanvasElement>;
+
 
     public override connectedCallback(): void {
         super.connectedCallback();
 
-        const initGraphics = new PIXI.Graphics();
-        initGraphics.beginFill(0xDE3249);
-        initGraphics.drawRect(50, 50, 100, 100);
-        initGraphics.endFill();
+        this.dieSprites = new PIXI.ParticleContainer(10000, {
+            scale: true,
+            position: true,
+            rotation: true,
+            uvs: true,
+            alpha: true,
+        });
 
-        this.queueRender(initGraphics);
+        const waferDie = new PIXI.Sprite(PIXI.Texture.WHITE);
+        waferDie.tint = 0xDE3249;
+        waferDie.height = 10;
+        waferDie.width = 10;
+        waferDie.position.x = 1;
+        waferDie.position.y = 1;
+        waferDie.interactive = true;
+        waferDie.onmouseenter = (e: Event) => {console.log(e);}
+
+        this.dieSprites.addChild(waferDie);
+
+        if (this.dieSprites !== undefined) {
+            this.queueRender(this.dieSprites);
+        }
     }
 
     public override disconnectedCallback(): void {
@@ -151,21 +174,43 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public render(graphics: PIXI.Graphics): void {
+    public render(dieSprites: PIXI.ParticleContainer): void {
         if (!this.pixiApp) {
-            this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true });
+            this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true, background: White });
             this.wafermapContainer.appendChild(this.pixiApp.view);
         }
-        this.pixiApp.stage.addChild(graphics);
+        this.pixiApp.stage.addChild(dieSprites);
+
+        const cx = 220;
+        const cy = 250;
+        const radius = 150;
+        const startAngle = 2 * Math.PI + 0.12;
+        const endAngle = 2 * Math.PI - 0.12;
+
+        const arc = new PIXI.Graphics();
+        arc.lineStyle(5, 0x3333DD, 1);
+        arc.arc(cx, cy, radius, startAngle, endAngle);
+        this.pixiApp.stage.addChild(arc);
+
+        const c2x = cx + radius;
+        const c2y = cy;
+        const radius2 = 20;
+        const startAngle2 = Math.PI / 2;
+        const endAngle2 = 3 * Math.PI / 2;
+
+        const arc2 = new PIXI.Graphics();
+        arc2.lineStyle(5, 0x3333DD, 1);
+        arc2.arc(c2x, c2y, radius2, startAngle2, endAngle2);
+        this.pixiApp.stage.addChild(arc2);
     }
 
-    private queueRender(graphics: PIXI.Graphics): void {
+    private queueRender(dieSprites: PIXI.ParticleContainer): void {
         if (!this.$fastController.isConnected) {
             return;
         }
         if (!this.renderQueued) {
             this.renderQueued = true;
-            DOM.queueUpdate(() => this.render(graphics));
+            DOM.queueUpdate(() => this.render(dieSprites));
         }
     }
 
