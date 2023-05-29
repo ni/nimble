@@ -135,19 +135,15 @@ export class WaferMap extends FoundationElement {
     };
 
     private eventCoordinator?: EventCoordinator;
-    private resizeObserver?: ResizeObserver;
+    // private resizeObserver?: ResizeObserver;
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.canvasContext = this.canvas.getContext('2d', {
-            willReadFrequently: true
-        })!;
-        this.resizeObserver = this.createResizeObserver();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.resizeObserver!.unobserve(this);
+        // this.resizeObserver!.unobserve(this);
     }
 
     /**
@@ -155,8 +151,8 @@ export class WaferMap extends FoundationElement {
      */
     public render(): void {
         this.renderQueued = false;
-        this.initializeInternalModules();
-        this.renderer?.drawWafer();
+        // this.initializeInternalModules();
+        // this.renderer?.drawWafer();
     }
 
     private queueRender(): void {
