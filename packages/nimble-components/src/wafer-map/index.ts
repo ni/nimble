@@ -1,6 +1,6 @@
 import {
     attr,
-    // DOM,
+    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -78,10 +78,6 @@ export class WaferMap extends FoundationElement {
     //  * @internal
     //  */
     // public dataManager?: DataManager;
-    // /**
-    //  * @internal
-    //  */
-    // public renderer?: RenderingModule;
 
     /**
      * @internal
@@ -135,9 +131,17 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
+    private pixiApp?: PIXI.Application<HTMLCanvasElement>;
+
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.render();
+
+        const initGraphics = new PIXI.Graphics();
+        initGraphics.beginFill(0xDE3249);
+        initGraphics.drawRect(50, 50, 100, 100);
+        initGraphics.endFill();
+
+        this.queueRender(initGraphics);
     }
 
     public override disconnectedCallback(): void {
@@ -147,77 +151,63 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public render(): void {
-        const app = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true });
-        this.wafermapContainer.appendChild(app.view);
-        const graphics = new PIXI.Graphics();
-        graphics.beginFill(0xDE3249);
-        graphics.drawRect(50, 50, 100, 100);
-        graphics.endFill();
-        app.stage.addChild(graphics);
+    public render(graphics: PIXI.Graphics): void {
+        if (!this.pixiApp) {
+            this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true });
+            this.wafermapContainer.appendChild(this.pixiApp.view);
+        }
+        this.pixiApp.stage.addChild(graphics);
     }
 
-    private queueRender(): void {
-
-    }
-
-    private queueRenderHover(): void {
-    }
-
-    private initializeInternalModules(): void {
+    private queueRender(graphics: PIXI.Graphics): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.renderQueued) {
+            this.renderQueued = true;
+            DOM.queueUpdate(() => this.render(graphics));
+        }
     }
 
     private quadrantChanged(): void {
-        this.queueRender();
     }
 
     private orientationChanged(): void {
-        this.queueRender();
     }
 
     private maxCharactersChanged(): void {
-        this.queueRender();
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.queueRender();
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.queueRender();
     }
 
     private colorScaleModeChanged(): void {
-        this.queueRender();
     }
 
     private highlightedValuesChanged(): void {
-        this.queueRender();
     }
 
     private diesChanged(): void {
-        this.queueRender();
     }
 
     private colorScaleChanged(): void {
-        this.queueRender();
     }
 
     private transformChanged(): void {
-        this.queueRender();
     }
 
     private canvasWidthChanged(): void {
-        this.queueRender();
     }
 
     private canvasHeightChanged(): void {
-        this.queueRender();
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.queueRenderHover();
+        // this.queueRenderHover();
     }
 }
 
