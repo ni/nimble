@@ -50,7 +50,7 @@ const getDiesSet = (
             returnedValue = generateWaferData(1000, goodValueGenerator(seed))!;
             break;
         case 'badDies10000':
-            returnedValue = generateWaferData(10000, badValueGenerator(seed))!;
+            returnedValue = generateWaferData(100000, badValueGenerator(seed))!;
             break;
         default:
             returnedValue = [] as WaferMapDie[];

@@ -185,10 +185,11 @@ export class WaferMap extends FoundationElement {
             this.viewPort = new Viewport({
                 screenWidth: this.pixiApp.view.width,
                 screenHeight: this.pixiApp.view.height,
-                events: this.pixiApp.renderer.events
+                events: this.pixiApp.renderer.events,
+                passiveWheel: false
             }).drag().wheel();
-            //this.viewport.clampZoom({ maxWidth: this.pixiApp.view.width, maxHeight: this.pixiApp.view.height });
         }
+        this.viewPort.clampZoom({ maxWidth: this.pixiApp.view.width, maxHeight: this.pixiApp.view.height });
 
         const waferPosition: PointCoordinates = { x: this.wafermapContainer.clientWidth / 2, y: this.wafermapContainer.clientHeight / 2 };
         const waferRadius = Math.min(waferPosition.x, waferPosition.y);
@@ -211,19 +212,43 @@ export class WaferMap extends FoundationElement {
         pixiHoverDie.x = 0;
         pixiHoverDie.y = 0;
         pixiHoverDie.interactive = true;
+        let btmapText;
         this.viewPort.addEventListener('mousemove', e => {
+            try{
+                if(pixiHoverDie)
+                {
+                    pixiHoverDie.removeChildAt(0);
+                }
+            }catch{}
+
             const dieCoordinates = this.calculateDieCoordinates({
-                x: e.clientX,
-                y: e.clientY
+                x: e.globalX,
+                y: e.globalY
             });
 
             const position = this.dataManager!.getWaferMapDie(dieCoordinates);
             if (position) {
-                pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.left;
-                pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.left;
+                console.log(position);
+                pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
+                pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
+                btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
+            }
+            if (btmapText) {
+                pixiHoverDie.addChild(btmapText);
             }
         });
         this.viewPort.addChild(pixiHoverDie);
+    }
+
+    private onDemandDieText(die: WaferMapDie, dieDimensions: Dimensions): PIXI.Text {
+        const text = new PIXI.Text(die.value);
+        text.style.fontSize = dieDimensions.height / 2 * 0.08;
+        text.style.fontFamily = 'sans-serif';
+        text.style.fill = 0xffffff;
+        text.resolution = 3;
+        text.x = die.x;
+        text.y = die.y;
+        return text;
     }
 
     private queueRender(): void {
@@ -237,6 +262,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private initializeInternalModules(): void {
+        console.log(this.clientWidth);
+        console.log(this.clientHeight);
         this.dataManager = new DataManager(this);
         this.generateFont();
     }
@@ -371,12 +398,12 @@ export class WaferMap extends FoundationElement {
             text.y = waferDie.y + offsetY;
             textArray.push(text);
 
-            container.lineStyle(outlineSize, style.outlineColor, 1);
+            // container.lineStyle(outlineSize, style.outlineColor, 1);
             container.beginFill(this.rgba2hex(die.fillStyle));
             container.drawRect(waferDie.x, waferDie.y, dieDimensions.width, dieDimensions.height);
             container.endFill();
         }
-        container.addChild(...textArray);
+        // container.addChild(...textArray);
         this.viewPort.addChild(container);
     }
 
