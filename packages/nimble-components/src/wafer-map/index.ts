@@ -16,6 +16,7 @@ import { DataManager } from './modules/data-manager';
 // import { EventCoordinator } from './modules/event-coordinator';
 import {
     DieRenderInfo,
+    Dimensions,
     HoverDieOpacity,
     WaferMapColorScale,
     WaferMapColorScaleMode,
@@ -142,6 +143,7 @@ export class WaferMap extends FoundationElement {
     @observable public dieSprites?: PIXI.ParticleContainer;
 
     private pixiApp?: PIXI.Application<HTMLCanvasElement>;
+    private viewPort?: Viewport;
 
     private readonly waferoutlineStyle: WaferOutlineStyling = {
         outlineColor: Black,
@@ -151,6 +153,7 @@ export class WaferMap extends FoundationElement {
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.initializeInternalModules();
         this.queueRender();
     }
 
@@ -162,12 +165,21 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public render(): void {
-        this.initializeInternalModules();
-        const cont = this.generateContainer();
+        if (!this.dataManager) {
+            return;
+        }
 
         if (!this.pixiApp) {
             this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ background: White });
             this.wafermapContainer.appendChild(this.pixiApp.view);
+        }
+
+        if (!this.viewPort) {
+            this.viewPort = new Viewport({
+                screenWidth: this.pixiApp.view.width,
+                screenHeight: this.pixiApp.view.height,
+                events: this.pixiApp.renderer.events
+            }).drag().wheel();
         }
 
         const waferPosition: PointCoordinates = { x: this.wafermapContainer.clientWidth / 2, y: this.wafermapContainer.clientHeight / 2 };
@@ -180,22 +192,9 @@ export class WaferMap extends FoundationElement {
             this.waferoutlineStyle
         );
 
-        const viewport = new Viewport({
-            screenWidth: this.pixiApp.view.width,
-            screenHeight: this.pixiApp.view.height,
-            events: this.pixiApp.renderer.events
-        });
-        this.pixiApp.stage.addChild(viewport);
+        this.drawDies(this.dataManager.diesRenderInfo, this.dataManager.dieDimensions);
 
-        viewport
-            .drag()
-            .wheel();
-        viewport.addEventListener('mousemove', e => {
-            console.log(e.clientX);
-            console.log(viewport.getChildAt(0));
-        });
-
-        viewport.addChild(cont);
+        this.pixiApp.stage.addChild(this.viewPort);
     }
 
     private queueRender(): void {
@@ -213,7 +212,7 @@ export class WaferMap extends FoundationElement {
     }
 
     private drawWaferOutline(orientation: WaferMapOrientation, radius: number, center: PointCoordinates, style: WaferOutlineStyling): void {
-        if (!this.pixiApp) {
+        if (!this.viewPort) {
             return;
         }
 
@@ -260,7 +259,7 @@ export class WaferMap extends FoundationElement {
 
         // Set the wafermap outline
         const wafer = new PIXI.Graphics();
-        const cropAngle = 0.12; // radians
+        const cropAngle = 0.05; // radians
         const waferStartAngle = waferOrientationAngle + cropAngle;
         const waferEndAngle = waferOrientationAngle - cropAngle;
         wafer.lineStyle(style.outlineWidth, style.outlineColor, 1, 1, style.outlineNative);
@@ -275,8 +274,8 @@ export class WaferMap extends FoundationElement {
         notch.arc(waferC2x, waferC2y, notchRadius, notchStartAngle, notchEndAngle);
 
         // Draw the components
-        this.pixiApp.stage.addChild(wafer); // draw the wafermap outline
-        this.pixiApp.stage.addChild(notch); // draw the wafermap notch
+        this.viewPort?.addChild(wafer); // draw the wafermap outline
+        this.viewPort?.addChild(notch); // draw the wafermap notch
     }
 
     private quadrantChanged(): void {
@@ -320,23 +319,22 @@ export class WaferMap extends FoundationElement {
         // this.queueRenderHover();
     }
 
-    private generateContainer(): PIXI.Graphics {
-        let dies: DieRenderInfo[];
-        dies = this.dataManager?.diesRenderInfo!;
-        const dimension = this.dataManager?.dieDimensions;
+    private drawDies(dies: DieRenderInfo[], dieDimensions: Dimensions): void {
+        if (!this.dataManager || !this.viewPort) {
+            return;
+        }
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const container = new PIXI.Graphics();
-        const width = dimension?.height!;
-        const height = dimension?.width!;
         for (const die of dies) {
             const waferDie = new PIXI.Point(die.x, die.y);
+
+            container.lineStyle(5, White, 1);
             container.beginFill(0xff0022);
-            container.drawRect(waferDie.x, waferDie.y, width, height);
+            container.drawRect(waferDie.x, waferDie.y, dieDimensions.width, dieDimensions.height);
             container.endFill();
         }
-
-        return container;
+        this.viewPort.addChild(container);
     }
 
     private generateText(): PIXI.Text[] {
