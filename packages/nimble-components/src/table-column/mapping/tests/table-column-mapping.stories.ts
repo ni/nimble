@@ -61,7 +61,7 @@ const overviewText = `This page contains information about the types of columns 
 See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
 information about common column configuration.`;
 
-const metadata: Meta<SharedTableArgs> = {
+const metadata: Meta<MappingColumnTableArgs> = {
     title: 'Table Column Types',
     parameters: {
         docs: {
@@ -70,27 +70,61 @@ const metadata: Meta<SharedTableArgs> = {
             }
         }
     },
-    // prettier-ignore
     argTypes: {
-        ...sharedTableArgTypes
+        ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        },
+        fieldName: {
+            name: 'field-name',
+            description:
+                "Set this attribute to identify which field in the data record contains the value for each cell in the column. The field values' type must match the type specified by the `key-type` attribute.",
+            control: { type: 'none' }
+        },
+        keyType: {
+            name: 'key-type',
+            control: { type: 'none' },
+            defaultValue: { summary: '"string"' },
+            description:
+                'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.'
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'Returns `true` if the column configuration is valid, otherwise `false`.'
+        },
+        validity: {
+            description:
+                'Property whose value is an object containing flags representing validity conditions of the column.'
+        }
     },
     args: {
-        ...sharedTableArgs(simpleData)
+        ...sharedTableArgs(simpleData),
+        fieldName: 'firstName',
+        keyType: 'string',
+        checkValidity: () => {},
+        validity: () => {}
     }
 };
 
 export default metadata;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface MappingColumnTableArgs extends SharedTableArgs {}
+interface MappingColumnTableArgs extends SharedTableArgs {
+    fieldName: string;
+    keyType: string;
+    checkValidity: () => void;
+    validity: () => void;
+}
 
-const mappingColumnDescription = 'The `nimble-table-column-mapping` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
+const iconColumnDescription = 'The `nimble-table-column-icon` column renders string, number, or boolean values as a Nimble icon or `nimble-spinner` in the `nimble-table`.';
 
 export const iconColumn: StoryObj<MappingColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: mappingColumnDescription
+                story: iconColumnDescription
             }
         }
     },
@@ -118,6 +152,8 @@ export const iconColumn: StoryObj<MappingColumnTableArgs> = {
         </${tableTag}>
     `)
 };
+
+const mappingColumnDescription = 'The `nimble-table-column-mapping` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
 
 export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
     parameters: {
