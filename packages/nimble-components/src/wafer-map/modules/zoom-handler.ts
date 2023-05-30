@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js';
 import type { WaferMap } from '..';
 /**
  * ZoomHandler deals with user interactions and events like zooming
