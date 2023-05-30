@@ -34,6 +34,9 @@ When using the Nimble buttons with only an icon, `contentHidden` should be set t
 ## nimble-banner
 When using `nimble-banner`, the title content should always be provided for accessibility. To hide the title visually, `titleHidden` can be set to `true`.
 
+## nimble-dialog
+When using `nimble-dialog`, the title content should always be provided for accessibility. To hide the title visually, `headerHidden` can be set to `true`.
+
 ## Icons
 When using an icon standalone, the `title` attribute should usually be set, to provide accessible text (which will also show as a tooltip).
 
