@@ -5,15 +5,13 @@ import {
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
-import { Black, Black15, Black30, Black91, RgbNiGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { Black, RgbNiGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { Viewport } from 'pixi-viewport';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
-// import { RenderingModule } from './modules/rendering';
-// import { EventCoordinator } from './modules/event-coordinator';
 import {
     DieRenderInfo,
     DieStyling,
@@ -155,8 +153,9 @@ export class WaferMap extends FoundationElement {
     private readonly dieStyle: DieStyling = {
         fillColor: RgbNiGreen,
         outlineColor: White,
-        outlineWidth: 2
-    }
+        outlineWidth: 5,
+        opacity: 1
+    };
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -216,6 +215,7 @@ export class WaferMap extends FoundationElement {
 
     private initializeInternalModules(): void {
         this.dataManager = new DataManager(this);
+        this.generateFont();
     }
 
     private drawWaferOutline(orientation: WaferMapOrientation, radius: number, center: PointCoordinates, style: WaferOutlineStyling): void {
@@ -323,7 +323,6 @@ export class WaferMap extends FoundationElement {
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        // this.queueRenderHover();
     }
 
     private drawDies(dies: DieRenderInfo[], dieDimensions: Dimensions, style: DieStyling): void {
@@ -331,39 +330,43 @@ export class WaferMap extends FoundationElement {
             return;
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const container = new PIXI.Graphics();
+        const fontSize = dieDimensions.height / 2;
+        const outlineSize = style.outlineWidth * dieDimensions.width / 100;
+        const offsetX = dieDimensions.width / 10;
+        const offsetY = dieDimensions.height / 4;
+        const textArray: PIXI.BitmapText[] = [];
         for (const die of dies) {
             const waferDie = new PIXI.Point(die.x, die.y);
 
-            container.lineStyle(style.outlineWidth, style.outlineColor, 1);
+            const text = new PIXI.BitmapText(die.text, {
+                fontName: 'DieFont',
+                fontSize,
+                align: 'left'
+            });
+            text.x = waferDie.x + offsetX;
+            text.y = waferDie.y + offsetY;
+            textArray.push(text);
+
+            container.lineStyle(outlineSize, style.outlineColor, 1);
             container.beginFill(style.fillColor);
             container.drawRect(waferDie.x, waferDie.y, dieDimensions.width, dieDimensions.height);
             container.endFill();
         }
+        container.addChild(...textArray);
         this.viewPort.addChild(container);
     }
 
-    private generateText(): PIXI.Text[] {
-        const labels: PIXI.Text[] = [];
-        let dies: DieRenderInfo[];
-        dies = this.dataManager?.diesRenderInfo!;
-        const labelFontSize = this.dataManager?.labelsFontSize;
-        const dimension = this.dataManager?.dieDimensions;
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        for (const die of dies) {
-            const text = new PIXI.Text(die.text);
-            text.style = new PIXI.TextStyle({
-                fill: 0xFFFFFF,
-                fontSize: labelFontSize
-            });
-            text.x = die.x;
-            text.y = die.y;
-            labels.push(text);
-        }
-
-        return labels;
+    private generateFont(): void {
+        PIXI.BitmapFont.from(
+            'DieFont',
+            {
+                fill: '#FFFFFF',
+                padding: 0,
+                dropShadowAlpha: 0,
+                dropShadowDistance: 0
+            }
+        );
     }
 }
 

@@ -66,6 +66,7 @@ export interface DieStyling {
     fillColor: string;
     outlineColor: string;
     outlineWidth: number;
+    opacity: number;
 }
 
 export interface Dimensions {
