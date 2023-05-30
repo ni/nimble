@@ -1,10 +1,11 @@
+import * as PIXI from 'pixi.js';
 import {
     attr,
     DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
-import * as PIXI from 'pixi.js';
+import { Black, Black15, Black30, Black91, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { Viewport } from 'pixi-viewport';
@@ -20,8 +21,10 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
-    WaferMapQuadrant
+    WaferMapQuadrant,
+    WaferOutlineStyling
 } from './types';
+import type { PointCoordinates } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -133,17 +136,22 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
+    /**
+     * @internal
+     */
+    @observable public dieSprites?: PIXI.ParticleContainer;
+
     private pixiApp?: PIXI.Application<HTMLCanvasElement>;
+
+    private readonly waferoutlineStyle: WaferOutlineStyling = {
+        outlineColor: Black,
+        outlineWidth: 3,
+        outlineNative: false
+    };
 
     public override connectedCallback(): void {
         super.connectedCallback();
-
-        const initGraphics = new PIXI.Graphics();
-        initGraphics.beginFill(0xDE3249);
-        initGraphics.drawRect(50, 50, 100, 100);
-        initGraphics.endFill();
-
-        this.queueRender(initGraphics);
+        this.queueRender();
     }
 
     public override disconnectedCallback(): void {
@@ -153,26 +161,36 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public render(graphics: PIXI.Graphics): void {
+    public render(): void {
         this.initializeInternalModules();
         const cont = this.generateContainer();
 
         if (!this.pixiApp) {
-            this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true });
+            this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ background: White });
             this.wafermapContainer.appendChild(this.pixiApp.view);
         }
+
+        const waferPosition: PointCoordinates = { x: this.wafermapContainer.clientWidth / 2, y: this.wafermapContainer.clientHeight / 2 };
+        const waferRadius = Math.min(waferPosition.x, waferPosition.y);
+
+        this.drawWaferOutline(
+            this.orientation,
+            waferRadius - this.waferoutlineStyle.outlineWidth,
+            waferPosition,
+            this.waferoutlineStyle
+        );
+
         const viewport = new Viewport({
             screenWidth: this.pixiApp.view.width,
             screenHeight: this.pixiApp.view.height,
-            events: this.pixiApp.renderer.events // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
+            events: this.pixiApp.renderer.events
         });
         this.pixiApp.stage.addChild(viewport);
-        // this.pixiApp.stage.addChild(cont);
 
         viewport
             .drag()
             .wheel();
-        viewport.addEventListener('mousemove', (e) => {
+        viewport.addEventListener('mousemove', e => {
             console.log(e.clientX);
             console.log(viewport.getChildAt(0));
         });
@@ -180,18 +198,85 @@ export class WaferMap extends FoundationElement {
         viewport.addChild(cont);
     }
 
-    private queueRender(graphics: PIXI.Graphics): void {
+    private queueRender(): void {
         if (!this.$fastController.isConnected) {
             return;
         }
         if (!this.renderQueued) {
             this.renderQueued = true;
-            DOM.queueUpdate(() => this.render(graphics));
+            DOM.queueUpdate(() => this.render());
         }
     }
 
     private initializeInternalModules(): void {
         this.dataManager = new DataManager(this);
+    }
+
+    private drawWaferOutline(orientation: WaferMapOrientation, radius: number, center: PointCoordinates, style: WaferOutlineStyling): void {
+        if (!this.pixiApp) {
+            return;
+        }
+
+        const waferC1x = center.x; // pixel c1 center x position
+        const waferC1y = center.y; // pixel c2 center y position
+        let waferC2x = 0; // pixel c2 center x position
+        let waferC2y = 0; // pixel c2 center y position
+
+        let waferOrientationAngle = 0; // radians
+        let notchStartAngle = 0; // radians
+        let notchEndAngle = 0; // radians
+
+        switch (orientation) {
+            case 'top':
+                waferOrientationAngle = 3 * Math.PI / 2;
+                notchStartAngle = 0;
+                waferC2x = waferC1x;
+                waferC2y = waferC1y - radius;
+                break;
+            case 'bottom':
+                waferOrientationAngle = Math.PI / 2;
+                notchStartAngle = Math.PI;
+                waferC2x = waferC1x;
+                waferC2y = waferC1y + radius;
+                break;
+            case 'left':
+                waferOrientationAngle = Math.PI;
+                notchStartAngle = -Math.PI / 2;
+                waferC2x = waferC1x - radius;
+                waferC2y = waferC1y;
+                break;
+            case 'right':
+                waferOrientationAngle = 0;
+                notchStartAngle = Math.PI / 2;
+                waferC2x = waferC1x + radius;
+                waferC2y = waferC1y;
+                break;
+            default:
+                waferOrientationAngle = 0;
+                notchStartAngle = Math.PI / 2;
+                waferC2x = waferC1x + radius;
+                waferC2y = waferC1y;
+        }
+
+        // Set the wafermap outline
+        const wafer = new PIXI.Graphics();
+        const cropAngle = 0.12; // radians
+        const waferStartAngle = waferOrientationAngle + cropAngle;
+        const waferEndAngle = waferOrientationAngle - cropAngle;
+        wafer.lineStyle(style.outlineWidth, style.outlineColor, 1, 1, style.outlineNative);
+        wafer.arc(waferC1x, waferC1y, radius, waferStartAngle, waferEndAngle);
+
+        // Set the wafermap notch
+        const notch = new PIXI.Graphics();
+        const notchDiameter = Math.sin(cropAngle * 2) * radius;
+        const notchRadius = notchDiameter / 2;
+        notchEndAngle = notchStartAngle + Math.PI;
+        notch.lineStyle(style.outlineWidth, style.outlineColor, 1, 1, style.outlineNative);
+        notch.arc(waferC2x, waferC2y, notchRadius, notchStartAngle, notchEndAngle);
+
+        // Draw the components
+        this.pixiApp.stage.addChild(wafer); // draw the wafermap outline
+        this.pixiApp.stage.addChild(notch); // draw the wafermap notch
     }
 
     private quadrantChanged(): void {
