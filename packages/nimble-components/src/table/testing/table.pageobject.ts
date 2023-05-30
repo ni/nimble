@@ -12,6 +12,8 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
+import { Icon } from '../../icon-base';
+import { Spinner } from '../../spinner';
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -143,6 +145,30 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
         return anchor as Anchor;
+    }
+
+    public getRenderedCellIcon(
+        rowIndex: number,
+        columnIndex: number
+    ): Icon | null {
+        const icon = this.getRenderedCellView(rowIndex, columnIndex).shadowRoot!
+            .firstElementChild;
+        if (!icon || !(icon instanceof Icon)) {
+            return null;
+        }
+        return icon;
+    }
+
+    public getRenderedCellSpinner(
+        rowIndex: number,
+        columnIndex: number
+    ): Spinner | null {
+        const spinner = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (!spinner || !(spinner instanceof Spinner)) {
+            return null;
+        }
+        return spinner;
     }
 
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {
