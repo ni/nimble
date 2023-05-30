@@ -48,5 +48,8 @@
   },
   "peerDependencies": {
     "@storybook/html": "*"
+  },
+  "dependencies": {
+    "pixi-viewport": "^5.0.1"
   }
 }

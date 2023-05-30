@@ -7,6 +7,7 @@ import {
 import * as PIXI from 'pixi.js';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
+import { Viewport } from 'pixi-viewport';
 import { template } from './template';
 import { styles } from './styles';
 import { DataManager } from './modules/data-manager';
@@ -155,13 +156,24 @@ export class WaferMap extends FoundationElement {
     public render(graphics: PIXI.Graphics): void {
         this.initializeInternalModules();
         const cont = this.generateContainer();
- 
+
         if (!this.pixiApp) {
             this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ width: 640, height: 640, hello: true });
             this.wafermapContainer.appendChild(this.pixiApp.view);
         }
-        this.pixiApp.stage.addChild(cont);
-        const lab = this.generateText();
+        const viewport = new Viewport({
+            screenWidth: this.pixiApp.view.width,
+            screenHeight: this.pixiApp.view.height,
+            events: this.pixiApp.renderer.events // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
+        });
+        this.pixiApp.stage.addChild(viewport);
+        // this.pixiApp.stage.addChild(cont);
+
+        viewport
+            .drag()
+            .wheel();
+
+        viewport.addChild(cont);
     }
 
     private queueRender(graphics: PIXI.Graphics): void {
@@ -239,22 +251,22 @@ export class WaferMap extends FoundationElement {
     }
 
     private generateText(): PIXI.Text[] {
-        let labels: PIXI.Text[] = [];
+        const labels: PIXI.Text[] = [];
         let dies: DieRenderInfo[];
         dies = this.dataManager?.diesRenderInfo!;
         const labelFontSize = this.dataManager?.labelsFontSize;
         const dimension = this.dataManager?.dieDimensions;
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        for(const die of dies){
-        const text = new PIXI.Text(die.text);
-        text.style = new PIXI.TextStyle({
-            fill: 0xFFFFFF,
-            fontSize: labelFontSize
-        });
-        text.x = die.x;
-        text.y = die.y;
-        labels.push(text);
+        for (const die of dies) {
+            const text = new PIXI.Text(die.text);
+            text.style = new PIXI.TextStyle({
+                fill: 0xFFFFFF,
+                fontSize: labelFontSize
+            });
+            text.x = die.x;
+            text.y = die.y;
+            labels.push(text);
         }
 
         return labels;
