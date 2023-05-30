@@ -5,7 +5,7 @@ import {
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
-import { Black, RgbNiGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { Black, Black15, RgbNiGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { Viewport } from 'pixi-viewport';
@@ -136,11 +136,6 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    /**
-     * @internal
-     */
-    @observable public dieSprites?: PIXI.ParticleContainer;
-
     private pixiApp?: PIXI.Application<HTMLCanvasElement>;
     private viewPort?: Viewport;
 
@@ -188,6 +183,8 @@ export class WaferMap extends FoundationElement {
             }).drag().wheel();
         }
 
+        this.pixiApp.stop();
+
         const waferPosition: PointCoordinates = { x: this.wafermapContainer.clientWidth / 2, y: this.wafermapContainer.clientHeight / 2 };
         const waferRadius = Math.min(waferPosition.x, waferPosition.y);
 
@@ -201,6 +198,8 @@ export class WaferMap extends FoundationElement {
         this.drawDies(this.dataManager.diesRenderInfo, this.dataManager.dieDimensions, this.dieStyle);
 
         this.pixiApp.stage.addChild(this.viewPort);
+
+        this.pixiApp.start();
     }
 
     private queueRender(): void {
@@ -361,7 +360,7 @@ export class WaferMap extends FoundationElement {
         PIXI.BitmapFont.from(
             'DieFont',
             {
-                fill: '#FFFFFF',
+                fill: Black,
                 padding: 0,
                 dropShadowAlpha: 0,
                 dropShadowDistance: 0
