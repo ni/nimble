@@ -63,9 +63,9 @@ export interface WaferOutlineStyling {
 }
 
 export interface DieStyling {
+    fillColor: string;
     outlineColor: string;
     outlineWidth: number;
-    outlineNative: boolean;
 }
 
 export interface Dimensions {

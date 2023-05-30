@@ -5,7 +5,7 @@ import {
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
-import { Black, Black15, Black30, Black91, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { Black, Black15, Black30, Black91, RgbNiGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { Viewport } from 'pixi-viewport';
@@ -16,6 +16,7 @@ import { DataManager } from './modules/data-manager';
 // import { EventCoordinator } from './modules/event-coordinator';
 import {
     DieRenderInfo,
+    DieStyling,
     Dimensions,
     HoverDieOpacity,
     WaferMapColorScale,
@@ -151,6 +152,12 @@ export class WaferMap extends FoundationElement {
         outlineNative: false
     };
 
+    private readonly dieStyle: DieStyling = {
+        fillColor: RgbNiGreen,
+        outlineColor: White,
+        outlineWidth: 2
+    }
+
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initializeInternalModules();
@@ -192,7 +199,7 @@ export class WaferMap extends FoundationElement {
             this.waferoutlineStyle
         );
 
-        this.drawDies(this.dataManager.diesRenderInfo, this.dataManager.dieDimensions);
+        this.drawDies(this.dataManager.diesRenderInfo, this.dataManager.dieDimensions, this.dieStyle);
 
         this.pixiApp.stage.addChild(this.viewPort);
     }
@@ -319,7 +326,7 @@ export class WaferMap extends FoundationElement {
         // this.queueRenderHover();
     }
 
-    private drawDies(dies: DieRenderInfo[], dieDimensions: Dimensions): void {
+    private drawDies(dies: DieRenderInfo[], dieDimensions: Dimensions, style: DieStyling): void {
         if (!this.dataManager || !this.viewPort) {
             return;
         }
@@ -329,8 +336,8 @@ export class WaferMap extends FoundationElement {
         for (const die of dies) {
             const waferDie = new PIXI.Point(die.x, die.y);
 
-            container.lineStyle(5, White, 1);
-            container.beginFill(0xff0022);
+            container.lineStyle(style.outlineWidth, style.outlineColor, 1);
+            container.beginFill(style.fillColor);
             container.drawRect(waferDie.x, waferDie.y, dieDimensions.width, dieDimensions.height);
             container.endFill();
         }
