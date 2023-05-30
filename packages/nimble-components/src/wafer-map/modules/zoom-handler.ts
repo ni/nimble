@@ -7,7 +7,7 @@ export class ZoomHandler {
     public constructor(private readonly wafermap: WaferMap) {
     }
 
-    private createZoomBehavior(app: Application): void {
+    private createZoomBehavior(): void {
     }
 
     private getZoomMax(): void {}
