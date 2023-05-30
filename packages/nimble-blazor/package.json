@@ -30,7 +30,7 @@
       "command": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
       "dependencies": ["generate-icons"],
       "files": [".eslintrc.js", "CodeAnalysisDictionary.xml", "NimbleBlazor.sln", "Examples", "NimbleBlazor", "Tests", "!**/{bin,obj}"],
-      "output": ["NimbleBlazor/bin/Release", "Examples/Demo.Client/bin/Release", "Examples/Demo.Hybrid/bin/Release", "Examples/Demo.Server/bin/Release", "Examples/Demo.Shared/bin/Release", "Tests/NimbleBlazor.Tests/bin/Release" ]
+      "output": ["NimbleBlazor/bin/Release/*/NimbleBlazor.dll", "Examples/Demo.*/bin/Release", "!Examples/Demo.Client/**/blazor.boot.json", "Tests/NimbleBlazor.Tests/bin/Release" ]
     },
     "generate-hybrid": {
       "command": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
