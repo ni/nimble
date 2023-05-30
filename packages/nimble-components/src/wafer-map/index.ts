@@ -172,6 +172,10 @@ export class WaferMap extends FoundationElement {
         viewport
             .drag()
             .wheel();
+        viewport.addEventListener('mousemove', (e) => {
+            console.log(e.clientX);
+            console.log(viewport.getChildAt(0));
+        });
 
         viewport.addChild(cont);
     }
