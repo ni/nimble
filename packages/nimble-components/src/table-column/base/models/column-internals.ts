@@ -1,6 +1,6 @@
 import { uniqueId } from '@microsoft/fast-web-utilities';
 import { ViewTemplate, observable } from '@microsoft/fast-element';
-import type { TableFieldName } from '../../../table/types';
+import { TableColumnSortDirection, TableFieldName } from '../../../table/types';
 import type { TableCell } from '../../../table/components/cell';
 import {
     TableColumnSortOperation,
@@ -34,6 +34,11 @@ export interface ColumnInternalsOptions {
      * The names of events that should be delegated from the cell view to the column.
      */
     readonly delegatedEvents: readonly string[];
+
+    /**
+     * The sort operation to use for the column (defaults to TableColumnSortOperation.basic)
+     */
+    readonly sortOperation?: TableColumnSortOperation;
 }
 
 /**
@@ -66,6 +71,12 @@ export class ColumnInternals<TColumnConfig> {
      */
     @observable
     public columnConfig?: TColumnConfig;
+
+    /**
+     * Whether this column has a valid configuration.
+     */
+    @observable
+    public validConfiguration = true;
 
     /**
      * The name of the data field that will be used for operations on the table, such as sorting and grouping.
@@ -138,6 +149,20 @@ export class ColumnInternals<TColumnConfig> {
     @observable
     public currentPixelWidth?: number;
 
+    /**
+     * @internal Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the sortIndex after programmatic or interactive updates.
+     */
+    @observable
+    public currentSortIndex?: number | null;
+
+    /**
+     * @internal Do not write to this value directly. It is used by the Table in order to store
+     * the resolved value of the sortDirection after programmatic or interactive updates.
+     */
+    @observable
+    public currentSortDirection: TableColumnSortDirection = TableColumnSortDirection.none;
+
     public constructor(options: ColumnInternalsOptions) {
         this.cellRecordFieldNames = options.cellRecordFieldNames;
         this.cellViewTemplate = createCellViewTemplate(options.cellViewTag);
@@ -145,6 +170,7 @@ export class ColumnInternals<TColumnConfig> {
             options.groupHeaderViewTag
         );
         this.delegatedEvents = options.delegatedEvents;
+        this.sortOperation = options.sortOperation ?? TableColumnSortOperation.basic;
     }
 
     protected fractionalWidthChanged(): void {

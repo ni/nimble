@@ -11,7 +11,8 @@ import {
     uniqueElementName
 } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
-import { TablePageObject } from './table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
+import type { ColumnInternalsOptions } from '../../table-column/base/models/column-internals';
 
 interface SimpleTableRecord extends TableRecord {
     foo: string;
@@ -23,13 +24,13 @@ const columnName = uniqueElementName();
 })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumn extends TableColumn {
-    public constructor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
             groupHeaderViewTag: tableColumnTextGroupHeaderTag,
             delegatedEvents: ['click', 'keydown']
-        });
+        };
     }
 }
 

@@ -1,3 +1,4 @@
+import type { TableColumn } from '../../table-column/base';
 import { TableRecord, TableRowSelectionMode, TableValidity } from '../types';
 
 /**
@@ -13,6 +14,7 @@ export class TableValidator<TData extends TableRecord> {
     private duplicateSortIndex = false;
     private duplicateGroupIndex = false;
     private idFieldNameNotConfigured = false;
+    private invalidColumnConfiguration = false;
 
     private readonly recordIds = new Set<string>();
 
@@ -25,7 +27,8 @@ export class TableValidator<TData extends TableRecord> {
             missingColumnId: this.missingColumnId,
             duplicateSortIndex: this.duplicateSortIndex,
             duplicateGroupIndex: this.duplicateGroupIndex,
-            idFieldNameNotConfigured: this.idFieldNameNotConfigured
+            idFieldNameNotConfigured: this.idFieldNameNotConfigured,
+            invalidColumnConfiguration: this.invalidColumnConfiguration
         };
     }
 
@@ -128,6 +131,13 @@ export class TableValidator<TData extends TableRecord> {
     public validateColumnGroupIndices(groupIndices: number[]): boolean {
         this.duplicateGroupIndex = !this.validateIndicesAreUnique(groupIndices);
         return !this.duplicateGroupIndex;
+    }
+
+    public validateColumnConfigurations(columns: TableColumn[]): boolean {
+        this.invalidColumnConfiguration = columns.some(
+            x => !x.columnInternals.validConfiguration
+        );
+        return !this.invalidColumnConfiguration;
     }
 
     public getPresentRecordIds(requestedRecordIds: string[]): string[] {

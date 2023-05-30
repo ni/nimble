@@ -13,12 +13,17 @@ import {
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
         height: 480px;
+    }
+
+    .disable-select {
+        ${userSelectNone}
     }
 
     .table-container {
@@ -46,7 +51,8 @@ export const styles = css`
     }
 
     .table-row-container {
-        width: 100%;
+        width: fit-content;
+        min-width: 100%;
         position: relative;
         top: var(--ni-private-table-row-container-top);
         background-color: ${tableRowBorderColor};
@@ -74,7 +80,6 @@ export const styles = css`
     }
 
     .collapse-all-button {
-        width: ${controlSlimHeight};
         height: ${controlSlimHeight};
         margin-left: calc(${smallPadding} * 2);
         visibility: hidden;

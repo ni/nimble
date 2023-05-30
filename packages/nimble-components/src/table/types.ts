@@ -1,3 +1,5 @@
+import type { TableColumn } from '../table-column/base';
+
 /**
  * TableFieldName describes the type associated with keys within
  * a table's records.
@@ -11,6 +13,12 @@ export type TableFieldName = string;
 export type TableFieldValue = string | number | boolean | null | undefined;
 
 /**
+ * TableStringFieldValue describes the type associated with values within
+ * a table's string records.
+ */
+export type TableStringFieldValue = string | null | undefined;
+
+/**
  * TableRecord describes the data structure that backs a single row in a table.
  * It is made up of fields, which are key/value pairs that have a key of type
  * TableFieldName and a value of type TableFieldValue.
@@ -20,10 +28,14 @@ export interface TableRecord {
 }
 
 export type TableStringField<FieldName extends TableFieldName> = {
-    [name in FieldName]: string | null | undefined;
+    [name in FieldName]: TableStringFieldValue;
 };
 
-export interface TableValidity {
+export interface ValidityObject {
+    [key: string]: boolean;
+}
+
+export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
     readonly invalidRecordId: boolean;
@@ -32,6 +44,7 @@ export interface TableValidity {
     readonly duplicateSortIndex: boolean;
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
+    readonly invalidColumnConfiguration: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {
@@ -91,4 +104,46 @@ export interface TableRowSelectionToggleEventDetail {
  */
 export interface TableRowSelectionEventDetail {
     selectedRecordIds: string[];
+}
+
+/**
+ * Event detail type for interactive column configuration changes.
+ *
+ * The column-configuration-change event is emitted when a column's configuration
+ * is modified programmatically, such as by clicking on the column's header to sort
+ * the column. The items in the `columns` array are specified in the same order as
+ * the columns are listed in the DOM.
+ */
+export interface TableColumnConfigurationChangeEventDetail {
+    columns: TableColumnConfiguration[];
+}
+
+/**
+ * A representation of the current configuration of a column within the table.
+ */
+export interface TableColumnConfiguration {
+    columnId?: string;
+    sortIndex?: number;
+    sortDirection: TableColumnSortDirection;
+    groupIndex?: number;
+    hidden: boolean;
+    fractionalWidth: number;
+    pixelWidth?: number;
+}
+
+/**
+ * @internal
+ *
+ * Internal representation of a row in the table
+ */
+export interface TableRowState<TData extends TableRecord = TableRecord> {
+    record: TData;
+    id: string;
+    selectionState: TableRowSelectionState;
+    isGrouped: boolean;
+    groupRowValue?: unknown;
+    isExpanded: boolean;
+    nestingLevel?: number;
+    leafItemCount?: number;
+    groupColumn?: TableColumn;
 }

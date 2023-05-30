@@ -1,12 +1,11 @@
-import { observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { template } from '../../text-base/cell-view/template';
 import type {
     TableColumnTextCellRecord,
     TableColumnTextColumnConfig
 } from '..';
-import { TableCellView } from '../../base/cell-view';
-import { styles } from './styles';
-import { template } from './template';
+import { styles } from '../../text-base/cell-view/styles';
+import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,24 +14,22 @@ declare global {
 }
 
 /**
- * A cell view for displaying strings
+ * A cell view for displaying string fields as text
  */
-export class TableColumnTextCellView extends TableCellView<
+export class TableColumnTextCellView extends TableColumnTextCellViewBase<
 TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
-    /** @internal */
-    @observable
-    public isValidContentAndHasOverflow = false;
+    public override get text(): string {
+        return this.cellRecord.value!;
+    }
 
-    /** @internal */
-    public textSpan!: HTMLElement;
+    public override get placeholder(): string {
+        return this.columnConfig.placeholder;
+    }
 
-    @volatile
-    public get content(): string {
-        return typeof this.cellRecord.value === 'string'
-            ? this.cellRecord.value
-            : this.columnConfig.placeholder;
+    public override get shouldUsePlaceholder(): boolean {
+        return typeof this.cellRecord.value !== 'string';
     }
 }
 

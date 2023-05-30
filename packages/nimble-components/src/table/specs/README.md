@@ -105,6 +105,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   What column gets used for sorting?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
+        -   [Formatted Text Columns](table-column-specs/table-column-formatted-text.md)
         -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
         -   [TableColumnMapping](table-column-specs/table-column-mapping.md)
 -   Headers
@@ -143,7 +144,7 @@ _Attributes_
 _Properties_
 
 -   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
--   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
+-   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidity`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
 
 _Functions_
 
@@ -151,11 +152,25 @@ _Functions_
 
 _Events_
 
--   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. The event details include the following:
+-   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
     -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
     -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
     -   `recordIds` - string array - The IDs of the records that the menu is associated with.
     -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `action-menu-toggle` - An event that is emitted when the action menu opens or closes. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element transitioned in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element transitioned out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `column-configuration-change` - An event that is emitted when a user interactively changes the configuration of a column, such as by sorting or resizing the column. See [the table column interaction events HLD](./table-column-interaction-events.md) for more information. The event details include the following:
+    -   `columns` - array of column configuration details - The columns that are currently in the table in the order specified in the DOM, along with their current configuration. Each entry in the array contains:
+        -   `columnId` - string | undefined - The column ID of the column.
+        -   `sortIndex` - number | undefined - The current sort index of the column.
+        -   `sortDirection` - TableColumnSortDirection - The direction the column is sorted.
+        -   `groupIndex` - number | undefined - The current group index of the column.
+        -   `hidden` - boolean - Whether or not the column is currently hidden.
+        -   `fractionalWidth` - number - The current fractional width of the column.
+        -   `pixelWidth` - number | undefined - The current pixel width of the column. The value will be undefined if the column is not configured to be a fixed-width column.
 
 ### Anatomy
 

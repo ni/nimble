@@ -12,6 +12,10 @@ module.exports = {
                 [{
                     group: ['@microsoft/fast-*'],
                     message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
+                },
+                {
+                    group: ['@ni/nimble-components/**/tests', '@ni/nimble-components/**/testing'],
+                    message: 'Do not use test code/utilities in production code.'
                 }]
             }],
 
@@ -41,6 +45,19 @@ module.exports = {
                     }, {
                         group: ['@ni/nimble-components'],
                         message: 'Nimble Angular tests should not have to directly depend on nimble-components.'
+                    }]
+                }
+            ]
+        }
+    }, {
+        files: ['**/testing/**'],
+        rules: {
+            'no-restricted-imports': [
+                'error', {
+                    patterns:
+                    [{
+                        group: ['@microsoft/fast-*'],
+                        message: 'Do not directly use underlying libraries of nimble. Instead rely on or add to exports of nimble packages.'
                     }]
                 }
             ]

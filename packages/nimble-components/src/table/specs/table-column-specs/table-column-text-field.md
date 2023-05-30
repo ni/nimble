@@ -74,11 +74,11 @@ public class TableColumnText extends TableColumn<TableColumnTextCellRecord, Tabl
         this.columnInternals.columnConfig = { placeholder: this.placeholder ?? '' };
     }
 
-    constuctor() {
-        super({
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: ['value'],
             ...
-        })
+        };
     }
     ...
 }

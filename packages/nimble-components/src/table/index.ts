@@ -28,12 +28,14 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
+import { keyShift } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
 import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
+    TableColumnConfigurationChangeEventDetail,
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
@@ -41,6 +43,7 @@ import {
     TableRowSelectionMode,
     TableRowSelectionState,
     TableRowSelectionToggleEventDetail,
+    TableRowState,
     TableValidity
 } from './types';
 import { Virtualizer } from './models/virtualizer';
@@ -49,23 +52,12 @@ import { UpdateTracker } from './models/update-tracker';
 import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
+import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table': Table;
     }
-}
-
-interface TableRowState<TData extends TableRecord = TableRecord> {
-    record: TData;
-    id: string;
-    selectionState: TableRowSelectionState;
-    isGrouped: boolean;
-    groupRowValue?: unknown;
-    isExpanded: boolean;
-    nestingLevel: number;
-    leafItemCount?: number;
-    groupColumn?: TableColumn;
 }
 
 /**
@@ -177,10 +169,17 @@ export class Table<
     @observable
     public firstSortedColumn?: TableColumn;
 
+    /**
+     * @internal
+     */
+    @observable
+    public documentShiftKeyDown = false;
+
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
+    private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
@@ -218,6 +217,10 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.selectionManager = new InteractiveSelectionManager(
+            this.table,
+            this.selectionMode
+        );
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -282,12 +285,16 @@ export class Table<
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
+        document.addEventListener('keydown', this.onKeyDown);
+        document.addEventListener('keyup', this.onKeyUp);
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.virtualizer.disconnectedCallback();
         this.viewport.removeEventListener('scroll', this.onViewPortScroll);
+        document.removeEventListener('keydown', this.onKeyDown);
+        document.removeEventListener('keyup', this.onKeyUp);
     }
 
     public checkValidity(): boolean {
@@ -307,7 +314,11 @@ export class Table<
                 || source instanceof ColumnInternals)
             && typeof args === 'string'
         ) {
-            this.updateTracker.trackColumnPropertyChanged(args);
+            if (args === 'validConfiguration') {
+                this.tableValidator.validateColumnConfigurations(this.columns);
+            } else {
+                this.updateTracker.trackColumnPropertyChanged(args);
+            }
         }
     }
 
@@ -318,30 +329,29 @@ export class Table<
     ): void {
         event.stopImmediatePropagation();
 
-        if (this.selectionMode === TableRowSelectionMode.none) {
-            return;
-        }
+        const selectionChanged = this.selectionManager.handleRowSelectionToggle(
+            this.tableData[rowIndex],
+            event.detail.newState,
+            this.documentShiftKeyDown
+        );
 
-        const rowState = this.tableData[rowIndex];
-        if (
-            rowState?.isGrouped
-            && rowState?.selectionState === TableRowSelectionState.selected
-        ) {
-            // Work around for https://github.com/TanStack/table/issues/4759
-            // Manually deselect all leaf rows when a fully selected group is being deselected.
-            this.deselectAllLeafRows(rowIndex);
-        } else {
-            this.table
-                .getRowModel()
-                .rows[rowIndex]?.toggleSelected(event.detail.newState);
+        if (selectionChanged) {
+            void this.emitSelectionChangeEvent();
         }
-
-        void this.emitSelectionChangeEvent();
     }
 
     /** @internal */
-    public onRowClick(rowIndex: number): boolean {
-        void this.selectSingleRow(rowIndex);
+    public onRowClick(rowIndex: number, event: MouseEvent): boolean {
+        const selectionChanged = this.selectionManager.handleRowClick(
+            this.tableData[rowIndex],
+            event.shiftKey,
+            event.ctrlKey || event.metaKey
+        );
+
+        if (selectionChanged) {
+            void this.emitSelectionChangeEvent();
+        }
+
         return true;
     }
 
@@ -388,6 +398,56 @@ export class Table<
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
+    }
+
+    /**
+     * @internal
+     */
+    public toggleColumnSort(
+        column: TableColumn,
+        allowMultiSort: boolean
+    ): void {
+        if (column.sortingDisabled) {
+            return;
+        }
+
+        const allSortedColumns = this.getColumnsParticipatingInSorting().sort(
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
+        );
+
+        const columnIndex = allSortedColumns.indexOf(column);
+        const columnAlreadySorted = columnIndex > -1;
+
+        const oldSortDirection = column.columnInternals.currentSortDirection;
+        let newSortDirection: TableColumnSortDirection = TableColumnSortDirection.ascending;
+
+        if (columnAlreadySorted) {
+            if (oldSortDirection === TableColumnSortDirection.descending) {
+                allSortedColumns.splice(columnIndex, 1);
+                newSortDirection = TableColumnSortDirection.none;
+                column.columnInternals.currentSortIndex = undefined;
+            } else {
+                newSortDirection = TableColumnSortDirection.descending;
+            }
+        } else {
+            allSortedColumns.push(column);
+        }
+        column.columnInternals.currentSortDirection = newSortDirection;
+
+        for (let i = 0; i < allSortedColumns.length; i++) {
+            const currentColumn = allSortedColumns[i]!;
+            if (allowMultiSort) {
+                allSortedColumns[i]!.columnInternals.currentSortIndex = i;
+            } else if (currentColumn === column) {
+                currentColumn.columnInternals.currentSortIndex = 0;
+            } else {
+                currentColumn.columnInternals.currentSortIndex = undefined;
+                currentColumn.columnInternals.currentSortDirection = TableColumnSortDirection.none;
+            }
+        }
+
+        this.emitColumnConfigurationChangeEvent();
     }
 
     /**
@@ -461,42 +521,54 @@ export class Table<
         rowIndex: number,
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): Promise<void> {
-        let recordIds = event.detail.recordIds;
-        if (this.selectionMode !== TableRowSelectionMode.none) {
-            const row = this.table.getRowModel().rows[rowIndex];
-            if (row && !row.getIsSelected()) {
-                await this.selectSingleRow(rowIndex);
-            } else {
-                recordIds = await this.getSelectedRecordIds();
-            }
+        const selectionChanged = this.selectionManager.handleActionMenuOpening(
+            this.tableData[rowIndex]
+        );
+        if (selectionChanged) {
+            await this.emitSelectionChangeEvent();
         }
 
         this.openActionMenuRecordId = event.detail.recordIds[0];
-        const detail: TableActionMenuToggleEventDetail = {
-            ...event.detail,
-            recordIds
-        };
+        const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-beforetoggle', detail);
     }
 
     private async handleRowActionMenuToggleEvent(
         event: CustomEvent<TableActionMenuToggleEventDetail>
     ): Promise<void> {
-        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
-            ? await this.getSelectedRecordIds()
-            : event.detail.recordIds;
-        const detail: TableActionMenuToggleEventDetail = {
-            ...event.detail,
-            recordIds
-        };
+        const detail = await this.getActionMenuToggleEventDetail(event);
         this.$emit('action-menu-toggle', detail);
         if (!event.detail.newState) {
             this.openActionMenuRecordId = undefined;
         }
     }
 
+    private async getActionMenuToggleEventDetail(
+        originalEvent: CustomEvent<TableActionMenuToggleEventDetail>
+    ): Promise<TableActionMenuToggleEventDetail> {
+        const recordIds = this.selectionMode === TableRowSelectionMode.multiple
+            ? await this.getSelectedRecordIds()
+            : [this.openActionMenuRecordId!];
+        return {
+            ...originalEvent.detail,
+            recordIds
+        };
+    }
+
     private readonly onViewPortScroll = (event: Event): void => {
         this.scrollX = (event.target as HTMLElement).scrollLeft;
+    };
+
+    private readonly onKeyDown = (event: KeyboardEvent): void => {
+        if (event.key === keyShift) {
+            this.documentShiftKeyDown = true;
+        }
+    };
+
+    private readonly onKeyUp = (event: KeyboardEvent): void => {
+        if (event.key === keyShift) {
+            this.documentShiftKeyDown = false;
+        }
     };
 
     private removeColumnObservers(): void {
@@ -545,8 +617,10 @@ export class Table<
 
     private getColumnsParticipatingInSorting(): TableColumn[] {
         return this.columns.filter(
-            x => x.sortDirection !== TableColumnSortDirection.none
-                && typeof x.sortIndex === 'number'
+            x => !x.sortingDisabled
+                && x.columnInternals.currentSortDirection
+                    !== TableColumnSortDirection.none
+                && typeof x.columnInternals.currentSortIndex === 'number'
         );
     }
 
@@ -584,11 +658,15 @@ export class Table<
         if (this.updateTracker.updateRowIds) {
             updatedOptions.getRowId = this.calculateTanStackRowIdFunction();
             updatedOptions.state.rowSelection = {};
+            this.selectionManager.handleSelectionReset();
         }
         if (this.updateTracker.updateSelectionMode) {
             updatedOptions.enableMultiRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.enableSubRowSelection = this.selectionMode === TableRowSelectionMode.multiple;
             updatedOptions.state.rowSelection = {};
+            this.selectionManager.handleSelectionModeChanged(
+                this.selectionMode
+            );
         }
         if (this.updateTracker.requiresTanStackDataReset) {
             // Perform a shallow copy of the data to trigger tanstack to regenerate the row models and columns.
@@ -628,19 +706,37 @@ export class Table<
             this.columns.map(x => x.columnId)
         );
         this.tableValidator.validateColumnSortIndices(
-            this.getColumnsParticipatingInSorting().map(x => x.sortIndex!)
+            this.getColumnsParticipatingInSorting().map(
+                x => x.columnInternals.currentSortIndex!
+            )
         );
         this.tableValidator.validateColumnGroupIndices(
             this.getColumnsParticipatingInGrouping().map(
                 x => x.columnInternals.groupIndex!
             )
         );
+        this.tableValidator.validateColumnConfigurations(this.columns);
         this.validateWithData(this.table.options.data);
     }
 
     private validateWithData(data: TableRecord[]): void {
         this.tableValidator.validateRecordIds(data, this.idFieldName);
         this.canRenderRows = this.checkValidity();
+    }
+
+    private emitColumnConfigurationChangeEvent(): void {
+        const detail: TableColumnConfigurationChangeEventDetail = {
+            columns: this.columns.map(column => ({
+                columnId: column.columnId,
+                sortIndex: column.columnInternals.currentSortIndex ?? undefined,
+                sortDirection: column.columnInternals.currentSortDirection,
+                groupIndex: column.columnInternals.groupIndex,
+                hidden: column.columnHidden,
+                fractionalWidth: column.columnInternals.currentFractionalWidth,
+                pixelWidth: column.columnInternals.currentPixelWidth
+            }))
+        };
+        this.$emit('column-configuration-change', detail);
     }
 
     private async emitSelectionChangeEvent(): Promise<void> {
@@ -777,46 +873,6 @@ export class Table<
         this.refreshRows();
     }
 
-    private async selectSingleRow(rowIndex: number): Promise<void> {
-        if (this.selectionMode === TableRowSelectionMode.none) {
-            return;
-        }
-
-        const row = this.table.getRowModel().rows[rowIndex];
-        if (!row) {
-            return;
-        }
-
-        const currentSelection = await this.getSelectedRecordIds();
-        if (currentSelection.length === 1 && currentSelection[0] === row.id) {
-            // The clicked row is already the only selected row. Do nothing.
-            return;
-        }
-
-        this.table.toggleAllRowsSelected(false);
-        row.toggleSelected(true);
-        await this.emitSelectionChangeEvent();
-    }
-
-    private deselectAllLeafRows(rowIndex: number): void {
-        const groupRow = this.table.getRowModel().rows[rowIndex]!;
-        const leafRowIds = groupRow
-            .getLeafRows()
-            .filter(leafRow => leafRow.getLeafRows().length === 0)
-            .map(leafRow => leafRow.id);
-
-        const selectionState = this.table.getState().rowSelection;
-        for (const id of leafRowIds) {
-            delete selectionState[id];
-        }
-
-        this.updateTableOptions({
-            state: {
-                rowSelection: selectionState
-            }
-        });
-    }
-
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
         if (!row.getIsGrouped()) {
             return false;
@@ -873,7 +929,8 @@ export class Table<
 
     private calculateTanStackSortState(): TanStackSortingState {
         const sortedColumns = this.getColumnsParticipatingInSorting().sort(
-            (x, y) => x.sortIndex! - y.sortIndex!
+            (x, y) => x.columnInternals.currentSortIndex!
+                - y.columnInternals.currentSortIndex!
         );
         this.firstSortedColumn = sortedColumns.length
             ? sortedColumns[0]
@@ -883,7 +940,8 @@ export class Table<
             return {
                 id: column.columnInternals.uniqueId,
                 desc:
-                    column.sortDirection === TableColumnSortDirection.descending
+                    column.columnInternals.currentSortDirection
+                    === TableColumnSortDirection.descending
             };
         });
     }

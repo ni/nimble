@@ -8,13 +8,14 @@ import {
     iconColor,
     informationColor
 } from '../theme-provider/design-tokens';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
 
     :host {
         align-items: center;
-        user-select: none;
+        ${userSelectNone}
         width: ${iconSize};
         height: ${iconSize};
     }

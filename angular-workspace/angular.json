@@ -30,7 +30,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ni/nimble-angular/src/test.ts",
+            "main": "projects/ni/nimble-angular/test.ts",
             "tsConfig": "projects/ni/nimble-angular/tsconfig.spec.json",
             "karmaConfig": "projects/ni/nimble-angular/karma.conf.js"
           }

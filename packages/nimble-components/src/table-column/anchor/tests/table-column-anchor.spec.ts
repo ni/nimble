@@ -4,7 +4,7 @@ import { TableColumnAnchor, tableColumnAnchorTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import { TableColumnSortDirection, TableRecord } from '../../../table/types';
-import { TablePageObject } from '../../../table/tests/table.pageobject';
+import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import type { Anchor } from '../../../anchor';
@@ -56,6 +56,15 @@ describe('TableColumnAnchor', () => {
 
     afterEach(async () => {
         await disconnect();
+    });
+
+    it('reports column configuration valid', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const firstColumn = element.columns[0] as TableColumnAnchor;
+
+        expect(firstColumn.checkValidity()).toBeTrue();
     });
 
     describe('with no href', () => {

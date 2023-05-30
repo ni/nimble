@@ -4,7 +4,7 @@ import { TableColumnText, tableColumnTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
-import { TablePageObject } from '../../../table/tests/table.pageobject';
+import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
@@ -41,6 +41,15 @@ describe('TableColumnText', () => {
 
     afterEach(async () => {
         await disconnect();
+    });
+
+    it('reports column configuration valid', async () => {
+        await connect();
+        await waitForUpdatesAsync();
+
+        const firstColumn = element.columns[0] as TableColumnText;
+
+        expect(firstColumn.checkValidity()).toBeTrue();
     });
 
     const noValueData = [

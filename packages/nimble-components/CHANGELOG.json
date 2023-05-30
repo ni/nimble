@@ -2,6 +2,327 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 23 May 2023 20:18:10 GMT",
+      "tag": "@ni/nimble-components_v19.1.2",
+      "version": "19.1.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9f03324de6ad96d901099b8cf0341b75c5fd881",
+            "comment": "Use anchored region in Select and Combobox"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 16:41:52 GMT",
+      "tag": "@ni/nimble-components_v19.1.1",
+      "version": "19.1.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "eb414bd845ad761e5270f7499473f29cf75bb664",
+            "comment": "Minor improvements to contributing docs"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 16:09:57 GMT",
+      "tag": "@ni/nimble-components_v19.1.1",
+      "version": "19.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d",
+            "comment": "Move ColumnInternals to abstract property"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 May 2023 22:18:29 GMT",
+      "tag": "@ni/nimble-components_v19.1.0",
+      "version": "19.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d9f258b90a5b8170c580f4f94c85a75b6850999",
+            "comment": "Add text area tests from FAST repo"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 May 2023 18:39:33 GMT",
+      "tag": "@ni/nimble-components_v19.1.0",
+      "version": "19.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a",
+            "comment": "Introduce column configuration validation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 17 May 2023 21:33:40 GMT",
+      "tag": "@ni/nimble-components_v19.0.2",
+      "version": "19.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "71351b15e45f68adb8b08db2168b5faf499a49f9",
+            "comment": "Add column-configuration-change event to the nimble-table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 15 May 2023 18:32:11 GMT",
+      "tag": "@ni/nimble-components_v19.0.1",
+      "version": "19.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ac618e167adcaeb67d57602ba3b3a34f1c475a4c",
+            "comment": "Avoid reserved keywords as attribute names"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 May 2023 23:44:48 GMT",
+      "tag": "@ni/nimble-components_v19.0.1",
+      "version": "19.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c00161dc10ec928b14f3c7cfe0b14a6a05f5551e",
+            "comment": "Refactor to create base classes for table columns that display text"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 May 2023 18:53:51 GMT",
+      "tag": "@ni/nimble-components_v19.0.0",
+      "version": "19.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7e4551f6f7a2bcd3066c0945789d4fe5119015d3",
+            "comment": "HLD for event emitted when interactively changing a table column's configuration"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 May 2023 17:59:07 GMT",
+      "tag": "@ni/nimble-components_v19.0.0",
+      "version": "19.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1e040752c74ea8fc0df586a2a54525e15d5c8b29",
+            "comment": "Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons."
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.0.0",
+            "commit": "1e040752c74ea8fc0df586a2a54525e15d5c8b29"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 12 May 2023 16:30:07 GMT",
+      "tag": "@ni/nimble-components_v18.13.6",
+      "version": "18.13.6",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "300bbb93c758dbdd8dc37ee353db09abcca9f0ee",
+            "comment": "Update prettier to support MDX files"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 May 2023 18:44:25 GMT",
+      "tag": "@ni/nimble-components_v18.13.6",
+      "version": "18.13.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "588e269cb3992753153a835a407c6694e4abe6b8",
+            "comment": "Fix row styling issue"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 11 May 2023 03:00:34 GMT",
+      "tag": "@ni/nimble-components_v18.13.5",
+      "version": "18.13.5",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "394c07f8fe9761bf152ee96901041fac829f90f1",
+            "comment": "Add design document for table columns containing formatted text"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 May 2023 16:14:00 GMT",
+      "tag": "@ni/nimble-components_v18.13.5",
+      "version": "18.13.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "461f55a8fe1913b24312828e6608024e45cfef7c",
+            "comment": "Add support for CTRL and SHIFT clicks in the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 08 May 2023 14:01:25 GMT",
+      "tag": "@ni/nimble-components_v18.13.4",
+      "version": "18.13.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0bee650663f75e1a497ff7334fa144e5acbb53ac",
+            "comment": "Prevent double click select text on header"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 05 May 2023 21:44:18 GMT",
+      "tag": "@ni/nimble-components_v18.13.3",
+      "version": "18.13.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ec2137514d0a4c1b99323d80b911f05c41d41145",
+            "comment": "Interactive sorting support for the table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 05 May 2023 20:18:38 GMT",
+      "tag": "@ni/nimble-components_v18.13.2",
+      "version": "18.13.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cb2bf64825e963d86ebe8bd740ebc52196edcd76",
+            "comment": "Introduce shared user-select styling"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 05 May 2023 15:27:55 GMT",
+      "tag": "@ni/nimble-components_v18.13.1",
+      "version": "18.13.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "592c535b6f1e43b007db4da8b2ed9b226e06d644",
+            "comment": "Update size of the table's action menu"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 02 May 2023 23:44:37 GMT",
+      "tag": "@ni/nimble-components_v18.13.0",
+      "version": "18.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9657d09a213bff664be5d395568d4282e110c839",
+            "comment": "Update table column sorting HLD to cover interactive sorting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 01 May 2023 20:33:27 GMT",
+      "tag": "@ni/nimble-components_v18.13.0",
+      "version": "18.13.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1416056e356ce9338db8fe067d9850d65d9c0346",
+            "comment": "Export table page object "
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 28 Apr 2023 16:13:58 GMT",
+      "tag": "@ni/nimble-components_v18.12.7",
+      "version": "18.12.7",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "000d9f3fc945a88c6b9edffba8cb52a742679be5",
+            "comment": "new process for work item templates and design specs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Apr 2023 15:33:55 GMT",
       "tag": "@ni/nimble-components_v18.12.7",
       "version": "18.12.7",
