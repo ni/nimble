@@ -40,8 +40,8 @@
     },
     "build:ts": {
       "command": "tsc -p ./tsconfig.json",
-      "dependencies": ["build:svg-to-ts", "tsconfig.json"],
-      "files": ["dist/icons/ts/index.ts"],
+      "dependencies": ["build:svg-to-ts"],
+      "files": ["dist/icons/ts/index.ts", "tsconfig.json"],
       "output": ["dist/icons/js"]
     }
   },
