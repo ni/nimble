@@ -192,7 +192,7 @@ export class WaferMap extends FoundationElement {
         this.viewPort.clampZoom({ maxWidth: this.pixiApp.view.width, maxHeight: this.pixiApp.view.height });
         this.viewPort?.addEventListener('wheel', e => {
             e.preventDefault();
-            this.zoom(e);
+            this.renderVisibleText(e);
         });
 
         const waferPosition: PointCoordinates = { x: this.wafermapContainer.clientWidth / 2, y: this.wafermapContainer.clientHeight / 2 };
@@ -216,7 +216,6 @@ export class WaferMap extends FoundationElement {
         pixiHoverDie.x = 0;
         pixiHoverDie.y = 0;
         pixiHoverDie.interactive = true;
-        let btmapText;
         this.viewPort.addEventListener('mousemove', e => {
             try{
                 if(pixiHoverDie)
@@ -234,16 +233,16 @@ export class WaferMap extends FoundationElement {
             if (position) {
                 pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
                 pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
-                btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
             }
-            if (btmapText) {
-                pixiHoverDie.addChild(btmapText);
-            }
+        });
+        this.viewPort.addEventListener('mouseup', e => {
+            this.renderVisibleText(e);
         });
         this.viewPort.addChild(pixiHoverDie);
     }
+    
 
-    private zoom(e: MouseEvent) {
+    private renderVisibleText(e: MouseEvent) {
 
         const xFactor = this.viewPort?.transform.localTransform.a ?? 0;
 
@@ -253,7 +252,7 @@ export class WaferMap extends FoundationElement {
 
         const mouseY = e.clientY;
 
-        const currentDieSize = (this.dataManager?.dieDimensions?.width ?? 0) * (xFactor ?? 0);       
+        const currentDieSize = (this.dataManager?.dieDimensions?.width ?? 0) * (xFactor ?? 0);
 
         if (currentDieSize > 30) {
 
@@ -381,8 +380,6 @@ export class WaferMap extends FoundationElement {
     }
 
     private initializeInternalModules(): void {
-        //console.log(this.clientWidth);
-        //console.log(this.clientHeight);
         this.dataManager = new DataManager(this);
         this.generateFont();
     }
