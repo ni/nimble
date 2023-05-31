@@ -177,7 +177,7 @@ export class WaferMap extends FoundationElement {
         }
 
         if (!this.pixiApp) {
-            this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ background: White });
+            this.pixiApp = new PIXI.Application<HTMLCanvasElement>({ width: 500, height: 500, background: White });
             this.wafermapContainer.appendChild(this.pixiApp.view);
         }
 
@@ -204,6 +204,7 @@ export class WaferMap extends FoundationElement {
         this.drawDies(this.dataManager.diesRenderInfo, this.dataManager.dieDimensions, this.dieStyle);
 
         this.pixiApp.stage.addChild(this.viewPort);
+        this.viewPort.clamp({ direction: 'all' });
 
         const pixiHoverDie = new PIXI.Sprite(PIXI.Texture.WHITE);
         pixiHoverDie.tint = 0x000000;
@@ -235,7 +236,6 @@ export class WaferMap extends FoundationElement {
                 pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
                 pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
                 //btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
-                debugger;
             }
             if (btmapText) {
                 //pixiHoverDie.addChild(btmapText);
