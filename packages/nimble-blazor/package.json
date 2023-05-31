@@ -29,8 +29,7 @@
     "build:release": {
       "command": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
       "dependencies": ["generate-icons"],
-      "files": [".eslintrc.js", "CodeAnalysisDictionary.xml", "NimbleBlazor.sln", "Examples", "NimbleBlazor", "Tests", "!**/{bin,obj}"],
-      "output": ["NimbleBlazor/bin/Release/*/NimbleBlazor.dll", "Examples/Demo.*/bin/Release", "!Examples/Demo.Client/**/blazor.boot.json", "Tests/NimbleBlazor.Tests/bin/Release" ]
+      "files": [".eslintrc.js", "CodeAnalysisDictionary.xml", "NimbleBlazor.sln", "Examples", "NimbleBlazor", "Tests", "!**/{bin,obj}"]
     },
     "generate-hybrid": {
       "command": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
@@ -51,8 +50,7 @@
     "build:client": {
       "command": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
       "dependencies": ["build:release"],
-      "files": ["Examples/Demo.Client", "!Examples/Demo.Client/{bin,obj}"],
-      "output": ["dist/blazor-client-app"]
+      "files": ["Examples/Demo.Client", "!Examples/Demo.Client/{bin,obj}"]
     }
   },
   "repository": {
