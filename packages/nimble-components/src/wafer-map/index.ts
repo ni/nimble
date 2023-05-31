@@ -213,6 +213,9 @@ export class WaferMap extends FoundationElement {
         pixiHoverDie.y = 0;
         pixiHoverDie.interactive = true;
         let btmapText;
+        this.viewPort?.addEventListener('wheel', e => {
+            this.zoom(e);
+        });
         this.viewPort.addEventListener('mousemove', e => {
             try{
                 if(pixiHoverDie)
@@ -231,11 +234,11 @@ export class WaferMap extends FoundationElement {
                 //console.log(position);
                 pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
                 pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
-                btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
+                //btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
                 debugger;
             }
             if (btmapText) {
-                pixiHoverDie.addChild(btmapText);
+                //pixiHoverDie.addChild(btmapText);
             }
         });
         this.viewPort.addChild(pixiHoverDie);
@@ -246,7 +249,7 @@ export class WaferMap extends FoundationElement {
         text.style.fontSize = dieDimensions.height / 2 * (10.0 / dieDimensions.height);
         text.style.fontFamily = 'sans-serif';
         text.style.fill = 0xffffff;
-        text.resolution = 300 * (1.0 / dieDimensions.height);
+        text.resolution = 300 * (1.0 / dieDimensions.height) % 200;
         text.x = 0;
         text.y = 0;
         return text;
@@ -466,6 +469,134 @@ export class WaferMap extends FoundationElement {
             )
         );
         return { x, y };
+    }
+
+    private getVisibleDies(mouseX: number, mouseY: number, currentDieSize: number, xFactor: number, yFactor: number) {
+
+        const relativeMouseX = mouseX - (this.viewPort?.x ?? 0);
+
+        const relativeMouseY = mouseY - (this.viewPort?.y ?? 0);
+
+        const adjustedMouseX = relativeMouseX / xFactor;
+
+        const adjustedMouseY = relativeMouseY / yFactor;
+
+        console.log("adjustedMouseX", currentDieSize, adjustedMouseX);
+
+        console.log("adjustedMouseY", adjustedMouseY);
+
+        //const dieHeight = this.dataManager?.dieDimensions.height ?? 0;
+
+        const dieHeight = (this.dataManager?.dieDimensions?.width ?? 0);
+
+        //const dieWidth = this.dataManager?.dieDimensions.width ?? 0;
+
+        const dieWidth = (this.dataManager?.dieDimensions?.width ?? 0);
+
+        // Loop through the visible square range and collect the square indices
+
+        const viewPortWidth = this.pixiApp?.renderer.view.width ?? 0;
+
+        const viewPortHeight = this.pixiApp?.renderer.view.height ?? 0;
+
+        const horizontalDieCount = Math.ceil(viewPortWidth / currentDieSize) / 2;
+
+        console.log("horizontalDieCount", horizontalDieCount * dieWidth);
+
+        const verticalDieCount = Math.ceil(viewPortHeight / currentDieSize) / 2;
+
+        const visibleSquares = this.dataManager?.diesRenderInfo.filter((die) => {
+
+            //console.log("die", die.x, die.y, dieWidth, dieHeight);
+
+            const regionFactor = 0;
+
+            const dieX = die.x;
+
+            const dieY = die.y;
+
+            const isDieVisible = dieX < adjustedMouseX + horizontalDieCount * dieWidth && dieX + dieWidth > adjustedMouseX - horizontalDieCount * dieWidth && dieY < adjustedMouseY + verticalDieCount * dieHeight && dieY + dieHeight > adjustedMouseY - verticalDieCount * dieHeight;
+
+            return isDieVisible;
+
+          });
+
+     
+
+        return visibleSquares;
+
+      }
+
+private zoom(e: MouseEvent) {
+
+        const xFactor = this.viewPort?.transform.localTransform.a ?? 0;
+
+        const yFactor = this.viewPort?.transform.localTransform.d ?? 0;
+
+        const mouseX = e.clientX;
+
+        const mouseY = e.clientY;
+
+        console.log("mouseX", mouseX);
+
+        console.log("mouseY", mouseY);
+
+        const currentDieSize = (this.dataManager?.dieDimensions?.width ?? 0) * (xFactor ?? 0);
+
+        // select only visible dies from this.dataManager.diesRenderInfo
+
+       
+
+        if (currentDieSize > 30) {
+
+            this.viewPort?.removeChild(this.numbersContainer!);
+
+            let visibleDies = this.getVisibleDies(mouseX, mouseY, currentDieSize, xFactor, yFactor);
+
+            console.log(this.pixiApp?.renderer.view.height);
+
+            console.log("visibleDies", visibleDies?.length);
+
+            this.numbersContainer = new PIXI.Graphics();
+
+            const dieDimensions = this.dataManager?.dieDimensions;
+
+            const fontSize = (dieDimensions?.height ?? 0)/2;
+
+            const textX = (dieDimensions?.width ?? 0)/4;
+
+            const textY = (dieDimensions?.height ?? 0)/4;
+
+            for (const die of visibleDies!) {
+
+                const text = new PIXI.BitmapText(die.text, {
+
+                    fontName: "DieFont"
+
+                });
+
+                text.x=die.x + textX;
+
+                text.y=die.y + textY;
+
+                text.fontSize = fontSize;
+
+                this.numbersContainer?.addChild(text);
+
+            }
+
+       
+
+            this.viewPort?.addChild(this.numbersContainer!);
+
+        }
+
+        else {
+
+            this.viewPort?.removeChild(this.numbersContainer!);
+
+        }
+
     }
 }
 
