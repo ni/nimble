@@ -144,6 +144,7 @@ export class WaferMap extends FoundationElement {
 
     private pixiApp?: PIXI.Application<HTMLCanvasElement>;
     private viewPort?: Viewport;
+    private pixiHoverDie?: PIXI.Sprite;
 
     private readonly waferoutlineStyle: WaferOutlineStyling = {
         outlineColor: Black,
@@ -192,7 +193,12 @@ export class WaferMap extends FoundationElement {
         this.viewPort.clampZoom({ maxWidth: this.pixiApp.view.width, maxHeight: this.pixiApp.view.height });
         this.viewPort?.addEventListener('wheel', e => {
             e.preventDefault();
-            this.renderVisibleText(e);
+            const dieCoordinates = this.calculateDieCoordinates({
+                x: e.globalX,
+                y: e.globalY
+            });
+            this.setHoverPosition(dieCoordinates);
+            this.renderVisibleText();
         });
 
         const waferPosition: PointCoordinates = { x: this.wafermapContainer.clientWidth / 2, y: this.wafermapContainer.clientHeight / 2 };
@@ -207,55 +213,58 @@ export class WaferMap extends FoundationElement {
 
         this.drawDies(this.dataManager.diesRenderInfo, this.dataManager.dieDimensions, this.dieStyle);
 
+        this.initHoverDie();
+
+        this.renderVisibleText();
+
         this.pixiApp.stage.addChild(this.viewPort);
 
-        const pixiHoverDie = new PIXI.Sprite(PIXI.Texture.WHITE);
-        pixiHoverDie.tint = 0x000000;
-        pixiHoverDie.height = this.dataManager?.dieDimensions.width;
-        pixiHoverDie.width = this.dataManager?.dieDimensions.height;
-        pixiHoverDie.x = 0;
-        pixiHoverDie.y = 0;
-        pixiHoverDie.interactive = true;
         this.viewPort.addEventListener('mousemove', e => {
-            try{
-                if(pixiHoverDie)
-                {
-                    pixiHoverDie.removeChildAt(0);
-                }
-            }catch{}
-
             const dieCoordinates = this.calculateDieCoordinates({
                 x: e.globalX,
                 y: e.globalY
             });
 
-            const position = this.dataManager!.getWaferMapDie(dieCoordinates);
-            if (position) {
-                pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
-                pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
-            }
+            this.setHoverPosition(dieCoordinates);
         });
         this.viewPort.addEventListener('mouseup', e => {
             this.renderVisibleText(e);
         });
-        this.viewPort.addChild(pixiHoverDie);
+        this.viewPort.addEventListener('mouseenter', e => {
+            this.renderVisibleText(e);
+        });
+        this.viewPort.addEventListener('mouseleave', e => {
+            this.renderVisibleText(e);
+        });
     }
 
-    private renderVisibleText(e: MouseEvent): void {
+    private setHoverPosition(dieCoordinates: PointCoordinates): void {
+        if (!this.dataManager) {
+            return;
+        }
+        const position = this.dataManager.getWaferMapDie(dieCoordinates);
+        if (position) {
+            this.pixiHoverDie.x = this.dataManager.dieDimensions.height * position.x + this.dataManager.margin.right;
+            this.pixiHoverDie.y = this.dataManager.dieDimensions.width * position.y + this.dataManager.margin.bottom;
+            this.pixiHoverDie.visible = true;
+        }
+    }
+
+    private renderVisibleText(): void {
         const xFactor = this.viewPort?.transform.localTransform.a ?? 0;
 
         const yFactor = this.viewPort?.transform.localTransform.d ?? 0;
 
-        const mouseX = e.clientX;
+        const centerX = this.viewPort?.width / 2 / xFactor;
 
-        const mouseY = e.clientY;
+        const centerY = this.viewPort?.height / 2 / yFactor;
 
         const currentDieSize = (this.dataManager?.dieDimensions?.width ?? 0) * (xFactor ?? 0);
 
         if (currentDieSize > 30) {
             this.viewPort?.removeChild(this.numbersContainer!);
 
-            let visibleDies = this.getVisibleDies(mouseX, mouseY, currentDieSize, xFactor, yFactor);
+            let visibleDies = this.getVisibleDies(centerX, centerY, currentDieSize, xFactor, yFactor);
 
             this.numbersContainer = new PIXI.Graphics();
 
@@ -282,52 +291,41 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private getVisibleDies(mouseX: number, mouseY: number, currentDieSize: number, xFactor: number, yFactor: number) {
+    private getVisibleDies(mouseX: number, mouseY: number, currentDieSize: number, xFactor: number, yFactor: number): DieRenderInfo[] {
+        let visibleSquares: DieRenderInfo [] = [];
+        if (!this.dataManager || !this.pixiApp) {
+            return visibleSquares;
+        }
         const relativeMouseX = mouseX - (this.viewPort?.x ?? 0);
-
         const relativeMouseY = mouseY - (this.viewPort?.y ?? 0);
-
         const adjustedMouseX = relativeMouseX / xFactor;
-
         const adjustedMouseY = relativeMouseY / yFactor;
-
-        const dieHeight = (this.dataManager?.dieDimensions?.width ?? 0);
-
-        const dieWidth = (this.dataManager?.dieDimensions?.width ?? 0);
-
-        // Loop through the visible square range and collect the square indices
-
-        const viewPortWidth = this.pixiApp?.renderer.view.width ?? 0;
-
-        const viewPortHeight = this.pixiApp?.renderer.view.height ?? 0;
-
+        const dieHeight = (this.dataManager.dieDimensions?.width ?? 0);
+        const dieWidth = (this.dataManager.dieDimensions?.width ?? 0);
+        const viewPortWidth = this.pixiApp.renderer.view.width ?? 0;
+        const viewPortHeight = this.pixiApp.renderer.view.height ?? 0;
         const horizontalDieCount = Math.ceil(viewPortWidth / currentDieSize) / 2;
-
         const verticalDieCount = Math.ceil(viewPortHeight / currentDieSize) / 2;
-
-        const visibleSquares = this.dataManager?.diesRenderInfo.filter((die) => {
-
+        visibleSquares = this.dataManager.diesRenderInfo.filter((die: WaferMapDie) => {
             const dieX = die.x;
-
             const dieY = die.y;
-
             const isDieVisible = dieX < adjustedMouseX + horizontalDieCount * dieWidth && dieX + dieWidth > adjustedMouseX - horizontalDieCount * dieWidth && dieY < adjustedMouseY + verticalDieCount * dieHeight && dieY + dieHeight > adjustedMouseY - verticalDieCount * dieHeight;
-
             return isDieVisible;
         });
-
         return visibleSquares;
     }
 
-    private onDemandDieText(die: WaferMapDie, dieDimensions: Dimensions): PIXI.Text {
-        const text = new PIXI.Text(die.value);
-        text.style.fontSize = dieDimensions.height / 2 * (10.0 / dieDimensions.height);
-        text.style.fontFamily = 'sans-serif';
-        text.style.fill = 0xffffff;
-        text.resolution = (300 * (1.0 / dieDimensions.height)) % 200;
-        text.x = 0;
-        text.y = 0;
-        return text;
+    private initHoverDie(): void {
+        this.pixiHoverDie = new PIXI.Sprite(PIXI.Texture.WHITE);
+        this.pixiHoverDie.tint = 0x000000;
+        this.pixiHoverDie.height = this.dataManager?.dieDimensions.width;
+        this.pixiHoverDie.width = this.dataManager?.dieDimensions.height;
+        this.pixiHoverDie.x = 0;
+        this.pixiHoverDie.y = 0;
+        this.pixiHoverDie.interactive = true;
+        this.pixiHoverDie.visible = false;
+
+        this.viewPort.addChild(this.pixiHoverDie);
     }
 
     private queueRender(): void {
@@ -412,10 +410,6 @@ export class WaferMap extends FoundationElement {
         this.viewPort?.addChild(notch); // draw the wafermap notch
     }
 
-    private hoverDieChanged(): void {
-        this.$emit('die-hover', { currentDie: this.hoverDie });
-    }
-
     private drawDies(dies: DieRenderInfo[], dieDimensions: Dimensions, style: DieStyling): void {
         if (!this.dataManager || !this.viewPort) {
             return;
@@ -483,6 +477,10 @@ export class WaferMap extends FoundationElement {
     private calculateDieCoordinates(
         mousePosition: PointCoordinates
     ): PointCoordinates {
+        const dieCoordinates: PointCoordinates = { x: -1, y: -1 };
+        if (!this.viewPort) {
+            return dieCoordinates;
+        }
         const axisLocation = this.quadrant;
         const xRoundFunction = axisLocation === WaferMapQuadrant.bottomLeft
             || axisLocation === WaferMapQuadrant.topLeft
@@ -492,24 +490,19 @@ export class WaferMap extends FoundationElement {
             || axisLocation === WaferMapQuadrant.topRight
             ? Math.floor
             : Math.ceil;
+
         // go to x and y scale to get the x,y values of the die.
-        const x = xRoundFunction(
+        dieCoordinates.x = xRoundFunction(
             this.dataManager!.invertedHorizontalScale(
-                (mousePosition.x - this.viewPort?.transform.localTransform.tx) / this.viewPort?.transform.localTransform.a  - this.dataManager!.margin.left
+                (mousePosition.x - this.viewPort.transform.localTransform.tx) / this.viewPort.transform.localTransform.a - this.dataManager!.margin.left
             )
         );
-        const y = yRoundFunction(
+        dieCoordinates.y = yRoundFunction(
             this.dataManager!.invertedVerticalScale(
-                (mousePosition.y - this.viewPort?.transform.localTransform.ty) / this.viewPort?.transform.localTransform.d  - this.dataManager!.margin.top
+                (mousePosition.y - this.viewPort.transform.localTransform.ty) / this.viewPort.transform.localTransform.d - this.dataManager!.margin.top
             )
         );
-        // const scale = this.viewPort?.transform.localTransform.a;
-        // const currentViewPortWidth = this.viewPort?.width / scale;
-        // const currentViewPortHeight = this.viewPort?.height / scale;
-        // const currentDieSize = scale*this.dataManager?.dieDimensions.width;
-        // const numVisibleDiesX = Math.ceil(currentViewPortWidth / currentDieSize);
-        // const numVisibleDiesY = Math.ceil(currentViewPortHeight / currentDieSize);
-        return { x, y };
+        return dieCoordinates;
     }
 }
 
