@@ -285,7 +285,6 @@ export class WaferMap extends FoundationElement {
     }
 
     private getVisibleDies(mouseX: number, mouseY: number, currentDieSize: number, xFactor: number, yFactor: number) {
-
         const relativeMouseX = mouseX - (this.viewPort?.x ?? 0);
 
         const relativeMouseY = mouseY - (this.viewPort?.y ?? 0);
@@ -294,15 +293,7 @@ export class WaferMap extends FoundationElement {
 
         const adjustedMouseY = relativeMouseY / yFactor;
 
-        console.log("adjustedMouseX", currentDieSize, adjustedMouseX);
-
-        console.log("adjustedMouseY", adjustedMouseY);
-
-        //const dieHeight = this.dataManager?.dieDimensions.height ?? 0;
-
         const dieHeight = (this.dataManager?.dieDimensions?.width ?? 0);
-
-        //const dieWidth = this.dataManager?.dieDimensions.width ?? 0;
 
         const dieWidth = (this.dataManager?.dieDimensions?.width ?? 0);
 
@@ -314,15 +305,9 @@ export class WaferMap extends FoundationElement {
 
         const horizontalDieCount = Math.ceil(viewPortWidth / currentDieSize) / 2;
 
-        // console.log("horizontalDieCount", horizontalDieCount * dieWidth);
-
         const verticalDieCount = Math.ceil(viewPortHeight / currentDieSize) / 2;
 
         const visibleSquares = this.dataManager?.diesRenderInfo.filter((die) => {
-
-            //console.log("die", die.x, die.y, dieWidth, dieHeight);
-
-            const regionFactor = 0;
 
             const dieX = die.x;
 
@@ -331,14 +316,10 @@ export class WaferMap extends FoundationElement {
             const isDieVisible = dieX < adjustedMouseX + horizontalDieCount * dieWidth && dieX + dieWidth > adjustedMouseX - horizontalDieCount * dieWidth && dieY < adjustedMouseY + verticalDieCount * dieHeight && dieY + dieHeight > adjustedMouseY - verticalDieCount * dieHeight;
 
             return isDieVisible;
-
-          });
-
-     
+        });
 
         return visibleSquares;
-
-      }
+    }
 
     private onDemandDieText(die: WaferMapDie, dieDimensions: Dimensions): PIXI.Text {
         const text = new PIXI.Text(die.value);
