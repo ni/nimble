@@ -4,6 +4,6 @@
  */
 export const Format = {
     default: undefined,
-    intl: 'intl'
+    intl: 'custom'
 } as const;
 export type Format = (typeof Format)[keyof typeof Format];
