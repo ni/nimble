@@ -255,7 +255,6 @@ export class WaferMap extends FoundationElement {
         const currentDieSize = (this.dataManager?.dieDimensions?.width ?? 0) * (xFactor ?? 0);
 
         if (currentDieSize > 30) {
-
             this.viewPort?.removeChild(this.numbersContainer!);
 
             let visibleDies = this.getVisibleDies(mouseX, mouseY, currentDieSize, xFactor, yFactor);
@@ -264,42 +263,25 @@ export class WaferMap extends FoundationElement {
 
             const dieDimensions = this.dataManager?.dieDimensions;
 
-            const fontSize = (dieDimensions?.height ?? 0)/2;
+            const fontSize = (dieDimensions?.height ?? 0) / 2;
 
-            const textX = (dieDimensions?.width ?? 0)/4;
+            const textX = (dieDimensions?.width ?? 0) / 8;
 
-            const textY = (dieDimensions?.height ?? 0)/4;
+            const textY = (dieDimensions?.height ?? 0) / 4;
 
             for (const die of visibleDies!) {
-
                 const text = new PIXI.BitmapText(die.text, {
-
-                    fontName: "DieFont"
-
+                    fontName: 'DieFont'
                 });
-
-                text.x=die.x + textX;
-
-                text.y=die.y + textY;
-
+                text.x = die.x + textX;
+                text.y = die.y + textY;
                 text.fontSize = fontSize;
-
                 this.numbersContainer?.addChild(text);
-
             }
-
-       
-
             this.viewPort?.addChild(this.numbersContainer!);
-
-        }
-
-        else {
-
+        } else {
             this.viewPort?.removeChild(this.numbersContainer!);
-
         }
-
     }
 
     private getVisibleDies(mouseX: number, mouseY: number, currentDieSize: number, xFactor: number, yFactor: number) {
