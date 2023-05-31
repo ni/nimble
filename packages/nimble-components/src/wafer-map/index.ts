@@ -228,7 +228,7 @@ export class WaferMap extends FoundationElement {
 
             const position = this.dataManager!.getWaferMapDie(dieCoordinates);
             if (position) {
-                console.log(position);
+                //console.log(position);
                 pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
                 pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
                 btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
@@ -242,10 +242,10 @@ export class WaferMap extends FoundationElement {
 
     private onDemandDieText(die: WaferMapDie, dieDimensions: Dimensions): PIXI.Text {
         const text = new PIXI.Text(die.value);
-        text.style.fontSize = dieDimensions.height / 2 * 0.08;
+        text.style.fontSize = dieDimensions.height / 2 * (10.0 / dieDimensions.height);
         text.style.fontFamily = 'sans-serif';
         text.style.fill = 0xffffff;
-        text.resolution = 3;
+        text.resolution = 300 * (1.0 / dieDimensions.height);
         text.x = die.x;
         text.y = die.y;
         return text;
@@ -262,8 +262,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private initializeInternalModules(): void {
-        console.log(this.clientWidth);
-        console.log(this.clientHeight);
+        //console.log(this.clientWidth);
+        //console.log(this.clientHeight);
         this.dataManager = new DataManager(this);
         this.generateFont();
     }
@@ -456,12 +456,12 @@ export class WaferMap extends FoundationElement {
         // go to x and y scale to get the x,y values of the die.
         const x = xRoundFunction(
             this.dataManager!.invertedHorizontalScale(
-                mousePosition.x - this.dataManager!.margin.left
+                (mousePosition.x - this.viewPort?.transform.localTransform.tx) / this.viewPort?.transform.localTransform.a  - this.dataManager!.margin.left
             )
         );
         const y = yRoundFunction(
             this.dataManager!.invertedVerticalScale(
-                mousePosition.y - this.dataManager!.margin.top
+                (mousePosition.y - this.viewPort?.transform.localTransform.ty) / this.viewPort?.transform.localTransform.d  - this.dataManager!.margin.top
             )
         );
         return { x, y };
