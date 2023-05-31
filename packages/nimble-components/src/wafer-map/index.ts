@@ -336,42 +336,6 @@ export class WaferMap extends FoundationElement {
         this.viewPort?.addChild(notch); // draw the wafermap notch
     }
 
-    private quadrantChanged(): void {
-    }
-
-    private orientationChanged(): void {
-    }
-
-    private maxCharactersChanged(): void {
-    }
-
-    private dieLabelsHiddenChanged(): void {
-    }
-
-    private dieLabelsSuffixChanged(): void {
-    }
-
-    private colorScaleModeChanged(): void {
-    }
-
-    private highlightedValuesChanged(): void {
-    }
-
-    private diesChanged(): void {
-    }
-
-    private colorScaleChanged(): void {
-    }
-
-    private transformChanged(): void {
-    }
-
-    private canvasWidthChanged(): void {
-    }
-
-    private canvasHeightChanged(): void {
-    }
-
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
     }
@@ -399,12 +363,11 @@ export class WaferMap extends FoundationElement {
             text.y = waferDie.y + offsetY;
             textArray.push(text);
 
-            // container.lineStyle(outlineSize, style.outlineColor, 1);
+            container.lineStyle(outlineSize, style.outlineColor, 1);
             container.beginFill(this.rgba2hex(die.fillStyle));
             container.drawRect(waferDie.x, waferDie.y, dieDimensions.width, dieDimensions.height);
             container.endFill();
         }
-        // container.addChild(...textArray);
         this.viewPort.addChild(container);
     }
 
@@ -420,12 +383,11 @@ export class WaferMap extends FoundationElement {
         );
     }
 
-    private rgba2hex(orig) {
+    private rgba2hex(orig: string): string {
         let a;
-        let isPercent;
         const rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i);
-        const alpha = (rgb && rgb[4] || '').trim();
-        let hex = rgb
+        const alpha = ((rgb && rgb[4]) || '').trim();
+        let hex: string = rgb
             ? (rgb[1] | 1 << 8).toString(16).slice(1)
           + (rgb[2] | 1 << 8).toString(16).slice(1)
           + (rgb[3] | 1 << 8).toString(16).slice(1) : orig;
