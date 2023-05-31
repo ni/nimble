@@ -232,6 +232,7 @@ export class WaferMap extends FoundationElement {
                 pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
                 pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
                 btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
+                debugger;
             }
             if (btmapText) {
                 pixiHoverDie.addChild(btmapText);
@@ -246,8 +247,8 @@ export class WaferMap extends FoundationElement {
         text.style.fontFamily = 'sans-serif';
         text.style.fill = 0xffffff;
         text.resolution = 300 * (1.0 / dieDimensions.height);
-        text.x = die.x;
-        text.y = die.y;
+        text.x = 0;
+        text.y = 0;
         return text;
     }
 
