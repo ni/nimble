@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as PIXI from 'pixi.js';
 import {
     attr,
@@ -5,7 +6,7 @@ import {
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
-import { Black, Black15, RgbNiGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
+import { Black, RgbNiGreen, White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { zoomIdentity, ZoomTransform } from 'd3-zoom';
 import { Viewport } from 'pixi-viewport';
@@ -136,6 +137,11 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
+    /**
+     * @internal
+     */
+    @observable public dieSprites?: PIXI.ParticleContainer;
+
     private pixiApp?: PIXI.Application<HTMLCanvasElement>;
     private viewPort?: Viewport;
 
@@ -179,11 +185,11 @@ export class WaferMap extends FoundationElement {
             this.viewPort = new Viewport({
                 screenWidth: this.pixiApp.view.width,
                 screenHeight: this.pixiApp.view.height,
-                events: this.pixiApp.renderer.events
+                events: this.pixiApp.renderer.events,
+                passiveWheel: false
             }).drag().wheel();
         }
-
-        this.pixiApp.stop();
+        this.viewPort.clampZoom({ maxWidth: this.pixiApp.view.width, maxHeight: this.pixiApp.view.height });
 
         const waferPosition: PointCoordinates = { x: this.wafermapContainer.clientWidth / 2, y: this.wafermapContainer.clientHeight / 2 };
         const waferRadius = Math.min(waferPosition.x, waferPosition.y);
@@ -199,7 +205,51 @@ export class WaferMap extends FoundationElement {
 
         this.pixiApp.stage.addChild(this.viewPort);
 
-        this.pixiApp.start();
+        const pixiHoverDie = new PIXI.Sprite(PIXI.Texture.WHITE);
+        pixiHoverDie.tint = 0x000000;
+        pixiHoverDie.height = this.dataManager?.dieDimensions.width;
+        pixiHoverDie.width = this.dataManager?.dieDimensions.height;
+        pixiHoverDie.x = 0;
+        pixiHoverDie.y = 0;
+        pixiHoverDie.interactive = true;
+        let btmapText;
+        this.viewPort.addEventListener('mousemove', e => {
+            try{
+                if(pixiHoverDie)
+                {
+                    pixiHoverDie.removeChildAt(0);
+                }
+            }catch{}
+
+            const dieCoordinates = this.calculateDieCoordinates({
+                x: e.globalX,
+                y: e.globalY
+            });
+
+            const position = this.dataManager!.getWaferMapDie(dieCoordinates);
+            if (position) {
+                //console.log(position);
+                pixiHoverDie.x = this.dataManager!.dieDimensions.height * position.x + this.dataManager?.margin.right;
+                pixiHoverDie.y = this.dataManager!.dieDimensions.width * position.y + this.dataManager?.margin.bottom;
+                btmapText = this.onDemandDieText(position, this.dataManager?.dieDimensions);
+                debugger;
+            }
+            if (btmapText) {
+                pixiHoverDie.addChild(btmapText);
+            }
+        });
+        this.viewPort.addChild(pixiHoverDie);
+    }
+
+    private onDemandDieText(die: WaferMapDie, dieDimensions: Dimensions): PIXI.Text {
+        const text = new PIXI.Text(die.value);
+        text.style.fontSize = dieDimensions.height / 2 * (10.0 / dieDimensions.height);
+        text.style.fontFamily = 'sans-serif';
+        text.style.fill = 0xffffff;
+        text.resolution = 300 * (1.0 / dieDimensions.height);
+        text.x = 0;
+        text.y = 0;
+        return text;
     }
 
     private queueRender(): void {
@@ -213,6 +263,8 @@ export class WaferMap extends FoundationElement {
     }
 
     private initializeInternalModules(): void {
+        //console.log(this.clientWidth);
+        //console.log(this.clientHeight);
         this.dataManager = new DataManager(this);
         this.generateFont();
     }
@@ -347,12 +399,12 @@ export class WaferMap extends FoundationElement {
             text.y = waferDie.y + offsetY;
             textArray.push(text);
 
-            container.lineStyle(outlineSize, style.outlineColor, 1);
-            container.beginFill(style.fillColor);
+            // container.lineStyle(outlineSize, style.outlineColor, 1);
+            container.beginFill(this.rgba2hex(die.fillStyle));
             container.drawRect(waferDie.x, waferDie.y, dieDimensions.width, dieDimensions.height);
             container.endFill();
         }
-        container.addChild(...textArray);
+        // container.addChild(...textArray);
         this.viewPort.addChild(container);
     }
 
@@ -360,12 +412,60 @@ export class WaferMap extends FoundationElement {
         PIXI.BitmapFont.from(
             'DieFont',
             {
-                fill: Black,
+                fill: '#FFFFFF',
                 padding: 0,
                 dropShadowAlpha: 0,
                 dropShadowDistance: 0
             }
         );
+    }
+
+    private rgba2hex(orig) {
+        let a;
+        let isPercent;
+        const rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i);
+        const alpha = (rgb && rgb[4] || '').trim();
+        let hex = rgb
+            ? (rgb[1] | 1 << 8).toString(16).slice(1)
+          + (rgb[2] | 1 << 8).toString(16).slice(1)
+          + (rgb[3] | 1 << 8).toString(16).slice(1) : orig;
+
+        if (alpha !== '') {
+            a = alpha;
+        } else {
+            a = 0x000001;
+        }
+        // multiply before convert to HEX
+        a = ((a * 255) | 1 << 8).toString(16).slice(1);
+        hex += a;
+
+        return hex;
+    }
+
+    private calculateDieCoordinates(
+        mousePosition: PointCoordinates
+    ): PointCoordinates {
+        const axisLocation = this.quadrant;
+        const xRoundFunction = axisLocation === WaferMapQuadrant.bottomLeft
+            || axisLocation === WaferMapQuadrant.topLeft
+            ? Math.floor
+            : Math.ceil;
+        const yRoundFunction = axisLocation === WaferMapQuadrant.topLeft
+            || axisLocation === WaferMapQuadrant.topRight
+            ? Math.floor
+            : Math.ceil;
+        // go to x and y scale to get the x,y values of the die.
+        const x = xRoundFunction(
+            this.dataManager!.invertedHorizontalScale(
+                (mousePosition.x - this.viewPort?.transform.localTransform.tx) / this.viewPort?.transform.localTransform.a  - this.dataManager!.margin.left
+            )
+        );
+        const y = yRoundFunction(
+            this.dataManager!.invertedVerticalScale(
+                (mousePosition.y - this.viewPort?.transform.localTransform.ty) / this.viewPort?.transform.localTransform.d  - this.dataManager!.margin.top
+            )
+        );
+        return { x, y };
     }
 }
 
