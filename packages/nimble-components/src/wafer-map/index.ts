@@ -240,10 +240,8 @@ export class WaferMap extends FoundationElement {
         });
         this.viewPort.addChild(pixiHoverDie);
     }
-    
 
-    private renderVisibleText(e: MouseEvent) {
-
+    private renderVisibleText(e: MouseEvent): void {
         const xFactor = this.viewPort?.transform.localTransform.a ?? 0;
 
         const yFactor = this.viewPort?.transform.localTransform.d ?? 0;
