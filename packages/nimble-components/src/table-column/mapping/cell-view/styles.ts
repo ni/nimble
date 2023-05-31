@@ -18,10 +18,6 @@ export const styles = css`
         align-items: center;
     }
 
-    .wrapper {
-        display: contents;
-    }
-
     * {
         flex-shrink: 0;
     }
