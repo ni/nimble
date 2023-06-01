@@ -2,6 +2,36 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 25 May 2023 15:39:06 GMT",
+      "tag": "@ni/nimble-angular_v16.6.0",
+      "version": "16.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "fdfdf1db998b916bc4b3f14291d58ac0cb27f7fa",
+            "comment": "NimbleTableColumnAnchorDirective extends base table column directive"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 23 May 2023 21:28:16 GMT",
+      "tag": "@ni/nimble-angular_v16.5.32",
+      "version": "16.5.32",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "9362324d727f9938f5a850f094591c07c10fbb27",
+            "comment": "- Create secondary entrypoints for the table, table columns, and table testing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 May 2023 20:18:10 GMT",
       "tag": "@ni/nimble-angular_v16.5.31",
       "version": "16.5.31",

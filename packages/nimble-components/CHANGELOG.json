@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 30 May 2023 16:29:57 GMT",
+      "tag": "@ni/nimble-components_v19.1.2",
+      "version": "19.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b69c11cc2859a31b5e3d24c4110cc03e7aea930d",
+            "comment": "Mapping table column spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 May 2023 20:18:10 GMT",
       "tag": "@ni/nimble-components_v19.1.2",
       "version": "19.1.2",

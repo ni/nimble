@@ -7,6 +7,7 @@
     "start": "ng serve",
     "build": "npm run build:library && npm run build:application",
     "build:library": "npm run generate-icons && ng build @ni/nimble-angular",
+    "watch:library": "npm run generate-icons && ng build @ni/nimble-angular --watch",
     "build:application": "ng build example-client-app",
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config projects/ni/nimble-angular/build/generate-icons/rollup.config.js",
