@@ -5,6 +5,6 @@ import type { Mapping } from '../../../mapping/base';
 
 // prettier-ignore
 export const template = html<TableColumnMappingGroupHeaderView>`
-    ${repeat(x => [x.getMappingToRender()], html<Mapping>`${x => x.groupHeaderViewTemplate}`)}
+    ${repeat(x => [x.getMappingToRender()], html<Mapping>`${x => x?.groupHeaderViewTemplate}`)}
     ${when(x => x.getMappingToRender() == null, html<TableColumnMappingGroupHeaderView>`${x => x.groupHeaderValue}`)}
 `;
