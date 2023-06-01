@@ -20,7 +20,9 @@
     "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"dist/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
     "invoke-publish:npm": "echo \"noop command to swallow npm args\"",
-    "copy-resources": "node build/copyNimbleResources.js"
+    "copy-resources": "node build/copyNimbleResources.js",
+    "clear-cache": "rimraf .wireit/*/cache",
+    "clear-wireit": "rimraf .wireit"
   },
   "wireit": {
     "build": {
@@ -77,6 +79,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
+    "rimraf": "^3.0.2",
     "rollup": "^3.10.1",
     "wireit": "^0.9.5"
   }

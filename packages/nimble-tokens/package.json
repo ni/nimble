@@ -12,7 +12,9 @@
     "pack:nuget": "cross-env-shell dotnet pack ./NimbleTokens --configuration Release -p:PackageVersion=$npm_package_version",
     "invoke-publish": "npm run invoke-publish:nuget && npm run invoke-publish:npm -- ",
     "invoke-publish:nuget": "cross-env-shell dotnet nuget push \"NimbleTokens/bin/Release/*.nupkg\" -k $NUGET_SECRET_TOKEN -s \"https://api.nuget.org/v3/index.json\"",
-    "invoke-publish:npm": "npm publish"
+    "invoke-publish:npm": "npm publish",
+    "clear-cache": "rimraf .wireit/*/cache",
+    "clear-wireit": "rimraf .wireit"
   },
   "wireit": {
     "build": {
@@ -63,6 +65,7 @@
     "cross-env": "^7.0.3",
     "glob": "^8.1.0",
     "lodash": "^4.17.21",
+    "rimraf": "^3.0.2",
     "style-dictionary": "3.7.2",
     "svg-to-ico": "^1.0.11",
     "svg-to-ts": "^9.0.0",

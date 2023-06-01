@@ -38,7 +38,9 @@
     "test-webkit:verbose": "karma start karma.conf.verbose.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
     "test-webkit:watch": "karma start karma.conf.js --browsers=WebkitHeadless --skip-tags SkipWebkit --watch-extensions js",
     "test-webkit": "karma start karma.conf.js --browsers=WebkitHeadless --single-run --skip-tags SkipWebkit",
-    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose"
+    "test": "npm run test-chrome:verbose && npm run test-firefox:verbose",
+    "clear-cache": "rimraf .wireit/*/cache",
+    "clear-wireit": "rimraf .wireit"
   },
   "wireit": {
     "build": {
@@ -167,6 +169,7 @@
     "prettier-eslint-cli": "^7.1.0",
     "puppeteer": "^10.1.0",
     "remark-gfm": "^3.0.1",
+    "rimraf": "^3.0.2",
     "rollup": "^3.10.1",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "storybook": "^7.0.4",

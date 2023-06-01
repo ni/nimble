@@ -166,6 +166,12 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
 
+## Local repo maintenance
+
+The Wireit tool used for building the repo will slowly accumulate build caches that grow unbounded. To reclaim disk space, you can delete these caches by running `npm run clear-cache --workspaces --if-present` from the root. Alternatively, if you periodically run `git clean -fdx`, this will also clear the `.wireit` directories along with all other files not tracked by git.
+
+Clearing the Wireit caches will not necessarily force a rebuild. To force a rebuild, run `npm clear-wireit`.
+
 ## Handling intermittent test failures
 
 Intermittent test failures can be a huge drain on productivity as they can cause unrelated failures in builds and block merging PRs or creating releases. Particularly when accepting contributions from different timezones and from contributors outside of the Nimble team without the tribal knowledge of what tests fail intermittently.
