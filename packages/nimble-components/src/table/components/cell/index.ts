@@ -29,6 +29,9 @@ export class TableCell<
     @observable
     public column?: TableColumn;
 
+    @observable
+    public columnRecordId?: string;
+
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;
 

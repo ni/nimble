@@ -6,6 +6,7 @@ import type {
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableStringFieldValue } from '../../../table/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -26,6 +27,15 @@ TableColumnSelectColumnConfig
         }
         return [] as string[];
     }
+
+    public cellSelectChanged(): void {
+        const eventDetail: CellSelectEventDetail = {
+            newValue: this.cellRecord['selected-item'],
+            recordId: this.columnRecordId
+        };
+        console.log('Select change, new value = %s', eventDetail.newValue);
+        this.$emit('cellchange', eventDetail);
+    }
 }
 
 const selectCellView = TableColumnSelectCellView.compose({
@@ -37,3 +47,8 @@ DesignSystem.getOrCreate().withPrefix('nimble').register(selectCellView());
 export const tableColumnSelectCellViewTag = DesignSystem.tagFor(
     TableColumnSelectCellView
 );
+
+export interface CellSelectEventDetail {
+    newValue: TableStringFieldValue;
+    recordId?: string;
+}

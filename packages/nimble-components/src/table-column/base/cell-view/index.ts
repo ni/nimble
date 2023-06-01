@@ -26,6 +26,9 @@ export abstract class TableCellView<
     @observable
     public column?: TableColumn<TColumnConfig>;
 
+    @observable
+    public columnRecordId?: string;
+
     private delegatedEvents: readonly string[] = [];
 
     /**

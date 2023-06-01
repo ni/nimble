@@ -18,6 +18,7 @@ export const template = html<TableColumnSelectCellView>`
         <${selectTag}
             error-text="${x => x.columnConfig.placeholder}"
             value="${x => x.cellRecord['selected-item']}"
+            @onchange="${x => x.cellSelectChanged()}"
         >
             ${repeat(x => x.items, html<ListOption>`
                 <${listOptionTag}>

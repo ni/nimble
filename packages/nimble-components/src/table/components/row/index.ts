@@ -25,6 +25,7 @@ declare global {
 
 export interface ColumnState {
     column: TableColumn;
+    columnRecordId?: string;
     cellState: TableCellState;
     cellIndentLevel: number;
 }
@@ -107,7 +108,8 @@ export class TableRow<
                 };
             }
             const cellIndentLevel = i === 0 && this.nestingLevel > 0 ? this.nestingLevel - 1 : 0;
-            return { column, cellState, cellIndentLevel };
+            const columnRecordId = this.recordId;
+            return { column, columnRecordId, cellState, cellIndentLevel };
         });
     }
 
