@@ -5,14 +5,17 @@ import {
     usageWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
-import { tableColumnMappingTag } from '..';
+import { tableColumnIconTag } from '..';
 import {
     SharedTableArgs,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
+import { iconXmarkTag } from '../../../icons/xmark';
 import { tableColumnTextTag } from '../../text';
-import { mappingTextTag } from '../../../mapping/text';
+import { iconCheckLargeTag } from '../../../icons/check-large';
+import { iconQuestionTag } from '../../../icons/question';
+import { mappingIconTag } from '../../../mapping/icon';
 
 const simpleData = [
     {
@@ -77,13 +80,13 @@ interface MappingColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const mappingColumnDescription = 'The `nimble-table-column-mapping` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
+const iconColumnDescription = 'The `nimble-table-column-icon` column renders string, number, or boolean values as a Nimble icon or `nimble-spinner` in the `nimble-table`.';
 
-export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
+export const iconColumn: StoryObj<MappingColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: mappingColumnDescription
+                story: iconColumnDescription
             }
         }
     },
@@ -97,12 +100,17 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             <${tableColumnTextTag} field-name="firstName" >
                 Name
             </${tableColumnTextTag}>
-            <${tableColumnMappingTag} field-name="status" group-index="0">
+            <${tableColumnIconTag} field-name="status" group-index="0">
                 Status
-                <${mappingTextTag} key="fail" label="Not a Simpson"></${mappingTextTag}>
-                <${mappingTextTag} key="success" label="Is a Simpson"></${mappingTextTag}>
-                <${mappingTextTag} default-mapping label="Unknown"></${mappingTextTag}>
-            </${tableColumnMappingTag}>
+                <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" label="Not a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" label="Is a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} default-mapping icon="${iconQuestionTag}" label="Unknown"></${mappingIconTag}>
+            </${tableColumnIconTag}>
+            <${tableColumnIconTag} field-name="isChild" key-type="boolean">
+                Is Child
+                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" label="Not a child"></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" label="Is a child"></${mappingIconTag}>
+            </${tableColumnIconTag}>
         </${tableTag}>
     `),
     argTypes: {

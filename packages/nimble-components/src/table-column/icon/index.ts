@@ -2,34 +2,48 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../mapping-base/styles';
 import { template } from '../mapping-base/template';
+import type { TableAnyField } from '../../table/types';
 import type { TableColumnValidity } from '../base/types';
 import { Mapping } from '../../mapping/base';
-import { MappingText } from '../../mapping/text';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
+import { mixinFixedWidthColumnAPI } from '../mixins/fixed-width-column';
+import { MappingSpinner } from '../../mapping/spinner';
+import { MappingIcon } from '../../mapping/icon';
 import {
-    mappingColumnValidityFlagNames,
-    TableColumnMappingValidator
+    iconColumnValidityFlagNames,
+    TableColumnIconValidator
 } from './models/column-validator';
 import { TableColumnMappingBase } from '../mapping-base';
 
+export type TableColumnMappingCellRecord = TableAnyField<'value'>;
+export interface TableColumnMappingColumnConfig {
+    typedKeysToMappings: (
+        | readonly [number | null, Mapping]
+        | readonly [boolean | null, Mapping]
+        | readonly [string | null, Mapping]
+    )[];
+}
+
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-mapping': TableColumnMapping;
+        'nimble-table-column-icon': TableColumnIcon;
     }
 }
 
 /**
- * Table column that maps values to strings
+ * Table column that maps values to icons/spinners
  */
-export class TableColumnMapping extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumnMappingBase)
+export class TableColumnIcon extends mixinGroupableColumnAPI(
+    mixinFixedWidthColumnAPI(TableColumnMappingBase)
 ) {
-    protected supportedMappingTypes: (typeof Mapping)[] = [MappingText];
+    protected supportedMappingTypes: (typeof Mapping)[] = [
+        MappingIcon,
+        MappingSpinner
+    ];
 
-    private readonly validator: TableColumnMappingValidator = new TableColumnMappingValidator(
+    private readonly validator: TableColumnIconValidator = new TableColumnIconValidator(
         this.columnInternals,
-        mappingColumnValidityFlagNames
+        iconColumnValidityFlagNames
     );
 
     public override get validity(): TableColumnValidity {
@@ -50,6 +64,8 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
                 ) ?? [];
                 this.validator.validateUniqueKeys(typedKeys);
                 this.validator.validateNoMissingKeys(this.mappings ?? []);
+            } else if (args === 'icon') {
+                this.validator.validateIconNames(this.mappings ?? []);
             }
         }
     }
@@ -68,6 +84,7 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
         ) ?? [];
         this.validator.validateUniqueKeys(typedKeys);
         this.validator.validateNoMissingKeys(this.mappings ?? []);
+        this.validator.validateIconNames(this.mappings ?? []);
     }
 
     protected override keyTypeChanged(): void {
@@ -79,13 +96,13 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
     }
 }
 
-const nimbleTableColumnMapping = TableColumnMapping.compose({
-    baseName: 'table-column-mapping',
+const nimbleTableColumnIcon = TableColumnIcon.compose({
+    baseName: 'table-column-icon',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(nimbleTableColumnMapping());
-export const tableColumnMappingTag = DesignSystem.tagFor(TableColumnMapping);
+    .register(nimbleTableColumnIcon());
+export const tableColumnIconTag = DesignSystem.tagFor(TableColumnIcon);

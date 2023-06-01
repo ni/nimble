@@ -1,7 +1,7 @@
 import { html, repeat } from '@microsoft/fast-element';
 
 import type { TableColumnMappingCellView } from '.';
-import type { Mapping } from '../mappings';
+import type { Mapping } from '../../../mapping/base';
 
 // prettier-ignore
 export const template = html<TableColumnMappingCellView>`

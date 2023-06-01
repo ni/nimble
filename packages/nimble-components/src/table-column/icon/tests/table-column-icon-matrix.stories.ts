@@ -3,8 +3,10 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../../utilities/tests/matrix';
 import { Table, tableTag } from '../../../table';
-import { tableColumnMappingTag } from '..';
-import { mappingTextTag } from '../../../mapping/text';
+import { tableColumnIconTag } from '..';
+import { iconCheckTag } from '../../../icons/check';
+import { mappingIconTag } from '../../../mapping/icon';
+import { mappingSpinnerTag } from '../../../mapping/spinner';
 
 const metadata: Meta = {
     title: 'Tests/Table Column Types',
@@ -33,23 +35,23 @@ const data = [
 // prettier-ignore
 const component = (): ViewTemplate => html`
     <${tableTag} id-field-name="id" style="height: 250px">
-        <${tableColumnMappingTag}
+        <${tableColumnIconTag}
             field-name="code"
             key-type="number"
             group-index="0"
         >
             Column 1
-            <${mappingTextTag} key="0" label="Zero"></${mappingTextTag}>
-            <${mappingTextTag} key="1" label="One"></${mappingTextTag}>
-        </${tableColumnMappingTag}>
+            <${mappingIconTag} key="0" label="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
+            <${mappingSpinnerTag} key="1" label="One"></${mappingSpinnerTag}>
+        </${tableColumnIconTag}>
     </${tableTag}>
 `;
 
-export const tableColumnMappingThemeMatrix: StoryFn = createMatrixThemeStory(
+export const tableColumnIconThemeMatrix: StoryFn = createMatrixThemeStory(
     component()
 );
 
-tableColumnMappingThemeMatrix.play = async (): Promise<void> => {
+tableColumnIconThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {

@@ -6,10 +6,10 @@ import {
     ViewTemplate
 } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { Mapping } from '..';
-import { spinnerTag } from '../../../../spinner';
-import { styles } from '../styles';
-import { template } from '../template';
+import { Mapping } from '../base';
+import { spinnerTag } from '../../spinner';
+import { styles } from '../base/styles';
+import { template } from '../base/template';
 
 declare global {
     interface HTMLElementTagNameMap {

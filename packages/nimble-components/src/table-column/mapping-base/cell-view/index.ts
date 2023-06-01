@@ -4,7 +4,7 @@ import type {
     TableColumnMappingColumnConfig
 } from '..';
 import { TableCellView } from '../../base/cell-view';
-import type { Mapping } from '../mappings';
+import type { Mapping } from '../../../mapping/base';
 import { styles } from './styles';
 import { template } from './template';
 

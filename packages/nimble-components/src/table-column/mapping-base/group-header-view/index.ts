@@ -1,7 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type { TableColumnMappingColumnConfig } from '..';
 import { TableGroupHeaderView } from '../../base/group-header-view';
-import type { Mapping } from '../mappings';
+import type { Mapping } from '../../../mapping/base';
 import { styles } from './styles';
 import { template } from './template';
 

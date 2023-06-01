@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     usageWarning
-} from '../../../../../utilities/tests/storybook';
+} from '../../../utilities/tests/storybook';
 
 const metadata: Meta<MappingIconArgs> = {
     title: 'Table Column Types'
