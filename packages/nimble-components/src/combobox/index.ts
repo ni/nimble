@@ -80,7 +80,8 @@ export class Combobox
     public override set value(next: string) {
         super.value = next;
         if (!this.valueUpdatedByInput) {
-            // Using index notation to avoid error from accessing private member
+            // Workaround using index notation to manipulate private member
+            // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
             // eslint-disable-next-line @typescript-eslint/dot-notation
             this['filter'] = '';
             this.filterOptions();
