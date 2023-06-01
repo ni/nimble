@@ -49,22 +49,27 @@ export default metadata;
 const simpleData = [
     {
         options: 'Option 1,Option 2,Option 3',
-        selected: 'Option 3'
+        selected: 'Option 3',
+        id: '0'
     },
     {
         options: 'Option 1,Option 2,Option 3',
-        selected: 'Option 2'
+        selected: 'Option 2',
+        id: '1'
     },
     {
         options: 'Option 1,Option 2,Option 3,Option 4,Option 5',
-        selected: 'Option 5'
+        selected: 'Option 5',
+        id: '2'
     },
     {
         options: 'Option 1,Option 3',
-        selected: 'Option 1'
+        selected: 'Option 1',
+        id: '3'
     },
     {
-        options: ''
+        options: '',
+        id: '4'
     }
 ];
 
@@ -90,7 +95,17 @@ export const selectColumn: StoryObj<SelectColumnTableArgs> = {
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
+            id-field-name="id"
             data-unused="${x => x.updateData(x)}"
+            @cellchange="${(x, c) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const rowToUpdate = simpleData.find(record => record.id === (c.event as CustomEvent).detail.recordId);
+        if (rowToUpdate) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            rowToUpdate.selected = (c.event as CustomEvent).detail.newValue;
+        }
+        x.updateData(x);
+    }}"
         >
             <${tableColumnSelectTag}
                 items-field-name="${x => x.itemsFieldName}"

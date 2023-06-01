@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
-import { html, repeat } from '@microsoft/fast-element';
+import { html, ref, repeat } from '@microsoft/fast-element';
 import type { TableColumnSelectCellView } from '.';
 import { selectTag } from '../../../select';
 import type { ListOption } from '../../../list-option';
@@ -18,7 +18,7 @@ export const template = html<TableColumnSelectCellView>`
         <${selectTag}
             error-text="${x => x.columnConfig.placeholder}"
             value="${x => x.cellRecord['selected-item']}"
-            @onchange="${x => x.cellSelectChanged()}"
+            @change="${(x, c) => x.cellSelectChanged(c.event as CustomEvent)}"
         >
             ${repeat(x => x.items, html<ListOption>`
                 <${listOptionTag}>

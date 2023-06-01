@@ -1,3 +1,4 @@
+import { observable } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type {
     TableColumnSelectCellRecord,
@@ -7,6 +8,7 @@ import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableStringFieldValue } from '../../../table/types';
+import type { Select } from '../../../select';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -28,12 +30,12 @@ TableColumnSelectColumnConfig
         return [] as string[];
     }
 
-    public cellSelectChanged(): void {
+    public cellSelectChanged(event: CustomEvent): void {
+        const select = event.target as Select;
         const eventDetail: CellSelectEventDetail = {
-            newValue: this.cellRecord['selected-item'],
+            newValue: select.value,
             recordId: this.columnRecordId
         };
-        console.log('Select change, new value = %s', eventDetail.newValue);
         this.$emit('cellchange', eventDetail);
     }
 }
