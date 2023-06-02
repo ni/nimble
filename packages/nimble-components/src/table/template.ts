@@ -83,7 +83,10 @@ export const template = html<Table>`
                                         <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onRightDividerMouseDown(c.index)}"></div>
                                     `)}                        
                                     ${when((_, c) => c.index === (c.parent as Table).columns.length - 1, html`
-                                        <div class="table-sizer" @mousedown="${(_, c) => (c.parent as Table).onTableResizeMouseDown()}"></div>
+                                        <div class="table-sizer"
+                                            @mousedown="${(_, c) => (c.parent as Table).onTableResizeMouseDown()}"
+                                            @dblclick="${(_, c) => (c.parent as Table).onTableResetView()}">
+                                        </div>
                                     `)}                        
                                 </div>
                             `)}
