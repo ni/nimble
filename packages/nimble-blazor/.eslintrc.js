@@ -3,6 +3,9 @@ module.exports = {
     extends: [
         '@ni/eslint-config-javascript'
     ],
+    parserOptions: {
+        ecmaVersion: 2020
+    },
     overrides: [
         {
             files: [

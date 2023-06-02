@@ -1,10 +1,12 @@
-import { html } from '@microsoft/fast-element';
+import { html, repeat } from '@microsoft/fast-element';
 import { keyArrowDown, keyEnter } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Combobox, comboboxTag } from '..';
-import '../../list-option';
+import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { createEventListener } from '../../utilities/tests/component';
+import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 
 async function setup(
     position?: string,
@@ -34,7 +36,160 @@ function updateComboboxWithText(combobox: Combobox, text: string): void {
     combobox.dispatchEvent(inputEvent);
 }
 
+async function clickAndWaitForOpen(combo: Combobox): Promise<void> {
+    const regionLoadedListener = createEventListener(combo, 'loaded');
+    combo.click();
+    await regionLoadedListener.promise;
+}
+
 describe('Combobox', () => {
+    it('should set aria-disabled attribute when property is set', async () => {
+        const { element, connect, disconnect } = await setup();
+
+        element.ariaDisabled = 'true';
+        await connect();
+
+        expect(element.getAttribute('aria-disabled')).toBe('true');
+
+        await disconnect();
+    });
+
+    it('should set autocomplete attribute when property is set', async () => {
+        const { element, connect, disconnect } = await setup();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        await connect();
+
+        expect(element.getAttribute('autocomplete')).toBe(
+            ComboboxAutocomplete.both
+        );
+
+        await disconnect();
+    });
+
+    it('should set classes based on open, disabled, and position', async () => {
+        const { element, connect, disconnect } = await setup('above', true);
+
+        element.disabled = true;
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(element.classList.contains('above')).toBeTrue();
+        expect(element.classList.contains('disabled')).toBeTrue();
+        expect(element.classList.contains('open')).toBeTrue();
+
+        await disconnect();
+    });
+
+    it('should set tabindex based on disabled state', async () => {
+        const { element, connect, disconnect } = await setup();
+
+        await connect();
+
+        expect(element.getAttribute('tabindex')).toBe('0');
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        expect(element.getAttribute('tabindex')).toBeNull();
+
+        await disconnect();
+    });
+
+    it('should forward  based on disabled state', async () => {
+        const { element, connect, disconnect } = await setup();
+
+        await connect();
+
+        expect(element.getAttribute('tabindex')).toBe('0');
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        expect(element.getAttribute('tabindex')).toBeNull();
+
+        await disconnect();
+    });
+
+    const ariaTestData: {
+        attrName: string,
+        propSetter: (x: Combobox, value: string) => void
+    }[] = [
+        {
+            attrName: 'aria-activedescendant',
+            propSetter: (x, v) => {
+                x.ariaActiveDescendant = v;
+            }
+        },
+        {
+            attrName: 'aria-autocomplete',
+            propSetter: (x, v) => {
+                x.ariaAutoComplete = v;
+            }
+        },
+        {
+            attrName: 'aria-controls',
+            propSetter: (x, v) => {
+                x.ariaControls = v;
+            }
+        },
+        {
+            attrName: 'aria-disabled',
+            propSetter: (x, v) => {
+                x.ariaDisabled = v;
+            }
+        },
+        {
+            attrName: 'aria-expanded',
+            propSetter: (x, v) => {
+                x.ariaExpanded = v;
+            }
+        }
+    ];
+    ariaTestData.forEach(testData => {
+        it(`should forward ${testData.attrName} to inner control`, async () => {
+            const { element, connect, disconnect } = await setup('above', true);
+            await connect();
+
+            testData.propSetter(element, 'foo');
+            await waitForUpdatesAsync();
+            expect(element.control.getAttribute(testData.attrName)).toEqual(
+                'foo'
+            );
+
+            await disconnect();
+        });
+    });
+
+    it('should forward placeholder to inner control', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.placeholder = 'foo';
+        await waitForUpdatesAsync();
+        expect(element.control.getAttribute('placeholder')).toEqual('foo');
+
+        await disconnect();
+    });
+
+    it('should forward disabled to inner control', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.disabled = true;
+        await waitForUpdatesAsync();
+        expect(element.control.getAttribute('disabled')).not.toBeNull();
+
+        await disconnect();
+    });
+
+    it('should forward value property to inner control', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+
+        element.value = 'foo';
+        await waitForUpdatesAsync();
+        expect(element.control.value).toBe('foo');
+
+        await disconnect();
+    });
+
     it('should respect value set before connect is completed', async () => {
         const { element, connect, disconnect } = await setup();
 
@@ -227,6 +382,32 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    it('clears old filter when value set programmatically', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'Th');
+        const focusout = new FocusEvent('focusout');
+        element.dispatchEvent(focusout);
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('three');
+
+        element.value = 'Two';
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(3);
+        expect(element.filteredOptions[0]?.value).toEqual('one');
+        expect(element.filteredOptions[1]?.value).toEqual('two');
+        expect(element.filteredOptions[2]?.value).toEqual('three');
+        expect(element.filteredOptions[1]?.classList).toContain('selected');
+
+        await disconnect();
+    });
+
     it('emits one change event after changing value through text entry', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
@@ -322,6 +503,33 @@ describe('Combobox', () => {
             element.focusoutHandler(new FocusEvent('')); // attempt to commit typed value
 
             expect(element.value).not.toEqual('Four');
+
+            await disconnect();
+        });
+    });
+
+    describe('within a div', () => {
+        async function setupInDiv(): Promise<Fixture<Combobox>> {
+            // prettier-ignore
+            const viewTemplate = html`
+                <div style="overflow: auto;">
+                    <${comboboxTag}>
+                        ${repeat(() => [...Array(5).keys()], html<number>`
+                            <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
+                    </${comboboxTag}>
+                </div>
+            `;
+            return fixture<Combobox>(viewTemplate);
+        }
+
+        it('should not confine dropdown to div with "overflow: auto"', async () => {
+            const { element, connect, disconnect } = await setupInDiv();
+            const combo: Combobox = element.querySelector(comboboxTag)!;
+            await connect();
+            await clickAndWaitForOpen(combo);
+            const fullyVisible = await checkFullyInViewport(combo.listbox);
+
+            expect(fullyVisible).toBe(true);
 
             await disconnect();
         });

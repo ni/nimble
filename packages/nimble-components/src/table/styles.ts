@@ -7,19 +7,23 @@ import {
     bodyFontColor,
     popupBorderColor,
     controlSlimHeight,
-    fillHoverColor,
-    fillHoverSelectedColor,
-    fillSelectedColor
+    smallPadding,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
 import { themeBehavior } from '../utilities/style/theme';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('flex')}
 
     :host {
         height: 480px;
+    }
+
+    .disable-select {
+        ${userSelectNone}
     }
 
     .table-container {
@@ -39,13 +43,29 @@ export const styles = css`
     }
 
     .header-row {
-        display: grid;
+        display: flex;
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
         min-width: 100%;
-        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
         left: var(--ni-private-table-scroll-x);
+        align-items: center;
+    }
+
+    .all-columns-header-container {
+        display: grid;
+        width: 100%;
+        grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    .collapse-all-button {
+        height: ${controlSlimHeight};
+        margin-left: calc(${smallPadding} * 2);
+        visibility: hidden;
+    }
+
+    .collapse-all-button.visible {
+        visibility: visible;
     }
 
     .header-container {
@@ -90,11 +110,11 @@ export const styles = css`
         display: block;
     }
 
-    .left { 
+    .left {
         left: -1px;
     }
 
-    .right { 
+    .right {
         left: calc(100% - 1px);
     }
 
@@ -135,58 +155,35 @@ export const styles = css`
         top: var(--ni-private-table-row-container-top);
     }
 
-    .row {
-        background: ${applicationBackgroundColor};
+    .checkbox-container {
+        display: flex;
+    }
+
+    .selection-checkbox {
+        margin-left: ${standardPadding};
+    }
+
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
+    }
+
+    .group-row {
         position: relative;
-        box-sizing: border-box;
     }
 
-    .row::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    :host([selection-mode='single']) .row:hover::before {
-        background: ${fillHoverColor};
-    }
-
-    :host([selection-mode='single']) .row[selected]::before {
-        background: ${fillSelectedColor};
-    }
-
-    :host([selection-mode='single']) .row[selected]:hover::before {
-        background: ${fillHoverSelectedColor};
+    .row {
+        position: relative;
     }
 `.withBehaviors(
     themeBehavior(
         Theme.color,
         css`
-            .header-row::before {
+            .table-row-container::before {
                 content: '';
                 width: 100%;
                 height: 100%;
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
                 position: absolute;
-                background: ${fillHoverColor};
-                pointer-events: none;
-            }
-
-            .row::before {
-                background: ${fillHoverColor};
-            }
-
-            :host([selection-mode='single']) .row:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.15)};
-            }
-
-            :host([selection-mode='single']) .row[selected]::before {
-                background: ${hexToRgbaCssColor(White, 0.25)};
-            }
-
-            :host([selection-mode='single']) .row[selected]:hover::before {
-                background: ${hexToRgbaCssColor(White, 0.2)};
             }
         `
     )

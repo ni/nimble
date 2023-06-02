@@ -7,7 +7,19 @@
  * JavaScript initializer for NimbleBlazor project, see
  * https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#javascript-initializers
  */
+
 export function afterStarted(Blazor) {
+    if (window.NimbleBlazor.calledAfterStarted) {
+        console.warn('Attempted to initialize Nimble Blazor multiple times!'); // eslint-disable-line
+        return;
+    }
+
+    if (!Blazor) {
+        throw new Error('Blazor not ready to initialize Nimble with!');
+    }
+
+    window.NimbleBlazor.calledAfterStarted = true;
+
     // Used by NimbleCheckbox.razor, NimbleSwitch.razor, NimbleToggleButton.razor
     // Necessary because the control's value property is always just the value 'on', so we need to look
     // at the checked property to correctly get the value.
@@ -88,9 +100,32 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbletablerowselectionchange', {
+        browserEventName: 'selection-change',
+        createEventArgs: event => {
+            return {
+                selectedRecordIds: event.detail.selectedRecordIds
+            };
+        }
+    });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbletablecolumnconfigurationchange', {
+        browserEventName: 'column-configuration-change',
+        createEventArgs: event => {
+            return {
+                columns: event.detail.columns
+            };
+        }
+    });
 }
 
-window.NimbleBlazor = {
+if (window.NimbleBlazor) {
+    console.warn('Attempting to initialize NimbleBlazor multiple times!'); // eslint-disable-line
+}
+
+window.NimbleBlazor = window.NimbleBlazor ?? {
+    calledAfterStarted: false,
     Dialog: {
         show: async function (dialogReference) {
             const reason = await dialogReference.show();
@@ -113,6 +148,12 @@ window.NimbleBlazor = {
         setData: async function (tableReference, data) {
             const dataObject = JSON.parse(data);
             await tableReference.setData(dataObject);
+        },
+        getSelectedRecordIds: async function (tableReference) {
+            return tableReference.getSelectedRecordIds();
+        },
+        setSelectedRecordIds: async function (tableReference, selectedRecordIds) {
+            await tableReference.setSelectedRecordIds(selectedRecordIds);
         },
         checkValidity: function (tableReference) {
             return tableReference.checkValidity();

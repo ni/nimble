@@ -1,5 +1,6 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
     usageWarning
@@ -8,6 +9,7 @@ import { tableTag } from '../../../table';
 import { tableColumnTextTag } from '..';
 import {
     SharedTableArgs,
+    sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
@@ -38,22 +40,31 @@ const simpleData = [
     }
 ];
 
-const overviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`. 
-See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for 
+const overviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`.
+See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
 information about common column configuration.`;
 
 const metadata: Meta<SharedTableArgs> = {
     title: 'Table Column Types',
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
+        },
+        actions: {
+            handles: sharedTableActions
         }
     },
     // prettier-ignore
     argTypes: {
-        ...sharedTableArgTypes
+        ...sharedTableArgTypes,
+        selectionMode: {
+            table: {
+                disable: true
+            }
+        },
     },
     args: {
         ...sharedTableArgs(simpleData)

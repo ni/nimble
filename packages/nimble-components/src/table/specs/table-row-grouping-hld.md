@@ -15,7 +15,7 @@ This document will focus on the programmatic grouping of data rows.
 ## Links To Relevant Work Items and Reference Material
 
 -   [#1003 Programmatic grouping of data rows](https://github.com/ni/nimble/issues/1003)
--   [IxD Interactive Document](https://xd.adobe.com/view/6f3be15d-8503-4f1f-54b9-5bc27955b3e4-190a/screen/13edcacf-4e95-46b2-a7a8-83141afb3f2d)
+-   [Basic Interactions Spec](https://xd.adobe.com/view/6f3be15d-8503-4f1f-54b9-5bc27955b3e4-190a/screen/13edcacf-4e95-46b2-a7a8-83141afb3f2d)
 -   [Keyboard Navigation](https://xd.adobe.com/view/fa09e396-dbb9-40b8-547f-1cf9eab35a0b-8c38/screen/61432aef-6dca-4b87-a62b-12ed17a927b4)
 -   [Table README](./README.md)
 -   [Table Design Doc](https://xd.adobe.com/view/5b476816-dad1-4671-b20a-efe796631c72-0e14/screen/d389dc1e-da4f-4a63-957b-f8b3cc9591b4/specs/)

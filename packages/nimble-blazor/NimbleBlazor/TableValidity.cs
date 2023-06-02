@@ -14,7 +14,13 @@ public interface ITableValidity
 
     public bool MissingColumnId { get; }
 
+    public bool InvalidColumnConfiguration { get; }
+
     public bool DuplicateSortIndex { get; }
+
+    public bool DuplicateGroupIndex { get; }
+
+    public bool IdFieldNameNotConfigured { get; }
 }
 
 internal class TableValidity : ITableValidity
@@ -34,6 +40,15 @@ internal class TableValidity : ITableValidity
     [JsonPropertyName("missingColumnId")]
     public bool MissingColumnId { get; set; }
 
+    [JsonPropertyName("invalidColumnConfiguration")]
+    public bool InvalidColumnConfiguration { get; set; }
+
     [JsonPropertyName("duplicateSortIndex")]
     public bool DuplicateSortIndex { get; set; }
+
+    [JsonPropertyName("duplicateGroupIndex")]
+    public bool DuplicateGroupIndex { get; set; }
+
+    [JsonPropertyName("idFieldNameNotConfigured")]
+    public bool IdFieldNameNotConfigured { get; set; }
 }

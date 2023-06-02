@@ -1,31 +1,45 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
+    applicationBackgroundColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
     fillHoverColor,
     mediumDelay,
     smallPadding,
-    standardPadding,
-    tableRowBorderColor
+    standardPadding
 } from '../../../theme-provider/design-tokens';
+import { Theme } from '../../../theme-provider/types';
+import { hexToRgbaCssColor } from '../../../utilities/style/colors';
+import { themeBehavior } from '../../../utilities/style/theme';
+import { userSelectNone } from '../../../utilities/style/user-select';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('grid')}
 
     :host {
         align-items: center;
         height: calc(${controlHeight} + 2 * ${borderWidth});
-        border-top: calc(2 * ${borderWidth}) solid ${tableRowBorderColor};
-        padding-left: calc(
-            ${smallPadding} * 2 + ${standardPadding} * 2 *
-                var(--ni-private-table-group-row-indent-level)
-        );
+        border-top: calc(2 * ${borderWidth}) solid ${applicationBackgroundColor};
+        box-sizing: border-box;
+        grid-template-columns:
+            calc(
+                ${controlHeight} *
+                    (var(--ni-private-table-group-row-indent-level) + 1)
+            )
+            1fr;
     }
 
-    :host(:hover) {
-        background: ${fillHoverColor};
+    :host([selectable]) {
+        grid-template-columns:
+            ${controlHeight}
+            calc(
+                ${controlHeight} *
+                    (var(--ni-private-table-group-row-indent-level) + 1)
+            )
+            1fr;
     }
 
     :host([expanded]) .animating,
@@ -33,8 +47,24 @@ export const styles = css`
         transition: ${mediumDelay} ease-in-out;
     }
 
+    :host::before {
+        content: '';
+        width: 100%;
+        height: ${controlHeight};
+        pointer-events: none;
+        bottom: 0px;
+        position: absolute;
+    }
+
+    :host(:hover)::before {
+        background-color: ${fillHoverColor};
+    }
+
     .expand-collapse-button {
-        width: ${controlSlimHeight};
+        margin-left: calc(
+            ${smallPadding} * 2 + ${standardPadding} * 2 *
+                var(--ni-private-table-group-row-indent-level)
+        );
         height: ${controlSlimHeight};
     }
 
@@ -53,15 +83,16 @@ export const styles = css`
 
     .group-header-view {
         padding-left: calc(${standardPadding} / 2);
-        user-select: none;
+        ${userSelectNone}
         overflow: hidden;
         display: flex;
     }
 
     .group-row-child-count {
         padding-left: 2px;
+        padding-right: calc(${standardPadding} / 2);
         pointer-events: none;
-        user-select: none;
+        ${userSelectNone}
     }
 
     @media (prefers-reduced-motion) {
@@ -70,4 +101,33 @@ export const styles = css`
             transition-duration: 0s;
         }
     }
-`;
+
+    .checkbox-container {
+        display: flex;
+    }
+
+    .selection-checkbox {
+        margin-left: ${standardPadding};
+    }
+
+    .selection-checkbox::part(label) {
+        padding-left: 0px;
+    }
+`.withBehaviors(
+    themeBehavior(
+        Theme.color,
+        css`
+            :host(:hover)::before {
+                background-color: ${hexToRgbaCssColor(White, 0.05)};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.dark,
+        css`
+            :host(:hover)::before {
+                background-color: ${hexToRgbaCssColor(White, 0.1)};
+            }
+        `
+    )
+);

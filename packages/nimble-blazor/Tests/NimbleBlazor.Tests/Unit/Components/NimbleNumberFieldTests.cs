@@ -22,6 +22,15 @@ public class NimbleNumberFieldTests
         Assert.Contains(expectedMarkup, textField.Markup);
     }
 
+    [Fact]
+    public void NimbleNumberField_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleNumberField>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(NumberFieldAppearance.Outline, "outline")]
     [InlineData(NumberFieldAppearance.Block, "block")]

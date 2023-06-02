@@ -4,15 +4,21 @@
 !*.ts
 !*.js
 !*.md
+!*.mdx
 !*.json
 !src/
+!docs/
 !/.storybook/
 
 /src/**/*.*
 !src/**/*.ts
 !src/**/*.js
 !src/**/*.md
+!src/**/*.mdx
 !src/**/*.json
+
+/docs/**/*.*
+!docs/**/*.mdx
 
 /.storybook/*.*
 !/.storybook/*.js

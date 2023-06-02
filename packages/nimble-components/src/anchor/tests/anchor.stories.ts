@@ -54,7 +54,9 @@ const metadata: Meta<AnchorArgs> = {
         },
         appearance: {
             options: Object.keys(AnchorAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description:
+                'Set to `prominent` to make the anchor appear in a different color than normal text.'
         }
     },
     args: {

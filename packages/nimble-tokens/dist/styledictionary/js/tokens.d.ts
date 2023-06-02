@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Thu, 20 Oct 2022 19:57:29 GMT
+ * Generated on Fri, 02 Jun 2023 15:04:27 GMT
  */
 
 export const SlLegacyBlue : string;

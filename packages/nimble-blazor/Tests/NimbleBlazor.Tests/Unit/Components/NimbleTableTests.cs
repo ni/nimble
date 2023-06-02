@@ -48,12 +48,40 @@ public class NimbleTableTests
     }
 
     [Fact]
+    public void NimbleTable_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTable<TableRowData>>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleTable_WithIdFieldNameAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet<string, TableRowData>(x => x.IdFieldName!, "FirstName");
 
         var expectedMarkup = @"id-field-name=""FirstName""";
         Assert.Contains(expectedMarkup, table.Markup);
+    }
+
+    [Theory]
+    [InlineData(TableRowSelectionMode.None, null)]
+    [InlineData(TableRowSelectionMode.Single, "single")]
+    [InlineData(TableRowSelectionMode.Multiple, "multiple")]
+    public void TextFieldAppearance_AttributeIsSet(TableRowSelectionMode value, string expectedAttribute)
+    {
+        var table = RenderWithPropertySet<TableRowSelectionMode?, TableRowData>(x => x.SelectionMode, value);
+
+        if (expectedAttribute == null)
+        {
+            Assert.DoesNotContain("selection-mode", table.Markup);
+        }
+        else
+        {
+            var expectedMarkup = $"selection-mode=\"{expectedAttribute}\"";
+            Assert.Contains(expectedMarkup, table.Markup);
+        }
     }
 
     [Fact]

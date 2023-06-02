@@ -1,20 +1,20 @@
-/* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
-import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import type { TableStringField } from '../../table/types';
-import { TableColumn } from '../base';
-import { TableColumnSortOperation } from '../base/types';
-import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { TableColumnTextBase } from '../text-base';
+import {
+    TableColumnWithPlaceholderColumnConfig,
+    TableColumnSortOperation
+} from '../base/types';
 import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
+import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
-export interface TableColumnTextColumnConfig {
-    placeholder: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableColumnTextColumnConfig
+    extends TableColumnWithPlaceholderColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -23,34 +23,16 @@ declare global {
 }
 
 /**
- * The table column for displaying strings.
+ * The table column for displaying string fields as text.
  */
-export class TableColumnText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumn<TableColumnTextColumnConfig>)
-) {
-    @attr({ attribute: 'field-name' })
-    public fieldName?: string;
-
-    @attr
-    public placeholder?: string;
-
-    public constructor() {
-        super({
+export class TableColumnText extends TableColumnTextBase {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag
-        });
-        this.columnInternals.sortOperation = TableColumnSortOperation.localeAwareCaseSensitive;
-    }
-
-    protected fieldNameChanged(): void {
-        this.columnInternals.dataRecordFieldNames = [this.fieldName];
-        this.columnInternals.operandDataRecordFieldName = this.fieldName;
-    }
-
-    protected placeholderChanged(): void {
-        this.columnInternals.columnConfig = {
-            placeholder: this.placeholder ?? ''
+            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            delegatedEvents: [],
+            sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
         };
     }
 }

@@ -1,0 +1,43 @@
+﻿@page "/TableBindToData"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@using System.Diagnostics.CodeAnalysis;
+@inherits LayoutComponentBase
+
+<NimbleTable IdFieldName="Id" @bind-Data="TableData">
+    <NimbleTableColumnText FieldName="Field1" ColumnId="1">Column 1</NimbleTableColumnText>
+</NimbleTable>
+
+@code {
+    [NotNull]
+    public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
+
+    public TableBindToData()
+    {
+        UpdateTableData(5);
+    }
+
+    public void UpdateTableData(int numberOfRows)
+    {
+        var tableData = new RowData[numberOfRows];
+        for (int i = 0; i < numberOfRows; i++)
+        {
+            tableData[i] = new RowData(
+                i.ToString(null, null),
+                $"A{i}");
+    }
+
+        TableData = tableData;
+    }
+
+    public class RowData
+    {
+        public RowData(string id, string field1)
+        {
+            Id = id;
+            Field1 = field1;
+        }
+
+        public string Id { get; }
+        public string Field1 { get; }
+    }
+}

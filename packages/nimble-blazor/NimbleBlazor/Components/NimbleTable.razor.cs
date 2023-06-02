@@ -16,6 +16,8 @@ public partial class NimbleTable<TData> : ComponentBase
     private bool _dataUpdated = false;
     private IEnumerable<TData> _data = Enumerable.Empty<TData>();
     internal static string SetTableDataMethodName = "NimbleBlazor.Table.setData";
+    internal static string GetSelectedRecordIdsMethodName = "NimbleBlazor.Table.getSelectedRecordIds";
+    internal static string SetSelectedRecordIdsMethodName = "NimbleBlazor.Table.setSelectedRecordIds";
     internal static string CheckTableValidityMethodName = "NimbleBlazor.Table.checkValidity";
     internal static string GetTableValidityMethodName = "NimbleBlazor.Table.getValidity";
 
@@ -24,6 +26,9 @@ public partial class NimbleTable<TData> : ComponentBase
 
     [Parameter]
     public string? IdFieldName { get; set; }
+
+    [Parameter]
+    public TableRowSelectionMode? SelectionMode { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -55,6 +60,23 @@ public partial class NimbleTable<TData> : ComponentBase
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
+    /// Returns the set of selected record IDs.
+    /// </summary>
+    public async Task<IEnumerable<string>> GetSelectedRecordIdsAsync()
+    {
+        return await JSRuntime!.InvokeAsync<IEnumerable<string>>(GetSelectedRecordIdsMethodName, _table);
+    }
+
+    /// <summary>
+    /// Sets the record IDs that should be selected in the table.
+    /// </summary>
+    /// <param name="recordIds">The record IDs to select in the table</param>
+    public async Task SetSelectedRecordIdsAsync(IEnumerable<string> recordIds)
+    {
+        await JSRuntime!.InvokeAsync<TableValidity>(SetSelectedRecordIdsMethodName, _table, recordIds);
+    }
+
+    /// <summary>
     /// Returns whether or not the table is valid.
     /// </summary>
     public async Task<bool> CheckValidityAsync()
@@ -83,6 +105,18 @@ public partial class NimbleTable<TData> : ComponentBase
     public EventCallback<TableActionMenuToggleEventArgs> ActionMenuBeforeToggle { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that's invoked when selection is changed on the table.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TableRowSelectionEventArgs> RowSelectionChange { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that's invoked when a column's configuration is changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TableColumnConfigurationEventArgs> ColumnConfigurationChange { get; set; }
+
+    /// <summary>
     /// Called when 'action-menu-toggle' changes on the web component.
     /// </summary>
     /// <param name="eventArgs">The state of the action menu on the table</param>
@@ -98,6 +132,24 @@ public partial class NimbleTable<TData> : ComponentBase
     protected async void HandleActionMenuBeforeToggle(TableActionMenuToggleEventArgs eventArgs)
     {
         await ActionMenuBeforeToggle.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
+    /// Called when the 'selection-change' event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The selection state of the table</param>
+    protected async void HandleSelectionChange(TableRowSelectionEventArgs eventArgs)
+    {
+        await RowSelectionChange.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
+    /// Called when the 'column-configuration-change' event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The configuration of the columns</param>
+    protected async void HandleColumnConfigurationChange(TableColumnConfigurationEventArgs eventArgs)
+    {
+        await ColumnConfigurationChange.InvokeAsync(eventArgs);
     }
 
     /// <inheritdoc/>

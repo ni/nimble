@@ -5,7 +5,7 @@
 <div class="content container">
     <p>
         Explore the components below to see the Nimble components in action. See the <a
-                href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
+                href="https://nimble.ni.dev/storybook/?path=/docs/getting-started--docs">Nimble
                 component docs</a> for additional usage details.
     </p>
     <div class="container">
@@ -206,7 +206,7 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Table</div>
-            <NimbleTable @bind-Data="TableData" class="table">
+            <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
                     FieldName="FirstName"
                     Placeholder="no value"
@@ -218,6 +218,7 @@
                 >
                     <NimbleIconKey title="First Name"></NimbleIconKey>
                 </NimbleTableColumnText>
+                <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
                 <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value" GroupIndex="0">Last Name</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">

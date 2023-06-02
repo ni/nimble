@@ -1,8 +1,10 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
-import '../../list-option';
+import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { createEventListener } from '../../utilities/tests/component';
+import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 
 async function setup(
     position?: string,
@@ -22,33 +24,70 @@ async function setup(
 }
 
 async function clickAndWaitForOpen(select: Select): Promise<void> {
+    const regionLoadedListener = createEventListener(select, 'loaded');
     select.click();
-    // Takes two updates for listbox to be rendered
-    await waitForUpdatesAsync();
-    await waitForUpdatesAsync();
-}
-
-async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
-    return new Promise((resolve, _reject) => {
-        const intersectionObserver = new IntersectionObserver(
-            entries => {
-                intersectionObserver.disconnect();
-                if (
-                    entries[0]?.isIntersecting
-                    && entries[0].intersectionRatio === 1.0
-                ) {
-                    resolve(true);
-                } else {
-                    resolve(false);
-                }
-            },
-            { threshold: 1.0 }
-        );
-        intersectionObserver.observe(element);
-    });
+    await regionLoadedListener.promise;
 }
 
 describe('Select', () => {
+    it('should set classes based on collapsible, open, disabled, and position', async () => {
+        const { element, connect, disconnect } = await setup('above', true);
+
+        element.disabled = true;
+        element.position = 'above';
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(element.classList.contains('collapsible')).toBeTrue();
+        expect(element.classList.contains('above')).toBeTrue();
+        expect(element.classList.contains('disabled')).toBeTrue();
+        expect(element.classList.contains('open')).toBeTrue();
+
+        await disconnect();
+    });
+
+    const ariaTestData: {
+        attrName: string,
+        propSetter: (x: Select, value: string) => void
+    }[] = [
+        {
+            attrName: 'aria-controls',
+            propSetter: (x, v) => {
+                x.ariaControls = v;
+            }
+        },
+        {
+            attrName: 'aria-disabled',
+            propSetter: (x, v) => {
+                x.ariaDisabled = v;
+            }
+        },
+        {
+            attrName: 'aria-expanded',
+            propSetter: (x, v) => {
+                x.ariaExpanded = v;
+            }
+        },
+        {
+            attrName: 'aria-multiselectable',
+            propSetter: (x, v) => {
+                x.ariaMultiSelectable = v;
+            }
+        }
+    ];
+    ariaTestData.forEach(testData => {
+        it(`should set ${testData.attrName} from property`, async () => {
+            const { element, connect, disconnect } = await setup('above', true);
+            await connect();
+
+            testData.propSetter(element, 'foo');
+            await waitForUpdatesAsync();
+            expect(element.getAttribute(testData.attrName)).toEqual('foo');
+
+            await disconnect();
+        });
+    });
+
     it('should respect value set before connect is completed', async () => {
         const { element, connect, disconnect } = await setup();
 
@@ -98,30 +137,50 @@ describe('Select', () => {
         async function setup500Options(): Promise<Fixture<Select>> {
             // prettier-ignore
             const viewTemplate = html`
-                <nimble-select>
+                <${selectTag}>
                     ${repeat(() => [...Array(500).keys()], html<number>`
                         <nimble-list-option value="${x => x}">${x => x}</nimble-list-option>`)}
-                </nimble-select>
+                </${selectTag}>
             `;
             return fixture<Select>(viewTemplate);
         }
 
-        // Disabled due to intermittancy, see: https://github.com/ni/nimble/issues/1172
-        xit('should limit dropdown height to viewport', async () => {
+        it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
             await connect();
-            const listbox: HTMLElement = element.shadowRoot!.querySelector('.listbox')!;
             await clickAndWaitForOpen(element);
-            // The test is run in an iframe, and the containing window has a Karma header.
-            // It seems the window is sized without accounting for the header, so a header-height's
-            // worth of content is scrolled out of view. The approach we take with the
-            // IntersectionObserver only works if the full iframe is visible, so we scroll the
-            // containing window to the bottom (i.e. scrolling the Karma header out of view and
-            // the bottom of the iframe into view).
-            window.parent.scrollTo(0, window.parent.document.body.scrollHeight);
-            const fullyVisible = await checkFullyInViewport(listbox);
+            const fullyVisible = await checkFullyInViewport(element.listbox);
 
-            expect(listbox.scrollHeight).toBeGreaterThan(window.innerHeight);
+            expect(element.listbox.scrollHeight).toBeGreaterThan(
+                window.innerHeight
+            );
+            expect(fullyVisible).toBe(true);
+
+            await disconnect();
+        });
+    });
+
+    describe('within a div', () => {
+        async function setupInDiv(): Promise<Fixture<Select>> {
+            // prettier-ignore
+            const viewTemplate = html`
+                <div style="overflow: auto;">
+                    <${selectTag}>
+                        ${repeat(() => [...Array(5).keys()], html<number>`
+                            <${listOptionTag} value="${x => x}">${x => x}</${listOptionTag}>`)}
+                    </${selectTag}>
+                </div>
+            `;
+            return fixture<Select>(viewTemplate);
+        }
+
+        it('should not confine dropdown to div with "overflow: auto"', async () => {
+            const { element, connect, disconnect } = await setupInDiv();
+            const select: Select = element.querySelector(selectTag)!;
+            await connect();
+            await clickAndWaitForOpen(select);
+            const fullyVisible = await checkFullyInViewport(select.listbox);
+
             expect(fullyVisible).toBe(true);
 
             await disconnect();

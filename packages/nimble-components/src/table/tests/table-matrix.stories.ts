@@ -12,6 +12,7 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { Table, tableTag } from '..';
 import { iconUserTag } from '../../icons/user';
 import { tableColumnTextTag } from '../../table-column/text';
+import { TableRowSelectionMode } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Table',
@@ -46,9 +47,14 @@ const data = [
     }
 ] as const;
 
+const selectionModeStates = Object.values(TableRowSelectionMode);
+type SelectionModeState = (typeof selectionModeStates)[number];
+
 // prettier-ignore
-const component = (): ViewTemplate => html`
-    <${tableTag} selection-mode="single" id-field-name="id">
+const component = (
+    selectionMode: SelectionModeState
+): ViewTemplate => html`
+    <${tableTag} selection-mode="${() => selectionMode}"" id-field-name="id">
         <${tableColumnTextTag} field-name="firstName" placeholder="no value" sort-direction="ascending" sort-index="0" group-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
         <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
@@ -57,7 +63,7 @@ const component = (): ViewTemplate => html`
 `;
 
 export const tableThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [selectionModeStates])
 );
 
 tableThemeMatrix.play = async (): Promise<void> => {
@@ -65,7 +71,7 @@ tableThemeMatrix.play = async (): Promise<void> => {
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {
                 await table.setData(data);
-                await table.setSelectedRecordIds(['1']);
+                await table.setSelectedRecordIds(['1', '2']);
             }
         )
     );

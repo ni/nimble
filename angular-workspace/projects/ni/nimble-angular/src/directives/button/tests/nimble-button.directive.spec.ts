@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { BooleanValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../../../public-api';
-import type { BooleanValueOrAttribute } from '../../utilities/template-value-helpers';
 import { Button, NimbleButtonDirective } from '../nimble-button.directive';
 import { NimbleButtonModule } from '../nimble-button.module';
 

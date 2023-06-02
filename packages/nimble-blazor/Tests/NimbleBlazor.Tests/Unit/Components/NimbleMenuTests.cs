@@ -19,4 +19,13 @@ public class NimbleMenuTests
 
         Assert.Contains(expectedMarkup, menu.Markup);
     }
+
+    [Fact]
+    public void NimbleMenu_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleMenu>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
 }

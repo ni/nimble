@@ -209,7 +209,7 @@ export const tooltipBackgroundColor = DesignToken.create<string>(
 
 export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black88, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(

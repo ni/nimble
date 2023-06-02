@@ -15,50 +15,81 @@ import {
     TableActionMenuToggleEventDetail,
     TableColumnSortDirection,
     TableRowSelectionMode,
-    TableRowSelectionState
+    TableRowSelectionState,
+    TableRowSelectionToggleEventDetail
 } from './types';
 import { tableGroupRowTag } from './components/group-row';
+import { buttonTag } from '../button';
+import { ButtonAppearance } from '../button/types';
+import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
+import { checkboxTag } from '../checkbox';
 
 // prettier-ignore
 export const template = html<Table>`
     <template
         role="grid"
-        ${children({ property: 'childItems', filter: elements() })}>
-        <div class="table-container" style="
+        aria-multiselectable="${x => x.ariaMultiSelectable}"
+        ${children({ property: 'childItems', filter: elements() })}
+    >
+        <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
+            style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
             --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
-            --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px; 
+            --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
             --ni-private-table-cursor-override: ${x => (x.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-total-width: ${x => x.tableWidthFactor * 100}%;
             ">
             <div role="rowgroup" class="header-row-container">
-                <div class="header-row" ${ref('rowHeader')} role="row">
-                    ${repeat(x => x.columns, html<TableColumn>`
-                        ${when(x => !x.columnHidden, html<TableColumn, Table>`
-                            <div class="header-container">
-                                ${when((_, c) => c.index > 0, html<TableColumn, Table>`
-                                    <div class="column-divider left" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.index)}"></div>
-                                `)}
-                                    <${tableHeaderTag}
-                                        class="header"
-                                        sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
-                                        ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                                        @dblclick="${(_, c) => c.parent.onTableResetView()}"
-                                    >
-                                        <slot name="${x => x.slot}"></slot>
-                                    </${tableHeaderTag}>
+                <div class="header-row" role="row">
+                    ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
+                        <span role="columnheader" class="checkbox-container">
+                            <${checkboxTag}
+                                ${ref('selectionCheckbox')}
+                                class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                                @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
+                            >
+                            </${checkboxTag}>
+                        </span>
+                    `)}
+                    <span role="gridcell">
+                        <${buttonTag}
+                            class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
+                            content-hidden
+                            appearance="${ButtonAppearance.ghost}"
+                            @click="${x => x.handleCollapseAllGroupRows()}"
+                        >
+                            <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                        </${buttonTag}>
+                    </span>
+                    <span class="all-columns-header-container" ${ref('rowHeader')}>
+                        ${repeat(x => x.columns, html<TableColumn>`
+                            ${when(x => !x.columnHidden, html<TableColumn, Table>`
+                                <div class="header-container">
+                                    ${when((_, c) => c.index > 0, html<TableColumn, Table>`
+                                        <div class="column-divider left" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.index)}"></div>
+                                    `)}
+                                        <${tableHeaderTag}
+                                            class="header"
+                                            sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
+                                            ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                            @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+                                            :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
+                                        >
+                                            <slot name="${x => x.slot}"></slot>
+                                        </${tableHeaderTag}>
                                     ${when((_, c) => c.index < (c.parent as Table).columns.length - 1, html`
                                         <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onRightDividerMouseDown(c.index)}"></div>
                                     `)}                        
                                     ${when((_, c) => c.index === (c.parent as Table).columns.length - 1, html`
                                         <div class="table-sizer" @mousedown="${(_, c) => (c.parent as Table).onTableResizeMouseDown()}"></div>
                                     `)}                        
-                            </div>
-                        `)}
-                    `, { positioning: true })}
-                    <div class="header-scrollbar-spacer"></div>
+                                </div>
+                            `)}
+                        `, { positioning: true })}
+                        <div class="header-scrollbar-spacer"></div>
+                    </span>
                 </div>
             </div>
             <div class="table-viewport" ${ref('viewport')}>
@@ -75,8 +106,11 @@ export const template = html<Table>`
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                     :leafItemCount="${(x, c) => c.parent.tableData[x.index]?.leafItemCount}"
                                     :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
+                                    ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
+                                    selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
+                                    @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                     @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
-                                    >
+                                >
                                 </${tableGroupRowTag}>
                             `)}
                             ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
@@ -85,11 +119,13 @@ export const template = html<Table>`
                                     record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                     ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                     ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
+                                    ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
                                     :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                     :columns="${(_, c) => c.parent.columns}"
                                     :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
-                                    @click="${async (x, c) => c.parent.onRowClick(x.index)}"
-                                    @row-action-menu-beforetoggle="${(_, c) => c.parent.onRowActionMenuBeforeToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                    @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
+                                    @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
+                                    @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                     @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                 >
                                 ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
@@ -99,7 +135,7 @@ export const template = html<Table>`
                                             slot="${x => `row-action-menu-${x}`}">
                                         </slot>
                                     `)}
-                                `)}                        
+                                `)}
                                 </${tableRowTag}>
                             `)}
                         `)}

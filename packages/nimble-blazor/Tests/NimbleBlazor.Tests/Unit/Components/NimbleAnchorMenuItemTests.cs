@@ -23,6 +23,15 @@ public class NimbleAnchorMenuItemTests : NimbleAnchorBaseTests<NimbleAnchorMenuI
     }
 
     [Fact]
+    public void NimbleAnchorMenuItem_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorMenuItem>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void AnchorMenuItemDisabled_AttributeIsSet()
     {
         var anchorMenuItem = RenderWithPropertySet(x => x.Disabled, true);
