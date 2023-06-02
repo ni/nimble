@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "added a design token for graph gridlines",
+  "packageName": "@ni/nimble-components",
+  "email": "109941566+vikash-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
