@@ -46,7 +46,7 @@ jobs:
 
       # Force .NET 6.0.xxx for Blazor build (agent now has a newer version which breaks 'dotnet format', see https://github.com/dotnet/format/issues/1800)
       - name: Apply global.json for nimble-blazor
-        run: mv packages/nimble-blazor/global.ci.json packages/nimble-blazor/global.json
+        run: cp packages/nimble-blazor/global.ci.json packages/nimble-blazor/global.json
 
       # Audit
       - run: npm audit --only=prod
