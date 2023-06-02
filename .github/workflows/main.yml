@@ -41,6 +41,10 @@ jobs:
       # only informational so swallow error codes
       - run: npm outdated || exit 0
 
+      # Force .NET 6.0.2xx for Blazor build (agent now has 7.0.2xx which is broken, see https://github.com/dotnet/format/issues/1800)
+      - name: Apply global.json for nimble-blazor
+        run: mv packages/nimble-blazor/global.ci.json packages/nimble-blazor/global.json
+
       # Audit
       - run: npm audit --only=prod
       # https://github.com/ni/nimble/issues/801
