@@ -94,13 +94,17 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;
-        const deltaX = mouseEvent.movementX > 0
+        let deltaX = mouseEvent.movementX > 0
             ? Math.floor(mouseEvent.movementX)
             : Math.ceil(mouseEvent.movementX);
+        deltaX = this.pinColumnSizeDelta(this.activeColumnDivider!, deltaX);
+        const canSizeLeft = this.canSizeLeft(this.activeColumnDivider!);
         this.performCascadeSizeLeft(this.activeColumnDivider!, deltaX);
-        this.performCascadeSizeRight(this.activeColumnDivider!, deltaX);
-        this.table.tableWidthFactor = this.getCurrentTotalTableWidth()
-            / this.table.getBoundingClientRect().width;
+        if (canSizeLeft || deltaX > 0) {
+            this.performCascadeSizeRight(this.activeColumnDivider!, deltaX);
+        }
+
+        this.table.tableWidthFactor = Math.max(this.getCurrentTotalTableWidth() / this.table.getBoundingClientRect().width, 1);
     };
 
     private readonly onDividerMouseUp = (): void => {
@@ -193,6 +197,36 @@ export class TableLayoutManager<TData extends TableRecord> {
                 }
             }
         }
+    }
+
+    private pinColumnSizeDelta(activeColumnIndex: number, delta: number): number {
+        let availableSpace = 0;
+        let currentIndex = activeColumnIndex;
+        if (delta > 0) { // size right
+            availableSpace = delta;
+        } else if (delta < 0) { // size left
+            while (currentIndex >= 0) {
+                const column = this.table.columns[currentIndex];
+                availableSpace += Math.floor(column!.columnInternals.currentPixelWidth!) - column!.columnInternals.minPixelWidth;
+                currentIndex -= 1;
+            }
+        }
+        return delta > 0
+            ? Math.min(delta, availableSpace)
+            : Math.max(delta, -availableSpace);
+    }
+
+    private canSizeLeft(activeColumnIndex: number): boolean {
+        let currentIndex = activeColumnIndex;
+        while (currentIndex >= 0) {
+            const column = this.table.columns[currentIndex];
+            if (Math.floor(column!.columnInternals.currentPixelWidth!) > column!.columnInternals.minPixelWidth) {
+                return true;
+            }
+            currentIndex -= 1;
+        }
+
+        return false;
     }
 
     private performCascadeSizeLeft(
