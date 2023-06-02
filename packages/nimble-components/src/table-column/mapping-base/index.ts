@@ -25,7 +25,7 @@ export interface TableColumnMappingColumnConfig {
 }
 
 /**
- * Base class for table columns that map values to content
+ * Base class for table columns that map values to content (e.g. nimble-table-column-mapping and nimble-table-column-icon)
  */
 export abstract class TableColumnMappingBase
     extends TableColumn<TableColumnMappingColumnConfig>

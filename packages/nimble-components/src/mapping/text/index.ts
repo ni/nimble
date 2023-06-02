@@ -17,7 +17,8 @@ declare global {
 }
 
 /**
- * Maps values to text
+ * An element to be given as content to a nimble-table-column-mapping.
+ * Maps data values to text.
  */
 export class MappingText extends Mapping {
     @attr()

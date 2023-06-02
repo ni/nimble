@@ -41,8 +41,24 @@ const component = (): ViewTemplate => html`
             group-index="0"
         >
             Column 1
-            <${mappingIconTag} key="0" label="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
+            <${mappingIconTag} key="0" label="Zero" icon="${iconCheckTag}"></${mappingIconTag}>
             <${mappingSpinnerTag} key="1" label="One"></${mappingSpinnerTag}>
+        </${tableColumnIconTag}>
+        <${tableColumnIconTag}
+            field-name="code"
+            key-type="number"
+        >
+            Column 2
+            <${mappingIconTag} key="0" label="Zero" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
+            <${mappingIconTag} key="1" label="One" icon="${iconCheckTag}" severity="warning"></${mappingIconTag}>
+            <${mappingIconTag} key="2" label="Two" icon="${iconCheckTag}" severity="error"></${mappingIconTag}>
+        </${tableColumnIconTag}>
+        <${tableColumnIconTag}
+            field-name="code"
+            key-type="number"
+        >
+            Column 3
+            <${mappingIconTag} key="0" label="Zero" icon="${iconCheckTag}" severity="information"></${mappingIconTag}>
         </${tableColumnIconTag}>
     </${tableTag}>
 `;

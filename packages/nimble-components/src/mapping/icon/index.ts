@@ -17,7 +17,8 @@ declare global {
 }
 
 /**
- * Maps values to an icon
+ * An element to be given as content to a nimble-table-column-icon.
+ * Maps data values to an icon.
  */
 export class MappingIcon extends Mapping {
     @attr()

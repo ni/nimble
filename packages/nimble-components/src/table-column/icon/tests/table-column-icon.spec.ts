@@ -428,5 +428,16 @@ describe('TableColumnIcon', () => {
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.invalidIconName).toBeTrue();
         });
+
+        it('catches completely made up icon value', async () => {
+            ({ element, connect, disconnect } = await setup([
+                { key: 'a', label: 'alpha', icon: 'foo' }
+            ]));
+            await connect();
+            await waitForUpdatesAsync();
+            const column = element.columns[0] as TableColumnIcon;
+            expect(column.checkValidity()).toBeFalse();
+            expect(column.validity.invalidIconName).toBeTrue();
+        });
     });
 });

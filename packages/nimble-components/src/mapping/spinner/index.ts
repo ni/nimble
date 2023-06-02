@@ -18,7 +18,8 @@ declare global {
 }
 
 /**
- * Maps values to a spinner
+ * An element to be given as content to a nimble-table-column-icon.
+ * Maps data values to a spinner.
  */
 export class MappingSpinner extends Mapping {
     @attr()
