@@ -351,6 +351,14 @@ export class Table<
         this.tableLayoutManager.beginColumnInteractiveSize(columnIndex, columnIndex - 1);
     }
 
+    public onTableResizeMouseDown(): void {
+        this.tableLayoutManager.beginTableResize();
+    }
+
+    public onTableResetView(): void {
+        this.tableLayoutManager.resetView();
+    }
+
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();

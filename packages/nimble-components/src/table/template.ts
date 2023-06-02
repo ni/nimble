@@ -45,10 +45,16 @@ export const template = html<Table>`
                                         class="header"
                                         sort-direction="${x => (typeof x.sortIndex === 'number' ? x.sortDirection : TableColumnSortDirection.none)}"
                                         ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                        @dblclick="${(_, c) => c.parent.onTableResetView()}"
                                     >
                                         <slot name="${x => x.slot}"></slot>
                                     </${tableHeaderTag}>
-                                <div class="column-divider right" @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.index)}"></div>
+                                    ${when((_, c) => c.index < (c.parent as Table).columns.length - 1, html`
+                                        <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onRightDividerMouseDown(c.index)}"></div>
+                                    `)}                        
+                                    ${when((_, c) => c.index === (c.parent as Table).columns.length - 1, html`
+                                        <div class="table-sizer" @mousedown="${(_, c) => (c.parent as Table).onTableResizeMouseDown()}"></div>
+                                    `)}                        
                             </div>
                         `)}
                     `, { positioning: true })}

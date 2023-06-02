@@ -76,6 +76,20 @@ export const styles = css`
         z-index: 1;
     }
 
+    .table-sizer {
+        border-left: 2px solid ${popupBorderColor};
+        height: 4px;
+        width: 4px;
+    }
+
+    .table-sizer::before {
+        content: '';
+        border-left: 2px solid ${popupBorderColor};
+        height: 4px;
+        margin-left: 2px;
+        display: block;
+    }
+
     .left { 
         left: -1px;
     }
