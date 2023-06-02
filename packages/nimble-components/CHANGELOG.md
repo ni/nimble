@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 May 2023 20:18:10 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Jun 2023 14:41:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.1.3
+
+Thu, 01 Jun 2023 14:41:19 GMT
+
+### Patches
+
+- Clear combobox filter when value set programatically ([ni/nimble@2c5206b](https://github.com/ni/nimble/commit/2c5206bd71fd9e97ed0dffbe21fbaa253b893652))
 
 ## 19.1.2
 
