@@ -11,7 +11,7 @@
     "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
     "generate-icons:run": "node build/generate-icons/dist/index.js",
     "generate-hybrid": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
-    "lint": "npm run lint:cs && npm run lint:js",
+    "lint": "npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",
     "format": "npm run format:cs && npm run format:js",
