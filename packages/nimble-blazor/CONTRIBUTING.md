@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-If not already done, download and install the .NET 6 SDK version 6.0.202+  (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+If not already done, download and install the .NET SDK (see [the main contributing doc](../../CONTRIBUTING.md) for the required version).
 
 Initialize and build the Nimble monorepo (`npm install` + `npm run build` from the root `nimble` directory) before working with the Blazor codebase.
 
