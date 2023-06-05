@@ -82,6 +82,17 @@ interface MappingColumnTableArgs extends SharedTableArgs {
 
 const iconColumnDescription = 'The `nimble-table-column-icon` column renders string, number, or boolean values as a Nimble icon or `nimble-spinner` in the `nimble-table`.';
 
+const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
+The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
+
+-   \`invalidMappingKeyValueForType\`: \`true\` a mapping has a \`key\` that is not of the \`key-type\` declared by the column
+-   \`multipleDefaultMappings\`: \`true\` when multiple mappings have the \`default-mapping\` attribute
+-   \`unsupportedMappingType\`: \`true\` when the column contains a mapping element other than \`nimble-mapping-text\`
+-   \`duplicateMappingKey\`: \`true\` when multiple mappings have the same \`key\` value
+-   \`missingKeyValue\`: \`true\` when a mapping has no \`key\` value, and it is not marked with \`default-mapping\`
+-   \`invalidIconName\`: \`true\` when a mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
+`;
+
 export const iconColumn: StoryObj<MappingColumnTableArgs> = {
     parameters: {
         docs: {
@@ -139,8 +150,7 @@ export const iconColumn: StoryObj<MappingColumnTableArgs> = {
                 'Returns `true` if the column configuration is valid, otherwise `false`.'
         },
         validity: {
-            description:
-                'Property whose value is an object containing flags representing validity conditions of the column.'
+            description: validityDescription
         }
     },
     args: {

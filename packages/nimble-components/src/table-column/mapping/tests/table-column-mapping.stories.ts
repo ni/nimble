@@ -79,6 +79,16 @@ interface MappingColumnTableArgs extends SharedTableArgs {
 
 const mappingColumnDescription = 'The `nimble-table-column-mapping` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
 
+const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
+The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
+
+-   \`invalidMappingKeyValueForType\`: \`true\` a mapping has a \`key\` that is not of the \`key-type\` declared by the column
+-   \`multipleDefaultMappings\`: \`true\` when multiple mappings have the \`default-mapping\` attribute
+-   \`unsupportedMappingType\`: \`true\` when the column contains a mapping element other than \`nimble-mapping-text\`
+-   \`duplicateMappingKey\`: \`true\` when multiple mappings have the same \`key\` value
+-   \`missingKeyValue\`: \`true\` when a mapping has no \`key\` value, and it is not marked with \`default-mapping\`
+`;
+
 export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
     parameters: {
         docs: {
@@ -131,8 +141,7 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
                 'Returns `true` if the column configuration is valid, otherwise `false`.'
         },
         validity: {
-            description:
-                'Property whose value is an object containing flags representing validity conditions of the column.'
+            description: validityDescription
         }
     },
     args: {
