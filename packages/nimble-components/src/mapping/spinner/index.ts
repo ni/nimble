@@ -26,6 +26,10 @@ export class MappingSpinner extends Mapping {
     public label: string | null = null;
 
     /** @internal */
+    @attr({ mode: 'boolean' })
+    public paused?: boolean;
+
+    /** @internal */
     public span: HTMLSpanElement | null = null;
 
     /** @internal */
@@ -36,6 +40,7 @@ export class MappingSpinner extends Mapping {
     // prettier-ignore
     public cellViewTemplate: ViewTemplate = html<MappingSpinner>`
         <${spinnerTag}
+            style="${x => (x.paused ? '--ni-private-spinner-animation-play-state:paused' : '')}"
             title="${x => x.label}"
             aria-label="${x => x.label}">
         </${spinnerTag}>`;
@@ -44,6 +49,7 @@ export class MappingSpinner extends Mapping {
     // prettier-ignore
     public groupHeaderViewTemplate: ViewTemplate = html<MappingSpinner>`
         <${spinnerTag}
+            style="${x => (x.paused ? '--ni-private-spinner-animation-play-state:paused' : '')}"
             title="${x => x.label}"
             aria-label="${x => x.label}">
         </${spinnerTag}>

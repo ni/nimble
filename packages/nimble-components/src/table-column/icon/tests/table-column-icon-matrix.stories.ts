@@ -42,7 +42,7 @@ const component = (): ViewTemplate => html`
         >
             Column 1
             <${mappingIconTag} key="0" label="Zero" icon="${iconCheckTag}"></${mappingIconTag}>
-            <${mappingSpinnerTag} key="1" label="One"></${mappingSpinnerTag}>
+            <${mappingSpinnerTag} key="1" label="One" paused></${mappingSpinnerTag}>
         </${tableColumnIconTag}>
         <${tableColumnIconTag}
             field-name="code"
