@@ -6,7 +6,14 @@ import {
 } from '../../../utilities/tests/storybook';
 
 const metadata: Meta<MappingSpinnerArgs> = {
-    title: 'Table Column Types'
+    title: 'Ignore',
+    parameters: {
+        docs: {
+            description: {
+                component: 'The `nimble-mapping-spinner` element defines a mapping from a data value to the Nimble spinner. It is meant to be used as content of the `nimble-table-column-icon` column type element.'
+            }
+        }
+    }
 };
 
 export default metadata;
@@ -15,13 +22,6 @@ export default metadata;
 interface MappingSpinnerArgs {}
 
 export const spinnerMapping: StoryObj<MappingSpinnerArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'The `nimble-mapping-spinner` element defines a mapping from a data value to the Nimble spinner. It is meant to be used as content of the `nimble-table-column-icon` column type element.'
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<MappingSpinnerArgs>`
         ${usageWarning('table')}

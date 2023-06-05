@@ -6,7 +6,14 @@ import {
 } from '../../../utilities/tests/storybook';
 
 const metadata: Meta<MappingIconArgs> = {
-    title: 'Table Column Types'
+    title: 'Ignore',
+    parameters: {
+        docs: {
+            description: {
+                component: 'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-icon` column type element.'
+            }
+        }
+    },
 };
 
 export default metadata;
@@ -15,13 +22,6 @@ export default metadata;
 interface MappingIconArgs {}
 
 export const iconMapping: StoryObj<MappingIconArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-icon` column type element.'
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<MappingIconArgs>`
         ${usageWarning('table')}

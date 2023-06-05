@@ -53,19 +53,17 @@ const simpleData = [
     }
 ];
 
-const overviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`.
-See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
-information about common column configuration.`;
+const enumTextColumnDescription = 'The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
 
 const metadata: Meta<EnumTextColumnTableArgs> = {
-    title: 'Table Column Types',
+    title: 'Table Column - Enum Text',
     parameters: {
         docs: {
             description: {
-                component: overviewText
+                component: enumTextColumnDescription
             }
         }
-    }
+    },
 };
 
 export default metadata;
@@ -76,8 +74,6 @@ interface EnumTextColumnTableArgs extends SharedTableArgs {
     checkValidity: () => void;
     validity: () => void;
 }
-
-const enumTextColumnDescription = 'The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
 The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
@@ -90,13 +86,6 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 `;
 
 export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: enumTextColumnDescription
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<EnumTextColumnTableArgs>`
         ${usageWarning('table')}

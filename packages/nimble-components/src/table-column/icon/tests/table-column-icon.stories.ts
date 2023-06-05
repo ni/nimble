@@ -56,24 +56,13 @@ const simpleData = [
     }
 ];
 
-const overviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`.
-See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
-information about common column configuration.`;
-
-const metadata: Meta<MappingColumnTableArgs> = {
-    title: 'Table Column Types',
-    parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        }
-    }
+const metadata: Meta<IconColumnTableArgs> = {
+    title: 'Table Column - Icon'
 };
 
 export default metadata;
 
-interface MappingColumnTableArgs extends SharedTableArgs {
+interface IconColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
     checkValidity: () => void;
@@ -93,7 +82,7 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 -   \`invalidIconName\`: \`true\` when a mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
 `;
 
-export const iconColumn: StoryObj<MappingColumnTableArgs> = {
+export const iconColumn: StoryObj<IconColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
@@ -102,7 +91,7 @@ export const iconColumn: StoryObj<MappingColumnTableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<MappingColumnTableArgs>`
+    render: createUserSelectedThemeStory(html<IconColumnTableArgs>`
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}

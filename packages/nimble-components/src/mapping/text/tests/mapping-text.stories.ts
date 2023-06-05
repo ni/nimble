@@ -6,7 +6,14 @@ import {
 } from '../../../utilities/tests/storybook';
 
 const metadata: Meta<MappingTextArgs> = {
-    title: 'Table Column Types'
+    title: 'Ignore',
+    parameters: {
+        docs: {
+            description: {
+                component: 'The `nimble-mapping-text` element defines a mapping from a data value to display text. It is meant to be used as content of the `nimble-table-column-mapping` column type element.'
+            }
+        }
+    }
 };
 
 export default metadata;
@@ -15,13 +22,6 @@ export default metadata;
 interface MappingTextArgs {}
 
 export const textMapping: StoryObj<MappingTextArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'The `nimble-mapping-text` element defines a mapping from a data value to display text. It is meant to be used as content of the `nimble-table-column-mapping` column type element.'
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<MappingTextArgs>`
         ${usageWarning('table')}
