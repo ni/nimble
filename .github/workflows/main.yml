@@ -27,6 +27,8 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           global-json-file: packages/nimble-blazor/global.json
+      - run: dotnet --info
+        working-directory: packages/nimble-blazor/
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
@@ -40,9 +42,6 @@ jobs:
       # print a log of outdated npm dependencies
       # only informational so swallow error codes
       - run: npm outdated || exit 0
-
-      # Print .NET info for installed SDK versions
-      - run: dotnet --info
 
       # Audit
       - run: npm audit --only=prod

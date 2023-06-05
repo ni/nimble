@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Re-enable Blazor linting",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20709258+msmithNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

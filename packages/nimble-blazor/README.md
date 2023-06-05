@@ -21,7 +21,7 @@ This repo contains:
         - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
         - Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
     - **Mac with Visual Studio Code**: Install [Visual Studio Code](https://code.visualstudio.com/) and open it. Open the Extensions pane ("Preferences" >> "Extensions"), and search for / install the `ms-dotnettools.csharp` extension.
-2. .NET SDK: See [the main contributing doc](../../CONTRIBUTING.md) for the required version.
+2. .NET SDK: See [the main contributing doc](/CONTRIBUTING.md) for the required version.
 
 ### Creating a new Blazor project
 
