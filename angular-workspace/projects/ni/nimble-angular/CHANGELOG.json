@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 05 Jun 2023 18:54:28 GMT",
+      "tag": "@ni/nimble-angular_v16.6.2",
+      "version": "16.6.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "85f33b13d12e5fadcb95c6d73e2f53cb7cd762dc",
+            "comment": "Remove old async test helpers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Jun 2023 07:49:02 GMT",
       "tag": "@ni/nimble-angular_v16.6.2",
       "version": "16.6.2",
