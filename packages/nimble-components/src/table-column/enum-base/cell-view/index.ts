@@ -1,7 +1,7 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type {
-    TableColumnMappingCellRecord,
-    TableColumnMappingColumnConfig
+    TableColumnEnumCellRecord,
+    TableColumnEnumColumnConfig
 } from '..';
 import { TableCellView } from '../../base/cell-view';
 import type { Mapping } from '../../../mapping/base';
@@ -10,16 +10,16 @@ import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-mapping-cell-view': TableColumnMappingCellView;
+        'nimble-table-column-enum-cell-view': TableColumnEnumCellView;
     }
 }
 
 /**
  * A cell view for displaying mapped elements
  */
-export class TableColumnMappingCellView extends TableCellView<
-TableColumnMappingCellRecord,
-TableColumnMappingColumnConfig
+export class TableColumnEnumCellView extends TableCellView<
+TableColumnEnumCellRecord,
+TableColumnEnumColumnConfig
 > {
     public getMappingToRender(): Mapping | null {
         return this.getMatchingMapping() ?? this.getDefaultMapping();
@@ -40,12 +40,12 @@ TableColumnMappingColumnConfig
     }
 }
 
-const mappingCellView = TableColumnMappingCellView.compose({
+const enumCellView = TableColumnEnumCellView.compose({
     baseName: 'table-column-mapping-cell-view',
     template,
     styles
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(mappingCellView());
-export const tableColumnMappingCellViewTag = DesignSystem.tagFor(
-    TableColumnMappingCellView
+DesignSystem.getOrCreate().withPrefix('nimble').register(enumCellView());
+export const tableColumnEnumCellViewTag = DesignSystem.tagFor(
+    TableColumnEnumCellView
 );

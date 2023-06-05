@@ -1,12 +1,12 @@
 import { Icon } from '../../../icon-base';
 import { ColumnValidator } from '../../base/models/column-validator';
-import { TableColumnMappingValidationHelper } from '../../mapping-base/models/column-validator';
-import { mappingColumnValidityFlagNames } from '../../mapping/models/column-validator';
+import { TableColumnEnumValidationHelper } from '../../enum-base/models/column-validator';
+import { enumTextColumnValidityFlagNames } from '../../enum-text/models/column-validator';
 import type { Mapping } from '../../../mapping/base';
 import { MappingIcon } from '../../../mapping/icon';
 
 export const iconColumnValidityFlagNames = [
-    ...mappingColumnValidityFlagNames,
+    ...enumTextColumnValidityFlagNames,
     'invalidIconName'
 ] as const;
 
@@ -17,7 +17,7 @@ export class TableColumnIconValidator extends ColumnValidator<
     typeof iconColumnValidityFlagNames
 > {
     public validateKeyValuesForType(keys: unknown[], keyType: string): void {
-        const invalid = TableColumnMappingValidationHelper.invalidMappingKeyValueForType(
+        const invalid = TableColumnEnumValidationHelper.invalidMappingKeyValueForType(
             keys,
             keyType
         );
@@ -25,7 +25,7 @@ export class TableColumnIconValidator extends ColumnValidator<
     }
 
     public validateAtMostOneDefaultMapping(mappings: Mapping[]): void {
-        const invalid = TableColumnMappingValidationHelper.multipleDefaultMappings(
+        const invalid = TableColumnEnumValidationHelper.multipleDefaultMappings(
             mappings
         );
         this.setConditionValue('multipleDefaultMappings', invalid);
@@ -35,7 +35,7 @@ export class TableColumnIconValidator extends ColumnValidator<
         mappings: Mapping[],
         allowedMappingTypes: (typeof Mapping)[]
     ): void {
-        const invalid = TableColumnMappingValidationHelper.unsupportedMappingType(
+        const invalid = TableColumnEnumValidationHelper.unsupportedMappingType(
             mappings,
             allowedMappingTypes
         );
@@ -43,12 +43,12 @@ export class TableColumnIconValidator extends ColumnValidator<
     }
 
     public validateUniqueKeys(keys: unknown[]): void {
-        const invalid = TableColumnMappingValidationHelper.duplicateMappingKey(keys);
+        const invalid = TableColumnEnumValidationHelper.duplicateMappingKey(keys);
         this.setConditionValue('duplicateMappingKey', invalid);
     }
 
     public validateNoMissingKeys(mappings: Mapping[]): void {
-        const invalid = TableColumnMappingValidationHelper.missingKeyValue(mappings);
+        const invalid = TableColumnEnumValidationHelper.missingKeyValue(mappings);
         this.setConditionValue('missingKeyValue', invalid);
     }
 

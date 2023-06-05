@@ -1,6 +1,6 @@
 import { html, repeat } from '@microsoft/fast-element';
 import { Table, tableTag } from '../../../table';
-import { TableColumnMapping, tableColumnMappingTag } from '..';
+import { TableColumnEnumText, tableColumnEnumTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
@@ -22,7 +22,7 @@ interface BasicTextMapping {
     defaultMapping?: boolean;
 }
 
-describe('TableColumnMapping', () => {
+describe('TableColumnEnumText', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -32,7 +32,7 @@ describe('TableColumnMapping', () => {
     async function setup(mappings: BasicTextMapping[], keyType = 'string'): Promise<Fixture<Table<SimpleTableRecord>>> {
         return fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} style="width: 700px">
-                    <${tableColumnMappingTag} field-name="field1" key-type="${keyType}">
+                    <${tableColumnEnumTextTag} field-name="field1" key-type="${keyType}">
                         Column 1
                         ${repeat(() => mappings, html<BasicTextMapping>`
                             <${mappingTextTag}
@@ -41,10 +41,10 @@ describe('TableColumnMapping', () => {
                                 ?default-mapping="${x => x.defaultMapping}">
                             </${mappingTextTag}>
                         `)}
-                    </${tableColumnMappingTag}>
-                    <${tableColumnMappingTag}>
+                    </${tableColumnEnumTextTag}>
+                    <${tableColumnEnumTextTag}>
                         Column 2
-                    </${tableColumnMappingTag}>
+                    </${tableColumnEnumTextTag}>
                 </${tableTag}>`
         );
     }
@@ -108,7 +108,7 @@ describe('TableColumnMapping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const firstColumn = element.columns[0] as TableColumnMapping;
+        const firstColumn = element.columns[0] as TableColumnEnumText;
         firstColumn.fieldName = 'field2';
         await waitForUpdatesAsync();
 
@@ -124,7 +124,7 @@ describe('TableColumnMapping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const mapping = (element.columns[0] as TableColumnMapping)
+        const mapping = (element.columns[0] as TableColumnEnumText)
             .mappings![0] as MappingText;
         mapping.label = 'bravo';
         await waitForUpdatesAsync();
@@ -141,7 +141,7 @@ describe('TableColumnMapping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const mapping = (element.columns[0] as TableColumnMapping)
+        const mapping = (element.columns[0] as TableColumnEnumText)
             .mappings![0] as MappingText;
         mapping.key = 'b';
         await waitForUpdatesAsync();
@@ -239,7 +239,7 @@ describe('TableColumnMapping', () => {
                     await element.setData([{ field1: 'a' }]);
                     await connect();
                     await waitForUpdatesAsync();
-                    (element.columns[0] as TableColumnMapping).groupIndex = 0;
+                    (element.columns[0] as TableColumnEnumText).groupIndex = 0;
                     await waitForUpdatesAsync();
 
                     expect(
@@ -258,7 +258,7 @@ describe('TableColumnMapping', () => {
         await element.setData([{ field1: 'unmatched' }]);
         await connect();
         await waitForUpdatesAsync();
-        (element.columns[0] as TableColumnMapping).groupIndex = 0;
+        (element.columns[0] as TableColumnEnumText).groupIndex = 0;
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedGroupHeaderContent(0)).toContain(
@@ -276,7 +276,7 @@ describe('TableColumnMapping', () => {
         element.style.width = '200px';
         await connect();
         await waitForUpdatesAsync();
-        (element.columns[0] as TableColumnMapping).groupIndex = 0;
+        (element.columns[0] as TableColumnEnumText).groupIndex = 0;
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -291,7 +291,7 @@ describe('TableColumnMapping', () => {
         await element.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
-        (element.columns[0] as TableColumnMapping).groupIndex = 0;
+        (element.columns[0] as TableColumnEnumText).groupIndex = 0;
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -308,7 +308,7 @@ describe('TableColumnMapping', () => {
         element.style.width = '200px';
         await connect();
         await waitForUpdatesAsync();
-        (element.columns[0] as TableColumnMapping).groupIndex = 0;
+        (element.columns[0] as TableColumnEnumText).groupIndex = 0;
         await waitForUpdatesAsync();
         pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -322,7 +322,7 @@ describe('TableColumnMapping', () => {
             ({ element, connect, disconnect } = await setup([], 'number'));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
             expect(column.validity.multipleDefaultMappings).toBeFalse();
@@ -344,7 +344,7 @@ describe('TableColumnMapping', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
         });
@@ -356,7 +356,7 @@ describe('TableColumnMapping', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.invalidMappingKeyValueForType).toBeTrue();
         });
@@ -368,7 +368,7 @@ describe('TableColumnMapping', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.multipleDefaultMappings).toBeFalse();
         });
@@ -386,7 +386,7 @@ describe('TableColumnMapping', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.multipleDefaultMappings).toBeFalse();
         });
@@ -404,7 +404,7 @@ describe('TableColumnMapping', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.multipleDefaultMappings).toBeTrue();
         });
@@ -414,16 +414,16 @@ describe('TableColumnMapping', () => {
             async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 return fixture<Table<SimpleTableRecord>>(
                     html`<${tableTag} style="width: 700px">
-                            <${tableColumnMappingTag} field-name="field1">
+                            <${tableColumnEnumTextTag} field-name="field1">
                                 Column 1
                                 <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
                                 <${mappingIconTag} key="bar" label="bar" icon="nimble-icon-xmark"></${mappingIconTag}>
-                            </${tableColumnMappingTag}>
-                            <${tableColumnMappingTag} field-name="field1">
+                            </${tableColumnEnumTextTag}>
+                            <${tableColumnEnumTextTag} field-name="field1">
                                 Column 2
                                 <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
                                 <${mappingSpinnerTag} key="bar" label="bar"></${mappingSpinnerTag}>
-                            </${tableColumnMappingTag}>
+                            </${tableColumnEnumTextTag}>
                         </${tableTag}>`
                 );
             }
@@ -431,8 +431,8 @@ describe('TableColumnMapping', () => {
                 ({ element, connect, disconnect } = await setupInvalidMappings());
                 await connect();
                 await waitForUpdatesAsync();
-                const column1 = element.columns[0] as TableColumnMapping;
-                const column2 = element.columns[1] as TableColumnMapping;
+                const column1 = element.columns[0] as TableColumnEnumText;
+                const column2 = element.columns[1] as TableColumnEnumText;
                 expect(column1.checkValidity()).toBeFalse();
                 expect(column1.validity.unsupportedMappingType).toBeTrue();
                 expect(column2.checkValidity()).toBeFalse();
@@ -447,7 +447,7 @@ describe('TableColumnMapping', () => {
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
@@ -462,7 +462,7 @@ describe('TableColumnMapping', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
@@ -473,7 +473,7 @@ describe('TableColumnMapping', () => {
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.missingKeyValue).toBeTrue();
         });
@@ -484,7 +484,7 @@ describe('TableColumnMapping', () => {
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnMapping;
+            const column = element.columns[0] as TableColumnEnumText;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.missingKeyValue).toBeFalse();
         });

@@ -1,35 +1,35 @@
 /* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { styles } from '../mapping-base/styles';
-import { template } from '../mapping-base/template';
+import { TableColumnEnumBase } from '../enum-base';
+import { styles } from '../enum-base/styles';
+import { template } from '../enum-base/template';
 import type { TableColumnValidity } from '../base/types';
-import { Mapping } from '../../mapping/base';
-import { MappingText } from '../../mapping/text';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
+import { Mapping } from '../../mapping/base';
+import { MappingText } from '../../mapping/text';
 import {
-    mappingColumnValidityFlagNames,
-    TableColumnMappingValidator
+    enumTextColumnValidityFlagNames,
+    TableColumnEnumTextValidator
 } from './models/column-validator';
-import { TableColumnMappingBase } from '../mapping-base';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-mapping': TableColumnMapping;
+        'nimble-table-column-enum-text': TableColumnEnumText;
     }
 }
 
 /**
  * Table column that maps values to strings
  */
-export class TableColumnMapping extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumnMappingBase)
+export class TableColumnEnumText extends mixinGroupableColumnAPI(
+    mixinFractionalWidthColumnAPI(TableColumnEnumBase)
 ) {
     protected supportedMappingTypes: (typeof Mapping)[] = [MappingText];
 
-    private readonly validator: TableColumnMappingValidator = new TableColumnMappingValidator(
+    private readonly validator: TableColumnEnumTextValidator = new TableColumnEnumTextValidator(
         this.columnInternals,
-        mappingColumnValidityFlagNames
+        enumTextColumnValidityFlagNames
     );
 
     public override get validity(): TableColumnValidity {
@@ -79,13 +79,13 @@ export class TableColumnMapping extends mixinGroupableColumnAPI(
     }
 }
 
-const nimbleTableColumnMapping = TableColumnMapping.compose({
-    baseName: 'table-column-mapping',
+const nimbleTableColumnEnumText = TableColumnEnumText.compose({
+    baseName: 'table-column-enum-text',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(nimbleTableColumnMapping());
-export const tableColumnMappingTag = DesignSystem.tagFor(TableColumnMapping);
+    .register(nimbleTableColumnEnumText());
+export const tableColumnEnumTextTag = DesignSystem.tagFor(TableColumnEnumText);

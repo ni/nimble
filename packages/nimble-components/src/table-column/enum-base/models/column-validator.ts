@@ -2,9 +2,9 @@ import { nullableNumberConverter } from '@microsoft/fast-element';
 import type { Mapping } from '../../../mapping/base';
 
 /**
- * Helper to share logic between the mapping and icon column validators
+ * Helper to share logic between the enum-text and icon column validators
  */
-export class TableColumnMappingValidationHelper {
+export class TableColumnEnumValidationHelper {
     public static invalidMappingKeyValueForType(
         keys: unknown[],
         keyType: string

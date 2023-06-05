@@ -1,8 +1,8 @@
 import { ColumnValidator } from '../../base/models/column-validator';
-import { TableColumnMappingValidationHelper } from '../../mapping-base/models/column-validator';
+import { TableColumnEnumValidationHelper } from '../../enum-base/models/column-validator';
 import type { Mapping } from '../../../mapping/base';
 
-export const mappingColumnValidityFlagNames = [
+export const enumTextColumnValidityFlagNames = [
     'invalidMappingKeyValueForType',
     'multipleDefaultMappings',
     'unsupportedMappingType',
@@ -11,13 +11,13 @@ export const mappingColumnValidityFlagNames = [
 ] as const;
 
 /**
- * Validator for TableColumnMapping
+ * Validator for TableColumnEnumText
  */
-export class TableColumnMappingValidator extends ColumnValidator<
-    typeof mappingColumnValidityFlagNames
+export class TableColumnEnumTextValidator extends ColumnValidator<
+    typeof enumTextColumnValidityFlagNames
 > {
     public validateKeyValuesForType(keys: unknown[], keyType: string): void {
-        const invalid = TableColumnMappingValidationHelper.invalidMappingKeyValueForType(
+        const invalid = TableColumnEnumValidationHelper.invalidMappingKeyValueForType(
             keys,
             keyType
         );
@@ -25,7 +25,7 @@ export class TableColumnMappingValidator extends ColumnValidator<
     }
 
     public validateAtMostOneDefaultMapping(mappings: Mapping[]): void {
-        const invalid = TableColumnMappingValidationHelper.multipleDefaultMappings(
+        const invalid = TableColumnEnumValidationHelper.multipleDefaultMappings(
             mappings
         );
         this.setConditionValue('multipleDefaultMappings', invalid);
@@ -35,7 +35,7 @@ export class TableColumnMappingValidator extends ColumnValidator<
         mappings: Mapping[],
         allowedMappingTypes: (typeof Mapping)[]
     ): void {
-        const invalid = TableColumnMappingValidationHelper.unsupportedMappingType(
+        const invalid = TableColumnEnumValidationHelper.unsupportedMappingType(
             mappings,
             allowedMappingTypes
         );
@@ -43,12 +43,12 @@ export class TableColumnMappingValidator extends ColumnValidator<
     }
 
     public validateUniqueKeys(keys: unknown[]): void {
-        const invalid = TableColumnMappingValidationHelper.duplicateMappingKey(keys);
+        const invalid = TableColumnEnumValidationHelper.duplicateMappingKey(keys);
         this.setConditionValue('duplicateMappingKey', invalid);
     }
 
     public validateNoMissingKeys(mappings: Mapping[]): void {
-        const invalid = TableColumnMappingValidationHelper.missingKeyValue(mappings);
+        const invalid = TableColumnEnumValidationHelper.missingKeyValue(mappings);
         this.setConditionValue('missingKeyValue', invalid);
     }
 }

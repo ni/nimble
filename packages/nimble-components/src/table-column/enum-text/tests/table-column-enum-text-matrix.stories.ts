@@ -3,7 +3,7 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
 import { sharedMatrixParameters } from '../../../utilities/tests/matrix';
 import { Table, tableTag } from '../../../table';
-import { tableColumnMappingTag } from '..';
+import { tableColumnEnumTextTag } from '..';
 import { mappingTextTag } from '../../../mapping/text';
 
 const metadata: Meta = {
@@ -33,7 +33,7 @@ const data = [
 // prettier-ignore
 const component = (): ViewTemplate => html`
     <${tableTag} id-field-name="id" style="height: 250px">
-        <${tableColumnMappingTag}
+        <${tableColumnEnumTextTag}
             field-name="code"
             key-type="number"
             group-index="0"
@@ -41,15 +41,15 @@ const component = (): ViewTemplate => html`
             Column 1
             <${mappingTextTag} key="0" label="Zero"></${mappingTextTag}>
             <${mappingTextTag} key="1" label="One"></${mappingTextTag}>
-        </${tableColumnMappingTag}>
+        </${tableColumnEnumTextTag}>
     </${tableTag}>
 `;
 
-export const tableColumnMappingThemeMatrix: StoryFn = createMatrixThemeStory(
+export const tableColumnEnumTextThemeMatrix: StoryFn = createMatrixThemeStory(
     component()
 );
 
-tableColumnMappingThemeMatrix.play = async (): Promise<void> => {
+tableColumnEnumTextThemeMatrix.play = async (): Promise<void> => {
     await Promise.all(
         Array.from(document.querySelectorAll<Table>('nimble-table')).map(
             async table => {

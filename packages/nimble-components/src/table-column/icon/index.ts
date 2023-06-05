@@ -1,28 +1,18 @@
 /* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { styles } from '../mapping-base/styles';
-import { template } from '../mapping-base/template';
-import type { TableAnyField } from '../../table/types';
+import { TableColumnEnumBase } from '../enum-base';
+import { styles } from '../enum-base/styles';
+import { template } from '../enum-base/template';
 import type { TableColumnValidity } from '../base/types';
-import { Mapping } from '../../mapping/base';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFixedWidthColumnAPI } from '../mixins/fixed-width-column';
+import { Mapping } from '../../mapping/base';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
 import {
     iconColumnValidityFlagNames,
     TableColumnIconValidator
 } from './models/column-validator';
-import { TableColumnMappingBase } from '../mapping-base';
-
-export type TableColumnMappingCellRecord = TableAnyField<'value'>;
-export interface TableColumnMappingColumnConfig {
-    typedKeysToMappings: (
-        | readonly [number | null, Mapping]
-        | readonly [boolean | null, Mapping]
-        | readonly [string | null, Mapping]
-    )[];
-}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -34,7 +24,7 @@ declare global {
  * Table column that maps values to icons/spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    mixinFixedWidthColumnAPI(TableColumnMappingBase)
+    mixinFixedWidthColumnAPI(TableColumnEnumBase)
 ) {
     protected supportedMappingTypes: (typeof Mapping)[] = [
         MappingIcon,

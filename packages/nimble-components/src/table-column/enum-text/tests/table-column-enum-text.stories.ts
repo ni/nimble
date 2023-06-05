@@ -5,7 +5,7 @@ import {
     usageWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
-import { tableColumnMappingTag } from '..';
+import { tableColumnEnumTextTag } from '..';
 import {
     SharedTableArgs,
     sharedTableArgTypes,
@@ -57,7 +57,7 @@ const overviewText = `This page contains information about the types of columns 
 See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
 information about common column configuration.`;
 
-const metadata: Meta<MappingColumnTableArgs> = {
+const metadata: Meta<EnumTextColumnTableArgs> = {
     title: 'Table Column Types',
     parameters: {
         docs: {
@@ -70,14 +70,14 @@ const metadata: Meta<MappingColumnTableArgs> = {
 
 export default metadata;
 
-interface MappingColumnTableArgs extends SharedTableArgs {
+interface EnumTextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
     checkValidity: () => void;
     validity: () => void;
 }
 
-const mappingColumnDescription = 'The `nimble-table-column-mapping` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
+const enumTextColumnDescription = 'The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
 The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
@@ -89,16 +89,16 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 -   \`missingKeyValue\`: \`true\` when a mapping has no \`key\` value, and it is not marked with \`default-mapping\`
 `;
 
-export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
+export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
-                story: mappingColumnDescription
+                story: enumTextColumnDescription
             }
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<MappingColumnTableArgs>`
+    render: createUserSelectedThemeStory(html<EnumTextColumnTableArgs>`
         ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
@@ -107,12 +107,12 @@ export const mappingColumn: StoryObj<MappingColumnTableArgs> = {
             <${tableColumnTextTag} field-name="firstName" >
                 Name
             </${tableColumnTextTag}>
-            <${tableColumnMappingTag} field-name="status" group-index="0">
+            <${tableColumnEnumTextTag} field-name="status" group-index="0">
                 Status
                 <${mappingTextTag} key="fail" label="Not a Simpson"></${mappingTextTag}>
                 <${mappingTextTag} key="success" label="Is a Simpson"></${mappingTextTag}>
                 <${mappingTextTag} default-mapping label="Unknown"></${mappingTextTag}>
-            </${tableColumnMappingTag}>
+            </${tableColumnEnumTextTag}>
         </${tableTag}>
     `),
     argTypes: {

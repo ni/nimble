@@ -1,5 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { TableColumnMappingColumnConfig } from '..';
+import type { TableColumnEnumColumnConfig } from '..';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import type { Mapping } from '../../../mapping/base';
 import { styles } from './styles';
@@ -7,16 +7,16 @@ import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-mapping-group-header-view': TableColumnMappingGroupHeaderView;
+        'nimble-table-column-enum-group-header-view': TableColumnEnumGroupHeaderView;
     }
 }
 
 /**
- * A group header view for mapping columns
+ * A group header view for enum columns
  */
-export class TableColumnMappingGroupHeaderView extends TableGroupHeaderView<
+export class TableColumnEnumGroupHeaderView extends TableGroupHeaderView<
 string | number | boolean | null | undefined,
-TableColumnMappingColumnConfig
+TableColumnEnumColumnConfig
 > {
     public getMappingToRender(): Mapping | null {
         const found = this.columnConfig?.typedKeysToMappings.find(
@@ -26,14 +26,14 @@ TableColumnMappingColumnConfig
     }
 }
 
-const mappingGroupHeaderView = TableColumnMappingGroupHeaderView.compose({
-    baseName: 'table-column-mapping-group-header-view',
+const enumGroupHeaderView = TableColumnEnumGroupHeaderView.compose({
+    baseName: 'table-column-enum-group-header-view',
     template,
     styles
 });
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(mappingGroupHeaderView());
-export const tableColumnMappingGroupHeaderViewTag = DesignSystem.tagFor(
-    TableColumnMappingGroupHeaderView
+    .register(enumGroupHeaderView());
+export const tableColumnEnumGroupHeaderViewTag = DesignSystem.tagFor(
+    TableColumnEnumGroupHeaderView
 );

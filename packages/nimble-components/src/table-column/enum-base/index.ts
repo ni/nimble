@@ -10,13 +10,13 @@ import {
 import type { TableAnyField } from '../../table/types';
 import { TableColumn } from '../base';
 import { TableColumnSortOperation } from '../base/types';
-import { tableColumnMappingCellViewTag } from './cell-view';
+import { tableColumnEnumCellViewTag } from './cell-view';
 import { Mapping } from '../../mapping/base';
-import { tableColumnMappingGroupHeaderViewTag } from './group-header-view';
+import { tableColumnEnumGroupHeaderViewTag } from './group-header-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
-export type TableColumnMappingCellRecord = TableAnyField<'value'>;
-export interface TableColumnMappingColumnConfig {
+export type TableColumnEnumCellRecord = TableAnyField<'value'>;
+export interface TableColumnEnumColumnConfig {
     typedKeysToMappings: (
         | readonly [number | null, Mapping]
         | readonly [boolean | null, Mapping]
@@ -25,10 +25,10 @@ export interface TableColumnMappingColumnConfig {
 }
 
 /**
- * Base class for table columns that map values to content (e.g. nimble-table-column-mapping and nimble-table-column-icon)
+ * Base class for table columns that map values to content (e.g. nimble-table-column-enum-text and nimble-table-column-icon)
  */
-export abstract class TableColumnMappingBase
-    extends TableColumn<TableColumnMappingColumnConfig>
+export abstract class TableColumnEnumBase
+    extends TableColumn<TableColumnEnumColumnConfig>
     implements Subscriber {
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
@@ -62,8 +62,8 @@ export abstract class TableColumnMappingBase
     protected getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnMappingCellViewTag,
-            groupHeaderViewTag: tableColumnMappingGroupHeaderViewTag,
+            cellViewTag: tableColumnEnumCellViewTag,
+            groupHeaderViewTag: tableColumnEnumGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.basic
         };
