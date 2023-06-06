@@ -201,6 +201,8 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 
 This column will display the `placeholder` when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"`, `"NaN"` and `"-0"`.
 
+This column will trigger `invalidColumnConfiguration` on the table's validity state and will include flags in the column's validity state if its configuration can't be translated to a valid `DateTimeFormat` object. To provide better developer feedback about what's wrong with the configuration, the column could expose a public method like `createNumberFormat()` which would use the column's configuration to construct the formatter but allow any exceptions to be thrown.
+
 ##### Examples
 
 ```html
@@ -251,6 +253,8 @@ We considered allowing clients to provide date values using native date types li
 -   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `custom-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
 This column will display the `placeholder` for a date when `isNaN(new Date(value))` returns `true` (i.e. if the value is `undefined`, not present, has a non-`number` runtime data type, or is a `number` that produces an invalid `Date` like `NaN`/`Infinity`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)). Note that `new Date(null)` is valid and is the same as `new Date(0)`.
+
+This column will trigger `invalidColumnConfiguration` on the table's validity state and will include flags in the column's validity state if its configuration can't be translated to a valid `DateTimeFormat` object. To provide better developer feedback about what's wrong with the configuration, the column could expose a public method like `createDateTimeFormat()` which would use the column's configuration to construct the formatter but allow any exceptions to be thrown.
 
 ##### Examples
 
@@ -390,12 +394,14 @@ We will add standard unit tests, Blazor/Angular tests, and Chromatic tests for n
 -   number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER -n) should render as numbers
 -   non-number edge cases (e.g. strings containing numbers, undefined, null) should display the placeholder
 -   formatting should change with different locales
+-   invalid formatter configuration should be reflected in column validity state
 
 #### Date column
 
 -   date edge cases (min and max date, different time zones)
 -   non-date edge cases (e.g. non-dates, invalid dates) should display the placeholder
 -   formatting should change with different locales
+-   invalid formatter configuration should be reflected in column validity state
 
 ### Tooling
 
