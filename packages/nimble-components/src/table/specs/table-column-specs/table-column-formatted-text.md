@@ -43,7 +43,7 @@ We may not choose to support all of the above initially but we should design our
 -   Editable numbers. This is not supported by the text column yet either.
 -   Numeric formatting for `nimble-number-field`. While we may choose to expose similar APIs for its numeric formatting, the complexities of it being an editable input control make this out of scope for now.
 -   Customizing the styling of the column content (other than text alignment). This is not supported by the text column yet either.
--   Enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass"). These will likely use the [mapping column being discussed elsewhere](https://github.com/ni/nimble/pull/1220).
+-   Enum and boolean values formatted as localized strings (0 -> "Fail", 1 -> "Pass"). These will likely use the [mapping column](./table-column-mapping.md).
 
 ---
 
