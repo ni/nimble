@@ -1,10 +1,10 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import type {
+    ConvertedKeyMapping,
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
 } from '..';
 import { TableCellView } from '../../base/cell-view';
-import type { Mapping } from '../../../mapping/base';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -21,22 +21,22 @@ export class TableColumnEnumCellView extends TableCellView<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
-    public getMappingToRender(): Mapping | null {
+    public getMappingToRender(): ConvertedKeyMapping | null {
         return this.getMatchingMapping() ?? this.getDefaultMapping();
     }
 
-    private getMatchingMapping(): Mapping | null {
-        const found = this.columnConfig.typedKeysToMappings.find(
-            x => x[0] === this.cellRecord.value
+    private getMatchingMapping(): ConvertedKeyMapping | null {
+        const found = this.columnConfig.convertedKeyMappings.find(
+            x => x.key === this.cellRecord.value
         );
-        return found ? found[1] : null;
+        return found ?? null;
     }
 
-    private getDefaultMapping(): Mapping | null {
-        const found = this.columnConfig.typedKeysToMappings.find(
-            x => x[1].defaultMapping
+    private getDefaultMapping(): ConvertedKeyMapping | null {
+        const found = this.columnConfig.convertedKeyMappings.find(
+            x => x.defaultMapping
         );
-        return found ? found[1] : null;
+        return found ?? null;
     }
 }
 

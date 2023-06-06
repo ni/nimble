@@ -25,7 +25,9 @@ declare global {
 export class TableColumnEnumText extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(TableColumnEnumBase)
 ) {
-    protected supportedMappingTypes: (typeof Mapping)[] = [MappingText];
+    protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
+        return [MappingText] as const;
+    }
 
     private readonly validator: TableColumnEnumTextValidator = new TableColumnEnumTextValidator(
         this.columnInternals,
@@ -45,8 +47,8 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
             if (args === 'key') {
                 const keys = this.mappings?.map(x => x.key) ?? [];
                 this.validator.validateKeyValuesForType(keys, this.keyType);
-                const typedKeys = this.columnInternals.columnConfig?.typedKeysToMappings.map(
-                    x => x[0]
+                const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
+                    x => x.key
                 ) ?? [];
                 this.validator.validateUniqueKeys(typedKeys);
                 this.validator.validateNoMissingKeys(this.mappings ?? []);
@@ -63,8 +65,8 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
             this.mappings ?? [],
             this.supportedMappingTypes
         );
-        const typedKeys = this.columnInternals.columnConfig?.typedKeysToMappings.map(
-            x => x[0]
+        const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
+            x => x.key
         ) ?? [];
         this.validator.validateUniqueKeys(typedKeys);
         this.validator.validateNoMissingKeys(this.mappings ?? []);

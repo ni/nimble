@@ -26,10 +26,12 @@ declare global {
 export class TableColumnIcon extends mixinGroupableColumnAPI(
     mixinFixedWidthColumnAPI(TableColumnEnumBase)
 ) {
-    protected supportedMappingTypes: (typeof Mapping)[] = [
-        MappingIcon,
-        MappingSpinner
-    ];
+    protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
+        return [
+            MappingIcon,
+            MappingSpinner
+        ] as const;
+    }
 
     private readonly validator: TableColumnIconValidator = new TableColumnIconValidator(
         this.columnInternals,
@@ -49,8 +51,8 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             if (args === 'key') {
                 const keys = this.mappings?.map(x => x.key) ?? [];
                 this.validator.validateKeyValuesForType(keys, this.keyType);
-                const typedKeys = this.columnInternals.columnConfig?.typedKeysToMappings.map(
-                    x => x[0]
+                const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
+                    x => x.key
                 ) ?? [];
                 this.validator.validateUniqueKeys(typedKeys);
                 this.validator.validateNoMissingKeys(this.mappings ?? []);
@@ -69,8 +71,8 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             this.mappings ?? [],
             this.supportedMappingTypes
         );
-        const typedKeys = this.columnInternals.columnConfig?.typedKeysToMappings.map(
-            x => x[0]
+        const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
+            x => x.key
         ) ?? [];
         this.validator.validateUniqueKeys(typedKeys);
         this.validator.validateNoMissingKeys(this.mappings ?? []);

@@ -30,7 +30,7 @@ export class TableColumnEnumValidationHelper {
 
     public static unsupportedMappingType(
         mappings: Mapping[],
-        allowedMappingTypes: (typeof Mapping)[]
+        allowedMappingTypes: readonly (typeof Mapping)[]
     ): boolean {
         return mappings.some(
             x => allowedMappingTypes.filter(y => x instanceof y).length === 0

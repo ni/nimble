@@ -33,7 +33,7 @@ export class TableColumnEnumTextValidator extends ColumnValidator<
 
     public validateMappingTypes(
         mappings: Mapping[],
-        allowedMappingTypes: (typeof Mapping)[]
+        allowedMappingTypes: readonly (typeof Mapping)[]
     ): void {
         const invalid = TableColumnEnumValidationHelper.unsupportedMappingType(
             mappings,

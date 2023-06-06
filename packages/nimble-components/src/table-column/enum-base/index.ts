@@ -5,7 +5,8 @@ import {
     nullableNumberConverter,
     Observable,
     observable,
-    Subscriber
+    Subscriber,
+    ViewTemplate
 } from '@microsoft/fast-element';
 import type { TableAnyField } from '../../table/types';
 import { TableColumn } from '../base';
@@ -16,12 +17,15 @@ import { tableColumnEnumGroupHeaderViewTag } from './group-header-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnEnumCellRecord = TableAnyField<'value'>;
+
+export interface ConvertedKeyMapping {
+    key: string | number | boolean | null;
+    defaultMapping: boolean;
+    cellViewTemplate: ViewTemplate;
+    groupHeaderViewTemplate: ViewTemplate;
+}
 export interface TableColumnEnumColumnConfig {
-    typedKeysToMappings: (
-        | readonly [number | null, Mapping]
-        | readonly [boolean | null, Mapping]
-        | readonly [string | null, Mapping]
-    )[];
+    convertedKeyMappings: ConvertedKeyMapping[];
 }
 
 /**
@@ -38,9 +42,9 @@ export abstract class TableColumnEnumBase
 
     /** @internal */
     @observable
-    public mappings?: Mapping[];
+    public mappings: Mapping[] = [];
 
-    protected abstract supportedMappingTypes: (typeof Mapping)[];
+    protected abstract get supportedMappingTypes(): readonly (typeof Mapping)[];
 
     private mappingNotifiers: Notifier[] = [];
 
@@ -104,56 +108,32 @@ export abstract class TableColumnEnumBase
     }
 
     private updateColumnConfig(): void {
-        let typedKeysToMappings;
-        if (this.keyType === 'number') {
-            typedKeysToMappings = this.getMappingsFromNumberKeys();
-        } else if (this.keyType === 'boolean') {
-            typedKeysToMappings = this.getMappingsFromBooleanKeys();
-        } else {
-            typedKeysToMappings = this.getMappingsFromStringKeys();
+        const convertedKeyMappings: ConvertedKeyMapping[] = [];
+        for (const mapping of this.mappings) {
+            convertedKeyMappings.push({
+                key: this.typeConvertKey(mapping.key),
+                defaultMapping: mapping.defaultMapping,
+                cellViewTemplate: mapping.cellViewTemplate,
+                groupHeaderViewTemplate: mapping.groupHeaderViewTemplate
+            });
         }
+
         this.columnInternals.columnConfig = {
-            typedKeysToMappings
+            convertedKeyMappings
         };
     }
 
-    private getMappingsFromNumberKeys(): (readonly [number | null, Mapping])[] {
-        const typedKeysToMappings = [];
-        if (this.mappings) {
-            for (const mapping of this.mappings) {
-                const convertedKey = nullableNumberConverter.fromView(
-                    mapping.key
-                ) as number;
-                typedKeysToMappings.push([convertedKey, mapping] as const);
-            }
+    private typeConvertKey(key: string | boolean | number | undefined): string | boolean | number | null {
+        if (this.keyType === 'number') {
+            return nullableNumberConverter.fromView(
+                key
+            ) as number;
         }
-        return typedKeysToMappings;
-    }
-
-    private getMappingsFromBooleanKeys(): (readonly [
-        boolean | null,
-        Mapping
-    ])[] {
-        const typedKeysToMappings = [];
-        if (this.mappings) {
-            for (const mapping of this.mappings) {
-                const convertedKey = mapping.key === undefined
-                    ? null
-                    : (booleanConverter.fromView(mapping.key) as boolean);
-                typedKeysToMappings.push([convertedKey, mapping] as const);
-            }
+        if (this.keyType === 'boolean') {
+            return key === undefined
+                ? null
+                : (booleanConverter.fromView(key) as boolean);
         }
-        return typedKeysToMappings;
-    }
-
-    private getMappingsFromStringKeys(): (readonly [string | null, Mapping])[] {
-        const typedKeysToMappings = [];
-        if (this.mappings) {
-            for (const mapping of this.mappings) {
-                const convertedKey = mapping.key === undefined ? null : mapping.key.toString();
-                typedKeysToMappings.push([convertedKey, mapping] as const);
-            }
-        }
-        return typedKeysToMappings;
+        return key === undefined ? null : key.toString();
     }
 }
