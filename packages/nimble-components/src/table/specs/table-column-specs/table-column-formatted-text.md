@@ -53,7 +53,7 @@ We may not choose to support all of the above initially but we should design our
 
 Nimble will provide base classes that can be derived from to define columns that call a formatting function to render their data as text.
 
-Nimble will provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) in a first pass with 6 (date) coming later.
+Nimble will provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) and 6 (date).
 
 Clients which require app-specific formatting logic to support above use cases like 5 (custom unit logic) will define custom columns in their application that derive from these base classes.
 
@@ -173,7 +173,7 @@ Follows the [Column Type Philosophy](/packages/nimble-components/src/table/specs
 
 -   category: `table-column`
 -   presentation: `text`
--   variants: Different variants are allowed for configurations that vary significantly / don't make sense to add to `table-column-text`, ie for a `table-column-numeric-text` or `table-column-date-text`
+-   variants: Different variants are allowed for configurations that vary significantly / don't make sense to add to `table-column-text`, ie for a `table-column-number-text` or `table-column-date-text`
 
 #### Text column
 
@@ -235,11 +235,11 @@ This column will display the `placeholder` when `typeof` the value is not `"numb
 
 #### Date Column
 
-Nimble will introduce `nimble-table-column-date-text` which maps [JavaScript `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) values to localized strings.
+Nimble will introduce `nimble-table-column-date-text` which maps numbers containing Unix timestamp values (milliseconds since the Unix epoch) to localized date/time strings.
 
-Note that mutating a `Date` object does not cause the value to be rendered again.
+##### Date types
 
-**Open question**: Should we represent dates using a numeric value (milliseconds since the Unix epoch) to avoid mutability concerns?
+We considered allowing clients to provide date values using native date types like [JavaScript `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) or [.NET `DateTime`](https://learn.microsoft.com/en-us/dotnet/api/system.datetime?view=net-7.0). We opted not to allow this in the `setData()` function to ensure the best possible performance and to avoid ambiguities about copying values. For now, clients can convert those values to Unix timestamps. In future we may choose to support these types in a more first-class way. That would require a future HLD update to answer some of the questions posed [in this discussion thread](https://github.com/ni/nimble/pull/1268#discussion_r1204674219).
 
 ##### API
 
@@ -250,7 +250,7 @@ Note that mutating a `Date` object does not cause the value to be rendered again
 -   `locales` - a string containing a comma-separated list of locales to pass to the [`locales` parameter of the `DateTimeFormat` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_identification_and_negotiation) which is used by all format modes.
 -   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `custom-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
-This column will display the `placeholder` for a date when it's not `instanceof Date` or when `isNaN(date)` returns `true` (i.e. if the value is `null`, `undefined`, not present, has a non-`Date` runtime data type, or is an invalid `Date`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)).
+This column will display the `placeholder` for a date when `isNaN(new Date(value))` returns `true` (i.e. if the value is `undefined`, not present, has a non-`number` runtime data type, or is a `number` that produces an invalid `Date` like `NaN`/`Infinity`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)). Note that `new Date(null)` is valid and is the same as `new Date(0)`.
 
 ##### Examples
 
@@ -409,5 +409,4 @@ Standard Storybook documentation for column APIs.
 
 ## Open Issues
 
-1. Should we represent dates using a numeric value (milliseconds since the Unix epoch) to avoid mutability concerns?
-2. Visual design recommends that column header text alignment match data alignment. Once we prototype this we may hit implementation concerns (e.g. clash with proposed header menu button).
+1. Visual design recommends that column header text alignment match data alignment. Once we prototype this we may hit implementation concerns (e.g. clash with proposed header menu button).
