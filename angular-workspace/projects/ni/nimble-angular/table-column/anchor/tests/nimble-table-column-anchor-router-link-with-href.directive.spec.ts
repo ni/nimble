@@ -10,7 +10,7 @@ import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.mod
 import { NimbleTableColumnAnchorRouterLinkWithHrefDirective } from '../nimble-table-column-anchor-router-link-with-href.directive';
 import type { TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 
-fdescribe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
+describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     const data = [
         { name: 'jim', link: 'page1' },
     ];
