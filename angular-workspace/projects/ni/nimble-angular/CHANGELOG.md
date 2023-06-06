@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 23 May 2023 20:18:10 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Jun 2023 07:49:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.6.2
+
+Fri, 02 Jun 2023 07:49:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.2.0
+
+## 16.6.1
+
+Thu, 01 Jun 2023 14:41:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.1.3
+
+## 16.6.0
+
+Thu, 25 May 2023 15:39:06 GMT
+
+### Minor changes
+
+- NimbleTableColumnAnchorDirective extends base table column directive ([ni/nimble@fdfdf1d](https://github.com/ni/nimble/commit/fdfdf1db998b916bc4b3f14291d58ac0cb27f7fa))
+
+## 16.5.32
+
+Tue, 23 May 2023 21:28:16 GMT
+
+### Patches
+
+- - Create secondary entrypoints for the table, table columns, and table testing ([ni/nimble@9362324](https://github.com/ni/nimble/commit/9362324d727f9938f5a850f094591c07c10fbb27))
 
 ## 16.5.31
 

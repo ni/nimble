@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { processUpdates, Table, TableRecord, TableValidity } from '@ni/nimble-angular';
+import { processUpdates } from '@ni/nimble-angular';
 import { Observable, Subject } from 'rxjs';
-import { NimbleTableDirective, TableRowSelectionMode } from '../nimble-table.directive';
+import { NimbleTableDirective, TableRowSelectionMode, Table, TableRecord, TableValidity } from '../nimble-table.directive';
 import { NimbleTableModule } from '../nimble-table.module';
 
 describe('Nimble table', () => {

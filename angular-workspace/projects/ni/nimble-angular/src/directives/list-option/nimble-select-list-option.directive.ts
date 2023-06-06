@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2 } from '@angular/core';
 import { NgSelectOption } from '@angular/forms';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleSelectControlValueAccessorDirective } from '../select/nimble-select-control-value-accessor.directive';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
 
 /**
  * Directive to provide Angular integration for the list option when used with a select.
