@@ -2,8 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleRadioModule } from '../nimble-radio.module';
-import { processUpdates } from '../../../testing/async-helpers';
-import { waitTask } from '../../../async-test-utilities';
+import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { NimbleRadioGroupModule } from '../../radio-group/nimble-radio-group.module';
 import type { RadioGroup } from '../../radio-group/nimble-radio-group.directive';
 import type { Radio } from '../nimble-radio.directive';
@@ -51,7 +50,7 @@ describe('Nimble radio control value accessor', () => {
             testHostComponent = fixture.componentInstance;
             radioGroup = testHostComponent.radioGroup.nativeElement;
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {
@@ -66,7 +65,7 @@ describe('Nimble radio control value accessor', () => {
             const secondRadio = radioGroup.children[1] as Radio;
             secondRadio.remove();
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
 
             expect((radioGroup.children[0] as Radio).checked).toBeFalse();
             expect((radioGroup.children[1] as Radio).checked).toBeFalse();
@@ -74,7 +73,7 @@ describe('Nimble radio control value accessor', () => {
             secondRadio.checked = false;
             radioGroup.append(secondRadio);
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
 
             expect((radioGroup.children[2] as Radio).checked).toBeTrue();
         });
@@ -141,7 +140,7 @@ describe('Nimble radio control value accessor', () => {
             testHostComponent = fixture.componentInstance;
             radioGroup = testHostComponent.radioGroup.nativeElement;
             fixture.detectChanges();
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {
