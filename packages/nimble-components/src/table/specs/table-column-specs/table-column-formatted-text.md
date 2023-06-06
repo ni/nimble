@@ -351,6 +351,10 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 2. The TC39 ECMAScript standard is working on [a proposal for Temporal](https://github.com/tc39/proposal-temporal), which includes a new [immutable format for representing time](https://tc39.es/proposal-temporal/docs/index.html) and namespace for manipulating it. It's in Stage 3 meaning the API isn't expected to change and [polyfills](https://github.com/tc39/proposal-temporal#polyfills) are available. Since the formatting APIs that browsers support today are sufficient, we propose to use them instead.
 3. There are numerous libraries for formatting including the standards-based [Format.js](https://formatjs.io/), the opinionated [moment.js](https://momentjs.com/docs/), and [various successors](https://momentjs.com/docs/#/-project-status/recommendations/). We may choose to depend on one in the future to expose additional formatting options but will start with browser APIs as they require no additional dependencies.
 
+### Additional unit and placeholder APIs
+
+We considered adding attributes `prefix-field-name`, `suffix-field-name`, and `placeholder-field-name` which would allow those values to be populated with a dynamic field value rather than a constant string. This could help use cases where values have disparate types or units. We decided this is not necessary initially but could revisit in the future. See [this thread](https://github.com/ni/nimble/pull/1268#discussion_r1212385898) for more discussion.
+
 ---
 
 ### States
