@@ -273,7 +273,7 @@ This column will display the `placeholder` for a date when it's not `instanceof 
 
 #### Elapsed Time Column
 
-Nimble could introduce a column type that maps time duration to localized strings (e.g. "1 minute, 10 seconds"). Its API will be discussed in a future update to this document. Ideally it might use [Temporal duration values](https://tc39.es/proposal-temporal/docs/duration.html) formatted with [`Intl.DurationFormat`](https://tc39.es/proposal-intl-duration-format/) but those APIs are not yet approved for implementation in browsers.
+Nimble could introduce a column type that maps time duration to localized strings (e.g. "1 minute, 10 seconds"). Its API will be discussed in a future update to this document. It might use [Temporal duration values](https://tc39.es/proposal-temporal/docs/duration.html) formatted with [`Intl.DurationFormat`](https://tc39.es/proposal-intl-duration-format/) but those APIs are not yet approved for implementation in browsers. The [`Intl.RelativeTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat) also looks promising but it includes relative words like "ago" and "in" which are difficult to remove, even when using [`formatToParts`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat/formatToParts).
 
 ---
 
