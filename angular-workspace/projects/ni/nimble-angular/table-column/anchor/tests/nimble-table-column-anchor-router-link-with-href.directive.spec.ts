@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, Location, LocationStrategy } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
 import { TablePageObject } from '@ni/nimble-angular/table/testing';
@@ -10,7 +10,7 @@ import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.mod
 import { NimbleTableColumnAnchorRouterLinkWithHrefDirective } from '../nimble-table-column-anchor-router-link-with-href.directive';
 import type { TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 
-describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
+fdescribe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     const data = [
         { name: 'jim', link: 'page1' },
     ];
@@ -53,7 +53,7 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
                     { path: '', redirectTo: '/start', pathMatch: 'full' },
                     { path: 'page1', component: BlankComponent },
                     { path: 'start', component: TestHostComponent }
-                ], { useHash: true })
+                ], { useHash: false })
             ]
         });
     });
@@ -68,7 +68,6 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
         const pageObject = new TablePageObject(testHostComponent.table.nativeElement);
         anchor = pageObject.getRenderedCellAnchor(0, 0);
         innerAnchor = anchor!.shadowRoot!.querySelector('a')!;
-        routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
         anchorClickHandlerSpy = jasmine.createSpy('click');
         innerAnchor!.addEventListener('click', anchorClickHandlerSpy);
         fixture.detectChanges();
@@ -79,6 +78,7 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     });
 
     it('navigates via router.navigateByUrl when link is clicked', fakeAsync(() => {
+        routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
         innerAnchor.click();
         tick();
 
@@ -99,9 +99,9 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
         expect(testHostComponent.directive.urlTree).toBeNull();
     }));
 
-    it('throws error when setting routerLink', () => {
+    it('throws error when setting nimbleRouterLink', () => {
         expect(() => {
-            testHostComponent.directive.routerLink = 'foo';
+            testHostComponent.directive.nimbleRouterLink = 'foo';
         }).toThrowError();
     });
 
@@ -111,6 +111,7 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     ];
     secondaryClickTests.forEach(test => {
         it(`does not do router navigation for non-primary-mouse link clicks for ${test.testName}`, fakeAsync(() => {
+            routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
             innerAnchor.dispatchEvent(new MouseEvent('click', {
                 ...{
                     bubbles: true,
@@ -123,5 +124,139 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
             expect(anchorClickHandlerSpy).toHaveBeenCalledTimes(1);
             expect(routerNavigateByUrlSpy).not.toHaveBeenCalled();
         }));
+    });
+
+    describe('handleLinkClick', () => {
+        interface IHandleLinkClickTestCase {
+            anchorUrl: string;
+            baseHref: string;
+            expectedNavigateByUrlArgument: string | undefined;
+            expectedReturnValue: boolean;
+        }
+
+        const testCases: IHandleLinkClickTestCase[] = [{
+            anchorUrl: '/app1/main',
+            baseHref: '/app1/',
+            expectedNavigateByUrlArgument: 'main',
+            expectedReturnValue: false
+
+        }, {
+            anchorUrl: '/app1/main',
+            baseHref: '/app1',
+            expectedNavigateByUrlArgument: 'main',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app1/main',
+            baseHref: 'app1/',
+            expectedNavigateByUrlArgument: 'main',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app1/main',
+            baseHref: 'app1',
+            expectedNavigateByUrlArgument: 'main',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app1',
+            baseHref: '/app1/',
+            expectedNavigateByUrlArgument: '',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app1',
+            baseHref: 'app1/',
+            expectedNavigateByUrlArgument: '',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app1',
+            baseHref: '/app1',
+            expectedNavigateByUrlArgument: '',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app1',
+            baseHref: 'app1',
+            expectedNavigateByUrlArgument: '',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app1/other',
+            baseHref: '/app1/',
+            expectedNavigateByUrlArgument: 'other',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/app2/main',
+            baseHref: '/app1/',
+            expectedNavigateByUrlArgument: undefined,
+            expectedReturnValue: true
+        }, {
+            anchorUrl: '/app123/main',
+            baseHref: '/app1/',
+            expectedNavigateByUrlArgument: undefined,
+            expectedReturnValue: true
+        }, {
+            anchorUrl: '/app123/main',
+            baseHref: '/app1',
+            expectedNavigateByUrlArgument: undefined,
+            expectedReturnValue: true
+        }, {
+            anchorUrl: '/app123/main',
+            baseHref: 'app1/',
+            expectedNavigateByUrlArgument: undefined,
+            expectedReturnValue: true
+        }, {
+            anchorUrl: '/app123/main',
+            baseHref: 'app1',
+            expectedNavigateByUrlArgument: undefined,
+            expectedReturnValue: true
+        }, {
+            anchorUrl: '/my/app',
+            baseHref: '/my/app/',
+            expectedNavigateByUrlArgument: '',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/my/app/main',
+            baseHref: '/my/app/',
+            expectedNavigateByUrlArgument: 'main',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/my/app/main',
+            baseHref: 'my/app',
+            expectedNavigateByUrlArgument: 'main',
+            expectedReturnValue: false
+        }, {
+            anchorUrl: '/my',
+            baseHref: 'my/app',
+            expectedNavigateByUrlArgument: undefined,
+            expectedReturnValue: true
+        }];
+
+        for (const testCase of testCases) {
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            it(`should handle tree click correct with anchorUrl of ${testCase.anchorUrl} and baseHref of ${testCase.baseHref}`, async (): Promise<void> => {
+                const locationStrategy = TestBed.inject(LocationStrategy);
+                spyOn(locationStrategy, 'getBaseHref').and.returnValue(testCase.baseHref);
+
+                await testHostComponent.table.nativeElement.setData([
+                    { name: 'jim', link: testCase.anchorUrl },
+                ]);
+                await waitForUpdatesAsync();
+                fixture.detectChanges();
+
+                routerNavigateByUrlSpy = spyOn(router, 'navigateByUrl').and.stub();
+
+                // eslint-disable-next-line @typescript-eslint/dot-notation
+                const returnValue = testHostComponent.directive['handleLinkClick'](testCase.anchorUrl, 0, false, false, false, false);
+                if (testCase.expectedNavigateByUrlArgument === undefined) {
+                    expect(routerNavigateByUrlSpy).not.toHaveBeenCalled();
+                } else {
+                    const expectedDestinationUrl = `/${testCase.expectedNavigateByUrlArgument}?param1=true`;
+                    const expectedUrlTree = router.parseUrl(expectedDestinationUrl);
+                    expect(routerNavigateByUrlSpy).toHaveBeenCalledOnceWith(expectedUrlTree, jasmine.objectContaining({
+                        state: {
+                            stateProperty: 123
+                        }
+                    }));
+                }
+
+                expect(returnValue).toEqual(testCase.expectedReturnValue);
+            });
+        }
     });
 });
