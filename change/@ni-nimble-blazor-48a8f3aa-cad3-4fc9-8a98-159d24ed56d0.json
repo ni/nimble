@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Specify .NET 6 via global.json file; re-enable Blazor linting",
+  "packageName": "@ni/nimble-blazor",
+  "email": "20709258+msmithNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
