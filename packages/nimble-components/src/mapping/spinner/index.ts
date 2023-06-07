@@ -1,8 +1,7 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, css, html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { spinnerTag } from '../../spinner';
-import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { ConvertedKeyMapping } from '../../table-column/enum-base';
 import type { ConvertedKeyMappingForIconColumn } from '../icon';
@@ -53,7 +52,7 @@ export class MappingSpinner extends Mapping {
 const spinnerMapping = MappingSpinner.compose({
     baseName: 'mapping-spinner',
     template,
-    styles
+    styles: css``
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(spinnerMapping());
 export const mappingSpinnerTag = DesignSystem.tagFor(MappingSpinner);

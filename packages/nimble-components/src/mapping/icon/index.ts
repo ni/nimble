@@ -1,7 +1,6 @@
-import { attr, html, observable, ViewTemplate } from '@microsoft/fast-element';
+import { attr, css, html, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
-import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { ConvertedKeyMapping } from '../../table-column/enum-base';
 
@@ -36,21 +35,6 @@ export class MappingIcon extends Mapping {
     @attr()
     public label: string | null = null;
 
-    /** @internal */
-    public span: HTMLSpanElement | null = null;
-
-    /** @internal */
-    @observable
-    public isValidContentAndHasOverflow = false;
-
-    /** @internal */
-    @observable
-    public cellViewTemplate: ViewTemplate = html``;
-
-    /** @internal */
-    @observable
-    public groupHeaderViewTemplate: ViewTemplate = html``;
-
     public override getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'
     ): ConvertedKeyMapping {
@@ -73,7 +57,7 @@ export class MappingIcon extends Mapping {
 const iconMapping = MappingIcon.compose({
     baseName: 'mapping-icon',
     template,
-    styles
+    styles: css``
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconMapping());
 export const mappingIconTag = DesignSystem.tagFor(MappingIcon);

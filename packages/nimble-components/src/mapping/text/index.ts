@@ -1,7 +1,6 @@
-import { attr } from '@microsoft/fast-element';
+import { attr, css } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
-import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { ConvertedKeyMapping } from '../../table-column/enum-base';
 
@@ -37,7 +36,7 @@ export class MappingText extends Mapping {
 const textMapping = MappingText.compose({
     baseName: 'mapping-text',
     template,
-    styles
+    styles: css``
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(textMapping());
 export const mappingTextTag = DesignSystem.tagFor(MappingText);

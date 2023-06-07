@@ -1,13 +1,12 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
-import { TableCellView } from '../../base/cell-view';
-import { styles } from './styles';
-import { template } from './template';
+import { styles } from '../../text-base/cell-view/styles';
+import { template } from '../../text-base/cell-view/template';
 import type {
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
 } from '../../enum-base';
 import type { ConvertedKeyMappingText } from '../../../mapping/text';
+import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,20 +15,27 @@ declare global {
 }
 
 /**
- * A cell view for displaying mapped elements
+ * A cell view for displaying mapped text
  */
-export class TableColumnEnumTextCellView extends TableCellView<
+export class TableColumnEnumTextCellView extends TableColumnTextCellViewBase<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
-    /** @internal */
-    public span: HTMLSpanElement | null = null;
+    public override get text(): string {
+        return this.getMappingToRender()?.label ?? '';
+    }
 
-    /** @internal */
-    @observable
-    public isValidContentAndHasOverflow = false;
+    public override get placeholder(): string {
+        throw Error('Unexpected member access');
+    }
 
-    public getMappingToRender(): ConvertedKeyMappingText | null {
+    // Overriding base class member
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+    public override get shouldUsePlaceholder(): boolean {
+        return false;
+    }
+
+    private getMappingToRender(): ConvertedKeyMappingText | null {
         return this.getMatchingMapping() ?? this.getDefaultMapping();
     }
 
