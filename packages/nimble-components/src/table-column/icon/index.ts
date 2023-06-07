@@ -3,7 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { TableColumnEnumBase } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import type { TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFixedWidthColumnAPI } from '../mixins/fixed-width-column';
 import { Mapping } from '../../mapping/base';
@@ -13,6 +13,9 @@ import {
     iconColumnValidityFlagNames,
     TableColumnIconValidator
 } from './models/column-validator';
+import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import { tableColumnIconGroupHeaderViewTag } from './group-header-view';
+import { tableColumnIconCellViewTag } from './cell-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -31,6 +34,16 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             MappingIcon,
             MappingSpinner
         ] as const;
+    }
+
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: ['value'],
+            cellViewTag: tableColumnIconCellViewTag,
+            groupHeaderViewTag: tableColumnIconGroupHeaderViewTag,
+            delegatedEvents: [],
+            sortOperation: TableColumnSortOperation.basic
+        };
     }
 
     private readonly validator: TableColumnIconValidator = new TableColumnIconValidator(
@@ -65,18 +78,18 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     protected override mappingsChanged(): void {
         super.mappingsChanged();
         const keys = this.mappings?.map(x => x.key) ?? [];
-        this.validator.validateKeyValuesForType(keys, this.keyType);
-        this.validator.validateAtMostOneDefaultMapping(this.mappings ?? []);
-        this.validator.validateMappingTypes(
+        this.validator?.validateKeyValuesForType(keys, this.keyType);
+        this.validator?.validateAtMostOneDefaultMapping(this.mappings ?? []);
+        this.validator?.validateMappingTypes(
             this.mappings ?? [],
             this.supportedMappingTypes
         );
         const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
             x => x.key
         ) ?? [];
-        this.validator.validateUniqueKeys(typedKeys);
-        this.validator.validateNoMissingKeys(this.mappings ?? []);
-        this.validator.validateIconNames(this.mappings ?? []);
+        this.validator?.validateUniqueKeys(typedKeys);
+        this.validator?.validateNoMissingKeys(this.mappings ?? []);
+        this.validator?.validateIconNames(this.mappings ?? []);
     }
 
     protected override keyTypeChanged(): void {

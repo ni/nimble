@@ -9,6 +9,11 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
+import type { ConvertedKeyMapping } from '../../table-column/enum-base';
+
+export interface ConvertedKeyMappingText extends ConvertedKeyMapping {
+    label: string;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,34 +29,13 @@ export class MappingText extends Mapping {
     @attr()
     public label: string | null = null;
 
-    /** @internal */
-    public span: HTMLSpanElement | null = null;
-
-    /** @internal */
-    @observable
-    public isValidContentAndHasOverflow = false;
-
-    /** @internal */
-    // prettier-ignore
-    public readonly commonTemplate = html<MappingText>`
-<span
-    ${ref('span')}
-    @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.label && x.span!.offsetWidth < x.span!.scrollWidth;
-    }}"
-    @mouseout="${x => {
-        x.isValidContentAndHasOverflow = false;
-    }}"
-    title=${x => (x.isValidContentAndHasOverflow ? x.label : null)}
->
-    ${x => x.label}
-</span>`;
-
-    /** @internal */
-    public cellViewTemplate: ViewTemplate = this.commonTemplate;
-
-    /** @internal */
-    public groupHeaderViewTemplate: ViewTemplate = this.commonTemplate;
+    public override getConvertedKeyMapping(keyType: 'string' | 'number' | 'boolean'): ConvertedKeyMapping {
+        return {
+            key: this.typeConvertKey(this.key, keyType),
+            defaultMapping: this.defaultMapping,
+            label: this.label
+        } as ConvertedKeyMappingText;
+    }
 }
 
 const textMapping = MappingText.compose({

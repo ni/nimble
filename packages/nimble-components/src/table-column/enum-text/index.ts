@@ -3,7 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { TableColumnEnumBase } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
-import type { TableColumnValidity } from '../base/types';
+import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { Mapping } from '../../mapping/base';
@@ -12,6 +12,9 @@ import {
     enumTextColumnValidityFlagNames,
     TableColumnEnumTextValidator
 } from './models/column-validator';
+import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import { tableColumnEnumTextCellViewTag } from './cell-view';
+import { tableColumnEnumTextGroupHeaderViewTag } from './group-header-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,6 +30,16 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 ) {
     protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
         return [MappingText] as const;
+    }
+
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: ['value'],
+            cellViewTag: tableColumnEnumTextCellViewTag,
+            groupHeaderViewTag: tableColumnEnumTextGroupHeaderViewTag,
+            delegatedEvents: [],
+            sortOperation: TableColumnSortOperation.basic
+        };
     }
 
     private readonly validator: TableColumnEnumTextValidator = new TableColumnEnumTextValidator(

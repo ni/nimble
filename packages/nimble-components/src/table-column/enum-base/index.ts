@@ -1,28 +1,19 @@
 import {
     attr,
-    booleanConverter,
     Notifier,
-    nullableNumberConverter,
     Observable,
     observable,
-    Subscriber,
-    ViewTemplate
+    Subscriber
 } from '@microsoft/fast-element';
 import type { TableAnyField } from '../../table/types';
 import { TableColumn } from '../base';
-import { TableColumnSortOperation } from '../base/types';
-import { tableColumnEnumCellViewTag } from './cell-view';
 import { Mapping } from '../../mapping/base';
-import { tableColumnEnumGroupHeaderViewTag } from './group-header-view';
-import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnEnumCellRecord = TableAnyField<'value'>;
 
 export interface ConvertedKeyMapping {
     key: string | number | boolean | null;
     defaultMapping: boolean;
-    cellViewTemplate: ViewTemplate;
-    groupHeaderViewTemplate: ViewTemplate;
 }
 export interface TableColumnEnumColumnConfig {
     convertedKeyMappings: ConvertedKeyMapping[];
@@ -61,16 +52,6 @@ export abstract class TableColumnEnumBase
                 this.updateColumnConfig();
             }
         }
-    }
-
-    protected getColumnInternalsOptions(): ColumnInternalsOptions {
-        return {
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnEnumCellViewTag,
-            groupHeaderViewTag: tableColumnEnumGroupHeaderViewTag,
-            delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
-        };
     }
 
     protected fieldNameChanged(): void {
@@ -112,30 +93,11 @@ export abstract class TableColumnEnumBase
     private updateColumnConfig(): void {
         const convertedKeyMappings: ConvertedKeyMapping[] = [];
         for (const mapping of this.mappings) {
-            convertedKeyMappings.push({
-                key: this.typeConvertKey(mapping.key),
-                defaultMapping: mapping.defaultMapping,
-                cellViewTemplate: mapping.cellViewTemplate,
-                groupHeaderViewTemplate: mapping.groupHeaderViewTemplate
-            });
+            convertedKeyMappings.push(mapping.getConvertedKeyMapping(this.keyType));
         }
 
         this.columnInternals.columnConfig = {
             convertedKeyMappings
         };
-    }
-
-    private typeConvertKey(key: string | boolean | number | undefined): string | boolean | number | null {
-        if (this.keyType === 'number') {
-            return nullableNumberConverter.fromView(
-                key
-            ) as number;
-        }
-        if (this.keyType === 'boolean') {
-            return key === undefined
-                ? null
-                : (booleanConverter.fromView(key) as boolean);
-        }
-        return key === undefined ? null : key.toString();
     }
 }

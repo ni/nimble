@@ -1,15 +1,18 @@
 import {
     attr,
     html,
-    observable,
-    ref,
-    ViewTemplate
 } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { spinnerTag } from '../../spinner';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
+import type { ConvertedKeyMapping } from '../../table-column/enum-base';
+import type { ConvertedKeyMappingForIconColumn } from '../icon';
+
+export interface ConvertedKeyMappingSpinner extends ConvertedKeyMappingForIconColumn {
+    paused: boolean;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -29,42 +32,20 @@ export class MappingSpinner extends Mapping {
     @attr({ mode: 'boolean' })
     public paused?: boolean;
 
-    /** @internal */
-    public span: HTMLSpanElement | null = null;
-
-    /** @internal */
-    @observable
-    public isValidContentAndHasOverflow = false;
-
-    /** @internal */
-    // prettier-ignore
-    public cellViewTemplate: ViewTemplate = html<MappingSpinner>`
-        <${spinnerTag}
-            style="${x => (x.paused ? '--ni-private-spinner-animation-play-state:paused' : '')}"
-            title="${x => x.label}"
-            aria-label="${x => x.label}">
-        </${spinnerTag}>`;
-
-    /** @internal */
-    // prettier-ignore
-    public groupHeaderViewTemplate: ViewTemplate = html<MappingSpinner>`
-        <${spinnerTag}
-            style="${x => (x.paused ? '--ni-private-spinner-animation-play-state:paused' : '')}"
-            title="${x => x.label}"
-            aria-label="${x => x.label}">
-        </${spinnerTag}>
-        <span
-            ${ref('span')}
-            @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.label && x.span!.offsetWidth < x.span!.scrollWidth;
-    }}"
-            @mouseout="${x => {
-        x.isValidContentAndHasOverflow = false;
-    }}"
-            title=${x => (x.isValidContentAndHasOverflow ? x.label : null)}
-        >
-            ${x => x.label}
-        </span>`;
+    public override getConvertedKeyMapping(keyType: 'string' | 'number' | 'boolean'): ConvertedKeyMapping {
+        return {
+            key: this.typeConvertKey(this.key, keyType),
+            defaultMapping: this.defaultMapping,
+            label: this.label,
+            paused: this.paused,
+            viewTemplate: html<ConvertedKeyMappingSpinner>`
+                <${spinnerTag}
+                    style="${x => (x.paused ? '--ni-private-spinner-animation-play-state:paused' : '')}"
+                    title="${x => x.label}"
+                    aria-label="${x => x.label}">
+                </${spinnerTag}>`
+        } as ConvertedKeyMappingSpinner;
+    }
 }
 
 const spinnerMapping = MappingSpinner.compose({

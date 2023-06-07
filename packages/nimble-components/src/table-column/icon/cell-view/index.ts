@@ -1,23 +1,19 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type {
-    ConvertedKeyMapping,
-    TableColumnEnumCellRecord,
-    TableColumnEnumColumnConfig
-} from '..';
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
+import type { ConvertedKeyMapping, TableColumnEnumCellRecord, TableColumnEnumColumnConfig } from '../../enum-base';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-enum-cell-view': TableColumnEnumCellView;
+        'nimble-table-column-icon-cell-view': TableColumnIconCellView;
     }
 }
 
 /**
  * A cell view for displaying mapped elements
  */
-export class TableColumnEnumCellView extends TableCellView<
+export class TableColumnIconCellView extends TableCellView<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
@@ -40,12 +36,12 @@ TableColumnEnumColumnConfig
     }
 }
 
-const enumCellView = TableColumnEnumCellView.compose({
-    baseName: 'table-column-enum-cell-view',
+const iconCellView = TableColumnIconCellView.compose({
+    baseName: 'table-column-icon-cell-view',
     template,
     styles
 });
-DesignSystem.getOrCreate().withPrefix('nimble').register(enumCellView());
-export const tableColumnEnumCellViewTag = DesignSystem.tagFor(
-    TableColumnEnumCellView
+DesignSystem.getOrCreate().withPrefix('nimble').register(iconCellView());
+export const tableColumnIconCellViewTag = DesignSystem.tagFor(
+    TableColumnIconCellView
 );

@@ -9,6 +9,17 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
+import type { ConvertedKeyMapping } from '../../table-column/enum-base';
+
+export interface ConvertedKeyMappingForIconColumn extends ConvertedKeyMapping {
+    label: string;
+    viewTemplate: ViewTemplate;
+}
+
+export interface ConvertedKeyMappingIcon extends ConvertedKeyMappingForIconColumn {
+    icon: string;
+    severity: string;
+}
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -45,42 +56,25 @@ export class MappingIcon extends Mapping {
     @observable
     public groupHeaderViewTemplate: ViewTemplate = html``;
 
-    private iconChanged(): void {
-        this.updateCellViewTemplate();
+    public override getConvertedKeyMapping(keyType: 'string' | 'number' | 'boolean'): ConvertedKeyMapping {
+        return {
+            key: this.typeConvertKey(this.key, keyType),
+            defaultMapping: this.defaultMapping,
+            icon: this.icon,
+            severity: this.severity,
+            label: this.label,
+            viewTemplate: html<ConvertedKeyMappingIcon>`
+                <${this.icon!}
+                    title="${x => x.label}"
+                    aria-label="${x => x.label}"
+                    severity="${x => x.severity}">
+                </${this.icon!}>`
+        } as ConvertedKeyMappingIcon;
     }
 
-    private updateCellViewTemplate(): void {
-        if (!this.icon) {
-            return;
-        }
-
-        // prettier-ignore
-        this.cellViewTemplate = html<MappingIcon>`
-            <${this.icon}
-                title="${x => x.label}"
-                aria-label="${x => x.label}"
-                severity="${x => x.severity}">
-            </${this.icon}>`;
-
-        // prettier-ignore
-        this.groupHeaderViewTemplate = html<MappingIcon>`
-            <${this.icon}
-                title="${x => x.label}"
-                aria-label="${x => x.label}"
-                severity="${x => x.severity}">
-            </${this.icon}>
-            <span
-                ${ref('span')}
-                @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.label && x.span!.offsetWidth < x.span!.scrollWidth;
-    }}"
-                @mouseout="${x => {
-        x.isValidContentAndHasOverflow = false;
-    }}"
-                title=${x => (x.isValidContentAndHasOverflow ? x.label : null)}>
-                ${x => x.label}
-            </span>`;
-    }
+    //private iconChanged(): void {
+    //    this.updateCellViewTemplate();
+    //}
 }
 
 const iconMapping = MappingIcon.compose({
