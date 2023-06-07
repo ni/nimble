@@ -51,7 +51,7 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             if (args === 'key') {
                 const keys = this.mappings?.map(x => x.key) ?? [];
                 this.validator.validateKeyValuesForType(keys, this.keyType);
-                const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
+                const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(
                     x => x.key
                 ) ?? [];
                 this.validator.validateUniqueKeys(typedKeys);
@@ -81,9 +81,8 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             this.mappings ?? [],
             this.supportedMappingTypes
         );
-        const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
-            x => x.key
-        ) ?? [];
+        const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(x => x.key)
+            ?? [];
         this.validator?.validateUniqueKeys(typedKeys);
         this.validator?.validateNoMissingKeys(this.mappings ?? []);
         this.validator?.validateIconNames(this.mappings ?? []);

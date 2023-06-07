@@ -2,9 +2,9 @@ import { attr, css } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
-import type { ConvertedKeyMapping } from '../../table-column/enum-base';
+import type { MappingConfig } from '../../table-column/enum-base';
 
-export interface ConvertedKeyMappingText extends ConvertedKeyMapping {
+export interface ConvertedKeyMappingText extends MappingConfig {
     label: string;
 }
 
@@ -24,7 +24,7 @@ export class MappingText extends Mapping {
 
     public override getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'
-    ): ConvertedKeyMapping {
+    ): MappingConfig {
         return {
             key: this.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,

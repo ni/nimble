@@ -2,15 +2,14 @@ import { attr, css, html, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
-import type { ConvertedKeyMapping } from '../../table-column/enum-base';
+import type { MappingConfig } from '../../table-column/enum-base';
 
-export interface ConvertedKeyMappingForIconColumn extends ConvertedKeyMapping {
+export interface MappingConfigIconOrSpinner extends MappingConfig {
     label: string;
     viewTemplate: ViewTemplate;
 }
 
-export interface ConvertedKeyMappingIcon
-    extends ConvertedKeyMappingForIconColumn {
+export interface MappingConfigIcon extends MappingConfigIconOrSpinner {
     icon: string;
     severity: string;
 }
@@ -37,20 +36,20 @@ export class MappingIcon extends Mapping {
 
     public override getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'
-    ): ConvertedKeyMapping {
+    ): MappingConfig {
         return {
             key: this.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
             icon: this.icon,
             severity: this.severity,
             label: this.label,
-            viewTemplate: html<ConvertedKeyMappingIcon>`
+            viewTemplate: html`
                 <${this.icon!}
-                    title="${x => x.label}"
-                    aria-label="${x => x.label}"
-                    severity="${x => x.severity}">
+                    title="${this.label ?? ''}"
+                    aria-label="${this.label ?? ''}"
+                    severity="${this.severity ?? ''}">
                 </${this.icon!}>`
-        } as ConvertedKeyMappingIcon;
+        } as MappingConfigIcon;
     }
 }
 

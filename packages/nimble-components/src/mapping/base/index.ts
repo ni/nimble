@@ -4,7 +4,7 @@ import {
     nullableNumberConverter
 } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { ConvertedKeyMapping } from '../../table-column/enum-base';
+import type { MappingConfig } from '../../table-column/enum-base';
 
 /**
  * An element to be given as content to a nimble-table-column-mapping or nimble-table-column-icon.
@@ -19,7 +19,7 @@ export abstract class Mapping extends FoundationElement {
 
     public abstract getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'
-    ): ConvertedKeyMapping;
+    ): MappingConfig;
 
     protected typeConvertKey(
         key: string | boolean | number | undefined,

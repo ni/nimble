@@ -11,12 +11,12 @@ import { Mapping } from '../../mapping/base';
 
 export type TableColumnEnumCellRecord = TableAnyField<'value'>;
 
-export interface ConvertedKeyMapping {
+export interface MappingConfig {
     key: string | number | boolean | null;
     defaultMapping: boolean;
 }
 export interface TableColumnEnumColumnConfig {
-    convertedKeyMappings: ConvertedKeyMapping[];
+    mappingConfigs: MappingConfig[];
 }
 
 /**
@@ -89,7 +89,7 @@ export abstract class TableColumnEnumBase
     }
 
     private updateColumnConfig(): void {
-        const convertedKeyMappings: ConvertedKeyMapping[] = [];
+        const convertedKeyMappings: MappingConfig[] = [];
         for (const mapping of this.mappings) {
             convertedKeyMappings.push(
                 mapping.getConvertedKeyMapping(this.keyType)
@@ -97,7 +97,7 @@ export abstract class TableColumnEnumBase
         }
 
         this.columnInternals.columnConfig = {
-            convertedKeyMappings
+            mappingConfigs: convertedKeyMappings
         };
     }
 }

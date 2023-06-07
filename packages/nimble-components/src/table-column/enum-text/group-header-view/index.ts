@@ -27,7 +27,7 @@ TableColumnEnumColumnConfig
     public isValidContentAndHasOverflow = false;
 
     public getMappingToRender(): ConvertedKeyMappingText | null {
-        const found = this.columnConfig?.convertedKeyMappings.find(
+        const found = this.columnConfig?.mappingConfigs.find(
             x => x.key === this.groupHeaderValue
         );
         return (found as ConvertedKeyMappingText) ?? null;

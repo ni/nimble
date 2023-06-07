@@ -1,11 +1,10 @@
-import { html, ref, repeat, when } from '@microsoft/fast-element';
+import { html, ref, when } from '@microsoft/fast-element';
 
-import type { ConvertedKeyMappingForIconColumn } from '../../../mapping/icon';
 import type { TableColumnIconGroupHeaderView } from '.';
 
 // prettier-ignore
 export const template = html<TableColumnIconGroupHeaderView>`
-    ${repeat(x => [x.getMappingToRender()], html<ConvertedKeyMappingForIconColumn>`${x => x?.viewTemplate}`)}
+    ${x => x.getMappingToRender()?.viewTemplate}
     <span
         ${ref('span')}
         @mouseover="${x => {

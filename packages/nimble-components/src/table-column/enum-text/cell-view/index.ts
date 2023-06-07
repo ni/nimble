@@ -40,14 +40,14 @@ TableColumnEnumColumnConfig
     }
 
     private getMatchingMapping(): ConvertedKeyMappingText | null {
-        const found = this.columnConfig.convertedKeyMappings.find(
+        const found = this.columnConfig.mappingConfigs.find(
             x => x.key === this.cellRecord.value
         );
         return (found as ConvertedKeyMappingText) ?? null;
     }
 
     private getDefaultMapping(): ConvertedKeyMappingText | null {
-        const found = this.columnConfig.convertedKeyMappings.find(
+        const found = this.columnConfig.mappingConfigs.find(
             x => x.defaultMapping
         );
         return (found as ConvertedKeyMappingText) ?? null;

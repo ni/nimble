@@ -3,7 +3,7 @@ import { observable } from '@microsoft/fast-element';
 import { TableGroupHeaderView } from '../../base/group-header-view';
 import { styles } from './styles';
 import { template } from './template';
-import type { ConvertedKeyMappingForIconColumn } from '../../../mapping/icon';
+import type { MappingConfigIconOrSpinner } from '../../../mapping/icon';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 
 declare global {
@@ -26,11 +26,11 @@ TableColumnEnumColumnConfig
     @observable
     public isValidContentAndHasOverflow = false;
 
-    public getMappingToRender(): ConvertedKeyMappingForIconColumn | null {
-        const found = this.columnConfig?.convertedKeyMappings.find(
+    public getMappingToRender(): MappingConfigIconOrSpinner | null {
+        const found = this.columnConfig?.mappingConfigs.find(
             x => x.key === this.groupHeaderValue
         );
-        return (found as ConvertedKeyMappingForIconColumn) ?? null;
+        return (found as MappingConfigIconOrSpinner) ?? null;
     }
 }
 

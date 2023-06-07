@@ -50,7 +50,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
             if (args === 'key') {
                 const keys = this.mappings?.map(x => x.key) ?? [];
                 this.validator.validateKeyValuesForType(keys, this.keyType);
-                const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
+                const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(
                     x => x.key
                 ) ?? [];
                 this.validator.validateUniqueKeys(typedKeys);
@@ -71,24 +71,23 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 
     protected override mappingsChanged(): void {
         super.mappingsChanged();
-        const keys = this.mappings?.map(x => x.key) ?? [];
+        const keys = this.mappings.map(x => x.key);
         this.validator?.validateKeyValuesForType(keys, this.keyType);
-        this.validator?.validateAtMostOneDefaultMapping(this.mappings ?? []);
+        this.validator?.validateAtMostOneDefaultMapping(this.mappings);
         this.validator?.validateMappingTypes(
-            this.mappings ?? [],
+            this.mappings,
             this.supportedMappingTypes
         );
-        const typedKeys = this.columnInternals.columnConfig?.convertedKeyMappings.map(
-            x => x.key
-        ) ?? [];
+        const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(x => x.key)
+            ?? [];
         this.validator?.validateUniqueKeys(typedKeys);
-        this.validator?.validateNoMissingKeys(this.mappings ?? []);
+        this.validator?.validateNoMissingKeys(this.mappings);
     }
 
     protected override keyTypeChanged(): void {
         super.keyTypeChanged();
         this.validator?.validateKeyValuesForType(
-            this.mappings?.map(x => x.key) ?? [],
+            this.mappings.map(x => x.key),
             this.keyType
         );
     }
