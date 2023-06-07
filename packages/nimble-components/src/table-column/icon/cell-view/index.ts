@@ -2,7 +2,11 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
-import type { ConvertedKeyMapping, TableColumnEnumCellRecord, TableColumnEnumColumnConfig } from '../../enum-base';
+import type {
+    ConvertedKeyMapping,
+    TableColumnEnumCellRecord,
+    TableColumnEnumColumnConfig
+} from '../../enum-base';
 
 declare global {
     interface HTMLElementTagNameMap {

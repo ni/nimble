@@ -30,7 +30,7 @@ TableColumnEnumColumnConfig
         const found = this.columnConfig?.convertedKeyMappings.find(
             x => x.key === this.groupHeaderValue
         );
-        return found as ConvertedKeyMappingForIconColumn ?? null;
+        return (found as ConvertedKeyMappingForIconColumn) ?? null;
     }
 }
 
@@ -39,9 +39,7 @@ const iconGroupHeaderView = TableColumnIconGroupHeaderView.compose({
     template,
     styles
 });
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(iconGroupHeaderView());
+DesignSystem.getOrCreate().withPrefix('nimble').register(iconGroupHeaderView());
 export const tableColumnIconGroupHeaderViewTag = DesignSystem.tagFor(
     TableColumnIconGroupHeaderView
 );

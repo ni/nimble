@@ -48,9 +48,7 @@ export abstract class TableColumnEnumBase
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof Mapping && typeof args === 'string') {
-            if (args === 'key') {
-                this.updateColumnConfig();
-            }
+            this.updateColumnConfig();
         }
     }
 
@@ -93,7 +91,9 @@ export abstract class TableColumnEnumBase
     private updateColumnConfig(): void {
         const convertedKeyMappings: ConvertedKeyMapping[] = [];
         for (const mapping of this.mappings) {
-            convertedKeyMappings.push(mapping.getConvertedKeyMapping(this.keyType));
+            convertedKeyMappings.push(
+                mapping.getConvertedKeyMapping(this.keyType)
+            );
         }
 
         this.columnInternals.columnConfig = {

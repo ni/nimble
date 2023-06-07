@@ -30,20 +30,7 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     mixinFixedWidthColumnAPI(TableColumnEnumBase)
 ) {
     protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
-        return [
-            MappingIcon,
-            MappingSpinner
-        ] as const;
-    }
-
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
-        return {
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnIconCellViewTag,
-            groupHeaderViewTag: tableColumnIconGroupHeaderViewTag,
-            delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
-        };
+        return [MappingIcon, MappingSpinner] as const;
     }
 
     private readonly validator: TableColumnIconValidator = new TableColumnIconValidator(
@@ -73,6 +60,16 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
                 this.validator.validateIconNames(this.mappings ?? []);
             }
         }
+    }
+
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: ['value'],
+            cellViewTag: tableColumnIconCellViewTag,
+            groupHeaderViewTag: tableColumnIconGroupHeaderViewTag,
+            delegatedEvents: [],
+            sortOperation: TableColumnSortOperation.basic
+        };
     }
 
     protected override mappingsChanged(): void {

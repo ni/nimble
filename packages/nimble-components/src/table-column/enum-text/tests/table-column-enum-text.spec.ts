@@ -125,7 +125,7 @@ describe('TableColumnEnumText', () => {
         await waitForUpdatesAsync();
 
         const mapping = (element.columns[0] as TableColumnEnumText)
-            .mappings![0] as MappingText;
+            .mappings[0] as MappingText;
         mapping.label = 'bravo';
         await waitForUpdatesAsync();
 
@@ -142,7 +142,7 @@ describe('TableColumnEnumText', () => {
         await waitForUpdatesAsync();
 
         const mapping = (element.columns[0] as TableColumnEnumText)
-            .mappings![0] as MappingText;
+            .mappings[0] as MappingText;
         mapping.key = 'b';
         await waitForUpdatesAsync();
 

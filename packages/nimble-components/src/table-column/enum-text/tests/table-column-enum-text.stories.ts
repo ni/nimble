@@ -63,7 +63,7 @@ const metadata: Meta<EnumTextColumnTableArgs> = {
                 component: enumTextColumnDescription
             }
         }
-    },
+    }
 };
 
 export default metadata;

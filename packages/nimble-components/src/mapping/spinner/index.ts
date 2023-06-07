@@ -1,7 +1,4 @@
-import {
-    attr,
-    html,
-} from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { spinnerTag } from '../../spinner';
@@ -10,7 +7,8 @@ import { template } from '../base/template';
 import type { ConvertedKeyMapping } from '../../table-column/enum-base';
 import type { ConvertedKeyMappingForIconColumn } from '../icon';
 
-export interface ConvertedKeyMappingSpinner extends ConvertedKeyMappingForIconColumn {
+export interface ConvertedKeyMappingSpinner
+    extends ConvertedKeyMappingForIconColumn {
     paused: boolean;
 }
 
@@ -32,7 +30,9 @@ export class MappingSpinner extends Mapping {
     @attr({ mode: 'boolean' })
     public paused?: boolean;
 
-    public override getConvertedKeyMapping(keyType: 'string' | 'number' | 'boolean'): ConvertedKeyMapping {
+    public override getConvertedKeyMapping(
+        keyType: 'string' | 'number' | 'boolean'
+    ): ConvertedKeyMapping {
         return {
             key: this.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
@@ -40,7 +40,9 @@ export class MappingSpinner extends Mapping {
             paused: this.paused,
             viewTemplate: html<ConvertedKeyMappingSpinner>`
                 <${spinnerTag}
-                    style="${x => (x.paused ? '--ni-private-spinner-animation-play-state:paused' : '')}"
+                    style="${x => (x.paused
+        ? '--ni-private-spinner-animation-play-state:paused'
+        : '')}"
                     title="${x => x.label}"
                     aria-label="${x => x.label}">
                 </${spinnerTag}>`

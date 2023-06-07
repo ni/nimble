@@ -17,10 +17,6 @@ export const styles = css`
         align-items: center;
     }
 
-    * {
-        flex-shrink: 0;
-    }
-
     span {
         flex-shrink: 1;
         font: ${bodyFont};

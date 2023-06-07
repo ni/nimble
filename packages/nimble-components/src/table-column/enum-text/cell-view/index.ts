@@ -3,7 +3,10 @@ import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import { styles } from './styles';
 import { template } from './template';
-import type { TableColumnEnumCellRecord, TableColumnEnumColumnConfig } from '../../enum-base';
+import type {
+    TableColumnEnumCellRecord,
+    TableColumnEnumColumnConfig
+} from '../../enum-base';
 import type { ConvertedKeyMappingText } from '../../../mapping/text';
 
 declare global {
@@ -34,14 +37,14 @@ TableColumnEnumColumnConfig
         const found = this.columnConfig.convertedKeyMappings.find(
             x => x.key === this.cellRecord.value
         );
-        return found as ConvertedKeyMappingText ?? null;
+        return (found as ConvertedKeyMappingText) ?? null;
     }
 
     private getDefaultMapping(): ConvertedKeyMappingText | null {
         const found = this.columnConfig.convertedKeyMappings.find(
             x => x.defaultMapping
         );
-        return found as ConvertedKeyMappingText ?? null;
+        return (found as ConvertedKeyMappingText) ?? null;
     }
 }
 

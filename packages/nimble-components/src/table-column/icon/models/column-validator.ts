@@ -25,9 +25,7 @@ export class TableColumnIconValidator extends ColumnValidator<
     }
 
     public validateAtMostOneDefaultMapping(mappings: Mapping[]): void {
-        const invalid = TableColumnEnumValidationHelper.multipleDefaultMappings(
-            mappings
-        );
+        const invalid = TableColumnEnumValidationHelper.multipleDefaultMappings(mappings);
         this.setConditionValue('multipleDefaultMappings', invalid);
     }
 

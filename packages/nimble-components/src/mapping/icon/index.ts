@@ -1,10 +1,4 @@
-import {
-    attr,
-    html,
-    observable,
-    ref,
-    ViewTemplate
-} from '@microsoft/fast-element';
+import { attr, html, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { styles } from '../base/styles';
@@ -16,7 +10,8 @@ export interface ConvertedKeyMappingForIconColumn extends ConvertedKeyMapping {
     viewTemplate: ViewTemplate;
 }
 
-export interface ConvertedKeyMappingIcon extends ConvertedKeyMappingForIconColumn {
+export interface ConvertedKeyMappingIcon
+    extends ConvertedKeyMappingForIconColumn {
     icon: string;
     severity: string;
 }
@@ -56,7 +51,9 @@ export class MappingIcon extends Mapping {
     @observable
     public groupHeaderViewTemplate: ViewTemplate = html``;
 
-    public override getConvertedKeyMapping(keyType: 'string' | 'number' | 'boolean'): ConvertedKeyMapping {
+    public override getConvertedKeyMapping(
+        keyType: 'string' | 'number' | 'boolean'
+    ): ConvertedKeyMapping {
         return {
             key: this.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
@@ -71,10 +68,6 @@ export class MappingIcon extends Mapping {
                 </${this.icon!}>`
         } as ConvertedKeyMappingIcon;
     }
-
-    //private iconChanged(): void {
-    //    this.updateCellViewTemplate();
-    //}
 }
 
 const iconMapping = MappingIcon.compose({

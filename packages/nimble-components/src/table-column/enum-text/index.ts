@@ -32,16 +32,6 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         return [MappingText] as const;
     }
 
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
-        return {
-            cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnEnumTextCellViewTag,
-            groupHeaderViewTag: tableColumnEnumTextGroupHeaderViewTag,
-            delegatedEvents: [],
-            sortOperation: TableColumnSortOperation.basic
-        };
-    }
-
     private readonly validator: TableColumnEnumTextValidator = new TableColumnEnumTextValidator(
         this.columnInternals,
         enumTextColumnValidityFlagNames
@@ -67,6 +57,16 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
                 this.validator.validateNoMissingKeys(this.mappings ?? []);
             }
         }
+    }
+
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: ['value'],
+            cellViewTag: tableColumnEnumTextCellViewTag,
+            groupHeaderViewTag: tableColumnEnumTextGroupHeaderViewTag,
+            delegatedEvents: [],
+            sortOperation: TableColumnSortOperation.basic
+        };
     }
 
     protected override mappingsChanged(): void {

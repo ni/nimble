@@ -1,10 +1,4 @@
-import {
-    attr,
-    html,
-    observable,
-    ref,
-    ViewTemplate
-} from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { styles } from '../base/styles';
@@ -29,7 +23,9 @@ export class MappingText extends Mapping {
     @attr()
     public label: string | null = null;
 
-    public override getConvertedKeyMapping(keyType: 'string' | 'number' | 'boolean'): ConvertedKeyMapping {
+    public override getConvertedKeyMapping(
+        keyType: 'string' | 'number' | 'boolean'
+    ): ConvertedKeyMapping {
         return {
             key: this.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,

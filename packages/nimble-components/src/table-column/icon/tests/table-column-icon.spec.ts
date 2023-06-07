@@ -134,7 +134,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         const mapping = (element.columns[0] as TableColumnIcon)
-            .mappings![0] as MappingIcon;
+            .mappings[0] as MappingIcon;
         mapping.icon = 'nimble-icon-check';
         await waitForUpdatesAsync();
 
@@ -153,7 +153,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         const mapping = (element.columns[0] as TableColumnIcon)
-            .mappings![0] as MappingIcon;
+            .mappings[0] as MappingIcon;
         mapping.key = 'b';
         await waitForUpdatesAsync();
 

@@ -21,11 +21,4 @@ export const styles = css`
     * {
         flex-shrink: 0;
     }
-
-    span {
-        flex-shrink: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
 `;
