@@ -1,6 +1,7 @@
 import { ColumnValidator } from '../../base/models/column-validator';
 import { TableColumnEnumValidationHelper } from '../../enum-base/models/column-validator';
 import type { Mapping } from '../../../mapping/base';
+import type { MappingKeyType } from '../../enum-base/types';
 
 export const enumTextColumnValidityFlagNames = [
     'invalidMappingKeyValueForType',
@@ -16,7 +17,10 @@ export const enumTextColumnValidityFlagNames = [
 export class TableColumnEnumTextValidator extends ColumnValidator<
     typeof enumTextColumnValidityFlagNames
 > {
-    public validateKeyValuesForType(keys: unknown[], keyType: string): void {
+    public validateKeyValuesForType(
+        keys: unknown[],
+        keyType: MappingKeyType
+    ): void {
         const invalid = TableColumnEnumValidationHelper.invalidMappingKeyValueForType(
             keys,
             keyType
