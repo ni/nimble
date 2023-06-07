@@ -6,13 +6,14 @@ import {
     Subscriber
 } from '@microsoft/fast-element';
 import type { TableAnyField } from '../../table/types';
+import type { MappingKeyType } from './types';
 import { TableColumn } from '../base';
 import { Mapping } from '../../mapping/base';
 
 export type TableColumnEnumCellRecord = TableAnyField<'value'>;
 
 export interface MappingConfig {
-    key: string | number | boolean | null;
+    key: MappingKeyType | null;
     defaultMapping: boolean;
 }
 export interface TableColumnEnumColumnConfig {
@@ -33,7 +34,7 @@ export abstract class TableColumnEnumBase
     public fieldName?: string;
 
     @attr({ attribute: 'key-type' })
-    public keyType: 'string' | 'number' | 'boolean' = 'string';
+    public keyType: MappingKeyType = 'string';
 
     protected abstract get supportedMappingTypes(): readonly (typeof Mapping)[];
 

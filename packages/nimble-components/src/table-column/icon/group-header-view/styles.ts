@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
@@ -6,8 +7,9 @@ import {
 } from '../../../theme-provider/design-tokens';
 
 export const styles = css`
+    ${display('inline-flex')}
+
     :host {
-        display: inline-flex;
         font: ${bodyFont};
         color: ${bodyFontColor};
         white-space: nowrap;
@@ -17,7 +19,7 @@ export const styles = css`
         align-items: center;
     }
 
-    * {
+    .no-shrink {
         flex-shrink: 0;
     }
 

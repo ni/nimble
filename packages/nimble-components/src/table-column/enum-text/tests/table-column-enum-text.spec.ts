@@ -53,25 +53,31 @@ describe('TableColumnEnumText', () => {
         await disconnect();
     });
 
-    for (const test of [
-        { type: 'string', key: 'a' },
-        { type: 'number', key: 10 },
-        { type: 'boolean', key: true }
-    ]) {
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`displays text mapped from ${test.type}`, async () => {
-            ({ element, connect, disconnect } = await setup(
-                [{ key: test.key, label: 'alpha' }],
-                test.type
-            ));
-            pageObject = new TablePageObject<SimpleTableRecord>(element);
-            await element.setData([{ field1: test.key }]);
-            await connect();
-            await waitForUpdatesAsync();
+    describe('data type tests', () => {
+        const dataTypeTests = [
+            { name: 'string', key: 'a' },
+            { name: 'number', key: 10 },
+            { name: 'boolean', key: true }
+        ];
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const test of dataTypeTests) {
+            const specType = getSpecTypeByNamedList(test, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`displays text mapped from ${test.name}`, async () => {
+                ({ element, connect, disconnect } = await setup(
+                    [{ key: test.key, label: 'alpha' }],
+                    test.name
+                ));
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
+                await element.setData([{ field1: test.key }]);
+                await connect();
+                await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('alpha');
-        });
-    }
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe('alpha');
+            });
+        }
+    });
 
     it('displays blank when no matches', async () => {
         ({ element, connect, disconnect } = await setup([

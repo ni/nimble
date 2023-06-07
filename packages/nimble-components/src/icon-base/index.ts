@@ -36,7 +36,7 @@ export class Icon extends FoundationElement {
     }
 
     private forwardAriaLabelToSvg(): void {
-        const svg = this.shadowRoot!.querySelector('svg');
+        const svg = this.shadowRoot?.querySelector('svg');
         if (!svg) {
             return;
         }

@@ -3,6 +3,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { MappingConfig } from '../../table-column/enum-base';
+import type { IconSeverity } from '../../icon-base/types';
 
 export interface MappingConfigIconOrSpinner extends MappingConfig {
     label: string;
@@ -11,7 +12,7 @@ export interface MappingConfigIconOrSpinner extends MappingConfig {
 
 export interface MappingConfigIcon extends MappingConfigIconOrSpinner {
     icon: string;
-    severity: string;
+    severity: IconSeverity;
 }
 
 declare global {
@@ -26,13 +27,13 @@ declare global {
  */
 export class MappingIcon extends Mapping {
     @attr()
-    public icon: string | null = null;
+    public icon?: string;
 
     @attr()
-    public severity: string | null = null;
+    public severity: IconSeverity;
 
     @attr()
-    public label: string | null = null;
+    public label?: string;
 
     public override getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'
@@ -47,7 +48,8 @@ export class MappingIcon extends Mapping {
                 <${this.icon!}
                     title="${this.label ?? ''}"
                     aria-label="${this.label ?? ''}"
-                    severity="${this.severity ?? ''}">
+                    severity="${this.severity ?? ''}"
+                    class="no-shrink">
                 </${this.icon!}>`
         } as MappingConfigIcon;
     }

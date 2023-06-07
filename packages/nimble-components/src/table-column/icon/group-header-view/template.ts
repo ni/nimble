@@ -17,5 +17,5 @@ export const template = html<TableColumnIconGroupHeaderView>`
     >
         ${x => x.getMappingToRender()?.label}
     </span>
-    ${when(x => x.getMappingToRender() == null, html<TableColumnIconGroupHeaderView>`${x => x.groupHeaderValue}`)}
+    ${when(x => x.getMappingToRender() === null, html<TableColumnIconGroupHeaderView>`${x => x.groupHeaderValue}`)}
 `;

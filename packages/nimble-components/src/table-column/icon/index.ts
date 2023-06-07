@@ -49,15 +49,9 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         super.handleChange(source, args);
         if (source instanceof Mapping && typeof args === 'string') {
             if (args === 'key') {
-                const keys = this.mappings?.map(x => x.key) ?? [];
-                this.validator.validateKeyValuesForType(keys, this.keyType);
-                const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(
-                    x => x.key
-                ) ?? [];
-                this.validator.validateUniqueKeys(typedKeys);
-                this.validator.validateNoMissingKeys(this.mappings ?? []);
+                this.validateKeyDependentConditions();
             } else if (args === 'icon') {
-                this.validator.validateIconNames(this.mappings ?? []);
+                this.validator.validateIconNames(this.mappings);
             }
         }
     }
@@ -74,26 +68,30 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
 
     protected override mappingsChanged(): void {
         super.mappingsChanged();
-        const keys = this.mappings?.map(x => x.key) ?? [];
-        this.validator?.validateKeyValuesForType(keys, this.keyType);
-        this.validator?.validateAtMostOneDefaultMapping(this.mappings ?? []);
+        this.validator?.validateAtMostOneDefaultMapping(this.mappings);
         this.validator?.validateMappingTypes(
-            this.mappings ?? [],
+            this.mappings,
             this.supportedMappingTypes
         );
-        const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(x => x.key)
-            ?? [];
-        this.validator?.validateUniqueKeys(typedKeys);
-        this.validator?.validateNoMissingKeys(this.mappings ?? []);
-        this.validator?.validateIconNames(this.mappings ?? []);
+        this.validateKeyDependentConditions();
+        this.validator?.validateIconNames(this.mappings);
     }
 
     protected override keyTypeChanged(): void {
         super.keyTypeChanged();
         this.validator?.validateKeyValuesForType(
-            this.mappings?.map(x => x.key) ?? [],
+            this.mappings.map(x => x.key),
             this.keyType
         );
+    }
+
+    private validateKeyDependentConditions(): void {
+        const keys = this.mappings.map(x => x.key);
+        this.validator?.validateKeyValuesForType(keys, this.keyType);
+        const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(x => x.key)
+            ?? [];
+        this.validator?.validateUniqueKeys(typedKeys);
+        this.validator?.validateNoMissingKeys(this.mappings);
     }
 }
 

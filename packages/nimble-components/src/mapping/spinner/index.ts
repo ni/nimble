@@ -22,11 +22,11 @@ declare global {
  */
 export class MappingSpinner extends Mapping {
     @attr()
-    public label: string | null = null;
+    public label?: string;
 
     /** @internal */
     @attr({ mode: 'boolean' })
-    public paused?: boolean;
+    public paused = false;
 
     public override getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'
@@ -44,7 +44,8 @@ export class MappingSpinner extends Mapping {
         : ''
 }"
                     title="${this.label ?? ''}"
-                    aria-label="${this.label ?? ''}">
+                    aria-label="${this.label ?? ''}"
+                    class="no-shrink">
                 </${spinnerTag}>`
         } as MappingConfigSpinner;
     }

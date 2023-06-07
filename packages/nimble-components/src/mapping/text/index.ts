@@ -20,7 +20,7 @@ declare global {
  */
 export class MappingText extends Mapping {
     @attr()
-    public label: string | null = null;
+    public label?: string;
 
     public override getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'

@@ -1,5 +1,6 @@
 import { nullableNumberConverter } from '@microsoft/fast-element';
 import type { Mapping } from '../../../mapping/base';
+import type { MappingKeyType } from '../types';
 
 /**
  * Helper to share logic between the enum-text and icon column validators
@@ -7,7 +8,7 @@ import type { Mapping } from '../../../mapping/base';
 export class TableColumnEnumValidationHelper {
     public static invalidMappingKeyValueForType(
         keys: unknown[],
-        keyType: string
+        keyType: MappingKeyType
     ): boolean {
         let invalid = false;
         if (keyType === 'number') {

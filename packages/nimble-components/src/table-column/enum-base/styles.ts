@@ -1,9 +1,8 @@
 import { css } from '@microsoft/fast-element';
+import { display } from '@microsoft/fast-foundation';
 
 export const styles = css`
-    :host {
-        display: contents;
-    }
+    ${display('contents')}
 
     .header-content {
         white-space: nowrap;
