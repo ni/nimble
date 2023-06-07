@@ -25,14 +25,14 @@ Outline and Block buttons in the Color UI will not have a `primary` state, as th
 
 The current appearance-variant attribute will be used to hold these new states, as its previous implementation purpose is no longer used.
 
--   \_Does the design follow an existing design in this codebase or FAST?
+-   Does the design follow an existing design in this codebase or FAST?
     -   Yes, this follows exisiting button design- only the button colors are changed
--   \_Does the design align with web standards like web components, ARIA, etc?
--   Yes
--   \_Does the design create new requirements on clients or break any APIs?
--   Possible breaking change in styling, as the previous style of the `primary` state used in appearance-variant will be replaced with the new styling
--   _How does the design affect testing, documentation, performance, security, etc?
--   New Chromatic testing for updated styles / states
+-   Does the design align with web standards like web components, ARIA, etc?
+    -   Yes
+-   Does the design create new requirements on clients or break any APIs?
+    -   Possible breaking change in styling, as the previous style of the `primary` state used in appearance-variant will be replaced with the new styling
+-   How does the design affect testing, documentation, performance, security, etc?
+    -   New Chromatic testing for updated styles / states
 
 ## Alternative Implementations / Designs
 
