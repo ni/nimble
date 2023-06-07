@@ -26,13 +26,13 @@ Outline and Block buttons in the Color UI will not have a `primary` state, as th
 The current appearance-variant attribute will be used to hold these new states, as its previous implementation purpose is no longer used.
 
 -   Does the design follow an existing design in this codebase or FAST?
-    -   Yes, this follows exisiting button design- only the button colors are changed
+    -   Yes, this follows exisiting button design- only the button colors are changed.
 -   Does the design align with web standards like web components, ARIA, etc?
     -   Yes
 -   Does the design create new requirements on clients or break any APIs?
     -   Possible breaking change in styling, as the previous style of the `primary` state used in appearance-variant will be replaced with the new styling
 -   How does the design affect testing, documentation, performance, security, etc?
-    -   New Chromatic testing for updated styles / states
+    -   New Chromatic testing for updated styles / states.
 
 ## Alternative Implementations / Designs
 
@@ -40,7 +40,6 @@ Can the new button states be placed in the appearance-variant attribute, or shou
 
 ## Open Issues
 
-Currently, only the nimble-button and nimble-anchor-button have the appearance-variant attribute. Should the `primary-mono` and `primary` states only be implemented for these buttons, while other buttons such as
-the nimble-menu-button, nimble-toggle-button, and nimble-card-button (which do not have the appearance-variant attribute) would be left alone?
+Currently, only the nimble-button and nimble-anchor-button have the appearance-variant attribute. Should the `primary-mono` and `primary` states only be implemented for these buttons, while other buttons such as the nimble-menu-button, nimble-toggle-button, and nimble-card-button (which do not have the appearance-variant attribute) would be left alone?
 
 Molly mentioned that there was a design with a green (Primary) menu button, so should this button type (nimble-menu-button) alone be included and also recieve the appearance-variant attribute?
