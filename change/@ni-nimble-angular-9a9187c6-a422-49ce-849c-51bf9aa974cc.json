@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Mark 'placeholder' as an @Input on the text column directive",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
