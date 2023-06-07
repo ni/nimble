@@ -34,15 +34,15 @@ export interface TableColumnEnumColumnConfig {
 export abstract class TableColumnEnumBase
     extends TableColumn<TableColumnEnumColumnConfig>
     implements Subscriber {
+    /** @internal */
+    @observable
+    public mappings: Mapping[] = [];
+
     @attr({ attribute: 'field-name' })
     public fieldName?: string;
 
     @attr({ attribute: 'key-type' })
     public keyType: 'string' | 'number' | 'boolean' = 'string';
-
-    /** @internal */
-    @observable
-    public mappings: Mapping[] = [];
 
     protected abstract get supportedMappingTypes(): readonly (typeof Mapping)[];
 
@@ -88,10 +88,12 @@ export abstract class TableColumnEnumBase
     }
 
     private removeMappingObservers(): void {
-        this.mappingNotifiers.forEach(notifier => {
-            notifier.unsubscribe(this);
-        });
-        this.mappingNotifiers = [];
+        if (this.mappingNotifiers) {
+            this.mappingNotifiers.forEach(notifier => {
+                notifier.unsubscribe(this);
+            });
+            this.mappingNotifiers = [];
+        }
     }
 
     private observeMappings(): void {

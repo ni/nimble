@@ -41,7 +41,7 @@ TableColumnEnumColumnConfig
 }
 
 const enumCellView = TableColumnEnumCellView.compose({
-    baseName: 'table-column-mapping-cell-view',
+    baseName: 'table-column-enum-cell-view',
     template,
     styles
 });
