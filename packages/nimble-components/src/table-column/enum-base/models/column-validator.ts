@@ -1,5 +1,4 @@
-import { nullableNumberConverter } from '@microsoft/fast-element';
-import type { Mapping } from '../../../mapping/base';
+import { Mapping } from '../../../mapping/base';
 import type { MappingKeyType } from '../types';
 
 /**
@@ -7,22 +6,12 @@ import type { MappingKeyType } from '../types';
  */
 export class TableColumnEnumValidationHelper {
     public static invalidMappingKeyValueForType(
-        keys: unknown[],
+        keys: (string | boolean | number | undefined)[],
         keyType: MappingKeyType
     ): boolean {
-        let invalid = false;
-        if (keyType === 'number') {
-            invalid = keys.some(
-                x => x !== undefined
-                    && nullableNumberConverter.fromView(x) === null
-            );
-        } else if (keyType === 'boolean') {
-            // never invalid
-        } else {
-            invalid = keys.some(x => x === null);
-        }
-
-        return invalid;
+        return keys.some(
+            x => x !== undefined && Mapping.typeConvertKey(x, keyType) === null
+        );
     }
 
     public static multipleDefaultMappings(mappings: Mapping[]): boolean {

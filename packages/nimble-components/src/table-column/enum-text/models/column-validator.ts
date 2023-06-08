@@ -18,7 +18,7 @@ export class TableColumnEnumTextValidator extends ColumnValidator<
     typeof enumTextColumnValidityFlagNames
 > {
     public validateKeyValuesForType(
-        keys: unknown[],
+        keys: (string | number | boolean | undefined)[],
         keyType: MappingKeyType
     ): void {
         const invalid = TableColumnEnumValidationHelper.invalidMappingKeyValueForType(

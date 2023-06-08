@@ -1,8 +1,4 @@
-import {
-    attr,
-    booleanConverter,
-    nullableNumberConverter
-} from '@microsoft/fast-element';
+import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { MappingConfig } from '../../table-column/enum-base';
 
@@ -17,11 +13,7 @@ export abstract class Mapping extends FoundationElement {
     @attr({ attribute: 'default-mapping', mode: 'boolean' })
     public defaultMapping = false;
 
-    public abstract getConvertedKeyMapping(
-        keyType: 'string' | 'number' | 'boolean'
-    ): MappingConfig;
-
-    protected typeConvertKey(
+    public static typeConvertKey(
         key: string | boolean | number | undefined,
         keyType: 'string' | 'number' | 'boolean'
     ): string | boolean | number | null {
@@ -29,10 +21,18 @@ export abstract class Mapping extends FoundationElement {
             return nullableNumberConverter.fromView(key) as number;
         }
         if (keyType === 'boolean') {
-            return key === undefined
-                ? null
-                : (booleanConverter.fromView(key) as boolean);
+            if (key === false || key === 'false') {
+                return false;
+            }
+            if (key === true || key === 'true') {
+                return true;
+            }
+            return null;
         }
         return key === undefined ? null : key.toString();
     }
+
+    public abstract getConvertedKeyMapping(
+        keyType: 'string' | 'number' | 'boolean'
+    ): MappingConfig;
 }

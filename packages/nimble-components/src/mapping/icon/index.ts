@@ -39,7 +39,7 @@ export class MappingIcon extends Mapping {
         keyType: 'string' | 'number' | 'boolean'
     ): MappingConfig {
         return {
-            key: this.typeConvertKey(this.key, keyType),
+            key: Mapping.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
             icon: this.icon,
             severity: this.severity,

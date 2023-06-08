@@ -28,7 +28,7 @@ export class MappingSpinner extends Mapping {
         keyType: 'string' | 'number' | 'boolean'
     ): MappingConfig {
         return {
-            key: this.typeConvertKey(this.key, keyType),
+            key: Mapping.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
             label: this.label,
             viewTemplate: html`

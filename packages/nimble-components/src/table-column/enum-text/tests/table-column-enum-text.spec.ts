@@ -367,6 +367,37 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.invalidMappingKeyValueForType).toBeTrue();
         });
 
+        describe('catches invalid boolean key values:', () => {
+            const dataTypeTests = [
+                { name: '(blank)', key: '' },
+                { name: 'FALSE', key: 'FALSE' },
+                { name: '0', key: 0 }
+            ];
+            const focused: string[] = [];
+            const disabled: string[] = [];
+            for (const test of dataTypeTests) {
+                const specType = getSpecTypeByNamedList(
+                    test,
+                    focused,
+                    disabled
+                );
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                specType(` ${test.name}`, async () => {
+                    ({ element, connect, disconnect } = await setup(
+                        [{ key: test.key, label: 'alpha' }],
+                        'boolean'
+                    ));
+                    await connect();
+                    await waitForUpdatesAsync();
+                    const column = element.columns[0] as TableColumnEnumText;
+                    expect(column.checkValidity()).toBeFalse();
+                    expect(
+                        column.validity.invalidMappingKeyValueForType
+                    ).toBeTrue();
+                });
+            }
+        });
+
         it('is valid with no default mapping', async () => {
             ({ element, connect, disconnect } = await setup(
                 [{ key: '0', label: 'alpha' }],
@@ -473,7 +504,7 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
 
-        it('catches missing key value on non-default', async () => {
+        it('catches missing key value on non-default mapping', async () => {
             ({ element, connect, disconnect } = await setup([
                 { label: 'alpha' }
             ]));
@@ -484,15 +515,33 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.missingKeyValue).toBeTrue();
         });
 
-        it('allows missing key value on default', async () => {
-            ({ element, connect, disconnect } = await setup([
-                { label: 'alpha', defaultMapping: true }
-            ]));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnEnumText;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.missingKeyValue).toBeFalse();
+        describe('allows missing key value on default mapping', () => {
+            const dataTypeTests = [
+                { name: 'string' },
+                { name: 'number' },
+                { name: 'boolean' }
+            ];
+            const focused: string[] = [];
+            const disabled: string[] = [];
+            for (const test of dataTypeTests) {
+                const specType = getSpecTypeByNamedList(
+                    test,
+                    focused,
+                    disabled
+                );
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                specType(` (${test.name} keyType)`, async () => {
+                    ({ element, connect, disconnect } = await setup(
+                        [{ label: 'alpha', defaultMapping: true }],
+                        test.name
+                    ));
+                    await connect();
+                    await waitForUpdatesAsync();
+                    const column = element.columns[0] as TableColumnEnumText;
+                    expect(column.checkValidity()).toBeTrue();
+                    expect(column.validity.missingKeyValue).toBeFalse();
+                });
+            }
         });
     });
 });

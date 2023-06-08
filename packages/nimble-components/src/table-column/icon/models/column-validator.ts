@@ -18,7 +18,7 @@ export class TableColumnIconValidator extends ColumnValidator<
     typeof iconColumnValidityFlagNames
 > {
     public validateKeyValuesForType(
-        keys: unknown[],
+        keys: (string | number | boolean | undefined)[],
         keyType: MappingKeyType
     ): void {
         const invalid = TableColumnEnumValidationHelper.invalidMappingKeyValueForType(
