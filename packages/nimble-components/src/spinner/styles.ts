@@ -15,7 +15,6 @@ export const styles = css`
     :host {
         height: ${spinnerSmallHeight};
         aspect-ratio: 1 / 1;
-        --ni-private-spinner-animation-play-state: running;
     }
 
     div.container {

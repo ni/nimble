@@ -34,7 +34,7 @@ const data = [
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${tableTag} id-field-name="id" style="height: 250px">
+    <${tableTag} id-field-name="id" style="height: 250px; --ni-private-spinner-animation-play-state: paused">
         <${tableColumnIconTag}
             field-name="code"
             key-type="number"
@@ -42,7 +42,7 @@ const component = (): ViewTemplate => html`
         >
             Column 1
             <${mappingIconTag} key="0" label="Zero" icon="${iconCheckTag}"></${mappingIconTag}>
-            <${mappingSpinnerTag} key="1" label="One" paused></${mappingSpinnerTag}>
+            <${mappingSpinnerTag} key="1" label="One"></${mappingSpinnerTag}>
         </${tableColumnIconTag}>
         <${tableColumnIconTag}
             field-name="code"

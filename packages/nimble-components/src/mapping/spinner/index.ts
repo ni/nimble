@@ -24,10 +24,6 @@ export class MappingSpinner extends Mapping {
     @attr()
     public label?: string;
 
-    /** @internal */
-    @attr({ mode: 'boolean' })
-    public paused = false;
-
     public override getConvertedKeyMapping(
         keyType: 'string' | 'number' | 'boolean'
     ): MappingConfig {
@@ -35,14 +31,8 @@ export class MappingSpinner extends Mapping {
             key: this.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
             label: this.label,
-            paused: this.paused,
             viewTemplate: html`
                 <${spinnerTag}
-                    style="${
-    this.paused
-        ? '--ni-private-spinner-animation-play-state:paused'
-        : ''
-}"
                     title="${this.label ?? ''}"
                     aria-label="${this.label ?? ''}"
                     class="no-shrink">
