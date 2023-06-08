@@ -1,6 +1,7 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import type { MappingConfig } from '../../table-column/enum-base';
+import type { MappingKeyType } from '../../table-column/enum-base/types';
 
 /**
  * An element to be given as content to a nimble-table-column-mapping or nimble-table-column-icon.
@@ -15,7 +16,7 @@ export abstract class Mapping extends FoundationElement {
 
     public static typeConvertKey(
         key: string | boolean | number | undefined,
-        keyType: 'string' | 'number' | 'boolean'
+        keyType: MappingKeyType
     ): string | boolean | number | null {
         if (keyType === 'number') {
             return nullableNumberConverter.fromView(key) as number;
@@ -32,7 +33,5 @@ export abstract class Mapping extends FoundationElement {
         return key === undefined ? null : key.toString();
     }
 
-    public abstract getConvertedKeyMapping(
-        keyType: 'string' | 'number' | 'boolean'
-    ): MappingConfig;
+    public abstract getMappingConfig(keyType: MappingKeyType): MappingConfig;
 }

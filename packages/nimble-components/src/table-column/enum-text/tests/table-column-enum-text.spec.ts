@@ -29,10 +29,10 @@ describe('TableColumnEnumText', () => {
     let pageObject: TablePageObject<SimpleTableRecord>;
 
     // prettier-ignore
-    async function setup(mappings: BasicTextMapping[], keyType = 'string'): Promise<Fixture<Table<SimpleTableRecord>>> {
+    async function setup(mappings: BasicTextMapping[], keyType = 'string', placeholder = ''): Promise<Fixture<Table<SimpleTableRecord>>> {
         return fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} style="width: 700px">
-                    <${tableColumnEnumTextTag} field-name="field1" key-type="${keyType}">
+                    <${tableColumnEnumTextTag} field-name="field1" key-type="${keyType}", placeholder="${placeholder}">
                         Column 1
                         ${repeat(() => mappings, html<BasicTextMapping>`
                             <${mappingTextTag}
@@ -91,11 +91,31 @@ describe('TableColumnEnumText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
     });
 
-    it('displays default when no other matches', async () => {
-        ({ element, connect, disconnect } = await setup([
-            { key: 'a', label: 'alpha' },
-            { defaultMapping: true, label: 'bravo' }
-        ]));
+    it('displays placeholder when no matches and no default', async () => {
+        ({ element, connect, disconnect } = await setup(
+            [{ key: 'a', label: 'alpha' }],
+            'string',
+            'placeholder text'
+        ));
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        await element.setData([{ field1: 'no match' }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+            'placeholder text'
+        );
+    });
+
+    it('displays default when no other matches, even with placeholder', async () => {
+        ({ element, connect, disconnect } = await setup(
+            [
+                { key: 'a', label: 'alpha' },
+                { defaultMapping: true, label: 'bravo' }
+            ],
+            'string',
+            'placeholder text'
+        ));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'no match' }]);
         await connect();
@@ -153,49 +173,6 @@ describe('TableColumnEnumText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('alpha');
-    });
-
-    it('sets title when cell text is ellipsized', async () => {
-        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        ({ element, connect, disconnect } = await setup([
-            { key: 'a', label: cellContents }
-        ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a' }]);
-        await connect();
-        await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
-        await waitForUpdatesAsync();
-        expect(pageObject.getCellTitle(0, 0)).toBe(cellContents);
-    });
-
-    it('does not set title when cell text is fully visible', async () => {
-        ({ element, connect, disconnect } = await setup([
-            { key: 'a', label: 'alpha' }
-        ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a' }]);
-        await connect();
-        await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
-        await waitForUpdatesAsync();
-        expect(pageObject.getCellTitle(0, 0)).toBe('');
-    });
-
-    it('removes title on mouseout of cell', async () => {
-        const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
-        ({ element, connect, disconnect } = await setup([
-            { key: 'a', label: cellContents }
-        ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'a' }]);
-        await connect();
-        await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
-        await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
-        await waitForUpdatesAsync();
-        expect(pageObject.getCellTitle(0, 0)).toBe('');
     });
 
     describe('various string values render as expected', () => {

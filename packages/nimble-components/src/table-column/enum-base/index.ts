@@ -23,8 +23,10 @@ export interface TableColumnEnumColumnConfig {
 /**
  * Base class for table columns that map values to content (e.g. nimble-table-column-enum-text and nimble-table-column-icon)
  */
-export abstract class TableColumnEnumBase
-    extends TableColumn<TableColumnEnumColumnConfig>
+export abstract class TableColumnEnumBase<
+    TColumnConfig extends TableColumnEnumColumnConfig
+>
+    extends TableColumn<TColumnConfig>
     implements Subscriber {
     /** @internal */
     @observable
@@ -67,6 +69,16 @@ export abstract class TableColumnEnumBase
         this.updateColumnConfig();
     }
 
+    protected abstract updateColumnConfig(): void;
+
+    protected get mappingConfigs(): MappingConfig[] {
+        const mappingConfigs: MappingConfig[] = [];
+        for (const mapping of this.mappings) {
+            mappingConfigs.push(mapping.getMappingConfig(this.keyType));
+        }
+        return mappingConfigs;
+    }
+
     private removeMappingObservers(): void {
         if (this.mappingNotifiers) {
             this.mappingNotifiers.forEach(notifier => {
@@ -87,18 +99,5 @@ export abstract class TableColumnEnumBase
             notifier.subscribe(this);
             this.mappingNotifiers.push(notifier);
         }
-    }
-
-    private updateColumnConfig(): void {
-        const convertedKeyMappings: MappingConfig[] = [];
-        for (const mapping of this.mappings) {
-            convertedKeyMappings.push(
-                mapping.getConvertedKeyMapping(this.keyType)
-            );
-        }
-
-        this.columnInternals.columnConfig = {
-            mappingConfigs: convertedKeyMappings
-        };
     }
 }

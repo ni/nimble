@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { TableColumnEnumBase } from '../enum-base';
+import { MappingConfig, TableColumnEnumBase, TableColumnEnumColumnConfig } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
@@ -27,7 +27,7 @@ declare global {
  * Table column that maps values to icons/spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    mixinFixedWidthColumnAPI(TableColumnEnumBase)
+    mixinFixedWidthColumnAPI(TableColumnEnumBase<TableColumnEnumColumnConfig>)
 ) {
     protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
         return [MappingIcon, MappingSpinner] as const;
@@ -63,6 +63,12 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             groupHeaderViewTag: tableColumnIconGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.basic
+        };
+    }
+
+    protected override updateColumnConfig(): void {
+        this.columnInternals.columnConfig = {
+            mappingConfigs: this.mappingConfigs
         };
     }
 

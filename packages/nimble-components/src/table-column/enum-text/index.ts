@@ -1,5 +1,10 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { TableColumnEnumBase } from '../enum-base';
+import { attr } from '@microsoft/fast-element';
+import {
+    MappingConfig,
+    TableColumnEnumBase,
+    TableColumnEnumColumnConfig
+} from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
@@ -21,12 +26,22 @@ declare global {
     }
 }
 
+export interface TableColumnEnumTextColumnConfig
+    extends TableColumnEnumColumnConfig {
+    placeholder: string;
+}
+
 /**
  * Table column that maps values to strings
  */
 export class TableColumnEnumText extends mixinGroupableColumnAPI(
-    mixinFractionalWidthColumnAPI(TableColumnEnumBase)
+    mixinFractionalWidthColumnAPI(
+        TableColumnEnumBase<TableColumnEnumTextColumnConfig>
+    )
 ) {
+    @attr
+    public placeholder?: string;
+
     protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
         return [MappingText] as const;
     }
@@ -78,6 +93,17 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
             this.mappings.map(x => x.key),
             this.keyType
         );
+    }
+
+    protected override updateColumnConfig(): void {
+        this.columnInternals.columnConfig = {
+            mappingConfigs: this.mappingConfigs,
+            placeholder: this.placeholder ?? ''
+        };
+    }
+
+    private placeholderChanged(): void {
+        this.updateColumnConfig();
     }
 
     private validateKeyDependentConditions(): void {

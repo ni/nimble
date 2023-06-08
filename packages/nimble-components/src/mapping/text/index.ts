@@ -4,7 +4,7 @@ import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { MappingConfig } from '../../table-column/enum-base';
 
-export interface ConvertedKeyMappingText extends MappingConfig {
+export interface MappingConfigText extends MappingConfig {
     label: string;
 }
 
@@ -22,14 +22,14 @@ export class MappingText extends Mapping {
     @attr()
     public label?: string;
 
-    public override getConvertedKeyMapping(
+    public override getMappingConfig(
         keyType: 'string' | 'number' | 'boolean'
     ): MappingConfig {
         return {
             key: Mapping.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
             label: this.label
-        } as ConvertedKeyMappingText;
+        } as MappingConfigText;
     }
 }
 

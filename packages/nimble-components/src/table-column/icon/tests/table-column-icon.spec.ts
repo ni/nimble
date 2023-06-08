@@ -267,6 +267,43 @@ describe('TableColumnIcon', () => {
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
         });
 
+        describe('catches invalid boolean key values:', () => {
+            const dataTypeTests = [
+                { name: '(blank)', key: '' },
+                { name: 'FALSE', key: 'FALSE' },
+                { name: '0', key: 0 }
+            ];
+            const focused: string[] = [];
+            const disabled: string[] = [];
+            for (const test of dataTypeTests) {
+                const specType = getSpecTypeByNamedList(
+                    test,
+                    focused,
+                    disabled
+                );
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                specType(` ${test.name}`, async () => {
+                    ({ element, connect, disconnect } = await setup(
+                        [
+                            {
+                                key: test.key,
+                                label: 'alpha',
+                                icon: 'nimble-icon-xmark'
+                            }
+                        ],
+                        'boolean'
+                    ));
+                    await connect();
+                    await waitForUpdatesAsync();
+                    const column = element.columns[0] as TableColumnIcon;
+                    expect(column.checkValidity()).toBeFalse();
+                    expect(
+                        column.validity.invalidMappingKeyValueForType
+                    ).toBeTrue();
+                });
+            }
+        });
+
         it('catches invalid numeric key values', async () => {
             ({ element, connect, disconnect } = await setup(
                 [{ key: 'a', label: 'alpha', icon: 'nimble-icon-xmark' }],

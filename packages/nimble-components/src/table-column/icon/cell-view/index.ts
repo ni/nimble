@@ -15,7 +15,7 @@ declare global {
 }
 
 /**
- * A cell view for displaying mapped elements
+ * The cell view for the icon column
  */
 export class TableColumnIconCellView extends TableCellView<
 TableColumnEnumCellRecord,

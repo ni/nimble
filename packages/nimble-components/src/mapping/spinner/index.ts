@@ -24,7 +24,7 @@ export class MappingSpinner extends Mapping {
     @attr()
     public label?: string;
 
-    public override getConvertedKeyMapping(
+    public override getMappingConfig(
         keyType: 'string' | 'number' | 'boolean'
     ): MappingConfig {
         return {

@@ -16,6 +16,7 @@ import { tableColumnTextTag } from '../../text';
 import { iconCheckLargeTag } from '../../../icons/check-large';
 import { iconQuestionTag } from '../../../icons/question';
 import { mappingIconTag } from '../../../mapping/icon';
+import { mappingSpinnerTag } from '../../../mapping/spinner';
 
 const simpleData = [
     {
@@ -76,7 +77,7 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 
 -   \`invalidMappingKeyValueForType\`: \`true\` a mapping has a \`key\` that is not of the \`key-type\` declared by the column
 -   \`multipleDefaultMappings\`: \`true\` when multiple mappings have the \`default-mapping\` attribute
--   \`unsupportedMappingType\`: \`true\` when the column contains a mapping element other than \`nimble-mapping-text\`
+-   \`unsupportedMappingType\`: \`true\` when the column contains a mapping element other than \`nimble-mapping-icon\` or \`nimble-mapping-spinner\`
 -   \`duplicateMappingKey\`: \`true\` when multiple mappings have the same \`key\` value
 -   \`missingKeyValue\`: \`true\` when a mapping has no \`key\` value, and it is not marked with \`default-mapping\`
 -   \`invalidIconName\`: \`true\` when a mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
@@ -104,6 +105,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
                 Status
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" label="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" label="Is a Simpson"></${mappingIconTag}>
+                <${mappingSpinnerTag} key="calculating" label="Calculating"></${mappingSpinnerTag}>
                 <${mappingIconTag} default-mapping icon="${iconQuestionTag}" label="Unknown"></${mappingIconTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">

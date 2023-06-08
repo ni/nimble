@@ -1,20 +1,9 @@
-import { html, ref, when } from '@microsoft/fast-element';
-
+import { html, when } from '@microsoft/fast-element';
 import type { TableColumnEnumTextGroupHeaderView } from '.';
+import { template as baseTemplate } from '../../text-base/group-header-view/template';
 
 // prettier-ignore
 export const template = html<TableColumnEnumTextGroupHeaderView>`
-    <span
-        ${ref('span')}
-        @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.getMappingToRender()?.label && x.span!.offsetWidth < x.span!.scrollWidth;
-    }}"
-        @mouseout="${x => {
-        x.isValidContentAndHasOverflow = false;
-    }}"
-        title=${x => (x.isValidContentAndHasOverflow ? x.getMappingToRender()?.label : null)}
-    >
-        ${x => x.getMappingToRender()?.label}
-    </span>
+    ${baseTemplate}
     ${when(x => x.getMappingToRender() == null, html<TableColumnEnumTextGroupHeaderView>`${x => x.groupHeaderValue}`)}
 `;

@@ -1,12 +1,10 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../../text-base/cell-view/styles';
 import { template } from '../../text-base/cell-view/template';
-import type {
-    TableColumnEnumCellRecord,
-    TableColumnEnumColumnConfig
-} from '../../enum-base';
-import type { ConvertedKeyMappingText } from '../../../mapping/text';
+import type { TableColumnEnumCellRecord } from '../../enum-base';
+import type { MappingConfigText } from '../../../mapping/text';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
+import type { TableColumnEnumTextColumnConfig } from '..';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,38 +17,36 @@ declare global {
  */
 export class TableColumnEnumTextCellView extends TableColumnTextCellViewBase<
 TableColumnEnumCellRecord,
-TableColumnEnumColumnConfig
+TableColumnEnumTextColumnConfig
 > {
     public override get text(): string {
-        return this.getMappingToRender()?.label ?? '';
+        return this.getMappingToRender()!.label;
     }
 
     public override get placeholder(): string {
-        throw Error('Unexpected member access');
+        return this.columnConfig.placeholder;
     }
 
-    // Overriding base class member
-    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
     public override get shouldUsePlaceholder(): boolean {
-        return false;
+        return this.getMappingToRender() === null;
     }
 
-    private getMappingToRender(): ConvertedKeyMappingText | null {
+    private getMappingToRender(): MappingConfigText | null {
         return this.getMatchingMapping() ?? this.getDefaultMapping();
     }
 
-    private getMatchingMapping(): ConvertedKeyMappingText | null {
+    private getMatchingMapping(): MappingConfigText | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.key === this.cellRecord.value
         );
-        return (found as ConvertedKeyMappingText) ?? null;
+        return (found as MappingConfigText) ?? null;
     }
 
-    private getDefaultMapping(): ConvertedKeyMappingText | null {
+    private getDefaultMapping(): MappingConfigText | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.defaultMapping
         );
-        return (found as ConvertedKeyMappingText) ?? null;
+        return (found as MappingConfigText) ?? null;
     }
 }
 

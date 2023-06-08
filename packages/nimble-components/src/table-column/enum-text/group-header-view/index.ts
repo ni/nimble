@@ -1,10 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { observable } from '@microsoft/fast-element';
-import { TableGroupHeaderView } from '../../base/group-header-view';
-import { styles } from './styles';
+import { styles } from '../../text-base/group-header-view/styles';
 import { template } from './template';
-import type { ConvertedKeyMappingText } from '../../../mapping/text';
+import type { MappingConfigText } from '../../../mapping/text';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
+import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
+import type { TableFieldValue } from '../../../table/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -15,8 +16,8 @@ declare global {
 /**
  * A group header view for enum columns
  */
-export class TableColumnEnumTextGroupHeaderView extends TableGroupHeaderView<
-string | number | boolean | null | undefined,
+export class TableColumnEnumTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
+TableFieldValue,
 TableColumnEnumColumnConfig
 > {
     /** @internal */
@@ -26,11 +27,25 @@ TableColumnEnumColumnConfig
     @observable
     public isValidContentAndHasOverflow = false;
 
-    public getMappingToRender(): ConvertedKeyMappingText | null {
+    public getMappingToRender(): MappingConfigText | null {
         const found = this.columnConfig?.mappingConfigs.find(
             x => x.key === this.groupHeaderValue
         );
-        return (found as ConvertedKeyMappingText) ?? null;
+        return (found as MappingConfigText) ?? null;
+    }
+
+    public override get text(): string {
+        return this.getMappingToRender()?.label ?? '';
+    }
+
+    public override get placeholder(): string {
+        throw Error('Placeholder not used');
+    }
+
+    // Rule incorrectly reports an error when overriding base class member
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+    public override get shouldUsePlaceholder(): boolean {
+        return false;
     }
 }
 

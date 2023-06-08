@@ -13,7 +13,7 @@ declare global {
 }
 
 /**
- * A group header view for enum columns
+ * The group header view for the icon column
  */
 export class TableColumnIconGroupHeaderView extends TableGroupHeaderView<
 string | number | boolean | null | undefined,
