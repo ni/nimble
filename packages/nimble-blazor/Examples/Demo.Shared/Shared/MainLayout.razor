@@ -6,6 +6,8 @@
 <PageTitle>Blazor All Components Demo - Nimble Design System - NI</PageTitle>
 
 <NimbleThemeProvider Theme="Theme">
+    <NimbleI18nCore NumberFieldIncrement="Inc (app-provided)"></NimbleI18nCore>
+    <NimbleI18nTable></NimbleI18nTable>
     <div class="root">
         <ExampleHeader @bind-Theme="Theme"></ExampleHeader>
         <ErrorBoundary @ref="ErrorBoundary">
