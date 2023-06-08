@@ -264,5 +264,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     elevation2BoxShadow:
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
-        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.'
+        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
+    graphGridlineColor: 'Gridline color for graphs'
 };

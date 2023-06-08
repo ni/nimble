@@ -3,8 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
 import { NimbleListOptionModule } from '../../list-option/nimble-list-option.module';
-import { waitTask } from '../../../async-test-utilities';
-import { processUpdates } from '../../../testing/async-helpers';
+import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
 import { OptionNotFound, OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
 
@@ -82,7 +81,7 @@ describe('Nimble combobox control value accessor', () => {
             combobox = testHostComponent.combobox.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {
@@ -275,7 +274,7 @@ describe('Nimble combobox control value accessor', () => {
             combobox = testHostComponent.combobox.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {
