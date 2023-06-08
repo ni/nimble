@@ -129,10 +129,8 @@ _Props/Attrs_
 
 _Methods_
 
--   `setMarkdown()` - sets the markdown input from the consumer component to preload the content in the editor.
+-   `setMarkdown()` - sets the markdown input from the consumer component which can be used for preloading the content.
 -   `getMarkdown()` - gets the processed markdown output from the component.
--   [`destroy()`](https://tiptap.dev/api/editor#destroy) - stops the editor instance and unbinds all events.
--   [`isEmpty()`](https://tiptap.dev/api/editor#is-empty) - obtains a boolean value indicating whether the editor is empty or not.
 
 _Events_
 
