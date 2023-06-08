@@ -19,7 +19,7 @@ including Comments and other instances that necessitate rich text capabilities.
 
 ### Non-goals
 
--   The visual design and interaction design for these components out of scope in nimble design system. However we have an
+-   The visual design and interaction design for these components are out of scope in nimble design system. However we have an
     [IxD workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) for SLE application that we will rely
     on.
 -   Blazor integration will be out of scope for this component as we have less or no experience in Blazor component development or other
@@ -85,20 +85,20 @@ The `nimble-rich-text-editor` will be divided into two sections namely an `edito
 2. `footer` section consists of `nimble-button` to control each text formatting functionalities like bold, italic etc,. and a
    `footer-actions` slot element which is typically used to add action buttons to the right bottom of the component.
 
-Here is the basic high level template used in this component:
+Here is the shadow DOM template used in `nimble-rich-text-editor` component:
 
 ```html
 <template>
     <section>
-        <div id="editor"></div>
+        <section id="editor"></section>
     </section>
     <footer>
-        <div id="toolbar">
+        <section id="toolbar">
             <nimble-button></nimble-button>
-        </div>
-        <div>
+        </section>
+        <section id="actions">
             <slot name="footer-actions"></slot>
-        </div>
+        </section>
     </footer>
 </template>
 ```
@@ -135,7 +135,7 @@ _Methods_
 _Events_
 
 -   `onChange` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
-    [transaction event](https://tiptap.dev/api/events#transaction).
+    [update event](https://tiptap.dev/api/events#update).
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
@@ -227,8 +227,8 @@ syntax in markdown:
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
 
-The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to a HTML Fragments with the help of
-`prosemirror-markdown` parser, which then converted to HTML string and rendered into the component to view all rich text content.
+The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
+`prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
 
 ### Prototype
 
@@ -323,8 +323,7 @@ visual states of the component.
 
 ### Tooling
 
-_Are there any special considerations for tooling? Will tooling changes need to be made? Is there a special way to light up this component
-in our tooling that would be compelling for developers/designers?_
+NA
 
 ### Documentation
 
