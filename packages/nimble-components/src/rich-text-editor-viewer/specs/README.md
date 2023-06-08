@@ -27,9 +27,8 @@ The `nimble-rich-text-editor` supports the basic text formatting options that in
 
 1. Bold
 2. Italics
-3. Strikeout
-4. Numbered List
-5. Bulleted List
+3. Numbered List
+4. Bulleted List
 
 This component will also offer APIs and interactive methods to format texts in the following ways:
 
@@ -43,7 +42,7 @@ This component will also offer APIs and interactive methods to format texts in t
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
 -   Support for adding hyperlinks to the existing words in the editor. However, adding raw links by pasting to the editor is supported.
--   Support for underlining the text.
+-   Support for striking out and underlining text.
 -   Provide APIs to make the buttons in the toolbar located below the editor to be hidden or disable.
 
 ### Risks and Challenges
@@ -220,7 +219,6 @@ syntax in markdown:
 
 -   Bold - `**Bold**`
 -   Italics - `*Italics*`
--   Strikeout - `~~Strikeout~~`
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
 
@@ -273,7 +271,6 @@ the supported text formatting's keyboard shortcuts in the table below.
 | Shift + Arrow keys      | To select the group of texts in the editor               |
 | Ctrl + B                | To make the selected text bold                           |
 | Ctrl + I                | To make the selected text italic                         |
-| Ctrl + Shift + X        | To strikeout the selected text                           |
 | Ctrl + Shift + 7        | To enable the focused paragraph a numbered list          |
 | Ctrl + Shift + 8        | To enable the focused paragraph a bulleted list          |
 | Tab (For lists)         | To create a sub point within a bulleted or numbered list |
