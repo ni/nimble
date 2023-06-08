@@ -8,13 +8,20 @@
 
 ### Background
 
+Collaboration is a key requirement in order for users to adopt a tool at scale and would help improve overall customer satisfaction with the product.
+The Comment Feature, designed for adding and viewing comments with rich text content, should be generic enough to be reused in several workflows.
+Therefore, it is essential to develop web components that allow users to view and create rich text content, enabling their use in various scenarios,
+including Comments and other instances that necessitate rich text capabilities.
+
 [Nimble issue #1288](https://github.com/ni/nimble/issues/1288)
 
 [Comments UI mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045)
 
 ### Non-goals
 
--   The visual and interaction design for `nimble-rich-text-editor` and `nimble-rich-text-viewer` is out of scope for this spec component.
+-   The visual design and interaction design for these components out of scope in nimble design system. However we have an
+    [IxD workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) for SLE application that we will rely
+    on.
 -   Blazor integration will be out of scope for this component as we have less or no experience in Blazor component development or other
     related technology. Blazor example app addition will also be not covered in this spec.
 -   Adding an example Angular client application for this component may not be included in the initial releases. However, the integration
@@ -43,18 +50,18 @@ This component will also offer APIs and interactive methods to format texts in t
 -   Support for adding images to the editor either by uploading or by pasting it.
 -   Support for adding hyperlinks to the existing words in the editor. However, adding raw links by pasting to the editor is supported.
 -   Support for striking out and underlining text.
--   Provide APIs to make the buttons in the toolbar located below the editor to be hidden or disable.
+-   Provide APIs to configure visibility/disabled state of toolbar buttons for rich text editor.
 
 ### Risks and Challenges
 
 -   Visual design and interaction design for both the components are out of scope for the initial release. We will start with the existing
     [mockup screens](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) which is designed for
-    comments feature. At this moment, we cannot afford to cover all the corner case of visual design specs but we managed to refer from
-    other visual designs and try to incorporate with the nimble standards.
--   Due to the immediate requirement for GM (`Comments Feature`), we are not adding any additional enhancements or feature requirements
-    apart from the mentioned features in the initial release.
+    comments feature considering customer requirements and deadlines. At this moment, we cannot afford to cover all the corner cases of visual design
+    specs. However we are organically referring to existing nimble components like `button`, `text-area` to provide a consistent visual design.
+-   Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is mentioned
+    in this spec are deferred to future scope.
 -   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We will
-    update this spec accordingly as progress is made.
+    update this spec accordingly based on the progress.
 
 ### Prior Art/Examples
 
