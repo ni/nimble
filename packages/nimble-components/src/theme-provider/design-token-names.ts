@@ -210,7 +210,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tableRowBorderColor: 'table-row-border-color',
     elevation1BoxShadow: 'elevation-1-box-shadow',
     elevation2BoxShadow: 'elevation-2-box-shadow',
-    elevation3BoxShadow: 'elevation-3-box-shadow'
+    elevation3BoxShadow: 'elevation-3-box-shadow',
+    graphGridlineColor: 'graph-gridline-color'
 };
 
 const prefix = 'ni-nimble';

@@ -26,7 +26,7 @@ export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.placeholder;
     }
 
-    public set placeholder(value: string | undefined) {
+    @Input() public set placeholder(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
