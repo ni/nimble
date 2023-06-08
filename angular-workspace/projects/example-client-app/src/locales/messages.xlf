@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="6018541405681438267" datatype="html">
+        <source>Decrement</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core-with-defaults.directive.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="529510153551286303" datatype="html">
+        <source>Increment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core-with-defaults.directive.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1213907293415212755" datatype="html">
+        <source>Collapse all groups</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/ni/nimble-angular/src/directives/i18n/table/nimble-i18n-table-with-defaults.directive.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

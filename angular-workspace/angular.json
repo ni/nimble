@@ -138,7 +138,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example-client-app:build"
+            "browserTarget": "example-client-app:build",
+            "outFile": "messages.xlf",
+            "outputPath": "projects/example-client-app/src/locales"
           }
         },
         "test": {

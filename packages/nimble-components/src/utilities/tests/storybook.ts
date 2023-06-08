@@ -8,6 +8,8 @@ import {
     backgroundStates,
     defaultBackgroundState
 } from './states';
+import { i18nCoreTag } from '../../i18n/core';
+import { i18nTableTag } from '../../i18n/table';
 
 /**
  * Renders a ViewTemplate as elements in a DocumentFragment.
@@ -62,6 +64,8 @@ export const createUserSelectedThemeStory = <TSource>(
                 theme="${getGlobalTheme(context)}"
                 class="code-hide-top-container"
             >
+                <${i18nCoreTag}></${i18nCoreTag}>
+                <${i18nTableTag}></${i18nTableTag}>
                 ${viewTemplate}
             </${themeProviderTag}>
         `;
@@ -86,6 +90,8 @@ export const createFixedThemeStory = <TSource>(
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
+                <${i18nCoreTag}></${i18nCoreTag}>
+                <${i18nTableTag}></${i18nTableTag}>
                 <style>
                     body {
                         /* Override storybook's padding styling */

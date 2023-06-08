@@ -9,7 +9,8 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
-    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule,
+    NimbleInternationalizationCoreModule, NimbleInternationalizationTableModule } from '@ni/nimble-angular';
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
@@ -69,6 +70,8 @@ import { HeaderComponent } from './header/header.component';
         NimbleTableColumnTextModule,
         NimbleTableColumnAnchorModule,
         NimbleBannerModule,
+        NimbleInternationalizationCoreModule,
+        NimbleInternationalizationTableModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },

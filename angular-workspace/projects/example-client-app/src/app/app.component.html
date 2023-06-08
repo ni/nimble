@@ -1,4 +1,6 @@
 <nimble-theme-provider [theme]="theme">
+    <nimble-i18n-core withDefaults [numberFieldIncrement]="'Inc (app-provided)'"></nimble-i18n-core>
+    <nimble-i18n-table withDefaults></nimble-i18n-table>
     <example-header [(theme)]="theme"></example-header>
     <div class="router-outlet-wrapper">
         <router-outlet></router-outlet>
