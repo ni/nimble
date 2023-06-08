@@ -1,4 +1,4 @@
-# Nimble Comments
+# Nimble Rich Text Editor and Nimble Rich Text Viewer
 
 ## Overview
 
