@@ -89,9 +89,7 @@ Here is the shadow DOM template used in `nimble-rich-text-editor` component:
 
 ```html
 <template>
-    <section>
-        <section id="editor"></section>
-    </section>
+    <section id="editor"></section>
     <footer>
         <section id="toolbar">
             <nimble-button></nimble-button>
