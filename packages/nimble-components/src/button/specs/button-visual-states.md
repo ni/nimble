@@ -15,7 +15,7 @@ The Visual Design spec for Nimble buttons now includes primary button states `pr
 There are three possible values for `appearance-variant` on a button: `default`, `primary`, and `primary-accent`, each with its own color scheme based on the UI theme.
 `primary` and `primary-accent` states of buttons are primary buttons, which can be used together up to 3 times on a page.
 
-The `primary` button can be used when there is a conflict with color and its context.
+The `primary` button should be the default choice when one button needs to be emphasized.
 The `primary-accent` button can be used in situations where a button needs to have the most prominent eye-catching approach, or when there is a lack of color.
 
 Ghost buttons will not have `primary` or `primary-accent` states.
@@ -38,7 +38,9 @@ Only the `nimble-button` and `nimble-anchor-button` components will have the new
 
 ## Alternative Implementations / Designs
 
-Can the new button states be placed in the appearance-variant attribute, or should a new attribute be created for this?
+We considered configuring these states via a new attribute but elected to use `appearance-variant` because its previous implementation is no longer used.
+
+We also considered calling the green button (Referencing Light UI) `primary` and the gray button (Referencing Light UI) `primary-accent`, but decided that calling the gray button (Referencing Light UI) `primary` made more sense. This is because it is used more often than `primary-accent`, and should be what the previous `primary` style changes to after the implementation of the new button designs.
 
 ## Open Issues
 
