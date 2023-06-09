@@ -226,8 +226,7 @@ NA
 ## Implementation
 
 We have chosen to utilize the [Tiptap](https://tiptap.dev/) rich text editor as the underlying third-party library for developing the
-`nimble-rich-text-editor`. This decision was made due to its extensive range of customization options over other third party libraries for
-rich text editing and it is the ideal choice for meeting our specific use cases and some are mentioned below:
+`nimble-rich-text-editor`. This decision was made due to its extensive range of customization options compared to other third-party libraries for rich text editing, making it the ideal choice for meeting our specific use cases. Some of the mentioned use cases are outlined below:
 
 1. Includes all [basic functionalities](https://tiptap.dev/) like bold, italics, numbered and bulleted lists etc.
 2. Includes support to work seamlessly inside the `shadow root`.
@@ -241,10 +240,16 @@ rich text editing and it is the ideal choice for meeting our specific use cases 
 The `nimble-rich-text-editor` is initialized by creating an instance of the [Editor](https://tiptap.dev/api/editor#introduction) class from
 the Tiptap's core library. With that we have access to all the APIs exposed, by utilizing some of their extensions like
 [StarterKit](https://tiptap.dev/api/extensions/starter-kit) which is a collection of most popular Tiptap extensions includes bold, italics
-and all other basic rich text formatting options. All these formatting options([marks](https://tiptap.dev/api/marks)) can also be accessed individually.
+and all other basic rich text formatting options. All these formatting options can also be accessed individually through tiptap's
+[marks](https://tiptap.dev/api/marks) and [nodes](https://tiptap.dev/api/nodes).
+
+-   The term `Marks` in the tiptap are formatting styles applied to specific portions of text, such as bold, italic, or underlined.
+-   `Nodes` in the tiptap editor are the building blocks of the document structure, representing different types of content elements like paragraphs,
+    headings, lists, images, and more.
 
 The rich text content entered in the editor is converted to markdown output using
-[prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer. Here is the reference for basic formatting syntax in markdown:
+[prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer. Here is the reference for the supported formatting schema in the
+markdown based on [CommonMark](http://commonmark.org/) format:
 
 -   Bold - `**Bold**`
 -   Italics - `*Italics*`
@@ -325,10 +330,11 @@ strings may be used for tooltips to enable localization, which will be managed t
 ### Security
 
 -   Prose mirror uses markdown-it for converting markdown to HTML and HTML to markdown. We will follow the
-    [security guidelines of markdown-it](https://github.com/markdown-it/markdown-it/blob/master/docs/security.md#security) to turn off HTML at source as
-    given in the API docs.
--   For additional safety, use [sanitize-html](https://www.npmjs.com/package/sanitize-html) package to whitelist only specific html tags on need basis or
-    completely disallow any html tags.
+    [security guidelines of markdown-it](https://github.com/markdown-it/markdown-it/blob/master/docs/security.md#security) to turn
+    off HTML at source as given in the [API docs](https://markdown-it.github.io/markdown-it/#MarkdownIt.new). Prosemirror-markdown follows the same as shown in this
+    [specific line of code](https://github.com/ProseMirror/prosemirror-markdown/blob/26e58302399b7d9a9b3bc8fc3bf5807627ca29e5/src/from_markdown.ts#L245).
+-   For additional safety, using [sanitize-html](https://www.npmjs.com/package/sanitize-html) package to whitelist only specific html
+    tags on need basis or completely disallow any html tags.
 
 ### Performance
 
