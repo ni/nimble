@@ -49,7 +49,12 @@ This component will also offer APIs and interactive methods to format texts in t
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
 -   Support for adding hyperlinks to the existing words in the editor. However, adding raw links by pasting to the editor is supported.
--   Support for striking out and underlining text.
+-   Support for striking out and underlining text. The reason for including these features in future scope that we utilize the
+    [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
+    versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
+    [documentation](https://github.com/ProseMirror/prosemirror-markdown#documentation), does not include support for strikeout and underline. To
+    address this limitation, we need to extend the class and add the necessary nodes to both the serializer and parser which will be added in the
+    subsequent releases.
 -   Provide APIs to configure visibility/disabled state of toolbar buttons for rich text editor.
 
 ### Risks and Challenges
@@ -117,9 +122,9 @@ _nimble-rich-text-viewer_
 The `nimble-rich-text-viewer` is used for viewing rich text content when markdown string is passed to it. It performs the post-processing
 tasks to convert the markdown string to corresponding HTML nodes for each text formatting.
 
-### API
+### `nimble-rich-text-editor`
 
-#### `nimble-rich-text-editor`
+### API
 
 _Props/Attrs_
 
@@ -132,14 +137,44 @@ _Methods_
 
 _Events_
 
--   `onChange` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
-    [update event](https://tiptap.dev/api/events#update).
+-   `change` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
+    [update event](https://tiptap.dev/api/events#update). Below is a scenarios of event triggers for the update event, indicating when they do and do not
+    occur:
+    1.  Event triggered when there is a change in the content of the editor like adding, deleting, updating or formatting the text.
+    2.  Event will not triggered when there are no change made to the content of the editor like all mouse events, selecting the texts, state changes.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
 -   none
 
-#### `nimble-rich-text-viewer`
+### Anatomy
+
+_Slot Names_
+
+-   `footer-actions`:
+    1. It is a container that allows a client to easily place buttons at the right bottom of the component to interact with the editor.
+    2. If no content is slotted in the footer-actions, the element will be emptied and shrunk to accommodate buttons from the
+       toolbar.
+    3. If content is slotted in the footer-actions, it will occupy a maximum of thirty percent of the entire horizontal footer. If
+       there are additional elements beyond this limit, they will be positioned below within the same footer-actions container.
+
+_Note_: The positioning of these slot elements in the mobile view of the component has not yet been confirmed.
+
+_Host Classes_
+
+-   none
+
+_Slotted Content/Slotted Classes_
+
+-   none
+
+_CSS Parts_
+
+-   none
+
+### `nimble-rich-text-viewer`
+
+### API
 
 _Props/Attrs_
 
@@ -159,18 +194,9 @@ _CSS Classes and CSS Custom Properties that affect the component_
 
 ### Anatomy
 
-#### `nimble-rich-text-editor`
-
 _Slot Names_
 
--   `footer-actions`:
-    1. It is a container that allows a client to easily place buttons at the right bottom of the component to interact with the editor.
-    2. If no content is slotted in the footer-actions, the element will be emptied and shrunk to accommodate buttons from the
-       toolbar.
-    3. If content is slotted in the footer-actions, it will occupy a maximum of thirty percent of the entire horizontal footer. If
-       there are additional elements beyond this limit, they will be positioned below within the same footer-actions container.
-
-_Note_: The positioning of these slot elements in the mobile view of the component has not yet been confirmed.
+-   none
 
 _Host Classes_
 
@@ -199,7 +225,7 @@ NA
 
 ## Implementation
 
-We have chosen to utilize the [`Tiptap`](https://tiptap.dev/) rich text editor as the underlying third-party library for developing the
+We have chosen to utilize the [Tiptap](https://tiptap.dev/) rich text editor as the underlying third-party library for developing the
 `nimble-rich-text-editor`. This decision was made due to its extensive range of customization options over other third party libraries for
 rich text editing and it is the ideal choice for meeting our specific use cases and some are mentioned below:
 
@@ -215,10 +241,10 @@ rich text editing and it is the ideal choice for meeting our specific use cases 
 The `nimble-rich-text-editor` is initialized by creating an instance of the [Editor](https://tiptap.dev/api/editor#introduction) class from
 the Tiptap's core library. With that we have access to all the APIs exposed, by utilizing some of their extensions like
 [StarterKit](https://tiptap.dev/api/extensions/starter-kit) which is a collection of most popular Tiptap extensions includes bold, italics
-and all other basic rich text formatting options. All these options([marks](https://tiptap.dev/api/marks)) can also be accessed individually.
+and all other basic rich text formatting options. All these formatting options([marks](https://tiptap.dev/api/marks)) can also be accessed individually.
 
-The rich text content entered in the editor is converted to markdown output using `prosemirror-markdown` serializer. Here is the reference for basic formatting
-syntax in markdown:
+The rich text content entered in the editor is converted to markdown output using
+[prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer. Here is the reference for basic formatting syntax in markdown:
 
 -   Bold - `**Bold**`
 -   Italics - `*Italics*`
@@ -241,6 +267,9 @@ The prototype includes the below functionalities,
 5. `Shadow root` support - The prototype uses [Microsoft Fast](https://github.com/microsoft/fast) to create the rich text editor as a
    custom component that renders in the shadow root.
 6. `Top layer` support - Hyperlink using `nimble-dialog` which renders the popup in top layer.
+
+**_Note_**: This prototype is not made in a responsive fashion for smaller screens and is intended only for testing the specific functionalities listed
+above.
 
 ### States
 
@@ -295,7 +324,11 @@ strings may be used for tooltips to enable localization, which will be managed t
 
 ### Security
 
--   none
+-   Prose mirror uses markdown-it for converting markdown to HTML and HTML to markdown. We will follow the
+    [security guidelines of markdown-it](https://github.com/markdown-it/markdown-it/blob/master/docs/security.md#security) to turn off HTML at source as
+    given in the API docs.
+-   For additional safety, use [sanitize-html](https://www.npmjs.com/package/sanitize-html) package to whitelist only specific html tags on need basis or
+    completely disallow any html tags.
 
 ### Performance
 
