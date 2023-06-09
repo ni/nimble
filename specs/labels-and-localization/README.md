@@ -53,8 +53,6 @@ We will also create new `nimble-i18n-*` elements with APIs for setting the token
 Pros:
 - Can configure once for the whole page in one spot, does not need to be per control. Much fewer duplicated attributes / slotted elements in the page.
 - Can override for specific elements as needed (by wrapping in `nimble-theme-provider` and `nimble-i18n-*` elements)
-- Can configure to be attribute or slotted on the theme provider. But if don't need mixed content then attribute makes sense.
-- User provided control-specific content should still be provided via attributes / slots. This is for control provided content (i.e. the table control defines the collapse button, not the user).
 - We can make more granular i18n providers, even down to the level of individual controls, if we're concerned about the number of strings apps would be automatically pulling in. (Note that currently we're just planning to have 2 though.)
 - Code outside of Nimble could use the same concept (and derive from our i18n base class). If we end up with new controls in Nimble that are mostly specific to specific apps, we can also create new i18n providers for those elements, rather than sticking them all in the `i18n-core` element.
 
@@ -122,7 +120,7 @@ We'll define a base class (prototype: [i18n-base.ts](https://github.com/ni/nimbl
 Each i18n provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core.module.ts) for `i18n-core`.)
 
 In order to make it easy/automatic for clients to pick up new localized strings/labels when they uptake new nimble-angular versions, each i18n provider has an additional directive that will set all of the Nimble-defined labels/strings, using Angular's `$localize` function on the English strings.  
-Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core.module.ts)
+Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core-with-defaults.directive.ts)
 
 For each i18n provider that an Angular app will use:
 - The app imports that specific i18n module. This will result in the app pulling in the Nimble-provided labels/strings for localization when they run `ng extract-i18n`, due to the `with-defaults.directive` using `$localize`. When they pull in new nimble-angular versions in the future, new strings in the same i18n provider will automatically get pulled in too.
