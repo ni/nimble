@@ -23,7 +23,7 @@ Outline and Block buttons in the Color UI will not have a `primary-accent` state
 
 These limitations will be included in the description of `appearance-variant`, and if their values are selected, the button will change to the `default` value for `appearance-variant`.
 
-The current `appearance-variant` attribute will be used to hold these new states, as its previous implementation purpose is no longer used.
+The current `appearance-variant` attribute will be used to hold these new states, as its previous implementation purpose is no longer used. Previously existing instances of `primary` buttons using this attribute will automatically use the new `primary` button styling with no modifications required.
 
 Only the `nimble-button` and `nimble-anchor-button` components will have the new visual design states.
 
