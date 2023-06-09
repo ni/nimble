@@ -12,6 +12,7 @@ import '@angular/localize/init';
 })
 export class NimbleInternationalizationCoreWithDefaultsDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<InternationalizationCore>) {
+        this.elementRef.nativeElement.bannerDismiss = $localize`Close`;
         this.elementRef.nativeElement.numberFieldDecrement = $localize`Decrement`;
         this.elementRef.nativeElement.numberFieldIncrement = $localize`Increment`;
     }

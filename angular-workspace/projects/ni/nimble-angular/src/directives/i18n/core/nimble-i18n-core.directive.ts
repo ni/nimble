@@ -13,6 +13,14 @@ export class NimbleInternationalizationCoreDirective {
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<InternationalizationCore>) {
     }
 
+    public get bannerDismiss(): string {
+        return this.elementRef.nativeElement.bannerDismiss;
+    }
+
+    @Input() public set bannerDismiss(value: string) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'bannerDismiss', value);
+    }
+
     public get numberFieldIncrement(): string {
         return this.elementRef.nativeElement.numberFieldIncrement;
     }
