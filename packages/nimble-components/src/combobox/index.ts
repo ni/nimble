@@ -190,6 +190,28 @@ export class Combobox
         return returnValue;
     }
 
+    // Overriding FAST's method to remove clearing the selected index.
+    // Clearing the index results in losing the highlight of the matching item.
+    // It's not clear what their intent was.
+    public override keyupHandler(e: KeyboardEvent): void {
+        const key = e.key;
+
+        switch (key) {
+            case 'ArrowLeft':
+            case 'ArrowRight':
+            case 'Backspace':
+            case 'Delete':
+            case 'Home':
+            case 'End':
+                // Using index notation to access private member
+                // eslint-disable-next-line @typescript-eslint/dot-notation
+                this['filter'] = this.control.value;
+                this.filterOptions();
+                break;
+            default:
+        }
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public override focusoutHandler(e: FocusEvent): boolean | void {
         const returnValue = super.focusoutHandler(e);
