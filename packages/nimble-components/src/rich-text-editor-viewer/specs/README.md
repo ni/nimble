@@ -49,7 +49,7 @@ This component will also offer APIs and interactive methods to format texts in t
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
 -   Support for adding hyperlinks to the existing words in the editor. However, adding raw links by pasting to the editor is supported.
--   Support for striking out and underlining text. The reason for including these features in future scope that we utilize the
+-   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
     [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
     versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
     [documentation](https://github.com/ProseMirror/prosemirror-markdown#documentation), does not include support for strikeout and underline. To
@@ -63,10 +63,11 @@ This component will also offer APIs and interactive methods to format texts in t
     [mockup screens](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) which is designed for
     comments feature considering customer requirements and deadlines. At this moment, we cannot afford to cover all the corner cases of visual design
     specs. However we are organically referring to existing nimble components like `button`, `text-area` to provide a consistent visual design.
--   Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is mentioned
+-   Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is
+    mentioned
     in this spec are deferred to future scope.
--   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We will
-    update this spec accordingly based on the progress.
+-   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We
+    will update this spec accordingly based on the progress.
 
 ### Prior Art/Examples
 
@@ -138,10 +139,10 @@ _Methods_
 _Events_
 
 -   `change` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
-    [update event](https://tiptap.dev/api/events#update). Below is a scenarios of event triggers for the update event, indicating when they do and do not
-    occur:
+    [update event](https://tiptap.dev/api/events#update). Below are few scenarios to understand when an update event will trigger or not trigger:
     1.  Event triggered when there is a change in the content of the editor like adding, deleting, updating or formatting the text.
-    2.  Event will not triggered when there are no change made to the content of the editor. For example, all mouse events, selecting the texts, state changes etc,.
+    2.  Event will not triggered when there are no change made to the content of the editor. For example, all mouse events, selecting the texts, state
+        changes etc,.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
@@ -226,7 +227,8 @@ NA
 ## Implementation
 
 We have chosen to utilize the [Tiptap](https://tiptap.dev/) rich text editor as the underlying third-party library for developing the
-`nimble-rich-text-editor`. This decision was made due to its extensive range of customization options compared to other third-party libraries for rich text editing, making it the ideal choice for meeting our specific use cases. Some of the mentioned use cases are outlined below:
+`nimble-rich-text-editor`. This decision was made due to its extensive range of customization options compared to other third-party libraries for rich
+text editing, making it the ideal choice for meeting our specific use cases. Some of the mentioned use cases are outlined below:
 
 1. Includes all [basic functionalities](https://tiptap.dev/) like bold, italics, numbered and bulleted lists etc.
 2. Includes support to work seamlessly inside the `shadow root`.
@@ -331,10 +333,11 @@ strings may be used for tooltips to enable localization, which will be managed t
 
 -   Prose mirror uses markdown-it for converting markdown to HTML and HTML to markdown. We will follow the
     [security guidelines of markdown-it](https://github.com/markdown-it/markdown-it/blob/master/docs/security.md#security) to turn
-    off HTML at source as given in the [API docs](https://markdown-it.github.io/markdown-it/#MarkdownIt.new). Prosemirror-markdown follows the same as shown in this
+    off HTML at source as given in the [API docs](https://markdown-it.github.io/markdown-it/#MarkdownIt.new). Prosemirror-markdown follows the same as
+    shown in this
     [specific line of code](https://github.com/ProseMirror/prosemirror-markdown/blob/26e58302399b7d9a9b3bc8fc3bf5807627ca29e5/src/from_markdown.ts#L245).
--   For additional safety, using [sanitize-html](https://www.npmjs.com/package/sanitize-html) package to whitelist only specific html
-    tags on need basis or completely disallow any html tags.
+-   For additional safety we may use [sanitize-html](https://www.npmjs.com/package/sanitize-html) package on need basis if HTML is turned on. This will
+    whitelist only specific html tags needed for rich text markdown.
 
 ### Performance
 
@@ -350,7 +353,8 @@ library. For the currently supported features, we will include the following lib
 -   @tiptap/pm
 -   @tiptap/starter-kit
 
-**_Note_**: For markdown parser and serializer, [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) internal dependencies will be installed along with this.
+**_Note_**: For markdown parser and serializer, [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) internal dependencies will be
+installed along with this.
 
 ### Test Plan
 
