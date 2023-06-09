@@ -19,7 +19,7 @@ including Comments and other instances that necessitate rich text capabilities.
 
 ### Non-goals
 
--   The visual design and interaction design for these components are out of scope in nimble design system. However we have an
+-   The visual design and interaction design for these components are out of scope for the initial release. However we have an
     [IxD workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) for SLE application that we will rely
     on.
 -   Blazor integration will be out of scope for this component as we have less or no experience in Blazor component development or other
