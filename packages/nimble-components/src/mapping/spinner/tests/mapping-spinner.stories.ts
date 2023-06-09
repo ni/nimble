@@ -1,12 +1,10 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    usageWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
+import { hiddenWrapper } from '../../../utilities/tests/hidden';
 
-const metadata: Meta<MappingSpinnerArgs> = {
-    title: 'Ignore',
+const metadata: Meta = {
+    title: 'Tests/Mappings',
     parameters: {
         docs: {
             description: {
@@ -19,14 +17,8 @@ const metadata: Meta<MappingSpinnerArgs> = {
 
 export default metadata;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface MappingSpinnerArgs {}
-
-export const spinnerMapping: StoryObj<MappingSpinnerArgs> = {
-    // prettier-ignore
-    render: createUserSelectedThemeStory(html<MappingSpinnerArgs>`
-        ${usageWarning('table')}
-    `),
+export const spinnerMapping: StoryObj = {
+    render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
             description:
