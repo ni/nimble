@@ -217,7 +217,7 @@ not be created.
 
 ### Blazor integration
 
-A Blazor wrapper will not be created for the component.
+A Blazor wrapper will not be created for these components.
 
 ### Visual Appearance
 
