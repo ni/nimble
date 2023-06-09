@@ -141,7 +141,7 @@ _Events_
     [update event](https://tiptap.dev/api/events#update). Below is a scenarios of event triggers for the update event, indicating when they do and do not
     occur:
     1.  Event triggered when there is a change in the content of the editor like adding, deleting, updating or formatting the text.
-    2.  Event will not triggered when there are no change made to the content of the editor like all mouse events, selecting the texts, state changes.
+    2.  Event will not triggered when there are no change made to the content of the editor. For example, all mouse events, selecting the texts, state changes etc,.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
