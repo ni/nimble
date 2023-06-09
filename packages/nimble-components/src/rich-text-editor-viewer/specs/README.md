@@ -300,7 +300,7 @@ _Keyboard accessibility and shortcuts for text formatting_
 
 All the basic keyboard accessibility for the tiptap rich text editor is mentioned in their
 [keyboard shortcut](https://tiptap.dev/api/keyboard-shortcuts#predefined-keyboard-shortcuts) page. To facilitate easy access, listed down
-the supported text formatting's keyboard shortcuts in the table below.
+the supported text formatting keyboard shortcuts in the tiptap editor.
 
 | Key                     | Behavior                                                 |
 | ----------------------- | -------------------------------------------------------- |
