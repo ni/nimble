@@ -91,7 +91,7 @@ const complexContent = html<TooltipArgs>`
 `;
 
 const metadata: Meta<TooltipArgs> = {
-    title: 'Tooltip',
+    title: 'Incubating/Tooltip',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
