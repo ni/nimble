@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Created a generic Tracker class, extended it to a validator and an update tracker and implemented them in the table",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
