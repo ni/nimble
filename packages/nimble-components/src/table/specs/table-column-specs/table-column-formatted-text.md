@@ -195,7 +195,6 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
     -   `'custom'` - use [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) configured with values specified in other attributes. Will be displayed left-aligned by default (since Nimble can't know if the provided configuration will produce consistent decimal separators).
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. For all modes besides `custom` Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887) (e.g. `useGrouping: false` to achieve `1000` rather than `1,000` and `signDisplay: auto` to achieve `1` rather than `+1`).
--   `locales` - a string containing a comma-separated list of locales to pass to the [`locales` parameter of the `Intl.NumberFormat` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_identification_and_negotiation) which is used by all format modes. This means numbers will be formatted with locale-specific decimal separators.
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2.
 -   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `Intl.NumberFormat` constructor. For example, `options.maximumFractionDigits` will be set to the value of `custom-maximum-fraction-digits`. These fields are all string, boolean, or number and their property equivalents will be strictly typed. Initially the column will expose configurations that are [not marked experimental](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#browser_compatibility).
 
@@ -225,7 +224,6 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
     <nimble-table-column-number-text
         field-name="voltage"
         format="custom"
-        locales="en-US"
         custom-style="decimal"
         custom-use-grouping="false"
         suffix=" V"
@@ -249,7 +247,6 @@ We considered allowing clients to provide date values using native date types li
     -   `undefined` - use the default formatter, which will display values similar to `Dec 19, 2020, 9:23:16 PM` and include support for localization. It will be implemented using `Intl.DateTimeFormat` with `options.dateStyle` and `options.timeStyle` set to `"medium"`.
     -   `'custom'` - use [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) configured with values specified in other attributes.
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
--   `locales` - a string containing a comma-separated list of locales to pass to the [`locales` parameter of the `Intl.DateTimeFormat` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_identification_and_negotiation) which is used by all format modes.
 -   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `Intl.DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `custom-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
 This column will display the `placeholder` for a date when `isNaN(new Date(value))` returns `true` (i.e. if the value is `undefined`, not present, has a non-`number` runtime data type, or is a `number` that produces an invalid `Date` like `NaN`/`Infinity`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)). Note that `new Date(null)` is valid and is the same as `new Date(0)`.
@@ -267,7 +264,6 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
     <nimble-table-column-date-text
         field-name="dueDate"
         format="custom"
-        locales="en-US"
         custom-date-style="full"
     >
         Due Date
@@ -278,6 +274,14 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 #### Elapsed Time Column
 
 Nimble could introduce a column type that maps time duration to localized strings (e.g. "1 minute, 10 seconds"). Its API will be discussed in a future update to this document. It might use [Temporal duration values](https://tc39.es/proposal-temporal/docs/duration.html) formatted with [`Intl.DurationFormat`](https://tc39.es/proposal-intl-duration-format/) but those APIs are not yet approved for implementation in browsers. The [`Intl.RelativeTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat) also looks promising but it includes relative words like "ago" and "in" which are difficult to remove, even when using [`formatToParts`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat/formatToParts).
+
+#### Specifying locale
+
+The columns described above will format numbers, dates, and times differently depending on the locale. To specify the locale, the column implementations will read a Nimble configuration design token for locale and pass its value to the `locales` input of the `Intl.NumberFormat` or `Intl.DateTimeFormat` constructor. If the value of that token changes on the column element, the column will re-render with the new locale.
+
+The design token for configuring locale will be a new token following the patterns described in [Automatic theme / Runtime Configuration HLD](https://github.com/ni/nimble/pull/1257) for tokens like `theme` and `direction`. Its attribute name on the theme provider will be `locale`. It will be a string expected to conform with the [BCP 47 locale format](https://en.wikipedia.org/wiki/IETF_language_tag) (e.g. `en-us` or `de`). Its initial value will be set by reading the `lang` attribute from the page's `<html>` element.
+
+_Alternative_: We considered naming the token attribute `lang` to match the [HTML global attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) but decided against it to help signal that this is a Nimble "proprietary" attribute that has its own rules for inheritance (it can only be set on theme provider elements, not arbitrary HTML elements).
 
 ---
 
