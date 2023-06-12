@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Jun 2023 15:12:03 GMT",
+      "tag": "@ni/nimble-components_v19.2.1",
+      "version": "19.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a37e74d4521ced985ac0f919f2d1da355ead8d0a",
+            "comment": "Documentation updates for policies around incubating components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Jun 2023 13:16:59 GMT",
       "tag": "@ni/nimble-components_v19.2.1",
       "version": "19.2.1",
