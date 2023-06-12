@@ -84,7 +84,7 @@ const getHighLightedValueSets = (
 };
 
 const metadata: Meta<WaferMapArgs> = {
-    title: 'WaferMap',
+    title: 'Incubating/Wafer Map',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
