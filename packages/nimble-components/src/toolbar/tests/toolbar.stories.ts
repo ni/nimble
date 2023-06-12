@@ -24,7 +24,7 @@ ${toolbarTag}::part(positioning-region) {
 \``;
 
 const metadata: Meta = {
-    title: 'Toolbar',
+    title: 'Components/Toolbar',
     tags: ['autodocs'],
     parameters: {
         docs: {
