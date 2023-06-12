@@ -146,7 +146,7 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 ${howToOverride}
 </details>`;
 
-export const usageWarning = (componentName: string): string => `
+export const usageWarning = (componentName: string, issueLink: string): string => `
 <style class="code-hide">
 #usage-warning {
     color: red;
@@ -154,8 +154,8 @@ export const usageWarning = (componentName: string): string => `
 }
 </style>
 <div id="usage-warning" class="code-hide">
-WARNING - The ${componentName} is still in development and considered
-experimental. It is not recommended for application use.
+WARNING - The ${componentName} is still incubating. It is not recommended for application use. 
+For more information on its status, see <a href="${issueLink}">this issue</a>.
 </div>`;
 
 // On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown

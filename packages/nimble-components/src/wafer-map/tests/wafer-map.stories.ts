@@ -99,7 +99,7 @@ const metadata: Meta<WaferMapArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        ${usageWarning('wafer map')}
+        ${usageWarning('wafer map', 'https://github.com/ni/nimble/issues/924')}
         <${waferMapTag}
             id="wafer-map"
             colors-scale-mode="${x => x.colorScaleMode}"
