@@ -146,10 +146,12 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 ${howToOverride}
 </details>`;
 
-export const incubatingWarning = (
-    componentName: string,
-    statusLink: string
-): string => `
+export interface IncubatingWarningConfig {
+    componentName: string;
+    statusLink: string;
+}
+
+export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 <style class="code-hide">
 #incubating-warning {
     color: red;
@@ -157,8 +159,8 @@ export const incubatingWarning = (
 }
 </style>
 <div id="incubating-warning" class="code-hide">
-WARNING - The ${componentName} is still incubating. It is not recommended for application use. 
-For more information on its status, <a href="${statusLink}">see here</a>.
+WARNING - The ${config.componentName} is still incubating. It is not recommended for application use. 
+For more information on its status, <a href="${config.statusLink}">see here</a>.
 </div>`;
 
 // On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown

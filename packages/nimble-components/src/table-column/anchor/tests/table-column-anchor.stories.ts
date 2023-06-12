@@ -106,7 +106,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

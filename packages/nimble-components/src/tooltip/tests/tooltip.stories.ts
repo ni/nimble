@@ -109,10 +109,10 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        ${incubatingWarning(
-        'tooltip',
-        'https://github.com/ni/nimble/issues/309'
-    )}
+        ${incubatingWarning({
+        componentName: 'tooltip',
+        statusLink: 'https://github.com/ni/nimble/issues/309'
+    })}
         <div ${ref('anchorRef')} id="${x => x.getUniqueId(x.anchorRef)}">
             Hover here to see ${x => x.content} tooltip
         </div>

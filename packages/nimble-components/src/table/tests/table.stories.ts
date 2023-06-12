@@ -140,7 +140,7 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"

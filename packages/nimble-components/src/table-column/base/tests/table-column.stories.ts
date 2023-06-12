@@ -95,7 +95,7 @@ const metadata: Meta<SharedTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SharedTableArgs>`
-    ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+    ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
     <${tableTag}
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
@@ -169,7 +169,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnOrderTableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -242,7 +242,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<HeaderContentTableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -301,7 +301,7 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<CommonAttributesTableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -417,7 +417,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SortingTableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -604,7 +604,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<GroupingTableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -728,7 +728,7 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnWidthTableArgs>`
-        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
