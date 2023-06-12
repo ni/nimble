@@ -4,7 +4,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../utilities/tests/storybook';
 import {
     borderColor,
@@ -109,7 +109,10 @@ const metadata: Meta<TooltipArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html<TooltipArgs>`
-        ${usageWarning('tooltip', 'https://github.com/ni/nimble/issues/309')}
+        ${incubatingWarning(
+        'tooltip',
+        'https://github.com/ni/nimble/issues/309'
+    )}
         <div ${ref('anchorRef')} id="${x => x.getUniqueId(x.anchorRef)}">
             Hover here to see ${x => x.content} tooltip
         </div>

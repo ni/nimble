@@ -146,14 +146,17 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 ${howToOverride}
 </details>`;
 
-export const usageWarning = (componentName: string, issueLink: string): string => `
+export const incubatingWarning = (
+    componentName: string,
+    issueLink: string
+): string => `
 <style class="code-hide">
-#usage-warning {
+#incubating-warning {
     color: red;
     font: var(${bodyFont.cssCustomProperty});
 }
 </style>
-<div id="usage-warning" class="code-hide">
+<div id="incubating-warning" class="code-hide">
 WARNING - The ${componentName} is still incubating. It is not recommended for application use. 
 For more information on its status, see <a href="${issueLink}">this issue</a>.
 </div>`;
