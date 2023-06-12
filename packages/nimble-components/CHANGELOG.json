@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 12 Jun 2023 19:23:49 GMT",
+      "tag": "@ni/nimble-components_v19.2.1",
+      "version": "19.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1afce1d97c8d6d91841d4eb9aa13c5074deb6e1b",
+            "comment": "Reorganize Storybook to support Incubating components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Jun 2023 15:12:03 GMT",
       "tag": "@ni/nimble-components_v19.2.1",
       "version": "19.2.1",
