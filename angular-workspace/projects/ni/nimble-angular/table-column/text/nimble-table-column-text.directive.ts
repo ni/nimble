@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-column/text';
-import { NimbleTableColumnBaseDirective } from '../base/nimble-table-column-base.directive';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 
 export type { TableColumnText };
 
@@ -26,7 +26,7 @@ export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirecti
         return this.elementRef.nativeElement.placeholder;
     }
 
-    public set placeholder(value: string | undefined) {
+    @Input() public set placeholder(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 

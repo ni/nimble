@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { NimbleTableColumnTextModule } from '../nimble-table-column-text.module';
 import { NimbleTableColumnTextDirective, TableColumnText } from '../nimble-table-column-text.directive';
-import { TableColumnSortDirection } from '../../base/nimble-table-column-base.directive';
+import { TableColumnSortDirection } from '../../nimble-table-column-base.directive';
 
 describe('NimbleTableColumnText', () => {
     describe('module', () => {

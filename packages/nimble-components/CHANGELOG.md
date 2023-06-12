@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 23 May 2023 16:09:57 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Jun 2023 07:49:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.0
+
+Fri, 02 Jun 2023 07:49:02 GMT
+
+### Minor changes
+
+- added a design token for graph gridlines ([ni/nimble@a3264e1](https://github.com/ni/nimble/commit/a3264e123c5c3170d3957c238b2bd793e6d294f1))
+
+## 19.1.3
+
+Thu, 01 Jun 2023 14:41:19 GMT
+
+### Patches
+
+- Clear combobox filter when value set programatically ([ni/nimble@2c5206b](https://github.com/ni/nimble/commit/2c5206bd71fd9e97ed0dffbe21fbaa253b893652))
+
+## 19.1.2
+
+Tue, 23 May 2023 20:18:10 GMT
+
+### Patches
+
+- Use anchored region in Select and Combobox ([ni/nimble@e9f0332](https://github.com/ni/nimble/commit/e9f03324de6ad96d901099b8cf0341b75c5fd881))
 
 ## 19.1.1
 

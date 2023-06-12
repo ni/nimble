@@ -1,9 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumnAnchor } from '@ni/nimble-components/dist/esm/table-column/anchor';
-import type { AnchorAppearance } from '../../anchor/nimble-anchor.directive';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '../../utilities/template-value-helpers';
+import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
+import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 
 export type { TableColumnAnchor };
+export { AnchorAppearance };
 
 /**
  * Directive to provide Angular integration for the table column element for links.
@@ -11,7 +13,7 @@ export type { TableColumnAnchor };
 @Directive({
     selector: 'nimble-table-column-anchor'
 })
-export class NimbleTableColumnAnchorDirective {
+export class NimbleTableColumnAnchorDirective extends NimbleTableColumnBaseDirective<TableColumnAnchor> {
     public get labelFieldName(): string | undefined {
         return this.elementRef.nativeElement.labelFieldName;
     }
@@ -154,5 +156,7 @@ export class NimbleTableColumnAnchorDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'groupingDisabled', toBooleanProperty(value));
     }
 
-    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<TableColumnAnchor>) {}
+    public constructor(renderer: Renderer2, elementRef: ElementRef<TableColumnAnchor>) {
+        super(renderer, elementRef);
+    }
 }
