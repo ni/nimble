@@ -32,7 +32,7 @@ consuming application must implement that functionality.
 `;
 
 const metadata: Meta<TextFieldArgs> = {
-    title: 'Text Field',
+    title: 'Components/Text Field',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
