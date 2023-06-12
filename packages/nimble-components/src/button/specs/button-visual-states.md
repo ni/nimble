@@ -28,7 +28,7 @@ The current `appearance-variant` attribute will be used to hold these new states
 Only the `nimble-button` and `nimble-anchor-button` components will have the new visual design states.
 
 -   Does the design follow an existing design in this codebase or FAST?
-    -   Yes, this follows exisiting button design- only the button colors are changed.
+    -   Yes, this follows exisiting button design, only the button colors are changed.
 -   Does the design align with web standards like web components, ARIA, etc?
     -   Yes
 -   Does the design create new requirements on clients or break any APIs?
