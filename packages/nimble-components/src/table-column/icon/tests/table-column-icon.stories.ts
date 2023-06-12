@@ -2,7 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnIconTag } from '..';
@@ -58,7 +58,7 @@ const simpleData = [
 ];
 
 const metadata: Meta<IconColumnTableArgs> = {
-    title: 'Table Column - Icon'
+    title: 'Incubating/Table Column - Icon'
 };
 
 export default metadata;
@@ -93,7 +93,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<IconColumnTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

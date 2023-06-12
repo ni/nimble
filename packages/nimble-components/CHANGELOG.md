@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 02 Jun 2023 07:49:02 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Jun 2023 13:16:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.1
+
+Mon, 12 Jun 2023 13:16:59 GMT
+
+### Patches
+
+- Created a generic Tracker class, extended it to a validator and an update tracker and implemented them in the table ([ni/nimble@121a4f1](https://github.com/ni/nimble/commit/121a4f18d996f09af1f0db70b873f6d7cdda646d))
 
 ## 19.2.0
 

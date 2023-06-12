@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnTextTag } from '..';
@@ -41,7 +41,7 @@ const simpleData = [
 ];
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Table Column - Text',
+    title: 'Incubating/Table Column - Text',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
@@ -84,7 +84,10 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({
+        componentName: 'table',
+        statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
+    })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

@@ -39,7 +39,7 @@ The \`nimble-menu\` supports several child elements including \`<header>\`, \`<h
 and will format them and any Nimble icons added as children of \`<nimble-menu-item>\` or \`<nimble-anchor-menu-item>\`.`;
 
 const metadata: Meta<MenuArgs> = {
-    title: 'Menu',
+    title: 'Components/Menu',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

@@ -2,7 +2,7 @@ import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
@@ -56,7 +56,7 @@ const simpleData = [
 const enumTextColumnDescription = 'The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
 
 const metadata: Meta<EnumTextColumnTableArgs> = {
-    title: 'Table Column - Enum Text',
+    title: 'Incubating/Table Column - Enum Text',
     parameters: {
         docs: {
             description: {
@@ -89,7 +89,7 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html<EnumTextColumnTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

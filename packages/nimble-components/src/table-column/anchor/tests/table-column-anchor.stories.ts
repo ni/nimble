@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnAnchorTag } from '..';
@@ -17,7 +17,7 @@ import { tableColumnTextTag } from '../../text';
 import { AnchorAppearance } from '../../../anchor/types';
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Table Column - Anchor',
+    title: 'Incubating/Table Column - Anchor',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
@@ -97,7 +97,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
