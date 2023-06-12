@@ -66,6 +66,7 @@ Cons
 Other notes:
 - We don't expect to need mixed content (i.e. other than simple strings), so attributes should be sufficient (vs. slots)
 - If the page was automatically translated by something like Google Translate, the attributes on the i18n providers don't get translated. However we think this is OK because the expected usages of the labels (button content, slotted content, etc) would get translated.
+- We may want to provide a description along with each English string, to aid in translation.
 
 The current set of known labels for Nimble is shown below:
 
@@ -120,10 +121,14 @@ We'll define a base class (prototype: [i18n-base.ts](https://github.com/ni/nimbl
 Each i18n provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core.module.ts) for `i18n-core`.)
 
 In order to make it easy/automatic for clients to pick up new localized strings/labels when they uptake new nimble-angular versions, each i18n provider has an additional directive that will set all of the Nimble-defined labels/strings, using Angular's `$localize` function on the English strings.  
-Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core-with-defaults.directive.ts)
+Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core-with-defaults.directive.ts)  
+If we define descriptions for each string, we can include it so it appears in the message files, such as: ``$localize`:Nimble number-field increment button label:Increment` ``.
+
+Once an Angular app uptakes the nimble-angular version that introduces these i18n modules, running `ng extract-i18n` will result in the app pulling in Nimble-provided labels/strings for localization. (Prototype: [messages.xlf](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/locales/messages.xlf), output of `ng extract-i18n` after upgrading to this nimble-angular version)  
+When they pull in new nimble-angular versions in the future and re-run that command, the new strings will again be pulled in for translation automatically.
 
 For each i18n provider that an Angular app will use:
-- The app imports that specific i18n module (prototype: [in example app module](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/app/app.module.ts#L73)). This will result in the app pulling in the Nimble-provided labels/strings for localization when they run `ng extract-i18n`, due to the `with-defaults.directive` using `$localize`. When they pull in new nimble-angular versions in the future, new strings in the same i18n provider will automatically get pulled in too. (Prototype: [messages.xlf](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/locales/messages.xlf), output of `ng extract-i18n` after importing Nimble i18n core module)
+- The app imports that specific i18n module (prototype: [in example app module](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/app/app.module.ts#L73)).
 - The app adds that i18n element as a child to their theme provider ([prototype](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/app/app.component.html#L2)):
 ```html
 <nimble-theme-provider>
@@ -132,14 +137,12 @@ For each i18n provider that an Angular app will use:
 ```
 - If the app needs to customize any of the labels, they can do so via the i18n directive API. Generally the root i18n provider would use `withDefaults` to set all the labels to their localized values, and any nested ones would not.
 
-Codegen: We should be able to codegen the Angular directives. The prototype does not, for simplicity.
+We can consider codegen-ing the Angular directives, which would let us avoid copy-pasting the English strings/ descriptions at the nimble-angular level, but at the expense of obfucscating some of the code (in the generator scripts).
 
 **nimble-blazor**  
 We currently don't have a good solution for Blazor clients to automatically pick up or localize our labels/strings.  
 We do still plan to create Razor components for each i18n provider, so that Blazor clients can manually specify/localize the labels if desired.  
 (Prototype: [NimbleI18nCore.razor](https://github.com/ni/nimble/compare/@ni/nimble-angular_v16.6.3...localizable-labels-prototype-2?expand=1#diff-88863ebb8b90aab301573eeb66b6850c26327d12be6b0fa33bcd3cccaadca938) for `i18n-core`).
-
-Codegen: We should be able to codegen the Blazor components. The prototype does not, for simplicity.
 
 If we have any clients that will be using Nimble Blazor and non-English locales, we should probably do additional research to see if we can come up with a more seamless approach. Note that the `i18n-core` labels are not visible / are for accessibility only, so this may only be a priority for clients using the Nimble table (which will have visible strings needing localization).
 
@@ -290,4 +293,3 @@ The process above isn't great. When updated versions of Nimble Blazor are releas
 - Naming
    - Do we like having `i18n` in the element names, or should we pick something else? Once camel-cased it also looks strange, i.e. `NimbleI18nCore.razor`
 - Best way to document this system (in Storybook)?
-- Are the label IDs (`label-number-field-increment`) sufficient information for someone to translate the strings from? (Should we include an additional/optional description with each label/string?)
