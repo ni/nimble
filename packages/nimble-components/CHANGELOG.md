@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 12 Jun 2023 13:16:59 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Jun 2023 21:34:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.2
+
+Mon, 12 Jun 2023 21:34:35 GMT
+
+### Patches
+
+- Fix GroupRow component template ([ni/nimble@562c2ec](https://github.com/ni/nimble/commit/562c2ec63b6c8391633f17d33a311535b61627f4))
 
 ## 19.2.1
 
