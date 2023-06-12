@@ -1,6 +1,5 @@
 import {
     attr,
-    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -19,6 +18,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -136,6 +136,7 @@ export class WaferMap extends FoundationElement {
 
     private eventCoordinator?: EventCoordinator;
     private resizeObserver?: ResizeObserver;
+    private waferMapUpdateTracker!: WaferMapUpdateTracker;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -153,34 +154,87 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public render(): void {
-        this.renderQueued = false;
-        this.initializeInternalModules();
+    public setHoverData(
+        hoverWidth: number,
+        hoverHeight: number,
+        hoverOpacity: HoverDieOpacity,
+        hoverTransform: string
+    ): void {
+        this.hoverWidth = hoverWidth;
+        this.hoverHeight = hoverHeight;
+        this.hoverOpacity = hoverOpacity;
+        this.hoverTransform = hoverTransform;
+    }
+
+    /**
+     * @internal
+     */
+    public update(): void {
+        if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
+            this.updateRenderHover();
+        } else {
+            this.eventCoordinator?.detachEvents();
+            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.updateContainerDimensions();
+            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+                this.updateScales();
+            } else if (
+                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
+            ) {
+                this.updateLabelsFontSize();
+            } else if (
+                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
+            ) {
+                this.updateDiesRenderInfo();
+            } else if (
+                this.waferMapUpdateTracker.requiresRenderingModuleUpdate
+            ) {
+                this.updateRenderingModule();
+            }
+            this.eventCoordinator?.updateEvents();
+        }
+    }
+
+    private updateContainerDimensions(): void {
+        this.dataManager?.updateContainerDimensions();
+        this.updateRenderingModule();
+    }
+
+    private updateScales(): void {
+        this.dataManager?.updateScales();
+        this.updateRenderingModule();
+    }
+
+    private updateLabelsFontSize(): void {
+        this.dataManager?.updateLabelsFontSize();
+        this.updateRenderingModule();
+    }
+
+    private updateDiesRenderInfo(): void {
+        this.dataManager?.updateDiesRenderInfo();
+        this.updateRenderingModule();
+    }
+
+    private updateRenderingModule(): void {
         this.renderer?.drawWafer();
     }
 
-    private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
-        }
+    private updateRenderHover(): void {
+        this.renderer?.renderHover();
     }
 
-    private queueRenderHover(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        DOM.queueUpdate(() => this.renderer?.renderHover());
-    }
-
-    private initializeInternalModules(): void {
-        this.eventCoordinator?.detachEvents();
+    private initialize(): void {
+        this.canvas.width = this.clientWidth;
+        this.canvas.height = this.clientHeight;
+        this.canvasContext = this.canvas.getContext('2d', {
+            willReadFrequently: true
+        })!;
+        this.waferMapUpdateTracker = new WaferMapUpdateTracker(this);
         this.dataManager = new DataManager(this);
         this.renderer = new RenderingModule(this);
         this.eventCoordinator = new EventCoordinator(this);
+        this.resizeObserver = this.createResizeObserver();
+        this.waferMapUpdateTracker.trackAll();
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -202,56 +256,52 @@ export class WaferMap extends FoundationElement {
     }
 
     private quadrantChanged(): void {
-        this.queueRender();
-    }
-
-    private orientationChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('quadrant');
     }
 
     private maxCharactersChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('maxCharacters');
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('dieLabelsHidden');
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('dieLabelsSuffix');
     }
 
     private colorScaleModeChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('colorScaleMode');
     }
 
     private highlightedValuesChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('highlightedValues');
     }
 
     private diesChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('dies');
     }
 
     private colorScaleChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('colorScale');
     }
 
     private transformChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('transform');
     }
 
     private canvasWidthChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('canvasWidth');
     }
 
     private canvasHeightChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker?.track('canvasHeight');
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.queueRenderHover();
+        this.waferMapUpdateTracker?.track('hoverDie');
     }
 }
 

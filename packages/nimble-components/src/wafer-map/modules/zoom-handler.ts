@@ -20,9 +20,13 @@ export class ZoomHandler {
     private readonly minScale = 1.1;
     private readonly minExtentPoint: [number, number] = [-100, -100];
     private readonly extentPadding = 100;
-    private readonly zoomBehavior: ZoomBehavior<Element, unknown>;
+    private zoomBehavior!: ZoomBehavior<Element, unknown>;
 
     public constructor(private readonly wafermap: WaferMap) {
+        this.updateZoomBehavior();
+    }
+
+    public updateZoomBehavior(): void {
         this.zoomBehavior = this.createZoomBehavior();
         this.zoomBehavior(select(this.wafermap.canvas as Element));
     }
