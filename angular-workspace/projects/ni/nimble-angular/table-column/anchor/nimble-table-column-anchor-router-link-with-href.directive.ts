@@ -1,6 +1,6 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { Directive, HostListener } from '@angular/core';
-import { Router, RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/table-column/anchor/cell-view';
 
 /**
@@ -16,6 +16,10 @@ export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLi
         if (commands !== undefined && commands !== null) {
             throw new Error('Directly configuring the nimbleRouterLink url is not supported. The router url is configured via the href-field-name of the column.');
         }
+    }
+
+    public constructor(router: Router, route: ActivatedRoute, private readonly theLocationStrategy: LocationStrategy) {
+        super(router, route, theLocationStrategy);
     }
 
     @HostListener('delegated-event', ['$event.detail.originalEvent'])
@@ -37,15 +41,10 @@ export class NimbleTableColumnAnchorRouterLinkWithHrefDirective extends RouterLi
     }
 
     private handleLinkClick(url: string, button: number, ctrlKey: boolean, shiftKey: boolean, altKey: boolean, metaKey: boolean): boolean {
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        const router = this['router'] as Router | null;
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-        const locationStrategy = this['locationStrategy'] as LocationStrategy;
-
-        if (!(locationStrategy instanceof HashLocationStrategy) && router !== null) {
+        if (!(this.theLocationStrategy instanceof HashLocationStrategy)) {
             // Only attempt routing in apps not using hash-based routing
             let routerUrl = url;
-            const baseHref = locationStrategy.getBaseHref();
+            const baseHref = this.theLocationStrategy.getBaseHref();
             if (!baseHref || this.urlStartsWithBaseHref(routerUrl, baseHref)) {
                 // Let the router handle this navigation
                 routerUrl = this.removeBaseHrefFromUrl(routerUrl, baseHref);
