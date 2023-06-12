@@ -137,6 +137,8 @@ For each i18n provider that an Angular app will use:
 ```
 - If the app needs to customize any of the labels, they can do so via the i18n directive API. Generally the root i18n provider would use `withDefaults` to set all the labels to their localized values, and any nested ones would not.
 
+We expect most apps in SystemLink to consume both `nimble-i18n-core` and `nimble-i18n-table` as-is.
+
 We can consider codegen-ing the Angular directives, which would let us avoid copy-pasting the English strings/ descriptions at the nimble-angular level, but at the expense of obfucscating some of the code (in the generator scripts).
 
 **nimble-blazor**  
