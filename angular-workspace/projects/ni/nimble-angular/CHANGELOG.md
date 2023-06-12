@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 02 Jun 2023 07:49:02 GMT and should not be manually modified.
+This log was last generated on Wed, 07 Jun 2023 18:59:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.6.3
+
+Wed, 07 Jun 2023 18:59:51 GMT
+
+### Patches
+
+- Mark 'placeholder' as an @Input on the text column directive ([ni/nimble@3e64d9a](https://github.com/ni/nimble/commit/3e64d9a335d7b64e8690d382385724a4fa260265))
 
 ## 16.6.2
 
