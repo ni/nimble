@@ -1,7 +1,10 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    incubatingWarning
+} from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnAnchorTag } from '..';
 import {
@@ -18,7 +21,7 @@ See the **Table** page for information about configuring the table itself and th
 information about common column configuration.`;
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Components/Table Column Types',
+    title: 'Incubating/Table Column Types',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
@@ -103,6 +106,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
+        ${incubatingWarning('table', 'https://github.com/orgs/ni/projects/7/views/21')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

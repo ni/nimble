@@ -158,7 +158,7 @@ export const incubatingWarning = (
 </style>
 <div id="incubating-warning" class="code-hide">
 WARNING - The ${componentName} is still incubating. It is not recommended for application use. 
-For more information on its status, see <a href="${issueLink}">this issue</a>.
+For more information on its status, <a href="${issueLink}">see here</a>.
 </div>`;
 
 // On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
