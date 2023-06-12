@@ -32,4 +32,4 @@ IBUTING](https://github.com/ni/nimble/blob/main/packages/nimble-components/CONTR
 - [ ] nimble-{name} Blazor wrapper
 - [ ] Add to Angular example app
 - [ ] Add to Blazor example app
-- [ ] Update Component Status table in README
+- [ ] Update Component Status table in README and incubating status
