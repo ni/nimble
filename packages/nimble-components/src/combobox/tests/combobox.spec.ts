@@ -382,6 +382,32 @@ describe('Combobox', () => {
         await disconnect();
     });
 
+    it('clears old filter when value set programmatically', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'Th');
+        const focusout = new FocusEvent('focusout');
+        element.dispatchEvent(focusout);
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('three');
+
+        element.value = 'Two';
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(3);
+        expect(element.filteredOptions[0]?.value).toEqual('one');
+        expect(element.filteredOptions[1]?.value).toEqual('two');
+        expect(element.filteredOptions[2]?.value).toEqual('three');
+        expect(element.filteredOptions[1]?.classList).toContain('selected');
+
+        await disconnect();
+    });
+
     it('emits one change event after changing value through text entry', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();

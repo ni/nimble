@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 02 Jun 2023 07:49:02 GMT",
+      "tag": "@ni/nimble-components_v19.2.0",
+      "version": "19.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "109941566+vikash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a3264e123c5c3170d3957c238b2bd793e6d294f1",
+            "comment": "added a design token for graph gridlines"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 01 Jun 2023 14:41:19 GMT",
+      "tag": "@ni/nimble-components_v19.1.3",
+      "version": "19.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2c5206bd71fd9e97ed0dffbe21fbaa253b893652",
+            "comment": "Clear combobox filter when value set programatically"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 30 May 2023 16:29:57 GMT",
+      "tag": "@ni/nimble-components_v19.1.2",
+      "version": "19.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b69c11cc2859a31b5e3d24c4110cc03e7aea930d",
+            "comment": "Mapping table column spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 23 May 2023 20:18:10 GMT",
       "tag": "@ni/nimble-components_v19.1.2",
       "version": "19.1.2",
