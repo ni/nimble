@@ -20,7 +20,7 @@ be checked or not checked and can optionally also allow for a partially checked 
 pressed or not pressed and can optionally allow for a partially pressed state.`;
 
 const metadata: Meta<SwitchArgs> = {
-    title: 'Switch',
+    title: 'Components/Switch',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

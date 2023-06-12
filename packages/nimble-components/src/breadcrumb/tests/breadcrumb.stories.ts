@@ -28,7 +28,7 @@ See the [nimble-angular Readme](https://github.com/ni/nimble/blob/main/angular-w
 for information on using this component in Angular with RouterLink directives.`;
 
 const metadata: Meta<BreadcrumbArgs> = {
-    title: 'Breadcrumb',
+    title: 'Components/Breadcrumb',
     tags: ['autodocs'],
     parameters: {
         docs: {

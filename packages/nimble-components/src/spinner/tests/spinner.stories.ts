@@ -29,7 +29,7 @@ const overviewText = '<p>The `nimble-spinner` is an animating indicator that can
     + '<p>See the `size` argument details for information on customizing the spinner size.</p>';
 
 const metadata: Meta<SpinnerArgs> = {
-    title: 'Spinner',
+    title: 'Components/Spinner',
     tags: ['autodocs'],
     parameters: {
         docs: {
