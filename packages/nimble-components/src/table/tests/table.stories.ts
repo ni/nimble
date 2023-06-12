@@ -1,10 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    createUserSelectedThemeStory,
-    usageWarning
-} from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
 import { TableRowSelectionMode } from '../types';
@@ -140,7 +137,6 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
