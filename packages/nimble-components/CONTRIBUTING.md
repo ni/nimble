@@ -97,8 +97,7 @@ To mark a component as incubating:
 2. In the component Storybook documentation:
     - add a red text banner to the page indicating that the component is not ready for general use
     - start the Storybook name with "Incubating/" so that it appears in a separate section of the documentation page
-3. Place the component under `src/incubating`. This layout of components in that folder should match the layout of components in `src`.
-4. Add CODEOWNERS from both the contributing team and the Nimble team.
+3. Add CODEOWNERS from both the contributing team and the Nimble team.
 
 To move a component out of incubating status:
 
