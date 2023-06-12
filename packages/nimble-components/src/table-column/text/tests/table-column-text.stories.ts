@@ -1,10 +1,7 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import {
-    createUserSelectedThemeStory,
-    usageWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnTextTag } from '..';
 import {
@@ -92,7 +89,6 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

@@ -1,10 +1,7 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import {
-    createUserSelectedThemeStory,
-    usageWarning
-} from '../../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import {
     ExampleColumnFractionalWidthType,
     ExampleGroupingDisabledType,
@@ -95,7 +92,6 @@ const metadata: Meta<SharedTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SharedTableArgs>`
-    ${usageWarning('table')}
     <${tableTag}
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
@@ -169,7 +165,6 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnOrderTableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -242,7 +237,6 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<HeaderContentTableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -301,7 +295,6 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<CommonAttributesTableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -417,7 +410,6 @@ export const sorting: StoryObj<SortingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SortingTableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -604,7 +596,6 @@ export const grouping: StoryObj<GroupingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<GroupingTableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -728,7 +719,6 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnWidthTableArgs>`
-        ${usageWarning('table')}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
