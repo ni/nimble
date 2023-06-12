@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Reorganize Storybook to support Incubating components",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
