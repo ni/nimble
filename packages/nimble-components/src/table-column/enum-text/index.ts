@@ -51,13 +51,22 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         return this.validator.getValidity();
     }
 
+    public override connectedCallback(): void {
+        this.validator.validateAtMostOneDefaultMapping(this.mappings);
+        this.validator.validateMappingTypes(
+            this.mappings,
+            this.supportedMappingTypes
+        );
+        this.validateKeyDependentConditions();
+    }
+
     /**
      * @internal
      */
     public override handleChange(source: unknown, args: unknown): void {
         super.handleChange(source, args);
         if (source instanceof Mapping && typeof args === 'string') {
-            if (args === 'key') {
+            if (args === 'key' && this.$fastController.isConnected) {
                 this.validateKeyDependentConditions();
             }
         }
@@ -75,20 +84,24 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 
     protected override mappingsChanged(): void {
         super.mappingsChanged();
-        this.validator?.validateAtMostOneDefaultMapping(this.mappings);
-        this.validator?.validateMappingTypes(
-            this.mappings,
-            this.supportedMappingTypes
-        );
-        this.validateKeyDependentConditions();
+        if (this.$fastController.isConnected) {
+            this.validator.validateAtMostOneDefaultMapping(this.mappings);
+            this.validator.validateMappingTypes(
+                this.mappings,
+                this.supportedMappingTypes
+            );
+            this.validateKeyDependentConditions();
+        }
     }
 
     protected override keyTypeChanged(): void {
         super.keyTypeChanged();
-        this.validator?.validateKeyValuesForType(
-            this.mappings.map(x => x.key),
-            this.keyType
-        );
+        if (this.$fastController.isConnected) {
+            this.validator.validateKeyValuesForType(
+                this.mappings.map(x => x.key),
+                this.keyType
+            );
+        }
     }
 
     protected override updateColumnConfig(): void {
@@ -104,11 +117,11 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 
     private validateKeyDependentConditions(): void {
         const keys = this.mappings.map(x => x.key);
-        this.validator?.validateKeyValuesForType(keys, this.keyType);
+        this.validator.validateKeyValuesForType(keys, this.keyType);
         const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(x => x.key)
             ?? [];
-        this.validator?.validateUniqueKeys(typedKeys);
-        this.validator?.validateNoMissingKeys(this.mappings);
+        this.validator.validateUniqueKeys(typedKeys);
+        this.validator.validateNoMissingKeys(this.mappings);
     }
 }
 
