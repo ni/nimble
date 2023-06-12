@@ -54,52 +54,49 @@ export class TableUpdateTracker<
     }
 
     public get updateRowIds(): boolean {
-        return this.trackedItemState('rowIds');
+        return this.isTracked('rowIds');
     }
 
     public get updateGroupRows(): boolean {
-        return this.trackedItemState('groupRows');
+        return this.isTracked('groupRows');
     }
 
     public get updateColumnIds(): boolean {
-        return this.trackedItemState('columnIds');
+        return this.isTracked('columnIds');
     }
 
     public get updateColumnSort(): boolean {
-        return this.trackedItemState('columnSort');
+        return this.isTracked('columnSort');
     }
 
     public get updateColumnWidths(): boolean {
-        return this.trackedItemState('columnWidths');
+        return this.isTracked('columnWidths');
     }
 
     public get updateColumnDefinition(): boolean {
-        return this.trackedItemState('columnDefinition');
+        return this.isTracked('columnDefinition');
     }
 
     public get updateActionMenuSlots(): boolean {
-        return this.trackedItemState('actionMenuSlots');
+        return this.isTracked('actionMenuSlots');
     }
 
     public get updateSelectionMode(): boolean {
-        return this.trackedItemState('selectionMode');
+        return this.isTracked('selectionMode');
     }
 
     public get requiresTanStackUpdate(): boolean {
         return (
-            this.trackedItemState('rowIds')
-            || this.trackedItemState('columnSort')
-            || this.trackedItemState('columnDefinition')
-            || this.trackedItemState('groupRows')
-            || this.trackedItemState('selectionMode')
+            this.isTracked('rowIds')
+            || this.isTracked('columnSort')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('groupRows')
+            || this.isTracked('selectionMode')
         );
     }
 
     public get requiresTanStackDataReset(): boolean {
-        return (
-            this.trackedItemState('rowIds')
-            || this.trackedItemState('columnDefinition')
-        );
+        return this.isTracked('rowIds') || this.isTracked('columnDefinition');
     }
 
     public trackAllStateChanged(): void {

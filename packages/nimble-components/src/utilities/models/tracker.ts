@@ -26,9 +26,7 @@ export class Tracker<TrackedItemsList extends readonly string[]> {
         return { ...this.trackedItems };
     }
 
-    public trackedItemState(
-        key: keyof ObjectFromList<TrackedItemsList>
-    ): boolean {
+    public isTracked(key: keyof ObjectFromList<TrackedItemsList>): boolean {
         return this.trackedItems[key];
     }
 

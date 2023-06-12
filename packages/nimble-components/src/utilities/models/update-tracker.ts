@@ -6,9 +6,5 @@ import { Tracker } from './tracker';
 export abstract class UpdateTracker<
     TrackedProperties extends readonly string[]
 > extends Tracker<TrackedProperties> {
-    public constructor(requiredUpdates: TrackedProperties) {
-        super(requiredUpdates);
-    }
-
     protected abstract queueUpdate(): void;
 }

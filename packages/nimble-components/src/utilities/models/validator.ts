@@ -7,10 +7,6 @@ import { Tracker } from './tracker';
 export class Validator<
     ValidationFlags extends readonly string[]
 > extends Tracker<ValidationFlags> {
-    public constructor(validationFlags: ValidationFlags) {
-        super(validationFlags);
-    }
-
     public isValid(): boolean {
         return this.noneTracked();
     }
