@@ -40,8 +40,8 @@ export class EventCoordinator {
         this.hoverHandler.mousemove(event);
     };
 
-    private readonly onMouseOut = (event: MouseEvent): void => {
-        this.hoverHandler.mouseout(event);
+    private readonly onMouseOut = (): void => {
+        this.hoverHandler.mouseout();
     };
 
     private attachEvents(): void {

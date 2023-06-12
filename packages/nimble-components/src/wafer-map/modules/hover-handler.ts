@@ -30,9 +30,8 @@ export class HoverHandler {
         this.wafermap.hoverDie = this.wafermap.dataManager!.getWaferMapDie(dieCoordinates);
     }
 
-    public mouseout(event: MouseEvent): void {
-        const wafermap = event.target as WaferMap;
-        wafermap.hoverDie = undefined;
+    public mouseout(): void {
+        this.wafermap.hoverDie = undefined;
     }
 
     private calculateDieCoordinates(
