@@ -87,6 +87,7 @@ If a component is not ready for general use, it should be marked as "incubating"
 
 Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
 
+-   Start development with a spec describing the high level plan and what's in or out of scope
 -   Coding conventions (element naming, linting, code quality)
 -   Unit and Chromatic test coverage
 -   Storybook documentation
