@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 17 May 2023 21:33:40 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Jun 2023 13:16:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.1
+
+Mon, 12 Jun 2023 13:16:59 GMT
+
+### Patches
+
+- Created a generic Tracker class, extended it to a validator and an update tracker and implemented them in the table ([ni/nimble@121a4f1](https://github.com/ni/nimble/commit/121a4f18d996f09af1f0db70b873f6d7cdda646d))
+
+## 19.2.0
+
+Fri, 02 Jun 2023 07:49:02 GMT
+
+### Minor changes
+
+- added a design token for graph gridlines ([ni/nimble@a3264e1](https://github.com/ni/nimble/commit/a3264e123c5c3170d3957c238b2bd793e6d294f1))
+
+## 19.1.3
+
+Thu, 01 Jun 2023 14:41:19 GMT
+
+### Patches
+
+- Clear combobox filter when value set programatically ([ni/nimble@2c5206b](https://github.com/ni/nimble/commit/2c5206bd71fd9e97ed0dffbe21fbaa253b893652))
+
+## 19.1.2
+
+Tue, 23 May 2023 20:18:10 GMT
+
+### Patches
+
+- Use anchored region in Select and Combobox ([ni/nimble@e9f0332](https://github.com/ni/nimble/commit/e9f03324de6ad96d901099b8cf0341b75c5fd881))
+
+## 19.1.1
+
+Tue, 23 May 2023 16:09:57 GMT
+
+### Patches
+
+- Move ColumnInternals to abstract property ([ni/nimble@c03b36b](https://github.com/ni/nimble/commit/c03b36bd9056ef9ad08b156bcaba4d8d2c591c2d))
+
+## 19.1.0
+
+Mon, 22 May 2023 18:39:33 GMT
+
+### Minor changes
+
+- Introduce column configuration validation ([ni/nimble@c23fbe5](https://github.com/ni/nimble/commit/c23fbe55a607508ecc94d7e9d475dc478629cf8a))
 
 ## 19.0.2
 

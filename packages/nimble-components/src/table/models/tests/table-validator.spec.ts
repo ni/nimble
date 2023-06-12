@@ -1,6 +1,10 @@
 import { TableRecord, TableRowSelectionMode, TableValidity } from '../../types';
 import { TableValidator } from '../table-validator';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import {
+    TableColumnValidationTest,
+    tableColumnValidationTestTag
+} from '../../../table-column/base/tests/table-column.fixtures';
 
 describe('TableValidator', () => {
     let validator: TableValidator<TableRecord>;
@@ -235,6 +239,94 @@ describe('TableValidator', () => {
             expect(getInvalidKeys(validator)).toEqual(
                 jasmine.arrayWithExactContents(['duplicateRecordId'])
             );
+        });
+    });
+
+    describe('column config validation', () => {
+        const columnConfigurations: {
+            columns: TableColumnValidationTest[],
+            isValid: boolean,
+            name: string
+        }[] = [
+            {
+                columns: [
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: true }
+                    ) as TableColumnValidationTest,
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: false }
+                    ) as TableColumnValidationTest
+                ],
+                isValid: false,
+                name: 'is invalid when any column returns false from checkValidity'
+            },
+            {
+                columns: [
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: true }
+                    ) as TableColumnValidationTest,
+                    Object.assign(
+                        document.createElement(tableColumnValidationTestTag),
+                        { foo: true, bar: true }
+                    ) as TableColumnValidationTest
+                ],
+                isValid: true,
+                name: 'is valid when all columns return true from checkValidity'
+            }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const columnConfiguration of columnConfigurations) {
+            const specType = getSpecTypeByNamedList(
+                columnConfiguration,
+                focused,
+                disabled
+            );
+            specType(columnConfiguration.name, () => {
+                const tableValidator = new TableValidator();
+                const isValid = tableValidator.validateColumnConfigurations(
+                    columnConfiguration.columns
+                );
+
+                expect(isValid).toBe(columnConfiguration.isValid);
+                expect(tableValidator.isValid()).toBe(
+                    columnConfiguration.isValid
+                );
+            });
+        }
+
+        it('updates when column validity changes to invalid', () => {
+            const tableValidator = new TableValidator();
+            const column = Object.assign(
+                document.createElement(tableColumnValidationTestTag),
+                { foo: true, bar: true }
+            );
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeTrue();
+            column.foo = false;
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeFalse();
+        });
+
+        it('updates when column validity changes to valid', () => {
+            const tableValidator = new TableValidator();
+            const column = Object.assign(
+                document.createElement(tableColumnValidationTestTag),
+                { foo: false, bar: true }
+            );
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeFalse();
+            column.foo = true;
+            expect(
+                tableValidator.validateColumnConfigurations([column])
+            ).toBeTrue();
         });
     });
 

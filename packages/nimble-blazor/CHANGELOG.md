@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 17 May 2023 21:33:40 GMT and should not be manually modified.
+This log was last generated on Tue, 06 Jun 2023 14:41:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.9.5
+
+Tue, 06 Jun 2023 14:41:27 GMT
+
+### Patches
+
+- Specify .NET 6 via global.json file; re-enable Blazor linting ([ni/nimble@717b586](https://github.com/ni/nimble/commit/717b586acc08f4cc956c1142ef5e16e62b88df01))
+
+## 11.9.0
+
+Mon, 22 May 2023 18:39:33 GMT
+
+### Minor changes
+
+- Introduce column configuration validation ([ni/nimble@c23fbe5](https://github.com/ni/nimble/commit/c23fbe55a607508ecc94d7e9d475dc478629cf8a))
 
 ## 11.8.30
 

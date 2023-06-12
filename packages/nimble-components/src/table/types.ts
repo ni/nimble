@@ -31,7 +31,11 @@ export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
 
-export interface TableValidity {
+export interface ValidityObject {
+    [key: string]: boolean;
+}
+
+export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;
     readonly missingRecordId: boolean;
     readonly invalidRecordId: boolean;
@@ -40,6 +44,7 @@ export interface TableValidity {
     readonly duplicateSortIndex: boolean;
     readonly duplicateGroupIndex: boolean;
     readonly idFieldNameNotConfigured: boolean;
+    readonly invalidColumnConfiguration: boolean;
 }
 
 export interface TableActionMenuToggleEventDetail {

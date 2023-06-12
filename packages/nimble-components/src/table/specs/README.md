@@ -107,6 +107,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
         -   [Formatted Text Columns](table-column-specs/table-column-formatted-text.md)
         -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
+        -   [TableColumnMapping](table-column-specs/table-column-mapping.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
         -   What is the component to use for interaction? Outline Button? Ghost button?
@@ -143,7 +144,7 @@ _Attributes_
 _Properties_
 
 -   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
--   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
+-   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidity`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
 
 _Functions_
 

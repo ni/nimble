@@ -5,6 +5,7 @@
 # Nimble Tokens
 
 [![NPM Version](https://img.shields.io/npm/v/@ni/nimble-tokens.svg)](https://www.npmjs.com/package/@ni/nimble-tokens)
+[![Nuget Version](https://img.shields.io/nuget/v/NimbleTokens.svg)](https://www.nuget.org/packages/NimbleTokens)
 
 NI base design tokens. Design tokens are primitive elements of component style like color, typography, and spacing. **These should generally not be consumed directly by applications**. See below for guidance.
 

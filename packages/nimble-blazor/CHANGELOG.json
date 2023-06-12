@@ -2,6 +2,66 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 06 Jun 2023 14:41:27 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.5",
+      "version": "11.9.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "717b586acc08f4cc956c1142ef5e16e62b88df01",
+            "comment": "Specify .NET 6 via global.json file; re-enable Blazor linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Jun 2023 20:21:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.4",
+      "version": "11.9.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0c8b846e24c52ef5f2fb0a832edacef06803d04b",
+            "comment": "Disable blazor linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 22 May 2023 18:39:33 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.0",
+      "version": "11.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "c23fbe55a607508ecc94d7e9d475dc478629cf8a",
+            "comment": "Introduce column configuration validation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 19 May 2023 20:46:44 GMT",
+      "tag": "@ni/nimble-blazor_v11.8.30",
+      "version": "11.8.30",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3bcb03ff246b80b94005765d754465b9a1a2f34c",
+            "comment": "Acceptance/e2e tests for Nimble Blazor using Playwright (first pass)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 May 2023 21:33:40 GMT",
       "tag": "@ni/nimble-blazor_v11.8.30",
       "version": "11.8.30",
