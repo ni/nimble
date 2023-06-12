@@ -57,7 +57,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         return this.isTracked('hoverDie');
     }
 
-    protected override queueUpdate(): void {
+    public override queueUpdate(): void {
         if (!this.wafermap.isConnected) {
             return;
         }

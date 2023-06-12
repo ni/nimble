@@ -136,13 +136,14 @@ export class WaferMap extends FoundationElement {
 
     private eventCoordinator?: EventCoordinator;
     private resizeObserver?: ResizeObserver;
-    private waferMapUpdateTracker!: WaferMapUpdateTracker;
+    private waferMapUpdateTracker?: WaferMapUpdateTracker;
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
+        this.initialize();
         this.resizeObserver = this.createResizeObserver();
     }
 
@@ -170,28 +171,28 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public update(): void {
-        if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
-            this.updateRenderHover();
-        } else {
+        if (this.waferMapUpdateTracker?.requiresContainerDimensionsUpdate) {
             this.eventCoordinator?.detachEvents();
-            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-                this.updateContainerDimensions();
-            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
-                this.updateScales();
-            } else if (
-                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
-            ) {
-                this.updateLabelsFontSize();
-            } else if (
-                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
-            ) {
-                this.updateDiesRenderInfo();
-            } else if (
-                this.waferMapUpdateTracker.requiresRenderingModuleUpdate
-            ) {
-                this.updateRenderingModule();
-            }
+            this.updateContainerDimensions();
             this.eventCoordinator?.updateEvents();
+        } else if (this.waferMapUpdateTracker?.requiresScalesUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateScales();
+            this.eventCoordinator?.updateEvents();
+        } else if (this.waferMapUpdateTracker?.requiresLabelsFontSizeUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateLabelsFontSize();
+            this.eventCoordinator?.updateEvents();
+        } else if (this.waferMapUpdateTracker?.requiresDiesRenderInfoUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateDiesRenderInfo();
+            this.eventCoordinator?.updateEvents();
+        } else if (this.waferMapUpdateTracker?.requiresRenderingModuleUpdate) {
+            this.eventCoordinator?.detachEvents();
+            this.updateRenderingModule();
+            this.eventCoordinator?.updateEvents();
+        } else if (this.waferMapUpdateTracker?.requiresRenderHoverUpdate) {
+            this.updateRenderHover();
         }
     }
 
@@ -234,7 +235,7 @@ export class WaferMap extends FoundationElement {
         this.renderer = new RenderingModule(this);
         this.eventCoordinator = new EventCoordinator(this);
         this.resizeObserver = this.createResizeObserver();
-        this.waferMapUpdateTracker.trackAll();
+        this.waferMapUpdateTracker?.trackAll();
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -257,51 +258,63 @@ export class WaferMap extends FoundationElement {
 
     private quadrantChanged(): void {
         this.waferMapUpdateTracker?.track('quadrant');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private maxCharactersChanged(): void {
         this.waferMapUpdateTracker?.track('maxCharacters');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private dieLabelsHiddenChanged(): void {
         this.waferMapUpdateTracker?.track('dieLabelsHidden');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private dieLabelsSuffixChanged(): void {
         this.waferMapUpdateTracker?.track('dieLabelsSuffix');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private colorScaleModeChanged(): void {
         this.waferMapUpdateTracker?.track('colorScaleMode');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private highlightedValuesChanged(): void {
         this.waferMapUpdateTracker?.track('highlightedValues');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private diesChanged(): void {
         this.waferMapUpdateTracker?.track('dies');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private colorScaleChanged(): void {
         this.waferMapUpdateTracker?.track('colorScale');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private transformChanged(): void {
         this.waferMapUpdateTracker?.track('transform');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private canvasWidthChanged(): void {
         this.waferMapUpdateTracker?.track('canvasWidth');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private canvasHeightChanged(): void {
         this.waferMapUpdateTracker?.track('canvasHeight');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
         this.waferMapUpdateTracker?.track('hoverDie');
+        this.waferMapUpdateTracker?.queueUpdate();
     }
 }
 
