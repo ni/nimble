@@ -17,32 +17,30 @@ including Comments and other instances that necessitate rich text capabilities.
 
 [Comments UI mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045)
 
+[Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
+
 ### Non-goals
 
--   The visual design and interaction design for these components are out of scope for the initial release. However we have an
-    [IxD workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) for SLE application that we will rely
-    on.
 -   Blazor integration will be out of scope for this component as we have less or no experience in Blazor component development or other
     related technology. Blazor example app addition will also be not covered in this spec.
--   Adding an example Angular client application for this component may not be included in the initial releases. However, the integration
-    of the rich-text-editor with Angular applications, achieved through a directive, will be developed following the completion of this
-    component.
 
 ### Features
 
-The `nimble-rich-text-editor` supports the basic text formatting options that includes:
+Both the components provides support for the basic text formatting options as follows:
 
 1. Bold
 2. Italics
 3. Numbered List
 4. Bulleted List
 
-This component will also offer APIs and interactive methods to format texts in the following ways:
+The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format texts in the following ways:
 
 1. Using the buttons located below the editor to modify the text formatting for the selected texts.
 2. Using the keyboard shortcuts to modify the text formatting in the editor.
-3. Support to get markdown output from the editor.
-4. Support to convert the markdown to HTML to render it back in the `nimble-rich-text-viewer` component.
+3. The underlying representation of the editor is a markdown value in the flavor of [CommonMark](http://commonmark.org/).
+4. Support to get and set markdown value through an API.
+
+The `nimble-rich-text-viewer` provides support for converting the input markdown value to HTML in order to render it in the viewer component.
 
 #### _Additional features out of scope of this spec_
 
@@ -59,13 +57,14 @@ This component will also offer APIs and interactive methods to format texts in t
 
 ### Risks and Challenges
 
--   Visual design and interaction design for both the components are out of scope for the initial release. We will start with the existing
-    [mockup screens](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) which is designed for
-    comments feature considering customer requirements and deadlines. At this moment, we cannot afford to cover all the corner cases of visual design
-    specs. However we are organically referring to existing nimble components like `button`, `text-area` to provide a consistent visual design.
 -   Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is
-    mentioned
-    in this spec are deferred to future scope.
+    mentioned in this spec are deferred to future scope.
+-   Currently, we will begin by referring to the existing
+    [Interaction design workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) of the comments feature. Once
+    the visual design for these components is complete, we will then consider implementing specific changes within the defined scope of development. These
+    changes will include button spacing, styling, and the styling of the editor container for hover, focus and active states. Any other visual design changes
+    will be deferred to future scope. However, we will still make use of existing nimble components such as `nimble-button` and
+    `nimble-text-area` to maintain a consistent design for the initial release.
 -   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We
     will update this spec accordingly based on the progress.
 
@@ -90,22 +89,6 @@ The `nimble-rich-text-editor` will be divided into two sections namely an `edito
 1. `editor` section is the actual text area to add or update rich text contents.
 2. `footer` section consists of `nimble-button` to control each text formatting functionalities like bold, italic etc,. and a
    `footer-actions` slot element which is typically used to add action buttons to the right bottom of the component.
-
-Here is the shadow DOM template used in `nimble-rich-text-editor` component:
-
-```html
-<template>
-    <section id="editor"></section>
-    <footer>
-        <section id="toolbar">
-            <nimble-button></nimble-button>
-        </section>
-        <section id="actions">
-            <slot name="footer-actions"></slot>
-        </section>
-    </footer>
-</template>
-```
 
 An example usage of the `nimble-rich-text-editor` in the application layer is as follows:
 
@@ -133,22 +116,51 @@ _Props/Attrs_
 
 _Methods_
 
--   `setMarkdown()` - sets the markdown input from the consumer component which can be used for preloading the content.
 -   `getMarkdown()` - gets the processed markdown output from the component.
+
+    > As Tiptap by default [does not support markdown output](https://tiptap.dev/guide/output#not-an-option-markdown) and our requirement is to obtain
+    > the markdown, we will perform post-processing using [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown)
+    > to achieve the desired results. This operation can be executed only when
+    > the consumer needs to retrieve the output and is not necessarily bound to the attribute/property, as the processing time is slightly longer.
+
+-   `setMarkdown()` - sets the markdown input from the consumer component which can be used for preloading the content.
+
+    > Since `setMarkdown` and `getMarkdown` should be symmetric, we have decided to implement this as a method rather than an attribute/property.
 
 _Events_
 
--   `change` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
+-   `input` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
     [update event](https://tiptap.dev/api/events#update). Below are few scenarios to understand when an update event will trigger or not trigger:
-    1.  Event triggered when there is a change in the content of the editor like adding, deleting, updating or formatting the text.
+    1.  An event is triggered for every change in the content of the editor, including text inputs, text formatting changes, and text removals. The event data
+        emitted is in the format of a `CustomEvent`. Note that this event data does not include the value of the content in the text editor.
     2.  Event will not triggered when there are no change made to the content of the editor. For example, all mouse events, selecting the texts, state
         changes etc,.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   none
+-   The editor section and the footer section will have a fixed height in pixels and will have a minimum and maximum widths in pixels to ensure responsiveness
+    across various screen resolutions. The content below the minimum width will not be handled.
+-   The formatting option menu in the footer section will be enclosed within a flexbox container and will wrap the buttons, allowing them to be evenly
+    distributed across the toolbar until it occupies seventy percent of the entire footer. The remaining thirty percent will be enclosed with an another flexbox
+    container for a slot elements.
 
 ### Anatomy
+
+_Shadow DOM template_
+
+```html
+<template>
+    <section id="editor"></section>
+    <footer>
+        <nimble-toolbar>
+            <nimble-button></nimble-button>
+        </nimble-toolbar>
+        <section id="actions">
+            <slot name="footer-actions"></slot>
+        </section>
+    </footer>
+</template>
+```
 
 _Slot Names_
 
@@ -180,6 +192,10 @@ _CSS Parts_
 _Props/Attrs_
 
 -   `markdown-value`: string - markdown input to the component to render it in the text viewer.
+
+    > The markdown value can be passed to this component as a string since the primary and sole purpose of the component is to display the rich-text content.
+    > So, the process of converting the markdown input to a HTML is necessary for this component. This will also allow the client framework to bind
+    > to it statically as a declarative API without running any Javascript code or other processes.
 
 _Methods_
 
@@ -218,7 +234,7 @@ not be created.
 
 ### Blazor integration
 
-A Blazor wrapper will not be created for these components.
+A Blazor wrapper is initially out of scope for these components.
 
 ### Visual Appearance
 
@@ -251,7 +267,7 @@ and all other basic rich text formatting options. All these formatting options c
 
 The rich text content entered in the editor is converted to markdown output using
 [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer. Here is the reference for the supported formatting schema in the
-markdown based on [CommonMark](http://commonmark.org/) format:
+markdown based on [CommonMark](http://commonmark.org/) flavor:
 
 -   Bold - `**Bold**`
 -   Italics - `*Italics*`
@@ -320,14 +336,17 @@ _Keyboard navigation with toolbar buttons focused_
 | Key          | Behavior                                                                       |
 | ------------ | ------------------------------------------------------------------------------ |
 | Space, Enter | Enable the selected text formatting feature and return the focus to the editor |
+| Tab keys     | To move the focus forward in the toolbar                                       |
 | Shift + Tab  | To reach the editor back to focus                                              |
 
 _Note_: All other keyboard interaction determined by the slotted element will not be defined in this document.
 
 ### Globalization
 
-Currently, this component does not have any string data to be localized. In the footer menu for text formatting, only icons will be displayed. However,
-strings may be used for tooltips to enable localization, which will be managed through the `nimble-tooltip` component.
+Currently, there is no need to localize any string data for this component. However, in the footer menu, a few icon buttons will have tooltip strings, which
+will be implemented using the `title` attribute. To enable localization for these accessible strings, we will configure the titles in the buttons according to
+the specifications outlined in [spec (#1272)](https://github.com/ni/nimble/pull/1272), once the issue (
+[#1090](https://github.com/ni/nimble/issues/1090)) regarding the same is closed.
 
 ### Security
 
