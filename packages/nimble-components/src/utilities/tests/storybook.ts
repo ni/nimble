@@ -160,7 +160,7 @@ export const incubatingWarning = (config: IncubatingWarningConfig): string => `
 </style>
 <div id="incubating-warning" class="code-hide">
 WARNING - The ${config.componentName} is still incubating. It is not recommended for application use. 
-For more information on its status, <a href="${config.statusLink}">see here</a>.
+See the <a href="${config.statusLink}">incubating component status</a>.
 </div>`;
 
 // On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
