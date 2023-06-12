@@ -5,6 +5,7 @@ import { styles } from './styles';
 import { template } from './template';
 import type { MappingConfigIconOrSpinner } from '../../../mapping/icon';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
+import type { TableFieldValue } from '../../../table/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,7 +17,7 @@ declare global {
  * The group header view for the icon column
  */
 export class TableColumnIconGroupHeaderView extends TableGroupHeaderView<
-string | number | boolean | null | undefined,
+TableFieldValue,
 TableColumnEnumColumnConfig
 > {
     /** @internal */
@@ -26,7 +27,7 @@ TableColumnEnumColumnConfig
     @observable
     public isValidContentAndHasOverflow = false;
 
-    public getMappingToRender(): MappingConfigIconOrSpinner | null {
+    public get mappingToRender(): MappingConfigIconOrSpinner | null {
         const found = this.columnConfig?.mappingConfigs.find(
             x => x.key === this.groupHeaderValue
         );

@@ -11,14 +11,15 @@ import { mappingTextTag } from '../../../mapping/text';
 import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
 import { IconXmark } from '../../../icons/xmark';
 import { IconCheck } from '../../../icons/check';
+import type { MappingKeyValue } from '../../../mapping/base/types';
 
 interface SimpleTableRecord extends TableRecord {
-    field1?: string | number | boolean | null;
-    field2?: string | number | boolean | null;
+    field1?: MappingKeyValue | null;
+    field2?: MappingKeyValue | null;
 }
 
 interface BasicIconMapping {
-    key?: string | number | boolean;
+    key?: MappingKeyValue;
     label: string;
     defaultMapping?: boolean;
     icon: string;
@@ -267,7 +268,7 @@ describe('TableColumnIcon', () => {
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
         });
 
-        describe('catches invalid boolean key values:', () => {
+        describe('is invalid with invalid boolean key values:', () => {
             const dataTypeTests = [
                 { name: '(blank)', key: '' },
                 { name: 'FALSE', key: 'FALSE' },
@@ -304,7 +305,7 @@ describe('TableColumnIcon', () => {
             }
         });
 
-        it('catches invalid numeric key values', async () => {
+        it('is invalid with invalid numeric key values', async () => {
             ({ element, connect, disconnect } = await setup(
                 [{ key: 'a', label: 'alpha', icon: 'nimble-icon-xmark' }],
                 'number'
@@ -402,7 +403,7 @@ describe('TableColumnIcon', () => {
             });
         });
 
-        it('catches duplicate key values', async () => {
+        it('is invalid with duplicate key values', async () => {
             ({ element, connect, disconnect } = await setup([
                 { key: 'a', label: 'alpha', icon: 'nimble-icon-xmark' },
                 { key: 'a', label: 'alpha', icon: 'nimble-icon-xmark' }
@@ -414,7 +415,7 @@ describe('TableColumnIcon', () => {
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
 
-        it('catches equivalent numeric key values', async () => {
+        it('is invalid with equivalent numeric key values', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: '0', label: 'alpha', icon: 'nimble-icon-xmark' },
@@ -429,7 +430,7 @@ describe('TableColumnIcon', () => {
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
 
-        it('catches missing key value on non-default', async () => {
+        it('is invalid with missing key value on non-default', async () => {
             ({ element, connect, disconnect } = await setup([
                 { label: 'alpha', icon: 'nimble-icon-xmark' }
             ]));
@@ -455,7 +456,7 @@ describe('TableColumnIcon', () => {
             expect(column.validity.missingKeyValue).toBeFalse();
         });
 
-        it('catches non-icon icon value', async () => {
+        it('is invalid with non-icon icon value', async () => {
             ({ element, connect, disconnect } = await setup([
                 { key: 'a', label: 'alpha', icon: 'div' }
             ]));
@@ -466,7 +467,7 @@ describe('TableColumnIcon', () => {
             expect(column.validity.invalidIconName).toBeTrue();
         });
 
-        it('catches completely made up icon value', async () => {
+        it('is invalid with completely made up icon value', async () => {
             ({ element, connect, disconnect } = await setup([
                 { key: 'a', label: 'alpha', icon: 'foo' }
             ]));

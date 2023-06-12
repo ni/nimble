@@ -2,7 +2,7 @@ import { attr, css } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
-import type { MappingConfig } from '../../table-column/enum-base';
+import type { MappingConfig } from '../base/types';
 
 export interface MappingConfigText extends MappingConfig {
     label: string;

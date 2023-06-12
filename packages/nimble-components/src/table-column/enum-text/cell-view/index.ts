@@ -20,7 +20,7 @@ TableColumnEnumCellRecord,
 TableColumnEnumTextColumnConfig
 > {
     public override get text(): string {
-        return this.getMappingToRender()!.label;
+        return this.mappingToRender?.label ?? '';
     }
 
     public override get placeholder(): string {
@@ -28,21 +28,21 @@ TableColumnEnumTextColumnConfig
     }
 
     public override get shouldUsePlaceholder(): boolean {
-        return this.getMappingToRender() === null;
+        return this.mappingToRender === null;
     }
 
-    private getMappingToRender(): MappingConfigText | null {
-        return this.getMatchingMapping() ?? this.getDefaultMapping();
+    private get mappingToRender(): MappingConfigText | null {
+        return this.matchingMapping ?? this.defaultMapping;
     }
 
-    private getMatchingMapping(): MappingConfigText | null {
+    private get matchingMapping(): MappingConfigText | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.key === this.cellRecord.value
         );
         return (found as MappingConfigText) ?? null;
     }
 
-    private getDefaultMapping(): MappingConfigText | null {
+    private get defaultMapping(): MappingConfigText | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.defaultMapping
         );

@@ -4,7 +4,10 @@ import { TableColumnEnumValidationHelper } from '../../enum-base/models/column-v
 import { enumTextColumnValidityFlagNames } from '../../enum-text/models/column-validator';
 import type { Mapping } from '../../../mapping/base';
 import { MappingIcon } from '../../../mapping/icon';
-import type { MappingKeyType } from '../../enum-base/types';
+import type {
+    MappingKeyType,
+    MappingKeyValue
+} from '../../../mapping/base/types';
 
 export const iconColumnValidityFlagNames = [
     ...enumTextColumnValidityFlagNames,
@@ -18,7 +21,7 @@ export class TableColumnIconValidator extends ColumnValidator<
     typeof iconColumnValidityFlagNames
 > {
     public validateKeyValuesForType(
-        keys: (string | number | boolean | undefined)[],
+        keys: (MappingKeyValue | undefined)[],
         keyType: MappingKeyType
     ): void {
         const invalid = TableColumnEnumValidationHelper.invalidMappingKeyValueForType(
@@ -44,7 +47,7 @@ export class TableColumnIconValidator extends ColumnValidator<
         this.setConditionValue('unsupportedMappingType', invalid);
     }
 
-    public validateUniqueKeys(keys: unknown[]): void {
+    public validateUniqueKeys(keys: (MappingKeyValue | null)[]): void {
         const invalid = TableColumnEnumValidationHelper.duplicateMappingKey(keys);
         this.setConditionValue('duplicateMappingKey', invalid);
     }

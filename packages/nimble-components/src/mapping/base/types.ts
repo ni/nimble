@@ -9,3 +9,10 @@ export const MappingKeyType = {
 } as const;
 export type MappingKeyType =
     (typeof MappingKeyType)[keyof typeof MappingKeyType];
+
+export type MappingKeyValue = string | number | boolean;
+
+export interface MappingConfig {
+    key: MappingKeyValue | null;
+    defaultMapping: boolean;
+}

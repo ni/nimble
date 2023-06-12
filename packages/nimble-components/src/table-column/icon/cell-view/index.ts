@@ -21,18 +21,18 @@ export class TableColumnIconCellView extends TableCellView<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
-    public getMappingToRender(): MappingConfigIconOrSpinner | null {
-        return this.getMatchingMapping() ?? this.getDefaultMapping();
+    public get mappingToRender(): MappingConfigIconOrSpinner | null {
+        return this.matchingMapping ?? this.defaultMapping;
     }
 
-    private getMatchingMapping(): MappingConfigIconOrSpinner | null {
+    private get matchingMapping(): MappingConfigIconOrSpinner | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.key === this.cellRecord.value
         );
         return (found as MappingConfigIconOrSpinner) ?? null;
     }
 
-    private getDefaultMapping(): MappingConfigIconOrSpinner | null {
+    private get defaultMapping(): MappingConfigIconOrSpinner | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.defaultMapping
         );

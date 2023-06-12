@@ -27,7 +27,7 @@ TableColumnEnumColumnConfig
     @observable
     public isValidContentAndHasOverflow = false;
 
-    public getMappingToRender(): MappingConfigText | null {
+    public get mappingToRender(): MappingConfigText | null {
         const found = this.columnConfig?.mappingConfigs.find(
             x => x.key === this.groupHeaderValue
         );
@@ -35,7 +35,7 @@ TableColumnEnumColumnConfig
     }
 
     public override get text(): string {
-        return this.getMappingToRender()?.label ?? '';
+        return this.mappingToRender?.label ?? '';
     }
 
     public override get placeholder(): string {

@@ -10,14 +10,15 @@ import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { MappingText, mappingTextTag } from '../../../mapping/text';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { mappingIconTag } from '../../../mapping/icon';
+import type { MappingKeyValue } from '../../../mapping/base/types';
 
 interface SimpleTableRecord extends TableRecord {
-    field1?: string | number | boolean | null;
-    field2?: string | number | boolean | null;
+    field1?: MappingKeyValue | null;
+    field2?: MappingKeyValue | null;
 }
 
 interface BasicTextMapping {
-    key?: string | number | boolean;
+    key?: MappingKeyValue;
     label: string;
     defaultMapping?: boolean;
 }
@@ -332,7 +333,7 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
         });
 
-        it('catches invalid numeric key values', async () => {
+        it('is invalid with invalid numeric key values', async () => {
             ({ element, connect, disconnect } = await setup(
                 [{ key: 'a', label: 'alpha' }],
                 'number'
@@ -344,7 +345,7 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.invalidMappingKeyValueForType).toBeTrue();
         });
 
-        describe('catches invalid boolean key values:', () => {
+        describe('is invalid with invalid boolean key values:', () => {
             const dataTypeTests = [
                 { name: '(blank)', key: '' },
                 { name: 'FALSE', key: 'FALSE' },
@@ -454,7 +455,7 @@ describe('TableColumnEnumText', () => {
             });
         });
 
-        it('catches duplicate key values', async () => {
+        it('is invalid with duplicate key values', async () => {
             ({ element, connect, disconnect } = await setup([
                 { key: 'a', label: 'alpha' },
                 { key: 'a', label: 'alpha' }
@@ -466,7 +467,7 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
 
-        it('catches equivalent numeric key values', async () => {
+        it('is invalid with equivalent numeric key values', async () => {
             ({ element, connect, disconnect } = await setup(
                 [
                     { key: '0', label: 'alpha' },
@@ -481,7 +482,7 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
 
-        it('catches missing key value on non-default mapping', async () => {
+        it('is invalid with missing key value on non-default mapping', async () => {
             ({ element, connect, disconnect } = await setup([
                 { label: 'alpha' }
             ]));

@@ -6,16 +6,12 @@ import {
     Subscriber
 } from '@microsoft/fast-element';
 import type { TableAnyField } from '../../table/types';
-import type { MappingKeyType } from './types';
 import { TableColumn } from '../base';
 import { Mapping } from '../../mapping/base';
+import type { MappingConfig, MappingKeyType } from '../../mapping/base/types';
 
 export type TableColumnEnumCellRecord = TableAnyField<'value'>;
 
-export interface MappingConfig {
-    key: MappingKeyType | null;
-    defaultMapping: boolean;
-}
 export interface TableColumnEnumColumnConfig {
     mappingConfigs: MappingConfig[];
 }
@@ -71,12 +67,8 @@ export abstract class TableColumnEnumBase<
 
     protected abstract updateColumnConfig(): void;
 
-    protected get mappingConfigs(): MappingConfig[] {
-        const mappingConfigs: MappingConfig[] = [];
-        for (const mapping of this.mappings) {
-            mappingConfigs.push(mapping.getMappingConfig(this.keyType));
-        }
-        return mappingConfigs;
+    protected getMappingConfigsFromMappings(): MappingConfig[] {
+        return this.mappings.map(mapping => mapping.getMappingConfig(this.keyType));
     }
 
     private removeMappingObservers(): void {

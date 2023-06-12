@@ -4,18 +4,18 @@ import type { TableColumnIconGroupHeaderView } from '.';
 
 // prettier-ignore
 export const template = html<TableColumnIconGroupHeaderView>`
-    ${x => x.getMappingToRender()?.viewTemplate}
+    ${x => x.mappingToRender?.viewTemplate}
     <span
         ${ref('span')}
         @mouseover="${x => {
-        x.isValidContentAndHasOverflow = !!x.getMappingToRender()?.label && x.span!.offsetWidth < x.span!.scrollWidth;
+        x.isValidContentAndHasOverflow = !!x.mappingToRender?.label && x.span!.offsetWidth < x.span!.scrollWidth;
     }}"
         @mouseout="${x => {
         x.isValidContentAndHasOverflow = false;
     }}"
-        title=${x => (x.isValidContentAndHasOverflow ? x.getMappingToRender()?.label : null)}
+        title=${x => (x.isValidContentAndHasOverflow ? x.mappingToRender?.label : null)}
     >
-        ${x => x.getMappingToRender()?.label}
+        ${x => x.mappingToRender?.label}
     </span>
-    ${when(x => x.getMappingToRender() === null, html<TableColumnIconGroupHeaderView>`${x => x.groupHeaderValue}`)}
+    ${when(x => x.mappingToRender === null, html<TableColumnIconGroupHeaderView>`${x => x.groupHeaderValue}`)}
 `;

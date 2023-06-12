@@ -1,10 +1,6 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
-import {
-    MappingConfig,
-    TableColumnEnumBase,
-    TableColumnEnumColumnConfig
-} from '../enum-base';
+import { TableColumnEnumBase, TableColumnEnumColumnConfig } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
@@ -97,7 +93,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 
     protected override updateColumnConfig(): void {
         this.columnInternals.columnConfig = {
-            mappingConfigs: this.mappingConfigs,
+            mappingConfigs: this.getMappingConfigsFromMappings(),
             placeholder: this.placeholder ?? ''
         };
     }

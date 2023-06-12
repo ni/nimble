@@ -1,7 +1,6 @@
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
-import type { MappingConfig } from '../../table-column/enum-base';
-import type { MappingKeyType } from '../../table-column/enum-base/types';
+import type { MappingConfig, MappingKeyType, MappingKeyValue } from './types';
 
 /**
  * An element to be given as content to a nimble-table-column-mapping or nimble-table-column-icon.
@@ -9,17 +8,22 @@ import type { MappingKeyType } from '../../table-column/enum-base/types';
  */
 export abstract class Mapping extends FoundationElement {
     @attr({ mode: 'fromView' })
-    public key?: string | number | boolean;
+    public key?: MappingKeyValue;
 
     @attr({ attribute: 'default-mapping', mode: 'boolean' })
     public defaultMapping = false;
 
+    /**
+     * Converts a Mapping key (which is a string when configured in HTML) to the
+     * given keyType. The converted value can then be used to compare against
+     * values in the table data.
+     */
     public static typeConvertKey(
-        key: string | boolean | number | undefined,
+        key: MappingKeyValue | undefined,
         keyType: MappingKeyType
-    ): string | boolean | number | null {
+    ): MappingKeyValue | null {
         if (keyType === 'number') {
-            return nullableNumberConverter.fromView(key) as number;
+            return nullableNumberConverter.fromView(key) as number | null;
         }
         if (keyType === 'boolean') {
             if (key === false || key === 'false') {

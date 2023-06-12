@@ -1,12 +1,15 @@
 import { Mapping } from '../../../mapping/base';
-import type { MappingKeyType } from '../types';
+import type {
+    MappingKeyType,
+    MappingKeyValue
+} from '../../../mapping/base/types';
 
 /**
  * Helper to share logic between the enum-text and icon column validators
  */
 export class TableColumnEnumValidationHelper {
     public static invalidMappingKeyValueForType(
-        keys: (string | boolean | number | undefined)[],
+        keys: (MappingKeyValue | undefined)[],
         keyType: MappingKeyType
     ): boolean {
         return keys.some(
@@ -27,7 +30,9 @@ export class TableColumnEnumValidationHelper {
         );
     }
 
-    public static duplicateMappingKey(keys: unknown[]): boolean {
+    public static duplicateMappingKey(
+        keys: (MappingKeyValue | null)[]
+    ): boolean {
         return new Set(keys).size !== keys.length;
     }
 
