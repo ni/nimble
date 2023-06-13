@@ -95,20 +95,23 @@ describe('Icons', () => {
             await disconnect();
         });
 
-        it('sets initial aria-label on inner SVG', async () => {
+        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+        it('sets initial aria-label on inner SVG #SkipFirefox', async () => {
             await connect();
             const svg = element.shadowRoot!.querySelector('svg');
             expect(svg?.ariaLabel).toEqual('initial aria label');
         });
 
-        it('clears aria-label from inner SVG when removed from icon', async () => {
+        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+        it('clears aria-label from inner SVG when removed from icon #SkipFirefox', async () => {
             await connect();
             element.removeAttribute('aria-label');
             const svg = element.shadowRoot!.querySelector('svg');
             expect(svg?.ariaLabel).toBeNull();
         });
 
-        it('updates aria-label on inner SVG when changed on icon', async () => {
+        // Firefox skipped, see: https://github.com/ni/nimble/issues/1075
+        it('updates aria-label on inner SVG when changed on icon #SkipFirefox', async () => {
             await connect();
             element.setAttribute('aria-label', 'new aria label');
             const svg = element.shadowRoot!.querySelector('svg');
