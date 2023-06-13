@@ -242,7 +242,7 @@ describe('Nimble combobox control value accessor', () => {
             ];
 
             public defaultOption = this.selectOptions[1];
-            public selectedOption = new FormControl<TestModel | null | undefined | typeof OPTION_NOT_FOUND>(this.defaultOption);
+            public selectedOption = new FormControl<TestModel | null | typeof OPTION_NOT_FOUND>(this.defaultOption);
             public form: FormGroup = new FormGroup({
                 selectOption: this.selectedOption
             });
