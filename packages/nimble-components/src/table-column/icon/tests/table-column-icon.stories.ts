@@ -57,8 +57,17 @@ const simpleData = [
     }
 ];
 
+const iconColumnDescription = 'The `nimble-table-column-icon` column renders string, number, or boolean values as a Nimble icon or `nimble-spinner` in the `nimble-table`.';
+
 const metadata: Meta<IconColumnTableArgs> = {
-    title: 'Incubating/Table Column - Icon'
+    title: 'Incubating/Table Column - Icon',
+    parameters: {
+        docs: {
+            description: {
+                component: iconColumnDescription
+            }
+        }
+    }
 };
 
 export default metadata;
@@ -69,8 +78,6 @@ interface IconColumnTableArgs extends SharedTableArgs {
     checkValidity: () => void;
     validity: () => void;
 }
-
-const iconColumnDescription = 'The `nimble-table-column-icon` column renders string, number, or boolean values as a Nimble icon or `nimble-spinner` in the `nimble-table`.';
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
 The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
@@ -84,13 +91,6 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 `;
 
 export const iconColumn: StoryObj<IconColumnTableArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: iconColumnDescription
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<IconColumnTableArgs>`
         ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
