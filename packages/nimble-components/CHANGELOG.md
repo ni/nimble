@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 12 Jun 2023 21:34:35 GMT and should not be manually modified.
+This log was last generated on Tue, 13 Jun 2023 14:50:08 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.2.3
+
+Tue, 13 Jun 2023 14:50:08 GMT
+
+### Patches
+
+- Fix inconsistencies in combobox filtering ([ni/nimble@7efade9](https://github.com/ni/nimble/commit/7efade909a782e65cb256065ac5a9a59bae94ddf))
 
 ## 19.2.2
 

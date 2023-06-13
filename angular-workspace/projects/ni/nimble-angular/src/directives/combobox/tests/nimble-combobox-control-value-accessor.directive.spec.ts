@@ -7,7 +7,7 @@ import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-help
 import type { Combobox } from '../nimble-combobox.directive';
 import { OptionNotFound, OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
 
-function setComboboxValue(combobox: Combobox, index: number): void {
+function clickOnListOption(combobox: Combobox, index: number): void {
     combobox.dispatchEvent(new Event('click'));
     combobox.options[index].dispatchEvent(new Event('click', { bubbles: true }));
 }
@@ -28,7 +28,7 @@ describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding on template-based form', () => {
         @Component({
             template: `
-                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">
+                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="none">
                     <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                     <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                 </nimble-combobox>
@@ -102,7 +102,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('updates bound property when selected value is changed', () => {
-            setComboboxValue(combobox, 2);
+            clickOnListOption(combobox, 2);
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2]);
@@ -165,7 +165,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('null option is selected, combobox display value is set to provided display string for null', fakeAsync(() => {
-            setComboboxValue(combobox, 3); // select null option
+            clickOnListOption(combobox, 3); // select null option
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -224,7 +224,7 @@ describe('Nimble combobox control value accessor', () => {
         @Component({
             template: `
                 <form [formGroup]="form">
-                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="both">
+                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="none">
                         <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                     </nimble-combobox>
@@ -295,7 +295,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('updates bound property when selected value is changed', () => {
-            setComboboxValue(combobox, 2);
+            clickOnListOption(combobox, 2);
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption.value).toBe(testHostComponent.selectOptions[2]);
@@ -370,7 +370,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('null option is selected, combobox display value is set to provided display string for null', fakeAsync(() => {
-            setComboboxValue(combobox, 3); // select null option
+            clickOnListOption(combobox, 3); // select null option
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -423,7 +423,7 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(testHostComponent.selectedOption.value).toEqual(OPTION_NOT_FOUND);
 
-            updateComboboxWithText(combobox, 'O'); // value should autocomplete to 'Option 1'
+            updateComboboxWithText(combobox, 'Option 1');
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);

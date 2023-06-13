@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Jun 2023 14:50:08 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf",
+            "comment": "Fix inconsistencies in combobox filtering"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Jun 2023 21:34:35 GMT",
       "tag": "@ni/nimble-components_v19.2.2",
       "version": "19.2.2",
