@@ -38,66 +38,66 @@ Our general approach to localization is that clients will handle localizing stri
 Conceptually the localized strings are very similar to the sharing pattern of Design Tokens. The vast majority of the time, you want to use the same value (i.e. numeric increment/decrement button text is not control instance specific). However, we do want to be able to override the strings for specific controls as needed.
 
 We will create non-CSS-property design tokens, similar to the `theme` and `direction` design tokens.
-We will also create new `nimble-i18n-*` elements with APIs for setting the tokens. These will generally be direct children of the `nimble-theme-provider`, and the theme provider will be the target that the token values are set on.
+We will also create new `nimble-label-provider-*` elements with APIs for setting the tokens. These will generally be direct children of the `nimble-theme-provider`, and the theme provider will be the target that the token values are set on.
 ```html
 <nimble-theme-provider>
-  <nimble-i18n-core
+  <nimble-label-provider-core
     number-field-increment="Increment"
     number-field-decrement="Decrement"
-  ></nimble-i18n-core>
-  <nimble-i18n-table
+  ></nimble-label-provider-core>
+  <nimble-label-provider-table
     table-groups-collapse-all="Collapse all groups"
-  ></nimble-i18n-table>
+  ></nimble-label-provider-table>
 </nimble-theme-provider>
 ```
 Pros:
 - Can configure once for the whole page in one spot, does not need to be per control. Much fewer duplicated attributes / slotted elements in the page.
-- Can override for specific elements as needed (by wrapping in `nimble-theme-provider` and `nimble-i18n-*` elements)
-- We can make more granular i18n providers, even down to the level of individual controls, if we're concerned about the number of strings apps would be automatically pulling in. (Note that currently we're just planning to have 2 though.)
-- Code outside of Nimble could use the same concept (and derive from our i18n base class). If we end up with new controls in Nimble that are mostly specific to specific apps, we can also create new i18n providers for those elements, rather than sticking them all in the `i18n-core` element.
+- Can override for specific elements as needed (by wrapping in `nimble-theme-provider` and `nimble-label-provider-*` elements)
+- We can make more granular label-providers, even down to the level of individual controls, if we're concerned about the number of strings apps would be automatically pulling in. (Note that currently we're just planning to have 2 though.)
+- Code outside of Nimble could use the same concept (and derive from our label-provider base class). If we end up with new controls in Nimble that are mostly specific to specific apps, we can also create new label-providers for those elements, rather than sticking them all in the `label-provider-core` element.
 
 Cons
 - More verbose than putting the APIs directly on nimble-theme-provider (but that's not really extensible)
 - Still somewhat verbose in the page, to have all of the localized strings as attributes
     - We can consider using the `fromView` attribute mode on the attributes for the strings on the theme-provider. If clients set the strings using the theme-provider properties rather than as attributes in the HTML (as is currently proposed for Angular), `fromView` would not reflect those strings back to the DOM.
-- Apps may be pulling in more strings than they need (i.e. if they just use the banner, they'll pick up the rest of the strings in `i18n-core`). Mitigation is to split off large sets of strings (e.g. those for the table).
+- Apps may be pulling in more strings than they need (i.e. if they just use the banner, they'll pick up the rest of the strings in `label-provider-core`). Mitigation is to split off large sets of strings (e.g. those for the table).
 - Not an originally intended use case for DesignToken
 
 Other notes:
 - We don't expect to need mixed content (i.e. other than simple strings), so attributes should be sufficient (vs. slots)
-- If the page was automatically translated by something like Google Translate, the attributes on the i18n providers don't get translated. However we think this is OK because the expected usages of the labels (button content, slotted content, etc) would get translated.
+- If the page was automatically translated by something like Google Translate, the attributes on the label-providers don't get translated. However we think this is OK because the expected usages of the labels (button content, slotted content, etc) would get translated.
 - We may want to provide a description along with each English string, to aid in translation.
 
 The current set of known labels for Nimble is shown below:
 
-**nimble-i18n-core**  
+**nimble-label-provider-core**  
 | Token Name             | English string |
 |------------------------|----------------|
 | banner-dismiss         | Close         |
 | number-field-increment | Increment     |
 | number-field-decrement | Decrement     |
 
-**nimble-i18n-table**  
+**nimble-label-provider-table**  
 | Token Name                            | English string      |
 |---------------------------------------|---------------------|
 | table-group-collapse                  | Collapse group      |
 | table-group-expand                    | Expand group        |
 | table-groups-collapse-all             | Collapse all groups |
 | table-cell-action-menu-label          | Options             |
-| table-column-header-menu              | Column Options      |
+| table-column-header-menu              | Column options      |
 | table-column-header-grouped-indicator | Grouped             |
 | table-column-sort-ascending           | Sort ascending      |
 | table-column-sort-descending          | Sort descending     |
 | table-column-group-by                 | Group by            |
 | table-column-size-to-content          | Size to content     |
 
-Note: We will probably remove the `table` prefix from the properties and attribute names on `nimble-i18n-table` as it's redundant. `table-cell-action-menu-label` is a fallback for when column.actionMenuLabel is unset.
+Note: We will probably remove the `table` prefix from the properties and attribute names on `nimble-label-provider-table` as it's redundant. `table-cell-action-menu-label` is a fallback for when column.actionMenuLabel is unset.
 
 The expected format for token names is:
 - component name, e.g. `number-field` or `table`
 - component part/category (optional), e.g. `column-header`
 - specific functionality or sub-part, e.g. `decrement`
-- the suffix `label` (will be omitted from the i18n properties/attributes)
+- the suffix `label` (will be omitted from the label-provider properties/attributes)
 
 Example:
 ```ts
@@ -105,49 +105,49 @@ export const numberFieldIncrementLabel = DesignToken.create<string>({
     name: 'number-field-increment-label',
     cssCustomPropertyName: null
 }).withDefault('Increment');
-// on the i18n element:
+// on the label-provider element:
 @attr({ attribute: 'number-field-increment' })
 public numberFieldIncrement = 'Increment';
 ```
 
 #### Implementation Details
 
-See the prototype branch: [localizable-labels-prototype-2](https://github.com/ni/nimble/compare/%40ni/nimble-angular_v16.6.3...localizable-labels-prototype-2?expand=1)
+See the prototype branch: [localizable-labels-prototype-2](https://github.com/ni/nimble/compare/%40ni/nimble-angular_v16.6.3...localizable-labels-prototype-2?expand=1), but note the prototype used the name `i18n` instead of the current proposal `label-provider`.
 
 **nimble-components**  
-We'll define a base class (prototype: [i18n-base.ts](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/i18n-base.ts)) for the i18n providers, which handles setting the token values on the ancestor theme-provider. For each i18n provider, we'll have a file declaring the DesignTokens, with a class deriving from the base class that has attributes+properties for setting the token values (prototype: [i18n/core](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/core/index.ts) and [i18n/table](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/table/index.ts)).
+We'll define a base class (prototype: [i18n-base.ts](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/i18n-base.ts)) for the label-providers, which handles setting the token values on the ancestor theme-provider. For each label-provider, we'll have a file declaring the DesignTokens, with a class deriving from the base class that has attributes+properties for setting the token values (prototype: [i18n/core](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/core/index.ts) and [i18n/table](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/table/index.ts)).
 
 **nimble-angular**  
-Each i18n provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.module.ts) for `i18n-core`.)  
-We will probably also want to create secondary entry points in nimble-angular for each i18n provider.
+Each label-provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.module.ts) for `label-provider-core`.)  
+We will probably also want to create secondary entry points in nimble-angular for each label-provider, which ensures that client apps won't necessary pull in all the Nimble labels from all label providers (unless they import them explicitly).
 
-In order to make it easy/automatic for clients to pick up new localized strings/labels when they uptake new nimble-angular versions, each i18n provider has an additional directive that will set all of the Nimble-defined labels/strings, using Angular's `$localize` function on the English strings.  
+In order to make it easy/automatic for clients to pick up new localized strings/labels when they uptake new nimble-angular versions, each label-provider has an additional directive that will set all of the Nimble-defined labels/strings, using Angular's `$localize` function on the English strings.  
 Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core-with-defaults.directive.ts)  
 If we define descriptions for each string, we can include it so it appears in the message files, such as: ``$localize`:Nimble number-field increment button label:Increment` ``.
 
-For each i18n provider that an Angular app will use:
-- The app imports that specific i18n module (prototype: [in example app module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/example-client-app/src/app/app.module.ts#L74)).
-- The app adds that i18n element as a child to their theme provider ([prototype](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/example-client-app/src/app/app.component.html#L2)):
+For each label-provider that an Angular app will use:
+- The app imports that specific label-provider module (prototype: [in example app module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/example-client-app/src/app/app.module.ts#L74)).
+- The app adds that label-provider element as a child to their theme provider ([prototype](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/example-client-app/src/app/app.component.html#L2)):
 ```html
 <nimble-theme-provider>
-  <nimble-i18n-core withDefaults></nimble-i18n-core>
+  <nimble-label-provider-core withDefaults></nimble-label-provider-core>
 </nimble-theme-provider>
 ```
-- If the app needs to customize any of the labels, they can do so via the i18n directive API. Generally the root i18n provider would use `withDefaults` to set all the labels to their localized values, and any nested ones would not.
+- If the app needs to customize any of the labels, they can do so via the label-provider directive API. Generally the root label-provider would use `withDefaults` to set all the labels to their localized values, and any nested ones would not.
 
-Once an Angular app uptakes the nimble-angular version that introduces these i18n modules, and references the i18n modules, running `ng extract-i18n` will result in the app pulling in Nimble-provided labels/strings for localization. (Prototype: [messages.xlf](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/locales/messages.xlf), output of `ng extract-i18n`)  
+Once an Angular app uptakes the nimble-angular version that introduces these label-provider modules, and references the label-provider modules, running `ng extract-i18n` will result in the app pulling in Nimble-provided labels/strings for localization. (Prototype: [messages.xlf](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/locales/messages.xlf), output of `ng extract-i18n`)  
 When they pull in new nimble-angular versions in the future and re-run that command, the new strings will again be pulled in for translation automatically.
 
-We expect most apps in SystemLink to consume both `nimble-i18n-core` and `nimble-i18n-table` as-is (in their app component HTML, as children of the `nimble-theme-provider`).
+We expect most apps in SystemLink to consume both `nimble-label-provider-core` and `nimble-label-provider-table` as-is (in their app component HTML, as children of the `nimble-theme-provider`).
 
 We can consider codegen-ing the Angular directives, which would let us avoid copy-pasting the English strings/ descriptions at the nimble-angular level, but at the expense of obfucscating some of the code (in the generator scripts).
 
 **nimble-blazor**  
 We currently don't have a good solution for Blazor clients to automatically pick up or localize our labels/strings.  
-We do still plan to create Razor components for each i18n provider, so that Blazor clients can manually specify/localize the labels if desired.  
-(Prototype: [NimbleI18nCore.razor](https://github.com/ni/nimble/compare/@ni/nimble-angular_v16.6.3...localizable-labels-prototype-2?expand=1#diff-88863ebb8b90aab301573eeb66b6850c26327d12be6b0fa33bcd3cccaadca938) for `i18n-core`).
+We do still plan to create Razor components for each label-provider, so that Blazor clients can manually specify/localize the labels if desired.  
+(Prototype: [NimbleI18nCore.razor](https://github.com/ni/nimble/compare/@ni/nimble-angular_v16.6.3...localizable-labels-prototype-2?expand=1#diff-88863ebb8b90aab301573eeb66b6850c26327d12be6b0fa33bcd3cccaadca938) for `label-provider-core`).
 
-If we have any clients that will be using Nimble Blazor and non-English locales, we should probably do additional research to see if we can come up with a more seamless approach. Note that the `i18n-core` labels are not visible / are for accessibility only, so this may only be a priority for clients using the Nimble table (which will have visible strings needing localization).
+If we have any clients that will be using Nimble Blazor and non-English locales, we should probably do additional research to see if we can come up with a more seamless approach. Note that the `label-provider-core` labels are not visible / are for accessibility only, so this may only be a priority for clients using the Nimble table (which will have visible strings needing localization).
 
 ### Plan for Client-Provided Labels
 Examples: Button content, menu item content
@@ -164,10 +164,10 @@ The banner's `dismissButtonLabel` will be redundant once we have a Nimble-provid
 
 We'll need to update our documentation to describe this new system:
 - Storybook
-  - Per-component: If a component uses localizable labels, its Storybook docs should list the label names, and which `i18n` provider they're a part of.
-  - (Optional) Consider adding a new top-level page like `Concepts/Localization` which describes the `i18n` providers. We could also consider a single page that describes `nimble-theme-provider`, plus the `nimble-i18n-*` providers. As an alternative, we could make a `Strings/Labels` page under `Tokens` with sections for each `i18n` provider and the label names they contain, but that may be somewhat redundant if each component lists the label names too.
-- nimble-components README.md: This will document the `i18n` providers and where they should go on the page, similiar to the current theme-provider documentation.
-- nimble-angular README.md: This will document the `i18n` providers and the modules they're in, and the `withDefaults` directive which should be used at the root level of the page. It will also describe how the Nimble strings will now be included for translation after a `ng extract-i18n` run.
+  - Per-component: If a component uses localizable labels, its Storybook docs should list the label names, and which `label-provider` they're a part of.
+  - (Optional) Consider adding a new top-level page like `Concepts/Localization` which describes the `label-provider`s. We could also consider a single page that describes `nimble-theme-provider`, plus the `nimble-label-provider-*` elements. As an alternative, we could make a `Strings/Labels` page under `Tokens` with sections for each `label-provider` and the label names they contain, but that may be somewhat redundant if each component lists the label names too.
+- nimble-components README.md: This will document the `label-provider`s and where they should go on the page, similiar to the current theme-provider documentation.
+- nimble-angular README.md: This will document the `label-providers` and the modules they're in, and the `withDefaults` directive which should be used at the root level of the page. It will also describe how the Nimble strings will now be included for translation after a `ng extract-i18n` run.
 - nimble-blazor README.md: (Similar to the previous docs. This doc also needs to mention the theme provider, which it doesn't currently.)
 
 ## Alternative Implementations / Designs
@@ -301,7 +301,3 @@ The process above isn't great. When updated versions of Nimble Blazor are releas
 - Add an `IStringLocalizer` property to the `NimbleThemeProvider` Razor component, and codegen the `Label*` properties to use it if it's set. This would improve the process of telling Nimble about the localized resources, but wouldn't change the process of manually copying the resx to start with.
 - Define an MSBuild task that copies the resx file, similar to what's outlined in [this GitHub comment](https://github.com/ni/nimble/issues/558#issuecomment-1129279985). Not much better / still a manual process.
 
-## Open Issues
-
-- Naming
-   - Do we like having `i18n` in the element names, or should we pick something else? Once camel-cased it also looks strange, i.e. `NimbleI18nCore.razor`
