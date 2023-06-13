@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Jun 2023 16:41:10 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a593581078aa9e9b95ed101572ac282c63e97ea",
+            "comment": "Updated Button Styles Spec (#663)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Jun 2023 14:50:08 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf",
+            "comment": "Fix inconsistencies in combobox filtering"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 21:34:35 GMT",
+      "tag": "@ni/nimble-components_v19.2.2",
+      "version": "19.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "562c2ec63b6c8391633f17d33a311535b61627f4",
+            "comment": "Fix GroupRow component template"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Jun 2023 19:23:49 GMT",
       "tag": "@ni/nimble-components_v19.2.1",
       "version": "19.2.1",
