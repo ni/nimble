@@ -46,13 +46,13 @@ const simpleData = [
     {
         firstName: 'Greg',
         lastName: '',
-        status: 'foo',
+        status: 'calculating',
         isChild: true
     },
     {
         firstName: 'Frank',
         lastName: '',
-        status: 'bar',
+        status: 'foo',
         isChild: false
     }
 ];
