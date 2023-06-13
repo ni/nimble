@@ -26,14 +26,14 @@ including Comments and other instances that necessitate rich text capabilities.
 
 ### Features
 
-Both the components provides support for the basic text formatting options as follows:
+Both components provide support for the following basic text formatting options:
 
 1. Bold
 2. Italics
 3. Numbered List
 4. Bulleted List
 
-The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format texts in the following ways:
+The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
 1. Using the buttons located below the editor to modify the text formatting for the selected texts.
 2. Using the keyboard shortcuts to modify the text formatting in the editor.
