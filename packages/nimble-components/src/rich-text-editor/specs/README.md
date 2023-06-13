@@ -15,7 +15,7 @@ including Comments and other instances that necessitate rich text capabilities.
 
 [Nimble issue #1288](https://github.com/ni/nimble/issues/1288)
 
-[Comments UI mockup](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045)
+[Comments UI mockup](https://www.figma.com/proto/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94118&scaling=min-zoom&page-id=2428%3A32954&starting-point-node-id=6280%3A94118&show-proto-sidebar=1)
 
 [Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
 
@@ -60,10 +60,11 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 -   Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is
     mentioned in this spec are deferred to future scope.
 -   Currently, we will begin by referring to the existing
-    [Interaction design workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) of the comments feature. Once
-    the visual design for these components is complete, we will then be implementing those specific changes within the defined scope of development. These
-    changes will include button spacing, styling, and the styling of the editor container for hover, focus and active states. However, we will still make use
-    of existing nimble components such as `nimble-button` and `nimble-text-area` to maintain a consistent design for the initial release.
+    [Interaction design workflow](https://www.figma.com/proto/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94118&scaling=min-zoom&page-id=2428%3A32954&starting-point-node-id=6280%3A94118&show-proto-sidebar=1)
+    of the comments feature. Once the visual design for these components is complete, we will then be implementing those specific changes within the defined
+    scope of development. These changes will include button spacing, styling, and the styling of the editor container for hover, focus and active states.
+    However, we will still make use of existing nimble components such as `nimble-button` and `nimble-text-area` to maintain a consistent design for the
+    initial release.
 -   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We
     will update this spec accordingly based on the progress.
 
