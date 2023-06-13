@@ -20,7 +20,7 @@ interface IconArgs {
 }
 
 const metadata: Meta<IconArgs> = {
-    title: 'Icons',
+    title: 'Components/Icons',
     tags: ['autodocs']
 };
 
