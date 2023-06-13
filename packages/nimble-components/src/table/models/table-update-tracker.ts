@@ -3,21 +3,7 @@ import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
 import type { ColumnInternals } from '../../table-column/base/models/column-internals';
-
-interface BooleanCollection {
-    [key: string]: boolean;
-}
-
-interface RequiredUpdates extends BooleanCollection {
-    rowIds: boolean;
-    groupRows: boolean;
-    columnIds: boolean;
-    columnSort: boolean;
-    columnWidths: boolean;
-    columnDefinition: boolean;
-    actionMenuSlots: boolean;
-    selectionMode: boolean;
-}
+import { UpdateTracker } from '../../utilities/models/update-tracker';
 
 const isColumnProperty = (
     changedProperty: string,
@@ -43,79 +29,78 @@ const isColumnInternalsProperty = (
     return false;
 };
 
+const trackedItems = [
+    'rowIds',
+    'groupRows',
+    'columnIds',
+    'columnSort',
+    'columnWidths',
+    'columnDefinition',
+    'actionMenuSlots',
+    'selectionMode'
+] as const;
+
 /**
  * Helper class to track what updates are needed to the table based on configuration
  * changes.
  */
-export class UpdateTracker<TData extends TableRecord> {
-    private readonly requiredUpdates: RequiredUpdates = {
-        rowIds: false,
-        groupRows: false,
-        columnIds: false,
-        columnSort: false,
-        columnWidths: false,
-        columnDefinition: false,
-        actionMenuSlots: false,
-        selectionMode: false
-    };
-
-    private readonly table: Table<TData>;
+export class TableUpdateTracker<
+    TData extends TableRecord
+> extends UpdateTracker<typeof trackedItems> {
     private updateQueued = false;
 
-    public constructor(table: Table<TData>) {
-        this.table = table;
+    public constructor(private readonly table: Table<TData>) {
+        super(trackedItems);
     }
 
     public get updateRowIds(): boolean {
-        return this.requiredUpdates.rowIds;
+        return this.isTracked('rowIds');
     }
 
     public get updateGroupRows(): boolean {
-        return this.requiredUpdates.groupRows;
+        return this.isTracked('groupRows');
     }
 
     public get updateColumnIds(): boolean {
-        return this.requiredUpdates.columnIds;
+        return this.isTracked('columnIds');
     }
 
     public get updateColumnSort(): boolean {
-        return this.requiredUpdates.columnSort;
+        return this.isTracked('columnSort');
     }
 
     public get updateColumnWidths(): boolean {
-        return this.requiredUpdates.columnWidths;
+        return this.isTracked('columnWidths');
     }
 
     public get updateColumnDefinition(): boolean {
-        return this.requiredUpdates.columnDefinition;
+        return this.isTracked('columnDefinition');
     }
 
     public get updateActionMenuSlots(): boolean {
-        return this.requiredUpdates.actionMenuSlots;
+        return this.isTracked('actionMenuSlots');
     }
 
     public get updateSelectionMode(): boolean {
-        return this.requiredUpdates.selectionMode;
+        return this.isTracked('selectionMode');
     }
 
     public get requiresTanStackUpdate(): boolean {
         return (
-            this.requiredUpdates.rowIds
-            || this.requiredUpdates.columnSort
-            || this.requiredUpdates.columnDefinition
-            || this.requiredUpdates.groupRows
-            || this.requiredUpdates.selectionMode
+            this.isTracked('rowIds')
+            || this.isTracked('columnSort')
+            || this.isTracked('columnDefinition')
+            || this.isTracked('groupRows')
+            || this.isTracked('selectionMode')
         );
     }
 
     public get requiresTanStackDataReset(): boolean {
-        return (
-            this.requiredUpdates.rowIds || this.requiredUpdates.columnDefinition
-        );
+        return this.isTracked('rowIds') || this.isTracked('columnDefinition');
     }
 
     public trackAllStateChanged(): void {
-        this.setAllKeys(true);
+        this.trackAll();
         this.queueUpdate();
     }
 
@@ -125,7 +110,7 @@ export class UpdateTracker<TData extends TableRecord> {
 
     public trackColumnPropertyChanged(changedColumnProperty: string): void {
         if (isColumnProperty(changedColumnProperty, 'columnId')) {
-            this.requiredUpdates.columnIds = true;
+            this.track('columnIds');
         } else if (
             isColumnInternalsProperty(
                 changedColumnProperty,
@@ -133,7 +118,7 @@ export class UpdateTracker<TData extends TableRecord> {
                 'sortOperation'
             )
         ) {
-            this.requiredUpdates.columnDefinition = true;
+            this.track('columnDefinition');
         } else if (
             isColumnProperty(changedColumnProperty, 'sortingDisabled')
             || isColumnInternalsProperty(
@@ -142,7 +127,7 @@ export class UpdateTracker<TData extends TableRecord> {
                 'currentSortIndex'
             )
         ) {
-            this.requiredUpdates.columnSort = true;
+            this.track('columnSort');
         } else if (
             isColumnProperty(changedColumnProperty, 'columnHidden')
             || isColumnInternalsProperty(
@@ -152,9 +137,9 @@ export class UpdateTracker<TData extends TableRecord> {
                 'minPixelWidth'
             )
         ) {
-            this.requiredUpdates.columnWidths = true;
+            this.track('columnWidths');
         } else if (isColumnProperty(changedColumnProperty, 'actionMenuSlot')) {
-            this.requiredUpdates.actionMenuSlots = true;
+            this.track('actionMenuSlots');
         } else if (
             isColumnInternalsProperty(
                 changedColumnProperty,
@@ -162,40 +147,34 @@ export class UpdateTracker<TData extends TableRecord> {
                 'groupingDisabled'
             )
         ) {
-            this.requiredUpdates.groupRows = true;
+            this.track('groupRows');
         }
 
         this.queueUpdate();
     }
 
     public trackColumnInstancesChanged(): void {
-        this.requiredUpdates.columnIds = true;
-        this.requiredUpdates.columnDefinition = true;
-        this.requiredUpdates.columnSort = true;
-        this.requiredUpdates.columnWidths = true;
-        this.requiredUpdates.actionMenuSlots = true;
-        this.requiredUpdates.groupRows = true;
+        this.track('columnIds');
+        this.track('columnDefinition');
+        this.track('columnSort');
+        this.track('columnWidths');
+        this.track('actionMenuSlots');
+        this.track('groupRows');
 
         this.queueUpdate();
     }
 
     public trackIdFieldNameChanged(): void {
-        this.requiredUpdates.rowIds = true;
+        this.track('rowIds');
         this.queueUpdate();
     }
 
     public trackSelectionModeChanged(): void {
-        this.requiredUpdates.selectionMode = true;
+        this.track('selectionMode');
         this.queueUpdate();
     }
 
-    private setAllKeys(value: boolean): void {
-        Object.keys(this.requiredUpdates).forEach(key => {
-            this.requiredUpdates[key] = value;
-        });
-    }
-
-    private queueUpdate(): void {
+    protected override queueUpdate(): void {
         if (!this.table.$fastController.isConnected) {
             return;
         }
@@ -204,7 +183,7 @@ export class UpdateTracker<TData extends TableRecord> {
             this.updateQueued = true;
             DOM.queueUpdate(() => {
                 this.table.update();
-                this.setAllKeys(false);
+                this.untrackAll();
                 this.updateQueued = false;
             });
         }
