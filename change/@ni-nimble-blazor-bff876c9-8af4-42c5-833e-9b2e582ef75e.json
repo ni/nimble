@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Update broken Storybook links",
+  "packageName": "@ni/nimble-blazor",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
