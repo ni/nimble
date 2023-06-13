@@ -62,9 +62,8 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 -   Currently, we will begin by referring to the existing
     [Interaction design workflow](https://www.figma.com/proto/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94118&scaling=min-zoom&page-id=2428%3A32954&starting-point-node-id=6280%3A94118&show-proto-sidebar=1)
     of the comments feature. Once the visual design for these components is complete, we will then be implementing those specific changes within the defined
-    scope of development. These changes will include button spacing, styling, and the styling of the editor container for hover, focus and active states.
-    However, we will still make use of existing nimble components such as `nimble-button` and `nimble-text-area` to maintain a consistent design for the
-    initial release.
+    scope of development. However, we will still make use of existing nimble components such as `nimble-button` and `nimble-text-area` to maintain a
+    consistent design for the initial release.
 -   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We
     will update this spec accordingly based on the progress.
 
