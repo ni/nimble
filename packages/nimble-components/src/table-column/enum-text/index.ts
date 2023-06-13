@@ -52,6 +52,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     }
 
     public override connectedCallback(): void {
+        super.connectedCallback();
         this.validator.validateAtMostOneDefaultMapping(this.mappings);
         this.validator.validateMappingTypes(
             this.mappings,

@@ -33,7 +33,7 @@ describe('TableColumnEnumText', () => {
     async function setup(mappings: BasicTextMapping[], keyType = 'string', placeholder = ''): Promise<Fixture<Table<SimpleTableRecord>>> {
         return fixture<Table<SimpleTableRecord>>(
             html`<${tableTag} style="width: 700px">
-                    <${tableColumnEnumTextTag} field-name="field1" key-type="${keyType}", placeholder="${placeholder}">
+                    <${tableColumnEnumTextTag} field-name="field1" key-type="${keyType}" placeholder="${placeholder}">
                         Column 1
                         ${repeat(() => mappings, html<BasicTextMapping>`
                             <${mappingTextTag}
