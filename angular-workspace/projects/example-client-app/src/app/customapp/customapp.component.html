@@ -1,12 +1,13 @@
 <div class="content container">
     <p>Explore the components below to see the Nimble components in action. See the <a
-            href="https://ni.github.io/nimble/storybook/?path=/story/getting-started--page">Nimble
+            href="https://ni.github.io/nimble/storybook/">Nimble
             component docs</a> for additional usage details.</p>
     <div class="container">
         <div class="sub-container">
             <div class="container-label">Anchor</div>
             <div><nimble-anchor href="#" appearance="prominent">Site root</nimble-anchor></div>
-            Let's try it <nimble-anchor nimbleRouterLink="/customapp" underline-visible>using nimbleRouterLink</nimble-anchor>.
+            Let's try it <nimble-anchor nimbleRouterLink="/customapp" underline-visible>using
+                nimbleRouterLink</nimble-anchor>.
         </div>
         <div class="sub-container">
             <div class="container-label">Banner</div>
@@ -38,9 +39,12 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Buttons - Anchor</div>
-            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="outline">Outline Anchor Button</nimble-anchor-button>
-            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor Button</nimble-anchor-button>
-            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor Button</nimble-anchor-button>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="outline">Outline Anchor
+                Button</nimble-anchor-button>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="block">Block Anchor
+                Button</nimble-anchor-button>
+            <nimble-anchor-button nimbleRouterLink="/customapp" appearance="ghost">Ghost Anchor
+                Button</nimble-anchor-button>
         </div>
         <div class="sub-container">
             <div class="container-label">Card Button</div>
@@ -131,9 +135,12 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Number Field</div>
-            <nimble-number-field appearance="underline" placeholder="Number Field" value="42">Underline Number Field</nimble-number-field>
-            <nimble-number-field appearance="outline" placeholder="Number Field" value="42">Outline Number Field</nimble-number-field>
-            <nimble-number-field appearance="block" placeholder="Number Field" value="42">Block Number Field</nimble-number-field>
+            <nimble-number-field appearance="underline" placeholder="Number Field" value="42">Underline Number
+                Field</nimble-number-field>
+            <nimble-number-field appearance="outline" placeholder="Number Field" value="42">Outline Number
+                Field</nimble-number-field>
+            <nimble-number-field appearance="block" placeholder="Number Field" value="42">Block Number
+                Field</nimble-number-field>
         </div>
         <div class="sub-container">
             <div class="container-label">Select</div>
@@ -155,19 +162,28 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Combobox</div>
-            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both" placeholder="Select value...">
-                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption"
+                (ngModelChange)="onComboboxChange($event)" appearance="underline" autocomplete="both"
+                placeholder="Select value...">
+                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : ''
+                    }}</nimble-list-option>
             </nimble-combobox>
             <div>
                 <span>
                     Last name: {{ comboboxSelectedLastName }}
                 </span>
             </div>
-            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both" placeholder="Select value...">
-                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption"
+                (ngModelChange)="onComboboxChange($event)" appearance="outline" autocomplete="both"
+                placeholder="Select value...">
+                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : ''
+                    }}</nimble-list-option>
             </nimble-combobox>
-            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption" (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both" placeholder="Select value...">
-                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : '' }}</nimble-list-option>
+            <nimble-combobox aria-label="Combobox" [(ngModel)]="comboboxSelectedOption"
+                (ngModelChange)="onComboboxChange($event)" appearance="block" autocomplete="both"
+                placeholder="Select value...">
+                <nimble-list-option *ngFor="let item of comboboxItems" [ngValue]="item">{{ item ? item.first : ''
+                    }}</nimble-list-option>
             </nimble-combobox>
         </div>
         <div class="sub-container">
@@ -186,27 +202,17 @@
         <div class="sub-container">
             <div class="container-label">Table</div>
             <nimble-table [data$]="tableData$" id-field-name="id" selection-mode="multiple">
-                <nimble-table-column-text
-                    field-name="stringValue1"
-                    action-menu-slot="action-menu"
-                    action-menu-label="Action menu"
-                    fractional-width="2"
-                    min-pixel-width="300"
-                    sort-direction="ascending"
-                    sort-index="0"
-                >
+                <nimble-table-column-text field-name="stringValue1" action-menu-slot="action-menu"
+                    action-menu-label="Action menu" fractional-width="2" min-pixel-width="300"
+                    sort-direction="ascending" sort-index="0">
                     <nimble-icon-check title="String 1"></nimble-icon-check>
                 </nimble-table-column-text>
-                <nimble-table-column-anchor
-                    nimbleRouterLink
-                    [queryParams]="{ word: 'foo' }"
-                    queryParamsHandling="merge"
-                    href-field-name="href"
-                    label-field-name="linkLabel"
-                >
+                <nimble-table-column-anchor nimbleRouterLink [queryParams]="{ word: 'foo' }" queryParamsHandling="merge"
+                    href-field-name="href" label-field-name="linkLabel">
                     Link
                 </nimble-table-column-anchor>
-                <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
+                <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String
+                    2</nimble-table-column-text>
 
                 <nimble-menu slot="action-menu">
                     <nimble-menu-item>Item 1</nimble-menu-item>
@@ -215,7 +221,8 @@
                 </nimble-menu>
             </nimble-table>
             <nimble-button class="add-table-row-button" (click)="onAddTableRow()">Add row</nimble-button>
-            <nimble-text-field class="query-param-word" readonly [ngModel]="(route.queryParams | async)!.word">Link Query Param Word</nimble-text-field>
+            <nimble-text-field class="query-param-word" readonly [ngModel]="(route.queryParams | async)!.word">Link
+                Query Param Word</nimble-text-field>
         </div>
         <div class="sub-container">
             <div class="container-label">Tabs</div>
@@ -266,13 +273,18 @@
         </div>
         <div class="sub-container">
             <div class="container-label">Text Area</div>
-            <nimble-text-area placeholder="Text Area" cols="50" rows="5" resize="horizontal" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text Area Label</nimble-text-area>
+            <nimble-text-area placeholder="Text Area" cols="50" rows="5" resize="horizontal"
+                value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Text
+                Area Label</nimble-text-area>
         </div>
         <div class="sub-container">
             <div class="container-label">Text Field</div>
-            <nimble-text-field appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text Field</nimble-text-field>
-            <nimble-text-field appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text Field</nimble-text-field>
-            <nimble-text-field appearance="block" placeholder="Text Field" value="Here is text!">Block Text Field</nimble-text-field>
+            <nimble-text-field appearance="underline" placeholder="Text Field" value="Here is text!">Underline Text
+                Field</nimble-text-field>
+            <nimble-text-field appearance="outline" placeholder="Text Field" value="Here is text!">Outline Text
+                Field</nimble-text-field>
+            <nimble-text-field appearance="block" placeholder="Text Field" value="Here is text!">Block Text
+                Field</nimble-text-field>
         </div>
         <div class="sub-container">
             <div class="container-label">Toolbar</div>
