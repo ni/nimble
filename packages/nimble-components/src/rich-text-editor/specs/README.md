@@ -158,9 +158,9 @@ _Shadow DOM template_
 <template>
     <section id="editor"></section>
     <footer>
-        <nimble-toolbar>
+        <section id="toolbar">
             <nimble-button></nimble-button>
-        </nimble-toolbar>
+        </section>
         <section id="actions">
             <slot name="footer-actions"></slot>
         </section>
@@ -306,7 +306,7 @@ above.
 _Button State_
 
 The buttons in the toolbar will indicate the formatting status of the selected text in the editor. For example, if the text in the editor
-is bold and the cursor is placed on the text, the bold button will be indicated as a active state. The active state is indicated as `block`
+is bold and the cursor is placed on the text, the bold button will be indicated as an active state. The active state is indicated as `block`
 appearance of the [`nimble-button`](https://nimble.ni.dev/storybook/?path=/docs/button--docs) and inactive state is in `ghost`
 appearance. Refer the below sample screenshot with active bold state.
 
