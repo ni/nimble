@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 13 Jun 2023 16:41:10 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a593581078aa9e9b95ed101572ac282c63e97ea",
+            "comment": "Updated Button Styles Spec (#663)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Jun 2023 14:50:08 GMT",
       "tag": "@ni/nimble-components_v19.2.3",
       "version": "19.2.3",
