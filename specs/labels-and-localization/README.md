@@ -118,18 +118,16 @@ See the prototype branch: [localizable-labels-prototype-2](https://github.com/ni
 We'll define a base class (prototype: [i18n-base.ts](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/i18n-base.ts)) for the i18n providers, which handles setting the token values on the ancestor theme-provider. For each i18n provider, we'll have a file declaring the DesignTokens, with a class deriving from the base class that has attributes+properties for setting the token values (prototype: [i18n/core](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/core/index.ts) and [i18n/table](https://github.com/ni/nimble/blob/b13117639de55db3086561edccc4dfe5994f9829/packages/nimble-components/src/i18n/table/index.ts)).
 
 **nimble-angular**  
-Each i18n provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core.module.ts) for `i18n-core`.)
+Each i18n provider will have its own Angular directive and module (prototype: [nimble-i18n-core.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.directive.ts) and [nimble-i18n-core.module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core.module.ts) for `i18n-core`.)  
+We will probably also want to create secondary entry points in nimble-angular for each i18n provider.
 
 In order to make it easy/automatic for clients to pick up new localized strings/labels when they uptake new nimble-angular versions, each i18n provider has an additional directive that will set all of the Nimble-defined labels/strings, using Angular's `$localize` function on the English strings.  
-Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/ni/nimble-angular/src/directives/i18n/core/nimble-i18n-core-with-defaults.directive.ts)  
+Prototype: [nimble-i18n-core-with-defaults.directive](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/ni/nimble-angular/i18n/core/nimble-i18n-core-with-defaults.directive.ts)  
 If we define descriptions for each string, we can include it so it appears in the message files, such as: ``$localize`:Nimble number-field increment button label:Increment` ``.
 
-Once an Angular app uptakes the nimble-angular version that introduces these i18n modules, running `ng extract-i18n` will result in the app pulling in Nimble-provided labels/strings for localization. (Prototype: [messages.xlf](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/locales/messages.xlf), output of `ng extract-i18n` after upgrading to this nimble-angular version)  
-When they pull in new nimble-angular versions in the future and re-run that command, the new strings will again be pulled in for translation automatically.
-
 For each i18n provider that an Angular app will use:
-- The app imports that specific i18n module (prototype: [in example app module](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/app/app.module.ts#L73)).
-- The app adds that i18n element as a child to their theme provider ([prototype](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/app/app.component.html#L2)):
+- The app imports that specific i18n module (prototype: [in example app module](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/example-client-app/src/app/app.module.ts#L74)).
+- The app adds that i18n element as a child to their theme provider ([prototype](https://github.com/ni/nimble/blob/cf6a2e1ae010d00dc7253c25658dd5a17b5f6215/angular-workspace/projects/example-client-app/src/app/app.component.html#L2)):
 ```html
 <nimble-theme-provider>
   <nimble-i18n-core withDefaults></nimble-i18n-core>
@@ -137,7 +135,10 @@ For each i18n provider that an Angular app will use:
 ```
 - If the app needs to customize any of the labels, they can do so via the i18n directive API. Generally the root i18n provider would use `withDefaults` to set all the labels to their localized values, and any nested ones would not.
 
-We expect most apps in SystemLink to consume both `nimble-i18n-core` and `nimble-i18n-table` as-is.
+Once an Angular app uptakes the nimble-angular version that introduces these i18n modules, and references the i18n modules, running `ng extract-i18n` will result in the app pulling in Nimble-provided labels/strings for localization. (Prototype: [messages.xlf](https://github.com/ni/nimble/blob/d51ee14dc49db7070e5cab726c225f69635de17b/angular-workspace/projects/example-client-app/src/locales/messages.xlf), output of `ng extract-i18n`)  
+When they pull in new nimble-angular versions in the future and re-run that command, the new strings will again be pulled in for translation automatically.
+
+We expect most apps in SystemLink to consume both `nimble-i18n-core` and `nimble-i18n-table` as-is (in their app component HTML, as children of the `nimble-theme-provider`).
 
 We can consider codegen-ing the Angular directives, which would let us avoid copy-pasting the English strings/ descriptions at the nimble-angular level, but at the expense of obfucscating some of the code (in the generator scripts).
 
