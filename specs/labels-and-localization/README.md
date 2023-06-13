@@ -73,9 +73,9 @@ The current set of known labels for Nimble is shown below:
 **nimble-label-provider-core**  
 | Token Name             | English string |
 |------------------------|----------------|
-| banner-dismiss         | Close         |
-| number-field-increment | Increment     |
-| number-field-decrement | Decrement     |
+| banner-dismiss         | Close          |
+| number-field-increment | Increment      |
+| number-field-decrement | Decrement      |
 
 **nimble-label-provider-table**  
 | Token Name                            | English string      |
@@ -94,7 +94,8 @@ The current set of known labels for Nimble is shown below:
 Note: We will probably remove the `table` prefix from the properties and attribute names on `nimble-label-provider-table` as it's redundant. `table-cell-action-menu-label` is a fallback for when column.actionMenuLabel is unset.
 
 The expected format for token names is:
-- component name, e.g. `number-field` or `table`
+- element/type(s) to which the token applies, e.g. `number-field` or `table`
+    - This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
 - component part/category (optional), e.g. `column-header`
 - specific functionality or sub-part, e.g. `decrement`
 - the suffix `label` (will be omitted from the label-provider properties/attributes)
