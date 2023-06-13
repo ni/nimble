@@ -1,4 +1,4 @@
-export const appearanceVariantDescription = `This attribute has no effect on buttons with a \`ghost\` appearance.
+export const appearanceVariantDescription = `This attribute has no effect on buttons with a \`ghost\` appearance. The appearance variant \`primary-accent\` has no effect on buttons using the "color" theme.
 
 <details>
     <summary>Primary Button Usage</summary>
