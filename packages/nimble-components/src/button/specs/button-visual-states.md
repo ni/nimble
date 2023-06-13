@@ -40,7 +40,7 @@ Only the `nimble-button` and `nimble-anchor-button` components will have the new
 
 We considered configuring these states via a new attribute but elected to use `appearance-variant` because its previous implementation is no longer used.
 
-We also considered calling the green button (Referencing Light UI) `primary` and the gray button (Referencing Light UI) `primary-accent`, but decided that calling the gray button (Referencing Light UI) `primary` made more sense. This is because it is used more often than `primary-accent`, and should be what the previous `primary` style changes to after the implementation of the new button designs.
+We also considered calling the green button (Referencing Light UI) `primary` / `primary-loud` and the gray button (Referencing Light UI) `secondary` / `primary-quiet`, but decided that calling the gray button (Referencing Light UI) `primary` made more sense. This is because the clarified gray button design usage guidelines state it is used more often than the green button, and should be what the previous `primary` style changes to after the implementation of the new button designs.
 
 ## Open Issues
 
