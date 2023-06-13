@@ -2,6 +2,29 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 13 Jun 2023 14:50:08 GMT",
+      "tag": "@ni/nimble-angular_v16.6.6",
+      "version": "16.6.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf",
+            "comment": "Update combobox CVA tests"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.2.3",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Jun 2023 21:34:35 GMT",
       "tag": "@ni/nimble-angular_v16.6.5",
       "version": "16.6.5",
