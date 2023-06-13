@@ -77,15 +77,33 @@ Before building a new component, 3 specification documents need to be created:
 
 ## Develop new components
 
-### Marking a component as in development
+### Marking a component as incubating
 
-If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
+
+-   It is still in development.
+-   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
+-   It is missing important features like interaction design, visual design, accessibility, or framework integration.
+
+Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
+
+-   Start development with a spec describing the high level plan and what's in or out of scope
+-   Coding conventions (element naming, linting, code quality)
+-   Unit and Chromatic test coverage
+-   Storybook documentation
+
+To mark a component as incubating:
 
 1. In the component status table, set its status to ⚠️
-2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
-3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+2. In the component Storybook documentation:
+    - add a red text banner to the page indicating that the component is not ready for general use
+    - start the Storybook name with "Incubating/" so that it appears in a separate section of the documentation page
+3. Add CODEOWNERS from both the contributing team and the Nimble team.
 
-Be sure to remove these warnings when the component is complete!
+To move a component out of incubating status:
+
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete.
+2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
 
