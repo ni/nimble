@@ -38,7 +38,7 @@ export class Button
      * HTML Attribute: appearance-variant
      */
     @attr({ attribute: 'appearance-variant' })
-    public appearanceVariant: ButtonAppearanceVariant;
+    public appearanceVariant: ButtonAppearanceVariant = ButtonAppearanceVariant.default;
 
     /**
      * @public

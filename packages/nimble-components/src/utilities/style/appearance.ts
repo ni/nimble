@@ -20,3 +20,14 @@ export function appearanceBehavior<AppearanceType>(
         styles
     );
 }
+
+export function appearanceVariantBehavior<AppearanceVariantType>(
+    value: AppearanceVariantType | AppearanceVariantType[],
+    styles: ElementStyles
+): Behavior {
+    return new MultivaluePropertyStyleSheetBehavior(
+        'appearanceVariant',
+        value,
+        styles
+    );
+}

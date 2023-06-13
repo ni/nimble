@@ -48,8 +48,9 @@ export type ButtonAppearance =
  * @public
  */
 export const ButtonAppearanceVariant = {
-    default: undefined,
-    primary: 'primary'
+    default: 'default',
+    primary: 'primary',
+    primaryAccent: 'primary-accent'
 } as const;
 export type ButtonAppearanceVariant =
     (typeof ButtonAppearanceVariant)[keyof typeof ButtonAppearanceVariant];

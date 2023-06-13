@@ -13,10 +13,12 @@ import {
     fillSelectedColor,
     iconColor,
     smallDelay,
-    standardPadding
+    standardPadding,
+    applicationBackgroundColor
 } from '../../theme-provider/design-tokens';
-import { appearanceBehavior } from '../../utilities/style/appearance';
-import { ButtonAppearance } from './types';
+import { appearanceBehavior, appearanceVariantBehavior } from '../../utilities/style/appearance';
+import { ButtonAppearance, ButtonAppearanceVariant } from './types';
+import { Black15 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -49,7 +51,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: ${borderWidth} solid transparent;
+        border: 0px solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -78,18 +80,21 @@ export const styles = css`
     }
 
     .control:hover {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
+        0px 0px 0px 3px ${applicationBackgroundColor} inset;
         outline: none;
     }
 
     .control${focusVisible} {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        outline: ${borderWidth} solid ${borderHoverColor};
-        outline-offset: -4px;
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
+        0px 0px 0px 3px ${applicationBackgroundColor} inset,
+        0px 0px 0px 4px ${borderHoverColor} inset;
     }
 
     .control:active {
-        box-shadow: none;
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset,
+        0px 0px 0px 2px ${applicationBackgroundColor} inset;
         outline: none;
     }
 
@@ -164,7 +169,6 @@ export const styles = css`
 
             .control:active {
                 background-color: ${fillSelectedColor};
-                border-color: ${fillSelectedColor};
             }
 
             :host([disabled]) .control {
@@ -211,22 +215,19 @@ export const styles = css`
             }
 
             .control:hover {
-                background-color: transparent;
-                border-color: ${borderHoverColor};
             }
 
             .control${focusVisible} {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
+
                 border-color: ${borderHoverColor};
             }
 
             .control${focusVisible}:hover {
-                background-color: transparent;
             }
 
             .control:active {
                 background-color: ${fillSelectedColor};
-                border-color: ${fillSelectedColor};
             }
 
             :host([disabled]) .control {
@@ -238,88 +239,159 @@ export const styles = css`
 );
 
 export const buttonAppearanceVariantStyles = css``.withBehaviors(
-    appearanceBehavior(
-        ButtonAppearance.outline,
-        css`
-            :host([appearance-variant='primary']) .control {
-                box-shadow: 0px 0px 0px ${borderWidth}
-                    rgba(${actionRgbPartialColor}, 0.3) inset;
-            }
+    // appearanceBehavior(
+    //     ButtonAppearance.outline,
+    //     css`
+    //         :host([appearance-variant='primary']) .control {
+    //             box-shadow: 0px 0px 0px ${borderWidth}
+    //                 rgba(${actionRgbPartialColor}, 0.3) inset;
+    //         }
 
-            :host([appearance-variant='primary']) .control:hover {
-                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-            }
+    //         :host([appearance-variant='primary']) .control:hover {
+    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    //         }
 
-            :host([appearance-variant='primary']) .control${focusVisible} {
-                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-            }
+    //         :host([appearance-variant='primary']) .control${focusVisible} {
+    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    //         }
 
-            :host([appearance-variant='primary']) .control:active {
-                box-shadow: none;
-            }
+    //         :host([appearance-variant='primary']) .control:active {
+    //             box-shadow: none;
+    //         }
 
-            :host([appearance-variant='primary'][disabled]) .control {
-                box-shadow: none;
-            }
-        `
+    //         :host([appearance-variant='primary'][disabled]) .control {
+    //             box-shadow: none;
+    //         }
+    //     `
+    // ),
+    appearanceVariantBehavior(
+        ButtonAppearanceVariant.primary,
+        css``.withBehaviors(
+            appearanceBehavior(
+                ButtonAppearance.block,
+                css`
+                    .control {
+                        background-color: rgba(${actionRgbPartialColor}, 0.75);
+                        border-color: transparent;
+                        color: ${Black15};
+                    }
+
+                    .control:hover {
+                        background-color: rgba(${actionRgbPartialColor}, 0.75);
+                    }
+
+                    .control${focusVisible} {
+                        background-color: rgba(${actionRgbPartialColor}, 0.75);
+                        border-color: ${borderHoverColor};
+                    }
+
+                    .control${focusVisible}:hover {
+                        background-color: rgba(${actionRgbPartialColor}, 0.75);
+                    }
+
+                    .control:active {
+                        background-color: rgba(${actionRgbPartialColor}, 0.85);
+                        border-color: ${borderHoverColor};
+                    }
+
+                    :host([disabled]) .control {
+                        background-color: rgba(${borderRgbPartialColor}, 0.1);
+                        border-color: transparent;
+                    }
+                `
+            ),
+            appearanceBehavior(
+                ButtonAppearance.outline,
+                css`
+                    .control {
+                        background-color: transparent;
+                        border-color: ${actionRgbPartialColor};
+                        color: ${actionRgbPartialColor};
+                    }
+
+                    .control:hover {
+                        background-color: transparent;
+                        border-color: ${borderHoverColor};
+                    }
+
+                    .control${focusVisible} {
+                        background-color: transparent;
+                        border-color: ${borderHoverColor};
+                    }
+
+                    .control:active {
+                        background-color: ${fillSelectedColor};
+                    }
+
+                    :host([disabled]) .control {
+                        background-color: transparent;
+                        border-color: rgba(${borderRgbPartialColor}, 0.2);
+                    }
+                `
+            )
+        )
     ),
-    appearanceBehavior(
-        ButtonAppearance.block,
-        css`
-            :host([appearance-variant='primary']) .control {
-                background-clip: padding-box;
-                border-color: rgba(${actionRgbPartialColor}, 0.3);
-                border-width: calc(2 * ${borderWidth});
-                padding: 0 calc(${standardPadding} - ${borderWidth});
-            }
+    // appearanceBehavior(
+    //     ButtonAppearance.outline,
+    //     css`
+    //         :host([appearance-variant="primary"]) .control {
+    //             background-clip: padding-box;
+    //             background-color: rgba(${actionRgbPartialColor}, 0.75);
+    //             border-color: rgba(${actionRgbPartialColor}, 0.75);
+    //             padding: 0 ${standardPadding};
+    //             color: white;
+    //         }
 
-            :host([appearance-variant='primary'][content-hidden]) .control {
-                padding: 0px;
-            }
+    //         :host([appearance-variant='primary'][content-hidden]) .control {
+    //             padding: 0px;
+    //         }
 
-            :host([appearance-variant='primary']) .control:hover {
-                border-color: ${borderHoverColor};
-                box-shadow: none;
-            }
+    //         :host([appearance-variant='primary']) .control:hover {
+    //             border-color: ${borderHoverColor};
+    //             background-color: rgba(${actionRgbPartialColor}, 0.75);
+    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    //             outline: none;
+    //         }
 
-            :host([appearance-variant='primary']) .control${focusVisible} {
-                background-clip: border-box;
-                border-color: ${borderHoverColor};
-                border-width: ${borderWidth};
-                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-                padding: 0 ${standardPadding};
-            }
+    //         :host([appearance-variant='primary']) .control${focusVisible} {
+    //             background-clip: border-box;
+    //             border-color: ${borderHoverColor};
+    //             border-width: ${borderWidth};
+    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    //             padding: 0 ${standardPadding};
+    //         }
 
-            :host([appearance-variant='primary'][content-hidden])
-                .control${focusVisible} {
-                padding: 0px;
-            }
+    //         :host([appearance-variant='primary'][content-hidden])
+    //             .control${focusVisible} {
+    //             padding: 0px;
+    //         }
 
-            :host([appearance-variant='primary']) .control:active {
-                background-clip: border-box;
-                border-color: ${fillSelectedColor};
-                border-width: ${borderWidth};
-                box-shadow: none;
-                padding: 0 ${standardPadding};
-            }
+    //         :host([appearance-variant='primary']) .control:active {
+    //             background-clip: border-box;
+    //             border-color: ${fillSelectedColor};
+    //             border-width: ${borderWidth};
+    //             box-shadow: none;
+    //             padding: 0 ${standardPadding};
+    //             background-color: rgba(${actionRgbPartialColor}, 0.85);
+    //         }
 
-            :host([appearance-variant='primary'][content-hidden])
-                .control:active {
-                padding: 0px;
-            }
+    //         :host([appearance-variant='primary'][content-hidden])
+    //             .control:active {
+    //             padding: 0px;
+    //         }
 
-            :host([appearance-variant='primary'][disabled]) .control {
-                background-clip: border-box;
-                border-color: transparent;
-                border-width: ${borderWidth};
-                box-shadow: none;
-                padding: 0 ${standardPadding};
-            }
+    //         :host([appearance-variant='primary'][disabled]) .control {
+    //             background-clip: border-box;
+    //             border-color: transparent;
+    //             border-width: ${borderWidth};
+    //             box-shadow: none;
+    //             padding: 0 ${standardPadding};
+    //         }
 
-            :host([appearance-variant='primary'][disabled][content-hidden])
-                .control {
-                padding: 0px;
-            }
-        `
-    )
+    //         :host([appearance-variant='primary'][disabled][content-hidden])
+    //             .control {
+    //             padding: 0px;
+    //         }
+    //     `
+    // )
 );
