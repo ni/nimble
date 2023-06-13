@@ -61,10 +61,9 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
     mentioned in this spec are deferred to future scope.
 -   Currently, we will begin by referring to the existing
     [Interaction design workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045) of the comments feature. Once
-    the visual design for these components is complete, we will then consider implementing specific changes within the defined scope of development. These
-    changes will include button spacing, styling, and the styling of the editor container for hover, focus and active states. Any other visual design changes
-    will be deferred to future scope. However, we will still make use of existing nimble components such as `nimble-button` and
-    `nimble-text-area` to maintain a consistent design for the initial release.
+    the visual design for these components is complete, we will then be implementing those specific changes within the defined scope of development. These
+    changes will include button spacing, styling, and the styling of the editor container for hover, focus and active states. However, we will still make use
+    of existing nimble components such as `nimble-button` and `nimble-text-area` to maintain a consistent design for the initial release.
 -   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We
     will update this spec accordingly based on the progress.
 
@@ -138,11 +137,18 @@ _Events_
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The editor section and the footer section will have a fixed height in pixels and will have a minimum and maximum widths in pixels to ensure responsiveness
-    across various screen resolutions. The content below the minimum width will not be handled.
--   The formatting option menu in the footer section will be enclosed within a flexbox container and will wrap the buttons, allowing them to be evenly
-    distributed across the toolbar until it occupies seventy percent of the entire footer. The remaining thirty percent will be enclosed with an another flexbox
-    container for a slot elements.
+-   The minimum and maximum height of the `editor section` will be fixed. If the content exceeds the maximum height, we will show the vertical scrollbar to
+    view the content of the editor.
+-   The minimum and maximum width of the `editor section` will be fixed considering the mobile and desktop view of the component respectively. However, if the
+    screen width is reduced
+    below the specified minimum width, the layout may not handle or adapt to the content.
+-   The `footer section` will be a flexbox container and have the same width as the editor section.
+-   The `formatting option toolbar` in the footer section will be enclosed within a flexbox container, enabling the buttons to wrap and occupy roughly seventy
+    percent of the entire footer. If the buttons exceed the seventy percent limit, they will be positioned below in the same container, aligning from right
+    to left. The remaining thirty percent of the footer will be enclosed in another flexbox container dedicated to `footer-actions` slot elements.
+-   Regarding the mobile view of the component, we have the following open questions:
+    -   Is it ok to have a flexbox container for the toolbar in the footer section and place the buttons below if it reaches the maximum width?
+    -   What should be the ideal maximum and minimum width and height of the component?
 
 ### Anatomy
 
@@ -207,7 +213,8 @@ _Events_
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   none
+-   The height of the component will always grow to fit the content.
+-   The minimum and maximum width of the component will be the same as the `nimble-rich-text-editor`, considering the mobile and desktop views respectively.
 
 ### Anatomy
 
@@ -336,7 +343,7 @@ _Keyboard navigation with toolbar buttons focused_
 | Key          | Behavior                                                                       |
 | ------------ | ------------------------------------------------------------------------------ |
 | Space, Enter | Enable the selected text formatting feature and return the focus to the editor |
-| Tab keys     | To move the focus forward in the toolbar                                       |
+| Tab keys     | To move the focus forward in the toolbar menu                                  |
 | Shift + Tab  | To reach the editor back to focus                                              |
 
 _Note_: All other keyboard interaction determined by the slotted element will not be defined in this document.
