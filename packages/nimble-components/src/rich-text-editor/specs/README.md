@@ -131,8 +131,8 @@ _Events_
 
 -   `input` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
     [update event](https://tiptap.dev/api/events#update). Below are few scenarios to understand when an update event will trigger or not trigger:
-    1.  An event is triggered for every change in the content of the editor, including text inputs, text formatting changes, and text removals. The event data
-        emitted is in the format of a `CustomEvent`. Note that this event data does not include the value of the content in the text editor.
+    1.  An event is triggered for every input in the content of the editor, including text inputs, text formatting changes, and text removals. The event data
+        emitted is in the format of a `CustomEvent`. Note that this event does not contain any custom data or the value of the content in the text editor.
     2.  Event will not triggered when there are no change made to the content of the editor. For example, all mouse events, selecting the texts, state
         changes etc,.
 
