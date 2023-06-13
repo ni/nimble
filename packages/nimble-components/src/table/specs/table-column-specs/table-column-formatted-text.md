@@ -55,12 +55,10 @@ Nimble will provide base classes that can be derived from to define columns that
 
 Nimble will provide several columns that derive from these base classes and provide higher level formatting APIs for specific data types. We plan to provide column implementations that can handle the above use cases 1-4 (numeric formatting and static units) and 6 (date).
 
-Clients which require app-specific formatting logic to support above use cases like 5 (custom unit logic) will define custom columns in their application that derive from these base classes.
+Nimble may add additional column types or configurations in future to support additional cases. These cases may be contributed by client teams or include application-specific logic (possibly as "incubating" components). Defining columns in Nimble and configuring their formatting in apps via attributes is preferable to applications defining custom columns with JS formatting logic for several reasons:
 
-We'll strongly encourage clients to prefer columns defined in Nimble as these will be easier to use than custom columns defined in their application:
-
--   the columns will be configurable via HTML attributes, saving clients from writing JS code (a particular challenge in Blazor)
--   they provide strict type validation of the data field
+-   the columns can be made available to other applications written in any of the UI frameworks that Nimble supports
+-   the columns can be built using Nimble infrastructure, saving apps from incorporating FAST or JS code (a particular challenge in Blazor)
 -   clients don't need to manage the lifecycle of registering a new column custom element in their application
 
 ### Formatted text column base classes
