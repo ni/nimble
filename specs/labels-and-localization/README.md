@@ -159,6 +159,16 @@ Clients will localize those labels themselves:
 
 The banner's `dismissButtonLabel` will be redundant once we have a Nimble-provided label for banner dismiss buttons, so we will probably remove that attribute in the future.
 
+## Documentation Updates
+
+We'll need to update our documentation to describe this new system:
+- Storybook
+  - Per-component: If a component uses localizable labels, its Storybook docs should list the label names, and which `i18n` provider they're a part of.
+  - (Optional) Consider adding a new top-level page like `Concepts/Localization` which describes the `i18n` providers. We could also consider a single page that describes `nimble-theme-provider`, plus the `nimble-i18n-*` providers. As an alternative, we could make a `Strings/Labels` page under `Tokens` with sections for each `i18n` provider and the label names they contain, but that may be somewhat redundant if each component lists the label names too.
+- nimble-components README.md: This will document the `i18n` providers and where they should go on the page, similiar to the current theme-provider documentation.
+- nimble-angular README.md: This will document the `i18n` providers and the modules they're in, and the `withDefaults` directive which should be used at the root level of the page. It will also describe how the Nimble strings will now be included for translation after a `ng extract-i18n` run.
+- nimble-blazor README.md: (Similar to the previous docs. This doc also needs to mention the theme provider, which it doesn't currently.)
+
 ## Alternative Implementations / Designs
 
 **Alternative options for Nimble-provided labels:**
@@ -294,4 +304,3 @@ The process above isn't great. When updated versions of Nimble Blazor are releas
 
 - Naming
    - Do we like having `i18n` in the element names, or should we pick something else? Once camel-cased it also looks strange, i.e. `NimbleI18nCore.razor`
-- Best way to document this system (in Storybook)?
