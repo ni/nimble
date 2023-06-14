@@ -11,7 +11,6 @@ interface TableArgs {
     tableRef: Table;
     updateData: (args: TableArgs) => void;
 }
-// ✅ ⚠️
 
 const components = [
     {
