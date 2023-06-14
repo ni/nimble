@@ -82,7 +82,7 @@ _`nimble-rich-text-viewer`_
 
 ## Design
 
-_nimble-rich-text-editor_
+### `nimble-rich-text-editor`
 
 The `nimble-rich-text-editor` will be divided into two sections namely an `editor` section and a `footer` section.
 
@@ -101,55 +101,43 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 </nimble-rich-text-editor>
 ```
 
-_nimble-rich-text-viewer_
-
-The `nimble-rich-text-viewer` is used for viewing rich text content when a markdown string is passed to it. It performs the post-processing
-tasks to convert the markdown string to corresponding HTML nodes for each text formatting.
-
-### `nimble-rich-text-editor`
-
 ### API
 
 _Props/Attrs_
 
--   none
+-   `markdownValue` - is an accessor used to get and set the markdown value.
+    -   `getter` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
+        [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L30).
+    -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
+        [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199).
 
 _Methods_
 
--   `getMarkdown()` - gets the processed markdown output from the component.
-
-    > As Tiptap by default [does not support markdown output](https://tiptap.dev/guide/output#not-an-option-markdown) and our requirement is to obtain
-    > the markdown, we will perform post-processing using [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown)
-    > to achieve the desired results. This operation can be executed only when
-    > the consumer needs to retrieve the output and is not necessarily bound to the attribute/property, as the processing time is slightly longer.
-
--   `setMarkdown()` - sets the markdown input from the consumer component which can be used for preloading the content.
-
-    > Since `setMarkdown` and `getMarkdown` should be symmetric, we have decided to implement this as a method rather than an attribute/property.
+-   none
 
 _Events_
 
--   `input` - event emitted when there is a change in the editor. This can be achieved through Tiptap's
-    [update event](https://tiptap.dev/api/events#update). Below are a few scenarios to understand when will an update event will fire:
-    1. An event is fired for every input in the content of the editor, including text inputs, text formatting changes, and text removals. The event data
-       emitted is in the format of a `CustomEvent`. Note that this event does not contain any custom data or the value of the content in the text editor.
-    2. An event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
+-   `input` - event emitted when there is a change in the editor. This can be achieved through Tiptap's [update event](https://tiptap.dev/api/events#update).
+    Below are a few scenarios to understand when this event will fire:
+
+    1. This event will fired for every input in the content of the editor, including text inputs, text formatting changes, and text removals.
+    2. This event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
        changes, etc,
+
+    The emitted event data is in the format of a `CustomEvent` and consists of a `detail` object with an `isEmpty` boolean flag indicating whether the editor
+    is empty or not.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The minimum and maximum height of the `editor section` will be fixed. If the content exceeds the maximum height, we will show the vertical scrollbar to
+-   The minimum and maximum height of the `editor section` will be fixed value. If the content exceeds the maximum height, we will show the vertical scrollbar to
     view the content of the editor.
--   The minimum and maximum width of the `editor section` will be fixed considering the mobile and desktop view of the component respectively. However, if the
+-   The minimum and maximum width of the `editor section` will be fixed value considering the mobile and desktop view of the component respectively. However, if the
     screen width is reduced
     below the specified minimum width, the layout may not handle or adapt to the content.
 -   The `footer section` will be a flexbox container and have the same width as the editor section.
 -   The `formatting option toolbar` in the footer section will be enclosed within a flexbox container, enabling the buttons to wrap and occupy roughly seventy
     percent of the entire footer. If the buttons exceed the seventy percent limit, they will be positioned below in the same container, aligning from left
     to right. The remaining thirty percent of the footer will be enclosed in another flexbox container dedicated to `footer-actions` slot elements.
--   Regarding the mobile view of the component, we have the following open questions:
-    -   Is it ok to have a flexbox container for the toolbar in the footer section and place the buttons below if it reaches the maximum width?
-    -   What should be the ideal maximum and minimum width and height of the component?
 
 ### Anatomy
 
@@ -194,15 +182,18 @@ _CSS Parts_
 
 ### `nimble-rich-text-viewer`
 
+The `nimble-rich-text-viewer` is used for viewing rich text content when a markdown string is passed to it. It performs the post-processing
+tasks to convert the markdown string to corresponding HTML nodes for each text formatting.
+
 ### API
 
 _Props/Attrs_
 
--   `markdown-value`: string - markdown input to the component to render it in the text viewer.
-
-    > The markdown value can be passed to this component as a string since the primary and sole purpose of the component is to display the rich-text content.
-    > So, the process of converting the markdown input to a HTML is necessary for this component. This will also allow the client framework to bind
-    > to it statically as a declarative API without running any Javascript code or other processes.
+-   `markdownValue` - is an accessor used to get and set the markdown value.
+    -   `getter` - this will merely return the markdown string that is set to the component.
+    -   `setter` - this will parse the markdown string into a Node using
+        [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199) and convert to an HTML to
+        render it in the component section.
 
 _Methods_
 
@@ -317,6 +308,10 @@ text in the editor.
 ### Accessibility
 
 [Tiptap Accessibility](https://tiptap.dev/guide/accessibility)
+
+[Toolbar Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/)
+
+[Button Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
 
 _Focus_
 
