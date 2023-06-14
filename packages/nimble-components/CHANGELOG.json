@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 14 Jun 2023 20:14:25 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c3df12be0f145aee2a07dbd05bbed582e3b431a6",
+            "comment": "Update docs (accessible labels for button/banner/icons)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Jun 2023 16:41:10 GMT",
       "tag": "@ni/nimble-components_v19.2.3",
       "version": "19.2.3",
