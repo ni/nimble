@@ -13,6 +13,6 @@ export type MappingKeyType =
 export type MappingKeyValue = string | number | boolean;
 
 export interface MappingConfig {
-    key: MappingKeyValue | null;
+    key: MappingKeyValue | undefined;
     defaultMapping: boolean;
 }

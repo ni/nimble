@@ -53,12 +53,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.validator.validateAtMostOneDefaultMapping(this.mappings);
-        this.validator.validateMappingTypes(
-            this.mappings,
-            this.supportedMappingTypes
-        );
-        this.validateKeyDependentConditions();
+        this.validateMappingDependentConditions();
     }
 
     /**
@@ -86,12 +81,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     protected override mappingsChanged(): void {
         super.mappingsChanged();
         if (this.$fastController.isConnected) {
-            this.validator.validateAtMostOneDefaultMapping(this.mappings);
-            this.validator.validateMappingTypes(
-                this.mappings,
-                this.supportedMappingTypes
-            );
-            this.validateKeyDependentConditions();
+            this.validateMappingDependentConditions();
         }
     }
 
@@ -123,6 +113,15 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
             ?? [];
         this.validator.validateUniqueKeys(typedKeys);
         this.validator.validateNoMissingKeys(this.mappings);
+    }
+
+    private validateMappingDependentConditions(): void {
+        this.validator.validateAtMostOneDefaultMapping(this.mappings);
+        this.validator.validateMappingTypes(
+            this.mappings,
+            this.supportedMappingTypes
+        );
+        this.validateKeyDependentConditions();
     }
 }
 

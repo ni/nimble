@@ -10,11 +10,6 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        font: ${bodyFont};
-        color: ${bodyFontColor};
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         gap: ${smallPadding};
         align-items: center;
     }

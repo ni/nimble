@@ -1,12 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { css } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import { template } from './template';
 import type {
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
 } from '../../enum-base';
-import type { MappingConfigIconOrSpinner } from '../../../mapping/icon';
+import type { MappingConfigIconBase } from '../../../mapping/icon-base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,29 +20,28 @@ export class TableColumnIconCellView extends TableCellView<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
-    public get mappingToRender(): MappingConfigIconOrSpinner | null {
+    public get mappingToRender(): MappingConfigIconBase | null {
         return this.matchingMapping ?? this.defaultMapping;
     }
 
-    private get matchingMapping(): MappingConfigIconOrSpinner | null {
+    private get matchingMapping(): MappingConfigIconBase | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.key === this.cellRecord.value
         );
-        return (found as MappingConfigIconOrSpinner) ?? null;
+        return (found as MappingConfigIconBase) ?? null;
     }
 
-    private get defaultMapping(): MappingConfigIconOrSpinner | null {
+    private get defaultMapping(): MappingConfigIconBase | null {
         const found = this.columnConfig.mappingConfigs.find(
             x => x.defaultMapping
         );
-        return (found as MappingConfigIconOrSpinner) ?? null;
+        return (found as MappingConfigIconBase) ?? null;
     }
 }
 
 const iconCellView = TableColumnIconCellView.compose({
     baseName: 'table-column-icon-cell-view',
-    template,
-    styles: css``
+    template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconCellView());
 export const tableColumnIconCellViewTag = DesignSystem.tagFor(

@@ -47,7 +47,7 @@ export class TableColumnEnumTextValidator extends ColumnValidator<
         this.setConditionValue('unsupportedMappingType', invalid);
     }
 
-    public validateUniqueKeys(keys: (MappingKeyValue | null)[]): void {
+    public validateUniqueKeys(keys: (MappingKeyValue | undefined)[]): void {
         const invalid = TableColumnEnumValidationHelper.duplicateMappingKey(keys);
         this.setConditionValue('duplicateMappingKey', invalid);
     }

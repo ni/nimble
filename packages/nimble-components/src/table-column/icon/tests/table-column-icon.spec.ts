@@ -14,8 +14,8 @@ import { IconCheck } from '../../../icons/check';
 import type { MappingKeyValue } from '../../../mapping/base/types';
 
 interface SimpleTableRecord extends TableRecord {
-    field1?: MappingKeyValue | null;
-    field2?: MappingKeyValue | null;
+    field1?: MappingKeyValue | undefined;
+    field2?: MappingKeyValue | undefined;
 }
 
 interface BasicIconMapping {

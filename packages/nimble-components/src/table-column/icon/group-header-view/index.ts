@@ -1,11 +1,10 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
-import { TableGroupHeaderView } from '../../base/group-header-view';
 import { styles } from './styles';
 import { template } from './template';
-import type { MappingConfigIconOrSpinner } from '../../../mapping/icon';
+import type { MappingConfigIconBase } from '../../../mapping/icon-base/types';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import type { TableFieldValue } from '../../../table/types';
+import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,22 +15,33 @@ declare global {
 /**
  * The group header view for the icon column
  */
-export class TableColumnIconGroupHeaderView extends TableGroupHeaderView<
+export class TableColumnIconGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableFieldValue,
 TableColumnEnumColumnConfig
 > {
-    /** @internal */
-    public span: HTMLSpanElement | null = null;
-
-    /** @internal */
-    @observable
-    public isValidContentAndHasOverflow = false;
-
-    public get mappingToRender(): MappingConfigIconOrSpinner | null {
+    public get mappingToRender(): MappingConfigIconBase | null {
         const found = this.columnConfig?.mappingConfigs.find(
             x => x.key === this.groupHeaderValue
         );
-        return (found as MappingConfigIconOrSpinner) ?? null;
+        return (found as MappingConfigIconBase) ?? null;
+    }
+
+    public override get text(): string {
+        return (
+            this.mappingToRender?.label
+            ?? this.groupHeaderValue?.toString()
+            ?? ''
+        );
+    }
+
+    public override get placeholder(): string {
+        throw Error('Placeholder not used');
+    }
+
+    // Rule incorrectly reports an error when overriding base class member
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+    public override get shouldUsePlaceholder(): boolean {
+        return false;
     }
 }
 

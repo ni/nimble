@@ -2,6 +2,7 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../../utilities/tests/hidden';
+import { keyDescription } from '../../base/tests/shared';
 
 const metadata: Meta = {
     title: 'Tests/Mappings',
@@ -21,8 +22,7 @@ export const spinnerMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
-            description:
-                'The value which, when matched to the data value for a cell, will result in a spinner being rendered in that cell. There must not be multiple mappings with the same key in a given column.',
+            description: keyDescription('a spinner'),
             control: { type: 'none' }
         },
         label: {

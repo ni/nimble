@@ -21,9 +21,12 @@ export abstract class Mapping extends FoundationElement {
     public static typeConvertKey(
         key: MappingKeyValue | undefined,
         keyType: MappingKeyType
-    ): MappingKeyValue | null {
+    ): MappingKeyValue | undefined {
         if (keyType === 'number') {
-            return nullableNumberConverter.fromView(key) as number | null;
+            const converted = nullableNumberConverter.fromView(key) as
+                | number
+                | null;
+            return converted === null ? undefined : converted;
         }
         if (keyType === 'boolean') {
             if (key === false || key === 'false') {
@@ -32,9 +35,9 @@ export abstract class Mapping extends FoundationElement {
             if (key === true || key === 'true') {
                 return true;
             }
-            return null;
+            return undefined;
         }
-        return key === undefined ? null : key.toString();
+        return key?.toString() ?? undefined;
     }
 
     public abstract getMappingConfig(keyType: MappingKeyType): MappingConfig;

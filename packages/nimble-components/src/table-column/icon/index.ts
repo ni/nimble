@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { TableColumnEnumBase, TableColumnEnumColumnConfig } from '../enum-base';
 import { styles } from '../enum-base/styles';
@@ -44,13 +43,7 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.validator.validateAtMostOneDefaultMapping(this.mappings);
-        this.validator.validateMappingTypes(
-            this.mappings,
-            this.supportedMappingTypes
-        );
-        this.validateKeyDependentConditions();
-        this.validator.validateIconNames(this.mappings);
+        this.validateMappingDependentConditions();
     }
 
     /**
@@ -88,13 +81,7 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     protected override mappingsChanged(): void {
         super.mappingsChanged();
         if (this.$fastController.isConnected) {
-            this.validator.validateAtMostOneDefaultMapping(this.mappings);
-            this.validator.validateMappingTypes(
-                this.mappings,
-                this.supportedMappingTypes
-            );
-            this.validateKeyDependentConditions();
-            this.validator.validateIconNames(this.mappings);
+            this.validateMappingDependentConditions();
         }
     }
 
@@ -115,6 +102,16 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             ?? [];
         this.validator.validateUniqueKeys(typedKeys);
         this.validator.validateNoMissingKeys(this.mappings);
+    }
+
+    private validateMappingDependentConditions(): void {
+        this.validator.validateAtMostOneDefaultMapping(this.mappings);
+        this.validator.validateMappingTypes(
+            this.mappings,
+            this.supportedMappingTypes
+        );
+        this.validateKeyDependentConditions();
+        this.validator.validateIconNames(this.mappings);
     }
 }
 

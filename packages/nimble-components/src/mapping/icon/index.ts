@@ -1,19 +1,10 @@
-import { attr, css, html, ViewTemplate } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { IconSeverity } from '../../icon-base/types';
 import type { MappingConfig, MappingKeyType } from '../base/types';
-
-export interface MappingConfigIconOrSpinner extends MappingConfig {
-    label: string;
-    viewTemplate: ViewTemplate;
-}
-
-export interface MappingConfigIcon extends MappingConfigIconOrSpinner {
-    icon: string;
-    severity: IconSeverity;
-}
+import type { MappingConfigIconBase } from '../icon-base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -36,11 +27,9 @@ export class MappingIcon extends Mapping {
     public label?: string;
 
     public override getMappingConfig(keyType: MappingKeyType): MappingConfig {
-        const mappingConfig: MappingConfigIcon = {
+        const mappingConfig: MappingConfigIconBase = {
             key: Mapping.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
-            icon: this.icon ?? '',
-            severity: this.severity,
             label: this.label ?? '',
             viewTemplate: this.icon
                 ? html`
@@ -58,8 +47,7 @@ export class MappingIcon extends Mapping {
 
 const iconMapping = MappingIcon.compose({
     baseName: 'mapping-icon',
-    template,
-    styles: css``
+    template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(iconMapping());
 export const mappingIconTag = DesignSystem.tagFor(MappingIcon);

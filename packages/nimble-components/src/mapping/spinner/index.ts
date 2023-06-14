@@ -1,9 +1,9 @@
-import { attr, css, html } from '@microsoft/fast-element';
+import { attr, html } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { spinnerTag } from '../../spinner';
 import { template } from '../base/template';
-import type { MappingConfigIconOrSpinner } from '../icon';
+import type { MappingConfigIconBase } from '../icon-base/types';
 import type { MappingConfig, MappingKeyType } from '../base/types';
 
 declare global {
@@ -21,7 +21,7 @@ export class MappingSpinner extends Mapping {
     public label?: string;
 
     public override getMappingConfig(keyType: MappingKeyType): MappingConfig {
-        const mappingConfig: MappingConfigIconOrSpinner = {
+        const mappingConfig: MappingConfigIconBase = {
             key: Mapping.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
             label: this.label ?? '',
@@ -38,8 +38,7 @@ export class MappingSpinner extends Mapping {
 
 const spinnerMapping = MappingSpinner.compose({
     baseName: 'mapping-spinner',
-    template,
-    styles: css``
+    template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(spinnerMapping());
 export const mappingSpinnerTag = DesignSystem.tagFor(MappingSpinner);

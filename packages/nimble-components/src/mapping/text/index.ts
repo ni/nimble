@@ -1,4 +1,4 @@
-import { attr, css } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
@@ -35,8 +35,7 @@ export class MappingText extends Mapping {
 
 const textMapping = MappingText.compose({
     baseName: 'mapping-text',
-    template,
-    styles: css``
+    template
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(textMapping());
 export const mappingTextTag = DesignSystem.tagFor(MappingText);

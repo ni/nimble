@@ -31,7 +31,7 @@ export class TableColumnEnumValidationHelper {
     }
 
     public static duplicateMappingKey(
-        keys: (MappingKeyValue | null)[]
+        keys: (MappingKeyValue | undefined)[]
     ): boolean {
         return new Set(keys).size !== keys.length;
     }
