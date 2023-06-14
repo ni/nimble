@@ -1,9 +1,8 @@
 import { css } from '@microsoft/fast-element';
 import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
-import { borderWidth } from '../theme-provider/design-tokens';
+import { applicationBackgroundColor, borderWidth, elevation2BoxShadow, popupBorderColor, smallPadding } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
-import { focusVisible } from '../utilities/style/focus';
 import { DropdownAppearance } from './types';
 
 export const styles = css`
@@ -16,25 +15,6 @@ export const styles = css`
     }
     [part='selected-value'] {
         order: 1;
-        pointer-events: none
-    }
-
-    .selected-value {
-        -webkit-appearance: none;
-        background: transparent;
-        border: none;
-        color: inherit;
-        margin: auto 0;
-        width: 100%;
-        font: inherit;
-        height: var(--ni-private-height-within-border);
-    }
-
-    .selected-value:hover,
-    .selected-value:disabled,
-    .selected-value:active,
-    .selected-value${focusVisible} {
-        outline: none;
     }
     
     [part='indicator'] {
@@ -47,6 +27,40 @@ export const styles = css`
 
     .end {
         display: contents;
+    }
+
+    .dropdown {
+        box-sizing: border-box;
+        display: inline-flex;
+        flex-direction: column;
+        left: 0;
+        overflow-y: auto;
+        position: absolute;
+        width: 100%;
+        --ni-private-listbox-padding: ${smallPadding};
+        max-height: calc(
+            var(--ni-private-select-max-height) - 2 *
+                var(--ni-private-listbox-padding)
+        );
+        z-index: 1;
+        box-shadow: ${elevation2BoxShadow};
+        border: 1px solid ${popupBorderColor};
+        background-color: ${applicationBackgroundColor};
+    }
+
+    .filter-input {
+        -webkit-appearance: none;
+        background: transparent;
+        border: none;
+        color: inherit;
+        margin: auto 0;
+        width: 100%;
+        font: inherit;
+        height: var(--ni-private-height-within-border);
+    }
+
+    .listbox {
+        border: 0px;
     }
 `.withBehaviors(
     appearanceBehavior(

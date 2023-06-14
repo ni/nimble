@@ -1,4 +1,4 @@
-import { attr, html, observable } from '@microsoft/fast-element';
+import { attr, html, observable, Observable, DOM } from '@microsoft/fast-element';
 import {
     AnchoredRegion,
     DesignSystem,
@@ -13,6 +13,7 @@ import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import { template } from './template';
 import type { ListOption } from '../list-option';
+import type { TextField } from '../text-field';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -44,10 +45,69 @@ export class Select extends FoundationSelect implements ErrorPattern {
     public controlWrapper?: HTMLElement;
 
     @observable
+    public input?: TextField;
+
+    @observable
     public region?: AnchoredRegion;
 
     private _filter = '';
     private filteredOptions: ListOption[] = [];
+
+    /**
+     * The list of options.
+     *
+     * @public
+     * @remarks
+     * Overrides `Listbox.options`.
+     */
+    public override get options(): ListOption[] {
+        Observable.track(this, 'options');
+        return this.filteredOptions?.length ? this.filteredOptions : this._options;
+    }
+
+    public override set options(value: ListOption[]) {
+        this._options = value;
+        Observable.notify(this, 'options');
+    }
+
+    /**
+     * The value property.
+     *
+     * @public
+     */
+    public override get value(): string {
+        Observable.track(this, 'value');
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        return this['_value'] as string;
+    }
+
+    public override set value(next: string) {
+        const prev = `${this.value}`;
+        let newValue = next;
+
+        if (this.options?.length) {
+            const selectedIndex = this.options.findIndex(el => el.value === newValue);
+            const prevSelectedValue = this.options[this.selectedIndex]?.value ?? null;
+            const nextSelectedValue = this.options[selectedIndex]?.value ?? null;
+
+            if (selectedIndex === -1 || prevSelectedValue !== nextSelectedValue) {
+                newValue = '';
+                this.selectedIndex = selectedIndex;
+            }
+
+            newValue = this.firstSelectedOption?.value ?? newValue;
+        }
+
+        if (prev !== newValue) {
+            // eslint-disable-next-line @typescript-eslint/dot-notation
+            this['_value'] = newValue;
+            super.valueChanged(prev, newValue);
+            Observable.notify(this, 'value');
+            if (this.collapsible) {
+                Observable.notify(this, 'displayValue');
+            }
+        }
+    }
 
     public regionChanged(
         _prev: AnchoredRegion | undefined,
@@ -90,6 +150,10 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
     }
 
+    public inputClickHandler(e: MouseEvent): void {
+        e.stopPropagation(); // clicking in filter input shouldn't close dropdown
+    }
+
     /**
      * Handle content changes on the control input.
      *
@@ -97,12 +161,15 @@ export class Select extends FoundationSelect implements ErrorPattern {
      * @internal
      */
     public inputHandler(e: InputEvent): boolean {
-        this._filter = (this.control as HTMLInputElement).value;
+        this._filter = this.input?.value ?? '';
         this.filterOptions();
 
-        this.selectedIndex = this.options
+        const filteredOptionSelectedIndex = this.options
             .map(option => option.text)
             .indexOf((this.control as HTMLInputElement).value);
+        if (filteredOptionSelectedIndex >= 0) {
+            this.selectedIndex = filteredOptionSelectedIndex;
+        }
 
         if (e.inputType.includes('deleteContent') || !this._filter.length) {
             return true;
@@ -110,34 +177,79 @@ export class Select extends FoundationSelect implements ErrorPattern {
 
         this.open = true;
 
+        e.stopPropagation();
+        return true;
+    }
+
+    public override keydownHandler(e: KeyboardEvent): boolean {
+        const key = e.key;
+
+        if (e.ctrlKey || e.shiftKey) {
+            return true;
+        }
+
+        switch (key) {
+            case ' ': {
+                if (!this.open) {
+                    super.keydownHandler(e);
+                }
+                break;
+            }
+
+            default: {
+                super.keydownHandler(e);
+            }
+        }
         return true;
     }
 
     /**
-     * Handle keyup actions for value input and text field manipulations.
+     * Handle keydown actions for listbox navigation.
      *
      * @param e - the keyboard event
      * @internal
      */
-    public keyupHandler(e: KeyboardEvent): boolean {
+    public inputKeydownHandler(e: Event & KeyboardEvent): boolean {
         const key = e.key;
 
+        if (e.ctrlKey || e.shiftKey) {
+            return true;
+        }
+
         switch (key) {
-            case 'ArrowLeft':
-            case 'ArrowRight':
-            case 'Backspace':
-            case 'Delete':
-            case 'Home':
-            case 'End': {
-                this._filter = (this.control as HTMLInputElement).value;
-                this.selectedIndex = -1;
-                this.filterOptions();
+            case 'ArrowUp':
+            case 'ArrowDown': {
+                if (this.filteredOptions.length > 0) {
+                    super.keydownHandler(e);
+                }
+
                 break;
             }
-            default:
+
+            default: {
+                return true;
+            }
         }
 
         return true;
+    }
+
+    protected override openChanged(prev: boolean | undefined, next: boolean): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+
+        super.openChanged(prev, next);
+        if (this.open) {
+            DOM.queueUpdate(() => {
+                window.requestAnimationFrame(() => {
+                    this.input?.focus();
+                });
+            });
+        }
+        this._filter = '';
+        this.input!.value = '';
+        this.filterOptions();
     }
 
     /**
@@ -148,7 +260,7 @@ export class Select extends FoundationSelect implements ErrorPattern {
     private filterOptions(): void {
         const filter = this._filter.toLowerCase();
 
-        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().startsWith(this._filter.toLowerCase()));
+        this.filteredOptions = this._options.filter(o => o.text.toLowerCase().includes(this._filter.toLowerCase()));
 
         if (!this.filteredOptions.length && !filter) {
             this.filteredOptions = this._options;

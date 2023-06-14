@@ -15,6 +15,7 @@ import {
 import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
 import { DropdownPosition } from '../patterns/dropdown/types';
+import { textFieldTag } from '../text-field';
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
@@ -80,14 +81,26 @@ SelectOptions
             horizontal-positioning-mode="locktodefault"
             horizontal-scaling="anchor"
             ?hidden="${x => (x.collapsible ? !x.open : false)}">
-            <div
-                class="listbox"
-                id="${x => x.listboxId}"
-                part="listbox"
-                role="listbox"
-                ?disabled="${x => x.disabled}"
-                ${ref('listbox')}
-            >
+            <div class="dropdown">
+                <${textFieldTag}
+                    aria-activedescendant="${x => (x.open ? x.ariaActiveDescendant : null)}"
+                    aria-autocomplete="${x => x.ariaAutoComplete}"
+                    class="filter-input"
+                    ?disabled="${x => x.disabled}"
+                    @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
+                    @click="${(x, c) => x.inputClickHandler(c.event as MouseEvent)}"
+                    appearance="ghost"
+                    ${ref('input')}
+                >
+                </${textFieldTag}>
+                <div
+                    class="listbox"
+                    id="${x => x.listboxId}"
+                    part="listbox"
+                    role="listbox"
+                    ?disabled="${x => x.disabled}"
+                    ${ref('listbox')}
+                >
                 <slot
                     ${slotted({
         filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
