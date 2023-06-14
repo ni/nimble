@@ -849,12 +849,7 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 }
 
 function getFillSelectedColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        DigitalGreenLight,
-        PowerGreen,
-        White
-    );
+    return getColorForTheme(element, DigitalGreenLight, PowerGreen, White);
 }
 
 function getFillHoverColorForTheme(element: HTMLElement): string {

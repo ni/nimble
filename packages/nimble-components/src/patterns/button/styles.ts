@@ -80,22 +80,22 @@ export const styles = css`
 
     .control:hover {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-        0px 0px 0px 3px ${applicationBackgroundColor} inset;
+            0px 0px 0px 3px ${applicationBackgroundColor} inset;
         outline: none;
         border-color: ${borderHoverColor};
     }
 
     .control${focusVisible} {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-        0px 0px 0px 3px ${applicationBackgroundColor} inset,
-        0px 0px 0px 4px ${borderHoverColor} inset;
+            0px 0px 0px 3px ${applicationBackgroundColor} inset,
+            0px 0px 0px 4px ${borderHoverColor} inset;
     }
 
     .control:active {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset,
-        0px 0px 0px 2px ${applicationBackgroundColor} inset;
+            0px 0px 0px 2px ${applicationBackgroundColor} inset;
         outline: none;
-        border: ${borderWidth}
+        border: ${borderWidth};
     }
 
     :host([disabled]) .control {
@@ -153,7 +153,8 @@ export const styles = css`
         ButtonAppearance.outline,
         css`
             .control {
-                box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
                 background-color: transparent;
             }
 
@@ -171,7 +172,8 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: transparent;
-                box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
             }
         `
     ),
