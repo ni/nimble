@@ -153,15 +153,6 @@ export const styles = css`
             .control {
                 box-shadow: 0px 0px 0px ${borderWidth}
                     rgba(${actionRgbPartialColor}, 0.3) inset;
-                background-color: transparent;
-            }
-
-            .control:hover {
-                background-color: transparent;
-            }
-
-            .control${focusVisible} {
-                background-color: transparent;
             }
 
             .control:active {
@@ -178,24 +169,8 @@ export const styles = css`
     appearanceBehavior(
         ButtonAppearance.ghost,
         css`
-            .control {
-                background-color: transparent;
-            }
-
-            .control:hover {
-                background-color: transparent;
-            }
-
-            .control${focusVisible} {
-                background-color: transparent;
-            }
-
             .control:active {
                 background-color: ${fillSelectedColor};
-            }
-
-            :host([disabled]) .control {
-                background-color: transparent;
             }
         `
     ),
@@ -206,15 +181,8 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
 
-            .control:hover {
-            }
-
             .control${focusVisible} {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-            }
-
-            .control${focusVisible}:hover {
-                background-color: transparent;
             }
 
             .control:active {
@@ -246,7 +214,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             }
 
             :host([appearance-variant='primary']) .control:active {
-                box-shadow: none;
+                box-shadow: 0px 0px 0px ${borderWidth} ${fillSelectedColor}
+                    inset;
             }
 
             :host([appearance-variant='primary'][disabled]) .control {
