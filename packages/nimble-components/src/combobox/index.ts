@@ -92,24 +92,6 @@ export class Combobox
     private valueUpdatedByInput = false;
     private valueBeforeTextUpdate?: string;
 
-    public regionChanged(
-        _prev: AnchoredRegion | undefined,
-        _next: AnchoredRegion | undefined
-    ): void {
-        if (this.region && this.controlWrapper) {
-            this.region.anchorElement = this.controlWrapper;
-        }
-    }
-
-    public controlWrapperChanged(
-        _prev: HTMLElement | undefined,
-        _next: HTMLElement | undefined
-    ): void {
-        if (this.region && this.controlWrapper) {
-            this.region.anchorElement = this.controlWrapper;
-        }
-    }
-
     // Workaround for https://github.com/microsoft/fast/issues/5123
     public override setPositioning(): void {
         if (!this.$fastController.isConnected) {
