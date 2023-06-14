@@ -4,7 +4,7 @@
 
 -   The `nimble-rich-text-editor` component is a text editing tool that offers a comprehensive range of functionalities for
     incorporating rich text content. It provides users with the ability to apply different text styles and formats to their content.
--   The `nimble-rich-text-viewer` component is way to view all the rich text content.
+-   The `nimble-rich-text-viewer` component is a way to view all the rich text content.
 
 ### Background
 
@@ -18,6 +18,8 @@ including Comments and other instances that necessitate rich text capabilities.
 [Comments UI mockup](https://www.figma.com/proto/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94118&scaling=min-zoom&page-id=2428%3A32954&starting-point-node-id=6280%3A94118&show-proto-sidebar=1)
 
 [Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
+
+[Rich Text Editor FE Library Decision](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Comments/Comments-FE-Library-Decision.md&version=GBmaster&_a=preview)
 
 ### Non-goals
 
@@ -46,14 +48,15 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
--   Support for adding hyperlinks to the existing words in the editor. However, adding raw links by pasting to the editor is supported.
+-   Support for adding hyperlinks to the existing words in the editor. However, adding raw links by pasting them to the editor is supported for the
+    initial release.
 -   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
     [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
     versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
-    [documentation](https://github.com/ProseMirror/prosemirror-markdown#documentation), does not include support for strikeout and underline. To
+    [documentation](https://github.com/ProseMirror/prosemirror-markdown#documentation), does not include support for a strikeout and underline. To
     address this limitation, we need to extend the class and add the necessary nodes to both the serializer and parser which will be added in the
     subsequent releases.
--   Provide APIs to configure visibility/disabled state of toolbar buttons for rich text editor.
+-   Provide APIs to configure visibility/disabled state of toolbar buttons for a rich text editor.
 
 ### Risks and Challenges
 
@@ -64,8 +67,6 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
     of the comments feature. Once the visual design for these components is complete, we will then be implementing those specific changes within the defined
     scope of development. However, we will still make use of existing nimble components such as `nimble-button` and `nimble-text-area` to maintain a
     consistent design for the initial release.
--   The mobile view of the component has not been designed yet, and we are actively collaborating with the design team to create basic mockup screens. We
-    will update this spec accordingly based on the progress.
 
 ### Prior Art/Examples
 
@@ -85,11 +86,11 @@ _nimble-rich-text-editor_
 
 The `nimble-rich-text-editor` will be divided into two sections namely an `editor` section and a `footer` section.
 
-1. `editor` section is the actual text area to add or update rich text contents.
-2. `footer` section consists of `nimble-button` to control each text formatting functionalities like bold, italic etc,. and a
+1. `editor` section is the actual text area to add or update rich text content.
+2. `footer` section consists of `nimble-button` to control each text formatting functionalities like bold, italic, etc, and a
    `footer-actions` slot element which is typically used to add action buttons to the right bottom of the component.
 
-An example usage of the `nimble-rich-text-editor` in the application layer is as follows:
+Example usage of the `nimble-rich-text-editor` in the application layer is as follows:
 
 ```html
 <nimble-rich-text-editor>
@@ -102,7 +103,7 @@ An example usage of the `nimble-rich-text-editor` in the application layer is as
 
 _nimble-rich-text-viewer_
 
-The `nimble-rich-text-viewer` is used for viewing rich text content when markdown string is passed to it. It performs the post-processing
+The `nimble-rich-text-viewer` is used for viewing rich text content when a markdown string is passed to it. It performs the post-processing
 tasks to convert the markdown string to corresponding HTML nodes for each text formatting.
 
 ### `nimble-rich-text-editor`
@@ -128,12 +129,12 @@ _Methods_
 
 _Events_
 
--   `input` - event emitted when there is a change in the the editor. This can be achieved through tiptap's
-    [update event](https://tiptap.dev/api/events#update). Below are few scenarios to understand when an update event will trigger or not trigger:
-    1.  An event is triggered for every input in the content of the editor, including text inputs, text formatting changes, and text removals. The event data
-        emitted is in the format of a `CustomEvent`. Note that this event does not contain any custom data or the value of the content in the text editor.
-    2.  Event will not triggered when there are no change made to the content of the editor. For example, all mouse events, selecting the texts, state
-        changes etc,.
+-   `input` - event emitted when there is a change in the editor. This can be achieved through Tiptap's
+    [update event](https://tiptap.dev/api/events#update). Below are a few scenarios to understand when will an update event will fire:
+    1. An event is fired for every input in the content of the editor, including text inputs, text formatting changes, and text removals. The event data
+       emitted is in the format of a `CustomEvent`. Note that this event does not contain any custom data or the value of the content in the text editor.
+    2. An event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
+       changes, etc,
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
@@ -172,9 +173,9 @@ _Slot Names_
 
 -   `footer-actions`:
     1. It is a container that allows a client to easily place buttons at the right bottom of the component to interact with the editor.
-    2. If no content is slotted in the footer-actions, the element will be emptied and shrunk to accommodate buttons from the
+    2. If no content is slotted in the `footer-actions`, the element will be emptied and shrunk to accommodate buttons from the
        toolbar.
-    3. If content is slotted in the footer-actions, it will occupy a maximum of thirty percent of the entire horizontal footer. If
+    3. If the content is slotted in the footer-actions, it will occupy a maximum of thirty percent of the entire horizontal footer. If
        there are additional elements beyond this limit, they will be positioned below within the same footer-actions container.
 
 _Note_: The positioning of these slot elements in the mobile view of the component has not yet been confirmed.
@@ -236,8 +237,7 @@ _CSS Parts_
 
 ### Angular integration
 
-An Angular directive will be created for both components. The components will not have form association, so a `ControlValueAccessor` will
-not be created.
+An Angular directive will be created for both components. The components will not have form association, so a `ControlValueAccessor` will not be created.
 
 ### Blazor integration
 
@@ -251,25 +251,27 @@ NA
 
 We have chosen to utilize the [Tiptap](https://tiptap.dev/) rich text editor as the underlying third-party library for developing the
 `nimble-rich-text-editor`. This decision was made due to its extensive range of customization options compared to other third-party libraries for rich
-text editing, making it the ideal choice for meeting our specific use cases. Some of the mentioned use cases are outlined below:
+text editing, making it the ideal choice for meeting our specific use cases. For more details, refer
+[Comments FE Library Decision](https://dev.azure.com/ni/DevCentral/_git/Skyline?path=/docs/design-documents/Platform/Comments/Comments-FE-Library-Decision.md&version=GBmaster&_a=preview)
+document. Some of the highlighted points are mentioned below:
 
-1. Includes all [basic functionalities](https://tiptap.dev/) like bold, italics, numbered and bulleted lists etc.
+1. Includes all [basic functionalities](https://tiptap.dev/) like bold, italics, numbered and bulleted lists, etc.
 2. Includes support to work seamlessly inside the `shadow root`.
-3. [Tiptap](https://tiptap.dev/introduction) is built on top of ProseMirror and so have access to all the powerful APIs provided by
+3. [Tiptap](https://tiptap.dev/introduction) is built on top of ProseMirror and so has access to all the powerful APIs provided by
    ProseMirror through [`@tiptap/pm`](https://tiptap.dev/guide/prosemirror).
 4. Includes support to render the content of the editor with markdown input.
 5. Includes support to retrieve the content of the editor as HTML and Markdown output (using
    [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown)).
 6. Includes extensions to support [@mention](https://tiptap.dev/api/nodes/mention) functionality (Future scope).
 
-The `nimble-rich-text-editor` is initialized by creating an instance of the [Editor](https://tiptap.dev/api/editor#introduction) class from
-the Tiptap's core library. With that we have access to all the APIs exposed, by utilizing some of their extensions like
-[StarterKit](https://tiptap.dev/api/extensions/starter-kit) which is a collection of most popular Tiptap extensions includes bold, italics
-and all other basic rich text formatting options. All these formatting options can also be accessed individually through tiptap's
+The `nimble-rich-text-editor` is initialized by creating an instance of the [Editor](https://tiptap.dev/api/editor#introduction) class from Tiptap's core
+library. With that, we have access to all the APIs exposed, by utilizing some of their extensions like
+[StarterKit](https://tiptap.dev/api/extensions/starter-kit) which is a collection of the most popular Tiptap extensions including bold, italics, and all
+other basic rich text formatting options. All these formatting options can also be accessed individually through Tiptap's
 [marks](https://tiptap.dev/api/marks) and [nodes](https://tiptap.dev/api/nodes).
 
--   The term `Marks` in the tiptap are formatting styles applied to specific portions of text, such as bold, italic, or underlined.
--   `Nodes` in the tiptap editor are the building blocks of the document structure, representing different types of content elements like paragraphs,
+-   The term `Marks` in the Tiptap are formatting styles applied to specific portions of text, such as bold, italic, or underlined.
+-   `Nodes` in the Tiptap editor are the building blocks of the document structure, representing different types of content elements like paragraphs,
     headings, lists, images, and more.
 
 The rich text content entered in the editor is converted to markdown output using
@@ -292,11 +294,11 @@ The prototype includes the below functionalities,
 
 1. Basic formatting support.
 2. Image support. - The prototype includes [`Tiptap Extension`](https://tiptap.dev/api/nodes/image) to support images.
-3. `@mention` support. - The prototype includes default user list that gets triggered using `@` character.
+3. `@mention` support. - The prototype includes a default user list that gets triggered using `@` character.
 4. Markdown support. - The prototype includes support to render/retrieve content in markdown format.
 5. `Shadow root` support - The prototype uses [Microsoft Fast](https://github.com/microsoft/fast) to create the rich text editor as a
    custom component that renders in the shadow root.
-6. `Top layer` support - Hyperlink using `nimble-dialog` which renders the popup in top layer.
+6. `Top layer` support - Hyperlink using `nimble-dialog` which renders the popup in the top layer.
 
 **_Note_**: This prototype is not made in a responsive fashion for smaller screens and is intended only for testing the specific functionalities listed
 above.
@@ -305,12 +307,12 @@ above.
 
 _Button State_
 
-The buttons in the toolbar will indicate the formatting status of the selected text in the editor. For example, if the text in the editor
-is bold and the cursor is placed on the text, the bold button will be indicated as an active state. The active state is indicated as `block`
-appearance of the [`nimble-button`](https://nimble.ni.dev/storybook/?path=/docs/button--docs) and inactive state is in `ghost`
-appearance. Refer the below sample screenshot with active bold state.
+The buttons in the toolbar will indicate the formatting status of the selected text in the editor. We use the
+[nimble-toggle-button](https://nimble.ni.dev/storybook/?path=/docs/toggle-button--docs) to determine whether it's in an active or inactive state.
+Below is the sample screenshot which shows the active state of the `nimble-toggle-button` when the cursor is focused on the `Bold` and `Numbered` List`
+text in the editor.
 
-![Bold Button State](./spec-images/button-state.png)
+![Bold and Numbered Button State](./spec-images/button-state.png)
 
 ### Accessibility
 
@@ -363,8 +365,8 @@ the specifications outlined in [spec (#1272)](https://github.com/ni/nimble/pull/
     off HTML at source as given in the [API docs](https://markdown-it.github.io/markdown-it/#MarkdownIt.new). Prosemirror-markdown follows the same as
     shown in this
     [specific line of code](https://github.com/ProseMirror/prosemirror-markdown/blob/26e58302399b7d9a9b3bc8fc3bf5807627ca29e5/src/from_markdown.ts#L245).
--   For additional safety we may use [sanitize-html](https://www.npmjs.com/package/sanitize-html) package on need basis if HTML is turned on. This will
-    whitelist only specific html tags needed for rich text markdown.
+-   For additional safety, we may use [sanitize-html](https://www.npmjs.com/package/sanitize-html) package on a need basis if HTML is turned on. This will
+    whitelist only specific HTML tags needed for rich text markdown.
 
 ### Performance
 
