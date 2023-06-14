@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using Bunit;
+using Microsoft.AspNetCore.Components;
 using Xunit;
 
 namespace NimbleBlazor.Tests.Unit.Components;
@@ -20,6 +21,15 @@ public class NimbleAnchorButtonTests : NimbleAnchorBaseTests<NimbleAnchorButton>
         var button = context.RenderComponent<NimbleAnchorButton>();
 
         Assert.Contains(expectedMarkup, button.Markup);
+    }
+
+    [Fact]
+    public void NimbleAnchorButton_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchorButton>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
     }
 
     [Theory]

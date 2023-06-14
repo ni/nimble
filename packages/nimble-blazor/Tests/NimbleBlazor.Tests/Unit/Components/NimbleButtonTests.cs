@@ -22,6 +22,15 @@ public class NimbleButtonTests
         Assert.Contains(expectedMarkup, button.Markup);
     }
 
+    [Fact]
+    public void NimbleButton_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleButton>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(ButtonAppearance.Block, "block")]
     [InlineData(ButtonAppearance.Outline, "outline")]

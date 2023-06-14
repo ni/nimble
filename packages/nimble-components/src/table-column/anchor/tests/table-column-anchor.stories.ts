@@ -1,12 +1,14 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
 import { tableColumnAnchorTag } from '..';
 import {
+    sharedTableActions,
     SharedTableArgs,
     sharedTableArgs,
     sharedTableArgTypes
@@ -19,13 +21,17 @@ See the **Table** page for information about configuring the table itself and th
 information about common column configuration.`;
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Table Column Types',
+    title: 'Incubating/Table Column Types',
+    decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component: columnTypeOverviewText
             }
+        },
+        actions: {
+            handles: sharedTableActions
         }
     },
     // prettier-ignore
@@ -100,7 +106,7 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<AnchorColumnTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

@@ -6,6 +6,7 @@ import { listOptionTag } from '../../list-option';
 import { ComboboxAutocomplete } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
+import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 
 async function setup(
     position?: string,
@@ -39,30 +40,6 @@ async function clickAndWaitForOpen(combo: Combobox): Promise<void> {
     const regionLoadedListener = createEventListener(combo, 'loaded');
     combo.click();
     await regionLoadedListener.promise;
-}
-
-async function checkFullyInViewport(element: HTMLElement): Promise<boolean> {
-    return new Promise((resolve, _reject) => {
-        const intersectionObserver = new IntersectionObserver(
-            entries => {
-                intersectionObserver.disconnect();
-                if (
-                    entries[0]?.isIntersecting
-                    && entries[0].intersectionRatio === 1.0
-                ) {
-                    resolve(true);
-                } else {
-                    resolve(false);
-                }
-            },
-            // As of now, passing a document as root is not supported on Safari:
-            // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#browser_compatibility
-            // If we begin running these tests on Safari, we may need to skip those that use this function.
-            // This issue tracks expanding testing to Safari: https://github.com/ni/nimble/issues/990
-            { threshold: 1.0, root: document }
-        );
-        intersectionObserver.observe(element);
-    });
 }
 
 describe('Combobox', () => {
@@ -401,6 +378,74 @@ describe('Combobox', () => {
         element.dispatchEvent(inputEvent);
         await waitForUpdatesAsync();
         expect(element.value).toEqual('O');
+
+        await disconnect();
+    });
+
+    it('updates filter when value set programmatically', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'Th');
+        const focusout = new FocusEvent('focusout');
+        element.dispatchEvent(focusout);
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('three');
+
+        element.value = 'Two';
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('two');
+        expect(element.filteredOptions[0]?.classList).toContain('selected');
+
+        await disconnect();
+    });
+
+    it('filters list after entering value and losing focus', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'Two');
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value ('Two')
+        const focusout = new FocusEvent('focusout');
+        element.dispatchEvent(focusout);
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('two');
+
+        await disconnect();
+    });
+
+    it('filters list after entering value and reselecting value from list', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'Two');
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value ('Two')
+        const keydownEvent = new KeyboardEvent('keydown', {
+            key: keyArrowDown
+        } as KeyboardEventInit);
+        element.dispatchEvent(keydownEvent); // open dropdown
+        element.dispatchEvent(enterEvent); // commit value from list ('Two')
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('two');
 
         await disconnect();
     });

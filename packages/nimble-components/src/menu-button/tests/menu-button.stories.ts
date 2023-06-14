@@ -1,7 +1,10 @@
 import { html, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    disableStorybookZoomTransform
+} from '../../utilities/tests/storybook';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
 import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
 import { iconKeyTag } from '../../icons/key';
@@ -29,7 +32,7 @@ This icon will be hidden when \`contentHidden\` is set to \`true\`
 .`;
 
 const metadata: Meta<MenuButtonArgs> = {
-    title: 'Menu Button',
+    title: 'Components/Menu Button',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
@@ -40,6 +43,9 @@ const metadata: Meta<MenuButtonArgs> = {
         },
         actions: {
             handles: ['toggle', 'beforetoggle']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     argTypes: {
@@ -61,6 +67,7 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        ${disableStorybookZoomTransform}
         <${menuButtonTag}
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"

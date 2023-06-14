@@ -48,6 +48,15 @@ public class NimbleTableTests
     }
 
     [Fact]
+    public void NimbleTable_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTable<TableRowData>>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleTable_WithIdFieldNameAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet<string, TableRowData>(x => x.IdFieldName!, "FirstName");

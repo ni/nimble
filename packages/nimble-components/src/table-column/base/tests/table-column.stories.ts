@@ -1,8 +1,9 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../../utilities/tests/storybook';
 import {
     ExampleColumnFractionalWidthType,
@@ -13,6 +14,7 @@ import {
 import { tableTag } from '../../../table';
 import {
     SharedTableArgs,
+    sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
 } from './table-column-stories-utils';
@@ -79,17 +81,21 @@ See **Table** for information about configuring the table itself and **Table Col
 information about specific types of column.`;
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Table Column Configuration',
+    title: 'Incubating/Table Column Configuration',
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
+        },
+        actions: {
+            handles: sharedTableActions
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SharedTableArgs>`
-    ${usageWarning('table')}
+    ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
     <${tableTag}
         ${ref('tableRef')}
         data-unused="${x => x.updateData(x)}"
@@ -163,7 +169,7 @@ export const columnOrder: StoryObj<ColumnOrderTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnOrderTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -236,7 +242,7 @@ export const headerContent: StoryObj<HeaderContentTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<HeaderContentTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -295,7 +301,7 @@ export const commonAttributes: StoryObj<CommonAttributesTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<CommonAttributesTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -411,7 +417,7 @@ export const sorting: StoryObj<SortingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<SortingTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -598,7 +604,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<GroupingTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
@@ -722,7 +728,7 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<ColumnWidthTableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"

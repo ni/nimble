@@ -22,6 +22,15 @@ public class NimbleTextAreaTests
         Assert.Contains(expectedMarkup, textField.Markup);
     }
 
+    [Fact]
+    public void NimbleTextArea_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTextArea>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(TextAreaResize.None, "none")]
     [InlineData(TextAreaResize.Both, "both")]

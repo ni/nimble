@@ -52,7 +52,7 @@ SelectOptions
                     class="control"
                     part="control"
                     ?disabled="${x => x.disabled}"
-                    ${ref('controlWrapper')}
+                    ${ref('control')}
                 >
                     ${startSlotTemplate(context, definition)}
                     <slot name="button-container">
@@ -71,49 +71,30 @@ SelectOptions
     )}
         <${anchoredRegionTag}
             ${ref('region')}
-            class="anchoredRegion"
+            class="anchored-region"
             fixed-placement
             auto-update-mode="auto"
-            vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'bottom' : 'top')}"
-            vertical-positioning-mode="dynamic"
+            vertical-default-position="${x => (x.positionAttribute === DropdownPosition.above ? 'top' : 'bottom')}"
+            vertical-positioning-mode="${x => (!x.positionAttribute ? 'dynamic' : 'locktodefault')}"
             horizontal-default-position="center"
             horizontal-positioning-mode="locktodefault"
-            horizontal-scaling="anchor">
-            <div>
-                <input
-                    aria-activedescendant="${x => (x.open ? x.ariaActiveDescendant : null)}"
-                    aria-autocomplete="${x => x.ariaAutoComplete}"
-                    aria-controls="${x => x.ariaControls}"
-                    aria-disabled="${x => x.ariaDisabled}"
-                    aria-expanded="${x => x.ariaExpanded}"
-                    aria-haspopup="listbox"
-                    class="selected-value"
-                    part="selected-value"
-                    role="combobox"
-                    type="text"
-                    ?disabled="${x => x.disabled}"
-                    :value="${x => x.displayValue}"
-                    @input="${(x, c) => x.inputHandler(c.event as InputEvent)}"
-                    @keyup="${(x, c) => x.keyupHandler(c.event as KeyboardEvent)}"
-                    ${ref('control')}
-                />
-                <div
-                    class="listbox"
-                    id="${x => x.listboxId}"
-                    part="listbox"
-                    role="listbox"
-                    ?disabled="${x => x.disabled}"
-                    ?hidden="${x => (x.collapsible ? !x.open : false)}"
-                    ${ref('listbox')}
-                >
+            horizontal-scaling="anchor"
+            ?hidden="${x => (x.collapsible ? !x.open : false)}">
+            <div
+                class="listbox"
+                id="${x => x.listboxId}"
+                part="listbox"
+                role="listbox"
+                ?disabled="${x => x.disabled}"
+                ${ref('listbox')}
+            >
                 <slot
                     ${slotted({
         filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
         flatten: true,
         property: 'slottedOptions',
     })}
-                    ></slot>
-                </div>
+                ></slot>
             </div>
         </${anchoredRegionTag}>
     </template>

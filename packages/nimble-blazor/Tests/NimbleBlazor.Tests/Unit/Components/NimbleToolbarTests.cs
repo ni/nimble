@@ -21,6 +21,15 @@ public class NimbleToolbarTests
     }
 
     [Fact]
+    public void NimbleToolbar_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleToolbar>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleToolbarWithChildContent_HasChildMarkup()
     {
         var toolbar = RenderToolbarWithContent<NimbleButton>();

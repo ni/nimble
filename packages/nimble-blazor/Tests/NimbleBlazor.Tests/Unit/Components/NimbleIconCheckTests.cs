@@ -22,6 +22,15 @@ public class NimbleIconCheckTests
         Assert.Contains(expectedMarkup, icon.Markup);
     }
 
+    [Fact]
+    public void NimbleIconCheck_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleIconCheck>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(IconSeverity.Default, "<nimble-icon-check>")]
     [InlineData(IconSeverity.Error, "severity=\"error\"")]

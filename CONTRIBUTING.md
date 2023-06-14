@@ -8,7 +8,7 @@ This repository uses the following tooling. See below for more info.
 
 1. A monorepo containing multiple packages managed via [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 2. Linting via [ESLint](https://eslint.org/) following the [NI JavaScript and TypeScript Styleguide](https://github.com/ni/javascript-styleguide)
-3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html) and [Jasmine](https://jasmine.github.io/)
+3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html), [Jasmine](https://jasmine.github.io/), [bUnit](https://bunit.dev/), and [Playwright](https://playwright.dev/)
 4. Releases via [beachball](https://microsoft.github.io/beachball/)
 5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
 
@@ -22,7 +22,8 @@ This repository uses the following tooling. See below for more info.
 First step in development is to build the monorepo which requires the following to be installed:
 
 - Node.js version 16+ (run `node --version`) and npm version 8+ (run `npm --version`) which can be downloaded from https://nodejs.org/en/download/
-- .NET 6 SDK version 6.0.202+  (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+- .NET 6 SDK (`6.0.202 <= version < 7`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+   - Run `dotnet --info` to verify the required version of the SDK is installed. A `v6` install is required, but it's fine if later versions are installed too.
 
 From the `nimble` directory:
 
@@ -71,7 +72,7 @@ This repository uses [beachball](https://microsoft.github.io/beachball/) to auto
 3. A pipeline will run for each newly created git tag and invoke the `npm run publish` command for the associated package.
 
 When generating a change file, follow these guidelines:
-1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as in-development](/packages/nimble-components/CONTRIBUTING.md/#Marking-a-component-as-in-development) may use `patch` version bumps even for breaking changes.
+1. Follow [semantic versioning](https://semver.org) when choosing the change type. Components that are [marked as incubating](/packages/nimble-components/CONTRIBUTING.md/#Marking-a-component-as-incubating) may use `patch` version bumps even for breaking changes.
 2. Write a brief but useful description with Nimble clients in mind. If making a major (breaking) change, explain what clients need to do to adopt it. The description can be plain text or [markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), with newlines specified via `\n` if needed.
 3. If you prefer not to expose your email address to the world, [configure GitHub to "Keep my email address private"](https://github.com/settings/emails) before generating the change file.
 

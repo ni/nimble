@@ -23,6 +23,15 @@ public class NimbleTabsTests
     }
 
     [Fact]
+    public void NimbleTabs_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTabs>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleTabsWithChildContent_HasChildMarkup()
     {
         var tabs = RenderTabsWithContent();

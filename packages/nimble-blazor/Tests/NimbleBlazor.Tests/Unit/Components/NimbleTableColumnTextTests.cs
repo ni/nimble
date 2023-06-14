@@ -11,6 +11,15 @@ namespace NimbleBlazor.Tests.Unit.Components;
 public class NimbleTableColumnTextTests
 {
     [Fact]
+    public void NimbleTableColumnText_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnText>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleTableColumnText_WithFieldNameAttribute_HasTableMarkup()
     {
         var table = RenderWithPropertySet(x => x.FieldName!, "FirstName");

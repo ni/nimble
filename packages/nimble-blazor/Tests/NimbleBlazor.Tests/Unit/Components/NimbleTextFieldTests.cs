@@ -22,6 +22,15 @@ public class NimbleTextFieldTests
         Assert.Contains(expectedMarkup, textField.Markup);
     }
 
+    [Fact]
+    public void NimbleTextField_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTextField>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(TextFieldType.Tel, "tel")]
     [InlineData(TextFieldType.Password, "password")]

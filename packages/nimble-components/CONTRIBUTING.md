@@ -2,7 +2,7 @@
 
 ## Package overview
 
-This package contains a library of NI-styled web components.
+This package contains a library of NI-styled web components. Components are built using [custom elements](https://web.dev/custom-elements-v1/) and [Shadow DOM](https://web.dev/shadowdom-v1/) which are native features in modern browsers.
 
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
@@ -77,15 +77,33 @@ Before building a new component, 3 specification documents need to be created:
 
 ## Develop new components
 
-### Marking a component as in development
+### Marking a component as incubating
 
-If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
+
+-   It is still in development.
+-   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
+-   It is missing important features like interaction design, visual design, accessibility, or framework integration.
+
+Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
+
+-   Start development with a spec describing the high level plan and what's in or out of scope
+-   Coding conventions (element naming, linting, code quality)
+-   Unit and Chromatic test coverage
+-   Storybook documentation
+
+To mark a component as incubating:
 
 1. In the component status table, set its status to ⚠️
-2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
-3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+2. In the component Storybook documentation:
+    - add a red text banner to the page indicating that the component is not ready for general use
+    - start the Storybook name with "Incubating/" so that it appears in a separate section of the documentation page
+3. Add CODEOWNERS from both the contributing team and the Nimble team.
 
-Be sure to remove these warnings when the component is complete!
+To move a component out of incubating status:
+
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete.
+2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
 
@@ -118,7 +136,11 @@ If Fast Foundation contains a component similar to what you're adding, create a 
 
 If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
-Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
+Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template). When copying over unit tests:
+
+1. Put the FAST tests in a separate file named `<component>.foundation.spec.ts`
+2. Update the code to follow NI coding conventions (i.e. linting and formatting)
+3. Add a comment at the top of the file that links to the original source in FAST
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -178,6 +200,7 @@ It is common in web development to represent variations of control states using 
 -   Do not use attribute names that conflict with native attribute names:
     -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
     -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+    -   Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
 -   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts
@@ -404,6 +427,17 @@ Before disabling a test, you **must** have investigated the failure and attempte
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Component naming
+
+Component custom element names are specified in `index.ts` when registering the element. Use the following structure when naming components.
+
+`nimble[-category][-variant]-presentation`
+
+1. All Nimble custom elements are prefixed with `nimble-` to avoid name collisions with other component libraries. Applications should choose their own unique prefix if they define their own elements.
+2. **category** can be used to group similar components together alphabetically. Examples include `icon` and `table-column`.
+3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
+4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
 
 ## Token naming
 

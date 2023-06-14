@@ -109,6 +109,15 @@ export function afterStarted(Blazor) {
             };
         }
     });
+    // Used by NimbleTable.razor
+    Blazor.registerCustomEventType('nimbletablecolumnconfigurationchange', {
+        browserEventName: 'column-configuration-change',
+        createEventArgs: event => {
+            return {
+                columns: event.detail.columns
+            };
+        }
+    });
 }
 
 if (window.NimbleBlazor) {

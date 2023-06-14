@@ -42,4 +42,10 @@ public abstract class NimbleTableColumn : ComponentBase
     /// </summary>
     [Parameter]
     public int? SortIndex { get; set; }
+
+    /// <summary>
+    /// Gets or sets any additional attributes to set on the element.
+    /// </summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? AdditionalAttributes { get; set; }
 }

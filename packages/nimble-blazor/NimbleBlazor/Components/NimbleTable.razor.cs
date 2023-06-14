@@ -111,6 +111,12 @@ public partial class NimbleTable<TData> : ComponentBase
     public EventCallback<TableRowSelectionEventArgs> RowSelectionChange { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that's invoked when a column's configuration is changed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TableColumnConfigurationEventArgs> ColumnConfigurationChange { get; set; }
+
+    /// <summary>
     /// Called when 'action-menu-toggle' changes on the web component.
     /// </summary>
     /// <param name="eventArgs">The state of the action menu on the table</param>
@@ -135,6 +141,15 @@ public partial class NimbleTable<TData> : ComponentBase
     protected async void HandleSelectionChange(TableRowSelectionEventArgs eventArgs)
     {
         await RowSelectionChange.InvokeAsync(eventArgs);
+    }
+
+    /// <summary>
+    /// Called when the 'column-configuration-change' event is fired on the web component.
+    /// </summary>
+    /// <param name="eventArgs">The configuration of the columns</param>
+    protected async void HandleColumnConfigurationChange(TableColumnConfigurationEventArgs eventArgs)
+    {
+        await ColumnConfigurationChange.InvokeAsync(eventArgs);
     }
 
     /// <inheritdoc/>

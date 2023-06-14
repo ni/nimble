@@ -1,9 +1,9 @@
-import { observable, volatile } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { TableColumnWithPlaceholderColumnConfig } from '../../base/types';
-import { TableGroupHeaderView } from '../../base/group-header-view';
-import { template } from './template';
-import { styles } from './styles';
+import type { TableStringFieldValue } from '../../../table/types';
+import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
+import { template } from '../../text-base/group-header-view/template';
+import { styles } from '../../text-base/group-header-view/styles';
+import type { TableColumnTextColumnConfig } from '..';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -11,33 +11,22 @@ declare global {
     }
 }
 /**
- * The custom element used to render a group row header for a group representing rows
- * grouped by a TableColumnText column.
+ * The group header view for displaying string fields as text.
  */
-export class TableColumnTextGroupHeaderView extends TableGroupHeaderView<
-string | null | undefined,
-TableColumnWithPlaceholderColumnConfig
+export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
+TableStringFieldValue,
+TableColumnTextColumnConfig
 > {
-    /** @internal */
-    public textSpan!: HTMLElement;
-
-    /** @internal */
-    @observable
-    public isValidContentAndHasOverflow = false;
-
-    @volatile
-    public get content(): string {
-        return typeof this.groupHeaderValue === 'string'
-            ? this.groupHeaderValue
-            : this.columnConfig?.placeholder ?? '';
+    public override get text(): string {
+        return this.groupHeaderValue!;
     }
 
-    public updateTitleOverflow(): void {
-        this.isValidContentAndHasOverflow = this.textSpan.offsetWidth < this.textSpan.scrollWidth;
+    public override get placeholder(): string {
+        return this.columnConfig?.placeholder ?? '';
     }
 
-    public clearTitleOverflow(): void {
-        this.isValidContentAndHasOverflow = false;
+    public override get shouldUsePlaceholder(): boolean {
+        return typeof this.groupHeaderValue !== 'string';
     }
 }
 

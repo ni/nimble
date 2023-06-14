@@ -45,3 +45,8 @@ export const sharedTableArgs = (
         }
     } as const;
 };
+
+export const sharedTableActions = [
+    'selection-change',
+    'column-configuration-change'
+] as const;
