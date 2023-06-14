@@ -98,7 +98,9 @@ describe('Icons', () => {
         it('sets initial aria-label on inner SVG', async () => {
             await connect();
             const svg = element.shadowRoot!.querySelector('svg');
-            expect(svg?.getAttribute('aria-label')).toEqual('initial aria label');
+            expect(svg?.getAttribute('aria-label')).toEqual(
+                'initial aria label'
+            );
         });
 
         it('clears aria-label from inner SVG when removed from icon', async () => {

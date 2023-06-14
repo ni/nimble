@@ -120,7 +120,7 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
         },
         placeholder: {
             description:
-                'Optionally set this attribute to change the text that is displayed if no mappings match the key value for the cell.'
+                'Optionally set this attribute to change the text that is displayed if no mappings match the key value for the cell. A placeholder should be used as a stand-in for an invalid/missing value, whereas a default mapping should be used when all values have meaning.'
         },
         checkValidity: {
             name: 'checkValidity()',
