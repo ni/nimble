@@ -196,6 +196,13 @@ export class Select extends FoundationSelect implements ErrorPattern {
                 break;
             }
 
+            case 'Escape':
+            case 'Enter': {
+                super.keydownHandler(e);
+                this.focus();
+                break;
+            }
+
             default: {
                 super.keydownHandler(e);
             }
