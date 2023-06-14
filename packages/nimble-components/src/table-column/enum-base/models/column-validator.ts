@@ -13,7 +13,8 @@ export class TableColumnEnumValidationHelper {
         keyType: MappingKeyType
     ): boolean {
         return keys.some(
-            x => x !== undefined && Mapping.typeConvertKey(x, keyType) === null
+            x => x !== undefined
+                && Mapping.typeConvertKey(x, keyType) === undefined
         );
     }
 
