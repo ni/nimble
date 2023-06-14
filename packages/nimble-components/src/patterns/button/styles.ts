@@ -51,7 +51,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: 0px solid transparent;
+        border: ${borderWidth} solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -80,10 +80,10 @@ export const styles = css`
     }
 
     .control:hover {
-        border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
         0px 0px 0px 3px ${applicationBackgroundColor} inset;
         outline: none;
+        border-color: ${borderHoverColor};
     }
 
     .control${focusVisible} {
@@ -154,7 +154,7 @@ export const styles = css`
         css`
             .control {
                 background-color: transparent;
-                border-color: rgba(${actionRgbPartialColor}, 0.3);
+                box-shadow: 0px 0px 0px ${borderWidth} rgba(${borderRgbPartialColor}, 0.3) inset;
             }
 
             .control:hover {
@@ -173,7 +173,7 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: transparent;
-                border-color: rgba(${borderRgbPartialColor}, 0.2);
+                box-shadow: 0px 0px 0px ${borderWidth} rgba(${borderRgbPartialColor}, 0.3) inset;
             }
         `
     ),
@@ -305,7 +305,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 css`
                     .control {
                         background-color: transparent;
-                        border-color: ${actionRgbPartialColor};
+                        box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}) inset;
                         color: ${actionRgbPartialColor};
                     }
 
@@ -332,7 +332,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         )
     ),
     // appearanceBehavior(
-    //     ButtonAppearance.outline,
+    //     ButtonAppearance.block,
     //     css`
     //         :host([appearance-variant="primary"]) .control {
     //             background-clip: padding-box;
