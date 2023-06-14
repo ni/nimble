@@ -14,8 +14,14 @@ import {
 } from '@microsoft/fast-foundation';
 import type { Select } from '.';
 import { anchoredRegionTag } from '../anchored-region';
+import { ListOptionGroup } from '../list-option-group';
 import { DropdownPosition } from '../patterns/dropdown/types';
 import { textFieldTag } from '../text-field';
+
+const slottedOptionGroupFilter = (n: HTMLElement): boolean => {
+    const allowed = n instanceof ListOptionGroup && !n.hidden;
+    return allowed;
+};
 
 // prettier-ignore
 export const template: FoundationElementTemplate<
@@ -103,7 +109,7 @@ SelectOptions
                 >
                 <slot
                     ${slotted({
-        filter: (n: Node) => n instanceof HTMLElement && Listbox.slottedOptionFilter(n),
+        filter: (n: Node) => n instanceof HTMLElement && (Listbox.slottedOptionFilter(n) || slottedOptionGroupFilter(n)),
         flatten: true,
         property: 'slottedOptions',
     })}

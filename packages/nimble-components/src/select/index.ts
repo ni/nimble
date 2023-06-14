@@ -7,13 +7,14 @@ import {
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { template } from './template';
 import { DropdownAppearance } from '../patterns/dropdown/types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
-import { template } from './template';
-import type { ListOption } from '../list-option';
+import { ListOption } from '../list-option';
 import type { TextField } from '../text-field';
+import { ListOptionGroup } from '../list-option-group';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -109,6 +110,17 @@ export class Select extends FoundationSelect implements ErrorPattern {
         }
     }
 
+    /**
+     * A static filter to include only selectable options.
+     *
+     * @param n - element to filter
+     * @public
+     */
+    public static slottedOptionGroupFilter = (n: HTMLElement): boolean => {
+        const allowed = n instanceof ListOptionGroup && !n.hidden;
+        return allowed;
+    };
+
     public regionChanged(
         _prev: AnchoredRegion | undefined,
         _next: AnchoredRegion | undefined
@@ -144,7 +156,9 @@ export class Select extends FoundationSelect implements ErrorPattern {
         next: Element[]
     ): void {
         const value = this.value;
-        super.slottedOptionsChanged(prev, next);
+        const options = this.findSlottedOptions(next);
+
+        super.slottedOptionsChanged(prev, options);
         if (value) {
             this.value = value;
         }
@@ -257,6 +271,16 @@ export class Select extends FoundationSelect implements ErrorPattern {
         this._filter = '';
         this.input!.value = '';
         this.filterOptions();
+    }
+
+    private findSlottedOptions(slottedElements: Element[]): ListOption[] {
+        return slottedElements.flatMap(el => {
+            if (el instanceof ListOption) {
+                return el;
+            }
+
+            return Array.from(el.children) as ListOption[];
+        });
     }
 
     /**

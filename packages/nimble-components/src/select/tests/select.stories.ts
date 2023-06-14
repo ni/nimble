@@ -8,13 +8,14 @@ import {
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { selectTag } from '..';
 import { listOptionTag } from '../../list-option';
+import { listOptionGroupTag } from '../../list-option-group';
 
 interface SelectArgs {
     disabled: boolean;
     errorVisible: boolean;
     errorText: string;
     dropDownPosition: string;
-    options: OptionArgs[];
+    groups: GroupArgs[];
     appearance: string;
 }
 
@@ -22,6 +23,11 @@ interface OptionArgs {
     label: string;
     value: string;
     disabled: boolean;
+}
+
+interface GroupArgs {
+    label: string;
+    options: OptionArgs[];
 }
 
 const metadata: Meta<SelectArgs> = {
@@ -52,13 +58,19 @@ const metadata: Meta<SelectArgs> = {
             position="${x => x.dropDownPosition}"
             appearance="${x => x.appearance}"
         >
-            ${repeat(x => x.options, html<OptionArgs>`
-                <${listOptionTag}
-                    value="${x => x.value}"
-                    ?disabled="${x => x.disabled}"
+            ${repeat(x => x.groups, html<GroupArgs>`
+                <${listOptionGroupTag}
+                    label="${x => x.label}"
                 >
-                    ${x => x.label}
-                </${listOptionTag}>
+                ${repeat(x => x.options, html<OptionArgs>`
+                    <${listOptionTag}
+                        value="${x => x.value}"
+                        ?disabled="${x => x.disabled}"
+                    >
+                        ${x => x.label}
+                    </${listOptionTag}>
+                `)}
+                </${listOptionGroupTag}>
             `)}
         </${selectTag}>
     `),
@@ -84,27 +96,42 @@ const metadata: Meta<SelectArgs> = {
         errorText: 'Value is invalid',
         dropDownPosition: 'below',
         appearance: DropdownAppearance.underline,
-        options: [
-            { label: 'Option 1', value: '1', disabled: false },
-            { label: 'Option 2', value: '2', disabled: true },
-            { label: 'Option 3', value: '3', disabled: false },
-            { label: 'Option 4', value: '4', disabled: false },
-            { label: 'Option 5', value: '5', disabled: false },
-            { label: 'Option 6', value: '6', disabled: false },
-            { label: 'Option 7', value: '7', disabled: false },
-            { label: 'Option 8', value: '8', disabled: false },
-            { label: 'Option 9', value: '9', disabled: false },
-            { label: 'Option 10', value: '10', disabled: false },
-            { label: 'Option 11', value: '11', disabled: false },
-            { label: 'Option 12', value: '12', disabled: false },
-            { label: 'Option 13', value: '13', disabled: false },
-            { label: 'Option 14', value: '14', disabled: false },
-            { label: 'Option 15', value: '15', disabled: false },
-            { label: 'Option 16', value: '16', disabled: false },
-            { label: 'Option 17', value: '17', disabled: false },
-            { label: 'Option 18', value: '18', disabled: false },
-            { label: 'Option 19', value: '19', disabled: false },
-            { label: 'Option 20', value: '20', disabled: false }
+        groups: [
+            {
+                label: 'Group 1',
+                options: [
+                    { label: 'Option 1', value: '1', disabled: false },
+                    { label: 'Option 2', value: '2', disabled: true },
+                    { label: 'Option 3', value: '3', disabled: false },
+                    { label: 'Option 4', value: '4', disabled: false },
+                    { label: 'Option 5', value: '5', disabled: false },
+                    { label: 'Option 6', value: '6', disabled: false },
+                    { label: 'Option 7', value: '7', disabled: false },
+                ]
+            },
+            {
+                label: 'Group 2',
+                options: [
+                    { label: 'Option 8', value: '8', disabled: false },
+                    { label: 'Option 9', value: '9', disabled: false },
+                    { label: 'Option 10', value: '10', disabled: false },
+                    { label: 'Option 11', value: '11', disabled: false },
+                    { label: 'Option 12', value: '12', disabled: false },
+                    { label: 'Option 13', value: '13', disabled: false },
+                ]
+            },
+            {
+                label: 'Group 3',
+                options: [
+                    { label: 'Option 14', value: '14', disabled: false },
+                    { label: 'Option 15', value: '15', disabled: false },
+                    { label: 'Option 16', value: '16', disabled: false },
+                    { label: 'Option 17', value: '17', disabled: false },
+                    { label: 'Option 18', value: '18', disabled: false },
+                    { label: 'Option 19', value: '19', disabled: false },
+                    { label: 'Option 20', value: '20', disabled: false }
+                ]
+            }
         ]
     }
 };
