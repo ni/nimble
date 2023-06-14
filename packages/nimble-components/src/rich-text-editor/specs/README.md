@@ -144,8 +144,8 @@ _CSS Classes and CSS Custom Properties that affect the component_
     below the specified minimum width, the layout may not handle or adapt to the content.
 -   The `footer section` will be a flexbox container and have the same width as the editor section.
 -   The `formatting option toolbar` in the footer section will be enclosed within a flexbox container, enabling the buttons to wrap and occupy roughly seventy
-    percent of the entire footer. If the buttons exceed the seventy percent limit, they will be positioned below in the same container, aligning from right
-    to left. The remaining thirty percent of the footer will be enclosed in another flexbox container dedicated to `footer-actions` slot elements.
+    percent of the entire footer. If the buttons exceed the seventy percent limit, they will be positioned below in the same container, aligning from left
+    to right. The remaining thirty percent of the footer will be enclosed in another flexbox container dedicated to `footer-actions` slot elements.
 -   Regarding the mobile view of the component, we have the following open questions:
     -   Is it ok to have a flexbox container for the toolbar in the footer section and place the buttons below if it reaches the maximum width?
     -   What should be the ideal maximum and minimum width and height of the component?
@@ -159,9 +159,9 @@ _Shadow DOM template_
     <section id="editor"></section>
     <footer>
         <section id="toolbar">
-            <nimble-button></nimble-button>
-        </section>
-        <section id="actions">
+            <nimble-toolbar>
+                <nimble-button></nimble-button>
+            </nimble-toolbar>
             <slot name="footer-actions"></slot>
         </section>
     </footer>
@@ -340,11 +340,12 @@ the supported text formatting keyboard shortcuts in the tiptap editor.
 
 _Keyboard navigation with toolbar buttons focused_
 
-| Key          | Behavior                                                                       |
-| ------------ | ------------------------------------------------------------------------------ |
-| Space, Enter | Enable the selected text formatting feature and return the focus to the editor |
-| Tab keys     | To move the focus forward in the toolbar menu                                  |
-| Shift + Tab  | To reach the editor back to focus                                              |
+| Key             | Behavior                                                                       |
+| --------------- | ------------------------------------------------------------------------------ |
+| Space, Enter    | Enable the selected text formatting feature and return the focus to the editor |
+| Right/Left keys | To move the focus forward/backward in the formatting options toolbar menu      |
+| Tab             | To move the focus towards the footer action buttons                            |
+| Shift + Tab     | To move the focus back to the editor                                           |
 
 _Note_: All other keyboard interaction determined by the slotted element will not be defined in this document.
 
