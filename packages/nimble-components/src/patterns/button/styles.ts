@@ -82,7 +82,6 @@ export const styles = css`
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
             0px 0px 0px 3px ${applicationBackgroundColor} inset;
         outline: none;
-        border-color: ${borderHoverColor};
     }
 
     .control${focusVisible} {
@@ -95,7 +94,6 @@ export const styles = css`
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset,
             0px 0px 0px 2px ${applicationBackgroundColor} inset;
         outline: none;
-        border: ${borderWidth};
     }
 
     :host([disabled]) .control {
