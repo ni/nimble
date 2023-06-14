@@ -76,6 +76,9 @@ export const iconMetadata: {
     IconBlockWithRibbon: {
         tags: ['certificate']
     },
+    IconBoldB: {
+        tags: []
+    },
     IconBookMagnifyingGlass: {
         tags: ['analyze']
     },
@@ -295,6 +298,9 @@ export const iconMetadata: {
     IconInfoCircle: {
         tags: []
     },
+    IconItalicI: {
+        tags: []
+    },
     IconKey: {
         tags: ['access-control', 'active-directory']
     },
@@ -342,6 +348,9 @@ export const iconMetadata: {
     },
     IconNotebook: {
         tags: []
+    },
+    IconNumberList: {
+        tags: ['order']
     },
     IconPaste: {
         tags: ['clipboard']
