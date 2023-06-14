@@ -267,7 +267,7 @@ const components = [
         blazorStatus: '⭕',
     },
     {
-        componentName: 'Select (dropdown)',
+        componentName: 'Select (Dropdown)',
         componentHref: '/?path=/docs/components-select--docs',
         designHref: 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e',
         designLabel: 'XD',
@@ -445,6 +445,7 @@ const metadata: Meta<TableArgs> = {
                 column-id="component-name-column"
                 label-field-name="componentName"
                 href-field-name="componentHref"
+                fractional-width=3
             >
                 Component
             </${tableColumnAnchorTag}>
@@ -510,4 +511,4 @@ const metadata: Meta<TableArgs> = {
 
 export default metadata;
 
-export const table: StoryObj<TableArgs> = {};
+export const componentStatus: StoryObj<TableArgs> = {};
