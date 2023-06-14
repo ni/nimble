@@ -21,7 +21,7 @@ including Comments and other instances that necessitate rich text capabilities.
 
 ### Non-goals
 
--   Blazor integration will be out of scope for this component as we have less or no experience in Blazor component development or other
+-   Blazor integration will be initially out of scope for this component as we have no experience in Blazor component development or other
     related technology. Blazor example app addition will also be not covered in this spec.
 
 ### Features
