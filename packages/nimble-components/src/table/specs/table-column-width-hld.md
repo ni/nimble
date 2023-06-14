@@ -26,12 +26,7 @@ We need to provide users the means for changing the widths of individual columns
     -   The implicit behavior present based on the behaviors described above, is that in a sizing action that cascades to a column configured to not be resized is that the column won't be resized towards a minimum size, and the cascade will effectively "skip" this column.
 -   A user will be able to configure the table such that dragging a column will never result in a change in the table's viewport width. This does _not_ mean that a table configured in such a will _not_ have a scrollbar (e.g. a table could still have enough columns in its view to demand a horizontal scrollbar). This API will simply prevent the user from expanding the existing viewport width.
 
-#### Viewport Sizing
-
-If a column sizing operation has resulted in the viewport size growing, we will offer ways for a user to remove that growth.
--   We can offer an interactive element on the far right side of the column header area, either in a persistent way such that it is always in the same place regardless of scroll position, or pinned to the right side of the farthest right column. This interactive element could do some subset of the following:
-    -   Click-drag to either continue growing viewport area (drag to right) or to remove any excess area (drag to left).
-    -   Double-click to 
+[Prototype branch](https://60e89457a987cf003efc0a5b-xtgmcptvna.chromatic.com/?path=/story/table-column-configuration--grouping).
 
 ### Out of Scope
 
@@ -191,3 +186,9 @@ To help facilitate this, it may be helpful to approach the initial implementatio
 TanStack offers the ability to maintain column sizing state as well as APIs to manage interactive sizing ([`getResizeHandler`](https://tanstack.com/table/v8/docs/api/features/column-sizing#getresizehandler)). By plugging into `getResizeHandler` TanStack can provide all necessary column size state either as the column is being sized (allowing immediate sizing while dragging), or at the end of an interactive operation (columns update size on mouse up for example).
 
 TanStack expects size values to be provided as [pixel values](https://tanstack.com/table/v8/docs/api/features/column-sizing#size). As such, we wouldn't be able to leverage TanStack's APIs in a way to achieve our initial desired behavior. However, it's possible that it would be beneficial to attempt to upstream changes to TanStack that would allow us to leverage it, but I would suggest that we revisit this possibility at a later time.
+
+## Open Issues
+1. How do we allow a user to remove any added viewport width (i.e. a column has been grown such that a horizontal scrollbar is visible)? Options considered include:
+    - Offer a column dropdown menu option for removing all excess width. This would be done in a proportional way across all columns. All columns would provide this menu option. This would probably demand menu categories to separate table-wide actions vs column-specific actions.
+    - AND/OR offer an interactive element on the right side of the right-most column. This element could allow a user to either click-drag (for incremental adjustment) AND double-click (for removal of all excess width), OR just a single-click (no incremental adjust, just remove all excess). We would not support growing the viewport area, only shrinking.
+        - What would this element look like? How should it behave as the viewport size changes (i.e. should it always be present on the right-side of the visible area, or should it stick to the right-side of the right column, allowing it to be scrolled out of view)?
