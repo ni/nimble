@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "New icons for bold, italic, and numbered list",
+  "packageName": "@ni/nimble-tokens",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
