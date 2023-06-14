@@ -300,6 +300,14 @@ export class Select extends FoundationSelect implements ErrorPattern {
         this._options.forEach(o => {
             o.hidden = !this.filteredOptions.includes(o);
         });
+        this.slottedOptions.filter(el => el instanceof ListOptionGroup).forEach(group => {
+            const allOptionsHidden = Array.from(group.children).every(option => (option as HTMLElement).hidden);
+            if (allOptionsHidden) {
+                group.setAttribute('hidden', 'true');
+            } else {
+                group.removeAttribute('hidden');
+            }
+        });
     }
 
     private maxHeightChanged(): void {
