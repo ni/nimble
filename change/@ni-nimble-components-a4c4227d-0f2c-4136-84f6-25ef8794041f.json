@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Move component status documentation to Storybook",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
