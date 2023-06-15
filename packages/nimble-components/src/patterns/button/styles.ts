@@ -201,16 +201,18 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         ButtonAppearance.outline,
         css`
             :host([appearance-variant='primary']) .control {
-                box-shadow: 0px 0px 0px ${borderWidth}
+                box-shadow: 0px 0px 0px calc(2 * ${borderWidth})
                     rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
             :host([appearance-variant='primary']) .control:hover {
-                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+                box-shadow: 0px 0px 0px calc(2 * ${borderWidth}) ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control${focusVisible} {
-                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+                box-shadow: 0px 0px 0px calc(2 * ${borderWidth}) ${borderHoverColor} inset,
+                0px 0px 0px 3px ${applicationBackgroundColor} inset,
+                0px 0px 0px 4px ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control:active {
