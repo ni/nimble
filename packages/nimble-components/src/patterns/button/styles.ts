@@ -206,13 +206,15 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             }
 
             :host([appearance-variant='primary']) .control:hover {
-                box-shadow: 0px 0px 0px calc(2 * ${borderWidth}) ${borderHoverColor} inset;
+                box-shadow: 0px 0px 0px calc(2 * ${borderWidth})
+                    ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control${focusVisible} {
-                box-shadow: 0px 0px 0px calc(2 * ${borderWidth}) ${borderHoverColor} inset,
-                0px 0px 0px 3px ${applicationBackgroundColor} inset,
-                0px 0px 0px 4px ${borderHoverColor} inset;
+                box-shadow: 0px 0px 0px calc(2 * ${borderWidth})
+                        ${borderHoverColor} inset,
+                    0px 0px 0px 3px ${applicationBackgroundColor} inset,
+                    0px 0px 0px 4px ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control:active {
