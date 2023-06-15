@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 15 Jun 2023 15:18:46 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "838f14b2dd112f6e135956a022637e6ea891c476",
+            "comment": "HLD updates for number and date table columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 14 Jun 2023 20:14:25 GMT",
       "tag": "@ni/nimble-components_v19.2.3",
       "version": "19.2.3",
