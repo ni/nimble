@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "HLD updates for number and date table columns",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
