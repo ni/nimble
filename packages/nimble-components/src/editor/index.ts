@@ -11,16 +11,16 @@ import { attr, observable } from '@microsoft/fast-element';
 
 import { Editor } from '@tiptap/core';
 // import StarterKit from '@tiptap/starter-kit';
-import Image from '@tiptap/extension-image';
-import Underline from '@tiptap/extension-underline';
-import Link from '@tiptap/extension-link';
-import Mention from '@tiptap/extension-mention';
+// import Image from '@tiptap/extension-image';
+// import Underline from '@tiptap/extension-underline';
+// import Link from '@tiptap/extension-link';
+// import Mention from '@tiptap/extension-mention';
 // import tippy, { GetReferenceClientRect, Instance, Props } from 'tippy.js';
 import { DOMSerializer } from '@tiptap/pm/model';
 import { modifiedSchema } from './helperfunctions/modifiedSchema';
 import { defaultMarkdownParserOverridden } from './helperfunctions/fromMarkdown';
 import { defaultMarkdownSerializerOverridden } from './helperfunctions/toMarkdown';
-import Placeholder from '@tiptap/extension-placeholder';
+// import Placeholder from '@tiptap/extension-placeholder';
 
 export class RichTextEditor extends FoundationElement {
     @attr placeholder: string = '';
@@ -117,12 +117,12 @@ export class RichTextEditor extends FoundationElement {
     }
 
     public underlineButtonClickHandler(): void {
-        if (!this.editor!.chain().focus()) {
-            this.toggleTipTapButtonState();
-            return;
-        }
-        this.editor!.chain().focus().toggleUnderline().run();
-        this.toggleTipTapButtonState();
+        // if (!this.editor!.chain().focus()) {
+        //     this.toggleTipTapButtonState();
+        //     return;
+        // }
+        // this.editor!.chain().focus().toggleUnderline().run();
+        // this.toggleTipTapButtonState();
     }
 
     public loadMarkdownButtonClickHandler(): void {
@@ -195,20 +195,20 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private setLink(url: string) {
-        if (url) {
-            this.editor!.chain()
-                .focus()
-                .extendMarkRange('link')
-                .setLink({ href: url })
-                .run();
-        } else if (!url) {
-            this.editor!.chain()
-                .focus()
-                .extendMarkRange('link')
-                .unsetLink()
-                .run();
-        }
-        this.dialog.close();
+        // if (url) {
+        //     this.editor!.chain()
+        //         .focus()
+        //         .extendMarkRange('link')
+        //         .setLink({ href: url })
+        //         .run();
+        // } else if (!url) {
+        //     this.editor!.chain()
+        //         .focus()
+        //         .extendMarkRange('link')
+        //         .unsetLink()
+        //         .run();
+        // }
+        // this.dialog.close();
     }
 
     private initializeEditor(): void {
@@ -219,15 +219,15 @@ export class RichTextEditor extends FoundationElement {
             editable: !this.readOnly,
             extensions: [
                 // StarterKit.configure({ bold: false }),
-                Underline,
-                Image.configure({
-                    inline: true,
-                    allowBase64: true
-                }),
-                Link.configure({
-                    openOnClick: true,
-                    autolink: false
-                }),
+                // Underline,
+                // Image.configure({
+                //     inline: true,
+                //     allowBase64: true
+                // }),
+                // Link.configure({
+                //     openOnClick: true,
+                //     autolink: false
+                // }),
                 // Mention.configure({
                 //     HTMLAttributes: {
                 //         class: 'my-custom-class',
@@ -391,10 +391,10 @@ export class RichTextEditor extends FoundationElement {
                 //         },
                 //     },
                 // }),
-                Placeholder.configure({
-                    placeholder: this.placeholder,
-                    emptyEditorClass: 'is-editor-empty'
-                })
+                // Placeholder.configure({
+                //     placeholder: this.placeholder,
+                //     emptyEditorClass: 'is-editor-empty'
+                // })
             ],
             editorProps: {
                 // handleDrop: function (view, event, _slice, moved) {
@@ -584,12 +584,12 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 }
-const nimbleButton = RichTextEditor.compose({
+const editor = RichTextEditor.compose({
     baseClass: RichTextEditor,
     template,
     styles,
     baseName: 'rich-text-editor'
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleButton());
+DesignSystem.getOrCreate().withPrefix('nimble').register(editor());
 export const richTextEditorTag = DesignSystem.tagFor(RichTextEditor); // used in storybook implementation
