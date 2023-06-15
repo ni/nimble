@@ -31,7 +31,7 @@ interface OptionArgs {
 }
 
 const metadata: Meta<ComboboxArgs> = {
-    title: 'Combobox',
+    title: 'Components/Combobox',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

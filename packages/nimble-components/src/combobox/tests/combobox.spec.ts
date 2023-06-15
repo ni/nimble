@@ -382,7 +382,7 @@ describe('Combobox', () => {
         await disconnect();
     });
 
-    it('clears old filter when value set programmatically', async () => {
+    it('updates filter when value set programmatically', async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         await waitForUpdatesAsync();
@@ -399,11 +399,53 @@ describe('Combobox', () => {
         element.value = 'Two';
         await waitForUpdatesAsync();
 
-        expect(element.filteredOptions.length).toEqual(3);
-        expect(element.filteredOptions[0]?.value).toEqual('one');
-        expect(element.filteredOptions[1]?.value).toEqual('two');
-        expect(element.filteredOptions[2]?.value).toEqual('three');
-        expect(element.filteredOptions[1]?.classList).toContain('selected');
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('two');
+        expect(element.filteredOptions[0]?.classList).toContain('selected');
+
+        await disconnect();
+    });
+
+    it('filters list after entering value and losing focus', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'Two');
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value ('Two')
+        const focusout = new FocusEvent('focusout');
+        element.dispatchEvent(focusout);
+        await waitForUpdatesAsync();
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('two');
+
+        await disconnect();
+    });
+
+    it('filters list after entering value and reselecting value from list', async () => {
+        const { element, connect, disconnect } = await setup();
+        await connect();
+        await waitForUpdatesAsync();
+
+        element.autocomplete = ComboboxAutocomplete.both;
+        updateComboboxWithText(element, 'Two');
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        element.dispatchEvent(enterEvent); // commit value ('Two')
+        const keydownEvent = new KeyboardEvent('keydown', {
+            key: keyArrowDown
+        } as KeyboardEventInit);
+        element.dispatchEvent(keydownEvent); // open dropdown
+        element.dispatchEvent(enterEvent); // commit value from list ('Two')
+
+        expect(element.filteredOptions.length).toEqual(1);
+        expect(element.filteredOptions[0]?.value).toEqual('two');
 
         await disconnect();
     });

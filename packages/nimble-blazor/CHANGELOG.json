@@ -2,6 +2,51 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Tue, 13 Jun 2023 22:52:49 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.8",
+      "version": "11.9.8",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "13de07b6f7eac7e80862d5d3011b9288639b31f4",
+            "comment": "Update broken Storybook links"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 06 Jun 2023 14:41:27 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.5",
+      "version": "11.9.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "717b586acc08f4cc956c1142ef5e16e62b88df01",
+            "comment": "Specify .NET 6 via global.json file; re-enable Blazor linting"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 02 Jun 2023 20:21:14 GMT",
+      "tag": "@ni/nimble-blazor_v11.9.4",
+      "version": "11.9.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0c8b846e24c52ef5f2fb0a832edacef06803d04b",
+            "comment": "Disable blazor linting"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 22 May 2023 18:39:33 GMT",
       "tag": "@ni/nimble-blazor_v11.9.0",
       "version": "11.9.0",

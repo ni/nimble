@@ -2,6 +2,89 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 13 Jun 2023 14:50:08 GMT",
+      "tag": "@ni/nimble-angular_v16.6.6",
+      "version": "16.6.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf",
+            "comment": "Update combobox CVA tests"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.2.3",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 21:34:35 GMT",
+      "tag": "@ni/nimble-angular_v16.6.5",
+      "version": "16.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.2.2",
+            "commit": "562c2ec63b6c8391633f17d33a311535b61627f4"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 13:16:59 GMT",
+      "tag": "@ni/nimble-angular_v16.6.4",
+      "version": "16.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.2.1",
+            "commit": "121a4f18d996f09af1f0db70b873f6d7cdda646d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 07 Jun 2023 18:59:51 GMT",
+      "tag": "@ni/nimble-angular_v16.6.3",
+      "version": "16.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "3e64d9a335d7b64e8690d382385724a4fa260265",
+            "comment": "Mark 'placeholder' as an @Input on the text column directive"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 05 Jun 2023 18:54:28 GMT",
+      "tag": "@ni/nimble-angular_v16.6.2",
+      "version": "16.6.2",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "85f33b13d12e5fadcb95c6d73e2f53cb7cd762dc",
+            "comment": "Remove old async test helpers"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Jun 2023 07:49:02 GMT",
       "tag": "@ni/nimble-angular_v16.6.2",
       "version": "16.6.2",

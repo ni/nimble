@@ -41,7 +41,7 @@ should be spaced apart using the \`${bannerGapSize.cssCustomProperty}\` design t
 `;
 
 const metadata: Meta<BannerArgs> = {
-    title: 'Banner',
+    title: 'Components/Banner',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

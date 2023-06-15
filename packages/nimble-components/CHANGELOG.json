@@ -2,6 +2,126 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 15 Jun 2023 15:18:46 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "838f14b2dd112f6e135956a022637e6ea891c476",
+            "comment": "HLD updates for number and date table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Jun 2023 20:14:25 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c3df12be0f145aee2a07dbd05bbed582e3b431a6",
+            "comment": "Update docs (accessible labels for button/banner/icons)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Jun 2023 16:41:10 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a593581078aa9e9b95ed101572ac282c63e97ea",
+            "comment": "Updated Button Styles Spec (#663)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Jun 2023 14:50:08 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf",
+            "comment": "Fix inconsistencies in combobox filtering"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 21:34:35 GMT",
+      "tag": "@ni/nimble-components_v19.2.2",
+      "version": "19.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "562c2ec63b6c8391633f17d33a311535b61627f4",
+            "comment": "Fix GroupRow component template"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 19:23:49 GMT",
+      "tag": "@ni/nimble-components_v19.2.1",
+      "version": "19.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1afce1d97c8d6d91841d4eb9aa13c5074deb6e1b",
+            "comment": "Reorganize Storybook to support Incubating components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 15:12:03 GMT",
+      "tag": "@ni/nimble-components_v19.2.1",
+      "version": "19.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a37e74d4521ced985ac0f919f2d1da355ead8d0a",
+            "comment": "Documentation updates for policies around incubating components"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 13:16:59 GMT",
+      "tag": "@ni/nimble-components_v19.2.1",
+      "version": "19.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "121a4f18d996f09af1f0db70b873f6d7cdda646d",
+            "comment": "Created a generic Tracker class, extended it to a validator and an update tracker and implemented them in the table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Jun 2023 07:49:02 GMT",
       "tag": "@ni/nimble-components_v19.2.0",
       "version": "19.2.0",
