@@ -154,6 +154,18 @@ export const primaryFillActionColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.primaryFillActionColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black91, 0.85), hexToRgbaCssColor(Black15, 0.2), hexToRgbaCssColor(White, 0.2)));
 
+export const secondaryButtonBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.secondaryButtonBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, DigitalGreenLight, hexToRgbaCssColor(White, 0.1)));
+
+export const secondaryButtonFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.secondaryButtonFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
+
+export const secondaryFillActionColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.secondaryFillActionColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(DigitalGreenDark, 1.1), DigitalGreenDark, hexToRgbaCssColor(White, 0.2)));
+
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillSelectedColorForTheme(element), 0.2));

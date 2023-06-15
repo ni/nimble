@@ -18,6 +18,9 @@ import {
     primaryButtonBackgroundColor,
     primaryButtonFontColor,
     primaryFillActionColor,
+    secondaryButtonBackgroundColor,
+    secondaryButtonFontColor,
+    secondaryFillActionColor,
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior, appearanceVariantBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
@@ -249,6 +252,72 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
                     .control:active {
                         background-color: ${primaryFillActionColor};
+                        border-color: ${borderHoverColor};
+                    }
+
+                    :host([disabled]) .control {
+                        background-color: rgba(${borderRgbPartialColor}, 0.1);
+                        border-color: transparent;
+                        color: rgba(${actionRgbPartialColor}, 0.3);
+                    }
+                `
+            ),
+            appearanceBehavior(
+                ButtonAppearance.outline,
+                css`
+                    .control {
+                        background-color: transparent;
+                        box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}) inset;
+                        color: ${actionRgbPartialColor};
+                    }
+
+                    .control:hover {
+                        background-color: transparent;
+                        border-color: ${borderHoverColor};
+                    }
+
+                    .control${focusVisible} {
+                        background-color: transparent;
+                        border-color: ${borderHoverColor};
+                    }
+
+                    .control:active {
+                        background-color: ${fillSelectedColor};
+                    }
+
+                    :host([disabled]) .control {
+                        background-color: transparent;
+                        border-color: rgba(${borderRgbPartialColor}, 0.2);
+                    }
+                `
+            )
+        )
+    ),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
+    appearanceVariantBehavior(
+        ButtonAppearanceVariant.primaryAccent,
+        css``.withBehaviors(
+            appearanceBehavior(
+                ButtonAppearance.block,
+                css`
+                    .control {
+                        background-color: ${secondaryButtonBackgroundColor}; 
+                        border-color: transparent;
+                        color: ${secondaryButtonFontColor};
+                        
+                    }
+
+                    .control:hover {
+                        background-color: ${secondaryButtonBackgroundColor}; 
+                    }
+
+                    .control${focusVisible} {
+                        background-color:${secondaryButtonBackgroundColor}; 
+                        border-color: ${borderHoverColor};
+                    }
+
+                    .control:active {
+                        background-color: ${secondaryFillActionColor};
                         border-color: ${borderHoverColor};
                     }
 

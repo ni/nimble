@@ -50,7 +50,7 @@ export type ButtonAppearance =
 export const ButtonAppearanceVariant = {
     default: 'default',
     primary: 'primary',
-    primaryAccent: 'primary-accent'
+    primaryAccent: 'primaryAccent'
 } as const;
 export type ButtonAppearanceVariant =
     (typeof ButtonAppearanceVariant)[keyof typeof ButtonAppearanceVariant];

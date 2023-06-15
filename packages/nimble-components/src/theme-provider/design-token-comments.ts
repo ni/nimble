@@ -11,7 +11,10 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     sectionBackgroundColor: 'Background color for sections',
     primaryButtonBackgroundColor: 'Background Color for "primary" appearance-variant buttons',
     primaryButtonFontColor: 'Font Color for "primary" appearance-variant buttons',
-    primaryFillActionColor: 'Hover fill color for "primary" appearance-variant buttons',
+    primaryFillActionColor: 'Action fill color for "primary" appearance-variant buttons',
+    secondaryButtonBackgroundColor: 'Background Color for "primary-accent" appearance-variant buttons',
+    secondaryButtonFontColor: 'Font Color for "primary-accent" appearance-variant buttons',
+    secondaryFillActionColor: 'Action fill color for "primary-accent" appearance-variant buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
