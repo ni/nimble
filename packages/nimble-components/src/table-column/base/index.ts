@@ -53,8 +53,7 @@ export abstract class TableColumn<
     public headerSpan!: HTMLSpanElement;
 
     /** @internal */
-    @observable
-    public contentSlot?: HTMLSlotElement;
+    public contentSlot!: HTMLSlotElement;
 
     public checkValidity(): boolean {
         return this.columnInternals.validConfiguration;
