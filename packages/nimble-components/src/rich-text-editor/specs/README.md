@@ -94,10 +94,8 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 ```html
 <nimble-rich-text-editor>
-    <div slot="footer-actions">
-        <nimble-button>Cancel</nimble-button>
-        <nimble-button>Add Comment</nimble-button>
-    </div>
+    <nimble-button slot="footer-actions">Cancel</nimble-button>
+    <nimble-button slot="footer-actions">Add Comment</nimble-button>
 </nimble-rich-text-editor>
 ```
 
@@ -110,6 +108,7 @@ _Props/Attrs_
         [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L30).
     -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199).
+-   `isEmpty` - is a read-only property that indicates whether the editor is empty or not.
 
 _Methods_
 
@@ -322,7 +321,8 @@ _Keyboard accessibility and shortcuts for text formatting_
 
 All the basic keyboard accessibility for the tiptap rich text editor is mentioned in their
 [keyboard shortcut](https://tiptap.dev/api/keyboard-shortcuts#predefined-keyboard-shortcuts) page. To facilitate easy access, listed down
-the supported text formatting keyboard shortcuts in the tiptap editor.
+the supported text formatting keyboard shortcuts in the tiptap editor. All instances of the `Ctrl` key mentioned below will be substituted with the `Cmd` key
+in macOS.
 
 | Key                     | Behavior                                                 |
 | ----------------------- | -------------------------------------------------------- |
