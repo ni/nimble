@@ -108,7 +108,8 @@ _Props/Attrs_
         [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L30).
     -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199).
--   `isEmpty` - is a read-only property that indicates whether the editor is empty or not.
+-   `isEmpty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
+    [isEmpty](https://tiptap.dev/api/editor#is-empty) API.
 
 _Methods_
 
@@ -122,9 +123,6 @@ _Events_
     1. This event will fired for every input in the content of the editor, including text inputs, text formatting changes, and text removals.
     2. This event will not fire when there are no changes made to the content of the editor. For example, all mouse events, selecting the texts, state
        changes, etc,
-
-    The emitted event data is in the format of a `CustomEvent` and consists of a `detail` object with an `isEmpty` boolean flag indicating whether the editor
-    is empty or not.
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
