@@ -14,11 +14,13 @@ import {
     iconColor,
     smallDelay,
     standardPadding,
-    applicationBackgroundColor
+    applicationBackgroundColor,
+    primaryButtonBackgroundColor,
+    primaryButtonFontColor,
+    primaryFillActionColor,
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior, appearanceVariantBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
-import { Black15 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -51,7 +53,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: ${borderWidth} solid transparent;
+        border: 0 solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -81,20 +83,19 @@ export const styles = css`
 
     .control:hover {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-        0px 0px 0px 3px ${applicationBackgroundColor} inset;
+            0px 0px 0px 3px ${applicationBackgroundColor} inset;
         outline: none;
-        border-color: ${borderHoverColor};
     }
 
     .control${focusVisible} {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-        0px 0px 0px 3px ${applicationBackgroundColor} inset,
-        0px 0px 0px 4px ${borderHoverColor} inset;
+            0px 0px 0px 3px ${applicationBackgroundColor} inset,
+            0px 0px 0px 4px ${borderHoverColor} inset;
     }
 
     .control:active {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset,
-        0px 0px 0px 2px ${applicationBackgroundColor} inset;
+            0px 0px 0px 2px ${applicationBackgroundColor} inset;
         outline: none;
     }
 
@@ -153,18 +154,8 @@ export const styles = css`
         ButtonAppearance.outline,
         css`
             .control {
-                background-color: transparent;
-                box-shadow: 0px 0px 0px ${borderWidth} rgba(${borderRgbPartialColor}, 0.3) inset;
-            }
-
-            .control:hover {
-                background-color: transparent;
-                border-color: ${borderHoverColor};
-            }
-
-            .control${focusVisible} {
-                background-color: transparent;
-                border-color: ${borderHoverColor};
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
             .control:active {
@@ -173,36 +164,16 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: transparent;
-                box-shadow: 0px 0px 0px ${borderWidth} rgba(${borderRgbPartialColor}, 0.3) inset;
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
             }
         `
     ),
     appearanceBehavior(
         ButtonAppearance.ghost,
         css`
-            .control {
-                background-color: transparent;
-                border-color: transparent;
-            }
-
-            .control:hover {
-                background-color: transparent;
-                border-color: ${borderHoverColor};
-            }
-
-            .control${focusVisible} {
-                background-color: transparent;
-                border-color: ${borderHoverColor};
-            }
-
             .control:active {
                 background-color: ${fillSelectedColor};
-                border-color: ${fillSelectedColor};
-            }
-
-            :host([disabled]) .control {
-                background-color: transparent;
-                border-color: transparent;
             }
         `
     ),
@@ -211,19 +182,10 @@ export const styles = css`
         css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-                border-color: transparent;
-            }
-
-            .control:hover {
             }
 
             .control${focusVisible} {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-
-                border-color: ${borderHoverColor};
-            }
-
-            .control${focusVisible}:hover {
             }
 
             .control:active {
@@ -232,7 +194,6 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-                border-color: transparent;
             }
         `
     )
@@ -264,6 +225,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
     //         }
     //     `
     // ),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
     appearanceVariantBehavior(
         ButtonAppearanceVariant.primary,
         css``.withBehaviors(
@@ -271,32 +233,29 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ButtonAppearance.block,
                 css`
                     .control {
-                        background-color: rgba(${actionRgbPartialColor}, 0.75);
+                        background-color: ${primaryButtonBackgroundColor};
                         border-color: transparent;
-                        color: ${Black15};
+                        color: ${primaryButtonFontColor};
                     }
 
                     .control:hover {
-                        background-color: rgba(${actionRgbPartialColor}, 0.75);
+                        background-color: ${primaryButtonBackgroundColor}; 
                     }
 
                     .control${focusVisible} {
-                        background-color: rgba(${actionRgbPartialColor}, 0.75);
+                        background-color:${primaryButtonBackgroundColor}; 
                         border-color: ${borderHoverColor};
                     }
 
-                    .control${focusVisible}:hover {
-                        background-color: rgba(${actionRgbPartialColor}, 0.75);
-                    }
-
                     .control:active {
-                        background-color: rgba(${actionRgbPartialColor}, 0.85);
+                        background-color: ${primaryFillActionColor};
                         border-color: ${borderHoverColor};
                     }
 
                     :host([disabled]) .control {
                         background-color: rgba(${borderRgbPartialColor}, 0.1);
                         border-color: transparent;
+                        color: rgba(${actionRgbPartialColor}, 0.3);
                     }
                 `
             ),

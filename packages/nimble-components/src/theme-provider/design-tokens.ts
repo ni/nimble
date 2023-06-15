@@ -142,6 +142,18 @@ export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
+export const primaryButtonBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.primaryButtonBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black91, 0.75), hexToRgbaCssColor(Black15, 0.3), hexToRgbaCssColor(White, 0.3)));
+
+export const primaryButtonFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.primaryButtonFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
+
+export const primaryFillActionColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.primaryFillActionColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black91, 0.85), hexToRgbaCssColor(Black15, 0.2), hexToRgbaCssColor(White, 0.2)));
+
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillSelectedColorForTheme(element), 0.2));
@@ -188,7 +200,7 @@ export const informationColor = DesignToken.create<string>(
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
