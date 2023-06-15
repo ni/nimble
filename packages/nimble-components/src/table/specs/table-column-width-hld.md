@@ -38,7 +38,22 @@ There are some column sizing behaviors that we will ultimately expect to support
 
 ### API
 
-To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following properties to `ColumnInternals`:
+`Table`
+```ts
+    /**
+     * Allows a user to disable interactive column sizing
+     */
+    @attr({ attribute: 'disable-column-sizing', mode: 'boolean' })
+    public disableColumnSizing = false;
+
+    /**
+     * Allows a user to limit interactive column sizing to the available viewport width.
+     */
+    @attr({ attribute: 'restict-sizing-to-viewport', mode: 'boolean'})
+    public restrictSizingToViewport = false;
+```
+
+`ColumnInternals`:
 
 ```ts
 ColumnInternals<TColumnConfig> {
@@ -147,6 +162,8 @@ export class MyPixelWidthColumn : TableColumn<...> {
     }
 }
 ```
+
+
 
 ### Implementation considerations
 
