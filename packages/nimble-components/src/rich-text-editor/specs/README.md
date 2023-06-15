@@ -126,15 +126,18 @@ _Events_
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The minimum and maximum height of the `editor section` will be fixed value. If the content exceeds the maximum height, we will show the vertical scrollbar to
-    view the content of the editor.
--   The minimum and maximum width of the `editor section` will be fixed value considering the mobile and desktop view of the component respectively. However, if the
-    screen width is reduced
-    below the specified minimum width, the layout may not handle or adapt to the content.
--   The `footer section` will be a flexbox container and have the same width as the editor section.
--   The `formatting option toolbar` in the footer section will be enclosed within a flexbox container, enabling the buttons to wrap and occupy roughly seventy
-    percent of the entire footer. If the buttons exceed the seventy percent limit, they will be positioned below in the same container, aligning from left
-    to right. The remaining thirty percent of the footer will be enclosed in another flexbox container dedicated to `footer-actions` slot elements.
+-   The minimum height of the component will be set to show at least one line in the text area along with a footer section. If the content exceeds
+    the current height (set by the client), a vertical scrollbar will appear, allowing users to view the hidden content.
+-   The minimum width of the component will be determined based on ensuring all buttons in the footer are visible. We have arrived to this decision
+    to align with the minimal requirement for the initial release. However, adjustments will be made later based on the visual design for mobile view is complete.
+-   The content in the text area will adjust its layout based on the width, potentially increasing the height of the editor. But in case of having
+    a long nested lists that is beyond the current width (set by the client), a horizontal scrollbar will appear within the text area to view the content.
+-   The client will determine the default and maximum height and width of the component.
+-   The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
+    component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
+    space in the footer.
+
+_Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
 ### Anatomy
 
