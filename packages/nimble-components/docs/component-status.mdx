@@ -1,9 +1,7 @@
 import { Canvas, Story, Title, Meta } from '@storybook/addon-docs';
-import * as statusStories from './component-status.stories';
+import { componentStatus } from './component-status.stories';
 
-<Meta of={statusStories} />
-
-<Title of={statusStories} />
+<Meta title="Components/Status Table" />
 
 # Component status
 
@@ -15,4 +13,4 @@ Here are components that are either implemented or on the roadmap for Nimble. So
 -   ⚠️ is used for components that are "[incubating](/docs/incubating-docs--docs)". These are not ready for general use and may make breaking changes without a "major" semantic version bump.
 -   ⭕ means the component doesn't exist yet. Please submit requests by commenting on the linked issue.
 
-<Canvas of={statusStories.componentStatus} />
+<Canvas of={componentStatus} />

@@ -430,7 +430,7 @@ const components = [
 ] as const;
 
 const metadata: Meta<TableArgs> = {
-    title: 'Components/Component Status',
+    title: 'Internal/Component Status',
     tags: [],
     decorators: [],
     parameters: {},
