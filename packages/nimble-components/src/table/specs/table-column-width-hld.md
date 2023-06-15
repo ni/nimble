@@ -39,6 +39,7 @@ There are some column sizing behaviors that we will ultimately expect to support
 ### API
 
 `Table`
+
 ```ts
     /**
      * Allows a user to disable interactive column sizing
@@ -163,8 +164,6 @@ export class MyPixelWidthColumn : TableColumn<...> {
 }
 ```
 
-
-
 ### Implementation considerations
 
 [Prototype branch](https://github.com/ni/nimble/tree/column-width-prototype) ([Storybook](https://60e89457a987cf003efc0a5b-qheevxtkdu.chromatic.com/?path=/story/table--table))
@@ -205,6 +204,7 @@ TanStack offers the ability to maintain column sizing state as well as APIs to m
 TanStack expects size values to be provided as [pixel values](https://tanstack.com/table/v8/docs/api/features/column-sizing#size). As such, we wouldn't be able to leverage TanStack's APIs in a way to achieve our initial desired behavior. However, it's possible that it would be beneficial to attempt to upstream changes to TanStack that would allow us to leverage it, but I would suggest that we revisit this possibility at a later time.
 
 ## Open Issues
+
 1. How do we allow a user to remove any added viewport width (i.e. a column has been grown such that a horizontal scrollbar is visible)? Options considered include:
     - Offer a column dropdown menu option for removing all excess width. This would be done in a proportional way across all columns. All columns would provide this menu option. This would probably demand menu categories to separate table-wide actions vs column-specific actions.
     - AND/OR offer an interactive element on the right side of the right-most column. This element could allow a user to either click-drag (for incremental adjustment) AND double-click (for removal of all excess width), OR just a single-click (no incremental adjust, just remove all excess). We would not support growing the viewport area, only shrinking.
