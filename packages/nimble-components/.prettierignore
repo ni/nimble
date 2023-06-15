@@ -25,6 +25,7 @@
 
 # Explicitly exclude the below files and folders
 dist
+api-docs
 node_modules
 package.json
 CHANGELOG.*

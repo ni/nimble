@@ -8,6 +8,7 @@ module.exports = {
         // Force inclusion of storybook dot file hidden folder
         '!/.storybook',
         'node_modules',
+        'api_docs',
         'dist'
     ],
     rules: {
