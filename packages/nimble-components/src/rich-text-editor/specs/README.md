@@ -65,7 +65,7 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 -   Currently, we will begin by referring to the existing
     [Interaction design workflow](https://www.figma.com/proto/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94118&scaling=min-zoom&page-id=2428%3A32954&starting-point-node-id=6280%3A94118&show-proto-sidebar=1)
     of the comments feature. Once the visual design for these components is complete, we will then be implementing those specific changes within the defined
-    scope of development. However, we will still make use of existing nimble components such as `nimble-button` and `nimble-text-area` to maintain a
+    scope of development. However, we will still make use of existing nimble components such as `nimble-toggle-button` and `nimble-text-area` to maintain a
     consistent design for the initial release.
 
 ### Prior Art/Examples
@@ -87,7 +87,7 @@ _`nimble-rich-text-viewer`_
 The `nimble-rich-text-editor` will be divided into two sections namely an `editor` section and a `footer` section.
 
 1. `editor` section is the actual text area to add or update rich text content.
-2. `footer` section consists of `nimble-button` to control each text formatting functionalities like bold, italic, etc, and a
+2. `footer` section consists of `nimble-toggle-button` to control each text formatting functionalities like bold, italic, etc, and a
    `footer-actions` slot element which is typically used to add action buttons to the right bottom of the component.
 
 Example usage of the `nimble-rich-text-editor` in the application layer is as follows:
@@ -149,7 +149,7 @@ _Shadow DOM template_
     <footer>
         <section id="toolbar">
             <nimble-toolbar>
-                <nimble-button></nimble-button>
+                <nimble-toggle-button></nimble-toggle-button>
             </nimble-toolbar>
             <slot name="footer-actions"></slot>
         </section>
@@ -236,7 +236,7 @@ A Blazor wrapper is initially out of scope for these components.
 
 ### Visual Appearance
 
-NA
+Visual design has been requested is currently still pending.
 
 ## Implementation
 
@@ -316,7 +316,7 @@ text in the editor.
 _Focus_
 
 -   Focus state of the editor will be the same as the `nimble-text-area`.
--   Focus state of the buttons will be the same as the `nimble-button`.
+-   Focus state of the buttons will be the same as the `nimble-toggle-button`.
 
 _Keyboard accessibility and shortcuts for text formatting_
 
@@ -371,7 +371,7 @@ Performance of tiptap explained in an example of having [long texts](https://tip
 
 This component is dependent on the [`tiptap`](https://tiptap.dev/) third party library. As mentioned,
 [tiptap](https://tiptap.dev/introduction#why-should-i-use-tiptap) is built on top of prosemirror, we might also use some of the prosemirror's
-library. For the currently supported features, we will include the following libraries that will be added to the packages.json
+library. For the currently supported features, we will include the following libraries that will be added to the package.json
 
 -   @tiptap/core
 -   @tiptap/pm
