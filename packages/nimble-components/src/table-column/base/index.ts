@@ -1,4 +1,8 @@
-import { attr, nullableNumberConverter } from '@microsoft/fast-element';
+import {
+    attr,
+    nullableNumberConverter,
+    observable
+} from '@microsoft/fast-element';
 import { FoundationElement } from '@microsoft/fast-foundation';
 import { TableColumnSortDirection } from '../../table/types';
 import {
@@ -40,6 +44,17 @@ export abstract class TableColumn<
 
     @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
     public sortingDisabled = false;
+
+    /** @internal */
+    @observable
+    public isValidContentAndHasOverflow = false;
+
+    /** @internal */
+    public headerSpan!: HTMLSpanElement;
+
+    /** @internal */
+    @observable
+    public slottedHeaderContent: HTMLElement[] = [];
 
     public checkValidity(): boolean {
         return this.columnInternals.validConfiguration;
