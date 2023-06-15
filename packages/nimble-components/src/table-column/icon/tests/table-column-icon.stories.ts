@@ -91,6 +91,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            style="--ni-private-spinner-animation-play-state: paused"
         >
             <${tableColumnTextTag} field-name="firstName" >
                 Name
