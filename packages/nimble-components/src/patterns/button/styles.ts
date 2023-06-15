@@ -18,9 +18,11 @@ import {
     primaryButtonBackgroundColor,
     primaryButtonFontColor,
     primaryFillActionColor,
-    secondaryButtonBackgroundColor,
-    secondaryButtonFontColor,
-    secondaryFillActionColor,
+    accentButtonBackgroundColor,
+    accentFillActionColor,
+    accentButtonBlockFontColor,
+    accentButtonOutlineFontColor,
+    accentButtonOutlineBorderColor,
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior, appearanceVariantBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
@@ -288,6 +290,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     :host([disabled]) .control {
                         background-color: transparent;
                         border-color: rgba(${borderRgbPartialColor}, 0.2);
+                        color: rgba(${actionRgbPartialColor}, 0.3);
                     }
                 `
             )
@@ -301,23 +304,23 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ButtonAppearance.block,
                 css`
                     .control {
-                        background-color: ${secondaryButtonBackgroundColor}; 
+                        background-color: ${accentButtonBackgroundColor}; 
                         border-color: transparent;
-                        color: ${secondaryButtonFontColor};
+                        color: ${accentButtonBlockFontColor};
                         
                     }
 
                     .control:hover {
-                        background-color: ${secondaryButtonBackgroundColor}; 
+                        background-color: ${accentButtonBackgroundColor}; 
                     }
 
                     .control${focusVisible} {
-                        background-color:${secondaryButtonBackgroundColor}; 
+                        background-color:${accentButtonBackgroundColor}; 
                         border-color: ${borderHoverColor};
                     }
 
                     .control:active {
-                        background-color: ${secondaryFillActionColor};
+                        background-color: ${accentFillActionColor};
                         border-color: ${borderHoverColor};
                     }
 
@@ -333,8 +336,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 css`
                     .control {
                         background-color: transparent;
-                        box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}) inset;
-                        color: ${actionRgbPartialColor};
+                        box-shadow: 0px 0px 0px ${borderWidth} ${accentButtonOutlineBorderColor} inset;
+                        color: ${accentButtonOutlineFontColor};
                     }
 
                     .control:hover {
@@ -354,6 +357,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     :host([disabled]) .control {
                         background-color: transparent;
                         border-color: rgba(${borderRgbPartialColor}, 0.2);
+                        color: rgba(${actionRgbPartialColor}, 0.3);
                     }
                 `
             )

@@ -154,16 +154,24 @@ export const primaryFillActionColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.primaryFillActionColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(Black91, 0.85), hexToRgbaCssColor(Black15, 0.2), hexToRgbaCssColor(White, 0.2)));
 
-export const secondaryButtonBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.secondaryButtonBackgroundColor)
+export const accentButtonBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, DigitalGreenLight, hexToRgbaCssColor(White, 0.1)));
 
-export const secondaryButtonFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.secondaryButtonFontColor)
+export const accentButtonBlockFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonBlockFontColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
 
-export const secondaryFillActionColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.secondaryFillActionColor)
+export const accentButtonOutlineFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonOutlineFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, White));
+
+export const accentButtonOutlineBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonOutlineBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, hexToRgbaCssColor(White, 0.3)));
+
+export const accentFillActionColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentFillActionColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, hexToRgbaCssColor(DigitalGreenDark, 1.1), DigitalGreenDark, hexToRgbaCssColor(White, 0.2)));
 
 export const fillSelectedColor = DesignToken.create<string>(
@@ -876,7 +884,7 @@ function getFillSelectedColorForTheme(element: HTMLElement): string {
     return getColorForTheme(
         element,
         DigitalGreenLight,
-        DigitalGreenLight,
+        PowerGreen,
         White
     );
 }
