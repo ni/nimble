@@ -21,7 +21,7 @@ TableColumnNumberTextCellRecord,
 TableColumnNumberTextColumnConfig
 > {
     public override get text(): string {
-        return this.cellRecord.value?.toString()!;
+        return this.cellRecord.value!.toString()!;
     }
 
     public override get placeholder(): string {

@@ -2,8 +2,8 @@
  * Number text table column format options
  * @public
  */
-export const Format = {
+export const TableNumberTextFormat = {
     default: undefined,
     intl: 'custom'
 } as const;
-export type Format = (typeof Format)[keyof typeof Format];
+export type TableNumberTextFormat = (typeof TableNumberTextFormat)[keyof typeof TableNumberTextFormat];

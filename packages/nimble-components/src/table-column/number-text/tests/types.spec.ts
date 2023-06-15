@@ -1,4 +1,4 @@
-import type { Format } from '../types';
+import type { TableNumberTextFormat } from '../types';
 
 describe('NumberColumn type', () => {
     it('Format fails compile if assigning arbitrary string values', () => {

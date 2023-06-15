@@ -10,6 +10,8 @@ import {
 import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -25,7 +27,7 @@ declare global {
 /**
  * The table column for displaying string fields as text.
  */
-export class TableColumnText extends TableColumnTextBase {
+export class TableColumnText extends mixinGroupableColumnAPI(mixinFractionalWidthColumnAPI(TableColumnTextBase<TableColumnTextColumnConfig>)) {
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
@@ -33,6 +35,12 @@ export class TableColumnText extends TableColumnTextBase {
             groupHeaderViewTag: tableColumnTextGroupHeaderTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
+        };
+    }
+
+    protected override updateColumnConfig(): void {
+        this.columnInternals.columnConfig = {
+            placeholder: this.placeholder ?? ''
         };
     }
 }

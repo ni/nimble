@@ -12,6 +12,7 @@ import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { tableColumnTextTag } from '../../table-column/text';
+import { tableColumnNumberTextTag } from '../../table-column/number-text';
 
 interface TableArgs {
     data: ExampleDataType;
@@ -30,19 +31,22 @@ const simpleData = [
         firstName: 'Ralph',
         lastName: 'Wiggum',
         favoriteColor: 'Rainbow',
-        quote: "I'm in danger!"
+        quote: "I'm in danger!",
+        age: 8
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
-        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
+        age: 13
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Hi diddly-ho neighbor!'
+        quote: 'Hi diddly-ho neighbor!',
+        age: 40
     }
 ] as const;
 
@@ -56,7 +60,8 @@ for (let i = 0; i < 10000; i++) {
         firstName: firstNames[i % firstNames.length],
         lastName: lastNames[i % lastNames.length],
         favoriteColor: colors[i % colors.length],
-        quote: `I'm number ${i + 1}!`
+        quote: `I'm number ${i + 1}!`,
+        age: (i % 70) + 5
     });
 }
 
@@ -167,6 +172,12 @@ const metadata: Meta<TableArgs> = {
             >
                 Favorite Color
             </${tableColumnTextTag}>
+            <${tableColumnNumberTextTag}
+                column-id="age-column"
+                field-name="age" placeholder="no value"
+            >
+                Age
+            </${tableColumnNumberTextTag}>
             <${tableColumnTextTag}
                 column-id="quote-column"
                 field-name="quote" placeholder="no value"

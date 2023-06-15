@@ -10,13 +10,15 @@ import {
 import { TableColumnTextBase } from '../text-base';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
-import type { Format } from './types';
+import type { TableNumberTextFormat } from './types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig
     extends TableColumnWithPlaceholderColumnConfig {
-    format: Format;
+    format: TableNumberTextFormat;
 }
 
 declare global {
@@ -28,14 +30,14 @@ declare global {
 /**
  * The table column for displaying number fields as text.
  */
-export class TableColumnNumberText extends TableColumnTextBase {
+export class TableColumnNumberText extends mixinGroupableColumnAPI(mixinFractionalWidthColumnAPI(TableColumnTextBase<TableColumnNumberTextColumnConfig>)) {
     /**
      * @public
      * @remarks
      * HTML Attribute: format
      */
     @attr
-    public format: Format;
+    public format: TableNumberTextFormat;
 
     public constructor() {
         super();
@@ -56,7 +58,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
-    private updateColumnConfig(): void {
+    protected override updateColumnConfig(): void {
         this.columnInternals.columnConfig = {
             placeholder: this.placeholder ?? '',
             format: this.format

@@ -61,15 +61,18 @@ namespace Demo.Shared.Pages
             var tableData = new Person[numberOfRows + 1];
             for (int i = 0; i < numberOfRows; i++)
             {
+                var age = new Random().Next(75) + 5;
                 tableData[i] = new Person(
                     i.ToString(null, null),
                     Faker.Name.First(),
                     Faker.Name.Last(),
+                    age,
                     "https://nimble.ni.dev",
                     "Link");
             }
             tableData[numberOfRows] = new Person(
                 numberOfRows.ToString(null, null),
+                null,
                 null,
                 null,
                 null,
@@ -81,11 +84,12 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel)
+        public Person(string id, string? firstName, string? lastName, int? age, string? href, string? linkLabel)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
+            Age = age;
             Href = href;
             LinkLabel = linkLabel;
         }
@@ -93,6 +97,7 @@ namespace Demo.Shared.Pages
         public string Id { get; }
         public string? FirstName { get; }
         public string? LastName { get; }
+        public int? Age { get; }
         public string? Href { get; }
         public string? LinkLabel { get; }
     }
