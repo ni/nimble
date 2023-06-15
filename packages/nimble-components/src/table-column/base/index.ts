@@ -54,7 +54,7 @@ export abstract class TableColumn<
 
     /** @internal */
     @observable
-    public slottedHeaderContent: HTMLElement[] = [];
+    public contentSlot?: HTMLSlotElement;
 
     public checkValidity(): boolean {
         return this.columnInternals.validConfiguration;
@@ -62,6 +62,16 @@ export abstract class TableColumn<
 
     public get validity(): TableColumnValidity {
         return {};
+    }
+
+    /** @internal */
+    public get headerTextContent(): string {
+        return (
+            this.contentSlot
+                ?.assignedNodes()
+                .map(node => node.textContent?.trim())
+                .join(' ') ?? ''
+        );
     }
 
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
