@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Jun 2023 15:42:51 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dce3427522293062714a8fe1a08ada7fad9d3376",
+            "comment": "Add documentation for anchor tabs about setting replaceUrl"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Jun 2023 15:18:46 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "838f14b2dd112f6e135956a022637e6ea891c476",
+            "comment": "HLD updates for number and date table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Jun 2023 20:14:25 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c3df12be0f145aee2a07dbd05bbed582e3b431a6",
+            "comment": "Update docs (accessible labels for button/banner/icons)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Jun 2023 16:41:10 GMT",
       "tag": "@ni/nimble-components_v19.2.3",
       "version": "19.2.3",
