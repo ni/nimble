@@ -65,12 +65,10 @@ export abstract class TableColumn<
 
     /** @internal */
     public get headerTextContent(): string {
-        return (
-            this.contentSlot
-                ?.assignedNodes()
-                .map(node => node.textContent?.trim())
-                .join(' ') ?? ''
-        );
+        return this.contentSlot
+            .assignedNodes()
+            .map(node => node.textContent?.trim())
+            .join(' ');
     }
 
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
