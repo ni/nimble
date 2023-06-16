@@ -2,7 +2,7 @@ import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
-import type { MappingConfig } from '../base/types';
+import type { MappingConfig, MappingKeyType } from '../base/types';
 
 export interface MappingConfigText extends MappingConfig {
     label: string;
@@ -22,9 +22,7 @@ export class MappingText extends Mapping {
     @attr()
     public label?: string;
 
-    public override getMappingConfig(
-        keyType: 'string' | 'number' | 'boolean'
-    ): MappingConfig {
+    public override getMappingConfig(keyType: MappingKeyType): MappingConfig {
         return {
             key: Mapping.typeConvertKey(this.key, keyType),
             defaultMapping: this.defaultMapping,
