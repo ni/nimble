@@ -30,6 +30,10 @@ if (iconAssetPaths.length <= 0) {
 
 console.log(`Number of icons found to convert: ${iconAssetPaths.length}`);
 
+// The following function is based on code from jtrauntvein/svg-to-ico:
+// https://github.com/jtrauntvein/svg-to-ico/blob/main/svg-to-ico.js
+// It has been modified to build each icon size serially to avoid inttermittent
+// hangs. See issue #1297
 async function svgToIco({
     inputName,
     outputName,
