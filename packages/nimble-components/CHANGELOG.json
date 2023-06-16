@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Jun 2023 15:42:51 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dce3427522293062714a8fe1a08ada7fad9d3376",
+            "comment": "Add documentation for anchor tabs about setting replaceUrl"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 15 Jun 2023 15:18:46 GMT",
       "tag": "@ni/nimble-components_v19.2.3",
       "version": "19.2.3",
