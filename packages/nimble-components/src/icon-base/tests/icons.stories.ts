@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, repeat } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
-// Workaround to force Chromatic TurboSnap to re-run this test when icons are changed
-import './icon-metadata';
 import * as nimbleIconComponentsMap from '../../icons/all-icons';
 import { IconSeverity } from '../types';
 import {
