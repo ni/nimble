@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 16 Jun 2023 19:24:51 GMT",
+      "tag": "@ni/nimble-components_v19.3.0",
+      "version": "19.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "58ad3aac8e3f7984bbbbde371dfca77527d90383",
+            "comment": "Add tooltip to ellipsized table header"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Jun 2023 15:42:51 GMT",
       "tag": "@ni/nimble-components_v19.2.3",
       "version": "19.2.3",

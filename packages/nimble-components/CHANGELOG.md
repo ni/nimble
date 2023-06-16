@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 13 Jun 2023 14:50:08 GMT and should not be manually modified.
+This log was last generated on Fri, 16 Jun 2023 19:24:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.3.0
+
+Fri, 16 Jun 2023 19:24:51 GMT
+
+### Minor changes
+
+- Add tooltip to ellipsized table header ([ni/nimble@58ad3aa](https://github.com/ni/nimble/commit/58ad3aac8e3f7984bbbbde371dfca77527d90383))
 
 ## 19.2.3
 
