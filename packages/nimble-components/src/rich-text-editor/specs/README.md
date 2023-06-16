@@ -374,9 +374,11 @@ This component is dependent on the [`tiptap`](https://tiptap.dev/) third party l
 [tiptap](https://tiptap.dev/introduction#why-should-i-use-tiptap) is built on top of prosemirror, we might also use some of the prosemirror's
 library. For the currently supported features, we will include the following libraries that will be added to the package.json
 
--   @tiptap/core
--   @tiptap/pm
--   @tiptap/starter-kit
+-   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
+-   [@tiptap/pm](https://www.npmjs.com/package/@tiptap/pm)
+-   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
+
+These packages will add up to a total space of approximately 800 KB in the components bundle.
 
 **_Note_**: For markdown parser and serializer, [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) internal dependencies will be
 installed along with this.
