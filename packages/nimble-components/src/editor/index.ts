@@ -16,10 +16,15 @@ import { Editor } from '@tiptap/core';
 // import Link from '@tiptap/extension-link';
 // import Mention from '@tiptap/extension-mention';
 // import tippy, { GetReferenceClientRect, Instance, Props } from 'tippy.js';
-import { DOMSerializer } from '@tiptap/pm/model';
-import { modifiedSchema } from './helperfunctions/modifiedSchema';
-import { defaultMarkdownParserOverridden } from './helperfunctions/fromMarkdown';
-import { defaultMarkdownSerializerOverridden } from './helperfunctions/toMarkdown';
+import { DOMSerializer, Schema } from '@tiptap/pm/model';
+// import { modifiedSchema } from './helperfunctions/modifiedSchema';
+import {
+    defaultMarkdownParser,
+    defaultMarkdownSerializer,
+    schema
+} from '@tiptap/pm/markdown/';
+// import { defaultMarkdownParserOverridden } from './helperfunctions/fromMarkdown';
+// import { defaultMarkdownSerializerOverridden } from './helperfunctions/toMarkdown';
 // import Placeholder from '@tiptap/extension-placeholder';
 
 export class RichTextEditor extends FoundationElement {
@@ -134,7 +139,7 @@ export class RichTextEditor extends FoundationElement {
     }
 
     public getMarkdownContent(): string {
-        this.markdownContent = defaultMarkdownSerializerOverridden.serialize(
+        this.markdownContent = defaultMarkdownSerializer.serialize(
             this.editor!.view.state.doc
         );
         return this.markdownContent;
@@ -181,7 +186,7 @@ export class RichTextEditor extends FoundationElement {
         this.editor?.on('update', ({ editor, transaction }) => {
             console.time('tiptap');
             const eventDetail = {
-                value: defaultMarkdownSerializerOverridden.serialize(
+                value: defaultMarkdownSerializer.serialize(
                     this.editor!.view.state.doc
                 )
             };
@@ -258,19 +263,16 @@ export class RichTextEditor extends FoundationElement {
                 //                 )
                 //                 .slice(0, 5);
                 //         },
-
                 //         render: () => {
                 //             let popup: Instance<Props>[];
                 //             let selectedIndex: number;
                 //             let component =
                 //                 document.createElement('nimble-menu');
-
                 //             return {
                 //                 onStart: (props) => {
                 //                     props.editor.view.focus();
                 //                     const items = props.items;
                 //                     component.innerHTML = '';
-
                 //                     if (items.length) {
                 //                         items.forEach((item, index) => {
                 //                             const nimbleMenuItem =
@@ -309,7 +311,6 @@ export class RichTextEditor extends FoundationElement {
                 //                         noResult.textContent = 'No result';
                 //                         component.appendChild(noResult);
                 //                     }
-
                 //                     if (!props.clientRect) {
                 //                         return;
                 //                     }
@@ -325,7 +326,6 @@ export class RichTextEditor extends FoundationElement {
                 //                         placement: 'bottom-start',
                 //                     });
                 //                 },
-
                 //                 onUpdate: (props) => {
                 //                     if (props.items.length) {
                 //                         component.innerHTML = '';
@@ -375,7 +375,6 @@ export class RichTextEditor extends FoundationElement {
                 //                             props.clientRect as GetReferenceClientRect,
                 //                     });
                 //                 },
-
                 //                 onKeyDown: (props) => {
                 //                     if (props.event.key === 'Escape') {
                 //                         popup[0].hide();
@@ -383,7 +382,6 @@ export class RichTextEditor extends FoundationElement {
                 //                     }
                 //                     return false;
                 //                 },
-
                 //                 onExit: () => {
                 //                     popup[0].destroy();
                 //                 },
@@ -490,9 +488,9 @@ export class RichTextEditor extends FoundationElement {
             'Hello @<1234-5678>, this test result passes all the **below cases successfully**!!\n\n* Point 1\n\n  * *Sub Point 1*\n\nAdditional points:\n\n1. Additional Point 1\n\n   1. ~~Additional Sub Point 1~~\n\n[Link for reference](www.google.com)\n\n![](data:image/png;base64,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)\n\n<u>Note: Tagging</u> @<2341-5678>';
 
         let htmlConvertedContent = '';
-        const serializer = DOMSerializer.fromSchema(modifiedSchema);
+        const serializer = DOMSerializer.fromSchema(schema);
         const htmlFragment = serializer.serializeFragment(
-            defaultMarkdownParserOverridden.parse(inputContent)!.content
+            defaultMarkdownParser.parse(inputContent)!.content
         );
         htmlConvertedContent = new XMLSerializer().serializeToString(
             htmlFragment
@@ -507,7 +505,7 @@ export class RichTextEditor extends FoundationElement {
 
     // Logs the editor content in markdown format in console
     private markdownOutput() {
-        this.markdownContent = defaultMarkdownSerializerOverridden.serialize(
+        this.markdownContent = defaultMarkdownSerializer.serialize(
             this.editor!.view.state.doc
         );
 
@@ -570,14 +568,14 @@ export class RichTextEditor extends FoundationElement {
         // Converting the markdown content from the editor to HTML and inserting the child comment div
         if (markdownInput) {
             // @<1234>
-            const serializer = DOMSerializer.fromSchema(modifiedSchema);
-            // const htmlFragment = serializer.serializeFragment(
-            //     defaultMarkdownParserOverridden.parse(markdownInput)!.content
-            // );
-            // let htmlString = new XMLSerializer().serializeToString(
-            //     htmlFragment
-            // );
-            // childCommentDiv.innerHTML = htmlString;
+            const serializer = DOMSerializer.fromSchema(schema);
+            const htmlFragment = serializer.serializeFragment(
+                defaultMarkdownParser.parse(markdownInput)!.content
+            );
+            let htmlString = new XMLSerializer().serializeToString(
+                htmlFragment
+            );
+            childCommentDiv.innerHTML = htmlString;
 
             // Prepending the child comment divs in the parent comment div
             this.parentCommentDiv!.prepend(childCommentDiv);
