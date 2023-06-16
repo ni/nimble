@@ -1,4 +1,4 @@
-import type * as IconsNamespace from '../icons/all-icons';
+import type * as IconsNamespace from '../../icons/all-icons';
 
 type IconName = keyof typeof IconsNamespace;
 
