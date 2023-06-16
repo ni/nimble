@@ -50,7 +50,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: 0 solid transparent;
+        border: 0px solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -95,6 +95,7 @@ export const styles = css`
             0px 0px 0px 2px ${applicationBackgroundColor} inset;
         outline: none;
     }
+
 
     :host([disabled]) .control {
         box-shadow: none;
