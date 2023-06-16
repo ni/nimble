@@ -4,6 +4,8 @@ import sourcemaps from 'rollup-plugin-sourcemaps';
 import terser from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
 import json from '@rollup/plugin-json';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const umdDevelopmentPlugin = () => replace({
     'process.env.NODE_ENV': JSON.stringify('development')
@@ -22,7 +24,18 @@ export default [
             format: 'iife',
             sourcemap: true
         },
-        plugins: [umdDevelopmentPlugin(), sourcemaps(), resolve(), commonJS(), json()]
+        plugins: [
+            umdDevelopmentPlugin(),
+            sourcemaps(),
+            resolve(),
+            commonJS(),
+            json(),
+            visualizer({
+                emitFile: true,
+                filename: 'stats.html',
+                sourcemap: true
+            })
+        ]
     },
     {
         input: 'dist/esm/all-components.js',
@@ -35,9 +48,20 @@ export default [
                     output: {
                         semicolons: false
                     }
-                })
+                }),
             ]
         },
-        plugins: [umdProductionPlugin(), sourcemaps(), resolve(), commonJS(), json()]
+        plugins: [
+            umdProductionPlugin(),
+            sourcemaps(),
+            resolve(),
+            commonJS(),
+            json(),
+            visualizer({
+                emitFile: true,
+                filename: 'stats-min.html',
+                sourcemap: true
+            })
+        ]
     }
 ];
