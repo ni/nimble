@@ -18,7 +18,7 @@ interface NumberFieldArgs {
 }
 
 const metadata: Meta<NumberFieldArgs> = {
-    title: 'Number Field',
+    title: 'Components/Number Field',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

@@ -56,7 +56,7 @@ const largeTableData = Array.from(Array(500), (_, i) => {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
+        html`<nimble-table style="width: 700px">
             <nimble-table-column-text id="first-column" field-name="stringData">stringData</nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">
                 <nimble-icon-check></nimble-icon-check>
@@ -185,6 +185,41 @@ describe('Table', () => {
 
             headerContent = pageObject.getHeaderContent(0)!.firstChild;
             expect(headerContent?.textContent).toEqual('foo');
+        });
+
+        it('sets title when header text is ellipsized', async () => {
+            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe(headerContents);
+        });
+
+        it('does not set title when header text is fully visible', async () => {
+            const headerContents = 'short value';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe('');
+        });
+
+        it('removes title on mouseout of header', async () => {
+            const headerContents = 'a very long value that should get ellipsized due to not fitting within the default header width';
+            await element.setData(simpleTableData);
+            await connect();
+            await waitForUpdatesAsync();
+            element.columns[0]!.textContent = headerContents;
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseover'));
+            await waitForUpdatesAsync();
+            pageObject.dispatchEventToHeader(0, new MouseEvent('mouseout'));
+            await waitForUpdatesAsync();
+            expect(pageObject.getHeaderTitle(0)).toBe('');
         });
 
         it('can set data before the element is connected', async () => {

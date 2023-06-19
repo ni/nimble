@@ -59,6 +59,21 @@ export class TablePageObject<T extends TableRecord> {
         return headers.item(columnIndex);
     }
 
+    public getHeaderTitle(columnIndex: number): string {
+        const column = this.tableElement.columns[columnIndex];
+        return (
+            column?.shadowRoot!.firstElementChild?.getAttribute('title') ?? ''
+        );
+    }
+
+    public dispatchEventToHeader(
+        columnIndex: number,
+        event: Event
+    ): boolean | undefined {
+        const column = this.tableElement.columns[columnIndex];
+        return column?.shadowRoot!.firstElementChild?.dispatchEvent(event);
+    }
+
     public getHeaderRenderedWidth(columnIndex: number): number {
         const headers = this.tableElement.shadowRoot!.querySelectorAll<TableHeader>(
             'nimble-table-header'

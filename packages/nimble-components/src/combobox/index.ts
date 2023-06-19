@@ -79,16 +79,14 @@ export class Combobox
     // See: https://github.com/microsoft/fast/issues/6749
     public override set value(next: string) {
         super.value = next;
-        if (!this.valueUpdatedByInput) {
-            // Workaround using index notation to manipulate private member
-            // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
-            // eslint-disable-next-line @typescript-eslint/dot-notation
-            this['filter'] = '';
-            this.filterOptions();
-            this.selectedIndex = this.options
-                .map(option => option.text)
-                .indexOf(this.value);
-        }
+        // Workaround using index notation to manipulate private member
+        // Can remove when following resolved: https://github.com/microsoft/fast/issues/6749
+        // eslint-disable-next-line @typescript-eslint/dot-notation
+        this['filter'] = next;
+        this.filterOptions();
+        this.selectedIndex = this.options
+            .map(option => option.text)
+            .indexOf(this.value);
     }
 
     private valueUpdatedByInput = false;
