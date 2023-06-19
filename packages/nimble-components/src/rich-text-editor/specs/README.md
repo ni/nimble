@@ -57,7 +57,6 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
     address this limitation, we need to extend the class and add the necessary nodes to both the serializer and parser which will be added in the
     subsequent releases.
 -   Provide APIs to configure visibility/disabled state of toolbar buttons for a rich text editor.
--   Allowing the user to dynamically increase the height of the editor component like the resize property of `nimble-text-area`.
 
 ### Risks and Challenges
 
