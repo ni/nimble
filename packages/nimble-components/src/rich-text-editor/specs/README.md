@@ -57,6 +57,7 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
     address this limitation, we need to extend the class and add the necessary nodes to both the serializer and parser which will be added in the
     subsequent releases.
 -   Provide APIs to configure visibility/disabled state of toolbar buttons for a rich text editor.
+-   Allowing the user to dynamically increase the height of the editor component like the resize property of `nimble-text-area`.
 
 ### Risks and Challenges
 
@@ -132,7 +133,7 @@ _CSS Classes and CSS Custom Properties that affect the component_
     to align with the minimal requirement for the initial release. However, adjustments will be made later based on the visual design for mobile view is complete.
 -   The content in the text area will adjust its layout based on the width, potentially increasing the height of the editor. But in case of having
     a long nested lists that is beyond the current width (set by the client), a horizontal scrollbar will appear within the text area to view the content.
--   The client will determine the default and maximum height and width of the component.
+-   The client will determine the maximum height and width of the component. When the client does not override sizing, the component will have a default height and width.
 -   The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
     component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
     space in the footer.
@@ -378,7 +379,8 @@ library. For the currently supported features, we will include the following lib
 -   [@tiptap/pm](https://www.npmjs.com/package/@tiptap/pm)
 -   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
 
-These packages will add up to a total space of approximately 800 KB in the components bundle.
+These packages will add up to a total space of approximately 800 KB in the components bundle. For more info see
+[this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).
 
 **_Note_**: For markdown parser and serializer, [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) internal dependencies will be
 installed along with this.
