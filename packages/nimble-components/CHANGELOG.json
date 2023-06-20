@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 20 Jun 2023 17:38:18 GMT",
+      "tag": "@ni/nimble-components_v19.4.0",
+      "version": "19.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "12ed3d72d79c231a53d74261bf49f60c8f013d28",
+            "comment": "Move component status documentation to Storybook and icon metadata to tests folder"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jun 2023 14:17:25 GMT",
       "tag": "@ni/nimble-components_v19.4.0",
       "version": "19.4.0",
