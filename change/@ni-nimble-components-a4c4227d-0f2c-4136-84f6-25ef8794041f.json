@@ -1,6 +1,6 @@
 {
   "type": "none",
-  "comment": "Move component status documentation to Storybook",
+  "comment": "Move component status documentation to Storybook and icon metadata to tests folder",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "none"
