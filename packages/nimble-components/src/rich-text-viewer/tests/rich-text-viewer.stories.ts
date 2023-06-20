@@ -9,7 +9,7 @@ import { richTextViewerTag } from '..';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextViewerArgs {}
 
-const richTextViewerDescription = 'A `rich text viewer` component that allows users to view various text formatting options, including `Bold`, `Italics`, `Numbered list`, and `Bulleted list`. By providing the appropriate `markdown` string as input, users can easily visualize the desired rich text formatting.';
+const richTextViewerDescription = 'A `rich text viewer` component that allows users to view various text formatting options, including `Bold`, `Italics`, `Numbered list`, and `Bulleted list`. By providing the appropriate `markdown` string as input, users can visualize the supported rich text formatting.';
 
 const metadata: Meta<RichTextViewerArgs> = {
     title: 'Incubating/Rich Text Viewer',
