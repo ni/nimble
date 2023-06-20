@@ -58,7 +58,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: 0 solid transparent;
+        border: 0px solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
