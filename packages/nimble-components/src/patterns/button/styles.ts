@@ -96,7 +96,6 @@ export const styles = css`
         outline: none;
     }
 
-
     :host([disabled]) .control {
         box-shadow: none;
         outline: none;
