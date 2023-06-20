@@ -40,34 +40,38 @@ export const template = html<Table>`
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
             --ni-private-table-cursor-override: ${x => (x.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-total-width: ${x => x.tableWidthFactor * 100}%;
+            --ni-private-table-header-row-min-width: ${x => ((x.tableViewportMinWidth === undefined) ? '100%' : `${x.tableViewportMinWidth}px`)};
+            --ni-private-table-viewport-min-width: ${x => ((x.tableViewportMinWidth === undefined) ? 'auto' : `${x.tableViewportMinWidth}px`)};
             ">
             <div role="rowgroup" class="header-row-container">
                 <div class="header-row" role="row">
-                    ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
-                        <span role="columnheader" class="checkbox-container">
-                            <${checkboxTag}
-                                ${ref('selectionCheckbox')}
-                                class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
-                                @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
+                    <span class="header-row-action-container" ${ref('headerRowActionContainer')}>
+                        ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
+                            <span role="columnheader" class="checkbox-container">
+                                <${checkboxTag}
+                                    ${ref('selectionCheckbox')}
+                                    class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
+                                    @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
+                                >
+                                </${checkboxTag}>
+                            </span>
+                        `)}
+                        <span role="gridcell">
+                            <${buttonTag}
+                                class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
+                                content-hidden
+                                appearance="${ButtonAppearance.ghost}"
+                                @click="${x => x.handleCollapseAllGroupRows()}"
                             >
-                            </${checkboxTag}>
+                                <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
+                            </${buttonTag}>
                         </span>
-                    `)}
-                    <span role="gridcell">
-                        <${buttonTag}
-                            class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
-                            content-hidden
-                            appearance="${ButtonAppearance.ghost}"
-                            @click="${x => x.handleCollapseAllGroupRows()}"
-                        >
-                            <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>
-                        </${buttonTag}>
                     </span>
-                    <span class="all-columns-header-container" ${ref('rowHeader')}>
+                    <span class="all-columns-header-container" ${ref('columnHeadersContainer')}>
                         ${repeat(x => x.columns, html<TableColumn>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
                                 <div class="header-container">
-                                    ${when((_, c) => c.index > 0, html<TableColumn, Table>`
+                                    ${when((_, c) => c.index > 0 && !(c.parent as Table).disableColumnSizing, html<TableColumn, Table>`
                                         <div class="column-divider left" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.index)}"></div>
                                     `)}
                                         <${tableHeaderTag}
@@ -79,14 +83,8 @@ export const template = html<Table>`
                                         >
                                             <slot name="${x => x.slot}"></slot>
                                         </${tableHeaderTag}>
-                                    ${when((_, c) => c.index < (c.parent as Table).columns.length - 1, html`
+                                    ${when((_, c) => (c.index < (c.parent as Table).columns.length - 1) && !(c.parent as Table).disableColumnSizing, html`
                                         <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onRightDividerMouseDown(c.index)}"></div>
-                                    `)}                        
-                                    ${when((_, c) => c.index === (c.parent as Table).columns.length - 1, html`
-                                        <div class="table-sizer"
-                                            @mousedown="${(_, c) => (c.parent as Table).onTableResizeMouseDown()}"
-                                            @dblclick="${(_, c) => (c.parent as Table).onTableResetView()}">
-                                        </div>
                                     `)}                        
                                 </div>
                             `)}

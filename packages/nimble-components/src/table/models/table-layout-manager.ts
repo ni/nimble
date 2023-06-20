@@ -1,21 +1,51 @@
+import { Notifier, Observable } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
+import { Virtualizer } from './virtualizer';
 
 /**
  * This class manages the layout of columns within a Table.
+ * @interal
  */
 export class TableLayoutManager<TData extends TableRecord> {
-    private readonly table: Table<TData>;
     private activeColumnDivider?: number;
     private gridSizedColumns?: TableColumn[];
     private currentRowWidth?: number;
     private initialTablePixelWidth?: number;
     private initialColumnTotalWidth?: number;
-    private currentTableViewPixelWidth?: number;
+    private totalAddedWidth = 0;
+    private constrainSizeToView?: boolean;
+    private currentTotalDelta = 0;
+    private readonly virtualizerNotifier: Notifier;
+    private readonly headerRowActionContainerResizeObserver: ResizeObserver;
+    private readonly tableResizeObserver: ResizeObserver;
+    private initialColumnPixelWidths: { initialPixelWidth: number, minPixelWidth: number }[] = [];
+    private previousTotalTableWidth = 0;
 
-    public constructor(table: Table<TData>) {
-        this.table = table;
+    public constructor(private readonly table: Table<TData>, private readonly virtualizer: Virtualizer<TData>) {
+        this.virtualizerNotifier = Observable.getNotifier(this.table.virtualizer);
+        this.virtualizerNotifier.subscribe(this, 'headerContainerMarginRight');
+        this.tableResizeObserver = new ResizeObserver(entries => {
+            if (entries[0]?.contentRect.width) {
+                if (this.previousTotalTableWidth < entries[0].contentRect.width && this.table.tableWidthFactor > 1) {
+                    const pixelDelta = entries[0].contentRect.width - this.previousTotalTableWidth;
+                    this.table.tableWidthFactor -= (pixelDelta / this.previousTotalTableWidth);
+                }
+
+                this.previousTotalTableWidth = entries[0].contentRect.width;
+            }
+        });
+        this.headerRowActionContainerResizeObserver = new ResizeObserver(entries => {
+            if (entries[0]) {
+                this.updateTableViewportMinWidth();
+            }
+        });
+    }
+
+    public connectedCallback(): void {
+        this.headerRowActionContainerResizeObserver.observe(this.table.headerRowActionContainer);
+        this.tableResizeObserver.observe(this.table);
     }
 
     public getGridTemplateColumns(): string {
@@ -50,7 +80,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         activeColumnDivider: number
     ): void {
         this.activeColumnDivider = activeColumnDivider;
-        this.currentRowWidth = this.table.rowHeader.getBoundingClientRect().width
+        this.constrainSizeToView = this.table.noViewportResize;
+        this.currentTotalDelta = 0;
+        this.initialColumnPixelWidths = [];
+        this.currentRowWidth = this.table.columnHeadersContainer.getBoundingClientRect().width
             - this.table.virtualizer.headerContainerMarginRight;
         this.flagActiveColumnDividers(columnIndex);
         this.setColumnsToFixedSize();
@@ -62,46 +95,41 @@ export class TableLayoutManager<TData extends TableRecord> {
         document.addEventListener('mouseup', this.onDividerMouseUp);
     }
 
-    public beginTableResize(): void {
-        this.currentRowWidth = this.table.rowHeader.getBoundingClientRect().width
-            - this.table.virtualizer.headerContainerMarginRight;
-        this.initialTablePixelWidth = this.table.getBoundingClientRect().width
-            * this.table.tableWidthFactor;
-        this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
-        document.addEventListener('mousemove', this.onTableResizeMouseMove);
-        document.addEventListener('mouseup', this.onTableResizeMouseUp);
+    public getAllColumnsMinimumWidth(): number {
+        return this.table.columns.reduce((accumulator: number, currentValue) => {
+            return (
+                accumulator
+                + currentValue.columnInternals.minPixelWidth);
+        }, 0);
     }
 
-    public resetView(): void {
-        const currentTableWidth = this.table.getBoundingClientRect().width
-            * this.table.tableWidthFactor;
-        this.currentRowWidth = this.table.rowHeader.getBoundingClientRect().width
-            - this.table.virtualizer.headerContainerMarginRight;
-        this.table.tableWidthFactor = 1;
-        const newTableWidth = this.table.getBoundingClientRect().width
-            * this.table.tableWidthFactor;
-        const delta = currentTableWidth - newTableWidth;
-        this.setColumnsToFixedSize();
-        for (const column of this.gridSizedColumns!) {
-            column.columnInternals.currentPixelWidth = Math.max(
-                column.columnInternals.currentPixelWidth!
-                    - column.columnInternals.currentFractionalWidth * delta,
-                column.columnInternals.minPixelWidth
-            );
+    public updateTableViewportMinWidth(): void {
+        this.table.tableViewportMinWidth = Math.round(this.table.headerRowActionContainer.getBoundingClientRect().width
+            + this.getAllColumnsMinimumWidth()
+            + this.totalAddedWidth
+            + this.table.virtualizer.headerContainerMarginRight);
+    }
+
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof Virtualizer && args === 'headerContainerMarginRight') {
+            this.updateTableViewportMinWidth();
         }
-        this.resetGridSizedColumns();
     }
 
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;
-        let deltaX = mouseEvent.movementX > 0
+        const deltaX = mouseEvent.movementX > 0
             ? Math.floor(mouseEvent.movementX)
             : Math.ceil(mouseEvent.movementX);
-        deltaX = this.pinColumnSizeDelta(this.activeColumnDivider!, deltaX);
+        this.currentTotalDelta += deltaX;
+        for (let i = 0; i < this.table.columns.length; i++) {
+            this.table.columns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
+        }
+        this.currentTotalDelta = this.pinColumnSizeDelta(this.activeColumnDivider!, this.currentTotalDelta);
         const canSizeLeft = this.canSizeLeft(this.activeColumnDivider!);
-        this.performCascadeSizeLeft(this.activeColumnDivider!, deltaX);
-        if (canSizeLeft || deltaX > 0) {
-            this.performCascadeSizeRight(this.activeColumnDivider!, deltaX);
+        this.performCascadeSizeLeft(this.activeColumnDivider!, this.currentTotalDelta);
+        if (canSizeLeft || this.currentTotalDelta > 0) {
+            this.performCascadeSizeRight(this.activeColumnDivider!, this.currentTotalDelta);
         }
 
         this.table.tableWidthFactor = Math.max(this.getCurrentTotalTableWidth() / this.table.getBoundingClientRect().width, 1);
@@ -111,32 +139,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         document.removeEventListener('mousemove', this.onDividerMouseMove);
         document.removeEventListener('mouseup', this.onDividerMouseUp);
         this.unflagActiveColumnDividers();
+        this.totalAddedWidth = Math.max(this.totalAddedWidth, this.getCurrentTotalTableWidth() - this.table.getBoundingClientRect().width);
+        this.updateTableViewportMinWidth();
         this.resetGridSizedColumns();
         this.table.isColumnBeingSized = false;
-    };
-
-    private readonly onTableResizeMouseMove = (event: Event): void => {
-        const mouseEvent = event as MouseEvent;
-        const delta = mouseEvent.movementX > 0
-            ? Math.floor(mouseEvent.movementX)
-            : Math.ceil(mouseEvent.movementX);
-        if (this.table.tableWidthFactor <= 1 && delta <= 0) {
-            return;
-        }
-
-        this.currentRowWidth = this.table.rowHeader.getBoundingClientRect().width
-            - this.table.virtualizer.headerContainerMarginRight;
-        this.currentTableViewPixelWidth = !this.currentTableViewPixelWidth
-            ? this.initialTablePixelWidth! + delta
-            : this.currentTableViewPixelWidth + delta;
-        this.table.tableWidthFactor = this.currentTableViewPixelWidth
-            / this.table.getBoundingClientRect().width;
-    };
-
-    private readonly onTableResizeMouseUp = (_: Event): void => {
-        document.removeEventListener('mousemove', this.onTableResizeMouseMove);
-        document.removeEventListener('mouseup', this.onTableResizeMouseUp);
-        this.currentTableViewPixelWidth = undefined;
     };
 
     private getTotalColumnMagnitude(): number {
@@ -181,7 +187,8 @@ export class TableLayoutManager<TData extends TableRecord> {
         const totalMagnitude = this.getTotalColumnMagnitude();
         const totalFixedSize = this.getTotalColumnFixedWidth();
         let accumulatedTotalSize = 0;
-        for (const column of this.table.columns) {
+        const sortedColumns = [...this.table.columns].sort((column1, column2) => column1.columnInternals.currentFractionalWidth - column2.columnInternals.currentFractionalWidth);
+        for (const column of sortedColumns) {
             if (column.columnInternals.currentPixelWidth === undefined) {
                 column.columnInternals.currentPixelWidth = Math.max(
                     (column.columnInternals.currentFractionalWidth
@@ -197,6 +204,7 @@ export class TableLayoutManager<TData extends TableRecord> {
                 }
             }
         }
+        this.cacheColumnInitialPixelWidths();
     }
 
     private pinColumnSizeDelta(activeColumnIndex: number, delta: number): number {
@@ -206,8 +214,8 @@ export class TableLayoutManager<TData extends TableRecord> {
             availableSpace = delta;
         } else if (delta < 0) { // size left
             while (currentIndex >= 0) {
-                const column = this.table.columns[currentIndex];
-                availableSpace += Math.floor(column!.columnInternals.currentPixelWidth!) - column!.columnInternals.minPixelWidth;
+                const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
+                availableSpace += Math.floor(columnInitialWidths.initialPixelWidth) - columnInitialWidths.minPixelWidth;
                 currentIndex -= 1;
             }
         }
@@ -219,8 +227,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     private canSizeLeft(activeColumnIndex: number): boolean {
         let currentIndex = activeColumnIndex;
         while (currentIndex >= 0) {
-            const column = this.table.columns[currentIndex];
-            if (Math.floor(column!.columnInternals.currentPixelWidth!) > column!.columnInternals.minPixelWidth) {
+            const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
+            if (Math.floor(columnInitialWidths.initialPixelWidth) > columnInitialWidths.minPixelWidth) {
                 return true;
             }
             currentIndex -= 1;
@@ -234,18 +242,19 @@ export class TableLayoutManager<TData extends TableRecord> {
         delta: number
     ): void {
         let currentDelta = delta;
-        const leftColumn = this.table.columns[activeColumnIndex];
+        const leftColumnInitialWidths = this.initialColumnPixelWidths[activeColumnIndex]!;
         const allowedDelta = delta < 0
             ? Math.min(
                 Math.floor(
-                    leftColumn!.columnInternals.currentPixelWidth!
-                              - leftColumn!.columnInternals.minPixelWidth
+                    leftColumnInitialWidths.initialPixelWidth
+                              - leftColumnInitialWidths.minPixelWidth
                 ),
                 Math.abs(currentDelta)
             )
             : delta;
         const actualDelta = currentDelta < 0 ? -allowedDelta : allowedDelta;
-        leftColumn!.columnInternals.currentPixelWidth! += actualDelta;
+        const leftColumn = this.table.columns[activeColumnIndex]!;
+        leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
         if (
             Math.ceil(allowedDelta) < Math.abs(currentDelta)
@@ -262,12 +271,12 @@ export class TableLayoutManager<TData extends TableRecord> {
         delta: number
     ): void {
         let currentDelta = delta;
-        const rightColumn = this.table.columns[activeColumnIndex + 1];
+        const rightColumnInitialWidths = this.initialColumnPixelWidths[activeColumnIndex + 1]!;
         const allowedDelta = delta > 0
             ? Math.min(
                 Math.floor(
-                    rightColumn!.columnInternals.currentPixelWidth!
-                              - rightColumn!.columnInternals.minPixelWidth
+                    rightColumnInitialWidths.initialPixelWidth
+                              - rightColumnInitialWidths.minPixelWidth
                 ),
                 Math.abs(currentDelta)
             )
@@ -275,7 +284,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         const actualDelta = allowedDelta < 0
             ? Math.ceil(allowedDelta)
             : Math.floor(allowedDelta);
-        rightColumn!.columnInternals.currentPixelWidth! -= actualDelta;
+        this.table.columns[activeColumnIndex + 1]!.columnInternals.currentPixelWidth! -= actualDelta;
 
         if (
             actualDelta < Math.abs(currentDelta)
@@ -316,6 +325,12 @@ export class TableLayoutManager<TData extends TableRecord> {
             if (column.columnInternals.currentPixelWidth === undefined) {
                 this.gridSizedColumns.push(column);
             }
+        }
+    }
+
+    private cacheColumnInitialPixelWidths(): void {
+        for (const column of this.table.columns) {
+            this.initialColumnPixelWidths.push({ initialPixelWidth: column.columnInternals.currentPixelWidth!, minPixelWidth: column.columnInternals.minPixelWidth });
         }
     }
 

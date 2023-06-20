@@ -72,6 +72,12 @@ export class Table<
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
+    @attr({ attribute: 'disable-column-sizing', mode: 'boolean' })
+    public disableColumnSizing = false;
+
+    @attr({ attribute: 'no-viewport-resize' })
+    public noViewportResize = false;
+
     /**
      * @internal
      */
@@ -162,12 +168,17 @@ export class Table<
     /**
      * @internal
      */
+    public readonly headerRowActionContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
     public readonly rowContainer!: HTMLElement;
 
     /**
      * @internal
      */
-    public readonly rowHeader!: Element;
+    public readonly columnHeadersContainer!: Element;
 
     /**
      * @internal
@@ -186,13 +197,16 @@ export class Table<
     @observable
     public tableWidthFactor = 1;
 
+    @observable
+    public tableViewportMinWidth?: number;
+
     public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private readonly updateTracker = new UpdateTracker(this);
-    private readonly tableLayoutManager = new TableLayoutManager(this);
+    private readonly tableLayoutManager: TableLayoutManager<TData>;
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private isInitialized = false;
@@ -231,6 +245,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.tableLayoutManager = new TableLayoutManager(this, this.virtualizer);
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -296,6 +311,7 @@ export class Table<
         super.connectedCallback();
         this.initialize();
         this.virtualizer.connectedCallback();
+        this.tableLayoutManager.connectedCallback();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -422,14 +438,6 @@ export class Table<
         );
     }
 
-    public onTableResizeMouseDown(): void {
-        this.tableLayoutManager.beginTableResize();
-    }
-
-    public onTableResetView(): void {
-        this.tableLayoutManager.resetView();
-    }
-
     /** @internal */
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
@@ -550,6 +558,7 @@ export class Table<
         }
 
         this.observeColumns();
+        this.tableLayoutManager.updateTableViewportMinWidth();
         this.updateTracker.trackColumnInstancesChanged();
     }
 

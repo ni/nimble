@@ -40,6 +40,7 @@ export const styles = css`
         position: sticky;
         top: 0;
         width: var(--ni-private-table-total-width);
+        min-width: var(--ni-private-table-header-row-min-width);
     }
 
     .header-row {
@@ -50,6 +51,14 @@ export const styles = css`
         min-width: 100%;
         left: var(--ni-private-table-scroll-x);
         align-items: center;
+    }
+
+    .header-row-action-container {
+        display: flex;
+    }
+
+    .checkbox-container {
+        display: flex;
     }
 
     .all-columns-header-container {
@@ -138,6 +147,7 @@ export const styles = css`
         height: 100%;
         position: relative;
         width: var(--ni-private-table-total-width);
+        min-width: var(--ni-private-table-viewport-min-width);
         overflow-x: hidden;
     }
 
@@ -153,10 +163,6 @@ export const styles = css`
         width: 100%;
         position: relative;
         top: var(--ni-private-table-row-container-top);
-    }
-
-    .checkbox-container {
-        display: flex;
     }
 
     .selection-checkbox {
