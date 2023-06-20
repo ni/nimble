@@ -3,9 +3,12 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory, incubatingWarning } from '../../utilities/tests/storybook';
 import { richTextViewerTag } from '..';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface RichTextViewerArgs {}
+
 const richTextViewerDescription = 'A `rich text viewer` component that allows users to view various text formatting options, including `Bold`, `Italics`, `Numbered list`, and `Bulleted list`. By providing the appropriate `markdown` string as input, users can easily visualize the desired rich text formatting.';
 
-const metadata: Meta = {
+const metadata: Meta<RichTextViewerArgs> = {
     title: 'Incubating/Rich Text Viewer',
     tags: ['autodocs'],
     parameters: {
@@ -15,6 +18,7 @@ const metadata: Meta = {
             }
         }
     },
+    // prettier-ignore
     render: createUserSelectedThemeStory(html`
     ${incubatingWarning({
         componentName: 'rich text viewer',
@@ -26,4 +30,4 @@ const metadata: Meta = {
 
 export default metadata;
 
-export const richTextViewer: StoryObj = {};
+export const richTextViewer: StoryObj<RichTextViewerArgs> = {};

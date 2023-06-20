@@ -14,6 +14,7 @@ const metadata: Meta = {
 
 export default metadata;
 
+// prettier-ignore
 const component = (): ViewTemplate => html`
     <${richTextViewerTag}></${richTextViewerTag}>
 `;
