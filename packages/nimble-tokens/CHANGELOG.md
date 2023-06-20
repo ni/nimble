@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 12 May 2023 17:59:07 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.1.0
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Minor changes
+
+- New icons for bold, italic, and numbered list ([ni/nimble@d8a2f69](https://github.com/ni/nimble/commit/d8a2f6933982381c2724f87737873b2f9374a706))
 
 ## 6.0.0
 
