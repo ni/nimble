@@ -73,7 +73,7 @@ Before building a new component, 3 specification documents need to be created:
 
     `npm run change`
 
-7. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+7. Update the [Component Status table](./docs/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
