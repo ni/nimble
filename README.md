@@ -58,4 +58,4 @@ See `Getting Started` in [`Contributing.md`](/CONTRIBUTING.md#getting-started) t
 
 ## Component Status
 
-View status of components that are completed and on the roadmap in the [Component Status](https://ni.github.io/nimble/storybook/?path=/docs/components-component-status--docs) page.
+View status of components that are completed and on the roadmap in the [Component Status](https://ni.github.io/nimble/storybook/?path=/docs/component-status--docs) page.
