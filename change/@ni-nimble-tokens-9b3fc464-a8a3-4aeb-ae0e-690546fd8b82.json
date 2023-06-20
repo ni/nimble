@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Fix intermittent hang in tokens build",
-  "packageName": "@ni/nimble-tokens",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
