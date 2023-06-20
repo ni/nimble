@@ -1,6 +1,9 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory, incubatingWarning } from '../../utilities/tests/storybook';
+import {
+    createUserSelectedThemeStory,
+    incubatingWarning
+} from '../../utilities/tests/storybook';
 import { richTextViewerTag } from '..';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -14,7 +17,7 @@ const metadata: Meta<RichTextViewerArgs> = {
     parameters: {
         docs: {
             description: {
-                component: richTextViewerDescription,
+                component: richTextViewerDescription
             }
         }
     },
@@ -25,7 +28,7 @@ const metadata: Meta<RichTextViewerArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
         <${richTextViewerTag}></${richTextViewerTag}>
-    `),
+    `)
 };
 
 export default metadata;

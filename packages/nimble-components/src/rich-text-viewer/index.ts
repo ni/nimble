@@ -19,5 +19,7 @@ const nimbleRichTextViewer = RichTextViewer.compose({
     styles
 });
 
-DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleRichTextViewer());
+DesignSystem.getOrCreate()
+    .withPrefix('nimble')
+    .register(nimbleRichTextViewer());
 export const richTextViewerTag = DesignSystem.tagFor(RichTextViewer);
