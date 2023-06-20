@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 20 Jun 2023 14:17:25 GMT",
+      "tag": "@ni/nimble-components_v19.4.0",
+      "version": "19.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d8a2f6933982381c2724f87737873b2f9374a706",
+            "comment": "New icons for bold, italic, and numbered list"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.1.0",
+            "commit": "d8a2f6933982381c2724f87737873b2f9374a706"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 16 Jun 2023 19:24:51 GMT",
       "tag": "@ni/nimble-components_v19.3.0",
       "version": "19.3.0",
