@@ -508,4 +508,9 @@ const metadata: Meta<TableArgs> = {
 
 export default metadata;
 
-export const componentStatus: StoryObj<TableArgs> = {};
+export const componentStatus: StoryObj<TableArgs> = {
+    parameters: {
+      // Story used by documentation, not needed for visual comparison.
+      chromatic: { disableSnapshot: true }
+    },
+  };
