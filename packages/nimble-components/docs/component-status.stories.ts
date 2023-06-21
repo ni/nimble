@@ -254,6 +254,15 @@ const components = [
         blazorStatus: '✅',
     },
     {
+        componentName: 'Rich Text Viewer',
+        componentHref: '/?path=/docs/incubating-rich-text-viewer--docs',
+        issueHref: 'https://github.com/ni/nimble/issues/1288',
+        issueLabel: 'Issue',
+        componentStatus: '⚠️',
+        angularStatus: '⚠️',
+        blazorStatus: '⚠️',
+    },
+    {
         componentName: 'Search Field',
         designHref: 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2',
         designLabel: 'XD',
@@ -434,51 +443,27 @@ const metadata: Meta<TableArgs> = {
     parameters: {},
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        <${tableTag}
-            ${ref('tableRef')}
-            data-unused="${x => x.updateData(x)}"
-        >
-            <${tableColumnAnchorTag}
-                column-id="component-name-column"
-                label-field-name="componentName"
-                href-field-name="componentHref"
-                fractional-width=3
-            >
+        <${tableTag} ${ref('tableRef')} data-unused="${x => x.updateData(x)}">
+            <${tableColumnAnchorTag} column-id="component-name-column" label-field-name="componentName"
+                href-field-name="componentHref" fractional-width=3>
                 Component
             </${tableColumnAnchorTag}>
-            <${tableColumnAnchorTag}
-                column-id="design-column"
-                label-field-name="designLabel"
-                href-field-name="designHref"
-            >
+            <${tableColumnAnchorTag} column-id="design-column" label-field-name="designLabel" href-field-name="designHref">
                 Design
             </${tableColumnAnchorTag}>
-            <${tableColumnAnchorTag}
-                column-id="issue-column"
-                label-field-name="issueLabel"
-                href-field-name="issueHref"
-            >
+            <${tableColumnAnchorTag} column-id="issue-column" label-field-name="issueLabel" href-field-name="issueHref">
                 Issue
             </${tableColumnAnchorTag}>
-            <${tableColumnTextTag}
-                column-id="component-status-column"
-                field-name="componentStatus"
-            >
+            <${tableColumnTextTag} column-id="component-status-column" field-name="componentStatus">
                 Web Component
             </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                column-id="angular-status-column"
-                field-name="angularStatus"
-            >
+            <${tableColumnTextTag} column-id="angular-status-column" field-name="angularStatus">
                 Angular
             </${tableColumnTextTag}>
-            <${tableColumnTextTag}
-                column-id="blazor-status-column"
-                field-name="blazorStatus"
-            >
+            <${tableColumnTextTag} column-id="blazor-status-column" field-name="blazorStatus">
                 Blazor
             </${tableColumnTextTag}>
-
+        
         </${tableTag}>
     `),
     argTypes: {
@@ -510,7 +495,7 @@ export default metadata;
 
 export const componentStatus: StoryObj<TableArgs> = {
     parameters: {
-      // Story used by documentation, not needed for visual comparison.
-      chromatic: { disableSnapshot: true }
+        // Story used by documentation, not needed for visual comparison.
+        chromatic: { disableSnapshot: true }
     },
-  };
+};
