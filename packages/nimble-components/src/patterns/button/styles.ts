@@ -50,7 +50,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: 0px solid transparent;
+        border: 1px solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -79,20 +79,21 @@ export const styles = css`
     }
 
     .control:hover {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-            0px 0px 0px 3px ${applicationBackgroundColor} inset;
-        outline: none;
+        outline: 1px red;
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset,
+            0px 0px 0px 2px ${applicationBackgroundColor} inset;
     }
 
     .control${focusVisible} {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-            0px 0px 0px 3px ${applicationBackgroundColor} inset,
-            0px 0px 0px 4px ${borderHoverColor} inset;
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset,
+            0px 0px 0px 2px ${applicationBackgroundColor} inset,
+            0px 0px 0px 3px ${borderHoverColor} inset;
     }
 
     .control:active {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset,
-            0px 0px 0px 2px ${applicationBackgroundColor} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${applicationBackgroundColor} inset;
         outline: none;
     }
 
