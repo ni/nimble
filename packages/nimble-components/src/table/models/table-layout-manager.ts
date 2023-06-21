@@ -1,7 +1,7 @@
 import { Notifier, Observable } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
-import type { TableRecord } from '../types';
+import { TableColumnResizeMode, TableRecord } from '../types';
 import { Virtualizer } from './virtualizer';
 
 /**
@@ -11,40 +11,61 @@ import { Virtualizer } from './virtualizer';
 export class TableLayoutManager<TData extends TableRecord> {
     private activeColumnDivider?: number;
     private gridSizedColumns?: TableColumn[];
-    private currentRowWidth?: number;
-    private initialTablePixelWidth?: number;
+    private initialTableWidth?: number;
+    private initialTableScrollableWidth?: number;
     private initialColumnTotalWidth?: number;
-    private totalAddedWidth = 0;
     private constrainSizeToView?: boolean;
     private currentTotalDelta = 0;
     private readonly virtualizerNotifier: Notifier;
     private readonly headerRowActionContainerResizeObserver: ResizeObserver;
     private readonly tableResizeObserver: ResizeObserver;
-    private initialColumnPixelWidths: { initialPixelWidth: number, minPixelWidth: number }[] = [];
+    private initialColumnPixelWidths: {
+        initialPixelWidth: number,
+        minPixelWidth: number
+    }[] = [];
+
     private previousTotalTableWidth = 0;
 
-    public constructor(private readonly table: Table<TData>, private readonly virtualizer: Virtualizer<TData>) {
-        this.virtualizerNotifier = Observable.getNotifier(this.table.virtualizer);
+    public constructor(
+        private readonly table: Table<TData>,
+        private readonly virtualizer: Virtualizer<TData>
+    ) {
+        this.virtualizerNotifier = Observable.getNotifier(
+            this.table.virtualizer
+        );
         this.virtualizerNotifier.subscribe(this, 'headerContainerMarginRight');
         this.tableResizeObserver = new ResizeObserver(entries => {
             if (entries[0]?.contentRect.width) {
-                if (this.previousTotalTableWidth < entries[0].contentRect.width && this.table.tableWidthFactor > 1) {
-                    const pixelDelta = entries[0].contentRect.width - this.previousTotalTableWidth;
-                    this.table.tableWidthFactor -= (pixelDelta / this.previousTotalTableWidth);
+                if (
+                    this.previousTotalTableWidth
+                        < entries[0].contentRect.width
+                    && this.table.tableWidthFactor > 1
+                ) {
+                    const pixelDelta = entries[0].contentRect.width
+                        - this.previousTotalTableWidth;
+                    this.table.tableWidthFactor = Math.max(
+                        this.table.tableWidthFactor
+                            - pixelDelta / this.previousTotalTableWidth,
+                        1
+                    );
                 }
 
                 this.previousTotalTableWidth = entries[0].contentRect.width;
             }
         });
-        this.headerRowActionContainerResizeObserver = new ResizeObserver(entries => {
-            if (entries[0]) {
-                this.updateTableViewportMinWidth();
+        this.headerRowActionContainerResizeObserver = new ResizeObserver(
+            entries => {
+                if (entries[0]) {
+                    this.updateTableViewportMinWidth();
+                }
             }
-        });
+        );
     }
 
     public connectedCallback(): void {
-        this.headerRowActionContainerResizeObserver.observe(this.table.headerRowActionContainer);
+        this.headerRowActionContainerResizeObserver.observe(
+            this.table.headerRowActionContainer
+        );
         this.tableResizeObserver.observe(this.table);
     }
 
@@ -83,12 +104,10 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.constrainSizeToView = this.table.noViewportResize;
         this.currentTotalDelta = 0;
         this.initialColumnPixelWidths = [];
-        this.currentRowWidth = this.table.columnHeadersContainer.getBoundingClientRect().width
-            - this.table.virtualizer.headerContainerMarginRight;
         this.flagActiveColumnDividers(columnIndex);
         this.setColumnsToFixedSize();
-        this.initialTablePixelWidth = this.table.getBoundingClientRect().width
-            * this.table.tableWidthFactor;
+        this.initialTableWidth = this.table.getBoundingClientRect().width;
+        this.initialTableScrollableWidth = this.initialTableWidth * this.table.tableWidthFactor;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.table.isColumnBeingSized = true;
         document.addEventListener('mousemove', this.onDividerMouseMove);
@@ -96,22 +115,27 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     public getAllColumnsMinimumWidth(): number {
-        return this.table.columns.reduce((accumulator: number, currentValue) => {
-            return (
-                accumulator
-                + currentValue.columnInternals.minPixelWidth);
-        }, 0);
+        return this.table.columns.reduce(
+            (accumulator: number, currentValue) => {
+                return accumulator + currentValue.columnInternals.minPixelWidth;
+            },
+            0
+        );
     }
 
     public updateTableViewportMinWidth(): void {
-        this.table.tableViewportMinWidth = Math.round(this.table.headerRowActionContainer.getBoundingClientRect().width
-            + this.getAllColumnsMinimumWidth()
-            + this.totalAddedWidth
-            + this.table.virtualizer.headerContainerMarginRight);
+        this.table.tableViewportMinWidth = Math.round(
+            this.table.headerRowActionContainer.getBoundingClientRect().width
+                + this.getAllColumnsMinimumWidth()
+                + this.table.virtualizer.headerContainerMarginRight
+        );
     }
 
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof Virtualizer && args === 'headerContainerMarginRight') {
+        if (
+            source instanceof Virtualizer
+            && args === 'headerContainerMarginRight'
+        ) {
             this.updateTableViewportMinWidth();
         }
     }
@@ -125,40 +149,33 @@ export class TableLayoutManager<TData extends TableRecord> {
         for (let i = 0; i < this.table.columns.length; i++) {
             this.table.columns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
         }
-        this.currentTotalDelta = this.pinColumnSizeDelta(this.activeColumnDivider!, this.currentTotalDelta);
-        const canSizeLeft = this.canSizeLeft(this.activeColumnDivider!);
-        this.performCascadeSizeLeft(this.activeColumnDivider!, this.currentTotalDelta);
-        if (canSizeLeft || this.currentTotalDelta > 0) {
-            this.performCascadeSizeRight(this.activeColumnDivider!, this.currentTotalDelta);
-        }
+        this.currentTotalDelta = this.pinColumnSizeDelta(
+            this.activeColumnDivider!,
+            this.currentTotalDelta
+        );
+        this.performCascadeSizeLeft(
+            this.activeColumnDivider!,
+            this.currentTotalDelta
+        );
+        this.performCascadeSizeRight(
+            this.activeColumnDivider!,
+            this.currentTotalDelta
+        );
 
-        this.table.tableWidthFactor = Math.max(this.getCurrentTotalTableWidth() / this.table.getBoundingClientRect().width, 1);
+        this.table.tableWidthFactor = Math.max(
+            this.getCurrentTotalTableWidth() / this.initialTableWidth!,
+            1
+        );
     };
 
     private readonly onDividerMouseUp = (): void => {
         document.removeEventListener('mousemove', this.onDividerMouseMove);
         document.removeEventListener('mouseup', this.onDividerMouseUp);
         this.unflagActiveColumnDividers();
-        this.totalAddedWidth = Math.max(this.totalAddedWidth, this.getCurrentTotalTableWidth() - this.table.getBoundingClientRect().width);
         this.updateTableViewportMinWidth();
         this.resetGridSizedColumns();
         this.table.isColumnBeingSized = false;
     };
-
-    private getTotalColumnMagnitude(): number {
-        return this.table.columns.reduce(
-            (accumulator: number, currentValue) => {
-                return (
-                    accumulator
-                    + (currentValue.columnInternals.currentPixelWidth
-                    === undefined
-                        ? currentValue.columnInternals.currentFractionalWidth
-                        : 0)
-                );
-            },
-            0
-        );
-    }
 
     private getTotalColumnFixedWidth(): number {
         return this.table.columns.reduce(
@@ -177,64 +194,60 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private getCurrentTotalTableWidth(): number {
         return (
-            this.initialTablePixelWidth!
+            this.initialTableScrollableWidth!
             + (this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!)
         );
     }
 
     private setColumnsToFixedSize(): void {
         this.cacheGridSizedColumns();
-        const totalMagnitude = this.getTotalColumnMagnitude();
-        const totalFixedSize = this.getTotalColumnFixedWidth();
-        let accumulatedTotalSize = 0;
-        const sortedColumns = [...this.table.columns].sort((column1, column2) => column1.columnInternals.currentFractionalWidth - column2.columnInternals.currentFractionalWidth);
-        for (const column of sortedColumns) {
-            if (column.columnInternals.currentPixelWidth === undefined) {
-                column.columnInternals.currentPixelWidth = Math.max(
-                    (column.columnInternals.currentFractionalWidth
-                        / totalMagnitude)
-                        * (this.currentRowWidth! - totalFixedSize),
-                    column.columnInternals.minPixelWidth
-                );
-                accumulatedTotalSize
-                    += column.columnInternals.currentPixelWidth;
-                if (accumulatedTotalSize > this.currentRowWidth!) {
-                    column.columnInternals.currentPixelWidth
-                        -= accumulatedTotalSize - this.currentRowWidth!;
-                }
-            }
+        const headers = this.table.columnHeadersContainer.querySelectorAll(
+            '.header-container'
+        );
+        for (let i = 0; i < headers.length; i++) {
+            this.table.columns[i]!.columnInternals.currentPixelWidth = headers[i]!.getBoundingClientRect().width;
         }
         this.cacheColumnInitialPixelWidths();
     }
 
-    private pinColumnSizeDelta(activeColumnIndex: number, delta: number): number {
+    private pinColumnSizeDelta(
+        activeColumnIndex: number,
+        delta: number
+    ): number {
         let availableSpace = 0;
         let currentIndex = activeColumnIndex;
-        if (delta > 0) { // size right
-            availableSpace = delta;
-        } else if (delta < 0) { // size left
+        if (delta > 0) {
+            // size right
+            if (
+                this.table.columnResizeMode
+                === TableColumnResizeMode.cascadeLimitWidth
+            ) {
+                while (
+                    currentIndex + 1
+                    < this.initialColumnPixelWidths.length
+                ) {
+                    const columnInitialWidths = this.initialColumnPixelWidths[currentIndex + 1]!;
+                    availableSpace
+                        += Math.floor(columnInitialWidths.initialPixelWidth)
+                        - columnInitialWidths.minPixelWidth;
+                    currentIndex += 1;
+                }
+            } else {
+                availableSpace = delta;
+            }
+        } else if (delta < 0) {
+            // size left
             while (currentIndex >= 0) {
                 const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
-                availableSpace += Math.floor(columnInitialWidths.initialPixelWidth) - columnInitialWidths.minPixelWidth;
+                availableSpace
+                    += Math.floor(columnInitialWidths.initialPixelWidth)
+                    - columnInitialWidths.minPixelWidth;
                 currentIndex -= 1;
             }
         }
         return delta > 0
             ? Math.min(delta, availableSpace)
             : Math.max(delta, -availableSpace);
-    }
-
-    private canSizeLeft(activeColumnIndex: number): boolean {
-        let currentIndex = activeColumnIndex;
-        while (currentIndex >= 0) {
-            const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
-            if (Math.floor(columnInitialWidths.initialPixelWidth) > columnInitialWidths.minPixelWidth) {
-                return true;
-            }
-            currentIndex -= 1;
-        }
-
-        return false;
     }
 
     private performCascadeSizeLeft(
@@ -284,7 +297,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         const actualDelta = allowedDelta < 0
             ? Math.ceil(allowedDelta)
             : Math.floor(allowedDelta);
-        this.table.columns[activeColumnIndex + 1]!.columnInternals.currentPixelWidth! -= actualDelta;
+        this.table.columns[
+            activeColumnIndex + 1
+        ]!.columnInternals.currentPixelWidth! -= actualDelta;
 
         if (
             actualDelta < Math.abs(currentDelta)
@@ -330,7 +345,10 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private cacheColumnInitialPixelWidths(): void {
         for (const column of this.table.columns) {
-            this.initialColumnPixelWidths.push({ initialPixelWidth: column.columnInternals.currentPixelWidth!, minPixelWidth: column.columnInternals.minPixelWidth });
+            this.initialColumnPixelWidths.push({
+                initialPixelWidth: column.columnInternals.currentPixelWidth!,
+                minPixelWidth: column.columnInternals.minPixelWidth
+            });
         }
     }
 

@@ -36,6 +36,7 @@ import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
+    TableColumnResizeMode,
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
@@ -72,8 +73,8 @@ export class Table<
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
 
-    @attr({ attribute: 'disable-column-sizing', mode: 'boolean' })
-    public disableColumnSizing = false;
+    @attr({ attribute: 'column-resize-mode' })
+    public columnResizeMode: TableColumnResizeMode = TableColumnResizeMode.cascade;
 
     @attr({ attribute: 'no-viewport-resize' })
     public noViewportResize = false;
@@ -245,7 +246,10 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.tableLayoutManager = new TableLayoutManager(this, this.virtualizer);
+        this.tableLayoutManager = new TableLayoutManager(
+            this,
+            this.virtualizer
+        );
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode

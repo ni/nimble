@@ -13,6 +13,7 @@ import { tableRowTag } from './components/row';
 import type { TableColumn } from '../table-column/base';
 import {
     TableActionMenuToggleEventDetail,
+    TableColumnResizeMode,
     TableColumnSortDirection,
     TableRowSelectionMode,
     TableRowSelectionState,
@@ -71,7 +72,7 @@ export const template = html<Table>`
                         ${repeat(x => x.columns, html<TableColumn>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
                                 <div class="header-container">
-                                    ${when((_, c) => c.index > 0 && !(c.parent as Table).disableColumnSizing, html<TableColumn, Table>`
+                                    ${when((_, c) => c.index > 0 && ((c.parent as Table).columnResizeMode !== TableColumnResizeMode.none), html<TableColumn, Table>`
                                         <div class="column-divider left" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.index)}"></div>
                                     `)}
                                         <${tableHeaderTag}
@@ -83,7 +84,7 @@ export const template = html<Table>`
                                         >
                                             <slot name="${x => x.slot}"></slot>
                                         </${tableHeaderTag}>
-                                    ${when((_, c) => (c.index < (c.parent as Table).columns.length - 1) && !(c.parent as Table).disableColumnSizing, html`
+                                    ${when((_, c) => (c.index < (c.parent as Table).columns.length - 1) && ((c.parent as Table).columnResizeMode !== TableColumnResizeMode.none), html`
                                         <div class="column-divider right" @mousedown="${(_, c) => (c.parent as Table).onRightDividerMouseDown(c.index)}"></div>
                                     `)}                        
                                 </div>
