@@ -93,7 +93,8 @@ export const styles = css`
     }
 
     .control:active {
-        box-shadow: 0px 0px 0px ${borderWidth} ${applicationBackgroundColor} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${applicationBackgroundColor}
+            inset;
         outline: none;
     }
 
