@@ -13,8 +13,7 @@ import {
     fillSelectedColor,
     iconColor,
     smallDelay,
-    standardPadding,
-    applicationBackgroundColor
+    standardPadding
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
@@ -199,7 +198,7 @@ export const styles = css`
                 outline: none;
                 padding: 1px;
             }
-            
+
             :host([disabled]) .control {
                 border-color: transparent;
             }
@@ -258,20 +257,16 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         ButtonAppearance.outline,
         css`
             :host([appearance-variant='primary']) .control {
-                box-shadow: 0px 0px 0px calc(2 * ${borderWidth})
+                box-shadow: 0px 0px 0px ${borderWidth}
                     rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
             :host([appearance-variant='primary']) .control:hover {
-                box-shadow: 0px 0px 0px calc(2 * ${borderWidth})
-                    ${borderHoverColor} inset;
+                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control${focusVisible} {
-                box-shadow: 0px 0px 0px calc(2 * ${borderWidth})
-                        ${borderHoverColor} inset,
-                    0px 0px 0px 3px ${applicationBackgroundColor} inset,
-                    0px 0px 0px 4px ${borderHoverColor} inset;
+                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control:active {
@@ -288,10 +283,9 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         ButtonAppearance.block,
         css`
             :host([appearance-variant='primary']) .control {
-                background-clip: padding-box;
                 border-color: rgba(${actionRgbPartialColor}, 0.3);
-                border-width: calc(2 * ${borderWidth});
-                padding: 0 calc(${standardPadding} - ${borderWidth});
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
             :host([appearance-variant='primary'][content-hidden]) .control {
@@ -300,7 +294,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
             :host([appearance-variant='primary']) .control:hover {
                 border-color: ${borderHoverColor};
-                box-shadow: none;
+                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control${focusVisible} {
@@ -316,12 +310,13 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 padding: 0px;
             }
 
-            :host([appearance-variant='primary']) .control:active {
-                background-clip: border-box;
+            :host([appearance-variant='primary']) .control:active::before {
                 border-color: ${fillSelectedColor};
                 border-width: ${borderWidth};
+            }
+
+            :host([appearance-variant='primary']) .control:active {
                 box-shadow: none;
-                padding: 0 ${standardPadding};
             }
 
             :host([appearance-variant='primary'][content-hidden])
