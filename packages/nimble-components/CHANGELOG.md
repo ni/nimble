@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 16 Jun 2023 19:24:51 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.0
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Minor changes
+
+- New icons for bold, italic, and numbered list ([ni/nimble@d8a2f69](https://github.com/ni/nimble/commit/d8a2f6933982381c2724f87737873b2f9374a706))
+- Bump @ni/nimble-tokens to v6.1.0
 
 ## 19.3.0
 
