@@ -64,7 +64,20 @@ export const styles = css`
         outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
+        position: relative;
         transition: box-shadow ${smallDelay};
+    }
+
+    .control::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        box-sizing: border-box;
+        outline: none;
+        background-clip: content-box;
+        z-index: -1;
     }
 
     :host([content-hidden]) .control {
@@ -79,26 +92,28 @@ export const styles = css`
     }
 
     .control:hover {
-        outline: 1px red;
         border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset,
-            0px 0px 0px 2px ${applicationBackgroundColor} inset;
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
     }
 
     .control${focusVisible} {
         border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset,
-            0px 0px 0px 2px ${applicationBackgroundColor} inset,
-            0px 0px 0px 3px ${borderHoverColor} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        outline: ${borderWidth} solid ${borderHoverColor};
+        outline-offset: -4px;
     }
 
     .control:active {
-        box-shadow: 0px 0px 0px ${borderWidth} ${applicationBackgroundColor}
-            inset;
+        box-shadow: none;
         outline: none;
     }
 
     :host([disabled]) .control {
+        box-shadow: none;
+        outline: none;
+    }
+
+    :host([disabled]) .control::before {
         box-shadow: none;
         outline: none;
     }
@@ -153,26 +168,45 @@ export const styles = css`
         ButtonAppearance.outline,
         css`
             .control {
-                box-shadow: 0px 0px 0px ${borderWidth}
-                    rgba(${actionRgbPartialColor}, 0.3) inset;
+                border-color: rgba(${actionRgbPartialColor}, 0.3);
+            }
+
+            .control:active::before {
+                background-color: ${fillSelectedColor};
+                outline: none;
+                padding: 1px;
             }
 
             .control:active {
-                background-color: ${fillSelectedColor};
+                outline: none;
             }
 
             :host([disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
+            }
+
+            :host([disabled]) .control::before {
                 background-color: transparent;
-                box-shadow: 0px 0px 0px ${borderWidth}
-                    rgba(${actionRgbPartialColor}, 0.3) inset;
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     ),
     appearanceBehavior(
         ButtonAppearance.ghost,
         css`
-            .control:active {
+            .control:active::before {
                 background-color: ${fillSelectedColor};
+                outline: none;
+                padding: 1px;
+            }
+            
+            :host([disabled]) .control {
+                border-color: transparent;
+            }
+
+            :host([disabled]) .control::before {
+                background-color: transparent;
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     ),
@@ -183,16 +217,37 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
 
-            .control${focusVisible} {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
+            .control:hover {
+                background-color: transparent;
             }
 
-            .control:active {
+            .control:hover::before {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding: 2px;
+            }
+
+            .control${focusVisible} {
+                background-color: transparent;
+            }
+
+            .control${focusVisible}::before {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding: 2px;
+            }
+
+            .control:active::before {
                 background-color: ${fillSelectedColor};
+                padding: 1px;
             }
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
+            }
+
+            :host([disabled]) .control::before {
+                background-color: transparent;
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     )
