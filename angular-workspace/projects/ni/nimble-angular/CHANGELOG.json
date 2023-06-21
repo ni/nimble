@@ -2,6 +2,74 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 20 Jun 2023 14:17:25 GMT",
+      "tag": "@ni/nimble-angular_v16.6.8",
+      "version": "16.6.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.4.0",
+            "commit": "d8a2f6933982381c2724f87737873b2f9374a706"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Jun 2023 19:24:51 GMT",
+      "tag": "@ni/nimble-angular_v16.6.7",
+      "version": "16.6.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.3.0",
+            "commit": "58ad3aac8e3f7984bbbbde371dfca77527d90383"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Jun 2023 14:50:08 GMT",
+      "tag": "@ni/nimble-angular_v16.6.6",
+      "version": "16.6.6",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf",
+            "comment": "Update combobox CVA tests"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.2.3",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 21:34:35 GMT",
+      "tag": "@ni/nimble-angular_v16.6.5",
+      "version": "16.6.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.2.2",
+            "commit": "562c2ec63b6c8391633f17d33a311535b61627f4"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Jun 2023 13:16:59 GMT",
       "tag": "@ni/nimble-angular_v16.6.4",
       "version": "16.6.4",

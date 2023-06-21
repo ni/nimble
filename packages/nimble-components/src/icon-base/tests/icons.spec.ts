@@ -4,7 +4,7 @@ import { DesignSystem } from '@microsoft/fast-foundation';
 import { html } from '@microsoft/fast-element';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
-import { iconMetadata } from '../icon-metadata';
+import { iconMetadata } from './icon-metadata';
 import { Fixture, fixture } from '../../utilities/tests/fixture';
 import { IconAdd, iconAddTag } from '../../icons/add';
 

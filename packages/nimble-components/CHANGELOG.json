@@ -2,6 +2,147 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 20 Jun 2023 17:38:18 GMT",
+      "tag": "@ni/nimble-components_v19.4.0",
+      "version": "19.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "12ed3d72d79c231a53d74261bf49f60c8f013d28",
+            "comment": "Move component status documentation to Storybook and icon metadata to tests folder"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 20 Jun 2023 14:17:25 GMT",
+      "tag": "@ni/nimble-components_v19.4.0",
+      "version": "19.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d8a2f6933982381c2724f87737873b2f9374a706",
+            "comment": "New icons for bold, italic, and numbered list"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.1.0",
+            "commit": "d8a2f6933982381c2724f87737873b2f9374a706"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Jun 2023 19:24:51 GMT",
+      "tag": "@ni/nimble-components_v19.3.0",
+      "version": "19.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "58ad3aac8e3f7984bbbbde371dfca77527d90383",
+            "comment": "Add tooltip to ellipsized table header"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 16 Jun 2023 15:42:51 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dce3427522293062714a8fe1a08ada7fad9d3376",
+            "comment": "Add documentation for anchor tabs about setting replaceUrl"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 15 Jun 2023 15:18:46 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "838f14b2dd112f6e135956a022637e6ea891c476",
+            "comment": "HLD updates for number and date table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 14 Jun 2023 20:14:25 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c3df12be0f145aee2a07dbd05bbed582e3b431a6",
+            "comment": "Update docs (accessible labels for button/banner/icons)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Jun 2023 16:41:10 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9a593581078aa9e9b95ed101572ac282c63e97ea",
+            "comment": "Updated Button Styles Spec (#663)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 13 Jun 2023 14:50:08 GMT",
+      "tag": "@ni/nimble-components_v19.2.3",
+      "version": "19.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7efade909a782e65cb256065ac5a9a59bae94ddf",
+            "comment": "Fix inconsistencies in combobox filtering"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 12 Jun 2023 21:34:35 GMT",
+      "tag": "@ni/nimble-components_v19.2.2",
+      "version": "19.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "562c2ec63b6c8391633f17d33a311535b61627f4",
+            "comment": "Fix GroupRow component template"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Jun 2023 19:23:49 GMT",
       "tag": "@ni/nimble-components_v19.2.1",
       "version": "19.2.1",
