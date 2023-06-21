@@ -110,6 +110,7 @@ _Props/Attrs_
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199).
 -   `isEmpty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API.
+-   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 
 _Methods_
 
@@ -132,6 +133,7 @@ _CSS Classes and CSS Custom Properties that affect the component_
     to align with the minimal requirement for the initial release. However, adjustments will be made later based on the visual design for mobile view is complete.
 -   The content in the text area will adjust its layout based on the width, potentially increasing the height of the editor. But in case of having
     a long nested lists that is beyond the current width (set by the client), a horizontal scrollbar will appear within the text area to view the content.
+    If the `fitToContent` enabled, the text area will grow to fit the entered content in the editor section. 
 -   The client will determine the maximum height and width of the component. When the client does not override sizing, the component will have a default height and width.
 -   The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
     component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
@@ -194,6 +196,7 @@ _Props/Attrs_
     -   `setter` - this will parse the markdown string into a Node using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199) and convert to an HTML to
         render it in the component section.
+-   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 
 _Methods_
 
@@ -205,8 +208,10 @@ _Events_
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The height of the component will always grow to fit the content.
--   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height of the component.
+-   The sizing behavior of the component will remain same as the editor component. The height of the component will grow to fit the content based 
+on the `fitToContent` attribute.
+-   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height 
+of the component or will enable the vertical scrollbar.
 
 ### Anatomy
 
