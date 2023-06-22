@@ -8,7 +8,8 @@ import {
     popupBorderColor,
     controlSlimHeight,
     smallPadding,
-    standardPadding
+    standardPadding,
+    tableRowBorderColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -61,10 +62,18 @@ export const styles = css`
         display: flex;
     }
 
-    .all-columns-header-container {
+    .column-headers-container {
         display: grid;
         width: 100%;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    .table-row-container {
+        width: fit-content;
+        min-width: 100%;
+        position: relative;
+        top: var(--ni-private-table-row-container-top);
+        background-color: ${tableRowBorderColor};
     }
 
     .collapse-all-button {
@@ -160,9 +169,11 @@ export const styles = css`
     }
 
     .table-row-container {
-        width: 100%;
+        width: fit-content;
+        min-width: 100%;
         position: relative;
         top: var(--ni-private-table-row-container-top);
+        background-color: ${tableRowBorderColor};
     }
 
     .selection-checkbox {

@@ -1,8 +1,64 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 01 Jun 2023 14:41:19 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.6.8
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.0
+
+## 16.6.7
+
+Fri, 16 Jun 2023 19:24:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.3.0
+
+## 16.6.6
+
+Tue, 13 Jun 2023 14:50:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.2.3
+
+## 16.6.5
+
+Mon, 12 Jun 2023 21:34:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.2.2
+
+## 16.6.4
+
+Mon, 12 Jun 2023 13:16:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.2.1
+
+## 16.6.3
+
+Wed, 07 Jun 2023 18:59:51 GMT
+
+### Patches
+
+- Mark 'placeholder' as an @Input on the text column directive ([ni/nimble@3e64d9a](https://github.com/ni/nimble/commit/3e64d9a335d7b64e8690d382385724a4fa260265))
+
+## 16.6.2
+
+Fri, 02 Jun 2023 07:49:02 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.2.0
 
 ## 16.6.1
 

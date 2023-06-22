@@ -14,7 +14,6 @@ export class TableLayoutManager<TData extends TableRecord> {
     private initialTableWidth?: number;
     private initialTableScrollableWidth?: number;
     private initialColumnTotalWidth?: number;
-    private constrainSizeToView?: boolean;
     private currentTotalDelta = 0;
     private readonly virtualizerNotifier: Notifier;
     private readonly headerRowActionContainerResizeObserver: ResizeObserver;
@@ -64,7 +63,7 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     public connectedCallback(): void {
         this.headerRowActionContainerResizeObserver.observe(
-            this.table.headerRowActionContainer
+            this.table.headerRowActionContainer!
         );
         this.tableResizeObserver.observe(this.table);
     }
@@ -101,7 +100,6 @@ export class TableLayoutManager<TData extends TableRecord> {
         activeColumnDivider: number
     ): void {
         this.activeColumnDivider = activeColumnDivider;
-        this.constrainSizeToView = this.table.noViewportResize;
         this.currentTotalDelta = 0;
         this.initialColumnPixelWidths = [];
         this.flagActiveColumnDividers(columnIndex);
@@ -124,8 +122,13 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     public updateTableViewportMinWidth(): void {
+        if (!this.table.$fastController.isConnected) {
+            return;
+        }
+
         this.table.tableViewportMinWidth = Math.round(
-            this.table.headerRowActionContainer.getBoundingClientRect().width
+            (this.table.headerRowActionContainer?.getBoundingClientRect()
+                .width ?? 0)
                 + this.getAllColumnsMinimumWidth()
                 + this.table.virtualizer.headerContainerMarginRight
         );

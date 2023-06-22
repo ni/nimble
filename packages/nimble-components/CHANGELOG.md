@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 01 Jun 2023 14:41:19 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.0
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Minor changes
+
+- New icons for bold, italic, and numbered list ([ni/nimble@d8a2f69](https://github.com/ni/nimble/commit/d8a2f6933982381c2724f87737873b2f9374a706))
+- Bump @ni/nimble-tokens to v6.1.0
+
+## 19.3.0
+
+Fri, 16 Jun 2023 19:24:51 GMT
+
+### Minor changes
+
+- Add tooltip to ellipsized table header ([ni/nimble@58ad3aa](https://github.com/ni/nimble/commit/58ad3aac8e3f7984bbbbde371dfca77527d90383))
+
+## 19.2.3
+
+Tue, 13 Jun 2023 14:50:08 GMT
+
+### Patches
+
+- Fix inconsistencies in combobox filtering ([ni/nimble@7efade9](https://github.com/ni/nimble/commit/7efade909a782e65cb256065ac5a9a59bae94ddf))
+
+## 19.2.2
+
+Mon, 12 Jun 2023 21:34:35 GMT
+
+### Patches
+
+- Fix GroupRow component template ([ni/nimble@562c2ec](https://github.com/ni/nimble/commit/562c2ec63b6c8391633f17d33a311535b61627f4))
+
+## 19.2.1
+
+Mon, 12 Jun 2023 13:16:59 GMT
+
+### Patches
+
+- Created a generic Tracker class, extended it to a validator and an update tracker and implemented them in the table ([ni/nimble@121a4f1](https://github.com/ni/nimble/commit/121a4f18d996f09af1f0db70b873f6d7cdda646d))
+
+## 19.2.0
+
+Fri, 02 Jun 2023 07:49:02 GMT
+
+### Minor changes
+
+- added a design token for graph gridlines ([ni/nimble@a3264e1](https://github.com/ni/nimble/commit/a3264e123c5c3170d3957c238b2bd793e6d294f1))
 
 ## 19.1.3
 

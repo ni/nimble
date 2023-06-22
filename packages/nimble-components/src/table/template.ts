@@ -68,10 +68,10 @@ export const template = html<Table>`
                             </${buttonTag}>
                         </span>
                     </span>
-                    <span class="all-columns-header-container" ${ref('columnHeadersContainer')}>
+                    <span class="column-headers-container" ${ref('columnHeadersContainer')}>
                         ${repeat(x => x.columns, html<TableColumn>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
-                                <div class="header-container">
+                            <div class="header-container">
                                     ${when((_, c) => c.index > 0 && ((c.parent as Table).columnResizeMode !== TableColumnResizeMode.none), html<TableColumn, Table>`
                                         <div class="column-divider left" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.index)}"></div>
                                     `)}

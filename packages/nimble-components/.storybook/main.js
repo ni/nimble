@@ -3,6 +3,7 @@ import CircularDependencyPlugin from 'circular-dependency-plugin';
 
 export const stories = [
     '../docs/**/*.mdx',
+    '../docs/**/*.stories.ts',
     '../src/**/*.mdx',
     '../src/**/*.stories.ts'
 ];

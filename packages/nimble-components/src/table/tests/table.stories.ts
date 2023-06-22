@@ -3,7 +3,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
@@ -121,7 +121,7 @@ If a record does not exist in the table's data, it will not be selected. If mult
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
 const metadata: Meta<TableArgs> = {
-    title: 'Table',
+    title: 'Incubating/Table',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
@@ -141,7 +141,7 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
