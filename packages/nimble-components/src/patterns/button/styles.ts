@@ -13,7 +13,8 @@ import {
     fillSelectedColor,
     iconColor,
     smallDelay,
-    standardPadding
+    standardPadding,
+    mediumDelay
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
@@ -65,6 +66,7 @@ export const styles = css`
         padding: 0 ${standardPadding};
         position: relative;
         transition: box-shadow ${smallDelay};
+        transition: border-color ${smallDelay};
     }
 
     .control::before {
@@ -93,6 +95,7 @@ export const styles = css`
     .control:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
+        transition: box-shadow ${mediumDelay};
     }
 
     .control${focusVisible} {
@@ -168,6 +171,10 @@ export const styles = css`
         css`
             .control {
                 border-color: rgba(${actionRgbPartialColor}, 0.3);
+            }
+
+            .control:hover {
+                background-color: transparent;
             }
 
             .control:active::before {

@@ -23,8 +23,11 @@ export const styles = css`
         outline: none;
     }
 
-    .control[aria-pressed='true']${focusVisible} {
+    .control[aria-pressed='true']:hover::before {
         background-color: ${fillSelectedColor};
+    }
+
+    .control[aria-pressed='true']${focusVisible} {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset,
             0px 0px 0px 2px ${applicationBackgroundColor} inset,
