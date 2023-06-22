@@ -109,7 +109,8 @@ _Props/Attrs_
     -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199).
 -   `isEmpty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
-    [isEmpty](https://tiptap.dev/api/editor#is-empty) API.
+    [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
+    that can be used to bind it in the Angular application.
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 
 _Methods_
@@ -233,7 +234,9 @@ _CSS Parts_
 
 ### Angular integration
 
-An Angular directive will be created for both components. The components will not have form association, so a `ControlValueAccessor` will not be created.
+An Angular directive will be created for both components. Input and accessor APIs will be created for the attributes and properties and output event
+emitters will be created for the events, similar to how it's done in other directives. The components will not have form
+association, so a `ControlValueAccessor` will not be created.
 
 ### Blazor integration
 
