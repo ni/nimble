@@ -61,7 +61,7 @@ export const styles = css`
         gap: 4px;
         cursor: inherit;
         font: inherit;
-        outline: none;
+        outline: transparent;
         margin: 0;
         padding: 0 ${standardPadding};
         position: relative;
@@ -101,12 +101,23 @@ export const styles = css`
     .control${focusVisible} {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    }
+
+    .control${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
-        outline-offset: -4px;
+        outline-offset: -3px;
+        transition: outline 0.5s;
+        color: transparent;
     }
 
     .control:active {
         box-shadow: none;
+        outline: none;
+        transition: outline ${mediumDelay};
+        transition: box-shadow ${mediumDelay};
+    }
+
+    .control:active::before {
         outline: none;
     }
 
@@ -185,6 +196,10 @@ export const styles = css`
 
             .control:active {
                 outline: none;
+            }
+
+            .control${focusVisible} {
+                background-color: transparent;
             }
 
             :host([disabled]) .control {
