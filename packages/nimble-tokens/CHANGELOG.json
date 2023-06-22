@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Tue, 20 Jun 2023 21:10:06 GMT",
+      "tag": "@ni/nimble-tokens_v6.1.0",
+      "version": "6.1.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "fc39bf054f4863d1a3380f0d62740ca78cee662d",
+            "comment": "Fix intermittent hang in tokens build"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jun 2023 14:17:25 GMT",
       "tag": "@ni/nimble-tokens_v6.1.0",
       "version": "6.1.0",
