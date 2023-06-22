@@ -6,15 +6,14 @@ import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
-import { Mapping } from '../../mapping/base';
 import { MappingText } from '../../mapping/text';
 import {
-    enumTextColumnValidityFlagNames,
     TableColumnEnumTextValidator
-} from './models/column-validator';
+} from './models/table-column-enum-text-validator';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { tableColumnEnumTextCellViewTag } from './cell-view';
 import { tableColumnEnumTextGroupHeaderViewTag } from './group-header-view';
+import type { Mapping } from '../../mapping/base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -38,34 +37,16 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     @attr
     public placeholder?: string;
 
-    protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
+    protected get supportedMappingElements(): readonly (typeof Mapping)[] {
         return [MappingText] as const;
     }
 
     private readonly validator: TableColumnEnumTextValidator = new TableColumnEnumTextValidator(
-        this.columnInternals,
-        enumTextColumnValidityFlagNames
+        this.columnInternals
     );
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
-    }
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.validateMappingDependentConditions();
-    }
-
-    /**
-     * @internal
-     */
-    public override handleChange(source: unknown, args: unknown): void {
-        super.handleChange(source, args);
-        if (source instanceof Mapping && typeof args === 'string') {
-            if (args === 'key' && this.$fastController.isConnected) {
-                this.validateKeyDependentConditions();
-            }
-        }
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -78,50 +59,15 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         };
     }
 
-    protected override mappingsChanged(): void {
-        super.mappingsChanged();
-        if (this.$fastController.isConnected) {
-            this.validateMappingDependentConditions();
-        }
-    }
-
-    protected override keyTypeChanged(): void {
-        super.keyTypeChanged();
-        if (this.$fastController.isConnected) {
-            this.validator.validateKeyValuesForType(
-                this.mappings.map(x => x.key),
-                this.keyType
-            );
-        }
-    }
-
     protected override updateColumnConfig(): void {
-        this.columnInternals.columnConfig = {
-            mappingConfigs: this.getMappingConfigsFromMappings(),
-            placeholder: this.placeholder ?? ''
-        };
+        // this.columnInternals.columnConfig = {
+        //     mappingConfigs: this.getMappingConfigsFromMappings(),
+        //     placeholder: this.placeholder ?? ''
+        // };
     }
 
     private placeholderChanged(): void {
         this.updateColumnConfig();
-    }
-
-    private validateKeyDependentConditions(): void {
-        const keys = this.mappings.map(x => x.key);
-        this.validator.validateKeyValuesForType(keys, this.keyType);
-        const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(x => x.key)
-            ?? [];
-        this.validator.validateUniqueKeys(typedKeys);
-        this.validator.validateNoMissingKeys(this.mappings);
-    }
-
-    private validateMappingDependentConditions(): void {
-        this.validator.validateAtMostOneDefaultMapping(this.mappings);
-        this.validator.validateMappingTypes(
-            this.mappings,
-            this.supportedMappingTypes
-        );
-        this.validateKeyDependentConditions();
     }
 }
 
