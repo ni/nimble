@@ -221,6 +221,10 @@ export const styles = css`
                 padding: 1px;
             }
 
+            .control:hover {
+                background-color: transparent;
+            }
+
             :host([disabled]) .control {
                 border-color: transparent;
             }
