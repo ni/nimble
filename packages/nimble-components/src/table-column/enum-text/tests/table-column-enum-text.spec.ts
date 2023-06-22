@@ -10,15 +10,15 @@ import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { MappingText, mappingTextTag } from '../../../mapping/text';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { mappingIconTag } from '../../../mapping/icon';
-import type { MappingKeyValue } from '../../../mapping/base/types';
+import type { MappingKey } from '../../../mapping/base/types';
 
 interface SimpleTableRecord extends TableRecord {
-    field1?: MappingKeyValue | undefined;
-    field2?: MappingKeyValue | undefined;
+    field1?: MappingKey | undefined;
+    field2?: MappingKey | undefined;
 }
 
 interface BasicTextMapping {
-    key?: MappingKeyValue;
+    key?: MappingKey;
     label: string;
     defaultMapping?: boolean;
 }

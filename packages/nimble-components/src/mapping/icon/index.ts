@@ -1,10 +1,9 @@
-import { attr, html } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
 import type { IconSeverity } from '../../icon-base/types';
-import type { MappingConfig, MappingKeyType } from '../base/types';
-import type { MappingConfigIconBase } from '../icon-base/types';
+import { Icon } from '../../icon-base';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -12,9 +11,13 @@ declare global {
     }
 }
 
+const isIcon = (elementName: string): boolean => {
+    const klass = customElements.get(elementName);
+    return klass !== undefined && (klass.prototype instanceof Icon);
+};
+
 /**
- * An element to be given as content to a nimble-table-column-icon.
- * Maps data values to an icon.
+ * Maps values to an icon.
  */
 export class MappingIcon extends Mapping {
     @attr()
@@ -26,22 +29,38 @@ export class MappingIcon extends Mapping {
     @attr()
     public label?: string;
 
-    public override getMappingConfig(keyType: MappingKeyType): MappingConfig {
-        const mappingConfig: MappingConfigIconBase = {
-            key: Mapping.typeConvertKey(this.key, keyType),
-            defaultMapping: this.defaultMapping,
-            label: this.label ?? '',
-            viewTemplate: this.icon
-                ? html`
-                <${this.icon}
-                    title="${this.label ?? ''}"
-                    aria-label="${this.label ?? ''}"
-                    severity="${this.severity ?? ''}"
-                    class="no-shrink">
-                </${this.icon}>`
-                : html``
-        };
-        return mappingConfig;
+    /**
+     * @internal
+     */
+    @observable
+    public resolvedIcon?: string;
+
+    private async waitForIcon(iconToWaitFor: string): Promise<void> {
+        try {
+            await customElements.whenDefined(iconToWaitFor);
+            // Possible the target icon has changed while waiting for registration
+            if (iconToWaitFor === this.icon && isIcon(iconToWaitFor)) {
+                this.resolvedIcon = iconToWaitFor;
+            }
+        } catch (ex) {
+            // Ignore error, i.e. invalid custom element name
+        }
+    }
+
+    private iconChanged(): void {
+        if (typeof this.icon === 'string') {
+            if (customElements.get(this.icon)) {
+                if (isIcon(this.icon)) {
+                    this.resolvedIcon = this.icon;
+                } else {
+                    this.resolvedIcon = undefined;
+                }
+            } else {
+                void this.waitForIcon(this.icon);
+            }
+        } else {
+            this.resolvedIcon = undefined;
+        }
     }
 }
 

@@ -71,6 +71,11 @@ export abstract class TableColumn<
             .join(' ');
     }
 
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.setAttribute('slot', this.columnInternals.uniqueId);
+    }
+
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 
     protected sortDirectionChanged(): void {
