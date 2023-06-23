@@ -27,11 +27,17 @@ If the component has a [W3C ARIA description](https://w3c.github.io/aria-practic
 
 ### Markdown
 
-The description supports Markdown, so can link to other documents or components. Note the specific form of relative link that is necessary due to [Storybook URL behavior](https://github.com/storybookjs/storybook/issues/8618#issuecomment-1401988950).
+The description supports Markdown, so can link to other documents or components. E.g.
 
 ```md
-[Links to a specific documentation page](../?path=/docs/some--id)
-[Links to a specific story canvas](../?path=/story/some--id)
+[Links to a specific documentation page](?path=/docs/some--id)
+[Links to a specific story canvas](?path=/story/some--id)
+```
+
+Note: if linking in a story via a native or Nimble anchor component, use the following syntax:
+
+```html
+<a href="./?path=/docs/some--id" target="_top">Link</a>
 ```
 
 All other Markdown formatting is supported. See any [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more information.
