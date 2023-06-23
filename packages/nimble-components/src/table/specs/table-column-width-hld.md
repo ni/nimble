@@ -18,12 +18,12 @@ We need to provide users the means for changing the widths of individual columns
 #### Column Sizing
 
 -   Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
--   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are: - If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction. - A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size. - A sizing action to the right that would ultimately result in the final right column reaching its minimum size (all columns still within current table width) would _conditionally_ (see behavior descriptions below) begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table. - Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
+-   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are: - If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
+-   A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size. - A sizing action to the right that would ultimately result in the final right column reaching its minimum size (all columns still within current table width) would _conditionally_ (see behavior descriptions below) begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table. - Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
     ![Column resizing](spec-images/tableColumnResize.gif)
 
 -   Columns can be configured to not allow a user to interactively size them
     -   The implicit behavior present based on the behaviors described above, is that in a sizing action that cascades to a column configured to not be resized is that the column won't be resized towards a minimum size, and the cascade will effectively "skip" this column.
--   A client will be able to configure the table such that dragging a column will never result in a change in the table's viewport width. Instead, once all columns have been reduced to their minimum width to the right of the divider, further mouse moves to the right will result in no action. This does _not_ mean that a table configured in such a way will _never_ have a scrollbar (e.g. a table could still have enough columns in its view to demand a horizontal scrollbar due to their combined minimum sizes).
 
 #### Table Sizing
 
@@ -50,7 +50,7 @@ There are some column sizing behaviors that we will ultimately expect to support
      * Allows a user to set how interactive column sizing should behave
      */
     @attr({ attribute: 'column-resize' })
-    public columnResize: 'none' | 'cascade' | 'cascade-limit-width' = 'cascade';
+    public columnResize: 'none' | 'cascade' = 'cascade';
 ```
 
 `ColumnInternals`:
@@ -192,7 +192,7 @@ We should consider how table re-sizing will work when on a mobile platform (touc
 
 #### **Future interactive sizing behaviors**
 
-Currently, we only have a need for an interactive resize to behave as outlined in the 'Expected Behaviors' section, but it is recognized that another behavior we will ultimately want to support is a "push" resize mode, where as a user drags a divider to the right, all columns are simply pushed to the right, maintaining their current pixel size.
+Currently, we only have a need for an interactive resize to behave as outlined in the 'Expected Behaviors' section, but it is recognized that another behavior we might want to support is a "push" resize mode, where as a user drags a divider to the right, all columns are simply pushed to the right, maintaining their current pixel size.
 
 To help facilitate this, it may be helpful to approach the initial implementation by encapsulating the column resize management within a separate class from the `Table` and have it implement a common interface that would allow a separate implementation to provide differing behavior.
 
