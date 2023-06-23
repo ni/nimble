@@ -173,20 +173,20 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private getAllColumnsMinimumWidth(): number {
         let totalColumnMiniumWidth = 0;
-        this.table.columns.forEach(column => {
+        for (const column of this.table.columns) {
             totalColumnMiniumWidth += column.columnInternals.minPixelWidth;
-        });
+        }
         return totalColumnMiniumWidth;
     }
 
     private getTotalColumnFixedWidth(): number {
         let totalColumnFixedWidth = 0;
-        this.table.columns.forEach(column => {
+        for (const column of this.table.columns) {
             totalColumnFixedWidth += (column.columnInternals.currentPixelWidth
                 !== undefined)
                 ? column.columnInternals.currentPixelWidth
                 : 0;
-        });
+        }
         return totalColumnFixedWidth;
     }
 
