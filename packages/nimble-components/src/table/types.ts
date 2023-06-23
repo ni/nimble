@@ -153,8 +153,7 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
  */
 export const TableColumnResizeMode = {
     none: 'none',
-    cascade: 'cascade',
-    cascadeLimitWidth: 'cascadeLimitWidth'
+    cascade: 'cascade'
 } as const;
 export type TableColumnResizeMode =
     (typeof TableColumnResizeMode)[keyof typeof TableColumnResizeMode];

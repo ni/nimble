@@ -1,7 +1,7 @@
 import { Notifier, Observable } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
-import { TableColumnResizeMode, TableRecord } from '../types';
+import type { TableRecord } from '../types';
 import { Virtualizer } from './virtualizer';
 
 /**
@@ -221,23 +221,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         let currentIndex = activeColumnIndex;
         if (delta > 0) {
             // size right
-            if (
-                this.table.columnResizeMode
-                === TableColumnResizeMode.cascadeLimitWidth
-            ) {
-                while (
-                    currentIndex + 1
-                    < this.initialColumnPixelWidths.length
-                ) {
-                    const columnInitialWidths = this.initialColumnPixelWidths[currentIndex + 1]!;
-                    availableSpace
-                        += Math.floor(columnInitialWidths.initialPixelWidth)
-                        - columnInitialWidths.minPixelWidth;
-                    currentIndex += 1;
-                }
-            } else {
-                availableSpace = delta;
-            }
+            availableSpace = delta;
         } else if (delta < 0) {
             // size left
             while (currentIndex >= 0) {

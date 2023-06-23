@@ -114,18 +114,10 @@ export const styles = css`
         z-index: 1;
     }
 
-    .table-sizer {
-        border-left: 2px solid ${popupBorderColor};
-        height: 4px;
-        width: 4px;
-    }
-
-    .table-sizer::before {
-        content: '';
-        border-left: 2px solid ${popupBorderColor};
-        height: 4px;
-        margin-left: 2px;
+    .header-container:hover .column-divider:not([not-active]).left,
+    .header-container:hover .column-divider:not([not-active]).right {
         display: block;
+        z-index: 1;
     }
 
     .left {
@@ -134,20 +126,6 @@ export const styles = css`
 
     .right {
         left: calc(100% - 1px);
-    }
-
-    .header-container:hover .column-divider:not([not-active]).left,
-    .header-container:hover .column-divider:not([not-active]).right {
-        display: block;
-        z-index: 1;
-    }
-
-    .column-divider.left-limit {
-        cursor: e-resize;
-    }
-
-    .column-divider.right-limit {
-        cursor: w-resize;
     }
 
     .table-viewport {
