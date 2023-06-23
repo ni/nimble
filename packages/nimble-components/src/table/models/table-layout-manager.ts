@@ -309,11 +309,11 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private unflagActiveColumnDividers(): void {
-        const dividers = this.table.shadowRoot!.querySelectorAll('.column-divider');
-        Array.from(dividers).forEach(divider => {
+        const dividers = Array.from(this.table.shadowRoot!.querySelectorAll('.column-divider'));
+        for (const divider of dividers) {
             divider.removeAttribute('not-active');
             divider.removeAttribute('active');
-        });
+        }
     }
 
     private cacheGridSizedColumns(): void {
