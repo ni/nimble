@@ -112,14 +112,6 @@ export class TableLayoutManager<TData extends TableRecord> {
         document.addEventListener('mouseup', this.onDividerMouseUp);
     }
 
-    public getAllColumnsMinimumWidth(): number {
-        let totalColumnMiniumWidth = 0;
-        this.table.columns.forEach(column => {
-            totalColumnMiniumWidth += column.columnInternals.minPixelWidth;
-        });
-        return totalColumnMiniumWidth;
-    }
-
     public updateTableViewportMinWidth(): void {
         if (!this.table.$fastController.isConnected) {
             return;
@@ -178,6 +170,14 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.resetGridSizedColumns();
         this.table.isColumnBeingSized = false;
     };
+
+    private getAllColumnsMinimumWidth(): number {
+        let totalColumnMiniumWidth = 0;
+        this.table.columns.forEach(column => {
+            totalColumnMiniumWidth += column.columnInternals.minPixelWidth;
+        });
+        return totalColumnMiniumWidth;
+    }
 
     private getTotalColumnFixedWidth(): number {
         let totalColumnFixedWidth = 0;
