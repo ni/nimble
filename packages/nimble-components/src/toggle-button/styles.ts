@@ -47,6 +47,8 @@ export const styles = css`
     :host([disabled]) .control[aria-pressed='true']:hover {
         border-color: ${fillSelectedColor};
         background-color: ${fillSelectedColor};
+        box-shadow: none;
+        outline: none;
     }
 
     .control[aria-pressed='true']::before {
