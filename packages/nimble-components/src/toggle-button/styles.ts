@@ -23,7 +23,7 @@ export const styles = css`
 
     .control[aria-pressed='true']:hover {
         border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         transition: box-shadow ${mediumDelay};
     }
 
@@ -39,7 +39,17 @@ export const styles = css`
         transition: box-shadow ${mediumDelay};
     }
 
-    .control::before[aria-pressed='true'] {
+    :host([disabled]) .control[aria-pressed='true'] {
+        border-color: ${fillSelectedColor};
+        background-color: ${fillSelectedColor};
+    }
+
+    :host([disabled]) .control[aria-pressed='true']:hover {
+        border-color: ${fillSelectedColor};
+        background-color: ${fillSelectedColor};
+    }
+
+    .control[aria-pressed='true']::before {
         content: '';
         position: absolute;
         width: 100%;
@@ -51,11 +61,11 @@ export const styles = css`
         z-index: -1;
     }
 
-    .control::before[aria-pressed='true']:hover {
+    .control[aria-pressed='true']:hover::before {
         background-color: ${fillSelectedColor};
     }
 
-    .control::before[aria-pressed='true']${focusVisible} {
+    .control[aria-pressed='true']${focusVisible}::before {
         background-color: ${fillSelectedColor};
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
@@ -64,18 +74,8 @@ export const styles = css`
         padding: 2px;
     }
 
-    .control::before[aria-pressed='true']:active {
+    .control[aria-pressed='true']:active::before {
         outline: none;
-        padding: 1px;
-    }
-
-    :host([disabled]) .control[aria-pressed='true'] {
-        border-color: ${fillSelectedColor};
-        background-color: ${fillSelectedColor};
-    }
-
-    :host([disabled]) .control[aria-pressed='true']:hover {
-        border-color: ${fillSelectedColor};
-        background-color: ${fillSelectedColor};
+        padding: ${borderWidth};
     }
 `;

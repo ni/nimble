@@ -50,7 +50,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: 1px solid transparent;
+        border: ${borderWidth} solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -82,7 +82,7 @@ export const styles = css`
 
     .control:hover {
         border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         transition: box-shadow ${mediumDelay};
     }
 
@@ -98,6 +98,11 @@ export const styles = css`
         transition: box-shadow ${mediumDelay};
     }
 
+    :host([disabled]) .control {
+        box-shadow: none;
+        outline: none;
+    }
+
     .control::before {
         content: '';
         position: absolute;
@@ -110,19 +115,14 @@ export const styles = css`
         z-index: -1;
     }
 
-    .control::before${focusVisible} {
+    .control${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
         transition: outline 0.5s;
         color: transparent;
     }
 
-    .control::before:active {
-        outline: none;
-    }
-
-    :host([disabled]) .control {
-        box-shadow: none;
+    .control:active::before {
         outline: none;
     }
 
@@ -196,14 +196,14 @@ export const styles = css`
                 outline: none;
             }
 
-            .control::before:active {
-                background-color: ${fillSelectedColor};
-                outline: none;
-                padding: 1px;
-            }
-
             :host([disabled]) .control {
                 border-color: rgba(${borderRgbPartialColor}, 0.3);
+            }
+
+            .control:active::before {
+                background-color: ${fillSelectedColor};
+                outline: none;
+                padding: ${borderWidth};
             }
 
             :host([disabled]) .control::before {
@@ -219,6 +219,10 @@ export const styles = css`
                 background-color: transparent;
             }
 
+            .control${focusVisible} {
+                background-color: transparent;
+            }
+
             :host([disabled]) .control {
                 border-color: transparent;
             }
@@ -226,7 +230,7 @@ export const styles = css`
             .control:active::before {
                 background-color: ${fillSelectedColor};
                 outline: none;
-                padding: 1px;
+                padding: ${borderWidth};
             }
 
             :host([disabled]) .control::before {
@@ -250,24 +254,24 @@ export const styles = css`
                 background-color: transparent;
             }
 
-            .control::before:hover {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
-                padding: 2px;
-            }
-
-            .control::before${focusVisible} {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
-                padding: 2px;
-            }
-
-            .control::before:active {
-                background-color: ${fillSelectedColor};
-                padding: 1px;
-            }
-
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 border-color: transparent;
+            }
+
+            .control:hover::before {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding: 2px;
+            }
+
+            .control${focusVisible}::before {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding: 2px;
+            }
+
+            .control:active::before {
+                background-color: ${fillSelectedColor};
+                padding: ${borderWidth};
             }
 
             :host([disabled]) .control::before {
@@ -336,11 +340,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 padding: 0px;
             }
 
-            :host([appearance-variant='primary']) .control:active::before {
-                border-color: ${fillSelectedColor};
-                border-width: ${borderWidth};
-            }
-
             :host([appearance-variant='primary']) .control:active {
                 box-shadow: none;
             }
@@ -361,6 +360,11 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             :host([appearance-variant='primary'][disabled][content-hidden])
                 .control {
                 padding: 0px;
+            }
+
+            :host([appearance-variant='primary']) .control:active::before {
+                border-color: ${fillSelectedColor};
+                border-width: ${borderWidth};
             }
         `
     )
