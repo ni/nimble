@@ -44,7 +44,7 @@ jobs:
       - run: npm outdated || exit 0
 
       # Audit
-      - run: npm audit --only=prod
+      - run: npm audit --only=prod --audit-level=high
       # https://github.com/ni/nimble/issues/801
       # - run: npm audit --audit-level=critical
 
