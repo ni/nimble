@@ -64,7 +64,7 @@ export const styles = css`
         transition: box-shadow ${mediumDelay};
     }
 
-    .control:active[aria-pressed='true']::before {
+    .control[aria-pressed='true']:active::before {
         outline: none;
         padding: 1px;
     }

@@ -188,18 +188,18 @@ export const styles = css`
                 background-color: transparent;
             }
 
-            .control:active::before {
-                background-color: ${fillSelectedColor};
-                outline: none;
-                padding: 1px;
+            .control${focusVisible} {
+                background-color: transparent;
             }
 
             .control:active {
                 outline: none;
             }
 
-            .control${focusVisible} {
-                background-color: transparent;
+            .control:active::before {
+                background-color: ${fillSelectedColor};
+                outline: none;
+                padding: 1px;
             }
 
             :host([disabled]) .control {
@@ -215,14 +215,14 @@ export const styles = css`
     appearanceBehavior(
         ButtonAppearance.ghost,
         css`
+            .control:hover {
+                background-color: transparent;
+            }
+
             .control:active::before {
                 background-color: ${fillSelectedColor};
                 outline: none;
                 padding: 1px;
-            }
-
-            .control:hover {
-                background-color: transparent;
             }
 
             :host([disabled]) .control {
