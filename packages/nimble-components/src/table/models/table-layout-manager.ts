@@ -113,12 +113,11 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     public getAllColumnsMinimumWidth(): number {
-        return this.table.columns.reduce(
-            (accumulator: number, currentValue) => {
-                return accumulator + currentValue.columnInternals.minPixelWidth;
-            },
-            0
-        );
+        let totalColumnMiniumWidth = 0;
+        this.table.columns.forEach(column => {
+            totalColumnMiniumWidth += column.columnInternals.minPixelWidth;
+        });
+        return totalColumnMiniumWidth;
     }
 
     public updateTableViewportMinWidth(): void {
@@ -181,18 +180,14 @@ export class TableLayoutManager<TData extends TableRecord> {
     };
 
     private getTotalColumnFixedWidth(): number {
-        return this.table.columns.reduce(
-            (accumulator: number, currentValue) => {
-                return (
-                    accumulator
-                    + (currentValue.columnInternals.currentPixelWidth
-                    !== undefined
-                        ? currentValue.columnInternals.currentPixelWidth
-                        : 0)
-                );
-            },
-            0
-        );
+        let totalColumnFixedWidth = 0;
+        this.table.columns.forEach(column => {
+            totalColumnFixedWidth += (column.columnInternals.currentPixelWidth
+                !== undefined)
+                ? column.columnInternals.currentPixelWidth
+                : 0;
+        });
+        return totalColumnFixedWidth;
     }
 
     private getCurrentTotalTableWidth(): number {
