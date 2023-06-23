@@ -21,7 +21,25 @@ export const styles = css`
         transition: border-color ${smallDelay};
     }
 
-    .control[aria-pressed='true']::before {
+    .control[aria-pressed='true']:hover {
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
+        transition: box-shadow ${mediumDelay};
+    }
+
+    .control[aria-pressed='true']${focusVisible} {
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    }
+
+    .control[aria-pressed='true']:active {
+        box-shadow: none;
+        outline: none;
+        transition: outline 1s;
+        transition: box-shadow ${mediumDelay};
+    }
+
+    .control::before[aria-pressed='true'] {
         content: '';
         position: absolute;
         width: 100%;
@@ -33,22 +51,11 @@ export const styles = css`
         z-index: -1;
     }
 
-    .control[aria-pressed='true']:hover {
-        border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
-        transition: box-shadow ${mediumDelay};
-    }
-
-    .control[aria-pressed='true']:hover::before {
+    .control::before[aria-pressed='true']:hover {
         background-color: ${fillSelectedColor};
     }
 
-    .control[aria-pressed='true']${focusVisible} {
-        border-color: ${borderHoverColor};
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-    }
-
-    .control[aria-pressed='true']${focusVisible}::before {
+    .control::before[aria-pressed='true']${focusVisible} {
         background-color: ${fillSelectedColor};
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
@@ -57,14 +64,7 @@ export const styles = css`
         padding: 2px;
     }
 
-    .control[aria-pressed='true']:active {
-        box-shadow: none;
-        outline: none;
-        transition: outline 1s;
-        transition: box-shadow ${mediumDelay};
-    }
-
-    .control[aria-pressed='true']:active::before {
+    .control::before[aria-pressed='true']:active {
         outline: none;
         padding: 1px;
     }

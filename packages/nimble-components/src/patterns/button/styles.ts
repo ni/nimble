@@ -69,18 +69,6 @@ export const styles = css`
         transition: border-color ${smallDelay};
     }
 
-    .control::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        box-sizing: border-box;
-        outline: none;
-        background-clip: content-box;
-        z-index: -1;
-    }
-
     :host([content-hidden]) .control {
         aspect-ratio: 1 / 1;
         padding: 0px;
@@ -103,13 +91,6 @@ export const styles = css`
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
-    .control${focusVisible}::before {
-        outline: ${borderWidth} solid ${borderHoverColor};
-        outline-offset: -3px;
-        transition: outline 0.5s;
-        color: transparent;
-    }
-
     .control:active {
         box-shadow: none;
         outline: none;
@@ -117,7 +98,26 @@ export const styles = css`
         transition: box-shadow ${mediumDelay};
     }
 
-    .control:active::before {
+    .control::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        box-sizing: border-box;
+        outline: none;
+        background-clip: content-box;
+        z-index: -1;
+    }
+
+    .control::before${focusVisible} {
+        outline: ${borderWidth} solid ${borderHoverColor};
+        outline-offset: -3px;
+        transition: outline 0.5s;
+        color: transparent;
+    }
+
+    .control::before:active {
         outline: none;
     }
 
@@ -196,7 +196,7 @@ export const styles = css`
                 outline: none;
             }
 
-            .control:active::before {
+            .control::before:active {
                 background-color: ${fillSelectedColor};
                 outline: none;
                 padding: 1px;
@@ -219,14 +219,14 @@ export const styles = css`
                 background-color: transparent;
             }
 
+            :host([disabled]) .control {
+                border-color: transparent;
+            }
+
             .control:active::before {
                 background-color: ${fillSelectedColor};
                 outline: none;
                 padding: 1px;
-            }
-
-            :host([disabled]) .control {
-                border-color: transparent;
             }
 
             :host([disabled]) .control::before {
@@ -246,21 +246,21 @@ export const styles = css`
                 background-color: transparent;
             }
 
-            .control:hover::before {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
-                padding: 2px;
-            }
-
             .control${focusVisible} {
                 background-color: transparent;
             }
 
-            .control${focusVisible}::before {
+            .control::before:hover {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 padding: 2px;
             }
 
-            .control:active::before {
+            .control::before${focusVisible} {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding: 2px;
+            }
+
+            .control::before:active {
                 background-color: ${fillSelectedColor};
                 padding: 1px;
             }
