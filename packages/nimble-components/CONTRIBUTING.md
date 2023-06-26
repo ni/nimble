@@ -438,7 +438,7 @@ There are currently 2 label providers:
 -   `nimble-label-provider-core`: Used for labels for all components besides the table
 -   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
 
-To add new labels to a label provider, follow the existing patterns (create a `DesignToken<string>`, an `@attr`-backed property, a `propertyChanged()` function that updates the token value, and add it to the `labelTokens` collection).
+To add new labels to a label provider, follow the existing patterns (create a `DesignToken<string>`, an `@attr`-backed property, and a `propertyChanged()` function that updates the token value).
 
 The expected format for label token names is:
 
