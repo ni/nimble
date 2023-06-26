@@ -71,13 +71,6 @@ export abstract class TableColumn<
             .join(' ');
     }
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-
-        // Done here to enforce consistency across headers as they may have custom templates
-        this.setAttribute('slot', this.columnInternals.uniqueId);
-    }
-
     protected abstract getColumnInternalsOptions(): ColumnInternalsOptions;
 
     protected sortDirectionChanged(): void {

@@ -18,14 +18,13 @@ export function mixinFixedWidthColumnAPI<
      * to a fixed width within a Table.
      */
     abstract class FixedWidthColumn extends base {
-        public pixelWidth?: number | null;
+        public pixelWidth?: number | null = null;
 
         public pixelWidthChanged(): void {
             if (typeof this.pixelWidth === 'number') {
-                this.columnInternals.pixelWidth = this.pixelWidth;
+                this.columnInternals.currentPixelWidth = this.pixelWidth;
             } else {
-                // TODO is this right? What should the default be?
-                this.columnInternals.pixelWidth = defaultMinPixelWidth;
+                this.columnInternals.currentPixelWidth = defaultMinPixelWidth;
             }
         }
     }
