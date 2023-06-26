@@ -22,7 +22,7 @@ import {
     accentButtonBlockFontColor,
     accentButtonOutlineFontColor,
     accentButtonOutlineBorderColor,
-    mediumDelay
+    mediumDelay,
 } from '../../theme-provider/design-tokens';
 import {
     appearanceBehavior,
@@ -139,6 +139,7 @@ export const styles = css`
 
     .control:active::before {
         outline: none;
+        transition: padding ${mediumDelay};
     }
 
     :host([disabled]) .control::before {
@@ -336,19 +337,38 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                         color: ${primaryButtonFontColor};
                     }
 
+                    .control:hover {
+                        background-color: transparent;
+                    }
+
+                    .control${focusVisible} {
+                        background-color: transparent;
+                    }
+
+                    :host([disabled]) .control {
+                        background-color: rgba(${borderRgbPartialColor}, 0.1);
+                        border-color: transparent;
+                    }
+
                     .control:hover::before {
                         background-color: ${primaryButtonBackgroundColor};
+                        padding: 2px;
                     }
 
                     .control${focusVisible}::before {
-                        background-color: rgba(
-                            ${primaryButtonBackgroundColor},
-                            0.1
-                        );
+                        background-color: ${primaryButtonBackgroundColor};
+                        padding: 2px;
                     }
 
                     .control:active::before {
                         background-color: ${primaryFillActionColor};
+                        padding: ${borderWidth};
+                        outline: none;
+                    }
+
+                    :host([disabled]) .control::before {
+                        background-color: transparent;
+                        border-color: rgba(${borderRgbPartialColor}, 0.1);
                     }
                 `
             ),
@@ -397,24 +417,38 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                         color: ${accentButtonBlockFontColor};
                     }
 
-                    .control:hover::before {
-                        background-color: ${accentButtonBackgroundColor};
+                    .control:hover {
+                        background-color: transparent;
                     }
 
                     .control${focusVisible} {
-                        background-color: ${accentButtonBackgroundColor};
-                        border-color: ${borderHoverColor};
-                    }
-
-                    .control:active {
-                        background-color: ${accentFillActionColor};
-                        border-color: ${borderHoverColor};
+                        background-color: transparent;
                     }
 
                     :host([disabled]) .control {
                         background-color: rgba(${borderRgbPartialColor}, 0.1);
                         border-color: transparent;
-                        color: rgba(${actionRgbPartialColor}, 0.3);
+                    }
+
+                    .control:hover::before {
+                        background-color: ${accentButtonBackgroundColor};
+                        padding: 2px;
+                    }
+
+                    .control${focusVisible}::before {
+                        background-color: ${accentButtonBackgroundColor};
+                        padding: 2px;
+                    }
+
+                    .control:active::before {
+                        background-color: ${accentFillActionColor};
+                        padding: ${borderWidth};
+                        outline: none;
+                    }
+
+                    :host([disabled]) .control::before {
+                        background-color: transparent;
+                        border-color: rgba(${borderRgbPartialColor}, 0.1);
                     }
                 `
             ),
