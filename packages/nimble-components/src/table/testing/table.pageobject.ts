@@ -2,7 +2,11 @@ import type { Checkbox } from '@microsoft/fast-foundation';
 import { keyShift } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import { TableColumnSortDirection, TableRecord, TableRowSelectionState } from '../types';
+import {
+    TableColumnSortDirection,
+    TableRecord,
+    TableRowSelectionState
+} from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
@@ -457,10 +461,16 @@ export class TablePageObject<T extends TableRecord> {
 
     public getSortedColumns(): SortedColumn[] {
         return this.tableElement.columns
-            .filter(x => !x.sortingDisabled
-                && typeof x.columnInternals.currentSortIndex === 'number'
-                && x.columnInternals.currentSortDirection !== TableColumnSortDirection.none)
-            .sort((a, b) => (a.columnInternals.currentSortIndex! - b.columnInternals.currentSortIndex!))
+            .filter(
+                x => !x.sortingDisabled
+                    && typeof x.columnInternals.currentSortIndex === 'number'
+                    && x.columnInternals.currentSortDirection
+                        !== TableColumnSortDirection.none
+            )
+            .sort(
+                (a, b) => a.columnInternals.currentSortIndex!
+                    - b.columnInternals.currentSortIndex!
+            )
             .map(x => {
                 return {
                     columnId: x.columnId,
@@ -471,14 +481,22 @@ export class TablePageObject<T extends TableRecord> {
 
     public getGroupedColumns(): string[] {
         return this.tableElement.columns
-            .filter(x => !x.columnInternals.groupingDisabled && typeof x.columnInternals.groupIndex === 'number')
-            .sort((a, b) => (a.columnInternals.groupIndex! - b.columnInternals.groupIndex!))
+            .filter(
+                x => !x.columnInternals.groupingDisabled
+                    && typeof x.columnInternals.groupIndex === 'number'
+            )
+            .sort(
+                (a, b) => a.columnInternals.groupIndex!
+                    - b.columnInternals.groupIndex!
+            )
             .map(x => x.columnId ?? '');
     }
 
     public getChildDisplayCountForGroup(groupRowIndex: number): string {
         const groupRow = this.getGroupRow(groupRowIndex);
-        const childDisplayCountElement = groupRow.shadowRoot!.querySelector('.group-row-child-count')!;
+        const childDisplayCountElement = groupRow.shadowRoot!.querySelector(
+            '.group-row-child-count'
+        )!;
         return childDisplayCountElement.textContent!.trim();
     }
 

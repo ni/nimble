@@ -170,12 +170,13 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        await element.setData([...data,
+        await element.setData([
+            ...data,
             { id: '5', stringData1: 'foo' },
             { id: '6', stringData1: 'hello' },
             { id: '7', stringData1: 'zzz' },
             { id: '8', stringData1: 'zzz' },
-            { id: '9', stringData1: 'foo' },
+            { id: '9', stringData1: 'foo' }
         ]);
         await waitForUpdatesAsync();
 
@@ -333,7 +334,10 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getGroupedColumns()).toEqual(['column-2', 'column-1']);
+        expect(pageObject.getGroupedColumns()).toEqual([
+            'column-2',
+            'column-1'
+        ]);
         expect(pageObject.getRenderedGroupRowCount()).toBe(6);
         expect(getRenderedRecordIds()).toEqual(['1', '4', '2', '3']);
         expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('world');

@@ -76,7 +76,10 @@ describe('Table sorting', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getSortedColumns()).toEqual([
-            { columnId: 'column-1', sortDirection: TableColumnSortDirection.ascending }
+            {
+                columnId: 'column-1',
+                sortDirection: TableColumnSortDirection.ascending
+            }
         ]);
         expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
     });
@@ -99,7 +102,10 @@ describe('Table sorting', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getSortedColumns()).toEqual([
-            { columnId: 'column-1', sortDirection: TableColumnSortDirection.ascending }
+            {
+                columnId: 'column-1',
+                sortDirection: TableColumnSortDirection.ascending
+            }
         ]);
         expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
     });
@@ -931,7 +937,13 @@ describe('Table sorting', () => {
                 await pageObject.clickColumnHeader(0);
 
                 const expectedSort: SortedColumn[] = test.expectedDirectionAfterClick
-                    ? [{ columnId: 'column-1', sortDirection: test.expectedDirectionAfterClick }]
+                    ? [
+                        {
+                            columnId: 'column-1',
+                            sortDirection:
+                                      test.expectedDirectionAfterClick
+                        }
+                    ]
                     : [];
                 expect(pageObject.getSortedColumns()).toEqual(expectedSort);
             });
@@ -953,9 +965,19 @@ describe('Table sorting', () => {
 
                 await pageObject.clickColumnHeader(0, true);
 
-                const alreadySortedColumn: SortedColumn = { columnId: 'column-2', sortDirection: TableColumnSortDirection.ascending };
+                const alreadySortedColumn: SortedColumn = {
+                    columnId: 'column-2',
+                    sortDirection: TableColumnSortDirection.ascending
+                };
                 const expectedSort: SortedColumn[] = test.expectedDirectionAfterClick
-                    ? [alreadySortedColumn, { columnId: 'column-1', sortDirection: test.expectedDirectionAfterClick }]
+                    ? [
+                        alreadySortedColumn,
+                        {
+                            columnId: 'column-1',
+                            sortDirection:
+                                      test.expectedDirectionAfterClick
+                        }
+                    ]
                     : [alreadySortedColumn];
                 expect(column1.columnInternals.currentSortDirection).toEqual(
                     test.expectedDirectionAfterClick
