@@ -18,6 +18,10 @@ export type TableFieldValue = string | number | boolean | null | undefined;
  */
 export type TableStringFieldValue = string | null | undefined;
 
+export type TableBooleanFieldValue = boolean | null | undefined;
+
+export type TableNumberFieldValue = number | null | undefined;
+
 /**
  * TableRecord describes the data structure that backs a single row in a table.
  * It is made up of fields, which are key/value pairs that have a key of type
@@ -31,8 +35,12 @@ export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
 
-export type TableAnyField<FieldName extends TableFieldName> = {
-    [name in FieldName]: TableFieldValue;
+export type TableBooleanField<FieldName extends TableFieldName> = {
+    [name in FieldName]: TableBooleanFieldValue;
+};
+
+export type TableNumberField<FieldName extends TableFieldName> = {
+    [name in FieldName]: TableNumberFieldValue;
 };
 
 export interface ValidityObject {
