@@ -14,7 +14,6 @@ import {
     iconColor,
     smallDelay,
     standardPadding,
-    applicationBackgroundColor,
     primaryButtonBackgroundColor,
     primaryButtonFontColor,
     primaryFillActionColor,
@@ -23,8 +22,12 @@ import {
     accentButtonBlockFontColor,
     accentButtonOutlineFontColor,
     accentButtonOutlineBorderColor,
+    mediumDelay
 } from '../../theme-provider/design-tokens';
-import { appearanceBehavior, appearanceVariantBehavior } from '../../utilities/style/appearance';
+import {
+    appearanceBehavior,
+    appearanceVariantBehavior
+} from '../../utilities/style/appearance';
 import { ButtonAppearance, ButtonAppearanceVariant } from './types';
 
 export const styles = css`
@@ -58,7 +61,7 @@ export const styles = css`
         background-color: transparent;
         height: 100%;
         width: 100%;
-        border: 0px solid transparent;
+        border: ${borderWidth} solid transparent;
         box-sizing: border-box;
         color: inherit;
         border-radius: inherit;
@@ -69,10 +72,12 @@ export const styles = css`
         gap: 4px;
         cursor: inherit;
         font: inherit;
-        outline: none;
+        outline: transparent;
         margin: 0;
         padding: 0 ${standardPadding};
+        position: relative;
         transition: box-shadow ${smallDelay};
+        transition: border-color ${smallDelay};
     }
 
     :host([content-hidden]) .control {
@@ -87,24 +92,56 @@ export const styles = css`
     }
 
     .control:hover {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-            0px 0px 0px 3px ${applicationBackgroundColor} inset;
-        outline: none;
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        transition: box-shadow ${mediumDelay};
     }
 
     .control${focusVisible} {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset,
-            0px 0px 0px 3px ${applicationBackgroundColor} inset,
-            0px 0px 0px 4px ${borderHoverColor} inset;
+        border-color: ${borderHoverColor};
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
     .control:active {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset,
-            0px 0px 0px 2px ${applicationBackgroundColor} inset;
+        box-shadow: none;
         outline: none;
+        transition: outline ${mediumDelay};
+        transition: box-shadow ${mediumDelay};
     }
 
     :host([disabled]) .control {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .control::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        box-sizing: border-box;
+        outline: none;
+        background-clip: content-box;
+        z-index: -1;
+    }
+
+    .control:hover::before {
+        transition: padding ${mediumDelay};
+    }
+
+    .control${focusVisible}::before {
+        outline: ${borderWidth} solid ${borderHoverColor};
+        outline-offset: -3px;
+        transition: outline 0.5s;
+        color: transparent;
+    }
+
+    .control:active::before {
+        outline: none;
+    }
+
+    :host([disabled]) .control::before {
         box-shadow: none;
         outline: none;
     }
@@ -159,26 +196,61 @@ export const styles = css`
         ButtonAppearance.outline,
         css`
             .control {
-                box-shadow: 0px 0px 0px ${borderWidth}
-                    rgba(${actionRgbPartialColor}, 0.3) inset;
+                border-color: rgba(${actionRgbPartialColor}, 0.3);
+            }
+
+            .control:hover {
+                background-color: transparent;
+            }
+
+            .control${focusVisible} {
+                background-color: transparent;
             }
 
             .control:active {
-                background-color: ${fillSelectedColor};
+                outline: none;
             }
 
             :host([disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
+            }
+
+            .control:active::before {
+                background-color: ${fillSelectedColor};
+                outline: none;
+                padding: ${borderWidth};
+            }
+
+            :host([disabled]) .control::before {
                 background-color: transparent;
-                box-shadow: 0px 0px 0px ${borderWidth}
-                    rgba(${actionRgbPartialColor}, 0.3) inset;
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     ),
     appearanceBehavior(
         ButtonAppearance.ghost,
         css`
-            .control:active {
+            .control:hover {
+                background-color: transparent;
+            }
+
+            .control${focusVisible} {
+                background-color: transparent;
+            }
+
+            :host([disabled]) .control {
+                border-color: transparent;
+            }
+
+            .control:active::before {
                 background-color: ${fillSelectedColor};
+                outline: none;
+                padding: ${borderWidth};
+            }
+
+            :host([disabled]) .control::before {
+                background-color: transparent;
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     ),
@@ -189,16 +261,38 @@ export const styles = css`
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
             }
 
-            .control${focusVisible} {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
+            .control:hover {
+                background-color: transparent;
             }
 
-            .control:active {
-                background-color: ${fillSelectedColor};
+            .control${focusVisible} {
+                background-color: transparent;
             }
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
+            }
+
+            .control:hover::before {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding: 2px;
+            }
+
+            .control${focusVisible}::before {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                padding: 2px;
+            }
+
+            .control:active::before {
+                background-color: ${fillSelectedColor};
+                padding: ${borderWidth};
+                outline: none;
+            }
+
+            :host([disabled]) .control::before {
+                background-color: transparent;
+                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     )
@@ -239,28 +333,22 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 css`
                     .control {
                         background-color: ${primaryButtonBackgroundColor};
-                        border-color: transparent;
                         color: ${primaryButtonFontColor};
                     }
 
-                    .control:hover {
-                        background-color: ${primaryButtonBackgroundColor}; 
+                    .control:hover::before {
+                        background-color: ${primaryButtonBackgroundColor};
                     }
 
-                    .control${focusVisible} {
-                        background-color:${primaryButtonBackgroundColor}; 
-                        border-color: ${borderHoverColor};
+                    .control${focusVisible}::before {
+                        background-color: rgba(
+                            ${primaryButtonBackgroundColor},
+                            0.1
+                        );
                     }
 
-                    .control:active {
+                    .control:active::before {
                         background-color: ${primaryFillActionColor};
-                        border-color: ${borderHoverColor};
-                    }
-
-                    :host([disabled]) .control {
-                        background-color: rgba(${borderRgbPartialColor}, 0.1);
-                        border-color: transparent;
-                        color: rgba(${actionRgbPartialColor}, 0.3);
                     }
                 `
             ),
@@ -269,7 +357,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 css`
                     .control {
                         background-color: transparent;
-                        box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}) inset;
+                        box-shadow: 0px 0px 0px ${borderWidth}
+                            rgba(${actionRgbPartialColor}) inset;
                         color: ${actionRgbPartialColor};
                     }
 
@@ -304,18 +393,16 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ButtonAppearance.block,
                 css`
                     .control {
-                        background-color: ${accentButtonBackgroundColor}; 
-                        border-color: transparent;
+                        background-color: ${accentButtonBackgroundColor};
                         color: ${accentButtonBlockFontColor};
-                        
                     }
 
-                    .control:hover {
-                        background-color: ${accentButtonBackgroundColor}; 
+                    .control:hover::before {
+                        background-color: ${accentButtonBackgroundColor};
                     }
 
                     .control${focusVisible} {
-                        background-color:${accentButtonBackgroundColor}; 
+                        background-color: ${accentButtonBackgroundColor};
                         border-color: ${borderHoverColor};
                     }
 
@@ -336,7 +423,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 css`
                     .control {
                         background-color: transparent;
-                        box-shadow: 0px 0px 0px ${borderWidth} ${accentButtonOutlineBorderColor} inset;
+                        box-shadow: 0px 0px 0px ${borderWidth}
+                            ${accentButtonOutlineBorderColor} inset;
                         color: ${accentButtonOutlineFontColor};
                     }
 
@@ -362,7 +450,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 `
             )
         )
-    ),
+    )
     // appearanceBehavior(
     //     ButtonAppearance.block,
     //     css`
