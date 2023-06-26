@@ -20,14 +20,6 @@ declare global {
  * Label provider for the Nimble table (and its sub-components and columns)
  */
 export class LabelProviderTable extends LabelProviderBase {
-    public override readonly labelTokens = {
-        tableGroupCollapseLabel,
-        tableGroupExpandLabel,
-        tableGroupsCollapseAllLabel,
-        tableCellActionMenuLabel,
-        tableColumnHeaderGroupedIndicatorLabel
-    };
-
     @attr({
         attribute: 'group-collapse',
         mode: 'fromView'

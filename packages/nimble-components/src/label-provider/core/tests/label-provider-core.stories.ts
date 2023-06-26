@@ -4,6 +4,7 @@ import {
     labelProviderMetadata
 } from '../../base/label-provider-stories-utils';
 import { labelProviderCoreTag } from '..';
+import * as labelTokensNamespace from '../label-tokens';
 
 const metadata = {
     ...labelProviderMetadata,
@@ -15,6 +16,7 @@ export default metadata;
 
 export const coreLabelProvider: StoryObj<LabelProviderArgs> = {
     args: {
-        labelProviderTag: labelProviderCoreTag
+        labelProviderTag: labelProviderCoreTag,
+        labelTokens: Object.entries(labelTokensNamespace)
     }
 };

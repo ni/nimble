@@ -5,13 +5,6 @@ import { themeProviderTag } from '../../theme-provider';
  * Base class for label providers
  */
 export abstract class LabelProviderBase extends FoundationElement {
-    /**
-     * @internal
-     */
-    public abstract readonly labelTokens: {
-        [labelName: string]: DesignToken<string>
-    };
-
     private readonly deferredTokenUpdates: Map<
     DesignToken<string>,
     string | undefined

@@ -1,8 +1,7 @@
-import { ViewTemplate, html, ref, repeat } from '@microsoft/fast-element';
+import { ViewTemplate, html, repeat } from '@microsoft/fast-element';
 import type { Meta } from '@storybook/html';
 import type { DesignToken } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import type { LabelProviderBase } from '.';
 import {
     bodyFont,
     groupHeaderFont,
@@ -13,7 +12,7 @@ import { getAttributeName, getPropertyName } from './label-name-utils';
 
 export interface LabelProviderArgs {
     labelProviderTag: string;
-    labelProviderRef: LabelProviderBase;
+    labelTokens: [string, DesignToken<string>][];
     removeNamePrefix(tokenName: string): string;
 }
 
@@ -30,7 +29,7 @@ contributing docs for more information.`;
 const createTemplate = (
     labelProviderTag: string
 ): ViewTemplate<LabelProviderArgs> => html<LabelProviderArgs>`
-<${labelProviderTag} ${ref('labelProviderRef')}></${labelProviderTag}>
+<${labelProviderTag}></${labelProviderTag}>
 <h2>${x => x.labelProviderTag}</h2>
 <hr/>
 <table>
@@ -42,7 +41,7 @@ const createTemplate = (
     </thead>
     <tbody>
         ${repeat(
-        x => Object.entries(x.labelProviderRef.labelTokens),
+        x => x.labelTokens,
         html<[string, DesignToken<string>], LabelProviderArgs>`
                 <tr>
                     <td>${x => x[0]}</td>
@@ -100,14 +99,13 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                 disable: true
             }
         },
-        labelProviderRef: {
+        labelTokens: {
             table: {
                 disable: true
             }
         }
     },
     args: {
-        labelProviderTag: undefined,
         removeNamePrefix: jsTokenName => jsTokenName
     }
 };
