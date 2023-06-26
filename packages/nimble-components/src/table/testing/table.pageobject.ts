@@ -476,6 +476,12 @@ export class TablePageObject<T extends TableRecord> {
             .map(x => x.columnId ?? '');
     }
 
+    public getChildDisplayCountForGroup(groupRowIndex: number): string {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        const childDisplayCountElement = groupRow.shadowRoot!.querySelector('.group-row-child-count')!;
+        return childDisplayCountElement.textContent!.trim();
+    }
+
     private getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
@@ -557,16 +563,7 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
-        if (groupRowIndex >= groupRows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const groupRow = groupRows[groupRowIndex];
+        const groupRow = this.getGroupRow(groupRowIndex);
         return groupRow!.shadowRoot!.querySelector('.group-header-view')!;
     }
 

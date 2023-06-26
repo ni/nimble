@@ -90,6 +90,27 @@ describe('Table grouping', () => {
         expect(pageObject.getRenderedGroupRowCount()).toEqual(3);
     });
 
+    it('shows correct child row counts on group rows', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'foo' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.groupIndex = 0;
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildDisplayCountForGroup(0)).toBe('(2)');
+        expect(pageObject.getChildDisplayCountForGroup(1)).toBe('(1)');
+        expect(pageObject.getChildDisplayCountForGroup(2)).toBe('(1)');
+    });
+
     it('changing column field updates rows', async () => {
         const data: readonly SimpleTableRecord[] = [
             { id: '1', stringData1: 'foo', stringData2: 'elephant' },
@@ -110,6 +131,57 @@ describe('Table grouping', () => {
         await waitForUpdatesAsync();
 
         expect(getRenderedRecordIds()).toEqual(['1', '2', '4', '3']);
+    });
+
+    it('changing column field updates rows updates group row counts', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo', stringData2: 'elephant' },
+            { id: '2', stringData1: 'abc', stringData2: 'cat' },
+            { id: '3', stringData1: 'foo', stringData2: 'dog' },
+            { id: '4', stringData1: 'hello', stringData2: 'cat' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        column1.fieldName = 'stringData2';
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildDisplayCountForGroup(0)).toBe('(1)');
+        expect(pageObject.getChildDisplayCountForGroup(1)).toBe('(2)');
+        expect(pageObject.getChildDisplayCountForGroup(2)).toBe('(1)');
+    });
+
+    it('updating data updates group row counts', async () => {
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1', stringData1: 'foo' },
+            { id: '2', stringData1: 'foo' },
+            { id: '3', stringData1: 'zzz' },
+            { id: '4', stringData1: 'hello' }
+        ] as const;
+
+        column1.fieldName = 'stringData1';
+        column1.groupIndex = 0;
+        await waitForUpdatesAsync();
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+
+        await element.setData([...data,
+            { id: '5', stringData1: 'foo' },
+            { id: '6', stringData1: 'hello' },
+            { id: '7', stringData1: 'zzz' },
+            { id: '8', stringData1: 'zzz' },
+            { id: '9', stringData1: 'foo' },
+        ]);
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getChildDisplayCountForGroup(0)).toBe('(4)');
+        expect(pageObject.getChildDisplayCountForGroup(1)).toBe('(3)');
+        expect(pageObject.getChildDisplayCountForGroup(2)).toBe('(2)');
     });
 
     it('removing grouping restores rows to default order based on data', async () => {
