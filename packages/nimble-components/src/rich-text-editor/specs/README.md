@@ -48,8 +48,7 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
--   Support for adding hyperlinks to the existing words in the editor. However, adding raw links by pasting them to the editor is supported for the
-    initial release.
+-   Support for adding hyperlinks to the existing words in the editor.
 -   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
     [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
     versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
