@@ -428,6 +428,31 @@ Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
 
+## Localization
+
+Nimble components may need to use some strings/labels (such as the label for a close button in a component's template, or menu items in a component-provided menu). Nimble exposes these localizable labels as design tokens, to support both localization and the ability for clients to override the strings.
+
+Nimble provides English strings as the token defaults, and provides `nimble-label-provider-*` elements with APIs for overriding those values.  
+There are currently 2 label providers:
+
+-   `nimble-label-provider-core`: Used for labels for all components besides the table
+-   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
+
+To add new labels to a label provider, follow the existing patterns (create a `DesignToken<string>`, an `@attr`-backed property, a `propertyChanged()` function that updates the token value, and add it to the `labelTokens` collection).
+
+The expected format for label token names is:
+
+-   element/type(s) to which the token applies, e.g. `number-field` or `table`
+    -   This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
+-   component part/category (optional), e.g. `column-header`
+-   specific functionality or sub-part, e.g. `decrement`
+-   the suffix `label` (will be omitted from the label-provider properties/attributes)
+
+Components using localized labels should document them in Storybook. To add a "Localizable Labels" section:
+
+-   Their story `Args` should extend `LabelUserArgs`
+-   Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
+
 ## Component naming
 
 Component custom element names are specified in `index.ts` when registering the element. Use the following structure when naming components.

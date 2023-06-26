@@ -5,6 +5,10 @@ import { buttonTag } from '../../../button';
 import { ButtonAppearance } from '../../../button/types';
 import { iconArrowExpanderRightTag } from '../../../icons/arrow-expander-right';
 import { checkboxTag } from '../../../checkbox';
+import {
+    tableGroupCollapseLabel,
+    tableGroupExpandLabel
+} from '../../../label-provider/table/label-tokens';
 
 // prettier-ignore
 export const template = html<TableGroupRow>`
@@ -33,6 +37,7 @@ export const template = html<TableGroupRow>`
                 tabindex="-1"
             >
                 <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
+                ${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}
             </${buttonTag}>
         </span>
 

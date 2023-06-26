@@ -8,6 +8,12 @@ import { bannerTag } from '..';
 import { iconKeyTag } from '../../icons/key';
 import { buttonTag } from '../../button';
 import { anchorTag } from '../../anchor';
+import { labelProviderCoreTag } from '../../label-provider/core';
+import {
+    LabelUserArgs,
+    addLabelUseMetadata
+} from '../../label-provider/base/label-user-stories-utils';
+import { alertDismissLabel } from '../../label-provider/core/label-tokens';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
@@ -20,7 +26,7 @@ const ActionType = {
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 type ActionType = (typeof ActionType)[keyof typeof ActionType];
 
-interface BannerArgs {
+interface BannerArgs extends LabelUserArgs {
     open: boolean;
     title: string;
     text: string;
@@ -55,6 +61,7 @@ const metadata: Meta<BannerArgs> = {
         }
     }
 };
+addLabelUseMetadata(metadata, labelProviderCoreTag, alertDismissLabel);
 
 export default metadata;
 
@@ -121,11 +128,13 @@ export const _banner: StoryObj<BannerArgs> = {
         dismissButtonLabel: {
             name: 'dismiss-button-label',
             description:
-                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies.'
+                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies.',
+            control: { type: 'none' }
         },
         toggle: {
             description:
-                'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.'
+                'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.',
+            control: { type: 'none' }
         }
     },
     args: {
@@ -135,6 +144,8 @@ export const _banner: StoryObj<BannerArgs> = {
         severity: BannerSeverity.error,
         action: 'none',
         preventDismiss: false,
-        titleHidden: false
+        titleHidden: false,
+        dismissButtonLabel: undefined,
+        toggle: undefined
     }
 };

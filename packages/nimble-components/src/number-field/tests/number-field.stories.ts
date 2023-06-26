@@ -4,8 +4,17 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { NumberFieldAppearance } from '../types';
 import { numberFieldTag } from '..';
+import { labelProviderCoreTag } from '../../label-provider/core';
+import {
+    addLabelUseMetadata,
+    type LabelUserArgs
+} from '../../label-provider/base/label-user-stories-utils';
+import {
+    numberFieldDecrementLabel,
+    numberFieldIncrementLabel
+} from '../../label-provider/core/label-tokens';
 
-interface NumberFieldArgs {
+interface NumberFieldArgs extends LabelUserArgs {
     label: string;
     value: number;
     step: number;
@@ -71,6 +80,12 @@ const metadata: Meta<NumberFieldArgs> = {
         errorText: 'Value is invalid'
     }
 };
+addLabelUseMetadata(
+    metadata,
+    labelProviderCoreTag,
+    numberFieldDecrementLabel,
+    numberFieldIncrementLabel
+);
 
 export default metadata;
 

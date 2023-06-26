@@ -12,8 +12,13 @@ import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { tableColumnTextTag } from '../../table-column/text';
+import {
+    addLabelUseMetadata,
+    type LabelUserArgs
+} from '../../label-provider/base/label-user-stories-utils';
+import { labelProviderTableTag } from '../../label-provider/table';
 
-interface TableArgs {
+interface TableArgs extends LabelUserArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
@@ -268,6 +273,7 @@ const metadata: Meta<TableArgs> = {
         }
     }
 };
+addLabelUseMetadata(metadata, labelProviderTableTag);
 
 export default metadata;
 
