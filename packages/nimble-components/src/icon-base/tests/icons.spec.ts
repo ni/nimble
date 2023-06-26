@@ -3,7 +3,7 @@ import type { NimbleIconName } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
-import { iconMetadata } from '../icon-metadata';
+import { iconMetadata } from './icon-metadata';
 
 describe('Icons', () => {
     describe('should have correct SVG structure', () => {
