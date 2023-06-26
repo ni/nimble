@@ -1,12 +1,17 @@
 import { css } from '@microsoft/fast-element';
 import { focusVisible } from '../utilities/style/focus';
 
-import { borderHoverColor, borderWidth, fillSelectedColor, mediumDelay, smallDelay } from '../theme-provider/design-tokens';
+import {
+    borderHoverColor,
+    borderWidth,
+    fillSelectedColor,
+    mediumDelay,
+    smallDelay
+} from '../theme-provider/design-tokens';
 import { styles as buttonStyles } from '../patterns/button/styles';
 
 export const styles = css`
     ${buttonStyles}
-
 
     .control[aria-pressed='true'] {
         background-color: ${fillSelectedColor};

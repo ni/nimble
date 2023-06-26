@@ -22,7 +22,7 @@ import {
     accentButtonBlockFontColor,
     accentButtonOutlineFontColor,
     accentButtonOutlineBorderColor,
-    mediumDelay,
+    mediumDelay
 } from '../../theme-provider/design-tokens';
 import {
     appearanceBehavior,
