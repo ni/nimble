@@ -564,7 +564,7 @@ export class TablePageObject<T extends TableRecord> {
 
     private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
         const groupRow = this.getGroupRow(groupRowIndex);
-        return groupRow!.shadowRoot!.querySelector('.group-header-view')!;
+        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
     }
 
     private getHeaderContentElement(
