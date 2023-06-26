@@ -17,8 +17,8 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table id-field-name="id">
-            <nimble-table-column-text id="first-column" field-name="stringData1"></nimble-table-column-text>
-            <nimble-table-column-text id="second-column" field-name="stringData2"></nimble-table-column-text>
+            <nimble-table-column-text id="first-column" field-name="stringData1" column-id="column-1"></nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="stringData2" column-id="column-2"></nimble-table-column-text>
         </nimble-table>`
     );
 }
@@ -66,6 +66,7 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual(['column-1']);
         expect(pageObject.getRenderedGroupRowCount()).toEqual(3);
     });
 
@@ -85,6 +86,7 @@ describe('Table grouping', () => {
         column1.groupIndex = 0;
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual(['column-1']);
         expect(pageObject.getRenderedGroupRowCount()).toEqual(3);
     });
 
@@ -259,6 +261,7 @@ describe('Table grouping', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        expect(pageObject.getGroupedColumns()).toEqual(['column-2', 'column-1']);
         expect(pageObject.getRenderedGroupRowCount()).toBe(6);
         expect(getRenderedRecordIds()).toEqual(['1', '4', '2', '3']);
         expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('world');
@@ -432,12 +435,14 @@ describe('Table grouping', () => {
         }
 
         async function addNewColumn(
+            columnId: string,
             fieldName: string,
             groupIndex?: number
         ): Promise<TableColumnText> {
             const newColumn = document.createElement(
                 'nimble-table-column-text'
             );
+            newColumn.columnId = columnId;
             newColumn.fieldName = fieldName;
             if (typeof groupIndex === 'number') {
                 newColumn.groupIndex = groupIndex;
@@ -504,7 +509,7 @@ describe('Table grouping', () => {
 
             expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('foo');
 
-            const newColumn = await addNewColumn('stringData3');
+            const newColumn = await addNewColumn('column-3', 'stringData3');
             newColumn.groupIndex = 0;
             await waitForUpdatesAsync();
 

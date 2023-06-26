@@ -8,7 +8,7 @@ import {
     TableColumnSortDirection,
     TableRecord
 } from '../types';
-import { TablePageObject } from '../testing/table.pageobject';
+import { SortedColumn, TablePageObject } from '../testing/table.pageobject';
 import { createEventListener } from '../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {
@@ -75,6 +75,9 @@ describe('Table sorting', () => {
         await connect();
         await waitForUpdatesAsync();
 
+        expect(pageObject.getSortedColumns()).toEqual([
+            { columnId: 'column-1', sortDirection: TableColumnSortDirection.ascending }
+        ]);
         expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
     });
 
@@ -95,6 +98,9 @@ describe('Table sorting', () => {
         column1.sortIndex = 0;
         await waitForUpdatesAsync();
 
+        expect(pageObject.getSortedColumns()).toEqual([
+            { columnId: 'column-1', sortDirection: TableColumnSortDirection.ascending }
+        ]);
         expect(getRenderedRecordIds()).toEqual(['2', '1', '4', '3']);
     });
 
@@ -881,6 +887,7 @@ describe('Table sorting', () => {
 
             await pageObject.clickColumnHeader(0);
 
+            expect(pageObject.getSortedColumns()).toEqual([]);
             expect(column1.columnInternals.currentSortDirection).toEqual(
                 TableColumnSortDirection.none
             );
@@ -923,16 +930,10 @@ describe('Table sorting', () => {
 
                 await pageObject.clickColumnHeader(0);
 
-                expect(column1.columnInternals.currentSortDirection).toEqual(
-                    test.expectedDirectionAfterClick
-                );
-                const expectedSortIndex = test.expectedDirectionAfterClick
-                    === TableColumnSortDirection.none
-                    ? undefined
-                    : 0;
-                expect(column1.columnInternals.currentSortIndex).toEqual(
-                    expectedSortIndex
-                );
+                const expectedSort: SortedColumn[] = test.expectedDirectionAfterClick
+                    ? [{ columnId: 'column-1', sortDirection: test.expectedDirectionAfterClick }]
+                    : [];
+                expect(pageObject.getSortedColumns()).toEqual(expectedSort);
             });
 
             it(`${directionLabel(
@@ -952,20 +953,14 @@ describe('Table sorting', () => {
 
                 await pageObject.clickColumnHeader(0, true);
 
+                const alreadySortedColumn: SortedColumn = { columnId: 'column-2', sortDirection: TableColumnSortDirection.ascending };
+                const expectedSort: SortedColumn[] = test.expectedDirectionAfterClick
+                    ? [alreadySortedColumn, { columnId: 'column-1', sortDirection: test.expectedDirectionAfterClick }]
+                    : [alreadySortedColumn];
                 expect(column1.columnInternals.currentSortDirection).toEqual(
                     test.expectedDirectionAfterClick
                 );
-                const expectedSortIndex = test.expectedDirectionAfterClick
-                    === TableColumnSortDirection.none
-                    ? undefined
-                    : 1;
-                expect(column1.columnInternals.currentSortIndex).toEqual(
-                    expectedSortIndex
-                );
-                expect(column2.columnInternals.currentSortDirection).toEqual(
-                    TableColumnSortDirection.ascending
-                );
-                expect(column2.columnInternals.currentSortIndex).toEqual(0);
+                expect(pageObject.getSortedColumns()).toEqual(expectedSort);
             });
         });
 
