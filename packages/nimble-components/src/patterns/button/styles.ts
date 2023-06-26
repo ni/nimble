@@ -348,6 +348,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     :host([disabled]) .control {
                         background-color: rgba(${borderRgbPartialColor}, 0.1);
                         border-color: transparent;
+                        color: rgba(${actionRgbPartialColor}, 0.3);
                     }
 
                     .control:hover::before {
@@ -376,30 +377,34 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ButtonAppearance.outline,
                 css`
                     .control {
-                        background-color: transparent;
-                        box-shadow: 0px 0px 0px ${borderWidth}
-                            rgba(${actionRgbPartialColor}) inset;
-                        color: ${actionRgbPartialColor};
+                        border-color: ${actionRgbPartialColor};
                     }
 
                     .control:hover {
                         background-color: transparent;
-                        border-color: ${borderHoverColor};
                     }
 
                     .control${focusVisible} {
                         background-color: transparent;
-                        border-color: ${borderHoverColor};
                     }
 
                     .control:active {
-                        background-color: ${fillSelectedColor};
+                        outline: none;
                     }
 
                     :host([disabled]) .control {
+                        border-color: rgba(${borderRgbPartialColor}, 0.3);
+                    }
+
+                    .control:active::before {
+                        background-color: ${fillSelectedColor};
+                        outline: none;
+                        padding: ${borderWidth};
+                    }
+
+                    :host([disabled]) .control::before {
                         background-color: transparent;
-                        border-color: rgba(${borderRgbPartialColor}, 0.2);
-                        color: rgba(${actionRgbPartialColor}, 0.3);
+                        border-color: rgba(${borderRgbPartialColor}, 0.1);
                     }
                 `
             )
@@ -427,6 +432,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
                     :host([disabled]) .control {
                         background-color: rgba(${borderRgbPartialColor}, 0.1);
+                        color: rgba(${actionRgbPartialColor}, 0.3);
                         border-color: transparent;
                     }
 
@@ -456,30 +462,36 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ButtonAppearance.outline,
                 css`
                     .control {
-                        background-color: transparent;
-                        box-shadow: 0px 0px 0px ${borderWidth}
-                            ${accentButtonOutlineBorderColor} inset;
+                        border-color: ${accentButtonOutlineBorderColor};
                         color: ${accentButtonOutlineFontColor};
                     }
 
                     .control:hover {
                         background-color: transparent;
-                        border-color: ${borderHoverColor};
                     }
 
                     .control${focusVisible} {
                         background-color: transparent;
-                        border-color: ${borderHoverColor};
                     }
 
                     .control:active {
-                        background-color: ${fillSelectedColor};
+                        outline: none;
                     }
 
                     :host([disabled]) .control {
-                        background-color: transparent;
-                        border-color: rgba(${borderRgbPartialColor}, 0.2);
+                        border-color: rgba(${borderRgbPartialColor}, 0.3);
                         color: rgba(${actionRgbPartialColor}, 0.3);
+                    }
+
+                    .control:active::before {
+                        background-color: ${fillSelectedColor};
+                        outline: none;
+                        padding: ${borderWidth};
+                    }
+
+                    :host([disabled]) .control::before {
+                        background-color: transparent;
+                        border-color: rgba(${borderRgbPartialColor}, 0.1);
                     }
                 `
             )
