@@ -34,6 +34,12 @@ The description supports Markdown, so can link to other documents or components.
 [Links to a specific story canvas](?path=/story/some--id)
 ```
 
+Note: if linking in a story via a native or Nimble anchor component, use the following syntax:
+
+```html
+<a href="./?path=/docs/some--id" target="_top">Link</a>
+```
+
 All other Markdown formatting is supported. See any [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more information.
 
 ### Testing 
