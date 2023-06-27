@@ -14,7 +14,7 @@ import {
     iconColor,
     smallDelay,
     standardPadding,
-    mediumDelay
+    largeDelay
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
@@ -83,19 +83,20 @@ export const styles = css`
     .control:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        transition: box-shadow ${mediumDelay};
+        transition: box-shadow ${smallDelay};
     }
 
     .control${focusVisible} {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        transition: box-shadow ${smallDelay};
     }
 
     .control:active {
         box-shadow: none;
         outline: none;
-        transition: outline ${mediumDelay};
-        transition: box-shadow ${mediumDelay};
+        transition: outline ${smallDelay};
+        transition: box-shadow ${smallDelay};
     }
 
     :host([disabled]) .control {
@@ -110,7 +111,8 @@ export const styles = css`
         height: 100%;
         pointer-events: none;
         box-sizing: border-box;
-        outline: none;
+        outline: 0px solid transparent;
+        color: transparent;
         background-clip: content-box;
         z-index: -1;
     }
@@ -118,8 +120,13 @@ export const styles = css`
     .control${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline 0.5s;
-        color: transparent;
+        transition: outline ${largeDelay};
+        ${
+            /*
+                largeDelay is used here to make the transition from the outer border to this inner border smooth.
+                If mediumDelay or smallDelay is used, this border will render faster than the box-shadow and make the border transition look inconsistent.
+            */ ''
+        }
     }
 
     .control:active::before {
