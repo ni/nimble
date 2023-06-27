@@ -28,7 +28,7 @@ export const styles = css`
     }
 
     .table-container {
-        overflow: auto;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -40,8 +40,6 @@ export const styles = css`
     .header-row-container {
         position: sticky;
         top: 0;
-        width: var(--ni-private-table-total-width);
-        min-width: var(--ni-private-table-header-row-min-width);
     }
 
     .header-row {
@@ -49,7 +47,7 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
-        min-width: 100%;
+        min-width: var(--ni-private-table-header-row-min-width);
         left: var(--ni-private-table-scroll-x);
         align-items: center;
     }
@@ -66,14 +64,6 @@ export const styles = css`
         display: grid;
         width: 100%;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
-    }
-
-    .table-row-container {
-        width: fit-content;
-        min-width: 100%;
-        position: relative;
-        top: var(--ni-private-table-row-container-top);
-        background-color: ${tableRowBorderColor};
     }
 
     .collapse-all-button {
@@ -129,13 +119,10 @@ export const styles = css`
     }
 
     .table-viewport {
-        overflow-y: auto;
+        overflow: auto;
         display: block;
         height: 100%;
         position: relative;
-        width: var(--ni-private-table-total-width);
-        min-width: var(--ni-private-table-viewport-min-width);
-        overflow-x: hidden;
     }
 
     .table-scroll {
@@ -148,7 +135,7 @@ export const styles = css`
 
     .table-row-container {
         width: fit-content;
-        min-width: 100%;
+        min-width: max(100%, var(--ni-private-table-row-min-width));
         position: relative;
         top: var(--ni-private-table-row-container-top);
         background-color: ${tableRowBorderColor};

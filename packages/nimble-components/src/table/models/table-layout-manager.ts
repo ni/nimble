@@ -1,8 +1,6 @@
-import { Notifier, Observable } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
-import { Virtualizer } from './virtualizer';
 
 /**
  * This class manages the layout of columns within a Table.
@@ -11,62 +9,18 @@ import { Virtualizer } from './virtualizer';
 export class TableLayoutManager<TData extends TableRecord> {
     private activeColumnDivider?: number;
     private gridSizedColumns?: TableColumn[];
-    private initialTableWidth?: number;
     private initialTableScrollableWidth?: number;
+    private initialTableScrollableMinWidth?: number;
     private initialColumnTotalWidth?: number;
     private currentTotalDelta = 0;
-    private readonly virtualizerNotifier: Notifier;
-    private readonly headerRowActionContainerResizeObserver: ResizeObserver;
-    private readonly tableResizeObserver: ResizeObserver;
     private initialColumnPixelWidths: {
         initialPixelWidth: number,
         minPixelWidth: number
     }[] = [];
 
-    private previousTotalTableWidth = 0;
-
     public constructor(
-        private readonly table: Table<TData>,
-        private readonly virtualizer: Virtualizer<TData>
-    ) {
-        this.virtualizerNotifier = Observable.getNotifier(
-            this.table.virtualizer
-        );
-        this.virtualizerNotifier.subscribe(this, 'headerContainerMarginRight');
-        this.tableResizeObserver = new ResizeObserver(entries => {
-            if (entries[0]?.contentRect.width) {
-                if (
-                    this.previousTotalTableWidth
-                        < entries[0].contentRect.width
-                    && this.table.tableWidthFactor > 1
-                ) {
-                    const pixelDelta = entries[0].contentRect.width
-                        - this.previousTotalTableWidth;
-                    this.table.tableWidthFactor = Math.max(
-                        this.table.tableWidthFactor
-                            - pixelDelta / this.previousTotalTableWidth,
-                        1
-                    );
-                }
-
-                this.previousTotalTableWidth = entries[0].contentRect.width;
-            }
-        });
-        this.headerRowActionContainerResizeObserver = new ResizeObserver(
-            entries => {
-                if (entries[0]) {
-                    this.updateTableViewportMinWidth();
-                }
-            }
-        );
-    }
-
-    public connectedCallback(): void {
-        this.headerRowActionContainerResizeObserver.observe(
-            this.table.headerRowActionContainer!
-        );
-        this.tableResizeObserver.observe(this.table);
-    }
+        private readonly table: Table<TData>
+    ) { }
 
     public getGridTemplateColumns(): string {
         return this.table.columns
@@ -104,34 +58,12 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialColumnPixelWidths = [];
         this.flagActiveColumnDividers(columnIndex);
         this.setColumnsToFixedSize();
-        this.initialTableWidth = this.table.getBoundingClientRect().width;
-        this.initialTableScrollableWidth = this.initialTableWidth * this.table.tableWidthFactor;
+        this.initialTableScrollableWidth = this.table.viewport.scrollWidth;
+        this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.table.isColumnBeingSized = true;
         document.addEventListener('mousemove', this.onDividerMouseMove);
         document.addEventListener('mouseup', this.onDividerMouseUp);
-    }
-
-    public updateTableViewportMinWidth(): void {
-        if (!this.table.$fastController.isConnected) {
-            return;
-        }
-
-        this.table.tableViewportMinWidth = Math.round(
-            (this.table.headerRowActionContainer?.getBoundingClientRect()
-                .width ?? 0)
-                + this.getAllColumnsMinimumWidth()
-                + this.table.virtualizer.headerContainerMarginRight
-        );
-    }
-
-    public handleChange(source: unknown, args: unknown): void {
-        if (
-            source instanceof Virtualizer
-            && args === 'headerContainerMarginRight'
-        ) {
-            this.updateTableViewportMinWidth();
-        }
     }
 
     private readonly onDividerMouseMove = (event: Event): void => {
@@ -156,28 +88,21 @@ export class TableLayoutManager<TData extends TableRecord> {
             this.currentTotalDelta
         );
 
-        this.table.tableWidthFactor = Math.max(
-            this.getCurrentTotalTableWidth() / this.initialTableWidth!,
-            1
-        );
+        const totalColumnWidthDelta = this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!;
+        if (totalColumnWidthDelta > 0) {
+            this.table.tableScrollableMinWidth = this.initialTableScrollableWidth! + totalColumnWidthDelta;
+        } else {
+            this.table.tableScrollableMinWidth = this.initialTableScrollableMinWidth!;
+        }
     };
 
     private readonly onDividerMouseUp = (): void => {
         document.removeEventListener('mousemove', this.onDividerMouseMove);
         document.removeEventListener('mouseup', this.onDividerMouseUp);
         this.unflagActiveColumnDividers();
-        this.updateTableViewportMinWidth();
         this.resetGridSizedColumns();
         this.table.isColumnBeingSized = false;
     };
-
-    private getAllColumnsMinimumWidth(): number {
-        let totalColumnMiniumWidth = 0;
-        for (const column of this.table.columns) {
-            totalColumnMiniumWidth += column.columnInternals.minPixelWidth;
-        }
-        return totalColumnMiniumWidth;
-    }
 
     private getTotalColumnFixedWidth(): number {
         let totalColumnFixedWidth = 0;
@@ -188,13 +113,6 @@ export class TableLayoutManager<TData extends TableRecord> {
                 : 0;
         }
         return totalColumnFixedWidth;
-    }
-
-    private getCurrentTotalTableWidth(): number {
-        return (
-            this.initialTableScrollableWidth!
-            + (this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!)
-        );
     }
 
     private setColumnsToFixedSize(): void {

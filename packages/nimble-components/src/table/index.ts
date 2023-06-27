@@ -191,12 +191,11 @@ export class Table<
 
     /**
      * @internal
+     * This value determines the size of the viewport area when a user has created horizontal scrollable
+     * space through a column resize operation.
      */
     @observable
-    public tableWidthFactor = 1;
-
-    @observable
-    public tableViewportMinWidth?: number;
+    public tableScrollableMinWidth = 0;
 
     public documentShiftKeyDown = false;
 
@@ -243,10 +242,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.tableLayoutManager = new TableLayoutManager(
-            this,
-            this.virtualizer
-        );
+        this.tableLayoutManager = new TableLayoutManager(this);
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -312,7 +308,6 @@ export class Table<
         super.connectedCallback();
         this.initialize();
         this.virtualizer.connectedCallback();
-        this.tableLayoutManager.connectedCallback();
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -559,7 +554,6 @@ export class Table<
         }
 
         this.observeColumns();
-        this.tableLayoutManager.updateTableViewportMinWidth();
         this.tableUpdateTracker.trackColumnInstancesChanged();
     }
 

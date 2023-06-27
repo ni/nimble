@@ -40,9 +40,8 @@ export const template = html<Table>`
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
             --ni-private-table-cursor-override: ${x => (x.isColumnBeingSized ? 'col-resize' : 'default')};
-            --ni-private-table-total-width: ${x => x.tableWidthFactor * 100}%;
-            --ni-private-table-header-row-min-width: ${x => ((x.tableViewportMinWidth === undefined) ? '100%' : `${x.tableViewportMinWidth}px`)};
-            --ni-private-table-viewport-min-width: ${x => ((x.tableViewportMinWidth === undefined) ? 'auto' : `${x.tableViewportMinWidth}px`)};
+            --ni-private-table-row-min-width: ${x => `max(100%, ${x.tableScrollableMinWidth}px)`};
+            --ni-private-table-header-row-min-width: ${x => `max(100%, calc(${x.tableScrollableMinWidth}px + ${x.virtualizer.headerContainerMarginRight}px))`};
             ">
             <div role="rowgroup" class="header-row-container">
                 <div class="header-row" role="row">
@@ -71,7 +70,7 @@ export const template = html<Table>`
                     <span class="column-headers-container" ${ref('columnHeadersContainer')}>
                         ${repeat(x => x.columns, html<TableColumn>`
                             ${when(x => !x.columnHidden, html<TableColumn, Table>`
-                            <div class="header-container">
+                                <div class="header-container">
                                     ${when((_, c) => c.index > 0 && ((c.parent as Table).columnResizeMode !== TableColumnResizeMode.none), html<TableColumn, Table>`
                                         <div class="column-divider left" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.index)}"></div>
                                     `)}
