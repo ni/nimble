@@ -39,6 +39,7 @@ export const styles = css`
 
     .glass-pane {
         width: 100%;
+        height: 100%;
         pointer-events: var(--ni-private-glass-pane-pointer-events);
     }
 
