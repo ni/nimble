@@ -106,6 +106,14 @@ export const styles = css`
         position: absolute;
     }
 
+    .column-divider::before {
+        content: " ";
+        position: absolute;
+        width: 8px;
+        height: 100%;
+        left: -5px;
+    }
+
     .column-divider[active] {
         display: block;
         z-index: 1;
