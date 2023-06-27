@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 27 Jun 2023 14:37:26 GMT",
+      "tag": "@ni/nimble-components_v19.4.0",
+      "version": "19.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a909ba9daff50f579dd5c821bf495517a53ec50c",
+            "comment": "Add spec document for nimble rich text editor and nimble rich text viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 23 Jun 2023 18:04:38 GMT",
       "tag": "@ni/nimble-components_v19.4.0",
       "version": "19.4.0",
