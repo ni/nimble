@@ -37,11 +37,6 @@ export const styles = css`
         cursor: var(--ni-private-table-cursor-override);
     }
 
-    .glass-pane {
-        width: 100%;
-        pointer-events: var(--ni-private-glass-pane-pointer-events);
-    }
-
     .header-row-container {
         position: sticky;
         top: 0;
@@ -109,8 +104,8 @@ export const styles = css`
         z-index: 1;
     }
 
-    .header-container:hover .column-divider.left,
-    .header-container:hover .column-divider.right {
+    .header-container:hover .column-divider:not([not-active]).left,
+    .header-container:hover .column-divider:not([not-active]).right {
         display: block;
         z-index: 1;
     }

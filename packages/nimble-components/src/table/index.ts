@@ -421,11 +421,17 @@ export class Table<
     }
 
     public onRightDividerMouseDown(columnIndex: number): void {
-        this.tableLayoutManager.beginColumnInteractiveSize(columnIndex * 2);
+        this.tableLayoutManager.beginColumnInteractiveSize(
+            columnIndex,
+            columnIndex
+        );
     }
 
     public onLeftDividerMouseDown(columnIndex: number): void {
-        this.tableLayoutManager.beginColumnInteractiveSize(columnIndex * 2 - 1);
+        this.tableLayoutManager.beginColumnInteractiveSize(
+            columnIndex,
+            columnIndex - 1
+        );
     }
 
     /** @internal */
