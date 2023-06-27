@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Jun 2023 19:05:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.1
+
+Tue, 27 Jun 2023 19:05:52 GMT
+
+### Patches
+
+- Add additional functions to table page object ([ni/nimble@137db4c](https://github.com/ni/nimble/commit/137db4ca75e10b5d8316e12ac86c59b0efd468a3))
 
 ## 19.4.0
 
