@@ -16,22 +16,11 @@ export interface LabelProviderArgs {
     removeNamePrefix(tokenName: string): string;
 }
 
-const overviewText = `Some Nimble components use strings/labels that need to be localized, if the consuming application 
-supports localization. Nimble exposes these localizable labels as design tokens, to support both localization and the
-ability for clients to override the strings in specific contexts.
-
-Nimble provides English strings as the token defaults, and provides \`nimble-label-provider-*\` elements with APIs for
-overriding those values with localized versions.
-
-See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme and
-contributing docs for more information.`;
-
 const createTemplate = (
     labelProviderTag: string
 ): ViewTemplate<LabelProviderArgs> => html<LabelProviderArgs>`
 <${labelProviderTag}></${labelProviderTag}>
-<h2>${x => x.labelProviderTag}</h2>
-<hr/>
+<p>Element name: <code>${x => x.labelProviderTag}</code></p>
 <table>
     <thead>
         <th>Token name</th>
@@ -61,11 +50,6 @@ const createTemplate = (
 
 export const labelProviderMetadata: Meta<LabelProviderArgs> = {
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         chromatic: { disableSnapshot: true }
     },
     // prettier-ignore

@@ -8,8 +8,7 @@ import * as labelTokensNamespace from '../label-tokens';
 
 const metadata = {
     ...labelProviderMetadata,
-    title: 'Tokens/Label Providers',
-    tags: ['autodocs']
+    title: 'Tokens/Label Providers'
 };
 
 export default metadata;
