@@ -18,8 +18,11 @@ We need to provide users the means for changing the widths of individual columns
 #### Column Sizing
 
 -   Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
--   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are: - If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
--   A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size. - A sizing action to the right that would ultimately result in the final right column reaching its minimum size (all columns still within current table width) would _conditionally_ (see behavior descriptions below) begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table. - Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
+-   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are: 
+    -   If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
+    -   A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size. 
+    -   A sizing action to the right that would ultimately result in the final right column reaching its minimum size would begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table.
+    -   Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
     ![Column resizing](spec-images/tableColumnResize.gif)
 
 -   Columns can be configured to not allow a user to interactively size them
@@ -27,11 +30,11 @@ We need to provide users the means for changing the widths of individual columns
 
 #### Table Sizing
 
--   Table resizing can result in _asymmetric_ column size state for mirrored actions such as a window maximize operation followed by a window restore down action. The following is a summary of expected behavior:
-    -   If the table currently has a horizontal scrollbar and the table is then sized to be wider, then as the table grows it will first remove excess space for the viewport prior to growing any columns. At this point, after the initial wider size has been completed, further reductions in window size will _not_ have a restorative state to the scrollbar prior to growing the window.
-    -   If the table currently has a horizontal scrollbar and the table is then sized to be smaller, the current proportional width of each column will be maintained.
+-   If a horizontal scrollbar is present, the act of growing the table will first take away the available scrollbar area, and once completely removed will begin to grow the columns proportionally.
+-   Once horizontal scrollable space has been created via column sizing, shrinking the table, while a horizontal scrollbar is present, will not update the sizes of the columns, as the current scrollable area will be maintained.
+![Table resizing](spec-images/tableResize.gif)
 
-[Prototype branch](https://60e89457a987cf003efc0a5b-xtgmcptvna.chromatic.com/?path=/story/table-column-configuration--grouping).
+[Working branch](https://github.com/ni/nimble/tree/table-column-sizing-cascade-and-grow).
 
 ### Out of Scope
 
@@ -39,6 +42,7 @@ There are some column sizing behaviors that we will ultimately expect to support
 
 -   Auto-resizing: We will not describe how we intend to support the use-case of having a column auto-size to its contents
 -   Different interactive sizing modes: While the APIs described in this HLD do not inherently prescribe to a particular interactive sizing behavior, it's worth saying that in order to support multiple sizing modes, there will likely be additional APIs required that this HLD does not address.
+-   Ability to remove any horizontal scrollable space that has been created via column sizing.
 -   Mechanisms related to accessibility-centric interactive column sizing. One possible example is allowing a user to size a column by way of the keyboard, instead of using a mouse. Ultimately, such a scenario is not in conflict with the API presented here, nor the mouse-based approach we know we will require, and can thus be handled separately, if ever.
 
 ### API
