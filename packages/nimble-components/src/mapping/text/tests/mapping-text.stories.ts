@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../../utilities/tests/hidden';
-import { keyDescription } from '../../base/tests/story-helpers';
+import { keyDescription } from '../../base/tests/shared';
 
 const metadata: Meta = {
     title: 'Tests/Mappings',
