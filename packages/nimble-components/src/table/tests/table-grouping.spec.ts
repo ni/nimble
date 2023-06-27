@@ -106,9 +106,9 @@ describe('Table grouping', () => {
         column1.groupIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getChildDisplayCountForGroup(0)).toBe('(2)');
-        expect(pageObject.getChildDisplayCountForGroup(1)).toBe('(1)');
-        expect(pageObject.getChildDisplayCountForGroup(2)).toBe('(1)');
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(2);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(1);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(1);
     });
 
     it('changing column field updates rows', async () => {
@@ -150,9 +150,9 @@ describe('Table grouping', () => {
         column1.fieldName = 'stringData2';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getChildDisplayCountForGroup(0)).toBe('(1)');
-        expect(pageObject.getChildDisplayCountForGroup(1)).toBe('(2)');
-        expect(pageObject.getChildDisplayCountForGroup(2)).toBe('(1)');
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(1);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(2);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(1);
     });
 
     it('updating data updates group row counts', async () => {
@@ -180,9 +180,9 @@ describe('Table grouping', () => {
         ]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getChildDisplayCountForGroup(0)).toBe('(4)');
-        expect(pageObject.getChildDisplayCountForGroup(1)).toBe('(3)');
-        expect(pageObject.getChildDisplayCountForGroup(2)).toBe('(2)');
+        expect(pageObject.getChildRowCountForGroup(0)).toBe(4);
+        expect(pageObject.getChildRowCountForGroup(1)).toBe(3);
+        expect(pageObject.getChildRowCountForGroup(2)).toBe(2);
     });
 
     it('removing grouping restores rows to default order based on data', async () => {

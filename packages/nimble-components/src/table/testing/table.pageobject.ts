@@ -492,12 +492,14 @@ export class TablePageObject<T extends TableRecord> {
             .map(x => x.columnId ?? '');
     }
 
-    public getChildDisplayCountForGroup(groupRowIndex: number): string {
+    public getChildRowCountForGroup(groupRowIndex: number): number {
         const groupRow = this.getGroupRow(groupRowIndex);
-        const childDisplayCountElement = groupRow.shadowRoot!.querySelector(
+        const countDisplayString = groupRow.shadowRoot!.querySelector(
             '.group-row-child-count'
-        )!;
-        return childDisplayCountElement.textContent!.trim();
+        )!.textContent!.trim();
+        // Remove the parenthesis to get just the number as a string
+        const countString = countDisplayString.substring(1, countDisplayString.length - 2);
+        return Number(countString);
     }
 
     private getRow(rowIndex: number): TableRow {
