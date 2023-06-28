@@ -29,6 +29,7 @@ TableColumnTextColumnConfig
             this.text = this.cellRecord.value;
             this.shouldUsePlaceholder = false;
         } else {
+            this.text = '';
             this.shouldUsePlaceholder = true;
         }
     }
