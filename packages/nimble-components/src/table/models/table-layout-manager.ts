@@ -21,8 +21,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     public constructor(private readonly table: Table<TData>) {}
 
     public getGridTemplateColumns(): string {
-        return this.table.columns
-            ?.filter(column => !column.columnHidden)
+        return this.getVisibleColumns()
             .map(column => {
                 const {
                     minPixelWidth,
@@ -67,8 +66,9 @@ export class TableLayoutManager<TData extends TableRecord> {
             ? Math.floor(mouseEvent.movementX)
             : Math.ceil(mouseEvent.movementX);
         this.currentTotalDelta += deltaX;
-        for (let i = 0; i < this.table.columns.length; i++) {
-            this.table.columns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
+        const visibleColumns = this.getVisibleColumns();
+        for (let i = 0; i < visibleColumns.length; i++) {
+            visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
         }
         this.currentTotalDelta = this.pinColumnSizeDelta(
             this.activeColumnDivider!,
@@ -99,7 +99,7 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private getTotalColumnFixedWidth(): number {
         let totalColumnFixedWidth = 0;
-        for (const column of this.table.columns) {
+        for (const column of this.getVisibleColumns()) {
             totalColumnFixedWidth
                 += column.columnInternals.currentPixelWidth !== undefined
                     ? column.columnInternals.currentPixelWidth
@@ -113,8 +113,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         const headers = this.table.columnHeadersContainer.querySelectorAll(
             '.header-container'
         );
+        const visibleColumns = this.getVisibleColumns();
         for (let i = 0; i < headers.length; i++) {
-            this.table.columns[i]!.columnInternals.currentPixelWidth = headers[i]!.getBoundingClientRect().width;
+            visibleColumns[i]!.columnInternals.currentPixelWidth = headers[i]!.getBoundingClientRect().width;
         }
         this.cacheColumnInitialPixelWidths();
     }
@@ -159,7 +160,7 @@ export class TableLayoutManager<TData extends TableRecord> {
             )
             : delta;
         const actualDelta = currentDelta < 0 ? -allowedDelta : allowedDelta;
-        const leftColumn = this.table.columns[leftColumnIndex]!;
+        const leftColumn = this.getVisibleColumns()[leftColumnIndex]!;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
         if (
@@ -190,13 +191,13 @@ export class TableLayoutManager<TData extends TableRecord> {
         const actualDelta = allowedDelta < 0
             ? Math.ceil(allowedDelta)
             : Math.floor(allowedDelta);
-        this.table.columns[
-            rightColumnIndex
-        ]!.columnInternals.currentPixelWidth! -= actualDelta;
+        const visibleColumns = this.getVisibleColumns();
+        visibleColumns[rightColumnIndex]!.columnInternals.currentPixelWidth!
+            -= actualDelta;
 
         if (
             actualDelta < Math.abs(currentDelta)
-            && rightColumnIndex < this.table.columns.length - 2
+            && rightColumnIndex < visibleColumns.length - 1
             && delta > 0
         ) {
             currentDelta -= allowedDelta;
@@ -230,7 +231,7 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private cacheGridSizedColumns(): void {
         this.gridSizedColumns = [];
-        for (const column of this.table.columns) {
+        for (const column of this.getVisibleColumns()) {
             if (column.columnInternals.currentPixelWidth === undefined) {
                 this.gridSizedColumns.push(column);
             }
@@ -238,7 +239,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private cacheColumnInitialPixelWidths(): void {
-        for (const column of this.table.columns) {
+        for (const column of this.getVisibleColumns()) {
             this.initialColumnPixelWidths.push({
                 initialPixelWidth: column.columnInternals.currentPixelWidth!,
                 minPixelWidth: column.columnInternals.minPixelWidth

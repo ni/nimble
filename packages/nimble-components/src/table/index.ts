@@ -421,11 +421,21 @@ export class Table<
     }
 
     public onRightDividerMouseDown(columnIndex: number): void {
-        this.tableLayoutManager.beginColumnInteractiveSize(columnIndex * 2);
+        const hiddenColumnCount = this.columns.filter(
+            (column, i) => i < columnIndex && column.columnHidden
+        ).length;
+        this.tableLayoutManager.beginColumnInteractiveSize(
+            columnIndex * 2 - hiddenColumnCount * 2
+        );
     }
 
     public onLeftDividerMouseDown(columnIndex: number): void {
-        this.tableLayoutManager.beginColumnInteractiveSize(columnIndex * 2 - 1);
+        const hiddenColumnCount = this.columns.filter(
+            (column, i) => i < columnIndex && column.columnHidden
+        ).length;
+        this.tableLayoutManager.beginColumnInteractiveSize(
+            columnIndex * 2 - 1 - hiddenColumnCount * 2
+        );
     }
 
     /** @internal */

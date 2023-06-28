@@ -10,27 +10,37 @@ import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
     moreStringData: string;
+    moreStringData2: string;
+    moreStringData3: string;
 }
 
 const simpleTableData = [
     {
         stringData: 'string 1',
-        moreStringData: 'foo'
+        moreStringData: 'foo',
+        moreStringData2: 'foo',
+        moreStringData3: 'foo'
     },
     {
         stringData: 'hello world',
-        moreStringData: 'foo'
+        moreStringData: 'foo',
+        moreStringData2: 'foo',
+        moreStringData3: 'foo'
     },
     {
         stringData: 'another string',
-        moreStringData: 'foo'
+        moreStringData: 'foo',
+        moreStringData2: 'foo',
+        moreStringData3: 'foo'
     }
 ] as const;
 
 const largeTableData = Array.from(Array(500), (_, i) => {
     return {
         stringData: `string ${i}`,
-        moreStringData: 'foo'
+        moreStringData: 'foo',
+        moreStringData2: `foo ${i}`,
+        moreStringData3: `foo ${i + 1}`
     };
 });
 
@@ -41,6 +51,22 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
             <nimble-table-column-text id="first-column" field-name="stringData">
             </nimble-table-column-text>
             <nimble-table-column-text id="second-column" field-name="moreStringData">
+            </nimble-table-column-text>
+        </nimble-table>`
+    );
+}
+
+// prettier-ignore
+async function setupInteractiveTests(): Promise<Fixture<Table<SimpleTableRecord>>> {
+    return fixture<Table<SimpleTableRecord>>(
+        html`<nimble-table>
+            <nimble-table-column-text id="first-column" field-name="stringData" min-pixel-width="50">
+            </nimble-table-column-text>
+            <nimble-table-column-text id="second-column" field-name="moreStringData" min-pixel-width="50">
+            </nimble-table-column-text>
+            <nimble-table-column-text id="third-column" field-name="moreStringData2" min-pixel-width="50">
+            </nimble-table-column-text>
+            <nimble-table-column-text id="fourth-column" field-name="moreStringData3" min-pixel-width="50">
             </nimble-table-column-text>
         </nimble-table>`
     );
@@ -319,5 +345,162 @@ describe('Table Column Sizing', () => {
                 }
             );
         }
+    });
+});
+
+describe('Table Interactive Column Sizing', () => {
+    let element: Table<SimpleTableRecord>;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+    let pageObject: TablePageObject<SimpleTableRecord>;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setupInteractiveTests());
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        await connect();
+        await element.setData(simpleTableData);
+        await waitForUpdatesAsync();
+        await pageObject.sizeTableToGivenRowWidth(400, element);
+        await waitForUpdatesAsync();
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    const columnSizeTests = [
+        {
+            name: 'sizing left only affects adjacent right column with delta less than min width',
+            dragDelta: 1,
+            columnDragIndex: 0,
+            expectedColumnWidths: [101, 99, 100, 100]
+        },
+        {
+            name: 'sizing left past the minimum size of adjacent right column cascades to next column',
+            dragDelta: 51,
+            columnDragIndex: 0,
+            expectedColumnWidths: [151, 50, 99, 100]
+        },
+        {
+            name: 'sizing left past the minimum size of all columns to right shinks all columns to minimum size, but allows left column to keep growing',
+            dragDelta: 151,
+            columnDragIndex: 0,
+            expectedColumnWidths: [251, 50, 50, 50]
+        },
+        {
+            name: 'sizing right only affects adjacent left column with delta less than min width',
+            dragDelta: -1,
+            columnDragIndex: 2,
+            expectedColumnWidths: [100, 100, 99, 101]
+        },
+        {
+            name: 'sizing right past the minimum size of adjacent left column cascades to next column',
+            dragDelta: -51,
+            columnDragIndex: 2,
+            expectedColumnWidths: [100, 99, 50, 151]
+        },
+        {
+            name: 'Sizing right past the minimum size of all columns to left shinks all columns to minimum size, and stops growing right most column',
+            dragDelta: -151,
+            columnDragIndex: 2,
+            expectedColumnWidths: [50, 50, 50, 250]
+        }
+    ];
+    const focused: string[] = [];
+    const disabled: string[] = [];
+    for (const columnSizeTest of columnSizeTests) {
+        const specType = getSpecTypeByNamedList(
+            columnSizeTest,
+            focused,
+            disabled
+        );
+        specType(
+            `${columnSizeTest.name}`,
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            async () => {
+                pageObject.dragSizeColumn(
+                    columnSizeTest.columnDragIndex,
+                    columnSizeTest.dragDelta
+                );
+                await waitForUpdatesAsync();
+                columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(i)).toBe(width));
+            }
+        );
+    }
+
+    it('when table width is smaller than total column min width, dragging column still expands column', async () => {
+        await pageObject.sizeTableToGivenRowWidth(100, element);
+        await waitForUpdatesAsync();
+        pageObject.dragSizeColumn(2, 50);
+        await waitForUpdatesAsync();
+        const cellWidth = pageObject.getCellRenderedWidth(2, 0);
+        expect(cellWidth).toBe(100);
+    });
+
+    it('sizing column beyond table width creates horizontal scrollbar', async () => {
+        pageObject.dragSizeColumn(2, 100);
+        await waitForUpdatesAsync();
+        expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
+    });
+
+    it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
+        // create horizontal scrollbar with total column width of 450
+        pageObject.dragSizeColumn(2, 100);
+        // size table below threshhold of total column widths
+        await pageObject.sizeTableToGivenRowWidth(425, element);
+        expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
+        // size table 50 pixels beyond total column widths
+        await pageObject.sizeTableToGivenRowWidth(500, element);
+        expect(pageObject.getTotalCellRenderedWidth()).toBe(500);
+        expect(pageObject.isHorizontalScrollbarVisible()).toBeFalse();
+    });
+
+    it('after table gets horizontal scrollbar, growing right-most column to left does not remove scroll area', async () => {
+        // create horizontal scrollbar with total column width of 450
+        pageObject.dragSizeColumn(2, 100);
+        await waitForUpdatesAsync();
+        pageObject.dragSizeColumn(2, -100);
+        await waitForUpdatesAsync();
+        expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
+    });
+
+    it('sizing column results in updated currentFractionalWidths for columns', () => {
+        pageObject.dragSizeColumn(0, 150);
+        const updatedFractionalWidths = element.columns.map(
+            column => column.columnInternals.currentFractionalWidth
+        );
+        expect(updatedFractionalWidths).toEqual([1, 0.2, 0.2, 0.2]);
+    });
+
+    it('sizing columns left of hidden column cascade to columns to right of hidden column', async () => {
+        element.columns[1]!.columnHidden = true;
+        await waitForUpdatesAsync();
+        const secondVisibleCellWidth = pageObject.getCellRenderedWidth(1, 0);
+        pageObject.dragSizeColumn(0, 50);
+        await waitForUpdatesAsync();
+        expect(pageObject.getCellRenderedWidth(1, 0)).toBe(
+            secondVisibleCellWidth - 50
+        );
+    });
+
+    it('sizing columns right of hidden column cascade to columns to left of hidden column', async () => {
+        element.columns[2]!.columnHidden = true;
+        await waitForUpdatesAsync();
+        const secondVisibleCellWidth = pageObject.getCellRenderedWidth(1, 0);
+        pageObject.dragSizeColumn(1, -50);
+        await waitForUpdatesAsync();
+        expect(pageObject.getCellRenderedWidth(1, 0)).toBe(
+            secondVisibleCellWidth - 50
+        );
+    });
+
+    it('hiding column after creating horizontal scroll space does not change scroll area', async () => {
+        // create horizontal scrollbar with total column width of 450
+        pageObject.dragSizeColumn(2, 100);
+        await waitForUpdatesAsync();
+        element.columns[1]!.columnHidden = true;
+        await waitForUpdatesAsync();
+        expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
+        expect(pageObject.getRenderedCellCountForRow(0)).toBe(3);
     });
 });

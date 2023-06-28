@@ -233,20 +233,21 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        const collapseButton = this.getCollapseAllButton();
-        const buttonWidth = collapseButton!.getBoundingClientRect().width;
-        const buttonStyle = window.getComputedStyle(collapseButton!);
         table.style.width = `${
             rowWidth
-            + buttonWidth
-            + parseFloat(buttonStyle.marginLeft)
-            + parseFloat(buttonStyle.marginRight)
+            + (table.headerRowActionContainer?.getBoundingClientRect().width
+                ?? 0)
+            + table.virtualizer.headerContainerMarginRight
         }px`;
         await waitForUpdatesAsync();
     }
 
     public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
-        if (columnIndex >= this.tableElement.columns.length) {
+        if (
+            columnIndex
+            >= this.tableElement.columns.filter(column => !column.columnHidden)
+                .length
+        ) {
             throw new Error(
                 'Attempting to index past the total number of columns'
             );
@@ -447,6 +448,37 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
+    public dragSizeColumn(columnIndex: number, delta: number): void {
+        const divider = this.getColumnDivider(columnIndex);
+        divider.setAttribute('active', 'true');
+        const dividerRect = divider.getBoundingClientRect();
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: dividerRect.x,
+            clientY: dividerRect.y
+        });
+        divider.dispatchEvent(mouseDownEvent);
+        const mouseMoveEvent = new MouseEvent('mousemove', {
+            movementX: delta
+        });
+        document.dispatchEvent(mouseMoveEvent);
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+    }
+
+    public isHorizontalScrollbarVisible(): boolean {
+        return (
+            this.tableElement.viewport.clientHeight
+            !== this.tableElement.viewport.getBoundingClientRect().height
+        );
+    }
+
+    public isVerticalScrollbarVisible(): boolean {
+        return (
+            this.tableElement.viewport.clientWidth
+            !== this.tableElement.viewport.getBoundingClientRect().width
+        );
+    }
+
     private getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
@@ -559,6 +591,18 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return nodeChildren[0]; // header content should be first item in final slot element
+    }
+
+    private getColumnDivider(index: number): HTMLElement {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+
+        if (index >= headerContainers.length - 1) {
+            throw new Error(
+                'Attempting to index past the number of available dividers. Max index is two less than the number of columns.'
+            );
+        }
+
+        return headerContainers[index]!.querySelector('.column-divider.right')!;
     }
 
     private readonly isSlotElement = (

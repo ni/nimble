@@ -107,7 +107,7 @@ export const styles = css`
     }
 
     .column-divider::before {
-        content: " ";
+        content: '';
         position: absolute;
         width: 8px;
         height: 100%;
