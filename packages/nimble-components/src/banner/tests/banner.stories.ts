@@ -12,7 +12,7 @@ import { labelProviderCoreTag } from '../../label-provider/core';
 import {
     LabelUserArgs,
     addLabelUseMetadata
-} from '../../label-provider/base/label-user-stories-utils';
+} from '../../label-provider/base/tests/label-user-stories-utils';
 import { alertDismissLabel } from '../../label-provider/core/label-tokens';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -2,7 +2,7 @@ import type { StoryObj } from '@storybook/html';
 import {
     LabelProviderArgs,
     labelProviderMetadata
-} from '../../base/label-provider-stories-utils';
+} from '../../base/tests/label-provider-stories-utils';
 import { labelProviderCoreTag } from '..';
 import * as labelTokensNamespace from '../label-tokens';
 

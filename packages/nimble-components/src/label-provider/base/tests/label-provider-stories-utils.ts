@@ -1,13 +1,13 @@
 import { ViewTemplate, html, repeat } from '@microsoft/fast-element';
 import type { Meta } from '@storybook/html';
 import type { DesignToken } from '@microsoft/fast-foundation';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import {
     bodyFont,
     groupHeaderFont,
     groupHeaderFontColor,
     groupHeaderTextTransform
-} from '../../theme-provider/design-tokens';
+} from '../../../theme-provider/design-tokens';
 import { getAttributeName, getPropertyName } from './label-name-utils';
 
 export interface LabelProviderArgs {

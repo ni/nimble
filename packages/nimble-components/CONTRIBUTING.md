@@ -430,9 +430,8 @@ When creating a new component, create a `*-matrix.stories.ts` Storybook file to 
 
 ## Localization
 
-Nimble components may need to use some strings/labels (such as the label for a close button in a component's template, or menu items in a component-provided menu). Nimble exposes these localizable labels as design tokens, to support both localization and the ability for clients to override the strings.
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
 
-Nimble provides English strings as the token defaults, and provides `nimble-label-provider-*` elements with APIs for overriding those values.  
 There are currently 2 label providers:
 
 -   `nimble-label-provider-core`: Used for labels for all components besides the table

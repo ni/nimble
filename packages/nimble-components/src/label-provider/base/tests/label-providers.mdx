@@ -5,12 +5,7 @@ import { tableLabelProvider } from '../../table/tests/label-provider-table.stori
 <Meta title="Tokens/Label Providers" />
 <Title>Label Providers</Title>
 
-Some Nimble components use strings/labels that need to be localized, if the consuming application
-supports localization. Nimble exposes these localizable labels as design tokens, to support both localization and the
-ability for clients to override the strings in specific contexts.
-
-Nimble provides English strings as the token defaults, and provides `nimble-label-provider-*` elements with APIs for
-overriding those values with localized versions.
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
 
 See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme and
 contributing docs for more information.

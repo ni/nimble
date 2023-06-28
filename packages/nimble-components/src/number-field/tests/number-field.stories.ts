@@ -8,7 +8,7 @@ import { labelProviderCoreTag } from '../../label-provider/core';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
-} from '../../label-provider/base/label-user-stories-utils';
+} from '../../label-provider/base/tests/label-user-stories-utils';
 import {
     numberFieldDecrementLabel,
     numberFieldIncrementLabel

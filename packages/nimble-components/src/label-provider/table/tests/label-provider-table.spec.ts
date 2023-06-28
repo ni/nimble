@@ -3,7 +3,10 @@ import { html } from '@microsoft/fast-element';
 import * as labelTokensNamespace from '../label-tokens';
 import { LabelProviderTable, labelProviderTableTag } from '..';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
-import { getAttributeName, getPropertyName } from '../../base/label-name-utils';
+import {
+    getAttributeName,
+    getPropertyName
+} from '../../base/tests/label-name-utils';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import { Fixture, fixture } from '../../../utilities/tests/fixture';
 import { removeTablePrefixAndCamelCase } from '../name-utils';
