@@ -1,19 +1,18 @@
-import { ViewTemplate, html, repeat } from '@microsoft/fast-element';
+import { ViewTemplate, html, ref } from '@microsoft/fast-element';
 import type { Meta } from '@storybook/html';
 import type { DesignToken } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
-import {
-    bodyFont,
-    groupHeaderFont,
-    groupHeaderFontColor,
-    groupHeaderTextTransform
-} from '../../../theme-provider/design-tokens';
+import { bodyFont } from '../../../theme-provider/design-tokens';
 import { getAttributeName, getPropertyName } from './label-name-utils';
+import { Table, tableTag } from '../../../table';
+import { tableColumnTextTag } from '../../../table-column/text';
 
 export interface LabelProviderArgs {
+    tableRef: Table;
     labelProviderTag: string;
     labelTokens: [string, DesignToken<string>][];
     removeNamePrefix(tokenName: string): string;
+    updateData(args: LabelProviderArgs): void;
 }
 
 const createTemplate = (
@@ -21,32 +20,35 @@ const createTemplate = (
 ): ViewTemplate<LabelProviderArgs> => html<LabelProviderArgs>`
 <${labelProviderTag}></${labelProviderTag}>
 <p>Element name: <code>${x => x.labelProviderTag}</code></p>
-<table>
-    <thead>
-        <th>Token name</th>
-        <th>HTML attribute name</th>
-        <th>JS property name</th>
-        <th>Default value (English)</th>
-    </thead>
-    <tbody>
-        ${repeat(
-        x => x.labelTokens,
-        html<[string, DesignToken<string>], LabelProviderArgs>`
-                <tr>
-                    <td>${x => x[0]}</td>
-                    <td>
-                        ${(x, c) => getAttributeName(c.parent.removeNamePrefix(x[0]))}
-                    </td>
-                    <td>
-                        ${(x, c) => getPropertyName(c.parent.removeNamePrefix(x[0]))}
-                    </td>
-                    <td>"${x => x[1].getValueFor(document.body)}"</td>
-                </tr>
-            `
-    )}
-    </tbody>
-</table>
-`;
+<${tableTag}
+    ${ref('tableRef')}
+    data-unused="${x => x.updateData(x)}"
+>
+    <${tableColumnTextTag}
+        column-id="token-name-column"
+        field-name="tokenName"
+    >
+        Token name
+    </${tableColumnTextTag}>
+    <${tableColumnTextTag}
+        column-id="attribute-name-column"
+        field-name="htmlAttributeName"
+    >
+        HTML attribute name
+    </${tableColumnTextTag}>
+    <${tableColumnTextTag}
+        column-id="property-name-column"
+        field-name="jsPropertyName"
+    >
+        JS property name
+    </${tableColumnTextTag}>
+    <${tableColumnTextTag}
+        column-id="default-value-column"
+        field-name="defaultValue"
+    >
+        Default value (English)
+    </${tableColumnTextTag}>
+</${tableTag}>`;
 
 export const labelProviderMetadata: Meta<LabelProviderArgs> = {
     parameters: {
@@ -56,17 +58,11 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
     render: createUserSelectedThemeStory(html<LabelProviderArgs>`
         <div>
             <style>
-                div {
+                p {
                     font: var(${bodyFont.cssCustomProperty});
                 }
-                thead {
-                    font: var(${groupHeaderFont.cssCustomProperty});
-                    color: var(${groupHeaderFontColor.cssCustomProperty});
-                    text-transform: var(${groupHeaderTextTransform.cssCustomProperty});
-                }
-                td { 
-                    padding: 10px 20px 10px 10px;
-                    height: 32px;
+                ${tableTag} {
+                    height: auto;
                 }
             </style>
             ${x => createTemplate(x.labelProviderTag)}
@@ -87,9 +83,41 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
             table: {
                 disable: true
             }
+        },
+        tableRef: {
+            table: {
+                disable: true
+            }
+        },
+        updateData: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
-        removeNamePrefix: jsTokenName => jsTokenName
+        removeNamePrefix: jsTokenName => jsTokenName,
+        tableRef: undefined,
+        updateData: x => {
+            void (async () => {
+                // Safari workaround: the table element instance is made at this point
+                // but doesn't seem to be upgraded to a custom element yet
+                await customElements.whenDefined('nimble-table');
+
+                const data = x.labelTokens.map(token => {
+                    return {
+                        tokenName: token[0],
+                        htmlAttributeName: getAttributeName(
+                            x.removeNamePrefix(token[0])
+                        ),
+                        jsPropertyName: getPropertyName(
+                            x.removeNamePrefix(token[0])
+                        ),
+                        defaultValue: token[1].getValueFor(document.body)
+                    };
+                });
+                await x.tableRef.setData(data);
+            })();
+        }
     }
 };
