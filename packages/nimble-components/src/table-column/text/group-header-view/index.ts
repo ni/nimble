@@ -21,7 +21,7 @@ TableColumnTextColumnConfig
         this.placeholder = this.columnConfig?.placeholder ?? '';
     }
 
-    private cellRecordChanged(): void {
+    private groupHeaderValueChanged(): void {
         if (typeof this.groupHeaderValue === 'string') {
             this.text = this.groupHeaderValue;
             this.shouldUsePlaceholder = false;
