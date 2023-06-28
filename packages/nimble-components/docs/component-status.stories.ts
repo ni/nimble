@@ -254,6 +254,15 @@ const components = [
         blazorStatus: '✅',
     },
     {
+        componentName: 'Rich Text Viewer',
+        componentHref: './?path=/docs/incubating-rich-text-viewer--docs',
+        issueHref: 'https://github.com/ni/nimble/issues/1288',
+        issueLabel: 'Issue',
+        componentStatus: '⚠️',
+        angularStatus: '⚠️',
+        blazorStatus: '⚠️',
+    },
+    {
         componentName: 'Search Field',
         designHref: 'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/842889a5-67ba-4350-91c1-55eee48f4fa2',
         designLabel: 'XD',
