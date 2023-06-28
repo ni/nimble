@@ -5,7 +5,8 @@ import type {
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
 } from '../../enum-base';
-import type { MappingConfigIconBase } from '../../../mapping/icon-base/types';
+import { MappingIconConfig } from '../../enum-base/models/mapping-icon-config';
+import type { IconSeverity } from '../../../icon-base/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,22 +21,27 @@ export class TableColumnIconCellView extends TableCellView<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
-    public get mappingToRender(): MappingConfigIconBase | null {
-        return this.matchingMapping ?? this.defaultMapping;
+    public severity: IconSeverity;
+    public label = '';
+    public iconTemplate?
+
+    private columnConfigChanged(): void {
+        this.updateState();
     }
 
-    private get matchingMapping(): MappingConfigIconBase | null {
-        const found = this.columnConfig.mappingConfigs.find(
-            x => x.key === this.cellRecord.value
-        );
-        return (found as MappingConfigIconBase) ?? null;
+    private cellRecordChanged(): void {
+        this.updateState();
     }
 
-    private get defaultMapping(): MappingConfigIconBase | null {
-        const found = this.columnConfig.mappingConfigs.find(
-            x => x.defaultMapping
-        );
-        return (found as MappingConfigIconBase) ?? null;
+    private updateState(): void {
+        const value = this.cellRecord.value;
+        if (value !== undefined && value !== null) {
+            const mappingConfig = this.columnConfig.mappingConfigs.get(value);
+            if (mappingConfig instanceof MappingIconConfig) {
+                this.severity = mappingConfig.severity;
+                this.label = mappingConfig.label;
+            }
+        }
     }
 }
 

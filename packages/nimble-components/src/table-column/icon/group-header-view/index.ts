@@ -38,6 +38,7 @@ TableColumnEnumColumnConfig
         throw Error('Placeholder not used');
     }
 
+    // TODO I don't get this, a default mapping is optional right? So what happens when a value does not have a mapping?
     // Rule incorrectly reports an error when overriding base class member
     // eslint-disable-next-line @typescript-eslint/class-literal-property-style
     public override get shouldUsePlaceholder(): boolean {
