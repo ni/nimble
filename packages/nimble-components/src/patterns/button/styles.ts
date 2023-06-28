@@ -13,8 +13,7 @@ import {
     fillSelectedColor,
     iconColor,
     smallDelay,
-    standardPadding,
-    largeDelay
+    standardPadding
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
@@ -65,8 +64,8 @@ export const styles = css`
         margin: 0;
         padding: 0 ${standardPadding};
         position: relative;
-        transition: box-shadow ${smallDelay};
-        transition: border-color ${smallDelay};
+        transition: box-shadow ${smallDelay} ease-in-out,
+            border-color ${smallDelay} ease-in-out;
     }
 
     :host([content-hidden]) .control {
@@ -83,20 +82,16 @@ export const styles = css`
     .control:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        transition: box-shadow ${smallDelay};
     }
 
     .control${focusVisible} {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        transition: box-shadow ${smallDelay};
     }
 
     .control:active {
         box-shadow: none;
         outline: none;
-        transition: outline ${smallDelay};
-        transition: box-shadow ${smallDelay};
     }
 
     :host([disabled]) .control {
@@ -120,13 +115,7 @@ export const styles = css`
     .control${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline ${largeDelay};
-        ${
-            /*
-                largeDelay is used here to make the transition from the outer border to this inner border smooth.
-                If mediumDelay or smallDelay is used, this border will render faster than the box-shadow and make the border transition look inconsistent.
-            */ ''
-        }
+        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control:active::before {
@@ -135,7 +124,6 @@ export const styles = css`
 
     :host([disabled]) .control::before {
         box-shadow: none;
-        outline: none;
     }
 
     .content {
