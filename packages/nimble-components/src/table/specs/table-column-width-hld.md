@@ -18,18 +18,18 @@ We need to provide users the means for changing the widths of individual columns
 #### Column Sizing
 
 -   Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
--   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are: 
+-   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are:
     -   If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
-    -   A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size. 
+    -   A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size.
     -   A sizing action to the right that would ultimately result in the final right column reaching its minimum size would begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table.
     -   Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
-    ![Column resizing](spec-images/tableColumnResize.gif)
+        ![Column resizing](spec-images/tableColumnResize.gif)
 
 #### Table Sizing
 
 -   If a horizontal scrollbar is present, the act of growing the table will first take away the available scrollbar area, and once completely removed will begin to grow the columns proportionally.
 -   Once horizontal scrollable space has been created via column sizing, shrinking the table, while a horizontal scrollbar is present, will not update the sizes of the columns, as the current scrollable area will be maintained.
-![Table resizing](spec-images/tableResize.gif)
+    ![Table resizing](spec-images/tableResize.gif)
 
 [Working branch](https://github.com/ni/nimble/tree/table-column-sizing-cascade-and-grow).
 
