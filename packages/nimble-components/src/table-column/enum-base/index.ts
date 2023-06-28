@@ -5,19 +5,15 @@ import {
     observable,
     Subscriber
 } from '@microsoft/fast-element';
-import type { TableStringField, TableBooleanField, TableNumberField } from '../../table/types';
+import type { TableAnyField } from '../../table/types';
 import { TableColumn } from '../base';
 import { Mapping } from '../../mapping/base';
-import type { MappingKeyType } from './types';
-import type { MappingConfig } from './models/mapping-config';
-import type { MappingKey } from '../../mapping/base/types';
-import { resolveKeyWithType } from './models/mapping-key-resolver';
+import type { MappingConfig, MappingKeyType } from '../../mapping/base/types';
 
-export type TableColumnEnumCellRecord = TableStringField<'value'> | TableBooleanField<'value'> | TableNumberField<'value'>;
-export type MappingConfigs = Map<MappingKey, MappingConfig>;
+export type TableColumnEnumCellRecord = TableAnyField<'value'>;
+
 export interface TableColumnEnumColumnConfig {
-    mappingConfigs: MappingConfigs;
-    defaultMapping?: MappingConfig;
+    mappingConfigs: MappingConfig[];
 }
 
 /**
@@ -38,15 +34,16 @@ export abstract class TableColumnEnumBase<
     @attr({ attribute: 'key-type' })
     public keyType: MappingKeyType = 'string';
 
-    protected abstract get supportedMappingElements(): readonly (typeof Mapping)[];
+    protected abstract get supportedMappingTypes(): readonly (typeof Mapping)[];
 
     private mappingNotifiers: Notifier[] = [];
 
     /**
      * @internal
      *
-     * Triggers a request to update the columnConfig when any observable property on
-     * a mapping is updated.
+     * The event handler that is called when a notifier detects a change. Notifiers are added
+     * to each mapping, so `source` is expected to be an instance of `Mapping`, and `args`
+     * is the string name of the property that changed on that column.
      */
     public handleChange(source: unknown, args: unknown): void {
         if (source instanceof Mapping && typeof args === 'string') {
@@ -54,59 +51,40 @@ export abstract class TableColumnEnumBase<
         }
     }
 
-    // TODO should we batch updateColumnConfig this on rAF?
-    /**
-    * Called when any Mapping related state has changed
-    */
-    protected abstract updateColumnConfig(): void;
-
-    // Assumes the mapping element state is validated
-    protected abstract createMappingConfig(mapping: Mapping): MappingConfig;
-
-    // Assumes the mapping element state is validated
-    protected createColumnConfig(): TableColumnEnumColumnConfig {
-        const mappingConfigs = new Map<MappingKey, MappingConfig>();
-        let defaultMapping: Mapping | undefined;
-        this.mappings.forEach(mapping => {
-            const key = resolveKeyWithType(mapping.key, this.keyType);
-            if (key !== undefined) {
-                const mappingConfig = this.createMappingConfig(mapping);
-                mappingConfigs.set(key, mappingConfig);
-            }
-            // defaultMapping can be from either undefined or defined key
-            if (mapping.defaultMapping) {
-                defaultMapping = mapping;
-            }
-        });
-        return {
-            mappingConfigs,
-            defaultMapping
-        };
-    }
-
-    private fieldNameChanged(): void {
+    protected fieldNameChanged(): void {
         this.columnInternals.dataRecordFieldNames = [this.fieldName];
         this.columnInternals.operandDataRecordFieldName = this.fieldName;
     }
 
-    private mappingsChanged(): void {
+    protected mappingsChanged(): void {
         this.updateColumnConfig();
         this.observeMappings();
     }
 
-    private keyTypeChanged(): void {
+    protected keyTypeChanged(): void {
         this.updateColumnConfig();
     }
 
+    protected abstract updateColumnConfig(): void;
+
+    protected getMappingConfigsFromMappings(): MappingConfig[] {
+        return this.mappings.map(mapping => mapping.getMappingConfig(this.keyType));
+    }
+
     private removeMappingObservers(): void {
-        this.mappingNotifiers.forEach(notifier => {
-            notifier.unsubscribe(this);
-        });
-        this.mappingNotifiers = [];
+        if (this.mappingNotifiers) {
+            this.mappingNotifiers.forEach(notifier => {
+                notifier.unsubscribe(this);
+            });
+            this.mappingNotifiers = [];
+        }
     }
 
     private observeMappings(): void {
         this.removeMappingObservers();
+        if (!this.mappings) {
+            return;
+        }
 
         for (const mapping of this.mappings) {
             const notifier = Observable.getNotifier(mapping);
