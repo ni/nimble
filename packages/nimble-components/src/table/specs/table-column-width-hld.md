@@ -25,9 +25,6 @@ We need to provide users the means for changing the widths of individual columns
     -   Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
     ![Column resizing](spec-images/tableColumnResize.gif)
 
--   Columns can be configured to not allow a user to interactively size them
-    -   The implicit behavior present based on the behaviors described above, is that in a sizing action that cascades to a column configured to not be resized is that the column won't be resized towards a minimum size, and the cascade will effectively "skip" this column.
-
 #### Table Sizing
 
 -   If a horizontal scrollbar is present, the act of growing the table will first take away the available scrollbar area, and once completely removed will begin to grow the columns proportionally.
@@ -42,20 +39,11 @@ There are some column sizing behaviors that we will ultimately expect to support
 
 -   Auto-resizing: We will not describe how we intend to support the use-case of having a column auto-size to its contents
 -   Different interactive sizing modes: While the APIs described in this HLD do not inherently prescribe to a particular interactive sizing behavior, it's worth saying that in order to support multiple sizing modes, there will likely be additional APIs required that this HLD does not address.
--   Ability to remove any horizontal scrollable space that has been created via column sizing.
+    -   This includes the ability to prevent interactive resizing.
+-   Ability to remove any horizontal scrollable space that has been created via column sizing (future work).
 -   Mechanisms related to accessibility-centric interactive column sizing. One possible example is allowing a user to size a column by way of the keyboard, instead of using a mouse. Ultimately, such a scenario is not in conflict with the API presented here, nor the mouse-based approach we know we will require, and can thus be handled separately, if ever.
 
 ### API
-
-`Table`
-
-```ts
-    /**
-     * Allows a user to set how interactive column sizing should behave
-     */
-    @attr({ attribute: 'column-resize' })
-    public columnResize: 'none' | 'cascade' = 'cascade';
-```
 
 `ColumnInternals`:
 
