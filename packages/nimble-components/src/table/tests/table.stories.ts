@@ -84,7 +84,8 @@ The table will not automatically update if the contents of the array change afte
     <summary>Framework specific considerations</summary>
     - Angular: In addition to exposing the \`setData()\` function in Angular, you can use the \`data$\` property to provide an
     \`Observable<TableRecord[]>\`. Nimble will automatically subscribe and unsubscribe to the provided \`Observable\` and call
-    \`setData()\` on the web component when new values are emitted.
+    \`setData()\` on the web component when new values are emitted. The \`data$\` \`Observable\` should only be used when an application
+    does not need to be in control of the timing of when \`setData()\` is called and when the returned \`Promise\` resolves.
     - Blazor: Blazor does not expose a \`setData()\` function. Use the \`Data\` property on the Blazor component to set new data on the table.
     Setting a new value on the property in Blazor will internally call \`setData()\` on the web component.
 </details>
