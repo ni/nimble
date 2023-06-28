@@ -32,18 +32,14 @@ describe('Label Provider Base', () => {
         name: testLabelProviderTag
     })
     class LabelProviderTest extends LabelProviderBase {
-        @attr({
-            attribute: 'test-example',
-            mode: 'fromView'
-        })
-        public exampleLabel: string = exampleLabelDefaultValue;
+        @attr({ attribute: 'test-example' })
+        public exampleLabel?: string;
 
-        protected exampleLabelChanged(
-            _prev: string | undefined,
-            next: string | undefined
-        ): void {
-            this.handleTokenChanged(exampleLabel, next);
-        }
+        protected override readonly supportedLabels: {
+            [P in keyof LabelProviderTest]?: DesignToken<string>;
+        } = {
+                exampleLabel
+            };
     }
 
     beforeEach(async () => {

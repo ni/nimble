@@ -1,12 +1,11 @@
 import { attr } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem, DesignToken } from '@microsoft/fast-foundation';
 import { LabelProviderBase } from '../base';
 import {
     alertDismissLabel,
     numberFieldDecrementLabel,
     numberFieldIncrementLabel
 } from './label-tokens';
-import { coreLabelDefaults } from './label-token-defaults';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,44 +17,22 @@ declare global {
  * Core label provider for Nimble
  */
 export class LabelProviderCore extends LabelProviderBase {
-    @attr({
-        attribute: 'alert-dismiss',
-        mode: 'fromView'
-    })
-    public alertDismiss: string = coreLabelDefaults.alertDismissLabel;
+    @attr({ attribute: 'alert-dismiss' })
+    public alertDismiss?: string;
 
-    @attr({
-        attribute: 'number-field-decrement',
-        mode: 'fromView'
-    })
-    public numberFieldDecrement: string = coreLabelDefaults.numberFieldDecrementLabel;
+    @attr({ attribute: 'number-field-decrement' })
+    public numberFieldDecrement?: string;
 
-    @attr({
-        attribute: 'number-field-increment',
-        mode: 'fromView'
-    })
-    public numberFieldIncrement: string = coreLabelDefaults.numberFieldIncrementLabel;
+    @attr({ attribute: 'number-field-increment' })
+    public numberFieldIncrement?: string;
 
-    protected alertDismissChanged(
-        _prev: string | undefined,
-        next: string | undefined
-    ): void {
-        this.handleTokenChanged(alertDismissLabel, next);
-    }
-
-    protected numberFieldDecrementChanged(
-        _prev: string | undefined,
-        next: string | undefined
-    ): void {
-        this.handleTokenChanged(numberFieldDecrementLabel, next);
-    }
-
-    protected numberFieldIncrementChanged(
-        _prev: string | undefined,
-        next: string | undefined
-    ): void {
-        this.handleTokenChanged(numberFieldIncrementLabel, next);
-    }
+    protected override readonly supportedLabels: {
+        [P in keyof LabelProviderCore]?: DesignToken<string>;
+    } = {
+            alertDismiss: alertDismissLabel,
+            numberFieldDecrement: numberFieldDecrementLabel,
+            numberFieldIncrement: numberFieldIncrementLabel
+        };
 }
 
 const nimbleLabelProviderCore = LabelProviderCore.compose({

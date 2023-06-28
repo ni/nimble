@@ -51,10 +51,6 @@ const createTemplate = (
 </${tableTag}>`;
 
 export const labelProviderMetadata: Meta<LabelProviderArgs> = {
-    parameters: {
-        chromatic: { disableSnapshot: true }
-    },
-    // prettier-ignore
     render: createUserSelectedThemeStory(html<LabelProviderArgs>`
         <div>
             <style>
