@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 27 Jun 2023 19:05:52 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Jun 2023 13:37:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.2
+
+Wed, 28 Jun 2023 13:37:50 GMT
+
+### Patches
+
+- Initial code bring up for nimble-rich-text-viewer component ([ni/nimble@c88e365](https://github.com/ni/nimble/commit/c88e3657b05f6b04a34115acdd13ecb6b7b9c0c6))
 
 ## 19.4.1
 
