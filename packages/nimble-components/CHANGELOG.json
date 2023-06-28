@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 27 Jun 2023 19:05:52 GMT",
+      "tag": "@ni/nimble-components_v19.4.1",
+      "version": "19.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "137db4ca75e10b5d8316e12ac86c59b0efd468a3",
+            "comment": "Add additional functions to table page object"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 27 Jun 2023 14:37:26 GMT",
       "tag": "@ni/nimble-components_v19.4.0",
       "version": "19.4.0",
