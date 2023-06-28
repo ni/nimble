@@ -32,7 +32,7 @@ export abstract class TableColumnTextCellViewBase<
      * Returns whether to display the placeholder value or the text value
      */
     @observable
-    public shouldUsePlaceholder = false;
+    public shouldUsePlaceholder = true;
 
     @volatile
     public get content(): string {
