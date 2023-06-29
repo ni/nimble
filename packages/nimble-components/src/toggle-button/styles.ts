@@ -5,7 +5,6 @@ import {
     borderHoverColor,
     borderWidth,
     fillSelectedColor,
-    mediumDelay,
     smallDelay
 } from '../theme-provider/design-tokens';
 import { styles as buttonStyles } from '../patterns/button/styles';
@@ -17,14 +16,11 @@ export const styles = css`
         background-color: ${fillSelectedColor};
         border-color: ${fillSelectedColor};
         position: relative;
-        transition: box-shadow ${smallDelay};
-        transition: border-color ${smallDelay};
     }
 
     .control[aria-pressed='true']:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        transition: box-shadow ${mediumDelay};
     }
 
     .control[aria-pressed='true']${focusVisible} {
@@ -35,8 +31,6 @@ export const styles = css`
     .control[aria-pressed='true']:active {
         box-shadow: none;
         outline: none;
-        transition: outline 1s;
-        transition: box-shadow ${mediumDelay};
     }
 
     :host([disabled]) .control[aria-pressed='true'] {
@@ -71,7 +65,7 @@ export const styles = css`
         background-color: ${fillSelectedColor};
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline 0.5s;
+        transition: outline ${smallDelay} ease-in-out;
         color: transparent;
         padding: 2px;
     }

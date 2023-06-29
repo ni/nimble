@@ -76,8 +76,8 @@ export const styles = css`
         margin: 0;
         padding: 0 ${standardPadding};
         position: relative;
-        transition: box-shadow ${smallDelay};
-        transition: border-color ${smallDelay};
+        transition: box-shadow ${smallDelay} ease-in-out,
+            border-color ${smallDelay} ease-in-out;
     }
 
     :host([content-hidden]) .control {
@@ -94,7 +94,6 @@ export const styles = css`
     .control:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        transition: box-shadow ${mediumDelay};
     }
 
     .control${focusVisible} {
@@ -105,8 +104,6 @@ export const styles = css`
     .control:active {
         box-shadow: none;
         outline: none;
-        transition: outline ${mediumDelay};
-        transition: box-shadow ${mediumDelay};
     }
 
     :host([disabled]) .control {
@@ -121,7 +118,8 @@ export const styles = css`
         height: 100%;
         pointer-events: none;
         box-sizing: border-box;
-        outline: none;
+        outline: 0px solid transparent;
+        color: transparent;
         background-clip: content-box;
         z-index: -1;
     }
@@ -133,8 +131,7 @@ export const styles = css`
     .control${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline 0.5s;
-        color: transparent;
+        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control:active::before {

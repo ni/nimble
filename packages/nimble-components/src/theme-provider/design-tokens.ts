@@ -90,7 +90,8 @@ import {
     PowerGreen,
     GridHeaderFamily,
     GridHeaderWeight,
-    GridHeaderSize
+    GridHeaderSize,
+    DigitalGreenDark105
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -180,7 +181,7 @@ export const accentButtonBlockFontColor = DesignToken.create<string>(
 
 export const accentButtonOutlineFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.accentButtonOutlineFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark, PowerGreen, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White));
 
 export const accentButtonOutlineBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.accentButtonOutlineBorderColor)
