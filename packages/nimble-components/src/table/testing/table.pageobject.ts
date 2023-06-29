@@ -3,7 +3,10 @@ import { keyShift } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
 import { TableRecord, TableRowSelectionState } from '../types';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import {
+    processUpdates,
+    waitForUpdatesAsync
+} from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
@@ -12,6 +15,21 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
+
+export interface DragStartInfo {
+    columnIndex: number;
+    callback: (() => void) | undefined;
+}
+
+export interface DragMoveInfo {
+    deltaX: number;
+    deltaY: number;
+    callback: (() => void) | undefined;
+}
+
+export interface DragEndInfo {
+    callback: (() => void) | undefined;
+}
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -448,21 +466,79 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
-    public dragSizeColumn(columnIndex: number, delta: number): void {
+    /**
+     * @param columnIndex The index of the column to the left of a divider being dragged. Thus, this
+     * can not be given a value representing the last column index.
+     * @param deltas The series of mouse movements in the x-direction while sizing a column.
+     */
+    public dragSizeColumn(columnIndex: number, deltas: number[]): void {
         const divider = this.getColumnDivider(columnIndex);
         divider.setAttribute('active', 'true');
         const dividerRect = divider.getBoundingClientRect();
         const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: dividerRect.x,
-            clientY: dividerRect.y
+            clientX: (dividerRect.x + dividerRect.width) / 2,
+            clientY: (dividerRect.y + dividerRect.height) / 2
         });
         divider.dispatchEvent(mouseDownEvent);
-        const mouseMoveEvent = new MouseEvent('mousemove', {
-            movementX: delta
-        });
-        document.dispatchEvent(mouseMoveEvent);
+
+        for (const delta of deltas) {
+            const mouseMoveEvent = new MouseEvent('mousemove', {
+                movementX: delta
+            });
+            document.dispatchEvent(mouseMoveEvent);
+        }
+
         const mouseUpEvent = new MouseEvent('mouseup');
         document.dispatchEvent(mouseUpEvent);
+    }
+
+    public performColumnDrag(
+        dragStart: DragStartInfo,
+        dragMove: DragMoveInfo,
+        dragEnd: DragEndInfo
+    ): void {
+        const divider = this.getColumnDivider(dragStart.columnIndex);
+        divider.setAttribute('active', 'true');
+        const dividerRect = divider.getBoundingClientRect();
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: (dividerRect.x + dividerRect.width) / 2,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+        processUpdates();
+        if (dragStart.callback) {
+            dragStart.callback();
+        }
+
+        const mouseMoveEvent = new MouseEvent('mousemove', {
+            movementX: dragMove.deltaX,
+            movementY: dragMove.deltaY
+        });
+        document.dispatchEvent(mouseMoveEvent);
+        document.dispatchEvent(new MouseEvent('mouseover'));
+        processUpdates();
+        if (dragMove.callback) {
+            dragMove.callback();
+        }
+
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+        processUpdates();
+        if (dragEnd.callback) {
+            dragEnd.callback();
+        }
+    }
+
+    public getColumnDivider(index: number): HTMLElement {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+
+        if (index >= headerContainers.length - 1) {
+            throw new Error(
+                'Attempting to index past the number of available dividers. Max index is two less than the number of columns.'
+            );
+        }
+
+        return headerContainers[index]!.querySelector('.column-divider.right')!;
     }
 
     public isHorizontalScrollbarVisible(): boolean {
@@ -591,18 +667,6 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return nodeChildren[0]; // header content should be first item in final slot element
-    }
-
-    private getColumnDivider(index: number): HTMLElement {
-        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
-
-        if (index >= headerContainers.length - 1) {
-            throw new Error(
-                'Attempting to index past the number of available dividers. Max index is two less than the number of columns.'
-            );
-        }
-
-        return headerContainers[index]!.querySelector('.column-divider.right')!;
     }
 
     private readonly isSlotElement = (

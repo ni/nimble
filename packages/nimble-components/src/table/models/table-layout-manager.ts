@@ -152,7 +152,8 @@ export class TableLayoutManager<TData extends TableRecord> {
         const leftColumnInitialWidths = this.initialColumnPixelWidths[leftColumnIndex]!;
         const allowedDelta = delta < 0
             ? Math.max(
-                leftColumnInitialWidths.minPixelWidth - leftColumnInitialWidths.initialPixelWidth,
+                leftColumnInitialWidths.minPixelWidth
+                          - leftColumnInitialWidths.initialPixelWidth,
                 currentDelta
             )
             : delta;
@@ -160,11 +161,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         const leftColumn = this.getVisibleColumns()[leftColumnIndex]!;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
-        if (
-            actualDelta > currentDelta
-            && leftColumnIndex > 0
-            && delta < 0
-        ) {
+        if (actualDelta > currentDelta && leftColumnIndex > 0 && delta < 0) {
             currentDelta -= allowedDelta;
             this.performCascadeSizeLeft(leftColumnIndex - 1, currentDelta);
         }
@@ -178,7 +175,8 @@ export class TableLayoutManager<TData extends TableRecord> {
         const rightColumnInitialWidths = this.initialColumnPixelWidths[rightColumnIndex]!;
         const allowedDelta = delta > 0
             ? Math.min(
-                rightColumnInitialWidths.initialPixelWidth - rightColumnInitialWidths.minPixelWidth,
+                rightColumnInitialWidths.initialPixelWidth
+                          - rightColumnInitialWidths.minPixelWidth,
                 currentDelta
             )
             : delta;
@@ -199,7 +197,10 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private flagActiveColumnDividers(): void {
         const visibleColumnLength = this.getVisibleColumns().length;
-        const leftDividerIndex = this.activeColumnDivider! > 0 ? this.activeColumnDivider! : 0;
+        const leftDividerIndex = this.activeColumnDivider! > 0
+            ? this.activeColumnDivider!
+                  - ((this.activeColumnDivider! + 1) % 2)
+            : 0;
         const rightDividerIndex = leftDividerIndex === 0
             || leftDividerIndex === visibleColumnLength + 1
             ? leftDividerIndex

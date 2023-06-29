@@ -4,7 +4,9 @@ import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
-import { TablePageObject } from '../testing/table.pageobject';
+import {
+    TablePageObject
+} from '../testing/table.pageobject';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
@@ -371,39 +373,51 @@ describe('Table Interactive Column Sizing', () => {
     const columnSizeTests = [
         {
             name: 'sizing left only affects adjacent right column with delta less than min width',
-            dragDelta: 1,
+            dragDeltas: [1],
             columnDragIndex: 0,
             expectedColumnWidths: [101, 99, 100, 100]
         },
         {
             name: 'sizing left past the minimum size of adjacent right column cascades to next column',
-            dragDelta: 51,
+            dragDeltas: [51],
             columnDragIndex: 0,
             expectedColumnWidths: [151, 50, 99, 100]
         },
         {
             name: 'sizing left past the minimum size of all columns to right shinks all columns to minimum size, but allows left column to keep growing',
-            dragDelta: 151,
+            dragDeltas: [151],
             columnDragIndex: 0,
             expectedColumnWidths: [251, 50, 50, 50]
         },
         {
             name: 'sizing right only affects adjacent left column with delta less than min width',
-            dragDelta: -1,
+            dragDeltas: [-1],
             columnDragIndex: 2,
             expectedColumnWidths: [100, 100, 99, 101]
         },
         {
             name: 'sizing right past the minimum size of adjacent left column cascades to next column',
-            dragDelta: -51,
+            dragDeltas: [-51],
             columnDragIndex: 2,
             expectedColumnWidths: [100, 99, 50, 151]
         },
         {
             name: 'Sizing right past the minimum size of all columns to left shinks all columns to minimum size, and stops growing right most column',
-            dragDelta: -151,
+            dragDeltas: [-151],
             columnDragIndex: 2,
             expectedColumnWidths: [50, 50, 50, 250]
+        },
+        {
+            name: 'sizing right causing cascade and then sizing left in same interaction reverts cascade effect',
+            dragDeltas: [100, -50],
+            columnDragIndex: 2,
+            expectedColumnWidths: [100, 100, 150, 50]
+        },
+        {
+            name: 'sizing left causing cascade and then sizing right in same interaction reverts cascade effect',
+            dragDeltas: [-50, 25],
+            columnDragIndex: 0,
+            expectedColumnWidths: [75, 125, 100, 100]
         }
     ];
     const focused: string[] = [];
@@ -420,7 +434,7 @@ describe('Table Interactive Column Sizing', () => {
             async () => {
                 pageObject.dragSizeColumn(
                     columnSizeTest.columnDragIndex,
-                    columnSizeTest.dragDelta
+                    columnSizeTest.dragDeltas
                 );
                 await waitForUpdatesAsync();
                 columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(i)).toBe(width));
@@ -431,21 +445,21 @@ describe('Table Interactive Column Sizing', () => {
     it('when table width is smaller than total column min width, dragging column still expands column', async () => {
         await pageObject.sizeTableToGivenRowWidth(100, element);
         await waitForUpdatesAsync();
-        pageObject.dragSizeColumn(2, 50);
+        pageObject.dragSizeColumn(2, [50]);
         await waitForUpdatesAsync();
         const cellWidth = pageObject.getCellRenderedWidth(2, 0);
         expect(cellWidth).toBe(100);
     });
 
     it('sizing column beyond table width creates horizontal scrollbar', async () => {
-        pageObject.dragSizeColumn(2, 100);
+        pageObject.dragSizeColumn(2, [100]);
         await waitForUpdatesAsync();
         expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
     });
 
     it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
         // create horizontal scrollbar with total column width of 450
-        pageObject.dragSizeColumn(2, 100);
+        pageObject.dragSizeColumn(2, [100]);
         // size table below threshhold of total column widths
         await pageObject.sizeTableToGivenRowWidth(425, element);
         expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
@@ -457,15 +471,15 @@ describe('Table Interactive Column Sizing', () => {
 
     it('after table gets horizontal scrollbar, growing right-most column to left does not remove scroll area', async () => {
         // create horizontal scrollbar with total column width of 450
-        pageObject.dragSizeColumn(2, 100);
+        pageObject.dragSizeColumn(2, [100]);
         await waitForUpdatesAsync();
-        pageObject.dragSizeColumn(2, -100);
+        pageObject.dragSizeColumn(2, [-100]);
         await waitForUpdatesAsync();
         expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
     });
 
     it('sizing column results in updated currentFractionalWidths for columns', () => {
-        pageObject.dragSizeColumn(0, 150);
+        pageObject.dragSizeColumn(0, [150]);
         const updatedFractionalWidths = element.columns.map(
             column => column.columnInternals.currentFractionalWidth
         );
@@ -476,7 +490,7 @@ describe('Table Interactive Column Sizing', () => {
         element.columns[1]!.columnHidden = true;
         await waitForUpdatesAsync();
         const secondVisibleCellWidth = pageObject.getCellRenderedWidth(1, 0);
-        pageObject.dragSizeColumn(0, 50);
+        pageObject.dragSizeColumn(0, [50]);
         await waitForUpdatesAsync();
         expect(pageObject.getCellRenderedWidth(1, 0)).toBe(
             secondVisibleCellWidth - 50
@@ -487,7 +501,7 @@ describe('Table Interactive Column Sizing', () => {
         element.columns[2]!.columnHidden = true;
         await waitForUpdatesAsync();
         const secondVisibleCellWidth = pageObject.getCellRenderedWidth(1, 0);
-        pageObject.dragSizeColumn(1, -50);
+        pageObject.dragSizeColumn(1, [-50]);
         await waitForUpdatesAsync();
         expect(pageObject.getCellRenderedWidth(1, 0)).toBe(
             secondVisibleCellWidth - 50
@@ -496,11 +510,81 @@ describe('Table Interactive Column Sizing', () => {
 
     it('hiding column after creating horizontal scroll space does not change scroll area', async () => {
         // create horizontal scrollbar with total column width of 450
-        pageObject.dragSizeColumn(2, 100);
+        pageObject.dragSizeColumn(2, [100]);
         await waitForUpdatesAsync();
         element.columns[1]!.columnHidden = true;
         await waitForUpdatesAsync();
         expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
         expect(pageObject.getRenderedCellCountForRow(0)).toBe(3);
+    });
+
+    describe('divider interaction tests', () => {
+        const dividerActiveTests = [
+            {
+                name: 'click on dividers[0]',
+                dividerClickIndex: 0,
+                expectedActiveIndexes: [0]
+            },
+            {
+                name: 'click on dividers[1]',
+                dividerClickIndex: 1,
+                expectedActiveIndexes: [1, 2]
+            },
+            {
+                name: 'click on dividers[2]',
+                dividerClickIndex: 2,
+                expectedActiveIndexes: [1, 2]
+            },
+            {
+                name: 'click on dividers[3]',
+                dividerClickIndex: 3,
+                expectedActiveIndexes: [3, 4]
+            },
+            {
+                name: 'click on dividers[4]',
+                dividerClickIndex: 4,
+                expectedActiveIndexes: [3, 4]
+            },
+            {
+                name: 'click on dividers[5]',
+                dividerClickIndex: 5,
+                expectedActiveIndexes: [5]
+            }
+        ];
+        const focusedActiveDividerTests: string[] = [];
+        const disabledActiveDividerTests: string[] = [];
+        for (const dividerActiveTest of dividerActiveTests) {
+            const specType = getSpecTypeByNamedList(
+                dividerActiveTest,
+                focusedActiveDividerTests,
+                disabledActiveDividerTests
+            );
+            specType(
+                `${dividerActiveTest.name}`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    const dividers = Array.from(
+                        element.shadowRoot!.querySelectorAll('.column-divider')
+                    );
+                    const divider = dividers[dividerActiveTest.dividerClickIndex]!;
+                    const dividerRect = divider.getBoundingClientRect();
+                    const mouseDownEvent = new MouseEvent('mousedown', {
+                        clientX: (dividerRect.x + dividerRect.width) / 2,
+                        clientY: (dividerRect.y + dividerRect.height) / 2
+                    });
+                    divider.dispatchEvent(mouseDownEvent);
+                    await waitForUpdatesAsync();
+                    const activeDividers = dividers
+                        .map((d, i) => {
+                            return { active: d.getAttribute('active'), i };
+                        })
+                        .filter(d => d.active)
+                        .map(d => d.i);
+                    expect(activeDividers).toEqual(
+                        dividerActiveTest.expectedActiveIndexes
+                    );
+                }
+            );
+        }
     });
 });
