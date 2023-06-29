@@ -128,7 +128,7 @@ export const _banner: StoryObj<BannerArgs> = {
         dismissButtonLabel: {
             name: 'dismiss-button-label',
             description:
-                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies.',
+                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies. <br>(Equivalent to setting `alert-dismiss` on `nimble-label-provider-core`)',
             control: { type: 'none' }
         },
         toggle: {
