@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 28 Jun 2023 13:37:50 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Jun 2023 22:34:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.3
+
+Wed, 28 Jun 2023 22:34:33 GMT
+
+### Patches
+
+- Change text-column base class property behavior ([ni/nimble@a8148fe](https://github.com/ni/nimble/commit/a8148fe86743b45ac970c7a4c9fd2e46fd6280da))
 
 ## 19.4.2
 
