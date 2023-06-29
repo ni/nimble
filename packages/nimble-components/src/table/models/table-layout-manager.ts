@@ -151,24 +151,21 @@ export class TableLayoutManager<TData extends TableRecord> {
         let currentDelta = delta;
         const leftColumnInitialWidths = this.initialColumnPixelWidths[leftColumnIndex]!;
         const allowedDelta = delta < 0
-            ? Math.min(
-                Math.floor(
-                    leftColumnInitialWidths.initialPixelWidth
-                              - leftColumnInitialWidths.minPixelWidth
-                ),
-                Math.abs(currentDelta)
+            ? Math.max(
+                leftColumnInitialWidths.minPixelWidth - leftColumnInitialWidths.initialPixelWidth,
+                currentDelta
             )
             : delta;
-        const actualDelta = currentDelta < 0 ? -allowedDelta : allowedDelta;
+        const actualDelta = Math.round(allowedDelta);
         const leftColumn = this.getVisibleColumns()[leftColumnIndex]!;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
         if (
-            Math.ceil(allowedDelta) < Math.abs(currentDelta)
+            actualDelta > currentDelta
             && leftColumnIndex > 0
             && delta < 0
         ) {
-            currentDelta += allowedDelta;
+            currentDelta -= allowedDelta;
             this.performCascadeSizeLeft(leftColumnIndex - 1, currentDelta);
         }
     }
@@ -181,22 +178,17 @@ export class TableLayoutManager<TData extends TableRecord> {
         const rightColumnInitialWidths = this.initialColumnPixelWidths[rightColumnIndex]!;
         const allowedDelta = delta > 0
             ? Math.min(
-                Math.floor(
-                    rightColumnInitialWidths.initialPixelWidth
-                              - rightColumnInitialWidths.minPixelWidth
-                ),
-                Math.abs(currentDelta)
+                rightColumnInitialWidths.initialPixelWidth - rightColumnInitialWidths.minPixelWidth,
+                currentDelta
             )
             : delta;
-        const actualDelta = allowedDelta < 0
-            ? Math.ceil(allowedDelta)
-            : Math.floor(allowedDelta);
+        const actualDelta = Math.round(allowedDelta);
         const visibleColumns = this.getVisibleColumns();
-        visibleColumns[rightColumnIndex]!.columnInternals.currentPixelWidth!
-            -= actualDelta;
+        const rightColumn = visibleColumns[rightColumnIndex]!;
+        rightColumn.columnInternals.currentPixelWidth! -= actualDelta;
 
         if (
-            actualDelta < Math.abs(currentDelta)
+            actualDelta < currentDelta
             && rightColumnIndex < visibleColumns.length - 1
             && delta > 0
         ) {

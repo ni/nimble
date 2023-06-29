@@ -116,6 +116,8 @@ export class Table<
 
     /**
      * @internal
+     * This property helps determine the cursor to use while dragging a column divider, and also
+     * allows us to prevent hover visual states of various elements while a divider is being dragged.
      */
     @observable
     public isColumnBeingSized = false;
