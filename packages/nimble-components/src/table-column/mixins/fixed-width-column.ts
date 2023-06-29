@@ -18,15 +18,13 @@ export function mixinFixedWidthColumnAPI<
      * to a fixed width within a Table.
      */
     abstract class FixedWidthColumn extends base {
-        // TODO is this the right API to expose to end users? Should they have to know about all the parts that make up the width, i.e. all the parts that go into defaultMinPixelWidth?
-        public pixelWidth?: number | null;
+        public pixelWidth?: number | null = null;
 
         public pixelWidthChanged(): void {
             if (typeof this.pixelWidth === 'number') {
-                this.columnInternals.pixelWidth = this.pixelWidth;
+                this.columnInternals.currentPixelWidth = this.pixelWidth;
             } else {
-                // TODO is this right? What should the default be?
-                this.columnInternals.pixelWidth = defaultMinPixelWidth;
+                this.columnInternals.currentPixelWidth = defaultMinPixelWidth;
             }
         }
     }

@@ -5,6 +5,6 @@ import type { TableColumnIconGroupHeaderView } from '.';
 
 // prettier-ignore
 export const template = html<TableColumnIconGroupHeaderView>`
-    ${x => x.mappingToRender}
+    ${x => x.mappingToRender?.viewTemplate}
     ${baseTemplate}
 `;

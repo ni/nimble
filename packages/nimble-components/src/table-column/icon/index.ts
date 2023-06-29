@@ -5,18 +5,16 @@ import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFixedWidthColumnAPI } from '../mixins/fixed-width-column';
+import { Mapping } from '../../mapping/base';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
 import {
+    iconColumnValidityFlagNames,
     TableColumnIconValidator
-} from './models/table-column-icon-validator';
+} from './models/column-validator';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { tableColumnIconGroupHeaderViewTag } from './group-header-view';
 import { tableColumnIconCellViewTag } from './cell-view';
-import type { Mapping } from '../../mapping/base';
-import type { MappingConfig } from '../enum-base/models/mapping-config';
-import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
-import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -24,26 +22,44 @@ declare global {
     }
 }
 
-export type TableColumnIconColumnConfig = TableColumnEnumColumnConfig;
-
 /**
- * Table column that maps values to icons / spinners
+ * Table column that maps values to icons/spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    mixinFixedWidthColumnAPI(TableColumnEnumBase<TableColumnIconColumnConfig, TableColumnIconValidator>)
+    mixinFixedWidthColumnAPI(TableColumnEnumBase<TableColumnEnumColumnConfig>)
 ) {
-    protected get supportedMappingElements(): readonly (typeof Mapping)[] {
+    protected get supportedMappingTypes(): readonly (typeof Mapping)[] {
         return [MappingIcon, MappingSpinner] as const;
     }
+
+    private readonly validator: TableColumnIconValidator = new TableColumnIconValidator(
+        this.columnInternals,
+        iconColumnValidityFlagNames
+    );
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
     }
 
-    public override createValidator(): TableColumnIconValidator {
-        return new TableColumnIconValidator(
-            this.columnInternals
-        );
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.validateMappingDependentConditions();
+    }
+
+    /**
+     * @internal
+     */
+    public override handleChange(source: unknown, args: unknown): void {
+        super.handleChange(source, args);
+        if (source instanceof Mapping && typeof args === 'string') {
+            if (this.$fastController.isConnected) {
+                if (args === 'key') {
+                    this.validateKeyDependentConditions();
+                } else if (args === 'icon') {
+                    this.validator.validateIconNames(this.mappings);
+                }
+            }
+        }
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -57,19 +73,45 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     }
 
     protected override updateColumnConfig(): void {
-        this.validator.validate(this.supportedMappingElements, this.mappings, this.keyType);
-        this.columnInternals.columnConfig = this.validator.isValid() ? this.createColumnConfig() : undefined;
+        this.columnInternals.columnConfig = {
+            mappingConfigs: this.getMappingConfigsFromMappings()
+        };
     }
 
-    protected createMappingConfig(mapping: Mapping): MappingConfig {
-        if (mapping instanceof MappingIcon) {
-            return new MappingIconConfig(mapping.label!, mapping.severity, mapping.resolvedIcon!);
+    protected override mappingsChanged(): void {
+        super.mappingsChanged();
+        if (this.$fastController.isConnected) {
+            this.validateMappingDependentConditions();
         }
-        if (mapping instanceof MappingSpinner) {
-            return new MappingSpinnerConfig(mapping.label!);
+    }
+
+    protected override keyTypeChanged(): void {
+        super.keyTypeChanged();
+        if (this.$fastController.isConnected) {
+            this.validator.validateKeyValuesForType(
+                this.mappings.map(x => x.key),
+                this.keyType
+            );
         }
-        // TODO just throwing an error mere seems wrong, nothing to catch it or report to users.
-        throw new Error('Unsupported mapping');
+    }
+
+    private validateKeyDependentConditions(): void {
+        const keys = this.mappings.map(x => x.key);
+        this.validator.validateKeyValuesForType(keys, this.keyType);
+        const typedKeys = this.columnInternals.columnConfig?.mappingConfigs.map(x => x.key)
+            ?? [];
+        this.validator.validateUniqueKeys(typedKeys);
+        this.validator.validateNoMissingKeys(this.mappings);
+    }
+
+    private validateMappingDependentConditions(): void {
+        this.validator.validateAtMostOneDefaultMapping(this.mappings);
+        this.validator.validateMappingTypes(
+            this.mappings,
+            this.supportedMappingTypes
+        );
+        this.validateKeyDependentConditions();
+        this.validator.validateIconNames(this.mappings);
     }
 }
 
