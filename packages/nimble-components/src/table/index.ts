@@ -36,7 +36,6 @@ import { template } from './template';
 import {
     TableActionMenuToggleEventDetail,
     TableColumnConfigurationChangeEventDetail,
-    TableColumnResizeMode,
     TableColumnSortDirection,
     TableFieldValue,
     TableRecord,
@@ -72,9 +71,6 @@ export class Table<
 
     @attr({ attribute: 'selection-mode' })
     public selectionMode: TableRowSelectionMode = TableRowSelectionMode.none;
-
-    @attr({ attribute: 'column-resize-mode' })
-    public columnResizeMode: TableColumnResizeMode = TableColumnResizeMode.cascade;
 
     /**
      * @internal

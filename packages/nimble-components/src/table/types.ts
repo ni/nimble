@@ -147,13 +147,3 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     leafItemCount?: number;
     groupColumn?: TableColumn;
 }
-
-/**
- * The column resize modes of the table
- */
-export const TableColumnResizeMode = {
-    none: 'none',
-    cascade: 'cascade'
-} as const;
-export type TableColumnResizeMode =
-    (typeof TableColumnResizeMode)[keyof typeof TableColumnResizeMode];

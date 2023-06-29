@@ -7,7 +7,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableColumnResizeMode, TableRowSelectionMode } from '../types';
+import { TableRowSelectionMode } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -16,7 +16,6 @@ import { tableColumnTextTag } from '../../table-column/text';
 interface TableArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
-    columnResizeMode: keyof typeof TableColumnResizeMode;
     idFieldName: undefined;
     validity: undefined;
     checkValidity: undefined;
@@ -145,7 +144,6 @@ const metadata: Meta<TableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
-            column-resize-mode="${x => TableColumnResizeMode[x.columnResizeMode]}"
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
         >
@@ -213,14 +211,6 @@ const metadata: Meta<TableArgs> = {
                 'Controls whether the table supports selecting a single row at a time, multiple rows at a time, or no rows. When selection is enabled, `id-field-name` must be specified.',
             control: { type: 'radio' }
         },
-        columnResizeMode: {
-            table: {
-                defaultValue: { summary: 'cascade' }
-            },
-            options: Object.keys(TableColumnResizeMode),
-            description: 'Determines the behavior of column resizing.',
-            control: { type: 'radio' }
-        },
         getSelectedRecordIds: {
             name: 'getSelectedRecordIds()',
             description:
@@ -264,7 +254,6 @@ const metadata: Meta<TableArgs> = {
     args: {
         data: ExampleDataType.simpleData,
         selectionMode: TableRowSelectionMode.single,
-        columnResizeMode: TableColumnResizeMode.cascade,
         idFieldName: undefined,
         validity: undefined,
         checkValidity: undefined,
