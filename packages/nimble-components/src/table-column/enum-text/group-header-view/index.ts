@@ -1,7 +1,6 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { styles } from '../../text-base/group-header-view/styles';
 import { template } from '../../text-base/group-header-view/template';
-import type { MappingConfigText } from '../../../mapping/text';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
@@ -19,19 +18,21 @@ export class TableColumnEnumTextGroupHeaderView extends TableColumnTextGroupHead
 TableFieldValue,
 TableColumnEnumColumnConfig
 > {
-    public get mappingToRender(): MappingConfigText | null {
-        const found = this.columnConfig?.mappingConfigs.find(
-            x => x.key === this.groupHeaderValue
-        );
-        return (found as MappingConfigText) ?? null;
+    public get mappingToRender(): null {
+        // const found = this.columnConfig?.mappingConfigs.find(
+        //     x => x.key === this.groupHeaderValue
+        // );
+        // return (found as MappingConfigText) ?? null;
+        return null;
     }
 
     public override get text(): string {
-        return (
-            this.mappingToRender?.label
-            ?? this.groupHeaderValue?.toString()
-            ?? ''
-        );
+        // return (
+        //     this.mappingToRender?.label
+        //     ?? this.groupHeaderValue?.toString()
+        //     ?? ''
+        // );
+        return '';
     }
 
     public override get placeholder(): string {

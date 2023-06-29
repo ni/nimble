@@ -1,11 +1,14 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import type { ViewTemplate } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import { template } from './template';
 import type {
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
 } from '../../enum-base';
-import type { MappingConfigIconBase } from '../../../mapping/icon-base/types';
+import { IconView, MappingIconConfig } from '../../enum-base/models/mapping-icon-config';
+import type { IconSeverity } from '../../../icon-base/types';
+import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,23 +22,39 @@ declare global {
 export class TableColumnIconCellView extends TableCellView<
 TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
-> {
-    public get mappingToRender(): MappingConfigIconBase | null {
-        return this.matchingMapping ?? this.defaultMapping;
+> implements IconView {
+    public severity: IconSeverity;
+    public label!: string;
+    public iconTemplate?: ViewTemplate<IconView>;
+    public visual?: 'spinner' | 'icon';
+
+    private columnConfigChanged(): void {
+        this.updateState();
     }
 
-    private get matchingMapping(): MappingConfigIconBase | null {
-        const found = this.columnConfig.mappingConfigs.find(
-            x => x.key === this.cellRecord.value
-        );
-        return (found as MappingConfigIconBase) ?? null;
+    private cellRecordChanged(): void {
+        this.updateState();
     }
 
-    private get defaultMapping(): MappingConfigIconBase | null {
-        const found = this.columnConfig.mappingConfigs.find(
-            x => x.defaultMapping
-        );
-        return (found as MappingConfigIconBase) ?? null;
+    private updateState(): void {
+        this.visual = undefined;
+        if (!this.columnConfig || !this.cellRecord) {
+            return;
+        }
+        const value = this.cellRecord.value;
+        if (value === undefined || value === null) {
+            return;
+        }
+        const mappingConfig = this.columnConfig.mappingConfigs.get(value);
+        if (mappingConfig instanceof MappingIconConfig) {
+            this.visual = 'icon';
+            this.severity = mappingConfig.severity;
+            this.label = mappingConfig.label;
+            this.iconTemplate = mappingConfig.iconTemplate;
+        } else if (mappingConfig instanceof MappingSpinnerConfig) {
+            this.visual = 'spinner';
+            this.label = mappingConfig.label;
+        }
     }
 }
 
