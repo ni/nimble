@@ -4,9 +4,7 @@ import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
-import {
-    TablePageObject
-} from '../testing/table.pageobject';
+import { TablePageObject } from '../testing/table.pageobject';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
