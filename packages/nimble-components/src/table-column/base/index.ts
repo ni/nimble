@@ -47,10 +47,7 @@ export abstract class TableColumn<
 
     /** @internal */
     @observable
-    public isValidContentAndHasOverflow = false;
-
-    /** @internal */
-    public headerSpan!: HTMLSpanElement;
+    public hasOverflow = false;
 
     /** @internal */
     public contentSlot!: HTMLSlotElement;
