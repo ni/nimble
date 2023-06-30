@@ -1,4 +1,8 @@
-import { AttachedBehaviorHTMLDirective, type Behavior, type CaptureType } from '@microsoft/fast-element';
+import {
+    AttachedBehaviorHTMLDirective,
+    type Behavior,
+    type CaptureType
+} from '@microsoft/fast-element';
 
 /**
  * The runtime behavior for template tooltips.
@@ -13,7 +17,10 @@ export class OverflowBehavior implements Behavior {
      * @param target - The element to reference.
      * @param propertyName - The name of the property to assign the reference to.
      */
-    public constructor(private readonly target: HTMLElement, private propertyName: string) {}
+    public constructor(
+        private readonly target: HTMLElement,
+        private propertyName: string
+    ) {}
 
     /**
      * Bind this behavior to the source.
@@ -51,6 +58,12 @@ export class OverflowBehavior implements Behavior {
  * @param propertyName - The name of the property to assign the reference to.
  * @public
  */
-export function overflow<T = unknown>(propertyName: keyof T & string): CaptureType<T> {
-    return new AttachedBehaviorHTMLDirective('nimble-overflow', OverflowBehavior, propertyName);
+export function overflow<T = unknown>(
+    propertyName: keyof T & string
+): CaptureType<T> {
+    return new AttachedBehaviorHTMLDirective(
+        'nimble-overflow',
+        OverflowBehavior,
+        propertyName
+    );
 }
