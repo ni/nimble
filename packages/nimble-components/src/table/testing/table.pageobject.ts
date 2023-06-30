@@ -3,10 +3,7 @@ import { keyShift } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
 import { TableRecord, TableRowSelectionState } from '../types';
-import {
-    processUpdates,
-    waitForUpdatesAsync
-} from '../../testing/async-helpers';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
 import type { TableGroupHeaderView } from '../../table-column/base/group-header-view';
@@ -15,21 +12,6 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
-
-export interface DragStartInfo {
-    columnIndex: number;
-    callback: (() => void) | undefined;
-}
-
-export interface DragMoveInfo {
-    deltaX: number;
-    deltaY: number;
-    callback: (() => void) | undefined;
-}
-
-export interface DragEndInfo {
-    callback: (() => void) | undefined;
-}
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -490,43 +472,6 @@ export class TablePageObject<T extends TableRecord> {
 
         const mouseUpEvent = new MouseEvent('mouseup');
         document.dispatchEvent(mouseUpEvent);
-    }
-
-    public performColumnDrag(
-        dragStart: DragStartInfo,
-        dragMove: DragMoveInfo,
-        dragEnd: DragEndInfo
-    ): void {
-        const divider = this.getColumnDivider(dragStart.columnIndex);
-        divider.setAttribute('active', 'true');
-        const dividerRect = divider.getBoundingClientRect();
-        const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: (dividerRect.x + dividerRect.width) / 2,
-            clientY: (dividerRect.y + dividerRect.height) / 2
-        });
-        divider.dispatchEvent(mouseDownEvent);
-        processUpdates();
-        if (dragStart.callback) {
-            dragStart.callback();
-        }
-
-        const mouseMoveEvent = new MouseEvent('mousemove', {
-            movementX: dragMove.deltaX,
-            movementY: dragMove.deltaY
-        });
-        document.dispatchEvent(mouseMoveEvent);
-        document.dispatchEvent(new MouseEvent('mouseover'));
-        processUpdates();
-        if (dragMove.callback) {
-            dragMove.callback();
-        }
-
-        const mouseUpEvent = new MouseEvent('mouseup');
-        document.dispatchEvent(mouseUpEvent);
-        processUpdates();
-        if (dragEnd.callback) {
-            dragEnd.callback();
-        }
     }
 
     public getColumnDivider(index: number): HTMLElement {
