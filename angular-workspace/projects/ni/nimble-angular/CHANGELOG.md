@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 27 Jun 2023 19:05:52 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Jun 2023 22:34:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.6.12
+
+Wed, 28 Jun 2023 22:34:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.3
+
+## 16.6.11
+
+Wed, 28 Jun 2023 15:22:08 GMT
+
+### Patches
+
+- Update docs on when to use the data$ Observable on the Angular nimble-table ([ni/nimble@177774f](https://github.com/ni/nimble/commit/177774ff833f5f0a04a28d0f9bdf0ed5dfccd9b3))
+
+## 16.6.10
+
+Wed, 28 Jun 2023 13:37:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.2
 
 ## 16.6.9
 
