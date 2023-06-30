@@ -164,7 +164,7 @@ export class Table<
     /**
      * @internal
      */
-    public readonly headerRowActionContainer?: HTMLElement;
+    public readonly headerRowActionContainer!: HTMLElement;
 
     /**
      * @internal
@@ -418,6 +418,7 @@ export class Table<
         this.table.toggleAllRowsExpanded(false);
     }
 
+    /** @internal */
     public onRightDividerMouseDown(columnIndex: number): void {
         const hiddenColumnCount = this.columns.filter(
             (column, i) => i < columnIndex && column.columnHidden
@@ -427,6 +428,7 @@ export class Table<
         );
     }
 
+    /** @internal */
     public onLeftDividerMouseDown(columnIndex: number): void {
         const hiddenColumnCount = this.columns.filter(
             (column, i) => i < columnIndex && column.columnHidden

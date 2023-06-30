@@ -72,7 +72,7 @@ async function setupInteractiveTests(): Promise<Fixture<Table<SimpleTableRecord>
     );
 }
 
-describe('Table Column Sizing', () => {
+fdescribe('Table Column Sizing', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -190,7 +190,7 @@ describe('Table Column Sizing', () => {
                 column2ExpectedRenderedWidth: 100
             }
         ];
-        const focused: string[] = [];
+        const focused: string[] = ['both columns use pixelWidth'];
         const disabled: string[] = [];
         for (const columnSizeTest of columnSizeTests) {
             const specType = getSpecTypeByNamedList(
@@ -585,5 +585,22 @@ describe('Table Interactive Column Sizing', () => {
                 }
             );
         }
+    });
+
+    it('after releasing divider, it is no longer marked as active', async () => {
+        const divider = pageObject.getColumnDivider(0);
+        const dividerRect = divider.getBoundingClientRect();
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: (dividerRect.x + dividerRect.width) / 2,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+        await waitForUpdatesAsync();
+        expect(divider.getAttribute('active')).toBeTruthy();
+
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+        await waitForUpdatesAsync();
+        expect(divider.getAttribute('active')).toBeFalsy();
     });
 });

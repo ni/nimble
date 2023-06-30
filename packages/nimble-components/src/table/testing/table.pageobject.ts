@@ -235,7 +235,7 @@ export class TablePageObject<T extends TableRecord> {
 
         table.style.width = `${
             rowWidth
-            + (table.headerRowActionContainer?.getBoundingClientRect().width
+            + (table.headerRowActionContainer.getBoundingClientRect().width
                 ?? 0)
             + table.virtualizer.headerContainerMarginRight
         }px`;
