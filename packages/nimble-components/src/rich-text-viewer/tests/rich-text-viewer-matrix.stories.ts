@@ -10,6 +10,7 @@ import {
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { richTextViewerTag } from '..';
+import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Viewer',
@@ -22,7 +23,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${richTextViewerTag}></${richTextViewerTag}>
+    <${richTextViewerTag} :markdownValue="${_ => richTextMarkdownString}"></${richTextViewerTag}>
 `;
 
 export const richTextViewerThemeMatrix: StoryFn = createMatrixThemeStory(
