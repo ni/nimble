@@ -72,7 +72,7 @@ async function setupInteractiveTests(): Promise<Fixture<Table<SimpleTableRecord>
     );
 }
 
-fdescribe('Table Column Sizing', () => {
+describe('Table Column Sizing', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
