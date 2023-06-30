@@ -3,8 +3,6 @@ import resolve from '@rollup/plugin-node-resolve';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import terser from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import json from '@rollup/plugin-json';
 
 const umdDevelopmentPlugin = () => replace({

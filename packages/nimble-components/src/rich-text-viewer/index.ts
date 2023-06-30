@@ -3,8 +3,8 @@ import {
     schema,
     defaultMarkdownParser,
     MarkdownParser
-} from '@tiptap/pm/markdown';
-import { DOMSerializer } from '@tiptap/pm/model';
+} from 'prosemirror-markdown';
+import { DOMSerializer } from 'prosemirror-model';
 import { template } from './template';
 import { styles } from './styles';
 
