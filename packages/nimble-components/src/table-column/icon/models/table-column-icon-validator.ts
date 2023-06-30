@@ -1,7 +1,10 @@
 import type { Mapping } from '../../../mapping/base';
 import { MappingIcon } from '../../../mapping/icon';
 import type { ColumnInternals } from '../../base/models/column-internals';
-import { TableColumnEnumBaseValidator, enumBaseValidityFlagNames } from '../../enum-base/models/table-column-enum-base-validator';
+import {
+    TableColumnEnumBaseValidator,
+    enumBaseValidityFlagNames
+} from '../../enum-base/models/table-column-enum-base-validator';
 import type { MappingKeyType } from '../../enum-base/types';
 
 const iconValidityFlagNames = [
@@ -19,7 +22,11 @@ export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
         super(columnInternals, iconValidityFlagNames);
     }
 
-    public override validate(supportedMappingElements: readonly (typeof Mapping)[], mappings: Mapping[], keyType: MappingKeyType): void {
+    public override validate(
+        supportedMappingElements: readonly (typeof Mapping)[],
+        mappings: Mapping[],
+        keyType: MappingKeyType
+    ): void {
         super.validate(supportedMappingElements, mappings, keyType);
         this.validateIconNames(mappings);
     }

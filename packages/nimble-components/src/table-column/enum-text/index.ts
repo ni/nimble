@@ -7,9 +7,7 @@ import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingText } from '../../mapping/text';
-import {
-    TableColumnEnumTextValidator
-} from './models/table-column-enum-text-validator';
+import { TableColumnEnumTextValidator } from './models/table-column-enum-text-validator';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { tableColumnEnumTextCellViewTag } from './cell-view';
 import { tableColumnEnumTextGroupHeaderViewTag } from './group-header-view';
@@ -33,7 +31,10 @@ export interface TableColumnEnumTextColumnConfig
  */
 export class TableColumnEnumText extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
-        TableColumnEnumBase<TableColumnEnumTextColumnConfig, TableColumnEnumTextValidator>
+        TableColumnEnumBase<
+        TableColumnEnumTextColumnConfig,
+        TableColumnEnumTextValidator
+        >
     )
 ) {
     @attr
@@ -44,9 +45,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     }
 
     public override createValidator(): TableColumnEnumTextValidator {
-        return new TableColumnEnumTextValidator(
-            this.columnInternals
-        );
+        return new TableColumnEnumTextValidator(this.columnInternals);
     }
 
     public override get validity(): TableColumnValidity {
@@ -64,8 +63,14 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     }
 
     protected override updateColumnConfig(): void {
-        this.validator.validate(this.supportedMappingElements, this.mappings, this.keyType);
-        this.columnInternals.columnConfig = this.validator.isValid() ? this.createColumnConfig() : undefined;
+        this.validator.validate(
+            this.supportedMappingElements,
+            this.mappings,
+            this.keyType
+        );
+        this.columnInternals.columnConfig = this.validator.isValid()
+            ? this.createColumnConfig()
+            : undefined;
     }
 
     protected override createColumnConfig(): TableColumnEnumTextColumnConfig {

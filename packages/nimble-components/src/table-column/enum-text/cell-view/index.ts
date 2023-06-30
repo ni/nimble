@@ -28,7 +28,8 @@ TableColumnEnumTextColumnConfig
             return;
         }
 
-        const config = this.columnConfig.mappingConfigs.get(value) ?? this.columnConfig.defaultMapping;
+        const config = this.columnConfig.mappingConfigs.get(value)
+            ?? this.columnConfig.defaultMapping;
         if (config) {
             this.shouldUsePlaceholder = false;
             this.text = (config as MappingTextConfig).label;

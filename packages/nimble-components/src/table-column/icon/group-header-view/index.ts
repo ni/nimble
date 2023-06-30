@@ -17,8 +17,7 @@ declare global {
 export class TableColumnIconGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableFieldValue,
 TableColumnEnumColumnConfig
-> {
-}
+> {}
 
 const iconGroupHeaderView = TableColumnIconGroupHeaderView.compose({
     baseName: 'table-column-icon-group-header-view',

@@ -315,7 +315,10 @@ describe('TableColumnEnumText', () => {
 
     describe('validation', () => {
         it('is valid with no mappings', async () => {
-            ({ element, connect, disconnect, model } = await setup([], 'number'));
+            ({ element, connect, disconnect, model } = await setup(
+                [],
+                'number'
+            ));
             await connect();
             await waitForUpdatesAsync();
             const column = model.col1;

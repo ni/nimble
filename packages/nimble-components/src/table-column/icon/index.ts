@@ -7,9 +7,7 @@ import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFixedWidthColumnAPI } from '../mixins/fixed-width-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
-import {
-    TableColumnIconValidator
-} from './models/table-column-icon-validator';
+import { TableColumnIconValidator } from './models/table-column-icon-validator';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { tableColumnIconGroupHeaderViewTag } from './group-header-view';
 import { tableColumnIconCellViewTag } from './cell-view';
@@ -30,7 +28,12 @@ export type TableColumnIconColumnConfig = TableColumnEnumColumnConfig;
  * Table column that maps values to icons / spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    mixinFixedWidthColumnAPI(TableColumnEnumBase<TableColumnIconColumnConfig, TableColumnIconValidator>)
+    mixinFixedWidthColumnAPI(
+        TableColumnEnumBase<
+        TableColumnIconColumnConfig,
+        TableColumnIconValidator
+        >
+    )
 ) {
     protected get supportedMappingElements(): readonly (typeof Mapping)[] {
         return [MappingIcon, MappingSpinner] as const;
@@ -41,9 +44,7 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     }
 
     public override createValidator(): TableColumnIconValidator {
-        return new TableColumnIconValidator(
-            this.columnInternals
-        );
+        return new TableColumnIconValidator(this.columnInternals);
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -57,13 +58,23 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     }
 
     protected override updateColumnConfig(): void {
-        this.validator.validate(this.supportedMappingElements, this.mappings, this.keyType);
-        this.columnInternals.columnConfig = this.validator.isValid() ? this.createColumnConfig() : undefined;
+        this.validator.validate(
+            this.supportedMappingElements,
+            this.mappings,
+            this.keyType
+        );
+        this.columnInternals.columnConfig = this.validator.isValid()
+            ? this.createColumnConfig()
+            : undefined;
     }
 
     protected createMappingConfig(mapping: Mapping): MappingConfig {
         if (mapping instanceof MappingIcon) {
-            return new MappingIconConfig(mapping.label!, mapping.severity, mapping.resolvedIcon!);
+            return new MappingIconConfig(
+                mapping.label!,
+                mapping.severity,
+                mapping.resolvedIcon!
+            );
         }
         if (mapping instanceof MappingSpinner) {
             return new MappingSpinnerConfig(mapping.label!);

@@ -1,9 +1,10 @@
 import type { ColumnInternals } from '../../base/models/column-internals';
-import { TableColumnEnumBaseValidator, enumBaseValidityFlagNames } from '../../enum-base/models/table-column-enum-base-validator';
+import {
+    TableColumnEnumBaseValidator,
+    enumBaseValidityFlagNames
+} from '../../enum-base/models/table-column-enum-base-validator';
 
-const enumTextValidityFlagNames = [
-    ...enumBaseValidityFlagNames,
-] as const;
+const enumTextValidityFlagNames = [...enumBaseValidityFlagNames] as const;
 
 /**
  * Validator for TableColumnEnumText

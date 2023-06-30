@@ -6,7 +6,10 @@ import type {
     TableColumnEnumCellRecord,
     TableColumnEnumColumnConfig
 } from '../../enum-base';
-import { IconView, MappingIconConfig } from '../../enum-base/models/mapping-icon-config';
+import {
+    IconView,
+    MappingIconConfig
+} from '../../enum-base/models/mapping-icon-config';
 import type { IconSeverity } from '../../../icon-base/types';
 import { MappingSpinnerConfig } from '../../enum-base/models/mapping-spinner-config';
 
@@ -19,10 +22,12 @@ declare global {
 /**
  * The cell view for the icon column
  */
-export class TableColumnIconCellView extends TableCellView<
-TableColumnEnumCellRecord,
-TableColumnEnumColumnConfig
-> implements IconView {
+export class TableColumnIconCellView
+    extends TableCellView<
+    TableColumnEnumCellRecord,
+    TableColumnEnumColumnConfig
+    >
+    implements IconView {
     public severity: IconSeverity;
     public label!: string;
     public iconTemplate?: ViewTemplate<IconView>;

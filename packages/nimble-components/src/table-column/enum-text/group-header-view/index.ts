@@ -17,8 +17,7 @@ declare global {
 export class TableColumnEnumTextGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
 TableFieldValue,
 TableColumnEnumColumnConfig
-> {
-}
+> {}
 
 const enumTextGroupHeaderView = TableColumnEnumTextGroupHeaderView.compose({
     baseName: 'table-column-enum-text-group-header-view',

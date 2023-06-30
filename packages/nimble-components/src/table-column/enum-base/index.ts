@@ -5,7 +5,11 @@ import {
     observable,
     Subscriber
 } from '@microsoft/fast-element';
-import type { TableStringField, TableBooleanField, TableNumberField } from '../../table/types';
+import type {
+    TableStringField,
+    TableBooleanField,
+    TableNumberField
+} from '../../table/types';
 import { TableColumn } from '../base';
 import { Mapping } from '../../mapping/base';
 import type { MappingKeyType } from './types';
@@ -13,7 +17,10 @@ import type { MappingConfig } from './models/mapping-config';
 import type { MappingKey } from '../../mapping/base/types';
 import { resolveKeyWithType } from './models/mapping-key-resolver';
 
-export type TableColumnEnumCellRecord = TableStringField<'value'> | TableBooleanField<'value'> | TableNumberField<'value'>;
+export type TableColumnEnumCellRecord =
+    | TableStringField<'value'>
+    | TableBooleanField<'value'>
+    | TableNumberField<'value'>;
 export type MappingConfigs = Map<MappingKey, MappingConfig>;
 export interface TableColumnEnumColumnConfig {
     mappingConfigs: MappingConfigs;
@@ -63,8 +70,8 @@ export abstract class TableColumnEnumBase<
 
     // TODO should we batch updateColumnConfig this on rAF?
     /**
-    * Called when any Mapping related state has changed
-    */
+     * Called when any Mapping related state has changed
+     */
     protected abstract updateColumnConfig(): void;
 
     // Assumes the mapping element state is validated

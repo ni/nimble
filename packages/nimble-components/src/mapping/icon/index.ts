@@ -12,7 +12,7 @@ declare global {
 }
 
 const isIconClass = (elementClass: CustomElementConstructor): boolean => {
-    return elementClass !== undefined && (elementClass.prototype instanceof Icon);
+    return elementClass !== undefined && elementClass.prototype instanceof Icon;
 };
 
 /**

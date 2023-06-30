@@ -15,10 +15,16 @@ export const enumBaseValidityFlagNames = [
 /**
  * Validator for TableColumnEnumText. Implementations MUST include enumBaseValidityFlagNames in validity flag names set.
  */
-export abstract class TableColumnEnumBaseValidator<ValidityFlagNames extends readonly string[]> extends ColumnValidator<
-typeof enumBaseValidityFlagNames | ValidityFlagNames
-> {
-    public validate(supportedMappingElements: readonly (typeof Mapping)[], mappings: Mapping[], keyType: MappingKeyType): void {
+export abstract class TableColumnEnumBaseValidator<
+    ValidityFlagNames extends readonly string[]
+> extends ColumnValidator<
+    typeof enumBaseValidityFlagNames | ValidityFlagNames
+    > {
+    public validate(
+        supportedMappingElements: readonly (typeof Mapping)[],
+        mappings: Mapping[],
+        keyType: MappingKeyType
+    ): void {
         this.untrackAll();
         const keys = mappings.map(mapping => mapping.key);
         this.validateKeyValuesForType(keys, keyType);
@@ -48,7 +54,9 @@ typeof enumBaseValidityFlagNames | ValidityFlagNames
         mappings: Mapping[],
         supportedMappingElements: readonly (typeof Mapping)[]
     ): void {
-        const valid = mappings.every(mapping => supportedMappingElements.some(mappingClass => mapping instanceof mappingClass));
+        const valid = mappings.every(mapping => supportedMappingElements.some(
+            mappingClass => mapping instanceof mappingClass
+        ));
         this.setConditionValue('unsupportedMappingType', !valid);
     }
 
@@ -58,7 +66,9 @@ typeof enumBaseValidityFlagNames | ValidityFlagNames
     }
 
     private validateNoMissingKeys(mappings: Mapping[]): void {
-        const invalid = mappings.filter(mapping => mapping.key === undefined && !mapping.defaultMapping).length > 0;
+        const invalid = mappings.filter(
+            mapping => mapping.key === undefined && !mapping.defaultMapping
+        ).length > 0;
         this.setConditionValue('missingKeyValue', invalid);
     }
 }
