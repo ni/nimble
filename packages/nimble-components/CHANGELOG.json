@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 30 Jun 2023 16:02:24 GMT",
+      "tag": "@ni/nimble-components_v19.4.4",
+      "version": "19.4.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d17d95074479cad512f1dd0640ff0c3cad09f91",
+            "comment": "Overflow directive"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 28 Jun 2023 22:34:33 GMT",
       "tag": "@ni/nimble-components_v19.4.3",
       "version": "19.4.3",
