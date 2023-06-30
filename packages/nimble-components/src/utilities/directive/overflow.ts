@@ -11,6 +11,7 @@ import {
 export class OverflowBehavior implements Behavior {
     private mouseOverHandler!: () => void;
     private mouseOutHandler!: () => void;
+    private source: unknown;
 
     /**
      * Creates an instance of OverflowBehavior.
@@ -28,16 +29,14 @@ export class OverflowBehavior implements Behavior {
      * @param context - The execution context that the binding is operating within.
      */
     public bind(source: unknown): void {
-        // @ts-expect-error set property on source
-        source[this.propertyName] = false;
+        this.source = source;
+        this.setSourceValue(false);
         this.mouseOverHandler = () => {
             const hasOverflow = this.target.offsetWidth < this.target.scrollWidth;
-            // @ts-expect-error set property on source
-            source[this.propertyName] = hasOverflow;
+            this.setSourceValue(hasOverflow);
         };
         this.mouseOutHandler = () => {
-            // @ts-expect-error set property on source
-            source[this.propertyName] = false;
+            this.setSourceValue(false);
         };
         this.target.addEventListener('mouseover', this.mouseOverHandler);
         this.target.addEventListener('mouseout', this.mouseOutHandler);
@@ -48,8 +47,14 @@ export class OverflowBehavior implements Behavior {
      * @param source - The source to unbind from.
      */
     public unbind(): void {
+        this.source = undefined;
         this.target.removeEventListener('mouseover', this.mouseOverHandler);
         this.target.removeEventListener('mouseout', this.mouseOutHandler);
+    }
+
+    private setSourceValue(value: boolean): void {
+        // @ts-expect-error set property on source
+        this.source[this.propertyName] = value;
     }
 }
 
