@@ -101,9 +101,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         let totalColumnFixedWidth = 0;
         for (const column of this.getVisibleColumns()) {
             totalColumnFixedWidth
-                += column.columnInternals.currentPixelWidth !== undefined
-                    ? column.columnInternals.currentPixelWidth
-                    : 0;
+                += column.columnInternals.currentPixelWidth ?? 0;
         }
         return totalColumnFixedWidth;
     }
