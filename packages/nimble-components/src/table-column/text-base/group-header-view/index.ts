@@ -11,9 +11,6 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     TColumnConfig = TableColumnWithPlaceholderColumnConfig
 > extends TableGroupHeaderView<TGroupValue, TColumnConfig> {
     /** @internal */
-    public textSpan!: HTMLElement;
-
-    /** @internal */
     @observable
     public hasOverflow = false;
 
@@ -38,15 +35,5 @@ export abstract class TableColumnTextGroupHeaderViewBase<
     @volatile
     public get content(): string {
         return this.shouldUsePlaceholder ? this.placeholder : this.text;
-    }
-
-    /** @internal */
-    public updateTitleOverflow(): void {
-        this.hasOverflow = this.textSpan.offsetWidth < this.textSpan.scrollWidth;
-    }
-
-    /** @internal */
-    public clearTitleOverflow(): void {
-        this.hasOverflow = false;
     }
 }
