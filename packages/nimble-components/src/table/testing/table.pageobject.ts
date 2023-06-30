@@ -2,7 +2,11 @@ import type { Checkbox } from '@microsoft/fast-foundation';
 import { keyShift } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import { TableRecord, TableRowSelectionState } from '../types';
+import {
+    TableColumnSortDirection,
+    TableRecord,
+    TableRowSelectionState
+} from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
@@ -14,6 +18,14 @@ import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
 import { Spinner } from '../../spinner';
+
+/**
+ * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
+ */
+export interface SortedColumn {
+    columnId?: string;
+    sortDirection: TableColumnSortDirection;
+}
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -473,6 +485,52 @@ export class TablePageObject<T extends TableRecord> {
         }
     }
 
+    public getSortedColumns(): SortedColumn[] {
+        return this.tableElement.columns
+            .filter(
+                x => !x.sortingDisabled
+                    && typeof x.columnInternals.currentSortIndex === 'number'
+                    && x.columnInternals.currentSortDirection
+                        !== TableColumnSortDirection.none
+            )
+            .sort(
+                (a, b) => a.columnInternals.currentSortIndex!
+                    - b.columnInternals.currentSortIndex!
+            )
+            .map(x => {
+                return {
+                    columnId: x.columnId,
+                    sortDirection: x.columnInternals.currentSortDirection
+                };
+            });
+    }
+
+    public getGroupedColumns(): string[] {
+        return this.tableElement.columns
+            .filter(
+                x => !x.columnInternals.groupingDisabled
+                    && typeof x.columnInternals.groupIndex === 'number'
+            )
+            .sort(
+                (a, b) => a.columnInternals.groupIndex!
+                    - b.columnInternals.groupIndex!
+            )
+            .map(x => x.columnId ?? '');
+    }
+
+    public getChildRowCountForGroup(groupRowIndex: number): number {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        const countDisplayString = groupRow
+            .shadowRoot!.querySelector('.group-row-child-count')!
+            .textContent!.trim();
+        // Remove the parenthesis to get just the number as a string
+        const countString = countDisplayString.substring(
+            1,
+            countDisplayString.length - 1
+        );
+        return Number(countString);
+    }
+
     private getRow(rowIndex: number): TableRow {
         const rows = this.tableElement.shadowRoot!.querySelectorAll('nimble-table-row');
         if (rowIndex >= rows.length) {
@@ -554,17 +612,8 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
-        if (groupRowIndex >= groupRows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const groupRow = groupRows[groupRowIndex];
-        return groupRow!.shadowRoot!.querySelector('.group-header-view')!;
+        const groupRow = this.getGroupRow(groupRowIndex);
+        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
     }
 
     private getHeaderContentElement(

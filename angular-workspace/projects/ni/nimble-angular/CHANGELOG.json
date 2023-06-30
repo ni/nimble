@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 28 Jun 2023 22:34:33 GMT",
+      "tag": "@ni/nimble-angular_v16.6.12",
+      "version": "16.6.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.4.3",
+            "commit": "a8148fe86743b45ac970c7a4c9fd2e46fd6280da"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Jun 2023 15:22:08 GMT",
+      "tag": "@ni/nimble-angular_v16.6.11",
+      "version": "16.6.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "177774ff833f5f0a04a28d0f9bdf0ed5dfccd9b3",
+            "comment": "Update docs on when to use the data$ Observable on the Angular nimble-table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Jun 2023 13:37:50 GMT",
+      "tag": "@ni/nimble-angular_v16.6.10",
+      "version": "16.6.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.4.2",
+            "commit": "c88e3657b05f6b04a34115acdd13ecb6b7b9c0c6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Jun 2023 19:05:52 GMT",
+      "tag": "@ni/nimble-angular_v16.6.9",
+      "version": "16.6.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.4.1",
+            "commit": "137db4ca75e10b5d8316e12ac86c59b0efd468a3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jun 2023 14:17:25 GMT",
       "tag": "@ni/nimble-angular_v16.6.8",
       "version": "16.6.8",
