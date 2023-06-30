@@ -24,12 +24,10 @@ TableColumnAnchorColumnConfig
 > {
     /** @internal */
     @observable
-    public isValidContentAndHasOverflow = false;
+    public hasOverflow = false;
 
     /** @internal */
     public anchor?: Anchor;
-    /** @internal */
-    public textSpan?: HTMLSpanElement;
 
     @volatile
     public get content(): string {
