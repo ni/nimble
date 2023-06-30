@@ -18,32 +18,6 @@ export class TableColumnEnumTextGroupHeaderView extends TableColumnTextGroupHead
 TableFieldValue,
 TableColumnEnumColumnConfig
 > {
-    public get mappingToRender(): null {
-        // const found = this.columnConfig?.mappingConfigs.find(
-        //     x => x.key === this.groupHeaderValue
-        // );
-        // return (found as MappingConfigText) ?? null;
-        return null;
-    }
-
-    public override get text(): string {
-        // return (
-        //     this.mappingToRender?.label
-        //     ?? this.groupHeaderValue?.toString()
-        //     ?? ''
-        // );
-        return '';
-    }
-
-    public override get placeholder(): string {
-        throw Error('Placeholder not used');
-    }
-
-    // Rule incorrectly reports an error when overriding base class member
-    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
-    public override get shouldUsePlaceholder(): boolean {
-        return false;
-    }
 }
 
 const enumTextGroupHeaderView = TableColumnEnumTextGroupHeaderView.compose({

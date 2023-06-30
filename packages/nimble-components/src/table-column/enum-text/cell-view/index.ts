@@ -1,5 +1,4 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { observable } from '@microsoft/fast-element';
 import { styles } from '../../text-base/cell-view/styles';
 import { template } from '../../text-base/cell-view/template';
 import type { TableColumnEnumCellRecord } from '../../enum-base';
@@ -20,18 +19,6 @@ export class TableColumnEnumTextCellView extends TableColumnTextCellViewBase<
 TableColumnEnumCellRecord,
 TableColumnEnumTextColumnConfig
 > {
-    // TODO remove after merging from main
-    @observable
-    public override text = '';
-
-    // TODO remove after merging from main
-    @observable
-    public override placeholder = '';
-
-    // TODO remove after merging from main
-    @observable
-    public override shouldUsePlaceholder = true;
-
     private columnConfigChanged(): void {
         this.placeholder = this.columnConfig.placeholder || '';
 
