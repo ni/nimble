@@ -361,7 +361,6 @@ describe('Table Interactive Column Sizing', () => {
         await element.setData(simpleTableData);
         await waitForUpdatesAsync();
         await pageObject.sizeTableToGivenRowWidth(400, element);
-        await waitForUpdatesAsync();
     });
 
     afterEach(async () => {
@@ -400,7 +399,7 @@ describe('Table Interactive Column Sizing', () => {
             expectedColumnWidths: [100, 99, 50, 151]
         },
         {
-            name: 'Sizing right past the minimum size of all columns to left shinks all columns to minimum size, and stops growing right most column',
+            name: 'sizing right past the minimum size of all columns to left shinks all columns to minimum size, and stops growing right most column',
             dragDeltas: [-151],
             columnDragIndex: 2,
             expectedColumnWidths: [50, 50, 50, 250]
@@ -516,7 +515,7 @@ describe('Table Interactive Column Sizing', () => {
         expect(pageObject.getRenderedCellCountForRow(0)).toBe(3);
     });
 
-    describe('divider interaction tests', () => {
+    describe('active divider tests', () => {
         const dividerActiveTests = [
             {
                 name: 'click on dividers[0]',
@@ -570,14 +569,16 @@ describe('Table Interactive Column Sizing', () => {
                         clientX: (dividerRect.x + dividerRect.width) / 2,
                         clientY: (dividerRect.y + dividerRect.height) / 2
                     });
+                    const mouseUpEvent = new MouseEvent('mouseup');
                     divider.dispatchEvent(mouseDownEvent);
                     await waitForUpdatesAsync();
-                    const activeDividers = dividers
-                        .map((d, i) => {
-                            return { active: d.getAttribute('active'), i };
-                        })
-                        .filter(d => d.active)
-                        .map(d => d.i);
+                    const activeDividers = [];
+                    for (let i = 0; i < dividers.length; i++) {
+                        if (dividers[i]!.getAttribute('active')) {
+                            activeDividers.push(i);
+                        }
+                    }
+                    document.dispatchEvent(mouseUpEvent); // clean up registered event handlers
                     expect(activeDividers).toEqual(
                         dividerActiveTest.expectedActiveIndexes
                     );
