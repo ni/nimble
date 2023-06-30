@@ -1,10 +1,11 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { observable } from '@microsoft/fast-element';
 import { styles } from '../../text-base/cell-view/styles';
 import { template } from '../../text-base/cell-view/template';
 import type { TableColumnEnumCellRecord } from '../../enum-base';
-import type { MappingConfigText } from '../../../mapping/text';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
 import type { TableColumnEnumTextColumnConfig } from '..';
+import type { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -19,34 +20,32 @@ export class TableColumnEnumTextCellView extends TableColumnTextCellViewBase<
 TableColumnEnumCellRecord,
 TableColumnEnumTextColumnConfig
 > {
-    public override get text(): string {
-        return this.mappingToRender?.label ?? '';
-    }
+    // TODO remove after merging from main
+    @observable
+    public override text = '';
 
-    public override get placeholder(): string {
-        return this.columnConfig.placeholder;
-    }
+    // TODO remove after merging from main
+    @observable
+    public override placeholder = '';
 
-    public override get shouldUsePlaceholder(): boolean {
-        return this.mappingToRender === null;
-    }
+    // TODO remove after merging from main
+    @observable
+    public override shouldUsePlaceholder = true;
 
-    private get mappingToRender(): MappingConfigText | null {
-        return this.matchingMapping ?? this.defaultMapping;
-    }
+    private columnConfigChanged(): void {
+        this.placeholder = this.columnConfig.placeholder || '';
 
-    private get matchingMapping(): MappingConfigText | null {
-        const found = this.columnConfig.mappingConfigs.find(
-            x => x.key === this.cellRecord.value
-        );
-        return (found as MappingConfigText) ?? null;
-    }
+        const value = this.cellRecord.value;
+        if (value === undefined || value === null) {
+            this.shouldUsePlaceholder = true;
+            return;
+        }
 
-    private get defaultMapping(): MappingConfigText | null {
-        const found = this.columnConfig.mappingConfigs.find(
-            x => x.defaultMapping
-        );
-        return (found as MappingConfigText) ?? null;
+        const config = this.columnConfig.mappingConfigs.get(value) ?? this.columnConfig.defaultMapping;
+        if (config) {
+            this.shouldUsePlaceholder = false;
+            this.text = (config as MappingTextConfig).label;
+        }
     }
 }
 

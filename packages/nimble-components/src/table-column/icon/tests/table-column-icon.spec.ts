@@ -11,15 +11,15 @@ import { mappingTextTag } from '../../../mapping/text';
 import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
 import { IconXmark } from '../../../icons/xmark';
 import { IconCheck } from '../../../icons/check';
-import type { MappingKeyValue } from '../../../mapping/base/types';
+import type { MappingKey } from '../../../mapping/base/types';
 
 interface SimpleTableRecord extends TableRecord {
-    field1?: MappingKeyValue | undefined;
-    field2?: MappingKeyValue | undefined;
+    field1?: MappingKey | undefined;
+    field2?: MappingKey | undefined;
 }
 
 interface BasicIconMapping {
-    key?: MappingKeyValue;
+    key?: MappingKey;
     label: string;
     defaultMapping?: boolean;
     icon: string;
