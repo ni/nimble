@@ -5,7 +5,7 @@ import {
 } from '@microsoft/fast-element';
 
 /**
- * The runtime behavior for template tooltips.
+ * The runtime behavior for template overflow detection.
  * @public
  */
 export class OverflowBehavior implements Behavior {
@@ -13,9 +13,9 @@ export class OverflowBehavior implements Behavior {
     private mouseOutHandler!: () => void;
 
     /**
-     * Creates an instance of RefBehavior.
-     * @param target - The element to reference.
-     * @param propertyName - The name of the property to assign the reference to.
+     * Creates an instance of OverflowBehavior.
+     * @param target - The element to check for overflow.
+     * @param propertyName - The name of the property to assign the overflow state to.
      */
     public constructor(
         private readonly target: HTMLElement,
@@ -54,8 +54,8 @@ export class OverflowBehavior implements Behavior {
 }
 
 /**
- * A directive that observes the updates a property with a reference to the element.
- * @param propertyName - The name of the property to assign the reference to.
+ * A directive that observes if an element has overflow and sets a flag.
+ * @param propertyName - The name of the property to assign the overflow flag.
  * @public
  */
 export function overflow<T = unknown>(
