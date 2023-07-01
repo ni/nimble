@@ -26,13 +26,16 @@ export class LabelProviderCore extends LabelProviderBase {
     @attr({ attribute: 'number-field-increment' })
     public numberFieldIncrement?: string;
 
-    protected override readonly supportedLabels: {
-        [P in keyof LabelProviderCore]?: DesignToken<string>;
-    } = {
+    public constructor() {
+        const supportedLabels: {
+            [P in keyof LabelProviderCore]?: DesignToken<string>;
+        } = {
             alertDismiss: alertDismissLabel,
             numberFieldDecrement: numberFieldDecrementLabel,
             numberFieldIncrement: numberFieldIncrementLabel
         };
+        super(supportedLabels);
+    }
 }
 
 const nimbleLabelProviderCore = LabelProviderCore.compose({
