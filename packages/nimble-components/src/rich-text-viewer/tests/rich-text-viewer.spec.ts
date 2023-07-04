@@ -2,7 +2,6 @@ import { html } from '@microsoft/fast-element';
 import { RichTextViewer, richTextViewerTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { RichTextViewerPageObject } from '../testing/rich-text-viewer.pageobject';
-import { processUpdates } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return fixture<RichTextViewer>(
@@ -14,7 +13,6 @@ describe('RichTextViewer', () => {
     let element: RichTextViewer;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let spy: jasmine.Spy;
     let pageObject: RichTextViewerPageObject;
 
     beforeEach(async () => {
@@ -43,16 +41,6 @@ describe('RichTextViewer', () => {
         await disconnect();
     });
 
-    it('should call the "parseMarkdownToDOM" function when setting the markdown value', () => {
-        spy = spyOn(element, 'parseMarkdownToDOM');
-
-        const markdownValue = 'markdown string';
-        element.markdownValue = markdownValue;
-
-        expect(spy).toHaveBeenCalledWith(markdownValue);
-        processUpdates();
-    });
-
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         let childElement: Element | null | undefined;
         function expectChildElements(
@@ -62,7 +50,7 @@ describe('RichTextViewer', () => {
             childElement = pageObject.getFirstChildElement();
             for (const childTagName of childElementTagNames) {
                 expect(
-                    pageObject.getFirstChildElementTagName(childElement)
+                    pageObject.getTagName(childElement)
                 ).toBe(childTagName);
                 if (
                     childElementTagNames.indexOf(childTagName)
@@ -71,14 +59,13 @@ describe('RichTextViewer', () => {
                     childElement = childElement?.firstElementChild;
                 }
             }
-            expect(pageObject.getChildElementTextContent(childElement)).toBe(
+            expect(pageObject.getTextContent(childElement)).toBe(
                 expectedText
             );
         }
 
-        it('should covert bold markdown string to "strong" HTML tag', async () => {
-            const markdownValue = '**Bold**';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert bold markdown string to "strong" HTML tag', async () => {
+            element.markdownValue = '**Bold**';
 
             await connect();
 
@@ -87,9 +74,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert italics markdown string to "em" HTML tag', async () => {
-            const markdownValue = '*Italics*';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert italics markdown string to "em" HTML tag', async () => {
+            element.markdownValue = '*Italics*';
 
             await connect();
 
@@ -98,9 +84,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert numbered list markdown string to "ol" and "li" HTML tags', async () => {
-            const markdownValue = '1. Numbered list';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert numbered list markdown string to "ol" and "li" HTML tags', async () => {
+            element.markdownValue = '1. Numbered list';
 
             await connect();
 
@@ -109,9 +94,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert bulleted list markdown string to "ul" and "li" HTML tags', async () => {
-            const markdownValue = '* Bulleted list';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert bulleted list markdown string to "ul" and "li" HTML tags', async () => {
+            element.markdownValue = '* Bulleted list';
 
             await connect();
 
@@ -120,9 +104,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert direct link markdown string to "a" tags with the link as the text content', async () => {
-            const markdownValue = '<https://nimble.ni.dev/>';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert direct link markdown string to "a" tags with the link as the text content', async () => {
+            element.markdownValue = '<https://nimble.ni.dev/>';
 
             await connect();
 
@@ -134,9 +117,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert numbered list with bold markdown string to "ol", "li" and "strong" HTML tags', async () => {
-            const markdownValue = '1. **Numbered list in bold**';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert numbered list with bold markdown string to "ol", "li" and "strong" HTML tags', async () => {
+            element.markdownValue = '1. **Numbered list in bold**';
 
             await connect();
 
@@ -148,9 +130,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', async () => {
-            const markdownValue = '* *Bulleted list in italics*';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', async () => {
+            element.markdownValue = '* *Bulleted list in italics*';
 
             await connect();
 
@@ -162,9 +143,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert bulleted list with direct links markdown string to "ul", "li" and "a" HTML tags', async () => {
-            const markdownValue = '* <https://nimble.ni.dev/>';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert bulleted list with direct links markdown string to "ul", "li" and "a" HTML tags', async () => {
+            element.markdownValue = '* <https://nimble.ni.dev/>';
 
             await connect();
 
@@ -179,9 +159,8 @@ describe('RichTextViewer', () => {
             await disconnect();
         });
 
-        it('should covert direct links in bold markdown string to "strong" and "a" HTML tags', async () => {
-            const markdownValue = '**<https://nimble.ni.dev/>**';
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+        it('should convert direct links in bold markdown string to "strong" and "a" HTML tags', async () => {
+            element.markdownValue = '**<https://nimble.ni.dev/>**';
 
             await connect();
 
@@ -198,15 +177,15 @@ describe('RichTextViewer', () => {
         async function expectParagraphTag(
             markdownValue: string
         ): Promise<void> {
-            element.serializedContent = element.parseMarkdownToDOM(markdownValue);
+            element.markdownValue = markdownValue;
 
             await connect();
 
             const childElement = pageObject.getFirstChildElement();
-            expect(pageObject.getFirstChildElementTagName(childElement)).toBe(
+            expect(pageObject.getTagName(childElement)).toBe(
                 'P'
             );
-            expect(pageObject.getChildElementTextContent(childElement)).toBe(
+            expect(pageObject.getTextContent(childElement)).toBe(
                 markdownValue
             );
 

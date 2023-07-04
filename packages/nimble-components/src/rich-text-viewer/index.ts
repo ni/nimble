@@ -37,8 +37,16 @@ export class RichTextViewer extends FoundationElement {
         return this._markdownValue;
     }
 
-    public serializedContent?: HTMLElement | DocumentFragment;
     private _markdownValue = '';
+    private serializedContent?: HTMLElement | DocumentFragment;
+    private readonly markdownParser: MarkdownParser;
+    private readonly domSerializer: DOMSerializer;
+
+    public constructor() {
+        super();
+        this.domSerializer = DOMSerializer.fromSchema(schema);
+        this.markdownParser = this.initializeMarkdownParser();
+    }
 
     /**
      * @internal
@@ -48,35 +56,38 @@ export class RichTextViewer extends FoundationElement {
         this.appendSerializedContentToViewer();
     }
 
-    /**
-     *
-     * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
-     * DOM structure using a DOMSerializer, and returns the serialized result.
-     *
-     * @internal
-     */
-    public parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
-        const serializer = DOMSerializer.fromSchema(schema);
-
+    private initializeMarkdownParser(): MarkdownParser {
         /**
-         * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
-         * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
-         * https://github.com/markdown-it/markdown-it/blob/master/lib/presets/zero.js#L1
-         *
-         */
+        * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
+        * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
+        * https://github.com/markdown-it/markdown-it/blob/master/lib/presets/zero.js#L1
+        *
+        */
         const zeroTokenizerConfiguration = defaultMarkdownParser.tokenizer.configure('zero');
+
+        // The detailed information of the supported rules were provided in the below CommonMark spec document.
+        // https://spec.commonmark.org/0.30/
         const supportedTokenizerRules = zeroTokenizerConfiguration.enable([
             'emphasis',
             'list',
             'autolink'
         ]);
 
-        const parser = new MarkdownParser(
+        return new MarkdownParser(
             schema,
             supportedTokenizerRules,
             defaultMarkdownParser.tokens
         );
-        return serializer.serializeFragment(parser.parse(value)!.content);
+    }
+
+    /**
+     *
+     * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
+     * DOM structure using a DOMSerializer, and returns the serialized result.
+     *
+     */
+    private parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
+        return this.domSerializer.serializeFragment(this.markdownParser.parse(value)!.content);
     }
 
     private appendSerializedContentToViewer(): void {

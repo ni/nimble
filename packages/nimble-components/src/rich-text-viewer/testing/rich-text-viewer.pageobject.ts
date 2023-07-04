@@ -8,13 +8,13 @@ export class RichTextViewerPageObject {
         private readonly richTextViewerElement: RichTextViewer
     ) {}
 
-    public getFirstChildElementTagName(
+    public getTagName(
         element: Element | null | undefined
     ): string {
         return element?.tagName || '';
     }
 
-    public getChildElementTextContent(
+    public getTextContent(
         element: Element | null | undefined
     ): string {
         return element?.textContent || '';
