@@ -11,10 +11,7 @@ export abstract class TableColumnTextCellViewBase<
 > extends TableCellView<TCellRecord, TColumnConfig> {
     /** @internal */
     @observable
-    public isValidContentAndHasOverflow = false;
-
-    /** @internal */
-    public textSpan!: HTMLElement;
+    public hasOverflow = false;
 
     /**
      * Text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder is false).

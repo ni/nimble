@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 28 Jun 2023 22:34:33 GMT and should not be manually modified.
+This log was last generated on Fri, 30 Jun 2023 16:02:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.4
+
+Fri, 30 Jun 2023 16:02:24 GMT
+
+### Patches
+
+- Overflow directive ([ni/nimble@0d17d95](https://github.com/ni/nimble/commit/0d17d95074479cad512f1dd0640ff0c3cad09f91))
 
 ## 19.4.3
 
