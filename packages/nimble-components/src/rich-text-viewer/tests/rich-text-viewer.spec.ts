@@ -49,9 +49,7 @@ describe('RichTextViewer', () => {
         ): void {
             childElement = pageObject.getFirstChildElement();
             for (const childTagName of childElementTagNames) {
-                expect(
-                    pageObject.getTagName(childElement)
-                ).toBe(childTagName);
+                expect(pageObject.getTagName(childElement)).toBe(childTagName);
                 if (
                     childElementTagNames.indexOf(childTagName)
                     !== childElementTagNames.length - 1
@@ -59,9 +57,7 @@ describe('RichTextViewer', () => {
                     childElement = childElement?.firstElementChild;
                 }
             }
-            expect(pageObject.getTextContent(childElement)).toBe(
-                expectedText
-            );
+            expect(pageObject.getTextContent(childElement)).toBe(expectedText);
         }
 
         it('should convert bold markdown string to "strong" HTML tag', async () => {
@@ -182,12 +178,8 @@ describe('RichTextViewer', () => {
             await connect();
 
             const childElement = pageObject.getFirstChildElement();
-            expect(pageObject.getTagName(childElement)).toBe(
-                'P'
-            );
-            expect(pageObject.getTextContent(childElement)).toBe(
-                markdownValue
-            );
+            expect(pageObject.getTagName(childElement)).toBe('P');
+            expect(pageObject.getTextContent(childElement)).toBe(markdownValue);
 
             await disconnect();
         }

@@ -8,15 +8,11 @@ export class RichTextViewerPageObject {
         private readonly richTextViewerElement: RichTextViewer
     ) {}
 
-    public getTagName(
-        element: Element | null | undefined
-    ): string {
+    public getTagName(element: Element | null | undefined): string {
         return element?.tagName || '';
     }
 
-    public getTextContent(
-        element: Element | null | undefined
-    ): string {
+    public getTextContent(element: Element | null | undefined): string {
         return element?.textContent || '';
     }
 

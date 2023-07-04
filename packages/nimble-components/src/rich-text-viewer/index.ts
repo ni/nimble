@@ -58,11 +58,11 @@ export class RichTextViewer extends FoundationElement {
 
     private initializeMarkdownParser(): MarkdownParser {
         /**
-        * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
-        * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
-        * https://github.com/markdown-it/markdown-it/blob/master/lib/presets/zero.js#L1
-        *
-        */
+         * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
+         * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
+         * https://github.com/markdown-it/markdown-it/blob/master/lib/presets/zero.js#L1
+         *
+         */
         const zeroTokenizerConfiguration = defaultMarkdownParser.tokenizer.configure('zero');
 
         // The detailed information of the supported rules were provided in the below CommonMark spec document.
@@ -87,7 +87,9 @@ export class RichTextViewer extends FoundationElement {
      *
      */
     private parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
-        return this.domSerializer.serializeFragment(this.markdownParser.parse(value)!.content);
+        return this.domSerializer.serializeFragment(
+            this.markdownParser.parse(value)!.content
+        );
     }
 
     private appendSerializedContentToViewer(): void {
