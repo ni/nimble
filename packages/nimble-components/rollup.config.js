@@ -4,6 +4,7 @@ import sourcemaps from 'rollup-plugin-sourcemaps';
 import terser from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
 import json from '@rollup/plugin-json';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 const umdDevelopmentPlugin = () => replace({
     'process.env.NODE_ENV': JSON.stringify('development')
@@ -24,6 +25,7 @@ export default [
         },
         plugins: [
             umdDevelopmentPlugin(),
+            nodePolyfills(),
             sourcemaps(),
             resolve(),
             commonJS(),
@@ -46,6 +48,7 @@ export default [
         },
         plugins: [
             umdProductionPlugin(),
+            nodePolyfills(),
             sourcemaps(),
             resolve(),
             commonJS(),
