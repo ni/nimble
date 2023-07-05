@@ -33,13 +33,15 @@ The steps to use components from Nimble Angular are similar to using components 
     class AppModule {}
     ```
 
-3. Each application should add the `<nimble-theme-provider>` element to `app.component.html` and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components.
+3. Each application should add the `<nimble-theme-provider>`* element to `app.component.html` and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components.
 
     ```html
     <nimble-theme-provider theme="light">
         <router-outlet></router-outlet>
     </nimble-theme-provider>
     ```
+
+    *See [note below about the recommended way to reference nimble elements in HTML](#specifying-nimble-element-tags).
 
 4. Each application should import the Nimble fonts once in the root `src/styles.scss`. Nimble recommends using SCSS for capabilities such as build time property checking.
 
@@ -61,11 +63,13 @@ The steps to use components from Nimble Angular are similar to using components 
 
     See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information.
 
-6. As needed, add Nimble components to the templates in your application:
+6. As needed, add Nimble components* to the templates in your application:
 
     ```html
     <nimble-drawer #drawerReference location="right">This is a drawer</nimble-drawer>
     ```
+
+    *See [note below about the recommended way to reference nimble elements in HTML](#specifying-nimble-element-tags).
 
 7. As needed, import the Nimble component's directive and types in your component scripts to use programmatic APIs:
 
@@ -87,6 +91,10 @@ The steps to use components from Nimble Angular are similar to using components 
 ### Learn more
 
 See the [README.md for the ni/nimble repository](/README.md) for documentation of individual components.
+
+### Specifying Nimble Element Tags
+
+For each Nimble component, there is an exported constant for the component's HTML element tag. For example, the Nimble theme provider component exports a `themeProviderTag` constant with value `"nimble-theme-provider"`. It is recommended that you use these constants in your HTML whenever possible rather than hard-coding the element names or using `DesignSystem.tagFor()`. This allows the names to become a compile-time dependency, providing protection against missing imports and typos.
 
 ### Using Nimble form controls
 
