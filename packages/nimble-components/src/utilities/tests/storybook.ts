@@ -119,7 +119,7 @@ export const createMatrixThemeStory = <TSource>(
             ({ theme, value }: BackgroundState) => html`
                 <${themeProviderTag}
                     theme="${theme}">
-                    <div style="background-color: ${value}; padding:20px;">
+                    <div style="background-color: ${value}; padding:20px; position: relative; z-index: 0;">
                         ${viewTemplate}
                     </div>
                 </${themeProviderTag}>
