@@ -41,6 +41,7 @@ export class CustomAppComponent {
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
+    public markdownString = 'Supported rich text formatting options:\n1. **Bold**\n2. *Italics*\n3. Numbered lists\n   1. Option 1\n   2. Option 2\n4. Bulleted lists\n   * Option 1\n   * Option 2\n5. Direct link: <https://nimble.ni.dev/>';
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
