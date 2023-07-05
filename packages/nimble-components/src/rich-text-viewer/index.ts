@@ -96,6 +96,7 @@ export class RichTextViewer extends FoundationElement {
     private appendSerializedContentToViewer(): void {
         const viewer = this.shadowRoot?.querySelector('#viewer');
         if (viewer && this.serializedContent) {
+            viewer.innerHTML = '';
             viewer.appendChild(this.serializedContent.cloneNode(true));
         }
     }
