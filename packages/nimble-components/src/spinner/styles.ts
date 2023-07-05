@@ -3,11 +3,15 @@ import { display } from '@microsoft/fast-foundation';
 import {
     Black15,
     Black91,
+    DigitalGreenLight,
+    PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { SpinnerAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -144,27 +148,71 @@ export const styles = css`
         }
     }
 `.withBehaviors(
-    themeBehavior(
-        Theme.light,
+    appearanceBehavior(
+        SpinnerAppearance.default,
         css`
-            :host {
-                --ni-private-spinner-bits-background-color: ${Black91}
-        `
+            div.container {
+                opacity: 0.6;
+            }  
+        `.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                    :host {
+                        --ni-private-spinner-bits-background-color: ${Black91}
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.dark,
+                css`
+                    :host {
+                        --ni-private-spinner-bits-background-color: ${Black15};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.color,
+                css`
+                    :host {
+                        --ni-private-spinner-bits-background-color: ${White};
+                    }
+                `
+            )
+        )
     ),
-    themeBehavior(
-        Theme.dark,
+    appearanceBehavior(
+        SpinnerAppearance.accent,
         css`
-            :host {
-                --ni-private-spinner-bits-background-color: ${Black15};
+            div.container {
+                opacity: 1;
             }
-        `
+        `.withBehaviors(
+            themeBehavior(
+                Theme.light,
+                css`
+                    :host {
+                        --ni-private-spinner-bits-background-color: ${DigitalGreenLight};
+                        opacity: 1;
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.dark,
+                css`
+                    :host {
+                        --ni-private-spinner-bits-background-color: ${PowerGreen};
+                    }
+                `
+            ),
+            themeBehavior(
+                Theme.color,
+                css`
+                    :host {
+                        --ni-private-spinner-bits-background-color: ${PowerGreen};
+                    }
+                `
+            )
+        )
     ),
-    themeBehavior(
-        Theme.color,
-        css`
-            :host {
-                --ni-private-spinner-bits-background-color: ${White};
-            }
-        `
-    )
 );

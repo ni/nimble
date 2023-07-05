@@ -13,6 +13,7 @@ import {
     tokenNames
 } from '../../theme-provider/design-token-names';
 import { spinnerTag } from '..';
+import { SpinnerAppearance } from '../types';
 
 const spinnerSize = {
     small: null,
@@ -22,6 +23,7 @@ const spinnerSize = {
 
 interface SpinnerArgs {
     size: keyof typeof spinnerSize;
+    appearance: keyof typeof SpinnerAppearance;
 }
 
 const overviewText = '<p>The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent '
@@ -71,6 +73,12 @@ const metadata: Meta<SpinnerArgs> = {
                     )}`
                 }
             }
+        },
+        appearance: {
+            options:
+            Object.keys(SpinnerAppearance),
+            control: { type: 'radio' },
+            description: 'Appearance of the spinner component.'
         }
     },
     // Disable animation in Chromatic because it intermittently causes shapshot differences
@@ -78,11 +86,13 @@ const metadata: Meta<SpinnerArgs> = {
     render: createUserSelectedThemeStory(html`
         <${spinnerTag}
             style="${x => spinnerSize[x.size]}; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+            appearance="${x => SpinnerAppearance[x.appearance]}"
         >
         </${spinnerTag}>
     `),
     args: {
-        size: 'small'
+        size: 'small',
+        appearance: SpinnerAppearance.default
     }
 };
 
