@@ -45,17 +45,18 @@ for (const key of Object.keys(icons)) {
     const directoryName = spinalCase(iconName); // e.g. "arrow-expander-left"
     const elementName = `nimble-icon-${spinalCase(iconName)}`; // e.g. "nimble-icon-arrow-expander-left"
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
+    const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
     const directiveName = `Nimble${className}Directive`; // e.g. "NimbleIconArrowExpanderLeftDirective"
     const iconDirectory = path.resolve(iconsDirectory, directoryName);
     fs.mkdirSync(iconDirectory);
 
     const directiveFileContents = `${generatedFilePrefix}
 import { Directive } from '@angular/core';
-import { type ${className}, icon${pascalCase(iconName)}Tag } from '@ni/nimble-components/dist/esm/icons/${directoryName}';
+import { type ${className}, ${tagName} } from '@ni/nimble-components/dist/esm/icons/${directoryName}';
 import { NimbleIconBaseDirective } from '../../icon-base/nimble-icon-base.directive';
 
 export type { ${className} };
-export { icon${pascalCase(iconName)}Tag };
+export { ${tagName} };
 
 /**
  * Directive to provide Angular integration for the ${iconName} icon element.
