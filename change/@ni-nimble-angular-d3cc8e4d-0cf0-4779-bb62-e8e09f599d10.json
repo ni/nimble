@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Re-export tag names for all components",
+  "packageName": "@ni/nimble-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
