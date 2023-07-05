@@ -153,13 +153,13 @@ export const styles = css`
         css`
             div.container {
                 opacity: 0.6;
-            }  
+            }
         `.withBehaviors(
             themeBehavior(
                 Theme.light,
                 css`
                     :host {
-                        --ni-private-spinner-bits-background-color: ${Black91}
+                        --ni-private-spinner-bits-background-color: ${Black91};
                     }
                 `
             ),
@@ -214,5 +214,5 @@ export const styles = css`
                 `
             )
         )
-    ),
+    )
 );

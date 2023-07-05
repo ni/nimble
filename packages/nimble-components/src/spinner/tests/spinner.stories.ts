@@ -28,7 +28,9 @@ interface SpinnerArgs {
 
 const overviewText = '<p>The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent '
     + 'loading progress, or an ongoing operation, of an indeterminate / unknown duration.</p>'
-    + '<p>See the `size` argument details for information on customizing the spinner size.</p>';
+    + '<p>Use the `default` appearance Color UI version for backgrounds with color (e.g. purple, blue).  Confirm with your designer that a 3:1 contrast ration is met.'
+    + '<br/>Do not use the `accent` appearance on any colored backgrounds, use the `default` Color UI version instead.</p>'
+    + '<p>See the `size` and `appearance` argument details for information on customizing the spinner size and guidance for which appearance to use.</p>';
 
 const metadata: Meta<SpinnerArgs> = {
     title: 'Components/Spinner',
@@ -44,19 +46,25 @@ const metadata: Meta<SpinnerArgs> = {
         size: {
             description:
                 'Size of the spinner component.<details><summary>Usage details</summary>To customize its size, set its CSS '
-                + '<span style="font-family: monospace;">height</span> to a design token, and its width will automatically match its height:<br/><ul>'
+                + '<span style="font-family: monospace;">height</span> to a design token, and its width will automatically match its height. Each size will also require minimum pixel margins.<br/><ul>'
                 + `<li>For Small (16x16): ${scssPropertySetterMarkdown(
                     tokenNames.spinnerSmallHeight,
                     'height'
-                )}</li>`
+                )}
+                Requires 4px minimum margins.
+                </li>`
                 + `<li>For Medium (32x32): ${scssPropertySetterMarkdown(
                     tokenNames.spinnerMediumHeight,
                     'height'
-                )}</li>`
+                )}
+                Requires 32px minimum margins.
+                </li>`
                 + `<li>For Large (64x64): ${scssPropertySetterMarkdown(
                     tokenNames.spinnerLargeHeight,
                     'height'
-                )}</li></ul></details>`,
+                )}
+                Requires 64px minimum margins.
+                </li></ul></details>`,
             options: Object.keys(spinnerSize),
             table: { defaultValue: { summary: 'Small (16x16)' } },
             control: {
@@ -75,10 +83,18 @@ const metadata: Meta<SpinnerArgs> = {
             }
         },
         appearance: {
-            options:
-            Object.keys(SpinnerAppearance),
+            options: Object.keys(SpinnerAppearance),
             control: { type: 'radio' },
-            description: 'Appearance of the spinner component.'
+            description:
+                'Appearance of the spinner component.<details><summary>Usage details</summary>'
+                + '<ul>'
+                + `<li>For appearance "default":<br/>
+                        Use in product instances.  This version helps avoid any association to status and the idea that this indicator is representing any context outside of an indeterminate wait time.
+                    </li>`
+                + `<li>For appearance "accent":<br/>
+                        Use for promoting NI branding and adding a splash of color in a monochromatic setting.  Common places to use is home screens, licensing, dialogs and any instances where there will not be a conflict with green representing status.<br/>
+                        Do not use the green version to for the purpose of representing “Good” or “Success”.  
+                    </li></ul></details>`
         }
     },
     // Disable animation in Chromatic because it intermittently causes shapshot differences
@@ -92,7 +108,7 @@ const metadata: Meta<SpinnerArgs> = {
     `),
     args: {
         size: 'small',
-        appearance: SpinnerAppearance.default
+        appearance: 'default'
     }
 };
 
