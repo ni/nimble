@@ -26,6 +26,7 @@ export class RichTextViewer extends FoundationElement {
     public set markdownValue(value: string) {
         this._markdownValue = value;
         this.serializedContent = this.parseMarkdownToDOM(value);
+        this.appendSerializedContentToViewer();
     }
 
     /**
