@@ -51,10 +51,11 @@ for (const key of Object.keys(icons)) {
 
     const directiveFileContents = `${generatedFilePrefix}
 import { Directive } from '@angular/core';
-import type { ${className} } from '@ni/nimble-components/dist/esm/icons/${directoryName}';
+import { type ${className}, icon${pascalCase(iconName)}Tag } from '@ni/nimble-components/dist/esm/icons/${directoryName}';
 import { NimbleIconBaseDirective } from '../../icon-base/nimble-icon-base.directive';
 
 export type { ${className} };
+export { icon${pascalCase(iconName)}Tag };
 
 /**
  * Directive to provide Angular integration for the ${iconName} icon element.
