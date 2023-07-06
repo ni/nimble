@@ -28,9 +28,23 @@ interface SpinnerArgs {
 
 const overviewText = '<p>The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent '
     + 'loading progress, or an ongoing operation, of an indeterminate / unknown duration.</p>'
-    + '<p>Use the `default` appearance Color UI version for backgrounds with color (e.g. purple, blue).  Confirm with your designer that a 3:1 contrast ration is met.'
-    + '<br/>Do not use the `accent` appearance on any colored backgrounds, use the `default` Color UI version instead.</p>'
-    + '<p>See the `size` and `appearance` argument details for information on customizing the spinner size and guidance for which appearance to use.</p>';
+    + '<p>It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and accent).</p>'
+    + '<h4>Sizing</h4>'
+    + '<p>The 64px spinner is a less commonly used size reserved for large negative empty space. Only one 64px spinner should be used on a single screen at one time.</p>'
+    + '<p>The 32px spinner is a more commonly used size for negative empty space. No more than three 32px spinners should be used on a single screen at one time.</p>'
+    + '<p>The 16px spinner is the most compact option for tight spaces such as grid cells and dense UI interfaces without much negative empty space. '
+    + 'Multiple 16px spinners can be used on a single screen at one time.</p>'
+    + '<h4>Styling / Theme</h4>'
+    + '<p>Light UI controls are made of  dark attributes and designed to work against bright, light backgrounds. </p>'
+    + '<p>Dark UI controls are made of light attributes and designed to work against bold, dark backgrounds. </p>'
+    + '<p>Color UI controls are made of monochromatic attributes and designed to work against bold, medium-dark and dark colored backgrounds.</p>'
+    + '<h4>-</h4>'
+    + '<p>Use the `default` appearance Color UI version for backgrounds with color (e.g. purple, blue). </p>'
+    + '<p>Do not use the `accent` appearance on any colored backgrounds, instead use the `default` Color UI version.</p>'
+    + '<p>See the `size` and `appearance` usage details for information on customizing the spinner size and guidance for which appearance to use.</p>'
+    + '<h4>Accessibility</h4>'
+    + '<p>A low-motion/low-frame rate version of the spinner is also available.</p>'
+    + '<p>When using colored backgrounds, confirm with your designer that a 3:1 contrast ration is met.</p>';
 
 const metadata: Meta<SpinnerArgs> = {
     title: 'Components/Spinner',
@@ -93,7 +107,7 @@ const metadata: Meta<SpinnerArgs> = {
                     </li>`
                 + `<li>For appearance "accent":<br/>
                         Use for promoting NI branding and adding a splash of color in a monochromatic setting.  Common places to use is home screens, licensing, dialogs and any instances where there will not be a conflict with green representing status.<br/>
-                        Do not use the green version to for the purpose of representing “Good” or “Success”.  
+                        The green version is not intended to represent “Good” or “Success”.  
                     </li></ul></details>`
         }
     },
