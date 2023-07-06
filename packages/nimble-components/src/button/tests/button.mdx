@@ -16,3 +16,32 @@ import * as buttonStories from './button.stories';
 <Canvas of={buttonStories.outlineButton} />
 <Controls of={buttonStories.outlineButton} />
 <Stories of={buttonStories} />
+
+# Usage Docs
+
+<br />
+
+## Sizing
+
+    The label button has two sizes: 32px and 24px, while the icon only button has two smaller sizes: 18px and 16px.
+
+    32px buttons are the default sized control and should be used first, while 24px buttons should only be used if there's limited space.
+    24px buttons should not be used in combination with 32px buttons.
+
+    18px buttons are used to nest within controls, as 16px buttons are generally too small.
+    Icons are drawn within a 16px space and can sometimes consume the full width or height; this leaves no room for visual interaction bounds.
+    Both 16px and 18px buttons are too small for touch interactions.  18’s are 23% larger than 16’s and help increase the hit zone for a cursor.
+
+    16px buttons are the bare minimum size to use in the event icons need to vertically stack next to a 32px control.
+    <h5>These should be used very sparingly and only if necessary.</h5>
+
+## Styling / Theme
+
+    Use the Color UI version for backgrounds with color (e.g. purple, blue).
+
+    See the usage details for more information on button styling / usage.
+
+## Accessibility
+
+    Please work with your designer and insure you have a 4.5:1
+    contrast ratio text to background.
