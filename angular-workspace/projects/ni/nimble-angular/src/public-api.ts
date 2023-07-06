@@ -64,8 +64,6 @@ export * from './directives/radio/nimble-radio.directive';
 export * from './directives/radio/nimble-radio.module';
 export * from './directives/radio-group/nimble-radio-group.directive';
 export * from './directives/radio-group/nimble-radio-group.module';
-export * from './directives/rich-text-viewer/nimble-rich-text-viewer.directive';
-export * from './directives/rich-text-viewer/nimble-rich-text-viewer.module';
 export * from './directives/select/nimble-select-control-value-accessor.directive';
 export * from './directives/select/nimble-select.directive';
 export * from './directives/select/nimble-select.module';
