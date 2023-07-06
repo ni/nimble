@@ -27,6 +27,22 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         super(trackedItems);
     }
 
+    public get requiresEventsUpdate(): boolean {
+        return (
+            this.isTracked('canvasWidth')
+            || this.isTracked('canvasHeight')
+            || this.isTracked('quadrant')
+            || this.isTracked('dies')
+            || this.isTracked('maxCharacters')
+            || this.isTracked('colorScale')
+            || this.isTracked('colorScaleMode')
+            || this.isTracked('highlightedValues')
+            || this.isTracked('dieLabelsHidden')
+            || this.isTracked('dieLabelsSuffix')
+            || this.isTracked('transform')
+        );
+    }
+
     public get requiresContainerDimensionsUpdate(): boolean {
         return this.isTracked('canvasWidth') || this.isTracked('canvasHeight');
     }

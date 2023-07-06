@@ -171,25 +171,19 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public update(): void {
-        if (this.waferMapUpdateTracker?.requiresContainerDimensionsUpdate) {
+        if (this.waferMapUpdateTracker?.requiresEventsUpdate) {
             this.eventCoordinator?.detachEvents();
-            this.updateContainerDimensions();
-            this.eventCoordinator?.updateEvents();
-        } else if (this.waferMapUpdateTracker?.requiresScalesUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateScales();
-            this.eventCoordinator?.updateEvents();
-        } else if (this.waferMapUpdateTracker?.requiresLabelsFontSizeUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateLabelsFontSize();
-            this.eventCoordinator?.updateEvents();
-        } else if (this.waferMapUpdateTracker?.requiresDiesRenderInfoUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateDiesRenderInfo();
-            this.eventCoordinator?.updateEvents();
-        } else if (this.waferMapUpdateTracker?.requiresRenderingModuleUpdate) {
-            this.eventCoordinator?.detachEvents();
-            this.updateRenderingModule();
+            if (this.waferMapUpdateTracker?.requiresContainerDimensionsUpdate) {
+                this.updateContainerDimensions();
+            } else if (this.waferMapUpdateTracker?.requiresScalesUpdate) {
+                this.updateScales();
+            } else if (this.waferMapUpdateTracker?.requiresLabelsFontSizeUpdate) {
+                this.updateLabelsFontSize();
+            } else if (this.waferMapUpdateTracker?.requiresDiesRenderInfoUpdate) {
+                this.updateDiesRenderInfo();
+            } else if (this.waferMapUpdateTracker?.requiresRenderingModuleUpdate) {
+                this.updateRenderingModule();
+            }
             this.eventCoordinator?.updateEvents();
         } else if (this.waferMapUpdateTracker?.requiresRenderHoverUpdate) {
             this.updateRenderHover();
