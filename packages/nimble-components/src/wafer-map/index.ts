@@ -76,11 +76,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public dataManager?: DataManager;
+    public readonly dataManager = new DataManager(this);
     /**
      * @internal
      */
-    public renderer?: RenderingModule;
+    public readonly renderer = new RenderingModule(this);
 
     /**
      * @internal
@@ -134,9 +134,9 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private eventCoordinator?: EventCoordinator;
+    private readonly eventCoordinator = new EventCoordinator(this);
     private resizeObserver?: ResizeObserver;
-    private waferMapUpdateTracker?: WaferMapUpdateTracker;
+    private readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -224,10 +224,6 @@ export class WaferMap extends FoundationElement {
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
-        this.waferMapUpdateTracker = new WaferMapUpdateTracker(this);
-        this.dataManager = new DataManager(this);
-        this.renderer = new RenderingModule(this);
-        this.eventCoordinator = new EventCoordinator(this);
         this.resizeObserver = this.createResizeObserver();
         this.waferMapUpdateTracker?.trackAll();
     }
