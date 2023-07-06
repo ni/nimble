@@ -60,9 +60,7 @@ export class Computations {
     private readonly defaultPadding = 0;
     private readonly baseMarginPercentage = 0.04;
 
-    public constructor(private readonly wafermap: WaferMap) {
-        this.updateContainerDimensions();
-    }
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public updateContainerDimensions(): void {
         const canvasDimensions = {

@@ -55,6 +55,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have as many dies as provided', () => {
@@ -113,6 +114,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should not have labelsFontSize larger than the die width', () => {
@@ -165,6 +167,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have label suffix for each die', () => {
@@ -217,6 +220,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should not have full label suffix for each die and end in ellipsis', () => {
@@ -270,6 +274,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have labels equal with values for each die', () => {
@@ -325,6 +330,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have labels equal with values for each die', () => {
@@ -380,6 +386,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it(
@@ -444,6 +451,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have empty label for each die', () => {

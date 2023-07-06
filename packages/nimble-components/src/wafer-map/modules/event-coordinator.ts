@@ -11,15 +11,9 @@ export interface EventCoordinatorCallbacks {
  * EventCoordinator deals with user interactions and events
  */
 export class EventCoordinator {
-    private readonly zoomHandler: ZoomHandler;
-    private readonly hoverHandler: HoverHandler;
-
-    public constructor(private readonly wafermap: WaferMap) {
-        this.zoomHandler = new ZoomHandler(wafermap);
-        this.hoverHandler = new HoverHandler(wafermap);
-
-        this.attachEvents();
-    }
+    private readonly zoomHandler = new ZoomHandler(this.wafermap);
+    private readonly hoverHandler = new HoverHandler(this.wafermap);
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public updateEvents(): void {
         this.zoomHandler.updateZoomBehavior();

@@ -55,6 +55,7 @@ describe('Wafermap Prerendering module', () => {
                     waferMock as WaferMap,
                     dataManagerMock as DataManager
                 );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have black fill style for all dies', () => {
@@ -110,6 +111,7 @@ describe('Wafermap Prerendering module', () => {
                     waferMock as WaferMap,
                     dataManagerMock as DataManager
                 );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have the same fill style for all dies', () => {
@@ -165,6 +167,7 @@ describe('Wafermap Prerendering module', () => {
                     waferMock as WaferMap,
                     dataManagerMock as DataManager
                 );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have the fill style equally distributed to dies', () => {
@@ -229,6 +232,7 @@ describe('Wafermap Prerendering module', () => {
                     waferMock as WaferMap,
                     dataManagerMock as DataManager
                 );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have the same fill style for all dies', () => {
@@ -284,6 +288,7 @@ describe('Wafermap Prerendering module', () => {
                     waferMock as WaferMap,
                     dataManagerMock as DataManager
                 );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have alternating fill style for the dies', () => {
@@ -354,6 +359,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have NaN color fill style', () => {
@@ -412,6 +418,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have empty color fill style', () => {
@@ -461,6 +468,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have highlighted value with full opacity and the rest with expected opacity', () => {
@@ -519,6 +527,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have all dies with full opacity', () => {

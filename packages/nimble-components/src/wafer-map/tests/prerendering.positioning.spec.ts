@@ -50,6 +50,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have die positions offset from margins', () => {
@@ -116,6 +117,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have die horizontal position scaled', () => {
@@ -178,6 +180,7 @@ describe('Wafermap Prerendering module', () => {
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have die horizontal position scaled', () => {

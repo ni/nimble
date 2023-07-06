@@ -8,12 +8,7 @@ export class RenderingModule {
     private dies!: DieRenderInfo[];
     private readonly minDieDim = 50;
 
-    public constructor(private readonly wafermap: WaferMap) {
-        this.sortDies();
-        //     this.dies = this.wafermap.dataManager!.diesRenderInfo;
-        //     this.dimensions = this.wafermap.dataManager!.dieDimensions;
-        //     this.labelFontSize = this.wafermap.dataManager!.labelsFontSize;
-    }
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public drawWafer(): void {
         this.wafermap.canvasContext.save();

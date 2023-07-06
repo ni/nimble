@@ -22,9 +22,7 @@ export class ZoomHandler {
     private readonly extentPadding = 100;
     private zoomBehavior!: ZoomBehavior<Element, unknown>;
 
-    public constructor(private readonly wafermap: WaferMap) {
-        this.updateZoomBehavior();
-    }
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public updateZoomBehavior(): void {
         this.zoomBehavior = this.createZoomBehavior();

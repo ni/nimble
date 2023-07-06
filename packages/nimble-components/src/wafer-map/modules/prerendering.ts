@@ -32,9 +32,7 @@ export class Prerendering {
     public constructor(
         private readonly wafermap: WaferMap,
         private readonly dataManager: Readonly<DataManager>
-    ) {
-        this.updateLabelsFontSize();
-    }
+    ) {}
 
     public updateLabelsFontSize(): void {
         this._labelsFontSize = this.calculateLabelsFontSize(
