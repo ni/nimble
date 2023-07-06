@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NimbleRichTextViewerModule } from '../nimble-rich-text-viewer.module';
-import { NimbleRichTextViewerDirective } from '../nimble-rich-text-viewer.directive';
+import { NimbleRichTextViewerDirective, RichTextViewer } from '../nimble-rich-text-viewer.directive';
 
 describe('Nimble Rich Text Viewer', () => {
     describe('module', () => {
@@ -24,10 +24,12 @@ describe('Nimble Rich Text Viewer', () => {
         })
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;
+            @ViewChild('viewer', { read: ElementRef }) public elementRef: ElementRef<RichTextViewer>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
         let directive: NimbleRichTextViewerDirective;
+        let nativeElement: RichTextViewer;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -37,10 +39,12 @@ describe('Nimble Rich Text Viewer', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
         it('has expected defaults for markdownValue', () => {
             expect(directive.markdownValue).toBe('');
+            expect(nativeElement.markdownValue).toBe('');
         });
 
         it('has expected defaults for fitToContent', () => {
@@ -53,15 +57,17 @@ describe('Nimble Rich Text Viewer', () => {
             template: `
                 <nimble-rich-text-viewer #viewer
                     markdownValue="Markdown value"
-                    fit-to-content>
+                    >
                 </nimble-rich-text-viewer>`
         })
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;
+            @ViewChild('viewer', { read: ElementRef }) public elementRef: ElementRef<RichTextViewer>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
         let directive: NimbleRichTextViewerDirective;
+        let nativeElement: RichTextViewer;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -71,10 +77,12 @@ describe('Nimble Rich Text Viewer', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
         it('will use template string values for markdownValue', () => {
             expect(directive.markdownValue).toBe('Markdown value');
+            expect(nativeElement.markdownValue).toBe('Markdown value');
         });
     });
 
@@ -83,17 +91,19 @@ describe('Nimble Rich Text Viewer', () => {
             template: `
                 <nimble-rich-text-viewer #viewer
                     [markdownValue]="markdownValue"
-                    [fit-to-content]="fitToContent">
+                    >
                 </nimble-rich-text-viewer>`
         })
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;
+            @ViewChild('viewer', { read: ElementRef }) public elementRef: ElementRef<RichTextViewer>;
             public markdownValue = 'Markdown value';
             public fitToContent = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
         let directive: NimbleRichTextViewerDirective;
+        let nativeElement: RichTextViewer;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -103,15 +113,18 @@ describe('Nimble Rich Text Viewer', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             fixture.detectChanges();
             directive = fixture.componentInstance.directive;
+            nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
         it('can be configured with property binding for markdownValue', () => {
             expect(directive.markdownValue).toBe('Markdown value');
+            expect(nativeElement.markdownValue).toBe('Markdown value');
 
             fixture.componentInstance.markdownValue = 'new markdown value';
             fixture.detectChanges();
 
             expect(directive.markdownValue).toBe('new markdown value');
+            expect(nativeElement.markdownValue).toBe('new markdown value');
         });
     });
 });
