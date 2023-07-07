@@ -4,7 +4,6 @@ import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
     getDataManagerMock,
-    getScaleBand,
     getWaferMapDies,
     getWaferMapDiesAsFloats,
     getWaferMapDiesAsNaN
@@ -43,10 +42,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
@@ -97,10 +93,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
@@ -145,10 +138,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
@@ -193,10 +183,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
@@ -242,10 +229,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
@@ -293,10 +277,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
@@ -344,10 +325,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager
@@ -404,10 +382,7 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
-            const dataManagerMock = getDataManagerMock(
-                dieDimensions,
-                margin
-            );
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
                 dataManagerMock as DataManager

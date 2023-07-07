@@ -1,5 +1,10 @@
 import { ScaleBand, scaleBand } from 'd3-scale';
-import type { Dimensions, Margin, WaferMapColorScale, WaferMapDie } from '../types';
+import type {
+    Dimensions,
+    Margin,
+    WaferMapColorScale,
+    WaferMapDie
+} from '../types';
 import type { DataManager } from '../modules/data-manager';
 
 export function getWaferMapDies(): WaferMapDie[] {
@@ -59,7 +64,8 @@ export function getDataManagerMock(
     margin: Margin,
     horizontalScale: ScaleBand<number> = getScaleBand([], []),
     verticalScale: ScaleBand<number> = getScaleBand([], [])
-): Pick<DataManager,
+): Pick<
+    DataManager,
     'horizontalScale' | 'verticalScale' | 'dieDimensions' | 'margin'
     > {
     return {
