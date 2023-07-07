@@ -29,7 +29,7 @@ not change when its state changes. In this example, when the pressed state is tr
 screen reader would say something like "Mute toggle button pressed".`;
 
 const metadata: Meta<ToggleButtonArgs> = {
-    title: 'Toggle Button',
+    title: 'Components/Toggle Button',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

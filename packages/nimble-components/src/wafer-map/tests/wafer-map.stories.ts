@@ -3,7 +3,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../utilities/tests/storybook';
 import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
@@ -84,7 +84,7 @@ const getHighLightedValueSets = (
 };
 
 const metadata: Meta<WaferMapArgs> = {
-    title: 'WaferMap',
+    title: 'Incubating/Wafer Map',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
@@ -99,7 +99,10 @@ const metadata: Meta<WaferMapArgs> = {
         }
     },
     render: createUserSelectedThemeStory(html`
-        ${usageWarning('wafer map')}
+        ${incubatingWarning({
+        componentName: 'wafer map',
+        statusLink: 'https://github.com/ni/nimble/issues/924'
+    })}
         <${waferMapTag}
             id="wafer-map"
             colors-scale-mode="${x => x.colorScaleMode}"

@@ -114,7 +114,7 @@ ${overrideWarning('Drawer Width', widthDescriptionOverride)}
 `;
 
 const metadata: Meta<DrawerArgs> = {
-    title: 'Drawer',
+    title: 'Components/Drawer',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {

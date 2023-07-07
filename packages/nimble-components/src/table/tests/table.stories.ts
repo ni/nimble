@@ -3,7 +3,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
-    usageWarning
+    incubatingWarning
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
@@ -84,7 +84,8 @@ The table will not automatically update if the contents of the array change afte
     <summary>Framework specific considerations</summary>
     - Angular: In addition to exposing the \`setData()\` function in Angular, you can use the \`data$\` property to provide an
     \`Observable<TableRecord[]>\`. Nimble will automatically subscribe and unsubscribe to the provided \`Observable\` and call
-    \`setData()\` on the web component when new values are emitted.
+    \`setData()\` on the web component when new values are emitted. The \`data$\` \`Observable\` should only be used when an application
+    does not need to be in control of the timing of when \`setData()\` is called and when the returned \`Promise\` resolves.
     - Blazor: Blazor does not expose a \`setData()\` function. Use the \`Data\` property on the Blazor component to set new data on the table.
     Setting a new value on the property in Blazor will internally call \`setData()\` on the web component.
 </details>
@@ -120,7 +121,7 @@ If a record does not exist in the table's data, it will not be selected. If mult
 mode is \`single\`, only the first record that exists in the table's data will become selected.`;
 
 const metadata: Meta<TableArgs> = {
-    title: 'Table',
+    title: 'Incubating/Table',
     tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
@@ -140,7 +141,7 @@ const metadata: Meta<TableArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html<TableArgs>`
-        ${usageWarning('table')}
+        ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"

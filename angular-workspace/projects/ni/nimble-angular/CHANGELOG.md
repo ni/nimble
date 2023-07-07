@@ -1,8 +1,80 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 12 Jun 2023 13:16:59 GMT and should not be manually modified.
+This log was last generated on Fri, 30 Jun 2023 16:02:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.6.13
+
+Fri, 30 Jun 2023 16:02:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.4
+
+## 16.6.12
+
+Wed, 28 Jun 2023 22:34:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.3
+
+## 16.6.11
+
+Wed, 28 Jun 2023 15:22:08 GMT
+
+### Patches
+
+- Update docs on when to use the data$ Observable on the Angular nimble-table ([ni/nimble@177774f](https://github.com/ni/nimble/commit/177774ff833f5f0a04a28d0f9bdf0ed5dfccd9b3))
+
+## 16.6.10
+
+Wed, 28 Jun 2023 13:37:50 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.2
+
+## 16.6.9
+
+Tue, 27 Jun 2023 19:05:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.1
+
+## 16.6.8
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.0
+
+## 16.6.7
+
+Fri, 16 Jun 2023 19:24:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.3.0
+
+## 16.6.6
+
+Tue, 13 Jun 2023 14:50:08 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.2.3
+
+## 16.6.5
+
+Mon, 12 Jun 2023 21:34:35 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.2.2
 
 ## 16.6.4
 
