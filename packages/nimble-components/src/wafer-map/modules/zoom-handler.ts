@@ -50,8 +50,8 @@ export class ZoomHandler {
                 1.1,
                 this.getZoomMax(
                     this.wafermap.canvasWidth * this.wafermap.canvasHeight,
-                    this.wafermap.dataManager!.containerDimensions.width
-                        * this.wafermap.dataManager!.containerDimensions.height
+                    this.wafermap.dataManager.containerDimensions.width
+                        * this.wafermap.dataManager.containerDimensions.height
                 )
             ])
             .translateExtent([

@@ -27,7 +27,7 @@ export class HoverHandler {
             y: invertedPoint[1]
         });
 
-        this.wafermap.hoverDie = this.wafermap.dataManager!.getWaferMapDie(dieCoordinates);
+        this.wafermap.hoverDie = this.wafermap.dataManager.getWaferMapDie(dieCoordinates);
     }
 
     public mouseout(): void {
@@ -49,13 +49,13 @@ export class HoverHandler {
             : Math.ceil;
         // go to x and y scale to get the x,y values of the die.
         const x = xRoundFunction(
-            wafermap.dataManager!.invertedHorizontalScale(
-                mousePosition.x - wafermap.dataManager!.margin.left
+            wafermap.dataManager.invertedHorizontalScale(
+                mousePosition.x - wafermap.dataManager.margin.left
             )
         );
         const y = yRoundFunction(
-            wafermap.dataManager!.invertedVerticalScale(
-                mousePosition.y - wafermap.dataManager!.margin.top
+            wafermap.dataManager.invertedVerticalScale(
+                mousePosition.y - wafermap.dataManager.margin.top
             )
         );
         return { x, y };

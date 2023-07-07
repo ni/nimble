@@ -171,51 +171,51 @@ export class WaferMap extends FoundationElement {
      * @internal
      */
     public update(): void {
-        if (this.waferMapUpdateTracker?.requiresEventsUpdate) {
-            this.eventCoordinator?.detachEvents();
-            if (this.waferMapUpdateTracker?.requiresContainerDimensionsUpdate) {
+        if (this.waferMapUpdateTracker.requiresEventsUpdate) {
+            this.eventCoordinator.detachEvents();
+            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
                 this.updateContainerDimensions();
-            } else if (this.waferMapUpdateTracker?.requiresScalesUpdate) {
+            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
                 this.updateScales();
-            } else if (this.waferMapUpdateTracker?.requiresLabelsFontSizeUpdate) {
+            } else if (this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate) {
                 this.updateLabelsFontSize();
-            } else if (this.waferMapUpdateTracker?.requiresDiesRenderInfoUpdate) {
+            } else if (this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate) {
                 this.updateDiesRenderInfo();
-            } else if (this.waferMapUpdateTracker?.requiresRenderingModuleUpdate) {
+            } else if (this.waferMapUpdateTracker.requiresRenderingModuleUpdate) {
                 this.updateRenderingModule();
             }
-            this.eventCoordinator?.updateEvents();
-        } else if (this.waferMapUpdateTracker?.requiresRenderHoverUpdate) {
+            this.eventCoordinator.updateEvents();
+        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.updateRenderHover();
         }
     }
 
     private updateContainerDimensions(): void {
-        this.dataManager?.updateContainerDimensions();
+        this.dataManager.updateContainerDimensions();
         this.updateRenderingModule();
     }
 
     private updateScales(): void {
-        this.dataManager?.updateScales();
+        this.dataManager.updateScales();
         this.updateRenderingModule();
     }
 
     private updateLabelsFontSize(): void {
-        this.dataManager?.updateLabelsFontSize();
+        this.dataManager.updateLabelsFontSize();
         this.updateRenderingModule();
     }
 
     private updateDiesRenderInfo(): void {
-        this.dataManager?.updateDiesRenderInfo();
+        this.dataManager.updateDiesRenderInfo();
         this.updateRenderingModule();
     }
 
     private updateRenderingModule(): void {
-        this.renderer?.drawWafer();
+        this.renderer.drawWafer();
     }
 
     private updateRenderHover(): void {
-        this.renderer?.renderHover();
+        this.renderer.renderHover();
     }
 
     private initialize(): void {
@@ -225,7 +225,7 @@ export class WaferMap extends FoundationElement {
             willReadFrequently: true
         })!;
         this.resizeObserver = this.createResizeObserver();
-        this.waferMapUpdateTracker?.trackAll();
+        this.waferMapUpdateTracker.trackAll();
     }
 
     private createResizeObserver(): ResizeObserver {
