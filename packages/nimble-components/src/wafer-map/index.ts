@@ -169,6 +169,11 @@ export class WaferMap extends FoundationElement {
 
     /**
      * @internal
+     * Update function called when an update is queued.
+     * It will check which updates are needed based on which properties have changed.
+     * Each update represents a different starting point of the same sequential update flow.
+     * The updates snowball one after the other, this function only choses the 'altitude'.
+     * The hover does not require an event update, but it's also the last update in the sequence.
      */
     public update(): void {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {

@@ -73,6 +73,10 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         return this.isTracked('hoverDie');
     }
 
+    /**
+     * Queues an update using the DOM and until the update is run no other updates are queued.
+     * After the update is finished, all the tracked items are reset.
+     */
     public override queueUpdate(): void {
         if (!this.wafermap.isConnected) {
             return;
