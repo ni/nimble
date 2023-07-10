@@ -3,7 +3,6 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
-    bodyFontLineHeight,
     linkActiveFontColor,
     linkFontColor,
     smallPadding
@@ -22,24 +21,6 @@ export const styles = css`
         min-block-size: 36px;
     }
 
-    p,
-    ol,
-    ul,
-    li {
-        margin-block-start: 0px;
-        margin-block-end: 0px;
-        line-height: ${bodyFontLineHeight};
-    }
-
-    a {
-        word-break: break-all;
-        color: ${linkFontColor};
-    }
-
-    a:active {
-        color: ${linkActiveFontColor};
-    }
-
     :host([fit-to-content]) {
         block-size: auto;
     }
@@ -54,5 +35,26 @@ export const styles = css`
         padding: ${smallPadding};
         margin-block-end: 10px;
         margin-inline-end: 10px;
+    }
+
+    .container > :first-child {
+        margin-block-start: 0;
+    }
+
+    .container > :last-child {
+        margin-block-end: 0;
+    }
+
+    li > p {
+        margin-block: 0;
+    }
+
+    a {
+        word-break: break-all;
+        color: ${linkFontColor};
+    }
+
+    a:active {
+        color: ${linkActiveFontColor};
     }
 `;
