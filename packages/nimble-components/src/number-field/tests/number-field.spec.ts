@@ -51,9 +51,9 @@ describe('NumberField with LabelProviderCore', () => {
         await disconnect();
     });
 
-    it('uses CoreLabelProvider numberFieldIncrement/numberFieldDecrement labels for the inc/dec buttons', async () => {
-        labelProvider.numberFieldIncrement = 'Customized Increment';
-        labelProvider.numberFieldDecrement = 'Customized Decrement';
+    it('uses CoreLabelProvider numericIncrement/numericDecrement labels for the inc/dec buttons', async () => {
+        labelProvider.numericDecrement = 'Customized Increment';
+        labelProvider.numericIncrement = 'Customized Decrement';
         await waitForUpdatesAsync();
 
         const actualIncrementText = element

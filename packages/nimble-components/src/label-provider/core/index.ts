@@ -2,9 +2,9 @@ import { attr } from '@microsoft/fast-element';
 import { DesignSystem, DesignToken } from '@microsoft/fast-foundation';
 import { LabelProviderBase } from '../base';
 import {
-    alertDismissLabel,
-    numberFieldDecrementLabel,
-    numberFieldIncrementLabel
+    popupDismissLabel,
+    numericDecrementLabel,
+    numericIncrementLabel
 } from './label-tokens';
 
 declare global {
@@ -17,22 +17,22 @@ declare global {
  * Core label provider for Nimble
  */
 export class LabelProviderCore extends LabelProviderBase {
-    @attr({ attribute: 'alert-dismiss' })
-    public alertDismiss?: string;
+    @attr({ attribute: 'popup-dismiss' })
+    public popupDismiss?: string;
 
-    @attr({ attribute: 'number-field-decrement' })
-    public numberFieldDecrement?: string;
+    @attr({ attribute: 'numeric-decrement' })
+    public numericDecrement?: string;
 
-    @attr({ attribute: 'number-field-increment' })
-    public numberFieldIncrement?: string;
+    @attr({ attribute: 'numeric-increment' })
+    public numericIncrement?: string;
 
     public constructor() {
         const supportedLabels: {
             [P in keyof LabelProviderCore]?: DesignToken<string>;
         } = {
-            alertDismiss: alertDismissLabel,
-            numberFieldDecrement: numberFieldDecrementLabel,
-            numberFieldIncrement: numberFieldIncrementLabel
+            popupDismiss: popupDismissLabel,
+            numericDecrement: numericDecrementLabel,
+            numericIncrement: numericIncrementLabel
         };
         super(supportedLabels);
     }

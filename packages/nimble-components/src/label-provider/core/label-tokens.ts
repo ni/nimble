@@ -1,17 +1,17 @@
 import { DesignToken } from '@microsoft/fast-foundation';
 import { coreLabelDefaults } from './label-token-defaults';
 
-export const alertDismissLabel = DesignToken.create<string>({
-    name: 'alert-dismiss-label',
+export const popupDismissLabel = DesignToken.create<string>({
+    name: 'popup-dismiss-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.alertDismissLabel);
+}).withDefault(coreLabelDefaults.popupDismissLabel);
 
-export const numberFieldDecrementLabel = DesignToken.create<string>({
-    name: 'number-field-decrement-label',
+export const numericDecrementLabel = DesignToken.create<string>({
+    name: 'numeric-decrement-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.numberFieldDecrementLabel);
+}).withDefault(coreLabelDefaults.numericDecrementLabel);
 
-export const numberFieldIncrementLabel = DesignToken.create<string>({
-    name: 'number-field-increment-label',
+export const numericIncrementLabel = DesignToken.create<string>({
+    name: 'numeric-increment-label',
     cssCustomPropertyName: null
-}).withDefault(coreLabelDefaults.numberFieldIncrementLabel);
+}).withDefault(coreLabelDefaults.numericIncrementLabel);

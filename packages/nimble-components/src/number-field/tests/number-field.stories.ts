@@ -10,8 +10,8 @@ import {
     type LabelUserArgs
 } from '../../label-provider/base/tests/label-user-stories-utils';
 import {
-    numberFieldDecrementLabel,
-    numberFieldIncrementLabel
+    numericDecrementLabel,
+    numericIncrementLabel
 } from '../../label-provider/core/label-tokens';
 
 interface NumberFieldArgs extends LabelUserArgs {
@@ -83,8 +83,8 @@ const metadata: Meta<NumberFieldArgs> = {
 addLabelUseMetadata(
     metadata,
     labelProviderCoreTag,
-    numberFieldDecrementLabel,
-    numberFieldIncrementLabel
+    numericDecrementLabel,
+    numericIncrementLabel
 );
 
 export default metadata;

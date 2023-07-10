@@ -57,6 +57,7 @@ export const template = html<Table>`
                             class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                             content-hidden
                             appearance="${ButtonAppearance.ghost}"
+                            title="${x => tableGroupsCollapseAllLabel.getValueFor(x)}"
                             @click="${x => x.handleCollapseAllGroupRows()}"
                         >
                             <${iconTriangleTwoLinesHorizontalTag} slot="start"></${iconTriangleTwoLinesHorizontalTag}>

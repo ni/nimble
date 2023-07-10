@@ -13,7 +13,7 @@ import {
     LabelUserArgs,
     addLabelUseMetadata
 } from '../../label-provider/base/tests/label-user-stories-utils';
-import { alertDismissLabel } from '../../label-provider/core/label-tokens';
+import { popupDismissLabel } from '../../label-provider/core/label-tokens';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ActionType = {
@@ -61,7 +61,7 @@ const metadata: Meta<BannerArgs> = {
         }
     }
 };
-addLabelUseMetadata(metadata, labelProviderCoreTag, alertDismissLabel);
+addLabelUseMetadata(metadata, labelProviderCoreTag, popupDismissLabel);
 
 export default metadata;
 
@@ -128,7 +128,7 @@ export const _banner: StoryObj<BannerArgs> = {
         dismissButtonLabel: {
             name: 'dismiss-button-label',
             description:
-                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies. <br>(Equivalent to setting `alert-dismiss` on `nimble-label-provider-core`)',
+                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies. <br>(Equivalent to setting `popup-dismiss` on `nimble-label-provider-core`)',
             control: { type: 'none' }
         },
         toggle: {

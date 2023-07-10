@@ -143,8 +143,8 @@ describe('Banner with LabelProviderCore', () => {
         await disconnect();
     });
 
-    it('uses CoreLabelProvider alertDismissLabel for the close button label when dismissButtonLabel is unset', async () => {
-        labelProvider.alertDismiss = 'Customized Close';
+    it('uses CoreLabelProvider popupDismissLabel for the close button label when dismissButtonLabel is unset', async () => {
+        labelProvider.popupDismiss = 'Customized Close';
         await waitForUpdatesAsync();
 
         const actualCloseButtonText = element

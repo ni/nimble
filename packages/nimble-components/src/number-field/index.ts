@@ -14,8 +14,8 @@ import { iconMinusWideTag } from '../icons/minus-wide';
 import { iconAddTag } from '../icons/add';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 import {
-    numberFieldDecrementLabel,
-    numberFieldIncrementLabel
+    numericDecrementLabel,
+    numericIncrementLabel
 } from '../label-provider/core/label-tokens';
 
 declare global {
@@ -75,7 +75,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             content-hidden
             tabindex="-1"
         >
-            ${x => numberFieldDecrementLabel.getValueFor(x)}
+            ${x => numericDecrementLabel.getValueFor(x)}
             <${iconMinusWideTag}
                 slot="start"
             >
@@ -89,7 +89,7 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
             content-hidden
             tabindex="-1"
         >
-            ${x => numberFieldIncrementLabel.getValueFor(x)}
+            ${x => numericIncrementLabel.getValueFor(x)}
             <${iconAddTag}
                 slot="start">
             </${iconAddTag}>

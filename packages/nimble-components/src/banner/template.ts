@@ -6,7 +6,7 @@ import { iconInfoTag } from '../icons/info';
 import { iconTriangleFilledTag } from '../icons/triangle-filled';
 import { iconXmarkTag } from '../icons/xmark';
 import { BannerSeverity } from './types';
-import { alertDismissLabel } from '../label-provider/core/label-tokens';
+import { popupDismissLabel } from '../label-provider/core/label-tokens';
 
 // prettier-ignore
 export const template = html<Banner>`
@@ -54,7 +54,7 @@ export const template = html<Banner>`
                 ${when(x => !x.preventDismiss, html<Banner>`
                     <${buttonTag} appearance="ghost" content-hidden @click="${x => x.dismissBanner()}">
                         <${iconXmarkTag} slot="start"></${iconXmarkTag}>
-                        ${x => x.dismissButtonLabel ?? alertDismissLabel.getValueFor(x)}
+                        ${x => x.dismissButtonLabel ?? popupDismissLabel.getValueFor(x)}
                     </${buttonTag}>
                 `)}
             </div>
