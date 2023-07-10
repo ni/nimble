@@ -51,7 +51,7 @@ export const iconDescription = `When including an icon, set \`slot="start"\` on 
         <li>Icon only buttons: 
             <br/>Use primarily for the purpose of limited space, and when the button's action is common and expected.
             <br/>Replicate the usage to create patterns, but do not assume the user will understand the icon's meaning.
-            <br/>When a label isn't present, use a tool-tip to give extra information.
+            <br/>When a label isn't present, use a tooltip to give extra information.
         </li>
         <li>
             <h4>

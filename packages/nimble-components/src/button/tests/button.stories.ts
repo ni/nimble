@@ -72,7 +72,8 @@ const metadata: Meta<ButtonArgs> = {
             ?disabled="${x => x.disabled}"
             appearance="${x => ButtonAppearance[x.appearance]}"
             appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
-            ?content-hidden="${x => x.contentHidden}">
+            ?content-hidden="${x => x.contentHidden}"
+            style="position: relative; z-index: 0;">
             ${when(x => x.icon, html`
                 <${iconKeyTag} slot="start"></${iconKeyTag}>
             `)}
