@@ -37,7 +37,7 @@ export class RichTextViewer extends FoundationElement {
     public set markdownValue(value: string) {
         this._markdownValue = value;
         this.serializedContent = this.parseMarkdownToDOM(value);
-        this.appendSerializedContentToViewer();
+        this.updateViewerNodeWithSerializedContent();
     }
 
     /**
@@ -65,7 +65,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.appendSerializedContentToViewer();
+        this.updateViewerNodeWithSerializedContent();
     }
 
     private initializeMarkdownParser(): MarkdownParser {
@@ -104,11 +104,10 @@ export class RichTextViewer extends FoundationElement {
         );
     }
 
-    private appendSerializedContentToViewer(): void {
+    private updateViewerNodeWithSerializedContent(): void {
         const viewer = this.shadowRoot?.querySelector('#viewer');
         if (viewer && this.serializedContent) {
-            viewer.innerHTML = '';
-            viewer.appendChild(this.serializedContent.cloneNode(true));
+            viewer.replaceChildren(this.serializedContent.cloneNode(true));
         }
     }
 }

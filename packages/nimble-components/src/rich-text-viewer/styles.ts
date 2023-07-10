@@ -16,10 +16,10 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         color: ${bodyFontColor};
-        width: auto;
+        inline-size: auto;
         overflow: auto;
-        height: 100%;
-        min-height: 36px;
+        block-size: 100%;
+        min-block-size: 36px;
     }
 
     p,
@@ -41,7 +41,7 @@ export const styles = css`
     }
 
     :host([fit-to-content]) {
-        height: auto;
+        block-size: auto;
     }
 
     .container {
@@ -50,9 +50,9 @@ export const styles = css`
         box-sizing: border-box;
         position: relative;
         color: inherit;
-        min-width: 100px;
+        min-inline-size: 100px;
         padding: ${smallPadding};
-        margin-bottom: 10px;
-        margin-right: 10px;
+        margin-block-end: 10px;
+        margin-inline-end: 10px;
     }
 `;
