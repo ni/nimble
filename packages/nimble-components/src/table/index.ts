@@ -424,7 +424,7 @@ export class Table<
             (column, i) => i < columnIndex && column.columnHidden
         ).length;
         this.tableLayoutManager.beginColumnInteractiveSize(
-            columnIndex * 2 - hiddenColumnCount * 2
+            (columnIndex * 2) - (hiddenColumnCount * 2)
         );
     }
 
@@ -434,7 +434,7 @@ export class Table<
             (column, i) => i < columnIndex && column.columnHidden
         ).length;
         this.tableLayoutManager.beginColumnInteractiveSize(
-            columnIndex * 2 - 1 - hiddenColumnCount * 2
+            (columnIndex * 2 - 1) - (hiddenColumnCount * 2)
         );
     }
 

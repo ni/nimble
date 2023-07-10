@@ -212,12 +212,10 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private unflagActiveColumnDividers(): void {
-        const dividers = Array.from(
-            this.table.shadowRoot!.querySelectorAll('.column-divider')
-        );
-        for (const divider of dividers) {
+        const dividers = this.table.shadowRoot!.querySelectorAll('.column-divider');
+        Array.from(dividers).forEach(divider => {
             divider.removeAttribute('active');
-        }
+        });
     }
 
     private cacheGridSizedColumns(): void {
