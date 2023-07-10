@@ -9,6 +9,7 @@ import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown
 
 interface RichTextViewerArgs {
     markdownValue: string;
+    fitToContent: boolean;
 }
 
 const richTextViewerDescription = 'The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.';
@@ -31,17 +32,23 @@ const metadata: Meta<RichTextViewerArgs> = {
     })}
     <${richTextViewerTag}
         :markdownValue="${x => x.markdownValue}"
+        ?fit-to-content="${x => x.fitToContent}"
     >
     </${richTextViewerTag}>
     `),
     argTypes: {
+        fitToContent: {
+            description:
+                'Whether to grow the height of the component vertically to fit the content without adding any styles to the component.'
+        },
         markdownValue: {
             description:
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.'
         }
     },
     args: {
-        markdownValue: richTextMarkdownString
+        markdownValue: richTextMarkdownString,
+        fitToContent: false
     }
 };
 

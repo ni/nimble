@@ -3,6 +3,6 @@ import type { RichTextViewer } from '.';
 
 export const template = html<RichTextViewer>`
     <template>
-        <div id="viewer"></div>
+        <div class="container" id="viewer"></div>
     </template>
 `;

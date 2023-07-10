@@ -16,9 +16,10 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         color: ${bodyFontColor};
-        padding: ${smallPadding};
         width: auto;
         overflow: auto;
+        height: 100%;
+        min-height: 36px;
     }
 
     p,
@@ -37,5 +38,21 @@ export const styles = css`
 
     a:active {
         color: ${linkActiveFontColor};
+    }
+
+    :host([fit-to-content]) {
+        height: auto;
+    }
+
+    .container {
+        font: inherit;
+        outline: none;
+        box-sizing: border-box;
+        position: relative;
+        color: inherit;
+        min-width: 100px;
+        padding: ${smallPadding};
+        margin-bottom: 10px;
+        margin-right: 10px;
     }
 `;

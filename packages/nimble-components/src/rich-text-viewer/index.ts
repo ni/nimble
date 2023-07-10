@@ -5,6 +5,7 @@ import {
     MarkdownParser
 } from 'prosemirror-markdown';
 import { DOMSerializer } from 'prosemirror-model';
+import { attr } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 
@@ -18,6 +19,16 @@ declare global {
  * A nimble styled rich text viewer
  */
 export class RichTextViewer extends FoundationElement {
+    /**
+     * Whether to grow the height of the component to fit the content.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: fit-to-content
+     */
+    @attr({ attribute: 'fit-to-content', mode: 'boolean' })
+    public fitToContent = false;
+
     /**
      * @public
      * @remarks
