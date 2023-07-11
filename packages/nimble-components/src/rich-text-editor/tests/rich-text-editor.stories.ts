@@ -5,13 +5,11 @@ import {
     incubatingWarning
 } from '../../utilities/tests/storybook';
 import { richTextEditorTag } from '..';
-import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
 
-interface RichTextEditorArgs {
-    markdownValue: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface RichTextEditorArgs { }
 
-const richTextEditorDescription = 'The rich text Editor component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.';
+const richTextEditorDescription = 'The rich text editor component allows users to add/edit text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The editor generates and accepts a markdown string as its output and input format respectively.';
 
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
@@ -26,23 +24,11 @@ const metadata: Meta<RichTextEditorArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
     ${incubatingWarning({
-        componentName: 'rich text Editor',
+        componentName: 'rich text editor',
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
-    <${richTextEditorTag}
-        :markdownValue="${x => x.markdownValue}"
-    >
-    </${richTextEditorTag}>
-    `),
-    argTypes: {
-        markdownValue: {
-            description:
-                'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.'
-        }
-    },
-    args: {
-        markdownValue: richTextMarkdownString
-    }
+        <${richTextEditorTag}></${richTextEditorTag}>
+    `)
 };
 
 export default metadata;

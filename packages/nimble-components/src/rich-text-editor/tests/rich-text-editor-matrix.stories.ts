@@ -10,7 +10,6 @@ import {
 } from '../../utilities/tests/matrix';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { richTextEditorTag } from '..';
-import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -23,7 +22,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${richTextEditorTag} :markdownValue="${_ => richTextMarkdownString}"></${richTextEditorTag}>
+    <${richTextEditorTag}></${richTextEditorTag}>
 `;
 
 export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(

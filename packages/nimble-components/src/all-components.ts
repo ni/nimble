@@ -28,6 +28,7 @@ import './menu-item';
 import './number-field';
 import './radio';
 import './radio-group';
+import './rich-text-editor';
 import './rich-text-viewer';
 import './select';
 import './spinner';

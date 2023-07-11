@@ -13,6 +13,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
+import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text-editor';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -69,6 +70,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleTableColumnTextModule,
         NimbleTableColumnAnchorModule,
         NimbleBannerModule,
+        NimbleRichTextEditorModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },

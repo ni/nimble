@@ -254,6 +254,15 @@ const components = [
         blazorStatus: '✅',
     },
     {
+        componentName: 'Rich Text Editor',
+        componentHref: './?path=/docs/incubating-rich-text-editor--docs',
+        issueHref: 'https://github.com/ni/nimble/issues/1288',
+        issueLabel: 'Issue',
+        componentStatus: '⚠️',
+        angularStatus: '⚠️',
+        blazorStatus: '⚠️',
+    },
+    {
         componentName: 'Rich Text Viewer',
         componentHref: './?path=/docs/incubating-rich-text-viewer--docs',
         issueHref: 'https://github.com/ni/nimble/issues/1288',
