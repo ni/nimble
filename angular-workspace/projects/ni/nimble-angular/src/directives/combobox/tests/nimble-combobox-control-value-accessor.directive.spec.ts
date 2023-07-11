@@ -29,8 +29,12 @@ describe('Nimble combobox control value accessor', () => {
         @Component({
             template: `
                 <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="none">
-                    <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
-                    <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
+                    <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">
+                        {{ option?.name ?? nullValueString }}
+                    </nimble-list-option>
+                    <nimble-list-option [ngValue]="dynamicOption">
+                        {{ dynamicOption?.name }}
+                    </nimble-list-option>
                 </nimble-combobox>
              `
         })
