@@ -11,7 +11,7 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends FoundationElement { }
+export class RichTextEditor extends FoundationElement {}
 
 const nimbleRichTextEditor = RichTextEditor.compose({
     baseName: 'rich-text-editor',
