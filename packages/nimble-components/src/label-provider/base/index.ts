@@ -1,14 +1,6 @@
-import {
-    DesignToken,
-    DesignTokenChangeRecord,
-    FoundationElement
-} from '@microsoft/fast-foundation';
-import { Observable, type Subscriber } from '@microsoft/fast-element';
+import { DesignToken, FoundationElement } from '@microsoft/fast-foundation';
+import { Notifier, Observable, type Subscriber } from '@microsoft/fast-element';
 import { themeProviderTag } from '../../theme-provider';
-
-type LabelTokenCollection = {
-    [P in keyof LabelProviderBase]?: DesignToken<string>;
-};
 
 /**
  * Base class for label providers
@@ -16,45 +8,27 @@ type LabelTokenCollection = {
 export abstract class LabelProviderBase
     extends FoundationElement
     implements Subscriber {
-    protected readonly supportedLabels: LabelTokenCollection;
+    protected abstract readonly supportedLabels: {
+        [P in keyof LabelProviderBase]?: DesignToken<string>;
+    };
 
+    private propertyNotifier?: Notifier;
     private themeProvider?: HTMLElement;
-    private suppressChangesForToken?: DesignToken<string>;
-
-    public constructor(supportedLabels: LabelTokenCollection) {
-        super();
-
-        if (supportedLabels === undefined) {
-            throw new Error('supportedLabels constructor argument is required');
-        }
-        this.supportedLabels = supportedLabels;
-        Observable.getNotifier(this).subscribe(this);
-        for (const token of Object.values(supportedLabels)) {
-            token.subscribe(
-                {
-                    handleChange: (
-                        record: DesignTokenChangeRecord<DesignToken<string>>
-                    ) => {
-                        this.handleDesignTokenChange(record.token);
-                    }
-                },
-                this
-            );
-        }
-    }
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initializeThemeProvider();
+        this.propertyNotifier = Observable.getNotifier(this);
+        this.propertyNotifier.subscribe(this);
     }
 
     public override disconnectedCallback(): void {
-        this.themeProvider = undefined;
-    }
-
-    public handleDesignTokenChange(token: DesignToken<string>): void {
-        if (token !== this.suppressChangesForToken && this.themeProvider) {
-            token.setValueFor(this.themeProvider, token.getValueFor(this));
+        this.propertyNotifier?.unsubscribe(this);
+        if (this.themeProvider) {
+            for (const token of Object.values(this.supportedLabels)) {
+                token.deleteValueFor(this.themeProvider);
+            }
+            this.themeProvider = undefined;
         }
     }
 
@@ -64,16 +38,13 @@ export abstract class LabelProviderBase
     ): void {
         if (this.supportedLabels[property]) {
             const token = this.supportedLabels[property]!;
-            const value = this[property] as string | undefined | null;
-            if (value !== undefined && value !== null) {
-                token.setValueFor(this, value);
-            } else {
-                this.suppressChangesForToken = token;
-                token.deleteValueFor(this);
-                if (this.themeProvider) {
+            const value = this[property];
+            if (this.themeProvider) {
+                if (value === null || value === undefined) {
                     token.deleteValueFor(this.themeProvider);
+                } else {
+                    token.setValueFor(this.themeProvider, value as string);
                 }
-                this.suppressChangesForToken = undefined;
             }
         }
     }
@@ -83,14 +54,12 @@ export abstract class LabelProviderBase
         if (this.themeProvider) {
             for (const [property, token] of Object.entries(
                 this.supportedLabels
-            ) as [keyof LabelProviderBase, DesignToken<string>][]) {
-                const propertyValue = this[property] as
-                    | string
-                    | null
-                    | undefined;
-                if (propertyValue !== null && propertyValue !== undefined) {
-                    const value = token.getValueFor(this);
-                    token.setValueFor(this.themeProvider, value);
+            )) {
+                const value = this[property as keyof LabelProviderBase];
+                if (value === null || value === undefined) {
+                    token.deleteValueFor(this.themeProvider);
+                } else {
+                    token.setValueFor(this.themeProvider, value as string);
                 }
             }
         }

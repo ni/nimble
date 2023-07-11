@@ -28,14 +28,11 @@ describe('Label Provider Base', () => {
         @attr({ attribute: 'example-message' })
         public exampleMessage?: string;
 
-        public constructor() {
-            const supportedLabels: {
-                [P in keyof LabelProviderTest]?: DesignToken<string>;
-            } = {
+        protected override readonly supportedLabels: {
+            [P in keyof LabelProviderTest]?: DesignToken<string>;
+        } = {
                 exampleMessage: exampleMessageLabel
             };
-            super(supportedLabels);
-        }
     }
 
     describe('with single theme provider', () => {

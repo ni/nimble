@@ -26,16 +26,13 @@ export class LabelProviderCore extends LabelProviderBase {
     @attr({ attribute: 'numeric-increment' })
     public numericIncrement?: string;
 
-    public constructor() {
-        const supportedLabels: {
-            [P in keyof LabelProviderCore]?: DesignToken<string>;
-        } = {
+    protected override readonly supportedLabels: {
+        [P in keyof LabelProviderCore]?: DesignToken<string>;
+    } = {
             popupDismiss: popupDismissLabel,
             numericDecrement: numericDecrementLabel,
             numericIncrement: numericIncrementLabel
         };
-        super(supportedLabels);
-    }
 }
 
 const nimbleLabelProviderCore = LabelProviderCore.compose({

@@ -34,18 +34,15 @@ export class LabelProviderTable extends LabelProviderBase {
     @attr({ attribute: 'column-header-grouped-indicator' })
     public columnHeaderGroupedIndicator?: string;
 
-    public constructor() {
-        const supportedLabels: {
-            [P in keyof LabelProviderTable]?: DesignToken<string>;
-        } = {
+    protected override readonly supportedLabels: {
+        [P in keyof LabelProviderTable]?: DesignToken<string>;
+    } = {
             groupCollapse: tableGroupCollapseLabel,
             groupExpand: tableGroupExpandLabel,
             groupsCollapseAll: tableGroupsCollapseAllLabel,
             cellActionMenu: tableCellActionMenuLabel,
             columnHeaderGroupedIndicator: tableColumnHeaderGroupedIndicatorLabel
         };
-        super(supportedLabels);
-    }
 }
 
 const nimbleLabelProviderTable = LabelProviderTable.compose({
