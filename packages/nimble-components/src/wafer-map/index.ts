@@ -12,6 +12,7 @@ import { RenderingModule } from './modules/rendering';
 import { EventCoordinator } from './modules/event-coordinator';
 import {
     HoverDieOpacity,
+    PointCoordinates,
     WaferMapColorScale,
     WaferMapColorScaleMode,
     WaferMapDie,
@@ -57,6 +58,15 @@ export class WaferMap extends FoundationElement {
         attribute: 'color-scale-mode'
     })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
+
+    @attr
+    public origin: PointCoordinates = { x: 0, y: 0 };
+
+    @attr
+    public rows = 0;
+
+    @attr
+    public cols = 0;
 
     /**
      * @internal
