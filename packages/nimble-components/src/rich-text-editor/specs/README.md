@@ -102,7 +102,7 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 _Props/Attrs_
 
--   `markdownValue` - is an accessor used to get and set the markdown value.
+-   `markdown` - is an accessor used to get and set the markdown value.
     -   `getter` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
         [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L30).
     -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
@@ -191,7 +191,7 @@ tasks to convert the markdown string to corresponding HTML nodes for each text f
 
 _Props/Attrs_
 
--   `markdownValue` - is an accessor used to get and set the markdown value.
+-   `markdown` - is an accessor used to get and set the markdown value.
     -   `getter` - this will merely return the markdown string that is set to the component.
     -   `setter` - this will parse the markdown string into a Node using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199) and convert to an HTML to
