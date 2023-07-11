@@ -23,7 +23,10 @@ export abstract class LabelProviderBase
     }
 
     public override disconnectedCallback(): void {
-        this.propertyNotifier?.unsubscribe(this);
+        if (this.propertyNotifier) {
+            this.propertyNotifier.unsubscribe(this);
+            this.propertyNotifier = undefined;
+        }
         if (this.themeProvider) {
             for (const token of Object.values(this.supportedLabels)) {
                 token.deleteValueFor(this.themeProvider);
