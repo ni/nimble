@@ -33,7 +33,7 @@ The steps to use components from Nimble Angular are similar to using components 
     class AppModule {}
     ```
 
-3. Each application should add the `<nimble-theme-provider>`* element to `app.component.html` and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components.
+3. Each application should add the `<nimble-theme-provider>` element to `app.component.html` and set its `theme` attribute. The theme provider has no appearance of its own but defines tokens that are used by descendant components.
 
     ```html
     <nimble-theme-provider theme="light">
@@ -61,7 +61,7 @@ The steps to use components from Nimble Angular are similar to using components 
 
     See [the theming documentation in `nimble-components`](/packages/nimble-components/README.md#theming) for more information.
 
-6. As needed, add Nimble components* to the templates in your application:
+6. As needed, add Nimble components to the templates in your application:
 
     ```html
     <nimble-drawer #drawerReference location="right">This is a drawer</nimble-drawer>
