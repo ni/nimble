@@ -549,7 +549,9 @@ describe('Combobox', () => {
     });
 
     it('when typing in value with inline autocomplete, option at bottom of list scrolls into view', async () => {
-        const { element, connect, disconnect } = await setupWithManyOptions(ComboboxAutocomplete.inline);
+        const { element, connect, disconnect } = await setupWithManyOptions(
+            ComboboxAutocomplete.inline
+        );
         await connect();
         await waitForUpdatesAsync();
 
