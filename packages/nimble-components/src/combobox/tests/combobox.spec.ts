@@ -26,6 +26,27 @@ async function setup(
     return fixture<Combobox>(viewTemplate);
 }
 
+async function setupWithManyOptions(
+    position?: string,
+    open?: boolean,
+    autocomplete?: ComboboxAutocomplete
+): Promise<Fixture<Combobox>> {
+    // prettier-ignore
+    const viewTemplate = html`
+        <nimble-combobox
+            ${position !== undefined ? `position="${position}"` : ''}
+            ${open ? 'open' : ''}
+            ${autocomplete !== undefined ? `autocomplete="${autocomplete}"` : ''}
+        >
+            ${repeat(() => [...Array(500).keys()], html<number>`
+                <nimble-list-option>${x => x}</nimble-list-option>
+            `)}
+            <nimble-list-option>1000</nimble-list-option>
+        </nimble-combobox>
+    `;
+    return fixture<Combobox>(viewTemplate);
+}
+
 function updateComboboxWithText(combobox: Combobox, text: string): void {
     combobox.control.value = text;
     const inputEvent = new InputEvent('input', {
@@ -527,6 +548,30 @@ describe('Combobox', () => {
         await waitForUpdatesAsync();
 
         expect(changeEvent).toHaveBeenCalledTimes(1);
+
+        await disconnect();
+    });
+
+    it('when typing in value with inline autocomplete, option at bottom of list scrolls into view', async () => {
+        const { element, connect, disconnect } = await setupWithManyOptions(
+            undefined,
+            undefined,
+            ComboboxAutocomplete.inline
+        );
+        await connect();
+        await waitForUpdatesAsync();
+
+        const lastOption = element.options[element.options.length - 1]!;
+        await clickAndWaitForOpen(element);
+        updateComboboxWithText(element, '1');
+        await waitForUpdatesAsync();
+        // This second call seems necessary to allow the requestAnimationFrame in the FAST Combobox implementation
+        // time to run for the first update.
+        await waitForUpdatesAsync();
+        updateComboboxWithText(element, '1000'); // last option in set
+        await waitForUpdatesAsync();
+        const optionIsVisible = await checkFullyInViewport(lastOption);
+        expect(optionIsVisible).toBeTrue();
 
         await disconnect();
     });
