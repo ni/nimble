@@ -19,6 +19,15 @@ export class NimbleTableDirective<TData extends TableRecord = TableRecord> imple
         return this.dataObservable;
     }
 
+    /**
+     * An `Observable<TData[]>` that emits data that should be set on the table.
+     *
+     * When using `data$`, the timing of when the table has been updated with a new collection of data
+     * cannot be observed or await by an application. If an application needs to know when the data has
+     * been applied, explicitly call `setData()` rather than using the `data$` property. For example,
+     * calling `getSelectedRecordIds()` immediately after emitting a new value to the `data$` `Observable`
+     * may not take the new data into account when determining the selected records.
+     */
     @Input() public set data$(value: Observable<TData[]> | undefined) {
         this.dataSubscription?.unsubscribe();
 
