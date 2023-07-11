@@ -27,15 +27,11 @@ async function setup(
 }
 
 async function setupWithManyOptions(
-    position?: string,
-    open?: boolean,
     autocomplete?: ComboboxAutocomplete
 ): Promise<Fixture<Combobox>> {
     // prettier-ignore
     const viewTemplate = html`
         <nimble-combobox
-            ${position !== undefined ? `position="${position}"` : ''}
-            ${open ? 'open' : ''}
             ${autocomplete !== undefined ? `autocomplete="${autocomplete}"` : ''}
         >
             ${repeat(() => [...Array(500).keys()], html<number>`
@@ -553,16 +549,14 @@ describe('Combobox', () => {
     });
 
     it('when typing in value with inline autocomplete, option at bottom of list scrolls into view', async () => {
-        const { element, connect, disconnect } = await setupWithManyOptions(
-            undefined,
-            undefined,
-            ComboboxAutocomplete.inline
-        );
+        const { element, connect, disconnect } = await setupWithManyOptions(ComboboxAutocomplete.inline);
         await connect();
         await waitForUpdatesAsync();
 
         const lastOption = element.options[element.options.length - 1]!;
         await clickAndWaitForOpen(element);
+        let optionIsVisible = await checkFullyInViewport(lastOption);
+        expect(optionIsVisible).toBeFalse();
         updateComboboxWithText(element, '1');
         await waitForUpdatesAsync();
         // This second call seems necessary to allow the requestAnimationFrame in the FAST Combobox implementation
@@ -570,7 +564,7 @@ describe('Combobox', () => {
         await waitForUpdatesAsync();
         updateComboboxWithText(element, '1000'); // last option in set
         await waitForUpdatesAsync();
-        const optionIsVisible = await checkFullyInViewport(lastOption);
+        optionIsVisible = await checkFullyInViewport(lastOption);
         expect(optionIsVisible).toBeTrue();
 
         await disconnect();
