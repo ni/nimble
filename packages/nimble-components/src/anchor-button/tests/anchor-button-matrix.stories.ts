@@ -62,7 +62,7 @@ const component = (
         appearance-variant="${() => appearanceVariant}"
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
-        style="margin-right: 8px; margin-bottom: 8px; position: relative; z-index: 0;">
+        style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconLinkTag} slot="start"></${iconLinkTag}>`)}
             ${() => `${appearanceVariantName} ${appearanceName} Link ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>`)}

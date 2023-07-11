@@ -21,21 +21,44 @@ export const styles = css`
     .control[aria-pressed='true']:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 4px) calc(100% - 4px);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .control[aria-pressed='true']${focusVisible} {
+        background-color: transparent;
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 4px) calc(100% - 4px);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .control[aria-pressed='true']:active {
         box-shadow: none;
         outline: none;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 2px) calc(100% - 2px);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     :host([disabled]) .control[aria-pressed='true'] {
         border-color: ${fillSelectedColor};
         background-color: ${fillSelectedColor};
+        background-image: none;
     }
 
     :host([disabled]) .control[aria-pressed='true']:hover {
@@ -58,21 +81,14 @@ export const styles = css`
         z-index: -1;
     }
 
-    .control[aria-pressed='true']:hover::before {
-        background-color: ${fillSelectedColor};
-    }
-
     .control[aria-pressed='true']${focusVisible}::before {
-        background-color: ${fillSelectedColor};
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
         transition: outline ${smallDelay} ease-in-out;
         color: transparent;
-        padding: 2px;
     }
 
     .control[aria-pressed='true']:active::before {
         outline: none;
-        padding: ${borderWidth};
     }
 `;

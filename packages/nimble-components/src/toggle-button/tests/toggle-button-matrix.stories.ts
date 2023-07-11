@@ -59,7 +59,7 @@ const component = (
         ?disabled=${() => disabled}
         ?content-hidden=${() => !labelVisible}
         ?checked=${() => checked}
-        style="margin-right: 8px; margin-bottom: 8px; position: relative; z-index: 0;">
+        style="margin-right: 8px; margin-bottom: 8px;">
             ${when(() => iconVisible, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${() => `${checkedName} ${appearanceName} Toggle Button ${disabledName}`}
             ${when(() => endIconVisible, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
