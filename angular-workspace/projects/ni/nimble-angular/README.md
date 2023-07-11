@@ -41,8 +41,6 @@ The steps to use components from Nimble Angular are similar to using components 
     </nimble-theme-provider>
     ```
 
-    *See [note below about the recommended way to reference nimble elements in HTML](#specifying-nimble-element-tags).
-
 4. Each application should import the Nimble fonts once in the root `src/styles.scss`. Nimble recommends using SCSS for capabilities such as build time property checking.
 
     ```scss
@@ -68,8 +66,6 @@ The steps to use components from Nimble Angular are similar to using components 
     ```html
     <nimble-drawer #drawerReference location="right">This is a drawer</nimble-drawer>
     ```
-
-    *See [note below about the recommended way to reference nimble elements in HTML](#specifying-nimble-element-tags).
 
 7. As needed, import the Nimble component's directive and types in your component scripts to use programmatic APIs:
 
