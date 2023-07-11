@@ -78,7 +78,6 @@ export const styles = css`
         outline: 0px solid transparent;
         outline: none;
         background-clip: content-box;
-        z-index: -1;
     }
 
     .control[aria-pressed='true']${focusVisible}::before {
