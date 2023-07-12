@@ -112,6 +112,17 @@ _Props/Attrs_
     that can be used to bind it in the Angular application.
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 
+_Alternatives_
+
+_Decision on choosing `markdown` as an accessor over methods_:
+
+Initially, we thought of having `getMarkdown()` and `setMarkdown()` methods to retrieve and update the markdown string. This approach was chosen 
+because converting the rich text content entered in the editor to a markdown string is a costlier operation and not wanted to trigger it as an 
+event/property for every input in the editor. But for the `nimble-rich-text-viewer`, this conversion is a one-time operation performed solely to 
+set the markdown string and display the rich text content so we thought of having `markdown` as a property for the viewer component. This makes it 
+inconsistent among components that serve similar purposes. So to avoid this inconsistency, we made the decision to have `markdown` as an accessor 
+for both components and perform the necessary operations within the `getters` and `setters`.
+
 _Methods_
 
 -   none
