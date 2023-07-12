@@ -108,7 +108,9 @@ describe('RichTextViewer', () => {
             await connect();
 
             expect(getChildElements()).toEqual(['P', 'A']);
-            expect(lastChildElement?.textContent).toBe('https://nimble.ni.dev/');
+            expect(lastChildElement?.textContent).toBe(
+                'https://nimble.ni.dev/'
+            );
             expect(lastChildElement!.getAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
@@ -133,7 +135,9 @@ describe('RichTextViewer', () => {
             await connect();
 
             expect(getChildElements()).toEqual(['UL', 'LI', 'P', 'EM']);
-            expect(lastChildElement?.textContent).toBe('Bulleted list in italics');
+            expect(lastChildElement?.textContent).toBe(
+                'Bulleted list in italics'
+            );
 
             await disconnect();
         });
@@ -144,7 +148,9 @@ describe('RichTextViewer', () => {
             await connect();
 
             expect(getChildElements()).toEqual(['UL', 'LI', 'P', 'A']);
-            expect(lastChildElement?.textContent).toBe('https://nimble.ni.dev/');
+            expect(lastChildElement?.textContent).toBe(
+                'https://nimble.ni.dev/'
+            );
             expect(lastChildElement!.getAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
@@ -158,7 +164,9 @@ describe('RichTextViewer', () => {
             await connect();
 
             expect(getChildElements()).toEqual(['P', 'STRONG', 'A']);
-            expect(lastChildElement?.textContent).toBe('https://nimble.ni.dev/');
+            expect(lastChildElement?.textContent).toBe(
+                'https://nimble.ni.dev/'
+            );
             expect(lastChildElement!.getAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
@@ -178,7 +186,7 @@ describe('RichTextViewer', () => {
             { name: '![Text](Image)' },
             { name: '&nbsp;' },
             { name: '---' },
-            { name: '<div><p>text</p></div>' },
+            { name: '<div><p>text</p></div>' }
         ];
 
         const focused: string[] = [];
