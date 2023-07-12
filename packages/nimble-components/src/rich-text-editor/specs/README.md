@@ -116,12 +116,15 @@ _Alternatives_
 
 _Decision on choosing `markdown` as an accessor over methods_:
 
-Initially, we thought of having `getMarkdown()` and `setMarkdown()` methods to retrieve and update the markdown string. This approach was chosen
-because converting the rich text content entered in the editor to a markdown string is a costlier operation and not wanted to trigger it as an
-event/property for every input in the editor. But for the `nimble-rich-text-viewer`, this conversion is a one-time operation performed solely to
-set the markdown string and display the rich text content so we thought of having `markdown` as a property for the viewer component. This makes it
-inconsistent among components that serve similar purposes. So to avoid this inconsistency, we made the decision to have `markdown` as an accessor
-for both components and perform the necessary operations within the `getters` and `setters`.
+Initially, we thought of having `getMarkdown()` and `setMarkdown()` methods to retrieve and set the markdown string. We chose this approach
+because converting the rich text content entered in the editor to a markdown string is an expensive operation and not wanted to trigger it as an
+event for every change in the editor or as a property to enable two-way data binding for the client application.
+
+However, we realized that we could achieve the same benefits by using an `accessor` instead, by incorporating the same functionality within the
+`getters` and `setters`. Additionally, accessor provides a property-like syntax for clients, enabling one-way data binding and simplifying the syntax.
+This allows clients to retrieve the `markdown` representation only when necessary, rather than for every single change. For a example use case, when the user
+completes entering the entire content in the editor and clicks a button, the client can access the `markdown` output only once. This way the
+application's performance is enhanced as the operation is performed only once, thus eliminating unnecessary reading of an accessor.
 
 _Methods_
 
