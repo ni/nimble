@@ -42,9 +42,9 @@ describe('Nimble Rich Text Viewer', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('has expected defaults for markdownValue', () => {
-            expect(directive.markdownValue).toBe('');
-            expect(nativeElement.markdownValue).toBe('');
+        it('has expected defaults for markdown', () => {
+            expect(directive.markdown).toBe('');
+            expect(nativeElement.markdown).toBe('');
         });
     });
 
@@ -52,7 +52,7 @@ describe('Nimble Rich Text Viewer', () => {
         @Component({
             template: `
                 <nimble-rich-text-viewer #viewer
-                    markdownValue="Markdown value"
+                    markdown="Markdown value"
                     >
                 </nimble-rich-text-viewer>`
         })
@@ -76,9 +76,9 @@ describe('Nimble Rich Text Viewer', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('will use template string values for markdownValue', () => {
-            expect(directive.markdownValue).toBe('Markdown value');
-            expect(nativeElement.markdownValue).toBe('Markdown value');
+        it('will use template string values for markdown', () => {
+            expect(directive.markdown).toBe('Markdown value');
+            expect(nativeElement.markdown).toBe('Markdown value');
         });
     });
 
@@ -86,14 +86,14 @@ describe('Nimble Rich Text Viewer', () => {
         @Component({
             template: `
                 <nimble-rich-text-viewer #viewer
-                    [markdownValue]="markdownValue"
+                    [markdown]="markdown"
                     >
                 </nimble-rich-text-viewer>`
         })
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;
             @ViewChild('viewer', { read: ElementRef }) public elementRef: ElementRef<RichTextViewer>;
-            public markdownValue = 'Markdown value';
+            public markdown = 'Markdown value';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -111,15 +111,15 @@ describe('Nimble Rich Text Viewer', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for markdownValue', () => {
-            expect(directive.markdownValue).toBe('Markdown value');
-            expect(nativeElement.markdownValue).toBe('Markdown value');
+        it('can be configured with property binding for markdown', () => {
+            expect(directive.markdown).toBe('Markdown value');
+            expect(nativeElement.markdown).toBe('Markdown value');
 
-            fixture.componentInstance.markdownValue = 'new markdown value';
+            fixture.componentInstance.markdown = 'new markdown value';
             fixture.detectChanges();
 
-            expect(directive.markdownValue).toBe('new markdown value');
-            expect(nativeElement.markdownValue).toBe('new markdown value');
+            expect(directive.markdown).toBe('new markdown value');
+            expect(nativeElement.markdown).toBe('new markdown value');
         });
     });
 });
