@@ -44,7 +44,7 @@ export const styles = css`
     li > p {
         margin-block: 0;
     }
-    
+
     li > p:empty {
         display: contents;
     }
