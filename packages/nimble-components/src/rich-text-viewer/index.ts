@@ -5,7 +5,6 @@ import {
     MarkdownParser
 } from 'prosemirror-markdown';
 import { DOMSerializer } from 'prosemirror-model';
-import { attr } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 
@@ -20,24 +19,14 @@ declare global {
  */
 export class RichTextViewer extends FoundationElement {
     /**
-     * Whether to grow the height of the component to fit the content.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: fit-to-content
-     */
-    @attr({ attribute: 'fit-to-content', mode: 'boolean' })
-    public fitToContent = false;
-
-    /**
      * @public
      * @remarks
      * Accessor: uses the parsing logic to convert the input markdown string to render in the component.
      */
-    public set markdownValue(value: string) {
-        this._markdownValue = value;
+    public set markdown(value: string) {
+        this._markdown = value;
         this.serializedContent = this.parseMarkdownToDOM(value);
-        this.appendSerializedContentToViewer();
+        this.updateViewerNodeWithSerializedContent();
     }
 
     /**
@@ -45,11 +34,11 @@ export class RichTextViewer extends FoundationElement {
      * @remarks
      * Accessor: gets the raw markdown string.
      */
-    public get markdownValue(): string {
-        return this._markdownValue;
+    public get markdown(): string {
+        return this._markdown;
     }
 
-    private _markdownValue = '';
+    private _markdown = '';
     private serializedContent?: HTMLElement | DocumentFragment;
     private readonly markdownParser: MarkdownParser;
     private readonly domSerializer: DOMSerializer;
@@ -65,7 +54,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.appendSerializedContentToViewer();
+        this.updateViewerNodeWithSerializedContent();
     }
 
     private initializeMarkdownParser(): MarkdownParser {
@@ -104,11 +93,10 @@ export class RichTextViewer extends FoundationElement {
         );
     }
 
-    private appendSerializedContentToViewer(): void {
+    private updateViewerNodeWithSerializedContent(): void {
         const viewer = this.shadowRoot?.querySelector('#viewer');
         if (viewer && this.serializedContent) {
-            viewer.innerHTML = '';
-            viewer.appendChild(this.serializedContent.cloneNode(true));
+            viewer.replaceChildren(this.serializedContent.cloneNode(true));
         }
     }
 }

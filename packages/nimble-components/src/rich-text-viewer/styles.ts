@@ -3,7 +3,6 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyFont,
     bodyFontColor,
-    bodyFontLineHeight,
     linkActiveFontColor,
     linkFontColor,
     smallPadding
@@ -16,19 +15,34 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         color: ${bodyFontColor};
-        width: auto;
+        inline-size: auto;
         overflow: auto;
-        height: 100%;
-        min-height: 36px;
+        block-size: 100%;
+        min-block-size: 36px;
     }
 
-    p,
-    ol,
-    ul,
-    li {
-        margin-block-start: 0px;
-        margin-block-end: 0px;
-        line-height: ${bodyFontLineHeight};
+    .container {
+        font: inherit;
+        outline: none;
+        box-sizing: border-box;
+        position: relative;
+        color: inherit;
+        min-inline-size: 100px;
+        padding: ${smallPadding};
+        margin-block-end: 10px;
+        margin-inline-end: 10px;
+    }
+
+    .container > :first-child {
+        margin-block-start: 0;
+    }
+
+    .container > :last-child {
+        margin-block-end: 0;
+    }
+
+    li > p {
+        margin-block: 0;
     }
 
     a {
@@ -38,21 +52,5 @@ export const styles = css`
 
     a:active {
         color: ${linkActiveFontColor};
-    }
-
-    :host([fit-to-content]) {
-        height: auto;
-    }
-
-    .container {
-        font: inherit;
-        outline: none;
-        box-sizing: border-box;
-        position: relative;
-        color: inherit;
-        min-width: 100px;
-        padding: ${smallPadding};
-        margin-bottom: 10px;
-        margin-right: 10px;
     }
 `;
