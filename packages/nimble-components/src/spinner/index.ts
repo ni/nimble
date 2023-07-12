@@ -18,7 +18,7 @@ export class Spinner extends FoundationElement {
     /**
      * @public
      * @description
-     * Type of spinner
+     * The appearance the spinner area should have.
      */
     @attr
     public appearance: SpinnerAppearance = SpinnerAppearance.default;
