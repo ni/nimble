@@ -20,14 +20,5 @@ export class NimbleRichTextViewerDirective {
         return this.elementRef.nativeElement.markdownValue;
     }
 
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('fit-to-content') public set fitToContent(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'fitToContent', toBooleanProperty(value));
-    }
-
-    public get fitToContent(): boolean {
-        return this.elementRef.nativeElement.fitToContent;
-    }
-
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RichTextViewer>) { }
 }
