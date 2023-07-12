@@ -15,15 +15,23 @@ We need to provide users the means for changing the widths of individual columns
 
 ### Expected Behavior
 
-The behavior that has been prescribed for column sizing is as follows:
+#### Column Sizing
 
 -   Columns should be able to be configured to either maintain a fixed width, or grow proportionally with the table such as when the window resizes causing the table width to increase. Tables can consist of columns that are configured as a mixture of the two modes.
 -   If a user drags a divider between two columns to the right, then the column on the left will grow larger, and the column on the right will grow smaller by the same pixel amount. Sub-behaviors to this are:
     -   If a shrinking column has reached its minimum pixel size or is not resizable, then the next column in the direction of the sizing action will be affected up to the final column in a given direction.
     -   A sizing action to the left will ultimately stop having an effect when the left-most column reaches its minimum size.
-    -   A sizing action to the right that would ultimately result in the final right column reaching its minimum size (all columns still within current table width) would then begin to push columns out of the table width resulting in a horizontal scrollbar.
--   Columns can be configured to not allow a user to interactively size them
-    -   The implicit behavior present based on the behaviors described above, is that in a sizing action that cascades to a column configured to not be resized is that the column won't be resized towards a minimum size, and the cascade will effectively "skip" this column.
+    -   A sizing action to the right that would ultimately result in the final right column reaching its minimum size would begin to push columns out of the table viewport width resulting in a horizontal scrollbar on the table.
+    -   Within a single mouse interaction (i.e. drag-sizing without releasing mouse), if a cascade results in a column not adjacent to the divider being sized, then moving the mouse back in the opposite direction will "revert" the size made to the non-adjacent column.
+        ![Column resizing](spec-images/tableColumnResize.gif)
+
+#### Table Sizing
+
+-   If a horizontal scrollbar is present, the act of growing the table will first take away the available scrollbar area, and once completely removed will begin to grow the columns proportionally.
+-   Once horizontal scrollable space has been created via column sizing, shrinking the table, while a horizontal scrollbar is present, will not update the sizes of the columns, as the current scrollable area will be maintained.
+    ![Table resizing](spec-images/tableResize.gif)
+
+[Working branch](https://github.com/ni/nimble/tree/table-column-sizing-cascade-and-grow).
 
 ### Out of Scope
 
@@ -31,11 +39,13 @@ There are some column sizing behaviors that we will ultimately expect to support
 
 -   Auto-resizing: We will not describe how we intend to support the use-case of having a column auto-size to its contents
 -   Different interactive sizing modes: While the APIs described in this HLD do not inherently prescribe to a particular interactive sizing behavior, it's worth saying that in order to support multiple sizing modes, there will likely be additional APIs required that this HLD does not address.
--   Mechanisms related to accessibility-centric interactive column sizing (if there are such mechanisms). One possible example is allowing a user to size a column by way of the keyboard, instead of using a mouse. Ultimately, such a scenario is not in conflict with the API presented here, nor the mouse-based approach we know we will require, and can thus be handled separately, if ever.
+    -   This includes the ability to prevent interactive resizing.
+-   Ability to remove any horizontal scrollable space that has been created via column sizing (future work).
+-   Mechanisms related to accessibility-centric interactive column sizing. One possible example is allowing a user to size a column by way of the keyboard, instead of using a mouse. Ultimately, such a scenario is not in conflict with the API presented here, nor the mouse-based approach we know we will require, and can thus be handled separately, if ever.
 
 ### API
 
-To accomodate the various sizing modes of a column, in addition to the other necessary behaviors, we can add the following properties to `ColumnInternals`:
+`ColumnInternals`:
 
 ```ts
 ColumnInternals<TColumnConfig> {
@@ -174,7 +184,7 @@ We should consider how table re-sizing will work when on a mobile platform (touc
 
 #### **Future interactive sizing behaviors**
 
-Currently, we only have a need for an interactive resize to behave as outlined in the 'Expected Behaviors' section, but it is recognized that another behavior we will ultimately want to support is a "push" resize mode, where as a user drags a divider to the right, all columns are simply pushed to the right, maintaining their current pixel size.
+Currently, we only have a need for an interactive resize to behave as outlined in the 'Expected Behaviors' section, but it is recognized that another behavior we might want to support is a "push" resize mode, where as a user drags a divider to the right, all columns are simply pushed to the right, maintaining their current pixel size.
 
 To help facilitate this, it may be helpful to approach the initial implementation by encapsulating the column resize management within a separate class from the `Table` and have it implement a common interface that would allow a separate implementation to provide differing behavior.
 
@@ -183,3 +193,10 @@ To help facilitate this, it may be helpful to approach the initial implementatio
 TanStack offers the ability to maintain column sizing state as well as APIs to manage interactive sizing ([`getResizeHandler`](https://tanstack.com/table/v8/docs/api/features/column-sizing#getresizehandler)). By plugging into `getResizeHandler` TanStack can provide all necessary column size state either as the column is being sized (allowing immediate sizing while dragging), or at the end of an interactive operation (columns update size on mouse up for example).
 
 TanStack expects size values to be provided as [pixel values](https://tanstack.com/table/v8/docs/api/features/column-sizing#size). As such, we wouldn't be able to leverage TanStack's APIs in a way to achieve our initial desired behavior. However, it's possible that it would be beneficial to attempt to upstream changes to TanStack that would allow us to leverage it, but I would suggest that we revisit this possibility at a later time.
+
+## Open Issues
+
+1. How do we allow a user to remove any added viewport width (i.e. a column has been grown such that a horizontal scrollbar is visible)? Options considered include:
+    - Offer a column dropdown menu option for removing all excess width. This would be done in a proportional way across all columns. All columns would provide this menu option. This would probably demand menu categories to separate table-wide actions vs column-specific actions.
+    - AND/OR offer an interactive element on the right side of the right-most column. This element could allow a user to either click-drag (for incremental adjustment) AND double-click (for removal of all excess width), OR just a single-click (no incremental adjust, just remove all excess). We would not support growing the viewport area, only shrinking.
+        - What would this element look like? How should it behave as the viewport size changes (i.e. should it always be present on the right-side of the visible area, or should it stick to the right-side of the right column, allowing it to be scrolled out of view)?
