@@ -8,6 +8,8 @@ import type { TableRecord } from '../types';
  */
 export class TableLayoutManager<TData extends TableRecord> {
     private activeColumnDivider?: number;
+    private pointerId?: number;
+    private activeDividerElement?: HTMLElement;
     private gridSizedColumns?: TableColumn[];
     private initialTableScrollableWidth?: number;
     private initialTableScrollableMinWidth?: number;
@@ -46,8 +48,10 @@ export class TableLayoutManager<TData extends TableRecord> {
      * @param columnIndex The column index currently being hovered over
      * @param activeColumnDivider The divider that was clicked on (columnIndex - 1 for left divider, columnIndex for right)
      */
-    public beginColumnInteractiveSize(activeColumnDivider: number): void {
+    public beginColumnInteractiveSize(activeColumnDivider: number, activeDividerElement: HTMLElement, pointerId: number): void {
         this.activeColumnDivider = activeColumnDivider;
+        this.activeDividerElement = activeDividerElement;
+        this.pointerId = pointerId;
         this.currentTotalDelta = 0;
         this.initialColumnPixelWidths = [];
         this.flagActiveColumnDividers();
@@ -56,8 +60,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.table.isColumnBeingSized = true;
-        document.addEventListener('mousemove', this.onDividerMouseMove);
-        document.addEventListener('mouseup', this.onDividerMouseUp);
+        // this.activeDividerElement.releasePointerCapture(pointerId);
+        document.addEventListener('pointermove', this.onDividerMouseMove);
+        document.addEventListener('pointerup', this.onDividerMouseUp);
     }
 
     private readonly onDividerMouseMove = (event: Event): void => {
@@ -90,8 +95,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     };
 
     private readonly onDividerMouseUp = (): void => {
-        document.removeEventListener('mousemove', this.onDividerMouseMove);
-        document.removeEventListener('mouseup', this.onDividerMouseUp);
+        document.removeEventListener('pointermove', this.onDividerMouseMove);
+        document.removeEventListener('pointerup', this.onDividerMouseUp);
         this.unflagActiveColumnDividers();
         this.resetGridSizedColumns();
         this.table.isColumnBeingSized = false;

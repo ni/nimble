@@ -419,23 +419,31 @@ export class Table<
     }
 
     /** @internal */
-    public onRightDividerMouseDown(columnIndex: number): void {
-        const hiddenColumnCount = this.columns.filter(
-            (column, i) => i < columnIndex && column.columnHidden
-        ).length;
-        this.tableLayoutManager.beginColumnInteractiveSize(
-            (columnIndex * 2) - (hiddenColumnCount * 2)
-        );
+    public onRightDividerMouseDown(event: PointerEvent, columnIndex: number): void {
+        if (event.isPrimary && event.button === 0) {
+            const hiddenColumnCount = this.columns.filter(
+                (column, i) => i < columnIndex && column.columnHidden
+            ).length;
+            this.tableLayoutManager.beginColumnInteractiveSize(
+                (columnIndex * 2) - (hiddenColumnCount * 2),
+                event.target as HTMLElement,
+                event.pointerId
+            );
+        }
     }
 
     /** @internal */
-    public onLeftDividerMouseDown(columnIndex: number): void {
-        const hiddenColumnCount = this.columns.filter(
-            (column, i) => i < columnIndex && column.columnHidden
-        ).length;
-        this.tableLayoutManager.beginColumnInteractiveSize(
-            (columnIndex * 2 - 1) - (hiddenColumnCount * 2)
-        );
+    public onLeftDividerMouseDown(event: PointerEvent, columnIndex: number): void {
+        if (event.button === 0) {
+            const hiddenColumnCount = this.columns.filter(
+                (column, i) => i < columnIndex && column.columnHidden
+            ).length;
+            this.tableLayoutManager.beginColumnInteractiveSize(
+                (columnIndex * 2 - 1) - (hiddenColumnCount * 2),
+                event.target as HTMLElement,
+                event.pointerId
+            );
+        }
     }
 
     /** @internal */
