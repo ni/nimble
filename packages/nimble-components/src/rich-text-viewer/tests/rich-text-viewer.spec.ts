@@ -2,6 +2,8 @@ import { html } from '@microsoft/fast-element';
 import { RichTextViewer, richTextViewerTag } from '..';
 import { fixture, type Fixture } from '../../utilities/tests/fixture';
 import { RichTextViewerPageObject } from '../testing/rich-text-viewer.pageobject';
+import { wackyStrings } from '../../utilities/tests/wacky-strings';
+import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return fixture<RichTextViewer>(
@@ -43,21 +45,17 @@ describe('RichTextViewer', () => {
 
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         let childElement: Element | null | undefined;
-        function expectChildElements(
-            childElementTagNames: string[],
-            expectedText: string
-        ): void {
+        let lastChildElement: Element | null | undefined;
+        function getChildElements(): string[] {
+            const nestedTagNames = [];
             childElement = pageObject.getFirstChildElement();
-            for (const childTagName of childElementTagNames) {
-                expect(pageObject.getTagName(childElement)).toBe(childTagName);
-                if (
-                    childElementTagNames.indexOf(childTagName)
-                    !== childElementTagNames.length - 1
-                ) {
-                    childElement = childElement?.firstElementChild;
-                }
+
+            while (childElement) {
+                nestedTagNames.push(childElement.tagName);
+                lastChildElement = childElement;
+                childElement = childElement?.firstElementChild;
             }
-            expect(pageObject.getTextContent(childElement)).toBe(expectedText);
+            return nestedTagNames;
         }
 
         it('should convert bold markdown string to "strong" HTML tag', async () => {
@@ -65,7 +63,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(['P', 'STRONG'], 'Bold');
+            expect(getChildElements()).toEqual(['P', 'STRONG']);
+            expect(lastChildElement?.textContent).toBe('Bold');
 
             await disconnect();
         });
@@ -75,7 +74,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(['P', 'EM'], 'Italics');
+            expect(getChildElements()).toEqual(['P', 'EM']);
+            expect(lastChildElement?.textContent).toBe('Italics');
 
             await disconnect();
         });
@@ -85,7 +85,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(['OL', 'LI'], 'Numbered list');
+            expect(getChildElements()).toEqual(['OL', 'LI', 'P']);
+            expect(lastChildElement?.textContent).toBe('Numbered list');
 
             await disconnect();
         });
@@ -95,7 +96,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(['UL', 'LI'], 'Bulleted list');
+            expect(getChildElements()).toEqual(['UL', 'LI', 'P']);
+            expect(lastChildElement?.textContent).toBe('Bulleted list');
 
             await disconnect();
         });
@@ -105,8 +107,9 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(['P', 'A'], 'https://nimble.ni.dev/');
-            expect(childElement!.getAttribute('href')).toBe(
+            expect(getChildElements()).toEqual(['P', 'A']);
+            expect(lastChildElement?.textContent).toBe('https://nimble.ni.dev/');
+            expect(lastChildElement!.getAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
 
@@ -118,10 +121,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(
-                ['OL', 'LI', 'P', 'STRONG'],
-                'Numbered list in bold'
-            );
+            expect(getChildElements()).toEqual(['OL', 'LI', 'P', 'STRONG']);
+            expect(lastChildElement?.textContent).toBe('Numbered list in bold');
 
             await disconnect();
         });
@@ -131,10 +132,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(
-                ['UL', 'LI', 'P', 'EM'],
-                'Bulleted list in italics'
-            );
+            expect(getChildElements()).toEqual(['UL', 'LI', 'P', 'EM']);
+            expect(lastChildElement?.textContent).toBe('Bulleted list in italics');
 
             await disconnect();
         });
@@ -144,11 +143,9 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(
-                ['UL', 'LI', 'P', 'A'],
-                'https://nimble.ni.dev/'
-            );
-            expect(childElement!.getAttribute('href')).toBe(
+            expect(getChildElements()).toEqual(['UL', 'LI', 'P', 'A']);
+            expect(lastChildElement?.textContent).toBe('https://nimble.ni.dev/');
+            expect(lastChildElement!.getAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
 
@@ -160,8 +157,9 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expectChildElements(['P', 'STRONG', 'A'], 'https://nimble.ni.dev/');
-            expect(childElement!.getAttribute('href')).toBe(
+            expect(getChildElements()).toEqual(['P', 'STRONG', 'A']);
+            expect(lastChildElement?.textContent).toBe('https://nimble.ni.dev/');
+            expect(lastChildElement!.getAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
 
@@ -169,67 +167,62 @@ describe('RichTextViewer', () => {
         });
     });
 
-    describe('text formatting styles apart from the supported styles should be considered as a paragraph tag with a plain text', () => {
-        async function expectParagraphTag(markdown: string): Promise<void> {
-            element.markdown = markdown;
+    describe('various not supported markdown string values render as expected', () => {
+        const notSupportedMarkdownStrings: { name: string }[] = [
+            { name: '> blockquote' },
+            { name: '`code`' },
+            { name: '```fence```' },
+            { name: '# Heading' },
+            { name: '[link](url)' },
+            { name: '[ref][link] [link]:url' },
+            { name: '![Text](Image)' },
+            { name: '&nbsp;' },
+            { name: '---' },
+            { name: '<div><p>text</p></div>' },
+        ];
 
-            await connect();
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of notSupportedMarkdownStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    element.markdown = value.name;
 
-            const childElement = pageObject.getFirstChildElement();
-            expect(pageObject.getTagName(childElement)).toBe('P');
-            expect(pageObject.getTextContent(childElement)).toBe(markdown);
+                    await connect();
 
-            await disconnect();
+                    const childElement = pageObject.getFirstChildElement();
+                    expect(childElement?.tagName).toBe('P');
+
+                    await disconnect();
+                }
+            );
         }
+    });
 
-        it('should be rendered as a paragraph tag for "blockquote" markdown string', async () => {
-            const markdown = '> blockquote';
-            await expectParagraphTag(markdown);
-        });
+    describe('various wacky string values render as expected', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of wackyStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    element.markdown = value.name;
 
-        it('should be rendered as a paragraph tag for "code" markdown string', async () => {
-            const markdown = '`code`';
-            await expectParagraphTag(markdown);
-        });
+                    await connect();
 
-        it('should be rendered as a paragraph tag for "fence" markdown string', async () => {
-            const markdown = '```fence```';
-            await expectParagraphTag(markdown);
-        });
+                    const childElement = pageObject.getFirstChildElement();
+                    expect(childElement?.tagName).toBe('P');
 
-        it('should be rendered as a paragraph tag for "heading" markdown string', async () => {
-            const markdown = '# Heading';
-            await expectParagraphTag(markdown);
-        });
-
-        it('should be rendered as a paragraph tag for "hyperlink" markdown string', async () => {
-            const markdown = '[line](url)';
-            await expectParagraphTag(markdown);
-        });
-
-        it('should be rendered as a paragraph tag for "reference" markdown string', async () => {
-            const markdown = '[ref][link] [link]:url';
-            await expectParagraphTag(markdown);
-        });
-
-        it('should be rendered as a paragraph tag for "image" markdown string', async () => {
-            const markdown = '![Text](Image)';
-            await expectParagraphTag(markdown);
-        });
-
-        it('should be rendered as a paragraph tag for "entities" markdown (string starting with "&" symbol)', async () => {
-            const markdown = '&nbsp;';
-            await expectParagraphTag(markdown);
-        });
-
-        it('should be rendered as a paragraph tag for "horizontal rule" markdown string', async () => {
-            const markdown = '---';
-            await expectParagraphTag(markdown);
-        });
-
-        it('should be rendered as a paragraph tag for HTML tags', async () => {
-            const markdown = '<div><p>text</p></div>';
-            await expectParagraphTag(markdown);
-        });
+                    await disconnect();
+                }
+            );
+        }
     });
 });
