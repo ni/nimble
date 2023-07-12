@@ -21,10 +21,6 @@ export const styles = css`
         min-block-size: 36px;
     }
 
-    :host([fit-to-content]) {
-        block-size: auto;
-    }
-
     .container {
         font: inherit;
         outline: none;

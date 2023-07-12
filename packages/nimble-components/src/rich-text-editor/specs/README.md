@@ -196,7 +196,6 @@ _Props/Attrs_
     -   `setter` - this will parse the markdown string into a Node using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199) and convert to an HTML to
         render it in the component section.
--   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 
 _Methods_
 
@@ -208,8 +207,9 @@ _Events_
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The sizing behavior of the component will remain same as the editor component. The height of the component will grow to fit the content based
-    on the `fitToContent` attribute.
+-   The sizing behavior of the component will remain same as the editor component. The height of the component will grow to fit the content if 
+    there is no height restrictions from the consumer. If there is any height set by the consumer, the vertical scrollbar will be 
+    enabled when there is overflow of content in the component.
 -   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
     of the component or will enable the vertical scrollbar.
 

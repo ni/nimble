@@ -8,8 +8,7 @@ import { richTextViewerTag } from '..';
 import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
 
 interface RichTextViewerArgs {
-    markdownValue: string;
-    fitToContent: boolean;
+    markdown: string;
 }
 
 const richTextViewerDescription = 'The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.';
@@ -31,24 +30,18 @@ const metadata: Meta<RichTextViewerArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
     <${richTextViewerTag}
-        :markdownValue="${x => x.markdownValue}"
-        ?fit-to-content="${x => x.fitToContent}"
+        :markdown="${x => x.markdown}"
     >
     </${richTextViewerTag}>
     `),
     argTypes: {
-        fitToContent: {
-            description:
-                'Whether to grow the height of the component vertically to fit the content without adding any styles to the component.'
-        },
-        markdownValue: {
+        markdown: {
             description:
                 'Input markdown string for the supported text formatting options in a [CommonMark](https://commonmark.org/) flavor.'
         }
     },
     args: {
-        markdownValue: richTextMarkdownString,
-        fitToContent: false
+        markdown: richTextMarkdownString
     }
 };
 

@@ -24,7 +24,7 @@ export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${richTextViewerTag} :markdownValue="${_ => richTextMarkdownString}"></${richTextViewerTag}>
+    <${richTextViewerTag} :markdown="${_ => richTextMarkdownString}"></${richTextViewerTag}>
 `;
 
 const viewerSizingTestCase = (
@@ -35,7 +35,7 @@ const viewerSizingTestCase = (
     <div style="width: 500px; height: 150px; outline: 1px dotted black">
         <${richTextViewerTag}
             style="${widthStyle}; ${heightStyle}"
-            :markdownValue="${_ => richTextMarkdownString}"
+            :markdown="${_ => richTextMarkdownString}"
         >
         </${richTextViewerTag}>
     </div>
@@ -48,7 +48,7 @@ const viewerDifferentContentTestCase = (
     <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${label}; ${heightLabel}</p>
     <div style="width: 300px; outline: 1px dotted black; ${parentHeightStyle}">
         <${richTextViewerTag}
-            :markdownValue="${_ => markdownContent}"
+            :markdown="${_ => markdownContent}"
         >
         </${richTextViewerTag}>
     </div>
@@ -60,8 +60,7 @@ const componentFitToContent = ([widthLabel, widthStyle]: [
 ]): ViewTemplate => html`
     <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${widthLabel}</p>
     <${richTextViewerTag} style="${widthStyle}; outline: 1px dotted black" 
-        :markdownValue="${_ => `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`}" 
-        fit-to-content>
+        :markdown="${_ => `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`}">
     </${richTextViewerTag}>
 `;
 
