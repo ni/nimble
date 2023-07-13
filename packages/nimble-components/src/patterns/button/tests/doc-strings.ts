@@ -6,18 +6,18 @@ export const appearanceDescription = `This attribute affects the appearance of t
     <ul>
         <li>For appearance \`ghost\`:
             <br/>This is the default and standard option for buttons. They create an open / airy feel, and fit comfortably in tight spaces.
-            <br/>Be careful when using that the surrounding context does not confuse this button for emphasized body text, tabs or a standalone links. 
+            <br/>Be careful when using that the surrounding context does not confuse this button for emphasized body text, tabs, or a standalone link. 
             <br/>Use this in combination with a primary outline and primary block buttons to create a hierarchy of importance.
         </li>
         <br/>
         <li>For appearance \`outline\`:
             <br/>This is an alternative standard button when a ghost button is not suitable, and a more visually direct button is needed. 
-            <br/>This can also create a light and airy feel. Use in combination with ghost buttons, not block buttons to create hierarchy.  
+            <br/>This can also create a light and airy feel. Use in combination with ghost buttons to create hierarchy. Do not use in combination with block buttons.
         </li>                
         <li>For appearance \`block\`:
             <br/>This standard button should be used when the most visible solution is required. 
-            <br/>It can be an alternative to overly subtle button solutions when it is important to emphasis an action and the functionality of the control.
-            <br/>Use in combination with ghost buttons, not outline buttons to create hierarchy.
+            <br/>It can be an alternative to overly subtle button solutions when it is important to emphasize an action and the functionality of the control.
+            <br/>Use in combination with ghost buttons to create hierarchy. Do not use in combination with outline buttons.
         </li>
     </ul>
 </details>

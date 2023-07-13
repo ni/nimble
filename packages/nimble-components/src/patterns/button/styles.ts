@@ -65,7 +65,11 @@ export const styles = css`
         padding: 0 ${standardPadding};
         position: relative;
         transition: box-shadow ${smallDelay} ease-in-out,
-            border-color ${smallDelay} ease-in-out;
+            border-color ${smallDelay} ease-in-out,
+            background-size ${smallDelay} ease-in-out;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     :host([content-hidden]) .control {
@@ -97,8 +101,6 @@ export const styles = css`
             ${fillSelectedColor}
         );
         background-size: calc(100% - 2px) calc(100% - 2px);
-        background-repeat: no-repeat;
-        background-position: center;
     }
 
     :host([disabled]) .control {
@@ -229,8 +231,6 @@ export const styles = css`
                     rgba(${borderRgbPartialColor}, 0.1)
                 );
                 background-size: calc(100% - 4px) calc(100% - 4px);
-                background-repeat: no-repeat;
-                background-position: center;
             }
 
             .control${focusVisible} {
@@ -240,8 +240,6 @@ export const styles = css`
                     rgba(${borderRgbPartialColor}, 0.1)
                 );
                 background-size: calc(100% - 4px) calc(100% - 4px);
-                background-repeat: no-repeat;
-                background-position: center;
             }
 
             .control:active {
@@ -250,8 +248,6 @@ export const styles = css`
                     ${fillSelectedColor}
                 );
                 background-size: calc(100% - 2px) calc(100% - 2px);
-                background-repeat: no-repeat;
-                background-position: center;
             }
 
             :host([disabled]) .control {

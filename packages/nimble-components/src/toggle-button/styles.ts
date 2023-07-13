@@ -16,6 +16,12 @@ export const styles = css`
         background-color: ${fillSelectedColor};
         border-color: ${fillSelectedColor};
         position: relative;
+        transition: box-shadow ${smallDelay} ease-in-out,
+            border-color ${smallDelay} ease-in-out,
+            background-size ${smallDelay} ease-in-out;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .control[aria-pressed='true']:hover {
@@ -26,8 +32,6 @@ export const styles = css`
             ${fillSelectedColor}
         );
         background-size: calc(100% - 4px) calc(100% - 4px);
-        background-repeat: no-repeat;
-        background-position: center;
     }
 
     .control[aria-pressed='true']${focusVisible} {
@@ -39,8 +43,6 @@ export const styles = css`
             ${fillSelectedColor}
         );
         background-size: calc(100% - 4px) calc(100% - 4px);
-        background-repeat: no-repeat;
-        background-position: center;
     }
 
     .control[aria-pressed='true']:active {
@@ -51,8 +53,6 @@ export const styles = css`
             ${fillSelectedColor}
         );
         background-size: calc(100% - 2px) calc(100% - 2px);
-        background-repeat: no-repeat;
-        background-position: center;
     }
 
     :host([disabled]) .control[aria-pressed='true'] {
