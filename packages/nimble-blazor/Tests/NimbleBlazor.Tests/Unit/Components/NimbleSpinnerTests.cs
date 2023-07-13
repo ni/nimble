@@ -34,11 +34,11 @@ public class NimbleSpinnerTests
     [Theory]
     [InlineData(SpinnerAppearance.Default, "<nimble-spinner>")]
     [InlineData(SpinnerAppearance.Accent, "appearance=\"accent\"")]
-    public void SpinnerAppearance_AttributeIsSet(SpinnerAppearance value, string expectedMarkupRegEx)
+    public void SpinnerAppearance_AttributeIsSet(SpinnerAppearance value, string expectedMarkup)
     {
         var spinner = RenderWithPropertySet(x => x.Appearance, value);
 
-        Assert.Matches(expectedMarkupRegEx, spinner.Markup);
+        Assert.Contains(expectedMarkup, spinner.Markup);
     }
 
     private IRenderedComponent<NimbleSpinner> RenderWithPropertySet<TProperty>(Expression<Func<NimbleSpinner, TProperty>> propertyGetter, TProperty propertyValue)
