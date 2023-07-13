@@ -1,6 +1,5 @@
 import { attr, customElement, html } from '@microsoft/fast-element';
 import { DesignToken } from '@microsoft/fast-foundation';
-import { LabelProviderBase } from '..';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import {
     Fixture,
@@ -8,6 +7,7 @@ import {
     uniqueElementName
 } from '../../../utilities/tests/fixture';
 import { buttonTag } from '../../../button';
+import { LabelProviderBase } from '..';
 
 const exampleMessageLabelDefaultValue = 'Initial Value';
 const exampleMessageLabel = DesignToken.create<string>({
