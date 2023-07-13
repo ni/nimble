@@ -52,7 +52,7 @@ describe('Nimble Rich Text Viewer', () => {
         @Component({
             template: `
                 <nimble-rich-text-viewer #viewer
-                    markdown="Markdown value"
+                    markdown="**Bold** _Italics_ \n\n1. \n2. \n * \n * \n"
                     >
                 </nimble-rich-text-viewer>`
         })
@@ -77,8 +77,8 @@ describe('Nimble Rich Text Viewer', () => {
         });
 
         it('will use template string values for markdown', () => {
-            expect(directive.markdown).toBe('Markdown value');
-            expect(nativeElement.markdown).toBe('Markdown value');
+            expect(directive.markdown).toBe('**Bold** _Italics_ \n\n1. \n2. \n * \n * \n');
+            expect(nativeElement.markdown).toBe('**Bold** _Italics_ \n\n1. \n2. \n * \n * \n');
         });
     });
 
@@ -93,7 +93,7 @@ describe('Nimble Rich Text Viewer', () => {
         class TestHostComponent {
             @ViewChild('viewer', { read: NimbleRichTextViewerDirective }) public directive: NimbleRichTextViewerDirective;
             @ViewChild('viewer', { read: ElementRef }) public elementRef: ElementRef<RichTextViewer>;
-            public markdown = 'Markdown value';
+            public markdown = '**Bold** _Italics_ \n\n1. \n2. \n * \n * \n';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -112,14 +112,14 @@ describe('Nimble Rich Text Viewer', () => {
         });
 
         it('can be configured with property binding for markdown', () => {
-            expect(directive.markdown).toBe('Markdown value');
-            expect(nativeElement.markdown).toBe('Markdown value');
+            expect(directive.markdown).toBe('**Bold** _Italics_ \n\n1. \n2. \n * \n * \n');
+            expect(nativeElement.markdown).toBe('**Bold** _Italics_ \n\n1. \n2. \n * \n * \n');
 
-            fixture.componentInstance.markdown = 'new markdown value';
+            fixture.componentInstance.markdown = '***new markdown value***';
             fixture.detectChanges();
 
-            expect(directive.markdown).toBe('new markdown value');
-            expect(nativeElement.markdown).toBe('new markdown value');
+            expect(directive.markdown).toBe('***new markdown value***');
+            expect(nativeElement.markdown).toBe('***new markdown value***');
         });
     });
 });
