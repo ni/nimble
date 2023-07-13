@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-column/text';
+import { type TableColumnText, tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 
 export type { TableColumnText };
+export { tableColumnTextTag };
 
 /**
  * Directive to provide Angular integration for the table column element for text.

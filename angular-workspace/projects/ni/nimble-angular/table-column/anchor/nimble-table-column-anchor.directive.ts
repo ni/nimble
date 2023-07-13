@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { TableColumnAnchor } from '@ni/nimble-components/dist/esm/table-column/anchor';
+import { type TableColumnAnchor, tableColumnAnchorTag } from '@ni/nimble-components/dist/esm/table-column/anchor';
 import { AnchorAppearance } from '@ni/nimble-components/dist/esm/anchor/types';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 
 export type { TableColumnAnchor };
+export { tableColumnAnchorTag };
 export { AnchorAppearance };
 
 /**
