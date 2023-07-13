@@ -32,7 +32,7 @@ public class NimbleSpinnerTests
     }
 
     [Theory]
-    [InlineData(SpinnerAppearance.Default, "<nimble-spinner((?!appearance).)*>")]
+    [InlineData(SpinnerAppearance.Default, "<nimble-spinner>")]
     [InlineData(SpinnerAppearance.Accent, "appearance=\"accent\"")]
     public void SpinnerAppearance_AttributeIsSet(SpinnerAppearance value, string expectedMarkupRegEx)
     {

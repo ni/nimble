@@ -10,8 +10,6 @@ import {
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
-import { appearanceBehavior } from '../utilities/style/appearance';
-import { SpinnerAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -36,6 +34,10 @@ export const styles = css`
             ''
         }
         opacity: 0.6;
+    }
+
+    :host([appearance='accent']) div.container {
+        opacity: 1;
     }
 
     div.bit1,
@@ -148,71 +150,37 @@ export const styles = css`
         }
     }
 `.withBehaviors(
-    appearanceBehavior(
-        SpinnerAppearance.default,
+    themeBehavior(
+        Theme.light,
         css`
-            div.container {
-                opacity: 0.6;
+            :host {
+                --ni-private-spinner-bits-background-color: ${Black91};
             }
-        `.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
-                    :host {
-                        --ni-private-spinner-bits-background-color: ${Black91};
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
-                    :host {
-                        --ni-private-spinner-bits-background-color: ${Black15};
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
-                    :host {
-                        --ni-private-spinner-bits-background-color: ${White};
-                    }
-                `
-            )
-        )
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${DigitalGreenLight};
+            }
+        `
     ),
-    appearanceBehavior(
-        SpinnerAppearance.accent,
+    themeBehavior(
+        Theme.dark,
         css`
-            div.container {
-                opacity: 1;
+            :host {
+                --ni-private-spinner-bits-background-color: ${Black15};
             }
-        `.withBehaviors(
-            themeBehavior(
-                Theme.light,
-                css`
-                    :host {
-                        --ni-private-spinner-bits-background-color: ${DigitalGreenLight};
-                        opacity: 1;
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.dark,
-                css`
-                    :host {
-                        --ni-private-spinner-bits-background-color: ${PowerGreen};
-                    }
-                `
-            ),
-            themeBehavior(
-                Theme.color,
-                css`
-                    :host {
-                        --ni-private-spinner-bits-background-color: ${PowerGreen};
-                    }
-                `
-            )
-        )
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${PowerGreen};
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            :host {
+                --ni-private-spinner-bits-background-color: ${White};
+            }
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${PowerGreen};
+            }
+        `
     )
 );
