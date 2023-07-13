@@ -15,6 +15,10 @@ const exampleMessageLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(exampleMessageLabelDefaultValue);
 
+const exampleSupportedLabels = {
+    exampleMessage: exampleMessageLabel
+} as const;
+
 describe('Label Provider Base', () => {
     let themeProvider: ThemeProvider;
     let connect: () => Promise<void>;
@@ -24,15 +28,13 @@ describe('Label Provider Base', () => {
     @customElement({
         name: testLabelProviderTag
     })
-    class LabelProviderTest extends LabelProviderBase {
+    class LabelProviderTest extends LabelProviderBase<
+        typeof exampleSupportedLabels
+        > {
         @attr({ attribute: 'example-message' })
         public exampleMessage?: string;
 
-        protected override readonly supportedLabels: {
-            [P in keyof LabelProviderTest]?: DesignToken<string>;
-        } = {
-                exampleMessage: exampleMessageLabel
-            };
+        protected override readonly supportedLabels = exampleSupportedLabels;
     }
 
     describe('with single theme provider', () => {
