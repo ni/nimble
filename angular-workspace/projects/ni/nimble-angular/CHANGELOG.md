@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 13 Jul 2023 16:50:52 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jul 2023 20:10:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.7.0
+
+Thu, 13 Jul 2023 20:10:27 GMT
+
+### Minor changes
+
+- Re-export tag names for all components from nimble-angular ([ni/nimble@b65a46e](https://github.com/ni/nimble/commit/b65a46edf67373feb04ab875b599d29233858fdc))
 
 ## 16.6.14
 
