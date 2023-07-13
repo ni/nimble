@@ -419,7 +419,10 @@ export class Table<
     }
 
     /** @internal */
-    public onRightDividerMouseDown(event: MouseEvent, columnIndex: number): void {
+    public onRightDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
         if (event.button === 0) {
             const hiddenColumnCount = this.columns.filter(
                 (column, i) => i < columnIndex && column.columnHidden
@@ -431,7 +434,10 @@ export class Table<
     }
 
     /** @internal */
-    public onLeftDividerMouseDown(event: MouseEvent, columnIndex: number): void {
+    public onLeftDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
         if (event.button === 0) {
             const hiddenColumnCount = this.columns.filter(
                 (column, i) => i < columnIndex && column.columnHidden
