@@ -107,5 +107,5 @@ export { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components
 export { SpinnerAppearance } from '@ni/nimble-components/dist/esm/spinner/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
-export type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+export { type ListOption, listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 export { UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
