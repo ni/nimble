@@ -7,7 +7,7 @@ import { Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular'
 import { TablePageObject } from '@ni/nimble-angular/table/testing';
 import { NimbleTableModule, Table } from '@ni/nimble-angular/table';
 import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
-import { NimbleTableColumnAnchorRouterLinkWithHrefDirective } from '../nimble-table-column-anchor-router-link-with-href.directive';
+import { NimbleTableColumnAnchorNavigationGuardDirective } from '../nimble-table-column-anchor-navigation-guard.directive';
 import type { TableColumnAnchor } from '../nimble-table-column-anchor.directive';
 
 describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
@@ -28,7 +28,7 @@ describe('Nimble anchor table column RouterLinkWithHrefDirective', () => {
     class TestHostComponent {
         @ViewChild('table', { static: true }) public table: ElementRef<Table>;
         @ViewChild('column', { static: true }) public column: ElementRef<TableColumnAnchor>;
-        @ViewChild('column', { read: NimbleTableColumnAnchorRouterLinkWithHrefDirective }) public directive: NimbleTableColumnAnchorRouterLinkWithHrefDirective;
+        @ViewChild('column', { read: NimbleTableColumnAnchorNavigationGuardDirective }) public directive: NimbleTableColumnAnchorNavigationGuardDirective;
     }
 
     @Component({ template: '' })
