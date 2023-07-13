@@ -163,6 +163,11 @@ export class Combobox
             this.valueBeforeTextUpdate = this.value;
         }
         this.valueUpdatedByInput = true;
+        // This is a workaround for this FAST issue: https://github.com/microsoft/fast/issues/6776
+        if (this.value !== this.control.value) {
+            this.focusAndScrollOptionIntoView();
+        }
+
         this.value = this.control.value;
         return returnValue;
     }
