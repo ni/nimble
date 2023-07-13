@@ -88,6 +88,14 @@ The steps to use components from Nimble Angular are similar to using components 
 
 See the [README.md for the ni/nimble repository](/README.md) for documentation of individual components.
 
+### Using Nimble Element Tags
+
+Generally for normal Angular Templates the element tag should be used directly along with the associated directives. For example by importing the `NimbleThemeProviderModule` and using the `<nimble-theme-provider>` tag in an Angular Template.
+
+In some cases where you are manipulating HTML strings directly, such as writing custom pipes or writing selectors in test code, you may want to use the element tag as a string value outside of an Angular Template. For these use-cases you should leverage the associated tag constant exported by a directive. For example, the  `NimbleThemeProviderDirective` exports the `themeProviderTag` constant which contains the string `"nimble-theme-provider"`.
+
+By depending on the element tag constant, the name becomes a compile-time dependency providing protection against typos and ensuring that the underlying web component is properly defined in the deployed page.
+
 ### Using Nimble form controls
 
 For best results, always use `ngModel`, `formControl`, or `formControlName` bindings when integrating Nimble form controls in Angular. Binding to the control's native value property or event (e.g. `[value]` or `(change)`) is not supported, and can cause build failures and other issues. If a value change event is necessary, use `ngModel (ngModelChange)="onChange()"`.
