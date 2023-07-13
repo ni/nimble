@@ -132,8 +132,8 @@ export class TableLayoutManager<TData extends TableRecord> {
             while (currentIndex >= 0) {
                 const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
                 availableSpace
-                    += (columnInitialWidths.initialPixelWidth
-                    - columnInitialWidths.minPixelWidth);
+                    += columnInitialWidths.initialPixelWidth
+                    - columnInitialWidths.minPixelWidth;
                 currentIndex -= 1;
             }
         }
