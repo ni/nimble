@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 11 Jul 2023 18:50:48 GMT",
+      "tag": "@ni/nimble-components_v19.4.4",
+      "version": "19.4.4",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b31c3f8e235940ccd96348c6f0ef68e32b5c3b38",
+            "comment": "Column sizing spec update."
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 30 Jun 2023 16:02:24 GMT",
       "tag": "@ni/nimble-components_v19.4.4",
       "version": "19.4.4",
