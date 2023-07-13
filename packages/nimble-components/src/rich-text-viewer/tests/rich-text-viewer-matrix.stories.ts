@@ -31,7 +31,10 @@ const viewerSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
     [heightLabel, heightStyle]: [string, string]
 ): ViewTemplate => html`
-    <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
+    <div style="width: 500px; display: flex; justify-content: space-between">
+        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
+        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">width: 500px, height: 150px</p>        
+    </div>
     <div style="width: 500px; height: 150px; outline: 1px dotted black">
         <${richTextViewerTag}
             style="${widthStyle}; ${heightStyle}"
@@ -45,7 +48,10 @@ const viewerDifferentContentTestCase = (
     [label, markdownContent]: [string, string],
     [heightLabel, parentHeightStyle]: [string, string]
 ): ViewTemplate => html`
-    <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${label}; ${heightLabel}</p>
+    <div style="width: 300px; display: flex; justify-content: space-between">
+        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${label}</p>
+        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">width: 300px, height: ${heightLabel}</p>        
+    </div>
     <div style="width: 300px; outline: 1px dotted black; ${parentHeightStyle}">
         <${richTextViewerTag}
             :markdown="${_ => markdownContent}"
@@ -86,24 +92,24 @@ export const richTextViewerSizing: StoryFn = createStory(html`
 export const differentContentsInMobileWidth: StoryFn = createStory(html`
     ${createMatrix(viewerDifferentContentTestCase, [
         [
-            ['no content', ''],
-            ['plain text', loremIpsum],
+            ['No content', ''],
+            ['Plain text', loremIpsum],
             [
-                'multiple sup points',
+                'Multiple sup points',
                 '1. Sub point 1\n   1. Sub point 2\n       1. Sub point 3\n          1. Sub point 4\n             1. Sub point 5\n                 1. Sub point 6\n                    1. Sub point 7\n'
             ],
             [
-                'long link',
+                'Long link',
                 '<https://www.google.com/search?q=what+is+nimble&rlz=1C1CHBF_enIN1007IN1007&oq=what+is+nimble&aqs=chrome..69i57j0i512l9.2837j1j7&sourceid=chrome&ie=UTF-8>'
             ],
             [
-                'long word',
+                'Long word',
                 'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
             ]
         ],
         [
-            ['no parent height', ''],
-            ['parent height 100px', 'height: 100px']
+            ['nil', ''],
+            ['100px', 'height: 100px']
         ]
     ])}
 `);

@@ -45,6 +45,10 @@ export const styles = css`
         margin-block: 0;
     }
 
+    li > p:empty {
+        display: contents;
+    }
+
     a {
         word-break: break-all;
         color: ${linkFontColor};
