@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jul 2023 16:50:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.5
+
+Thu, 13 Jul 2023 16:50:52 GMT
+
+### Patches
+
+- Fix combobox scroll issue. ([ni/nimble@fbb5df8](https://github.com/ni/nimble/commit/fbb5df8dda1a776a7ff7fd10d4b3157919ad34a6))
+
+## 19.4.4
+
+Fri, 30 Jun 2023 16:02:24 GMT
+
+### Patches
+
+- Overflow directive ([ni/nimble@0d17d95](https://github.com/ni/nimble/commit/0d17d95074479cad512f1dd0640ff0c3cad09f91))
+
+## 19.4.3
+
+Wed, 28 Jun 2023 22:34:33 GMT
+
+### Patches
+
+- Change text-column base class property behavior ([ni/nimble@a8148fe](https://github.com/ni/nimble/commit/a8148fe86743b45ac970c7a4c9fd2e46fd6280da))
+
+## 19.4.2
+
+Wed, 28 Jun 2023 13:37:50 GMT
+
+### Patches
+
+- Initial code bring up for nimble-rich-text-viewer component ([ni/nimble@c88e365](https://github.com/ni/nimble/commit/c88e3657b05f6b04a34115acdd13ecb6b7b9c0c6))
+
+## 19.4.1
+
+Tue, 27 Jun 2023 19:05:52 GMT
+
+### Patches
+
+- Add additional functions to table page object ([ni/nimble@137db4c](https://github.com/ni/nimble/commit/137db4ca75e10b5d8316e12ac86c59b0efd468a3))
 
 ## 19.4.0
 

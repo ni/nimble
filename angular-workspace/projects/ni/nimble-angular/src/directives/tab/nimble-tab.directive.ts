@@ -1,8 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Tab } from '@ni/nimble-components/dist/esm/tab';
+import { type Tab, tabTag } from '@ni/nimble-components/dist/esm/tab';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Tab };
+export { tabTag };
 
 /**
  * Directive to provide Angular integration for the tab element.
