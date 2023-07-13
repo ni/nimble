@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 30 Jun 2023 16:02:24 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jul 2023 16:50:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.4.5
+
+Thu, 13 Jul 2023 16:50:52 GMT
+
+### Patches
+
+- Fix combobox scroll issue. ([ni/nimble@fbb5df8](https://github.com/ni/nimble/commit/fbb5df8dda1a776a7ff7fd10d4b3157919ad34a6))
 
 ## 19.4.4
 

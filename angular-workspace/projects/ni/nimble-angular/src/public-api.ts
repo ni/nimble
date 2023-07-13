@@ -106,5 +106,5 @@ export * from './testing/async-helpers';
 export { ButtonAppearance, ButtonAppearanceVariant } from '@ni/nimble-components/dist/esm/patterns/button/types';
 export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
-export type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+export { type ListOption, listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 export { UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
