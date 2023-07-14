@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "New icon with a clock and exclamation mark to represent an expired state",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
