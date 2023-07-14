@@ -50,7 +50,7 @@ const metadata: Meta<ButtonArgs> = {
         },
         appearanceVariant: {
             name: 'appearance-variant',
-            options: Object.values(ButtonAppearanceVariant),
+            options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
             description: appearanceVariantDescription
         },

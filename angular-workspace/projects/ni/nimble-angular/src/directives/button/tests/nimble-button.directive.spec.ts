@@ -132,7 +132,7 @@ describe('Nimble button', () => {
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
             public disabled = false;
             public appearance: ButtonAppearance = ButtonAppearance.outline;
-            public appearanceVariant: ButtonAppearanceVariant;
+            public appearanceVariant: ButtonAppearanceVariant = ButtonAppearanceVariant.default;
             public contentHidden = false;
         }
 
@@ -177,11 +177,11 @@ describe('Nimble button', () => {
             expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.default);
             expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.default);
 
-            fixture.componentInstance.appearanceVariant = ButtonAppearanceVariant.primary;
+            fixture.componentInstance.appearanceVariant = ButtonAppearanceVariant.accent;
             fixture.detectChanges();
 
-            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
-            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.primary);
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.accent);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.accent);
         });
 
         it('can be configured with property binding for contentHidden', () => {
@@ -212,7 +212,7 @@ describe('Nimble button', () => {
             @ViewChild('button', { read: ElementRef }) public elementRef: ElementRef<Button>;
             public disabled: BooleanValueOrAttribute = null;
             public appearance: ButtonAppearance = ButtonAppearance.outline;
-            public appearanceVariant: ButtonAppearanceVariant;
+            public appearanceVariant: ButtonAppearanceVariant = ButtonAppearanceVariant.accent;
             public contentHidden: BooleanValueOrAttribute = null;
         }
 
@@ -254,8 +254,8 @@ describe('Nimble button', () => {
         });
 
         it('can be configured with attribute binding for appearanceVariant', () => {
-            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.default);
-            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.default);
+            expect(directive.appearanceVariant).toBe(ButtonAppearanceVariant.accent);
+            expect(nativeElement.appearanceVariant).toBe(ButtonAppearanceVariant.accent);
 
             fixture.componentInstance.appearanceVariant = ButtonAppearanceVariant.primary;
             fixture.detectChanges();

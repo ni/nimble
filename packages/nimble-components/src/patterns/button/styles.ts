@@ -359,7 +359,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
     ),
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
     appearanceVariantBehavior(
-        ButtonAppearanceVariant.primaryAccent,
+        ButtonAppearanceVariant.accent,
         css``.withBehaviors(
             appearanceBehavior(
                 ButtonAppearance.block,
