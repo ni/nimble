@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 14 Jul 2023 18:53:29 GMT",
+      "tag": "@ni/nimble-components_v19.5.0",
+      "version": "19.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7fa2f30e677b3a1ddab1651d58f98246870f3de6",
+            "comment": "Add backlog components to status table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Jul 2023 03:24:30 GMT",
       "tag": "@ni/nimble-components_v19.5.0",
       "version": "19.5.0",
