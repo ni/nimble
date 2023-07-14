@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add rowRecordId to TableCell, TableCellView, and delegated event details",
+  "packageName": "@ni/nimble-components",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
