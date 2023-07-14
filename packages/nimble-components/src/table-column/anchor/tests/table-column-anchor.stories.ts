@@ -87,13 +87,13 @@ interface AnchorColumnTableArgs extends SharedTableArgs {
 
 const anchorColumnDescription = `The \`nimble-table-column-anchor\` column is used to display string fields as links or text in the \`nimble-table\`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.
 
-In an Angular app, \`nimble-table-column-anchor\` can integrate with the router by applying the attribute \`nimbleRouterLink\`. This will cause the router to be invoked when navigating to the paths given in the table data. Other properties supported by the \`RouterLink\` directive (e.g. \`queryParams\`, \`state\`, \`replaceUrl\`) can also be set on \`nimble-table-column-anchor\`.
+In an Angular app, you can configure a callback to intercept clicks so that you may invoke the router to perform the navigation instead of the default handler:
 \`\`\`
-<nimble-table-column-anchor nimbleRouterLink [queryParams]="{ id: 'foo' }" replaceUrl>
+<nimble-table-column-anchor [clickDelegate]="doRouterNavigation">
     Link
 </nimble-table-column-anchor>
 \`\`\`
-Note that these property values apply to every link in the column and cannot be configured on a per-link basis.
+The function bound to \`clickDelegate\` should be of type \`ClickDelegate\`. It receives the clicked row id and should return a boolean indicating whether the default click handler should be run. I.e. return \`false\` if you have handled the navigation. The click delegate is only called for left clicks with no modifier keys pressed.
 `;
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
