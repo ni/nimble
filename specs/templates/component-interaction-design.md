@@ -7,6 +7,8 @@
 ### Background
 
 *Relevant historical or background information*
+*Additional client research that isn't captured in linked issues*
+*Prior art, user research, and design reviews supporting the proposal*
 *Link to Interaction Design issue*
 *Link to relevant work items, related existing issues, etc.*
 
@@ -22,6 +24,7 @@
 
 *Full description of the proposed interaction design.*
 *Include links or embedded views of design in XD or Figma and provide any additional context.*
+*Include accessibility considerations like keyboard interactions and ARIA role/states/properties*
 
 ## Open Issues
 
