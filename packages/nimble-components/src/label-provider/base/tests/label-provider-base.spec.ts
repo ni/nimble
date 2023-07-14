@@ -1,6 +1,5 @@
 import { attr, customElement, html } from '@microsoft/fast-element';
 import { DesignToken } from '@microsoft/fast-foundation';
-import { LabelProviderBase } from '..';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import {
     Fixture,
@@ -8,12 +7,17 @@ import {
     uniqueElementName
 } from '../../../utilities/tests/fixture';
 import { buttonTag } from '../../../button';
+import { LabelProviderBase } from '..';
 
 const exampleMessageLabelDefaultValue = 'Initial Value';
 const exampleMessageLabel = DesignToken.create<string>({
     name: 'test-example-message-label',
     cssCustomPropertyName: null
 }).withDefault(exampleMessageLabelDefaultValue);
+
+const exampleSupportedLabels = {
+    exampleMessage: exampleMessageLabel
+} as const;
 
 describe('Label Provider Base', () => {
     let themeProvider: ThemeProvider;
@@ -24,15 +28,13 @@ describe('Label Provider Base', () => {
     @customElement({
         name: testLabelProviderTag
     })
-    class LabelProviderTest extends LabelProviderBase {
+    class LabelProviderTest extends LabelProviderBase<
+        typeof exampleSupportedLabels
+        > {
         @attr({ attribute: 'example-message' })
         public exampleMessage?: string;
 
-        protected override readonly supportedLabels: {
-            [P in keyof LabelProviderTest]?: DesignToken<string>;
-        } = {
-                exampleMessage: exampleMessageLabel
-            };
+        protected override readonly supportedLabels = exampleSupportedLabels;
     }
 
     describe('with single theme provider', () => {

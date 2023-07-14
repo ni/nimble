@@ -2,31 +2,31 @@ import { DesignToken, FoundationElement } from '@microsoft/fast-foundation';
 import { Notifier, Observable, type Subscriber } from '@microsoft/fast-element';
 import { themeProviderTag } from '../../theme-provider';
 
+export type DesignTokensFor<ObjectT> = {
+    [key in keyof ObjectT]: string | undefined;
+};
+
 /**
  * Base class for label providers
  */
-export abstract class LabelProviderBase
+export abstract class LabelProviderBase<
+    SupportedLabels extends { [key: string]: DesignToken<string> }
+>
     extends FoundationElement
     implements Subscriber {
-    protected abstract readonly supportedLabels: {
-        [P in keyof LabelProviderBase]?: DesignToken<string>;
-    };
+    protected abstract supportedLabels: SupportedLabels;
 
-    private propertyNotifier?: Notifier;
+    private readonly propertyNotifier: Notifier = Observable.getNotifier(this);
     private themeProvider?: HTMLElement;
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initializeThemeProvider();
-        this.propertyNotifier = Observable.getNotifier(this);
         this.propertyNotifier.subscribe(this);
     }
 
     public override disconnectedCallback(): void {
-        if (this.propertyNotifier) {
-            this.propertyNotifier.unsubscribe(this);
-            this.propertyNotifier = undefined;
-        }
+        this.propertyNotifier.unsubscribe(this);
         if (this.themeProvider) {
             for (const token of Object.values(this.supportedLabels)) {
                 token.deleteValueFor(this.themeProvider);
@@ -36,8 +36,8 @@ export abstract class LabelProviderBase
     }
 
     public handleChange(
-        _element: LabelProviderBase,
-        property: keyof LabelProviderBase
+        _element: LabelProviderBase<SupportedLabels>,
+        property: keyof LabelProviderBase<SupportedLabels>
     ): void {
         if (this.supportedLabels[property]) {
             const token = this.supportedLabels[property]!;
@@ -58,7 +58,7 @@ export abstract class LabelProviderBase
             for (const [property, token] of Object.entries(
                 this.supportedLabels
             )) {
-                const value = this[property as keyof LabelProviderBase];
+                const value = this[property as keyof LabelProviderBase<SupportedLabels>];
                 if (value === null || value === undefined) {
                     token.deleteValueFor(this.themeProvider);
                 } else {

@@ -1,6 +1,6 @@
 import { attr } from '@microsoft/fast-element';
-import { DesignSystem, DesignToken } from '@microsoft/fast-foundation';
-import { LabelProviderBase } from '../base';
+import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignTokensFor, LabelProviderBase } from '../base';
 import {
     popupDismissLabel,
     numericDecrementLabel,
@@ -13,26 +13,28 @@ declare global {
     }
 }
 
+const supportedLabels = {
+    popupDismiss: popupDismissLabel,
+    numericDecrement: numericDecrementLabel,
+    numericIncrement: numericIncrementLabel
+} as const;
+
 /**
  * Core label provider for Nimble
  */
-export class LabelProviderCore extends LabelProviderBase {
+export class LabelProviderCore
+    extends LabelProviderBase<typeof supportedLabels>
+    implements DesignTokensFor<typeof supportedLabels> {
     @attr({ attribute: 'popup-dismiss' })
-    public popupDismiss?: string;
+    public popupDismiss: string | undefined;
 
     @attr({ attribute: 'numeric-decrement' })
-    public numericDecrement?: string;
+    public numericDecrement: string | undefined;
 
     @attr({ attribute: 'numeric-increment' })
-    public numericIncrement?: string;
+    public numericIncrement: string | undefined;
 
-    protected override readonly supportedLabels: {
-        [P in keyof LabelProviderCore]?: DesignToken<string>;
-    } = {
-            popupDismiss: popupDismissLabel,
-            numericDecrement: numericDecrementLabel,
-            numericIncrement: numericIncrementLabel
-        };
+    protected override readonly supportedLabels = supportedLabels;
 }
 
 const nimbleLabelProviderCore = LabelProviderCore.compose({

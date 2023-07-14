@@ -1,6 +1,6 @@
 import { attr } from '@microsoft/fast-element';
-import { DesignSystem, DesignToken } from '@microsoft/fast-foundation';
-import { LabelProviderBase } from '../base';
+import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignTokensFor, LabelProviderBase } from '../base';
 import {
     tableCellActionMenuLabel,
     tableColumnHeaderGroupedIndicatorLabel,
@@ -15,34 +15,36 @@ declare global {
     }
 }
 
+const supportedLabels = {
+    groupCollapse: tableGroupCollapseLabel,
+    groupExpand: tableGroupExpandLabel,
+    groupsCollapseAll: tableGroupsCollapseAllLabel,
+    cellActionMenu: tableCellActionMenuLabel,
+    columnHeaderGroupedIndicator: tableColumnHeaderGroupedIndicatorLabel
+} as const;
+
 /**
  * Label provider for the Nimble table (and its sub-components and columns)
  */
-export class LabelProviderTable extends LabelProviderBase {
+export class LabelProviderTable
+    extends LabelProviderBase<typeof supportedLabels>
+    implements DesignTokensFor<typeof supportedLabels> {
     @attr({ attribute: 'group-collapse' })
-    public groupCollapse?: string;
+    public groupCollapse: string | undefined;
 
     @attr({ attribute: 'group-expand' })
-    public groupExpand?: string;
+    public groupExpand: string | undefined;
 
     @attr({ attribute: 'groups-collapse-all' })
-    public groupsCollapseAll?: string;
+    public groupsCollapseAll: string | undefined;
 
     @attr({ attribute: 'cell-action-menu' })
-    public cellActionMenu?: string;
+    public cellActionMenu: string | undefined;
 
     @attr({ attribute: 'column-header-grouped-indicator' })
-    public columnHeaderGroupedIndicator?: string;
+    public columnHeaderGroupedIndicator: string | undefined;
 
-    protected override readonly supportedLabels: {
-        [P in keyof LabelProviderTable]?: DesignToken<string>;
-    } = {
-            groupCollapse: tableGroupCollapseLabel,
-            groupExpand: tableGroupExpandLabel,
-            groupsCollapseAll: tableGroupsCollapseAllLabel,
-            cellActionMenu: tableCellActionMenuLabel,
-            columnHeaderGroupedIndicator: tableColumnHeaderGroupedIndicatorLabel
-        };
+    protected override readonly supportedLabels = supportedLabels;
 }
 
 const nimbleLabelProviderTable = LabelProviderTable.compose({

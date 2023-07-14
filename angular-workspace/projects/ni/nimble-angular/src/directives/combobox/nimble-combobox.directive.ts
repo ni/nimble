@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Combobox } from '@ni/nimble-components/dist/esm/combobox';
+import { type Combobox, comboboxTag } from '@ni/nimble-components/dist/esm/combobox';
 import { ComboboxAutocomplete } from '@ni/nimble-components/dist/esm/combobox/types';
 import type { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/dropdown/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Combobox };
+export { comboboxTag };
 export { ComboboxAutocomplete };
 
 /**

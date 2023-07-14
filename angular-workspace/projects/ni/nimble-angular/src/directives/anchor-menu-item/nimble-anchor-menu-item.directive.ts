@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { AnchorMenuItem } from '@ni/nimble-components/dist/esm/anchor-menu-item';
+import { type AnchorMenuItem, anchorMenuItemTag } from '@ni/nimble-components/dist/esm/anchor-menu-item';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
 
 export type { AnchorMenuItem };
+export { anchorMenuItemTag };
 
 /**
  * Directive to provide Angular integration for the anchor menu item.
