@@ -1,7 +1,7 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/table-column/anchor/cell-view';
 
-export type ClickDelegate = (rowId: string) => boolean;
+export type ClickDelegate = (rowRecordId: string | undefined) => boolean;
 
 /**
  * TODO
@@ -13,8 +13,8 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
     @Input()
     public clickDelegate?: ClickDelegate;
 
-    @HostListener('delegated-event', ['$event.detail.originalEvent'])
-    private onDelegatedEvent(delegatedEvent: Event): void {
+    @HostListener('delegated-event', ['$event.detail.originalEvent', '$event.detail.rowRecordId'])
+    private onDelegatedEvent(delegatedEvent: Event, rowRecordId: string | undefined): void {
         if (delegatedEvent.type !== 'click') {
             return;
         }
@@ -29,7 +29,7 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
             return;
         }
 
-        if (this.clickDelegate && !this.clickDelegate('')) {
+        if (this.clickDelegate && !this.clickDelegate(rowRecordId)) {
             clickEvent.preventDefault();
         }
     }
