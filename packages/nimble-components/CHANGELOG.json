@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 14 Jul 2023 03:24:30 GMT",
+      "tag": "@ni/nimble-components_v19.5.0",
+      "version": "19.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "da306fc0ac05e08bd4aba83f1e1e243485475357",
+            "comment": "Update the markdown property name in rich-text-editor spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 13 Jul 2023 23:41:13 GMT",
       "tag": "@ni/nimble-components_v19.5.0",
       "version": "19.5.0",
