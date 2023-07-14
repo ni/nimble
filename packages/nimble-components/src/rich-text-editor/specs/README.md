@@ -102,7 +102,7 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 _Props/Attrs_
 
--   `markdownValue` - is an accessor used to get and set the markdown value.
+-   `markdown` - is an accessor used to get and set the markdown value.
     -   `getter` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
         [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L30).
     -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
@@ -111,6 +111,20 @@ _Props/Attrs_
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
+
+_Alternatives_
+
+_Decision on choosing `markdown` as an accessor over methods_:
+
+Initially, we thought of having `getMarkdown()` and `setMarkdown()` methods to retrieve and set the markdown string. We chose this approach
+because converting the rich text content entered in the editor to a markdown string is an expensive operation and not wanted to trigger it as an
+event for every change in the editor or as a property to enable two-way data binding for the client application.
+
+However, we realized that we could achieve the same benefits by using an `accessor` instead, by incorporating the same functionality within the
+`getters` and `setters`. Additionally, accessor provides a property-like syntax for clients, enabling one-way data binding and simplifying the syntax.
+This allows clients to retrieve the `markdown` representation only when necessary, rather than for every single change. For a example use case, when the user
+completes entering the entire content in the editor and clicks a button, the client can access the `markdown` output only once. This way the
+application's performance is enhanced as the operation is performed only once, thus eliminating unnecessary reading of an accessor.
 
 _Methods_
 
@@ -191,7 +205,7 @@ tasks to convert the markdown string to corresponding HTML nodes for each text f
 
 _Props/Attrs_
 
--   `markdownValue` - is an accessor used to get and set the markdown value.
+-   `markdown` - is an accessor used to get and set the markdown value.
     -   `getter` - this will merely return the markdown string that is set to the component.
     -   `setter` - this will parse the markdown string into a Node using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199) and convert to an HTML to

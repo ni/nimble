@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 13 Jul 2023 16:50:52 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jul 2023 23:41:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.5.0
+
+Thu, 13 Jul 2023 23:41:13 GMT
+
+### Minor changes
+
+- Add nimble-label-provider-core and -table, along with localizable DesignTokens for labels/strings declared by Nimble components. Add docs for Localization. ([ni/nimble@d5b19d5](https://github.com/ni/nimble/commit/d5b19d5a7b4e2406209f8aed15fa4d0ea9658a09))
 
 ## 19.4.5
 
