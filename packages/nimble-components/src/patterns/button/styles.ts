@@ -60,7 +60,7 @@ export const styles = css`
         gap: 4px;
         cursor: inherit;
         font: inherit;
-        outline: transparent;
+        outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
         position: relative;
@@ -95,7 +95,6 @@ export const styles = css`
 
     .control:active {
         box-shadow: none;
-        outline: none;
         background-image: linear-gradient(
             ${fillSelectedColor},
             ${fillSelectedColor}
@@ -105,7 +104,6 @@ export const styles = css`
 
     :host([disabled]) .control {
         box-shadow: none;
-        outline: none;
         background-image: none;
     }
 
@@ -119,12 +117,12 @@ export const styles = css`
         outline: 0px solid transparent;
         color: transparent;
         background-clip: content-box;
+        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control:active::before {
@@ -190,10 +188,6 @@ export const styles = css`
 
             .control:hover {
                 background-color: transparent;
-            }
-
-            .control:active {
-                outline: none;
             }
 
             :host([disabled]) .control {

@@ -47,7 +47,6 @@ export const styles = css`
 
     .control[aria-pressed='true']:active {
         box-shadow: none;
-        outline: none;
         background-image: linear-gradient(
             ${fillSelectedColor},
             ${fillSelectedColor}
@@ -65,7 +64,6 @@ export const styles = css`
         border-color: ${fillSelectedColor};
         background-color: ${fillSelectedColor};
         box-shadow: none;
-        outline: none;
     }
 
     .control[aria-pressed='true']::before {
@@ -78,12 +76,12 @@ export const styles = css`
         outline: 0px solid transparent;
         outline: none;
         background-clip: content-box;
+        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control[aria-pressed='true']${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline ${smallDelay} ease-in-out;
         color: transparent;
     }
 
