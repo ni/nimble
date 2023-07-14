@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Jul 2023 20:57:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.2.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
 
 ## 6.1.0
 
