@@ -57,6 +57,11 @@ export class RichTextViewer extends FoundationElement {
         this.updateView();
     }
 
+    public setMarkdown(value: string): void {
+        this.serializedContent = this.parseMarkdownToDOM(value);
+        this.updateView();
+    }
+
     private initializeMarkdownParser(): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.

@@ -1,14 +1,17 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
 } from '../../utilities/tests/storybook';
-import { richTextViewerTag } from '..';
+import { RichTextViewer, richTextViewerTag } from '..';
 import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
+import { buttonTag } from '../../button';
 
 interface RichTextViewerArgs {
     markdown: string;
+    setMarkdown: undefined;
+    viewerRef: RichTextViewer;
 }
 
 const richTextViewerDescription = 'The rich text viewer component allows users to view text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The rich text to render is provided as a markdown string.';
@@ -30,9 +33,10 @@ const metadata: Meta<RichTextViewerArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
     <${richTextViewerTag}
-        :markdown="${x => x.markdown}"
+    ${ref('viewerRef')}
     >
     </${richTextViewerTag}>
+    <${buttonTag} @click="${x => x.viewerRef.setMarkdown(x.markdown)}">set</${buttonTag}>
     `),
     argTypes: {
         markdown: {
