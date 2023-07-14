@@ -21,6 +21,8 @@ import './combobox';
 import './dialog';
 import './drawer';
 import './icons/all-icons';
+import './label-provider/core';
+import './label-provider/table';
 import './list-option';
 import './menu';
 import './menu-button';

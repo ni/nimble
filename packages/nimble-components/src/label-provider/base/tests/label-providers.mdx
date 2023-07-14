@@ -1,0 +1,23 @@
+import { Canvas, Meta, Title } from '@storybook/blocks';
+import { coreLabelProvider } from '../../core/tests/label-provider-core.stories';
+import { tableLabelProvider } from '../../table/tests/label-provider-table.stories';
+
+<Meta title="Tokens/Label Providers" />
+<Title>Label Providers</Title>
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
+
+See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme and
+contributing docs for more information.
+
+## Core Label Provider
+
+Provides labels for all Nimble components besides the table component.
+
+<Canvas of={coreLabelProvider} sourceState="none" />
+
+## Table Label Provider
+
+Provides labels for the `nimble-table` and all associated table sub-components / column types.
+
+<Canvas of={tableLabelProvider} sourceState="none" />
