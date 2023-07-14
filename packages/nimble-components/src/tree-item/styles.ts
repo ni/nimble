@@ -156,11 +156,8 @@ export const styles = css`
         );
     }
 
-    ${/* the end class is applied when the corresponding slots is filled */ ''}
-    .end {
-        display: flex;
-        fill: currentcolor;
-        margin-inline-start: ${iconSize};
+    [part='end'] {
+        display: none;
     }
 
     .items {

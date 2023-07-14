@@ -59,12 +59,7 @@ export const styles = css`
 
     .start,
     .end {
-        display: flex;
-        align-items: center;
-    }
-
-    .start {
-        margin-inline-end: 4px;
+        display: none;
     }
 
     slot[name='separator'] {
