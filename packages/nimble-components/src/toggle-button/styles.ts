@@ -16,33 +16,54 @@ export const styles = css`
         background-color: ${fillSelectedColor};
         border-color: ${fillSelectedColor};
         position: relative;
+        transition: box-shadow ${smallDelay} ease-in-out,
+            border-color ${smallDelay} ease-in-out,
+            background-size ${smallDelay} ease-in-out;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .control[aria-pressed='true']:hover {
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 4px) calc(100% - 4px);
     }
 
     .control[aria-pressed='true']${focusVisible} {
+        background-color: transparent;
         border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 4px) calc(100% - 4px);
     }
 
     .control[aria-pressed='true']:active {
         box-shadow: none;
-        outline: none;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 2px) calc(100% - 2px);
     }
 
     :host([disabled]) .control[aria-pressed='true'] {
         border-color: ${fillSelectedColor};
         background-color: ${fillSelectedColor};
+        background-image: none;
     }
 
     :host([disabled]) .control[aria-pressed='true']:hover {
         border-color: ${fillSelectedColor};
         background-color: ${fillSelectedColor};
         box-shadow: none;
-        outline: none;
     }
 
     .control[aria-pressed='true']::before {
@@ -54,24 +75,16 @@ export const styles = css`
         box-sizing: border-box;
         outline: none;
         background-clip: content-box;
-        z-index: -1;
-    }
-
-    .control[aria-pressed='true']:hover::before {
-        background-color: ${fillSelectedColor};
+        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control[aria-pressed='true']${focusVisible}::before {
-        background-color: ${fillSelectedColor};
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline ${smallDelay} ease-in-out;
         color: transparent;
-        padding: 2px;
     }
 
     .control[aria-pressed='true']:active::before {
         outline: none;
-        padding: ${borderWidth};
     }
 `;

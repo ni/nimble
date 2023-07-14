@@ -91,7 +91,7 @@ import {
     GridHeaderWeight,
     GridHeaderSize,
     DigitalGreenDark105,
-    DigitalGreenDark110,
+    DigitalGreenDark110
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,

@@ -21,8 +21,7 @@ import {
     accentFillActionColor,
     accentButtonBlockFontColor,
     accentButtonOutlineFontColor,
-    accentButtonOutlineBorderColor,
-    mediumDelay
+    accentButtonOutlineBorderColor
 } from '../../theme-provider/design-tokens';
 import {
     appearanceBehavior,
@@ -72,7 +71,7 @@ export const styles = css`
         gap: 4px;
         cursor: inherit;
         font: inherit;
-        outline: transparent;
+        outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
         position: relative;
@@ -107,7 +106,6 @@ export const styles = css`
 
     .control:active {
         box-shadow: none;
-        outline: none;
         background-image: linear-gradient(
             ${fillSelectedColor},
             ${fillSelectedColor}
@@ -117,7 +115,6 @@ export const styles = css`
 
     :host([disabled]) .control {
         box-shadow: none;
-        outline: none;
         background-image: none;
     }
 
@@ -131,12 +128,12 @@ export const styles = css`
         outline: 0px solid transparent;
         color: transparent;
         background-clip: content-box;
+        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control${focusVisible}::before {
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -3px;
-        transition: outline ${smallDelay} ease-in-out;
     }
 
     .control:active::before {
@@ -202,10 +199,6 @@ export const styles = css`
 
             .control:hover {
                 background-color: transparent;
-            }
-
-            .control:active {
-                outline: none;
             }
 
             :host([disabled]) .control {
@@ -360,7 +353,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     :host([disabled]) .control {
                         border-color: rgba(${borderRgbPartialColor}, 0.3);
                     }
-
                 `
             )
         )
@@ -379,37 +371,35 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
                     .control:hover {
                         background-color: transparent;
+                        background-image: linear-gradient(
+                            ${accentButtonBackgroundColor},
+                            ${accentButtonBackgroundColor}
+                        );
+                        background-size: calc(100% - 4px) calc(100% - 4px);
+                        color: ${accentButtonBlockFontColor};
                     }
 
                     .control${focusVisible} {
                         background-color: transparent;
+                        background-image: linear-gradient(
+                            ${accentButtonBackgroundColor},
+                            ${accentButtonBackgroundColor}
+                        );
+                        background-size: calc(100% - 4px) calc(100% - 4px);
+                    }
+
+                    .control:active {
+                        background-image: linear-gradient(
+                            ${accentFillActionColor},
+                            ${accentFillActionColor}
+                        );
+                        background-size: calc(100% - 2px) calc(100% - 2px);
                     }
 
                     :host([disabled]) .control {
                         background-color: rgba(${borderRgbPartialColor}, 0.1);
-                        color: rgba(${actionRgbPartialColor}, 0.3);
                         border-color: transparent;
-                    }
-
-                    .control:hover::before {
-                        background-color: ${accentButtonBackgroundColor};
-                        padding: 2px;
-                    }
-
-                    .control${focusVisible}::before {
-                        background-color: ${accentButtonBackgroundColor};
-                        padding: 2px;
-                    }
-
-                    .control:active::before {
-                        background-color: ${accentFillActionColor};
-                        padding: ${borderWidth};
-                        outline: none;
-                    }
-
-                    :host([disabled]) .control::before {
-                        background-color: transparent;
-                        border-color: rgba(${borderRgbPartialColor}, 0.1);
+                        color: rgba(${actionRgbPartialColor}, 0.3);
                     }
                 `
             ),
@@ -425,28 +415,12 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                         background-color: transparent;
                     }
 
-                    .control${focusVisible} {
-                        background-color: transparent;
-                    }
-
                     .control:active {
                         outline: none;
                     }
 
                     :host([disabled]) .control {
                         border-color: rgba(${borderRgbPartialColor}, 0.3);
-                        color: rgba(${actionRgbPartialColor}, 0.3);
-                    }
-
-                    .control:active::before {
-                        background-color: ${fillSelectedColor};
-                        outline: none;
-                        padding: ${borderWidth};
-                    }
-
-                    :host([disabled]) .control::before {
-                        background-color: transparent;
-                        border-color: rgba(${borderRgbPartialColor}, 0.1);
                     }
                 `
             )
