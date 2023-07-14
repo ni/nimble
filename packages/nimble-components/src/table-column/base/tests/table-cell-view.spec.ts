@@ -108,4 +108,24 @@ describe('TableCellView', () => {
         expect(gotKeydownOnDelegatingColumn).toBeFalse();
         expect(gotOtherEventOnDelegatingColumn).toBeFalse();
     });
+
+    it('passes row id in delegated event details', async () => {
+        await connect();
+
+        let eventDetails: DelegatedEventEventDetails | undefined;
+
+        const column = document.createElement(
+            tableColumnDelegatesClickAndKeydownTag
+        ) as TableColumnDelegatesClickAndKeydown;
+        column.addEventListener('delegated-event', event => {
+            eventDetails = (event as CustomEvent)
+                .detail as DelegatedEventEventDetails;
+        });
+
+        element.rowRecordId = 'foo';
+        element.column = column;
+        element.dispatchEvent(new PointerEvent('click'));
+
+        expect(eventDetails?.rowRecordId).toEqual('foo');
+    });
 });
