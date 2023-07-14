@@ -67,8 +67,6 @@
     "@tiptap/core": "^2.0.3",
     "@tiptap/extension-link": "^2.0.3",
     "@tiptap/starter-kit": "^2.0.3",
-    "prosemirror-markdown": "^1.11.0",
-    "prosemirror-model": "^1.19.2",
     "@types/d3-array": "^3.0.4",
     "@types/d3-random": "^3.0.1",
     "@types/d3-scale": "^4.0.2",
@@ -79,6 +77,8 @@
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
+    "prosemirror-markdown": "^1.11.0",
+    "prosemirror-model": "^1.19.2",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
