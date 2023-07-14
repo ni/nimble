@@ -26,7 +26,7 @@ export class RichTextViewer extends FoundationElement {
     public set markdown(value: string) {
         this._markdown = value;
         this.serializedContent = this.parseMarkdownToDOM(value);
-        this.updateViewerNodeWithSerializedContent();
+        this.updateView();
     }
 
     /**
@@ -54,7 +54,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.updateViewerNodeWithSerializedContent();
+        this.updateView();
     }
 
     private initializeMarkdownParser(): MarkdownParser {
@@ -93,8 +93,8 @@ export class RichTextViewer extends FoundationElement {
         );
     }
 
-    private updateViewerNodeWithSerializedContent(): void {
-        const viewer = this.shadowRoot?.querySelector('#viewer');
+    private updateView(): void {
+        const viewer = this.shadowRoot?.querySelector('.viewer');
         if (viewer && this.serializedContent) {
             viewer.replaceChildren(this.serializedContent.cloneNode(true));
         }

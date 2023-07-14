@@ -9,7 +9,7 @@ export class RichTextViewerPageObject {
     ) {}
 
     public getFirstChildElement(): Element | null | undefined {
-        return this.richTextViewerElement.shadowRoot?.querySelector('#viewer')
+        return this.richTextViewerElement.shadowRoot?.querySelector('.viewer')
             ?.firstElementChild;
     }
 }

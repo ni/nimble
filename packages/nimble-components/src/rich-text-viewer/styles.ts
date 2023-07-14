@@ -21,7 +21,7 @@ export const styles = css`
         min-block-size: 36px;
     }
 
-    .container {
+    .viewer {
         font: inherit;
         outline: none;
         box-sizing: border-box;
@@ -33,11 +33,11 @@ export const styles = css`
         margin-inline-end: 10px;
     }
 
-    .container > :first-child {
+    .viewer > :first-child {
         margin-block-start: 0;
     }
 
-    .container > :last-child {
+    .viewer > :last-child {
         margin-block-end: 0;
     }
 
