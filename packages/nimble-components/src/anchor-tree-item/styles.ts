@@ -113,7 +113,7 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    [part="end"] {
+    [part='end'] {
         display: none;
     }
 `;

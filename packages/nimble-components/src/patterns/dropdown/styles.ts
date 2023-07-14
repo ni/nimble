@@ -101,7 +101,7 @@ export const styles = css`
     :host([disabled]:hover)::after {
         width: 0px;
     }
-    
+
     [part='start'] {
         display: none;
     }
