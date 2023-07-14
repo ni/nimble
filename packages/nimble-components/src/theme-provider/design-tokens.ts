@@ -86,12 +86,12 @@ import {
     Information100LightUi,
     Information100DarkUi,
     DigitalGreenDark,
-    DigitalGreenDark110,
     PowerGreen,
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    DigitalGreenDark105
+    DigitalGreenDark105,
+    DigitalGreenDark110,
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,

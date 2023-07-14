@@ -77,7 +77,11 @@ export const styles = css`
         padding: 0 ${standardPadding};
         position: relative;
         transition: box-shadow ${smallDelay} ease-in-out,
-            border-color ${smallDelay} ease-in-out;
+            border-color ${smallDelay} ease-in-out,
+            background-size ${smallDelay} ease-in-out;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     :host([content-hidden]) .control {
@@ -104,11 +108,17 @@ export const styles = css`
     .control:active {
         box-shadow: none;
         outline: none;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 2px) calc(100% - 2px);
     }
 
     :host([disabled]) .control {
         box-shadow: none;
         outline: none;
+        background-image: none;
     }
 
     .control::before {
@@ -121,11 +131,6 @@ export const styles = css`
         outline: 0px solid transparent;
         color: transparent;
         background-clip: content-box;
-        z-index: -1;
-    }
-
-    .control:hover::before {
-        transition: padding ${mediumDelay};
     }
 
     .control${focusVisible}::before {
@@ -136,12 +141,10 @@ export const styles = css`
 
     .control:active::before {
         outline: none;
-        transition: padding ${mediumDelay};
     }
 
     :host([disabled]) .control::before {
         box-shadow: none;
-        outline: none;
     }
 
     .content {
@@ -201,27 +204,12 @@ export const styles = css`
                 background-color: transparent;
             }
 
-            .control${focusVisible} {
-                background-color: transparent;
-            }
-
             .control:active {
                 outline: none;
             }
 
             :host([disabled]) .control {
                 border-color: rgba(${borderRgbPartialColor}, 0.3);
-            }
-
-            .control:active::before {
-                background-color: ${fillSelectedColor};
-                outline: none;
-                padding: ${borderWidth};
-            }
-
-            :host([disabled]) .control::before {
-                background-color: transparent;
-                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     ),
@@ -239,17 +227,6 @@ export const styles = css`
             :host([disabled]) .control {
                 border-color: transparent;
             }
-
-            .control:active::before {
-                background-color: ${fillSelectedColor};
-                outline: none;
-                padding: ${borderWidth};
-            }
-
-            :host([disabled]) .control::before {
-                background-color: transparent;
-                border-color: rgba(${borderRgbPartialColor}, 0.1);
-            }
         `
     ),
     appearanceBehavior(
@@ -261,36 +238,33 @@ export const styles = css`
 
             .control:hover {
                 background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${borderRgbPartialColor}, 0.1),
+                    rgba(${borderRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
             }
 
             .control${focusVisible} {
                 background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${borderRgbPartialColor}, 0.1),
+                    rgba(${borderRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
+            }
+
+            .control:active {
+                background-image: linear-gradient(
+                    ${fillSelectedColor},
+                    ${fillSelectedColor}
+                );
+                background-size: calc(100% - 2px) calc(100% - 2px);
             }
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
                 border-color: transparent;
-            }
-
-            .control:hover::before {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
-                padding: 2px;
-            }
-
-            .control${focusVisible}::before {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
-                padding: 2px;
-            }
-
-            .control:active::before {
-                background-color: ${fillSelectedColor};
-                padding: ${borderWidth};
-                outline: none;
-            }
-
-            :host([disabled]) .control::before {
-                background-color: transparent;
-                border-color: rgba(${borderRgbPartialColor}, 0.1);
             }
         `
     )
@@ -336,37 +310,35 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
                     .control:hover {
                         background-color: transparent;
+                        background-image: linear-gradient(
+                            ${primaryButtonBackgroundColor},
+                            ${primaryButtonBackgroundColor}
+                        );
+                        background-size: calc(100% - 4px) calc(100% - 4px);
+                        color: ${primaryButtonFontColor};
                     }
 
                     .control${focusVisible} {
                         background-color: transparent;
+                        background-image: linear-gradient(
+                            ${primaryButtonBackgroundColor},
+                            ${primaryButtonBackgroundColor}
+                        );
+                        background-size: calc(100% - 4px) calc(100% - 4px);
+                    }
+
+                    .control:active {
+                        background-image: linear-gradient(
+                            ${primaryFillActionColor},
+                            ${primaryFillActionColor}
+                        );
+                        background-size: calc(100% - 2px) calc(100% - 2px);
                     }
 
                     :host([disabled]) .control {
                         background-color: rgba(${borderRgbPartialColor}, 0.1);
                         border-color: transparent;
                         color: rgba(${actionRgbPartialColor}, 0.3);
-                    }
-
-                    .control:hover::before {
-                        background-color: ${primaryButtonBackgroundColor};
-                        padding: 2px;
-                    }
-
-                    .control${focusVisible}::before {
-                        background-color: ${primaryButtonBackgroundColor};
-                        padding: 2px;
-                    }
-
-                    .control:active::before {
-                        background-color: ${primaryFillActionColor};
-                        padding: ${borderWidth};
-                        outline: none;
-                    }
-
-                    :host([disabled]) .control::before {
-                        background-color: transparent;
-                        border-color: rgba(${borderRgbPartialColor}, 0.1);
                     }
                 `
             ),
@@ -381,10 +353,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                         background-color: transparent;
                     }
 
-                    .control${focusVisible} {
-                        background-color: transparent;
-                    }
-
                     .control:active {
                         outline: none;
                     }
@@ -393,16 +361,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                         border-color: rgba(${borderRgbPartialColor}, 0.3);
                     }
 
-                    .control:active::before {
-                        background-color: ${fillSelectedColor};
-                        outline: none;
-                        padding: ${borderWidth};
-                    }
-
-                    :host([disabled]) .control::before {
-                        background-color: transparent;
-                        border-color: rgba(${borderRgbPartialColor}, 0.1);
-                    }
                 `
             )
         )
