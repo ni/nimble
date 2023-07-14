@@ -130,7 +130,7 @@ export const styles = css`
     ${
         /* this rule keeps children without an icon text aligned with parents */ ''
     }
-    span[part="start"] {
+    [part="start"] {
         width: ${iconSize};
     }
 

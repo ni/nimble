@@ -57,8 +57,11 @@ export const styles = css`
         text-decoration: underline;
     }
 
-    .start,
-    .end {
+    [part='end'] {
+        display: none;
+    }
+
+    [part='end'] {
         display: none;
     }
 

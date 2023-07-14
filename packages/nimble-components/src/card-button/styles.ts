@@ -119,11 +119,11 @@ export const styles = css`
         display: contents;
     }
 
-    slot[name='start'] {
+    [part='start'] {
         display: none;
     }
 
-    slot[name='end'] {
+    [part='end'] {
         display: none;
     }
 `.withBehaviors(

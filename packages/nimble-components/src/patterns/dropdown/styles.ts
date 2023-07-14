@@ -211,7 +211,7 @@ export const styles = css`
         fill: ${bodyDisabledFontColor};
     }
 
-    .end {
+    [part='end'] {
         margin-inline-start: auto;
     }
 
