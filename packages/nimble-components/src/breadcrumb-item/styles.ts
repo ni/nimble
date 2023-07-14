@@ -57,7 +57,7 @@ export const styles = css`
         text-decoration: underline;
     }
 
-    [part='end'] {
+    [part='start'] {
         display: none;
     }
 
