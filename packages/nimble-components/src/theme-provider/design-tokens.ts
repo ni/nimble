@@ -188,7 +188,7 @@ export const informationColor = DesignToken.create<string>(
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
@@ -849,12 +849,7 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 }
 
 function getFillSelectedColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        DigitalGreenLight,
-        DigitalGreenLight,
-        White
-    );
+    return getColorForTheme(element, DigitalGreenLight, PowerGreen, White);
 }
 
 function getFillHoverColorForTheme(element: HTMLElement): string {

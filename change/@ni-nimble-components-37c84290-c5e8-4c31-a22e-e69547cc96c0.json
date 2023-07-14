@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme",
+  "packageName": "@ni/nimble-components",
+  "email": "103057880+aidendk@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
