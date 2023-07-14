@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Reimplement Angular router support for anchor columns",
+  "packageName": "@ni/nimble-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
