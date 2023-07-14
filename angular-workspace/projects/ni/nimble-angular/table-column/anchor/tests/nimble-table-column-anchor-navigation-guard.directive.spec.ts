@@ -1,0 +1,96 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { Anchor, processUpdates, waitForUpdatesAsync } from '@ni/nimble-angular';
+import { TablePageObject } from '@ni/nimble-angular/table/testing';
+import { NimbleTableModule, Table } from '@ni/nimble-angular/table';
+import { NimbleTableColumnAnchorModule } from '../nimble-table-column-anchor.module';
+
+describe('Nimble anchor table column navigation guard', () => {
+    const data = [
+        { id: '1', name: 'jim', link: 'page1' },
+    ];
+
+    @Component({
+        template: `
+            <nimble-table #table id-field-name="id">
+                <nimble-table-column-anchor #column label-field-name="name" href-field-name="link" [clickDelegate]="onClick">
+                    Link
+                </nimble-table-column-anchor>
+            </nimble-table>
+         `
+    })
+    class TestHostComponent {
+        @ViewChild('table', { static: true }) public table: ElementRef<Table>;
+
+        public onClick(_rowRecordId: string | undefined): boolean {
+            return false;
+        }
+    }
+
+    @Component({ template: '' })
+    class BlankComponent { }
+
+    let anchor: Anchor;
+    let fixture: ComponentFixture<TestHostComponent>;
+    let testHostComponent: TestHostComponent;
+    let innerAnchor: HTMLAnchorElement;
+    let anchorClickHandlerSpy: jasmine.Spy;
+    let onClickSpy: jasmine.Spy;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestHostComponent, BlankComponent],
+            imports: [NimbleTableColumnAnchorModule,
+                NimbleTableModule,
+                CommonModule
+            ]
+        });
+    });
+
+    beforeEach(async () => {
+        fixture = TestBed.createComponent(TestHostComponent);
+        testHostComponent = fixture.componentInstance;
+        await testHostComponent.table.nativeElement.setData(data);
+        await waitForUpdatesAsync();
+        const pageObject = new TablePageObject(testHostComponent.table.nativeElement);
+        anchor = pageObject.getRenderedCellAnchor(0, 0);
+        innerAnchor = anchor!.shadowRoot!.querySelector('a')!;
+        anchorClickHandlerSpy = jasmine.createSpy('click');
+        innerAnchor!.addEventListener('click', anchorClickHandlerSpy);
+        onClickSpy = spyOn(testHostComponent, 'onClick');
+
+        fixture.detectChanges();
+    });
+
+    afterEach(() => {
+        processUpdates();
+    });
+
+    it('calls configured clickDelegate when link is clicked', fakeAsync(() => {
+        innerAnchor.click();
+        tick();
+
+        expect(onClickSpy).toHaveBeenCalledOnceWith('1');
+    }));
+
+    const secondaryClickTests: { testName: string, clickArgs: { [key: string]: unknown } }[] = [
+        { testName: 'middle mouse click', clickArgs: { button: 1 } },
+        { testName: 'Ctrl + left-click', clickArgs: { button: 0, ctrlKey: true } }
+    ];
+    secondaryClickTests.forEach(test => {
+        it(`does not call clickDelegate for non-primary-mouse link clicks for ${test.testName}`, fakeAsync(() => {
+            innerAnchor.dispatchEvent(new MouseEvent('click', {
+                ...{
+                    bubbles: true,
+                    cancelable: true
+                },
+                ...test.clickArgs
+            }));
+            tick();
+
+            expect(anchorClickHandlerSpy).toHaveBeenCalledTimes(1);
+            expect(onClickSpy).not.toHaveBeenCalled();
+        }));
+    });
+});
