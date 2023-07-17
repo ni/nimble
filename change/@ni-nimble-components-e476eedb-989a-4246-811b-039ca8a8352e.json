@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Initial code bring up for nimble-rich-text-editor component",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
