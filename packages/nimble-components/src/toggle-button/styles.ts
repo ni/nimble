@@ -73,7 +73,7 @@ export const styles = css`
         height: 100%;
         pointer-events: none;
         box-sizing: border-box;
-        outline: none;
+        outline: 0px solid transparent;
         background-clip: content-box;
         transition: outline ${smallDelay} ease-in-out;
     }

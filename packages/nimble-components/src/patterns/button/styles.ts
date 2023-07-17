@@ -279,11 +279,9 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
     //         :host([appearance-variant='primary']) .control${focusVisible} {
     //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     //         }
-
     //         :host([appearance-variant='primary']) .control:active {
     //             box-shadow: none;
     //         }
-
     //         :host([appearance-variant='primary'][disabled]) .control {
     //             box-shadow: none;
     //         }
