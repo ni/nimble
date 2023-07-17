@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 17 Jul 2023 15:05:54 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 16:19:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.7.6
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.3
 
 ## 16.7.5
 

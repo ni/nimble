@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 17 Jul 2023 15:05:54 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 16:19:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.6.3
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- hide unused slots ([ni/nimble@05f9022](https://github.com/ni/nimble/commit/05f90223f3819e135ab38796f850814ac4c21a8e))
 
 ## 19.6.2
 
