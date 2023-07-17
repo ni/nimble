@@ -112,7 +112,7 @@ export const styles = css`
     }
 
     [part='start'] {
-        display: contents;
+        display: none;
     }
 
     .control {

@@ -73,7 +73,7 @@ export const styles = css`
         width: ${iconSize};
         height: ${iconSize};
     }
-    :host(.indent-1) .start {
+    :host(.indent-1) [part='start'] {
         grid-column: 1;
     }
     :host(.indent-1) .content {
