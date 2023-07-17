@@ -144,63 +144,6 @@ export const dividerBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.dividerBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
 
-export const primaryButtonBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.primaryButtonBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(Black91, 0.75),
-    hexToRgbaCssColor(Black15, 0.3),
-    hexToRgbaCssColor(White, 0.3)
-));
-
-export const primaryButtonFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.primaryButtonFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
-
-export const primaryFillActionColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.primaryFillActionColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    hexToRgbaCssColor(Black91, 0.85),
-    hexToRgbaCssColor(Black15, 0.2),
-    hexToRgbaCssColor(White, 0.2)
-));
-
-export const accentButtonBackgroundColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.accentButtonBackgroundColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark,
-    DigitalGreenLight,
-    hexToRgbaCssColor(White, 0.1)
-));
-
-export const accentButtonBlockFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.accentButtonBlockFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
-
-export const accentButtonOutlineFontColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.accentButtonOutlineFontColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White));
-
-export const accentButtonOutlineBorderColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.accentButtonOutlineBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenLight,
-    PowerGreen,
-    hexToRgbaCssColor(White, 0.3)
-));
-
-export const accentFillActionColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.accentFillActionColor)
-).withDefault((element: HTMLElement) => getColorForTheme(
-    element,
-    DigitalGreenDark110,
-    DigitalGreenDark,
-    hexToRgbaCssColor(White, 0.2)
-));
-
 export const fillSelectedColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillSelectedColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillSelectedColorForTheme(element), 0.2));
@@ -273,6 +216,63 @@ export const tooltipBackgroundColor = DesignToken.create<string>(
 export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const primaryButtonBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.primaryButtonBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.75),
+    hexToRgbaCssColor(Black15, 0.3),
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const primaryButtonFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.primaryButtonFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
+
+export const primaryFillActionColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.primaryFillActionColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.85),
+    hexToRgbaCssColor(Black15, 0.2),
+    hexToRgbaCssColor(White, 0.2)
+));
+
+export const accentButtonBackgroundColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonBackgroundColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark,
+    DigitalGreenLight,
+    hexToRgbaCssColor(White, 0.1)
+));
+
+export const accentButtonBlockFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonBlockFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
+
+export const accentButtonOutlineFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonOutlineFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White));
+
+export const accentButtonOutlineBorderColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentButtonOutlineBorderColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    PowerGreen,
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const accentFillActionColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.accentFillActionColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark,
+    hexToRgbaCssColor(White, 0.2)
+));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(

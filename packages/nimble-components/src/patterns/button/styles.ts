@@ -264,30 +264,6 @@ export const styles = css`
 );
 
 export const buttonAppearanceVariantStyles = css``.withBehaviors(
-    // appearanceBehavior(
-    //     ButtonAppearance.outline,
-    //     css`
-    //         :host([appearance-variant='primary']) .control {
-    //             box-shadow: 0px 0px 0px ${borderWidth}
-    //                 rgba(${actionRgbPartialColor}, 0.3) inset;
-    //         }
-
-    //         :host([appearance-variant='primary']) .control:hover {
-    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-    //         }
-
-    //         :host([appearance-variant='primary']) .control${focusVisible} {
-    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-    //         }
-    //         :host([appearance-variant='primary']) .control:active {
-    //             box-shadow: none;
-    //         }
-    //         :host([appearance-variant='primary'][disabled]) .control {
-    //             box-shadow: none;
-    //         }
-    //     `
-    // ),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
     appearanceVariantBehavior(
         ButtonAppearanceVariant.primary,
         css``.withBehaviors(
@@ -355,7 +331,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             )
         )
     ),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
     appearanceVariantBehavior(
         ButtonAppearanceVariant.accent,
         css``.withBehaviors(
@@ -424,67 +399,4 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             )
         )
     )
-    // appearanceBehavior(
-    //     ButtonAppearance.block,
-    //     css`
-    //         :host([appearance-variant="primary"]) .control {
-    //             background-clip: padding-box;
-    //             background-color: rgba(${actionRgbPartialColor}, 0.75);
-    //             border-color: rgba(${actionRgbPartialColor}, 0.75);
-    //             padding: 0 ${standardPadding};
-    //             color: white;
-    //         }
-
-    //         :host([appearance-variant='primary'][content-hidden]) .control {
-    //             padding: 0px;
-    //         }
-
-    //         :host([appearance-variant='primary']) .control:hover {
-    //             border-color: ${borderHoverColor};
-    //             background-color: rgba(${actionRgbPartialColor}, 0.75);
-    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-    //             outline: none;
-    //         }
-
-    //         :host([appearance-variant='primary']) .control${focusVisible} {
-    //             background-clip: border-box;
-    //             border-color: ${borderHoverColor};
-    //             border-width: ${borderWidth};
-    //             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-    //             padding: 0 ${standardPadding};
-    //         }
-
-    //         :host([appearance-variant='primary'][content-hidden])
-    //             .control${focusVisible} {
-    //             padding: 0px;
-    //         }
-
-    //         :host([appearance-variant='primary']) .control:active {
-    //             background-clip: border-box;
-    //             border-color: ${fillSelectedColor};
-    //             border-width: ${borderWidth};
-    //             box-shadow: none;
-    //             padding: 0 ${standardPadding};
-    //             background-color: rgba(${actionRgbPartialColor}, 0.85);
-    //         }
-
-    //         :host([appearance-variant='primary'][content-hidden])
-    //             .control:active {
-    //             padding: 0px;
-    //         }
-
-    //         :host([appearance-variant='primary'][disabled]) .control {
-    //             background-clip: border-box;
-    //             border-color: transparent;
-    //             border-width: ${borderWidth};
-    //             box-shadow: none;
-    //             padding: 0 ${standardPadding};
-    //         }
-
-    //         :host([appearance-variant='primary'][disabled][content-hidden])
-    //             .control {
-    //             padding: 0px;
-    //         }
-    //     `
-    // )
 );
