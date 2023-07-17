@@ -37,11 +37,11 @@ export const styles = css`
         cursor: var(--ni-private-table-cursor-override);
     }
 
-    .glass-pane {
+    .glass-overlay {
         width: 100%;
         height: 100%;
         display: contents;
-        pointer-events: var(--ni-private-glass-pane-pointer-events);
+        pointer-events: var(--ni-private-glass-overlay-pointer-events);
     }
 
     .header-row-container {
@@ -114,7 +114,7 @@ export const styles = css`
         left: -5px;
     }
 
-    .column-divider[active] {
+    .column-divider.active {
         display: block;
         z-index: 1;
     }

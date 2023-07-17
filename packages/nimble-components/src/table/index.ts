@@ -116,14 +116,6 @@ export class Table<
 
     /**
      * @internal
-     * This property helps determine the cursor to use while dragging a column divider, and also
-     * allows us to prevent hover visual states of various elements while a divider is being dragged.
-     */
-    @observable
-    public isColumnBeingSized = false;
-
-    /**
-     * @internal
      */
     @observable
     public scrollX = 0;
@@ -184,8 +176,19 @@ export class Table<
     /**
      * @internal
      */
+    public readonly layoutManager: TableLayoutManager<TData>;
+
+    /**
+     * @internal
+     */
     @observable
     public firstSortedColumn?: TableColumn;
+
+    /**
+     * @internal
+     */
+    @observable
+    public visibleColumns: TableColumn[] = [];
 
     /**
      * @internal
@@ -200,7 +203,6 @@ export class Table<
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
-    private readonly tableLayoutManager: TableLayoutManager<TData>;
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
@@ -240,7 +242,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.tableLayoutManager = new TableLayoutManager(this);
+        this.layoutManager = new TableLayoutManager(this);
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -424,11 +426,9 @@ export class Table<
         columnIndex: number
     ): void {
         if (event.button === 0) {
-            const hiddenColumnCount = this.columns.filter(
-                (column, i) => i < columnIndex && column.columnHidden
-            ).length;
-            this.tableLayoutManager.beginColumnInteractiveSize(
-                columnIndex * 2 - hiddenColumnCount * 2
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2
             );
         }
     }
@@ -439,11 +439,9 @@ export class Table<
         columnIndex: number
     ): void {
         if (event.button === 0) {
-            const hiddenColumnCount = this.columns.filter(
-                (column, i) => i < columnIndex && column.columnHidden
-            ).length;
-            this.tableLayoutManager.beginColumnInteractiveSize(
-                columnIndex * 2 - 1 - hiddenColumnCount * 2
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2 - 1
             );
         }
     }
@@ -518,7 +516,10 @@ export class Table<
         }
 
         if (this.tableUpdateTracker.updateColumnWidths) {
-            this.updateRowGridColumns();
+            this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
+            this.visibleColumns = this.columns.filter(
+                column => !column.columnHidden
+            );
         }
 
         if (this.tableUpdateTracker.updateGroupRows) {
@@ -535,6 +536,22 @@ export class Table<
             default:
                 return null;
         }
+    }
+
+    /**
+     * @internal
+     */
+    public getHeaderContainerElements(): NodeListOf<Element> {
+        return this.columnHeadersContainer.querySelectorAll(
+            '.header-container'
+        );
+    }
+
+    /**
+     * @internal
+     */
+    public getColumnDividerElements(): NodeListOf<Element> {
+        return this.shadowRoot!.querySelectorAll('.column-divider');
     }
 
     protected selectionModeChanged(
@@ -569,6 +586,9 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
+        this.visibleColumns = this.columns.filter(
+            column => !column.columnHidden
+        );
     }
 
     private async handleActionMenuBeforeToggleEvent(
@@ -743,10 +763,6 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
-    }
-
-    private updateRowGridColumns(): void {
-        this.rowGridColumns = this.tableLayoutManager.getGridTemplateColumns();
     }
 
     private validate(): void {
