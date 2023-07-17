@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 14 Jul 2023 22:15:57 GMT",
+      "tag": "@ni/nimble-components_v19.6.1",
+      "version": "19.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "88248bc22d9b50da299331a87863c65fe3c25cdb",
+            "comment": "Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.2.1",
+            "commit": "88248bc22d9b50da299331a87863c65fe3c25cdb"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Jul 2023 20:57:32 GMT",
       "tag": "@ni/nimble-components_v19.6.0",
       "version": "19.6.0",

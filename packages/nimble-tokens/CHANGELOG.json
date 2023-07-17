@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Fri, 14 Jul 2023 22:15:57 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.1",
+      "version": "6.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "88248bc22d9b50da299331a87863c65fe3c25cdb",
+            "comment": "Changed button label font weight token from Regular to Semi-Bold"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Jul 2023 20:57:32 GMT",
       "tag": "@ni/nimble-tokens_v6.2.0",
       "version": "6.2.0",

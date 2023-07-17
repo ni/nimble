@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 14 Jul 2023 20:57:32 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Jul 2023 22:15:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.2.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Changed button label font weight token from Regular to Semi-Bold ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
 
 ## 6.2.0
 

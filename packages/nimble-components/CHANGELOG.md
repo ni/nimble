@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 14 Jul 2023 20:57:32 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Jul 2023 22:15:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.6.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+- Bump @ni/nimble-tokens to v6.2.1
 
 ## 19.6.0
 
