@@ -22,8 +22,8 @@ In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g
 interface AnchorButtonArgs {
     label: string;
     href: string;
-    appearance: string;
-    appearanceVariant: string;
+    appearance: keyof typeof ButtonAppearance;
+    appearanceVariant: keyof typeof ButtonAppearanceVariant;
     icon: boolean;
     endIcon: boolean;
     contentHidden: boolean;
@@ -46,8 +46,8 @@ const metadata: Meta<AnchorButtonArgs> = {
     render: createUserSelectedThemeStory(html`
         <${anchorButtonTag}
             href=${x => (x.href !== '' ? x.href : null)}
-            appearance=${x => x.appearance}
-            appearance-variant=${x => x.appearanceVariant}
+            appearance=${x => ButtonAppearance[x.appearance]}
+            appearance-variant=${x => ButtonAppearanceVariant[x.appearanceVariant]}
             ?content-hidden=${x => x.contentHidden}
             ?disabled=${x => x.disabled}
         >
@@ -65,12 +65,12 @@ const metadata: Meta<AnchorButtonArgs> = {
             description: hrefDescription
         },
         appearance: {
-            options: Object.values(ButtonAppearance),
+            options: Object.keys(ButtonAppearance),
             control: { type: 'radio' }
         },
         appearanceVariant: {
             name: 'appearance-variant',
-            options: Object.values(ButtonAppearanceVariant),
+            options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
             description: appearanceVariantDescription
         },
@@ -88,7 +88,7 @@ const metadata: Meta<AnchorButtonArgs> = {
     args: {
         label: 'Anchor Button',
         href: 'https://nimble.ni.dev',
-        appearance: ButtonAppearance.outline,
+        appearance: 'outline',
         appearanceVariant: 'default',
         icon: false,
         endIcon: false,
