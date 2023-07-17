@@ -136,6 +136,9 @@ export const iconMetadata: {
     IconClockCog: {
         tags: ['time-settings']
     },
+    IconClockExclamation: {
+        tags: ['expire']
+    },
     IconClockTriangle: {
         tags: ['status', 'timed-out']
     },
