@@ -112,20 +112,20 @@ describe('TableCellView', () => {
     it('passes row id in delegated event details', async () => {
         await connect();
 
-        let eventDetails: DelegatedEventEventDetails | undefined;
-
         const column = document.createElement(
             tableColumnDelegatesClickAndKeydownTag
         ) as TableColumnDelegatesClickAndKeydown;
-        column.addEventListener('delegated-event', event => {
-            eventDetails = (event as CustomEvent)
-                .detail as DelegatedEventEventDetails;
-        });
+        const spy = jasmine.createSpy();
+        column.addEventListener('delegated-event', spy);
 
         element.rowRecordId = 'foo';
         element.column = column;
         element.dispatchEvent(new PointerEvent('click'));
 
-        expect(eventDetails?.rowRecordId).toEqual('foo');
+        expect(spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({
+                detail: jasmine.objectContaining({ rowRecordId: 'foo' })
+            })
+        );
     });
 });
