@@ -50,6 +50,9 @@ export abstract class TableCellView<
         }
         this.delegatedEvents = this.column.columnInternals.delegatedEvents;
         this.delegatedEventHandler = (event: Event) => {
+            if (!this.rowRecordId) {
+                throw new Error('rowRecordId should not be undefined');
+            }
             this.column?.dispatchEvent(
                 new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
                     detail: {
