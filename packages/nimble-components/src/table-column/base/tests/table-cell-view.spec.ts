@@ -88,6 +88,7 @@ describe('TableCellView', () => {
             }
         });
 
+        element.rowRecordId = '0';
         element.column = delegatingColumn;
         element.dispatchEvent(new PointerEvent('click'));
         element.dispatchEvent(new KeyboardEvent('keydown'));
