@@ -16,15 +16,15 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     primaryFillActionColor:
         'Action fill color for "primary" appearance-variant buttons',
     accentButtonBackgroundColor:
-        'Background Color for "primary-accent" appearance-variant buttons',
+        'Background Color for "accent" appearance-variant buttons',
     accentButtonBlockFontColor:
-        'Font Color for "primary-accent" appearance-variant block buttons',
+        'Font Color for "accent" appearance-variant block buttons',
     accentButtonOutlineFontColor:
-        'Font Color for "primary-accent" appearance-variant outline buttons',
+        'Font Color for "accent" appearance-variant outline buttons',
     accentFillActionColor:
-        'Action fill color for "primary-accent" appearance-variant buttons',
+        'Action fill color for "accent" appearance-variant buttons',
     accentButtonOutlineBorderColor:
-        'Border color for "primary-accent" appearance-variant outline buttons',
+        'Border color for "accent" appearance-variant outline buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',

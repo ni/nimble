@@ -23,7 +23,7 @@ export const appearanceDescription = `This attribute affects the appearance of t
 </details>
 `;
 
-export const appearanceVariantDescription = `This attribute has no effect on buttons with a \`ghost\` appearance. The appearance variant \`primary-accent\` has no effect on buttons using the "color" theme.
+export const appearanceVariantDescription = `This attribute has no effect on buttons with a \`ghost\` appearance. <br/> The appearance variant \`primary-accent\` has no effect on buttons using the "color" theme.
 
 <details>
     <summary>Primary Button Usage</summary>
