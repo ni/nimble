@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 17 Jul 2023 17:19:39 GMT",
+      "tag": "@ni/nimble-components_v19.7.0",
+      "version": "19.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9ecabb35fbca4f0c233eb2dd0c4adb78027e0add",
+            "comment": "Spinner Accent Appearance (#1298)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 16:19:17 GMT",
       "tag": "@ni/nimble-components_v19.6.3",
       "version": "19.6.3",
