@@ -1,8 +1,42 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 30 Jun 2023 16:02:24 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Jul 2023 22:15:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.6.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+- Bump @ni/nimble-tokens to v6.2.1
+
+## 19.6.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
+- Bump @ni/nimble-tokens to v6.2.0
+
+## 19.5.0
+
+Thu, 13 Jul 2023 23:41:13 GMT
+
+### Minor changes
+
+- Add nimble-label-provider-core and -table, along with localizable DesignTokens for labels/strings declared by Nimble components. Add docs for Localization. ([ni/nimble@d5b19d5](https://github.com/ni/nimble/commit/d5b19d5a7b4e2406209f8aed15fa4d0ea9658a09))
+
+## 19.4.5
+
+Thu, 13 Jul 2023 16:50:52 GMT
+
+### Patches
+
+- Fix combobox scroll issue. ([ni/nimble@fbb5df8](https://github.com/ni/nimble/commit/fbb5df8dda1a776a7ff7fd10d4b3157919ad34a6))
 
 ## 19.4.4
 

@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Tooltip } from '@ni/nimble-components/dist/esm/tooltip';
+import { type Tooltip, tooltipTag } from '@ni/nimble-components/dist/esm/tooltip';
 import { TooltipSeverity } from '@ni/nimble-components/dist/esm/tooltip/types';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Tooltip };
+export { tooltipTag };
 export { TooltipSeverity };
 
 /**
