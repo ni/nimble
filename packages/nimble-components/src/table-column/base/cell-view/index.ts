@@ -50,17 +50,19 @@ export abstract class TableCellView<
         }
         this.delegatedEvents = this.column.columnInternals.delegatedEvents;
         this.delegatedEventHandler = (event: Event) => {
-            if (!this.rowRecordId) {
-                throw new Error('rowRecordId should not be undefined');
+            if (this.rowRecordId) {
+                this.column?.dispatchEvent(
+                    new CustomEvent<DelegatedEventEventDetails>(
+                        'delegated-event',
+                        {
+                            detail: {
+                                originalEvent: event,
+                                rowRecordId: this.rowRecordId
+                            }
+                        }
+                    )
+                );
             }
-            this.column?.dispatchEvent(
-                new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
-                    detail: {
-                        originalEvent: event,
-                        rowRecordId: this.rowRecordId
-                    }
-                })
-            );
         };
 
         for (const delegatedEvent of this.delegatedEvents) {
