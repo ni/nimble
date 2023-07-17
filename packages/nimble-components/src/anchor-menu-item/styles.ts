@@ -76,7 +76,7 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    :host(.indent-1) .start {
+    :host(.indent-1) [part='start'] {
         grid-column: 1;
     }
 

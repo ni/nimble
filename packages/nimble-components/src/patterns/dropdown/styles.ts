@@ -102,6 +102,10 @@ export const styles = css`
         width: 0px;
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .control {
         align-items: center;
         box-sizing: border-box;
@@ -207,7 +211,7 @@ export const styles = css`
         fill: ${bodyDisabledFontColor};
     }
 
-    .end {
+    [part='end'] {
         margin-inline-start: auto;
     }
 
