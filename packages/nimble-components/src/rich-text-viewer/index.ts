@@ -23,7 +23,7 @@ export class RichTextViewer extends FoundationElement {
      * Markdown string to render its corresponding rich text content in the component.
      */
     @observable
-    public markdown?: string;
+    public markdown!: string;
 
     public viewer!: HTMLDivElement;
     private readonly markdownParser: MarkdownParser;
