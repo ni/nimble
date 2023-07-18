@@ -9,21 +9,21 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
-    primaryButtonBackgroundColor:
+    buttonPrimaryBackgroundColor:
         'Background Color for "primary" appearance-variant buttons',
-    primaryButtonFontColor:
+    buttonPrimaryFontColor:
         'Font Color for "primary" appearance-variant buttons',
-    primaryFillActionColor:
+    buttonPrimaryFillActionColor:
         'Action fill color for "primary" appearance-variant buttons',
-    accentButtonBackgroundColor:
+    buttonAccentBackgroundColor:
         'Background Color for "accent" appearance-variant buttons',
-    accentButtonBlockFontColor:
+    buttonBlockAccentFontColor:
         'Font Color for "accent" appearance-variant block buttons',
-    accentButtonOutlineFontColor:
+    buttonOutlineAccentFontColor:
         'Font Color for "accent" appearance-variant outline buttons',
-    accentFillActionColor:
+    buttonAccentFillActionColor:
         'Action fill color for "accent" appearance-variant buttons',
-    accentButtonOutlineBorderColor:
+    buttonOutlineAccentBorderColor:
         'Border color for "accent" appearance-variant outline buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:

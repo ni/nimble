@@ -14,20 +14,19 @@ import {
     iconColor,
     smallDelay,
     standardPadding,
-    primaryButtonBackgroundColor,
-    primaryButtonFontColor,
-    primaryFillActionColor,
-    accentButtonBackgroundColor,
-    accentFillActionColor,
-    accentButtonBlockFontColor,
-    accentButtonOutlineFontColor,
-    accentButtonOutlineBorderColor
+    buttonPrimaryBackgroundColor,
+    buttonPrimaryFontColor,
+    buttonPrimaryFillActionColor,
+    buttonAccentBackgroundColor,
+    buttonBlockAccentFontColor,
+    buttonAccentFillActionColor,
+    buttonOutlineAccentBorderColor,
+    buttonOutlineAccentFontColor
 } from '../../theme-provider/design-tokens';
 import {
     appearanceBehavior,
-    appearanceVariantBehavior
 } from '../../utilities/style/appearance';
-import { ButtonAppearance, ButtonAppearanceVariant } from './types';
+import { ButtonAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -264,139 +263,161 @@ export const styles = css`
 );
 
 export const buttonAppearanceVariantStyles = css``.withBehaviors(
-    appearanceVariantBehavior(
-        ButtonAppearanceVariant.primary,
-        css``.withBehaviors(
-            appearanceBehavior(
-                ButtonAppearance.block,
-                css`
-                    .control {
-                        background-color: ${primaryButtonBackgroundColor};
-                        color: ${primaryButtonFontColor};
-                    }
+    appearanceBehavior(
+        ButtonAppearance.block,
+        css`
+            :host([appearance-variant='primary']) .control {
+                background-color: ${buttonPrimaryBackgroundColor};
+                color: ${buttonPrimaryFontColor};
+            }
 
-                    .control:hover {
-                        background-color: transparent;
-                        background-image: linear-gradient(
-                            ${primaryButtonBackgroundColor},
-                            ${primaryButtonBackgroundColor}
-                        );
-                        background-size: calc(100% - 4px) calc(100% - 4px);
-                        color: ${primaryButtonFontColor};
-                    }
+            :host([appearance-variant='primary']) .control:hover {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    ${buttonPrimaryBackgroundColor},
+                    ${buttonPrimaryBackgroundColor}
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
+                color: ${buttonPrimaryFontColor};
+            }
 
-                    .control${focusVisible} {
-                        background-color: transparent;
-                        background-image: linear-gradient(
-                            ${primaryButtonBackgroundColor},
-                            ${primaryButtonBackgroundColor}
-                        );
-                        background-size: calc(100% - 4px) calc(100% - 4px);
-                    }
+            :host([appearance-variant='primary']) .control${focusVisible} {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    ${buttonPrimaryBackgroundColor},
+                    ${buttonPrimaryBackgroundColor}
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
+            }
 
-                    .control:active {
-                        background-image: linear-gradient(
-                            ${primaryFillActionColor},
-                            ${primaryFillActionColor}
-                        );
-                        background-size: calc(100% - 2px) calc(100% - 2px);
-                    }
+            :host([appearance-variant='primary']) .control:active {
+                background-image: linear-gradient(
+                    ${buttonPrimaryFillActionColor},
+                    ${buttonPrimaryFillActionColor}
+                );
+                background-size: calc(100% - 2px) calc(100% - 2px);
+            }
 
-                    :host([disabled]) .control {
-                        background-color: rgba(${borderRgbPartialColor}, 0.1);
-                        border-color: transparent;
-                        color: rgba(${actionRgbPartialColor}, 0.3);
-                    }
-                `
-            ),
-            appearanceBehavior(
-                ButtonAppearance.outline,
-                css`
-                    .control {
-                        border-color: ${actionRgbPartialColor};
-                    }
+            :host([appearance-variant='primary'][disabled]) .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
+                color: rgba(${actionRgbPartialColor}, 0.3);
+                background-image: none;
+            }
 
-                    .control:hover {
-                        background-color: transparent;
-                    }
+            :host([appearance-variant='primary']) [part='start'] {
+                ${iconColor.cssCustomProperty}: white;
+            }
 
-                    .control:active {
-                        outline: none;
-                    }
+            :host([appearance-variant='primary'][disabled]) slot[name='start']::slotted(*) {
+                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+            }
 
-                    :host([disabled]) .control {
-                        border-color: rgba(${borderRgbPartialColor}, 0.3);
-                    }
-                `
-            )
-        )
+            :host([appearance-variant='primary']) [part='end'] {
+                ${iconColor.cssCustomProperty}: white;
+            }
+
+            :host([appearance-variant='primary'][disabled]) slot[name='end']::slotted(*) {
+                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+            }
+
+            :host([appearance-variant='accent']) .control {
+                background-color: ${buttonAccentBackgroundColor};
+                color: ${buttonBlockAccentFontColor};
+            }
+
+            :host([appearance-variant='accent']) .control:hover {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    ${buttonAccentBackgroundColor},
+                    ${buttonAccentBackgroundColor}
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
+                color: ${buttonBlockAccentFontColor};
+            }
+
+            :host([appearance-variant='accent']) .control${focusVisible} {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    ${buttonAccentBackgroundColor},
+                    ${buttonAccentBackgroundColor}
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
+            }
+
+            :host([appearance-variant='accent']) .control:active {
+                background-image: linear-gradient(
+                    ${buttonAccentFillActionColor},
+                    ${buttonAccentFillActionColor}
+                );
+                background-size: calc(100% - 2px) calc(100% - 2px);
+            }
+
+            :host([appearance-variant='accent'][disabled]) .control {
+                background-color: rgba(${borderRgbPartialColor}, 0.1);
+                border-color: transparent;
+                color: rgba(${actionRgbPartialColor}, 0.3);
+                background-image: none;
+            }
+
+            :host([appearance-variant='accent']) [part='start'] {
+                ${iconColor.cssCustomProperty}: white;
+            }
+
+            :host([appearance-variant='accent'][disabled]) slot[name='start']::slotted(*) {
+                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+            }
+
+            :host([appearance-variant='accent']) [part='end'] {
+                ${iconColor.cssCustomProperty}: white;
+            }
+
+            :host([appearance-variant='accent'][disabled]) slot[name='end']::slotted(*) {
+                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor}
+            }
+        `
     ),
-    appearanceVariantBehavior(
-        ButtonAppearanceVariant.accent,
-        css``.withBehaviors(
-            appearanceBehavior(
-                ButtonAppearance.block,
-                css`
-                    .control {
-                        background-color: ${accentButtonBackgroundColor};
-                        color: ${accentButtonBlockFontColor};
-                    }
+    appearanceBehavior(
+        ButtonAppearance.outline,
+        css`
+            :host([appearance-variant='primary']) .control {
+                border-color: ${actionRgbPartialColor};
+            }
 
-                    .control:hover {
-                        background-color: transparent;
-                        background-image: linear-gradient(
-                            ${accentButtonBackgroundColor},
-                            ${accentButtonBackgroundColor}
-                        );
-                        background-size: calc(100% - 4px) calc(100% - 4px);
-                        color: ${accentButtonBlockFontColor};
-                    }
+            :host([appearance-variant='primary']) .control:hover {
+                background-color: transparent;
+                border-color: ${borderHoverColor}; 
+            }
 
-                    .control${focusVisible} {
-                        background-color: transparent;
-                        background-image: linear-gradient(
-                            ${accentButtonBackgroundColor},
-                            ${accentButtonBackgroundColor}
-                        );
-                        background-size: calc(100% - 4px) calc(100% - 4px);
-                    }
+            :host([appearance-variant='primary']) .control${focusVisible} {
+                border-color: ${borderHoverColor};
+            }
 
-                    .control:active {
-                        background-image: linear-gradient(
-                            ${accentFillActionColor},
-                            ${accentFillActionColor}
-                        );
-                        background-size: calc(100% - 2px) calc(100% - 2px);
-                    }
+            :host([appearance-variant='primary']) .control:active {
+                outline: none;
+            }
 
-                    :host([disabled]) .control {
-                        background-color: rgba(${borderRgbPartialColor}, 0.1);
-                        border-color: transparent;
-                        color: rgba(${actionRgbPartialColor}, 0.3);
-                    }
-                `
-            ),
-            appearanceBehavior(
-                ButtonAppearance.outline,
-                css`
-                    .control {
-                        border-color: ${accentButtonOutlineBorderColor};
-                        color: ${accentButtonOutlineFontColor};
-                    }
+            :host([appearance-variant='primary'][disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
+            }
 
-                    .control:hover {
-                        background-color: transparent;
-                    }
+            :host([appearance-variant='accent']) .control {
+                border-color: ${buttonOutlineAccentBorderColor};
+                color: ${buttonOutlineAccentFontColor};
+            }
 
-                    .control:active {
-                        outline: none;
-                    }
+            :host([appearance-variant='accent']) .control:hover {
+                background-color: transparent;
+            }
 
-                    :host([disabled]) .control {
-                        border-color: rgba(${borderRgbPartialColor}, 0.3);
-                    }
-                `
-            )
-        )
-    )
+            :host([appearance-variant='accent']) .control:active {
+                outline: none;
+            }
+
+            :host([appearance-variant='accent'][disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
+                color: rgba(${actionRgbPartialColor}, 0.3);
+            }
+        `
+    ),
 );

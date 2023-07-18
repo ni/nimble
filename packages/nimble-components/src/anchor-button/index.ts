@@ -36,7 +36,7 @@ export class AnchorButton
      * HTML Attribute: appearance-variant
      */
     @attr({ attribute: 'appearance-variant' })
-    public appearanceVariant: ButtonAppearanceVariant = ButtonAppearanceVariant.default;
+    public appearanceVariant: ButtonAppearanceVariant;
 
     /**
      * @public
