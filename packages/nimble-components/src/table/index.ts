@@ -547,13 +547,6 @@ export class Table<
         );
     }
 
-    /**
-     * @internal
-     */
-    public getColumnDividerElements(): NodeListOf<Element> {
-        return this.shadowRoot!.querySelectorAll('.column-divider');
-    }
-
     protected selectionModeChanged(
         _prev: string | undefined,
         _next: string | undefined
@@ -586,9 +579,6 @@ export class Table<
 
         this.observeColumns();
         this.tableUpdateTracker.trackColumnInstancesChanged();
-        this.visibleColumns = this.columns.filter(
-            column => !column.columnHidden
-        );
     }
 
     private async handleActionMenuBeforeToggleEvent(

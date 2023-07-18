@@ -717,7 +717,7 @@ The default value for \`fractional-width\` is 1, and columns that don't support 
 as an initial state for a column. Once a column has been manually resized the column will use a fractional width calculated by the table from the resize.`;
 
 const minPixelWidthDescription = `Table columns that support having a \`fractional-width\` can also be configured to have a minimum width such that its width
-will never shrink below the specified pixel width. This applies to both when a table is resized as well as when a column is explicitly resized.`;
+will never shrink below the specified pixel width. This applies to both when a table is resized as well as when a column is interactively resized.`;
 
 export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     parameters: {

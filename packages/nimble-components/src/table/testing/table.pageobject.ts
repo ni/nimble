@@ -247,8 +247,7 @@ export class TablePageObject<T extends TableRecord> {
 
         table.style.width = `${
             rowWidth
-            + (table.headerRowActionContainer.getBoundingClientRect().width
-                ?? 0)
+            + table.headerRowActionContainer.getBoundingClientRect().width
             + table.virtualizer.headerContainerMarginRight
         }px`;
         await waitForUpdatesAsync();
@@ -452,12 +451,11 @@ export class TablePageObject<T extends TableRecord> {
         deltas: number[]
     ): void {
         const divider = this.getColumnRightDivider(columnIndex);
-        if (divider === null) {
+        if (!divider) {
             throw new Error(
                 'The provided column index has no right divider associated with it.'
             );
         }
-        divider.setAttribute('active', 'true');
         const dividerRect = divider.getBoundingClientRect();
         let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
         const mouseDownEvent = new MouseEvent('mousedown', {
@@ -488,12 +486,11 @@ export class TablePageObject<T extends TableRecord> {
         deltas: number[]
     ): void {
         const divider = this.getColumnLeftDivider(columnIndex);
-        if (divider === null) {
+        if (!divider) {
             throw new Error(
                 'The provided column index has no left divider associated with it.'
             );
         }
-        divider.setAttribute('active', 'true');
         const dividerRect = divider.getBoundingClientRect();
         let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
         const mouseDownEvent = new MouseEvent('mousedown', {

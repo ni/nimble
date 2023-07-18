@@ -134,11 +134,11 @@ export const styles = css`
         z-index: 1;
     }
 
-    .left {
+    .column-divider.left {
         left: -1px;
     }
 
-    .right {
+    .column-divider.right {
         left: calc(100% - 1px);
     }
 

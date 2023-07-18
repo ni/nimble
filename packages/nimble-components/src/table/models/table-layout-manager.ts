@@ -21,7 +21,9 @@ export class TableLayoutManager<TData extends TableRecord> {
     private initialTableScrollableMinWidth?: number;
     private initialColumnTotalWidth?: number;
     private currentTotalDelta = 0;
-    private dragStart? = 0;
+    private dragStart = 0;
+    private leftColumnIndex?: number;
+    private rightColumnIndex?: number;
     private initialColumnPixelWidths: {
         initalColumnFractionalWidth: number,
         initialPixelWidth: number,
@@ -61,8 +63,11 @@ export class TableLayoutManager<TData extends TableRecord> {
         activeColumnDivider: number
     ): void {
         this.activeColumnDivider = activeColumnDivider;
-        this.activeColumnIndex = this.getLeftColumnIndexFromDivider(this.activeColumnDivider)
-            + (this.activeColumnDivider % 2);
+        this.leftColumnIndex = this.getLeftColumnIndexFromDivider(
+            this.activeColumnDivider
+        );
+        this.rightColumnIndex = this.leftColumnIndex + 1;
+        this.activeColumnIndex = this.leftColumnIndex + (this.activeColumnDivider % 2);
         this.dragStart = dragStart;
         this.currentTotalDelta = 0;
         this.visibleColumns = this.getVisibleColumns();
@@ -77,20 +82,20 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;
-        this.currentTotalDelta = mouseEvent.clientX - this.dragStart!;
         for (let i = 0; i < this.visibleColumns.length; i++) {
             this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
         }
         this.currentTotalDelta = this.getAllowedSizeDelta(
-            this.activeColumnDivider!,
+            mouseEvent.clientX - this.dragStart
+        );
+        this.performCascadeSizeLeft(
+            this.leftColumnIndex!,
             this.currentTotalDelta
         );
-        const leftColumnIndex = this.getLeftColumnIndexFromDivider(
-            this.activeColumnDivider!
+        this.performCascadeSizeRight(
+            this.rightColumnIndex!,
+            this.currentTotalDelta
         );
-        const rightColumnIndex = leftColumnIndex + 1;
-        this.performCascadeSizeLeft(leftColumnIndex, this.currentTotalDelta);
-        this.performCascadeSizeRight(rightColumnIndex, this.currentTotalDelta);
 
         const totalColumnWidthDelta = this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!;
         if (totalColumnWidthDelta > 0) {
@@ -126,28 +131,23 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.cacheColumnInitialPixelWidths();
     }
 
-    private getAllowedSizeDelta(
-        activeDividerIndex: number,
-        delta: number
-    ): number {
+    private getAllowedSizeDelta(requestedResizeAmount: number): number {
         let availableSpace = 0;
-        if (delta > 0) {
+        if (requestedResizeAmount > 0) {
             // size right
-            availableSpace = delta;
-        } else if (delta < 0) {
-            // size left
-            let currentIndex = this.getLeftColumnIndexFromDivider(activeDividerIndex);
-            while (currentIndex >= 0) {
-                const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
-                availableSpace
-                    += columnInitialWidths.initialPixelWidth
-                    - columnInitialWidths.minPixelWidth;
-                currentIndex -= 1;
-            }
+            return requestedResizeAmount;
         }
-        return delta > 0
-            ? Math.min(delta, availableSpace)
-            : Math.max(delta, -availableSpace);
+
+        // size left
+        let currentIndex = this.leftColumnIndex!;
+        while (currentIndex >= 0) {
+            const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
+            availableSpace
+                += columnInitialWidths.initialPixelWidth
+                - columnInitialWidths.minPixelWidth;
+            currentIndex -= 1;
+        }
+        return Math.max(requestedResizeAmount, -availableSpace);
     }
 
     private performCascadeSizeLeft(
@@ -230,7 +230,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         for (
             let i = 0;
             i < this.visibleColumns.length
-            && (gridColumnIndex < this.gridSizedColumns?.length ?? 0);
+            && gridColumnIndex < this.gridSizedColumns.length;
             i++
         ) {
             const column = this.visibleColumns[i]!;

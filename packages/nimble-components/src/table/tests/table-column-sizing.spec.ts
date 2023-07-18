@@ -370,38 +370,45 @@ describe('Table Interactive Column Sizing', () => {
     describe('No hidden columns ', () => {
         const columnSizeTests = [
             {
-                name: 'sizing left only affects adjacent right column with delta less than min width',
+                name: 'sizing right only affects adjacent right column with delta less than min width',
                 dragDeltas: [1],
                 columnDragIndex: 0,
                 expectedColumnWidths: [101, 99, 100, 100]
             },
             {
-                name: 'sizing left past the minimum size of adjacent right column cascades to next column',
+                name: 'sizing right past the minimum size of adjacent right column cascades to next column',
                 dragDeltas: [51],
                 columnDragIndex: 0,
                 expectedColumnWidths: [151, 50, 99, 100]
             },
             {
-                name: 'sizing left past the minimum size of all columns to right shinks all columns to minimum size, but allows left column to keep growing',
+                name: 'sizing right past the minimum size of all columns to right shrinks all columns to minimum size, but allows left column to keep growing',
                 dragDeltas: [151],
                 columnDragIndex: 0,
                 expectedColumnWidths: [251, 50, 50, 50]
             },
             {
-                name: 'sizing right only affects adjacent left column with delta less than min width',
+                name: 'sizing left only affects adjacent left column with delta less than min width',
                 dragDeltas: [-1],
                 columnDragIndex: 2,
                 expectedColumnWidths: [100, 100, 99, 101]
             },
             {
-                name: 'sizing right past the minimum size of adjacent left column cascades to next column',
+                name: 'sizing left past the minimum size of adjacent left column cascades to next column',
                 dragDeltas: [-51],
                 columnDragIndex: 2,
                 expectedColumnWidths: [100, 99, 50, 151]
             },
             {
-                name: 'sizing right past the minimum size of all columns to left shinks all columns to minimum size, and stops growing right most column',
+                name: 'sizing left past the minimum size of all columns to left shrinks all columns to minimum size, and stops growing right most column',
                 dragDeltas: [-151],
+                columnDragIndex: 2,
+                expectedColumnWidths: [50, 50, 50, 250]
+            },
+            {
+                name: `sizing left past the minimum size of all columns to left shrinks all columns to minimum size, and stops growing right most column,
+                       and then moving cursor slightly to right causes no column width changes`,
+                dragDeltas: [-152, 1],
                 columnDragIndex: 2,
                 expectedColumnWidths: [50, 50, 50, 250]
             },
@@ -486,7 +493,7 @@ describe('Table Interactive Column Sizing', () => {
             expect(updatedFractionalWidths).toEqual([2.5, 0.5, 0.5, 0.5]);
         });
 
-        it('sizing columns left of hidden column cascade to columns to right of hidden column', async () => {
+        it('sizing column left of hidden column to the right cascade to columns to right of hidden column', async () => {
             element.columns[1]!.columnHidden = true;
             await waitForUpdatesAsync();
             const secondVisibleCellWidth = pageObject.getCellRenderedWidth(
@@ -500,7 +507,7 @@ describe('Table Interactive Column Sizing', () => {
             );
         });
 
-        it('sizing columns right of hidden column cascade to columns to left of hidden column', async () => {
+        it('sizing column right of hidden column to the left cascade to columns to left of hidden column', async () => {
             element.columns[2]!.columnHidden = true;
             await waitForUpdatesAsync();
             const secondVisibleCellWidth = pageObject.getCellRenderedWidth(
