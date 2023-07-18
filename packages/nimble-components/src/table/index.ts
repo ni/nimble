@@ -979,7 +979,8 @@ export class Table<
                 },
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation
-                )
+                ),
+                sortUndefined: false
             };
         });
     }
