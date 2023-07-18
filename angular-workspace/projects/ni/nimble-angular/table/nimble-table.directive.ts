@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
-import type { Table } from '@ni/nimble-components/dist/esm/table';
+import { type Table, tableTag } from '@ni/nimble-components/dist/esm/table';
 import type { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableActionMenuToggleEventDetail, TableRowSelectionEventDetail, TableColumnConfigurationChangeEventDetail, TableColumnConfiguration } from '@ni/nimble-components/dist/esm/table/types';
 import { TableRowSelectionMode } from '@ni/nimble-components/dist/esm/table/types';
 import type { Observable, Subscription } from 'rxjs';
 
 export type { Table };
+export { tableTag };
 export type { TableActionMenuToggleEventDetail, TableRowSelectionEventDetail, TableColumnConfigurationChangeEventDetail, TableColumnConfiguration };
 export { TableRecord, TableFieldName, TableFieldValue, TableValidity, TableRowSelectionMode };
 

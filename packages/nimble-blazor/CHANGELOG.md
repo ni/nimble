@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 06 Jun 2023 14:41:27 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 17:19:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.10.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance Implementation (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
 
 ## 11.9.5
 
