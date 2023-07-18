@@ -148,7 +148,7 @@ describe('Table delegated events', () => {
         expect(gotDelegatedEvent).toBeFalse();
     });
 
-    it('delegates events with specified row ids', async () => {
+    it('delegates events with specified record ids', async () => {
         element.idFieldName = 'id';
         const data: readonly SimpleTableRecord[] = [
             { id: '1234', foo: '1' }
