@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Mon, 17 Jul 2023 17:19:39 GMT",
+      "tag": "@ni/nimble-blazor_v11.10.0",
+      "version": "11.10.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "9ecabb35fbca4f0c233eb2dd0c4adb78027e0add",
+            "comment": "Spinner Accent Appearance Implementation (#1298)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 13 Jun 2023 22:52:49 GMT",
       "tag": "@ni/nimble-blazor_v11.9.8",
       "version": "11.9.8",

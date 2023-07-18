@@ -136,6 +136,10 @@ When stepping back try to start at the top-level of the control which is likely 
 
 Some elements are used just for their function such as the `<nimble-theme-provider>` and `<slot>` elements. Those elements should not generally be part of layout and given sizing, etc that is important. Instead they should stay `display: contents` and let their children participate in layout and styling.
 
+## Hide unused slots
+
+If a slot within the template should never be used when following nimble's design guidelines, that slot should be hidden using `display: none`. In the case of the `start` and `end` slots that are included in a template using the `startSlotTemplate` and `endSlotTemplate`, the slots should be hidden using the `[part='start']` and `[part='end']` selectors.
+
 ## Consider whether text content should be stylable by clients
 For controls that display text content, consider whether the client should be allowed to apply custom font properties to that text. For example, a client can set `font-style: italic` on the `nimble-text-field` or `nimble-number-field` to italicize the value. To support this, set the default font properties on the host element, and use `font: inherit` on the element actually displaying the text.
 
