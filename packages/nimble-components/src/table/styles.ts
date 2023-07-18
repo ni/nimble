@@ -101,7 +101,8 @@ export const styles = css`
     }
 
     .column-divider {
-        border-left: var(--ni-private-column-divider-width) solid ${popupBorderColor};
+        border-left: var(--ni-private-column-divider-width) solid
+            ${popupBorderColor};
         display: none;
         height: ${controlSlimHeight};
         cursor: col-resize;
@@ -111,9 +112,15 @@ export const styles = css`
     .column-divider::before {
         content: '';
         position: absolute;
-        width: calc(var(--ni-private-column-divider-width) + (2 * var(--ni-private-column-divider-padding)));
+        width: calc(
+            var(--ni-private-column-divider-width) +
+                (2 * var(--ni-private-column-divider-padding))
+        );
         height: 100%;
-        left: calc(-1 * (var(--ni-private-column-divider-width) + var(--ni-private-column-divider-padding)));
+        left: calc(
+            -1 * (var(--ni-private-column-divider-width) +
+                        var(--ni-private-column-divider-padding))
+        );
     }
 
     .column-divider.active {
