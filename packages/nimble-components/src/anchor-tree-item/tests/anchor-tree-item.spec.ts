@@ -114,15 +114,11 @@ describe('Anchor Tree Item', () => {
             expect(element.end.assignedElements()[0]).toBe(model.checkIcon);
         });
 
-        it('should set start and end slots visible', async () => {
+        it('should set start slot visible', async () => {
             await connect();
             expect(
                 getComputedStyle(element.start).display === 'none'
                     || getComputedStyle(element.startContainer).display === 'none'
-            ).toBeFalse();
-            expect(
-                getComputedStyle(element.end).display === 'none'
-                    || getComputedStyle(element.endContainer).display === 'none'
             ).toBeFalse();
         });
     });

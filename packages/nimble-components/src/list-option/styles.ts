@@ -22,6 +22,10 @@ export const styles = css`
         height: ${controlHeight};
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .content {
         padding: 8px 4px;
     }
@@ -65,5 +69,9 @@ export const styles = css`
     .content[disabled] {
         box-shadow: none;
         outline: none;
+    }
+
+    [part='end'] {
+        display: none;
     }
 `;
