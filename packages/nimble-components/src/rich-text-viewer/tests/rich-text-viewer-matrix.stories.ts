@@ -31,13 +31,10 @@ const viewerSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
     [heightLabel, heightStyle]: [string, string]
 ): ViewTemplate => html`
-    <div style="width: 500px; display: flex; justify-content: space-between">
-        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
-        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">width: 500px, height: 150px</p>        
-    </div>
+    <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
     <div style="width: 500px; height: 150px; outline: 1px dotted black">
         <${richTextViewerTag}
-            style="${widthStyle}; ${heightStyle}"
+            style="${widthStyle}; ${heightStyle}; outline: 1px dashed red;"
             :markdown="${_ => richTextMarkdownString}"
         >
         </${richTextViewerTag}>
@@ -48,10 +45,7 @@ const viewerDifferentContentTestCase = (
     [label, markdownContent]: [string, string],
     [heightLabel, parentHeightStyle]: [string, string]
 ): ViewTemplate => html`
-    <div style="width: 300px; display: flex; justify-content: space-between">
-        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${label}</p>
-        <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">width: 300px, height: ${heightLabel}</p>        
-    </div>
+    <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${label}; ${heightLabel}</p>
     <div style="width: 300px; outline: 1px dotted black; ${parentHeightStyle}">
         <${richTextViewerTag}
             :markdown="${_ => markdownContent}"
@@ -77,14 +71,14 @@ export const richTextViewerThemeMatrix: StoryFn = createMatrixThemeStory(
 export const richTextViewerSizing: StoryFn = createStory(html`
     ${createMatrix(viewerSizingTestCase, [
         [
-            ['no width', ''],
-            ['width 300px', 'width: 300px'],
-            ['width 100%', 'width: 100%']
+            ['No width', ''],
+            ['Width 300px', 'width: 300px'],
+            ['Width 100%', 'width: 100%']
         ],
         [
-            ['no height', ''],
-            ['height 75px', 'height: 75px'],
-            ['height 100%', 'height: 100%']
+            ['No height', ''],
+            ['Height 75px', 'height: 75px'],
+            ['Height 100%', 'height: 100%']
         ]
     ])}
 `);
@@ -108,8 +102,8 @@ export const differentContentsInMobileWidth: StoryFn = createStory(html`
             ]
         ],
         [
-            ['nil', ''],
-            ['100px', 'height: 100px']
+            ['No height', ''],
+            ['Height 100px', 'height: 100px']
         ]
     ])}
 `);

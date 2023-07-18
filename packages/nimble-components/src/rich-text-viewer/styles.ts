@@ -4,8 +4,7 @@ import {
     bodyFont,
     bodyFontColor,
     linkActiveFontColor,
-    linkFontColor,
-    smallPadding
+    linkFontColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -21,23 +20,19 @@ export const styles = css`
         min-block-size: 36px;
     }
 
-    .container {
+    .viewer {
         font: inherit;
         outline: none;
         box-sizing: border-box;
         position: relative;
         color: inherit;
-        min-inline-size: 100px;
-        padding: ${smallPadding};
-        margin-block-end: 10px;
-        margin-inline-end: 10px;
     }
 
-    .container > :first-child {
+    .viewer > :first-child {
         margin-block-start: 0;
     }
 
-    .container > :last-child {
+    .viewer > :last-child {
         margin-block-end: 0;
     }
 
@@ -45,8 +40,11 @@ export const styles = css`
         margin-block: 0;
     }
 
+    ${
+        /* In Firefox, if the paragraph within the list is empty, the ordered lists overlap. Therefore, hiding the paragraph element allows for the proper rendering of empty lists.  */ ''
+    }
     li > p:empty {
-        display: contents;
+        display: none;
     }
 
     a {

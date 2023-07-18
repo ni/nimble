@@ -32,41 +32,48 @@ describe('RichTextViewer', () => {
         expect(richTextViewerTag).toBe('nimble-rich-text-viewer');
     });
 
-    it('should reflect value of the "markdown" to the internal control', async () => {
+    it('set the markdown attribute and ensure the markdown property is not modified', async () => {
         await connect();
 
-        const markdown = '**markdown string**';
-        element.setAttribute('markdown', markdown);
+        element.setAttribute('markdown', '**markdown string**');
 
-        expect(element.getAttribute('markdown')).toBe(markdown);
+        expect(element.markdown).not.toBe('**markdown string**');
+
+        await disconnect();
+    });
+
+    it('set the markdown property and ensure there is no markdown attribute', async () => {
+        await connect();
+
+        element.markdown = '**markdown string**';
+
+        expect(element.getAttribute('markdown')).toBeNull();
+
+        await disconnect();
+    });
+
+    it('set the markdown property and ensure that getting the markdown property returns the same value', async () => {
+        await connect();
+
+        element.markdown = '**markdown string**';
+
+        expect(element.markdown).toBe('**markdown string**');
 
         await disconnect();
     });
 
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
-        let childElement: Element | null | undefined;
-        let lastChildElement: Element | null | undefined;
-        function getChildElements(): string[] {
-            const nestedTagNames = [];
-            childElement = pageObject.getFirstChildElement();
-
-            while (childElement) {
-                nestedTagNames.push(childElement.tagName);
-                lastChildElement = childElement;
-                childElement = childElement?.firstElementChild;
-            }
-            return nestedTagNames;
-        }
+        afterEach(async () => {
+            await disconnect();
+        });
 
         it('should convert bold markdown string to "strong" HTML tag', async () => {
             element.markdown = '**Bold**';
 
             await connect();
 
-            expect(getChildElements()).toEqual(['P', 'STRONG']);
-            expect(lastChildElement?.textContent).toBe('Bold');
-
-            await disconnect();
+            expect(pageObject.getChildTags()).toEqual(['P', 'STRONG']);
+            expect(pageObject.getLastChildTagContents()).toBe('Bold');
         });
 
         it('should convert italics markdown string to "em" HTML tag', async () => {
@@ -74,10 +81,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['P', 'EM']);
-            expect(lastChildElement?.textContent).toBe('Italics');
-
-            await disconnect();
+            expect(pageObject.getChildTags()).toEqual(['P', 'EM']);
+            expect(pageObject.getLastChildTagContents()).toBe('Italics');
         });
 
         it('should convert numbered list markdown string to "ol" and "li" HTML tags', async () => {
@@ -85,10 +90,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['OL', 'LI', 'P']);
-            expect(lastChildElement?.textContent).toBe('Numbered list');
-
-            await disconnect();
+            expect(pageObject.getChildTags()).toEqual(['OL', 'LI', 'P']);
+            expect(pageObject.getLastChildTagContents()).toBe('Numbered list');
         });
 
         it('should convert bulleted list markdown string to "ul" and "li" HTML tags', async () => {
@@ -96,10 +99,8 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['UL', 'LI', 'P']);
-            expect(lastChildElement?.textContent).toBe('Bulleted list');
-
-            await disconnect();
+            expect(pageObject.getChildTags()).toEqual(['UL', 'LI', 'P']);
+            expect(pageObject.getLastChildTagContents()).toBe('Bulleted list');
         });
 
         it('should convert direct link markdown string to "a" tags with the link as the text content', async () => {
@@ -107,15 +108,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['P', 'A']);
-            expect(lastChildElement?.textContent).toBe(
+            expect(pageObject.getChildTags()).toEqual(['P', 'A']);
+            expect(pageObject.getLastChildTagContents()).toBe(
                 'https://nimble.ni.dev/'
             );
-            expect(lastChildElement!.getAttribute('href')).toBe(
+            expect(pageObject.getLastChildAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
-
-            await disconnect();
         });
 
         it('should convert numbered list with bold markdown string to "ol", "li" and "strong" HTML tags', async () => {
@@ -123,10 +122,15 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['OL', 'LI', 'P', 'STRONG']);
-            expect(lastChildElement?.textContent).toBe('Numbered list in bold');
-
-            await disconnect();
+            expect(pageObject.getChildTags()).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'STRONG'
+            ]);
+            expect(pageObject.getLastChildTagContents()).toBe(
+                'Numbered list in bold'
+            );
         });
 
         it('should convert bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', async () => {
@@ -134,12 +138,10 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['UL', 'LI', 'P', 'EM']);
-            expect(lastChildElement?.textContent).toBe(
+            expect(pageObject.getChildTags()).toEqual(['UL', 'LI', 'P', 'EM']);
+            expect(pageObject.getLastChildTagContents()).toBe(
                 'Bulleted list in italics'
             );
-
-            await disconnect();
         });
 
         it('should convert bulleted list with direct links markdown string to "ul", "li" and "a" HTML tags', async () => {
@@ -147,15 +149,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['UL', 'LI', 'P', 'A']);
-            expect(lastChildElement?.textContent).toBe(
+            expect(pageObject.getChildTags()).toEqual(['UL', 'LI', 'P', 'A']);
+            expect(pageObject.getLastChildTagContents()).toBe(
                 'https://nimble.ni.dev/'
             );
-            expect(lastChildElement!.getAttribute('href')).toBe(
+            expect(pageObject.getLastChildAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
-
-            await disconnect();
         });
 
         it('should convert direct links in bold markdown string to "strong" and "a" HTML tags', async () => {
@@ -163,15 +163,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(getChildElements()).toEqual(['P', 'STRONG', 'A']);
-            expect(lastChildElement?.textContent).toBe(
+            expect(pageObject.getChildTags()).toEqual(['P', 'STRONG', 'A']);
+            expect(pageObject.getLastChildTagContents()).toBe(
                 'https://nimble.ni.dev/'
             );
-            expect(lastChildElement!.getAttribute('href')).toBe(
+            expect(pageObject.getLastChildAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
-
-            await disconnect();
         });
     });
 
@@ -186,7 +184,10 @@ describe('RichTextViewer', () => {
             { name: '![Text](Image)' },
             { name: '&nbsp;' },
             { name: '---' },
-            { name: '<div><p>text</p></div>' }
+            { name: '<div><p>text</p></div>' },
+            { name: '\0' },
+            { name: 'Line\r\rEnding' },
+            { name: '\uFFFD' }
         ];
 
         const focused: string[] = [];
@@ -202,8 +203,10 @@ describe('RichTextViewer', () => {
 
                     await connect();
 
-                    const childElement = pageObject.getFirstChildElement();
-                    expect(childElement?.tagName).toBe('P');
+                    expect(pageObject.getChildTags()).toEqual(['P']);
+                    expect(pageObject.getLastChildTagContents()).toBe(
+                        value.name
+                    );
 
                     await disconnect();
                 }
@@ -225,8 +228,10 @@ describe('RichTextViewer', () => {
 
                     await connect();
 
-                    const childElement = pageObject.getFirstChildElement();
-                    expect(childElement?.tagName).toBe('P');
+                    expect(pageObject.getChildTags()).toEqual(['P']);
+                    expect(pageObject.getLastChildTagContents()).toBe(
+                        value.name
+                    );
 
                     await disconnect();
                 }

@@ -5,6 +5,7 @@ import {
     MarkdownParser
 } from 'prosemirror-markdown';
 import { DOMSerializer } from 'prosemirror-model';
+import { observable } from '@microsoft/fast-element';
 import { template } from './template';
 import { styles } from './styles';
 
@@ -19,27 +20,12 @@ declare global {
  */
 export class RichTextViewer extends FoundationElement {
     /**
-     * @public
-     * @remarks
-     * Accessor: uses the parsing logic to convert the input markdown string to render in the component.
+     * Markdown string to render its corresponding rich text content in the component.
      */
-    public set markdown(value: string) {
-        this._markdown = value;
-        this.serializedContent = this.parseMarkdownToDOM(value);
-        this.updateViewerNodeWithSerializedContent();
-    }
+    @observable
+    public markdown?: string;
 
-    /**
-     * @public
-     * @remarks
-     * Accessor: gets the raw markdown string.
-     */
-    public get markdown(): string {
-        return this._markdown;
-    }
-
-    private _markdown = '';
-    private serializedContent?: HTMLElement | DocumentFragment;
+    public viewer!: HTMLDivElement;
     private readonly markdownParser: MarkdownParser;
     private readonly domSerializer: DOMSerializer;
 
@@ -54,7 +40,13 @@ export class RichTextViewer extends FoundationElement {
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.updateViewerNodeWithSerializedContent();
+        this.updateView();
+    }
+
+    public markdownChanged(): void {
+        if (this.$fastController.isConnected) {
+            this.updateView();
+        }
     }
 
     private initializeMarkdownParser(): MarkdownParser {
@@ -74,6 +66,10 @@ export class RichTextViewer extends FoundationElement {
             'autolink'
         ]);
 
+        // Disabling normalize which replaces the null character('\0') with the Unicode representation('\uFFFD') of Replacement Character(�)
+        // https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/rules_core/normalize.js#L15
+        supportedTokenizerRules.disable('normalize');
+
         return new MarkdownParser(
             schema,
             supportedTokenizerRules,
@@ -88,15 +84,22 @@ export class RichTextViewer extends FoundationElement {
      *
      */
     private parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
+        const parsedMarkdownContent = this.markdownParser.parse(value);
+        if (parsedMarkdownContent === null) {
+            throw new Error(
+                'Prosemirror markdown parser return value is possibly null'
+            );
+        }
+
         return this.domSerializer.serializeFragment(
-            this.markdownParser.parse(value)!.content
+            parsedMarkdownContent.content
         );
     }
 
-    private updateViewerNodeWithSerializedContent(): void {
-        const viewer = this.shadowRoot?.querySelector('#viewer');
-        if (viewer && this.serializedContent) {
-            viewer.replaceChildren(this.serializedContent.cloneNode(true));
+    private updateView(): void {
+        if (this.markdown) {
+            const serializedContent = this.parseMarkdownToDOM(this.markdown);
+            this.viewer.replaceChildren(serializedContent);
         }
     }
 }
