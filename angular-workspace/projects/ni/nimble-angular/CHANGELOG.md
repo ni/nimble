@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 14 Jul 2023 00:21:50 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jul 2023 17:52:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.8.1
+
+Tue, 18 Jul 2023 17:52:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.0
+
+## 16.8.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance Implementation (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
+- Bump @ni/nimble-components to v19.7.0
+
+## 16.7.6
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.3
+
+## 16.7.5
+
+Mon, 17 Jul 2023 15:05:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.2
+
+## 16.7.4
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.1
+
+## 16.7.3
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.0
 
 ## 16.7.2
 
