@@ -12,7 +12,7 @@ import {
     iconSize,
     borderWidth,
     smallDelay,
-    buttonLabelFont
+    bodyFont
 } from '../theme-provider/design-tokens';
 import { userSelectNone } from '../utilities/style/user-select';
 
@@ -20,7 +20,7 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        font: ${buttonLabelFont};
+        font: ${bodyFont};
         align-items: center;
         cursor: pointer;
         outline: none;

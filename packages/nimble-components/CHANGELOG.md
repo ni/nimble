@@ -1,8 +1,98 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 20 Jun 2023 14:17:25 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 17:19:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.7.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
+
+## 19.6.3
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- hide unused slots ([ni/nimble@05f9022](https://github.com/ni/nimble/commit/05f90223f3819e135ab38796f850814ac4c21a8e))
+
+## 19.6.2
+
+Mon, 17 Jul 2023 15:05:54 GMT
+
+### Patches
+
+- Initial code bring up for nimble-rich-text-editor component ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
+
+## 19.6.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+- Bump @ni/nimble-tokens to v6.2.1
+
+## 19.6.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
+- Bump @ni/nimble-tokens to v6.2.0
+
+## 19.5.0
+
+Thu, 13 Jul 2023 23:41:13 GMT
+
+### Minor changes
+
+- Add nimble-label-provider-core and -table, along with localizable DesignTokens for labels/strings declared by Nimble components. Add docs for Localization. ([ni/nimble@d5b19d5](https://github.com/ni/nimble/commit/d5b19d5a7b4e2406209f8aed15fa4d0ea9658a09))
+
+## 19.4.5
+
+Thu, 13 Jul 2023 16:50:52 GMT
+
+### Patches
+
+- Fix combobox scroll issue. ([ni/nimble@fbb5df8](https://github.com/ni/nimble/commit/fbb5df8dda1a776a7ff7fd10d4b3157919ad34a6))
+
+## 19.4.4
+
+Fri, 30 Jun 2023 16:02:24 GMT
+
+### Patches
+
+- Overflow directive ([ni/nimble@0d17d95](https://github.com/ni/nimble/commit/0d17d95074479cad512f1dd0640ff0c3cad09f91))
+
+## 19.4.3
+
+Wed, 28 Jun 2023 22:34:33 GMT
+
+### Patches
+
+- Change text-column base class property behavior ([ni/nimble@a8148fe](https://github.com/ni/nimble/commit/a8148fe86743b45ac970c7a4c9fd2e46fd6280da))
+
+## 19.4.2
+
+Wed, 28 Jun 2023 13:37:50 GMT
+
+### Patches
+
+- Initial code bring up for nimble-rich-text-viewer component ([ni/nimble@c88e365](https://github.com/ni/nimble/commit/c88e3657b05f6b04a34115acdd13ecb6b7b9c0c6))
+
+## 19.4.1
+
+Tue, 27 Jun 2023 19:05:52 GMT
+
+### Patches
+
+- Add additional functions to table page object ([ni/nimble@137db4c](https://github.com/ni/nimble/commit/137db4ca75e10b5d8316e12ac86c59b0efd468a3))
 
 ## 19.4.0
 

@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
+    appearanceDescription,
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
@@ -46,7 +47,8 @@ const metadata: Meta<ButtonArgs> = {
     argTypes: {
         appearance: {
             options: Object.keys(ButtonAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription
         },
         appearanceVariant: {
             name: 'appearance-variant',

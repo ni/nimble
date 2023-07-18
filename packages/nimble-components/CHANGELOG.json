@@ -2,6 +2,273 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 17 Jul 2023 17:19:39 GMT",
+      "tag": "@ni/nimble-components_v19.7.0",
+      "version": "19.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9ecabb35fbca4f0c233eb2dd0c4adb78027e0add",
+            "comment": "Spinner Accent Appearance (#1298)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jul 2023 16:19:17 GMT",
+      "tag": "@ni/nimble-components_v19.6.3",
+      "version": "19.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05f90223f3819e135ab38796f850814ac4c21a8e",
+            "comment": "hide unused slots"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 17 Jul 2023 15:05:54 GMT",
+      "tag": "@ni/nimble-components_v19.6.2",
+      "version": "19.6.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "733c77c1a63c30bd698fb6b03b4f559ef621c7d9",
+            "comment": "Initial code bring up for nimble-rich-text-editor component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 22:15:57 GMT",
+      "tag": "@ni/nimble-components_v19.6.1",
+      "version": "19.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "88248bc22d9b50da299331a87863c65fe3c25cdb",
+            "comment": "Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.2.1",
+            "commit": "88248bc22d9b50da299331a87863c65fe3c25cdb"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 20:57:32 GMT",
+      "tag": "@ni/nimble-components_v19.6.0",
+      "version": "19.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "448a0147ee38c0f1cbe0ece06ecd103e4e3f5788",
+            "comment": "New icon with a clock and exclamation mark to represent an expired state"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.2.0",
+            "commit": "448a0147ee38c0f1cbe0ece06ecd103e4e3f5788"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 18:53:29 GMT",
+      "tag": "@ni/nimble-components_v19.5.0",
+      "version": "19.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "7fa2f30e677b3a1ddab1651d58f98246870f3de6",
+            "comment": "Add backlog components to status table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 14 Jul 2023 03:24:30 GMT",
+      "tag": "@ni/nimble-components_v19.5.0",
+      "version": "19.5.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "da306fc0ac05e08bd4aba83f1e1e243485475357",
+            "comment": "Update the markdown property name in rich-text-editor spec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 13 Jul 2023 23:41:13 GMT",
+      "tag": "@ni/nimble-components_v19.5.0",
+      "version": "19.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d5b19d5a7b4e2406209f8aed15fa4d0ea9658a09",
+            "comment": "Add nimble-label-provider-core and -table, along with localizable DesignTokens for labels/strings declared by Nimble components. Add docs for Localization."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 13 Jul 2023 16:50:52 GMT",
+      "tag": "@ni/nimble-components_v19.4.5",
+      "version": "19.4.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fbb5df8dda1a776a7ff7fd10d4b3157919ad34a6",
+            "comment": "Fix combobox scroll issue."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 11 Jul 2023 18:50:48 GMT",
+      "tag": "@ni/nimble-components_v19.4.4",
+      "version": "19.4.4",
+      "comments": {
+        "none": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b31c3f8e235940ccd96348c6f0ef68e32b5c3b38",
+            "comment": "Column sizing spec update."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 30 Jun 2023 16:02:24 GMT",
+      "tag": "@ni/nimble-components_v19.4.4",
+      "version": "19.4.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0d17d95074479cad512f1dd0640ff0c3cad09f91",
+            "comment": "Overflow directive"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Jun 2023 22:34:33 GMT",
+      "tag": "@ni/nimble-components_v19.4.3",
+      "version": "19.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a8148fe86743b45ac970c7a4c9fd2e46fd6280da",
+            "comment": "Change text-column base class property behavior"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Jun 2023 15:22:08 GMT",
+      "tag": "@ni/nimble-components_v19.4.2",
+      "version": "19.4.2",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "177774ff833f5f0a04a28d0f9bdf0ed5dfccd9b3",
+            "comment": "Update docs on when to use the data$ Observable on the Angular nimble-table"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 28 Jun 2023 13:37:50 GMT",
+      "tag": "@ni/nimble-components_v19.4.2",
+      "version": "19.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c88e3657b05f6b04a34115acdd13ecb6b7b9c0c6",
+            "comment": "Initial code bring up for nimble-rich-text-viewer component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Jun 2023 19:05:52 GMT",
+      "tag": "@ni/nimble-components_v19.4.1",
+      "version": "19.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "137db4ca75e10b5d8316e12ac86c59b0efd468a3",
+            "comment": "Add additional functions to table page object"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 27 Jun 2023 14:37:26 GMT",
+      "tag": "@ni/nimble-components_v19.4.0",
+      "version": "19.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a909ba9daff50f579dd5c821bf495517a53ec50c",
+            "comment": "Add spec document for nimble rich text editor and nimble rich text viewer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 23 Jun 2023 18:04:38 GMT",
+      "tag": "@ni/nimble-components_v19.4.0",
+      "version": "19.4.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e9a59a5ea139b99223356f2db5cbe052da23a449",
+            "comment": "Update relative link format in Storybook"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 20 Jun 2023 17:38:18 GMT",
       "tag": "@ni/nimble-components_v19.4.0",
       "version": "19.4.0",

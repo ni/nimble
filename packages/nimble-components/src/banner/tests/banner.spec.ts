@@ -1,9 +1,15 @@
 import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Banner } from '..';
+import { Banner, bannerTag } from '..';
 import { BannerSeverity } from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
+import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
+import {
+    LabelProviderCore,
+    labelProviderCoreTag
+} from '../../label-provider/core';
+import { buttonTag } from '../../button';
 
 async function setup(): Promise<Fixture<Banner>> {
     return fixture<Banner>(html`
@@ -11,6 +17,18 @@ async function setup(): Promise<Fixture<Banner>> {
             <span slot="title">Title</span>
             Message text
         </nimble-banner>
+    `);
+}
+
+async function setupWithLabelProvider(): Promise<Fixture<ThemeProvider>> {
+    return fixture<ThemeProvider>(html`
+        <${themeProviderTag}>
+            <${labelProviderCoreTag}></${labelProviderCoreTag}>
+            <nimble-banner>
+                <span slot="title">Title</span>
+                Message text
+            </nimble-banner>
+        </${themeProviderTag}>
     `);
 }
 
@@ -100,5 +118,39 @@ describe('Banner', () => {
                 ?.querySelector('.container')
                 ?.getAttribute('role')
         ).toBe('status');
+    });
+});
+
+describe('Banner with LabelProviderCore', () => {
+    let element: Banner;
+    let labelProvider: LabelProviderCore;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+
+    beforeEach(async () => {
+        let themeProvider: ThemeProvider;
+        ({
+            element: themeProvider,
+            connect,
+            disconnect
+        } = await setupWithLabelProvider());
+        await connect();
+        element = themeProvider.querySelector(bannerTag)!;
+        labelProvider = themeProvider.querySelector(labelProviderCoreTag)!;
+    });
+
+    afterEach(async () => {
+        await disconnect();
+    });
+
+    it('uses CoreLabelProvider popupDismissLabel for the close button label when dismissButtonLabel is unset', async () => {
+        labelProvider.popupDismiss = 'Customized Close';
+        await waitForUpdatesAsync();
+
+        const actualCloseButtonText = element
+            .shadowRoot!.querySelector('.dismiss')!
+            .querySelector(buttonTag)!
+            .textContent!.trim();
+        expect(actualCloseButtonText).toBe('Customized Close');
     });
 });

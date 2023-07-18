@@ -1,8 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Breadcrumb } from '@ni/nimble-components/dist/esm/breadcrumb';
+import { type Breadcrumb, breadcrumbTag } from '@ni/nimble-components/dist/esm/breadcrumb';
 import { BreadcrumbAppearance } from '@ni/nimble-components/dist/esm/breadcrumb/types';
 
 export type { Breadcrumb };
+export { breadcrumbTag };
 export { BreadcrumbAppearance };
 
 /**
