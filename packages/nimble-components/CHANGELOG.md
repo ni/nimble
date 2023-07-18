@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 18 Jul 2023 17:52:57 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jul 2023 18:56:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.8.1
+
+Tue, 18 Jul 2023 18:56:23 GMT
+
+### Patches
+
+- Fix icon color for disabled menu items and disabled text fields ([ni/nimble@b6c4eda](https://github.com/ni/nimble/commit/b6c4edafd60eb2e7c37c1b296b846a3ef5bcdee3))
 
 ## 19.8.0
 
