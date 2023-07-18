@@ -130,7 +130,7 @@ export const styles = css`
     ${
         /* this rule keeps children without an icon text aligned with parents */ ''
     }
-    span[part="start"] {
+    [part="start"] {
         width: ${iconSize};
     }
 
@@ -156,11 +156,8 @@ export const styles = css`
         );
     }
 
-    ${/* the end class is applied when the corresponding slots is filled */ ''}
-    .end {
-        display: flex;
-        fill: currentcolor;
-        margin-inline-start: ${iconSize};
+    [part='end'] {
+        display: none;
     }
 
     .items {

@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    bodyFont,
     borderHoverColor,
     borderWidth,
     bodyFontColor,
@@ -10,7 +9,8 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     standardPadding,
-    smallDelay
+    smallDelay,
+    buttonLabelFont
 } from '../../theme-provider/design-tokens';
 import { focusVisible } from '../../utilities/style/focus';
 
@@ -20,7 +20,7 @@ export const styles = css`
     :host {
         position: relative;
         box-sizing: border-box;
-        font: ${bodyFont};
+        font: ${buttonLabelFont};
         height: ${controlHeight};
         color: ${bodyFontColor};
         align-items: center;
