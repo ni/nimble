@@ -98,7 +98,7 @@ describe('Table delegated events', () => {
         expect(bubbledEvent!).toBe(clickEvent);
     });
 
-    it('delegates all specified event types (w/ default row ids)', async () => {
+    it('delegates all specified event types with default record ids', async () => {
         const data: readonly SimpleTableRecord[] = [{ foo: '1' }] as const;
 
         await element.setData(data);
