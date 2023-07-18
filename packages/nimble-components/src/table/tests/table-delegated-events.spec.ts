@@ -98,30 +98,36 @@ describe('Table delegated events', () => {
         expect(bubbledEvent!).toBe(clickEvent);
     });
 
-    it('delegates all specified event types', async () => {
+    it('delegates all specified event types with default record ids', async () => {
         const data: readonly SimpleTableRecord[] = [{ foo: '1' }] as const;
 
         await element.setData(data);
         await connect();
         await waitForUpdatesAsync();
-        let delegatedEvent: Event | null = null;
-        column1.addEventListener('delegated-event', event => {
-            delegatedEvent = (
-                (event as CustomEvent).detail as DelegatedEventEventDetails
-            ).originalEvent;
-        });
+        const spy = jasmine.createSpy();
+        column1.addEventListener('delegated-event', spy);
         const clickEvent = new PointerEvent('click', {
             bubbles: true,
             composed: true
         });
         pageObject.dispatchEventToCell(0, 0, clickEvent);
-        expect(delegatedEvent!).toBe(clickEvent);
+        expect(spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({
+                detail: { originalEvent: clickEvent, recordId: '0' }
+            })
+        );
+
+        spy.calls.reset();
         const keydownEvent = new KeyboardEvent('keydown', {
             bubbles: true,
             composed: true
         });
         pageObject.dispatchEventToCell(0, 0, keydownEvent);
-        expect(delegatedEvent!).toBe(keydownEvent);
+        expect(spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({
+                detail: { originalEvent: keydownEvent, recordId: '0' }
+            })
+        );
     });
 
     it('does not delegate unspecified event types', async () => {
@@ -140,5 +146,28 @@ describe('Table delegated events', () => {
         });
         pageObject.dispatchEventToCell(0, 0, mouseoverEvent);
         expect(gotDelegatedEvent).toBeFalse();
+    });
+
+    it('delegates events with specified record ids', async () => {
+        element.idFieldName = 'id';
+        const data: readonly SimpleTableRecord[] = [
+            { id: '1234', foo: '1' }
+        ] as const;
+
+        await element.setData(data);
+        await connect();
+        await waitForUpdatesAsync();
+        const spy = jasmine.createSpy();
+        column1.addEventListener('delegated-event', spy);
+        const clickEvent = new PointerEvent('click', {
+            bubbles: true,
+            composed: true
+        });
+        pageObject.dispatchEventToCell(0, 0, clickEvent);
+        expect(spy).toHaveBeenCalledOnceWith(
+            jasmine.objectContaining({
+                detail: { originalEvent: clickEvent, recordId: '1234' }
+            })
+        );
     });
 });
