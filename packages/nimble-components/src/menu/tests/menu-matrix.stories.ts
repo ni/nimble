@@ -62,7 +62,7 @@ const component = (
                 `)}
             </${menuItemTag}>
             <hr>
-            <${menuItemTag} disabled>Item 2</${menuItemTag}>
+            <${menuItemTag} disabled>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Item 2</${menuItemTag}>
             <${menuItemTag}>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Item 3</${menuItemTag}>
             <${menuItemTag} hidden>Item 4</${menuItemTag}>
             <${anchorMenuItemTag} href='#'>${when(() => parentIcon, html`<${iconUserTag} slot="start"></${iconUserTag}>`)}Anchor item</${anchorMenuItemTag}>
