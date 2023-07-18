@@ -483,7 +483,7 @@ describe('Table Interactive Column Sizing', () => {
             const updatedFractionalWidths = element.columns.map(
                 column => column.columnInternals.currentFractionalWidth
             );
-            expect(updatedFractionalWidths).toEqual([1, 0.2, 0.2, 0.2]);
+            expect(updatedFractionalWidths).toEqual([2.5, 0.5, 0.5, 0.5]);
         });
 
         it('sizing columns left of hidden column cascade to columns to right of hidden column', async () => {
@@ -525,7 +525,7 @@ describe('Table Interactive Column Sizing', () => {
         });
     });
 
-    describe('hidden column drag right divider tests', () => {
+    describe('hidden column drag right divider tests ', () => {
         const hiddenColumDragRightDividerTests = [
             {
                 name: 'first column hidden, drag first right divider to right results in correct columns widths',
@@ -625,7 +625,7 @@ describe('Table Interactive Column Sizing', () => {
         }
     });
 
-    describe('hidden column drag left divider tests', () => {
+    describe('hidden column drag left divider tests ', () => {
         const hiddenColumDragRightDividerTests = [
             {
                 name: 'first column hidden, drag first left divider to right results in correct columns widths',
@@ -785,7 +785,7 @@ describe('Table Interactive Column Sizing', () => {
                     await waitForUpdatesAsync();
                     const activeDividers = [];
                     for (let i = 0; i < dividers.length; i++) {
-                        if (dividers[i]!.getAttribute('active')) {
+                        if (dividers[i]!.classList.contains('active')) {
                             activeDividers.push(i);
                         }
                     }
@@ -822,12 +822,12 @@ describe('Table Interactive Column Sizing', () => {
             });
             divider.dispatchEvent(mouseDownEvent);
             await waitForUpdatesAsync();
-            expect(divider.getAttribute('active')).toBeTruthy();
+            expect(divider.classList.contains('active')).toBeTruthy();
 
             const mouseUpEvent = new MouseEvent('mouseup');
             document.dispatchEvent(mouseUpEvent);
             await waitForUpdatesAsync();
-            expect(divider.getAttribute('active')).toBeFalsy();
+            expect(divider.classList.contains('active')).toBeFalsy();
         });
     });
 });

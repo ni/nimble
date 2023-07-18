@@ -23,6 +23,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     private currentTotalDelta = 0;
     private dragStart? = 0;
     private initialColumnPixelWidths: {
+        initalColumnFractionalWidth: number,
         initialPixelWidth: number,
         minPixelWidth: number
     }[] = [];
@@ -212,6 +213,8 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialColumnPixelWidths = [];
         for (const column of this.visibleColumns) {
             this.initialColumnPixelWidths.push({
+                initalColumnFractionalWidth:
+                    column.columnInternals.currentFractionalWidth,
                 initialPixelWidth: column.columnInternals.currentPixelWidth!,
                 minPixelWidth: column.columnInternals.minPixelWidth
             });
@@ -223,15 +226,22 @@ export class TableLayoutManager<TData extends TableRecord> {
             return;
         }
 
-        const largestColumnFixedSize = Math.max(
-            ...this.gridSizedColumns.map(
-                column => column.columnInternals.currentPixelWidth!
-            )!
-        );
-        for (const column of this.gridSizedColumns) {
-            column.columnInternals.currentFractionalWidth = column.columnInternals.currentPixelWidth!
-                / largestColumnFixedSize;
-            column.columnInternals.currentPixelWidth = undefined;
+        let gridColumnIndex = 0;
+        for (
+            let i = 0;
+            i < this.visibleColumns.length
+            && (gridColumnIndex < this.gridSizedColumns?.length ?? 0);
+            i++
+        ) {
+            const column = this.visibleColumns[i]!;
+            if (column === this.gridSizedColumns[gridColumnIndex]) {
+                gridColumnIndex += 1;
+                column.columnInternals.currentFractionalWidth = (column.columnInternals.currentPixelWidth!
+                        / this.initialColumnPixelWidths[i]!.initialPixelWidth)
+                    * this.initialColumnPixelWidths[i]!
+                        .initalColumnFractionalWidth;
+                column.columnInternals.currentPixelWidth = undefined;
+            }
         }
     }
 
