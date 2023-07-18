@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Use text property of ListOption instead of textContent for NimbleComboboxListOptionDirective to use for adding option values to parent combobox value accessor.",
-  "packageName": "@ni/nimble-angular",
-  "email": "26874831+atmgrifter00@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
