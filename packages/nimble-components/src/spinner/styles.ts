@@ -3,6 +3,8 @@ import { display } from '@microsoft/fast-foundation';
 import {
     Black15,
     Black91,
+    DigitalGreenLight,
+    PowerGreen,
     White
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import { spinnerSmallHeight } from '../theme-provider/design-tokens';
@@ -32,6 +34,10 @@ export const styles = css`
             ''
         }
         opacity: 0.6;
+    }
+
+    :host([appearance='accent']) div.container {
+        opacity: 1;
     }
 
     div.bit1,
@@ -148,7 +154,11 @@ export const styles = css`
         Theme.light,
         css`
             :host {
-                --ni-private-spinner-bits-background-color: ${Black91}
+                --ni-private-spinner-bits-background-color: ${Black91};
+            }
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${DigitalGreenLight};
+            }
         `
     ),
     themeBehavior(
@@ -157,6 +167,9 @@ export const styles = css`
             :host {
                 --ni-private-spinner-bits-background-color: ${Black15};
             }
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${PowerGreen};
+            }
         `
     ),
     themeBehavior(
@@ -164,6 +177,9 @@ export const styles = css`
         css`
             :host {
                 --ni-private-spinner-bits-background-color: ${White};
+            }
+            :host([appearance='accent']) {
+                --ni-private-spinner-bits-background-color: ${PowerGreen};
             }
         `
     )
