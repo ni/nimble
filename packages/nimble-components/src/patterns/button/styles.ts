@@ -262,6 +262,49 @@ export const styles = css`
 
 export const buttonAppearanceVariantStyles = css``.withBehaviors(
     appearanceBehavior(
+        ButtonAppearance.outline,
+        css`
+            :host([appearance-variant='primary']) .control {
+                border-color: ${actionRgbPartialColor};
+            }
+
+            :host([appearance-variant='primary']) .control:hover {
+                border-color: ${borderHoverColor};
+                background-color: transparent;
+            }
+
+            :host([appearance-variant='primary']) .control${focusVisible} {
+                border-color: ${borderHoverColor};
+            }
+
+            :host([appearance-variant='primary']) .control:active {
+                outline: none;
+            }
+
+            :host([appearance-variant='primary'][disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
+            }
+
+            :host([appearance-variant='accent']) .control {
+                border-color: ${buttonOutlineAccentBorderColor};
+                color: ${buttonOutlineAccentFontColor};
+            }
+
+            :host([appearance-variant='accent']) .control:hover {
+                background-color: transparent;
+            }
+
+            :host([appearance-variant='accent']) .control:active {
+                outline: none;
+            }
+
+            :host([appearance-variant='accent'][disabled]) .control {
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
+                color: rgba(${actionRgbPartialColor}, 0.3);
+            }
+        `
+    ),
+    appearanceBehavior(
         ButtonAppearance.block,
         css`
             :host([appearance-variant='primary']) .control {
@@ -376,49 +419,6 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             :host([appearance-variant='accent'][disabled])
                 slot[name='end']::slotted(*) {
                 ${iconColor.cssCustomProperty}: ${buttonLabelFontColor}
-            }
-        `
-    ),
-    appearanceBehavior(
-        ButtonAppearance.outline,
-        css`
-            :host([appearance-variant='primary']) .control {
-                border-color: ${actionRgbPartialColor};
-            }
-
-            :host([appearance-variant='primary']) .control:hover {
-                background-color: transparent;
-                border-color: ${borderHoverColor};
-            }
-
-            :host([appearance-variant='primary']) .control${focusVisible} {
-                border-color: ${borderHoverColor};
-            }
-
-            :host([appearance-variant='primary']) .control:active {
-                outline: none;
-            }
-
-            :host([appearance-variant='primary'][disabled]) .control {
-                border-color: rgba(${borderRgbPartialColor}, 0.3);
-            }
-
-            :host([appearance-variant='accent']) .control {
-                border-color: ${buttonOutlineAccentBorderColor};
-                color: ${buttonOutlineAccentFontColor};
-            }
-
-            :host([appearance-variant='accent']) .control:hover {
-                background-color: transparent;
-            }
-
-            :host([appearance-variant='accent']) .control:active {
-                outline: none;
-            }
-
-            :host([appearance-variant='accent'][disabled]) .control {
-                border-color: rgba(${borderRgbPartialColor}, 0.3);
-                color: rgba(${actionRgbPartialColor}, 0.3);
             }
         `
     )

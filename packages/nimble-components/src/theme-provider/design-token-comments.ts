@@ -10,17 +10,17 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
     buttonPrimaryBackgroundColor:
-        'Background Color for "primary" appearance-variant buttons',
+        'Background color for "primary" appearance-variant buttons',
     buttonPrimaryFontColor:
-        'Font Color for "primary" appearance-variant buttons',
+        'Font color for "primary" appearance-variant buttons',
     buttonPrimaryFillActionColor:
         'Action fill color for "primary" appearance-variant buttons',
     buttonAccentBackgroundColor:
-        'Background Color for "accent" appearance-variant buttons',
+        'Background color for "accent" appearance-variant buttons',
     buttonBlockAccentFontColor:
-        'Font Color for "accent" appearance-variant block buttons',
+        'Font color for "accent" appearance-variant block buttons',
     buttonOutlineAccentFontColor:
-        'Font Color for "accent" appearance-variant outline buttons',
+        'Font color for "accent" appearance-variant outline buttons',
     buttonAccentFillActionColor:
         'Action fill color for "accent" appearance-variant buttons',
     buttonOutlineAccentBorderColor:
