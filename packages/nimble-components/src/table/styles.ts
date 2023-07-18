@@ -21,6 +21,8 @@ export const styles = css`
 
     :host {
         height: 480px;
+        --ni-private-column-divider-width: 2px;
+        --ni-private-column-divider-padding: 3px;
     }
 
     .disable-select {
@@ -99,7 +101,7 @@ export const styles = css`
     }
 
     .column-divider {
-        border-left: 2px solid ${popupBorderColor};
+        border-left: var(--ni-private-column-divider-width) solid ${popupBorderColor};
         display: none;
         height: ${controlSlimHeight};
         cursor: col-resize;
@@ -109,9 +111,9 @@ export const styles = css`
     .column-divider::before {
         content: '';
         position: absolute;
-        width: 8px;
+        width: calc(var(--ni-private-column-divider-width) + (2 * var(--ni-private-column-divider-padding)));
         height: 100%;
-        left: -5px;
+        left: calc(-1 * (var(--ni-private-column-divider-width) + var(--ni-private-column-divider-padding)));
     }
 
     .column-divider.active {
