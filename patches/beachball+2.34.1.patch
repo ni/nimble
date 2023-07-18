@@ -1,0 +1,14 @@
+diff --git a/node_modules/beachball/lib/packageManager/npmArgs.js b/node_modules/beachball/lib/packageManager/npmArgs.js
+index cfa9bd7..7d0ff98 100644
+--- a/node_modules/beachball/lib/packageManager/npmArgs.js
++++ b/node_modules/beachball/lib/packageManager/npmArgs.js
+@@ -5,7 +5,8 @@ function getNpmPublishArgs(packageInfo, options) {
+     const { registry, token, authType, access } = options;
+     const pkgCombinedOptions = packageInfo.combinedOptions;
+     const args = [
+-        'publish',
++        'run',
++        'invoke-publish',
+         '--registry',
+         registry,
+         '--tag',
