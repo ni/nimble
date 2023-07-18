@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 18 Jul 2023 18:56:23 GMT",
+      "tag": "@ni/nimble-components_v19.8.1",
+      "version": "19.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6c4edafd60eb2e7c37c1b296b846a3ef5bcdee3",
+            "comment": "Fix icon color for disabled menu items and disabled text fields"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jul 2023 17:52:57 GMT",
       "tag": "@ni/nimble-components_v19.8.0",
       "version": "19.8.0",

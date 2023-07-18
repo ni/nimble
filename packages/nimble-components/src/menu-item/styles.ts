@@ -10,7 +10,8 @@ import {
     borderHoverColor,
     iconSize,
     bodyFont,
-    bodyDisabledFontColor
+    bodyDisabledFontColor,
+    iconColor
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -69,7 +70,7 @@ export const styles = css`
         display: contents;
     }
     slot[name='start']::slotted(*) {
-        fill: currentcolor;
+        ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }
