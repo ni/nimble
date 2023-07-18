@@ -23,9 +23,7 @@ import {
     buttonOutlineAccentBorderColor,
     buttonOutlineAccentFontColor
 } from '../../theme-provider/design-tokens';
-import {
-    appearanceBehavior,
-} from '../../utilities/style/appearance';
+import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
 export const styles = css`
@@ -309,7 +307,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ${iconColor.cssCustomProperty}: white;
             }
 
-            :host([appearance-variant='primary'][disabled]) slot[name='start']::slotted(*) {
+            :host([appearance-variant='primary'][disabled])
+                slot[name='start']::slotted(*) {
                 ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
             }
 
@@ -317,7 +316,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ${iconColor.cssCustomProperty}: white;
             }
 
-            :host([appearance-variant='primary'][disabled]) slot[name='end']::slotted(*) {
+            :host([appearance-variant='primary'][disabled])
+                slot[name='end']::slotted(*) {
                 ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
             }
 
@@ -364,7 +364,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ${iconColor.cssCustomProperty}: white;
             }
 
-            :host([appearance-variant='accent'][disabled]) slot[name='start']::slotted(*) {
+            :host([appearance-variant='accent'][disabled])
+                slot[name='start']::slotted(*) {
                 ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
             }
 
@@ -372,7 +373,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 ${iconColor.cssCustomProperty}: white;
             }
 
-            :host([appearance-variant='accent'][disabled]) slot[name='end']::slotted(*) {
+            :host([appearance-variant='accent'][disabled])
+                slot[name='end']::slotted(*) {
                 ${iconColor.cssCustomProperty}: ${buttonLabelFontColor}
             }
         `
@@ -386,7 +388,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
             :host([appearance-variant='primary']) .control:hover {
                 background-color: transparent;
-                border-color: ${borderHoverColor}; 
+                border-color: ${borderHoverColor};
             }
 
             :host([appearance-variant='primary']) .control${focusVisible} {
@@ -419,5 +421,5 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 color: rgba(${actionRgbPartialColor}, 0.3);
             }
         `
-    ),
+    )
 );
