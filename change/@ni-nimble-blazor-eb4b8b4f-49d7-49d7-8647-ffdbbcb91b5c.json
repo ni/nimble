@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Pinned playwright devDep to latest nuget.org version",
+  "packageName": "@ni/nimble-blazor",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}

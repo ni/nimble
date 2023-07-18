@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Test updates to align with new FAST version",
+  "packageName": "@ni/nimble-components",
+  "email": "rajsite@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
