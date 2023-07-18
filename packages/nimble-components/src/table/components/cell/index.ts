@@ -30,7 +30,7 @@ export class TableCell<
     public column?: TableColumn;
 
     @observable
-    public rowRecordId?: string;
+    public recordId?: string;
 
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;

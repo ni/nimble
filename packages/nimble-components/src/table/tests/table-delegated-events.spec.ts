@@ -113,7 +113,7 @@ describe('Table delegated events', () => {
         pageObject.dispatchEventToCell(0, 0, clickEvent);
         expect(spy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({
-                detail: { originalEvent: clickEvent, rowRecordId: '0' }
+                detail: { originalEvent: clickEvent, recordId: '0' }
             })
         );
 
@@ -125,7 +125,7 @@ describe('Table delegated events', () => {
         pageObject.dispatchEventToCell(0, 0, keydownEvent);
         expect(spy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({
-                detail: { originalEvent: keydownEvent, rowRecordId: '0' }
+                detail: { originalEvent: keydownEvent, recordId: '0' }
             })
         );
     });
@@ -166,7 +166,7 @@ describe('Table delegated events', () => {
         pageObject.dispatchEventToCell(0, 0, clickEvent);
         expect(spy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({
-                detail: { originalEvent: clickEvent, rowRecordId: '1234' }
+                detail: { originalEvent: clickEvent, recordId: '1234' }
             })
         );
     });

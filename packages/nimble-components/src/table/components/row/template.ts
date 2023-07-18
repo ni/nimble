@@ -30,7 +30,7 @@ export const template = html<TableRow>`
                         :cellState="${x => x.cellState}"
                         :cellViewTemplate="${x => x.column.columnInternals.cellViewTemplate}"
                         :column="${x => x.column}"
-                        :rowRecordId="${(_x, c) => c.parent.recordId}"
+                        :recordId="${(_x, c) => c.parent.recordId}"
                         ?has-action-menu="${x => !!x.column.actionMenuSlot}"
                         action-menu-label="${x => x.column.actionMenuLabel}"
                         @cell-action-menu-beforetoggle="${(x, c) => c.parent.onCellActionMenuBeforeToggle(c.event as CustomEvent<MenuButtonToggleEventDetail>, x.column)}"

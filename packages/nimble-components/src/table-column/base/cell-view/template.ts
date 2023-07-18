@@ -25,7 +25,7 @@ export const createCellViewTemplate = (
             :cellRecord="${y => y.cellState?.cellRecord}"
             :columnConfig="${y => y.cellState?.columnConfig}"
             :column="${y => y.column}"
-            :rowRecordId="${y => y.rowRecordId}"
+            :recordId="${y => y.recordId}"
             class="cell-view"
         >
         </${cellViewTag}>

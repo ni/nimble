@@ -88,7 +88,7 @@ describe('TableCellView', () => {
             }
         });
 
-        element.rowRecordId = '0';
+        element.recordId = '0';
         element.column = delegatingColumn;
         element.dispatchEvent(new PointerEvent('click'));
         element.dispatchEvent(new KeyboardEvent('keydown'));
@@ -134,13 +134,13 @@ describe('TableCellView', () => {
         const spy = jasmine.createSpy();
         column.addEventListener('delegated-event', spy);
 
-        element.rowRecordId = 'foo';
+        element.recordId = 'foo';
         element.column = column;
         element.dispatchEvent(new PointerEvent('click'));
 
         expect(spy).toHaveBeenCalledOnceWith(
             jasmine.objectContaining({
-                detail: jasmine.objectContaining({ rowRecordId: 'foo' })
+                detail: jasmine.objectContaining({ recordId: 'foo' })
             })
         );
     });
