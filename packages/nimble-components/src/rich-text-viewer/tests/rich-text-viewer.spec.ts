@@ -63,6 +63,10 @@ describe('RichTextViewer', () => {
     });
 
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
+        afterEach(async () => {
+            await disconnect();
+        });
+
         it('should convert bold markdown string to "strong" HTML tag', async () => {
             element.markdown = '**Bold**';
 
@@ -70,8 +74,6 @@ describe('RichTextViewer', () => {
 
             expect(pageObject.getChildTags()).toEqual(['P', 'STRONG']);
             expect(pageObject.getLastChildTagContents()).toBe('Bold');
-
-            await disconnect();
         });
 
         it('should convert italics markdown string to "em" HTML tag', async () => {
@@ -81,8 +83,6 @@ describe('RichTextViewer', () => {
 
             expect(pageObject.getChildTags()).toEqual(['P', 'EM']);
             expect(pageObject.getLastChildTagContents()).toBe('Italics');
-
-            await disconnect();
         });
 
         it('should convert numbered list markdown string to "ol" and "li" HTML tags', async () => {
@@ -92,8 +92,6 @@ describe('RichTextViewer', () => {
 
             expect(pageObject.getChildTags()).toEqual(['OL', 'LI', 'P']);
             expect(pageObject.getLastChildTagContents()).toBe('Numbered list');
-
-            await disconnect();
         });
 
         it('should convert bulleted list markdown string to "ul" and "li" HTML tags', async () => {
@@ -103,8 +101,6 @@ describe('RichTextViewer', () => {
 
             expect(pageObject.getChildTags()).toEqual(['UL', 'LI', 'P']);
             expect(pageObject.getLastChildTagContents()).toBe('Bulleted list');
-
-            await disconnect();
         });
 
         it('should convert direct link markdown string to "a" tags with the link as the text content', async () => {
@@ -119,8 +115,6 @@ describe('RichTextViewer', () => {
             expect(pageObject.getLastChildAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
-
-            await disconnect();
         });
 
         it('should convert numbered list with bold markdown string to "ol", "li" and "strong" HTML tags', async () => {
@@ -137,8 +131,6 @@ describe('RichTextViewer', () => {
             expect(pageObject.getLastChildTagContents()).toBe(
                 'Numbered list in bold'
             );
-
-            await disconnect();
         });
 
         it('should convert bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', async () => {
@@ -150,8 +142,6 @@ describe('RichTextViewer', () => {
             expect(pageObject.getLastChildTagContents()).toBe(
                 'Bulleted list in italics'
             );
-
-            await disconnect();
         });
 
         it('should convert bulleted list with direct links markdown string to "ul", "li" and "a" HTML tags', async () => {
@@ -166,8 +156,6 @@ describe('RichTextViewer', () => {
             expect(pageObject.getLastChildAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
-
-            await disconnect();
         });
 
         it('should convert direct links in bold markdown string to "strong" and "a" HTML tags', async () => {
@@ -182,8 +170,6 @@ describe('RichTextViewer', () => {
             expect(pageObject.getLastChildAttribute('href')).toBe(
                 'https://nimble.ni.dev/'
             );
-
-            await disconnect();
         });
     });
 
