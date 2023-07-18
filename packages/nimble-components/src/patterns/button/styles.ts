@@ -63,7 +63,13 @@ export const styles = css`
         outline: none;
         margin: 0;
         padding: 0 ${standardPadding};
-        transition: box-shadow ${smallDelay};
+        position: relative;
+        transition: box-shadow ${smallDelay} ease-in-out,
+            border-color ${smallDelay} ease-in-out,
+            background-size ${smallDelay} ease-in-out;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     :host([content-hidden]) .control {
@@ -78,24 +84,53 @@ export const styles = css`
     }
 
     .control:hover {
+        border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        outline: none;
     }
 
     .control${focusVisible} {
+        border-color: ${borderHoverColor};
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        outline: ${borderWidth} solid ${borderHoverColor};
-        outline-offset: -4px;
     }
 
     .control:active {
         box-shadow: none;
-        outline: none;
+        background-image: linear-gradient(
+            ${fillSelectedColor},
+            ${fillSelectedColor}
+        );
+        background-size: calc(100% - 2px) calc(100% - 2px);
     }
 
     :host([disabled]) .control {
         box-shadow: none;
+        background-image: none;
+    }
+
+    .control::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        box-sizing: border-box;
+        outline: 0px solid transparent;
+        color: transparent;
+        background-clip: content-box;
+        transition: outline ${smallDelay} ease-in-out;
+    }
+
+    .control${focusVisible}::before {
+        outline: ${borderWidth} solid ${borderHoverColor};
+        outline-offset: -3px;
+    }
+
+    .control:active::before {
         outline: none;
+    }
+
+    :host([disabled]) .control::before {
+        box-shadow: none;
     }
 
     .content {
@@ -148,56 +183,30 @@ export const styles = css`
         ButtonAppearance.outline,
         css`
             .control {
-                background-color: transparent;
                 border-color: rgba(${actionRgbPartialColor}, 0.3);
             }
 
             .control:hover {
                 background-color: transparent;
-                border-color: ${borderHoverColor};
-            }
-
-            .control${focusVisible} {
-                background-color: transparent;
-                border-color: ${borderHoverColor};
-            }
-
-            .control:active {
-                background-color: ${fillSelectedColor};
-                border-color: ${fillSelectedColor};
             }
 
             :host([disabled]) .control {
-                background-color: transparent;
-                border-color: rgba(${borderRgbPartialColor}, 0.2);
+                border-color: rgba(${borderRgbPartialColor}, 0.3);
             }
         `
     ),
     appearanceBehavior(
         ButtonAppearance.ghost,
         css`
-            .control {
-                background-color: transparent;
-                border-color: transparent;
-            }
-
             .control:hover {
                 background-color: transparent;
-                border-color: ${borderHoverColor};
             }
 
             .control${focusVisible} {
                 background-color: transparent;
-                border-color: ${borderHoverColor};
-            }
-
-            .control:active {
-                background-color: ${fillSelectedColor};
-                border-color: ${fillSelectedColor};
             }
 
             :host([disabled]) .control {
-                background-color: transparent;
                 border-color: transparent;
             }
         `
@@ -207,26 +216,32 @@ export const styles = css`
         css`
             .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.1);
-                border-color: transparent;
             }
 
             .control:hover {
                 background-color: transparent;
-                border-color: ${borderHoverColor};
+                background-image: linear-gradient(
+                    rgba(${borderRgbPartialColor}, 0.1),
+                    rgba(${borderRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
             }
 
             .control${focusVisible} {
-                background-color: rgba(${borderRgbPartialColor}, 0.1);
-                border-color: ${borderHoverColor};
-            }
-
-            .control${focusVisible}:hover {
                 background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${borderRgbPartialColor}, 0.1),
+                    rgba(${borderRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
             }
 
             .control:active {
-                background-color: ${fillSelectedColor};
-                border-color: ${fillSelectedColor};
+                background-image: linear-gradient(
+                    ${fillSelectedColor},
+                    ${fillSelectedColor}
+                );
+                background-size: calc(100% - 2px) calc(100% - 2px);
             }
 
             :host([disabled]) .control {
@@ -255,7 +270,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             }
 
             :host([appearance-variant='primary']) .control:active {
-                box-shadow: none;
+                box-shadow: 0px 0px 0px ${borderWidth} ${fillSelectedColor}
+                    inset;
             }
 
             :host([appearance-variant='primary'][disabled]) .control {
@@ -267,10 +283,9 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
         ButtonAppearance.block,
         css`
             :host([appearance-variant='primary']) .control {
-                background-clip: padding-box;
                 border-color: rgba(${actionRgbPartialColor}, 0.3);
-                border-width: calc(2 * ${borderWidth});
-                padding: 0 calc(${standardPadding} - ${borderWidth});
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
             :host([appearance-variant='primary'][content-hidden]) .control {
@@ -279,7 +294,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
 
             :host([appearance-variant='primary']) .control:hover {
                 border-color: ${borderHoverColor};
-                box-shadow: none;
+                box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
             }
 
             :host([appearance-variant='primary']) .control${focusVisible} {
@@ -296,11 +311,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             }
 
             :host([appearance-variant='primary']) .control:active {
-                background-clip: border-box;
-                border-color: ${fillSelectedColor};
-                border-width: ${borderWidth};
                 box-shadow: none;
-                padding: 0 ${standardPadding};
             }
 
             :host([appearance-variant='primary'][content-hidden])
@@ -319,6 +330,11 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             :host([appearance-variant='primary'][disabled][content-hidden])
                 .control {
                 padding: 0px;
+            }
+
+            :host([appearance-variant='primary']) .control:active::before {
+                border-color: ${fillSelectedColor};
+                border-width: ${borderWidth};
             }
         `
     )

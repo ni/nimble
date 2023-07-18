@@ -1,8 +1,50 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 13 Jul 2023 23:41:13 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 17:19:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.7.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
+
+## 19.6.3
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- hide unused slots ([ni/nimble@05f9022](https://github.com/ni/nimble/commit/05f90223f3819e135ab38796f850814ac4c21a8e))
+
+## 19.6.2
+
+Mon, 17 Jul 2023 15:05:54 GMT
+
+### Patches
+
+- Initial code bring up for nimble-rich-text-editor component ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
+
+## 19.6.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Default appearance for buttons better matches visual design spec. Text is now semi-bold, border is more prominent when focused, and border hover color is changed for dark theme ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+- Bump @ni/nimble-tokens to v6.2.1
+
+## 19.6.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
+- Bump @ni/nimble-tokens to v6.2.0
 
 ## 19.5.0
 
