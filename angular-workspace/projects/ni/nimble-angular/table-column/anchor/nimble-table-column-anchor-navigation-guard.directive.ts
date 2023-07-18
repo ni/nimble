@@ -14,8 +14,8 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
     @Input()
     public clickDelegate?: ClickDelegate;
 
-    @HostListener('delegated-event', ['$event.detail.originalEvent', '$event.detail.rowRecordId'])
-    private onDelegatedEvent(delegatedEvent: Event, rowRecordId: string | undefined): void {
+    @HostListener('delegated-event', ['$event.detail.originalEvent', '$event.detail.recordId'])
+    private onDelegatedEvent(delegatedEvent: Event, recordId: string | undefined): void {
         if (delegatedEvent.type !== 'click') {
             return;
         }
@@ -32,7 +32,7 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
             return;
         }
 
-        if (this.clickDelegate && !this.clickDelegate(rowRecordId)) {
+        if (this.clickDelegate && !this.clickDelegate(recordId)) {
             clickEvent.preventDefault();
         }
     }
