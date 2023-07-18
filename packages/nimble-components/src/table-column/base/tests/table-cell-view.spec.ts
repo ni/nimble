@@ -125,7 +125,7 @@ describe('TableCellView', () => {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('passes row id in delegated event details', async () => {
+    it('passes record id in delegated event details', async () => {
         await connect();
 
         const column = document.createElement(
