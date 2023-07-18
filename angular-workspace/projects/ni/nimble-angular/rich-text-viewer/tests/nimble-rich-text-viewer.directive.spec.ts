@@ -43,8 +43,8 @@ describe('Nimble Rich Text Viewer', () => {
         });
 
         it('has expected defaults for markdown', () => {
-            expect(directive.markdown).toBe('');
-            expect(nativeElement.markdown).toBe('');
+            expect(directive.markdown).toBeUndefined();
+            expect(nativeElement.markdown).toBeUndefined();
         });
     });
 
