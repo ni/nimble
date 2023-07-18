@@ -60,13 +60,13 @@ export class WaferMap extends FoundationElement {
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     @attr
-    public origin: PointCoordinates = { x: 0, y: 0 };
+    public origin: PointCoordinates | undefined = undefined;
 
     @attr
-    public rows = 0;
+    public rows: number | undefined = undefined;
 
     @attr
-    public cols = 0;
+    public cols: number | undefined = undefined;
 
     /**
      * @internal

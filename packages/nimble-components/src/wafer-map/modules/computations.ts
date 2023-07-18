@@ -101,15 +101,17 @@ export class Computations {
             this._containerDimensions.width,
             this._containerDimensions.height
         );
-        let gridDimensions: GridDimensions = {
-            origin: this.wafermap.origin,
-            rows: this.wafermap.rows,
-            cols: this.wafermap.cols,
-        };
+        let gridDimensions: GridDimensions;
         if (this.wafermap.origin === undefined
             || this.wafermap.rows === undefined
             || this.wafermap.cols === undefined) {
             gridDimensions = this.calculateGridDimensions(this.wafermap.dies);
+        } else {
+            gridDimensions = {
+                origin: this.wafermap.origin,
+                rows: this.wafermap.rows,
+                cols: this.wafermap.cols,
+            };
         }
         // this scale is used for positioning the dies on the canvas
         const quadrant = this.wafermap.quadrant;
