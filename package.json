@@ -42,8 +42,12 @@
   ],
   "devDependencies": {
     "@lhci/cli": "^0.10.0",
-    "beachball": "^2.31.0",
+    "beachball": "2.31.6",
     "cross-env": "^7.0.3",
     "patch-package": "^6.4.7"
+  },
+  "overrides": {
+    "@storybook/addon-actions": "7.0.4",
+    "@storybook/html": "7.0.0"
   }
 }
