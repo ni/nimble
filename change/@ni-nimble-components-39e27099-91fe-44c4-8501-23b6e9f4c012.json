@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Fix icon color for disabled menu items",
+  "comment": "Fix icon color for disabled menu items and disabled text fields",
   "packageName": "@ni/nimble-components",
   "email": "20542556+mollykreis@users.noreply.github.com",
   "dependentChangeType": "patch"
