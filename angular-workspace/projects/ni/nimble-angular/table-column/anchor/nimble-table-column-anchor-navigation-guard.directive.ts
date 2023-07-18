@@ -4,7 +4,8 @@ import type { TableColumnAnchorCellView } from '@ni/nimble-components/dist/esm/t
 export type ClickDelegate = (rowRecordId: string | undefined) => boolean;
 
 /**
- * TODO
+ * Directive to allow client to intercept anchor clicks and do router navigation instead of
+ * letting the default action handle the navigation.
  */
 @Directive({
     selector: 'nimble-table-column-anchor[clickDelegate]'
@@ -20,6 +21,8 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
         }
 
         const clickEvent = delegatedEvent as MouseEvent;
+        // Only call the clickDelegate for plain left clicks.
+        // Those are the only ones that should potentially use the router.
         if (clickEvent.button !== 0 || clickEvent.ctrlKey || clickEvent.shiftKey || clickEvent.altKey || clickEvent.metaKey) {
             return;
         }
