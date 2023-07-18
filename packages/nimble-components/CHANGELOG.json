@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 18 Jul 2023 17:52:57 GMT",
+      "tag": "@ni/nimble-components_v19.8.0",
+      "version": "19.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3e74c7c767c44b51823449b6bfd0606838b99771",
+            "comment": "Add recordId to TableCell, TableCellView, and delegated event details"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 17:19:39 GMT",
       "tag": "@ni/nimble-components_v19.7.0",
       "version": "19.7.0",

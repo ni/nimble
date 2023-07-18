@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 17 Jul 2023 17:19:39 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jul 2023 17:52:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.8.0
+
+Tue, 18 Jul 2023 17:52:57 GMT
+
+### Minor changes
+
+- Add recordId to TableCell, TableCellView, and delegated event details ([ni/nimble@3e74c7c](https://github.com/ni/nimble/commit/3e74c7c767c44b51823449b6bfd0606838b99771))
 
 ## 19.7.0
 
