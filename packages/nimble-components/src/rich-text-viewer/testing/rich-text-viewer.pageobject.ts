@@ -8,40 +8,72 @@ export class RichTextViewerPageObject {
         private readonly richTextViewerElement: RichTextViewer
     ) {}
 
-    public getFirstChildTagContents(): string {
-        return this.getFirstMarkdownRenderedElement()?.textContent || '';
-    }
-
     public getLastChildTagContents(): string {
-        return this.getLastMarkdownRenderedElement()?.textContent || '';
+        return this.getLastChildMarkdownRenderedElement()?.textContent || '';
     }
 
     public getLastChildAttribute(attribute: string): string {
         return (
-            this.getLastMarkdownRenderedElement()?.getAttribute(attribute) || ''
+            this.getLastChildMarkdownRenderedElement()?.getAttribute(
+                attribute
+            ) || ''
         );
     }
 
-    public getChildTags(): string[] {
+    /**
+     * Retrieves the tag names of all descendant elements by traversing in a breadth-first manner(all parents, all children and so on.).
+     * @returns An array of tag names of the descendant elements.
+     */
+    public getDescendantTagsBreadthFirst(): string[] {
         const nestedTagNames = [];
-        let currentElement = this.getFirstMarkdownRenderedElement();
+        const queue = [this.getMarkdownRenderedElement()];
+        let isFirstElement = false;
 
-        while (currentElement) {
-            nestedTagNames.push(currentElement.tagName);
-            currentElement = currentElement?.firstElementChild;
+        while (queue.length > 0) {
+            const currentElement = queue.shift();
+            if (currentElement) {
+                // The first element, which is the "Div" element of the viewer component, is ignored.
+                if (isFirstElement) {
+                    nestedTagNames.push(currentElement.tagName);
+                } else {
+                    isFirstElement = true;
+                }
+
+                const { children } = currentElement;
+                queue.push(...Array.from(children));
+            }
         }
         return nestedTagNames;
     }
 
-    private getFirstMarkdownRenderedElement(): Element | null | undefined {
-        return this.richTextViewerElement.shadowRoot?.querySelector('.viewer')
-            ?.firstElementChild;
+    /**
+     * Retrieves the text contents of elements that have no descendants (children or grandchildren).
+     * It performs a breadth-first traversal starting from the root element.
+     * @returns An array of text contents of elements without any descendants.
+     */
+    public getNoDescendantTextContents(): string[] {
+        const nestedTextContents = [];
+        const queue = [this.getMarkdownRenderedElement()];
+
+        while (queue.length > 0) {
+            const currentElement = queue.shift();
+            if (currentElement) {
+                const { children, textContent } = currentElement;
+                if (children.length === 0) {
+                    nestedTextContents.push(textContent || '');
+                }
+                queue.push(...Array.from(children));
+            }
+        }
+        return nestedTextContents;
     }
 
-    private getLastMarkdownRenderedElement(): Element | null | undefined {
-        let lastElement = this.richTextViewerElement.shadowRoot?.querySelector(
-            '.viewer'
-        )?.lastElementChild;
+    private getMarkdownRenderedElement(): Element | null | undefined {
+        return this.richTextViewerElement.shadowRoot?.querySelector('.viewer');
+    }
+
+    private getLastChildMarkdownRenderedElement(): Element | null | undefined {
+        let lastElement = this.getMarkdownRenderedElement()?.lastElementChild;
 
         while (lastElement?.lastElementChild) {
             lastElement = lastElement?.lastElementChild;
