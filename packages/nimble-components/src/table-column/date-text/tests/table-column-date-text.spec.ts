@@ -7,10 +7,10 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
-    noPlaceholder?: string | null;
     anotherField?: number | null;
 }
 
@@ -21,8 +21,8 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 <${tableColumnDateTextTag} field-name="field" placeholder="no value" group-index="0">
                     Column 1
                 </${tableColumnDateTextTag}>
-                <${tableColumnDateTextTag} field-name="noPlaceholder">
-                    Column 2
+                <${tableColumnDateTextTag} field-name="anotherField">
+                    Squeeze Column 1
                 </${tableColumnDateTextTag}>
             </nimble-table>`
     );
@@ -32,11 +32,13 @@ describe('TableColumnDateText', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let pageObject: TablePageObject<SimpleTableRecord>;
+    let tablePageObject: TablePageObject<SimpleTableRecord>;
+    let pageObject: TableColumnDateTextPageObject<SimpleTableRecord>;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        tablePageObject = new TablePageObject<SimpleTableRecord>(element);
+        pageObject = new TableColumnDateTextPageObject(tablePageObject);
     });
 
     afterEach(async () => {
@@ -177,9 +179,9 @@ describe('TableColumnDateText', () => {
         ]);
         await connect();
         await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
-        expect(pageObject.getCellTitle(0, 0)).toEqual(
+        expect(tablePageObject.getCellTitle(0, 0)).toEqual(
             'Dec 10, 2012, 10:35:05 PM'
         );
     });
@@ -190,9 +192,9 @@ describe('TableColumnDateText', () => {
         ]);
         await connect();
         await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
-        expect(pageObject.getCellTitle(0, 0)).toEqual('');
+        expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
     });
 
     it('removes title on mouseout of cell', async () => {
@@ -202,11 +204,11 @@ describe('TableColumnDateText', () => {
         ]);
         await connect();
         await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
-        pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
+        tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
         await waitForUpdatesAsync();
-        expect(pageObject.getCellTitle(0, 0)).toEqual('');
+        expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
     });
 
     describe('placeholder assigned various strings render as expected', () => {
@@ -256,7 +258,7 @@ describe('TableColumnDateText', () => {
                     await waitForUpdatesAsync();
 
                     expect(
-                        pageObject.getRenderedGroupHeaderContent(0)
+                        tablePageObject.getRenderedGroupHeaderContent(0)
                     ).toContain(value.name);
                 }
             );

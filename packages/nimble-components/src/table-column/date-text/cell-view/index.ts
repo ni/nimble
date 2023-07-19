@@ -31,9 +31,7 @@ TableColumnDateTextColumnConfig
                 timeStyle: 'medium'
             });
             try {
-                this.text = formatter
-                    .format(this.cellRecord.value)
-                    .replace('\u202f', ' '); // on Chrome, the space before AM/PM is a narrow non-breaking space. For testing consistency across browsers, replace it with a regular space.
+                this.text = formatter.format(this.cellRecord.value);
                 this.shouldUsePlaceholder = false;
             } catch (e) {
                 this.text = '';
