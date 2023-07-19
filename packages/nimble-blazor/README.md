@@ -78,7 +78,11 @@ To test out your changes, do "Debug" >> "Start without Debugging" in Visual Stud
 
 More complete examples can be found in the Demo.Client/Server example projects.
 
-### Using Nimble Design Tokens (CSS/SCSS)
+### Theming and Design Tokens
+
+To use Nimble's theme-aware design tokens in a Blazor app, you should have a `<NimbleThemeProvider>` element as an ancestor to all of the Nimble components you use. The app's default layout (`MainLayout.razor` in the examples) is a good place to put the theme provider (as the root content of the page).
+
+#### Using Nimble Design Tokens (CSS/SCSS)
 
 Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.  
 For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Theme-aware tokens"](https://nimble.ni.dev/storybook/?path=/story/tokens-theme-aware-tokens--theme-aware-tokens&args=propertyFormat:CSS).
@@ -93,6 +97,22 @@ There are currently extra manual steps required to use the Nimble design tokens 
 
 The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.  
 Note: This approach requires periodically updating the Nimble tokens SCSS files manually (whenever the Nimble Blazor NuGet version is updated).
+
+### Localization
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English.
+
+To provide localized strings in a localized Blazor app:
+1. Add the label providers as children of your `<NimbleThemeProvider>`:
+    - `<NimbleLabelProviderCore>`: Used for labels for all components besides the table
+    - `<NimbleLabelProviderTable>`: Used for labels for the table (and table sub-components / column types)
+2. For each Nimble-provided label shown in the [Label Provider Storybook documentation](https://nimble.ni.dev/storybook/?path=/docs/tokens-label-providers--docs):
+    - Add a new entry for the label in a resource file (`.resx`). You can either add to an existing resx file, or create a new one just for the Nimble strings. The resource value should be the Nimble-provided English default string shown in Storybook.
+    - Follow [standard Blazor localization patterns](https://learn.microsoft.com/en-us/aspnet/core/blazor/globalization-localization) to localize the strings, and load the localized versions at runtime in your application.
+    - Provide Nimble the localized strings with the label provider APIs. For example, to provide the `popupDismiss` label on `NimbleLabelProviderCore`, if you load your string resources with a .NET `IStringLocalizer` instance, your label provider may look like the following:
+        ```xml
+        <NimbleLabelProviderCore PopupDismiss="@LabelStringLocalizer["popupDismiss"]"></NimbleLabelProviderCore>
+        ```
 
 ### Using Nimble Blazor in a Blazor Hybrid app
 
