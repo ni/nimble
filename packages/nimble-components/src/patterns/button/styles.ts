@@ -307,6 +307,14 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
     appearanceBehavior(
         ButtonAppearance.block,
         css`
+            :host([appearance-variant='primary']) [part='start'] {
+                ${iconColor.cssCustomProperty}: white;
+            }
+
+            :host([appearance-variant='primary'][disabled]) slot[name='start'] {
+                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+            }
+
             :host([appearance-variant='primary']) .control {
                 background-color: ${buttonPrimaryBackgroundColor};
                 color: ${buttonPrimaryFontColor};
@@ -346,21 +354,19 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 background-image: none;
             }
 
-            :host([appearance-variant='primary']) [part='start'] {
-                ${iconColor.cssCustomProperty}: white;
-            }
-
-            :host([appearance-variant='primary'][disabled])
-                slot[name='start']::slotted(*) {
-                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
-            }
-
             :host([appearance-variant='primary']) [part='end'] {
                 ${iconColor.cssCustomProperty}: white;
             }
 
-            :host([appearance-variant='primary'][disabled])
-                slot[name='end']::slotted(*) {
+            :host([appearance-variant='primary'][disabled]) slot[name='end'] {
+                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+            }
+
+            :host([appearance-variant='accent']) [part='start'] {
+                ${iconColor.cssCustomProperty}: white;
+            }
+
+            :host([appearance-variant='accent'][disabled]) slot[name='start'] {
                 ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
             }
 
@@ -403,21 +409,11 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 background-image: none;
             }
 
-            :host([appearance-variant='accent']) [part='start'] {
-                ${iconColor.cssCustomProperty}: white;
-            }
-
-            :host([appearance-variant='accent'][disabled])
-                slot[name='start']::slotted(*) {
-                ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
-            }
-
             :host([appearance-variant='accent']) [part='end'] {
                 ${iconColor.cssCustomProperty}: white;
             }
 
-            :host([appearance-variant='accent'][disabled])
-                slot[name='end']::slotted(*) {
+            :host([appearance-variant='accent'][disabled]) slot[name='end'] {
                 ${iconColor.cssCustomProperty}: ${buttonLabelFontColor}
             }
         `
