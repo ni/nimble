@@ -5,6 +5,7 @@ import {
     incubatingWarning
 } from '../../utilities/tests/storybook';
 import { richTextEditorTag } from '..';
+import { buttonTag } from '../../button';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs {}
@@ -27,7 +28,12 @@ const metadata: Meta<RichTextEditorArgs> = {
         componentName: 'rich text editor',
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
-        <${richTextEditorTag}></${richTextEditorTag}>
+        <div style="max-height: 100px">
+            <${richTextEditorTag}>
+                <${buttonTag} slot="footer">Cancel</${buttonTag}>
+                <${buttonTag} slot="footer">Ok</${buttonTag}>
+            </${richTextEditorTag}>
+        </div>
     `)
 };
 

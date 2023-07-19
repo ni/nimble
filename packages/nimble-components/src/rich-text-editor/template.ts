@@ -1,4 +1,4 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../toolbar';
 import { toggleButtonTag } from '../toggle-button';
@@ -10,19 +10,19 @@ import { iconListTag } from '../icons/list';
 export const template = html<RichTextEditor>`
     <template>
         <div class="container">
-            <div id="editor" class="editor"></div>
+            <div ${ref('editor')} class="editor"></div>
             <section class="footer-section">
                 <${toolbarTag} class="footer-toolbar" >
-                    <${toggleButtonTag} content-hidden appearance="ghost" slot="start">
+                    <${toggleButtonTag} ${ref('bold')} @click=${x => x.boldButtonClickHandler()} content-hidden appearance="ghost" slot="start">
                         <${iconBoldBTag} slot="start"></${iconBoldBTag}>
                     </${toggleButtonTag}>
-                    <${toggleButtonTag} content-hidden appearance="ghost" slot="start">
+                    <${toggleButtonTag} ${ref('italics')} @click=${x => x.italicButtonClickHandler()} content-hidden appearance="ghost" slot="start">
                         <${iconItalicITag} slot="start"></${iconItalicITag}>
                     </${toggleButtonTag}>
-                    <${toggleButtonTag} content-hidden appearance="ghost" slot="start">
+                    <${toggleButtonTag} ${ref('bulletList')} @click=${x => x.bulletListButtonClickHandler()} content-hidden appearance="ghost" slot="start">
                         <${iconListTag} slot="start"></${iconListTag}>
                     </${toggleButtonTag}>
-                    <${toggleButtonTag} content-hidden appearance="ghost" slot="start">
+                    <${toggleButtonTag} ${ref('numberedList')} @click=${x => x.numberedListButtonClickHandler()} content-hidden appearance="ghost" slot="start">
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
                 </${toolbarTag}>

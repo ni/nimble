@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, linkActiveFontColor, linkFontColor, smallPadding } from '../theme-provider/design-tokens';
+import { bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, linkActiveFontColor, linkFontColor, smallDelay, smallPadding, standardPadding } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -12,33 +12,57 @@ export const styles = css`
         inline-size: auto;
         block-size: 100%;
         flex-direction: column;
+        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
     }
 
     .container {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        max-block-size: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
         border-bottom-color: ${borderHoverColor};
+        min-inline-size: 350px;
     }
 
-    .container:focus-within {
-        border: ${borderWidth} solid ${borderHoverColor};
+    .container::after {
+        content: ' ';
+        position: absolute;
+        bottom: calc(-1 * ${borderWidth});
+        inline-size: 0px;
+        block-size: 0px;
+        border-bottom: ${borderHoverColor}
+            var(--ni-private-hover-indicator-width) solid;
+        transition: width ${smallDelay} ease-in;
+    }
+
+    @media (prefers-reduced-motion) {
+        .container::after {
+            transition-duration: 0s;
+        }
+    }
+
+    :host(:hover) .container::after {
+        inline-size: 100%;
     }
 
     .editor {
         border: ${borderWidth} solid transparent;
         border-bottom-color: rgba(${borderRgbPartialColor}, 0.1);
         border-radius: 0px;
-        min-inline-size: 350px;
+        block-size: calc(100% - 42px);
+        overflow: auto;
     }
     
     .ProseMirror {
         min-block-size: 45px;
         block-size: 100%;
-        overflow: auto;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
         background-color: transparent;
         font: inherit;
-        padding: ${smallPadding};
+        padding: ${standardPadding};
+        padding-block-end: ${smallPadding};
         box-sizing: border-box;
         position: relative;
         color: inherit;
@@ -73,7 +97,8 @@ export const styles = css`
         display: flex; 
         justify-content: space-between;
         border: 0px;
-        min-inline-size: 350px;
+        block-size: 40px;
+        overflow-y: auto;
     }
 
     nimble-toolbar::part(positioning-region) {
@@ -81,10 +106,14 @@ export const styles = css`
     }
 
     nimble-toolbar::part(start) {
-        gap: 0px;
+        gap: 8px;
     }
 
-    :host:focus-within {
-        border: ${borderWidth} solid ${borderHoverColor};
+    .footer-actions {
+        display: flex;
+        margin-inline-end: ${standardPadding};
+        justify-content: flex-end;
+        gap: 16px;
+        place-items: center;
     }
 `;
