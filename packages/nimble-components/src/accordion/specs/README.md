@@ -1,22 +1,22 @@
-# Nimble Component Name [Template]
+# Nimble Accordion 
 
 ## Overview
 
-*The name of the component, along with a high-level description.*
+The `nimble-accordion` is a vertical stack of interactive headings. The headings are controls that can be used to reveal or hide content in specific sections. The Nimble accordion is based upon [FAST's accordion component](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-foundation/src/accordion)
 
 ### Background
 
-*Relevant historical or background information*
-*Link to Visual Design spec*
-*Link to relevant work items, related existing issues, etc.*
+[Nimble issue #533: nimble-accordion Component](https://github.com/ni/nimble/issues/533)
+
+[Visual Design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-85131&mode=design&t=DxDRlqT7MeCPLOxi-0)
 
 ---
 
 ## Design
 
-*Include code snippets showing basic component use and any interesting configurations.*
+Include code snippets showing basic component use and any interesting configurations.
 
-*For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.*
+For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.
 
 ### API
 
