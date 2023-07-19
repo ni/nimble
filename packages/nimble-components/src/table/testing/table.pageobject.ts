@@ -245,35 +245,17 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
 
-        const collapseButton = this.getCollapseAllButton();
-        const buttonWidth = collapseButton!.getBoundingClientRect().width;
-        const buttonStyle = window.getComputedStyle(collapseButton!);
         table.style.width = `${
             rowWidth
-            + buttonWidth
-            + parseFloat(buttonStyle.marginLeft)
-            + parseFloat(buttonStyle.marginRight)
+            + table.headerRowActionContainer.getBoundingClientRect().width
+            + table.virtualizer.headerContainerMarginRight
         }px`;
         await waitForUpdatesAsync();
     }
 
-    public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
-        if (columnIndex >= this.tableElement.columns.length) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        const row = this.getRow(rowIndex);
-        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= (cells?.length ?? 0)) {
-            throw new Error(
-                'Attempting to index past the total number of cells'
-            );
-        }
-
-        const columnCell = cells![columnIndex]!;
-        return columnCell.getBoundingClientRect().width;
+    public getCellRenderedWidth(rowIndex: number, columnIndex: number): number {
+        const cell = this.getCell(rowIndex, columnIndex);
+        return cell.getBoundingClientRect().width;
     }
 
     public getTotalCellRenderedWidth(): number {
@@ -457,6 +439,112 @@ export class TablePageObject<T extends TableRecord> {
             } as KeyboardEventInit);
             document.dispatchEvent(shiftKeyUpEvent);
         }
+    }
+
+    /**
+     * @param columnIndex The index of the column to the left of a divider being dragged. Thus, this
+     * can not be given a value representing the last visible column index.
+     * @param deltas The series of mouse movements in the x-direction while sizing a column.
+     */
+    public dragSizeColumnByRightDivider(
+        columnIndex: number,
+        deltas: number[]
+    ): void {
+        const divider = this.getColumnRightDivider(columnIndex);
+        if (!divider) {
+            throw new Error(
+                'The provided column index has no right divider associated with it.'
+            );
+        }
+        const dividerRect = divider.getBoundingClientRect();
+        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: currentMouseX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+
+        for (const delta of deltas) {
+            currentMouseX += delta;
+            const mouseMoveEvent = new MouseEvent('mousemove', {
+                clientX: currentMouseX
+            });
+            document.dispatchEvent(mouseMoveEvent);
+        }
+
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+    }
+
+    /**
+     * @param columnIndex The index of the column to the right of a divider being dragged. Thus, this
+     * value must be greater than 0 and less than the total number of visible columns.
+     * @param deltas The series of mouse movements in the x-direction while sizing a column.
+     */
+    public dragSizeColumnByLeftDivider(
+        columnIndex: number,
+        deltas: number[]
+    ): void {
+        const divider = this.getColumnLeftDivider(columnIndex);
+        if (!divider) {
+            throw new Error(
+                'The provided column index has no left divider associated with it.'
+            );
+        }
+        const dividerRect = divider.getBoundingClientRect();
+        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: currentMouseX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+
+        for (const delta of deltas) {
+            currentMouseX += delta;
+            const mouseMoveEvent = new MouseEvent('mousemove', {
+                clientX: currentMouseX
+            });
+            document.dispatchEvent(mouseMoveEvent);
+        }
+
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+    }
+
+    public getColumnRightDivider(index: number): HTMLElement | null {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (index < 0 || index >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
+            );
+        }
+
+        return headerContainers[index]!.querySelector('.column-divider.right');
+    }
+
+    public getColumnLeftDivider(index: number): HTMLElement | null {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (index < 0 || index >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
+            );
+        }
+
+        return headerContainers[index]!.querySelector('.column-divider.left');
+    }
+
+    public isHorizontalScrollbarVisible(): boolean {
+        return (
+            this.tableElement.viewport.clientHeight
+            !== this.tableElement.viewport.getBoundingClientRect().height
+        );
+    }
+
+    public isVerticalScrollbarVisible(): boolean {
+        return (
+            this.tableElement.viewport.clientWidth
+            !== this.tableElement.viewport.getBoundingClientRect().width
+        );
     }
 
     public getSortedColumns(): SortedColumn[] {
