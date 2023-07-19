@@ -181,7 +181,7 @@ describe('TableColumnDateText', () => {
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
-        expect(tablePageObject.getCellTitle(0, 0)).toEqual(
+        expect(pageObject.getCellTitle(0, 0)).toEqual(
             'Dec 10, 2012, 10:35:05 PM'
         );
     });
@@ -194,7 +194,7 @@ describe('TableColumnDateText', () => {
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
-        expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
+        expect(pageObject.getCellTitle(0, 0)).toEqual('');
     });
 
     it('removes title on mouseout of cell', async () => {
@@ -208,7 +208,7 @@ describe('TableColumnDateText', () => {
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
         await waitForUpdatesAsync();
-        expect(tablePageObject.getCellTitle(0, 0)).toEqual('');
+        expect(pageObject.getCellTitle(0, 0)).toEqual('');
     });
 
     describe('placeholder assigned various strings render as expected', () => {
@@ -263,5 +263,16 @@ describe('TableColumnDateText', () => {
                 }
             );
         }
+    });
+
+    it('sets group header text as expected', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await connect();
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+            'Dec 10, 2012, 10:35:05 PM'
+        );
     });
 });

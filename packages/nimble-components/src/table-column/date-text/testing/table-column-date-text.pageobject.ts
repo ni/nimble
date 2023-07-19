@@ -3,7 +3,9 @@ import type { TableRecord } from '../../../table/types';
 import { TableColumnDateTextCellView } from '../cell-view';
 
 /**
- * Page object for date text table column
+ * Page object for date text table column.
+ * On Chrome, in a formatted date, the space before AM/PM is a narrow non-breaking space.
+ * For testing consistency across browsers, replace it with a regular space.
  */
 export class TableColumnDateTextPageObject<T extends TableRecord> {
     public constructor(private readonly tablePageObject: TablePageObject<T>) {}
@@ -12,6 +14,26 @@ export class TableColumnDateTextPageObject<T extends TableRecord> {
         rowIndex: number,
         columnIndex: number
     ): string {
+        this.verifyCellType(rowIndex, columnIndex);
+        return this.tablePageObject
+            .getRenderedCellContent(rowIndex, columnIndex)
+            .replace('\u202f', ' ');
+    }
+
+    public getRenderedGroupHeaderContent(groupRowIndex: number): string {
+        return this.tablePageObject
+            .getRenderedGroupHeaderContent(groupRowIndex)
+            .replace('\u202f', ' ');
+    }
+
+    public getCellTitle(rowIndex: number, columnIndex: number): string {
+        this.verifyCellType(rowIndex, columnIndex);
+        return this.tablePageObject
+            .getCellTitle(rowIndex, columnIndex)
+            .replace('\u202f', ' ');
+    }
+
+    private verifyCellType(rowIndex: number, columnIndex: number): void {
         const cell = this.tablePageObject.getRenderedCellView(
             rowIndex,
             columnIndex
@@ -19,10 +41,5 @@ export class TableColumnDateTextPageObject<T extends TableRecord> {
         if (!(cell instanceof TableColumnDateTextCellView)) {
             throw new Error('Cell is not in a date text column');
         }
-        const rawValue = cell.shadowRoot!.textContent;
-
-        // on Chrome, the space before AM/PM is a narrow non-breaking space.
-        // For testing consistency across browsers, replace it with a regular space.
-        return rawValue?.trim().replace('\u202f', ' ') ?? '';
     }
 }
