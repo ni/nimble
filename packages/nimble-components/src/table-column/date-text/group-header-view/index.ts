@@ -27,10 +27,15 @@ TableColumnDateTextColumnConfig
                 dateStyle: 'medium',
                 timeStyle: 'medium'
             });
-            this.text = formatter
-                .format(this.groupHeaderValue)
-                .replace('\u202f', ' '); // on Chrome, the space before AM/PM is a narrow non-breaking space. For testing consistency across browsers, replace it with a regular space.
-            this.shouldUsePlaceholder = false;
+            try {
+                this.text = formatter
+                    .format(this.groupHeaderValue)
+                    .replace('\u202f', ' '); // on Chrome, the space before AM/PM is a narrow non-breaking space. For testing consistency across browsers, replace it with a regular space.
+                this.shouldUsePlaceholder = false;
+            } catch (e) {
+                this.text = '';
+                this.shouldUsePlaceholder = true;
+            }
         } else {
             this.text = '';
             this.shouldUsePlaceholder = true;

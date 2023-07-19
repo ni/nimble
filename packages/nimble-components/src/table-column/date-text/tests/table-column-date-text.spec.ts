@@ -52,12 +52,33 @@ describe('TableColumnDateText', () => {
         expect(firstColumn.checkValidity()).toBeTrue();
     });
 
-    const noValueData = [
+    const badValueData = [
         { description: 'field not present', data: [{ unused: 'foo' }] },
         { description: 'value is null', data: [{ field: null }] },
-        { description: 'value is undefined', data: [{ field: undefined }] }
+        { description: 'value is undefined', data: [{ field: undefined }] },
+        {
+            description: 'value is Inf',
+            data: [{ field: Number.POSITIVE_INFINITY }]
+        },
+        {
+            description: 'value is -Inf',
+            data: [{ field: Number.NEGATIVE_INFINITY }]
+        },
+        { description: 'value is NaN', data: [{ field: Number.NaN }] },
+        {
+            description: 'value is MAX_VALUE',
+            data: [{ field: Number.MAX_VALUE }]
+        },
+        {
+            description: 'value is too large for Date',
+            data: [{ field: 8640000000000000 + 1 }]
+        },
+        {
+            description: 'value is too small for Date',
+            data: [{ field: -8640000000000000 - 1 }]
+        }
     ];
-    for (const testData of noValueData) {
+    for (const testData of badValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         it(`displays placeholder string when ${testData.description}`, async () => {
             await element.setData(testData.data);
