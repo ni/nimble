@@ -1,3 +1,4 @@
+import { observable } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
@@ -7,15 +8,24 @@ import type { TableRecord } from '../types';
  * @interal
  */
 export class TableLayoutManager<TData extends TableRecord> {
+    @observable
+    public isColumnBeingSized = false;
+
+    @observable
+    public activeColumnIndex?: number;
+
     private activeColumnDivider?: number;
-    private pointerId?: number;
-    private activeDividerElement?: HTMLElement;
     private gridSizedColumns?: TableColumn[];
+    private visibleColumns: TableColumn[] = [];
     private initialTableScrollableWidth?: number;
     private initialTableScrollableMinWidth?: number;
     private initialColumnTotalWidth?: number;
     private currentTotalDelta = 0;
+    private dragStart = 0;
+    private leftColumnIndex?: number;
+    private rightColumnIndex?: number;
     private initialColumnPixelWidths: {
+        initalColumnFractionalWidth: number,
         initialPixelWidth: number,
         minPixelWidth: number
     }[] = [];
@@ -45,46 +55,47 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     /**
      * Sets up state related to interactively sizing a column.
-     * @param columnIndex The column index currently being hovered over
-     * @param activeColumnDivider The divider that was clicked on (columnIndex - 1 for left divider, columnIndex for right)
+     * @param dragStart The x-position from which a column size was started
+     * @param activeColumnDivider The divider that was clicked on
      */
-    public beginColumnInteractiveSize(activeColumnDivider: number, activeDividerElement: HTMLElement, pointerId: number): void {
+    public beginColumnInteractiveSize(
+        dragStart: number,
+        activeColumnDivider: number
+    ): void {
         this.activeColumnDivider = activeColumnDivider;
-        this.activeDividerElement = activeDividerElement;
-        this.pointerId = pointerId;
+        this.leftColumnIndex = this.getLeftColumnIndexFromDivider(
+            this.activeColumnDivider
+        );
+        this.rightColumnIndex = this.leftColumnIndex + 1;
+        this.activeColumnIndex = this.leftColumnIndex + (this.activeColumnDivider % 2);
+        this.dragStart = dragStart;
         this.currentTotalDelta = 0;
-        this.initialColumnPixelWidths = [];
-        this.flagActiveColumnDividers();
+        this.visibleColumns = this.getVisibleColumns();
         this.setColumnsToFixedSize();
         this.initialTableScrollableWidth = this.table.viewport.scrollWidth;
         this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
-        this.table.isColumnBeingSized = true;
-        // this.activeDividerElement.releasePointerCapture(pointerId);
-        document.addEventListener('pointermove', this.onDividerMouseMove);
-        document.addEventListener('pointerup', this.onDividerMouseUp);
+        this.isColumnBeingSized = true;
+        document.addEventListener('mousemove', this.onDividerMouseMove);
+        document.addEventListener('mouseup', this.onDividerMouseUp);
     }
 
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;
-        const deltaX = mouseEvent.movementX > 0
-            ? Math.floor(mouseEvent.movementX)
-            : Math.ceil(mouseEvent.movementX);
-        this.currentTotalDelta += deltaX;
-        const visibleColumns = this.getVisibleColumns();
-        for (let i = 0; i < visibleColumns.length; i++) {
-            visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
+        for (let i = 0; i < this.visibleColumns.length; i++) {
+            this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
         }
-        this.currentTotalDelta = this.pinColumnSizeDelta(
-            this.activeColumnDivider!,
+        this.currentTotalDelta = this.getAllowedSizeDelta(
+            mouseEvent.clientX - this.dragStart
+        );
+        this.performCascadeSizeLeft(
+            this.leftColumnIndex!,
             this.currentTotalDelta
         );
-        const leftColumnIndex = this.getLeftColumnIndexFromDivider(
-            this.activeColumnDivider!
+        this.performCascadeSizeRight(
+            this.rightColumnIndex!,
+            this.currentTotalDelta
         );
-        const rightColumnIndex = leftColumnIndex + 1;
-        this.performCascadeSizeLeft(leftColumnIndex, this.currentTotalDelta);
-        this.performCascadeSizeRight(rightColumnIndex, this.currentTotalDelta);
 
         const totalColumnWidthDelta = this.getTotalColumnFixedWidth() - this.initialColumnTotalWidth!;
         if (totalColumnWidthDelta > 0) {
@@ -95,16 +106,16 @@ export class TableLayoutManager<TData extends TableRecord> {
     };
 
     private readonly onDividerMouseUp = (): void => {
-        document.removeEventListener('pointermove', this.onDividerMouseMove);
-        document.removeEventListener('pointerup', this.onDividerMouseUp);
-        this.unflagActiveColumnDividers();
+        document.removeEventListener('mousemove', this.onDividerMouseMove);
+        document.removeEventListener('mouseup', this.onDividerMouseUp);
         this.resetGridSizedColumns();
-        this.table.isColumnBeingSized = false;
+        this.isColumnBeingSized = false;
+        this.activeColumnIndex = undefined;
     };
 
     private getTotalColumnFixedWidth(): number {
         let totalColumnFixedWidth = 0;
-        for (const column of this.getVisibleColumns()) {
+        for (const column of this.visibleColumns) {
             totalColumnFixedWidth
                 += column.columnInternals.currentPixelWidth ?? 0;
         }
@@ -113,38 +124,30 @@ export class TableLayoutManager<TData extends TableRecord> {
 
     private setColumnsToFixedSize(): void {
         this.cacheGridSizedColumns();
-        const headers = this.table.columnHeadersContainer.querySelectorAll(
-            '.header-container'
-        );
-        const visibleColumns = this.getVisibleColumns();
+        const headers = this.table.getHeaderContainerElements();
         for (let i = 0; i < headers.length; i++) {
-            visibleColumns[i]!.columnInternals.currentPixelWidth = headers[i]!.getBoundingClientRect().width;
+            this.visibleColumns[i]!.columnInternals.currentPixelWidth = headers[i]!.getBoundingClientRect().width;
         }
         this.cacheColumnInitialPixelWidths();
     }
 
-    private pinColumnSizeDelta(
-        activeDividerIndex: number,
-        delta: number
-    ): number {
+    private getAllowedSizeDelta(requestedResizeAmount: number): number {
         let availableSpace = 0;
-        if (delta > 0) {
+        if (requestedResizeAmount > 0) {
             // size right
-            availableSpace = delta;
-        } else if (delta < 0) {
-            // size left
-            let currentIndex = this.getLeftColumnIndexFromDivider(activeDividerIndex);
-            while (currentIndex >= 0) {
-                const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
-                availableSpace
-                    += Math.floor(columnInitialWidths.initialPixelWidth)
-                    - columnInitialWidths.minPixelWidth;
-                currentIndex -= 1;
-            }
+            return requestedResizeAmount;
         }
-        return delta > 0
-            ? Math.min(delta, availableSpace)
-            : Math.max(delta, -availableSpace);
+
+        // size left
+        let currentIndex = this.leftColumnIndex!;
+        while (currentIndex >= 0) {
+            const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
+            availableSpace
+                += columnInitialWidths.initialPixelWidth
+                - columnInitialWidths.minPixelWidth;
+            currentIndex -= 1;
+        }
+        return Math.max(requestedResizeAmount, -availableSpace);
     }
 
     private performCascadeSizeLeft(
@@ -161,7 +164,7 @@ export class TableLayoutManager<TData extends TableRecord> {
             )
             : delta;
         const actualDelta = Math.round(allowedDelta);
-        const leftColumn = this.getVisibleColumns()[leftColumnIndex]!;
+        const leftColumn = this.visibleColumns[leftColumnIndex]!;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
         if (actualDelta > currentDelta && leftColumnIndex > 0 && delta < 0) {
@@ -184,13 +187,12 @@ export class TableLayoutManager<TData extends TableRecord> {
             )
             : delta;
         const actualDelta = Math.round(allowedDelta);
-        const visibleColumns = this.getVisibleColumns();
-        const rightColumn = visibleColumns[rightColumnIndex]!;
+        const rightColumn = this.visibleColumns[rightColumnIndex]!;
         rightColumn.columnInternals.currentPixelWidth! -= actualDelta;
 
         if (
             actualDelta < currentDelta
-            && rightColumnIndex < visibleColumns.length - 1
+            && rightColumnIndex < this.visibleColumns.length - 1
             && delta > 0
         ) {
             currentDelta -= allowedDelta;
@@ -198,34 +200,9 @@ export class TableLayoutManager<TData extends TableRecord> {
         }
     }
 
-    private flagActiveColumnDividers(): void {
-        const visibleColumnLength = this.getVisibleColumns().length;
-        const leftDividerIndex = this.activeColumnDivider! > 0
-            ? this.activeColumnDivider!
-                  - ((this.activeColumnDivider! + 1) % 2)
-            : 0;
-        const rightDividerIndex = leftDividerIndex === 0
-            || leftDividerIndex === visibleColumnLength + 1
-            ? leftDividerIndex
-            : leftDividerIndex + 1;
-        const dividers = this.table.shadowRoot!.querySelectorAll('.column-divider');
-        Array.from(dividers).forEach((divider, i) => {
-            if (i === leftDividerIndex || i === rightDividerIndex) {
-                divider.setAttribute('active', 'true');
-            }
-        });
-    }
-
-    private unflagActiveColumnDividers(): void {
-        const dividers = this.table.shadowRoot!.querySelectorAll('.column-divider');
-        Array.from(dividers).forEach(divider => {
-            divider.removeAttribute('active');
-        });
-    }
-
     private cacheGridSizedColumns(): void {
         this.gridSizedColumns = [];
-        for (const column of this.getVisibleColumns()) {
+        for (const column of this.visibleColumns) {
             if (column.columnInternals.currentPixelWidth === undefined) {
                 this.gridSizedColumns.push(column);
             }
@@ -233,8 +210,11 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private cacheColumnInitialPixelWidths(): void {
-        for (const column of this.getVisibleColumns()) {
+        this.initialColumnPixelWidths = [];
+        for (const column of this.visibleColumns) {
             this.initialColumnPixelWidths.push({
+                initalColumnFractionalWidth:
+                    column.columnInternals.currentFractionalWidth,
                 initialPixelWidth: column.columnInternals.currentPixelWidth!,
                 minPixelWidth: column.columnInternals.minPixelWidth
             });
@@ -246,15 +226,22 @@ export class TableLayoutManager<TData extends TableRecord> {
             return;
         }
 
-        const largestColumnFixedSize = Math.max(
-            ...this.gridSizedColumns.map(
-                column => column.columnInternals.currentPixelWidth!
-            )!
-        );
-        for (const column of this.gridSizedColumns) {
-            column.columnInternals.currentFractionalWidth = column.columnInternals.currentPixelWidth!
-                / largestColumnFixedSize;
-            column.columnInternals.currentPixelWidth = undefined;
+        let gridColumnIndex = 0;
+        for (
+            let i = 0;
+            i < this.visibleColumns.length
+            && gridColumnIndex < this.gridSizedColumns.length;
+            i++
+        ) {
+            const column = this.visibleColumns[i]!;
+            if (column === this.gridSizedColumns[gridColumnIndex]) {
+                gridColumnIndex += 1;
+                column.columnInternals.currentFractionalWidth = (column.columnInternals.currentPixelWidth!
+                        / this.initialColumnPixelWidths[i]!.initialPixelWidth)
+                    * this.initialColumnPixelWidths[i]!
+                        .initalColumnFractionalWidth;
+                column.columnInternals.currentPixelWidth = undefined;
+            }
         }
     }
 

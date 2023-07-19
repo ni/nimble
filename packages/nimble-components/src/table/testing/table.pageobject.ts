@@ -2,7 +2,11 @@ import type { Checkbox } from '@microsoft/fast-foundation';
 import { keyShift } from '@microsoft/fast-web-utilities';
 import type { Table } from '..';
 import type { TableHeader } from '../components/header';
-import { TableRecord, TableRowSelectionState } from '../types';
+import {
+    TableColumnSortDirection,
+    TableRecord,
+    TableRowSelectionState
+} from '../types';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { MenuButton } from '../../menu-button';
 import type { TableCell } from '../components/cell';
@@ -12,6 +16,14 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
+
+/**
+ * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
+ */
+export interface SortedColumn {
+    columnId?: string;
+    sortDirection: TableColumnSortDirection;
+}
 
 /**
  * Page object for the `nimble-table` component to provide consistent ways
@@ -235,34 +247,15 @@ export class TablePageObject<T extends TableRecord> {
 
         table.style.width = `${
             rowWidth
-            + (table.headerRowActionContainer.getBoundingClientRect().width
-                ?? 0)
+            + table.headerRowActionContainer.getBoundingClientRect().width
             + table.virtualizer.headerContainerMarginRight
         }px`;
         await waitForUpdatesAsync();
     }
 
-    public getCellRenderedWidth(columnIndex: number, rowIndex = 0): number {
-        if (
-            columnIndex
-            >= this.tableElement.columns.filter(column => !column.columnHidden)
-                .length
-        ) {
-            throw new Error(
-                'Attempting to index past the total number of columns'
-            );
-        }
-
-        const row = this.getRow(rowIndex);
-        const cells = row?.shadowRoot?.querySelectorAll('nimble-table-cell');
-        if (columnIndex >= (cells?.length ?? 0)) {
-            throw new Error(
-                'Attempting to index past the total number of cells'
-            );
-        }
-
-        const columnCell = cells![columnIndex]!;
-        return columnCell.getBoundingClientRect().width;
+    public getCellRenderedWidth(rowIndex: number, columnIndex: number): number {
+        const cell = this.getCell(rowIndex, columnIndex);
+        return cell.getBoundingClientRect().width;
     }
 
     public getTotalCellRenderedWidth(): number {
@@ -450,22 +443,31 @@ export class TablePageObject<T extends TableRecord> {
 
     /**
      * @param columnIndex The index of the column to the left of a divider being dragged. Thus, this
-     * can not be given a value representing the last column index.
+     * can not be given a value representing the last visible column index.
      * @param deltas The series of mouse movements in the x-direction while sizing a column.
      */
-    public dragSizeColumn(columnIndex: number, deltas: number[]): void {
-        const divider = this.getColumnDivider(columnIndex);
-        divider.setAttribute('active', 'true');
+    public dragSizeColumnByRightDivider(
+        columnIndex: number,
+        deltas: number[]
+    ): void {
+        const divider = this.getColumnRightDivider(columnIndex);
+        if (!divider) {
+            throw new Error(
+                'The provided column index has no right divider associated with it.'
+            );
+        }
         const dividerRect = divider.getBoundingClientRect();
+        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
         const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: (dividerRect.x + dividerRect.width) / 2,
+            clientX: currentMouseX,
             clientY: (dividerRect.y + dividerRect.height) / 2
         });
         divider.dispatchEvent(mouseDownEvent);
 
         for (const delta of deltas) {
+            currentMouseX += delta;
             const mouseMoveEvent = new MouseEvent('mousemove', {
-                movementX: delta
+                clientX: currentMouseX
             });
             document.dispatchEvent(mouseMoveEvent);
         }
@@ -474,16 +476,61 @@ export class TablePageObject<T extends TableRecord> {
         document.dispatchEvent(mouseUpEvent);
     }
 
-    public getColumnDivider(index: number): HTMLElement {
-        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
-
-        if (index >= headerContainers.length - 1) {
+    /**
+     * @param columnIndex The index of the column to the right of a divider being dragged. Thus, this
+     * value must be greater than 0 and less than the total number of visible columns.
+     * @param deltas The series of mouse movements in the x-direction while sizing a column.
+     */
+    public dragSizeColumnByLeftDivider(
+        columnIndex: number,
+        deltas: number[]
+    ): void {
+        const divider = this.getColumnLeftDivider(columnIndex);
+        if (!divider) {
             throw new Error(
-                'Attempting to index past the number of available dividers. Max index is two less than the number of columns.'
+                'The provided column index has no left divider associated with it.'
+            );
+        }
+        const dividerRect = divider.getBoundingClientRect();
+        let currentMouseX = (dividerRect.x + dividerRect.width) / 2;
+        const mouseDownEvent = new MouseEvent('mousedown', {
+            clientX: currentMouseX,
+            clientY: (dividerRect.y + dividerRect.height) / 2
+        });
+        divider.dispatchEvent(mouseDownEvent);
+
+        for (const delta of deltas) {
+            currentMouseX += delta;
+            const mouseMoveEvent = new MouseEvent('mousemove', {
+                clientX: currentMouseX
+            });
+            document.dispatchEvent(mouseMoveEvent);
+        }
+
+        const mouseUpEvent = new MouseEvent('mouseup');
+        document.dispatchEvent(mouseUpEvent);
+    }
+
+    public getColumnRightDivider(index: number): HTMLElement | null {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (index < 0 || index >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
             );
         }
 
-        return headerContainers[index]!.querySelector('.column-divider.right')!;
+        return headerContainers[index]!.querySelector('.column-divider.right');
+    }
+
+    public getColumnLeftDivider(index: number): HTMLElement | null {
+        const headerContainers = this.tableElement.shadowRoot!.querySelectorAll('.header-container');
+        if (index < 0 || index >= headerContainers.length) {
+            throw new Error(
+                'Invalid column index. Index must be greater than or equal to 0 and less than the number of visible columns.'
+            );
+        }
+
+        return headerContainers[index]!.querySelector('.column-divider.left');
     }
 
     public isHorizontalScrollbarVisible(): boolean {
@@ -498,6 +545,52 @@ export class TablePageObject<T extends TableRecord> {
             this.tableElement.viewport.clientWidth
             !== this.tableElement.viewport.getBoundingClientRect().width
         );
+    }
+
+    public getSortedColumns(): SortedColumn[] {
+        return this.tableElement.columns
+            .filter(
+                x => !x.sortingDisabled
+                    && typeof x.columnInternals.currentSortIndex === 'number'
+                    && x.columnInternals.currentSortDirection
+                        !== TableColumnSortDirection.none
+            )
+            .sort(
+                (a, b) => a.columnInternals.currentSortIndex!
+                    - b.columnInternals.currentSortIndex!
+            )
+            .map(x => {
+                return {
+                    columnId: x.columnId,
+                    sortDirection: x.columnInternals.currentSortDirection
+                };
+            });
+    }
+
+    public getGroupedColumns(): string[] {
+        return this.tableElement.columns
+            .filter(
+                x => !x.columnInternals.groupingDisabled
+                    && typeof x.columnInternals.groupIndex === 'number'
+            )
+            .sort(
+                (a, b) => a.columnInternals.groupIndex!
+                    - b.columnInternals.groupIndex!
+            )
+            .map(x => x.columnId ?? '');
+    }
+
+    public getChildRowCountForGroup(groupRowIndex: number): number {
+        const groupRow = this.getGroupRow(groupRowIndex);
+        const countDisplayString = groupRow
+            .shadowRoot!.querySelector('.group-row-child-count')!
+            .textContent!.trim();
+        // Remove the parenthesis to get just the number as a string
+        const countString = countDisplayString.substring(
+            1,
+            countDisplayString.length - 1
+        );
+        return Number(countString);
     }
 
     private getRow(rowIndex: number): TableRow {
@@ -581,17 +674,8 @@ export class TablePageObject<T extends TableRecord> {
     }
 
     private getGroupRowHeaderView(groupRowIndex: number): TableGroupHeaderView {
-        const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
-            'nimble-table-group-row'
-        );
-        if (groupRowIndex >= groupRows.length) {
-            throw new Error(
-                'Attempting to index past the total number of rendered rows'
-            );
-        }
-
-        const groupRow = groupRows[groupRowIndex];
-        return groupRow!.shadowRoot!.querySelector('.group-header-view')!;
+        const groupRow = this.getGroupRow(groupRowIndex);
+        return groupRow.shadowRoot!.querySelector('.group-header-view')!;
     }
 
     private getHeaderContentElement(

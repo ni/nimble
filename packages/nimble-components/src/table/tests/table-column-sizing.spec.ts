@@ -228,8 +228,8 @@ describe('Table Column Sizing', () => {
                     }
 
                     await waitForUpdatesAsync();
-                    const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
-                    const column2RenderedWidth = pageObject.getCellRenderedWidth(1);
+                    const column1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
+                    const column2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
                     const header1RenderedWidth = pageObject.getHeaderRenderedWidth(0);
                     const header2RenderedWidth = pageObject.getHeaderRenderedWidth(1);
                     expect(column1RenderedWidth).toBe(
@@ -258,8 +258,8 @@ describe('Table Column Sizing', () => {
             await pageObject.sizeTableToGivenRowWidth(300, element);
             await waitForUpdatesAsync();
 
-            const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
-            const column2RenderedWidth = pageObject.getCellRenderedWidth(1);
+            const column1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
+            const column2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
             expect(column1RenderedWidth).toBe(150);
             expect(column2RenderedWidth).toBe(150);
         });
@@ -274,7 +274,7 @@ describe('Table Column Sizing', () => {
             column1.columnHidden = true;
             await waitForUpdatesAsync();
 
-            const column1RenderedWidth = pageObject.getCellRenderedWidth(0);
+            const column1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
             expect(column1RenderedWidth).toBe(400);
         });
     });
@@ -330,11 +330,11 @@ describe('Table Column Sizing', () => {
 
                     await waitForUpdatesAsync();
                     const firstRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(0, 0);
-                    const firstRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(1, 0);
+                    const firstRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(0, 1);
                     await pageObject.scrollToLastRowAsync();
                     const lastRowIndex = pageObject.getRenderedRowCount() - 1;
-                    const lastRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(0, lastRowIndex);
-                    const lastRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(1, lastRowIndex);
+                    const lastRowColumn1RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 0);
+                    const lastRowColumn2RenderedWidth = pageObject.getCellRenderedWidth(lastRowIndex, 1);
 
                     expect(firstRowColumn1RenderedWidth).toBe(
                         lastRowColumn1RenderedWidth
@@ -367,183 +367,401 @@ describe('Table Interactive Column Sizing', () => {
         await disconnect();
     });
 
-    const columnSizeTests = [
-        {
-            name: 'sizing left only affects adjacent right column with delta less than min width',
-            dragDeltas: [1],
-            columnDragIndex: 0,
-            expectedColumnWidths: [101, 99, 100, 100]
-        },
-        {
-            name: 'sizing left past the minimum size of adjacent right column cascades to next column',
-            dragDeltas: [51],
-            columnDragIndex: 0,
-            expectedColumnWidths: [151, 50, 99, 100]
-        },
-        {
-            name: 'sizing left past the minimum size of all columns to right shinks all columns to minimum size, but allows left column to keep growing',
-            dragDeltas: [151],
-            columnDragIndex: 0,
-            expectedColumnWidths: [251, 50, 50, 50]
-        },
-        {
-            name: 'sizing right only affects adjacent left column with delta less than min width',
-            dragDeltas: [-1],
-            columnDragIndex: 2,
-            expectedColumnWidths: [100, 100, 99, 101]
-        },
-        {
-            name: 'sizing right past the minimum size of adjacent left column cascades to next column',
-            dragDeltas: [-51],
-            columnDragIndex: 2,
-            expectedColumnWidths: [100, 99, 50, 151]
-        },
-        {
-            name: 'sizing right past the minimum size of all columns to left shinks all columns to minimum size, and stops growing right most column',
-            dragDeltas: [-151],
-            columnDragIndex: 2,
-            expectedColumnWidths: [50, 50, 50, 250]
-        },
-        {
-            name: 'sizing right causing cascade and then sizing left in same interaction reverts cascade effect',
-            dragDeltas: [100, -50],
-            columnDragIndex: 2,
-            expectedColumnWidths: [100, 100, 150, 50]
-        },
-        {
-            name: 'sizing left causing cascade and then sizing right in same interaction reverts cascade effect',
-            dragDeltas: [-50, 25],
-            columnDragIndex: 0,
-            expectedColumnWidths: [75, 125, 100, 100]
-        }
-    ];
-    const focused: string[] = [];
-    const disabled: string[] = [];
-    for (const columnSizeTest of columnSizeTests) {
-        const specType = getSpecTypeByNamedList(
-            columnSizeTest,
-            focused,
-            disabled
-        );
-        specType(
-            `${columnSizeTest.name}`,
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            async () => {
-                pageObject.dragSizeColumn(
-                    columnSizeTest.columnDragIndex,
-                    columnSizeTest.dragDeltas
-                );
-                await waitForUpdatesAsync();
-                columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(i)).toBe(width));
+    describe('No hidden columns ', () => {
+        const columnSizeTests = [
+            {
+                name: 'sizing right only affects adjacent right column with delta less than min width',
+                dragDeltas: [1],
+                columnDragIndex: 0,
+                expectedColumnWidths: [101, 99, 100, 100]
+            },
+            {
+                name: 'sizing right past the minimum size of adjacent right column cascades to next column',
+                dragDeltas: [51],
+                columnDragIndex: 0,
+                expectedColumnWidths: [151, 50, 99, 100]
+            },
+            {
+                name: 'sizing right past the minimum size of all columns to right shrinks all columns to minimum size, but allows left column to keep growing',
+                dragDeltas: [151],
+                columnDragIndex: 0,
+                expectedColumnWidths: [251, 50, 50, 50]
+            },
+            {
+                name: 'sizing left only affects adjacent left column with delta less than min width',
+                dragDeltas: [-1],
+                columnDragIndex: 2,
+                expectedColumnWidths: [100, 100, 99, 101]
+            },
+            {
+                name: 'sizing left past the minimum size of adjacent left column cascades to next column',
+                dragDeltas: [-51],
+                columnDragIndex: 2,
+                expectedColumnWidths: [100, 99, 50, 151]
+            },
+            {
+                name: 'sizing left past the minimum size of all columns to left shrinks all columns to minimum size, and stops growing right most column',
+                dragDeltas: [-151],
+                columnDragIndex: 2,
+                expectedColumnWidths: [50, 50, 50, 250]
+            },
+            {
+                name: `sizing left past the minimum size of all columns to left shrinks all columns to minimum size, and stops growing right most column,
+                       and then moving cursor slightly to right causes no column width changes`,
+                dragDeltas: [-152, 1],
+                columnDragIndex: 2,
+                expectedColumnWidths: [50, 50, 50, 250]
+            },
+            {
+                name: 'sizing right causing cascade and then sizing left in same interaction reverts cascade effect',
+                dragDeltas: [100, -50],
+                columnDragIndex: 2,
+                expectedColumnWidths: [100, 100, 150, 50]
+            },
+            {
+                name: 'sizing left causing cascade and then sizing right in same interaction reverts cascade effect',
+                dragDeltas: [-50, 25],
+                columnDragIndex: 0,
+                expectedColumnWidths: [75, 125, 100, 100]
             }
-        );
-    }
+        ];
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const columnSizeTest of columnSizeTests) {
+            const specType = getSpecTypeByNamedList(
+                columnSizeTest,
+                focused,
+                disabled
+            );
+            specType(
+                `${columnSizeTest.name}`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    pageObject.dragSizeColumnByRightDivider(
+                        columnSizeTest.columnDragIndex,
+                        columnSizeTest.dragDeltas
+                    );
+                    await waitForUpdatesAsync();
+                    columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                        width
+                    ));
+                }
+            );
+        }
 
-    it('when table width is smaller than total column min width, dragging column still expands column', async () => {
-        await pageObject.sizeTableToGivenRowWidth(100, element);
-        await waitForUpdatesAsync();
-        pageObject.dragSizeColumn(2, [50]);
-        await waitForUpdatesAsync();
-        const cellWidth = pageObject.getCellRenderedWidth(2, 0);
-        expect(cellWidth).toBe(100);
+        it('when table width is smaller than total column min width, dragging column still expands column', async () => {
+            await pageObject.sizeTableToGivenRowWidth(100, element);
+            await waitForUpdatesAsync();
+            pageObject.dragSizeColumnByRightDivider(2, [50]);
+            await waitForUpdatesAsync();
+            const cellWidth = pageObject.getCellRenderedWidth(0, 2);
+            expect(cellWidth).toBe(100);
+        });
+
+        it('sizing column beyond table width creates horizontal scrollbar', async () => {
+            pageObject.dragSizeColumnByRightDivider(2, [100]);
+            await waitForUpdatesAsync();
+            expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
+        });
+
+        it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
+            // create horizontal scrollbar with total column width of 450
+            pageObject.dragSizeColumnByRightDivider(2, [100]);
+            // size table below threshhold of total column widths
+            await pageObject.sizeTableToGivenRowWidth(425, element);
+            expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
+            // size table 50 pixels beyond total column widths
+            await pageObject.sizeTableToGivenRowWidth(500, element);
+            expect(pageObject.getTotalCellRenderedWidth()).toBe(500);
+            expect(pageObject.isHorizontalScrollbarVisible()).toBeFalse();
+        });
+
+        it('after table gets horizontal scrollbar, growing right-most column to left does not remove scroll area', async () => {
+            // create horizontal scrollbar with total column width of 450
+            pageObject.dragSizeColumnByRightDivider(2, [100]);
+            await waitForUpdatesAsync();
+            pageObject.dragSizeColumnByRightDivider(2, [-100]);
+            await waitForUpdatesAsync();
+            expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
+        });
+
+        it('sizing column results in updated currentFractionalWidths for columns', () => {
+            pageObject.dragSizeColumnByRightDivider(0, [150]);
+            const updatedFractionalWidths = element.columns.map(
+                column => column.columnInternals.currentFractionalWidth
+            );
+            expect(updatedFractionalWidths).toEqual([2.5, 0.5, 0.5, 0.5]);
+        });
+
+        it('sizing column left of hidden column to the right cascade to columns to right of hidden column', async () => {
+            element.columns[1]!.columnHidden = true;
+            await waitForUpdatesAsync();
+            const secondVisibleCellWidth = pageObject.getCellRenderedWidth(
+                0,
+                1
+            );
+            pageObject.dragSizeColumnByRightDivider(0, [50]);
+            await waitForUpdatesAsync();
+            expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
+                secondVisibleCellWidth - 50
+            );
+        });
+
+        it('sizing column right of hidden column to the left cascade to columns to left of hidden column', async () => {
+            element.columns[2]!.columnHidden = true;
+            await waitForUpdatesAsync();
+            const secondVisibleCellWidth = pageObject.getCellRenderedWidth(
+                0,
+                1
+            );
+            pageObject.dragSizeColumnByRightDivider(1, [-50]);
+            await waitForUpdatesAsync();
+            expect(pageObject.getCellRenderedWidth(0, 1)).toBe(
+                secondVisibleCellWidth - 50
+            );
+        });
+
+        it('hiding column after creating horizontal scroll space does not change scroll area', async () => {
+            // create horizontal scrollbar with total column width of 450
+            pageObject.dragSizeColumnByRightDivider(2, [100]);
+            await waitForUpdatesAsync();
+            element.columns[1]!.columnHidden = true;
+            await waitForUpdatesAsync();
+            expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
+            expect(pageObject.getRenderedCellCountForRow(0)).toBe(3);
+        });
     });
 
-    it('sizing column beyond table width creates horizontal scrollbar', async () => {
-        pageObject.dragSizeColumn(2, [100]);
-        await waitForUpdatesAsync();
-        expect(pageObject.isHorizontalScrollbarVisible()).toBeTrue();
+    describe('hidden column drag right divider tests ', () => {
+        const hiddenColumDragRightDividerTests = [
+            {
+                name: 'first column hidden, drag first right divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 0,
+                dragDeltas: [50],
+                expectedColumnWidths: [150, 50, 100]
+            },
+            {
+                name: 'first column hidden, drag second right divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 1,
+                dragDeltas: [50],
+                expectedColumnWidths: [100, 150, 50]
+            },
+            {
+                name: 'second column hidden, drag first right divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 0,
+                dragDeltas: [50],
+                expectedColumnWidths: [150, 50, 100]
+            },
+            {
+                name: 'second column hidden, drag second right divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 1,
+                dragDeltas: [50],
+                expectedColumnWidths: [100, 150, 50]
+            },
+            {
+                name: 'first column hidden, drag first right divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 0,
+                dragDeltas: [-50],
+                expectedColumnWidths: [50, 150, 100]
+            },
+            {
+                name: 'first column hidden, drag second right divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 1,
+                dragDeltas: [-50],
+                expectedColumnWidths: [100, 50, 150]
+            },
+            {
+                name: 'second column hidden, drag first right divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 0,
+                dragDeltas: [-50],
+                expectedColumnWidths: [50, 150, 100]
+            },
+            {
+                name: 'second column hidden, drag second right divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 1,
+                dragDeltas: [-50],
+                expectedColumnWidths: [100, 50, 150]
+            }
+        ];
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const columnSizeTest of hiddenColumDragRightDividerTests) {
+            const specType = getSpecTypeByNamedList(
+                columnSizeTest,
+                focused,
+                disabled
+            );
+            specType(
+                `${columnSizeTest.name}`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await pageObject.sizeTableToGivenRowWidth(
+                        columnSizeTest.tableWidth,
+                        element
+                    );
+                    columnSizeTest.hiddenColumns.forEach(columnIndex => {
+                        element.columns[columnIndex]!.columnHidden = true;
+                    });
+                    await waitForUpdatesAsync();
+                    pageObject.dragSizeColumnByRightDivider(
+                        columnSizeTest.dragColumnIndex,
+                        columnSizeTest.dragDeltas
+                    );
+                    await waitForUpdatesAsync();
+                    columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                        width
+                    ));
+                }
+            );
+        }
     });
 
-    it('sizing table with a horizontal scrollbar does not change column widths until sized beyond current column pixel widths', async () => {
-        // create horizontal scrollbar with total column width of 450
-        pageObject.dragSizeColumn(2, [100]);
-        // size table below threshhold of total column widths
-        await pageObject.sizeTableToGivenRowWidth(425, element);
-        expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
-        // size table 50 pixels beyond total column widths
-        await pageObject.sizeTableToGivenRowWidth(500, element);
-        expect(pageObject.getTotalCellRenderedWidth()).toBe(500);
-        expect(pageObject.isHorizontalScrollbarVisible()).toBeFalse();
-    });
-
-    it('after table gets horizontal scrollbar, growing right-most column to left does not remove scroll area', async () => {
-        // create horizontal scrollbar with total column width of 450
-        pageObject.dragSizeColumn(2, [100]);
-        await waitForUpdatesAsync();
-        pageObject.dragSizeColumn(2, [-100]);
-        await waitForUpdatesAsync();
-        expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
-    });
-
-    it('sizing column results in updated currentFractionalWidths for columns', () => {
-        pageObject.dragSizeColumn(0, [150]);
-        const updatedFractionalWidths = element.columns.map(
-            column => column.columnInternals.currentFractionalWidth
-        );
-        expect(updatedFractionalWidths).toEqual([1, 0.2, 0.2, 0.2]);
-    });
-
-    it('sizing columns left of hidden column cascade to columns to right of hidden column', async () => {
-        element.columns[1]!.columnHidden = true;
-        await waitForUpdatesAsync();
-        const secondVisibleCellWidth = pageObject.getCellRenderedWidth(1, 0);
-        pageObject.dragSizeColumn(0, [50]);
-        await waitForUpdatesAsync();
-        expect(pageObject.getCellRenderedWidth(1, 0)).toBe(
-            secondVisibleCellWidth - 50
-        );
-    });
-
-    it('sizing columns right of hidden column cascade to columns to left of hidden column', async () => {
-        element.columns[2]!.columnHidden = true;
-        await waitForUpdatesAsync();
-        const secondVisibleCellWidth = pageObject.getCellRenderedWidth(1, 0);
-        pageObject.dragSizeColumn(1, [-50]);
-        await waitForUpdatesAsync();
-        expect(pageObject.getCellRenderedWidth(1, 0)).toBe(
-            secondVisibleCellWidth - 50
-        );
-    });
-
-    it('hiding column after creating horizontal scroll space does not change scroll area', async () => {
-        // create horizontal scrollbar with total column width of 450
-        pageObject.dragSizeColumn(2, [100]);
-        await waitForUpdatesAsync();
-        element.columns[1]!.columnHidden = true;
-        await waitForUpdatesAsync();
-        expect(pageObject.getTotalCellRenderedWidth()).toBe(450);
-        expect(pageObject.getRenderedCellCountForRow(0)).toBe(3);
+    describe('hidden column drag left divider tests ', () => {
+        const hiddenColumDragRightDividerTests = [
+            {
+                name: 'first column hidden, drag first left divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 1,
+                dragDeltas: [50],
+                expectedColumnWidths: [150, 50, 100]
+            },
+            {
+                name: 'first column hidden, drag second left divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 2,
+                dragDeltas: [50],
+                expectedColumnWidths: [100, 150, 50]
+            },
+            {
+                name: 'second column hidden, drag first left divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 1,
+                dragDeltas: [50],
+                expectedColumnWidths: [150, 50, 100]
+            },
+            {
+                name: 'second column hidden, drag second left divider to right results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 2,
+                dragDeltas: [50],
+                expectedColumnWidths: [100, 150, 50]
+            },
+            {
+                name: 'first column hidden, drag first left divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 1,
+                dragDeltas: [-50],
+                expectedColumnWidths: [50, 150, 100]
+            },
+            {
+                name: 'first column hidden, drag second left divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [0],
+                dragColumnIndex: 2,
+                dragDeltas: [-50],
+                expectedColumnWidths: [100, 50, 150]
+            },
+            {
+                name: 'second column hidden, drag first left divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 1,
+                dragDeltas: [-50],
+                expectedColumnWidths: [50, 150, 100]
+            },
+            {
+                name: 'second column hidden, drag second left divider to left results in correct columns widths',
+                tableWidth: 300,
+                hiddenColumns: [1],
+                dragColumnIndex: 2,
+                dragDeltas: [-50],
+                expectedColumnWidths: [100, 50, 150]
+            }
+        ];
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const columnSizeTest of hiddenColumDragRightDividerTests) {
+            const specType = getSpecTypeByNamedList(
+                columnSizeTest,
+                focused,
+                disabled
+            );
+            specType(
+                `${columnSizeTest.name}`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await pageObject.sizeTableToGivenRowWidth(
+                        columnSizeTest.tableWidth,
+                        element
+                    );
+                    columnSizeTest.hiddenColumns.forEach(columnIndex => {
+                        element.columns[columnIndex]!.columnHidden = true;
+                    });
+                    await waitForUpdatesAsync();
+                    pageObject.dragSizeColumnByLeftDivider(
+                        columnSizeTest.dragColumnIndex,
+                        columnSizeTest.dragDeltas
+                    );
+                    await waitForUpdatesAsync();
+                    columnSizeTest.expectedColumnWidths.forEach((width, i) => expect(pageObject.getCellRenderedWidth(0, i)).toBe(
+                        width
+                    ));
+                }
+            );
+        }
     });
 
     describe('active divider tests', () => {
         const dividerActiveTests = [
             {
-                name: 'click on dividers[0]',
+                name: 'click on first column right divider only results in one active divider',
                 dividerClickIndex: 0,
+                leftDividerClick: false,
                 expectedActiveIndexes: [0]
             },
             {
-                name: 'click on dividers[1]',
+                name: 'click on second column left divider results in two active dividers',
                 dividerClickIndex: 1,
                 expectedActiveIndexes: [1, 2]
             },
             {
-                name: 'click on dividers[2]',
+                name: 'click on second column right divider results in two active dividers',
                 dividerClickIndex: 2,
                 expectedActiveIndexes: [1, 2]
             },
             {
-                name: 'click on dividers[3]',
+                name: 'click on third column left divider results in two active dividers',
                 dividerClickIndex: 3,
                 expectedActiveIndexes: [3, 4]
             },
             {
-                name: 'click on dividers[4]',
+                name: 'click on third column right divider results in two active dividers',
                 dividerClickIndex: 4,
                 expectedActiveIndexes: [3, 4]
             },
             {
-                name: 'click on dividers[5]',
+                name: 'click on last column left divider only results in one active divider',
                 dividerClickIndex: 5,
                 expectedActiveIndexes: [5]
             }
@@ -574,7 +792,7 @@ describe('Table Interactive Column Sizing', () => {
                     await waitForUpdatesAsync();
                     const activeDividers = [];
                     for (let i = 0; i < dividers.length; i++) {
-                        if (dividers[i]!.getAttribute('active')) {
+                        if (dividers[i]!.classList.contains('active')) {
                             activeDividers.push(i);
                         }
                     }
@@ -585,22 +803,38 @@ describe('Table Interactive Column Sizing', () => {
                 }
             );
         }
-    });
 
-    it('after releasing divider, it is no longer marked as active', async () => {
-        const divider = pageObject.getColumnDivider(0);
-        const dividerRect = divider.getBoundingClientRect();
-        const mouseDownEvent = new MouseEvent('mousedown', {
-            clientX: (dividerRect.x + dividerRect.width) / 2,
-            clientY: (dividerRect.y + dividerRect.height) / 2
+        it('first column only has right divider', () => {
+            const rightDivider = pageObject.getColumnRightDivider(0);
+            const leftDivider = pageObject.getColumnLeftDivider(0);
+
+            expect(rightDivider).not.toBeNull();
+            expect(leftDivider).toBeNull();
         });
-        divider.dispatchEvent(mouseDownEvent);
-        await waitForUpdatesAsync();
-        expect(divider.getAttribute('active')).toBeTruthy();
 
-        const mouseUpEvent = new MouseEvent('mouseup');
-        document.dispatchEvent(mouseUpEvent);
-        await waitForUpdatesAsync();
-        expect(divider.getAttribute('active')).toBeFalsy();
+        it('last column only has left divider', () => {
+            const rightDivider = pageObject.getColumnRightDivider(3);
+            const leftDivider = pageObject.getColumnLeftDivider(3);
+
+            expect(rightDivider).toBeNull();
+            expect(leftDivider).not.toBeNull();
+        });
+
+        it('after releasing divider, it is no longer marked as active', async () => {
+            const divider = pageObject.getColumnRightDivider(0)!;
+            const dividerRect = divider.getBoundingClientRect();
+            const mouseDownEvent = new MouseEvent('mousedown', {
+                clientX: (dividerRect.x + dividerRect.width) / 2,
+                clientY: (dividerRect.y + dividerRect.height) / 2
+            });
+            divider.dispatchEvent(mouseDownEvent);
+            await waitForUpdatesAsync();
+            expect(divider.classList.contains('active')).toBeTruthy();
+
+            const mouseUpEvent = new MouseEvent('mouseup');
+            document.dispatchEvent(mouseUpEvent);
+            await waitForUpdatesAsync();
+            expect(divider.classList.contains('active')).toBeFalsy();
+        });
     });
 });

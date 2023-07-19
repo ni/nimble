@@ -184,8 +184,21 @@ export class Table<
     /**
      * @internal
      */
+    public readonly layoutManager: TableLayoutManager<TData>;
+
+    /**
+     * @internal
+     */
     @observable
     public firstSortedColumn?: TableColumn;
+
+    /**
+     * @internal
+     * This value determines the size of the viewport area when a user has created horizontal scrollable
+     * space through a column resize operation.
+     */
+    @observable
+    public visibleColumns: TableColumn[] = [];
 
     /**
      * @internal
@@ -240,7 +253,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.tableLayoutManager = new TableLayoutManager(this);
+        this.layoutManager = new TableLayoutManager(this);
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -419,29 +432,27 @@ export class Table<
     }
 
     /** @internal */
-    public onRightDividerMouseDown(event: PointerEvent, columnIndex: number): void {
-        if (event.isPrimary && event.button === 0) {
-            const hiddenColumnCount = this.columns.filter(
-                (column, i) => i < columnIndex && column.columnHidden
-            ).length;
-            this.tableLayoutManager.beginColumnInteractiveSize(
-                (columnIndex * 2) - (hiddenColumnCount * 2),
-                event.target as HTMLElement,
-                event.pointerId
+    public onRightDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2
             );
         }
     }
 
     /** @internal */
-    public onLeftDividerMouseDown(event: PointerEvent, columnIndex: number): void {
+    public onLeftDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
         if (event.button === 0) {
-            const hiddenColumnCount = this.columns.filter(
-                (column, i) => i < columnIndex && column.columnHidden
-            ).length;
-            this.tableLayoutManager.beginColumnInteractiveSize(
-                (columnIndex * 2 - 1) - (hiddenColumnCount * 2),
-                event.target as HTMLElement,
-                event.pointerId
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2 - 1
             );
         }
     }
@@ -516,7 +527,10 @@ export class Table<
         }
 
         if (this.tableUpdateTracker.updateColumnWidths) {
-            this.updateRowGridColumns();
+            this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
+            this.visibleColumns = this.columns.filter(
+                column => !column.columnHidden
+            );
         }
 
         if (this.tableUpdateTracker.updateGroupRows) {
@@ -533,6 +547,15 @@ export class Table<
             default:
                 return null;
         }
+    }
+
+    /**
+     * @internal
+     */
+    public getHeaderContainerElements(): NodeListOf<Element> {
+        return this.columnHeadersContainer.querySelectorAll(
+            '.header-container'
+        );
     }
 
     protected selectionModeChanged(
@@ -741,10 +764,6 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
-    }
-
-    private updateRowGridColumns(): void {
-        this.rowGridColumns = this.tableLayoutManager.getGridTemplateColumns();
     }
 
     private validate(): void {

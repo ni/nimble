@@ -10,6 +10,10 @@ export const styles = css`
         grid-template-rows: auto 1fr;
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .tablist {
         display: grid;
         grid-template-rows: auto auto;

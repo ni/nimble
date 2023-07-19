@@ -21,6 +21,8 @@ export const styles = css`
 
     :host {
         height: 480px;
+        --ni-private-column-divider-width: 2px;
+        --ni-private-column-divider-padding: 3px;
     }
 
     .disable-select {
@@ -37,11 +39,11 @@ export const styles = css`
         cursor: var(--ni-private-table-cursor-override);
     }
 
-    .glass-pane {
+    .glass-overlay {
         width: 100%;
         height: 100%;
         display: contents;
-        pointer-events: var(--ni-private-glass-pane-pointer-events);
+        pointer-events: var(--ni-private-glass-overlay-pointer-events);
     }
 
     .header-row-container {
@@ -54,7 +56,13 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
-        min-width: var(--ni-private-table-header-row-min-width);
+        min-width: max(
+            100%,
+            calc(
+                var(--ni-private-table-scrollable-min-width) +
+                    var(--ni-private-table-header-container-margin-right)
+            )
+        );
         left: var(--ni-private-table-scroll-x);
         align-items: center;
     }
@@ -90,7 +98,7 @@ export const styles = css`
     }
 
     .header-scrollbar-spacer {
-        width: var(--ni-private-table-header-scrollbar-spacer-width);
+        width: var(--ni-private-table-header-container-margin-right);
     }
 
     .header {
@@ -99,7 +107,8 @@ export const styles = css`
     }
 
     .column-divider {
-        border-left: 2px solid ${popupBorderColor};
+        border-left: var(--ni-private-column-divider-width) solid
+            ${popupBorderColor};
         display: none;
         height: ${controlSlimHeight};
         cursor: col-resize;
@@ -109,12 +118,18 @@ export const styles = css`
     .column-divider::before {
         content: '';
         position: absolute;
-        width: 8px;
+        width: calc(
+            var(--ni-private-column-divider-width) +
+                (2 * var(--ni-private-column-divider-padding))
+        );
         height: 100%;
-        left: -5px;
+        left: calc(
+            -1 * (var(--ni-private-column-divider-width) +
+                        var(--ni-private-column-divider-padding))
+        );
     }
 
-    .column-divider[active] {
+    .column-divider.active {
         display: block;
         z-index: 1;
     }
@@ -125,11 +140,11 @@ export const styles = css`
         z-index: 1;
     }
 
-    .left {
+    .column-divider.left {
         left: -1px;
     }
 
-    .right {
+    .column-divider.right {
         left: calc(100% - 1px);
     }
 
@@ -150,7 +165,7 @@ export const styles = css`
 
     .table-row-container {
         width: fit-content;
-        min-width: max(100%, var(--ni-private-table-row-min-width));
+        min-width: max(100%, var(--ni-private-table-scrollable-min-width));
         position: relative;
         top: var(--ni-private-table-row-container-top);
         background-color: ${tableRowBorderColor};
