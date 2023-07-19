@@ -20,11 +20,16 @@ declare global {
  */
 export class RichTextViewer extends FoundationElement {
     /**
+     *
+     * @public
      * Markdown string to render its corresponding rich text content in the component.
      */
     @observable
-    public markdown!: string;
+    public markdown = '';
 
+    /**
+     * @internal
+     */
     public viewer!: HTMLDivElement;
     private readonly markdownParser: MarkdownParser;
     private readonly domSerializer: DOMSerializer;
@@ -43,6 +48,9 @@ export class RichTextViewer extends FoundationElement {
         this.updateView();
     }
 
+    /**
+     * @internal
+     */
     public markdownChanged(): void {
         if (this.$fastController.isConnected) {
             this.updateView();
