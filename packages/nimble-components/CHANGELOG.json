@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 18 Jul 2023 18:56:23 GMT",
+      "tag": "@ni/nimble-components_v19.8.1",
+      "version": "19.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6c4edafd60eb2e7c37c1b296b846a3ef5bcdee3",
+            "comment": "Fix icon color for disabled menu items and disabled text fields"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Jul 2023 17:52:57 GMT",
+      "tag": "@ni/nimble-components_v19.8.0",
+      "version": "19.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3e74c7c767c44b51823449b6bfd0606838b99771",
+            "comment": "Add recordId to TableCell, TableCellView, and delegated event details"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 17:19:39 GMT",
       "tag": "@ni/nimble-components_v19.7.0",
       "version": "19.7.0",

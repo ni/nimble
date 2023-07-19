@@ -9,6 +9,7 @@ import {
     controlHeight,
     fillHoverColor,
     fillSelectedColor,
+    iconColor,
     iconSize
 } from '../theme-provider/design-tokens';
 
@@ -71,7 +72,7 @@ export const styles = css`
     }
 
     slot[name='start']::slotted(*) {
-        fill: currentcolor;
+        ${iconColor.cssCustomProperty}: currentcolor;
         width: ${iconSize};
         height: ${iconSize};
     }

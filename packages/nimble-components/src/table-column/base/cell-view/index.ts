@@ -26,6 +26,9 @@ export abstract class TableCellView<
     @observable
     public column?: TableColumn<TColumnConfig>;
 
+    @observable
+    public recordId?: string;
+
     private delegatedEvents: readonly string[] = [];
 
     /**
@@ -47,11 +50,19 @@ export abstract class TableCellView<
         }
         this.delegatedEvents = this.column.columnInternals.delegatedEvents;
         this.delegatedEventHandler = (event: Event) => {
-            this.column?.dispatchEvent(
-                new CustomEvent<DelegatedEventEventDetails>('delegated-event', {
-                    detail: { originalEvent: event }
-                })
-            );
+            if (this.recordId) {
+                this.column?.dispatchEvent(
+                    new CustomEvent<DelegatedEventEventDetails>(
+                        'delegated-event',
+                        {
+                            detail: {
+                                originalEvent: event,
+                                recordId: this.recordId
+                            }
+                        }
+                    )
+                );
+            }
         };
 
         for (const delegatedEvent of this.delegatedEvents) {

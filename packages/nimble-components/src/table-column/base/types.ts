@@ -24,6 +24,7 @@ export interface TableColumnWithPlaceholderColumnConfig {
  */
 export interface DelegatedEventEventDetails {
     originalEvent: Event;
+    recordId: string;
 }
 
 /**
