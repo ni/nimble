@@ -35,17 +35,15 @@ export const template = html<Table>`
         <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
-            --ni-private-table-header-scrollbar-spacer-width: ${x => x.virtualizer.headerContainerMarginRight}px;
-            --ni-private-table-scroll-height: ${x => x.virtualizer.allRowsHeight}px;
+            --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
+            --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
-            --ni-private-table-row-min-width: ${x => `max(100%, ${x.tableScrollableMinWidth}px)`};
-            --ni-private-table-header-row-min-width: ${x => `max(100%, calc(${x.tableScrollableMinWidth}px + ${x.virtualizer.headerContainerMarginRight}px))`};
+            --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
+            --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
             ">
-            <div class="glass-overlay" style="
-                --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
-            ">
+            <div class="glass-overlay">
                 <div role="rowgroup" class="header-row-container">
                     <div class="header-row" role="row">
                         <span class="header-row-action-container" ${ref('headerRowActionContainer')}>
@@ -73,22 +71,26 @@ export const template = html<Table>`
                             </span>
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>
-                            ${repeat(x => x.visibleColumns, html<TableColumn>`
+                            ${repeat(x => x.visibleColumns, html<TableColumn, Table>`
                                 <div class="header-container">
                                     ${when((_, c) => c.index > 0, html<TableColumn, Table>`
-                                        <div class="column-divider left ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`}" @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}"></div>
+                                        <div class="column-divider left ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`}" 
+                                             @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">
+                                        </div>
                                     `)}
                                         <${tableHeaderTag}
                                             class="header"
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
-                                            ?first-sorted-column="${(x, c) => x === (c.parent as Table).firstSortedColumn}"
-                                            @click="${(x, c) => (c.parent as Table).toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+                                            ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
+                                            @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
                                             <slot name="${x => x.slot}"></slot>
                                         </${tableHeaderTag}>
                                     ${when((_, c) => c.index < c.length - 1, html<TableColumn, Table>`
-                                        <div class="column-divider right ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`}" @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}"></div>
+                                        <div class="column-divider right ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`}"
+                                             @mousedown="${(_, c) => c.parent.onRightDividerMouseDown(c.event as MouseEvent, c.index)}">
+                                        </div>
                                     `)}                        
                                 </div>
                             `, { positioning: true })}

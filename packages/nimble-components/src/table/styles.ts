@@ -56,7 +56,7 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
-        min-width: var(--ni-private-table-header-row-min-width);
+        min-width: max(100%, calc(var(--ni-private-table-scrollable-min-width) + var(--ni-private-table-header-container-margin-right)));
         left: var(--ni-private-table-scroll-x);
         align-items: center;
     }
@@ -92,7 +92,7 @@ export const styles = css`
     }
 
     .header-scrollbar-spacer {
-        width: var(--ni-private-table-header-scrollbar-spacer-width);
+        width: var(--ni-private-table-header-container-margin-right);
     }
 
     .header {
@@ -159,7 +159,7 @@ export const styles = css`
 
     .table-row-container {
         width: fit-content;
-        min-width: max(100%, var(--ni-private-table-row-min-width));
+        min-width: max(100%, var(--ni-private-table-scrollable-min-width));
         position: relative;
         top: var(--ni-private-table-row-container-top);
         background-color: ${tableRowBorderColor};
