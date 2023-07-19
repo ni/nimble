@@ -20,6 +20,9 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 <${tableColumnTextTag} field-name="field" group-index="0">
                     Column 1
                 </${tableColumnTextTag}>
+                <${tableColumnTextTag} field-name="anotherField">
+                    Squeeze Column 1
+                </${tableColumnTextTag}>
             </nimble-table>`
     );
 }
