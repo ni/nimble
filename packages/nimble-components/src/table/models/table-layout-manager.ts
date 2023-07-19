@@ -15,6 +15,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     public activeColumnIndex?: number;
 
     private activeColumnDivider?: number;
+    private activeColumnDividerElement?: HTMLElement;
+    private pointerId?: number;
     private gridSizedColumns?: TableColumn[];
     private visibleColumns: TableColumn[] = [];
     private initialTableScrollableWidth?: number;
@@ -59,16 +61,18 @@ export class TableLayoutManager<TData extends TableRecord> {
      * @param activeColumnDivider The divider that was clicked on
      */
     public beginColumnInteractiveSize(
-        dragStart: number,
-        activeColumnDivider: number
+        event: PointerEvent,
+        activeColumnDivider: number,
     ): void {
         this.activeColumnDivider = activeColumnDivider;
+        this.activeColumnDividerElement = event.target as HTMLElement;
+        this.pointerId = event.pointerId;
         this.leftColumnIndex = this.getLeftColumnIndexFromDivider(
             this.activeColumnDivider
         );
         this.rightColumnIndex = this.leftColumnIndex + 1;
         this.activeColumnIndex = this.leftColumnIndex + (this.activeColumnDivider % 2);
-        this.dragStart = dragStart;
+        this.dragStart = event.clientX;
         this.currentTotalDelta = 0;
         this.visibleColumns = this.getVisibleColumns();
         this.setColumnsToFixedSize();
@@ -76,12 +80,13 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.initialTableScrollableMinWidth = this.table.tableScrollableMinWidth;
         this.initialColumnTotalWidth = this.getTotalColumnFixedWidth();
         this.isColumnBeingSized = true;
-        document.addEventListener('mousemove', this.onDividerMouseMove);
-        document.addEventListener('mouseup', this.onDividerMouseUp);
+        this.activeColumnDividerElement.setPointerCapture(this.pointerId);
+        this.activeColumnDividerElement.addEventListener('pointermove', this.onDividerMouseMove);
+        this.activeColumnDividerElement.addEventListener('pointerup', this.onDividerMouseUp);
     }
 
-    private readonly onDividerMouseMove = (event: Event): void => {
-        const mouseEvent = event as MouseEvent;
+    public readonly onDividerMouseMove = (event: Event): void => {
+        const mouseEvent = event as PointerEvent;
         for (let i = 0; i < this.visibleColumns.length; i++) {
             this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
         }
@@ -106,8 +111,8 @@ export class TableLayoutManager<TData extends TableRecord> {
     };
 
     private readonly onDividerMouseUp = (): void => {
-        document.removeEventListener('mousemove', this.onDividerMouseMove);
-        document.removeEventListener('mouseup', this.onDividerMouseUp);
+        this.activeColumnDividerElement!.removeEventListener('pointermove', this.onDividerMouseMove);
+        this.activeColumnDividerElement!.removeEventListener('pointerup', this.onDividerMouseUp);
         this.resetGridSizedColumns();
         this.isColumnBeingSized = false;
         this.activeColumnIndex = undefined;

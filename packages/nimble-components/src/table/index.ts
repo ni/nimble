@@ -213,7 +213,6 @@ export class Table<
     private readonly table: TanStackTable<TData>;
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
-    private readonly tableLayoutManager: TableLayoutManager<TData>;
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
@@ -433,25 +432,26 @@ export class Table<
 
     /** @internal */
     public onRightDividerMouseDown(
-        event: MouseEvent,
+        event: PointerEvent,
         columnIndex: number
     ): void {
         if (event.button === 0) {
             this.layoutManager.beginColumnInteractiveSize(
-                event.clientX,
-                columnIndex * 2
+                event,
+                columnIndex * 2,
             );
         }
     }
 
     /** @internal */
     public onLeftDividerMouseDown(
-        event: MouseEvent,
+        event: PointerEvent,
         columnIndex: number
     ): void {
         if (event.button === 0) {
+            (event.target as HTMLElement).setPointerCapture(event.pointerId);
             this.layoutManager.beginColumnInteractiveSize(
-                event.clientX,
+                event,
                 columnIndex * 2 - 1
             );
         }
