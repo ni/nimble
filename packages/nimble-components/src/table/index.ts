@@ -48,8 +48,8 @@ import {
 } from './types';
 import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
+import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import { TableLayoutHelper } from './models/table-layout-helper';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
@@ -156,12 +156,27 @@ export class Table<
     /**
      * @internal
      */
+    public readonly headerRowActionContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
     public readonly rowContainer!: HTMLElement;
 
     /**
      * @internal
      */
+    public readonly columnHeadersContainer!: Element;
+
+    /**
+     * @internal
+     */
     public readonly virtualizer: Virtualizer<TData>;
+
+    /**
+     * @internal
+     */
+    public readonly layoutManager: TableLayoutManager<TData>;
 
     /**
      * @internal
@@ -173,6 +188,16 @@ export class Table<
      * @internal
      */
     @observable
+    public visibleColumns: TableColumn[] = [];
+
+    /**
+     * @internal
+     * This value determines the size of the viewport area when a user has created horizontal scrollable
+     * space through a column resize operation.
+     */
+    @observable
+    public tableScrollableMinWidth = 0;
+
     public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<TData>;
@@ -217,6 +242,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.layoutManager = new TableLayoutManager(this);
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -395,6 +421,32 @@ export class Table<
     }
 
     /** @internal */
+    public onRightDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2
+            );
+        }
+    }
+
+    /** @internal */
+    public onLeftDividerMouseDown(
+        event: MouseEvent,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.beginColumnInteractiveSize(
+                event.clientX,
+                columnIndex * 2 - 1
+            );
+        }
+    }
+
+    /** @internal */
     public handleGroupRowExpanded(rowIndex: number, event: Event): void {
         this.toggleGroupExpanded(rowIndex);
         event.stopPropagation();
@@ -464,7 +516,10 @@ export class Table<
         }
 
         if (this.tableUpdateTracker.updateColumnWidths) {
-            this.updateRowGridColumns();
+            this.rowGridColumns = this.layoutManager.getGridTemplateColumns();
+            this.visibleColumns = this.columns.filter(
+                column => !column.columnHidden
+            );
         }
 
         if (this.tableUpdateTracker.updateGroupRows) {
@@ -481,6 +536,15 @@ export class Table<
             default:
                 return null;
         }
+    }
+
+    /**
+     * @internal
+     */
+    public getHeaderContainerElements(): NodeListOf<Element> {
+        return this.columnHeadersContainer.querySelectorAll(
+            '.header-container'
+        );
     }
 
     protected selectionModeChanged(
@@ -689,12 +753,6 @@ export class Table<
             }
         }
         this.actionMenuSlots = Array.from(slots);
-    }
-
-    private updateRowGridColumns(): void {
-        this.rowGridColumns = TableLayoutHelper.getGridTemplateColumns(
-            this.columns
-        );
     }
 
     private validate(): void {
