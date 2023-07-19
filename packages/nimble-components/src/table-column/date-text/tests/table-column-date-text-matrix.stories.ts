@@ -8,6 +8,10 @@ import {
 import { tableColumnDateTextTag } from '..';
 import { iconUserTag } from '../../../icons/user';
 import { Table, tableTag } from '../../../table';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
     title: 'Tests/Table Column Types',
@@ -34,7 +38,7 @@ const data = [
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <label style="color: var(--ni-nimble-control-label-font-color); font: var(--ni-nimble-control-label-font)">Date Text Table Column</label>
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">Date Text Table Column</label>
     <${tableTag} id-field-name="id" style="height: 250px">
         <${tableColumnDateTextTag}
             field-name="date"
