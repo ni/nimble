@@ -84,6 +84,8 @@ The steps to use components from Nimble Angular are similar to using components 
 
    Note: Nimble components are exposed in Angular as Angular Directives and have the suffix `Directive`.
 
+8. If your application is localized, also follow the steps in the "Localization" section below.
+
 ### Localization (Optional)
 
 Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English.
