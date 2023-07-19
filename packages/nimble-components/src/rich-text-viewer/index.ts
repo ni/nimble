@@ -25,7 +25,7 @@ export class RichTextViewer extends FoundationElement {
      * Markdown string to render its corresponding rich text content in the component.
      */
     @observable
-    public markdown!: string;
+    public markdown = '';
 
     /**
      * @internal
@@ -48,6 +48,9 @@ export class RichTextViewer extends FoundationElement {
         this.updateView();
     }
 
+    /**
+     * @internal
+     */
     public markdownChanged(): void {
         if (this.$fastController.isConnected) {
             this.updateView();

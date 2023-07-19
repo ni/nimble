@@ -37,7 +37,7 @@ describe('RichTextViewer', () => {
 
         element.setAttribute('markdown', '**markdown string**');
 
-        expect(element.markdown).toBeUndefined();
+        expect(element.markdown).toBe('');
 
         await disconnect();
     });
