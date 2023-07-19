@@ -56,7 +56,13 @@ export const styles = css`
         background: ${applicationBackgroundColor};
         position: relative;
         width: fit-content;
-        min-width: max(100%, calc(var(--ni-private-table-scrollable-min-width) + var(--ni-private-table-header-container-margin-right)));
+        min-width: max(
+            100%,
+            calc(
+                var(--ni-private-table-scrollable-min-width) +
+                    var(--ni-private-table-header-container-margin-right)
+            )
+        );
         left: var(--ni-private-table-scroll-x);
         align-items: center;
     }
