@@ -43,14 +43,13 @@ const component = html`
     <${tableTag}>
         <${tableColumnTextTag}
             field-name="firstName"
-            placeholder="no value"
             action-menu-slot="action-menu"
             action-menu-label="Menu"
         >
             <${iconUserTag}></${iconUserTag}>
         </${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value">Favorite Color</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="lastName">Last Name</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="favoriteColor">Favorite Color</${tableColumnTextTag}>
 
         <${menuTag} slot="action-menu">
             <${menuItemTag}>Item 1</${menuItemTag}>

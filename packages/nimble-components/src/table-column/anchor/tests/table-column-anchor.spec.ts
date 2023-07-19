@@ -35,7 +35,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 >
                     Column 1
                 </${tableColumnAnchorTag}>
-                <${tableColumnAnchorTag} placeholder="">
+                <${tableColumnAnchorTag}>
                     Column 2
                 </${tableColumnAnchorTag}>
             </nimble-table>`
