@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update tanstack dependency and configure undefined value sorting mode",
-  "packageName": "@ni/nimble-components",
-  "email": "rajsite@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
