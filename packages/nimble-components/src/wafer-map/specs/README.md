@@ -46,9 +46,9 @@ We consider now that the most important features of the current component would 
 
 Additional implemented features:
 
--   [Nimble Wafer Map Hover Die](features/hover.md).
-
--   [Nimble Wafer Map Die Padding](features/die-padding.md).
+-   [Nimble Wafer Map Hover Die](features/hover.md)
+-   [Nimble Wafer Map Die Padding](features/die-padding.md)
+-   [Nimble Wafer Map Grid Dimensions](features/grid-dimension.md)
 
 ### Risks and Challenges
 
@@ -95,6 +95,11 @@ _The key elements of the component's public API surface:_
     -   topRight - ![Top Right Quadrant](./Resources/top_right.png)
     -   bottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
     -   `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
+    -   `origin` - represents the origin coordinates of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum corner of the bounding box of the dies coordinates. It will be an object of the type `PointCoordinates` with the following attributes:
+        -   x: number
+        -   y: number
+    -   `rows` - represents the number of values on the Y axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum Y values of the bounding box of the dies coordinates plus one.
+    -   `columns` - represents the number of values on the X axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum X values of the bounding box of the dies coordinates plus one.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The objects we use internally for the colorScale are [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal) and [d3.scaleLinear](https://observablehq.com/@d3/d3-scalelinear). Basically, what this does is it associates a specific string (or in our case a value) with a specific color. The values which are not specified in the array, will be calculated as a interpolation from the provided colors for the linear scale or will be assigned to one of the specified color values from the provided colors for the ordinal scale.
         In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale\
@@ -104,14 +109,14 @@ _The key elements of the component's public API surface:_
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
-    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
+    -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
 
-The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
-The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
+The `quadrant`, `orientation`, `rows`, `columns`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
+The `die`, `origin`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 
--   focus() - adds a green box around the component when it has tab focus.
+-   `focus()` - adds a green box around the component when it has tab focus.
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
 
