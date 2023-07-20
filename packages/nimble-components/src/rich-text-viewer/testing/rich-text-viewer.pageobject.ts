@@ -8,11 +8,11 @@ export class RichTextViewerPageObject {
         private readonly richTextViewerElement: RichTextViewer
     ) {}
 
-    public getLastChildTagContents(): string {
+    public getRenderedMarkdownLastChildContents(): string {
         return this.getLastChildMarkdownRenderedElement()?.textContent || '';
     }
 
-    public getLastChildAttribute(attribute: string): string {
+    public getRenderedMarkdownLastChildAttribute(attribute: string): string {
         return (
             this.getLastChildMarkdownRenderedElement()?.getAttribute(
                 attribute
@@ -21,51 +21,27 @@ export class RichTextViewerPageObject {
     }
 
     /**
-     * Retrieves the tag names of all descendant elements by traversing in a breadth-first manner(all parents, all children and so on.).
-     * @returns An array of tag names of the descendant elements.
+     * Retrieves tag names for the rendered markdown content in document order
+     * @returns An array of tag names in document order
      */
-    public getDescendantTagsBreadthFirst(): string[] {
-        const nestedTagNames = [];
-        const queue = [this.getMarkdownRenderedElement()];
-        let isFirstElement = false;
-
-        while (queue.length > 0) {
-            const currentElement = queue.shift();
-            if (currentElement) {
-                // The first element, which is the "Div" element of the viewer component, is ignored.
-                if (isFirstElement) {
-                    nestedTagNames.push(currentElement.tagName);
-                } else {
-                    isFirstElement = true;
-                }
-
-                const { children } = currentElement;
-                queue.push(...Array.from(children));
-            }
-        }
-        return nestedTagNames;
+    public getRenderedMarkdownTagNames(): string[] {
+        return Array.from(
+            this.getMarkdownRenderedElement()!.querySelectorAll('*')
+        ).map(el => el.tagName);
     }
 
     /**
-     * Retrieves the text contents of elements that have no descendants (children or grandchildren).
-     * It performs a breadth-first traversal starting from the root element.
-     * @returns An array of text contents of elements without any descendants.
+     * Retrieves text contents for the rendered markdown content in document order
+     * @returns An array of text contents of last elements in a tree
      */
-    public getNoDescendantTextContents(): string[] {
-        const nestedTextContents = [];
-        const queue = [this.getMarkdownRenderedElement()];
-
-        while (queue.length > 0) {
-            const currentElement = queue.shift();
-            if (currentElement) {
-                const { children, textContent } = currentElement;
-                if (children.length === 0) {
-                    nestedTextContents.push(textContent || '');
-                }
-                queue.push(...Array.from(children));
-            }
-        }
-        return nestedTextContents;
+    public getRenderedMarkdownLeafContents(): string[] {
+        return Array.from(
+            this.getMarkdownRenderedElement()!.querySelectorAll('*')
+        )
+            .filter((el, _) => {
+                return el.children.length === 0;
+            })
+            .map(el => el.textContent || '');
     }
 
     private getMarkdownRenderedElement(): Element | null | undefined {

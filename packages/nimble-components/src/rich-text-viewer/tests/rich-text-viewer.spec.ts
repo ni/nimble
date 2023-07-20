@@ -62,6 +62,28 @@ describe('RichTextViewer', () => {
         await disconnect();
     });
 
+    it('set a empty string should clear a value in the viewer', async () => {
+        await connect();
+
+        element.markdown = 'markdown string';
+        expect(pageObject.getRenderedMarkdownTagNames()).toEqual(['P']);
+        expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+            'markdown string'
+        );
+
+        element.markdown = '';
+        expect(pageObject.getRenderedMarkdownTagNames()).toEqual([]);
+        expect(pageObject.getRenderedMarkdownLastChildContents()).toBe('');
+
+        element.markdown = 'new markdown string';
+        expect(pageObject.getRenderedMarkdownTagNames()).toEqual(['P']);
+        expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+            'new markdown string'
+        );
+
+        await disconnect();
+    });
+
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         afterEach(async () => {
             await disconnect();
@@ -72,11 +94,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
                 'STRONG'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Bold');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Bold'
+            );
         });
 
         it('bold markdown string("__") to "strong" HTML tag', async () => {
@@ -84,11 +108,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
                 'STRONG'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Bold');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Bold'
+            );
         });
 
         it('italics markdown string("*") to "em" HTML tag', async () => {
@@ -96,11 +122,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
                 'EM'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Italics');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Italics'
+            );
         });
 
         it('italics markdown string("_") to "em" HTML tag', async () => {
@@ -108,11 +136,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
                 'EM'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Italics');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Italics'
+            );
         });
 
         it('numbered list markdown string("1.") to "ol" and "li" HTML tags', async () => {
@@ -120,12 +150,14 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
                 'LI',
                 'P'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Numbered list');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Numbered list'
+            );
         });
 
         it('numbered list markdown string("1)") to "ol" and "li" HTML tags', async () => {
@@ -133,12 +165,14 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
                 'LI',
                 'P'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Numbered list');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Numbered list'
+            );
         });
 
         it('multiple numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', async () => {
@@ -146,14 +180,14 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
                 'LI',
-                'LI',
                 'P',
+                'LI',
                 'P'
             ]);
-            expect(pageObject.getNoDescendantTextContents()).toEqual([
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
                 'Option 2'
             ]);
@@ -164,14 +198,17 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
                 'LI',
-                'LI',
                 'P',
+                'LI',
                 'P'
             ]);
-            expect(pageObject.getNoDescendantTextContents()).toEqual(['', '']);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                '',
+                ''
+            ]);
         });
 
         it('numbered lists that start with numbers and are not sequential to "ol" and "li" HTML tags', async () => {
@@ -179,14 +216,14 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
                 'LI',
-                'LI',
                 'P',
+                'LI',
                 'P'
             ]);
-            expect(pageObject.getNoDescendantTextContents()).toEqual([
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
                 'Option 2'
             ]);
@@ -197,18 +234,18 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
+                'LI',
+                'P',
                 'P',
                 'OL',
                 'LI',
-                'LI',
-                'P',
                 'P'
             ]);
-            expect(pageObject.getNoDescendantTextContents()).toEqual([
-                'Some content in between lists',
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
+                'Some content in between lists',
                 'Option 2'
             ]);
         });
@@ -218,12 +255,14 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'UL',
                 'LI',
                 'P'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Bulleted list');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Bulleted list'
+            );
         });
 
         it('bulleted list markdown string("-") to "ul" and "li" HTML tags', async () => {
@@ -231,12 +270,14 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'UL',
                 'LI',
                 'P'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Bulleted list');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Bulleted list'
+            );
         });
 
         it('bulleted list markdown string("+") to "ul" and "li" HTML tags', async () => {
@@ -244,12 +285,14 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'UL',
                 'LI',
                 'P'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe('Bulleted list');
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
+                'Bulleted list'
+            );
         });
 
         it('multiple bulleted lists markdown string("* \n* \n*") to "ul" and "li" HTML tags', async () => {
@@ -257,16 +300,16 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'UL',
                 'LI',
-                'LI',
+                'P',
                 'LI',
                 'P',
-                'P',
+                'LI',
                 'P'
             ]);
-            expect(pageObject.getNoDescendantTextContents()).toEqual([
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
                 'Option 2',
                 'Option 3'
@@ -278,18 +321,18 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'UL',
+                'LI',
+                'P',
                 'P',
                 'UL',
                 'LI',
-                'LI',
-                'P',
                 'P'
             ]);
-            expect(pageObject.getNoDescendantTextContents()).toEqual([
-                'Some content in between lists',
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
+                'Some content in between lists',
                 'Option 2'
             ]);
         });
@@ -299,16 +342,16 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
                 'A'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe(
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'https://nimble.ni.dev/'
             );
-            expect(pageObject.getLastChildAttribute('href')).toBe(
-                'https://nimble.ni.dev/'
-            );
+            expect(
+                pageObject.getRenderedMarkdownLastChildAttribute('href')
+            ).toBe('https://nimble.ni.dev/');
         });
 
         it('numbered list with bold markdown string to "ol", "li" and "strong" HTML tags', async () => {
@@ -316,13 +359,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
                 'LI',
                 'P',
                 'STRONG'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe(
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'Numbered list in bold'
             );
         });
@@ -332,13 +375,13 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'UL',
                 'LI',
                 'P',
                 'EM'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe(
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'Bulleted list in italics'
             );
         });
@@ -348,18 +391,18 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'UL',
                 'LI',
                 'P',
                 'A'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe(
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'https://nimble.ni.dev/'
             );
-            expect(pageObject.getLastChildAttribute('href')).toBe(
-                'https://nimble.ni.dev/'
-            );
+            expect(
+                pageObject.getRenderedMarkdownLastChildAttribute('href')
+            ).toBe('https://nimble.ni.dev/');
         });
 
         it('direct links in bold markdown string to "strong" and "a" HTML tags', async () => {
@@ -367,17 +410,17 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'P',
                 'STRONG',
                 'A'
             ]);
-            expect(pageObject.getLastChildTagContents()).toBe(
+            expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'https://nimble.ni.dev/'
             );
-            expect(pageObject.getLastChildAttribute('href')).toBe(
-                'https://nimble.ni.dev/'
-            );
+            expect(
+                pageObject.getRenderedMarkdownLastChildAttribute('href')
+            ).toBe('https://nimble.ni.dev/');
         });
 
         it('combination of all supported markdown string', async () => {
@@ -385,24 +428,24 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                 'OL',
-                'UL',
-                'P',
                 'LI',
-                'LI',
-                'A',
                 'P',
-                'P',
-                'EM',
                 'EM',
                 'STRONG',
-                'STRONG'
+                'UL',
+                'LI',
+                'P',
+                'EM',
+                'STRONG',
+                'P',
+                'A'
             ]);
-            expect(pageObject.getNoDescendantTextContents()).toEqual([
-                'https://nimble.ni.dev/',
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Numbered list with bold and italics',
-                'Bulleted list with bold and italics'
+                'Bulleted list with bold and italics',
+                'https://nimble.ni.dev/'
             ]);
         });
     });
@@ -451,12 +494,12 @@ describe('RichTextViewer', () => {
 
                     await connect();
 
-                    expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+                    expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                         'P'
                     ]);
-                    expect(pageObject.getLastChildTagContents()).toBe(
-                        value.name
-                    );
+                    expect(
+                        pageObject.getRenderedMarkdownLastChildContents()
+                    ).toBe(value.name);
 
                     await disconnect();
                 }
@@ -478,12 +521,12 @@ describe('RichTextViewer', () => {
 
                     await connect();
 
-                    expect(pageObject.getDescendantTagsBreadthFirst()).toEqual([
+                    expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
                         'P'
                     ]);
-                    expect(pageObject.getLastChildTagContents()).toBe(
-                        value.name
-                    );
+                    expect(
+                        pageObject.getRenderedMarkdownLastChildContents()
+                    ).toBe(value.name);
 
                     await disconnect();
                 }

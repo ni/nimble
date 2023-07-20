@@ -89,14 +89,12 @@ export class RichTextViewer extends FoundationElement {
      *
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
      * DOM structure using a DOMSerializer, and returns the serialized result.
-     *
+     * If the markdown parser returns null, it will clear the viewer component by creating an empty document fragment.
      */
     private parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
         const parsedMarkdownContent = this.markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
-            throw new Error(
-                'Prosemirror markdown parser return value is possibly null'
-            );
+            return document.createDocumentFragment();
         }
 
         return this.domSerializer.serializeFragment(
@@ -108,6 +106,8 @@ export class RichTextViewer extends FoundationElement {
         if (this.markdown) {
             const serializedContent = this.parseMarkdownToDOM(this.markdown);
             this.viewer.replaceChildren(serializedContent);
+        } else {
+            this.viewer.innerHTML = '';
         }
     }
 }
