@@ -23,14 +23,6 @@ export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirecti
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
     }
 
-    public get placeholder(): string | undefined {
-        return this.elementRef.nativeElement.placeholder;
-    }
-
-    @Input() public set placeholder(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
-    }
-
     public get fractionalWidth(): number | null | undefined {
         return this.elementRef.nativeElement.fractionalWidth;
     }

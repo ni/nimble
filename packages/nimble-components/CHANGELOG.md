@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 17 Jul 2023 17:19:39 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jul 2023 03:09:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.8.3
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Update tanstack dependency and configure undefined value sorting mode ([ni/nimble@0541d6d](https://github.com/ni/nimble/commit/0541d6d412dd3b011756e07719656f30b20dc234))
+
+## 19.8.2
+
+Wed, 19 Jul 2023 17:37:59 GMT
+
+### Patches
+
+- Adding interactive column sizing ([ni/nimble@e900711](https://github.com/ni/nimble/commit/e900711c560465f590c37753cf6769641b2d92a0))
+
+## 19.8.1
+
+Tue, 18 Jul 2023 18:56:23 GMT
+
+### Patches
+
+- Fix icon color for disabled menu items and disabled text fields ([ni/nimble@b6c4eda](https://github.com/ni/nimble/commit/b6c4edafd60eb2e7c37c1b296b846a3ef5bcdee3))
+
+## 19.8.0
+
+Tue, 18 Jul 2023 17:52:57 GMT
+
+### Minor changes
+
+- Add recordId to TableCell, TableCellView, and delegated event details ([ni/nimble@3e74c7c](https://github.com/ni/nimble/commit/3e74c7c767c44b51823449b6bfd0606838b99771))
 
 ## 19.7.0
 

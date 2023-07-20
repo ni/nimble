@@ -80,7 +80,6 @@ const simpleData = [
 interface AnchorColumnTableArgs extends SharedTableArgs {
     labelFieldName: string;
     hrefFieldName: string;
-    placeholderText: string;
     appearance: keyof typeof AnchorAppearance;
     underlineHidden: boolean;
 }
@@ -114,7 +113,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             <${tableColumnAnchorTag}
                 label-field-name="${x => x.labelFieldName}"
                 href-field-name="${x => x.hrefFieldName}"
-                placeholder="${x => x.placeholderText}"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
             >
@@ -141,11 +139,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 'Set this attribute to identify which field in the data record contains the link url for each cell in the column. If the field is not defined in a particular record, that cell will be displayed as plain text instead of a link. The field values must be of type `string`.',
             control: { type: 'none' }
         },
-        placeholderText: {
-            name: 'placeholder',
-            description:
-                'Optionally set this attribute to change the text that is displayed if both the label value and url value for a record is `null`, `undefined`, or not present. If none of the three fields are defined, an empty string will be displayed.'
-        },
         appearance: {
             options: Object.keys(AnchorAppearance),
             control: { type: 'radio' },
@@ -161,7 +154,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     args: {
         labelFieldName: 'firstName',
         hrefFieldName: 'url',
-        placeholderText: '(no first name or link provided)',
         appearance: 'default',
         underlineHidden: false,
         ...sharedTableArgs(simpleData)
