@@ -759,7 +759,6 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
-                placeholder="${'<pacifier noise>'}"
                 fractional-width="${x => x.getColumnWidthData('quote-column', x)}"
                 min-pixel-width="${x => x.minPixelWidth}"
             >

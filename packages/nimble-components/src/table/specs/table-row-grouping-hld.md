@@ -127,7 +127,7 @@ TableColumnTextColumnConfig
     public get content(): string {
         return typeof this.groupHeaderValue === 'string'
             ? this.groupHeaderValue
-            : this.columnConfig.placeholder;
+            : '';
     }
 }
 
@@ -137,7 +137,6 @@ const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
         <nimble-text-field
             readonly="true"
             value="${x => x.groupHeaderValue}"
-            placeholder="${x => x.columnConfig.placeholder}"
         >
         </nimble-text-field>`,
     styles: /* styling */
