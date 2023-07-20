@@ -6,6 +6,7 @@ import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import type { TableRecord } from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { createEventListener } from '../../utilities/tests/component';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -836,5 +837,16 @@ describe('Table Interactive Column Sizing', () => {
             await waitForUpdatesAsync();
             expect(divider.classList.contains('active')).toBeFalsy();
         });
+    });
+
+    it('resizing columns emits single "column-configuration-change" event', async () => {
+        const listener = createEventListener(
+            element,
+            'column-configuration-change'
+        );
+        pageObject.dragSizeColumnByRightDivider(2, [1, 1, 1, 1]);
+        await waitForUpdatesAsync();
+
+        expect(listener.spy).toHaveBeenCalledTimes(1);
     });
 });
