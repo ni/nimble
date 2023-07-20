@@ -3,18 +3,14 @@ import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
-import {
-    TableColumnWithPlaceholderColumnConfig,
-    TableColumnSortOperation
-} from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnTextGroupHeaderTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnTextCellRecord = TableStringField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableColumnTextColumnConfig
-    extends TableColumnWithPlaceholderColumnConfig {}
+export interface TableColumnTextColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {

@@ -587,7 +587,7 @@ describe('Table', () => {
             @customElement({
                 name: focusableCellViewName,
                 template: html<TestFocusableCellView>`<span tabindex="0"
-                    >${x => x.content}</span
+                    >${x => x.text}</span
                 >`
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars

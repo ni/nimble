@@ -2,6 +2,57 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 20 Jul 2023 16:23:00 GMT",
+      "tag": "@ni/nimble-angular_v16.8.6",
+      "version": "16.8.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a3180102e5798540621a0d60ef93ca827649a988",
+            "comment": "Remove placeholder support from table columns"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.8.4",
+            "commit": "a3180102e5798540621a0d60ef93ca827649a988"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-angular_v16.8.5",
+      "version": "16.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.8.3",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 19 Jul 2023 17:37:59 GMT",
+      "tag": "@ni/nimble-angular_v16.8.4",
+      "version": "16.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.8.2",
+            "commit": "e900711c560465f590c37753cf6769641b2d92a0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 18 Jul 2023 19:34:13 GMT",
       "tag": "@ni/nimble-angular_v16.8.3",
       "version": "16.8.3",

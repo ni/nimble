@@ -72,7 +72,7 @@ describe('Anchor Tree Item', () => {
             await connect();
             element.disabled = true;
             await waitForUpdatesAsync();
-            expect(element.control.href).toBe('');
+            expect(element.control!.href).toBe('');
         });
 
         const attributeNames: { name: string }[] = [
@@ -101,7 +101,7 @@ describe('Anchor Tree Item', () => {
                     element.setAttribute(attribute.name, 'foo');
                     await waitForUpdatesAsync();
 
-                    expect(element.control.getAttribute(attribute.name)).toBe(
+                    expect(element.control!.getAttribute(attribute.name)).toBe(
                         'foo'
                     );
                 });

@@ -1,8 +1,33 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 18 Jul 2023 19:34:13 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jul 2023 16:23:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.8.6
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
+- Bump @ni/nimble-components to v19.8.4
+
+## 16.8.5
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.3
+
+## 16.8.4
+
+Wed, 19 Jul 2023 17:37:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.2
 
 ## 16.8.3
 

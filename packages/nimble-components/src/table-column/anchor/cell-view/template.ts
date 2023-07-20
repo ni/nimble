@@ -28,17 +28,16 @@ export const template = html<TableColumnAnchorCellView>`
                 download="${x => x.columnConfig.download}"
                 underline-hidden="${x => x.columnConfig.underlineHidden}"
                 appearance="${x => x.columnConfig.appearance}"
-                title=${x => (x.hasOverflow && x.content ? x.content : null)}
+                title=${x => (x.hasOverflow ? x.text : null)}
             >
-                ${x => x.content}
+                ${x => x.text}
             </${anchorTag}>`)}
         ${when(x => typeof x.cellRecord.href !== 'string', html<TableColumnAnchorCellView>`
             <span
                 ${overflow('hasOverflow')}
-                class="${x => (typeof x.cellRecord.label === 'string' ? '' : 'placeholder')}"
-                title=${x => (x.hasOverflow && x.content ? x.content : null)}
+                title=${x => (x.hasOverflow ? x.text : null)}
             >
-                ${x => x.content}
+                ${x => x.text}
             </span>`)}
     </template>
 `;
