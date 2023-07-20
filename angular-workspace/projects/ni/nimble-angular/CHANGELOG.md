@@ -1,8 +1,130 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 30 Jun 2023 16:02:24 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jul 2023 16:23:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.8.6
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
+- Bump @ni/nimble-components to v19.8.4
+
+## 16.8.5
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.3
+
+## 16.8.4
+
+Wed, 19 Jul 2023 17:37:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.2
+
+## 16.8.3
+
+Tue, 18 Jul 2023 19:34:13 GMT
+
+### Patches
+
+- Use text property of ListOption instead of textContent for NimbleComboboxListOptionDirective to use for adding option values to parent combobox value accessor. ([ni/nimble@1f66ee7](https://github.com/ni/nimble/commit/1f66ee7a1b4bb66df177c96993803b46a2e055d7))
+
+## 16.8.2
+
+Tue, 18 Jul 2023 18:56:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.1
+
+## 16.8.1
+
+Tue, 18 Jul 2023 17:52:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.0
+
+## 16.8.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance Implementation (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
+- Bump @ni/nimble-components to v19.7.0
+
+## 16.7.6
+
+Mon, 17 Jul 2023 16:19:17 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.3
+
+## 16.7.5
+
+Mon, 17 Jul 2023 15:05:54 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.2
+
+## 16.7.4
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.1
+
+## 16.7.3
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.6.0
+
+## 16.7.2
+
+Fri, 14 Jul 2023 00:21:50 GMT
+
+### Patches
+
+- Angular integration for nimble-rich-text-viewer component ([ni/nimble@8d55141](https://github.com/ni/nimble/commit/8d55141e3f1cd929d3efeea9fac02a449082b465))
+
+## 16.7.1
+
+Thu, 13 Jul 2023 23:41:13 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.5.0
+
+## 16.7.0
+
+Thu, 13 Jul 2023 20:10:27 GMT
+
+### Minor changes
+
+- Re-export tag names for all components from nimble-angular ([ni/nimble@b65a46e](https://github.com/ni/nimble/commit/b65a46edf67373feb04ab875b599d29233858fdc))
+
+## 16.6.14
+
+Thu, 13 Jul 2023 16:50:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.4.5
 
 ## 16.6.13
 

@@ -18,7 +18,6 @@ In all of the above cases:
 -   data should be sortable and groupable by its actual value, not the string representation
 -   text styling like font and alignment should be provided by Nimble
 -   columns should support i18n behaviors like decimal separators, date/time formats, and localized content
--   there should be an option to show "placeholder" text if no value is specified
 -   there should be a way to show the full value of truncated text (likely via a title / tooltip on hover)
 
 We may not choose to support all of the above initially but we should design our solutions with these use cases in mind.
@@ -65,7 +64,7 @@ Nimble may add additional column types or configurations in future to support ad
 
 Nimble will provide abstract base classes, templates, and styles which handle rendering a string as text. Just like `nimble-table-column-text` today, these columns will:
 
--   offer attributes to control which field is displayed and placeholder text when that field isn't of type "number" (values like Infinity and NaN are considered numbers and will be displayed as such).
+-   offer attributes to control which field is displayed
 -   sort and group by the field value, not the display value.
 -   allow sizing by fractional widths with a minimum pixel width.
 -   truncate using an ellipsis and show a tooltip on hover when the value is truncated
@@ -84,7 +83,6 @@ Both clients and Nimble itself will derive from these base classes to specify th
 <nimble-table>
     <my-app-progress-column
         field-name="progress"
-        placeholder="Not started"
     >
         Progress
     <my-app-progress-column>`
@@ -125,14 +123,6 @@ export class MyAppProgressColumnCellView extends TableColumnTextCellViewBase<
     public override get text(): string {
         return `${100 * this.cellRecord.value}%`;
     }
-
-    public override get placeholder(): string {
-        return this.columnConfig.placeholder;
-    }
-
-    public override get shouldUsePlaceholder(): boolean {
-        return typeof this.cellRecord.value !== 'number';
-    }
 }
 
 export class MyAppProgressColumnGroupHeaderView extends TableColumnTextGroupHeaderViewBase<
@@ -141,14 +131,6 @@ export class MyAppProgressColumnGroupHeaderView extends TableColumnTextGroupHead
 > {
     public override get text(): string {
         return `${100 * this.groupHeaderValue}%`;
-    }
-
-    public override get placeholder(): string {
-        return this.columnConfig.placeholder;
-    }
-
-    public override get shouldUsePlaceholder(): boolean {
-        return typeof this.groupHeaderValue !== 'number';
     }
 }
 
@@ -161,7 +143,7 @@ This is prototyped in the [formatted-text-column branch](https://github.com/ni/n
 
 Nimble will provide several columns that derive from the above base classes and provide higher level text formatting APIs for specific data types.
 
-All columns will include a `field-name` string attribute to select the field to display and a `placeholder` string attribute to specify the text to display if the field value isn't in the expected format (more details about expected formats for each column type).
+All columns will include a `field-name` string attribute to select the field to display.
 
 All columns will offer standard Angular and Blazor integration.
 
@@ -198,7 +180,7 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2.
 -   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `Intl.NumberFormat` constructor. For example, `options.maximumFractionDigits` will be set to the value of `custom-maximum-fraction-digits`. These fields are all string, boolean, or number and their property equivalents will be strictly typed. Initially the column will expose configurations that are [not marked experimental](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#browser_compatibility).
 
-This column will display the `placeholder` when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"`, `"NaN"` and `"-0"`.
+This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"`, `"NaN"` and `"-0"`.
 
 This column will trigger `invalidColumnConfiguration` on the table's validity state and will include flags in the column's validity state if its configuration can't be translated to a valid `Intl.NumberFormat` object. To provide better developer feedback about what's wrong with the configuration, the column could expose a public method like `createNumberFormat()` which would use the column's configuration to construct the formatter but allow any exceptions to be thrown.
 
@@ -206,18 +188,11 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 
 ```html
 <nimble-table>
-    <nimble-table-column-number-text
-        field-name="numericTag"
-        placeholder="Not set"
-    >
+    <nimble-table-column-number-text field-name="numericTag">
         Tag
     </nimble-table-column-number-text>
 
-    <nimble-table-column-number-text
-        field-name="count"
-        format="integer"
-        placeholder="Not found"
-    >
+    <nimble-table-column-number-text field-name="count" format="integer">
         Count
     </nimble-table-column-number-text>
 
@@ -249,7 +224,7 @@ We considered allowing clients to provide date values using native date types li
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
 -   `custom-*` - when format is `custom`, these attribute-cased values will be passed to the equivalent camelCased fields of the `options` parameter of the `Intl.DateTimeFormat` constructor. For example, `options.dateStyle` will be set to the value of `custom-date-style`. These fields are all string, boolean, or number and their property equivalents will be strictly typed.
 
-This column will display the `placeholder` for a date when the value is `null` or `isNaN(new Date(value))` returns `true` (i.e. if the value is `null`, `undefined`, not present, has a non-`number` runtime data type, or is a `number` that produces an invalid `Date` like `NaN`/`Infinity`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)). Note that `new Date(null)` is behaves the same as `new Date(0)` so Nimble treating `null` as invalid will require a special case.
+This column will display a blank cell when the value is `null` or `isNaN(new Date(value))` returns `true` (i.e. if the value is `null`, `undefined`, not present, has a non-`number` runtime data type, or is a `number` that produces an invalid `Date` like `NaN`/`Infinity`) (see ["Detecting an invalid Date instance"](https://stackoverflow.com/a/1353711)). Note that `new Date(null)` is behaves the same as `new Date(0)` so Nimble treating `null` as invalid will require a special case.
 
 This column will trigger `invalidColumnConfiguration` on the table's validity state and will include flags in the column's validity state if its configuration can't be translated to a valid `Intl.DateTimeFormat` object. To provide better developer feedback about what's wrong with the configuration, the column could expose a public method like `createDateTimeFormat()` which would use the column's configuration to construct the formatter but allow any exceptions to be thrown.
 
@@ -257,7 +232,7 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 
 ```html
 <nimble-table>
-    <nimble-table-column-date-text field-name="start" placeholder="Not started">
+    <nimble-table-column-date-text field-name="start">
         Start
     </nimble-table-column-date-text>
 
@@ -359,9 +334,9 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 2. The TC39 ECMAScript standard is working on [a proposal for Temporal](https://github.com/tc39/proposal-temporal), which includes a new [immutable format for representing time](https://tc39.es/proposal-temporal/docs/index.html) and namespace for manipulating it. It's in Stage 3 meaning the API isn't expected to change and [polyfills](https://github.com/tc39/proposal-temporal#polyfills) are available. Since the formatting APIs that browsers support today are sufficient, we propose to use them instead.
 3. There are numerous libraries for formatting including the standards-based [Format.js](https://formatjs.io/), the opinionated [moment.js](https://momentjs.com/docs/), and [various successors](https://momentjs.com/docs/#/-project-status/recommendations/). We may choose to depend on one in the future to expose additional formatting options but will start with browser APIs as they require no additional dependencies.
 
-### Additional unit and placeholder APIs
+### Additional unit APIs
 
-We considered adding attributes `prefix-field-name`, `suffix-field-name`, and `placeholder-field-name` which would allow those values to be populated with a dynamic field value rather than a constant string. This could help use cases where values have disparate types or units. We decided this is not necessary initially but could revisit in the future. See [this thread](https://github.com/ni/nimble/pull/1268#discussion_r1212385898) for more discussion.
+We considered adding attributes `prefix-field-name` and `suffix-field-name` which would allow those values to be populated with a dynamic field value rather than a constant string. This could help use cases where values have disparate types or units. We decided this is not necessary initially but could revisit in the future. See [this thread](https://github.com/ni/nimble/pull/1268#discussion_r1212385898) for more discussion.
 
 ---
 
@@ -396,14 +371,14 @@ We will add standard unit tests, Blazor/Angular tests, and Chromatic tests for n
 #### Number column
 
 -   number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER -n) should render as numbers
--   non-number edge cases (e.g. strings containing numbers, undefined, null) should display the placeholder
+-   non-number edge cases (e.g. strings containing numbers, undefined, null) should display blank
 -   formatting should change with different locales
 -   invalid formatter configuration should be reflected in column validity state
 
 #### Date column
 
 -   date edge cases (min and max date, different time zones)
--   non-date edge cases (e.g. non-dates, invalid dates) should display the placeholder
+-   non-date edge cases (e.g. non-dates, invalid dates) should display blank
 -   formatting should change with different locales
 -   invalid formatter configuration should be reflected in column validity state
 

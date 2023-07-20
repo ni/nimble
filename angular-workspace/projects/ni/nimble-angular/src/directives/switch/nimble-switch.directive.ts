@@ -1,8 +1,9 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Switch } from '@ni/nimble-components/dist/esm/switch';
+import { type Switch, switchTag } from '@ni/nimble-components/dist/esm/switch';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Switch };
+export { switchTag };
 
 /**
  * Directive to provide Angular integration for the switch.

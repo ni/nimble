@@ -12,8 +12,13 @@ import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
 import { tableColumnTextTag } from '../../table-column/text';
+import {
+    addLabelUseMetadata,
+    type LabelUserArgs
+} from '../../label-provider/base/tests/label-user-stories-utils';
+import { labelProviderTableTag } from '../../label-provider/table';
 
-interface TableArgs {
+interface TableArgs extends LabelUserArgs {
     data: ExampleDataType;
     selectionMode: keyof typeof TableRowSelectionMode;
     idFieldName: undefined;
@@ -150,27 +155,27 @@ const metadata: Meta<TableArgs> = {
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
-                field-name="firstName" placeholder="no value"
+                field-name="firstName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
-                field-name="lastName" placeholder="no value"
+                field-name="lastName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
-                field-name="favoriteColor" placeholder="no value"
+                field-name="favoriteColor"
             >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="quote-column"
-                field-name="quote" placeholder="no value"
+                field-name="quote"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
             >
                 Quote
@@ -269,6 +274,7 @@ const metadata: Meta<TableArgs> = {
         }
     }
 };
+addLabelUseMetadata(metadata, labelProviderTableTag);
 
 export default metadata;
 

@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { TableColumnText } from '@ni/nimble-components/dist/esm/table-column/text';
+import { type TableColumnText, tableColumnTextTag } from '@ni/nimble-components/dist/esm/table-column/text';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 
 export type { TableColumnText };
+export { tableColumnTextTag };
 
 /**
  * Directive to provide Angular integration for the table column element for text.
@@ -20,14 +21,6 @@ export class NimbleTableColumnTextDirective extends NimbleTableColumnBaseDirecti
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('field-name') public set fieldName(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
-    }
-
-    public get placeholder(): string | undefined {
-        return this.elementRef.nativeElement.placeholder;
-    }
-
-    @Input() public set placeholder(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
     public get fractionalWidth(): number | null | undefined {
