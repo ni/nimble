@@ -110,7 +110,10 @@ _Props/Attrs_
 -   `isEmpty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
--   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
+-   `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
+-   `placeholder` -  is an attribute to include a placeholder text for the editor when it is empty. This can be achieved through
+    Tiptap's [Placeholder extension](https://tiptap.dev/api/extensions/placeholder). We can customize the styling of placeholder
+    text with our own styles using Prosemirror's class as given in the provided link.
 
 _Alternatives_
 
@@ -128,7 +131,22 @@ application's performance is enhanced as the operation is performed only once, t
 
 _Methods_
 
--   none
+-   `hideFooter()` - hides the footer section that contains all formatting options and the `footer-actions` slot.
+-   `clearContent()` - clears the content in the editor through [clearContent()](https://tiptap.dev/api/commands/clear-content) command in Tiptap.
+
+_Open Discussion_
+
+-   We are proposing a design that involves displaying only a placeholder text while initially hiding the footer section in the default view. Upon focusing on the editor, we will use
+    Tiptap's [focus event](https://tiptap.dev/api/events#focus) to show the footer section with all the formatting options. As per the
+    UX for comments feature, we will revert back to the original state (i.e,. without the footer section) only if the user clicks the `cancel` or `ok` button. Therefore,
+    we came to this decision of exposing the above methods.
+-   There isn't a specific reason to expose two separate methods when considering the comments feature; they could be combined into a single method. However, we are uncertain about the
+    appropriate name for this method. One idea we have is to name it `resetEditor()`, combining the functionality of hiding the footer and clearing the existing content in the editor. This method
+    would not modify the markdown value and so we are not sure `resetEditor()` is the appropriate name for it. So, the question is, can we consolidate both functionalities into a single method
+    and find a suitable name for it?
+-   The rationale behind not suggesting it as a property/attribute is that we don't see a compelling reason to expose both showing and hiding functionalities of the footer section to the client.
+    Instead, our proposal is to only expose a method that allows the client to hide the footer when necessary. The rich text editor can show the footer section exclusively when focused, while
+    for the rest of the time, it can remain as a plain box with a placeholder text.
 
 _Events_
 
@@ -152,6 +170,9 @@ _CSS Classes and CSS Custom Properties that affect the component_
 -   The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
     component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
     space in the footer.
+-   In the current [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=UQXX9gHBvZwPZoLy-0),
+    we will be dynamically show or hide the footer section within the overall component. Initially, in the unfocused view of the component, the height of the component
+    will be one line plus the height of the footer section, even though the footer itself remains hidden. However, once the editor is focused, on the same place, the footer will be displayed.
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
@@ -396,10 +417,13 @@ This component is dependent on the [`tiptap`](https://tiptap.dev/) third party l
 library. For the currently supported features, we will include the following libraries that will be added to the package.json
 
 -   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
--   [@tiptap/pm](https://www.npmjs.com/package/@tiptap/pm)
 -   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
+-   [@tiptap/extension-placeholder](https://www.npmjs.com/package/@tiptap/extension-placeholder)
+-   [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
+-   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
+-   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
 
-These packages will add up to a total space of approximately 800 KB in the components bundle. For more info see
+These packages will add up to a total space of approximately 900 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).
 
 **_Note_**: For markdown parser and serializer, [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) internal dependencies will be
