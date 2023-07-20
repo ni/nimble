@@ -15,12 +15,14 @@ To mitigate these problems, we will reveal three new API inputs which will allow
 
 The new attributes and properties will be described in the component definition. They will be created with change listeners which will trigger the appropriate updates in the wafer.
 
-The inputs will be validated before use. If they are undefined or the data is missing the previous behavior of calculating the values based on the input data will be implemented.
+The inputs will be validated before use. If they are undefined the previous behavior of calculating the values based on the input data will be implemented.
+
+If part of the input data is missing, the wafer will not render, and a new `validity` API will be populated with the reason for the error, `invalidGridDimensions`.
 
 ## Alternative Implementations / Designs
 
-The API can be changed to use four numeric inputs for each of the values, or a new Type can be created to structure all the dimensions together.
+Yes.
 
 ## Open Issues
 
--   Should the detection of partial data on the new inputs trigger a visual warning?
+The API can be changed to use four numeric attribute inputs for each of the values, or a new type can be created to structure all the dimensions together.

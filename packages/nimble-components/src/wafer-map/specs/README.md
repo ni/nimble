@@ -98,8 +98,8 @@ _The key elements of the component's public API surface:_
     -   `origin` - represents the origin coordinates of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum corner of the bounding box of the dies coordinates. It will be an object of the type `PointCoordinates` with the following attributes:
         -   x: number
         -   y: number
-    -   `rows` - represents the number of values on the Y axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum Y values of the bounding box of the dies coordinates plus one.
-    -   `columns` - represents the number of values on the X axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum X values of the bounding box of the dies coordinates plus one.
+    -   `numberOfRows` - represents the number of values on the Y axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum Y values of the bounding box of the dies coordinates plus one.
+    -   `numberOfColumns` - represents the number of values on the X axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum X values of the bounding box of the dies coordinates plus one.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The objects we use internally for the colorScale are [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal) and [d3.scaleLinear](https://observablehq.com/@d3/d3-scalelinear). Basically, what this does is it associates a specific string (or in our case a value) with a specific color. The values which are not specified in the array, will be calculated as a interpolation from the provided colors for the linear scale or will be assigned to one of the specified color values from the provided colors for the ordinal scale.
         In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale\
@@ -110,6 +110,8 @@ _The key elements of the component's public API surface:_
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
     -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
+    -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is WaferMapValidity, and it contains the following boolean properties:
+        -   `invalidGridDimensions` : true when only one or two of the `origin`, `numberOfRows` or `numberOfColumns` is undefined.
 
 The `quadrant`, `orientation`, `rows`, `columns`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
 The `die`, `origin`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
