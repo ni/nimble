@@ -111,7 +111,7 @@ _Props/Attrs_
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
 -   `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
--   `placeholder` -  is an attribute to include a placeholder text for the editor when it is empty. This can be achieved through
+-   `placeholder` - is an attribute to include a placeholder text for the editor when it is empty. This can be achieved through
     Tiptap's [Placeholder extension](https://tiptap.dev/api/extensions/placeholder). We can customize the styling of placeholder
     text with our own styles using Prosemirror's class as given in the provided link.
 
