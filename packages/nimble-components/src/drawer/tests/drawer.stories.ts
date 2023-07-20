@@ -34,7 +34,7 @@ interface DrawerArgs {
     openAndHandleResult: (
         drawerRef: Drawer<string>,
         textFieldRef: TextField
-    ) => Promise<void> | undefined;
+    ) => void;
 }
 
 const simpleContent = html<DrawerArgs>`
@@ -230,9 +230,11 @@ const metadata: Meta<DrawerArgs> = {
         width: DrawerWidthOptions.default,
         drawerRef: undefined,
         textFieldRef: undefined,
-        openAndHandleResult: async (drawerRef, textFieldRef) => {
-            const reason = await drawerRef.show();
-            textFieldRef.value = reason === UserDismissed ? 'User dismissed' : reason;
+        openAndHandleResult: (drawerRef, textFieldRef) => {
+            void (async () => {
+                const reason = await drawerRef.show();
+                textFieldRef.value = reason === UserDismissed ? 'User dismissed' : reason;
+            })();
         }
     }
 };

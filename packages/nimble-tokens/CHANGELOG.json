@@ -2,6 +2,21 @@
   "name": "@ni/nimble-tokens",
   "entries": [
     {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-tokens_v6.2.1",
+      "version": "6.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-tokens",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234",
+            "comment": "Lint disable without behavior change"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Jul 2023 22:15:57 GMT",
       "tag": "@ni/nimble-tokens_v6.2.1",
       "version": "6.2.1",
