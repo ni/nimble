@@ -13,6 +13,7 @@ export const styles = css`
         block-size: 100%;
         flex-direction: column;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
+        --ni-private-footer-visibility: hidden;
     }
 
     .container {
@@ -49,7 +50,6 @@ export const styles = css`
 
     .editor {
         border: ${borderWidth} solid transparent;
-        border-bottom-color: rgba(${borderRgbPartialColor}, 0.1);
         border-radius: 0px;
         block-size: calc(100% - 42px);
         overflow: auto;
@@ -97,9 +97,11 @@ export const styles = css`
     .footer-section {
         display: flex; 
         justify-content: space-between;
-        border: 0px;
+        border: ${borderWidth} solid transparent;
+        border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         block-size: 40px;
         overflow-y: auto;
+        visibility: var(--ni-private-footer-visibility);
     }
 
     nimble-toolbar::part(positioning-region) {

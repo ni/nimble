@@ -1,4 +1,4 @@
-import { html, ref, when } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../toolbar';
 import { toggleButtonTag } from '../toggle-button';
@@ -11,8 +11,7 @@ export const template = html<RichTextEditor>`
     <template>
         <div class="container">
             <div ${ref('editor')} class="editor"></div>
-            ${when(x => x.showFooter, html<RichTextEditor>`
-                <section class="footer-section">
+                <section class="footer-section" style="--ni-private-footer-visibility: ${x => x.footerVisibility}">
                     <${toolbarTag} class="footer-toolbar" >
                         <${toggleButtonTag} ${ref('bold')} @click=${x => x.boldButtonClickHandler()} content-hidden appearance="ghost" slot="start">
                             <${iconBoldBTag} slot="start"></${iconBoldBTag}>
@@ -29,7 +28,6 @@ export const template = html<RichTextEditor>`
                     </${toolbarTag}>
                     <slot name="footer" class="footer-actions"></slot>
                 </section>
-            `)}
         </div>
     </template>
 `;

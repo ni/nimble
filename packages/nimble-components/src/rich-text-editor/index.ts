@@ -18,8 +18,15 @@ declare global {
  * A nimble styled rich text editor
  */
 export class RichTextEditor extends FoundationElement {
+    /**
+     * @public
+     */
     @attr public placeholder = 'Enter text here';
-    @attr({ mode: 'boolean' }) public showFooter = true;
+
+    /**
+     * @internal
+     */
+    @attr public footerVisibility = 'hidden';
 
     public editor!: HTMLDivElement;
     public bold!: ToggleButton;
@@ -40,6 +47,8 @@ export class RichTextEditor extends FoundationElement {
         super.connectedCallback();
         this.initializeEditor();
         this.changeEventTrigger();
+
+        // this.setContent();
     }
 
     public boldButtonClickHandler(): void {
@@ -56,6 +65,20 @@ export class RichTextEditor extends FoundationElement {
 
     public numberedListButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
+    }
+
+    /**
+     * @public
+     */
+    public hideFooter(): void {
+        this.footerVisibility = 'hidden';
+    }
+
+    /**
+     * @public
+     */
+    public clearContent(): void {
+        this.tiptapEditor.commands.clearContent();
     }
 
     private initializeEditor(): void {
@@ -86,14 +109,31 @@ export class RichTextEditor extends FoundationElement {
             this.tiptapEditor.on('transaction', () => {
                 this.toggleTipTapButtonState();
             });
+
+            this.tiptapEditor.on('focus', () => {
+                this.footerVisibility = 'visible';
+            });
         }
     }
 
     private toggleTipTapButtonState(): void {
-        this.bold.checked = this.tiptapEditor.isActive('bold');
-        this.italics.checked = this.tiptapEditor.isActive('italic');
-        this.bulletList.checked = this.tiptapEditor.isActive('bulletList');
-        this.numberedList.checked = this.tiptapEditor.isActive('orderedList');
+        if (this.bold) {
+            this.bold.checked = this.tiptapEditor.isActive('bold');
+        }
+        if (this.italics) {
+            this.italics.checked = this.tiptapEditor.isActive('italic');
+        }
+        if (this.bulletList) {
+            this.bulletList.checked = this.tiptapEditor.isActive('bulletList');
+        }
+        if (this.numberedList) {
+            this.numberedList.checked = this.tiptapEditor.isActive('orderedList');
+        }
+    }
+
+    private setContent(): void {
+        this.tiptapEditor.commands.setContent('<p><em>Test</em></p>');
+        this.tiptapEditor.commands.focus('end');
     }
 }
 
