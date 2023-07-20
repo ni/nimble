@@ -15,10 +15,6 @@ export interface TableCellState<
     columnConfig: TColumnConfig;
 }
 
-export interface TableColumnWithPlaceholderColumnConfig {
-    placeholder: string;
-}
-
 /**
  * The event details for the 'delegated-event' CustomEvent
  */
