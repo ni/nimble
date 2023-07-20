@@ -128,7 +128,9 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 }
 ```
 
-### Code owners
+### Code review
+
+For any PR containing non-trivial changes, please have it approved by a local reviewer before moving the PR out of Draft and adding owners. This helps reduce the burden on owners to catch smaller issues.
 
 Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
 
