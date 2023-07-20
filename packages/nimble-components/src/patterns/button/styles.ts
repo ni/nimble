@@ -14,14 +14,14 @@ import {
     iconColor,
     smallDelay,
     standardPadding,
-    buttonPrimaryBackgroundColor,
     buttonPrimaryFontColor,
-    buttonPrimaryFillActionColor,
-    buttonAccentBackgroundColor,
-    buttonBlockAccentFontColor,
-    buttonAccentFillActionColor,
-    buttonOutlineAccentBorderColor,
-    buttonOutlineAccentFontColor
+    buttonFillPrimaryColor,
+    buttonFillPrimaryActiveColor,
+    buttonFillAccentColor,
+    buttonAccentBlockFontColor,
+    buttonFillAccentActiveColor,
+    buttonBorderAccentOutlineColor,
+    buttonAccentOutlineFontColor
 } from '../../theme-provider/design-tokens';
 import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
@@ -286,8 +286,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             }
 
             :host([appearance-variant='accent']) .control {
-                border-color: ${buttonOutlineAccentBorderColor};
-                color: ${buttonOutlineAccentFontColor};
+                border-color: ${buttonBorderAccentOutlineColor};
+                color: ${buttonAccentOutlineFontColor};
             }
 
             :host([appearance-variant='accent']) .control:hover {
@@ -316,15 +316,15 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             }
 
             :host([appearance-variant='primary']) .control {
-                background-color: ${buttonPrimaryBackgroundColor};
+                background-color: ${buttonFillPrimaryColor};
                 color: ${buttonPrimaryFontColor};
             }
 
             :host([appearance-variant='primary']) .control:hover {
                 background-color: transparent;
                 background-image: linear-gradient(
-                    ${buttonPrimaryBackgroundColor},
-                    ${buttonPrimaryBackgroundColor}
+                    ${buttonFillPrimaryColor},
+                    ${buttonFillPrimaryColor}
                 );
                 background-size: calc(100% - 4px) calc(100% - 4px);
                 color: ${buttonPrimaryFontColor};
@@ -333,16 +333,16 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             :host([appearance-variant='primary']) .control${focusVisible} {
                 background-color: transparent;
                 background-image: linear-gradient(
-                    ${buttonPrimaryBackgroundColor},
-                    ${buttonPrimaryBackgroundColor}
+                    ${buttonFillPrimaryColor},
+                    ${buttonFillPrimaryColor}
                 );
                 background-size: calc(100% - 4px) calc(100% - 4px);
             }
 
             :host([appearance-variant='primary']) .control:active {
                 background-image: linear-gradient(
-                    ${buttonPrimaryFillActionColor},
-                    ${buttonPrimaryFillActionColor}
+                    ${buttonFillPrimaryActiveColor},
+                    ${buttonFillPrimaryActiveColor}
                 );
                 background-size: calc(100% - 2px) calc(100% - 2px);
             }
@@ -371,33 +371,33 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             }
 
             :host([appearance-variant='accent']) .control {
-                background-color: ${buttonAccentBackgroundColor};
-                color: ${buttonBlockAccentFontColor};
+                background-color: ${buttonFillAccentColor};
+                color: ${buttonAccentBlockFontColor};
             }
 
             :host([appearance-variant='accent']) .control:hover {
                 background-color: transparent;
                 background-image: linear-gradient(
-                    ${buttonAccentBackgroundColor},
-                    ${buttonAccentBackgroundColor}
+                    ${buttonFillAccentColor},
+                    ${buttonFillAccentColor}
                 );
                 background-size: calc(100% - 4px) calc(100% - 4px);
-                color: ${buttonBlockAccentFontColor};
+                color: ${buttonAccentBlockFontColor};
             }
 
             :host([appearance-variant='accent']) .control${focusVisible} {
                 background-color: transparent;
                 background-image: linear-gradient(
-                    ${buttonAccentBackgroundColor},
-                    ${buttonAccentBackgroundColor}
+                    ${buttonFillAccentColor},
+                    ${buttonFillAccentColor}
                 );
                 background-size: calc(100% - 4px) calc(100% - 4px);
             }
 
             :host([appearance-variant='accent']) .control:active {
                 background-image: linear-gradient(
-                    ${buttonAccentFillActionColor},
-                    ${buttonAccentFillActionColor}
+                    ${buttonFillAccentActiveColor},
+                    ${buttonFillAccentActiveColor}
                 );
                 background-size: calc(100% - 2px) calc(100% - 2px);
             }
