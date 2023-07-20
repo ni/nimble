@@ -1,6 +1,9 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { attr } from '@microsoft/fast-element';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
+import Placeholder from '@tiptap/extension-placeholder';
+import Link from '@tiptap/extension-link';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
@@ -15,11 +18,15 @@ declare global {
  * A nimble styled rich text editor
  */
 export class RichTextEditor extends FoundationElement {
+    @attr public placeholder = 'Enter text here';
+    @attr({ mode: 'boolean' }) public showFooter = true;
+
     public editor!: HTMLDivElement;
     public bold!: ToggleButton;
     public italics!: ToggleButton;
     public bulletList!: ToggleButton;
     public numberedList!: ToggleButton;
+
     private tiptapEditor!: Editor;
 
     public constructor() {
@@ -57,6 +64,15 @@ export class RichTextEditor extends FoundationElement {
                 StarterKit.configure({
                     heading: false, blockquote: false, hardBreak: false, code: false, horizontalRule: false, strike: false, codeBlock: false
                 }),
+                Link.configure({
+                    openOnClick: true,
+                    autolink: false,
+                    linkOnPaste: false,
+                    // validate: href => /^https?:\/\//.test(href)
+                }),
+                Placeholder.configure({
+                    placeholder: this.placeholder
+                })
             ];
             this.tiptapEditor = new Editor({
                 element: this.editor,

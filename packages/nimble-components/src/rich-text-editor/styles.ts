@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, linkActiveFontColor, linkFontColor, smallDelay, smallPadding, standardPadding } from '../theme-provider/design-tokens';
+import { bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, linkActiveFontColor, linkFontColor, smallDelay, smallPadding, standardPadding } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -18,6 +18,7 @@ export const styles = css`
     .container {
         display: flex;
         flex-direction: column;
+        height: inherit;
         position: relative;
         max-block-size: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
@@ -61,7 +62,7 @@ export const styles = css`
         border-radius: 0px;
         background-color: transparent;
         font: inherit;
-        padding: ${standardPadding};
+        padding: 8px;
         padding-block-end: ${smallPadding};
         box-sizing: border-box;
         position: relative;
@@ -115,5 +116,13 @@ export const styles = css`
         justify-content: flex-end;
         gap: 16px;
         place-items: center;
+    }
+
+    .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${controlLabelFontColor};
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
     }
 `;
