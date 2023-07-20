@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 19 Jul 2023 17:37:59 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jul 2023 03:09:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.8.3
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Update tanstack dependency and configure undefined value sorting mode ([ni/nimble@0541d6d](https://github.com/ni/nimble/commit/0541d6d412dd3b011756e07719656f30b20dc234))
 
 ## 19.8.2
 
