@@ -263,6 +263,16 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
     Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
 
+#### Only throw exceptions in production for Nimble logic errors
+
+Components should be robust to being configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
+
+Instead of throwing an exceptions, components should ignore invalid state and render in a predictable way. This could mean reverting to a default or empty state. This behavior should be covered by auto tests.
+
+Components can also consider exposing an API that checks the validity of the component configuration. Clients can use this to assert about the validity in their tests and to discover why a component is invalid when debugging. See the `nimble-table` for an example of this.
+
+It is acceptable to throw exceptions in production code and tests when a case gets hit that should be impossible: for example an invalid enum value.
+
 #### Comments
 
 At a minimum all classes should have a block comment and ultimately all parts of the public API should have a block comment as well.
