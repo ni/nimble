@@ -3,18 +3,14 @@ import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
-import {
-    TableColumnWithPlaceholderColumnConfig,
-    TableColumnSortOperation
-} from '../base/types';
+import { TableColumnSortOperation } from '../base/types';
 import { tableColumnDateTextGroupHeaderTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableColumnDateTextColumnConfig
-    extends TableColumnWithPlaceholderColumnConfig {}
+export interface TableColumnDateTextColumnConfig {}
 
 declare global {
     interface HTMLElementTagNameMap {

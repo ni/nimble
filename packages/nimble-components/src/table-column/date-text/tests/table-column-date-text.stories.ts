@@ -72,7 +72,6 @@ export default metadata;
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
-    placeholderText: string;
 }
 
 const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the `Date` type.';
@@ -102,7 +101,6 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnDateTextTag}
                 field-name="lastSeen"
-                placeholder="${x => x.placeholderText}"
             >
             Last Seen
             </${tableColumnDateTextTag}>
@@ -114,15 +112,9 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             description:
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the `Date` type.',
             control: { type: 'none' }
-        },
-        placeholderText: {
-            name: 'placeholder',
-            description:
-                'Optionally set this attribute to change the text that is displayed if the record value is `null`, `undefined`, or not present. If unset, an empty string will be displayed.'
         }
     },
     args: {
-        fieldName: 'firstName',
-        placeholderText: 'unknown'
+        fieldName: 'firstName'
     }
 };

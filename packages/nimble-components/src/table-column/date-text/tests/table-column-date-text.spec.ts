@@ -5,8 +5,6 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
-import { wackyStrings } from '../../../utilities/tests/wacky-strings';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 
 interface SimpleTableRecord extends TableRecord {
@@ -18,7 +16,7 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table style="width: 700px">
-                <${tableColumnDateTextTag} field-name="field" placeholder="no value" group-index="0">
+                <${tableColumnDateTextTag} field-name="field" group-index="0">
                     Column 1
                 </${tableColumnDateTextTag}>
                 <${tableColumnDateTextTag} field-name="anotherField">
@@ -82,12 +80,12 @@ describe('TableColumnDateText', () => {
     ];
     for (const testData of badValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`displays placeholder string when ${testData.description}`, async () => {
+        it(`displays blank when ${testData.description}`, async () => {
             await element.setData(testData.data);
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toEqual('no value');
+            expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
     }
 
@@ -110,21 +108,7 @@ describe('TableColumnDateText', () => {
         );
     });
 
-    it('changing placeholder updates display', async () => {
-        await element.setData([{ field: null }]);
-        await connect();
-        await waitForUpdatesAsync();
-
-        const firstColumn = element.columns[0] as TableColumnDateText;
-        firstColumn.placeholder = 'different value';
-        await waitForUpdatesAsync();
-
-        expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-            'different value'
-        );
-    });
-
-    it('changing data from value to null displays placeholder', async () => {
+    it('changing data from value to null displays blank', async () => {
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
@@ -139,14 +123,14 @@ describe('TableColumnDateText', () => {
         await element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toEqual('no value');
+        expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
     });
 
     it('changing data from null to value displays value', async () => {
         await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toEqual('no value');
+        expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
 
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
@@ -209,60 +193,6 @@ describe('TableColumnDateText', () => {
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
         await waitForUpdatesAsync();
         expect(pageObject.getCellTitle(0, 0)).toEqual('');
-    });
-
-    describe('placeholder assigned various strings render as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `placeholder "${value.name}" renders as "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await connect();
-                    await element.setData([{ field: null }]);
-                    await waitForUpdatesAsync();
-
-                    const firstColumn = element
-                        .columns[0] as TableColumnDateText;
-                    firstColumn.placeholder = value.name;
-                    await waitForUpdatesAsync();
-
-                    expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
-                        value.name
-                    );
-                }
-            );
-        }
-    });
-
-    describe('placeholder assigned various strings render in group header as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `placeholder "${value.name}" renders as "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await connect();
-                    await element.setData([{ field: null }]);
-                    await waitForUpdatesAsync();
-
-                    const firstColumn = element
-                        .columns[0] as TableColumnDateText;
-                    firstColumn.placeholder = value.name;
-                    await waitForUpdatesAsync();
-
-                    expect(
-                        tablePageObject.getRenderedGroupHeaderContent(0)
-                    ).toContain(value.name);
-                }
-            );
-        }
     });
 
     it('sets group header text as expected', async () => {

@@ -42,7 +42,6 @@ const component = (): ViewTemplate => html`
     <${tableTag} id-field-name="id" style="height: 250px">
         <${tableColumnDateTextTag}
             field-name="date"
-            placeholder="no value"
             group-index="0"
         >
             <${iconUserTag}></${iconUserTag}>

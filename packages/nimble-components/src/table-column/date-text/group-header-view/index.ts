@@ -17,10 +17,6 @@ export class TableColumnDateTextGroupHeaderView extends TableColumnTextGroupHead
 TableNumberFieldValue,
 TableColumnDateTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.placeholder = this.columnConfig?.placeholder ?? '';
-    }
-
     private groupHeaderValueChanged(): void {
         if (typeof this.groupHeaderValue === 'number') {
             const formatter = new Intl.DateTimeFormat(undefined, {
@@ -29,14 +25,11 @@ TableColumnDateTextColumnConfig
             });
             try {
                 this.text = formatter.format(this.groupHeaderValue);
-                this.shouldUsePlaceholder = false;
             } catch (e) {
                 this.text = '';
-                this.shouldUsePlaceholder = true;
             }
         } else {
             this.text = '';
-            this.shouldUsePlaceholder = true;
         }
     }
 }

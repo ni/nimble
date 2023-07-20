@@ -20,10 +20,6 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
 TableColumnDateTextCellRecord,
 TableColumnDateTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.placeholder = this.columnConfig.placeholder;
-    }
-
     private cellRecordChanged(): void {
         if (typeof this.cellRecord.value === 'number') {
             const formatter = new Intl.DateTimeFormat(undefined, {
@@ -32,14 +28,11 @@ TableColumnDateTextColumnConfig
             });
             try {
                 this.text = formatter.format(this.cellRecord.value);
-                this.shouldUsePlaceholder = false;
             } catch (e) {
                 this.text = '';
-                this.shouldUsePlaceholder = true;
             }
         } else {
             this.text = '';
-            this.shouldUsePlaceholder = true;
         }
     }
 }
