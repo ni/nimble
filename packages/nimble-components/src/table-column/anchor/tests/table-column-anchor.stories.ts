@@ -89,11 +89,11 @@ const anchorColumnDescription = `The \`nimble-table-column-anchor\` column is us
 
 In an Angular app, you can configure a callback to intercept clicks so that you may invoke the router to perform the navigation instead of the default handler:
 \`\`\`
-<nimble-table-column-anchor [clickDelegate]="doRouterNavigation">
+<nimble-table-column-anchor [navigationGuard]="doRouterNavigation">
     Link
 </nimble-table-column-anchor>
 \`\`\`
-The function bound to \`clickDelegate\` should be of type \`ClickDelegate\`. It receives the clicked row id and should return a boolean indicating whether the default click handler should be run. I.e. return \`false\` if you have handled the navigation. The click delegate is only called for left clicks with no modifier keys pressed.
+The function bound to \`navigationGuard\` should be of type \`NavigationGuard\`. It receives the clicked row id and should return a boolean indicating whether the default click handler should be run. I.e. return \`false\` if you have handled the navigation. The function is only called for left clicks with no modifier keys pressed.
 `;
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
