@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 20 Jul 2023 00:28:42 GMT",
+      "tag": "@ni/nimble-components_v19.8.2",
+      "version": "19.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc866dcd15faacc70caba8a981bd0d93a1b3077b",
+            "comment": "Banner Stories Severity Fix (#1350)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 19 Jul 2023 17:37:59 GMT",
       "tag": "@ni/nimble-components_v19.8.2",
       "version": "19.8.2",
