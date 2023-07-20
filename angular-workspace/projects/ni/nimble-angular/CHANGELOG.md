@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 17 Jul 2023 17:19:39 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jul 2023 16:23:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.8.6
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
+- Bump @ni/nimble-components to v19.8.4
+
+## 16.8.5
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.3
+
+## 16.8.4
+
+Wed, 19 Jul 2023 17:37:59 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.2
+
+## 16.8.3
+
+Tue, 18 Jul 2023 19:34:13 GMT
+
+### Patches
+
+- Use text property of ListOption instead of textContent for NimbleComboboxListOptionDirective to use for adding option values to parent combobox value accessor. ([ni/nimble@1f66ee7](https://github.com/ni/nimble/commit/1f66ee7a1b4bb66df177c96993803b46a2e055d7))
+
+## 16.8.2
+
+Tue, 18 Jul 2023 18:56:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.1
+
+## 16.8.1
+
+Tue, 18 Jul 2023 17:52:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.0
 
 ## 16.8.0
 

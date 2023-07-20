@@ -14,13 +14,10 @@ This is a fairly straightforward execution of our custom column type pattern. Th
 
 If a table record is missing a href value a text span will be rendered rather than a link.
 
-The column will also take an optional `placeholder` value to use when a record does not define a label or an href.
-
 -   _Element name_: `nimble-table-column-anchor`
 -   _Attributes/properties_:
     -   `labelFieldName`
     -   `hrefFieldName`
-    -   `placeholder`
     -   `hreflang`
     -   `ping`
     -   `referrerpolicy`
@@ -52,11 +49,10 @@ When cellRecord.href present
 </nimble-anchor>
 When cellRecord.href is missing
 <span
-    class="when cellRecord.label present, empty, otherwise 'placeholder'"
     @mouseover="${(x, c) => setTitleWhenOverflow(...)}"
     @mouseout="${(_x, c) => removeTitle(...)}"
 >
-    ${cellState.cellRecord.label ?? cellState.columnConfig.placeholder}
+    ${cellState.cellRecord.label}
 </span>
 ```
 

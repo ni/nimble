@@ -2,6 +2,96 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 20 Jul 2023 16:23:00 GMT",
+      "tag": "@ni/nimble-components_v19.8.4",
+      "version": "19.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a3180102e5798540621a0d60ef93ca827649a988",
+            "comment": "Remove placeholder support from table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-components_v19.8.3",
+      "version": "19.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234",
+            "comment": "Update tanstack dependency and configure undefined value sorting mode"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 00:28:42 GMT",
+      "tag": "@ni/nimble-components_v19.8.2",
+      "version": "19.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc866dcd15faacc70caba8a981bd0d93a1b3077b",
+            "comment": "Banner Stories Severity Fix (#1350)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 19 Jul 2023 17:37:59 GMT",
+      "tag": "@ni/nimble-components_v19.8.2",
+      "version": "19.8.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e900711c560465f590c37753cf6769641b2d92a0",
+            "comment": "Adding interactive column sizing"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Jul 2023 18:56:23 GMT",
+      "tag": "@ni/nimble-components_v19.8.1",
+      "version": "19.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "b6c4edafd60eb2e7c37c1b296b846a3ef5bcdee3",
+            "comment": "Fix icon color for disabled menu items and disabled text fields"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 18 Jul 2023 17:52:57 GMT",
+      "tag": "@ni/nimble-components_v19.8.0",
+      "version": "19.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3e74c7c767c44b51823449b6bfd0606838b99771",
+            "comment": "Add recordId to TableCell, TableCellView, and delegated event details"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 17:19:39 GMT",
       "tag": "@ni/nimble-components_v19.7.0",
       "version": "19.7.0",
