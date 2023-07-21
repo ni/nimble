@@ -1,7 +1,7 @@
 export const appearanceDescription = `This attribute affects the appearance of the button. <br/> <br/> See the usage docs for guidance on the best appearance for your use case.
 `;
 
-export const appearanceVariantDescription = `This attribute affects the color of the type of button selected above. It no effect on buttons with a \`ghost\` appearance, and the appearance variant \`accent\` has no effect on buttons using the "color" theme.
+export const appearanceVariantDescription = `This attribute affects the color of the type of button selected above. It has no effect on buttons with a \`ghost\` appearance, and the appearance variant \`accent\` has no effect on buttons using the "color" theme.
 <br/> <br/> See the usage docs for guidance on the best appearance-variant for your use case.
 `;
 
