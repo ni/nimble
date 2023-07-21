@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 21 Jul 2023 19:25:16 GMT",
+      "tag": "@ni/nimble-components_v19.8.5",
+      "version": "19.8.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "001c1039806ed2b009d3832ee2e33660e1bb4912",
+            "comment": "Update anchor column documentation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 21 Jul 2023 17:06:05 GMT",
       "tag": "@ni/nimble-components_v19.8.5",
       "version": "19.8.5",
