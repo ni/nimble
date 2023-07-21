@@ -245,7 +245,7 @@ export class Table<
         this.virtualizer = new Virtualizer(this, this.table);
         this.layoutManager = new TableLayoutManager(this);
         this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
-        this.layoutManagerNotifier.subscribe(this);
+        this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -348,8 +348,7 @@ export class Table<
             } else {
                 this.tableUpdateTracker.trackColumnPropertyChanged(args);
             }
-        }
-        if (
+        } else if (
             source instanceof TableLayoutManager
             && args === 'isColumnBeingSized'
             && !this.layoutManager.isColumnBeingSized
