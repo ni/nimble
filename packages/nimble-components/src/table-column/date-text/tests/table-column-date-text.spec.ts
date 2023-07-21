@@ -199,7 +199,7 @@ describe('TableColumnDateText', () => {
         expect(pageObject.getCellTitle(0, 0)).toEqual('');
     });
 
-    it('sets group header text as expected', async () => {
+    it('sets group header text as to rendered date value', async () => {
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
