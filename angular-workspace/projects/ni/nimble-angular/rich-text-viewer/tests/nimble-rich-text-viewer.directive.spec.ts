@@ -121,5 +121,22 @@ describe('Nimble Rich Text Viewer', () => {
             expect(directive.markdown).toBe('***new markdown value***');
             expect(nativeElement.markdown).toBe('***new markdown value***');
         });
+
+        it('can be configured with property binding for markdown in a string literals', () => {
+            expect(directive.markdown).toBe('**Bold** _Italics_ \n\n1. \n2. \n * \n * \n');
+            expect(nativeElement.markdown).toBe('**Bold** _Italics_ \n\n1. \n2. \n * \n * \n');
+
+            fixture.componentInstance.markdown = `New value
+
+            New line`;
+            fixture.detectChanges();
+
+            expect(directive.markdown).toBe(`New value
+
+            New line`);
+            expect(nativeElement.markdown).toBe(`New value
+
+            New line`);
+        });
     });
 });
