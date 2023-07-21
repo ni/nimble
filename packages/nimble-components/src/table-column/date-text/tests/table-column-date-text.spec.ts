@@ -76,6 +76,10 @@ describe('TableColumnDateText', () => {
         {
             description: 'value is too small for Date',
             data: [{ field: -8640000000000000 - 1 }]
+        },
+        {
+            description: 'value is not a number',
+            data: [{ field: 'foo' as unknown as number }]
         }
     ];
     for (const testData of badValueData) {
