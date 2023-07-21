@@ -30,7 +30,7 @@ interface BannerArgs extends LabelUserArgs {
     open: boolean;
     title: string;
     text: string;
-    severity: BannerSeverity;
+    severity: keyof typeof BannerSeverity;
     action: ActionType;
     preventDismiss: boolean;
     titleHidden: boolean;
@@ -70,7 +70,7 @@ export const _banner: StoryObj<BannerArgs> = {
     render: createUserSelectedThemeStory(html`
         <${bannerTag}
             ?open="${x => x.open}"
-            severity="${x => x.severity}"
+            severity="${x => BannerSeverity[x.severity]}"
             ?title-hidden="${x => x.titleHidden}"
             ?prevent-dismiss="${x => x.preventDismiss}"
             dismiss-button-label="Close"
@@ -141,7 +141,7 @@ export const _banner: StoryObj<BannerArgs> = {
         open: true,
         title: 'Title text',
         text: 'This is the body text of the banner.',
-        severity: BannerSeverity.error,
+        severity: 'error',
         action: 'none',
         preventDismiss: false,
         titleHidden: false,

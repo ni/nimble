@@ -14,7 +14,6 @@ import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
 export type TableColumnAnchorCellRecord = TableStringField<'label' | 'href'>;
 export interface TableColumnAnchorColumnConfig {
-    placeholder: string;
     appearance: AnchorAppearance;
     underlineHidden?: boolean;
     hreflang?: string;
@@ -43,9 +42,6 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 
     @attr({ attribute: 'href-field-name' })
     public hrefFieldName?: string;
-
-    @attr
-    public placeholder?: string;
 
     @attr
     public appearance?: AnchorAppearance;
@@ -99,10 +95,6 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         ] as const;
     }
 
-    protected placeholderChanged(): void {
-        this.updateColumnConfig();
-    }
-
     protected appearanceChanged(): void {
         this.updateColumnConfig();
     }
@@ -141,7 +133,6 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
 
     private updateColumnConfig(): void {
         this.columnInternals.columnConfig = {
-            placeholder: this.placeholder ?? '',
             appearance: this.appearance,
             underlineHidden: this.underlineHidden,
             hreflang: this.hreflang,

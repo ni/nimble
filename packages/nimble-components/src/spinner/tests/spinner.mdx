@@ -1,0 +1,43 @@
+import {
+    Canvas,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as spinnerStories from './spinner.stories';
+
+<Meta of={spinnerStories} />
+
+<Title of={spinnerStories} />
+<Description of={spinnerStories} />
+
+<Canvas of={spinnerStories.spinner} />
+<Controls of={spinnerStories.spinner} />
+
+# Usage Docs
+
+<br />
+
+## Sizing
+
+The 64px spinner is a less commonly used size reserved for large negative empty space. Only one 64px spinner should be used on a single screen at one time.
+
+The 32px spinner is a more commonly used size for negative empty space. No more than three 32px spinners should be used on a single screen at one time.
+
+The 16px spinner is the most compact option for tight spaces such as grid cells and dense UI interfaces without much negative empty space.
+
+Multiple 16px spinners can be used on a single screen at one time.
+
+## Styling / Theme
+
+Use the `default` appearance Color UI version for backgrounds with color (e.g. purple, blue). Do not use the `accent` appearance on any colored backgrounds, instead use the `default` Color UI version.
+
+See the `size` and `appearance` usage details for information on customizing the spinner size and guidance for which appearance to use.
+
+## Accessibility
+
+A low-motion/low-frame rate version of the spinner is also available. It can be activated by enabling `prefers-reduced-motion`.
+
+When using colored backgrounds, confirm with your designer that a 3:1 contrast ratio is met.

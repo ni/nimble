@@ -35,14 +35,6 @@ export class NimbleTableColumnAnchorDirective extends NimbleTableColumnBaseDirec
         this.renderer.setProperty(this.elementRef.nativeElement, 'hrefFieldName', value);
     }
 
-    public get placeholder(): string | undefined {
-        return this.elementRef.nativeElement.placeholder;
-    }
-
-    @Input() public set placeholder(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
-    }
-
     public get appearance(): AnchorAppearance {
         return this.elementRef.nativeElement.appearance;
     }
