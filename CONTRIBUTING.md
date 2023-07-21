@@ -138,7 +138,7 @@ This repo follows [the NI code submission workflow](https://ni.visualstudio.com/
 4. Once those reviewers have approved, mark the PR as "Ready for review". This will add owners to the review.
 5. Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
 
-If a PR requires significant refactoring at any point in this process, please move it back to Draft and re-do the steps before adding owners again.
+If a PR requires significant refactoring at any point in this process, please move it back to Draft and re-do the steps before exiting draft.
 
 Some of these steps may be skipped for trivial changes; please use good judgement.
 
