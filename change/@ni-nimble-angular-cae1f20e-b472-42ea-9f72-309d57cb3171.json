@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Reimplement Angular router support for anchor columns",
+  "comment": "Switch to NavigationGuard directive for Anchor Columns",
   "packageName": "@ni/nimble-angular",
   "email": "7282195+m-akinc@users.noreply.github.com",
   "dependentChangeType": "patch"
