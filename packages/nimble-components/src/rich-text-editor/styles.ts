@@ -67,6 +67,26 @@ export const styles = css`
         box-sizing: border-box;
         position: relative;
         color: inherit;
+
+        ${
+            /**
+             * Below are the styles from prosemirror-view.
+             */ ''
+        }
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        white-space: break-spaces;
+        -webkit-font-variant-ligatures: none;
+        font-variant-ligatures: none;
+        font-feature-settings: "liga" 0;
+    }
+
+    .ProseMirror pre {
+        white-space: pre-wrap;
+    }
+    
+    .ProseMirror li {
+        position: relative;
     }
 
     .ProseMirror-focused {

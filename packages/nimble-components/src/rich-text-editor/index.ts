@@ -21,7 +21,7 @@ export class RichTextEditor extends FoundationElement {
     /**
      * @public
      */
-    @attr public placeholder = 'Enter text here';
+    @attr public placeholder = '';
 
     /**
      * @internal
@@ -89,9 +89,9 @@ export class RichTextEditor extends FoundationElement {
                 }),
                 Link.configure({
                     openOnClick: true,
-                    autolink: false,
+                    autolink: true,
                     linkOnPaste: false,
-                    // validate: href => /^https?:\/\//.test(href)
+                    validate: href => /^\w+:/.test(href)
                 }),
                 Placeholder.configure({
                     placeholder: this.placeholder

@@ -32,7 +32,8 @@ const metadata: Meta<RichTextEditorArgs> = {
         componentName: 'rich text editor',
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
-    <${richTextEditorTag} ${ref('richTextEditorRef')} placeholder="${x => x.placeholder}" footer-hidden>
+    <${richTextEditorTag} ${ref('richTextEditorRef')} 
+        placeholder="${x => x.placeholder}">
         <${buttonTag} @click=${x => {
     x.richTextEditorRef.hideFooter();
     x.richTextEditorRef.clearContent();
