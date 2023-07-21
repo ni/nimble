@@ -263,7 +263,7 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
     Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
 
-#### Only throw exceptions in production for Nimble logic errors
+#### Don't throw exceptions when a component is misconfigured
 
 Components should be robust to being configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
 
