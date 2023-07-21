@@ -82,21 +82,18 @@ Complex accordion group with components in slots and single expand-mode
 -   _Properties/Attributes:_ appearance (`block`, `outline`, `ghost`), `error-visible` (boolean)
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ `error-visible` and accordion appearances (`block`, `outline`, `ghost`)
-
-    The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` buttons. The nimble-button pattern with these styles seems to fit the styling of the accordion, so these styles can be used in the heading css class. The attributes of `block`, `outline`, and `ghost` will most likely be implemented with the name `appearance`. A few styling elements like the background color change on click that is used in the button will have to be removed.
-
-    The Figma design also includes a state that is most likely `error`, as it has a red border and red exclamation mark icon. For this state, the styling of the accordion header button could be altered to have a red border. This could be controlled with a boolean attribute such as `error-visible`, which would have a default of "" in the accordion attributes- when necessary, "error-visible" would be added to the accordion attributes and this would make the accordion switch to the red styling. Adding the error icon could be done by putting the icon in the `end` slot of the accordion heading.
-
-    A css class for the nimble-accordion-item can be used to get a green border (or red for `error-visible`) around the entire accordion (parent and children of accordion).
-
+-   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ Unchanged
 
 -   _Component Name:_ `nimble-accordion-item`
 -   _Properties/Attributes:_ Unchanged
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ `error-visible`
+-   _CSS Classes and Custom Properties that affect the component:_ `error-visible` and accordion appearances (`block`, `outline`, `ghost`)
+
+    The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` buttons. The nimble-button pattern with these styles seems to fit the styling of the accordion, so these styles can be used in the heading css class. The attributes of `block`, `outline`, and `ghost` will most likely be implemented with the name `appearance`. A few styling elements like the background color change on click that is used in the button will have to be removed.
+
+    The Figma design also includes a state that is most likely `error`, as it has a red border and red exclamation mark icon. For this state, the styling of the accordion header button could be altered to have a red border. This could be controlled with a boolean attribute such as `error-visible`, which would have a default of "" in the accordion attributes- when necessary, "error-visible" would be added to the accordion attributes and this would make the accordion switch to the red styling. Adding the error icon could be done by putting the icon in the `end` slot of the accordion heading.
 
     A css class for the nimble-accordion-item can be used to get a green border (or red for `error-visible`) around the entire accordion (parent and children of accordion).
 
