@@ -155,27 +155,27 @@ const metadata: Meta<TableArgs> = {
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
-                field-name="firstName" placeholder="no value"
+                field-name="firstName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
-                field-name="lastName" placeholder="no value"
+                field-name="lastName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
-                field-name="favoriteColor" placeholder="no value"
+                field-name="favoriteColor"
             >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="quote-column"
-                field-name="quote" placeholder="no value"
+                field-name="quote"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
             >
                 Quote

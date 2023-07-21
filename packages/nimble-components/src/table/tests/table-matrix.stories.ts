@@ -55,10 +55,10 @@ const component = (
     selectionMode: SelectionModeState
 ): ViewTemplate => html`
     <${tableTag} selection-mode="${() => selectionMode}"" id-field-name="id">
-        <${tableColumnTextTag} field-name="firstName" placeholder="no value" sort-direction="ascending" sort-index="0" group-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="lastName" placeholder="no value">Last Name</${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="favoriteColor" placeholder="no value" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
-        <${tableColumnTextTag} field-name="quote" placeholder="no value" column-hidden>Hidden Quote</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="firstName" sort-direction="ascending" sort-index="0" group-index="0"><${iconUserTag}></${iconUserTag}></${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="lastName">Last Name</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="favoriteColor" sort-direction="descending" sort-index="1" fractional-width=".5">Favorite Color</${tableColumnTextTag}>
+        <${tableColumnTextTag} field-name="quote" column-hidden>Hidden Quote</${tableColumnTextTag}>
     </${tableTag}>
 `;
 

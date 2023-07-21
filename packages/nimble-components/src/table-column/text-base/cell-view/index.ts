@@ -1,4 +1,4 @@
-import { observable, volatile } from '@microsoft/fast-element';
+import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type { TableCellRecord } from '../../base/types';
 
@@ -14,25 +14,8 @@ export abstract class TableColumnTextCellViewBase<
     public hasOverflow = false;
 
     /**
-     * Text to render in the cell when it contains a valid value (i.e. when shouldUsePlaceholder is false).
+     * Text to render in the cell.
      */
     @observable
     public text = '';
-
-    /**
-     * Text to render in the cell when it contains an invalid value (i.e. when shouldUsePlaceholder is true).
-     */
-    @observable
-    public placeholder = '';
-
-    /**
-     * Returns whether to display the placeholder value or the text value
-     */
-    @observable
-    public shouldUsePlaceholder = true;
-
-    @volatile
-    public get content(): string {
-        return this.shouldUsePlaceholder ? this.placeholder : this.text;
-    }
 }
