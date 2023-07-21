@@ -13,9 +13,9 @@ public class NimbleLabelProviderTableTests
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var expectedMarkup = "nimble-label-provider-core";
+        var expectedMarkup = "nimble-label-provider-table";
 
-        var themeProvider = context.RenderComponent<NimbleLabelProviderCore>();
+        var themeProvider = context.RenderComponent<NimbleLabelProviderTable>();
 
         Assert.Contains(expectedMarkup, themeProvider.Markup);
     }
@@ -43,10 +43,10 @@ public class NimbleLabelProviderTableTests
         Assert.Contains(labelValue, labelProvider.Markup);
     }
 
-    private IRenderedComponent<NimbleLabelProviderCore> RenderNimbleLabelProvider(string propertyName, string labelValue)
+    private IRenderedComponent<NimbleLabelProviderTable> RenderNimbleLabelProvider(string propertyName, string labelValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleLabelProviderCore>(ComponentParameter.CreateParameter(propertyName, labelValue));
+        return context.RenderComponent<NimbleLabelProviderTable>(ComponentParameter.CreateParameter(propertyName, labelValue));
     }
 }
