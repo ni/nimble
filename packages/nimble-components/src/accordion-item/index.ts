@@ -1,3 +1,4 @@
+import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AccordionItem as FoundationAccordionItem,
@@ -6,6 +7,7 @@ import {
 } from '@microsoft/fast-foundation';
 import { arrowDown16X16, arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { styles } from './styles';
+import { ButtonAppearance, ButtonPattern } from '../patterns/button/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,7 +18,18 @@ declare global {
  * A nimble-styled accordion item
  */
 
-export class AccordionItem extends FoundationAccordionItem {}
+export class AccordionItem extends FoundationAccordionItem implements ButtonPattern {
+    /**
+     * @public
+     * @remarks
+     * HTML Attribute: appearance
+     */
+    @attr
+    public appearance: ButtonAppearance = ButtonAppearance.outline;
+
+    @attr({attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
+}
 
 const nimbleAccordionItem = AccordionItem.compose<AccordionItemOptions>({
     baseName: 'accordion-item',
