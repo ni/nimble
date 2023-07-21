@@ -86,7 +86,7 @@ Complex accordion group with components in slots and single expand-mode
 -   _Slots:_ Unchanged
 
 -   _Component Name:_ `nimble-accordion-item`
--   _Properties/Attributes:_ Unchanged
+-   _Properties/Attributes:_ `error-visible` (boolean) and accordion appearances (`block`, `outline`, `ghost`)
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ `error-visible` and accordion appearances (`block`, `outline`, `ghost`)
