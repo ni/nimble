@@ -20,6 +20,15 @@ public class NimbleLabelProviderTableTests
         Assert.Contains(expectedMarkup, themeProvider.Markup);
     }
 
+    [Fact]
+    public void NimbleLabelProviderTable_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleThemeProvider>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(nameof(NimbleLabelProviderTable.GroupCollapse))]
     [InlineData(nameof(NimbleLabelProviderTable.GroupExpand))]
