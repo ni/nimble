@@ -30,11 +30,6 @@
     "@angular/router": "^14.2.0",
     "@ni/nimble-components": "^19.8.4"
   },
-  "peerDependenciesMeta": {
-    "@angular/localize": {
-      "optional": true
-    }
-  },
   "dependencies": {
     "tslib": "^2.2.0"
   }
