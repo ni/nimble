@@ -79,7 +79,7 @@ Complex accordion group with components in slots and single expand-mode
 [FAST accordion API](https://github.com/microsoft/fast/blob/57f3c22c6341d8a21d48b1ffb7fcbfab1ffd02d8/packages/web-components/fast-foundation/src/accordion/accordion.spec.md)
 
 -   _Component Name:_ `nimble-accordion`
--   _Properties/Attributes:_ appearance (`block`, `outline`, `ghost`), `error-visible` (boolean)
+-   _Properties/Attributes:_ Unchanged
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
