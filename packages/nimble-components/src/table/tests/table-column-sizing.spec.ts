@@ -839,7 +839,7 @@ describe('Table Interactive Column Sizing', () => {
         });
     });
 
-    fit('resizing columns emits single "column-configuration-change" event with expected state', async () => {
+    it('resizing columns emits single "column-configuration-change" event with expected state', async () => {
         const listener = createEventListener(
             element,
             'column-configuration-change'
