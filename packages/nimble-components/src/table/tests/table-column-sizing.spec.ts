@@ -3,7 +3,10 @@ import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import type { TableColumnConfigurationChangeEventDetail, TableRecord } from '../types';
+import type {
+    TableColumnConfigurationChangeEventDetail,
+    TableRecord
+} from '../types';
 import { TablePageObject } from '../testing/table.pageobject';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import { createEventListener } from '../../utilities/tests/component';
@@ -849,10 +852,20 @@ describe('Table Interactive Column Sizing', () => {
 
         expect(listener.spy).toHaveBeenCalledTimes(1);
         const expectedFractionalWidths = [1, 1, 1.04, 0.96];
-        const expectedPixelWidths = [undefined, undefined, undefined, undefined];
-        const eventDetails = (listener.spy.calls.first().args[0] as CustomEvent).detail as TableColumnConfigurationChangeEventDetail;
-        const actualFractionalWidths = eventDetails.columns.map(column => column.fractionalWidth);
-        const actualPixelWidths = eventDetails.columns.map(column => column.pixelWidth);
+        const expectedPixelWidths = [
+            undefined,
+            undefined,
+            undefined,
+            undefined
+        ];
+        const eventDetails = (listener.spy.calls.first().args[0] as CustomEvent)
+            .detail as TableColumnConfigurationChangeEventDetail;
+        const actualFractionalWidths = eventDetails.columns.map(
+            column => column.fractionalWidth
+        );
+        const actualPixelWidths = eventDetails.columns.map(
+            column => column.pixelWidth
+        );
         expect(actualFractionalWidths).toEqual(expectedFractionalWidths);
         expect(actualPixelWidths).toEqual(expectedPixelWidths);
     });
