@@ -32,24 +32,23 @@ describe('TableColumnDateText', () => {
     let disconnect: () => Promise<void>;
     let tablePageObject: TablePageObject<SimpleTableRecord>;
     let pageObject: TableColumnDateTextPageObject<SimpleTableRecord>;
+    let column: TableColumnDateText;
 
     beforeEach(async () => {
         ({ element, connect, disconnect } = await setup());
         tablePageObject = new TablePageObject<SimpleTableRecord>(element);
         pageObject = new TableColumnDateTextPageObject(tablePageObject);
+        await connect();
+        await waitForUpdatesAsync();
+        column = element.columns[0] as TableColumnDateText;
     });
 
     afterEach(async () => {
         await disconnect();
     });
 
-    it('reports column configuration valid', async () => {
-        await connect();
-        await waitForUpdatesAsync();
-
-        const firstColumn = element.columns[0] as TableColumnDateText;
-
-        expect(firstColumn.checkValidity()).toBeTrue();
+    it('reports column configuration valid', () => {
+        expect(column.checkValidity()).toBeTrue();
     });
 
     const badValueData = [
@@ -86,7 +85,6 @@ describe('TableColumnDateText', () => {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         it(`displays blank when ${testData.description}`, async () => {
             await element.setData(testData.data);
-            await connect();
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
@@ -100,11 +98,9 @@ describe('TableColumnDateText', () => {
                 anotherField: new Date('Jan 20, 2018, 4:05:45 AM').valueOf()
             }
         ]);
-        await connect();
         await waitForUpdatesAsync();
 
-        const firstColumn = element.columns[0] as TableColumnDateText;
-        firstColumn.fieldName = 'anotherField';
+        column.fieldName = 'anotherField';
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
@@ -116,7 +112,6 @@ describe('TableColumnDateText', () => {
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
-        await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toEqual(
             'Dec 10, 2012, 10:35:05 PM'
@@ -132,7 +127,6 @@ describe('TableColumnDateText', () => {
 
     it('changing data from null to value displays value', async () => {
         await element.setData([{ field: null }]);
-        await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
 
@@ -147,11 +141,7 @@ describe('TableColumnDateText', () => {
     });
 
     it('when no fieldName provided, nothing is displayed', async () => {
-        await connect();
-        await waitForUpdatesAsync();
-
-        const firstColumn = element.columns[0] as TableColumnDateText;
-        firstColumn.fieldName = undefined;
+        column.fieldName = undefined;
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
@@ -165,7 +155,6 @@ describe('TableColumnDateText', () => {
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
-        await connect();
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -178,7 +167,6 @@ describe('TableColumnDateText', () => {
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
-        await connect();
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -190,7 +178,6 @@ describe('TableColumnDateText', () => {
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
-        await connect();
         await waitForUpdatesAsync();
         tablePageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
         await waitForUpdatesAsync();
@@ -203,10 +190,206 @@ describe('TableColumnDateText', () => {
         await element.setData([
             { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
         ]);
-        await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
             'Dec 10, 2012, 10:35:05 PM'
         );
+    });
+
+    it('updates displayed date when format changes', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/10/2012');
+    });
+
+    it('honors customDateStyle property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customDateStyle = 'long';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+            'December 10, 2012'
+        );
+    });
+
+    it('honors customTimeStyle property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customTimeStyle = 'medium';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('10:35:05 PM');
+    });
+
+    it('honors customWeekday property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customWeekday = 'long';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('Monday');
+    });
+
+    it('honors customDay property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customDay = 'numeric';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('10');
+    });
+
+    it('honors customMonth property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customMonth = 'numeric';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('12');
+    });
+
+    it('honors customYear property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customYear = 'numeric';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('2012');
+    });
+
+    it('honors customEra property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customEra = 'short';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/10/2012 AD');
+    });
+
+    it('honors customHour property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customHour = 'numeric';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
+    });
+
+    it('honors customMinute property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customMinute = 'numeric';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('35');
+    });
+
+    it('honors customSecond property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customSecond = 'numeric';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('5');
+    });
+
+    it('honors customHour12 property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customHour = 'numeric'; // must specify hour
+        column.customHourCycle = 'h24'; // must force 24hr clock to override with hour12
+        column.customHour12 = true;
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
+    });
+
+    it('honors customHourCycle property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customHour = 'numeric'; // must specify hour
+        column.customHourCycle = 'h24';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('22');
+    });
+
+    it('honors customTimeZone and customTimeZoneName properties', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customTimeZone = 'UTC';
+        column.customTimeZoneName = 'short';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/11/2012, UTC');
+    });
+
+    it('honors customDayPeriod property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customHour = 'numeric'; // must specify hour
+        column.customDayPeriod = 'narrow';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 at night');
+    });
+
+    it('honors customCalendar property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customDay = 'numeric';
+        column.customMonth = 'short';
+        column.customYear = 'numeric';
+        column.customCalendar = 'hebrew';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('26 Kislev 5773');
+    });
+
+    it('honors customNumberingSystem property', async () => {
+        await element.setData([
+            { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+        ]);
+        await waitForUpdatesAsync();
+        column.format = 'custom';
+        column.customYear = 'numeric';
+        column.customNumberingSystem = 'fullwide';
+        await waitForUpdatesAsync();
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('２０１２');
     });
 });

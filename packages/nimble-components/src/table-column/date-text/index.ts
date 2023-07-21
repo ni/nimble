@@ -116,6 +116,10 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-hour-cycle' })
     public customHourCycle?: 'h11' | 'h12' | 'h23' | 'h24';
 
+    public override connectedCallback(): void {
+        this.updateColumnConfig();
+    }
+
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
