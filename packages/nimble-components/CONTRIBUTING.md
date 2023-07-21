@@ -265,13 +265,16 @@ With an attribute defined there are several ways to react to updates. To minimiz
 
 #### Don't throw exceptions when a component is misconfigured
 
-Components should be robust to being configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
+Components should be robust to having their properties and attributes configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
 
 Instead of throwing an exceptions, components should ignore invalid state and render in a predictable way. This could mean reverting to a default or empty state. This behavior should be covered by auto tests.
 
 Components can also consider exposing an API that checks the validity of the component configuration. Clients can use this to assert about the validity in their tests and to discover why a component is invalid when debugging. See the `nimble-table` for an example of this.
 
-It is acceptable to throw exceptions in production code and tests when a case gets hit that should be impossible: for example an invalid enum value.
+It is acceptable to throw exceptions in production code in other situations. For example:
+
+-   when a case gets hit that should be impossible, like an invalid enum value.
+-   from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
 
 #### Comments
 
