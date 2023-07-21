@@ -61,11 +61,6 @@ describe('Nimble banner', () => {
             expect(directive.preventDismiss).toBeFalse();
             expect(nativeElement.preventDismiss).toBeFalse();
         });
-
-        it('has expected defaults for dismissButtonLabel', () => {
-            expect(directive.dismissButtonLabel).toBeUndefined();
-            expect(nativeElement.dismissButtonLabel).toBeUndefined();
-        });
     });
 
     describe('with template string values', () => {
@@ -75,8 +70,7 @@ describe('Nimble banner', () => {
                     open
                     severity="error"
                     title-hidden
-                    prevent-dismiss
-                    dismiss-button-label="Dismiss">
+                    prevent-dismiss>
                 </nimble-banner>`
         })
         class TestHostComponent {
@@ -118,11 +112,6 @@ describe('Nimble banner', () => {
             expect(directive.preventDismiss).toBeTrue();
             expect(nativeElement.preventDismiss).toBeTrue();
         });
-
-        it('will use template string values for dismissButtonLabel', () => {
-            expect(directive.dismissButtonLabel).toBe('Dismiss');
-            expect(nativeElement.dismissButtonLabel).toBe('Dismiss');
-        });
     });
 
     describe('with property bound values', () => {
@@ -133,7 +122,6 @@ describe('Nimble banner', () => {
                     [severity]="severity"
                     [title-hidden]="titleHidden"
                     [prevent-dismiss]="preventDismiss"
-                    [dismiss-button-label]="dismissButtonLabel">
                 </nimble-banner>`
         })
         class TestHostComponent {
@@ -143,7 +131,6 @@ describe('Nimble banner', () => {
             public severity: BannerSeverity = BannerSeverity.warning;
             public titleHidden = false;
             public preventDismiss = false;
-            public dismissButtonLabel = 'Dismiss';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -204,17 +191,6 @@ describe('Nimble banner', () => {
             expect(directive.preventDismiss).toBeTrue();
             expect(nativeElement.preventDismiss).toBeTrue();
         });
-
-        it('can be configured with property binding for dismissButtonLabel', () => {
-            expect(directive.dismissButtonLabel).toBe('Dismiss');
-            expect(nativeElement.dismissButtonLabel).toBe('Dismiss');
-
-            fixture.componentInstance.dismissButtonLabel = 'Close';
-            fixture.detectChanges();
-
-            expect(directive.dismissButtonLabel).toBe('Close');
-            expect(nativeElement.dismissButtonLabel).toBe('Close');
-        });
     });
 
     describe('with attribute bound values', () => {
@@ -224,8 +200,7 @@ describe('Nimble banner', () => {
                     [attr.open]="open"
                     [attr.severity]="severity"
                     [attr.title-hidden]="titleHidden"
-                    [attr.prevent-dismiss]="preventDismiss"
-                    [attr.dismiss-button-label]="dismissButtonLabel">
+                    [attr.prevent-dismiss]="preventDismiss">
                 </nimble-banner>`
         })
         class TestHostComponent {
@@ -235,7 +210,6 @@ describe('Nimble banner', () => {
             public severity: BannerSeverity = BannerSeverity.warning;
             public titleHidden = false;
             public preventDismiss = false;
-            public dismissButtonLabel = 'Dismiss';
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -295,17 +269,6 @@ describe('Nimble banner', () => {
 
             expect(directive.preventDismiss).toBeTrue();
             expect(nativeElement.preventDismiss).toBeTrue();
-        });
-
-        it('can be configured with attribute binding for dismissButtonLabel', () => {
-            expect(directive.dismissButtonLabel).toBe('Dismiss');
-            expect(nativeElement.dismissButtonLabel).toBe('Dismiss');
-
-            fixture.componentInstance.dismissButtonLabel = 'Close';
-            fixture.detectChanges();
-
-            expect(directive.dismissButtonLabel).toBe('Close');
-            expect(nativeElement.dismissButtonLabel).toBe('Close');
         });
     });
 });

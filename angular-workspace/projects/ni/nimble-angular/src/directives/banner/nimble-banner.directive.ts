@@ -53,16 +53,6 @@ export class NimbleBannerDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'preventDismiss', toBooleanProperty(value));
     }
 
-    public get dismissButtonLabel(): string | undefined {
-        return this.elementRef.nativeElement.dismissButtonLabel;
-    }
-
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('dismiss-button-label') public set dismissButtonLabel(value: string | undefined) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'dismissButtonLabel', value);
-    }
-
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Banner>) {}
 
     @HostListener('toggle', ['$event'])
