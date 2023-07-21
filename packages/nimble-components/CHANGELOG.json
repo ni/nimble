@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 21 Jul 2023 21:59:38 GMT",
+      "tag": "@ni/nimble-components_v19.8.5",
+      "version": "19.8.5",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6a3ee058733b4f37149956ae1a9c828f6dccf8ef",
+            "comment": "Contributing doc updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 21 Jul 2023 19:25:16 GMT",
       "tag": "@ni/nimble-components_v19.8.5",
       "version": "19.8.5",
