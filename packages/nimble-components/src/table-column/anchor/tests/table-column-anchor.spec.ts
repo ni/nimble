@@ -203,7 +203,7 @@ describe('TableColumnAnchor', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
         });
 
         it('changing labelFieldName updates display', async () => {
