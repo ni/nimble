@@ -209,7 +209,6 @@
             <NimbleTable IdFieldName="Id" @bind-Data="TableData" SelectionMode="TableRowSelectionMode.Multiple" class="table">
                 <NimbleTableColumnText
                     FieldName="FirstName"
-                    Placeholder="no value"
                     ColumnId="first-name-column"
                     ActionMenuSlot="action-menu"
                     ActionMenuLabel="Action menu"
@@ -219,7 +218,7 @@
                     <NimbleIconKey title="First Name"></NimbleIconKey>
                 </NimbleTableColumnText>
                 <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
-                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" Placeholder="no value" GroupIndex="0">Last Name</NimbleTableColumnText>
+                <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" GroupIndex="0">Last Name</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">
                     <NimbleMenuItem>Item 1</NimbleMenuItem>

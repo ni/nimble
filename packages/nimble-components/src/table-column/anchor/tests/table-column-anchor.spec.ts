@@ -23,7 +23,6 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 <${tableColumnAnchorTag}
                     label-field-name="label"
                     href-field-name="link"
-                    placeholder="no value"
                     appearance="prominent"
                     hreflang="hreflang value"
                     ping="ping value"
@@ -36,7 +35,7 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 >
                     Column 1
                 </${tableColumnAnchorTag}>
-                <${tableColumnAnchorTag} placeholder="">
+                <${tableColumnAnchorTag}>
                     Column 2
                 </${tableColumnAnchorTag}>
             </nimble-table>`
@@ -75,14 +74,12 @@ describe('TableColumnAnchor', () => {
         ];
         for (const testData of noValueData) {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
-            it(`displays placeholder string when label ${testData.description}`, async () => {
+            it(`displays empty string when label ${testData.description}`, async () => {
                 await element.setData(testData.data);
                 await connect();
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                    'no value'
-                );
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
             });
         }
 
@@ -98,21 +95,7 @@ describe('TableColumnAnchor', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('bar');
         });
 
-        it('changing placeholder updates display', async () => {
-            await element.setData([{ label: null }]);
-            await connect();
-            await waitForUpdatesAsync();
-
-            const firstColumn = element.columns[0] as TableColumnAnchor;
-            firstColumn.placeholder = 'different value';
-            await waitForUpdatesAsync();
-
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                'different value'
-            );
-        });
-
-        it('changing data from value to null displays placeholder', async () => {
+        it('changing data from value to null displays blank', async () => {
             await element.setData([{ label: 'foo' }]);
             await connect();
             await waitForUpdatesAsync();
@@ -121,14 +104,14 @@ describe('TableColumnAnchor', () => {
             await element.setData([{ label: null }]);
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
         });
 
         it('changing data from null to value displays value', async () => {
             await element.setData([{ label: null }]);
             await connect();
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
 
             await element.setData([{ label: 'foo' }]);
             await waitForUpdatesAsync();
@@ -197,37 +180,6 @@ describe('TableColumnAnchor', () => {
                         await connect();
 
                         await element.setData([{ label: value.name }]);
-                        await waitForUpdatesAsync();
-
-                        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                            value.name
-                        );
-                    }
-                );
-            }
-        });
-
-        describe('placeholder assigned various strings render as expected', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const value of wackyStrings) {
-                const specType = getSpecTypeByNamedList(
-                    value,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(
-                    `placeholder "${value.name}" renders as "${value.name}"`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        await connect();
-                        await element.setData([{ label: null }]);
-                        await waitForUpdatesAsync();
-
-                        const firstColumn = element
-                            .columns[0] as TableColumnAnchor;
-                        firstColumn.placeholder = value.name;
                         await waitForUpdatesAsync();
 
                         expect(pageObject.getRenderedCellContent(0, 0)).toBe(
@@ -310,7 +262,7 @@ describe('TableColumnAnchor', () => {
                 expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
             });
 
-            it('changing url from value to null displays placeholder', async () => {
+            it('changing url from value to null displays blank', async () => {
                 await element.setData([{ link: 'foo' }]);
                 await connect();
                 await waitForUpdatesAsync();
@@ -319,18 +271,14 @@ describe('TableColumnAnchor', () => {
                 await element.setData([{ link: null }]);
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                    'no value'
-                );
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
             });
 
             it('changing url from null to value displays value', async () => {
                 await element.setData([{ link: null }]);
                 await connect();
                 await waitForUpdatesAsync();
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                    'no value'
-                );
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
 
                 await element.setData([{ link: 'foo' }]);
                 await waitForUpdatesAsync();
