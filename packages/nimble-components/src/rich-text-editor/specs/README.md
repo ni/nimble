@@ -137,7 +137,7 @@ _Methods_
 _Open Discussion_
 
 -   We are proposing a design that involves displaying only placeholder text initially and footer section will be hidden. Upon focusing the editor, we will capture
-    Tiptap's [focus event](https://tiptap.dev/api/events#focus) to show the footer section with all the formatting options. As per the
+    Tiptap's [focus event](https://tiptap.dev/api/events#focus) to show the footer section. As per the
     UX for comments feature, we will revert back to the original state (i.e,. without the footer section) only if the user clicks the `cancel` or `ok` button. Therefore,
     we came to this decision of exposing the above `hideFooter()` and `clearContent()` methods.
 -   There isn't a specific reason to expose two separate methods when considering the comments feature; they could be combined into a single method. However, we are uncertain about the
