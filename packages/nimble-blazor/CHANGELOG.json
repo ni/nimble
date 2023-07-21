@@ -2,6 +2,36 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 20 Jul 2023 16:23:00 GMT",
+      "tag": "@ni/nimble-blazor_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a3180102e5798540621a0d60ef93ca827649a988",
+            "comment": "Remove placeholder support from table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-blazor_v11.10.4",
+      "version": "11.10.4",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234",
+            "comment": "Pinned playwright devDep to latest nuget.org version"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 17:19:39 GMT",
       "tag": "@ni/nimble-blazor_v11.10.0",
       "version": "11.10.0",
