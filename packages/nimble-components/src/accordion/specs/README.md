@@ -76,6 +76,8 @@ Complex accordion group with components in slots and single expand-mode
 
 ### API
 
+#### FAST Accordion
+
 [FAST accordion API](https://github.com/microsoft/fast/blob/57f3c22c6341d8a21d48b1ffb7fcbfab1ffd02d8/packages/web-components/fast-foundation/src/accordion/accordion.spec.md)
 
 -   _Component Name:_ `nimble-accordion`
@@ -85,19 +87,26 @@ Complex accordion group with components in slots and single expand-mode
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ Unchanged
 
+#### FAST Accordion Item
+
+[FAST accordion-item API](https://github.com/microsoft/fast/tree/57f3c22c6341d8a21d48b1ffb7fcbfab1ffd02d8/packages/web-components/fast-foundation/src/accordion-item)
+
 -   _Component Name:_ `nimble-accordion-item`
--   _Properties/Attributes:_ `error-visible` (boolean) and accordion appearances (`block`, `outline`, `ghost`)
+-   _Properties/Attributes:_
+    -   `appearance` - `block`, `outline`, `ghost`
+    -   `error-visible` - boolean
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_ `error-visible` and accordion appearances (`block`, `outline`, `ghost`)
-
-    The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` buttons. The nimble-button pattern with these styles seems to fit the styling of the accordion, so these styles can be used in the heading css class. The attributes of `block`, `outline`, and `ghost` will most likely be implemented with the name `appearance`. A few styling elements like the background color change on click that is used in the button will have to be removed.
-
-    The Figma design also includes a state that is most likely `error`, as it has a red border and red exclamation mark icon. For this state, the styling of the accordion header button could be altered to have a red border. This could be controlled with a boolean attribute such as `error-visible`, which would have a default of "" in the accordion attributes- when necessary, "error-visible" would be added to the accordion attributes and this would make the accordion switch to the red styling. Adding the error icon could be done by putting the icon in the `end` slot of the accordion heading.
-
-    A css class for the nimble-accordion-item can be used to get a green border (or red for `error-visible`) around the entire accordion (parent and children of accordion).
-
+-   _CSS Classes and Custom Properties that affect the component:_
+    -   `appearance` - `block`, `outline`, `ghost`
+    -   `error-visible` - boolean
 -   _Slots:_ Unchanged
+
+The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` buttons. The nimble-button pattern with these styles seems to fit the styling of the accordion, so these styles can be used. The attributes of `block`, `outline`, and `ghost` will most likely be implemented with the name `appearance`. A few styling elements like the background color change on click that is used in the button will have to be removed.
+
+The Figma design also includes a state that is most likely `error`, as it has a red border and red exclamation mark icon. For this state, the styling of the accordion header button could be altered to have a red border. This could be controlled with a boolean attribute such as `error-visible`, which would have a default of "" in the accordion attributes- when necessary, "error-visible" would be added to the accordion attributes and this would make the accordion switch to the red styling.
+
+A css class for the nimble-accordion-item can be used to get a green border (or red for `error-visible`) around the entire accordion (parent and children of accordion).
 
 ### Angular integration
 
@@ -114,19 +123,19 @@ A blazor wrapper will be created for the component.
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
     -   Partially, extra styling will be needed for the `error-visible` boolean and `Block` / `Outline` / `Ghost` appearances.
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
-    -   Testing for `error-visible` severity and `Block` / `Outline` / `Ghost` appearances, testing for nesting accordions
+    -   No Additional Requirements
 -   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
-    -   Documentation for adding nimble components in inner accordion items
+    -   No Additional Requirements
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
-    -   No additional requirements
+    -   No Additional Requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
     -   No Additional Requirements
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No Additional Requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
-    -   No Additonal Requirements
+    -   No Additional Requirements
 -   _Security: Any requirements for security?_
-    -   No additional requirements
+    -   No Additional Requirements
 
 ---
 
