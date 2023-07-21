@@ -97,8 +97,8 @@ If a fix for the vulnerability isn't available or if it isn't practical to uptak
 
 This repository uses [Chromatic](https://www.chromatic.com) to facilitate visual component review, and adds GitHub status checks to the build pipeline. The workflow is as follows:
 
-1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**.
-2. The `UI Review` status check is designed to collect feedback from UX and visual designers. Rather than blocking PR completion on this feedback, you can also approve this check by validating the story changes yourself. However, you should still demo your changes to relevant designers either in a team meeting or one-on-one. This can happen either before or after the PR completes, as long as designer feedback is addressed promptly. If you don't have access to a designer, please reach out to Nimble team members for help.
+1. The `UI Tests` status check is designed to highlight any visual changes included in the changeset. The developer (that's you!) should review the `UI Tests` status check in Chromatic, and if all changes are intentional or expected, mark the components as **approved**. If you approve an initial build and then make further changes to a snapshot, this check will show the difference between those revisions, not between main and the latest revision.
+2. The `UI Review` status check is designed to collect feedback from UX and visual designers. It shows the difference between the latest revision and main. Rather than blocking PR completion on this feedback, you can also approve this check by validating the story changes yourself. However, you should still demo your changes to relevant designers either in a team meeting or one-on-one. This can happen either before or after the PR completes, as long as designer feedback is addressed promptly. If you don't have access to a designer, please reach out to Nimble team members for help.
 
 The PR pipeline also generates a live Storybook site for each PR. Developers, designers, and PR reviewers can also use this to inspect component appearance and behavior.
 
@@ -128,9 +128,21 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 }
 ```
 
-### Code owners
+### Code review
 
-Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+This repo follows [the NI code submission workflow](https://ni.visualstudio.com/DevCentral/_wiki/wikis/AppCentral.wiki/15679/Code-Submission-Workflow#) (NI internal link) with some modifications. The general submission flow is:
+
+1. When your code is ready to submit, create a [Draft pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests).
+2. Perform a self review of the changes. Ensure they follow conventions and that the status checks are passing.
+3. Add a local peer reviewer. If you are new to Nimble, also add the contact from the Nimble team who has been helping you get familiar with the repo.
+4. Once those reviewers have approved, mark the PR as "Ready for review". This will add owners to the review.
+5. Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+
+If a PR requires significant refactoring at any point in this process, please move it back to Draft and re-do the steps before exiting draft.
+
+Some of these steps may be skipped for trivial changes; please use good judgement.
+
+Thanks for following this process! It helps reduce the burden on owners to catch smaller issues.
 
 ### Completing pull requests
 
