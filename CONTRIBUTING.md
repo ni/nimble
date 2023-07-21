@@ -130,9 +130,19 @@ You can also configure this task to execute via a keyboard shortcut by [configur
 
 ### Code review
 
-For any PR containing non-trivial changes, please have it approved by a local reviewer before moving the PR out of Draft and adding owners. This helps reduce the burden on owners to catch smaller issues.
+This repo follows [the NI code submission workflow](https://ni.visualstudio.com/DevCentral/_wiki/wikis/AppCentral.wiki/15679/Code-Submission-Workflow#) (NI internal link) with some modifications. The general submission flow is:
 
-Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+1. When your code is ready to submit, create a PR as Draft.
+2. Perform a self review of the changes. Ensure they follow conventions and that the status checks are passing.
+3. Add a local "buddy" reviewer. If you are new to Nimble, also add the Nimble team contact who has been helping you get familiar with the repo.
+4. Once those reviewers have approved, mark the PR as "Ready to review". This will add owners to the review.
+5. Each file in a pull request requires the approval of at least one of its code owners (though in general for interesting changes we wait for everyone to review). Owners for different files are listed in [`CODEOWNERS`](/.github/CODEOWNERS).
+
+If a PR requires significant refactoring at any point in this process, please move it back to Draft and re-do the steps before adding owners again.
+
+Some of these steps may be skipped for trivial changes; please use good judgement.
+
+Thanks for following this process! It helps reduce the burden on owners to catch smaller issues.
 
 ### Completing pull requests
 
