@@ -80,20 +80,19 @@ const simpleData = [
 interface AnchorColumnTableArgs extends SharedTableArgs {
     labelFieldName: string;
     hrefFieldName: string;
-    placeholderText: string;
     appearance: keyof typeof AnchorAppearance;
     underlineHidden: boolean;
 }
 
 const anchorColumnDescription = `The \`nimble-table-column-anchor\` column is used to display string fields as links or text in the \`nimble-table\`. If a row provides an href for a link, that cell will display a link, otherwise it will display plain text.
 
-In an Angular app, \`nimble-table-column-anchor\` can integrate with the router by applying the attribute \`nimbleRouterLink\`. This will cause the router to be invoked when navigating to the paths given in the table data. Other properties supported by the \`RouterLink\` directive (e.g. \`queryParams\`, \`state\`, \`replaceUrl\`) can also be set on \`nimble-table-column-anchor\`.
+In an Angular app, you can configure a callback to intercept clicks so that you may invoke the router to perform the navigation instead of the default handler:
 \`\`\`
-<nimble-table-column-anchor nimbleRouterLink [queryParams]="{ id: 'foo' }" replaceUrl>
+<nimble-table-column-anchor [navigationGuard]="doRouterNavigation">
     Link
 </nimble-table-column-anchor>
 \`\`\`
-Note that these property values apply to every link in the column and cannot be configured on a per-link basis.
+The function bound to \`navigationGuard\` should be of type \`NavigationGuard\`. It receives the clicked row id and should return a boolean indicating whether the default click handler should be run. I.e. return \`false\` if you have handled the navigation. The function is only called for left clicks with no modifier keys pressed.
 `;
 
 export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
@@ -114,7 +113,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
             <${tableColumnAnchorTag}
                 label-field-name="${x => x.labelFieldName}"
                 href-field-name="${x => x.hrefFieldName}"
-                placeholder="${x => x.placeholderText}"
                 appearance="${x => x.appearance}"
                 ?underline-hidden="${x => x.underlineHidden}"
             >
@@ -141,11 +139,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
                 'Set this attribute to identify which field in the data record contains the link url for each cell in the column. If the field is not defined in a particular record, that cell will be displayed as plain text instead of a link. The field values must be of type `string`.',
             control: { type: 'none' }
         },
-        placeholderText: {
-            name: 'placeholder',
-            description:
-                'Optionally set this attribute to change the text that is displayed if both the label value and url value for a record is `null`, `undefined`, or not present. If none of the three fields are defined, an empty string will be displayed.'
-        },
         appearance: {
             options: Object.keys(AnchorAppearance),
             control: { type: 'radio' },
@@ -161,7 +154,6 @@ export const anchorColumn: StoryObj<AnchorColumnTableArgs> = {
     args: {
         labelFieldName: 'firstName',
         hrefFieldName: 'url',
-        placeholderText: '(no first name or link provided)',
         appearance: 'default',
         underlineHidden: false,
         ...sharedTableArgs(simpleData)

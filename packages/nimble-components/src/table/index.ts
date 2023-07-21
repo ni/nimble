@@ -206,6 +206,7 @@ export class Table<
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
+    private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
@@ -243,6 +244,8 @@ export class Table<
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
         this.layoutManager = new TableLayoutManager(this);
+        this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
+        this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
         this.selectionManager = new InteractiveSelectionManager(
             this.table,
             this.selectionMode
@@ -345,6 +348,14 @@ export class Table<
             } else {
                 this.tableUpdateTracker.trackColumnPropertyChanged(args);
             }
+        } else if (
+            source instanceof TableLayoutManager
+            && args === 'isColumnBeingSized'
+            && !this.layoutManager.isColumnBeingSized
+        ) {
+            // 'isColumnBeingSized' changing to 'false' indicates an interactive
+            // column sizing operation has been completed
+            this.emitColumnConfigurationChangeEvent();
         }
     }
 
@@ -1037,7 +1048,8 @@ export class Table<
                 },
                 sortingFn: getTanStackSortingFunction(
                     column.columnInternals.sortOperation
-                )
+                ),
+                sortUndefined: false
             };
         });
     }

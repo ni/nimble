@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 21 Jul 2023 19:25:16 GMT",
+      "tag": "@ni/nimble-components_v19.8.5",
+      "version": "19.8.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "001c1039806ed2b009d3832ee2e33660e1bb4912",
+            "comment": "Update anchor column documentation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 21 Jul 2023 17:06:05 GMT",
+      "tag": "@ni/nimble-components_v19.8.5",
+      "version": "19.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dc57f15fa0f70243372becffa791c9ed2e1c5986",
+            "comment": "Fire event when columns interactively resized"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 16:23:00 GMT",
+      "tag": "@ni/nimble-components_v19.8.4",
+      "version": "19.8.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a3180102e5798540621a0d60ef93ca827649a988",
+            "comment": "Remove placeholder support from table columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 03:09:06 GMT",
+      "tag": "@ni/nimble-components_v19.8.3",
+      "version": "19.8.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0541d6d412dd3b011756e07719656f30b20dc234",
+            "comment": "Update tanstack dependency and configure undefined value sorting mode"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 00:28:42 GMT",
+      "tag": "@ni/nimble-components_v19.8.2",
+      "version": "19.8.2",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cc866dcd15faacc70caba8a981bd0d93a1b3077b",
+            "comment": "Banner Stories Severity Fix (#1350)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 19 Jul 2023 17:37:59 GMT",
       "tag": "@ni/nimble-components_v19.8.2",
       "version": "19.8.2",

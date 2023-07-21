@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 19 Jul 2023 17:37:59 GMT and should not be manually modified.
+This log was last generated on Fri, 21 Jul 2023 17:06:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.8.5
+
+Fri, 21 Jul 2023 17:06:05 GMT
+
+### Patches
+
+- Fire event when columns interactively resized ([ni/nimble@dc57f15](https://github.com/ni/nimble/commit/dc57f15fa0f70243372becffa791c9ed2e1c5986))
+
+## 19.8.4
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
+
+## 19.8.3
+
+Thu, 20 Jul 2023 03:09:06 GMT
+
+### Patches
+
+- Update tanstack dependency and configure undefined value sorting mode ([ni/nimble@0541d6d](https://github.com/ni/nimble/commit/0541d6d412dd3b011756e07719656f30b20dc234))
 
 ## 19.8.2
 
