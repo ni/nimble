@@ -74,10 +74,6 @@ export class RichTextViewer extends FoundationElement {
             'autolink'
         ]);
 
-        // Disabling normalize which replaces the null character('\0') with the Unicode representation('\uFFFD') of Replacement Character(�)
-        // https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/rules_core/normalize.js#L15
-        supportedTokenizerRules.disable('normalize');
-
         return new MarkdownParser(
             schema,
             supportedTokenizerRules,
