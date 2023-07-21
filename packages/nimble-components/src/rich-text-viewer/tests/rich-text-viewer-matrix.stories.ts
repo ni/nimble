@@ -12,6 +12,10 @@ import { hiddenWrapper } from '../../utilities/tests/hidden';
 import { richTextViewerTag } from '..';
 import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import {
+    cssPropertyFromTokenName,
+    tokenNames
+} from '../../theme-provider/design-token-names';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Viewer',
@@ -31,7 +35,9 @@ const viewerSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
     [heightLabel, heightStyle]: [string, string]
 ): ViewTemplate => html`
-    <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
+    <p style="font: var(${cssPropertyFromTokenName(
+        tokenNames.bodyFont
+    )}); margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
     <div style="width: 500px; height: 150px; outline: 1px dotted black">
         <${richTextViewerTag}
             style="${widthStyle}; ${heightStyle}; outline: 1px dashed red;"
@@ -45,7 +51,9 @@ const viewerDifferentContentTestCase = (
     [label, markdownContent]: [string, string],
     [heightLabel, parentHeightStyle]: [string, string]
 ): ViewTemplate => html`
-    <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${label}; ${heightLabel}</p>
+    <p style="font: var(${cssPropertyFromTokenName(
+        tokenNames.bodyFont
+    )}); margin-bottom: 0px;">${label}; ${heightLabel}</p>
     <div style="width: 300px; outline: 1px dotted black; ${parentHeightStyle}">
         <${richTextViewerTag}
             :markdown="${_ => markdownContent}"
@@ -58,7 +66,9 @@ const componentFitToContent = ([widthLabel, widthStyle]: [
     string,
     string
 ]): ViewTemplate => html`
-    <p style="font: 14px/18px Source Sans Pro; margin-bottom: 0px;">${widthLabel}</p>
+    <p style="font: var(${cssPropertyFromTokenName(
+        tokenNames.bodyFont
+    )}); margin-bottom: 0px;">${widthLabel}</p>
     <${richTextViewerTag} style="${widthStyle}; outline: 1px dotted black" 
         :markdown="${_ => `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`}">
     </${richTextViewerTag}>
