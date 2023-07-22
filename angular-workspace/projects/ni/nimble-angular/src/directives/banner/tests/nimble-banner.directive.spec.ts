@@ -121,7 +121,7 @@ describe('Nimble banner', () => {
                     [open]="open"
                     [severity]="severity"
                     [title-hidden]="titleHidden"
-                    [prevent-dismiss]="preventDismiss"
+                    [prevent-dismiss]="preventDismiss">
                 </nimble-banner>`
         })
         class TestHostComponent {
