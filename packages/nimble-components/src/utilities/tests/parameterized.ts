@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-restricted-globals
 type SpecTypes = typeof fit | typeof xit | typeof it;
 /**
- * @deprecated switch to `parameterize` instead
+ * @deprecated switch to `parameterize` or `parameterizeList` instead
  */
 const getSpecType = <T>(
     value: T,
@@ -19,7 +19,7 @@ const getSpecType = <T>(
 };
 
 /**
- * @deprecated switch to `parameterize` instead
+ * @deprecated switch to `parameterize` or `parameterizeList` instead
  */
 export const getSpecTypeByNamedList = <T extends { name: string }>(
     value: T,
