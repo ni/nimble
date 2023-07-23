@@ -49,7 +49,7 @@ type SpecOverride = Fit | Xit;
  * In the following example:
  *  - the test named `catsAndDogs` is focused for debugging
  *  - the test named `frogs` is configured to always be disabled
- *  - the test named `men` is configured to run normally
+ *  - the test named `men` will run normally as it has no override
  * @example
  * const rainTests = {
  *     catsAndDogs: 'idiom',
@@ -98,7 +98,7 @@ type ObjectFromList<T extends readonly string[]> = {
  * In the following example:
  *  - the test named `cats-and-dogs` is focused for debugging
  *  - the test named `frogs` is configured to always be disabled
- *  - the test named `men` is configured to run normally
+ *  - the test named `men` will run normally as it has no override
  * @example
  * const rainTests = [
  *     'cats-and-dogs',
