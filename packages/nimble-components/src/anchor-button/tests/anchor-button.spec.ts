@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { AnchorButton } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterize } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return fixture<AnchorButton>(
@@ -49,55 +49,47 @@ describe('AnchorButton', () => {
         expect(element.control!.getAttribute('href')).toBeNull();
     });
 
-    const attributeNames: { name: string }[] = [
-        { name: 'download' },
-        { name: 'hreflang' },
-        { name: 'ping' },
-        { name: 'referrerpolicy' },
-        { name: 'rel' },
-        { name: 'target' },
-        { name: 'type' },
-        { name: 'aria-atomic' },
-        { name: 'aria-busy' },
-        { name: 'aria-controls' },
-        { name: 'aria-current' },
-        { name: 'aria-describedby' },
-        { name: 'aria-details' },
-        { name: 'aria-disabled' },
-        { name: 'aria-errormessage' },
-        { name: 'aria-expanded' },
-        { name: 'aria-flowto' },
-        { name: 'aria-haspopup' },
-        { name: 'aria-hidden' },
-        { name: 'aria-invalid' },
-        { name: 'aria-keyshortcuts' },
-        { name: 'aria-label' },
-        { name: 'aria-labelledby' },
-        { name: 'aria-live' },
-        { name: 'aria-owns' },
-        { name: 'aria-relevant' },
-        { name: 'aria-roledescription' }
-    ];
+    const attributeNames = {
+        download: 'download',
+        hreflang: 'hreflang',
+        ping: 'ping',
+        referrerpolicy: 'referrerpolicy',
+        rel: 'rel',
+        target: 'target',
+        type: 'type',
+        ariaAtomic: 'aria-atomic',
+        ariaBusy: 'aria-busy',
+        ariaControls: 'aria-controls',
+        ariaCurrent: 'aria-current',
+        ariaDescribedby: 'aria-describedby',
+        ariaDetails: 'aria-details',
+        ariaDisabled: 'aria-disabled',
+        ariaErrormessage: 'aria-errormessage',
+        ariaExpanded: 'aria-expanded',
+        ariaFlowto: 'aria-flowto',
+        ariaHaspopup: 'aria-haspopup',
+        ariaHidden: 'aria-hidden',
+        ariaInvalid: 'aria-invalid',
+        ariaKeyshortcuts: 'aria-keyshortcuts',
+        ariaLabel: 'aria-label',
+        ariaLabelledby: 'aria-labelledby',
+        ariaLive: 'aria-live',
+        ariaOwns: 'aria-owns',
+        ariaRelevant: 'aria-relevant',
+        ariaRoledescription: 'aria-roledescription',
+    };
     describe('should reflect value to the internal control', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const attribute of attributeNames) {
-            const specType = getSpecTypeByNamedList(
-                attribute,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for attribute ${attribute.name}`, async () => {
+        parameterize(attributeNames, (spec, _, value) => {
+            spec(`for attribute ${value}`, async () => {
                 await connect();
 
-                element.setAttribute(attribute.name, 'foo');
+                element.setAttribute(value, 'foo');
                 await waitForUpdatesAsync();
 
-                expect(element.control!.getAttribute(attribute.name)).toBe(
+                expect(element.control!.getAttribute(value)).toBe(
                     'foo'
                 );
             });
-        }
+        });
     });
 });
