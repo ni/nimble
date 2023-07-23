@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { AnchorButton } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterize } from '../../utilities/tests/parameterized';
+import { parameterizeList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return fixture<AnchorButton>(
@@ -49,44 +49,44 @@ describe('AnchorButton', () => {
         expect(element.control!.getAttribute('href')).toBeNull();
     });
 
-    const attributeNames = {
-        download: 'download',
-        hreflang: 'hreflang',
-        ping: 'ping',
-        referrerpolicy: 'referrerpolicy',
-        rel: 'rel',
-        target: 'target',
-        type: 'type',
-        ariaAtomic: 'aria-atomic',
-        ariaBusy: 'aria-busy',
-        ariaControls: 'aria-controls',
-        ariaCurrent: 'aria-current',
-        ariaDescribedby: 'aria-describedby',
-        ariaDetails: 'aria-details',
-        ariaDisabled: 'aria-disabled',
-        ariaErrormessage: 'aria-errormessage',
-        ariaExpanded: 'aria-expanded',
-        ariaFlowto: 'aria-flowto',
-        ariaHaspopup: 'aria-haspopup',
-        ariaHidden: 'aria-hidden',
-        ariaInvalid: 'aria-invalid',
-        ariaKeyshortcuts: 'aria-keyshortcuts',
-        ariaLabel: 'aria-label',
-        ariaLabelledby: 'aria-labelledby',
-        ariaLive: 'aria-live',
-        ariaOwns: 'aria-owns',
-        ariaRelevant: 'aria-relevant',
-        ariaRoledescription: 'aria-roledescription'
-    };
+    const attributeNames = [
+        'download',
+        'hreflang',
+        'ping',
+        'referrerpolicy',
+        'rel',
+        'target',
+        'type',
+        'aria-atomic',
+        'aria-busy',
+        'aria-controls',
+        'aria-current',
+        'aria-describedby',
+        'aria-details',
+        'aria-disabled',
+        'aria-errormessage',
+        'aria-expanded',
+        'aria-flowto',
+        'aria-haspopup',
+        'aria-hidden',
+        'aria-invalid',
+        'aria-keyshortcuts',
+        'aria-label',
+        'aria-labelledby',
+        'aria-live',
+        'aria-owns',
+        'aria-relevant',
+        'aria-roledescription'
+    ] as const;
     describe('should reflect value to the internal control', () => {
-        parameterize(attributeNames, (spec, _, value) => {
-            spec(`for attribute ${value}`, async () => {
+        parameterizeList(attributeNames, (spec, name) => {
+            spec(`for attribute ${name}`, async () => {
                 await connect();
 
-                element.setAttribute(value, 'foo');
+                element.setAttribute(name, 'foo');
                 await waitForUpdatesAsync();
 
-                expect(element.control!.getAttribute(value)).toBe('foo');
+                expect(element.control!.getAttribute(name)).toBe('foo');
             });
         });
     });
