@@ -8,7 +8,6 @@
         "start": "npm run create-link && astro dev",
         "preview": "npm run build && astro preview",
         "pack": "npm pack",
-        "lint": "eslint .",
         "create-link": "npm run create-link:storybook && npm run create-link:angular && npm run create-link:blazor",
         "create-link:storybook": "symlink-dir ../../packages/nimble-components/dist/storybook ./public/storybook",
         "create-link:angular": "symlink-dir ../../angular-workspace/dist/example-client-app ./public/storybook/example-client-app",
