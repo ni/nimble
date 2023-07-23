@@ -7,7 +7,8 @@ module.exports = {
         // Force inclusion of config dot file
         '!.eleventy.js',
         'node_modules',
-        'dist'
+        'dist',
+        'public/storybook'
     ],
     rules: {
         // Enabled to prevent accidental usage of async-await

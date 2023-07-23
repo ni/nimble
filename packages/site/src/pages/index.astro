@@ -1,3 +1,10 @@
+---
+import nimbleUiLogo from '../images/nimble-ui-logo.svg';
+import blazor from '../images/blazor.svg';
+import gh from '../images/gh.svg';
+import ng from '../images/ng.svg';
+import sb from '../images/sb.svg';
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +15,12 @@
     <title>Nimble Design System - NI</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="icon" href="favicon.ico" sizes="any">
-    <script type="module" src="index.ts"></script>
-    <link rel="stylesheet" type="text/css" href="./styles.scss" />
+    <script>
+        import '../index.ts';
+    </script>
+    <style lang="scss">
+        @import '../styles.scss';
+    </style>
 </head>
 
 <body>
@@ -17,7 +28,7 @@
             <div class="main-content">
                 <div class="banner">
                     <div class="banner-main">
-                        <img src="./images/nimble-ui-logo.svg" width="326" height="97" alt="Nimble Logo">
+                        <img src={nimbleUiLogo} width="326" height="97" alt="Nimble Logo">
                         <p>The Nimble Design System is an easy to use collection of well-designed, styled components
                             that can be used in any NI web application.</p>
                     </div>
@@ -25,28 +36,28 @@
                  <div class="cards">
                    <div class="card-wrapper">
                        <a class="card" href="https://github.com/ni/nimble">
-                            <div class="icon"><img src="./images/gh.svg" width="197" height="64" alt="GitHub Logo"></div>
+                            <div class="icon"><img src={gh} width="197" height="64" alt="GitHub Logo"></div>
                             <div class="name">GitHub</div>
                             <div class="description">Open source access to code snippets</div>
                        </a>
                    </div>
                      <div class="card-wrapper">
                          <a class="card" href="storybook/">
-                            <div class="icon"><img src="./images/sb.svg" width="64" height="64" alt="Storybook Logo"></div>
+                            <div class="icon"><img src={sb} width="64" height="64" alt="Storybook Logo"></div>
                             <div class="name">Storybook</div>
                             <div class="description">Live playground for component APIs</div>
                          </a>
                      </div>
                     <div class="card-wrapper">
                         <a class="card" href="storybook/example-client-app">
-                            <div class="icon"><img src="./images/ng.svg" width="64" height="64" alt="Angular Logo"></div>
+                            <div class="icon"><img src={ng} width="64" height="64" alt="Angular Logo"></div>
                             <div class="name">Angular Demo</div>
                             <div class="description">View the Angular Demo Project</div>
                         </a>
                     </div>
                     <div class="card-wrapper">
                         <a class="card" href="storybook/blazor-client-app/wwwroot/">
-                            <div class="icon"><img src="./images/blazor.svg" width="187" height="64" alt="Blazor Logo"></div>
+                            <div class="icon"><img src={blazor} width="187" height="64" alt="Blazor Logo"></div>
                             <div class="name">Blazor Demo</div>
                             <div class="description">View the Blazor Demo Project</div>
                         </a>
