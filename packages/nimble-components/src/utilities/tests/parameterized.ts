@@ -71,15 +71,18 @@ export const parameterize = <T extends object>(
     testCases: T,
     test: (spec: Spec, name: keyof T, value: T[keyof T]) => void,
     specOverrides?: {
-        [P in keyof T]?: SpecOverride
-    }): void => {
+        [P in keyof T]?: SpecOverride;
+    }
+): void => {
     Object.entries(testCases).forEach(testCase => {
         const name = testCase[0] as keyof T;
         const value = testCase[1] as T[keyof T];
         const override = specOverrides?.[name];
         // eslint-disable-next-line no-restricted-globals
         if (override && !(override === fit || override === xit)) {
-            throw new Error('Must configure overrides with one of the jasmine spec functions: fit or xit');
+            throw new Error(
+                'Must configure overrides with one of the jasmine spec functions: fit or xit'
+            );
         }
         const spec = override ?? it;
         test(spec, name, value);

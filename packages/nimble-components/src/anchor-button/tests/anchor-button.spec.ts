@@ -76,7 +76,7 @@ describe('AnchorButton', () => {
         ariaLive: 'aria-live',
         ariaOwns: 'aria-owns',
         ariaRelevant: 'aria-relevant',
-        ariaRoledescription: 'aria-roledescription',
+        ariaRoledescription: 'aria-roledescription'
     };
     describe('should reflect value to the internal control', () => {
         parameterize(attributeNames, (spec, _, value) => {
@@ -86,9 +86,7 @@ describe('AnchorButton', () => {
                 element.setAttribute(value, 'foo');
                 await waitForUpdatesAsync();
 
-                expect(element.control!.getAttribute(value)).toBe(
-                    'foo'
-                );
+                expect(element.control!.getAttribute(value)).toBe('foo');
             });
         });
     });
