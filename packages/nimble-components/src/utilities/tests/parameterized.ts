@@ -90,7 +90,7 @@ export const parameterize = <T extends object>(
 };
 
 type ObjectFromList<T extends readonly string[]> = {
-    [K in T extends readonly (infer U)[] ? U : never]: K
+    [K in T extends readonly (infer U)[] ? U : never]: K;
 };
 
 /**
@@ -123,9 +123,12 @@ export const parameterizeList = <T extends readonly string[]>(
         [P in keyof ObjectFromList<T>]?: SpecOverride;
     }
 ): void => {
-    const testCases = list.reduce<{ [key: string]: string }>((result, entry) => {
-        result[entry] = entry;
-        return result;
-    }, {}) as ObjectFromList<T>;
+    const testCases = list.reduce<{ [key: string]: string }>(
+        (result, entry) => {
+            result[entry] = entry;
+            return result;
+        },
+        {}
+    ) as ObjectFromList<T>;
     parameterize(testCases, test, specOverrides);
 };
