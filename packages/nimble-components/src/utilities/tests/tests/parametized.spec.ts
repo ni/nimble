@@ -30,7 +30,9 @@ describe('Funtion parameterize', () => {
             parameterize(testcases, spy);
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name, value } = paramertizeTestArgs(spy.calls.argsFor(0));
+            const { spec, name, value } = paramertizeTestArgs(
+                spy.calls.argsFor(0)
+            );
             expect(spec).toBe(IT);
             expect(name).toBe('case1');
             expect(value).toBe('one');
@@ -46,7 +48,9 @@ describe('Funtion parameterize', () => {
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name, value } = paramertizeTestArgs(spy.calls.argsFor(0));
+            const { spec, name, value } = paramertizeTestArgs(
+                spy.calls.argsFor(0)
+            );
             expect(spec).toBe(FIT);
             expect(name).toBe('case1');
             expect(value).toBe('one');
@@ -62,7 +66,9 @@ describe('Funtion parameterize', () => {
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name, value } = paramertizeTestArgs(spy.calls.argsFor(0));
+            const { spec, name, value } = paramertizeTestArgs(
+                spy.calls.argsFor(0)
+            );
             expect(spec).toBe(XIT);
             expect(name).toBe('case1');
             expect(value).toBe('one');
@@ -82,19 +88,25 @@ describe('Funtion parameterize', () => {
 
             expect(spy).toHaveBeenCalledTimes(3);
             {
-                const { spec, name, value } = paramertizeTestArgs(spy.calls.argsFor(0));
+                const { spec, name, value } = paramertizeTestArgs(
+                    spy.calls.argsFor(0)
+                );
                 expect(spec).toBe(IT);
                 expect(name).toBe('case1');
                 expect(value).toBe('one');
             }
             {
-                const { spec, name, value } = paramertizeTestArgs(spy.calls.argsFor(1));
+                const { spec, name, value } = paramertizeTestArgs(
+                    spy.calls.argsFor(1)
+                );
                 expect(spec).toBe(XIT);
                 expect(name).toBe('case2');
                 expect(value).toBe('two');
             }
             {
-                const { spec, name, value } = paramertizeTestArgs(spy.calls.argsFor(2));
+                const { spec, name, value } = paramertizeTestArgs(
+                    spy.calls.argsFor(2)
+                );
                 expect(spec).toBe(FIT);
                 expect(name).toBe('case3');
                 expect(value).toBe('three');
@@ -133,10 +145,10 @@ interface ParameterizeListTestArgs {
 }
 const paramertizeListTestArgs = ([
     spec,
-    name,
+    name
 ]: unknown[]): ParameterizeListTestArgs => ({
     spec,
-    name,
+    name
 } as ParameterizeListTestArgs);
 
 describe('Funtion parameterizeList', () => {
@@ -147,7 +159,9 @@ describe('Funtion parameterizeList', () => {
             parameterizeList(testcases, spy);
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name } = paramertizeListTestArgs(spy.calls.argsFor(0));
+            const { spec, name } = paramertizeListTestArgs(
+                spy.calls.argsFor(0)
+            );
             expect(spec).toBe(IT);
             expect(name).toBe('case1');
         });
@@ -160,7 +174,9 @@ describe('Funtion parameterizeList', () => {
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name } = paramertizeListTestArgs(spy.calls.argsFor(0));
+            const { spec, name } = paramertizeListTestArgs(
+                spy.calls.argsFor(0)
+            );
             expect(spec).toBe(FIT);
             expect(name).toBe('case1');
         });
@@ -173,7 +189,9 @@ describe('Funtion parameterizeList', () => {
             });
 
             expect(spy).toHaveBeenCalledTimes(1);
-            const { spec, name } = paramertizeListTestArgs(spy.calls.argsFor(0));
+            const { spec, name } = paramertizeListTestArgs(
+                spy.calls.argsFor(0)
+            );
             expect(spec).toBe(XIT);
             expect(name).toBe('case1');
         });
@@ -188,17 +206,23 @@ describe('Funtion parameterizeList', () => {
 
             expect(spy).toHaveBeenCalledTimes(3);
             {
-                const { spec, name } = paramertizeListTestArgs(spy.calls.argsFor(0));
+                const { spec, name } = paramertizeListTestArgs(
+                    spy.calls.argsFor(0)
+                );
                 expect(spec).toBe(IT);
                 expect(name).toBe('case1');
             }
             {
-                const { spec, name } = paramertizeListTestArgs(spy.calls.argsFor(1));
+                const { spec, name } = paramertizeListTestArgs(
+                    spy.calls.argsFor(1)
+                );
                 expect(spec).toBe(XIT);
                 expect(name).toBe('case2');
             }
             {
-                const { spec, name } = paramertizeListTestArgs(spy.calls.argsFor(2));
+                const { spec, name } = paramertizeListTestArgs(
+                    spy.calls.argsFor(2)
+                );
                 expect(spec).toBe(FIT);
                 expect(name).toBe('case3');
             }

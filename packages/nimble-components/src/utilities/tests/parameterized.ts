@@ -76,14 +76,20 @@ export const parameterize = <T extends object>(
 ): void => {
     const testCaseNames = Object.keys(testCases) as (keyof T)[];
     if (specOverrides) {
-        const overrideNames = Object.keys(specOverrides) as (keyof typeof specOverrides)[];
-        if (!overrideNames.every(overrideName => testCaseNames.includes(overrideName))) {
+        const overrideNames = Object.keys(
+            specOverrides
+        ) as (keyof typeof specOverrides)[];
+        if (
+            !overrideNames.every(overrideName => testCaseNames.includes(overrideName))
+        ) {
             throw new Error(
                 'Parameterized test override names must match test case name'
             );
         }
-        // eslint-disable-next-line no-restricted-globals
-        if (!overrideNames.every(overrideName => [fit, xit].includes(specOverrides[overrideName]!))) {
+        if (
+            // eslint-disable-next-line no-restricted-globals
+            !overrideNames.every(overrideName => [fit, xit].includes(specOverrides[overrideName]!))
+        ) {
             throw new Error(
                 'Must configure override with one of the jasmine spec functions: fit or xit'
             );
