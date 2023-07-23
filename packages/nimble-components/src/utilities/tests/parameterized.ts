@@ -74,18 +74,24 @@ export const parameterize = <T extends object>(
         [P in keyof T]?: SpecOverride;
     }
 ): void => {
-    Object.entries(testCases).forEach(testCase => {
-        const name = testCase[0] as keyof T;
-        const value = testCase[1] as T[keyof T];
-        const override = specOverrides?.[name];
-        // eslint-disable-next-line no-restricted-globals
-        if (override && !(override === fit || override === xit)) {
+    const testCaseNames = Object.keys(testCases) as (keyof T)[];
+    if (specOverrides) {
+        const overrideNames = Object.keys(specOverrides) as (keyof typeof specOverrides)[];
+        if (!overrideNames.every(overrideName => testCaseNames.includes(overrideName))) {
             throw new Error(
-                'Must configure overrides with one of the jasmine spec functions: fit or xit'
+                'Parameterized test override names must match test case name'
             );
         }
-        const spec = override ?? it;
-        test(spec, name, value);
+        // eslint-disable-next-line no-restricted-globals
+        if (!overrideNames.every(overrideName => [fit, xit].includes(specOverrides[overrideName]!))) {
+            throw new Error(
+                'Must configure override with one of the jasmine spec functions: fit or xit'
+            );
+        }
+    }
+    testCaseNames.forEach(testCaseName => {
+        const spec = specOverrides?.[testCaseName] ?? it;
+        test(spec, testCaseName, testCases[testCaseName]);
     });
 };
 
