@@ -20,17 +20,14 @@ Simple accordion group
 <nimble-accordion>
     <nimble-accordion-item>
         <span slot="heading">Panel one</span>
-        <span slot="icon">^</span>
         Panel one content
     </nimble-accordion-item>
     <nimble-accordion-item expanded>
         <span slot="heading">Panel two</span>
-        <span slot="icon">^</span>
         Panel two content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <span slot="heading">Panel three</span>
-        <span slot="icon">^</span>
         Panel three content
     </nimble-accordion-item>
 </nimble-accordion>
@@ -42,34 +39,35 @@ Complex accordion group with components in slots and single expand-mode
 <nimble-accordion expand-mode="single">
     <nimble-accordion-item>
         <nimble-checkbox slot="start"></nimble-checkbox>
-            <nimble-select slot="end">
-                <nimble-option value="1">Option 1</nimble-option>
-                <nimble-option value="2">Option 2</nimble-option>
-                <nimble-option value="3">Option 3</nimble-option>
-            </nimble-select>
-                Accordion one content
-            <div slot="heading">Accordion one</div>
+        <div slot="heading">Accordion one</div>
+        <nimble-select slot="end">
+            <nimble-option value="1">Option 1</nimble-option>
+            <nimble-option value="2">Option 2</nimble-option>
+            <nimble-option value="3">Option 3</nimble-option>
+        </nimble-select>
+            Accordion one content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <nimble-checkbox slot="start"></nimble-checkbox>
-            <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
-                Accordion two content
-            <div slot="heading">Accordion two</div>
+        <div slot="heading">Accordion two</div>
+        <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
+            Accordion two content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <nimble-checkbox slot="start"></nimble-checkbox>
-            <nimble-select slot="end">
-                <nimble-option value="1">Option 1</nimble-option>
-                <nimble-option value="2">Option 2</nimble-option>
-                <nimble-option value="3">Option 3</nimble-option>
-            </nimble-select>
-            Accordion three content<div slot="heading">Accordion three</div>
+        <div slot="heading">Accordion three</div>
+        <nimble-select slot="end">
+            <nimble-option value="1">Option 1</nimble-option>
+            <nimble-option value="2">Option 2</nimble-option>
+            <nimble-option value="3">Option 3</nimble-option>
+        </nimble-select>
+            Accordion three content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <nimble-checkbox slot="start"></nimble-checkbox>
-            <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
-                Accordion four content
-            <div slot="heading">Accordion four</div>
+        <div slot="heading">Accordion four</div>
+        <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
+            Accordion four content
     </nimble-accordion-item>
 </nimble-accordion>
 ```
@@ -81,11 +79,16 @@ Complex accordion group with components in slots and single expand-mode
 [FAST accordion API](https://github.com/microsoft/fast/blob/57f3c22c6341d8a21d48b1ffb7fcbfab1ffd02d8/packages/web-components/fast-foundation/src/accordion/accordion.spec.md)
 
 -   _Component Name:_ `nimble-accordion`
--   _Properties/Attributes:_ Unchanged
+-   _Properties/Attributes:_
+    -   `appearance` - `block`, `outline`, `ghost`
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ Unchanged
+
+The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` appearances used in other components. Because of the difference in border functionality and possibility of excess overridden css classes if patterns are used, shared styles will not be used, and new styles for the accordion will be created. The appearances of `block`, `outline`, and `ghost` will be implemented under the HTML attribute `appearance`, which will use conditional css styles based on `appearance`'s value (ex. :host([appearance='outline']) will have styling for the outline button).
+
+Documentation will be added to advise against using multiple Nimble Accordions with different appearances next to each other.
 
 #### Nimble Accordion Item
 
@@ -93,20 +96,13 @@ Complex accordion group with components in slots and single expand-mode
 
 -   _Component Name:_ `nimble-accordion-item`
 -   _Properties/Attributes:_
-    -   `appearance` - `block`, `outline`, `ghost`
     -   `error-visible` - boolean
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
--   _CSS Classes and Custom Properties that affect the component:_
-    -   `appearance` - `block`, `outline`, `ghost`
-    -   `error-visible` - boolean
+-   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ Unchanged
 
-The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` buttons. The nimble-button pattern with these styles mostly fits the styling of the accordion, so these styles will be used. The attributes of `block`, `outline`, and `ghost` will be implemented with the name `appearance`. A few styling elements like the background color change on click that is used in the button will be removed.
-
-The Figma design also includes an `error` state. For this state, the styling of the accordion header button will to have a red border. This will be controlled with a boolean attribute such as `error-visible`, which would have a default of "" in the accordion attributes- when necessary, "error-visible" would be added to the accordion attributes and this would make the accordion switch to the red styling.
-
-A css class for the nimble-accordion-item can be used to get a green border (or red for `error-visible`) around the entire accordion (parent and children of accordion).
+The Figma design also includes an `error` state. This will be controlled with the boolean attribute `error-visible`, which has a default attribute value of "". When needed, "error-visible" would be added to the accordion attributes, changing the color of the accordion item border color to red. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. :host([error-visible]) will have styling for when `error-visible` is true).
 
 ### Angular integration
 
