@@ -5,6 +5,7 @@ import {
     borderHoverColor,
     borderWidth,
     fillSelectedColor,
+    fillSelectedRgbPartialColor,
     smallDelay
 } from '../theme-provider/design-tokens';
 import { styles as buttonStyles } from '../patterns/button/styles';
@@ -19,7 +20,7 @@ export const styles = css`
                 ${fillSelectedColor},
                 ${fillSelectedColor}
             );
-            border-color: ${fillSelectedColor};
+            border-color: rgba(${fillSelectedRgbPartialColor}, 0.3);
             position: relative;
             transition: box-shadow ${smallDelay} ease-in-out,
                 border-color ${smallDelay} ease-in-out,
@@ -44,7 +45,6 @@ export const styles = css`
 
     @layer focusVisible {
         .control[aria-pressed='true']${focusVisible} {
-            background-color: transparent;
             border-color: ${borderHoverColor};
             box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
             background-image: linear-gradient(
@@ -63,22 +63,6 @@ export const styles = css`
                 ${fillSelectedColor}
             );
             background-size: calc(100% - 2px) calc(100% - 2px);
-        }
-    }
-
-    @layer disabled {
-        :host([disabled]) .control[aria-pressed='true'] {
-            border-color: ${fillSelectedColor};
-            background-color: ${fillSelectedColor};
-            background-image: none;
-        }
-    }
-
-    @layer disabled {
-        :host([disabled]) .control[aria-pressed='true']:hover {
-            border-color: ${fillSelectedColor};
-            background-color: ${fillSelectedColor};
-            box-shadow: none;
         }
     }
 
