@@ -65,10 +65,6 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
         );
     }
 
-    public get requiresRenderingModuleUpdate(): boolean {
-        return this.isTracked('transform');
-    }
-
     public get requiresRenderHoverUpdate(): boolean {
         return this.isTracked('hoverDie');
     }

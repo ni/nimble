@@ -190,11 +190,8 @@ export class WaferMap extends FoundationElement {
                 this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
                 this.updateDiesRenderInfo();
-            } else if (
-                this.waferMapUpdateTracker.requiresRenderingModuleUpdate
-            ) {
-                this.updateRenderingModule();
             }
+            this.renderer.drawWafer();
             this.eventCoordinator.updateEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.updateRenderHover();
@@ -203,26 +200,18 @@ export class WaferMap extends FoundationElement {
 
     private updateContainerDimensions(): void {
         this.dataManager.updateContainerDimensions();
-        this.updateRenderingModule();
     }
 
     private updateScales(): void {
         this.dataManager.updateScales();
-        this.updateRenderingModule();
     }
 
     private updateLabelsFontSize(): void {
         this.dataManager.updateLabelsFontSize();
-        this.updateRenderingModule();
     }
 
     private updateDiesRenderInfo(): void {
         this.dataManager.updateDiesRenderInfo();
-        this.updateRenderingModule();
-    }
-
-    private updateRenderingModule(): void {
-        this.renderer.drawWafer();
     }
 
     private updateRenderHover(): void {
