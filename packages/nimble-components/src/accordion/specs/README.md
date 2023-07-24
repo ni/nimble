@@ -20,15 +20,12 @@ Simple accordion group
 <nimble-accordion>
     <nimble-accordion-item>
         <span slot="heading">Panel one</span>
-        Panel one content
     </nimble-accordion-item>
     <nimble-accordion-item expanded>
         <span slot="heading">Panel two</span>
-        Panel two content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <span slot="heading">Panel three</span>
-        Panel three content
     </nimble-accordion-item>
 </nimble-accordion>
 ```
@@ -45,13 +42,11 @@ Complex accordion group with components in slots and single expand-mode
             <nimble-option value="2">Option 2</nimble-option>
             <nimble-option value="3">Option 3</nimble-option>
         </nimble-select>
-            Accordion one content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <nimble-checkbox slot="start"></nimble-checkbox>
         <div slot="heading">Accordion two</div>
         <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
-            Accordion two content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <nimble-checkbox slot="start"></nimble-checkbox>
@@ -61,13 +56,11 @@ Complex accordion group with components in slots and single expand-mode
             <nimble-option value="2">Option 2</nimble-option>
             <nimble-option value="3">Option 3</nimble-option>
         </nimble-select>
-            Accordion three content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <nimble-checkbox slot="start"></nimble-checkbox>
         <div slot="heading">Accordion four</div>
         <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
-            Accordion four content
     </nimble-accordion-item>
 </nimble-accordion>
 ```
