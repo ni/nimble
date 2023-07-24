@@ -98,7 +98,7 @@ There are currently extra manual steps required to use the Nimble design tokens 
 The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.  
 Note: This approach requires periodically updating the Nimble tokens SCSS files manually (whenever the Nimble Blazor NuGet version is updated).
 
-### Localization
+### Localization (Optional)
 
 Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English.
 
