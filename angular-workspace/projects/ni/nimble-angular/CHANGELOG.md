@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 20 Jul 2023 16:23:00 GMT and should not be manually modified.
+This log was last generated on Mon, 24 Jul 2023 15:02:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.8.9
+
+Mon, 24 Jul 2023 15:02:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.0
+
+## 16.8.8
+
+Fri, 21 Jul 2023 19:25:16 GMT
+
+### Patches
+
+- Switch to NavigationGuard directive for Anchor Columns ([ni/nimble@001c103](https://github.com/ni/nimble/commit/001c1039806ed2b009d3832ee2e33660e1bb4912))
+
+## 16.8.7
+
+Fri, 21 Jul 2023 17:06:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.8.5
 
 ## 16.8.6
 
