@@ -117,7 +117,7 @@ A blazor wrapper will be created for the component.
 -   _User interaction: Do the FAST component's behaviors match the visual design spec? When they differ, which approach is preferable and why?_
     -   No Additional Requirements
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
-    -   Partially, extra styling will be needed for the `error-visible` boolean and `Block` / `Outline` / `Ghost` appearances.
+    -   No Additional Requirements
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
     -   No Additional Requirements
 -   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
