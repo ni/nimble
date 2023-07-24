@@ -22,16 +22,27 @@ TableColumnEnumCellRecord,
 TableColumnEnumColumnConfig
 > {
     private columnConfigChanged(): void {
+        this.updateText();
+    }
+
+    private cellRecordChanged(): void {
+        this.updateText();
+    }
+
+    private updateText(): void {
         const value = this.cellRecord.value;
         if (value === undefined || value === null) {
             this.text = '';
             return;
         }
 
-        const config = this.columnConfig.mappingConfigs.get(value);
+        const config = this.columnConfig?.mappingConfigs.get(value);
         if (config) {
             this.text = (config as MappingTextConfig).label;
+            return;
         }
+
+        this.text = '';
     }
 }
 
