@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-accordion` is a vertical stack of interactive headings. The headings are controls that can be used to reveal or hide content in specific sections. The Nimble accordion is based upon [FAST's accordion component](https://github.com/microsoft/fast/tree/master/packages/web-components/fast-foundation/src/accordion).
+The `nimble-accordion` is a vertical stack of interactive headings. The headings are controls that can be used to reveal or hide content in specific sections. The Nimble accordion is based upon [FAST's accordion component](https://github.com/microsoft/fast/tree/archives/fast-element-1/packages/web-components/fast-foundation/src/accordion).
 
 ### Background
 
@@ -17,66 +17,66 @@ The `nimble-accordion` is a vertical stack of interactive headings. The headings
 Simple accordion group
 
 ```
-<fast-accordion>
-    <fast-accordion-item>
+<nimble-accordion>
+    <nimble-accordion-item>
         <span slot="heading">Panel one</span>
         <span slot="icon">^</span>
         Panel one content
-    </fast-accordion-item>
-    <fast-accordion-item expanded>
+    </nimble-accordion-item>
+    <nimble-accordion-item expanded>
         <span slot="heading">Panel two</span>
         <span slot="icon">^</span>
         Panel two content
-    </fast-accordion-item>
-    <fast-accordion-item>
+    </nimble-accordion-item>
+    <nimble-accordion-item>
         <span slot="heading">Panel three</span>
         <span slot="icon">^</span>
         Panel three content
-    </fast-accordion-item>
-</fast-accordion>
+    </nimble-accordion-item>
+</nimble-accordion>
 ```
 
 Complex accordion group with components in slots and single expand-mode
 
 ```
-<fast-accordion expand-mode="single">
-    <fast-accordion-item>
-        <fast-checkbox slot="start"></fast-checkbox>
-            <fast-select slot="end">
-                <fast-option value="1">Option 1</fast-option>
-                <fast-option value="2">Option 2</fast-option>
-                <fast-option value="3">Option 3</fast-option>
-            </fast-select>
+<nimble-accordion expand-mode="single">
+    <nimble-accordion-item>
+        <nimble-checkbox slot="start"></nimble-checkbox>
+            <nimble-select slot="end">
+                <nimble-option value="1">Option 1</nimble-option>
+                <nimble-option value="2">Option 2</nimble-option>
+                <nimble-option value="3">Option 3</nimble-option>
+            </nimble-select>
                 Accordion one content
             <div slot="heading">Accordion one</div>
-    </fast-accordion-item>
-    <fast-accordion-item>
-        <fast-checkbox slot="start"></fast-checkbox>
-            <fast-number-field placeholder="number" slot="end"></fast-number-field>
+    </nimble-accordion-item>
+    <nimble-accordion-item>
+        <nimble-checkbox slot="start"></nimble-checkbox>
+            <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
                 Accordion two content
             <div slot="heading">Accordion two</div>
-    </fast-accordion-item>
-    <fast-accordion-item>
-        <fast-checkbox slot="start"></fast-checkbox>
-            <fast-select slot="end">
-                <fast-option value="1">Option 1</fast-option>
-                <fast-option value="2">Option 2</fast-option>
-                <fast-option value="3">Option 3</fast-option>
-            </fast-select>
+    </nimble-accordion-item>
+    <nimble-accordion-item>
+        <nimble-checkbox slot="start"></nimble-checkbox>
+            <nimble-select slot="end">
+                <nimble-option value="1">Option 1</nimble-option>
+                <nimble-option value="2">Option 2</nimble-option>
+                <nimble-option value="3">Option 3</nimble-option>
+            </nimble-select>
             Accordion three content<div slot="heading">Accordion three</div>
-    </fast-accordion-item>
-    <fast-accordion-item>
-        <fast-checkbox slot="start"></fast-checkbox>
-            <fast-number-field placeholder="number" slot="end"></fast-number-field>
+    </nimble-accordion-item>
+    <nimble-accordion-item>
+        <nimble-checkbox slot="start"></nimble-checkbox>
+            <nimble-number-field placeholder="number" slot="end"></nimble-number-field>
                 Accordion four content
             <div slot="heading">Accordion four</div>
-    </fast-accordion-item>
-</fast-accordion>
+    </nimble-accordion-item>
+</nimble-accordion>
 ```
 
 ### API
 
-#### FAST Accordion
+#### Nimble Accordion
 
 [FAST accordion API](https://github.com/microsoft/fast/blob/57f3c22c6341d8a21d48b1ffb7fcbfab1ffd02d8/packages/web-components/fast-foundation/src/accordion/accordion.spec.md)
 
@@ -87,7 +87,7 @@ Complex accordion group with components in slots and single expand-mode
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ Unchanged
 
-#### FAST Accordion Item
+#### Nimble Accordion Item
 
 [FAST accordion-item API](https://github.com/microsoft/fast/tree/57f3c22c6341d8a21d48b1ffb7fcbfab1ffd02d8/packages/web-components/fast-foundation/src/accordion-item)
 
@@ -102,9 +102,9 @@ Complex accordion group with components in slots and single expand-mode
     -   `error-visible` - boolean
 -   _Slots:_ Unchanged
 
-The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` buttons. The nimble-button pattern with these styles seems to fit the styling of the accordion, so these styles can be used. The attributes of `block`, `outline`, and `ghost` will most likely be implemented with the name `appearance`. A few styling elements like the background color change on click that is used in the button will have to be removed.
+The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` buttons. The nimble-button pattern with these styles mostly fits the styling of the accordion, so these styles will be used. The attributes of `block`, `outline`, and `ghost` will be implemented with the name `appearance`. A few styling elements like the background color change on click that is used in the button will be removed.
 
-The Figma design also includes a state that is most likely `error`, as it has a red border and red exclamation mark icon. For this state, the styling of the accordion header button could be altered to have a red border. This could be controlled with a boolean attribute such as `error-visible`, which would have a default of "" in the accordion attributes- when necessary, "error-visible" would be added to the accordion attributes and this would make the accordion switch to the red styling.
+The Figma design also includes an `error` state. For this state, the styling of the accordion header button will to have a red border. This will be controlled with a boolean attribute such as `error-visible`, which would have a default of "" in the accordion attributes- when necessary, "error-visible" would be added to the accordion attributes and this would make the accordion switch to the red styling.
 
 A css class for the nimble-accordion-item can be used to get a green border (or red for `error-visible`) around the entire accordion (parent and children of accordion).
 
