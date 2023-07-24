@@ -70,7 +70,11 @@ describe('TableColumnAnchor', () => {
         const noValueData = [
             { description: 'field not present', data: [{ unused: 'foo' }] },
             { description: 'value is null', data: [{ label: null }] },
-            { description: 'value is undefined', data: [{ label: undefined }] }
+            { description: 'value is undefined', data: [{ label: undefined }] },
+            {
+                description: 'value is not a string',
+                data: [{ label: 10 as unknown as string }]
+            }
         ];
         for (const testData of noValueData) {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -192,6 +196,16 @@ describe('TableColumnAnchor', () => {
     });
 
     describe('with href', () => {
+        it('displays label when href is not string', async () => {
+            await element.setData([
+                { label: 'foo', link: 10 as unknown as string }
+            ]);
+            await connect();
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
+        });
+
         it('changing labelFieldName updates display', async () => {
             await element.setData([
                 { label: 'foo', otherLabel: 'bar', link: 'url' }
@@ -254,6 +268,14 @@ describe('TableColumnAnchor', () => {
         }
 
         describe('with no label', () => {
+            it('displays empty string when href is not string', async () => {
+                await element.setData([{ link: 10 as unknown as string }]);
+                await connect();
+                await waitForUpdatesAsync();
+
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+            });
+
             it('displays url', async () => {
                 await element.setData([{ link: 'foo' }]);
                 await connect();

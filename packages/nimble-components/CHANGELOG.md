@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 21 Jul 2023 17:06:05 GMT and should not be manually modified.
+This log was last generated on Mon, 24 Jul 2023 15:02:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.9.0
+
+Mon, 24 Jul 2023 15:02:47 GMT
+
+### Minor changes
+
+- Initial version of date column ([ni/nimble@44e7d0d](https://github.com/ni/nimble/commit/44e7d0d3a06dead27f48a98698aa78d1fd65f9e3))
 
 ## 19.8.5
 
