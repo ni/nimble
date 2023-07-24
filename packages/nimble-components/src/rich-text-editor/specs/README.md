@@ -112,7 +112,9 @@ _Props/Attrs_
     that can be used to bind it in the Angular application.
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 -   `maxlength` - is a number attribute that restricts the number of input characters in the editor. This is achieved through
-    Tiptap's [CharacterCount extension](https://tiptap.dev/api/extensions/character-count#limit).
+    Tiptap's [CharacterCount extension](https://tiptap.dev/api/extensions/character-count#limit). However, we will not display
+    the number of characters currently entered in the editor along with the maximum length (e.g., 10/100 characters entered).
+    We use this extension only to limit the number of characters that can be entered into the editor.
 -   `disabled` - is a boolean attribute to disable the editor by restricting all the user interactions within the component.
 
 _Alternatives_
