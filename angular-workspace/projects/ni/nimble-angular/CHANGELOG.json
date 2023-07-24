@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 24 Jul 2023 19:06:11 GMT",
+      "tag": "@ni/nimble-angular_v16.9.0",
+      "version": "16.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "238805ceedc7f12996b10a7571434830d6239a2b",
+            "comment": "Angular integration for label providers (with secondary entry points)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Jul 2023 15:02:47 GMT",
       "tag": "@ni/nimble-angular_v16.8.9",
       "version": "16.8.9",
