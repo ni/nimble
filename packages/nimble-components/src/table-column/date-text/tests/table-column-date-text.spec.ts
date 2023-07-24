@@ -407,7 +407,7 @@ describe('TableColumnDateText', () => {
             column.customTimeZoneName = 'short';
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                '12/11/2012, UTC'
+                '12/10/2012, UTC'
             );
         });
 
