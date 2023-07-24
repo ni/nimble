@@ -95,9 +95,8 @@ _The key elements of the component's public API surface:_
     -   topRight - ![Top Right Quadrant](./Resources/top_right.png)
     -   bottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
     -   `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
-    -   `origin` - represents the origin coordinates of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum corner of the bounding box of the dies coordinates. It will be an object of the type `PointCoordinates` with the following attributes:
-        -   x: number
-        -   y: number
+    -   `originX` - represents the origin coordinates for the X axis of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X corner value of the bounding box of the dies coordinates.
+    -   `originY` - represents the origin coordinates for the X axis of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X corner value of the bounding box of the dies coordinates.
     -   `numberOfRows` - represents the number of values on the Y axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum Y values of the bounding box of the dies coordinates plus one.
     -   `numberOfColumns` - represents the number of values on the X axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum X values of the bounding box of the dies coordinates plus one.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
@@ -111,10 +110,10 @@ _The key elements of the component's public API surface:_
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
     -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
     -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is WaferMapValidity, and it contains the following boolean properties:
-        -   `invalidGridDimensions` : true when only one or two of the `origin`, `numberOfRows` or `numberOfColumns` is undefined.
+        -   `invalidGridDimensions` : true when only one or two of the `originX`, `originY`, `numberOfRows` or `numberOfColumns` is undefined.
 
-The `quadrant`, `orientation`, `rows`, `columns`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
-The `die`, `origin`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
+The `quadrant`, `orientation`,`originX`, `originY`, `numberOfRows`, `numberOfColumns`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
+The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 
