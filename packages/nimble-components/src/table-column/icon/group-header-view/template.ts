@@ -7,7 +7,7 @@ import { spinnerTag } from '../../../spinner';
 export const template = html<TableColumnIconGroupHeaderView>`
     ${when(
         x => x.visual === 'icon',
-        x => x.iconTemplate!
+        html<TableColumnIconGroupHeaderView>`${x => x.iconTemplate!}${x => x.label}`
     )}
     ${when(
         x => x.visual === 'spinner',
@@ -16,6 +16,7 @@ export const template = html<TableColumnIconGroupHeaderView>`
             title="${x => x.label}"
             aria-label="${x => x.label}">
         </${spinnerTag}>
+        ${x => x.label}
     `
     )}
     ${when(

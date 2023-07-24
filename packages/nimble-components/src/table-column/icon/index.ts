@@ -22,15 +22,13 @@ declare global {
     }
 }
 
-export type TableColumnIconColumnConfig = TableColumnEnumColumnConfig;
-
 /**
  * Table column that maps values to icons / spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
     mixinFixedWidthColumnAPI(
         TableColumnEnumBase<
-        TableColumnIconColumnConfig,
+        TableColumnEnumColumnConfig,
         TableColumnIconValidator
         >
     )
@@ -39,12 +37,12 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         return [MappingIcon, MappingSpinner] as const;
     }
 
-    public override get validity(): TableColumnValidity {
-        return this.validator.getValidity();
-    }
-
     public override createValidator(): TableColumnIconValidator {
         return new TableColumnIconValidator(this.columnInternals);
+    }
+
+    public override get validity(): TableColumnValidity {
+        return this.validator.getValidity();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {

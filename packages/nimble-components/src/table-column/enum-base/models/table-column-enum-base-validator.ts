@@ -28,7 +28,7 @@ export abstract class TableColumnEnumBaseValidator<
         const keys = mappings.map(mapping => mapping.key);
         this.validateKeyValuesForType(keys, keyType);
         this.validateMappingTypes(mappings, supportedMappingElements);
-        this.validateUniqueKeys(keys);
+        this.validateUniqueKeys(keys, keyType);
         this.validateNoMissingKeys(mappings);
     }
 
@@ -53,8 +53,12 @@ export abstract class TableColumnEnumBaseValidator<
         this.setConditionValue('unsupportedMappingType', !valid);
     }
 
-    private validateUniqueKeys(keys: (MappingKey | undefined)[]): void {
-        const invalid = new Set(keys).size !== keys.length;
+    private validateUniqueKeys(
+        keys: (MappingKey | undefined)[],
+        keyType: MappingKeyType
+    ): void {
+        const typedKeys = keys.map(x => resolveKeyWithType(x, keyType));
+        const invalid = new Set(typedKeys).size !== typedKeys.length;
         this.setConditionValue('duplicateMappingKey', invalid);
     }
 

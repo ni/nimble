@@ -213,7 +213,7 @@ describe('TableColumnEnumText', () => {
 
     it('sets group header text to key value when unmatched (instead of blank)', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { label: 'bravo' }
+            { key: 'b', label: 'bravo' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);

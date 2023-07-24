@@ -44,9 +44,6 @@ describe('TableColumnIcon', () => {
                             </${mappingIconTag}>
                         `)}
                     </${tableColumnIconTag}>
-                    <${tableColumnIconTag}>
-                        Column 2
-                    </${tableColumnIconTag}>
                 </nimble-table>`
         );
     }
@@ -204,7 +201,7 @@ describe('TableColumnIcon', () => {
 
     it('sets group header text to key value when unmatched (instead of blank)', async () => {
         ({ element, connect, disconnect } = await setup([
-            { label: 'bravo', icon: 'nimble-icon-xmark' }
+            { key: 'b', label: 'bravo', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);

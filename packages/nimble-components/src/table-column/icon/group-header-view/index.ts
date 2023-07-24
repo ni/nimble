@@ -1,5 +1,5 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import type { ViewTemplate } from '@microsoft/fast-element';
+import { ViewTemplate, observable } from '@microsoft/fast-element';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
@@ -30,6 +30,7 @@ export class TableColumnIconGroupHeaderView
     public severity: IconSeverity;
     public label!: string;
     public iconTemplate?: ViewTemplate<IconView>;
+    @observable
     public visual?: 'spinner' | 'icon';
 
     private columnConfigChanged(): void {
