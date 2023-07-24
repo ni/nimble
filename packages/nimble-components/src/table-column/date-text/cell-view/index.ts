@@ -21,34 +21,38 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
 TableColumnDateTextCellRecord,
 TableColumnDateTextColumnConfig
 > {
-    public static formatNumericDate(
-        date: TableNumberFieldValue,
-        columnConfig?: TableColumnDateTextColumnConfig
-    ): string {
-        if (!columnConfig) {
-            return '';
-        }
-        let options: Intl.DateTimeFormatOptions;
-        if (columnConfig.format === 'custom') {
-            options = TableColumnDateTextCellView.getCustomFormattingOptions(
-                columnConfig
-            );
-        } else {
-            options = {
-                dateStyle: 'medium',
-                timeStyle: 'medium'
-            };
-        }
+    private static formatter: Intl.DateTimeFormat;
+
+    public static formatNumericDate(date: TableNumberFieldValue): string {
         if (typeof date === 'number') {
-            const formatter = new Intl.DateTimeFormat(undefined, options);
             try {
-                return formatter.format(date);
+                return TableColumnDateTextCellView.formatter.format(date);
             } catch (e) {
                 return '';
             }
         } else {
             return '';
         }
+    }
+
+    public static updateFormatter(
+        columnConfig?: TableColumnDateTextColumnConfig
+    ): void {
+        let options: Intl.DateTimeFormatOptions;
+        if (!columnConfig?.format) {
+            options = {
+                dateStyle: 'medium',
+                timeStyle: 'medium'
+            };
+        } else {
+            options = TableColumnDateTextCellView.getCustomFormattingOptions(
+                columnConfig
+            );
+        }
+        TableColumnDateTextCellView.formatter = new Intl.DateTimeFormat(
+            undefined,
+            options
+        );
     }
 
     private static getCustomFormattingOptions(
@@ -78,6 +82,7 @@ TableColumnDateTextColumnConfig
     }
 
     private columnConfigChanged(): void {
+        TableColumnDateTextCellView.updateFormatter(this.columnConfig);
         this.updateText();
     }
 
@@ -87,8 +92,7 @@ TableColumnDateTextColumnConfig
 
     private updateText(): void {
         this.text = TableColumnDateTextCellView.formatNumericDate(
-            this.cellRecord.value,
-            this.columnConfig
+            this.cellRecord.value
         );
     }
 }

@@ -19,6 +19,7 @@ TableNumberFieldValue,
 TableColumnDateTextColumnConfig
 > {
     private columnConfigChanged(): void {
+        TableColumnDateTextCellView.updateFormatter(this.columnConfig);
         this.updateText();
     }
 
@@ -27,12 +28,9 @@ TableColumnDateTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.columnConfig) {
-            this.text = TableColumnDateTextCellView.formatNumericDate(
-                this.groupHeaderValue,
-                this.columnConfig
-            );
-        }
+        this.text = TableColumnDateTextCellView.formatNumericDate(
+            this.groupHeaderValue
+        );
     }
 }
 
