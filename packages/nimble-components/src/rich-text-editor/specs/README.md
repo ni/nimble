@@ -111,6 +111,9 @@ _Props/Attrs_
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
+-   `maxlength` - is a number attribute that restricts the number of input characters in the editor. This is achieved through
+    Tiptap's [CharacterCount extension](https://tiptap.dev/api/extensions/character-count#limit).
+-   `disabled` - is an boolean attribute to disable the editor by restricting all the user interactions within the component.
 
 _Alternatives_
 
@@ -398,6 +401,7 @@ library. For the currently supported features, we will include the following lib
 -   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
 -   [@tiptap/pm](https://www.npmjs.com/package/@tiptap/pm)
 -   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
+-   [@tiptap/extension-character-count](https://www.npmjs.com/package/@tiptap/extension-character-count)
 
 These packages will add up to a total space of approximately 800 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).
