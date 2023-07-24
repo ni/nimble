@@ -78,7 +78,7 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
      * After the update is finished, all the tracked items are reset.
      */
     public override queueUpdate(): void {
-        if (!this.wafermap.isConnected) {
+        if (!this.wafermap.$fastController.isConnected) {
             return;
         }
         if (!this.updateQueued) {
