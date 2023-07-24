@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Drawer, UserDismissed } from '@ni/nimble-components/dist/esm/drawer';
+import { type Drawer, type UserDismissed, drawerTag } from '@ni/nimble-components/dist/esm/drawer';
 import { DrawerLocation } from '@ni/nimble-components/dist/esm/drawer/types';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Drawer };
+export { drawerTag };
 export { DrawerLocation };
 
 /**

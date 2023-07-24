@@ -14,7 +14,8 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    standardPadding
+    standardPadding,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
@@ -117,6 +118,7 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
+        ${iconColor.cssCustomProperty}: currentcolor;
     }
 
     .control {

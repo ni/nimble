@@ -18,8 +18,16 @@ export type TableFieldValue = string | number | boolean | null | undefined;
  */
 export type TableStringFieldValue = string | null | undefined;
 
+/**
+ * TableBooleanFieldValue describes the type associated with values within
+ * a table's boolean records.
+ */
 export type TableBooleanFieldValue = boolean | null | undefined;
 
+/**
+ * TableNumberFieldValue describes the type associated with values within
+ * a table's number records.
+ */
 export type TableNumberFieldValue = number | null | undefined;
 
 /**

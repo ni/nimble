@@ -69,7 +69,6 @@ type TextColumnFieldNameOption = 'firstName' | 'lastName';
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: TextColumnFieldNameOption;
-    placeholderText: string;
 }
 
 const textColumnDescription = 'The `nimble-table-column-text` column is used to display string fields as text in the `nimble-table`.';
@@ -99,7 +98,6 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
-                placeholder="${x => x.placeholderText}"
             >
             Quote
             </${tableColumnTextTag}>
@@ -112,15 +110,9 @@ export const textColumn: StoryObj<TextColumnTableArgs> = {
                 'Set this attribute to identify which field in the data record should be displayed in each column. The field values must be of type `string`.',
             options: ['firstName', 'lastName'],
             control: { type: 'radio' }
-        },
-        placeholderText: {
-            name: 'placeholder',
-            description:
-                'Optionally set this attribute to change the text that is displayed if the record value is `null`, `undefined`, or not present. If unset, an empty string will be displayed.'
         }
     },
     args: {
-        fieldName: 'firstName',
-        placeholderText: '<pacifier noise>'
+        fieldName: 'firstName'
     }
 };
