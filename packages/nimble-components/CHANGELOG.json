@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 24 Jul 2023 21:12:18 GMT",
+      "tag": "@ni/nimble-components_v19.9.1",
+      "version": "19.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "55f48a51b88c5a8f0a0d3fa571fc2dbcbdb4a755",
+            "comment": "Fix tabs and anchor-tabs styling to allow tabs-toolbar content to be right aligned"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 19:42:55 GMT",
+      "tag": "@ni/nimble-components_v19.9.0",
+      "version": "19.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2df1e989a3da722c233e49221952c48d63321c38",
+            "comment": "Label provider Storybook/docs update"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 19:06:11 GMT",
+      "tag": "@ni/nimble-components_v19.9.0",
+      "version": "19.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "238805ceedc7f12996b10a7571434830d6239a2b",
+            "comment": "Label provider Storybook/doc updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Jul 2023 15:02:47 GMT",
       "tag": "@ni/nimble-components_v19.9.0",
       "version": "19.9.0",
