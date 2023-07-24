@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 24 Jul 2023 19:42:55 GMT",
+      "tag": "@ni/nimble-components_v19.9.0",
+      "version": "19.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2df1e989a3da722c233e49221952c48d63321c38",
+            "comment": "Label provider Storybook/docs update"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 19:06:11 GMT",
+      "tag": "@ni/nimble-components_v19.9.0",
+      "version": "19.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "238805ceedc7f12996b10a7571434830d6239a2b",
+            "comment": "Label provider Storybook/doc updates"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Jul 2023 15:02:47 GMT",
       "tag": "@ni/nimble-components_v19.9.0",
       "version": "19.9.0",
