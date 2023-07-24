@@ -113,7 +113,7 @@ _Props/Attrs_
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 -   `maxlength` - is a number attribute that restricts the number of input characters in the editor. This is achieved through
     Tiptap's [CharacterCount extension](https://tiptap.dev/api/extensions/character-count#limit).
--   `disabled` - is an boolean attribute to disable the editor by restricting all the user interactions within the component.
+-   `disabled` - is a boolean attribute to disable the editor by restricting all the user interactions within the component.
 
 _Alternatives_
 
