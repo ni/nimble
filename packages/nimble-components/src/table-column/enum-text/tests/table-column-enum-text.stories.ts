@@ -72,7 +72,6 @@ export default metadata;
 interface EnumTextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
-    placeholder: string;
     checkValidity: () => void;
     validity: () => void;
 }
@@ -90,8 +89,7 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnEnumTextTag} 
                 field-name="status"
-                group-index="0"
-                placeholder="${x => x.placeholder}">
+                group-index="0">
                 Status
                 <${mappingTextTag} key="fail" label="Not a Simpson"></${mappingTextTag}>
                 <${mappingTextTag} key="success" label="Is a Simpson"></${mappingTextTag}>
@@ -118,10 +116,6 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
             description:
                 'The data type of the key values used for this column. Must be one of `"string"`, `"number"`, or `"boolean"`. Defaults to `"string"` if unspecified.'
         },
-        placeholder: {
-            description:
-                'Optionally set this attribute to change the text that is displayed if no mappings match the key value for the cell. A placeholder should be used as a stand-in for an invalid/missing value, whereas a default mapping should be used when all values have meaning.'
-        },
         checkValidity: {
             name: 'checkValidity()',
             description:
@@ -135,7 +129,6 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
         ...sharedTableArgs(simpleData),
         fieldName: 'firstName',
         keyType: 'string',
-        placeholder: 'Unknown value',
         checkValidity: () => {},
         validity: () => {}
     }

@@ -32,9 +32,6 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         >
     )
 ) {
-    @attr
-    public placeholder?: string;
-
     protected get supportedMappingElements(): readonly (typeof Mapping)[] {
         return [MappingText] as const;
     }
@@ -74,10 +71,6 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         }
         // TODO just throwing an error mere seems wrong, nothing to catch it or report to users.
         throw new Error('Unsupported mapping');
-    }
-
-    private placeholderChanged(): void {
-        this.updateColumnConfig();
     }
 }
 

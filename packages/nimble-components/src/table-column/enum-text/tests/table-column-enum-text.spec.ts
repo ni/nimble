@@ -39,11 +39,11 @@ describe('TableColumnEnumText', () => {
     let model: Model;
 
     // prettier-ignore
-    async function setup(mappings: BasicTextMapping[], keyType = 'string', placeholder = ''): Promise<ModelFixture<Table<SimpleTableRecord>>> {
+    async function setup(mappings: BasicTextMapping[], keyType = 'string'): Promise<ModelFixture<Table<SimpleTableRecord>>> {
         const source = new Model();
         const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
             <${tableTag} style="width: 700px">
-                <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1" key-type="${keyType}" placeholder="${placeholder}">
+                <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1" key-type="${keyType}">
                     Column 1
                     ${repeat(() => mappings, html<BasicTextMapping>`
                         <${mappingTextTag}
