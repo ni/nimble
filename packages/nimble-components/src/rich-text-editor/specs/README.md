@@ -114,6 +114,7 @@ _Props/Attrs_
 -   `placeholder` - is a string attribute to include a placeholder text for the editor when it is empty. This text is passed as plain text (not markdown)
     to a component. This can be achieved through Tiptap's [Placeholder extension](https://tiptap.dev/api/extensions/placeholder).
     We can customize the styling of placeholder text with our own styles using Prosemirror's class as given in the provided link.
+-   `footer-hidden` - is a boolean attribute that, when enabled, hides the footer section, which includes all formatting options and the `footer-actions` slot.
 
 _Alternatives_
 
@@ -131,22 +132,7 @@ application's performance is enhanced as the operation is performed only once, t
 
 _Methods_
 
--   `hideFooter()` - hides the footer section that contains all formatting options and the `footer-actions` slot.
--   `clearContent()` - clears the content in the editor through [clearContent()](https://tiptap.dev/api/commands/clear-content) command in Tiptap.
-
-_Open Discussion_
-
--   We are proposing a design that involves displaying only placeholder text initially and footer section will be hidden. Upon focusing the editor, we will capture
-    Tiptap's [focus event](https://tiptap.dev/api/events#focus) to show the footer section. As per the
-    UX for comments feature, we will revert back to the original state (i.e,. without the footer section) only if the user clicks the `cancel` or `ok` button. Therefore,
-    we came to this decision of exposing the above `hideFooter()` and `clearContent()` methods.
--   There isn't a specific reason to expose two separate methods when considering the comments feature; they could be combined into a single method. However, we are uncertain about the
-    appropriate name for this method. One idea we have is to name it `resetEditor()`, combining the functionality of hiding the footer and clearing the existing content in the editor. This method
-    would not modify the markdown value and so we are not sure `resetEditor()` is the appropriate name for it. So, the question is, can we consolidate both functionalities into a single method
-    and find a suitable name for it?
--   The rationale behind not suggesting it as a property/attribute is that we don't see a compelling reason to expose both showing and hiding functionalities of the footer section to the client.
-    Instead, our proposal is to only expose a method that allows the client to hide the footer when necessary. The rich text editor can show the footer section exclusively when focused, while
-    for the rest of the time, it can remain as a plain box with a placeholder text.
+-   none.
 
 _Events_
 
