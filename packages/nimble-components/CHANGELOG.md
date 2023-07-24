@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 24 Jul 2023 15:02:47 GMT and should not be manually modified.
+This log was last generated on Mon, 24 Jul 2023 21:12:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.9.1
+
+Mon, 24 Jul 2023 21:12:18 GMT
+
+### Patches
+
+- Fix tabs and anchor-tabs styling to allow tabs-toolbar content to be right aligned ([ni/nimble@55f48a5](https://github.com/ni/nimble/commit/55f48a51b88c5a8f0a0d3fa571fc2dbcbdb4a755))
 
 ## 19.9.0
 

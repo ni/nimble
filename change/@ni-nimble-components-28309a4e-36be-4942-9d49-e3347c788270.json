@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix tabs and anchor-tabs styling to allow tabs-toolbar content to be right aligned",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
