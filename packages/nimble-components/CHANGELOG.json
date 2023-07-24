@@ -2,6 +2,96 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 24 Jul 2023 19:42:55 GMT",
+      "tag": "@ni/nimble-components_v19.9.0",
+      "version": "19.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2df1e989a3da722c233e49221952c48d63321c38",
+            "comment": "Label provider Storybook/docs update"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 19:06:11 GMT",
+      "tag": "@ni/nimble-components_v19.9.0",
+      "version": "19.9.0",
+      "comments": {
+        "none": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "238805ceedc7f12996b10a7571434830d6239a2b",
+            "comment": "Label provider Storybook/doc updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 15:02:47 GMT",
+      "tag": "@ni/nimble-components_v19.9.0",
+      "version": "19.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "44e7d0d3a06dead27f48a98698aa78d1fd65f9e3",
+            "comment": "Initial version of date column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 21 Jul 2023 21:59:38 GMT",
+      "tag": "@ni/nimble-components_v19.8.5",
+      "version": "19.8.5",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6a3ee058733b4f37149956ae1a9c828f6dccf8ef",
+            "comment": "Contributing doc updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 21 Jul 2023 19:25:16 GMT",
+      "tag": "@ni/nimble-components_v19.8.5",
+      "version": "19.8.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "001c1039806ed2b009d3832ee2e33660e1bb4912",
+            "comment": "Update anchor column documentation"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 21 Jul 2023 17:06:05 GMT",
+      "tag": "@ni/nimble-components_v19.8.5",
+      "version": "19.8.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "dc57f15fa0f70243372becffa791c9ed2e1c5986",
+            "comment": "Fire event when columns interactively resized"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Jul 2023 16:23:00 GMT",
       "tag": "@ni/nimble-components_v19.8.4",
       "version": "19.8.4",

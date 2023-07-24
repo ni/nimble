@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 24 Jul 2023 19:06:11 GMT",
+      "tag": "@ni/nimble-angular_v16.9.0",
+      "version": "16.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "238805ceedc7f12996b10a7571434830d6239a2b",
+            "comment": "Angular integration for label providers (with secondary entry points)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 15:02:47 GMT",
+      "tag": "@ni/nimble-angular_v16.8.9",
+      "version": "16.8.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.9.0",
+            "commit": "44e7d0d3a06dead27f48a98698aa78d1fd65f9e3"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 21 Jul 2023 19:25:16 GMT",
+      "tag": "@ni/nimble-angular_v16.8.8",
+      "version": "16.8.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "001c1039806ed2b009d3832ee2e33660e1bb4912",
+            "comment": "Switch to NavigationGuard directive for Anchor Columns"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 21 Jul 2023 17:06:05 GMT",
+      "tag": "@ni/nimble-angular_v16.8.7",
+      "version": "16.8.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.8.5",
+            "commit": "dc57f15fa0f70243372becffa791c9ed2e1c5986"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Jul 2023 16:23:00 GMT",
       "tag": "@ni/nimble-angular_v16.8.6",
       "version": "16.8.6",

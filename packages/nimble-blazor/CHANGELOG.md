@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 20 Jul 2023 16:23:00 GMT and should not be manually modified.
+This log was last generated on Mon, 24 Jul 2023 19:42:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 11.11.0
+
+Mon, 24 Jul 2023 19:42:55 GMT
+
+### Minor changes
+
+- Blazor integration for label providers, doc updates ([ni/nimble@2df1e98](https://github.com/ni/nimble/commit/2df1e989a3da722c233e49221952c48d63321c38))
 
 ## 11.10.5
 
