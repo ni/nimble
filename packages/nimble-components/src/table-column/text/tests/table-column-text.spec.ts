@@ -54,7 +54,11 @@ describe('TableColumnText', () => {
     const noValueData = [
         { description: 'field not present', data: [{ unused: 'foo' }] },
         { description: 'value is null', data: [{ field: null }] },
-        { description: 'value is undefined', data: [{ field: undefined }] }
+        { description: 'value is undefined', data: [{ field: undefined }] },
+        {
+            description: 'value is not a string',
+            data: [{ field: 10 as unknown as string }]
+        }
     ];
     for (const testData of noValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
