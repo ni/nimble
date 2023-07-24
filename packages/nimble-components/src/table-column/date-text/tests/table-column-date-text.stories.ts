@@ -17,23 +17,24 @@ import { tableColumnTextTag } from '../../text';
 
 const simpleData = [
     {
-        firstName: 'Ralph',
-        lastName: 'Wiggum',
-        lastSeen: new Date(2020, 3, 22, 14, 34, 19, 377).valueOf()
+        firstName: 'Homer',
+        lastName: 'Simpson',
+        birthday: new Date(1984, 4, 12, 14, 34, 19, 377).valueOf()
     },
     {
-        firstName: 'Milhouse',
-        lastName: 'Van Houten',
-        lastSeen: new Date(2019, 8, 5, 7, 6, 48, 584).valueOf()
+        firstName: 'Marge',
+        lastName: 'Simpson',
+        birthday: new Date(1984, 2, 19, 7, 6, 48, 584).valueOf()
     },
     {
-        firstName: 'Ned',
-        lastName: 'Flanders',
-        lastSeen: new Date(2023, 0, 10, 20, 4, 37, 975).valueOf()
+        firstName: 'Bart',
+        lastName: 'Simpson',
+        birthday: new Date(2013, 3, 1, 20, 4, 37, 975).valueOf()
     },
     {
         firstName: 'Maggie',
-        lastName: 'Simpson'
+        lastName: 'Simpson',
+        birthday: new Date(2022, 0, 12, 20, 4, 37, 975).valueOf()
     }
 ];
 
@@ -100,9 +101,9 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             Name
             </${tableColumnTextTag}>
             <${tableColumnDateTextTag}
-                field-name="lastSeen"
+                field-name="birthday"
             >
-            Last Seen
+            Birthday
             </${tableColumnDateTextTag}>
         </${tableTag}>
     `),
