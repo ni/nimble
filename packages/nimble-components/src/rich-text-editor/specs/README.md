@@ -107,7 +107,7 @@ _Props/Attrs_
         [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L30).
     -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
         [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199).
--   `isEmpty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
+-   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
 -   `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
