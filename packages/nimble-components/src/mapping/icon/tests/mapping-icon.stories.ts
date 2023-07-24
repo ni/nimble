@@ -37,11 +37,6 @@ export const iconMapping: StoryObj = {
         label: {
             description:
                 'A textual description of the value which will be used as the tooltip and accessible name of the icon. The label is also displayed next to the icon in a group header.'
-        },
-        defaultMapping: {
-            name: 'default-mapping',
-            description:
-                'If present, indicates this mapping should be used when no other mapping matches the cell value. There can be no more than one default mapping for a given column.'
         }
     },
     args: {}

@@ -21,18 +21,13 @@ declare global {
     }
 }
 
-export interface TableColumnEnumTextColumnConfig
-    extends TableColumnEnumColumnConfig {
-    placeholder?: string;
-}
-
 /**
  * Table column that maps values to strings
  */
 export class TableColumnEnumText extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         TableColumnEnumBase<
-        TableColumnEnumTextColumnConfig,
+        TableColumnEnumColumnConfig,
         TableColumnEnumTextValidator
         >
     )
@@ -71,14 +66,6 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         this.columnInternals.columnConfig = this.validator.isValid()
             ? this.createColumnConfig()
             : undefined;
-    }
-
-    protected override createColumnConfig(): TableColumnEnumTextColumnConfig {
-        const columnConfig = super.createColumnConfig();
-        return {
-            ...columnConfig,
-            placeholder: this.placeholder
-        };
     }
 
     protected createMappingConfig(mapping: Mapping): MappingConfig {

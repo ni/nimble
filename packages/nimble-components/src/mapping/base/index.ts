@@ -8,7 +8,4 @@ import type { MappingKey } from './types';
 export abstract class Mapping extends FoundationElement {
     @attr({ mode: 'fromView' })
     public key?: MappingKey;
-
-    @attr({ attribute: 'default-mapping', mode: 'boolean' })
-    public defaultMapping = false;
 }

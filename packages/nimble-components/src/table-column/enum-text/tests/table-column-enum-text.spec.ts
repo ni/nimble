@@ -21,7 +21,6 @@ interface SimpleTableRecord extends TableRecord {
 interface BasicTextMapping {
     key?: MappingKey;
     label: string;
-    defaultMapping?: boolean;
 }
 
 class Model {
@@ -49,8 +48,7 @@ describe('TableColumnEnumText', () => {
                     ${repeat(() => mappings, html<BasicTextMapping>`
                         <${mappingTextTag}
                             key="${x => x.key}"
-                            label="${x => x.label}"
-                            ?default-mapping="${x => x.defaultMapping}">
+                            label="${x => x.label}">
                         </${mappingTextTag}>
                     `)}
                 </${tableColumnEnumTextTag}>
@@ -104,39 +102,6 @@ describe('TableColumnEnumText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
-    });
-
-    it('displays placeholder when no matches and no default', async () => {
-        ({ element, connect, disconnect, model } = await setup(
-            [{ key: 'a', label: 'alpha' }],
-            'string',
-            'placeholder text'
-        ));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'no match' }]);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-            'placeholder text'
-        );
-    });
-
-    it('displays default when no other matches, even with placeholder', async () => {
-        ({ element, connect, disconnect, model } = await setup(
-            [
-                { key: 'a', label: 'alpha' },
-                { defaultMapping: true, label: 'bravo' }
-            ],
-            'string',
-            'placeholder text'
-        ));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'no match' }]);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('bravo');
     });
 
     it('changing fieldName updates display', async () => {
@@ -246,9 +211,9 @@ describe('TableColumnEnumText', () => {
         }
     });
 
-    it('sets group header text to key value when unmatched (instead of default)', async () => {
+    it('sets group header text to key value when unmatched (instead of blank)', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { defaultMapping: true, label: 'bravo' }
+            { label: 'bravo' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);
@@ -324,7 +289,6 @@ describe('TableColumnEnumText', () => {
             const column = model.col1;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
-            expect(column.validity.multipleDefaultMappings).toBeFalse();
             expect(column.validity.unsupportedMappingType).toBeFalse();
             expect(column.validity.duplicateMappingKey).toBeFalse();
             expect(column.validity.missingKeyValue).toBeFalse();
@@ -389,54 +353,6 @@ describe('TableColumnEnumText', () => {
                     ).toBeTrue();
                 });
             }
-        });
-
-        it('is valid with no default mapping', async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [{ key: '0', label: 'alpha' }],
-                'number'
-            ));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = model.col1;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.multipleDefaultMappings).toBeFalse();
-        });
-
-        it('is valid with single default mapping', async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [
-                    { key: '0', label: 'alpha' },
-                    { key: '1', label: 'alpha' },
-                    { key: '2', label: 'alpha', defaultMapping: true },
-                    { key: '3', label: 'alpha' },
-                    { key: '4', label: 'alpha' }
-                ],
-                'number'
-            ));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = model.col1;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.multipleDefaultMappings).toBeFalse();
-        });
-
-        it('is invalid with two default mappings', async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [
-                    { key: '0', label: 'alpha' },
-                    { key: '1', label: 'alpha' },
-                    { key: '2', label: 'alpha', defaultMapping: true },
-                    { key: '3', label: 'alpha' },
-                    { key: '4', label: 'alpha', defaultMapping: true }
-                ],
-                'number'
-            ));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = model.col1;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.multipleDefaultMappings).toBeTrue();
         });
 
         describe('invalid mappings', () => {
@@ -509,7 +425,7 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
 
-        it('is invalid with missing key value on non-default mapping', async () => {
+        it('is invalid with missing key value', async () => {
             ({ element, connect, disconnect, model } = await setup([
                 { label: 'alpha' }
             ]));
@@ -518,35 +434,6 @@ describe('TableColumnEnumText', () => {
             const column = model.col1;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.missingKeyValue).toBeTrue();
-        });
-
-        describe('allows missing key value on default mapping', () => {
-            const dataTypeTests = [
-                { name: 'string' },
-                { name: 'number' },
-                { name: 'boolean' }
-            ];
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const test of dataTypeTests) {
-                const specType = getSpecTypeByNamedList(
-                    test,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(` (${test.name} keyType)`, async () => {
-                    ({ element, connect, disconnect, model } = await setup(
-                        [{ label: 'alpha', defaultMapping: true }],
-                        test.name
-                    ));
-                    await connect();
-                    await waitForUpdatesAsync();
-                    const column = model.col1;
-                    expect(column.checkValidity()).toBeTrue();
-                    expect(column.validity.missingKeyValue).toBeFalse();
-                });
-            }
         });
     });
 });

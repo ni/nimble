@@ -24,7 +24,6 @@ export type TableColumnEnumCellRecord =
 export type MappingConfigs = Map<MappingKey, MappingConfig>;
 export interface TableColumnEnumColumnConfig {
     mappingConfigs: MappingConfigs;
-    defaultMapping?: MappingConfig;
 }
 
 /**
@@ -80,21 +79,15 @@ export abstract class TableColumnEnumBase<
     // Assumes the mapping element state is validated
     protected createColumnConfig(): TableColumnEnumColumnConfig {
         const mappingConfigs = new Map<MappingKey, MappingConfig>();
-        let defaultMapping: Mapping | undefined;
         this.mappings.forEach(mapping => {
             const key = resolveKeyWithType(mapping.key, this.keyType);
             if (key !== undefined) {
                 const mappingConfig = this.createMappingConfig(mapping);
                 mappingConfigs.set(key, mappingConfig);
             }
-            // defaultMapping can be from either undefined or defined key
-            if (mapping.defaultMapping) {
-                defaultMapping = mapping;
-            }
         });
         return {
-            mappingConfigs,
-            defaultMapping
+            mappingConfigs
         };
     }
 

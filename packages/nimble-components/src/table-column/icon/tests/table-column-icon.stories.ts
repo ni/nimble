@@ -101,7 +101,6 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" label="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" label="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" label="Calculating"></${mappingSpinnerTag}>
-                <${mappingIconTag} default-mapping icon="${iconQuestionTag}" label="Unknown"></${mappingIconTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">
                 Is Child

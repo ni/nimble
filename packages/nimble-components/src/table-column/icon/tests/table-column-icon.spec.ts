@@ -21,7 +21,6 @@ interface SimpleTableRecord extends TableRecord {
 interface BasicIconMapping {
     key?: MappingKey;
     label: string;
-    defaultMapping?: boolean;
     icon: string;
 }
 
@@ -41,7 +40,6 @@ describe('TableColumnIcon', () => {
                             <${mappingIconTag}
                                 key="${x => x.key}"
                                 label="${x => x.label}"
-                                ?default-mapping="${x => x.defaultMapping}"
                                 icon="${x => x.icon}">
                             </${mappingIconTag}>
                         `)}
@@ -89,21 +87,6 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellIcon(0, 0)).toBeNull();
-    });
-
-    it('displays default when no other matches', async () => {
-        ({ element, connect, disconnect } = await setup([
-            { key: 'a', label: 'alpha', icon: 'nimble-icon-xmark' },
-            { defaultMapping: true, label: 'bravo', icon: 'nimble-icon-check' }
-        ]));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
-        await element.setData([{ field1: 'no match' }]);
-        await connect();
-        await waitForUpdatesAsync();
-
-        expect(
-            pageObject.getRenderedCellIcon(0, 0) instanceof IconCheck
-        ).toBeTrue();
     });
 
     it('changing fieldName updates display', async () => {
@@ -219,9 +202,9 @@ describe('TableColumnIcon', () => {
         }
     });
 
-    it('sets group header text to key value when unmatched (instead of default)', async () => {
+    it('sets group header text to key value when unmatched (instead of blank)', async () => {
         ({ element, connect, disconnect } = await setup([
-            { defaultMapping: true, label: 'bravo', icon: 'nimble-icon-xmark' }
+            { label: 'bravo', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);
@@ -243,7 +226,6 @@ describe('TableColumnIcon', () => {
             const column = element.columns[0] as TableColumnIcon;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
-            expect(column.validity.multipleDefaultMappings).toBeFalse();
             expect(column.validity.unsupportedMappingType).toBeFalse();
             expect(column.validity.duplicateMappingKey).toBeFalse();
             expect(column.validity.missingKeyValue).toBeFalse();
@@ -317,69 +299,6 @@ describe('TableColumnIcon', () => {
             expect(column.validity.invalidMappingKeyValueForType).toBeTrue();
         });
 
-        it('is valid with no default mapping', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [{ key: '0', label: 'alpha', icon: 'nimble-icon-xmark' }],
-                'number'
-            ));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.multipleDefaultMappings).toBeFalse();
-        });
-
-        it('is valid with single default mapping', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: '0', label: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '1', label: 'alpha', icon: 'nimble-icon-xmark' },
-                    {
-                        key: '2',
-                        label: 'alpha',
-                        icon: 'nimble-icon-xmark',
-                        defaultMapping: true
-                    },
-                    { key: '3', label: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '4', label: 'alpha', icon: 'nimble-icon-xmark' }
-                ],
-                'number'
-            ));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.multipleDefaultMappings).toBeFalse();
-        });
-
-        it('is invalid with two default mappings', async () => {
-            ({ element, connect, disconnect } = await setup(
-                [
-                    { key: '0', label: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '1', label: 'alpha', icon: 'nimble-icon-xmark' },
-                    {
-                        key: '2',
-                        label: 'alpha',
-                        icon: 'nimble-icon-xmark',
-                        defaultMapping: true
-                    },
-                    { key: '3', label: 'alpha', icon: 'nimble-icon-xmark' },
-                    {
-                        key: '4',
-                        label: 'alpha',
-                        icon: 'nimble-icon-xmark',
-                        defaultMapping: true
-                    }
-                ],
-                'number'
-            ));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.multipleDefaultMappings).toBeTrue();
-        });
-
         describe('invalid mappings', () => {
             // prettier-ignore
             async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
@@ -430,7 +349,7 @@ describe('TableColumnIcon', () => {
             expect(column.validity.duplicateMappingKey).toBeTrue();
         });
 
-        it('is invalid with missing key value on non-default', async () => {
+        it('is invalid with missing key value', async () => {
             ({ element, connect, disconnect } = await setup([
                 { label: 'alpha', icon: 'nimble-icon-xmark' }
             ]));
@@ -439,21 +358,6 @@ describe('TableColumnIcon', () => {
             const column = element.columns[0] as TableColumnIcon;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.missingKeyValue).toBeTrue();
-        });
-
-        it('allows missing key value on default', async () => {
-            ({ element, connect, disconnect } = await setup([
-                {
-                    label: 'alpha',
-                    icon: 'nimble-icon-xmark',
-                    defaultMapping: true
-                }
-            ]));
-            await connect();
-            await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.missingKeyValue).toBeFalse();
         });
 
         it('is invalid with non-icon icon value', async () => {

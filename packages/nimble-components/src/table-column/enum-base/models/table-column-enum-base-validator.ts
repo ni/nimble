@@ -6,7 +6,6 @@ import { resolveKeyWithType } from './mapping-key-resolver';
 
 export const enumBaseValidityFlagNames = [
     'invalidMappingKeyValueForType',
-    'multipleDefaultMappings',
     'unsupportedMappingType',
     'duplicateMappingKey',
     'missingKeyValue'
@@ -28,7 +27,6 @@ export abstract class TableColumnEnumBaseValidator<
         this.untrackAll();
         const keys = mappings.map(mapping => mapping.key);
         this.validateKeyValuesForType(keys, keyType);
-        this.validateAtMostOneDefaultMapping(mappings);
         this.validateMappingTypes(mappings, supportedMappingElements);
         this.validateUniqueKeys(keys);
         this.validateNoMissingKeys(mappings);
@@ -43,11 +41,6 @@ export abstract class TableColumnEnumBaseValidator<
                 && resolveKeyWithType(key, keyType) === undefined
         );
         this.setConditionValue('invalidMappingKeyValueForType', invalid);
-    }
-
-    private validateAtMostOneDefaultMapping(mappings: Mapping[]): void {
-        const invalid = mappings.filter(mapping => mapping.defaultMapping).length > 1;
-        this.setConditionValue('multipleDefaultMappings', invalid);
     }
 
     private validateMappingTypes(
@@ -66,9 +59,7 @@ export abstract class TableColumnEnumBaseValidator<
     }
 
     private validateNoMissingKeys(mappings: Mapping[]): void {
-        const invalid = mappings.filter(
-            mapping => mapping.key === undefined && !mapping.defaultMapping
-        ).length > 0;
+        const invalid = mappings.filter(mapping => mapping.key === undefined).length > 0;
         this.setConditionValue('missingKeyValue', invalid);
     }
 }
