@@ -17,14 +17,17 @@ export class TableColumnDateTextGroupHeaderView extends TableColumnTextGroupHead
 TableNumberFieldValue,
 TableColumnDateTextColumnConfig
 > {
+    private static readonly formatter = new Intl.DateTimeFormat(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'medium'
+    });
+
     private groupHeaderValueChanged(): void {
         if (typeof this.groupHeaderValue === 'number') {
-            const formatter = new Intl.DateTimeFormat(undefined, {
-                dateStyle: 'medium',
-                timeStyle: 'medium'
-            });
             try {
-                this.text = formatter.format(this.groupHeaderValue);
+                this.text = TableColumnDateTextGroupHeaderView.formatter.format(
+                    this.groupHeaderValue
+                );
             } catch (e) {
                 this.text = '';
             }

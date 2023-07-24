@@ -20,14 +20,17 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
 TableColumnDateTextCellRecord,
 TableColumnDateTextColumnConfig
 > {
+    private static readonly formatter = new Intl.DateTimeFormat(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'medium'
+    });
+
     private cellRecordChanged(): void {
         if (typeof this.cellRecord.value === 'number') {
-            const formatter = new Intl.DateTimeFormat(undefined, {
-                dateStyle: 'medium',
-                timeStyle: 'medium'
-            });
             try {
-                this.text = formatter.format(this.cellRecord.value);
+                this.text = TableColumnDateTextCellView.formatter.format(
+                    this.cellRecord.value
+                );
             } catch (e) {
                 this.text = '';
             }
