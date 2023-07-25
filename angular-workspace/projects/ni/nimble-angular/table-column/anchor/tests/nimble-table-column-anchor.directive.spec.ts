@@ -101,11 +101,6 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.hrefFieldName).toBeUndefined();
         });
 
-        it('has expected defaults for placeholder', () => {
-            expect(directive.placeholder).toBeUndefined();
-            expect(nativeElement.placeholder).toBeUndefined();
-        });
-
         it('has expected defaults for appearance', () => {
             expect(directive.appearance).toBeUndefined();
             expect(nativeElement.appearance).toBeUndefined();
@@ -181,7 +176,6 @@ describe('Nimble anchor table column', () => {
                     download="${download1}"
                     label-field-name="label"
                     href-field-name="href"
-                    placeholder="no value"
                     appearance="prominent"
                     underline-hidden
                     action-menu-slot="my-slot"
@@ -262,11 +256,6 @@ describe('Nimble anchor table column', () => {
             expect(nativeElement.hrefFieldName).toBe('href');
         });
 
-        it('will use template string values for placeholder', () => {
-            expect(directive.placeholder).toBe('no value');
-            expect(nativeElement.placeholder).toBe('no value');
-        });
-
         it('will use template string values for appearance', () => {
             expect(directive.appearance).toBe('prominent');
             expect(nativeElement.appearance).toBe('prominent');
@@ -342,7 +331,6 @@ describe('Nimble anchor table column', () => {
                     [download]="download"
                     [label-field-name]="labelFieldName"
                     [href-field-name]="hrefFieldName"
-                    [placeholder]="placeholder"
                     [appearance]="appearance"
                     [underline-hidden]="underlineHidden"
                     [actionMenuSlot]="actionMenuSlot"
@@ -370,7 +358,6 @@ describe('Nimble anchor table column', () => {
             public download = download1;
             public labelFieldName = 'label';
             public hrefFieldName = 'href';
-            public placeholder = 'no value';
             public appearance: string | undefined = 'prominent';
             public underlineHidden = true;
             public columnId = 'my-column';
@@ -497,17 +484,6 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.hrefFieldName).toBe('foo');
             expect(nativeElement.hrefFieldName).toBe('foo');
-        });
-
-        it('can be configured with property binding for placeholder', () => {
-            expect(directive.placeholder).toBe('no value');
-            expect(nativeElement.placeholder).toBe('no value');
-
-            fixture.componentInstance.placeholder = 'foo';
-            fixture.detectChanges();
-
-            expect(directive.placeholder).toBe('foo');
-            expect(nativeElement.placeholder).toBe('foo');
         });
 
         it('can be configured with property binding for appearance', () => {
@@ -701,7 +677,6 @@ describe('Nimble anchor table column', () => {
                     [attr.download]="download"
                     [attr.label-field-name]="labelFieldName"
                     [attr.href-field-name]="hrefFieldName"
-                    [attr.placeholder]="placeholder"
                     [attr.appearance]="appearance"
                     [attr.underline-hidden]="underlineHidden"
                     [attr.action-menu-slot]="actionMenuSlot"
@@ -729,7 +704,6 @@ describe('Nimble anchor table column', () => {
             public download = download1;
             public labelFieldName = 'label';
             public hrefFieldName = 'href';
-            public placeholder = 'no value';
             public appearance: string | undefined = 'prominent';
             public underlineHidden = true;
             public columnId = 'my-column';
@@ -856,17 +830,6 @@ describe('Nimble anchor table column', () => {
 
             expect(directive.hrefFieldName).toBe('foo');
             expect(nativeElement.hrefFieldName).toBe('foo');
-        });
-
-        it('can be configured with attribute binding for placeholder', () => {
-            expect(directive.placeholder).toBe('no value');
-            expect(nativeElement.placeholder).toBe('no value');
-
-            fixture.componentInstance.placeholder = 'foo';
-            fixture.detectChanges();
-
-            expect(directive.placeholder).toBe('foo');
-            expect(nativeElement.placeholder).toBe('foo');
         });
 
         it('can be configured with attribute binding for appearance', () => {

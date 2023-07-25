@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 20 Jul 2023 03:09:06 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Jul 2023 03:47:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.9.2
+
+Tue, 25 Jul 2023 03:47:30 GMT
+
+### Patches
+
+- Implementation of markdown parser for converting markdown input to rich text content in the viewer ([ni/nimble@05f2975](https://github.com/ni/nimble/commit/05f297566e45e9589e1613b8a7b2c316f4b3bd68))
+
+## 19.9.1
+
+Mon, 24 Jul 2023 21:12:18 GMT
+
+### Patches
+
+- Fix tabs and anchor-tabs styling to allow tabs-toolbar content to be right aligned ([ni/nimble@55f48a5](https://github.com/ni/nimble/commit/55f48a51b88c5a8f0a0d3fa571fc2dbcbdb4a755))
+
+## 19.9.0
+
+Mon, 24 Jul 2023 15:02:47 GMT
+
+### Minor changes
+
+- Initial version of date column ([ni/nimble@44e7d0d](https://github.com/ni/nimble/commit/44e7d0d3a06dead27f48a98698aa78d1fd65f9e3))
+
+## 19.8.5
+
+Fri, 21 Jul 2023 17:06:05 GMT
+
+### Patches
+
+- Fire event when columns interactively resized ([ni/nimble@dc57f15](https://github.com/ni/nimble/commit/dc57f15fa0f70243372becffa791c9ed2e1c5986))
+
+## 19.8.4
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
 
 ## 19.8.3
 

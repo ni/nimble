@@ -450,7 +450,7 @@ describe('RichTextViewer', () => {
         });
     });
 
-    describe('various not supported markdown string values render as expected', () => {
+    describe('various not supported markdown string values render as unchanged strings', () => {
         const notSupportedMarkdownStrings: { name: string }[] = [
             { name: '> blockquote' },
             { name: '`code`' },
@@ -475,10 +475,7 @@ describe('RichTextViewer', () => {
             {
                 name: '<a href="https://nimble.ni.dev/">https://nimble.ni.dev/</a>'
             },
-            { name: '<script>alert("not alert")</script>' },
-            { name: '\0' },
-            { name: 'Line\r\rEnding' },
-            { name: '\uFFFD' }
+            { name: '<script>alert("not alert")</script>' }
         ];
 
         const focused: string[] = [];
@@ -507,26 +504,71 @@ describe('RichTextViewer', () => {
         }
     });
 
-    describe('various wacky string values render as expected', () => {
+    describe('various wacky string values render as unchanged strings', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
-        for (const value of wackyStrings) {
+
+        wackyStrings
+            .filter(value => value.name !== '\x00')
+            .forEach(value => {
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                specType(
+                    `wacky string "${value.name}" that are unmodified when rendered the same "${value.name}" within paragraph tag`,
+                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+                    async () => {
+                        element.markdown = value.name;
+
+                        await connect();
+
+                        expect(
+                            pageObject.getRenderedMarkdownTagNames()
+                        ).toEqual(['P']);
+                        expect(
+                            pageObject.getRenderedMarkdownLastChildContents()
+                        ).toBe(value.name);
+
+                        await disconnect();
+                    }
+                );
+            });
+    });
+
+    describe('various wacky string values modified when rendered', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        const modifiedWackyStrings: {
+            name: string,
+            tags: string[],
+            textContent: string[]
+        }[] = [
+            { name: '\0', tags: ['P'], textContent: ['�'] },
+            { name: '\r\r', tags: ['P'], textContent: [''] },
+            { name: '\uFFFD', tags: ['P'], textContent: ['�'] },
+            { name: '\x00', tags: ['P'], textContent: ['�'] }
+        ];
+
+        for (const value of modifiedWackyStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
-                `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
+                `wacky string "${value.name}" modified when rendered`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     element.markdown = value.name;
 
                     await connect();
 
-                    expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
-                        'P'
-                    ]);
+                    expect(pageObject.getRenderedMarkdownTagNames()).toEqual(
+                        value.tags
+                    );
                     expect(
-                        pageObject.getRenderedMarkdownLastChildContents()
-                    ).toBe(value.name);
+                        pageObject.getRenderedMarkdownLeafContents()
+                    ).toEqual(value.textContent);
 
                     await disconnect();
                 }

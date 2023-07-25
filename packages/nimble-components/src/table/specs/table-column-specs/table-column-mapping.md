@@ -60,7 +60,7 @@ Below is an example of how these elements would be used within a `nimble-table`:
 
 Each column contains mapping elements that define what to render when the cell's value matches the given `key` value.
 
-When none of the given mappings match the record value for a cell, that cell will be empty. Alternatively, if one of the mappings has the `default-mapping` attribute, it will match when no other mappings have. This is equivalent to the `placeholder` configuration we provide on `nimble-table-column-text` and `nimble-table-column-anchor`.
+When none of the given mappings match the record value for a cell, that cell will be empty.
 
 The column will translate its contained mapping elements into a map that is stored in the `columnConfig`.
 

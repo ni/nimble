@@ -17,18 +17,10 @@ export class TableColumnTextGroupHeaderView extends TableColumnTextGroupHeaderVi
 TableStringFieldValue,
 TableColumnTextColumnConfig
 > {
-    private columnConfigChanged(): void {
-        this.placeholder = this.columnConfig?.placeholder ?? '';
-    }
-
     private groupHeaderValueChanged(): void {
-        if (typeof this.groupHeaderValue === 'string') {
-            this.text = this.groupHeaderValue;
-            this.shouldUsePlaceholder = false;
-        } else {
-            this.text = '';
-            this.shouldUsePlaceholder = true;
-        }
+        this.text = typeof this.groupHeaderValue === 'string'
+            ? this.groupHeaderValue
+            : '';
     }
 }
 
