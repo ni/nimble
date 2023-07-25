@@ -4,7 +4,7 @@ import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
-import { mixinFixedWidthColumnAPI } from '../mixins/fixed-width-column';
+import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
 import { MappingSpinner } from '../../mapping/spinner';
 import { MappingIcon } from '../../mapping/icon';
 import { TableColumnIconValidator } from './models/table-column-icon-validator';
@@ -26,7 +26,7 @@ declare global {
  * Table column that maps values to icons / spinners
  */
 export class TableColumnIcon extends mixinGroupableColumnAPI(
-    mixinFixedWidthColumnAPI(
+    mixinFractionalWidthColumnAPI(
         TableColumnEnumBase<
         TableColumnEnumColumnConfig,
         TableColumnIconValidator
