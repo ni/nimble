@@ -14,6 +14,20 @@ import {
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
+import {
+    DateTextFormat,
+    DateStyle,
+    DayPeriodFormat,
+    EraFormat,
+    FormatMatcherAlgorithm,
+    HourCycle,
+    LocaleMatcherAlgorithm,
+    MonthFormat,
+    SimpleNumberFormat,
+    TimeStyle,
+    TimeZoneFormat,
+    WeekdayFormat
+} from '../types';
 
 const simpleData = [
     {
@@ -73,26 +87,26 @@ export default metadata;
 
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
-    format?: 'custom';
-    customDateStyle?: string;
-    customTimeStyle?: string;
-    customWeekday?: string;
-    customDay?: string;
-    customMonth?: string;
-    customYear?: string;
-    customEra?: string;
-    customHour?: string;
-    customMinute?: string;
-    customSecond?: string;
+    format: keyof typeof DateTextFormat;
+    customDateStyle: keyof typeof DateStyle;
+    customTimeStyle: keyof typeof TimeStyle;
+    customWeekday: keyof typeof WeekdayFormat;
+    customDay: keyof typeof SimpleNumberFormat;
+    customMonth: keyof typeof MonthFormat;
+    customYear: keyof typeof SimpleNumberFormat;
+    customEra: keyof typeof EraFormat;
+    customHour: keyof typeof SimpleNumberFormat;
+    customMinute: keyof typeof SimpleNumberFormat;
+    customSecond: keyof typeof SimpleNumberFormat;
     customHour12: boolean;
-    customHourCycle?: string;
-    customTimeZoneName?: string;
+    customHourCycle: keyof typeof HourCycle;
+    customTimeZoneName: keyof typeof TimeZoneFormat;
     customTimeZone?: string;
-    customDayPeriod?: string;
+    customDayPeriod: keyof typeof DayPeriodFormat;
     customCalendar?: string;
     customNumberingSystem?: string;
-    customFormatMatcher?: string;
-    customLocaleMatcher?: string;
+    customFormatMatcher: keyof typeof FormatMatcherAlgorithm;
+    customLocaleMatcher: keyof typeof LocaleMatcherAlgorithm;
 }
 
 const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).';
@@ -122,26 +136,26 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnDateTextTag}
                 field-name="birthday"
-                format="${x => x.format}"
-                custom-date-style="${x => x.customDateStyle}"
-                custom-time-style="${x => x.customTimeStyle}"
-                custom-weekday="${x => x.customWeekday}"
-                custom-day="${x => x.customDay}"
-                custom-month="${x => x.customMonth}"
-                custom-year="${x => x.customYear}"
-                custom-era="${x => x.customEra}"
-                custom-hour="${x => x.customHour}"
-                custom-minute="${x => x.customMinute}"
-                custom-second="${x => x.customSecond}"
+                format="${x => DateTextFormat[x.format]}"
+                custom-date-style="${x => DateStyle[x.customDateStyle]}"
+                custom-time-style="${x => TimeStyle[x.customTimeStyle]}"
+                custom-weekday="${x => WeekdayFormat[x.customWeekday]}"
+                custom-day="${x => SimpleNumberFormat[x.customDay]}"
+                custom-month="${x => MonthFormat[x.customMonth]}"
+                custom-year="${x => SimpleNumberFormat[x.customYear]}"
+                custom-era="${x => EraFormat[x.customEra]}"
+                custom-hour="${x => SimpleNumberFormat[x.customHour]}"
+                custom-minute="${x => SimpleNumberFormat[x.customMinute]}"
+                custom-second="${x => SimpleNumberFormat[x.customSecond]}"
                 ?custom-hour12="${x => x.customHour12}"
-                custom-hour-cycle="${x => x.customHourCycle}"
-                custom-time-zone-name="${x => x.customTimeZoneName}"
+                custom-hour-cycle="${x => HourCycle[x.customHourCycle]}"
+                custom-time-zone-name="${x => TimeZoneFormat[x.customTimeZoneName]}"
                 custom-time-zone="${x => x.customTimeZone}"
-                custom-day-period="${x => x.customDayPeriod}"
+                custom-day-period="${x => DayPeriodFormat[x.customDayPeriod]}"
                 custom-calendar="${x => x.customCalendar}"
                 custom-numbering-system="${x => x.customNumberingSystem}"
-                custom-format-matcher="${x => x.customFormatMatcher}"
-                custom-locale-matcher="${x => x.customLocaleMatcher}"
+                custom-format-matcher="${x => FormatMatcherAlgorithm[x.customFormatMatcher]}"
+                custom-locale-matcher="${x => LocaleMatcherAlgorithm[x.customLocaleMatcher]}"
             >
             Birthday
             </${tableColumnDateTextTag}>
@@ -157,84 +171,77 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
         format: {
             description:
                 'By default, dates are formatted like "Jan 1, 2023, 12:00:00 AM". To use a different format, set this attribute to `custom` and provide additional attributes corresponding to [`Intl.DateTimeFormat()` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'custom'],
+            options: Object.keys(DateTextFormat),
             control: { type: 'radio' }
         },
         customDateStyle: {
             name: 'custom-date-style',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'full', 'long', 'medium', 'short'],
+            options: Object.keys(DateStyle),
             control: { type: 'radio' }
         },
         customTimeStyle: {
             name: 'custom-time-style',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'full', 'long', 'medium', 'short'],
+            options: Object.keys(TimeStyle),
             control: { type: 'radio' }
         },
         customWeekday: {
             name: 'custom-weekday',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'long', 'short', 'narrow'],
+            options: Object.keys(WeekdayFormat),
             control: { type: 'radio' }
         },
         customDay: {
             name: 'custom-day',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'numeric', '2-digit'],
+            options: Object.keys(SimpleNumberFormat),
             control: { type: 'radio' }
         },
         customMonth: {
             name: 'custom-month',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [
-                undefined,
-                'numeric',
-                '2-digit',
-                'long',
-                'short',
-                'narrow'
-            ],
+            options: Object.keys(MonthFormat),
             control: { type: 'radio' }
         },
         customYear: {
             name: 'custom-year',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'numeric', '2-digit'],
+            options: Object.keys(SimpleNumberFormat),
             control: { type: 'radio' }
         },
         customEra: {
             name: 'custom-era',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'long', 'short', 'narrow'],
+            options: Object.keys(EraFormat),
             control: { type: 'radio' }
         },
         customHour: {
             name: 'custom-hour',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'numeric', '2-digit'],
+            options: Object.keys(SimpleNumberFormat),
             control: { type: 'radio' }
         },
         customMinute: {
             name: 'custom-minute',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'numeric', '2-digit'],
+            options: Object.keys(SimpleNumberFormat),
             control: { type: 'radio' }
         },
         customSecond: {
             name: 'custom-second',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'numeric', '2-digit'],
+            options: Object.keys(SimpleNumberFormat),
             control: { type: 'radio' }
         },
         customHour12: {
@@ -246,22 +253,14 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'custom-hour-cycle',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'h11', 'h12', 'h23', 'h24'],
+            options: Object.keys(HourCycle),
             control: { type: 'radio' }
         },
         customTimeZoneName: {
             name: 'custom-time-zone-name',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [
-                undefined,
-                'short',
-                'long',
-                'shortOffset',
-                'longOffset',
-                'shortGeneric',
-                'longGeneric'
-            ],
+            options: Object.keys(TimeZoneFormat),
             control: { type: 'radio' }
         },
         customTimeZone: {
@@ -281,7 +280,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'custom-day-period',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'narrow', 'short', 'long'],
+            options: Object.keys(DayPeriodFormat),
             control: { type: 'radio' }
         },
         customCalendar: {
@@ -310,39 +309,39 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             defaultValue: { summary: 'best fit' },
-            options: [undefined, 'best fit', 'basic'],
+            options: Object.keys(FormatMatcherAlgorithm),
             control: { type: 'radio' }
         },
         customLocaleMatcher: {
-            name: 'custom-local-matcher',
+            name: 'custom-locale-matcher',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
             defaultValue: { summary: 'best fit' },
-            options: [undefined, 'best fit', 'lookup'],
+            options: Object.keys(LocaleMatcherAlgorithm),
             control: { type: 'radio' }
         }
     },
     args: {
         fieldName: 'firstName',
-        format: undefined,
-        customDateStyle: undefined,
-        customTimeStyle: undefined,
-        customWeekday: undefined,
-        customDay: undefined,
-        customMonth: undefined,
-        customYear: undefined,
-        customEra: undefined,
-        customHour: undefined,
-        customMinute: undefined,
-        customSecond: undefined,
+        format: 'default',
+        customDateStyle: 'default',
+        customTimeStyle: 'default',
+        customWeekday: 'default',
+        customDay: 'default',
+        customMonth: 'default',
+        customYear: 'default',
+        customEra: 'default',
+        customHour: 'default',
+        customMinute: 'default',
+        customSecond: 'default',
         customHour12: false,
-        customHourCycle: undefined,
-        customTimeZoneName: undefined,
+        customHourCycle: 'default',
+        customTimeZoneName: 'default',
         customTimeZone: undefined,
-        customDayPeriod: undefined,
+        customDayPeriod: 'default',
         customCalendar: undefined,
         customNumberingSystem: undefined,
-        customFormatMatcher: undefined,
-        customLocaleMatcher: undefined
+        customFormatMatcher: 'default',
+        customLocaleMatcher: 'default'
     }
 };

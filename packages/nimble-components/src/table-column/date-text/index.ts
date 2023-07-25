@@ -8,36 +8,44 @@ import { TableColumnSortOperation } from '../base/types';
 import { tableColumnDateTextGroupHeaderTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
+import type {
+    DateTextFormat,
+    LocaleMatcherAlgorithm,
+    EraFormat,
+    SimpleNumberFormat,
+    TimeZoneFormat,
+    FormatMatcherAlgorithm,
+    DayPeriodFormat,
+    DateStyle,
+    TimeStyle,
+    HourCycle,
+    MonthFormat,
+    WeekdayFormat
+} from './types';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableColumnDateTextColumnConfig {
-    format?: 'custom';
-    customLocaleMatcher?: 'best fit' | 'lookup';
-    customWeekday?: 'long' | 'short' | 'narrow';
-    customEra?: 'long' | 'short' | 'narrow';
-    customYear?: 'numeric' | '2-digit';
-    customMonth?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow';
-    customDay?: 'numeric' | '2-digit';
-    customHour?: 'numeric' | '2-digit';
-    customMinute?: 'numeric' | '2-digit';
-    customSecond?: 'numeric' | '2-digit';
-    customTimeZoneName?:
-    | 'short'
-    | 'long'
-    | 'shortOffset'
-    | 'longOffset'
-    | 'shortGeneric'
-    | 'longGeneric';
-    customFormatMatcher?: 'best fit' | 'basic';
+    format: DateTextFormat;
+    customLocaleMatcher: LocaleMatcherAlgorithm;
+    customWeekday: WeekdayFormat;
+    customEra: EraFormat;
+    customYear: SimpleNumberFormat;
+    customMonth: MonthFormat;
+    customDay: SimpleNumberFormat;
+    customHour: SimpleNumberFormat;
+    customMinute: SimpleNumberFormat;
+    customSecond: SimpleNumberFormat;
+    customTimeZoneName: TimeZoneFormat;
+    customFormatMatcher: FormatMatcherAlgorithm;
     customHour12?: boolean;
     customTimeZone?: string;
     customCalendar?: string;
-    customDayPeriod?: 'narrow' | 'short' | 'long';
+    customDayPeriod: DayPeriodFormat;
     customNumberingSystem?: string;
-    customDateStyle?: 'full' | 'long' | 'medium' | 'short';
-    customTimeStyle?: 'full' | 'long' | 'medium' | 'short';
-    customHourCycle?: 'h11' | 'h12' | 'h23' | 'h24';
+    customDateStyle: DateStyle;
+    customTimeStyle: TimeStyle;
+    customHourCycle: HourCycle;
 }
 
 declare global {
@@ -51,46 +59,40 @@ declare global {
  */
 export class TableColumnDateText extends TableColumnTextBase {
     @attr
-    public format?: 'custom';
+    public format: DateTextFormat;
 
     @attr({ attribute: 'custom-locale-matcher' })
-    public customLocaleMatcher?: 'best fit' | 'lookup';
+    public customLocaleMatcher: LocaleMatcherAlgorithm;
 
     @attr({ attribute: 'custom-weekday' })
-    public customWeekday?: 'long' | 'short' | 'narrow';
+    public customWeekday: WeekdayFormat;
 
     @attr({ attribute: 'custom-era' })
-    public customEra?: 'long' | 'short' | 'narrow';
+    public customEra: EraFormat;
 
     @attr({ attribute: 'custom-year' })
-    public customYear?: 'numeric' | '2-digit';
+    public customYear: SimpleNumberFormat;
 
     @attr({ attribute: 'custom-month' })
-    public customMonth?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow';
+    public customMonth: MonthFormat;
 
     @attr({ attribute: 'custom-day' })
-    public customDay?: 'numeric' | '2-digit';
+    public customDay: SimpleNumberFormat;
 
     @attr({ attribute: 'custom-hour' })
-    public customHour?: 'numeric' | '2-digit';
+    public customHour: SimpleNumberFormat;
 
     @attr({ attribute: 'custom-minute' })
-    public customMinute?: 'numeric' | '2-digit';
+    public customMinute: SimpleNumberFormat;
 
     @attr({ attribute: 'custom-second' })
-    public customSecond?: 'numeric' | '2-digit';
+    public customSecond: SimpleNumberFormat;
 
     @attr({ attribute: 'custom-time-zone-name' })
-    public customTimeZoneName?:
-    | 'short'
-    | 'long'
-    | 'shortOffset'
-    | 'longOffset'
-    | 'shortGeneric'
-    | 'longGeneric';
+    public customTimeZoneName: TimeZoneFormat;
 
     @attr({ attribute: 'custom-format-matcher' })
-    public customFormatMatcher?: 'best fit' | 'basic';
+    public customFormatMatcher: FormatMatcherAlgorithm;
 
     @attr({ attribute: 'custom-hour12', mode: 'boolean' })
     public customHour12?: boolean;
@@ -102,19 +104,19 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customCalendar?: string;
 
     @attr({ attribute: 'custom-day-period' })
-    public customDayPeriod?: 'narrow' | 'short' | 'long';
+    public customDayPeriod: DayPeriodFormat;
 
     @attr({ attribute: 'custom-numbering-system' })
     public customNumberingSystem?: string;
 
     @attr({ attribute: 'custom-date-style' })
-    public customDateStyle?: 'full' | 'long' | 'medium' | 'short';
+    public customDateStyle: DateStyle;
 
     @attr({ attribute: 'custom-time-style' })
-    public customTimeStyle?: 'full' | 'long' | 'medium' | 'short';
+    public customTimeStyle: TimeStyle;
 
     @attr({ attribute: 'custom-hour-cycle' })
-    public customHourCycle?: 'h11' | 'h12' | 'h23' | 'h24';
+    public customHourCycle: HourCycle;
 
     public override connectedCallback(): void {
         super.connectedCallback();
