@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Implementation of markdown parser for converting markdown input to rich text content in the viewer",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
