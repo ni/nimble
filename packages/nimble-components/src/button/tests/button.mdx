@@ -1,5 +1,5 @@
 import {
-    Canvas,
+    DocsStory,
     Meta,
     Controls,
     Stories,
@@ -13,7 +13,7 @@ import * as buttonStories from './button.stories';
 <Title of={buttonStories} />
 <Description of={buttonStories} />
 
-<Canvas of={buttonStories.outlineButton} />
+<DocsStory of={buttonStories.outlineButton} />
 <Controls of={buttonStories.outlineButton} />
 <Stories of={buttonStories} />
 
@@ -35,3 +35,7 @@ import * as buttonStories from './button.stories';
 
     Please work with your designer and ensure you have a 4.5:1
     contrast ratio text to background.
+
+    When using the button with only an icon, `contentHidden` should be set to `true` and text content should be provided within the button
+    even though it will not be visible on the screen. The button will use the text content to configure the appropriate ARIA attributes internally
+    to ensure the button is adequately accessible with a screen reader.
