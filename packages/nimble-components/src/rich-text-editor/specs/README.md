@@ -114,7 +114,8 @@ _Props/Attrs_
 -   `maxlength` - is a number attribute that restricts the number of input characters in the editor. This is achieved through
     Tiptap's [CharacterCount extension](https://tiptap.dev/api/extensions/character-count#limit). However, we will not display
     the number of characters currently entered in the editor along with the maximum length (e.g., 10/100 characters entered).
-    We use this extension only to limit the number of characters that can be entered into the editor.
+    We use this extension only to limit the number of characters that can be entered into the editor. This name matches with the native element
+    [malength](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength) attribute.
 -   `disabled` - is a boolean attribute to disable the editor by preventing all user interactions within the component. When the component is
     disabled, the editor's border and font color will resemble that of the `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
     will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content when disabled will be handled
