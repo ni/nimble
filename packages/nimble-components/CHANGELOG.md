@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 25 Jul 2023 03:47:30 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Jul 2023 21:12:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
 
 ## 19.9.2
 

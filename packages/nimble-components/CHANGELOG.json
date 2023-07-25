@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 25 Jul 2023 21:12:32 GMT",
+      "tag": "@ni/nimble-components_v20.0.0",
+      "version": "20.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2c77e8e7b542572ca792c3d1aa00d8ac2010a888",
+            "comment": "Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Jul 2023 03:47:30 GMT",
       "tag": "@ni/nimble-components_v19.9.2",
       "version": "19.9.2",

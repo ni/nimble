@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 25 Jul 2023 21:12:32 GMT",
+      "tag": "@ni/nimble-angular_v17.0.0",
+      "version": "17.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2c77e8e7b542572ca792c3d1aa00d8ac2010a888",
+            "comment": "Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.0.0",
+            "commit": "2c77e8e7b542572ca792c3d1aa00d8ac2010a888"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Jul 2023 04:49:38 GMT",
       "tag": "@ni/nimble-angular_v16.9.3",
       "version": "16.9.3",
