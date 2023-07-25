@@ -11,6 +11,10 @@ import { buttonTag } from '../../button';
 interface RichTextEditorArgs {
     placeholder: string;
     hideFooter: undefined;
+    errorVisible: boolean;
+    disabled: boolean;
+    footerHidden: boolean;
+    maxlength: number;
     richTextEditorRef: RichTextEditor;
 }
 
@@ -33,17 +37,30 @@ const metadata: Meta<RichTextEditorArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/1288'
     })}
     <${richTextEditorTag} ${ref('richTextEditorRef')} 
-        placeholder="${x => x.placeholder}">
-        <${buttonTag} @click=${x => {
-    x.richTextEditorRef.hideFooter();
-    x.richTextEditorRef.clearContent();
-}} 
-        appearance="ghost" slot="footer">Cancel</${buttonTag}>
-        <${buttonTag} @click=${x => x.richTextEditorRef.hideFooter()} slot="footer">Ok</${buttonTag}>
+        placeholder="${x => x.placeholder}"
+        ?error-visible="${x => x.errorVisible}"
+        ?disabled="${x => x.disabled}"
+        ?footer-hidden="${x => x.footerHidden}"
+        maxlength="${x => x.maxlength}"
+        >
+        <${buttonTag} 
+            @click=${x => {
+        x.footerHidden = true;
+    }} 
+            appearance="ghost"
+            slot="footer"
+            >
+            Cancel
+        </${buttonTag}>
+        <${buttonTag} slot="footer">Ok</${buttonTag}>
     </${richTextEditorTag}>
     `),
     args: {
-        placeholder: 'Add comment here'
+        placeholder: 'Add comment here',
+        errorVisible: false,
+        disabled: false,
+        footerHidden: true,
+        maxlength: 10000
     }
 };
 

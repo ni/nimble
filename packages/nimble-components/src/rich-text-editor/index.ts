@@ -1,9 +1,10 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
+import { attr, observable } from '@microsoft/fast-element';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import Link from '@tiptap/extension-link';
+import CharacterCount from '@tiptap/extension-character-count';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
@@ -28,6 +29,40 @@ export class RichTextEditor extends FoundationElement {
      */
     @attr public footerVisibility = 'hidden';
 
+    /**
+     * @public
+     */
+    @attr({ attribute: 'footer-hidden', mode: 'boolean' })
+    public footerHidden = false;
+
+    /**
+     * Whether to display the error state.
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: error-visible
+     */
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
+
+    /**
+     * @internal
+     */
+    @observable
+    public scrollbarWidth = -1;
+
+    /**
+     * @public
+     */
+    @attr
+    public maxlength!: number;
+
+    /**
+     * @public
+     */
+    @attr({ attribute: 'disabled', mode: 'boolean' })
+    public disabled = false;
+
     public editor!: HTMLDivElement;
     public bold!: ToggleButton;
     public italics!: ToggleButton;
@@ -51,6 +86,12 @@ export class RichTextEditor extends FoundationElement {
         // this.setContent();
     }
 
+    public disabledChanged(): void {
+        if (this.$fastController.isConnected) {
+            this.tiptapEditor.options.editable = !this.disabled;
+        }
+    }
+
     public boldButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleBold().run();
     }
@@ -70,9 +111,9 @@ export class RichTextEditor extends FoundationElement {
     /**
      * @public
      */
-    public hideFooter(): void {
-        this.footerVisibility = 'hidden';
-    }
+    // public hideFooter(): void {
+    //     this.footerVisibility = 'hidden';
+    // }
 
     /**
      * @public
@@ -94,12 +135,17 @@ export class RichTextEditor extends FoundationElement {
                     validate: href => /^\w+:/.test(href)
                 }),
                 Placeholder.configure({
-                    placeholder: this.placeholder
+                    placeholder: this.placeholder,
+                    showOnlyWhenEditable: false
+                }),
+                CharacterCount.configure({
+                    limit: this.maxlength
                 })
             ];
             this.tiptapEditor = new Editor({
                 element: this.editor,
-                extensions
+                extensions,
+                editable: !this.disabled
             });
         }
     }
@@ -111,7 +157,7 @@ export class RichTextEditor extends FoundationElement {
             });
 
             this.tiptapEditor.on('focus', () => {
-                this.footerVisibility = 'visible';
+                this.footerHidden = false;
             });
         }
     }

@@ -1,6 +1,7 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, linkActiveFontColor, linkFontColor, smallDelay, smallPadding, standardPadding } from '../theme-provider/design-tokens';
+import { bodyDisabledFontColor, bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, failColor, iconSize, linkActiveFontColor, linkFontColor, smallDelay, smallPadding, standardPadding } from '../theme-provider/design-tokens';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('flex')}
@@ -64,6 +65,7 @@ export const styles = css`
         font: inherit;
         padding: 8px;
         padding-block-end: ${smallPadding};
+        padding-inline-end: calc(${iconSize});
         box-sizing: border-box;
         position: relative;
         color: inherit;
@@ -146,5 +148,44 @@ export const styles = css`
         float: left;
         height: 0;
         pointer-events: none;
+    }
+
+    :host([disabled]) *,
+    :host([disabled]) {
+        ${userSelectNone}
+        color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled]) .container,
+    :host([disabled]) .container::after {
+        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host([disabled]:hover) .container::after {
+        inline-size: 0px;
+    }
+
+
+    :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${bodyDisabledFontColor};
+    }
+
+    .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon {
+        display: inline-flex;
+        position: absolute;
+        top: calc(${standardPadding} / 2);
+        right: var(--ni-private-scrollbar-width);
+    }
+
+    :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
     }
 `;
