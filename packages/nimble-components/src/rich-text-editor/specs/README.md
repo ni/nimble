@@ -15,7 +15,7 @@ including Comments and other instances that necessitate rich text capabilities.
 
 [Nimble issue #1288](https://github.com/ni/nimble/issues/1288)
 
-[Comments UI mockup](https://www.figma.com/proto/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94118&scaling=min-zoom&page-id=2428%3A32954&starting-point-node-id=6280%3A94118&show-proto-sidebar=1)
+Comments UI mockups - [Desktop view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0) and [Mobile view](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=7258-115224&mode=design&t=aC5VQw42BYcOesm2-0)
 
 [Comments Feature](https://dev.azure.com/ni/DevCentral/_backlogs/backlog/ASW%20SystemLink%20Platform/Initiatives/?workitem=2205215)
 
@@ -62,7 +62,7 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 -   Due to immediate requirements for comments feature from a business customer, any additional enhancements or requirements apart from whatever is
     mentioned in this spec are deferred to future scope.
 -   Currently, we will begin by referring to the existing
-    [Interaction design workflow](https://www.figma.com/proto/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94118&scaling=min-zoom&page-id=2428%3A32954&starting-point-node-id=6280%3A94118&show-proto-sidebar=1)
+    [Interaction design workflow](https://www.figma.com/file/Q5SU1OwrnD08keon3zObRX/SystemLink?type=design&node-id=6280-94045&mode=design&t=aC5VQw42BYcOesm2-0)
     of the comments feature. Once the visual design for these components is complete, we will then be implementing those specific changes within the defined
     scope of development. However, we will still make use of existing nimble components such as `nimble-toggle-button` and `nimble-text-area` to maintain a
     consistent design for the initial release.
@@ -104,9 +104,9 @@ _Props/Attrs_
 
 -   `markdown` - is an accessor used to get and set the markdown value.
     -   `getter` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
-        [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L30).
+        [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
     -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
-        [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199).
+        [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
 -   `isEmpty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
@@ -210,12 +210,9 @@ tasks to convert the markdown string to corresponding HTML nodes for each text f
 
 _Props/Attrs_
 
--   `markdown` - is an accessor used to get and set the markdown value.
-    -   `getter` - this will merely return the markdown string that is set to the component.
-    -   `setter` - this will parse the markdown string into a Node using
-        [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/from_markdown.ts#L199) and convert to an HTML to
-        render it in the component section.
--   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
+-   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
+    [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
+    The parsed node will then be rendered in the viewer component as rich text.
 
 _Methods_
 
@@ -227,8 +224,9 @@ _Events_
 
 _CSS Classes and CSS Custom Properties that affect the component_
 
--   The sizing behavior of the component will remain same as the editor component. The height of the component will grow to fit the content based
-    on the `fitToContent` attribute.
+-   The sizing behavior of the component will remain same as the editor component. The height of the component will grow to fit the content if
+    there is no height restrictions from the consumer. If there is any height set by the consumer, the vertical scrollbar will be
+    enabled when there is overflow of content in the component.
 -   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
     of the component or will enable the vertical scrollbar.
 

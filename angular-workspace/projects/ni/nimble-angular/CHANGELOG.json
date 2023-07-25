@@ -2,6 +2,51 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 25 Jul 2023 03:47:30 GMT",
+      "tag": "@ni/nimble-angular_v16.9.2",
+      "version": "16.9.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.9.2",
+            "commit": "05f297566e45e9589e1613b8a7b2c316f4b3bd68"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 21:12:18 GMT",
+      "tag": "@ni/nimble-angular_v16.9.1",
+      "version": "16.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v19.9.1",
+            "commit": "55f48a51b88c5a8f0a0d3fa571fc2dbcbdb4a755"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 19:06:11 GMT",
+      "tag": "@ni/nimble-angular_v16.9.0",
+      "version": "16.9.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "238805ceedc7f12996b10a7571434830d6239a2b",
+            "comment": "Angular integration for label providers (with secondary entry points)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Jul 2023 15:02:47 GMT",
       "tag": "@ni/nimble-angular_v16.8.9",
       "version": "16.8.9",
