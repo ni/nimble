@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 25 Jul 2023 03:47:30 GMT",
+      "tag": "@ni/nimble-components_v19.9.2",
+      "version": "19.9.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "05f297566e45e9589e1613b8a7b2c316f4b3bd68",
+            "comment": "Implementation of markdown parser for converting markdown input to rich text content in the viewer"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 21:12:18 GMT",
+      "tag": "@ni/nimble-components_v19.9.1",
+      "version": "19.9.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "55f48a51b88c5a8f0a0d3fa571fc2dbcbdb4a755",
+            "comment": "Fix tabs and anchor-tabs styling to allow tabs-toolbar content to be right aligned"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 24 Jul 2023 19:42:55 GMT",
       "tag": "@ni/nimble-components_v19.9.0",
       "version": "19.9.0",
