@@ -397,7 +397,7 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('22');
         });
 
-        fit('honors customTimeZone and customTimeZoneName properties', async () => {
+        it('honors customTimeZone and customTimeZoneName properties', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM UTC').valueOf() }
             ]);
