@@ -69,7 +69,8 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         if (mapping instanceof MappingText) {
             return new MappingTextConfig(mapping.label!);
         }
-        // TODO just throwing an error mere seems wrong, nothing to catch it or report to users.
+        // Getting here would indicate a programming error, b/c validation will prevent
+        // this function from running when there is an unsupported mapping.
         throw new Error('Unsupported mapping');
     }
 }

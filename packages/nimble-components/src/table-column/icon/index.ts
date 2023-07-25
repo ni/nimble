@@ -77,7 +77,8 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         if (mapping instanceof MappingSpinner) {
             return new MappingSpinnerConfig(mapping.label!);
         }
-        // TODO just throwing an error mere seems wrong, nothing to catch it or report to users.
+        // Getting here would indicate a programming error, b/c validation will prevent
+        // this function from running when there is an unsupported mapping.
         throw new Error('Unsupported mapping');
     }
 }
