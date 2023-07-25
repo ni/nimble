@@ -4,7 +4,7 @@ import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header
 import { template } from '../../text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
 import type { TableColumnDateTextColumnConfig } from '..';
-import { TableColumnDateTextCellView } from '../cell-view';
+import { createFormatter, formatNumericDate } from '../models/format-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,8 +18,10 @@ export class TableColumnDateTextGroupHeaderView extends TableColumnTextGroupHead
 TableNumberFieldValue,
 TableColumnDateTextColumnConfig
 > {
+    private formatter?: Intl.DateTimeFormat;
+
     private columnConfigChanged(): void {
-        TableColumnDateTextCellView.updateFormatter(this.columnConfig);
+        this.formatter = createFormatter(this.columnConfig);
         this.updateText();
     }
 
@@ -28,9 +30,12 @@ TableColumnDateTextColumnConfig
     }
 
     private updateText(): void {
-        this.text = TableColumnDateTextCellView.formatNumericDate(
-            this.groupHeaderValue
-        );
+        if (this.formatter) {
+            this.text = formatNumericDate(
+                this.formatter,
+                this.groupHeaderValue
+            );
+        }
     }
 }
 

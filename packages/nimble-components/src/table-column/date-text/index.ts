@@ -117,6 +117,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customHourCycle?: 'h11' | 'h12' | 'h23' | 'h24';
 
     public override connectedCallback(): void {
+        super.connectedCallback();
         this.updateColumnConfig();
     }
 
