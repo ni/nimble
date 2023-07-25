@@ -37,6 +37,7 @@ const component = (
         ${when(() => toolbar, html`
             <${tabsToolbarTag}>
                 <${buttonTag} appearance="ghost">Toolbar Button</${buttonTag}>
+                <${buttonTag} appearance="ghost" style="margin-left: auto;">Right-aligned Button</${buttonTag}>
             </${tabsToolbarTag}>
         `)}
         <${anchorTabTag} id="tab1">Tab One</${anchorTabTag}>

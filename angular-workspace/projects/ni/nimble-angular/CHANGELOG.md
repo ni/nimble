@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 24 Jul 2023 15:02:47 GMT and should not be manually modified.
+This log was last generated on Mon, 24 Jul 2023 21:12:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.9.1
+
+Mon, 24 Jul 2023 21:12:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.1
+
+## 16.9.0
+
+Mon, 24 Jul 2023 19:06:11 GMT
+
+### Minor changes
+
+- Angular integration for label providers (with secondary entry points) ([ni/nimble@238805c](https://github.com/ni/nimble/commit/238805ceedc7f12996b10a7571434830d6239a2b))
 
 ## 16.8.9
 
