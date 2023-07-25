@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 24 Jul 2023 21:12:18 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Jul 2023 03:47:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 19.9.2
+
+Tue, 25 Jul 2023 03:47:30 GMT
+
+### Patches
+
+- Implementation of markdown parser for converting markdown input to rich text content in the viewer ([ni/nimble@05f2975](https://github.com/ni/nimble/commit/05f297566e45e9589e1613b8a7b2c316f4b3bd68))
 
 ## 19.9.1
 
