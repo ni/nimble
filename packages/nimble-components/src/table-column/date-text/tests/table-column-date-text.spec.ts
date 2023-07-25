@@ -397,9 +397,9 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('22');
         });
 
-        it('honors customTimeZone and customTimeZoneName properties', async () => {
+        fit('honors customTimeZone and customTimeZoneName properties', async () => {
             await element.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+                { field: new Date('Dec 10, 2012, 10:35:05 PM UTC').valueOf() }
             ]);
             await waitForUpdatesAsync();
             column.format = 'custom';
@@ -407,7 +407,7 @@ describe('TableColumnDateText', () => {
             column.customTimeZoneName = 'short';
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                '12/11/2012, UTC'
+                '12/10/2012, UTC'
             );
         });
 
