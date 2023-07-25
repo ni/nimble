@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update angular directive to support properties for nimble rich text viewer",
-  "packageName": "@ni/nimble-angular",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
