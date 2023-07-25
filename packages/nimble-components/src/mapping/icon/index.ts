@@ -25,9 +25,6 @@ export class MappingIcon extends Mapping {
     @attr()
     public severity: IconSeverity;
 
-    @attr()
-    public label?: string;
-
     /**
      * @internal
      * Calculated asynchronously by the icon mapping based on the configured icon value

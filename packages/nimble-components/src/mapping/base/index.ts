@@ -8,4 +8,7 @@ import type { MappingKey } from './types';
 export abstract class Mapping extends FoundationElement {
     @attr({ mode: 'fromView' })
     public key?: MappingKey;
+
+    @attr()
+    public label?: string;
 }

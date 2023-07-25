@@ -1,4 +1,3 @@
-import { attr } from '@microsoft/fast-element';
 import { DesignSystem } from '@microsoft/fast-foundation';
 import { Mapping } from '../base';
 import { template } from '../base/template';
@@ -12,10 +11,7 @@ declare global {
 /**
  * Maps data values to a spinner.
  */
-export class MappingSpinner extends Mapping {
-    @attr()
-    public label?: string;
-}
+export class MappingSpinner extends Mapping {}
 
 const spinnerMapping = MappingSpinner.compose({
     baseName: 'mapping-spinner',

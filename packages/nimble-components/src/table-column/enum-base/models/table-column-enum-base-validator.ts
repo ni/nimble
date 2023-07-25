@@ -8,7 +8,8 @@ export const enumBaseValidityFlagNames = [
     'invalidMappingKeyValueForType',
     'unsupportedMappingType',
     'duplicateMappingKey',
-    'missingKeyValue'
+    'missingKeyValue',
+    'missingLabelValue'
 ] as const;
 
 /**
@@ -30,6 +31,7 @@ export abstract class TableColumnEnumBaseValidator<
         this.validateMappingTypes(mappings, supportedMappingElements);
         this.validateUniqueKeys(keys, keyType);
         this.validateNoMissingKeys(mappings);
+        this.validateNoMissingLabels(mappings);
     }
 
     private validateKeyValuesForType(
@@ -65,5 +67,10 @@ export abstract class TableColumnEnumBaseValidator<
     private validateNoMissingKeys(mappings: Mapping[]): void {
         const invalid = mappings.filter(mapping => mapping.key === undefined).length > 0;
         this.setConditionValue('missingKeyValue', invalid);
+    }
+
+    private validateNoMissingLabels(mappings: Mapping[]): void {
+        const invalid = mappings.filter(mapping => mapping.label === undefined).length > 0;
+        this.setConditionValue('missingLabelValue', invalid);
     }
 }

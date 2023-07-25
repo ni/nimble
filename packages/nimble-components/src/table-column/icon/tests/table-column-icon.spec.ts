@@ -20,7 +20,7 @@ interface SimpleTableRecord extends TableRecord {
 
 interface BasicIconMapping {
     key?: MappingKey;
-    label: string;
+    label?: string;
     icon: string;
 }
 
@@ -355,6 +355,17 @@ describe('TableColumnIcon', () => {
             const column = element.columns[0] as TableColumnIcon;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.missingKeyValue).toBeTrue();
+        });
+
+        it('is invalid with missing label', async () => {
+            ({ element, connect, disconnect } = await setup([
+                { key: 'a', icon: 'nimble-icon-xmark' }
+            ]));
+            await connect();
+            await waitForUpdatesAsync();
+            const column = element.columns[0] as TableColumnIcon;
+            expect(column.checkValidity()).toBeFalse();
+            expect(column.validity.missingLabelValue).toBeTrue();
         });
 
         it('is invalid with non-icon icon value', async () => {

@@ -20,7 +20,7 @@ interface SimpleTableRecord extends TableRecord {
 
 interface BasicTextMapping {
     key?: MappingKey;
-    label: string;
+    label?: string;
 }
 
 class Model {
@@ -434,6 +434,17 @@ describe('TableColumnEnumText', () => {
             const column = model.col1;
             expect(column.checkValidity()).toBeFalse();
             expect(column.validity.missingKeyValue).toBeTrue();
+        });
+
+        it('is invalid with missing label', async () => {
+            ({ element, connect, disconnect, model } = await setup([
+                { key: 'a' }
+            ]));
+            await connect();
+            await waitForUpdatesAsync();
+            const column = model.col1;
+            expect(column.checkValidity()).toBeFalse();
+            expect(column.validity.missingLabelValue).toBeTrue();
         });
     });
 });
