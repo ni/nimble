@@ -34,6 +34,7 @@ Both components provide support for the following basic text formatting options:
 2. Italics
 3. Numbered List
 4. Bulleted List
+5. Direct link
 
 The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
@@ -132,7 +133,7 @@ application's performance is enhanced as the operation is performed only once, t
 
 _Methods_
 
--   none.
+-   none
 
 _Events_
 
@@ -156,9 +157,14 @@ _CSS Classes and CSS Custom Properties that affect the component_
 -   The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
     component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
     space in the footer.
--   In the current [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=UQXX9gHBvZwPZoLy-0),
-    we will be dynamically show or hide the footer section within the overall component. Initially, in the unfocused view of the component, the height of the component
-    will be one line plus the height of the footer section, even though the footer itself remains hidden. However, once the editor is focused, on the same place, the footer will be displayed.
+-   The footer section, which includes the formatting options, can be hidden by utilizing the `footer-hidden` attribute. When this attribute is
+    enabled, the footer's visibility will be set to hidden, leaving an empty space in its place. We came to this decision to ensure that the
+    component does not cause layout height shifts when the `footer-hidden` attribute changes dynamically based on conditions in the consumer
+    component.
+-   An example use case for the `footer-hidden` functionality is:
+    The client can initially set `footer-hidden` to true. Upon focusing the editor using the element's `focus` event, the client can then set
+    `footer-hidden` to false, thereby displaying the footer section. Conversely, when the editor loses focus using the element's `blur` or any
+    click event occurs (`cancel` button click), the client can reset `footer-hidden` to true, consequently hiding the footer section once again.
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
@@ -299,6 +305,7 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Italics - `*Italics*`
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
+-   Direct link - `<Absolute URI link here>`
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
