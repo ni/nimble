@@ -18,7 +18,7 @@ export function formatNumericDate(
 
 export function createFormatter(
     columnConfig?: TableColumnDateTextColumnConfig
-): Intl.DateTimeFormat {
+): Intl.DateTimeFormat | undefined {
     let options: Intl.DateTimeFormatOptions;
     if (!columnConfig?.format) {
         options = {
@@ -28,7 +28,11 @@ export function createFormatter(
     } else {
         options = getCustomFormattingOptions(columnConfig);
     }
-    return new Intl.DateTimeFormat(undefined, options);
+    try {
+        return new Intl.DateTimeFormat(undefined, options);
+    } catch (e) {
+        return undefined;
+    }
 }
 
 function getCustomFormattingOptions(
