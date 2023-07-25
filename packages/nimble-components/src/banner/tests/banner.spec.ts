@@ -102,16 +102,6 @@ describe('Banner', () => {
         ).toBeTrue();
     });
 
-    it("should set 'dismissButtonLabel' as label of dismiss button", async () => {
-        element.dismissButtonLabel = 'Dismiss';
-        await waitForUpdatesAsync();
-        expect(
-            element.shadowRoot
-                ?.querySelector('nimble-button')
-                ?.innerText.includes('Dismiss')
-        ).toBeTrue();
-    });
-
     it("should set the 'role' to 'status'", () => {
         expect(
             element.shadowRoot
@@ -143,7 +133,7 @@ describe('Banner with LabelProviderCore', () => {
         await disconnect();
     });
 
-    it('uses CoreLabelProvider popupDismissLabel for the close button label when dismissButtonLabel is unset', async () => {
+    it('uses CoreLabelProvider popupDismissLabel for the close button label', async () => {
         labelProvider.popupDismiss = 'Customized Close';
         await waitForUpdatesAsync();
 
