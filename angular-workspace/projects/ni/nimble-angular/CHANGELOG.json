@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 25 Jul 2023 04:49:38 GMT",
+      "tag": "@ni/nimble-angular_v16.9.3",
+      "version": "16.9.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "6b33b032c63bcf2b5dc79bf4b648c0e118548959",
+            "comment": "Update angular directive to support properties for nimble rich text viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Jul 2023 03:47:30 GMT",
       "tag": "@ni/nimble-angular_v16.9.2",
       "version": "16.9.2",

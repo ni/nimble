@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 25 Jul 2023 03:47:30 GMT and should not be manually modified.
+This log was last generated on Tue, 25 Jul 2023 04:49:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 16.9.3
+
+Tue, 25 Jul 2023 04:49:38 GMT
+
+### Patches
+
+- Update angular directive to support properties for nimble rich text viewer ([ni/nimble@6b33b03](https://github.com/ni/nimble/commit/6b33b032c63bcf2b5dc79bf4b648c0e118548959))
 
 ## 16.9.2
 
