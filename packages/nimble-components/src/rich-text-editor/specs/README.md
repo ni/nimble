@@ -115,7 +115,10 @@ _Props/Attrs_
     Tiptap's [CharacterCount extension](https://tiptap.dev/api/extensions/character-count#limit). However, we will not display
     the number of characters currently entered in the editor along with the maximum length (e.g., 10/100 characters entered).
     We use this extension only to limit the number of characters that can be entered into the editor.
--   `disabled` - is a boolean attribute to disable the editor by restricting all the user interactions within the component.
+-   `disabled` - is a boolean attribute to disable the editor by preventing all user interactions within the component. When the component is
+    disabled, the editor's border and font color will resemble that of the `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
+    will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content when disabled will be handled
+    by the client according to their specific requirements and will not be affected by this attribute.
 
 _Alternatives_
 
