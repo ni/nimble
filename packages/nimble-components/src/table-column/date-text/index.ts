@@ -4,7 +4,7 @@ import { styles } from '../base/styles';
 import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
-import { TableColumnSortOperation } from '../base/types';
+import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnDateTextGroupHeaderTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
@@ -22,6 +22,8 @@ import type {
     MonthFormat,
     WeekdayFormat
 } from './types';
+import { createFormatter } from './models/format-helper';
+import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -118,9 +120,16 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-hour-cycle' })
     public customHourCycle: HourCycle;
 
+    /** @internal */
+    public validator = new TableColumnDateTextValidator(this.columnInternals);
+
     public override connectedCallback(): void {
         super.connectedCallback();
         this.updateColumnConfig();
+    }
+
+    public override get validity(): TableColumnValidity {
+        return this.validator.getValidity();
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -214,7 +223,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        this.columnInternals.columnConfig = {
+        const columnConfig: TableColumnDateTextColumnConfig = {
             format: this.format,
             customLocaleMatcher: this.customLocaleMatcher,
             customWeekday: this.customWeekday,
@@ -236,6 +245,10 @@ export class TableColumnDateText extends TableColumnTextBase {
             customTimeStyle: this.customTimeStyle,
             customHourCycle: this.customHourCycle
         };
+        this.columnInternals.columnConfig = columnConfig;
+        this.validator.setCustomOptionsValidity(
+            createFormatter(columnConfig) !== undefined
+        );
     }
 }
 
