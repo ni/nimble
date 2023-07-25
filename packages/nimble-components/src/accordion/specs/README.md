@@ -131,3 +131,7 @@ A blazor wrapper will be created for the component.
 ## Open Issues
 
 Should we only have arrow icons for open / closed indicators on the accordion, or should other visuals like +/- be implemented as well?
+
+Brandon's Figma spec has designs for two accordion item heights, 24px and 32px. In previous cases like the nimble button, we've only implemented one height (in that case only the 32px button was implemented). Do we want to continue doing this, and if so, which height should be implemented?
+
+Brandon's Figma spec also only shows designs for one accordion item at a time. How should accordion items in each appearance type be separated from each other (ex. a line between accordion items, transparent space between accordion items, etc.)?
