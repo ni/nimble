@@ -40,7 +40,7 @@ export class Icon extends FoundationElement {
         if (!svg) {
             return;
         }
-        if (this.ariaLabel !== null) {
+        if (this.ariaLabel !== null && this.ariaLabel !== undefined) {
             svg.setAttribute('aria-label', this.ariaLabel);
         } else {
             svg.removeAttribute('aria-label');
