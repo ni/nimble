@@ -26,26 +26,6 @@ import { TableColumnDateTextValidator } from './models/table-column-date-text-va
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
-    format: DateTextFormat;
-    customLocaleMatcher: LocaleMatcherAlgorithm;
-    customWeekday: WeekdayFormat;
-    customEra: EraFormat;
-    customYear: SimpleNumberFormat;
-    customMonth: MonthFormat;
-    customDay: SimpleNumberFormat;
-    customHour: SimpleNumberFormat;
-    customMinute: SimpleNumberFormat;
-    customSecond: SimpleNumberFormat;
-    customTimeZoneName: TimeZoneFormat;
-    customFormatMatcher: FormatMatcherAlgorithm;
-    customHour12?: boolean;
-    customTimeZone?: string;
-    customCalendar?: string;
-    customDayPeriod: DayPeriodFormat;
-    customNumberingSystem?: string;
-    customDateStyle: DateStyle;
-    customTimeStyle: TimeStyle;
-    customHourCycle: HourCycle;
     formatter?: Intl.DateTimeFormat;
 }
 
@@ -223,28 +203,8 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     private updateColumnConfig(): void {
         const columnConfig: TableColumnDateTextColumnConfig = {
-            format: this.format,
-            customLocaleMatcher: this.customLocaleMatcher,
-            customWeekday: this.customWeekday,
-            customEra: this.customEra,
-            customYear: this.customYear,
-            customMonth: this.customMonth,
-            customDay: this.customDay,
-            customHour: this.customHour,
-            customMinute: this.customMinute,
-            customSecond: this.customSecond,
-            customTimeZoneName: this.customTimeZoneName,
-            customFormatMatcher: this.customFormatMatcher,
-            customHour12: this.customHour12,
-            customTimeZone: this.customTimeZone,
-            customCalendar: this.customCalendar,
-            customDayPeriod: this.customDayPeriod,
-            customNumberingSystem: this.customNumberingSystem,
-            customDateStyle: this.customDateStyle,
-            customTimeStyle: this.customTimeStyle,
-            customHourCycle: this.customHourCycle
+            formatter: this.createFormatter(this.format)
         };
-        columnConfig.formatter = this.createFormatter(columnConfig);
         this.columnInternals.columnConfig = columnConfig;
         this.validator.setCustomOptionsValidity(
             columnConfig.formatter !== undefined
@@ -252,16 +212,16 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     private createFormatter(
-        columnConfig?: TableColumnDateTextColumnConfig
+        format: DateTextFormat
     ): Intl.DateTimeFormat | undefined {
         let options: Intl.DateTimeFormatOptions;
-        if (!columnConfig?.format) {
+        if (!format) {
             options = {
                 dateStyle: 'medium',
                 timeStyle: 'medium'
             };
         } else {
-            options = this.getCustomFormattingOptions(columnConfig);
+            options = this.getCustomFormattingOptions();
         }
         try {
             return new Intl.DateTimeFormat(undefined, options);
@@ -270,29 +230,27 @@ export class TableColumnDateText extends TableColumnTextBase {
         }
     }
 
-    private getCustomFormattingOptions(
-        columnConfig: TableColumnDateTextColumnConfig
-    ): Intl.DateTimeFormatOptions {
+    private getCustomFormattingOptions(): Intl.DateTimeFormatOptions {
         const options: Intl.DateTimeFormatOptions = {
-            localeMatcher: columnConfig.customLocaleMatcher,
-            weekday: columnConfig.customWeekday,
-            era: columnConfig.customEra,
-            year: columnConfig.customYear,
-            month: columnConfig.customMonth,
-            day: columnConfig.customDay,
-            hour: columnConfig.customHour,
-            minute: columnConfig.customMinute,
-            second: columnConfig.customSecond,
-            timeZoneName: columnConfig.customTimeZoneName,
-            formatMatcher: columnConfig.customFormatMatcher,
-            hour12: columnConfig.customHour12,
-            timeZone: columnConfig.customTimeZone,
-            calendar: columnConfig.customCalendar,
-            dayPeriod: columnConfig.customDayPeriod,
-            numberingSystem: columnConfig.customNumberingSystem,
-            dateStyle: columnConfig.customDateStyle,
-            timeStyle: columnConfig.customTimeStyle,
-            hourCycle: columnConfig.customHourCycle
+            localeMatcher: this.customLocaleMatcher,
+            weekday: this.customWeekday,
+            era: this.customEra,
+            year: this.customYear,
+            month: this.customMonth,
+            day: this.customDay,
+            hour: this.customHour,
+            minute: this.customMinute,
+            second: this.customSecond,
+            timeZoneName: this.customTimeZoneName,
+            formatMatcher: this.customFormatMatcher,
+            hour12: this.customHour12,
+            timeZone: this.customTimeZone,
+            calendar: this.customCalendar,
+            dayPeriod: this.customDayPeriod,
+            numberingSystem: this.customNumberingSystem,
+            dateStyle: this.customDateStyle,
+            timeStyle: this.customTimeStyle,
+            hourCycle: this.customHourCycle
         };
         return options;
     }
