@@ -113,9 +113,7 @@ Accordion group, appearance block with a nested accordion
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ Unchanged
 
-The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` appearances used in other components. The appearances of `block`, `outline`, and `ghost` will be implemented under the HTML attribute `appearance`, which will use conditional css styles based on `appearance`'s value (ex. :host([appearance='outline']) will have styling for the outline button).
-
-Based on the Figma design, the styles for the accordion `appearance` types and button-like functionality on click are very similar to those of the nimble-button. The button shared styles can be used in this component, but it's unknown if doing so will require excessive css overrides- if this is the case, creating separate styles would be cleaner. See more about this in the open issues section.
+The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` appearances used in other components. These designs are similar to those of the nimble-button and its `appearance` types, but the accordion does not use the `.control` css class, it uses `.region` and `.heading`. Because of this, differences in border functionality, and the possibility of excess overridden css classes if patterns are used, shared styles will not be used, and new styles for the accordion and accordion-item will be created. The appearances of `block`, `outline`, and `ghost` will be implemented under the HTML attribute `appearance`, which will use conditional css styles based on `appearance`'s value (ex. :host([appearance='outline']) will have styling for the outline button).
 
 Documentation will be added to advise against using multiple Nimble Accordions with different appearances next to each other.
 
@@ -170,5 +168,3 @@ A blazor wrapper will be created for the component.
 ## Open Issues
 
 Using expand-mode="single" when nesting accordions causes issues- when trying to open nested accordions, the parent accordion closes, which makes sense as the functionality of the attribute is to only allow one accordion open at a time. Unless a reasonable fix can be found, we should advise against using this attribute with nested accordions in the docs.
-
-Regarding the issue of whether or not to use shared styles (in this case using the button shared styles because of the `appearance` similarities), I believe this should be left as an open issue. It's hard to know how the component will react to the button styles until we implement this, so this should be tested and implemented to see if it works before making a decision. If it doesn't work, then shared styles can be removed and completely new styles for the accordion and accordion item can be used.
