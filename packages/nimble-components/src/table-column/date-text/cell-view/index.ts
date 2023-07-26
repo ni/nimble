@@ -6,7 +6,7 @@ import type {
 } from '..';
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
-import { createFormatter, formatNumericDate } from '../models/format-helper';
+import { formatNumericDate } from '../models/format-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -21,10 +21,7 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
 TableColumnDateTextCellRecord,
 TableColumnDateTextColumnConfig
 > {
-    private formatter?: Intl.DateTimeFormat;
-
     private columnConfigChanged(): void {
-        this.formatter = createFormatter(this.columnConfig);
         this.updateText();
     }
 
@@ -33,9 +30,9 @@ TableColumnDateTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.formatter) {
+        if (this.columnConfig.formatter) {
             this.text = formatNumericDate(
-                this.formatter,
+                this.columnConfig.formatter,
                 this.cellRecord.value
             );
         }

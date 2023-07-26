@@ -47,6 +47,7 @@ export interface TableColumnDateTextColumnConfig {
     customDateStyle: DateStyle;
     customTimeStyle: TimeStyle;
     customHourCycle: HourCycle;
+    formatter?: Intl.DateTimeFormat;
 }
 
 declare global {
@@ -244,10 +245,57 @@ export class TableColumnDateText extends TableColumnTextBase {
             customTimeStyle: this.customTimeStyle,
             customHourCycle: this.customHourCycle
         };
+        columnConfig.formatter = this.createFormatter(columnConfig);
         this.columnInternals.columnConfig = columnConfig;
         this.validator.setCustomOptionsValidity(
-            createFormatter(columnConfig) !== undefined
+            columnConfig.formatter !== undefined
         );
+    }
+
+    private createFormatter(
+        columnConfig?: TableColumnDateTextColumnConfig
+    ): Intl.DateTimeFormat | undefined {
+        let options: Intl.DateTimeFormatOptions;
+        if (!columnConfig?.format) {
+            options = {
+                dateStyle: 'medium',
+                timeStyle: 'medium'
+            };
+        } else {
+            options = this.getCustomFormattingOptions(columnConfig);
+        }
+        try {
+            return new Intl.DateTimeFormat(undefined, options);
+        } catch (e) {
+            return undefined;
+        }
+    }
+
+    private getCustomFormattingOptions(
+        columnConfig: TableColumnDateTextColumnConfig
+    ): Intl.DateTimeFormatOptions {
+        const options: Intl.DateTimeFormatOptions = {
+            localeMatcher: columnConfig.customLocaleMatcher,
+            weekday: columnConfig.customWeekday,
+            era: columnConfig.customEra,
+            year: columnConfig.customYear,
+            month: columnConfig.customMonth,
+            day: columnConfig.customDay,
+            hour: columnConfig.customHour,
+            minute: columnConfig.customMinute,
+            second: columnConfig.customSecond,
+            timeZoneName: columnConfig.customTimeZoneName,
+            formatMatcher: columnConfig.customFormatMatcher,
+            hour12: columnConfig.customHour12,
+            timeZone: columnConfig.customTimeZone,
+            calendar: columnConfig.customCalendar,
+            dayPeriod: columnConfig.customDayPeriod,
+            numberingSystem: columnConfig.customNumberingSystem,
+            dateStyle: columnConfig.customDateStyle,
+            timeStyle: columnConfig.customTimeStyle,
+            hourCycle: columnConfig.customHourCycle
+        };
+        return options;
     }
 }
 
