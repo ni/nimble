@@ -322,6 +322,21 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.invalidMappingKeyValueForType).toBeTrue();
         });
 
+        it('is valid with valid boolean key values', async () => {
+            ({ element, connect, disconnect, model } = await setup(
+                [
+                    { key: true, label: 'alpha' },
+                    { key: false, label: 'alpha' }
+                ],
+                'boolean'
+            ));
+            await connect();
+            await waitForUpdatesAsync();
+            const column = model.col1;
+            expect(column.checkValidity()).toBeTrue();
+            expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
+        });
+
         describe('is invalid with invalid boolean key values:', () => {
             const dataTypeTests = [
                 { name: '(blank)', key: '' },

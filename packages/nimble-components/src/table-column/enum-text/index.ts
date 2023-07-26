@@ -36,7 +36,10 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     }
 
     public override createValidator(): TableColumnEnumTextValidator {
-        return new TableColumnEnumTextValidator(this.columnInternals);
+        return new TableColumnEnumTextValidator(
+            this.columnInternals,
+            this.supportedMappingElements
+        );
     }
 
     public override get validity(): TableColumnValidity {
@@ -54,11 +57,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     }
 
     protected override updateColumnConfig(): void {
-        this.validator.validate(
-            this.supportedMappingElements,
-            this.mappings,
-            this.keyType
-        );
+        this.validator.validate(this.mappings, this.keyType);
         this.columnInternals.columnConfig = this.validator.isValid()
             ? this.createColumnConfig()
             : undefined;

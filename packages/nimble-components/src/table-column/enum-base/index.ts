@@ -35,6 +35,8 @@ export abstract class TableColumnEnumBase<
 >
     extends TableColumn<TColumnConfig>
     implements Subscriber {
+    // To ensure the validator is available when other properties get initialized
+    // (which can trigger validation), declare the validator first.
     /** @internal */
     public validator = this.createValidator();
 

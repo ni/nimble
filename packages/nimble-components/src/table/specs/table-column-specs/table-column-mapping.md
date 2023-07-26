@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-enum-text` is a component that supports rendering specific number, boolean, or string values as mapped text. `nimble-table-column-icon` is a specialized version of `nimble-table-column-enum-text` that instead maps values to icons and/or spinners and has a minimal, fixed width. The actual mappings are defined by child elements `nimble-mapping-icon`, `nimble-mapping-spinner`, and `nimble-mapping-text`.
+The `nimble-table-column-enum-text` is a component that supports rendering specific number, boolean, or string values as mapped text. `nimble-table-column-icon` instead maps values to icons and/or spinners. The actual mappings are defined by child elements `nimble-mapping-icon`, `nimble-mapping-spinner`, and `nimble-mapping-text`.
 
 ### Background
 

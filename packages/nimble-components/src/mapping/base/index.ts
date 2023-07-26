@@ -6,7 +6,7 @@ import type { MappingKey } from './types';
  * Base class for mapping configuration elements
  */
 export abstract class Mapping extends FoundationElement {
-    @attr({ mode: 'fromView' })
+    @attr()
     public key?: MappingKey;
 
     @attr()
