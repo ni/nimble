@@ -107,9 +107,16 @@ interface TextColumnTableArgs extends SharedTableArgs {
     customNumberingSystem?: string;
     customFormatMatcher: keyof typeof FormatMatcherAlgorithm;
     customLocaleMatcher: keyof typeof LocaleMatcherAlgorithm;
+    checkValidity: () => void;
+    validity: () => void;
 }
 
 const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).';
+
+const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
+The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
+-   \`invalidCustomOptionsCombination\`: \`true\` when an invalid combination of formatting options (i.e. \`custom-*\`) have been specified. To determine which specific options are in conflict, you may use [MDN's Try It widget](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#try_it) or a browser console to get a detailed exception message.
+`;
 
 export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {
@@ -170,7 +177,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
         },
         format: {
             description:
-                'By default, dates are formatted like "Jan 1, 2023, 12:00:00 AM". To use a different format, set this attribute to `custom` and provide additional attributes corresponding to [`Intl.DateTimeFormat()` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
+                'By default, dates are formatted like "Jan 1, 2023, 12:00:00 AM". To use a different format, set this attribute to `custom` and provide additional attributes corresponding to [`Intl.DateTimeFormat()` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat). Each `Intl.DateTimeFormat()` option has a corresponding attribute whose name is kebab-cased and prefixed with `custom-` e.g. `custom-date-style` corresponds to `dateStyle`.',
             options: Object.keys(DateTextFormat),
             control: { type: 'radio' }
         },
@@ -308,7 +315,6 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'custom-format-matcher',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            defaultValue: { summary: 'best fit' },
             options: Object.keys(FormatMatcherAlgorithm),
             control: { type: 'radio' }
         },
@@ -316,9 +322,16 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'custom-locale-matcher',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            defaultValue: { summary: 'best fit' },
             options: Object.keys(LocaleMatcherAlgorithm),
             control: { type: 'radio' }
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'Returns `true` if the column configuration is valid, otherwise `false`.'
+        },
+        validity: {
+            description: validityDescription
         }
     },
     args: {
@@ -342,6 +355,8 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
         customCalendar: undefined,
         customNumberingSystem: undefined,
         customFormatMatcher: 'default',
-        customLocaleMatcher: 'default'
+        customLocaleMatcher: 'default',
+        checkValidity: () => {},
+        validity: () => {}
     }
 };

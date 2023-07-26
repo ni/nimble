@@ -1,5 +1,5 @@
 {
-  "type": "minor",
+  "type": "patch",
   "comment": "Add formatting API to date column",
   "packageName": "@ni/nimble-components",
   "email": "7282195+m-akinc@users.noreply.github.com",
