@@ -451,7 +451,15 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('２０１２');
         });
 
-        it('sets invalid flag on column when custom options are incompatible', async () => {
+        fit('has no invalid flag on column when using default formatting', async () => {
+            await element.setData([
+                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+            ]);
+            await waitForUpdatesAsync();
+            expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+        });
+
+        fit('sets invalid flag on column when custom options are incompatible', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
@@ -461,6 +469,20 @@ describe('TableColumnDateText', () => {
             column.customDateStyle = 'full';
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeTrue();
+        });
+
+        fit('clears invalid flag on column after fixing custom option incompatibility', async () => {
+            await element.setData([
+                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+            ]);
+            await waitForUpdatesAsync();
+            column.format = 'custom';
+            column.customYear = 'numeric';
+            column.customDateStyle = 'full';
+            await waitForUpdatesAsync();
+            column.customDateStyle = undefined;
+            await waitForUpdatesAsync();
+            expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
         });
     });
 

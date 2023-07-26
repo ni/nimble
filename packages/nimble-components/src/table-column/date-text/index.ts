@@ -26,7 +26,6 @@ import { createFormatter } from './models/format-helper';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableColumnDateTextColumnConfig {
     format: DateTextFormat;
     customLocaleMatcher: LocaleMatcherAlgorithm;
@@ -40,7 +39,7 @@ export interface TableColumnDateTextColumnConfig {
     customSecond: SimpleNumberFormat;
     customTimeZoneName: TimeZoneFormat;
     customFormatMatcher: FormatMatcherAlgorithm;
-    customHour12?: boolean;
+    customHour12: boolean;
     customTimeZone?: string;
     customCalendar?: string;
     customDayPeriod: DayPeriodFormat;
@@ -60,6 +59,9 @@ declare global {
  * The table column for displaying dates/times as text.
  */
 export class TableColumnDateText extends TableColumnTextBase {
+    /** @internal */
+    public validator = new TableColumnDateTextValidator(this.columnInternals);
+
     @attr
     public format: DateTextFormat;
 
@@ -97,7 +99,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customFormatMatcher: FormatMatcherAlgorithm;
 
     @attr({ attribute: 'custom-hour12', mode: 'boolean' })
-    public customHour12?: boolean;
+    public customHour12 = false;
 
     @attr({ attribute: 'custom-time-zone' })
     public customTimeZone?: string;
@@ -119,9 +121,6 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     @attr({ attribute: 'custom-hour-cycle' })
     public customHourCycle: HourCycle;
-
-    /** @internal */
-    public validator = new TableColumnDateTextValidator(this.columnInternals);
 
     public override connectedCallback(): void {
         super.connectedCallback();
