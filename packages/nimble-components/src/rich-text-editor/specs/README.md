@@ -112,12 +112,12 @@ _Props/Attrs_
     that can be used to bind it in the Angular application.
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 -   `disabled` - is a boolean attribute to disable the editor by preventing all user interactions within the component. When the component is
-    disabled, the editor's border and font color will resemble that of the `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
-    will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content when disabled will be handled
+    disabled, the editor's border and font color will resemble that of the disabled state of `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
+    will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content will be handled
     by the client according to their specific requirements and will not be affected by this attribute.
--   `error-visible` - It is a boolean attribute used to visually change the component's color, indicating that an error has occurred, as per the current
+-   `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
     [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
--   `error-text` - It is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
+-   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
 
 _Alternatives_
 
