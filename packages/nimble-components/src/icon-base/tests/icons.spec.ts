@@ -103,6 +103,13 @@ describe('Icons', () => {
             );
         });
 
+        it('supports setting blank aria-label on inner SVG', async () => {
+            await connect();
+            element.setAttribute('aria-label', '');
+            const svg = element.shadowRoot!.querySelector('svg');
+            expect(svg?.getAttribute('aria-label')).toEqual('');
+        });
+
         it('clears aria-label from inner SVG when removed from icon', async () => {
             await connect();
             element.removeAttribute('aria-label');
