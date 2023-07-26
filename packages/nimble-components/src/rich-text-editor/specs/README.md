@@ -111,17 +111,23 @@ _Props/Attrs_
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
 -   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
--   `maxlength` - is a number attribute that restricts the number of input characters in the editor. This is achieved through
-    Tiptap's [CharacterCount extension](https://tiptap.dev/api/extensions/character-count#limit). However, we will not display
-    the number of characters currently entered in the editor along with the maximum length (e.g., 10/100 characters entered).
-    We use this extension only to limit the number of characters that can be entered into the editor. This name matches with the native element
-    [malength](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength) attribute.
 -   `disabled` - is a boolean attribute to disable the editor by preventing all user interactions within the component. When the component is
     disabled, the editor's border and font color will resemble that of the `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
     will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content when disabled will be handled
     by the client according to their specific requirements and will not be affected by this attribute.
+-   `error-visible` - It is a boolean attribute used to visually change the component's color, indicating that an error has occurred, as per the current
+    [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
+-   `error-text` - It is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
 
 _Alternatives_
+
+_maxlength_
+
+The purpose of exposing the `maxlength` attribute for the editor is to restrict user input characters (visible characters, not considering markdown output) to a specific limit, similar to the `nimble-text-area`. Our specific use case is in the comments feature, where we aim to limit users to adding only 10K characters for a single comment. By implementing the `maxlength` attribute, we can enforce this restriction in the UI, preventing users from exceeding the character limit. However, we won't be directly checking the visible characters in the backend, instead we will validate the markdown string. This approach may potentially conflict with the general nimble component. To handle this, we plan to validate at the application layer. Once we receive the markdown output from the editor, we will check its length and ensure it stays within the supported limit. If it exceeds the maximum characters allowed, we will display an error message using the `error-label` and `error-text` attributes.
+
+Another reason for considering the `maxlength` attribute is to prevent any potential performance issues, such as UI freezing, when a large number of characters are added to the editor. According to Tiptap, the editor's performance remains acceptable with more than [200K visible characters](https://tiptap.dev/examples/book). However, we recognize that simply restricting characters may not be the most effective approach to improve the rich-text-editor's performance. As an alternative solution, we are evaluating the possibility of pre-processing large insertions in a web worker. This would prevent blocking the main thread and make it a cancellable operation, potentially improving overall performance.
+
+Due to these considerations, we have decided to defer the implementation of the `maxlength` attribute for now, focus on exploring other performance-enhancing options in the future.
 
 _Decision on choosing `markdown` as an accessor over methods_:
 
@@ -405,7 +411,6 @@ library. For the currently supported features, we will include the following lib
 -   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
 -   [@tiptap/pm](https://www.npmjs.com/package/@tiptap/pm)
 -   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
--   [@tiptap/extension-character-count](https://www.npmjs.com/package/@tiptap/extension-character-count)
 
 These packages will add up to a total space of approximately 800 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).
