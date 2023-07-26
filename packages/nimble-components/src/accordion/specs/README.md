@@ -129,7 +129,7 @@ Documentation will be added to advise against using multiple Nimble Accordions w
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
--   _Slots:_ Unchanged
+-   _Slots:_ The `start` slot will not be used based on the visual designs, but the `end` slot will be used to display the error icon in the `error-visible` accordion-item state.
 
 The Figma design also includes an `error` state. This will be controlled with the boolean attribute `error-visible`, which has a default attribute value of "". When needed, "error-visible" would be added to the accordion attributes, changing the color of the accordion item border color to red. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. :host([error-visible]) will have styling for when `error-visible` is true).
 
