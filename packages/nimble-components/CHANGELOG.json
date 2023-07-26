@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Jul 2023 21:12:22 GMT",
+      "tag": "@ni/nimble-components_v20.0.1",
+      "version": "20.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "006303745acff09d70350faf2cac0cddf06d4121",
+            "comment": "Forward aria-label to icon svg"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Jul 2023 18:39:11 GMT",
       "tag": "@ni/nimble-components_v20.0.0",
       "version": "20.0.0",
