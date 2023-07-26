@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Jul 2023 00:05:02 GMT",
+      "tag": "@ni/nimble-components_v20.0.0",
+      "version": "20.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "1458528+fredvisser@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1bd6940bb3b9c7806592aa86580e80e45bad9656",
+            "comment": "Updated component status table with current information and Figma design links (where available)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Jul 2023 21:12:32 GMT",
+      "tag": "@ni/nimble-components_v20.0.0",
+      "version": "20.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2c77e8e7b542572ca792c3d1aa00d8ac2010a888",
+            "comment": "Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core)"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 25 Jul 2023 03:47:30 GMT",
       "tag": "@ni/nimble-components_v19.9.2",
       "version": "19.9.2",
