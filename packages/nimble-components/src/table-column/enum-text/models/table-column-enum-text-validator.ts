@@ -15,6 +15,4 @@ export class TableColumnEnumTextValidator extends TableColumnEnumBaseValidator<
     public constructor(columnInternals: ColumnInternals<unknown>) {
         super(columnInternals, enumTextValidityFlagNames);
     }
-
-    // TODO shouldn't a mapping label be required?
 }

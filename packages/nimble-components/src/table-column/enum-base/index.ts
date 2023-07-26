@@ -67,7 +67,6 @@ export abstract class TableColumnEnumBase<
 
     public abstract createValidator(): TEnumValidator;
 
-    // TODO should we batch updateColumnConfig this on rAF?
     /**
      * Called when any Mapping related state has changed
      */
