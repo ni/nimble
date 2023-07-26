@@ -34,7 +34,11 @@ Both components provide support for the following basic text formatting options:
 2. Italics
 3. Numbered List
 4. Bulleted List
-5. Direct link
+5. Absolute URL links - Supports only [absolute URI](https://spec.commonmark.org/0.30/#absolute-uri) with a valid [scheme](https://spec.commonmark.org/0.30/#scheme).
+For the initial pass, we will support `HTTP` and `HTTPS` scheme and later based on the requirement we will support other scheme in the future.
+[Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
+[add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
+[validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
 
 The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
@@ -49,7 +53,8 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
--   Support for adding hyperlinks to the existing words in the editor.
+-   Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
+    link icon in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
 -   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
     [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
     versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
@@ -103,11 +108,6 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 _Props/Attrs_
 
--   `markdown` - is an accessor used to get and set the markdown value.
-    -   `getter` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
-        [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
-    -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
-        [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
 -   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
@@ -117,23 +117,30 @@ _Props/Attrs_
     We can customize the styling of placeholder text with our own styles using Prosemirror's class as given in the provided link.
 -   `footer-hidden` - is a boolean attribute that, when enabled, hides the footer section, which includes all formatting options and the `footer-actions` slot.
 
+_Methods_
+
+-   `getMarkdown()` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
+    [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
+-   `setMarkdown()` - this will parse the markdown string into a Node and load it back into the editor using
+    [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
+
+
 _Alternatives_
 
-_Decision on choosing `markdown` as an accessor over methods_:
+_Decision on choosing `markdown` as methods_:
 
-Initially, we thought of having `getMarkdown()` and `setMarkdown()` methods to retrieve and set the markdown string. We chose this approach
-because converting the rich text content entered in the editor to a markdown string is an expensive operation and not wanted to trigger it as an
-event for every change in the editor or as a property to enable two-way data binding for the client application.
+We thought of choosing either `markdown` as `accessors` or `methods` because converting the rich text content entered in the editor to a markdown string is an expensive
+operation and not wanted to trigger it as an event for every change in the editor or as a property to enable two-way data binding for the client application.
 
-However, we realized that we could achieve the same benefits by using an `accessor` instead, by incorporating the same functionality within the
-`getters` and `setters`. Additionally, accessor provides a property-like syntax for clients, enabling one-way data binding and simplifying the syntax.
+Accessor provides a property-like syntax for clients, enabling one-way data binding and simplifying the syntax.
 This allows clients to retrieve the `markdown` representation only when necessary, rather than for every single change. For a example use case, when the user
 completes entering the entire content in the editor and clicks a button, the client can access the `markdown` output only once. This way the
 application's performance is enhanced as the operation is performed only once, thus eliminating unnecessary reading of an accessor.
 
-_Methods_
-
--   none
+However, in frameworks like Angular, using `markdown` as a data binding may lead to a situation where the `setter` is not called if the value remains unchanged. This can become
+problematic when attempting to clear the editor's content by setting the markdown value to an empty string, as it won't trigger the desired behavior if the markdown value is already
+empty and hasn't undergone processing. To overcome this issue, utilizing `methods` could offer a potential solution, allowing the content to be set regardless of whether it has
+changed from its previous value.
 
 _Events_
 
@@ -305,7 +312,19 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Italics - `*Italics*`
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
--   Direct link - `<Absolute URI link here>`
+-   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, refer [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
+
+_Configurations on Tiptap for absolute URL links_:
+
+Installing the [link extension](https://tiptap.dev/api/marks/link) mark from the Tiptap and add the `Links` to the extensions when initializing along with the `StarterKit` with the
+following configurations:
+
+1.  Set proper regular expression in [validate](https://tiptap.dev/api/marks/link#validate) to allow only `HTTP` and `HTTPS` URL, supporting only absolute URL links in the editor.
+2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to true to open a link on click in a new window. By default, the `<a>` tag in Tiptap editor will have
+    `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes.
+3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to true to add the valid link automatically when typing.
+4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to false to replace the current selection in the editor with the URL instead of adding a link to the selection
+    if the pasted content contains a valid url. 
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
