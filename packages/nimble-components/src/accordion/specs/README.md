@@ -18,7 +18,7 @@ Brandon's Figma spec also only shows designs for one accordion item at a time. H
 
 The Figma design does not have a design for the "error" focusVisible state. This might be confusing, as keyboard users who tab to the error accordion will suddenly see the red border and exclamation mark icon disappear in the focusVisible state.
 
-## When should each `appearance` type be used? Will there be specific guidance on this, and if so, will it be similar to the guidance for other Nimble components that use the same `appearance` types (ex. the Nimble-Button)?
+When should each `appearance` type be used? Will there be specific guidance on this, and if so, will it be similar to the guidance for other Nimble components that use the same `appearance` types (ex. the Nimble-Button)?
 
 ## Design
 
