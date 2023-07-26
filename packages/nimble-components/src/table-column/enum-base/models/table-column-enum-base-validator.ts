@@ -1,0 +1,76 @@
+import { ColumnValidator } from '../../base/models/column-validator';
+import type { Mapping } from '../../../mapping/base';
+import type { MappingKey } from '../../../mapping/base/types';
+import type { MappingKeyType } from '../types';
+import { resolveKeyWithType } from './mapping-key-resolver';
+
+export const enumBaseValidityFlagNames = [
+    'invalidMappingKeyValueForType',
+    'unsupportedMappingType',
+    'duplicateMappingKey',
+    'missingKeyValue',
+    'missingLabelValue'
+] as const;
+
+/**
+ * Validator for TableColumnEnumText. Implementations MUST include enumBaseValidityFlagNames in validity flag names set.
+ */
+export abstract class TableColumnEnumBaseValidator<
+    ValidityFlagNames extends readonly string[]
+> extends ColumnValidator<
+    typeof enumBaseValidityFlagNames | ValidityFlagNames
+    > {
+    public validate(
+        supportedMappingElements: readonly (typeof Mapping)[],
+        mappings: Mapping[],
+        keyType: MappingKeyType
+    ): void {
+        this.untrackAll();
+        const keys = mappings.map(mapping => mapping.key);
+        this.validateKeyValuesForType(keys, keyType);
+        this.validateMappingTypes(mappings, supportedMappingElements);
+        this.validateUniqueKeys(keys, keyType);
+        this.validateNoMissingKeys(mappings);
+        this.validateNoMissingLabels(mappings);
+    }
+
+    private validateKeyValuesForType(
+        keys: (MappingKey | undefined)[],
+        keyType: MappingKeyType
+    ): void {
+        const invalid = keys.some(
+            key => key !== undefined
+                && resolveKeyWithType(key, keyType) === undefined
+        );
+        this.setConditionValue('invalidMappingKeyValueForType', invalid);
+    }
+
+    private validateMappingTypes(
+        mappings: Mapping[],
+        supportedMappingElements: readonly (typeof Mapping)[]
+    ): void {
+        const valid = mappings.every(mapping => supportedMappingElements.some(
+            mappingClass => mapping instanceof mappingClass
+        ));
+        this.setConditionValue('unsupportedMappingType', !valid);
+    }
+
+    private validateUniqueKeys(
+        keys: (MappingKey | undefined)[],
+        keyType: MappingKeyType
+    ): void {
+        const typedKeys = keys.map(x => resolveKeyWithType(x, keyType));
+        const invalid = new Set(typedKeys).size !== typedKeys.length;
+        this.setConditionValue('duplicateMappingKey', invalid);
+    }
+
+    private validateNoMissingKeys(mappings: Mapping[]): void {
+        const invalid = mappings.filter(mapping => mapping.key === undefined).length > 0;
+        this.setConditionValue('missingKeyValue', invalid);
+    }
+
+    private validateNoMissingLabels(mappings: Mapping[]): void {
+        const invalid = mappings.filter(mapping => mapping.label === undefined).length > 0;
+        this.setConditionValue('missingLabelValue', invalid);
+    }
+}
