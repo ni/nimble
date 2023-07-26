@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 25 Jul 2023 03:47:30 GMT and should not be manually modified.
+This log was last generated on Wed, 26 Jul 2023 21:12:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.1
+
+Wed, 26 Jul 2023 21:12:22 GMT
+
+### Patches
+
+- Forward aria-label to icon svg ([ni/nimble@0063037](https://github.com/ni/nimble/commit/006303745acff09d70350faf2cac0cddf06d4121))
+
+## 20.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
 
 ## 19.9.2
 
