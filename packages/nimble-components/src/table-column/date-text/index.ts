@@ -231,26 +231,29 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     private getCustomFormattingOptions(): Intl.DateTimeFormatOptions {
+        // There's a FAST bug (https://github.com/microsoft/fast/issues/6630) where removing
+        // attributes sets their values to null instead of undefined. To work around this,
+        // translate null values to undefined.
         const options: Intl.DateTimeFormatOptions = {
-            localeMatcher: this.customLocaleMatcher,
-            weekday: this.customWeekday,
-            era: this.customEra,
-            year: this.customYear,
-            month: this.customMonth,
-            day: this.customDay,
-            hour: this.customHour,
-            minute: this.customMinute,
-            second: this.customSecond,
-            timeZoneName: this.customTimeZoneName,
-            formatMatcher: this.customFormatMatcher,
-            hour12: this.customHour12,
-            timeZone: this.customTimeZone,
-            calendar: this.customCalendar,
-            dayPeriod: this.customDayPeriod,
-            numberingSystem: this.customNumberingSystem,
-            dateStyle: this.customDateStyle,
-            timeStyle: this.customTimeStyle,
-            hourCycle: this.customHourCycle
+            localeMatcher: this.customLocaleMatcher ?? undefined,
+            weekday: this.customWeekday ?? undefined,
+            era: this.customEra ?? undefined,
+            year: this.customYear ?? undefined,
+            month: this.customMonth ?? undefined,
+            day: this.customDay ?? undefined,
+            hour: this.customHour ?? undefined,
+            minute: this.customMinute ?? undefined,
+            second: this.customSecond ?? undefined,
+            timeZoneName: this.customTimeZoneName ?? undefined,
+            formatMatcher: this.customFormatMatcher ?? undefined,
+            hour12: this.customHour12 ?? undefined,
+            timeZone: this.customTimeZone ?? undefined,
+            calendar: this.customCalendar ?? undefined,
+            dayPeriod: this.customDayPeriod ?? undefined,
+            numberingSystem: this.customNumberingSystem ?? undefined,
+            dateStyle: this.customDateStyle ?? undefined,
+            timeStyle: this.customTimeStyle ?? undefined,
+            hourCycle: this.customHourCycle ?? undefined
         };
         return options;
     }
