@@ -7,9 +7,12 @@ import { Table, tableTag } from '../src/table';
 import { tableColumnAnchorTag } from '../src/table-column/anchor';
 import { tableColumnTextTag } from '../src/table-column/text';
 
+const statusOptions = ['active', 'future'] as const;
+
 interface TableArgs {
     tableRef: Table;
     updateData: (args: TableArgs) => void;
+    status: typeof statusOptions[number];
 }
 
 const components = [
@@ -510,18 +513,21 @@ const metadata: Meta<TableArgs> = {
             <${tableColumnTextTag}
                 column-id="component-status-column"
                 field-name="componentStatus"
+                ?column-hidden="${x => x.status === 'future'}"
             >
                 Web Component
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="angular-status-column"
                 field-name="angularStatus"
+                ?column-hidden="${x => x.status === 'future'}"
             >
                 Angular
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="blazor-status-column"
                 field-name="blazorStatus"
+                ?column-hidden="${x => x.status === 'future'}"
             >
                 Blazor
             </${tableColumnTextTag}>
@@ -538,7 +544,13 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
-        }
+        },
+        status: {
+            options: statusOptions,
+            control: {
+                type: 'radio'
+            }
+        },
     },
     args: {
         tableRef: undefined,
@@ -547,9 +559,15 @@ const metadata: Meta<TableArgs> = {
                 // Safari workaround: the table element instance is made at this point
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
-                await x.tableRef.setData(components);
+                const isFuture = (component: typeof components[number]): boolean =>
+                    component.angularStatus  === '⭕'
+                    && component.blazorStatus === '⭕'
+                    && component.componentStatus === '⭕';
+                const data = components.filter(component => x.status === 'future' ? isFuture(component) : !isFuture(component))
+                await x.tableRef.setData(data);
             })();
-        }
+        },
+        status: statusOptions[0]
     }
 };
 
@@ -559,5 +577,15 @@ export const componentStatus: StoryObj<TableArgs> = {
     parameters: {
       // Story used by documentation, not needed for visual comparison.
       chromatic: { disableSnapshot: true }
+    }
+  };
+
+export const componentStatusFuture: StoryObj<TableArgs> = {
+    parameters: {
+      // Story used by documentation, not needed for visual comparison.
+      chromatic: { disableSnapshot: true }
     },
+    args: {
+        status: 'future'
+    }
   };

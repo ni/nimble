@@ -1,5 +1,8 @@
 import { Story, Meta } from '@storybook/addon-docs';
-import { componentStatus } from './component-status.stories';
+import {
+    componentStatus,
+    componentStatusFuture
+} from './component-status.stories';
 
 <Meta title="Component Status" />
 
@@ -7,15 +10,22 @@ import { componentStatus } from './component-status.stories';
 
 Here are components that are either implemented or on the roadmap for Nimble. Something missing? [File a request](https://github.com/ni/nimble/issues/new/choose)!
 
-<Story of={componentStatus} />
+## Ready or incubating
 
-{/* Storybook renders the "Legend" header right next to the bottom of the table. */}
-&nbsp;
+<p>
+    <Story of={componentStatus} />
+</p>
 
-## Legend
+### Legend
 
 | Icon | Description                                                                                                                                                              |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | ✅   | The component is ready for general use.                                                                                                                                  |
 | ⚠️   | The component is "[incubating](/docs/incubating-docs--docs)". These are not ready for general use and may make breaking changes without a "major" semantic version bump. |
 | ⭕   | The component doesn't exist yet. Please submit requests by commenting on the linked issue.                                                                               |
+
+## Future work
+
+<p>
+    <Story of={componentStatusFuture} />
+</p>
