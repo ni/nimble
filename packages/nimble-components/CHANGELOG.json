@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Jul 2023 18:39:11 GMT",
+      "tag": "@ni/nimble-components_v20.0.0",
+      "version": "20.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "638f480bc056763882ddeac3150ed9779aa3047e",
+            "comment": "Split component status into future work table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Jul 2023 17:23:10 GMT",
       "tag": "@ni/nimble-components_v20.0.0",
       "version": "20.0.0",
