@@ -14,7 +14,8 @@ export const appearanceDescription = `This attribute affects the appearance of t
         <li>For appearance \`outline\`:
             <br/>This is an alternative standard button when a ghost button is not suitable, and a more visually direct button is needed. 
             <br/>This can also create a light and airy feel. Use in combination with ghost buttons to create hierarchy. Do not use in combination with block buttons.
-        </li>                
+        </li>
+        <br/>
         <li>For appearance \`block\`:
             <br/>This standard button should be used when the most visible solution is required. 
             <br/>It can be an alternative to overly subtle button solutions when it is important to emphasize an action and the functionality of the control.
