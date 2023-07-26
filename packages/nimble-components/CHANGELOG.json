@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 26 Jul 2023 17:23:10 GMT",
+      "tag": "@ni/nimble-components_v20.0.0",
+      "version": "20.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9b37d8cd59f96510e88b144bd138762a83002ab4",
+            "comment": "Added essential APIs into the rich-text-editor spec"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Jul 2023 00:05:02 GMT",
       "tag": "@ni/nimble-components_v20.0.0",
       "version": "20.0.0",
