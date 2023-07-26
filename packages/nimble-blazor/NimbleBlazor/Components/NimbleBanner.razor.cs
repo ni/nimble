@@ -32,12 +32,6 @@ public partial class NimbleBanner : ComponentBase
     public bool? PreventDismiss { get; set; }
 
     /// <summary>
-    /// The (hidden) label applied to the dismiss button (for accessibility purposes)
-    /// </summary>
-    [Parameter]
-    public string? DismissButtonLabel { get; set; }
-
-    /// <summary>
     /// The child content of the element.
     /// </summary>
     [Parameter]
