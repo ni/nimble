@@ -203,7 +203,7 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     private updateColumnConfig(): void {
         const columnConfig: TableColumnDateTextColumnConfig = {
-            formatter: this.createFormatter(this.format)
+            formatter: this.createFormatter()
         };
         this.columnInternals.columnConfig = columnConfig;
         this.validator.setCustomOptionsValidity(
@@ -211,11 +211,9 @@ export class TableColumnDateText extends TableColumnTextBase {
         );
     }
 
-    private createFormatter(
-        format: DateTextFormat
-    ): Intl.DateTimeFormat | undefined {
+    private createFormatter(): Intl.DateTimeFormat | undefined {
         let options: Intl.DateTimeFormatOptions;
-        if (!format) {
+        if (!this.format) {
             options = {
                 dateStyle: 'medium',
                 timeStyle: 'medium'
