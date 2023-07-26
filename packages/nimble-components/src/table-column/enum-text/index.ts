@@ -1,5 +1,4 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
 import { TableColumnEnumBase, TableColumnEnumColumnConfig } from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
