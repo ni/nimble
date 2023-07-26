@@ -59,7 +59,7 @@ const metadata: Meta<RichTextEditorArgs> = {
         placeholder: 'Add comment here',
         errorVisible: false,
         disabled: false,
-        footerHidden: true,
+        footerHidden: false,
         maxlength: 10000
     }
 };

@@ -25,11 +25,6 @@ export class RichTextEditor extends FoundationElement {
     @attr public placeholder = '';
 
     /**
-     * @internal
-     */
-    @attr public footerVisibility = 'hidden';
-
-    /**
      * @public
      */
     @attr({ attribute: 'footer-hidden', mode: 'boolean' })
@@ -154,10 +149,6 @@ export class RichTextEditor extends FoundationElement {
         if (this.$fastController.isConnected) {
             this.tiptapEditor.on('transaction', () => {
                 this.toggleTipTapButtonState();
-            });
-
-            this.tiptapEditor.on('focus', () => {
-                this.footerHidden = false;
             });
         }
     }
