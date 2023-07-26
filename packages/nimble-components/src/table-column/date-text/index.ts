@@ -38,7 +38,7 @@ export interface TableColumnDateTextColumnConfig {
     customSecond: SimpleNumberFormat;
     customTimeZoneName: TimeZoneFormat;
     customFormatMatcher: FormatMatcherAlgorithm;
-    customHour12: boolean;
+    customHour12?: boolean;
     customTimeZone?: string;
     customCalendar?: string;
     customDayPeriod: DayPeriodFormat;
@@ -99,7 +99,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customFormatMatcher: FormatMatcherAlgorithm;
 
     @attr({ attribute: 'custom-hour12', mode: 'boolean' })
-    public customHour12 = false;
+    public customHour12?: boolean;
 
     @attr({ attribute: 'custom-time-zone' })
     public customTimeZone?: string;

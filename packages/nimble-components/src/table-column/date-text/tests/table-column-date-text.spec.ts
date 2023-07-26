@@ -43,7 +43,7 @@ async function setupWithConfig(): Promise<Fixture<Table<SimpleTableRecord>>> {
                     custom-second="2-digit"
                     custom-time-zone-name="longOffset"
                     custom-format-matcher="basic"
-                    custom-hour12
+                    custom-hour12="false"
                     custom-time-zone="America/Chicago"
                     custom-calendar="hebrew"
                     custom-day-period="short"
@@ -545,7 +545,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors custom-hour12 attribute', () => {
-            expect(column.customHour12).toBeTrue();
+            expect(column.customHour12).toBeFalse();
         });
 
         it('honors custom-hour-cycle attribute', () => {
