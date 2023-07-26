@@ -35,10 +35,10 @@ Both components provide support for the following basic text formatting options:
 3. Numbered List
 4. Bulleted List
 5. Absolute URL links - Supports only [absolute URI](https://spec.commonmark.org/0.30/#absolute-uri) with a valid [scheme](https://spec.commonmark.org/0.30/#scheme).
-In the initial phase, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
-[Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
-[add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
-[validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
+   In the initial phase, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
+   [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
+   [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
+   [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
 
 The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
@@ -123,7 +123,6 @@ _Methods_
     [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
 -   `setMarkdown()` - this will parse the markdown string into a Node and load it back into the editor using
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
-
 
 _Alternatives_
 
@@ -324,7 +323,7 @@ following configurations:
     `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes.
 3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to true to add the valid link automatically when typing.
 4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to false to replace the current selection in the editor with the URL instead of adding a link to the selection
-    if the pasted content contains a valid url. 
+    if the pasted content contains a valid url.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
