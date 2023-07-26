@@ -39,7 +39,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._compareWith = fn;
     }
 
-    private readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
+    private readonly _optionMap: Map<string, Map<ElementRef, unknown>> = new Map<string, Map<ElementRef, unknown>>();
 
     private _modelValue: unknown;
 
@@ -78,7 +78,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            const modelValue = this._optionMap.has(valueString) ? this._optionMap.get(valueString) : OPTION_NOT_FOUND;
+            const modelValue = this._optionMap.has(valueString) ? this._optionMap.get(valueString)?.values().next().value as unknown : OPTION_NOT_FOUND;
             this._modelValue = modelValue;
             fn(modelValue);
         };
@@ -106,16 +106,25 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     /**
      * @internal
      */
-    public addOption(displayValue: string, modelValue: unknown): void {
-        this._optionMap.set(displayValue, modelValue);
+    public addOption(displayValue: string, modelValue: unknown, option: ElementRef): void {
+        const existingOption = this._optionMap.get(displayValue);
+        if (existingOption) {
+            existingOption.set(option, modelValue);
+        } else {
+            this._optionMap.set(displayValue, (new Map<ElementRef, unknown>().set(option, modelValue)));
+        }
         this.updateDisplayValue();
     }
 
     /**
      * @internal
      */
-    public removeOption(displayValue: string): void {
-        this._optionMap.delete(displayValue);
+    public removeOption(displayValue: string, option: ElementRef): void {
+        const existingOption = this._optionMap.get(displayValue);
+        existingOption?.delete(option);
+        if (existingOption?.size === 0) {
+            this._optionMap.delete(displayValue);
+        }
     }
 
     private updateDisplayValue(): void {
@@ -124,9 +133,11 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     }
 
     private getValueStringFromValue(value: unknown): string | undefined {
-        for (const [optionKey, optionValue] of this._optionMap.entries()) {
-            if (this._compareWith(optionValue, value)) {
-                return optionKey;
+        for (const [displayValue, optionValues] of this._optionMap.entries()) {
+            for (const modelValue of optionValues.values()) {
+                if (this._compareWith(modelValue, value)) {
+                    return displayValue;
+                }
             }
         }
         return undefined;
