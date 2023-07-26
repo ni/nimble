@@ -22,7 +22,6 @@ import type {
     MonthFormat,
     WeekdayFormat
 } from './types';
-import { createFormatter } from './models/format-helper';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
