@@ -105,7 +105,7 @@ export class AnchorTabs extends FoundationElement {
     };
 
     private readonly isHiddenElement = (el: Element): el is HTMLElement => {
-        return el.getAttribute('hidden') !== null;
+        return el.hasAttribute('hidden');
     };
 
     private readonly isFocusableElement = (el: Element): el is HTMLElement => {
