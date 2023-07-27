@@ -34,11 +34,6 @@ Both components provide support for the following basic text formatting options:
 2. Italics
 3. Numbered List
 4. Bulleted List
-5. Absolute URL links - Supports only [absolute URI](https://spec.commonmark.org/0.30/#absolute-uri) with a valid [scheme](https://spec.commonmark.org/0.30/#scheme).
-   In the initial phase, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
-   [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
-   [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
-   [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
 
 The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
@@ -53,8 +48,7 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
--   Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
-    link icon in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
+-   Support for adding hyperlinks to the existing words in the editor.
 -   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
     [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
     versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
@@ -326,19 +320,6 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Italics - `*Italics*`
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
--   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, refer [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
-
-_Configurations on Tiptap for absolute URL links_:
-
-Installing the [link extension](https://tiptap.dev/api/marks/link) mark from the Tiptap and add the `Links` to the extensions when initializing along with the `StarterKit` with the
-following configurations:
-
-1.  Set proper regular expression in [validate](https://tiptap.dev/api/marks/link#validate) to allow only `HTTP` and `HTTPS` URL, supporting only absolute URL links in the editor.
-2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to true to open a link on click in a new window. By default, the `<a>` tag in Tiptap editor will have
-    `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes.
-3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to true to add the valid link automatically when typing.
-4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to false to replace the current selection in the editor with the URL instead of adding a link to the selection
-    if the pasted content contains a valid url.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
@@ -443,7 +424,6 @@ library. For the currently supported features, we will include the following lib
 -   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
 -   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
 -   [@tiptap/extension-placeholder](https://www.npmjs.com/package/@tiptap/extension-placeholder)
--   [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
 -   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
 -   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
 
