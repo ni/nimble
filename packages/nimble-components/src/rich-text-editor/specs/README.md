@@ -120,9 +120,9 @@ _Props/Attrs_
 
 _Methods_
 
--   `getMarkdown()` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
+-   `getMarkdown()` - this will serialize the content by extracting the Node from the editor and return the converted markdown string
     [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
--   `setMarkdown()` - this will parse the markdown string into a Node and load it back into the editor using
+-   `setMarkdown(value)` - this will parse the input markdown string into a Node and load it back into the editor using
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
 
 _Alternatives_
