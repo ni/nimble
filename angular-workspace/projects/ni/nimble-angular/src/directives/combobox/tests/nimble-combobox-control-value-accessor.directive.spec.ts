@@ -237,6 +237,17 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toEqual(testHostComponent.selectOptions[0]);
         });
 
+        it('setting bound model value to duplicate value, updates display text', async () => {
+            testHostComponent.selectedOption = testHostComponent.selectOptions[0]; // first duplicate value
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+            expect(combobox.value).toBe(testHostComponent.selectOptions[0]!.name);
+            testHostComponent.selectedOption = testHostComponent.selectOptions[1]; // second duplicate value
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+            expect(combobox.value).toBe(testHostComponent.selectOptions[1]!.name);
+        });
+
         it('removing first duplicate value from DOM allows selection of now unduplicated value', async () => {
             testHostComponent.selectOptions = testHostComponent.selectOptions.filter((_, i) => i !== 0);
             fixture.detectChanges();
@@ -499,6 +510,17 @@ describe('Nimble combobox control value accessor', () => {
             await waitForUpdatesAsync();
 
             expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);
+        });
+
+        it('setting bound model value to duplicate value, updates display text', async () => {
+            testHostComponent.selectedOption.setValue(testHostComponent.selectOptions[0]); // first duplicate value
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+            expect(combobox.value).toBe(testHostComponent.selectOptions[0]!.name);
+            testHostComponent.selectedOption.setValue(testHostComponent.selectOptions[1]); // second duplicate value
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+            expect(combobox.value).toBe(testHostComponent.selectOptions[1]!.name);
         });
 
         it('removing first duplicate value from DOM allows selection of now unduplicated value', async () => {
