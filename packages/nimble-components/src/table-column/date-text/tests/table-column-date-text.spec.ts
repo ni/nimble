@@ -7,7 +7,7 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
-import { themeProviderTag } from '../../../theme-provider';
+import { lang, themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -275,6 +275,21 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/10/2012');
         });
 
+        it('updates displayed date when lang token changes', async () => {
+            await element.setData([
+                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+            ]);
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                'Dec 10, 2012, 10:35:05 PM'
+            );
+            lang.setValueFor(element, 'fr');
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                '10 déc. 2012, 22:35:05'
+            );
+        });
+
         it('honors customDateStyle property', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
@@ -468,15 +483,16 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('２０１２');
         });
 
-        it('has no invalid flag on column when using default formatting', async () => {
+        it('has no invalid flags on column when using default formatting', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+            expect(column.validity.invalidLangCode).toBeFalse();
         });
 
-        it('sets invalid flag on column when custom options are incompatible', async () => {
+        it('sets invalidCustomOptionsCombination flag on column when custom options are incompatible', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
@@ -486,9 +502,10 @@ describe('TableColumnDateText', () => {
             column.customDateStyle = 'full';
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeTrue();
+            expect(column.validity.invalidLangCode).toBeFalse();
         });
 
-        it('clears invalid flag on column after fixing custom option incompatibility', async () => {
+        it('clears invalidCustomOptionsCombination flag on column after fixing custom option incompatibility', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
@@ -500,6 +517,26 @@ describe('TableColumnDateText', () => {
             column.customDateStyle = undefined;
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+        });
+
+        it('sets invalidLangCode flag on column when lang code is malformed', async () => {
+            await element.setData([
+                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+            ]);
+            lang.setValueFor(element, '');
+            await waitForUpdatesAsync();
+            expect(column.validity.invalidLangCode).toBeTrue();
+            expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
+        });
+
+        it('clears invalidLangCode flag on column after fixing lang code', async () => {
+            await element.setData([
+                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+            ]);
+            lang.setValueFor(element, '');
+            await waitForUpdatesAsync();
+            lang.setValueFor(element, 'en');
+            expect(column.validity.invalidLangCode).toBeFalse();
         });
     });
 

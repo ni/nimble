@@ -225,9 +225,7 @@ export class TableColumnDateText extends TableColumnTextBase {
             formatter: this.createFormatter()
         };
         this.columnInternals.columnConfig = columnConfig;
-        this.validator.setCustomOptionsValidity(
-            columnConfig.formatter !== undefined
-        );
+        this.validateConfig(columnConfig.formatter);
     }
 
     private createFormatter(): Intl.DateTimeFormat | undefined {
@@ -273,6 +271,26 @@ export class TableColumnDateText extends TableColumnTextBase {
             hourCycle: this.customHourCycle ?? undefined
         };
         return options;
+    }
+
+    private validateConfig(formatter: Intl.DateTimeFormat | undefined): void {
+        let invalidLangCode = false;
+        let invalidCustomOptions = false;
+        if (formatter === undefined) {
+            try {
+                // We don't know whether the lang code we used was bad, or if the config
+                // options were bad. To determine which, try constructing a formatter
+                // with default options. If it throws, the lang code was the problem.
+                Intl.DateTimeFormat(lang.getValueFor(this));
+                invalidLangCode = false;
+                invalidCustomOptions = true;
+            } catch (e) {
+                invalidLangCode = true;
+                invalidCustomOptions = false;
+            }
+        }
+        this.validator.setCustomOptionsValidity(!invalidCustomOptions);
+        this.validator.setLangCodeValidity(!invalidLangCode);
     }
 }
 
