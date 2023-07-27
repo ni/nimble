@@ -78,7 +78,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            const modelValue = this._optionMap.has(valueString) ? this._optionMap.get(valueString)?.values().next().value as unknown : OPTION_NOT_FOUND;
+            const modelValue = this._optionMap.has(valueString) ? Array.from(this._optionMap.get(valueString)!.values()).pop() : OPTION_NOT_FOUND;
             this._modelValue = modelValue;
             fn(modelValue);
         };

@@ -108,10 +108,10 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         it('updates bound property when selected value is changed', () => {
-            clickOnListOption(combobox, 0);
+            clickOnListOption(combobox, 3);
             fixture.detectChanges();
 
-            expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[0]);
+            expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[3]);
         });
 
         it('supports options with whitespace at beginning or end of textContent', () => {
@@ -213,11 +213,16 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toEqual(OPTION_NOT_FOUND);
         });
 
-        it('and user enters aribtrary text for value, callback value is notFound', () => {
+        it('as user types, selectedOption value is updated', () => {
             updateComboboxWithText(combobox, 'f');
             fixture.detectChanges();
 
-            expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
+            expect(testHostComponent.selectedOption).toEqual(OPTION_NOT_FOUND);
+
+            updateComboboxWithText(combobox, 'Option 2');
+            fixture.detectChanges();
+
+            expect(testHostComponent.selectedOption).toEqual(testHostComponent.selectOptions[2]);
         });
 
         it('selecting duplicate value results in expected text in display', async () => {
@@ -228,12 +233,12 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.control.value).toEqual(testHostComponent.selectOptions[1]!.name);
         });
 
-        it('selecting duplicate value finds first model value associated with that display value', async () => {
-            clickOnListOption(combobox, 1); // select second duplicate display value
+        it('selecting duplicate value finds last model value associated with that display value', async () => {
+            clickOnListOption(combobox, 0); // select first duplicate display value
             fixture.detectChanges();
             await waitForUpdatesAsync();
 
-            expect(testHostComponent.selectedOption).toEqual(testHostComponent.selectOptions[0]);
+            expect(testHostComponent.selectedOption).toEqual(testHostComponent.selectOptions[1]);
         });
 
         it('setting bound model value to duplicate value, updates display text', async () => {
@@ -364,10 +369,10 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         it('updates bound property when selected value is changed', () => {
-            clickOnListOption(combobox, 0);
+            clickOnListOption(combobox, 3);
             fixture.detectChanges();
 
-            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.selectOptions[0]);
+            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.selectOptions[3]);
         });
 
         it('supports options with whitespace at beginning or end of textContent', () => {
@@ -489,10 +494,10 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(testHostComponent.selectedOption.value).toEqual(OPTION_NOT_FOUND);
 
-            updateComboboxWithText(combobox, 'Duplicate Option 1');
+            updateComboboxWithText(combobox, 'Option 2');
             fixture.detectChanges();
 
-            expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);
+            expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[2]);
         });
 
         it('selecting duplicate value results in expected text in display', async () => {
@@ -503,12 +508,12 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.control.value).toEqual(testHostComponent.selectOptions[1]!.name);
         });
 
-        it('selecting duplicate value finds first model value associated with that display value', async () => {
-            clickOnListOption(combobox, 1); // select second duplicate display value
+        it('selecting duplicate value finds last model value associated with that display value', async () => {
+            clickOnListOption(combobox, 0); // select second duplicate display value
             fixture.detectChanges();
             await waitForUpdatesAsync();
 
-            expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);
+            expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[1]);
         });
 
         it('setting bound model value to duplicate value, updates display text', async () => {
