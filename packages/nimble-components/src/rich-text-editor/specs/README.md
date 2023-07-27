@@ -108,14 +108,15 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 _Props/Attrs_
 
--   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
+-   `markdown` - is an accessor used to get and set the markdown value.
+    -   `getter` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
+        [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
+    -   `setter` - this will parse the markdown string into a Node and load it back into the editor using
+        [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
+-   `isEmpty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
     [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
--   `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
--   `placeholder` - is a string attribute to include a placeholder text for the editor when it is empty. This text is passed as plain text (not markdown)
-    to a component. This can be achieved through Tiptap's [Placeholder extension](https://tiptap.dev/api/extensions/placeholder).
-    We can customize the styling of placeholder text with our own styles using Prosemirror's class as given in the provided link.
--   `footer-hidden` - is a boolean attribute that, when enabled, hides the footer section, which includes all formatting options and the `footer-actions` slot.
+-   `fitToContent` - is a boolean attribute allows the text area to expand vertically to fit the content.
 -   `disabled` - is a boolean attribute to disable the editor by preventing all user interactions within the component. When the component is
     disabled, the editor's border and font color will resemble that of the disabled state of `nimble-text-area`, and the `nimble-toolbar` and `nimble-toggle-button`
     will have their disabled attribute set to true. However, the behavior of the `footer-actions` slotted content will be handled
@@ -123,13 +124,6 @@ _Props/Attrs_
 -   `error-visible` - is a boolean attribute used to visually change the component's border color with the error exclamation at the top right, indicating that an error has occurred, as per the current
     [visual design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=2482-82389&mode=design&t=KwADu9QRoL7QAuIW-0)
 -   `error-text` - is a string attribute that displays the error text at the bottom of the component when the `error-visible` is enabled.
-
-_Methods_
-
--   `getMarkdown()` - this will serialize the content by extracting the Node from the editor and convert it into a markdown string using
-    [prosemirror-markdown serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/to_markdown.ts#L30).
--   `setMarkdown()` - this will parse the markdown string into a Node and load it back into the editor using
-    [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
 
 _Alternatives_
 
@@ -141,20 +135,21 @@ Another reason for considering the `maxlength` attribute is to prevent any poten
 
 Due to these considerations, we have decided to defer the implementation of the `maxlength` attribute for now, focus on exploring other performance-enhancing options in the future.
 
-_Decision on choosing `markdown` as methods_:
+_Decision on choosing `markdown` as an accessor over methods_:
 
-We thought of choosing either `markdown` as `accessor` or `methods` because converting the rich text content entered in the editor to a markdown string is an expensive
-operation and not wanted to trigger it as an event for every change in the editor or as a property to enable two-way data binding for the client application.
+Initially, we thought of having `getMarkdown()` and `setMarkdown()` methods to retrieve and set the markdown string. We chose this approach
+because converting the rich text content entered in the editor to a markdown string is an expensive operation and not wanted to trigger it as an
+event for every change in the editor or as a property to enable two-way data binding for the client application.
 
-Accessor provides a property-like syntax for clients, enabling one-way data binding and simplifying the syntax.
+However, we realized that we could achieve the same benefits by using an `accessor` instead, by incorporating the same functionality within the
+`getters` and `setters`. Additionally, accessor provides a property-like syntax for clients, enabling one-way data binding and simplifying the syntax.
 This allows clients to retrieve the `markdown` representation only when necessary, rather than for every single change. For a example use case, when the user
 completes entering the entire content in the editor and clicks a button, the client can access the `markdown` output only once. This way the
 application's performance is enhanced as the operation is performed only once, thus eliminating unnecessary reading of an accessor.
 
-However, in frameworks like Angular, using `markdown` as a data binding may lead to a situation where the `setter` is not called if the value remains unchanged. This can become
-problematic when attempting to clear the editor's content by setting the markdown value to an empty string, as it won't trigger the desired behavior if the markdown value is already
-empty and hasn't undergone processing. To overcome this issue, utilizing `methods` could offer a potential solution, allowing the content to be set regardless of whether it has
-changed from its previous value.
+_Methods_
+
+-   none
 
 _Events_
 
@@ -178,14 +173,6 @@ _CSS Classes and CSS Custom Properties that affect the component_
 -   The `formatting toolbar` in the footer section will occupy space based on the number of formatting buttons used. For the initial scope of this
     component, four formatting buttons will be included, following standard size and spacing guidelines. The `footer-actions` section will occupy the remaining
     space in the footer.
--   The footer section, which includes the formatting options, can be hidden by utilizing the `footer-hidden` attribute. When this attribute is
-    enabled, the footer's visibility will be set to hidden, leaving an empty space in its place. We came to this decision to ensure that the
-    component does not cause layout height shifts when the `footer-hidden` attribute changes dynamically based on conditions in the consumer
-    component.
--   An example use case for the `footer-hidden` functionality is:
-    The client can initially set `footer-hidden` to true. Upon focusing the editor using the element's `focus` event, the client can then set
-    `footer-hidden` to false, thereby displaying the footer section. Conversely, when the editor loses focus using the element's `blur` or any
-    click event occurs (`cancel` button click), the client can reset `footer-hidden` to true, consequently hiding the footer section once again.
 
 _Note_: This initial component design serves as a starting point for implementation, and it may undergo changes once the visual design is completed.
 
@@ -441,13 +428,11 @@ This component is dependent on the [`tiptap`](https://tiptap.dev/) third party l
 library. For the currently supported features, we will include the following libraries that will be added to the package.json
 
 -   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
+-   [@tiptap/pm](https://www.npmjs.com/package/@tiptap/pm)
 -   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
--   [@tiptap/extension-placeholder](https://www.npmjs.com/package/@tiptap/extension-placeholder)
 -   [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
--   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
--   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
 
-These packages will add up to a total space of approximately 900 KB in the components bundle. For more info see
+These packages will add up to a total space of approximately 800 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).
 
 **_Note_**: For markdown parser and serializer, [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) internal dependencies will be
