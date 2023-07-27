@@ -30,6 +30,12 @@ declare global {
  * A nimble-styled WaferMap
  */
 export class WaferMap extends FoundationElement {
+    /**
+     * @internal
+     * needs to be initialized before the properties trigger changes
+     */
+    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+
     @attr
     public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
 
@@ -135,8 +141,7 @@ export class WaferMap extends FoundationElement {
     };
 
     private readonly eventCoordinator = new EventCoordinator(this);
-    private resizeObserver?: ResizeObserver;
-    private readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+    private resizeObserver!: ResizeObserver;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -149,7 +154,7 @@ export class WaferMap extends FoundationElement {
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.resizeObserver!.unobserve(this);
+        this.resizeObserver.unobserve(this);
     }
 
     /**
@@ -227,64 +232,64 @@ export class WaferMap extends FoundationElement {
     }
 
     private quadrantChanged(): void {
-        this.waferMapUpdateTracker?.track('quadrant');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('quadrant');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private maxCharactersChanged(): void {
-        this.waferMapUpdateTracker?.track('maxCharacters');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('maxCharacters');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.waferMapUpdateTracker?.track('dieLabelsHidden');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('dieLabelsHidden');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.waferMapUpdateTracker?.track('dieLabelsSuffix');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('dieLabelsSuffix');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private colorScaleModeChanged(): void {
-        this.waferMapUpdateTracker?.track('colorScaleMode');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('colorScaleMode');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private highlightedValuesChanged(): void {
-        this.waferMapUpdateTracker?.track('highlightedValues');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('highlightedValues');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesChanged(): void {
-        this.waferMapUpdateTracker?.track('dies');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('dies');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private colorScaleChanged(): void {
-        this.waferMapUpdateTracker?.track('colorScale');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('colorScale');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private transformChanged(): void {
-        this.waferMapUpdateTracker?.track('transform');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('transform');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private canvasWidthChanged(): void {
-        this.waferMapUpdateTracker?.track('canvasWidth');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('canvasWidth');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private canvasHeightChanged(): void {
-        this.waferMapUpdateTracker?.track('canvasHeight');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('canvasHeight');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.waferMapUpdateTracker?.track('hoverDie');
-        this.waferMapUpdateTracker?.queueUpdate();
+        this.waferMapUpdateTracker.track('hoverDie');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 }
 
