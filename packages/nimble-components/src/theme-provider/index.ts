@@ -15,6 +15,11 @@ declare global {
     }
 }
 
+export const lang = DesignToken.create<string>({
+    name: 'lang',
+    cssCustomPropertyName: null
+}).withDefault(document.documentElement.lang);
+
 // Not represented as a CSS Custom Property, instead available
 // as an attribute of theme provider.
 export const direction = DesignToken.create<Direction>({
@@ -34,6 +39,11 @@ export const theme = DesignToken.create<Theme>({
  */
 export class ThemeProvider extends FoundationElement {
     @attr({
+        attribute: 'lang'
+    })
+    public override lang: string = document.documentElement.lang;
+
+    @attr({
         attribute: 'direction'
     })
     public direction: Direction = Direction.ltr;
@@ -42,6 +52,17 @@ export class ThemeProvider extends FoundationElement {
         attribute: 'theme'
     })
     public theme: Theme = Theme.light;
+
+    public langChanged(
+        _prev: string | undefined,
+        next: string | undefined
+    ): void {
+        if (next !== undefined && next !== null) {
+            lang.setValueFor(this, next);
+        } else {
+            lang.deleteValueFor(this);
+        }
+    }
 
     public directionChanged(
         _prev: Direction | undefined,
