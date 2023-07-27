@@ -25,15 +25,39 @@ describe('Date-text column types', () => {
         expect(format).toEqual('hello');
     });
 
-    it('SimpleNumberFormat fails compile if assigning arbitrary string values', () => {
+    it('YearFormat fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
-        const format: SimpleNumberFormat = 'hello';
+        const format: YearFormat = 'hello';
         expect(format).toEqual('hello');
     });
 
     it('MonthFormat fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
         const format: MonthFormat = 'hello';
+        expect(format).toEqual('hello');
+    });
+
+    it('DayFormat fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const format: DayFormat = 'hello';
+        expect(format).toEqual('hello');
+    });
+
+    it('HourFormat fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const format: HourFormat = 'hello';
+        expect(format).toEqual('hello');
+    });
+
+    it('MinuteFormat fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const format: MinuteFormat = 'hello';
+        expect(format).toEqual('hello');
+    });
+
+    it('SecondFormat fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const format: SecondFormat = 'hello';
         expect(format).toEqual('hello');
     });
 

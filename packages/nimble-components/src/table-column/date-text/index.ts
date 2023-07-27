@@ -12,7 +12,11 @@ import type {
     DateTextFormat,
     LocaleMatcherAlgorithm,
     EraFormat,
-    SimpleNumberFormat,
+    YearFormat,
+    DayFormat,
+    HourFormat,
+    MinuteFormat,
+    SecondFormat,
     TimeZoneFormat,
     FormatMatcherAlgorithm,
     DayPeriodFormat,
@@ -55,22 +59,22 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customEra: EraFormat;
 
     @attr({ attribute: 'custom-year' })
-    public customYear: SimpleNumberFormat;
+    public customYear: YearFormat;
 
     @attr({ attribute: 'custom-month' })
     public customMonth: MonthFormat;
 
     @attr({ attribute: 'custom-day' })
-    public customDay: SimpleNumberFormat;
+    public customDay: DayFormat;
 
     @attr({ attribute: 'custom-hour' })
-    public customHour: SimpleNumberFormat;
+    public customHour: HourFormat;
 
     @attr({ attribute: 'custom-minute' })
-    public customMinute: SimpleNumberFormat;
+    public customMinute: MinuteFormat;
 
     @attr({ attribute: 'custom-second' })
-    public customSecond: SimpleNumberFormat;
+    public customSecond: SecondFormat;
 
     @attr({ attribute: 'custom-time-zone-name' })
     public customTimeZoneName: TimeZoneFormat;
