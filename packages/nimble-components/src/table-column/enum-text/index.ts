@@ -31,15 +31,10 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         >
     )
 ) {
-    protected get supportedMappingElements(): readonly (typeof Mapping)[] {
-        return [MappingText] as const;
-    }
-
     public override createValidator(): TableColumnEnumTextValidator {
-        return new TableColumnEnumTextValidator(
-            this.columnInternals,
-            this.supportedMappingElements
-        );
+        return new TableColumnEnumTextValidator(this.columnInternals, [
+            MappingText
+        ]);
     }
 
     public override get validity(): TableColumnValidity {

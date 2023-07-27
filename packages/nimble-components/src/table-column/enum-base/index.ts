@@ -53,8 +53,6 @@ export abstract class TableColumnEnumBase<
     @attr({ attribute: 'key-type' })
     public keyType: MappingKeyType = 'string';
 
-    protected abstract get supportedMappingElements(): readonly (typeof Mapping)[];
-
     /**
      * @internal
      *
