@@ -232,8 +232,8 @@ N/A
 
 ### Performance
 
-As mentioned in the "Risks" section, the biggest challenge from the performance standpoint is the representation of large number of datapoints and interacting with these datapoints in the browser.
-Currently the only thing we would like to achieve is to measure (benchmark) the time it takes a `nimble-wafer-map` component to be loaded with various number of datapoints. Initially this could be a manual benchmark on a demo site hosted within the repository. Longer term we may automate and trend this by including benchmarking on the PR build.
+As mentioned in the "Risks" section, the biggest challenge from the performance standpoint is the representation of large number of data points and interacting with these data points in the browser.
+Currently the only thing we would like to achieve is to measure (benchmark) the time it takes a `nimble-wafer-map` component to be loaded with various number of data points. Initially this could be a manual benchmark on a demo site hosted within the repository. Longer term we may automate and trend this by including benchmarking on the PR build.
 
 During these manual benchmark runs we would like to obtain more details on:
 "How much time it takes to render a `nimble-wafer-map` component with":
@@ -245,10 +245,11 @@ During these manual benchmark runs we would like to obtain more details on:
 
 Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks.
 
-For the moment we don't have a clear understanding how long it will take to load a `nimble-wafer-map` component but we desire the following behavior:
+After doing various benchmarks, we are able to attest that the initial rendering performance of the `nimble-wafer-map` component is lower than 100 ms even for for wafer maps between 10k and 100k data points. These values may be different based on the system configuration.
 
--   between 10 and 500ms for wafermaps under 10k data points
--   betweem 1000 and 5000ms for wafermaps between 10k and 100k datapoints
+Another information of note is that although the initial render is is fast even for large data sets, the actual responsive behavior of the component, especially the zooming, is degrading visibly for a higher load.
+
+We are planning improvements in this regard in the short and medium term, looking for ways to improve the rendering and responsiveness of the component for data sets up to 500k data points.
 
 ### Dependencies
 
