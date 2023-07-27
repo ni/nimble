@@ -30,7 +30,6 @@ screen reader would say something like "Mute toggle button pressed".`;
 
 const metadata: Meta<ToggleButtonArgs> = {
     title: 'Components/Toggle Button',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
