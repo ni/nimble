@@ -122,6 +122,7 @@ describe('AnchorTabs', () => {
     const navigationTests: {
         name: string,
         disabledIndex?: number,
+        hiddenIndex?: number,
         initialFocusIndex: number,
         keyName: string,
         expectedFinalFocusIndex: number
@@ -203,6 +204,20 @@ describe('AnchorTabs', () => {
             initialFocusIndex: 0,
             keyName: keyEnd,
             expectedFinalFocusIndex: 1
+        },
+        {
+            name: 'should skip hidden tab when arrowing right',
+            hiddenIndex: 1,
+            initialFocusIndex: 0,
+            keyName: keyArrowRight,
+            expectedFinalFocusIndex: 2
+        },
+        {
+            name: 'should focus last visible tab when End key pressed',
+            hiddenIndex: 2,
+            initialFocusIndex: 0,
+            keyName: keyEnd,
+            expectedFinalFocusIndex: 1
         }
     ];
     describe('navigation', () => {
@@ -215,6 +230,10 @@ describe('AnchorTabs', () => {
                 await connect();
                 if (test.disabledIndex !== undefined) {
                     tab(test.disabledIndex).disabled = true;
+                    await waitForUpdatesAsync();
+                }
+                if (test.hiddenIndex !== undefined) {
+                    tab(test.hiddenIndex).hidden = true;
                     await waitForUpdatesAsync();
                 }
                 tab(test.initialFocusIndex).focus();

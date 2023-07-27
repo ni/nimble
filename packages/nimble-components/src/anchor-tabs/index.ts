@@ -104,8 +104,12 @@ export class AnchorTabs extends FoundationElement {
         return el.getAttribute('aria-disabled') === 'true';
     };
 
+    private readonly isHiddenElement = (el: Element): el is HTMLElement => {
+        return el.getAttribute('hidden') !== null;
+    };
+
     private readonly isFocusableElement = (el: Element): el is HTMLElement => {
-        return !this.isDisabledElement(el);
+        return !this.isDisabledElement(el) && !this.isHiddenElement(el);
     };
 
     private readonly setTabs = (): void => {
@@ -203,7 +207,7 @@ export class AnchorTabs extends FoundationElement {
     };
 
     private focusFirstOrLast(focusLast: boolean): void {
-        const focusableTabs = this.tabs.filter(t => !this.isDisabledElement(t));
+        const focusableTabs = this.tabs.filter(t => this.isFocusableElement(t));
         const focusableIndex = focusLast ? focusableTabs.length - 1 : 0;
         const index = this.tabs.indexOf(focusableTabs[focusableIndex]!);
         if (index > -1) {
