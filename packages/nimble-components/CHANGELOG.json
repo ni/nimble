@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 27 Jul 2023 13:40:40 GMT",
+      "tag": "@ni/nimble-components_v20.0.1",
+      "version": "20.0.1",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1b6ad2d89df8d44b482413ed139912ba4a425350",
+            "comment": "Spec update to include placeholder support for rich text editor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Jul 2023 00:20:30 GMT",
       "tag": "@ni/nimble-components_v20.0.1",
       "version": "20.0.1",
