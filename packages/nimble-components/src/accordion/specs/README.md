@@ -12,9 +12,9 @@ The `nimble-accordion` is a vertical stack of interactive headings. The headings
 
 Visual Design Comments:
 
-Brandon's Figma spec has designs for two accordion item heights, 24px and 32px. In previous cases like the nimble button, we've only implemented one height (in that case only the 32px button was implemented). Do we want to continue doing this, and if so, which height should be implemented?
+Brandon's Figma spec has designs for two accordion item heights, 24px and 32px. The 32px will be implemented as this is what we have previously focused on when choosing between the two sizes.
 
-Brandon's Figma spec also only shows designs for one accordion item at a time. How should accordion items in each appearance type be separated from each other (ex. a line between accordion items, transparent space between accordion items, etc.)?
+Brandon's Figma spec also only shows designs for one accordion item at a time. How should accordion items in each appearance type be separated from each other (ex. a line between accordion items, transparent space between accordion items, etc.)? Because there's only one accordion item design at a time, it is also unclear if error-visible is a nimble-accordion-item specific state, or if it should affect all accordion items and be used in the nimble-accordion component.
 
 The Figma design does not have a design for the "error" focusVisible state. This might be confusing, as keyboard users who tab to the error accordion will suddenly see the red border and exclamation mark icon disappear in the focusVisible state.
 
@@ -24,77 +24,59 @@ When should each `appearance` type be used? Will there be specific guidance on t
 
 Accordion group, appearance ghost with an error-visible accordion item
 
-```
+```html
 <nimble-accordion appearance="ghost">
     <nimble-accordion-item>
         <span slot="heading">Accordion one</span>
-            <div slot="default">
-                <nimble-checkbox></nimble-checkbox>
-                <span>Accordion one content</span>
-            </div>
+        <nimble-checkbox></nimble-checkbox>
+        Accordion one content
     </nimble-accordion-item>
     <nimble-accordion-item expanded>
         <span slot="heading">Accordion two</span>
-            <div slot="default">
-                <nimble-checkbox></nimble-checkbox>
-                <span>Accordion two content</span>
-            </div>
+        <nimble-checkbox></nimble-checkbox>
+        Accordion two content
     </nimble-accordion-item>
     <nimble-accordion-item error-visible>
         <span slot="heading">Accordion three</span>
-        <span slot="end"><nimble-icon-exclamation-mark></nimble-icon-exclamation-mark></span>
-            <div slot="default">
-                <nimble-checkbox></nimble-checkbox>
-                <span>Accordion three content</span>
-            </div>
+        <nimble-icon-exclamation-mark></nimble-icon-exclamation-mark>
+        <nimble-checkbox></nimble-checkbox>
+        Accordion three content
     </nimble-accordion-item>
 </nimble-accordion>
 ```
 
 Accordion group, appearance block with a nested accordion
 
-```
+```html
 <nimble-accordion appearance="block">
     <nimble-accordion-item>
         <div slot="heading">Accordion one</div>
-            <div slot="default">
-                <nimble-checkbox></nimble-checkbox>
-                <span>Accordion one content</span>
-            </div>
+        <nimble-checkbox></nimble-checkbox>
+        Accordion one content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <div slot="heading">Accordion two</div>
-            <div slot="default">
-                <nimble-button>Text Button</nimble-button>
-                <span>Accordion one content</span>
-            </div>
+        <nimble-button>Text Button</nimble-button>
+        Accordion two content
     </nimble-accordion-item>
     <nimble-accordion-item>
         <div slot="heading">Accordion three</div>
-            <div slot="default">
-                <nimble-checkbox></nimble-checkbox>
-                <nimble-accordion>
-                    <nimble-accordion-item>
-                         <div slot="heading">Nested Accordion One</div>
-                            <div slot="default">
-                                <span>Nested Accordion One Content</span>
-                            </div>
-                    <nimble-accordion-item>
-                    <nimble-accordion-item>
-                         <div slot="heading">Nested Accordion Two</div>
-                            <div slot="default">
-                                <span>Nested Accordion Two Content</span>
-                            </div>
-                    <nimble-accordion-item>
-                </nimble-accordion>
-            </div>
+        <nimble-checkbox></nimble-checkbox>
+        <nimble-accordion>
+            <nimble-accordion-item>
+                <div slot="heading">Nested Accordion One</div>
+                Nested Accordion One Content
+            </nimble-accordion-item>
+            <nimble-accordion-item>
+                <div slot="heading">Nested Accordion Two</div>
+                Nested Accordion Two Content
+            </nimble-accordion-item>
+        </nimble-accordion>
     </nimble-accordion-item>
     <nimble-accordion-item>
         <div slot="heading">Accordion four</div>
-            <div slot="default">
-                <nimble-button>Text Button</nimble-button>
-                <span>Accordion one content</span>
-            </div>
+        <nimble-button>Text Button</nimble-button>
+        Accordion four content
     </nimble-accordion-item>
 </nimble-accordion>
 ```
@@ -113,7 +95,7 @@ Accordion group, appearance block with a nested accordion
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ Unchanged
 
-The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` appearances used in other components. These designs are similar to those of the nimble-button and its `appearance` types, but the accordion does not use the `.control` css class, it uses `.region` and `.heading`. Because of this, differences in border functionality, and the possibility of excess overridden css classes if patterns are used, shared styles will not be used, and new styles for the accordion and accordion-item will be created. The appearances of `block`, `outline`, and `ghost` will be implemented under the HTML attribute `appearance`, which will use conditional css styles based on `appearance`'s value (ex. :host([appearance='outline']) will have styling for the outline button).
+The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` appearances used in other components. These designs are similar to those of the nimble-button and its `appearance` types, but the accordion does not use the `.control` css class, it uses `.region` and `.heading`. Because of this, differences in border functionality, and the possibility of excess overridden css classes if patterns are used, shared styles will not be used, and new styles for the accordion and accordion-item will be created. The appearances of `block`, `outline`, and `ghost` will be implemented under the HTML attribute `appearance`, which will use conditional css styles based on `appearance`'s value (ex. `:host([appearance='outline'])` will have styling for the outline button).
 
 Documentation will be added to advise against using multiple Nimble Accordions with different appearances next to each other.
 
@@ -127,19 +109,19 @@ Documentation will be added to advise against using multiple Nimble Accordions w
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
--   _Slots:_ The `start` slot will not be used based on the visual designs, but the `end` slot will be used to display the error icon in the `error-visible` accordion-item state.
+-   _Slots:_ The `start` and `end` slots will not be used. The `collapsed-icon` and `expanded-icon` slots are set by the nimble-accordion-item in its index.ts, so overriding them will not be supported.
 
-The Figma design also includes an `error` state. This will be controlled with the boolean attribute `error-visible`, which has a default attribute value of "". When needed, "error-visible" would be added to the accordion attributes, changing the color of the accordion item border color to red. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. :host([error-visible]) will have styling for when `error-visible` is true).
+The Figma design also includes an `error` state. This will be controlled with the boolean attribute `error-visible`, which has a default attribute value of "". When needed, "error-visible" would be added to the accordion attributes, changing the color of the accordion item border color to red. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. `:host([error-visible])` will have styling for when `error-visible` is true).
 
 Usage guidance for the `error-visible` state will be created, as its usage may be unclear.
 
 ### Angular integration
 
-An Angular directive will be created for this component. The component will not have form association, so a `ControlValueAccessor` will not be created.
+Angular directives will be created for these components. Neither will have form association, so `ControlValueAccessor`s will not be created.
 
 ### Blazor integration
 
-A blazor wrapper will be created for the component.
+Blazor wrappers will be created for both components.
 
 ### Additional requirements
 
@@ -167,4 +149,4 @@ A blazor wrapper will be created for the component.
 
 ## Open Issues
 
-Using expand-mode="single" when nesting accordions causes issues- when trying to open nested accordions, the parent accordion closes, which makes sense as the functionality of the attribute is to only allow one accordion open at a time. Unless a reasonable fix can be found, we should advise against using this attribute with nested accordions in the docs.
+When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item. When using nested accordions with the single expand mode, once you open a child accordion, the parent accordion closes- when you open the parent accordion again, the previously selected child accordion is open, but when clicking on it, it doesn't close. Also, when opening the second child accordion, the first child accordion stays open, which goes against the functionality of single expand mode. Regardless of the issues with the nested accordion, it should be discussed if single expand mode is helpful for users- having one accordion item open before users click on it, and not allowing them to close it unless they click on a different accordion item isn't what most users would expect from the functionality of an accordion.
