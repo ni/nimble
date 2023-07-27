@@ -50,16 +50,7 @@ export const styles = css`
             }
             vertical-align: middle;
         }
-    }
 
-    @layer disabled {
-        :host([disabled]) {
-            color: ${buttonLabelDisabledFontColor};
-            cursor: default;
-        }
-    }
-
-    @layer default {
         .control {
             background-color: transparent;
             height: 100%;
@@ -86,55 +77,12 @@ export const styles = css`
             background-repeat: no-repeat;
             background-position: center;
         }
-    }
 
-    @layer default {
         :host([content-hidden]) .control {
             aspect-ratio: 1 / 1;
             padding: 0px;
         }
-    }
 
-    @media (prefers-reduced-motion) {
-        .control {
-            transition-duration: 0s;
-        }
-    }
-
-    @layer hover {
-        .control:hover {
-            border-color: ${borderHoverColor};
-            box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        }
-    }
-
-    @layer focusVisible {
-        .control${focusVisible} {
-            border-color: ${borderHoverColor};
-            box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-        }
-    }
-
-    @layer active {
-        .control:active {
-            box-shadow: none;
-            background-image: linear-gradient(
-                ${fillSelectedColor},
-                ${fillSelectedColor}
-            );
-            background-size: calc(100% - 2px) calc(100% - 2px);
-        }
-    }
-
-    @layer disabled {
-        :host([disabled]) .control {
-            box-shadow: none;
-            background-image: none;
-            color: rgba(${actionRgbPartialColor}, 0.3);
-        }
-    }
-
-    @layer default {
         .control::before {
             content: '';
             position: absolute;
@@ -147,34 +95,11 @@ export const styles = css`
             background-clip: content-box;
             transition: outline ${smallDelay} ease-in-out;
         }
-    }
 
-    @layer focusVisible {
-        .control${focusVisible}::before {
-            outline: ${borderWidth} solid ${borderHoverColor};
-            outline-offset: -3px;
-        }
-    }
-
-    @layer active {
-        .control:active::before {
-            outline: none;
-        }
-    }
-
-    @layer disabled {
-        :host([disabled]) .control::before {
-            box-shadow: none;
-        }
-    }
-
-    @layer default {
         .content {
             display: contents;
         }
-    }
 
-    @layer default {
         :host([content-hidden]) .content {
             ${
                 /**
@@ -194,33 +119,82 @@ export const styles = css`
             overflow: hidden;
             padding: 0;
         }
-    }
 
-    @layer default {
         [part='start'] {
             display: contents;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
         }
-    }
 
-    @layer disabled {
-        :host([disabled]) slot[name='start']::slotted(*) {
-            opacity: 0.3;
-            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
-        }
-    }
-
-    @layer default {
         [part='end'] {
             display: contents;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
         }
     }
 
+    @layer hover {
+        .control:hover {
+            border-color: ${borderHoverColor};
+            box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        }
+    }
+
+    @layer focusVisible {
+        .control${focusVisible} {
+            border-color: ${borderHoverColor};
+            box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        }
+
+        .control${focusVisible}::before {
+            outline: ${borderWidth} solid ${borderHoverColor};
+            outline-offset: -3px;
+        }
+    }
+
+    @layer active {
+        .control:active {
+            box-shadow: none;
+            background-image: linear-gradient(
+                ${fillSelectedColor},
+                ${fillSelectedColor}
+            );
+            background-size: calc(100% - 2px) calc(100% - 2px);
+        }
+
+        .control:active::before {
+            outline: none;
+        }
+    }
+
     @layer disabled {
+        :host([disabled]) {
+            color: ${buttonLabelDisabledFontColor};
+            cursor: default;
+        }
+
+        :host([disabled]) .control {
+            box-shadow: none;
+            background-image: none;
+            color: rgba(${actionRgbPartialColor}, 0.3);
+        }
+
+        :host([disabled]) .control::before {
+            box-shadow: none;
+        }
+
+        :host([disabled]) slot[name='start']::slotted(*) {
+            opacity: 0.3;
+            ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+        }
+
         :host([disabled]) slot[name='end']::slotted(*) {
             opacity: 0.3;
             ${iconColor.cssCustomProperty}: ${buttonLabelFontColor};
+        }
+    }
+
+    @media (prefers-reduced-motion) {
+        .control {
+            transition-duration: 0s;
         }
     }
 
@@ -301,9 +275,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 :host([appearance-variant='primary']) .control {
                     border-color: ${actionRgbPartialColor};
                 }
-            }
 
-            @layer default {
                 :host([appearance-variant='accent']) .control {
                     border-color: ${buttonBorderAccentOutlineColor};
                     color: ${buttonAccentOutlineFontColor};
@@ -318,9 +290,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                 :host([appearance-variant='primary']) [part='start'] {
                     ${iconColor.cssCustomProperty}: white;
                 }
-            }
 
-            @layer default {
                 :host([appearance-variant='primary']) .control {
                     background-image: linear-gradient(
                         ${buttonFillPrimaryColor},
@@ -328,6 +298,27 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                     );
                     color: ${buttonPrimaryFontColor};
                     border-color: ${buttonFillPrimaryColor};
+                }
+
+                :host([appearance-variant='primary']) [part='end'] {
+                    ${iconColor.cssCustomProperty}: white;
+                }
+
+                :host([appearance-variant='accent']) [part='start'] {
+                    ${iconColor.cssCustomProperty}: white;
+                }
+
+                :host([appearance-variant='accent']) .control {
+                    background-image: linear-gradient(
+                        ${buttonFillAccentColor},
+                        ${buttonFillAccentColor}
+                    );
+                    color: ${buttonAccentBlockFontColor};
+                    border-color: ${buttonFillAccentColor};
+                }
+
+                :host([appearance-variant='accent']) [part='end'] {
+                    ${iconColor.cssCustomProperty}: white;
                 }
             }
 
@@ -338,43 +329,12 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
                         ${buttonFillPrimaryActiveColor}
                     );
                 }
-            }
 
-            @layer default {
-                :host([appearance-variant='primary']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: white;
-                }
-            }
-
-            @layer default {
-                :host([appearance-variant='accent']) [part='start'] {
-                    ${iconColor.cssCustomProperty}: white;
-                }
-            }
-
-            @layer default {
-                :host([appearance-variant='accent']) .control {
-                    background-image: linear-gradient(
-                        ${buttonFillAccentColor},
-                        ${buttonFillAccentColor}
-                    );
-                    color: ${buttonAccentBlockFontColor};
-                    border-color: ${buttonFillAccentColor};
-                }
-            }
-
-            @layer active {
                 :host([appearance-variant='accent']) .control:active {
                     background-image: linear-gradient(
                         ${buttonFillAccentActiveColor},
                         ${buttonFillAccentActiveColor}
                     );
-                }
-            }
-
-            @layer default {
-                :host([appearance-variant='accent']) [part='end'] {
-                    ${iconColor.cssCustomProperty}: white;
                 }
             }
         `

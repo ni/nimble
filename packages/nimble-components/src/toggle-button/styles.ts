@@ -29,6 +29,18 @@ export const styles = css`
             background-repeat: no-repeat;
             background-position: center;
         }
+
+        .control[aria-pressed='true']::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            box-sizing: border-box;
+            outline: 0px solid transparent;
+            background-clip: content-box;
+            transition: outline ${smallDelay} ease-in-out;
+        }
     }
 
     @layer hover {
@@ -53,6 +65,12 @@ export const styles = css`
             );
             background-size: calc(100% - 4px) calc(100% - 4px);
         }
+
+        .control[aria-pressed='true']${focusVisible}::before {
+            outline: ${borderWidth} solid ${borderHoverColor};
+            outline-offset: -3px;
+            color: transparent;
+        }
     }
 
     @layer active {
@@ -64,31 +82,7 @@ export const styles = css`
             );
             background-size: calc(100% - 2px) calc(100% - 2px);
         }
-    }
 
-    @layer default {
-        .control[aria-pressed='true']::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            box-sizing: border-box;
-            outline: 0px solid transparent;
-            background-clip: content-box;
-            transition: outline ${smallDelay} ease-in-out;
-        }
-    }
-
-    @layer focusVisible {
-        .control[aria-pressed='true']${focusVisible}::before {
-            outline: ${borderWidth} solid ${borderHoverColor};
-            outline-offset: -3px;
-            color: transparent;
-        }
-    }
-
-    @layer active {
         .control[aria-pressed='true']:active::before {
             outline: none;
         }
