@@ -401,10 +401,8 @@ _Note_: All other keyboard interaction determined by the slotted element will no
 
 ### Globalization
 
-Currently, there is no need to localize any string data for this component. However, in the footer menu, a few icon buttons will have tooltip strings, which
-will be implemented using the `title` attribute. To enable localization for these accessible strings, we will configure the titles in the buttons according to
-the specifications outlined in [spec (#1272)](https://github.com/ni/nimble/pull/1272), once the issue (
-[#1090](https://github.com/ni/nimble/issues/1090)) regarding the same is closed.
+Localization: The `nimble-rich-text-editor` will use the `bold`, `italics`, `numberedList`, and `bulletedList` labels from `nimble-label-provider-core` for the icons displayed in
+the formatting toolbar located in the footer section. The text in this toolbar will be visually hidden, but it will be present for accessibility.
 
 ### Security
 
