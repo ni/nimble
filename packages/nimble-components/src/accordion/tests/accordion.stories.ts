@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { AccordionAppearance } from '../types';
 import { accordionTag } from '..';
 import { accordionItemTag } from '../../accordion-item';
+import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 
 interface AccordionArgs {
     options: ItemArgs[];
@@ -20,14 +22,18 @@ const overviewText = 'hello';
 
 const metadata: Meta<AccordionArgs> = {
     title: 'Components/Accordion',
+    decorators: [withActions],
     tags: ['autodocs'],
+
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
         },
-        actions: {}
+        actions: {
+            handles: ['change']
+        }
     }
 };
 
@@ -41,12 +47,15 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
         >
             ${repeat(x => x.options, html<ItemArgs, AccordionArgs>`
                 <${accordionItemTag}
-                    ?error-visible="${x => x.errorVisible}"
+                    ?error-visible="${x => x.errorVisible}",
                 >
-                    <span slot="start"></span>
-                    <span slot="end"></span>
-                    <span slot="heading">${x => x.heading}</span>
+                    <div slot="heading">
+                        <span>${x => x.heading}</span>
+                    </div>
+                    <${iconExclamationMarkTag} slot="end"></${iconExclamationMarkTag}>
+                    <div>
                         <span>${x => x.label}</span>
+                    </div>
                 </${accordionItemTag}
             `)}
         </${accordionTag}>
@@ -55,12 +64,12 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
     name: 'Standard Accordion',
     argTypes: {
         options: {
-            description:
-                'description.'
+            description: ''
         },
         appearance: {
             options: Object.keys(AccordionAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: 'This attribute affects the appearance of the accordion.'
         },
     },
     args: {
@@ -81,7 +90,7 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
                 errorVisible: false
             }
         ],
-        appearance: 'outline',
+        appearance: AccordionAppearance.outline,
     }
 };
 

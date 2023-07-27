@@ -1,36 +1,50 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { actionRgbPartialColor, bodyFont, bodyFontColor, iconSize, placeholderFontColor } from '../theme-provider/design-tokens';
+import { actionRgbPartialColor, bodyFont, bodyFontColor, borderHoverColor, borderWidth, iconSize, placeholderFontColor } from '../theme-provider/design-tokens';
+import { appearanceBehavior } from '../utilities/style/appearance';
+import { AccordionAppearance } from '../accordion/types';
 
 export const styles = css`
     ${display('inline-flex')}
 
     :host {
+        background-color: transparent;
         display: flex;
         box-sizing: border-box;
         flex-direction: column;
-        border-bottom: calc(var(--stroke-width) * 1px) solid
-            var(--neutral-stroke-divider-rest);
+        line-height: 16px;
+        margin: 4px;
+        border: 0px solid transparent;
+    }
+
+    :host(:hover) {
+        border: 1px solid ${borderHoverColor};
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
     :host([disabled]) {
         opacity: var(--disabled-opacity);
     }
 
+    :host(:hover[expanded]) {
+        border: 1px solid red;
+    }
+
+    .heading {
+        display: grid;
+        position: relative;
+        grid-template-columns: auto 1fr auto calc((10 + 0) * 4 * 1px);
+    }
+
     .region {
         display: none;
         font: ${bodyFont};
         color: ${bodyFontColor};
-    }
+        gap: 4px;
+        padding-bottom: 2px;
+        padding-left: 4px;
+        padding-right: 4px;
 
-    .heading {
-        display: flex;
-        background-color: rgba(${actionRgbPartialColor}, 0.1);
-        position: relative;
-        grid-template-columns: auto 1fr auto calc(
-                (var(--base-height-multiplier) + var(--density)) * var(--design-unit) *
-                    1px
-            );
     }
 
     .button {
@@ -39,16 +53,13 @@ export const styles = css`
         background: none;
         grid-column: 2;
         grid-row: 1;
+        padding-top: 3px;
+        padding-bottom: 5px;
         outline: none;
-        padding: 0 calc((6 + (var(--design-unit) * 2 * var(--density))) * 1px);
         text-align: left;
-        height: calc(
-            (var(--base-height-multiplier) + var(--density)) * var(--design-unit) * 1px
-        );
         cursor: pointer;
         font: inherit;
         color: inherit;
-        order: 2;
     }
 
     .button:hover {
@@ -77,7 +88,7 @@ export const styles = css`
 
     :host([expanded]) .region {
         display: block;
-        color: red;
+        color: black;
     }
 
     .icon {
@@ -88,6 +99,10 @@ export const styles = css`
         pointer-events: none;
         position: relative;
         order: 1;
+    }
+
+    :host([appearance='outline']) {
+        border-color: rgba(${actionRgbPartialColor}, 0.3);
     }
 
     slot[name="expanded-icon"],
@@ -141,4 +156,6 @@ export const styles = css`
         grid-column: 3;
         position: relative;
     }
+
+
 `;
