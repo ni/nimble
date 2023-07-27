@@ -315,14 +315,13 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, refer [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 
-_Configurations on Tiptap for absolute URL links_:
+_Configurations on Tiptap to support only absolute URL links_:
 
-Installing the [link extension](https://tiptap.dev/api/marks/link) mark from the Tiptap and add the `Links` to the extensions when initializing along with the `StarterKit` with the
-following configurations:
+By installing the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
-1.  Set proper regular expression in [validate](https://tiptap.dev/api/marks/link#validate) to allow only `HTTP` and `HTTPS` URL, supporting only absolute URL links in the editor.
-2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to true to open a link on click in a new window. By default, the `<a>` tag in Tiptap editor will have
-    `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes.
+1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to allow `HTTP` and `HTTPS` URL to support only absolute URL links in the editor.
+2.  By default, the `<a>` tag in Tiptap editor will have `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes. We can remove or override the existing attributes
+    using [HTMLAttributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) in Tiptap links.
 3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to true to add the valid link automatically when typing.
 4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to false to replace the current selection in the editor with the URL instead of adding a link to the selection
     if the pasted content contains a valid url.
