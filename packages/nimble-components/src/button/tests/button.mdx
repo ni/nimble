@@ -1,11 +1,13 @@
 import {
-    Canvas,
+    DocsStory,
     Meta,
     Controls,
+    Primary,
     Stories,
     Title,
     Description
 } from '@storybook/blocks';
+import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import * as buttonStories from './button.stories';
 
 <Meta of={buttonStories} />
@@ -13,9 +15,8 @@ import * as buttonStories from './button.stories';
 <Title of={buttonStories} />
 <Description of={buttonStories} />
 
-<Canvas of={buttonStories.outlineButton} />
+<DocsStory of={buttonStories.outlineButton} expanded={false} />
 <Controls of={buttonStories.outlineButton} />
-<Stories of={buttonStories} />
 
 # Usage Docs
 
@@ -112,3 +113,5 @@ There are currently two available values for `appearance-variant`: `primary` and
 
     Please work with your designer and ensure you have a 4.5:1
     contrast ratio text to background.
+
+    <ContentHiddenDocs buttonElement='nimble-button' />

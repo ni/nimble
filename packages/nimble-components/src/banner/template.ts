@@ -54,7 +54,7 @@ export const template = html<Banner>`
                 ${when(x => !x.preventDismiss, html<Banner>`
                     <${buttonTag} appearance="ghost" content-hidden @click="${x => x.dismissBanner()}">
                         <${iconXmarkTag} slot="start"></${iconXmarkTag}>
-                        ${x => x.dismissButtonLabel ?? popupDismissLabel.getValueFor(x)}
+                        ${x => popupDismissLabel.getValueFor(x)}
                     </${buttonTag}>
                 `)}
             </div>
