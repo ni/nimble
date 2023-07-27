@@ -18,7 +18,10 @@ export const styles = css`
     }
 
     :host(:hover) {
-        border: 1px solid ${borderHoverColor};
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
+    }
+
+    :host(:active) {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
@@ -27,13 +30,17 @@ export const styles = css`
     }
 
     :host(:hover[expanded]) {
-        border: 1px solid red;
     }
 
     .heading {
         display: grid;
         position: relative;
         grid-template-columns: auto 1fr auto calc((10 + 0) * 4 * 1px);
+        box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+    }
+
+    .heading:hover {
+        box-shadow: none;
     }
 
     .region {
@@ -53,8 +60,8 @@ export const styles = css`
         background: none;
         grid-column: 2;
         grid-row: 1;
-        padding-top: 3px;
-        padding-bottom: 5px;
+        padding-top: 7px;
+        padding-bottom: 9px;
         outline: none;
         text-align: left;
         cursor: pointer;
