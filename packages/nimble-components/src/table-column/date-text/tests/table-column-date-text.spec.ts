@@ -7,6 +7,7 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -15,6 +16,8 @@ interface SimpleTableRecord extends TableRecord {
 
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
+    const themeProvider = document.createElement(themeProviderTag);
+    themeProvider.lang = 'en';
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table style="width: 700px">
                 <${tableColumnDateTextTag} field-name="field" group-index="0">
@@ -23,7 +26,10 @@ async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
                 <${tableColumnDateTextTag} field-name="anotherField">
                     Squeeze Column 1
                 </${tableColumnDateTextTag}>
-            </nimble-table>`
+            </nimble-table>`,
+        {
+            parent: themeProvider
+        }
     );
 }
 
