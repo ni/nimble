@@ -6,6 +6,7 @@ import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
+import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -87,45 +88,55 @@ describe('TableColumnDateText', () => {
             expect(column.checkValidity()).toBeTrue();
         });
 
-        const badValueData = [
-            { description: 'field not present', data: [{ unused: 'foo' }] },
-            { description: 'value is null', data: [{ field: null }] },
-            { description: 'value is undefined', data: [{ field: undefined }] },
-            {
-                description: 'value is Inf',
-                data: [{ field: Number.POSITIVE_INFINITY }]
-            },
-            {
-                description: 'value is -Inf',
-                data: [{ field: Number.NEGATIVE_INFINITY }]
-            },
-            { description: 'value is NaN', data: [{ field: Number.NaN }] },
-            {
-                description: 'value is MAX_VALUE',
-                data: [{ field: Number.MAX_VALUE }]
-            },
-            {
-                description: 'value is too large for Date',
-                data: [{ field: 8640000000000000 + 1 }]
-            },
-            {
-                description: 'value is too small for Date',
-                data: [{ field: -8640000000000000 - 1 }]
-            },
-            {
-                description: 'value is not a number',
-                data: [{ field: 'foo' as unknown as number }]
-            }
-        ];
-        for (const testData of badValueData) {
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            it(`displays blank when ${testData.description}`, async () => {
-                await element.setData(testData.data);
-                await waitForUpdatesAsync();
+        describe('displays blank when', () => {
+            const badValueData = [
+                { name: 'field not present', data: [{ unused: 'foo' }] },
+                { name: 'value is null', data: [{ field: null }] },
+                { name: 'value is undefined', data: [{ field: undefined }] },
+                {
+                    name: 'value is Inf',
+                    data: [{ field: Number.POSITIVE_INFINITY }]
+                },
+                {
+                    name: 'value is -Inf',
+                    data: [{ field: Number.NEGATIVE_INFINITY }]
+                },
+                { name: 'value is NaN', data: [{ field: Number.NaN }] },
+                {
+                    name: 'value is MAX_VALUE',
+                    data: [{ field: Number.MAX_VALUE }]
+                },
+                {
+                    name: 'value is too large for Date',
+                    data: [{ field: 8640000000000000 + 1 }]
+                },
+                {
+                    name: 'value is too small for Date',
+                    data: [{ field: -8640000000000000 - 1 }]
+                },
+                {
+                    name: 'value is not a number',
+                    data: [{ field: 'foo' as unknown as number }]
+                }
+            ];
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
-            });
-        }
+            for (const entry of badValueData) {
+                const focused: string[] = [];
+                const disabled: string[] = [];
+                const specType = getSpecTypeByNamedList(
+                    entry,
+                    focused,
+                    disabled
+                );
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                specType(entry.name, async () => {
+                    await element.setData(entry.data);
+                    await waitForUpdatesAsync();
+
+                    expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
+                });
+            }
+        });
 
         it('changing fieldName updates display', async () => {
             await element.setData([
