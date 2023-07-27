@@ -869,4 +869,12 @@ describe('Table Interactive Column Sizing', () => {
         expect(actualFractionalWidths).toEqual(expectedFractionalWidths);
         expect(actualPixelWidths).toEqual(expectedPixelWidths);
     });
+
+    it('sizing to left when columns are all on sub-pixel boundary and just above minimum size, does not cause total column width to change', async () => {
+        await pageObject.sizeTableToGivenRowWidth(202, element); // columns now on half-pixel boundary
+        pageObject.dragSizeColumnByLeftDivider(3, [-1]);
+        await waitForUpdatesAsync();
+        const totalColumnPixelWidth = pageObject.getTotalCellRenderedWidth();
+        expect(totalColumnPixelWidth).toBe(202);
+    });
 });
