@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 25 Jul 2023 21:12:32 GMT and should not be manually modified.
+This log was last generated on Wed, 26 Jul 2023 21:12:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.1
+
+Wed, 26 Jul 2023 21:12:22 GMT
+
+### Patches
+
+- Forward aria-label to icon svg ([ni/nimble@0063037](https://github.com/ni/nimble/commit/006303745acff09d70350faf2cac0cddf06d4121))
 
 ## 20.0.0
 
