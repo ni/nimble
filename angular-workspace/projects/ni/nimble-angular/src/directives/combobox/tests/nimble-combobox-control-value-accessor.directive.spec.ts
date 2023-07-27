@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
@@ -40,14 +40,13 @@ describe('Nimble combobox control value accessor', () => {
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;
 
-            @Input()
             public selectOptions: (TestModel | null)[] = [
-                    { name: 'Duplicate Option 1', value: 1 },
-                    { name: 'Duplicate Option 1', value: 100 },
-                    { name: 'Option 2', value: 2 },
-                    { name: ' Option 3 ', value: 3 }, // keep whitespace around name for test
-                    null
-                ];
+                { name: 'Duplicate Option 1', value: 1 },
+                { name: 'Duplicate Option 1', value: 100 },
+                { name: 'Option 2', value: 2 },
+                { name: ' Option 3 ', value: 3 }, // keep whitespace around name for test
+                null
+            ];
 
             public defaultSelection = this.selectOptions[2];
             public selectedOption: TestModel | null | OptionNotFound = this.defaultSelection;
