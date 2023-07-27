@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 24 Jul 2023 15:02:47 GMT and should not be manually modified.
+This log was last generated on Wed, 26 Jul 2023 21:12:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.1
+
+Wed, 26 Jul 2023 21:12:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.1
+
+## 17.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
+- Bump @ni/nimble-components to v20.0.0
+
+## 16.9.3
+
+Tue, 25 Jul 2023 04:49:38 GMT
+
+### Patches
+
+- Update angular directive to support properties for nimble rich text viewer ([ni/nimble@6b33b03](https://github.com/ni/nimble/commit/6b33b032c63bcf2b5dc79bf4b648c0e118548959))
+
+## 16.9.2
+
+Tue, 25 Jul 2023 03:47:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.2
+
+## 16.9.1
+
+Mon, 24 Jul 2023 21:12:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.1
+
+## 16.9.0
+
+Mon, 24 Jul 2023 19:06:11 GMT
+
+### Minor changes
+
+- Angular integration for label providers (with secondary entry points) ([ni/nimble@238805c](https://github.com/ni/nimble/commit/238805ceedc7f12996b10a7571434830d6239a2b))
 
 ## 16.8.9
 
