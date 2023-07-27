@@ -141,15 +141,17 @@ export class WaferMap extends FoundationElement {
     };
 
     private readonly eventCoordinator = new EventCoordinator(this);
-    private resizeObserver!: ResizeObserver;
+    private readonly resizeObserver = this.createResizeObserver();
 
     public override connectedCallback(): void {
         super.connectedCallback();
+        this.canvas.width = this.clientWidth;
+        this.canvas.height = this.clientHeight;
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
-        this.initialize();
-        this.resizeObserver = this.createResizeObserver();
+        this.resizeObserver.observe(this);
+        this.waferMapUpdateTracker.trackAll();
     }
 
     public override disconnectedCallback(): void {
@@ -203,16 +205,6 @@ export class WaferMap extends FoundationElement {
         }
     }
 
-    private initialize(): void {
-        this.canvas.width = this.clientWidth;
-        this.canvas.height = this.clientHeight;
-        this.canvasContext = this.canvas.getContext('2d', {
-            willReadFrequently: true
-        })!;
-        this.resizeObserver = this.createResizeObserver();
-        this.waferMapUpdateTracker.trackAll();
-    }
-
     private createResizeObserver(): ResizeObserver {
         const resizeObserver = new ResizeObserver(entries => {
             const entry = entries[0];
@@ -227,7 +219,6 @@ export class WaferMap extends FoundationElement {
             this.canvasWidth = width;
             this.canvasHeight = height;
         });
-        resizeObserver.observe(this);
         return resizeObserver;
     }
 
