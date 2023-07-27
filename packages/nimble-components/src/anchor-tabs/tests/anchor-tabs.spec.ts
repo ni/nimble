@@ -213,6 +213,34 @@ describe('AnchorTabs', () => {
             expectedFinalFocusIndex: 2
         },
         {
+            name: 'should skip hidden tab when arrowing left',
+            hiddenIndex: 1,
+            initialFocusIndex: 2,
+            keyName: keyArrowLeft,
+            expectedFinalFocusIndex: 0
+        },
+        {
+            name: 'should skip hidden when arrowing right on last tab',
+            hiddenIndex: 0,
+            initialFocusIndex: 2,
+            keyName: keyArrowRight,
+            expectedFinalFocusIndex: 1
+        },
+        {
+            name: 'should skip hidden when arrowing left on first tab',
+            hiddenIndex: 2,
+            initialFocusIndex: 0,
+            keyName: keyArrowLeft,
+            expectedFinalFocusIndex: 1
+        },
+        {
+            name: 'should focus first visible tab when Home key pressed',
+            hiddenIndex: 0,
+            initialFocusIndex: 2,
+            keyName: keyHome,
+            expectedFinalFocusIndex: 1
+        },
+        {
             name: 'should focus last visible tab when End key pressed',
             hiddenIndex: 2,
             initialFocusIndex: 0,
