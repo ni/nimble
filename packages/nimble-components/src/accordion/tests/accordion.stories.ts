@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { html, repeat } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import { AccordionAppearance } from '../types';
+import { AccordionAppearance } from '../../accordion-item/types';
 import { accordionTag } from '..';
 import { accordionItemTag } from '../../accordion-item';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
@@ -16,6 +16,7 @@ interface ItemArgs {
     heading: string;
     label: string;
     errorVisible: boolean;
+    appearance: keyof typeof AccordionAppearance;
 }
 
 const overviewText = 'hello';
@@ -48,11 +49,12 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
             ${repeat(x => x.options, html<ItemArgs, AccordionArgs>`
                 <${accordionItemTag}
                     ?error-visible="${x => x.errorVisible}",
+                    appearance="${x => AccordionAppearance[x.appearance]}"
                 >
                     <div slot="heading">
                         <span>${x => x.heading}</span>
+                        <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
                     </div>
-                    <${iconExclamationMarkTag} slot="end"></${iconExclamationMarkTag}>
                     <div>
                         <span>${x => x.label}</span>
                     </div>
@@ -77,17 +79,20 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
             {
                 heading: 'Accordion 1',
                 label: 'Accordion 1 Content',
-                errorVisible: false
+                errorVisible: false,
+                appearance: AccordionAppearance.outline,
             },
             {
                 heading: 'Accordion 2',
                 label: 'Accordion 2 Content',
-                errorVisible: false
+                errorVisible: false,
+                appearance: AccordionAppearance.outline,
             },
             {
                 heading: 'Accordion 3',
                 label: 'Accordion 3 Content',
-                errorVisible: false
+                errorVisible: false,
+                appearance: AccordionAppearance.outline,
             }
         ],
         appearance: AccordionAppearance.outline,
@@ -99,6 +104,7 @@ export const accordionItem: StoryObj<ItemArgs> = {
         <${accordionTag}>
             <${accordionItemTag}
                 ?error-visible="${x => x.errorVisible}"
+                appearance="${x => AccordionAppearance[x.appearance]}"
             >
                 <span slot="heading">${x => x.heading}</span>
                     ${x => x.label}
@@ -119,11 +125,17 @@ export const accordionItem: StoryObj<ItemArgs> = {
             name: 'hello',
             description:
                 'description.'
-        }
+        },
+        appearance: {
+            options: Object.keys(AccordionAppearance),
+            control: { type: 'radio' },
+            description: 'This attribute affects the appearance of the accordion.'
+        },
     },
     args: {
         heading: 'Accordion 1',
         label: 'Accordion 1 content',
-        errorVisible: false
+        errorVisible: false,
+        appearance: 'outline',
     }
 };

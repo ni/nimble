@@ -5,7 +5,7 @@ import {
     accordionTemplate as template,
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { AccordionAppearance } from './types';
+import { AccordionAppearance } from '../accordion-item/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,10 +16,7 @@ declare global {
 /**
  * A nimble-styled accordion
  */
-export class Accordion extends FoundationAccordion {
-    @attr
-    public appearance: AccordionAppearance = AccordionAppearance.outline;
-}
+export class Accordion extends FoundationAccordion {}
 
 const nimbleAccordion = Accordion.compose({
     baseName: 'accordion',

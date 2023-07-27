@@ -2,7 +2,7 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import { actionRgbPartialColor, bodyFont, bodyFontColor, borderHoverColor, borderWidth, iconSize, placeholderFontColor } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
-import { AccordionAppearance } from '../accordion/types';
+import { AccordionAppearance } from './types';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -25,18 +25,22 @@ export const styles = css`
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
-    :host([disabled]) {
-        opacity: var(--disabled-opacity);
+    :host(:hover[expanded]) {
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
     }
 
-    :host(:hover[expanded]) {
+    :host(:active[expanded]) {
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+    }
+
+    :host([disabled]) {
+        opacity: var(--disabled-opacity);
     }
 
     .heading {
         display: grid;
         position: relative;
         grid-template-columns: auto 1fr auto calc((10 + 0) * 4 * 1px);
-        box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
     }
 
     .heading:hover {
@@ -163,6 +167,34 @@ export const styles = css`
         grid-column: 3;
         position: relative;
     }
+`.withBehaviors(
+    appearanceBehavior(
+        AccordionAppearance.outline,
+        css`
+            .heading {
+                box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+            }
 
+            :host([expanded]) .heading {
+                box-shadow: none;
+            }
 
-`;
+            :host([expanded]) {
+                box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+            }
+        `
+    ),
+    appearanceBehavior(
+        AccordionAppearance.ghost,
+        css`
+        `
+    ),
+    appearanceBehavior(
+        AccordionAppearance.block,
+        css`
+            .heading {
+                background-color: rgba(${actionRgbPartialColor}, 0.1)
+            }
+        `
+    )
+);

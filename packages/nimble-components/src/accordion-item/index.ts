@@ -6,6 +6,7 @@ import {
     AccordionItemOptions
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16, arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
+import { AccordionAppearance } from './types';
 import { styles } from './styles';
 
 declare global {
@@ -18,6 +19,9 @@ declare global {
  * A nimble-styled accordion item
  */
 export class AccordionItem extends FoundationAccordionItem {
+    @attr
+    public appearance: AccordionAppearance = AccordionAppearance.outline;
+
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
 }
