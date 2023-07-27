@@ -179,43 +179,23 @@ export class WaferMap extends FoundationElement {
         if (this.waferMapUpdateTracker.requiresEventsUpdate) {
             this.eventCoordinator.detachEvents();
             if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
-                this.updateContainerDimensions();
+                this.dataManager.updateContainerDimensions();
             } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
-                this.updateScales();
+                this.dataManager.updateScales();
             } else if (
                 this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
             ) {
-                this.updateLabelsFontSize();
+                this.dataManager.updateLabelsFontSize();
             } else if (
                 this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
-                this.updateDiesRenderInfo();
+                this.dataManager.updateDiesRenderInfo();
             }
             this.renderer.drawWafer();
             this.eventCoordinator.updateEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
-            this.updateRenderHover();
+            this.renderer.renderHover();
         }
-    }
-
-    private updateContainerDimensions(): void {
-        this.dataManager.updateContainerDimensions();
-    }
-
-    private updateScales(): void {
-        this.dataManager.updateScales();
-    }
-
-    private updateLabelsFontSize(): void {
-        this.dataManager.updateLabelsFontSize();
-    }
-
-    private updateDiesRenderInfo(): void {
-        this.dataManager.updateDiesRenderInfo();
-    }
-
-    private updateRenderHover(): void {
-        this.renderer.renderHover();
     }
 
     private initialize(): void {
