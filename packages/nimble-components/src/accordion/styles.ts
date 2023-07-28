@@ -7,6 +7,8 @@ export const styles = css`
 
     :host {
         box-sizing: border-box;
+        height: 100%;
+        width: 100%;
         line-height: ${standardPadding};
         flex-direction: column;
         font: ${bodyEmphasizedFont};

@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { AccordionAppearance } from '../../accordion-item/types';
 import { accordionTag } from '..';
 import { accordionItemTag } from '../../accordion-item';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
+import { checkboxTag } from '../../checkbox';
 
 interface AccordionArgs {
     options: ItemArgs[];
-    appearance: keyof typeof AccordionAppearance;
 }
 
 interface ItemArgs {
@@ -44,7 +44,6 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${accordionTag}
-            appearance="${x => AccordionAppearance[x.appearance]}"
         >
             ${repeat(x => x.options, html<ItemArgs, AccordionArgs>`
                 <${accordionItemTag}
@@ -53,7 +52,9 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
                 >
                     <div slot="heading">
                         <span>${x => x.heading}</span>
-                        <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
+                        ${when(x => x.errorVisible, html`
+                            <${iconExclamationMarkTag} slot="start"></${iconExclamationMarkTag}>
+                        `)}
                     </div>
                     <div>
                         <span>${x => x.label}</span>
@@ -67,11 +68,6 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
     argTypes: {
         options: {
             description: ''
-        },
-        appearance: {
-            options: Object.keys(AccordionAppearance),
-            control: { type: 'radio' },
-            description: 'This attribute affects the appearance of the accordion.'
         },
     },
     args: {
@@ -95,7 +91,6 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
                 appearance: AccordionAppearance.outline,
             }
         ],
-        appearance: AccordionAppearance.outline,
     }
 };
 
@@ -106,8 +101,17 @@ export const accordionItem: StoryObj<ItemArgs> = {
                 ?error-visible="${x => x.errorVisible}"
                 appearance="${x => AccordionAppearance[x.appearance]}"
             >
-                <span slot="heading">${x => x.heading}</span>
+                <div slot="heading">
+                    ${x => x.heading}
+                    ${when(x => x.errorVisible, html`
+                        <${iconExclamationMarkTag} slot="start"></${iconExclamationMarkTag}>
+                    `)}
+                </div>
+                <div>
                     ${x => x.label}
+                    <${checkboxTag}>Option Label</${checkboxTag}>
+                    <${checkboxTag}>Option Label</${checkboxTag}>
+                <div>
             </${accordionItemTag}
         </${accordionTag}>
     `),
@@ -136,6 +140,6 @@ export const accordionItem: StoryObj<ItemArgs> = {
         heading: 'Accordion 1',
         label: 'Accordion 1 content',
         errorVisible: false,
-        appearance: 'outline',
+        appearance: 'block',
     }
 };

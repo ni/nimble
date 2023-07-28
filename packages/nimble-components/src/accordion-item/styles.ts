@@ -1,6 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { actionRgbPartialColor, bodyFont, bodyFontColor, borderHoverColor, borderWidth, iconSize, placeholderFontColor } from '../theme-provider/design-tokens';
+import { actionRgbPartialColor, bodyFont, bodyFontColor, borderHoverColor, borderWidth, iconSize, mediumDelay, placeholderFontColor } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { AccordionAppearance } from './types';
 
@@ -38,24 +38,46 @@ export const styles = css`
     }
 
     .heading {
-        display: grid;
+        display: flex;
         position: relative;
         grid-template-columns: auto 1fr auto calc((10 + 0) * 4 * 1px);
+        background-color: transparent;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        box-sizing: border-box;
+        width: 100%;
     }
 
-    .heading:hover {
-        box-shadow: none;
+    slot[name="heading"]::slotted(*) {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: unset;
+        width: 100%;
     }
-
+    
     .region {
         display: none;
         font: ${bodyFont};
         color: ${bodyFontColor};
-        gap: 4px;
-        padding-bottom: 2px;
-        padding-left: 4px;
+        gap: 13px;
+        padding-top: 9px;
+        padding-bottom: 5px;
+        padding-left: 38px;
         padding-right: 4px;
 
+    }
+
+    :host([expanded]) .region {
+        display: flex;
+        color: black;
+    }
+
+    ::slotted(*) {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        gap: 18px;
     }
 
     .button {
@@ -64,6 +86,7 @@ export const styles = css`
         background: none;
         grid-column: 2;
         grid-row: 1;
+        padding-left: 0px;
         padding-top: 7px;
         padding-bottom: 9px;
         outline: none;
@@ -71,6 +94,8 @@ export const styles = css`
         cursor: pointer;
         font: inherit;
         color: inherit;
+        order: 2;
+        width: 100%;
     }
 
     .button:hover {
@@ -97,19 +122,20 @@ export const styles = css`
         border-radius: calc(var(--control-corner-radius) * 1px);
     }
 
-    :host([expanded]) .region {
-        display: block;
-        color: black;
-    }
-
     .icon {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        grid-column: 4;
-        pointer-events: none;
         position: relative;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin-left: 16px;
+        margin-right: 8px;
         order: 1;
+        pointer-events: none;
     }
 
     :host([appearance='outline']) {
@@ -128,7 +154,7 @@ export const styles = css`
     slot[name='collapsed-icon'] svg {
         width: ${iconSize};
         height: ${iconSize};
-        fill: ${placeholderFontColor};
+        fill: currentColor;
     }
 
     :host([expanded]) slot[name="collapsed-icon"] {
@@ -147,25 +173,15 @@ export const styles = css`
     :host([expanded]) slot[name="expanded-icon"] svg {
         width: ${iconSize};
         height: ${iconSize};
-        fill: ${placeholderFontColor};
+        fill: currentColor;
     }
 
     ::slotted([slot="start"]) {
-        display: flex;
-        align-items: center;
-        margin-inline-end: calc(var(--design-unit) * 1px);
-        justify-content: center;
-        grid-column: 1;
-        position: relative;
+        display: none;
     }
 
     ::slotted([slot="end"]) {
-        display: flex;
-        align-items: center;
-        margin-inline-start: calc(var(--design-unit) * 1px);
-        justify-content: center;
-        grid-column: 3;
-        position: relative;
+        display: none;
     }
 `.withBehaviors(
     appearanceBehavior(
@@ -173,6 +189,10 @@ export const styles = css`
         css`
             .heading {
                 box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+            }
+
+            .heading:hover {
+                box-shadow: none
             }
 
             :host([expanded]) .heading {
@@ -194,6 +214,28 @@ export const styles = css`
         css`
             .heading {
                 background-color: rgba(${actionRgbPartialColor}, 0.1)
+            }
+
+            .heading:hover {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${actionRgbPartialColor}, 0.1),
+                    rgba(${actionRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 6px) calc(100% - 6px);
+            }
+
+            .heading:active {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${actionRgbPartialColor}, 0.1),
+                    rgba(${actionRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
+            }
+
+            :host([expanded]) .heading:hover {
+                
             }
         `
     )
