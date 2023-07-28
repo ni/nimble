@@ -32,7 +32,6 @@ context.keys().map(context);
 
 // Workaround to make console.error calls fail tests:
 // https://github.com/angular/angular/issues/36430#issuecomment-874772398
-// Might be removable after upgrading to Angular 14:
-// https://github.com/angular/angular/issues/36430#issuecomment-1117801535
+// This can be useful to have even with errorOnUnknownElements and errorOnUnknownProperties set to true.
 // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
 console.error = (data: any): void => fail(data);
