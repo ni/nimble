@@ -20,7 +20,9 @@ getTestBed().initTestEnvironment(
     BrowserDynamicTestingModule,
     platformBrowserDynamicTesting(),
     {
-        teardown: { destroyAfterEach: false }
+        teardown: { destroyAfterEach: false },
+        errorOnUnknownElements: true,
+        errorOnUnknownProperties: true
     }
 );
 // Then we find all the tests.
