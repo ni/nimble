@@ -1,10 +1,12 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyDisabledFontColor, bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, failColor, iconSize, linkActiveFontColor, linkFontColor, smallDelay, smallPadding, standardPadding } from '../theme-provider/design-tokens';
+import { bodyDisabledFontColor, bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, failColor, iconSize, linkActiveFontColor, linkFontColor, smallDelay, standardPadding } from '../theme-provider/design-tokens';
 import { userSelectNone } from '../utilities/style/user-select';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('flex')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -13,6 +15,7 @@ export const styles = css`
         inline-size: auto;
         block-size: 100%;
         flex-direction: column;
+        position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-footer-visibility: hidden;
     }
@@ -24,19 +27,26 @@ export const styles = css`
         position: relative;
         max-block-size: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-        border-bottom-color: ${borderHoverColor};
         min-inline-size: 350px;
     }
 
     .container::after {
+        display: block;
         content: ' ';
         position: absolute;
         bottom: calc(-1 * ${borderWidth});
         inline-size: 0px;
         block-size: 0px;
+        bottom: 0%;
+        left: 50%;
+        transform: translate(-50%, 50%);
         border-bottom: ${borderHoverColor}
             var(--ni-private-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
+    }
+
+    .container:focus-within {
+        border-bottom-color: ${borderHoverColor};
     }
 
     @media (prefers-reduced-motion) {
@@ -52,24 +62,29 @@ export const styles = css`
     .editor {
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        block-size: calc(100% - 42px);
+        block-size: calc(100% - 44px);
         overflow: auto;
     }
     
     .ProseMirror {
-        min-block-size: 45px;
+        ${
+            /**
+             * Min block size represents the one line space for the initial view and max block size is referred from the visual design.
+             * However, max block size will be `fit-content` when the `fit-to-content` attribute is enabled.
+             */ ''
+        }
+        min-block-size: 32px;
+        max-block-size: 132px;
         block-size: 100%;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
         background-color: transparent;
         font: inherit;
         padding: 8px;
-        padding-block-end: ${smallPadding};
         padding-inline-end: calc(${iconSize});
         box-sizing: border-box;
         position: relative;
         color: inherit;
-
         ${
             /**
              * Below are the styles from prosemirror-view.
@@ -81,6 +96,10 @@ export const styles = css`
         -webkit-font-variant-ligatures: none;
         font-variant-ligatures: none;
         font-feature-settings: "liga" 0;
+    }
+
+    :host([fit-to-content]) .ProseMirror {
+        max-block-size: fit-content;
     }
 
     .ProseMirror pre {
@@ -136,9 +155,9 @@ export const styles = css`
 
     .footer-actions {
         display: flex;
-        margin-inline-end: ${standardPadding};
         justify-content: flex-end;
-        gap: 16px;
+        margin-inline-end: ${standardPadding};
+        gap: ${standardPadding};
         place-items: center;
     }
 

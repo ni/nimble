@@ -1,10 +1,8 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { attr, observable } from '@microsoft/fast-element';
+import { attr } from '@microsoft/fast-element';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
-import Link from '@tiptap/extension-link';
-import CharacterCount from '@tiptap/extension-character-count';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
@@ -41,22 +39,33 @@ export class RichTextEditor extends FoundationElement {
     public errorVisible = false;
 
     /**
-     * @internal
-     */
-    @observable
-    public scrollbarWidth = -1;
-
-    /**
+     * A message explaining why the value is invalid.
+     *
      * @public
+     * @remarks
+     * HTML Attribute: error-text
      */
-    @attr
-    public maxlength!: number;
+    @attr({ attribute: 'error-text' })
+    public errorText?: string;
 
     /**
      * @public
      */
     @attr({ attribute: 'disabled', mode: 'boolean' })
     public disabled = false;
+
+    /**
+     * @public
+     */
+    @attr({ attribute: 'fit-to-content', mode: 'boolean' })
+    public fitToContent = false;
+
+    /**
+     * @public
+     */
+    public get empty(): boolean {
+        return this.tiptapEditor.isEmpty;
+    }
 
     public editor!: HTMLDivElement;
     public bold!: ToggleButton;
@@ -76,9 +85,17 @@ export class RichTextEditor extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initializeEditor();
-        this.changeEventTrigger();
+        this.bindEditorTransactionEvent();
+        this.bindEditorUpdateEvent();
+    }
 
-        // this.setContent();
+    /**
+     * @internal
+     */
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        this.tiptapEditor.off('transaction');
+        this.tiptapEditor.off('update');
     }
 
     public disabledChanged(): void {
@@ -103,40 +120,18 @@ export class RichTextEditor extends FoundationElement {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
     }
 
-    /**
-     * @public
-     */
-    // public hideFooter(): void {
-    //     this.footerVisibility = 'hidden';
-    // }
-
-    /**
-     * @public
-     */
-    public clearContent(): void {
-        this.tiptapEditor.commands.clearContent();
-    }
-
     private initializeEditor(): void {
         if (this.$fastController.isConnected) {
             const extensions = [
                 StarterKit.configure({
                     heading: false, blockquote: false, hardBreak: false, code: false, horizontalRule: false, strike: false, codeBlock: false
                 }),
-                Link.configure({
-                    openOnClick: true,
-                    autolink: true,
-                    linkOnPaste: false,
-                    validate: href => /^\w+:/.test(href)
-                }),
                 Placeholder.configure({
                     placeholder: this.placeholder,
                     showOnlyWhenEditable: false
-                }),
-                CharacterCount.configure({
-                    limit: this.maxlength
                 })
             ];
+
             this.tiptapEditor = new Editor({
                 element: this.editor,
                 extensions,
@@ -145,7 +140,7 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
-    private changeEventTrigger(): void {
+    private bindEditorTransactionEvent(): void {
         if (this.$fastController.isConnected) {
             this.tiptapEditor.on('transaction', () => {
                 this.toggleTipTapButtonState();
@@ -153,24 +148,19 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
-    private toggleTipTapButtonState(): void {
-        if (this.bold) {
-            this.bold.checked = this.tiptapEditor.isActive('bold');
-        }
-        if (this.italics) {
-            this.italics.checked = this.tiptapEditor.isActive('italic');
-        }
-        if (this.bulletList) {
-            this.bulletList.checked = this.tiptapEditor.isActive('bulletList');
-        }
-        if (this.numberedList) {
-            this.numberedList.checked = this.tiptapEditor.isActive('orderedList');
+    private bindEditorUpdateEvent(): void {
+        if (this.$fastController.isConnected) {
+            this.tiptapEditor.on('update', () => {
+                this.$emit('input');
+            });
         }
     }
 
-    private setContent(): void {
-        this.tiptapEditor.commands.setContent('<p><em>Test</em></p>');
-        this.tiptapEditor.commands.focus('end');
+    private toggleTipTapButtonState(): void {
+        this.bold.checked = this.tiptapEditor.isActive('bold');
+        this.italics.checked = this.tiptapEditor.isActive('italic');
+        this.bulletList.checked = this.tiptapEditor.isActive('bulletList');
+        this.numberedList.checked = this.tiptapEditor.isActive('orderedList');
     }
 }
 
