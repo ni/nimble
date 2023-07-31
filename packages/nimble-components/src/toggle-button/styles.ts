@@ -87,4 +87,23 @@ export const styles = css`
             outline: none;
         }
     }
+
+    @layer disabled {
+        :host([disabled]) .control[aria-pressed='true'] {
+            background-image: linear-gradient(
+                ${fillSelectedColor},
+                ${fillSelectedColor}
+            );
+            border-color: rgba(${fillSelectedRgbPartialColor}, 0.3);
+        }
+
+        :host([disabled]) .control[aria-pressed='true']:hover {
+            background-image: linear-gradient(
+                ${fillSelectedColor},
+                ${fillSelectedColor}
+            );
+            border-color: rgba(${fillSelectedRgbPartialColor}, 0.3);
+            box-shadow: none;
+        }
+    }
 `;
