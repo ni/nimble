@@ -10,19 +10,11 @@ The `nimble-accordion` is a vertical stack of interactive headings. The headings
 
 [Visual Design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-85131&mode=design&t=DxDRlqT7MeCPLOxi-0)
 
-Visual Design Comments:
-
-Brandon's Figma spec has designs for two accordion item heights, 24px and 32px. The 32px will be implemented as this is what we have previously focused on when choosing between the two sizes.
-
-Brandon's Figma spec also only shows designs for one accordion item at a time. How should accordion items in each appearance type be separated from each other (ex. a line between accordion items, transparent space between accordion items, etc.)? Because there's only one accordion item design at a time, it is also unclear if error-visible is a nimble-accordion-item specific state, or if it should affect all accordion items and be used in the nimble-accordion component.
-
-The Figma design does not have a design for the "error" focusVisible state. This might be confusing, as keyboard users who tab to the error accordion will suddenly see the red border and exclamation mark icon disappear in the focusVisible state.
-
-When should each `appearance` type be used? Will there be specific guidance on this, and if so, will it be similar to the guidance for other Nimble components that use the same `appearance` types (ex. the Nimble-Button)?
+There are several open questions with the current visual design. They're tracked in this GitHub issue [#1399](https://github.com/ni/nimble/issues/1399).
 
 ## Design
 
-Accordion group, appearance ghost with an error-visible accordion item
+Accordion group, appearance ghost
 
 ```html
 <nimble-accordion appearance="ghost">
@@ -36,9 +28,8 @@ Accordion group, appearance ghost with an error-visible accordion item
         <nimble-checkbox></nimble-checkbox>
         Accordion two content
     </nimble-accordion-item>
-    <nimble-accordion-item error-visible>
+    <nimble-accordion-item>
         <span slot="heading">Accordion three</span>
-        <nimble-icon-exclamation-mark></nimble-icon-exclamation-mark>
         <nimble-checkbox></nimble-checkbox>
         Accordion three content
     </nimble-accordion-item>
@@ -138,6 +129,7 @@ Blazor wrappers will be created for both components.
     -   No Additional Requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
     -   These are [aria's guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for keyboard interactions: enter or space for actions, tab and shift + tab for moving up and down, arrow keys for moving up and down between headers, and home / end (optional) for moving to the first and last accordion header, respectively. I tested all of these in the FAST component explorer, and they're functional. It is expected that these interactions will still be functional when implemented in Nimble.
+    -   These are [aria's guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for WAI-ARIA Roles, States, and Properties. FAST follows the required guidelines including `aria-level`, accordion ids, `aria-expanded`, `aria-controls` `aria-labelledby`, and `aria-hidden`. It does not use `region`, which is an optional panel content role that can be helpful in cases like nested accordions and panels containing heading elements.
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No Additional Requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
@@ -150,3 +142,10 @@ Blazor wrappers will be created for both components.
 ## Open Issues
 
 When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item. When using nested accordions with the single expand mode, once you open a child accordion, the parent accordion closes- when you open the parent accordion again, the previously selected child accordion is open, but when clicking on it, it doesn't close. Also, when opening the second child accordion, the first child accordion stays open, which goes against the functionality of single expand mode. Regardless of the issues with the nested accordion, it should be discussed if single expand mode is helpful for users- having one accordion item open before users click on it, and not allowing them to close it unless they click on a different accordion item isn't what most users would expect from the functionality of an accordion.
+
+Possible combinations of solutions to this issue:
+
+-   File issues to FAST to track them as bugs
+-   Fix the issues in FAST or find workarounds
+-   Disable (or just don't document) features like single expand mode or nesting in our first implementation until these behaviors are fixed
+-   Decide we like some of these behaviors
