@@ -30,8 +30,6 @@ const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
 
-// Workaround to make console.error calls fail tests:
-// https://github.com/angular/angular/issues/36430#issuecomment-874772398
-// This can be useful to have even with errorOnUnknownElements and errorOnUnknownProperties set to true.
+// Elevate console errors to test failures
 // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
 console.error = (data: any): void => fail(data);
