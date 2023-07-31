@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { html, customElement } from '@microsoft/fast-element';
 import { TableCell } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
@@ -10,6 +11,9 @@ import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 import { TableCellView } from '../../../../table-column/base/cell-view';
 import { createCellViewTemplate } from '../../../../table-column/base/cell-view/template';
+import { TableColumn } from '../../../../table-column/base';
+import type { ColumnInternalsOptions } from '../../../../table-column/base/models/column-internals';
+import { TableGroupHeaderView } from '../../../../table-column/base/group-header-view';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;
@@ -23,8 +27,32 @@ const columnCellViewName = uniqueElementName();
         >${x => x.cellRecord?.stringData}</span
     >`
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumnCellView extends TableCellView<SimpleTableCellRecord> {}
+
+const columnGroupHeaderName = uniqueElementName();
+
+@customElement({
+    name: columnGroupHeaderName,
+    template: html<TestTableColumnGroupHeader>`<div></div>`
+})
+class TestTableColumnGroupHeader extends TableGroupHeaderView {}
+
+const columnName = uniqueElementName();
+
+@customElement({
+    name: columnName,
+    template: html<TestTableColumn>`<div></div>`
+})
+class TestTableColumn extends TableColumn {
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellViewTag: columnCellViewName,
+            cellRecordFieldNames: [''],
+            groupHeaderViewTag: columnGroupHeaderName,
+            delegatedEvents: []
+        };
+    }
+}
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TableCell<SimpleTableCellRecord>>> {
@@ -79,5 +107,26 @@ describe('TableCell', () => {
         await waitForUpdatesAsync();
         const renderedContent = pageObject.getRenderedCellContent();
         expect(renderedContent).toBe('bar');
+    });
+
+    it('updates columnId when column changes', async () => {
+        await connect();
+
+        element.column = document.createElement(columnName) as TestTableColumn;
+        await waitForUpdatesAsync();
+        expect(element.columnId).toEqual(element.column.columnId);
+        element.column = undefined;
+        await waitForUpdatesAsync();
+        expect(element.columnId).toBeUndefined();
+    });
+
+    it('updates columnId when id of column changes', async () => {
+        await connect();
+
+        element.column = document.createElement(columnName) as TestTableColumn;
+        await waitForUpdatesAsync();
+        element.column.columnId = 'foo';
+        await waitForUpdatesAsync();
+        expect(element.columnId).toEqual('foo');
     });
 });
