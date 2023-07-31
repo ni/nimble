@@ -3,8 +3,21 @@ import { display } from '@microsoft/fast-foundation';
 import { actionRgbPartialColor, bodyFont, bodyFontColor, borderHoverColor, borderWidth, iconSize, mediumDelay, placeholderFontColor } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { AccordionAppearance } from './types';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
+    /* 
+        Notable issues / Reason for changes
+        Using expandedIcon / collapsedIcon causes issues because fast by default has it set to be on the right. When changing the order to place it on the left,
+        focusVisible is messed up because the icon should be on the right, not the left, and the focusVisible border cuts between the left icon and right text. Might have to 
+        change the template for this
+
+        When the accordion is open and has the border around the entire accordion header and content, the functionality that is shown in the figma spec for hover and active is complicated-
+        we do want the entire accordion item to have a green border on hover, but do we want the border to shrink when the user clicks on a random spot inside the accordion item content?
+        We need a border around the entire accordion item but only want the border to change in size when we click on the "button" portion of that accordion item (the header), which might
+        be possible with the :has() pseudo-element but this is not fully supported by all browsers.
+    */
+
     ${display('inline-flex')}
 
     :host {
@@ -21,6 +34,10 @@ export const styles = css`
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
     }
 
+    :host(${focusVisible}) {
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
+    }
+
     :host(:active) {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
@@ -30,7 +47,7 @@ export const styles = css`
     }
 
     :host(:active[expanded]) {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
     }
 
     :host([disabled]) {
@@ -47,6 +64,10 @@ export const styles = css`
         background-position: center;
         box-sizing: border-box;
         width: 100%;
+    }
+
+    ${focusVisible} {
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
     }
 
     slot[name="heading"]::slotted(*) {
