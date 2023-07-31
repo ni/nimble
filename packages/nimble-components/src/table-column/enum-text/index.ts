@@ -53,9 +53,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 
     protected override updateColumnConfig(): void {
         this.validator.validate(this.mappings, this.keyType);
-        this.columnInternals.columnConfig = this.validator.isValid()
-            ? this.createColumnConfig()
-            : undefined;
+        this.columnInternals.columnConfig = this.createColumnConfig();
     }
 
     protected createMappingConfig(mapping: Mapping): MappingConfig {

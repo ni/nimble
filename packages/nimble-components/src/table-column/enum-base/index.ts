@@ -16,6 +16,7 @@ import type { MappingKeyType } from './types';
 import type { MappingConfig } from './models/mapping-config';
 import type { MappingKey } from '../../mapping/base/types';
 import { resolveKeyWithType } from './models/mapping-key-resolver';
+import type { TableColumnEnumBaseValidator } from './models/table-column-enum-base-validator';
 
 export type TableColumnEnumCellRecord =
     | TableStringField<'value'>
@@ -31,7 +32,7 @@ export interface TableColumnEnumColumnConfig {
  */
 export abstract class TableColumnEnumBase<
     TColumnConfig extends TableColumnEnumColumnConfig,
-    TEnumValidator
+    TEnumValidator extends TableColumnEnumBaseValidator<[]>
 >
     extends TableColumn<TColumnConfig>
     implements Subscriber {
@@ -68,15 +69,23 @@ export abstract class TableColumnEnumBase<
     public abstract createValidator(): TEnumValidator;
 
     /**
-     * Called when any Mapping related state has changed
+     * Called when any Mapping related state has changed.
+     * Implementations should run validation before updating the column config.
      */
     protected abstract updateColumnConfig(): void;
 
-    // Assumes the mapping element state is validated
+    /**
+     * Implementations should throw an error if an invalid Mapping is passed.
+     */
     protected abstract createMappingConfig(mapping: Mapping): MappingConfig;
 
-    // Assumes the mapping element state is validated
-    protected createColumnConfig(): TableColumnEnumColumnConfig {
+    /**
+     * Validation state should be updated before calling this function.
+     */
+    protected createColumnConfig(): TableColumnEnumColumnConfig | undefined {
+        if (!this.validator.isValid) {
+            return undefined;
+        }
         const mappingConfigs = new Map<MappingKey, MappingConfig>();
         this.mappings.forEach(mapping => {
             const key = resolveKeyWithType(mapping.key, this.keyType);

@@ -209,7 +209,7 @@ describe('TableColumnEnumText', () => {
         }
     });
 
-    it('sets group header text to key value when unmatched (instead of blank)', async () => {
+    it('sets group header text to blank when unmatched', async () => {
         ({ element, connect, disconnect, model } = await setup([
             { key: 'b', text: 'bravo' }
         ]));
@@ -220,9 +220,7 @@ describe('TableColumnEnumText', () => {
         model.col1.groupIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toContain(
-            'unmatched'
-        );
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
     });
 
     it('sets title when group header text is ellipsized', async () => {

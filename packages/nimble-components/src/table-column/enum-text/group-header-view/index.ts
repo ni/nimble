@@ -35,12 +35,7 @@ TableColumnEnumColumnConfig
         }
 
         const config = this.columnConfig?.mappingConfigs.get(value);
-        if (config) {
-            this.text = (config as MappingTextConfig).text;
-            return;
-        }
-
-        this.text = value.toString();
+        this.text = config ? (config as MappingTextConfig).text : '';
     }
 }
 
