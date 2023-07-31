@@ -156,4 +156,5 @@ export interface TableRowState<TData extends TableRecord = TableRecord> {
     nestingLevel?: number;
     leafItemCount?: number;
     groupColumn?: TableColumn;
+    dataIndex?: number;
 }

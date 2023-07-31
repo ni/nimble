@@ -1,8 +1,9 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { display, focusVisible } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
+    borderHoverColor,
     borderWidth,
     controlHeight,
     controlSlimHeight,
@@ -58,6 +59,12 @@ export const styles = css`
 
     :host(:hover)::before {
         background-color: ${fillHoverColor};
+    }
+
+    :host(:focus) {
+        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
+        outline: ${borderWidth} solid ${borderHoverColor};
+        outline-offset: -2px;
     }
 
     .expand-collapse-button {

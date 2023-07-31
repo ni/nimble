@@ -28,7 +28,7 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
-import { keyShift } from '@microsoft/fast-web-utilities';
+import { keyShift, keyTab } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -53,6 +53,8 @@ import { TableUpdateTracker } from './models/table-update-tracker';
 import type { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
+import { TableNavigationManager } from './models/table-navigation-manager';
+import type { TableGroupRow } from './components/group-row';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -94,7 +96,7 @@ export class Table<
      * @internal
      */
     @observable
-    public readonly rowElements: TableRow[] = [];
+    public readonly rowElements: (TableRow | TableGroupRow)[] = [];
 
     /**
      * @internal
@@ -146,6 +148,12 @@ export class Table<
      */
     @observable
     public readonly selectionCheckbox?: Checkbox;
+
+    /**
+     * @internal
+     */
+    @observable
+    public readonly collapseAllButton?: HTMLElement;
 
     /**
      * @internal
@@ -204,6 +212,7 @@ export class Table<
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
+    private readonly tableNavigationManager: TableNavigationManager<TData>;
     private readonly selectionManager: InteractiveSelectionManager<TData>;
     private columnNotifiers: Notifier[] = [];
     private readonly layoutManagerNotifier: Notifier;
@@ -243,6 +252,7 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
+        this.tableNavigationManager = new TableNavigationManager(this, this.virtualizer);
         this.layoutManager = new TableLayoutManager(this);
         this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
         this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');
@@ -853,7 +863,8 @@ export class Table<
                     .getLeafRows()
                     .filter(leafRow => leafRow.getLeafRows().length === 0)
                     .length,
-                groupColumn: this.getGroupRowColumn(row)
+                groupColumn: this.getGroupRowColumn(row),
+                dataIndex: row.index
             };
             return rowState;
         });

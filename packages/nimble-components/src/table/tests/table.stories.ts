@@ -17,6 +17,7 @@ import {
     type LabelUserArgs
 } from '../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderTableTag } from '../../label-provider/table';
+import { buttonTag } from '../../button';
 
 interface TableArgs extends LabelUserArgs {
     data: ExampleDataType;
@@ -194,6 +195,7 @@ const metadata: Meta<TableArgs> = {
                 <${menuItemTag}>Do something else with the quote</${menuItemTag}>
             </${menuTag}>
         </${tableTag}>
+        <${buttonTag}>asdf</${buttonTag}>
     `),
     argTypes: {
         data: {

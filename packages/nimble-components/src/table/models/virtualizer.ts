@@ -12,6 +12,8 @@ import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
 import { TableCellView } from '../../table-column/base/cell-view';
+import { TableRow } from '../components/row';
+import type { TableGroupRow } from '../components/group-row';
 
 /**
  * Helper class for the nimble-table for row virtualization.
@@ -66,6 +68,10 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         if (this.table.$fastController.isConnected) {
             this.updateVirtualizer();
         }
+    }
+
+    public scrollToIndex(index: number): void {
+        this.virtualizer?.scrollToIndex(index);
     }
 
     private updateVirtualizer(): void {
@@ -136,9 +142,15 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
         if (this.table.openActionMenuRecordId !== undefined) {
             const activeRow = this.table.rowElements.find(
-                row => row.recordId === this.table.openActionMenuRecordId
+                row => row instanceof TableRow && row.recordId === this.table.openActionMenuRecordId
             );
-            activeRow?.closeOpenActionMenus();
+            if (activeRow) {
+                (activeRow as TableRow).closeOpenActionMenus();
+            }
         }
     }
+
+    private readonly getActiveRow = (row: TableRow | TableGroupRow): row is TableRow => {
+        return row instanceof TableRow && row.recordId === this.table.openActionMenuRecordId;
+    };
 }

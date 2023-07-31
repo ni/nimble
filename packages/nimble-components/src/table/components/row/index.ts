@@ -64,6 +64,9 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
+    @observable
+    public dataIndex?: number;
+
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 

@@ -59,6 +59,7 @@ export const template = html<Table>`
                             `)}
                             <span role="gridcell">
                                 <${buttonTag}
+                                    ${ref('collapseAllButton')}
                                     class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"
                                     content-hidden
                                     appearance="${ButtonAppearance.ghost}"
@@ -98,15 +99,16 @@ export const template = html<Table>`
                         </span>
                     </div>
                 </div>
-                <div class="table-viewport" ${ref('viewport')}>
+                <div class="table-viewport" ${ref('viewport')} tabindex="-1">
                     <div class="table-scroll"></div>
-                    <div class="table-row-container" ${children({ property: 'rowElements', filter: elements(tableRowTag) })}
+                    <div class="table-row-container"
+                        ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}
                         role="rowgroup">
                         ${when(x => x.columns.length > 0 && x.canRenderRows, html<Table>`
                             ${repeat(x => x.virtualizer.visibleItems, html<VirtualItem, Table>`
                                 ${when((x, c) => (c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
                                     <${tableGroupRowTag}
-                                        class="group-row"
+                                        class="group-row table-row"
                                         :groupRowValue="${(x, c) => c.parent.tableData[x.index]?.groupRowValue}"
                                         ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
@@ -114,6 +116,7 @@ export const template = html<Table>`
                                         :groupColumn="${(x, c) => c.parent.tableData[x.index]?.groupColumn}"
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
+                                        :dataIndex="${x => x.index}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >
@@ -121,7 +124,7 @@ export const template = html<Table>`
                                 `)}
                                 ${when((x, c) => !(c.parent as Table).tableData[x.index]?.isGrouped, html<VirtualItem, Table>`
                                     <${tableRowTag}
-                                        class="row"
+                                        class="row table-row"
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                         ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
@@ -133,6 +136,7 @@ export const template = html<Table>`
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                        :dataIndex="${x => x.index}"
                                     >
                                     ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                         ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`

@@ -6,7 +6,7 @@ import { checkboxTag } from '../../../checkbox';
 
 // prettier-ignore
 export const template = html<TableRow>`
-    <template role="row" aria-selected=${x => x.ariaSelected}>
+    <template role="row" aria-selected=${x => x.ariaSelected} tabindex="-1">
         ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
             <span role="gridcell" class="checkbox-container">
                 <${checkboxTag}

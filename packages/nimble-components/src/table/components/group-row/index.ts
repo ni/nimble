@@ -35,6 +35,9 @@ export class TableGroupRow extends FoundationElement {
     @observable
     public groupColumn?: TableColumn;
 
+    @observable
+    public dataIndex?: number;
+
     @attr({ mode: 'boolean' })
     public expanded = false;
 
