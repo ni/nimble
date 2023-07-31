@@ -25,7 +25,7 @@ export const textMapping: StoryObj = {
             description: keyDescription('the mapped display text'),
             control: { type: 'none' }
         },
-        label: {
+        text: {
             description: 'The display text.'
         }
     },

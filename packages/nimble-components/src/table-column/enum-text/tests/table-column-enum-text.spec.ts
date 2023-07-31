@@ -18,7 +18,7 @@ interface SimpleTableRecord extends TableRecord {
 
 interface BasicTextMapping {
     key?: MappingKey;
-    label?: string;
+    text?: string;
 }
 
 class Model {
@@ -46,7 +46,7 @@ describe('TableColumnEnumText', () => {
                     ${repeat(() => mappings, html<BasicTextMapping>`
                         <${mappingTextTag}
                             key="${x => x.key}"
-                            label="${x => x.label}">
+                            text="${x => x.text}">
                         </${mappingTextTag}>
                     `)}
                 </${tableColumnEnumTextTag}>
@@ -77,7 +77,7 @@ describe('TableColumnEnumText', () => {
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`displays text mapped from ${test.name}`, async () => {
                 ({ element, connect, disconnect, model } = await setup(
-                    [{ key: test.key, label: 'alpha' }],
+                    [{ key: test.key, text: 'alpha' }],
                     test.name
                 ));
                 pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -92,7 +92,7 @@ describe('TableColumnEnumText', () => {
 
     it('displays blank when no matches', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', label: 'alpha' }
+            { key: 'a', text: 'alpha' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'no match' }]);
@@ -104,8 +104,8 @@ describe('TableColumnEnumText', () => {
 
     it('changing fieldName updates display', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', label: 'alpha' },
-            { key: 'b', label: 'bravo' }
+            { key: 'a', text: 'alpha' },
+            { key: 'b', text: 'bravo' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a', field2: 'b' }]);
@@ -119,9 +119,9 @@ describe('TableColumnEnumText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('bravo');
     });
 
-    it('changing mapping label updates display', async () => {
+    it('changing mapping text updates display', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', label: 'alpha' }
+            { key: 'a', text: 'alpha' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
@@ -129,7 +129,7 @@ describe('TableColumnEnumText', () => {
         await waitForUpdatesAsync();
 
         const mapping = model.col1.firstElementChild as MappingText;
-        mapping.label = 'bravo';
+        mapping.text = 'bravo';
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('bravo');
@@ -137,7 +137,7 @@ describe('TableColumnEnumText', () => {
 
     it('changing mapping key updates display', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', label: 'alpha' }
+            { key: 'a', text: 'alpha' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'b' }]);
@@ -162,7 +162,7 @@ describe('TableColumnEnumText', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     ({ element, connect, disconnect, model } = await setup([
-                        { key: 'a', label: value.name }
+                        { key: 'a', text: value.name }
                     ]));
                     pageObject = new TablePageObject<SimpleTableRecord>(
                         element
@@ -190,7 +190,7 @@ describe('TableColumnEnumText', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     ({ element, connect, disconnect, model } = await setup([
-                        { key: 'a', label: value.name }
+                        { key: 'a', text: value.name }
                     ]));
                     pageObject = new TablePageObject<SimpleTableRecord>(
                         element
@@ -211,7 +211,7 @@ describe('TableColumnEnumText', () => {
 
     it('sets group header text to key value when unmatched (instead of blank)', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'b', label: 'bravo' }
+            { key: 'b', text: 'bravo' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);
@@ -228,7 +228,7 @@ describe('TableColumnEnumText', () => {
     it('sets title when group header text is ellipsized', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', label: cellContents }
+            { key: 'a', text: cellContents }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
@@ -244,7 +244,7 @@ describe('TableColumnEnumText', () => {
 
     it('does not set title when group header text is fully visible', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', label: 'alpha' }
+            { key: 'a', text: 'alpha' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
@@ -260,7 +260,7 @@ describe('TableColumnEnumText', () => {
     it('removes title on mouseout of group header', async () => {
         const cellContents = 'a very long value that should get ellipsized due to not fitting within the default cell width';
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', label: cellContents }
+            { key: 'a', text: cellContents }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
@@ -295,11 +295,11 @@ describe('TableColumnEnumText', () => {
         it('is valid with valid numeric key values', async () => {
             ({ element, connect, disconnect, model } = await setup(
                 [
-                    { key: '0', label: 'alpha' },
-                    { key: '1', label: 'alpha' },
-                    { key: '1.01', label: 'alpha' },
-                    { key: '-1.01', label: 'alpha' },
-                    { key: '-1e3', label: 'alpha' }
+                    { key: '0', text: 'alpha' },
+                    { key: '1', text: 'alpha' },
+                    { key: '1.01', text: 'alpha' },
+                    { key: '-1.01', text: 'alpha' },
+                    { key: '-1e3', text: 'alpha' }
                 ],
                 'number'
             ));
@@ -312,7 +312,7 @@ describe('TableColumnEnumText', () => {
 
         it('is invalid with invalid numeric key values', async () => {
             ({ element, connect, disconnect, model } = await setup(
-                [{ key: 'a', label: 'alpha' }],
+                [{ key: 'a', text: 'alpha' }],
                 'number'
             ));
             await connect();
@@ -325,8 +325,8 @@ describe('TableColumnEnumText', () => {
         it('is valid with valid boolean key values', async () => {
             ({ element, connect, disconnect, model } = await setup(
                 [
-                    { key: true, label: 'alpha' },
-                    { key: false, label: 'alpha' }
+                    { key: true, text: 'alpha' },
+                    { key: false, text: 'alpha' }
                 ],
                 'boolean'
             ));
@@ -354,7 +354,7 @@ describe('TableColumnEnumText', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(` ${test.name}`, async () => {
                     ({ element, connect, disconnect, model } = await setup(
-                        [{ key: test.key, label: 'alpha' }],
+                        [{ key: test.key, text: 'alpha' }],
                         'boolean'
                     ));
                     await connect();
@@ -370,8 +370,8 @@ describe('TableColumnEnumText', () => {
 
         it('is invalid with duplicate key values', async () => {
             ({ element, connect, disconnect, model } = await setup([
-                { key: 'a', label: 'alpha' },
-                { key: 'a', label: 'alpha' }
+                { key: 'a', text: 'alpha' },
+                { key: 'a', text: 'alpha' }
             ]));
             await connect();
             await waitForUpdatesAsync();
@@ -383,8 +383,8 @@ describe('TableColumnEnumText', () => {
         it('is invalid with equivalent numeric key values', async () => {
             ({ element, connect, disconnect, model } = await setup(
                 [
-                    { key: '0', label: 'alpha' },
-                    { key: '0.0', label: 'alpha' }
+                    { key: '0', text: 'alpha' },
+                    { key: '0.0', text: 'alpha' }
                 ],
                 'number'
             ));
@@ -397,7 +397,7 @@ describe('TableColumnEnumText', () => {
 
         it('is invalid with missing key value', async () => {
             ({ element, connect, disconnect, model } = await setup([
-                { label: 'alpha' }
+                { text: 'alpha' }
             ]));
             await connect();
             await waitForUpdatesAsync();
@@ -406,7 +406,7 @@ describe('TableColumnEnumText', () => {
             expect(column.validity.missingKeyValue).toBeTrue();
         });
 
-        it('is invalid with missing label', async () => {
+        it('is invalid with missing text', async () => {
             ({ element, connect, disconnect, model } = await setup([
                 { key: 'a' }
             ]));
@@ -414,7 +414,7 @@ describe('TableColumnEnumText', () => {
             await waitForUpdatesAsync();
             const column = model.col1;
             expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.missingLabelValue).toBeTrue();
+            expect(column.validity.missingTextValue).toBeTrue();
         });
     });
 });

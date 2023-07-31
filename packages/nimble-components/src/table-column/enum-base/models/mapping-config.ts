@@ -3,5 +3,5 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export abstract class MappingConfig {
-    protected constructor(public readonly label: string) {}
+    protected constructor(public readonly text: string) {}
 }

@@ -5,5 +5,5 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 -   \`unsupportedMappingType\`: \`true\` when the column contains a mapping element other than \`nimble-mapping-text\`
 -   \`duplicateMappingKey\`: \`true\` when multiple mappings have the same \`key\` value
 -   \`missingKeyValue\`: \`true\` when a mapping has no \`key\` value
--   \`missingLabelValue\`: \`true\` when a mapping has no \`label\` value
+-   \`missingTextValue\`: \`true\` when a mapping has no \`text\` value
 `;

@@ -10,5 +10,5 @@ export abstract class Mapping extends FoundationElement {
     public key?: MappingKey;
 
     @attr()
-    public label?: string;
+    public text?: string;
 }

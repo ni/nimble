@@ -91,8 +91,8 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
                 field-name="status"
                 group-index="0">
                 Status
-                <${mappingTextTag} key="fail" label="Not a Simpson"></${mappingTextTag}>
-                <${mappingTextTag} key="success" label="Is a Simpson"></${mappingTextTag}>
+                <${mappingTextTag} key="fail" text="Not a Simpson"></${mappingTextTag}>
+                <${mappingTextTag} key="success" text="Is a Simpson"></${mappingTextTag}>
             </${tableColumnEnumTextTag}>
         </${tableTag}>
     `),
