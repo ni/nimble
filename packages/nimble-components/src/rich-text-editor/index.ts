@@ -2,7 +2,6 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import Placeholder from '@tiptap/extension-placeholder';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
@@ -17,56 +16,6 @@ declare global {
  * A nimble styled rich text editor
  */
 export class RichTextEditor extends FoundationElement {
-    /**
-     * @public
-     */
-    @attr public placeholder = '';
-
-    /**
-     * @public
-     */
-    @attr({ attribute: 'footer-hidden', mode: 'boolean' })
-    public footerHidden = false;
-
-    /**
-     * Whether to display the error state.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-visible
-     */
-    @attr({ attribute: 'error-visible', mode: 'boolean' })
-    public errorVisible = false;
-
-    /**
-     * A message explaining why the value is invalid.
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: error-text
-     */
-    @attr({ attribute: 'error-text' })
-    public errorText?: string;
-
-    /**
-     * @public
-     */
-    @attr({ attribute: 'disabled', mode: 'boolean' })
-    public disabled = false;
-
-    /**
-     * @public
-     */
-    @attr({ attribute: 'fit-to-content', mode: 'boolean' })
-    public fitToContent = false;
-
-    /**
-     * @public
-     */
-    public get empty(): boolean {
-        return this.tiptapEditor.isEmpty;
-    }
-
     public editor!: HTMLDivElement;
     public bold!: ToggleButton;
     public italics!: ToggleButton;
@@ -86,7 +35,6 @@ export class RichTextEditor extends FoundationElement {
         super.connectedCallback();
         this.initializeEditor();
         this.bindEditorTransactionEvent();
-        this.bindEditorUpdateEvent();
     }
 
     /**
@@ -95,13 +43,6 @@ export class RichTextEditor extends FoundationElement {
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.tiptapEditor.off('transaction');
-        this.tiptapEditor.off('update');
-    }
-
-    public disabledChanged(): void {
-        if (this.$fastController.isConnected) {
-            this.tiptapEditor.options.editable = !this.disabled;
-        }
     }
 
     public boldButtonClickHandler(): void {
@@ -125,17 +66,12 @@ export class RichTextEditor extends FoundationElement {
             const extensions = [
                 StarterKit.configure({
                     heading: false, blockquote: false, hardBreak: false, code: false, horizontalRule: false, strike: false, codeBlock: false
-                }),
-                Placeholder.configure({
-                    placeholder: this.placeholder,
-                    showOnlyWhenEditable: false
                 })
             ];
 
             this.tiptapEditor = new Editor({
                 element: this.editor,
-                extensions,
-                editable: !this.disabled
+                extensions
             });
         }
     }
@@ -144,14 +80,6 @@ export class RichTextEditor extends FoundationElement {
         if (this.$fastController.isConnected) {
             this.tiptapEditor.on('transaction', () => {
                 this.toggleTipTapButtonState();
-            });
-        }
-    }
-
-    private bindEditorUpdateEvent(): void {
-        if (this.$fastController.isConnected) {
-            this.tiptapEditor.on('update', () => {
-                this.$emit('input');
             });
         }
     }

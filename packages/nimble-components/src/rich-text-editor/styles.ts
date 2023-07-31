@@ -1,12 +1,9 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyDisabledFontColor, bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, failColor, iconSize, linkActiveFontColor, linkFontColor, smallDelay, standardPadding } from '../theme-provider/design-tokens';
-import { userSelectNone } from '../utilities/style/user-select';
-import { styles as errorStyles } from '../patterns/error/styles';
+import { bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, iconSize, linkActiveFontColor, linkFontColor, smallDelay, standardPadding } from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
-    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -17,7 +14,6 @@ export const styles = css`
         flex-direction: column;
         position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
-        --ni-private-footer-visibility: hidden;
     }
 
     .container {
@@ -98,10 +94,6 @@ export const styles = css`
         font-feature-settings: "liga" 0;
     }
 
-    :host([fit-to-content]) .ProseMirror {
-        max-block-size: fit-content;
-    }
-
     .ProseMirror pre {
         white-space: pre-wrap;
     }
@@ -142,7 +134,6 @@ export const styles = css`
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         block-size: 40px;
         overflow-y: auto;
-        visibility: var(--ni-private-footer-visibility);
     }
 
     nimble-toolbar::part(positioning-region) {
@@ -167,44 +158,5 @@ export const styles = css`
         float: left;
         height: 0;
         pointer-events: none;
-    }
-
-    :host([disabled]) *,
-    :host([disabled]) {
-        ${userSelectNone}
-        color: ${bodyDisabledFontColor};
-    }
-
-    :host([disabled]) .container,
-    :host([disabled]) .container::after {
-        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-    }
-
-    :host([disabled]:hover) .container::after {
-        inline-size: 0px;
-    }
-
-
-    :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
-        color: ${bodyDisabledFontColor};
-    }
-
-    .error-icon {
-        display: none;
-    }
-
-    :host([error-visible]) .error-icon {
-        display: inline-flex;
-        position: absolute;
-        top: calc(${standardPadding} / 2);
-        right: var(--ni-private-scrollbar-width);
-    }
-
-    :host([error-visible]) .container {
-        border-bottom-color: ${failColor};
-    }
-
-    :host([error-visible]) .container::after {
-        border-bottom-color: ${failColor};
     }
 `;
