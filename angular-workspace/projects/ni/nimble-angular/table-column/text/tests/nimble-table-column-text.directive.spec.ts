@@ -26,7 +26,6 @@ describe('NimbleTableColumnText', () => {
                         #column
                         column-id="my-column"
                         field-name="field1"
-                        placeholder="no value"
                         action-menu-slot="my-slot"
                         action-menu-label="my menu"
                         column-hidden="true"
@@ -63,11 +62,6 @@ describe('NimbleTableColumnText', () => {
         it('will use template string values for fieldName', () => {
             expect(directive.fieldName).toBe('field1');
             expect(nativeElement.fieldName).toBe('field1');
-        });
-
-        it('will use template string values for placeholder', () => {
-            expect(directive.placeholder).toBe('no value');
-            expect(nativeElement.placeholder).toBe('no value');
         });
 
         it('will use template string values for actionMenuSlot', () => {
@@ -129,7 +123,6 @@ describe('NimbleTableColumnText', () => {
                         #column
                         [column-id]="columnId"
                         [field-name]="field"
-                        [placeholder]="placeholder"
                         [actionMenuSlot]="actionMenuSlot"
                         [actionMenuLabel]="actionMenuLabel"
                         [column-hidden]="columnHidden"
@@ -147,7 +140,6 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: NimbleTableColumnTextDirective }) public directive: NimbleTableColumnTextDirective;
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
-            public placeholder = 'no value';
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
             public fractionalWidth: number | null = 2;
@@ -184,17 +176,6 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.fieldName).toBe('field2');
             expect(nativeElement.fieldName).toBe('field2');
-        });
-
-        it('can be configured with property binding for placeholder', () => {
-            expect(directive.placeholder).toBe('no value');
-            expect(nativeElement.placeholder).toBe('no value');
-
-            fixture.componentInstance.placeholder = 'foo';
-            fixture.detectChanges();
-
-            expect(directive.placeholder).toBe('foo');
-            expect(nativeElement.placeholder).toBe('foo');
         });
 
         it('can be configured with property binding for actionMenuSlot', () => {
@@ -360,7 +341,6 @@ describe('NimbleTableColumnText', () => {
                         #column
                         [attr.column-id]="columnId"
                         [attr.field-name]="field"
-                        [attr.placeholder]="placeholder"
                         [attr.action-menu-slot]="actionMenuSlot"
                         [attr.action-menu-label]="actionMenuLabel"
                         [attr.column-hidden]="columnHidden"
@@ -378,7 +358,6 @@ describe('NimbleTableColumnText', () => {
             @ViewChild('column', { read: NimbleTableColumnTextDirective }) public directive: NimbleTableColumnTextDirective;
             @ViewChild('column', { read: ElementRef }) public elementRef: ElementRef<TableColumnText>;
             public field = 'field1';
-            public placeholder = 'no value';
             public actionMenuSlot = 'my-slot';
             public actionMenuLabel = 'my menu';
             public fractionalWidth: number | null = 2;
@@ -415,17 +394,6 @@ describe('NimbleTableColumnText', () => {
 
             expect(directive.fieldName).toBe('field2');
             expect(nativeElement.fieldName).toBe('field2');
-        });
-
-        it('can be configured with attribute binding for placeholder', () => {
-            expect(directive.placeholder).toBe('no value');
-            expect(nativeElement.placeholder).toBe('no value');
-
-            fixture.componentInstance.placeholder = 'foo';
-            fixture.detectChanges();
-
-            expect(directive.placeholder).toBe('foo');
-            expect(nativeElement.placeholder).toBe('foo');
         });
 
         it('can be configured with attribute binding for actionMenuSlot', () => {

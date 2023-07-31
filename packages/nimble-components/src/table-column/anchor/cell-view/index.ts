@@ -30,14 +30,14 @@ TableColumnAnchorColumnConfig
     public anchor?: Anchor;
 
     @volatile
-    public get content(): string {
+    public get text(): string {
         if (typeof this.cellRecord.label === 'string') {
             return this.cellRecord.label;
         }
         if (typeof this.cellRecord.href === 'string') {
             return this.cellRecord.href;
         }
-        return this.columnConfig.placeholder;
+        return '';
     }
 
     public override focusedRecycleCallback(): void {

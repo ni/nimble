@@ -10,7 +10,6 @@ import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 interface SimpleTableRecord extends TableRecord {
     field?: string | null;
-    noPlaceholder?: string | null;
     anotherField?: string | null;
 }
 
@@ -18,11 +17,11 @@ interface SimpleTableRecord extends TableRecord {
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table style="width: 700px">
-                <${tableColumnTextTag} field-name="field" placeholder="no value" group-index="0">
+                <${tableColumnTextTag} field-name="field" group-index="0">
                     Column 1
                 </${tableColumnTextTag}>
-                <${tableColumnTextTag} field-name="noPlaceholder">
-                    Column 2
+                <${tableColumnTextTag} field-name="anotherField">
+                    Squeeze Column 1
                 </${tableColumnTextTag}>
             </nimble-table>`
     );
@@ -55,16 +54,20 @@ describe('TableColumnText', () => {
     const noValueData = [
         { description: 'field not present', data: [{ unused: 'foo' }] },
         { description: 'value is null', data: [{ field: null }] },
-        { description: 'value is undefined', data: [{ field: undefined }] }
+        { description: 'value is undefined', data: [{ field: undefined }] },
+        {
+            description: 'value is not a string',
+            data: [{ field: 10 as unknown as string }]
+        }
     ];
     for (const testData of noValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`displays placeholder string when ${testData.description}`, async () => {
+        it(`displays empty string when ${testData.description}`, async () => {
             await element.setData(testData.data);
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value'); // test for when value is null
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
         });
     }
 
@@ -80,19 +83,7 @@ describe('TableColumnText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('bar');
     });
 
-    it('changing placeholder updates display', async () => {
-        await element.setData([{ field: null }]);
-        await connect();
-        await waitForUpdatesAsync();
-
-        const firstColumn = element.columns[0] as TableColumnText;
-        firstColumn.placeholder = 'different value';
-        await waitForUpdatesAsync();
-
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('different value');
-    });
-
-    it('changing data from value to null displays placeholder', async () => {
+    it('changing data from value to null displays blank', async () => {
         await element.setData([{ field: 'foo' }]);
         await connect();
         await waitForUpdatesAsync();
@@ -103,14 +94,14 @@ describe('TableColumnText', () => {
         await element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
     });
 
     it('changing data from null to value displays value', async () => {
         await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('no value');
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
 
         await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
@@ -218,32 +209,6 @@ describe('TableColumnText', () => {
         }
     });
 
-    describe('placeholder assigned various strings render as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `placeholder "${value.name}" renders as "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await connect();
-                    await element.setData([{ field: null }]);
-                    await waitForUpdatesAsync();
-
-                    const firstColumn = element.columns[0] as TableColumnText;
-                    firstColumn.placeholder = value.name;
-                    await waitForUpdatesAsync();
-
-                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                        value.name
-                    );
-                }
-            );
-        }
-    });
-
     describe('various string values render in group header as expected', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
@@ -257,32 +222,6 @@ describe('TableColumnText', () => {
                     await connect();
 
                     await element.setData([{ field: value.name }]);
-                    await waitForUpdatesAsync();
-
-                    expect(
-                        pageObject.getRenderedGroupHeaderContent(0)
-                    ).toContain(value.name);
-                }
-            );
-        }
-    });
-
-    describe('placeholder assigned various strings render in group header as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of wackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `placeholder "${value.name}" renders as "${value.name}"`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await connect();
-                    await element.setData([{ field: null }]);
-                    await waitForUpdatesAsync();
-
-                    const firstColumn = element.columns[0] as TableColumnText;
-                    firstColumn.placeholder = value.name;
                     await waitForUpdatesAsync();
 
                     expect(

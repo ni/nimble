@@ -30,11 +30,10 @@ interface BannerArgs extends LabelUserArgs {
     open: boolean;
     title: string;
     text: string;
-    severity: BannerSeverity;
+    severity: keyof typeof BannerSeverity;
     action: ActionType;
     preventDismiss: boolean;
     titleHidden: boolean;
-    dismissButtonLabel: string;
     toggle: unknown;
 }
 
@@ -70,10 +69,9 @@ export const _banner: StoryObj<BannerArgs> = {
     render: createUserSelectedThemeStory(html`
         <${bannerTag}
             ?open="${x => x.open}"
-            severity="${x => x.severity}"
+            severity="${x => BannerSeverity[x.severity]}"
             ?title-hidden="${x => x.titleHidden}"
             ?prevent-dismiss="${x => x.preventDismiss}"
-            dismiss-button-label="Close"
         >
             <span slot="title">${x => x.title}</span>
             ${x => x.text}
@@ -125,12 +123,6 @@ export const _banner: StoryObj<BannerArgs> = {
             name: 'title-hidden',
             description: 'If set, hides the provided title.'
         },
-        dismissButtonLabel: {
-            name: 'dismiss-button-label',
-            description:
-                'Set to a localized label (e.g. `"Close"`) for the dismiss button. This provides an accessible name for assistive technologies. <br>(Equivalent to setting `popup-dismiss` on `nimble-label-provider-core`)',
-            control: { type: 'none' }
-        },
         toggle: {
             description:
                 'Event emitted by the banner when the `open` state changes. The event details include the booleans `oldState` and `newState`.',
@@ -141,11 +133,10 @@ export const _banner: StoryObj<BannerArgs> = {
         open: true,
         title: 'Title text',
         text: 'This is the body text of the banner.',
-        severity: BannerSeverity.error,
+        severity: 'error',
         action: 'none',
         preventDismiss: false,
         titleHidden: false,
-        dismissButtonLabel: undefined,
         toggle: undefined
     }
 };
