@@ -140,10 +140,11 @@ const metadata: Meta<WaferMapArgs> = {
     argTypes: {
         colorScale: {
             description: `Represents the color spectrum which shows the status of the dies on the wafer.
-                <details>
-                    <summary>Usage details</summary>
-                    The \`colorScale\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
-                </details>
+
+<details>
+    <summary>Usage details</summary>
+    The \`colorScale\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+</details>
                 `,
             options: ['set1'],
             control: {
@@ -172,10 +173,11 @@ const metadata: Meta<WaferMapArgs> = {
         },
         dies: {
             description: `Represents the input data, an array of \`WaferMapDie\`, which will be rendered by the wafer map
-                <details>
-                    <summary>Usage details</summary>
-                    The \`dies\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
-                </details>
+
+<details>
+    <summary>Usage details</summary>
+    The \`dies\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+</details>
                 `,
             options: [
                 'fixedDies10',
@@ -208,10 +210,11 @@ const metadata: Meta<WaferMapArgs> = {
         },
         highlightedValues: {
             description: `Represents an array of die indexes that will be highlighted in the wafer map view
-                <details>
-                    <summary>Usage details</summary>
-                    The \`highlightedValues\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
-                </details>
+
+<details>
+    <summary>Usage details</summary>
+    The \`highlightedValues\` element is a public property. As such, it is not available as an attribute, however it can be read or set on the corresponding \`WaferMap\` DOM element.
+</details>
                 `,
             options: ['set1', 'set2', 'set3', 'set4'],
             control: {

@@ -41,7 +41,7 @@ const metadata: Meta<SpinnerArgs> = {
     argTypes: {
         size: {
             description:
-                'Size of the spinner component.<details><summary>Usage details</summary>To customize its size, set its CSS '
+                '<p>Size of the spinner component.</p><details><summary>Usage details</summary>To customize its size, set its CSS '
                 + '<span style="font-family: monospace;">height</span> to a design token, and its width will automatically match its height. Each size will also require minimum pixel margins.<br/><ul>'
                 + `<li>For Small (16x16): ${scssPropertySetterMarkdown(
                     tokenNames.spinnerSmallHeight,
@@ -82,7 +82,7 @@ const metadata: Meta<SpinnerArgs> = {
             options: Object.keys(SpinnerAppearance),
             control: { type: 'radio' },
             description:
-                'Appearance of the spinner component.<details><summary>Usage details</summary>'
+                '<p>Appearance of the spinner component.</p><details><summary>Usage details</summary>'
                 + '<ul>'
                 + `<li>For appearance \`default\`:<br/>
                         Use in product instances.  This version helps avoid any association to status and the idea that this indicator is representing any context outside of an indeterminate wait time.

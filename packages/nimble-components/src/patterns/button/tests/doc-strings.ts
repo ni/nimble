@@ -3,6 +3,7 @@ export const appearanceDescription = `This attribute affects the appearance of t
 <details>
     <summary>Appearance Usage</summary>
     There is a hierarchy to which button appearance should be used.
+
     <ul>
         <li>For appearance \`ghost\`:
             <br/>This is the default and standard option for buttons. They create an open / airy feel, and fit comfortably in tight spaces.
@@ -13,7 +14,8 @@ export const appearanceDescription = `This attribute affects the appearance of t
         <li>For appearance \`outline\`:
             <br/>This is an alternative standard button when a ghost button is not suitable, and a more visually direct button is needed. 
             <br/>This can also create a light and airy feel. Use in combination with ghost buttons to create hierarchy. Do not use in combination with block buttons.
-        </li>                
+        </li>
+        <br/>
         <li>For appearance \`block\`:
             <br/>This standard button should be used when the most visible solution is required. 
             <br/>It can be an alternative to overly subtle button solutions when it is important to emphasize an action and the functionality of the control.
@@ -28,6 +30,7 @@ export const appearanceVariantDescription = `This attribute has no effect on but
 <details>
     <summary>Primary Button Usage</summary>
     Make a button primary to distinguish it visibly for one of the following reasons:
+
     <ul>
         <li>to indicate the action that allows the user to accomplish their most common or important goal</li>
         <li>to indicate the action that allows the user to complete their task</li>
@@ -42,6 +45,7 @@ export const iconDescription = `When including an icon, set \`slot="start"\` on 
 <details>
     <summary>Icon Usage</summary>
     Icons should be consistent and only used when necessary.
+
     <ul>
         <li>Icon and text buttons: 
             <br/>Use a label plus icon to help reinforce a button's functionality, and increase the visual impact of the action.  
