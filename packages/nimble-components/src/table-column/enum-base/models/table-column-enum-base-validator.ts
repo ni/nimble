@@ -24,7 +24,7 @@ export abstract class TableColumnEnumBaseValidator<
     public constructor(
         columnInternals: ColumnInternals<unknown>,
         configValidityKeys: ValidityFlagNames,
-        protected readonly supportedMappingElements: readonly (typeof Mapping)[]
+        private readonly supportedMappingElements: readonly (typeof Mapping)[]
     ) {
         super(columnInternals, configValidityKeys);
     }
@@ -43,6 +43,9 @@ export abstract class TableColumnEnumBaseValidator<
         keys: (MappingKey | undefined)[],
         keyType: MappingKeyType
     ): void {
+        // Ignore undefined keys, because validateNoMissingKeys covers that case.
+        // We should only set 'invalidMappingKeyValueForType' when there is a key,
+        // but it isn't appropriate for the type.
         const invalid = keys.some(
             key => key !== undefined
                 && resolveKeyWithType(key, keyType) === undefined

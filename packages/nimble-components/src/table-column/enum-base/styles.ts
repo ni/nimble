@@ -1,14 +1,8 @@
 import { css } from '@microsoft/fast-element';
-import { display } from '@microsoft/fast-foundation';
+import { styles as baseStyles } from '../base/styles';
 
 export const styles = css`
-    ${display('contents')}
-
-    .header-content {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+    ${baseStyles}
 
     slot[name='mapping'] {
         display: none;
