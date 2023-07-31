@@ -39,8 +39,8 @@ const component = (): ViewTemplate => html`
             group-index="0"
         >
             Column 1
-            <${mappingTextTag} key="0" label="Zero"></${mappingTextTag}>
-            <${mappingTextTag} key="1" label="One"></${mappingTextTag}>
+            <${mappingTextTag} key="0" text="Zero"></${mappingTextTag}>
+            <${mappingTextTag} key="1" text="One"></${mappingTextTag}>
         </${tableColumnEnumTextTag}>
     </${tableTag}>
 `;
