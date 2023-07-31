@@ -122,6 +122,9 @@ export const styles = css`
         border-radius: calc(var(--control-corner-radius) * 1px);
     }
 
+    /* 
+        Order and flex are used here and in the .button class because FAST has their open / closed icon at the end of the button, while our design has the icon at the beginning.
+    */
     .icon {
         display: flex;
         position: relative;
@@ -183,6 +186,10 @@ export const styles = css`
     ::slotted([slot="end"]) {
         display: none;
     }
+    /* 
+        I believe appearanceBehavior has to be set on the accordion item. If we set it on the accordion itself (the styles.ts of the accordion), we can't use appearanceBehaviors in the accordion item styles.ts, 
+        and when using them in the accordion styles.ts, individual accordion items can't be styled (ex. gaps, borders around accordion items, etc.).
+    */
 `.withBehaviors(
     appearanceBehavior(
         AccordionAppearance.outline,
