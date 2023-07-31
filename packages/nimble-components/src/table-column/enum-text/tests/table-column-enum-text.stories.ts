@@ -19,38 +19,22 @@ const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        status: 'fail',
-        isChild: true
+        status: 'fail'
     },
     {
         firstName: 'Marge',
         lastName: 'Simpson',
-        status: 'success',
-        isChild: false
+        status: 'success'
     },
     {
         firstName: 'Homer',
         lastName: 'Simpson',
-        status: 'success',
-        isChild: false
+        status: 'success'
     },
     {
         firstName: 'Bart',
         lastName: 'Simpson',
-        status: 'success',
-        isChild: true
-    },
-    {
-        firstName: 'Greg',
-        lastName: '',
-        status: 'foo',
-        isChild: true
-    },
-    {
-        firstName: 'Frank',
-        lastName: '',
-        status: 'bar',
-        isChild: false
+        status: 'success'
     }
 ];
 
@@ -87,9 +71,7 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="firstName" >
                 Name
             </${tableColumnTextTag}>
-            <${tableColumnEnumTextTag} 
-                field-name="status"
-                group-index="0">
+            <${tableColumnEnumTextTag} field-name="status">
                 Status
                 <${mappingTextTag} key="fail" text="Not a Simpson"></${mappingTextTag}>
                 <${mappingTextTag} key="success" text="Is a Simpson"></${mappingTextTag}>
