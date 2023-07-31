@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 26 Jul 2023 21:12:22 GMT and should not be manually modified.
+This log was last generated on Mon, 31 Jul 2023 22:52:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.2
+
+Mon, 31 Jul 2023 22:52:43 GMT
+
+### Patches
+
+- Fix keyboard navigation with hidden anchor tabs ([ni/nimble@74c4a83](https://github.com/ni/nimble/commit/74c4a8348923a8f91717366976307852f90a0d1e))
 
 ## 20.0.1
 
