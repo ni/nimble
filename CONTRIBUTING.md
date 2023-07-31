@@ -16,6 +16,7 @@ This repository uses the following tooling. See below for more info.
 
 - [Nimble architecture](/docs/Architecture.md)
 - [Nimble Components XD Library](https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/)
+- [Nimble Components Figma Library](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A77205&mode=dev)
 
 ## Getting started
 
@@ -28,7 +29,7 @@ First step in development is to build the monorepo which requires the following 
 From the `nimble` directory:
 
 1. Run `npm install`
-2. Run `npm run build` (Alernatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
+2. Run `npm run build` (Alternatively in Visual Studio Code **Terminal » Run Build Task…** [Mac: `cmd+shift+B` Windows: `ctrl+shift+B`])
 3. Run `npm run storybook -w @ni/nimble-components` to view the components in Storybook
 
     **Note**: You will need to refresh your browser window to see style changes made in source.
