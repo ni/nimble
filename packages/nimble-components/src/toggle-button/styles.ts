@@ -102,6 +102,7 @@ export const styles = css`
                 ${fillSelectedColor},
                 ${fillSelectedColor}
             );
+            background-size: 100% 100%;
             border-color: rgba(${fillSelectedRgbPartialColor}, 0.3);
             box-shadow: none;
         }
