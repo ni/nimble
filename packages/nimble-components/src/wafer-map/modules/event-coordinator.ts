@@ -18,9 +18,13 @@ export class EventCoordinator {
         this.hoverHandler = new HoverHandler(wafermap);
     }
 
-    public updateEvents(): void {
+    public attachEvents(): void {
         this.zoomHandler.updateZoomBehavior();
-        this.attachEvents();
+        this.wafermap.addEventListener('mousemove', this.onMouseMove);
+        this.wafermap.addEventListener('mouseout', this.onMouseOut);
+        this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
+            passive: false
+        });
     }
 
     public detachEvents(): void {
@@ -40,12 +44,4 @@ export class EventCoordinator {
     private readonly onMouseOut = (): void => {
         this.hoverHandler.mouseout();
     };
-
-    private attachEvents(): void {
-        this.wafermap.addEventListener('mousemove', this.onMouseMove);
-        this.wafermap.addEventListener('mouseout', this.onMouseOut);
-        this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
-            passive: false
-        });
-    }
 }
