@@ -163,21 +163,6 @@ export class WaferMap extends FoundationElement {
 
     /**
      * @internal
-     */
-    public setHoverData(
-        hoverWidth: number,
-        hoverHeight: number,
-        hoverOpacity: HoverDieOpacity,
-        hoverTransform: string
-    ): void {
-        this.hoverWidth = hoverWidth;
-        this.hoverHeight = hoverHeight;
-        this.hoverOpacity = hoverOpacity;
-        this.hoverTransform = hoverTransform;
-    }
-
-    /**
-     * @internal
      * Update function called when an update is queued.
      * It will check which updates are needed based on which properties have changed.
      * Each update represents a different starting point of the same sequential update flow.
