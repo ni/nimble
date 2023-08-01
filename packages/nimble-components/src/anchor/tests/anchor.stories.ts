@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html } from '@microsoft/fast-element';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { anchorTargetGuidelines, createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
@@ -25,7 +25,8 @@ const metadata: Meta<AnchorArgs> = {
         docs: {
             description: {
                 component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
+                    `Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.
+                    ${anchorTargetGuidelines}`
             }
         },
         actions: {}

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { html, when } from '@microsoft/fast-element';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { anchorTargetGuidelines, createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant
@@ -36,7 +36,8 @@ const metadata: Meta<AnchorButtonArgs> = {
         docs: {
             description: {
                 component:
-                    'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
+                    `An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.
+                    ${anchorTargetGuidelines}`
             }
         },
         actions: {}
