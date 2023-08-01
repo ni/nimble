@@ -31,7 +31,7 @@ export class ZoomHandler {
                 this.getZoomMax(
                     this.wafermap.canvasWidth * this.wafermap.canvasHeight,
                     this.wafermap.dataManager.containerDimensions.width
-                    * this.wafermap.dataManager.containerDimensions.height
+                        * this.wafermap.dataManager.containerDimensions.height
                 )
             ])
             .translateExtent([
@@ -47,8 +47,8 @@ export class ZoomHandler {
                 return filterEval;
             })
             .on('zoom', (event: ZoomEvent) => {
-            // D3 will automatically remove existing handlers when adding new ones
-            // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
+                // D3 will automatically remove existing handlers when adding new ones
+                // See: https://github.com/d3/d3-zoom/blob/v3.0.0/README.md#zoom_on
                 this.rescale(event);
             });
 

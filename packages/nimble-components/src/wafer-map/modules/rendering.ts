@@ -23,9 +23,9 @@ export class RenderingModule {
 
     public renderHover(): void {
         this.wafermap.hoverWidth = this.wafermap.dataManager.dieDimensions.width
-                * this.wafermap.transform.k;
+            * this.wafermap.transform.k;
         this.wafermap.hoverHeight = this.wafermap.dataManager.dieDimensions.height
-        * this.wafermap.transform.k;
+            * this.wafermap.transform.k;
         this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
             ? HoverDieOpacity.hide
             : HoverDieOpacity.show;
