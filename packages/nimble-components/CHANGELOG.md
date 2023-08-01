@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 31 Jul 2023 22:52:43 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Aug 2023 16:43:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.3
+
+Tue, 01 Aug 2023 16:43:05 GMT
+
+### Patches
+
+- Implemented the update tracker for the wafermap and split the render in the new update functions for each module ([ni/nimble@1b54a7b](https://github.com/ni/nimble/commit/1b54a7b10540afa5988c214af755362677de9fab))
 
 ## 20.0.2
 
