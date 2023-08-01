@@ -1,10 +1,8 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
-import {
-    endSlotTemplate,
-    startSlotTemplate,
-    type FoundationElementTemplate,
-    type AccordionItemOptions
+import type {
+    FoundationElementTemplate,
+    AccordionItemOptions
 } from '@microsoft/fast-foundation';
 import type { AccordionItem } from '.';
 
@@ -19,18 +17,14 @@ export const template: FoundationElementTemplate<
 ViewTemplate<AccordionItem>,
 AccordionItemOptions
 > = (context, definition) => html`
-    <template class="${x => (x.expanded ? 'expanded' : '')}">
-        <div
-            class="heading"
-            part="heading"
-            role="heading"
-            aria-level="${x => x.headinglevel}"
-        >
-            <button
+    <details ?open="${x => x.open}">
+            <summary
                 class="button"
-                part="button"
+                part="header"
+                role="button"
                 ${ref('expandbutton')}
-                aria-expanded="${x => x.expanded}"
+                aria-expanded="${x => x.open}"
+                aria-level="${x => x.headinglevel}"
                 aria-controls="${x => x.id}-panel"
                 id="${x => x.id}"
                 @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
@@ -46,18 +40,15 @@ AccordionItemOptions
                 <span class="heading-content" part="heading-content">
                     <slot name="heading"></slot>
                 </span>
-            </button>
-            ${startSlotTemplate(context, definition)}
-            ${endSlotTemplate(context, definition)}
-        </div>
-        <div
-            class="region"
-            part="region"
-            id="${x => x.id}-panel"
-            role="region"
-            aria-labelledby="${x => x.id}"
-        >
-            <slot></slot>
-        </div>
-    </template>
+            </summary>
+            <div
+                class="region"
+                part="region"
+                id="${x => x.id}-panel"
+                role="region"
+                aria-labelledby="${x => x.id}"
+            >
+                <slot></slot>
+            </div>
+    </details>
 `;

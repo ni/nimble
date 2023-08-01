@@ -78,7 +78,6 @@ export const styles = css`
     }
     
     .region {
-        display: none;
         font: ${bodyFont};
         color: ${bodyFontColor};
         gap: 13px;

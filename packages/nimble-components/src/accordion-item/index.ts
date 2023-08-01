@@ -24,6 +24,20 @@ export class AccordionItem extends FoundationAccordionItem {
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
+
+    @attr({ mode: 'boolean' })
+    public open = false;
+
+    @attr({ mode: 'boolean' })
+    public override expanded = false;
+
+    /**
+     * @internal
+     */
+    public override clickHandler = (_e: MouseEvent): void => {
+        this.open = !this.open;
+        this.expanded = !this.expanded;
+    };
 }
 
 const nimbleAccordionItem = AccordionItem.compose<AccordionItemOptions>({
