@@ -81,6 +81,7 @@ Accordion group, appearance block with a nested accordion
 -   _Component Name:_ `nimble-accordion`
 -   _Properties/Attributes:_
     -   `appearance` - `block`, `outline`, `ghost`
+    -   `expand-mode` - `multi`
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
@@ -89,6 +90,16 @@ Accordion group, appearance block with a nested accordion
 The Figma design includes appearances of the accordion header that reflect those of the `block`, `outline`, and `ghost` appearances used in other components. These designs are similar to those of the nimble-button and its `appearance` types, but the accordion does not use the `.control` css class, it uses `.region` and `.heading`. Because of this, differences in border functionality, and the possibility of excess overridden css classes if patterns are used, shared styles will not be used, and new styles for the accordion and accordion-item will be created. The appearances of `block`, `outline`, and `ghost` will be implemented under the HTML attribute `appearance`, which will use conditional css styles based on `appearance`'s value (ex. `:host([appearance='outline'])` will have styling for the outline button).
 
 Documentation will be added to advise against using multiple Nimble Accordions with different appearances next to each other.
+
+`expand-mode` is a FAST attribute, but is being temporarily modified to have one default value (`multi`) instead of two values (`multi` and `single`). This is because of these issues:
+
+When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item.
+
+This issue will be discussed with UX designers to determine if having this `single` expand mode functionality is necessary.
+
+Additionally, when using nested accordions with the single expand mode, once you open a child accordion, the parent accordion closes- when you open the parent accordion again, the previously selected child accordion is open, but when clicking on it, it doesn't close. Also, when opening the second child accordion, the first child accordion stays open, which goes against the functionality of single expand mode.
+
+This issue with nested accordions will be filed to FAST, and the `expand-mode` attribute will be updated to include the `single` expand mode once FAST resolves this.
 
 #### Nimble Accordion Item
 
@@ -142,12 +153,3 @@ Blazor wrappers will be created for both components.
 ---
 
 ## Open Issues
-
-When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item. When using nested accordions with the single expand mode, once you open a child accordion, the parent accordion closes- when you open the parent accordion again, the previously selected child accordion is open, but when clicking on it, it doesn't close. Also, when opening the second child accordion, the first child accordion stays open, which goes against the functionality of single expand mode. Regardless of the issues with the nested accordion, it should be discussed if single expand mode is helpful for users- having one accordion item open before users click on it, and not allowing them to close it unless they click on a different accordion item isn't what most users would expect from the functionality of an accordion.
-
-Possible combinations of solutions to this issue:
-
--   File issues to FAST to track them as bugs
--   Fix the issues in FAST or find workarounds
--   Disable (or just don't document) features like single expand mode or nesting in our first implementation until these behaviors are fixed
--   Decide we like some of these behaviors
