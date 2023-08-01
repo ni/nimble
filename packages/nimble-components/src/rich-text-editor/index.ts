@@ -1,5 +1,4 @@
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { attr } from '@microsoft/fast-element';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { template } from './template';
@@ -24,10 +23,6 @@ export class RichTextEditor extends FoundationElement {
 
     private tiptapEditor!: Editor;
 
-    public constructor() {
-        super();
-    }
-
     /**
      * @internal
      */
@@ -45,18 +40,30 @@ export class RichTextEditor extends FoundationElement {
         this.tiptapEditor.off('transaction');
     }
 
+    /**
+     * @internal
+     */
     public boldButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleBold().run();
     }
 
+    /**
+     * @internal
+     */
     public italicButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleItalic().run();
     }
 
+    /**
+     * @internal
+     */
     public bulletListButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleBulletList().run();
     }
 
+    /**
+     * @internal
+     */
     public numberedListButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
     }
@@ -65,7 +72,13 @@ export class RichTextEditor extends FoundationElement {
         if (this.$fastController.isConnected) {
             const extensions = [
                 StarterKit.configure({
-                    heading: false, blockquote: false, hardBreak: false, code: false, horizontalRule: false, strike: false, codeBlock: false
+                    heading: false,
+                    blockquote: false,
+                    hardBreak: false,
+                    code: false,
+                    horizontalRule: false,
+                    strike: false,
+                    codeBlock: false
                 })
             ];
 

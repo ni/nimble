@@ -1,6 +1,16 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { bodyFont, bodyFontColor, borderHoverColor, borderRgbPartialColor, borderWidth, controlLabelFontColor, iconSize, linkActiveFontColor, linkFontColor, smallDelay, standardPadding } from '../theme-provider/design-tokens';
+import {
+    bodyFont,
+    bodyFontColor,
+    borderHoverColor,
+    borderRgbPartialColor,
+    borderWidth,
+    controlLabelFontColor,
+    smallDelay,
+    smallPadding,
+    standardPadding
+} from '../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -61,7 +71,7 @@ export const styles = css`
         block-size: calc(100% - 44px);
         overflow: auto;
     }
-    
+
     .ProseMirror {
         ${
             /**
@@ -77,7 +87,6 @@ export const styles = css`
         background-color: transparent;
         font: inherit;
         padding: 8px;
-        padding-inline-end: calc(${iconSize});
         box-sizing: border-box;
         position: relative;
         color: inherit;
@@ -91,13 +100,13 @@ export const styles = css`
         white-space: break-spaces;
         -webkit-font-variant-ligatures: none;
         font-variant-ligatures: none;
-        font-feature-settings: "liga" 0;
+        font-feature-settings: 'liga' 0;
     }
 
     .ProseMirror pre {
         white-space: pre-wrap;
     }
-    
+
     .ProseMirror li {
         position: relative;
     }
@@ -118,17 +127,8 @@ export const styles = css`
         margin-block: 0;
     }
 
-    .editor a {
-        word-break: break-all;
-        color: ${linkFontColor};
-    }
-
-    .editor a:active {
-        color: ${linkActiveFontColor};
-    }
-
     .footer-section {
-        display: flex; 
+        display: flex;
         justify-content: space-between;
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
@@ -138,6 +138,7 @@ export const styles = css`
 
     nimble-toolbar::part(positioning-region) {
         background: transparent;
+        padding-right: ${smallPadding};
     }
 
     nimble-toolbar::part(start) {
