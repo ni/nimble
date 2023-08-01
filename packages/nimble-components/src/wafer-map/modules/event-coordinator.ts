@@ -19,7 +19,7 @@ export class EventCoordinator {
     }
 
     public attachEvents(): void {
-        this.zoomHandler.updateZoomBehavior();
+        this.zoomHandler.createZoomBehavior();
         this.wafermap.addEventListener('mousemove', this.onMouseMove);
         this.wafermap.addEventListener('mouseout', this.onMouseOut);
         this.wafermap.canvas.addEventListener('wheel', this.onWheelMove, {
