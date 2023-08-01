@@ -11,8 +11,8 @@ import {
     standardPadding,
     smallDelay,
     buttonLabelFont
-} from '../../theme-provider/design-tokens';
-import { focusVisible } from '../../utilities/style/focus';
+} from '../theme-provider/design-tokens';
+import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -38,10 +38,6 @@ export const styles = css`
 
     :host(:hover[aria-selected='true']) {
         background-color: ${fillHoverSelectedColor};
-    }
-
-    :host(:focus) {
-        outline: none;
     }
 
     :host(${focusVisible}) {
