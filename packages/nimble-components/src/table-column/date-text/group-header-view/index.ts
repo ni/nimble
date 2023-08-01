@@ -32,6 +32,8 @@ TableColumnDateTextColumnConfig
                 this.columnConfig.formatter,
                 this.groupHeaderValue
             );
+        } else {
+            this.text = '';
         }
     }
 }

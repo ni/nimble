@@ -61,9 +61,9 @@ describe('Date-text column types', () => {
         expect(format).toEqual('hello');
     });
 
-    it('TimeZoneFormat fails compile if assigning arbitrary string values', () => {
+    it('TimeZoneNameFormat fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
-        const format: TimeZoneFormat = 'hello';
+        const format: TimeZoneNameFormat = 'hello';
         expect(format).toEqual('hello');
     });
 
@@ -91,9 +91,9 @@ describe('Date-text column types', () => {
         expect(format).toEqual('hello');
     });
 
-    it('HourCycle fails compile if assigning arbitrary string values', () => {
+    it('HourCycleFormat fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
-        const format: HourCycle = 'hello';
+        const format: HourCycleFormat = 'hello';
         expect(format).toEqual('hello');
     });
 });

@@ -35,6 +35,8 @@ TableColumnDateTextColumnConfig
                 this.columnConfig.formatter,
                 this.cellRecord.value
             );
+        } else {
+            this.text = '';
         }
     }
 }

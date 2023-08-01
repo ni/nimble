@@ -18,10 +18,10 @@ export type DayFormat = Intl.DateTimeFormatOptions['day'];
 export type HourFormat = Intl.DateTimeFormatOptions['hour'];
 export type MinuteFormat = Intl.DateTimeFormatOptions['minute'];
 export type SecondFormat = Intl.DateTimeFormatOptions['second'];
-export type TimeZoneFormat = Intl.DateTimeFormatOptions['timeZoneName'];
+export type TimeZoneNameFormat = Intl.DateTimeFormatOptions['timeZoneName'];
 export type FormatMatcherAlgorithm =
     Intl.DateTimeFormatOptions['formatMatcher'];
 export type DayPeriodFormat = Intl.DateTimeFormatOptions['dayPeriod'];
 export type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];
 export type TimeStyle = Intl.DateTimeFormatOptions['timeStyle'];
-export type HourCycle = Intl.DateTimeFormatOptions['hourCycle'];
+export type HourCycleFormat = Intl.DateTimeFormatOptions['hourCycle'];

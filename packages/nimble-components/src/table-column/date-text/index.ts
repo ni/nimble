@@ -17,12 +17,12 @@ import type {
     HourFormat,
     MinuteFormat,
     SecondFormat,
-    TimeZoneFormat,
+    TimeZoneNameFormat,
     FormatMatcherAlgorithm,
     DayPeriodFormat,
     DateStyle,
     TimeStyle,
-    HourCycle,
+    HourCycleFormat,
     MonthFormat,
     WeekdayFormat
 } from './types';
@@ -77,7 +77,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customSecond: SecondFormat;
 
     @attr({ attribute: 'custom-time-zone-name' })
-    public customTimeZoneName: TimeZoneFormat;
+    public customTimeZoneName: TimeZoneNameFormat;
 
     @attr({ attribute: 'custom-format-matcher' })
     public customFormatMatcher: FormatMatcherAlgorithm;
@@ -104,7 +104,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customTimeStyle: TimeStyle;
 
     @attr({ attribute: 'custom-hour-cycle' })
-    public customHourCycle: HourCycle;
+    public customHourCycle: HourCycleFormat;
 
     public override connectedCallback(): void {
         super.connectedCallback();

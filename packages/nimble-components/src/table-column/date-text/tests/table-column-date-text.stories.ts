@@ -20,7 +20,7 @@ import {
     DayPeriodFormat,
     EraFormat,
     FormatMatcherAlgorithm,
-    HourCycle,
+    HourCycleFormat,
     LocaleMatcherAlgorithm,
     YearFormat,
     MonthFormat,
@@ -29,7 +29,7 @@ import {
     MinuteFormat,
     SecondFormat,
     TimeStyle,
-    TimeZoneFormat,
+    TimeZoneNameFormat,
     WeekdayFormat
 } from '../types';
 
@@ -103,8 +103,8 @@ interface TextColumnTableArgs extends SharedTableArgs {
     customMinute: MinuteFormat;
     customSecond: SecondFormat;
     customHour12: boolean;
-    customHourCycle: HourCycle;
-    customTimeZoneName: TimeZoneFormat;
+    customHourCycle: HourCycleFormat;
+    customTimeZoneName: TimeZoneNameFormat;
     customTimeZone?: string;
     customDayPeriod: DayPeriodFormat;
     customCalendar?: string;
