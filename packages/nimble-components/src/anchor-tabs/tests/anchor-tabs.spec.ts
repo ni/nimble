@@ -255,6 +255,11 @@ describe('AnchorTabs', () => {
             const specType = getSpecTypeByNamedList(test, focused, disabled);
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(test.name, async () => {
+                // Can't focus a link without an href, so set them all here.
+                tab(0).href = 'foo';
+                tab(1).href = 'foo';
+                tab(2).href = 'foo';
+                await waitForUpdatesAsync();
                 await connect();
                 if (test.disabledIndex !== undefined) {
                     tab(test.disabledIndex).disabled = true;
@@ -277,6 +282,11 @@ describe('AnchorTabs', () => {
     });
 
     it('should skip past other tabs when pressing tab key after click', async () => {
+        // Can't focus a link without an href, so set them all here.
+        tab(0).href = 'foo';
+        tab(1).href = 'foo';
+        tab(2).href = 'foo';
+        await waitForUpdatesAsync();
         tab(1).focus();
         tab(1).dispatchEvent(new Event('click'));
         await waitForUpdatesAsync();
@@ -288,6 +298,11 @@ describe('AnchorTabs', () => {
     });
 
     it('should skip past other tabs when pressing tab key after arrow key', async () => {
+        // Can't focus a link without an href, so set them all here.
+        tab(0).href = 'foo';
+        tab(1).href = 'foo';
+        tab(2).href = 'foo';
+        await waitForUpdatesAsync();
         tab(1).focus();
         await waitForUpdatesAsync();
         document.activeElement!.dispatchEvent(
