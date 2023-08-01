@@ -2,9 +2,9 @@
 
 ## Problem Statement
 
-The Wafer Map displays dies on a canvas inside a circular border based on an internal grid which is calculated by parsing the die data input and looking for the bounding box containing all the values. The dimensions of this box, like the origin point, the number of rows and the number of columns are used to space out the dies in the canvas with the given component dimensions
+The Wafer Map displays dies on a canvas inside a circular border based on an internal grid which is calculated by parsing the die data input and looking for the bounding box containing all the values. The dimensions of this box, like the origin point, the number of rows and the number of columns are used to space out the dies in the canvas with the given component dimensions.
 
-This approach of calculating the actual spacing inside the circular border based only on the input data coordinates is a heuristic approach which is limiting the performance of the wafer. Moreover, the calculated grid dimensions can be erroneous if the input data is just a subset of a larger data set, obtained for example by filtering only specific values or just the dies from the center of the wafer. This is causing an unwanted stretching of the wafer or an unexpected zooming which can be confusing especially when displayed near a wafer component which has all the data displayed
+This approach of calculating the actual spacing inside the circular border based only on the input data coordinates is a heuristic approach which is limiting the performance of the wafer. Moreover, the calculated grid dimensions can be erroneous if the input data is just a subset of a larger data set, obtained for example by filtering only specific values or just the dies from the center of the wafer. This is causing an unwanted stretching of the wafer or an unexpected zooming which can be confusing especially when displayed near a wafer component which has all the data displayed.
 
 ![Current Wafer Behavior](resources/grid-dimensions-current.png)
 ![Target Wafer Behavior](resources/grid-dimensions-target.png)
@@ -26,7 +26,7 @@ If part of the input data is missing, the wafer will not render, and a new `vali
 
 ## Alternative Implementations / Designs
 
-An alternative design for these inputs was using them as properties grouped together under a public type. but this practice is discouraged and the batching update for input changes in the wafer mitigates the risks of them being set individually
+An alternative design for these inputs was using them as properties grouped together under a public type. But Nimble discourages using non-primitive types for attributes. Batching updates for input changes in the wafer mitigates the risks of them being set individually
 
 ## Open Issues
 
