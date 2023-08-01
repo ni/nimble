@@ -1,6 +1,5 @@
 import {
     attr,
-    DOM,
     nullableNumberConverter,
     observable
 } from '@microsoft/fast-element';
@@ -19,6 +18,7 @@ import {
     WaferMapOrientation,
     WaferMapQuadrant
 } from './types';
+import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,6 +30,12 @@ declare global {
  * A nimble-styled WaferMap
  */
 export class WaferMap extends FoundationElement {
+    /**
+     * @internal
+     * needs to be initialized before the properties trigger changes
+     */
+    public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
+
     @attr
     public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
 
@@ -76,11 +82,11 @@ export class WaferMap extends FoundationElement {
     /**
      * @internal
      */
-    public dataManager?: DataManager;
+    public readonly dataManager = new DataManager(this);
     /**
      * @internal
      */
-    public renderer?: RenderingModule;
+    public readonly renderer = new RenderingModule(this);
 
     /**
      * @internal
@@ -134,53 +140,52 @@ export class WaferMap extends FoundationElement {
         values: []
     };
 
-    private eventCoordinator?: EventCoordinator;
-    private resizeObserver?: ResizeObserver;
+    private readonly eventCoordinator = new EventCoordinator(this);
+    private readonly resizeObserver = this.createResizeObserver();
 
     public override connectedCallback(): void {
         super.connectedCallback();
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
-        this.resizeObserver = this.createResizeObserver();
+        this.resizeObserver.observe(this);
+        this.waferMapUpdateTracker.trackAll();
     }
 
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.resizeObserver!.unobserve(this);
+        this.resizeObserver.unobserve(this);
     }
 
     /**
      * @internal
+     * Update function called when an update is queued.
+     * It will check which updates are needed based on which properties have changed.
+     * Each update represents a different starting point of the same sequential update flow.
+     * The updates snowball one after the other, this function only choses the 'altitude'.
+     * The hover does not require an event update, but it's also the last update in the sequence.
      */
-    public render(): void {
-        this.renderQueued = false;
-        this.initializeInternalModules();
-        this.renderer?.drawWafer();
-    }
-
-    private queueRender(): void {
-        if (!this.$fastController.isConnected) {
-            return;
+    public update(): void {
+        if (this.waferMapUpdateTracker.requiresEventsUpdate) {
+            this.eventCoordinator.detachEvents();
+            if (this.waferMapUpdateTracker.requiresContainerDimensionsUpdate) {
+                this.dataManager.updateContainerDimensions();
+            } else if (this.waferMapUpdateTracker.requiresScalesUpdate) {
+                this.dataManager.updateScales();
+            } else if (
+                this.waferMapUpdateTracker.requiresLabelsFontSizeUpdate
+            ) {
+                this.dataManager.updateLabelsFontSize();
+            } else if (
+                this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
+            ) {
+                this.dataManager.updateDiesRenderInfo();
+            }
+            this.renderer.drawWafer();
+            this.eventCoordinator.attachEvents();
+        } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
+            this.renderer.renderHover();
         }
-        if (!this.renderQueued) {
-            this.renderQueued = true;
-            DOM.queueUpdate(() => this.render());
-        }
-    }
-
-    private queueRenderHover(): void {
-        if (!this.$fastController.isConnected) {
-            return;
-        }
-        DOM.queueUpdate(() => this.renderer?.renderHover());
-    }
-
-    private initializeInternalModules(): void {
-        this.eventCoordinator?.detachEvents();
-        this.dataManager = new DataManager(this);
-        this.renderer = new RenderingModule(this);
-        this.eventCoordinator = new EventCoordinator(this);
     }
 
     private createResizeObserver(): ResizeObserver {
@@ -197,61 +202,68 @@ export class WaferMap extends FoundationElement {
             this.canvasWidth = width;
             this.canvasHeight = height;
         });
-        resizeObserver.observe(this);
         return resizeObserver;
     }
 
     private quadrantChanged(): void {
-        this.queueRender();
-    }
-
-    private orientationChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('quadrant');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private maxCharactersChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('maxCharacters');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private dieLabelsHiddenChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('dieLabelsHidden');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private dieLabelsSuffixChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('dieLabelsSuffix');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private colorScaleModeChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('colorScaleMode');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private highlightedValuesChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('highlightedValues');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private diesChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('dies');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private colorScaleChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('colorScale');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private transformChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('transform');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private canvasWidthChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('canvasWidth');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private canvasHeightChanged(): void {
-        this.queueRender();
+        this.waferMapUpdateTracker.track('canvasHeight');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 
     private hoverDieChanged(): void {
         this.$emit('die-hover', { currentDie: this.hoverDie });
-        this.queueRenderHover();
+        this.waferMapUpdateTracker.track('hoverDie');
+        this.waferMapUpdateTracker.queueUpdate();
     }
 }
 
