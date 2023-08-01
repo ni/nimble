@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 01 Aug 2023 19:55:33 GMT",
+      "tag": "@ni/nimble-components_v20.0.4",
+      "version": "20.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "cf57e402e2a16a1587b7950be19412228990a156",
+            "comment": "Fix for table horizontal scrollbar issue."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Aug 2023 16:43:05 GMT",
       "tag": "@ni/nimble-components_v20.0.3",
       "version": "20.0.3",
