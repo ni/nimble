@@ -147,6 +147,8 @@ export class WaferMap extends FoundationElement {
         super.connectedCallback();
         this.canvas.width = this.clientWidth;
         this.canvas.height = this.clientHeight;
+        this.canvasWidth = this.clientWidth;
+        this.canvasHeight = this.clientHeight;
         this.canvasContext = this.canvas.getContext('2d', {
             willReadFrequently: true
         })!;
