@@ -198,6 +198,7 @@ export class Table<
     @observable
     public tableScrollableMinWidth = 0;
 
+    @observable
     public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<TData>;
