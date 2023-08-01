@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 01 Aug 2023 22:28:58 GMT",
+      "tag": "@ni/nimble-components_v20.0.5",
+      "version": "20.0.5",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "737ca39b8c1f52491571ddd143a6e4ae52f79d76",
+            "comment": "Be more specific about desired locale for testing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Aug 2023 20:43:24 GMT",
       "tag": "@ni/nimble-components_v20.0.5",
       "version": "20.0.5",
