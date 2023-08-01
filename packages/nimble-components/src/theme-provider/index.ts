@@ -38,19 +38,13 @@ export const theme = DesignToken.create<Theme>({
  * @internal
  */
 export class ThemeProvider extends FoundationElement {
-    @attr({
-        attribute: 'lang'
-    })
+    @attr()
     public override lang: string = document.documentElement.lang;
 
-    @attr({
-        attribute: 'direction'
-    })
+    @attr()
     public direction: Direction = Direction.ltr;
 
-    @attr({
-        attribute: 'theme'
-    })
+    @attr()
     public theme: Theme = Theme.light;
 
     public langChanged(

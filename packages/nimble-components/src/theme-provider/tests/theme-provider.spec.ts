@@ -2,7 +2,8 @@ import { spinalCase } from '@microsoft/fast-web-utilities';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
-import { ThemeProvider } from '..';
+import { ThemeProvider, lang } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 type DesignTokenPropertyName = keyof typeof designTokensNamespace;
 const designTokenPropertyNames = Object.keys(
@@ -14,6 +15,24 @@ describe('Theme Provider', () => {
         expect(document.createElement('nimble-theme-provider')).toBeInstanceOf(
             ThemeProvider
         );
+    });
+
+    it('sets lang token value to "foo" when lang attribute is assigned value "foo"', async () => {
+        const element: ThemeProvider = document.createElement(
+            'nimble-theme-provider'
+        );
+        element.setAttribute('lang', 'foo');
+        await waitForUpdatesAsync();
+        expect(lang.getValueFor(element)).toBe('foo');
+    });
+
+    it('clears lang token value when lang attribute is removed', async () => {
+        const element: ThemeProvider = document.createElement(
+            'nimble-theme-provider'
+        );
+        element.removeAttribute('lang');
+        await waitForUpdatesAsync();
+        expect(lang.getValueFor(element)).toBe('');
     });
 
     describe('design token should match CSSDesignToken', () => {
