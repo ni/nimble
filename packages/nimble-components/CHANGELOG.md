@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Aug 2023 16:43:05 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Aug 2023 19:55:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.4
+
+Tue, 01 Aug 2023 19:55:33 GMT
+
+### Patches
+
+- Fix for table horizontal scrollbar issue. ([ni/nimble@cf57e40](https://github.com/ni/nimble/commit/cf57e402e2a16a1587b7950be19412228990a156))
 
 ## 20.0.3
 
