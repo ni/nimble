@@ -70,12 +70,12 @@ export abstract class TableColumnEnumBaseValidator<
     }
 
     private validateNoMissingKeys(mappings: Mapping[]): void {
-        const invalid = mappings.filter(mapping => mapping.key === undefined).length > 0;
+        const invalid = mappings.some(mapping => mapping.key === undefined);
         this.setConditionValue('missingKeyValue', invalid);
     }
 
     private validateNoMissingText(mappings: Mapping[]): void {
-        const invalid = mappings.filter(mapping => mapping.text === undefined).length > 0;
+        const invalid = mappings.some(mapping => mapping.text === undefined);
         this.setConditionValue('missingTextValue', invalid);
     }
 }
