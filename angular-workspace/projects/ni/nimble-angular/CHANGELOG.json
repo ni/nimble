@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 01 Aug 2023 15:31:52 GMT",
+      "tag": "@ni/nimble-angular_v17.0.2",
+      "version": "17.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "7260415e8600055dd9ca88f9ebc9e8052adeb024",
+            "comment": "Set errorOnUnknownElements and errorOnUnknownProperties for Angular tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 31 Jul 2023 22:52:43 GMT",
       "tag": "@ni/nimble-angular_v17.0.2",
       "version": "17.0.2",

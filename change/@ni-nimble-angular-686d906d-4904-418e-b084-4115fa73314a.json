@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Set errorOnUnknownElements and errorOnUnknownProperties for Angular tests",
-  "packageName": "@ni/nimble-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
