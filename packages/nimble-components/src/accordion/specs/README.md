@@ -106,6 +106,8 @@ The Figma design also includes an `error` state. This will be controlled with th
 
 Usage guidance for the `error-visible` state will be created, as its usage may be unclear.
 
+The shoelace design system switched to using `summary` and `details` elements in their accordion styled component, which allowed the [native browser search feature](https://github.com/shoelace-style/shoelace/pull/1470) to search inside of accordions that are closed. FAST does not allow this, so their template for the accordion item will be forked and changed to allow the native browser search feature.
+
 ### Angular integration
 
 Angular directives will be created for these components. Neither will have form association, so `ControlValueAccessor`s will not be created.
