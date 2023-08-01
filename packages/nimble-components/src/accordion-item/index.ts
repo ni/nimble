@@ -2,12 +2,12 @@ import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AccordionItem as FoundationAccordionItem,
-    accordionItemTemplate as template,
     AccordionItemOptions
 } from '@microsoft/fast-foundation';
 import { arrowExpanderDown16X16, arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
 import { AccordionAppearance } from './types';
 import { styles } from './styles';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {

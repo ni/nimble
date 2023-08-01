@@ -1,11 +1,9 @@
-import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     Accordion as FoundationAccordion,
-    accordionTemplate as template,
 } from '@microsoft/fast-foundation';
 import { styles } from './styles';
-import { AccordionAppearance } from '../accordion-item/types';
+import { template } from './template';
 
 declare global {
     interface HTMLElementTagNameMap {

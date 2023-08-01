@@ -13,9 +13,9 @@ export const styles = css`
         change the template for this
 
         When the accordion is open and has the border around the entire accordion header and content, the functionality that is shown in the figma spec for hover and active is complicated-
-        we do want the entire accordion item to have a green border on hover, but do we want the border to shrink when the user clicks on a random spot inside the accordion item content?
-        We need a border around the entire accordion item but only want the border to change in size when we click on the "button" portion of that accordion item (the header), which might
-        be possible with the :has() pseudo-element but this is not fully supported by all browsers.
+        we want the entire accordion item to have a green border on hover, but do we want the border to shrink when the user clicks on a random spot inside the accordion item content
+        (not on the button)? We need a border around the entire accordion item but only want the border to change in size when we click on the "button" portion of that accordion item 
+        (the header), which might be possible with the :has() pseudo-element but this is not fully supported by all browsers.
     */
 
     ${display('inline-flex')}
@@ -66,7 +66,7 @@ export const styles = css`
         width: 100%;
     }
 
-    ${focusVisible} {
+    .button${focusVisible} {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
     }
 
@@ -102,21 +102,24 @@ export const styles = css`
     }
 
     .button {
+        display: flex;
         appearance: none;
         border: none;
         background: none;
         grid-column: 2;
         grid-row: 1;
-        padding-left: 0px;
-        padding-top: 7px;
-        padding-bottom: 9px;
+        padding: 3px;
         outline: none;
         text-align: left;
         cursor: pointer;
         font: inherit;
         color: inherit;
-        order: 2;
         width: 100%;
+        background-color: transparent;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        box-sizing: border-box;
     }
 
     .button:hover {
@@ -127,25 +130,8 @@ export const styles = css`
         color: var(--neutral-foreground-rest);
     }
 
-    .button::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        cursor: pointer;
-    }
 
-    .button:focus-visible::before {
-        outline: none;
-        border: calc(var(--focus-stroke-width) * 1px) solid var(--focus-stroke-outer);
-        border-radius: calc(var(--control-corner-radius) * 1px);
-    }
 
-    /* 
-        Order and flex are used here and in the .button class because FAST has their open / closed icon at the end of the button, while our design has the icon at the beginning.
-    */
     .icon {
         display: flex;
         position: relative;
@@ -156,10 +142,17 @@ export const styles = css`
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        margin-left: 16px;
-        margin-right: 8px;
-        order: 1;
+        padding-top: 4.5px;
+        padding-left: 13px;
+        padding-right: 8px;
+        padding-bottom: 5.5px;
         pointer-events: none;
+    }
+
+    .heading-content {
+        padding-left: 0px;
+        padding-top: 4px;
+        padding-bottom: 6px;
     }
 
     :host([appearance='outline']) {
@@ -240,11 +233,11 @@ export const styles = css`
     appearanceBehavior(
         AccordionAppearance.block,
         css`
-            .heading {
+            .button {
                 background-color: rgba(${actionRgbPartialColor}, 0.1)
             }
 
-            .heading:hover {
+            .button:hover {
                 background-color: transparent;
                 background-image: linear-gradient(
                     rgba(${actionRgbPartialColor}, 0.1),
@@ -253,7 +246,7 @@ export const styles = css`
                 background-size: calc(100% - 6px) calc(100% - 6px);
             }
 
-            .heading:active {
+            .button:active {
                 background-color: transparent;
                 background-image: linear-gradient(
                     rgba(${actionRgbPartialColor}, 0.1),
@@ -264,6 +257,15 @@ export const styles = css`
 
             :host([expanded]) .heading:hover {
                 
+            }
+
+            .button${focusVisible} {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${actionRgbPartialColor}, 0.1),
+                    rgba(${actionRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 6px) calc(100% - 6px);
             }
         `
     )
