@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix table bug where shift-selecting rows would highlight all cell content",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
