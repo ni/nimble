@@ -17,7 +17,7 @@ interface SimpleTableRecord extends TableRecord {
 // prettier-ignore
 async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
     const themeProvider = document.createElement(themeProviderTag);
-    themeProvider.lang = 'en';
+    themeProvider.lang = 'en-US';
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table style="width: 700px">
                 <${tableColumnDateTextTag} field-name="field" group-index="0">
