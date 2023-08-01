@@ -1,9 +1,9 @@
 import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
-import { keyArrowDown, keyArrowUp, keyEnd, keyHome, keyTab } from '@microsoft/fast-web-utilities';
+import { keyArrowDown, keyArrowUp, keyEnd, keyHome, keyPageDown, keyPageUp, keyTab } from '@microsoft/fast-web-utilities';
+import type { ScrollToOptions } from '@tanstack/virtual-core';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
 import type { Virtualizer } from './virtualizer';
-import type { VirtualItem } from '@tanstack/virtual-core';
 import type { TableGroupRow } from '../components/group-row';
 import type { TableRow } from '../components/row';
 
@@ -12,20 +12,16 @@ import type { TableRow } from '../components/row';
  * @interal
  */
 export class TableNavigationManager<TData extends TableRecord> implements Subscriber {
-    private _focusedVisibleRowIndex?: number;
-    private _firstVisibleTotalIndex?: number;
-    private _lastVisibleTotalIndex?: number;
     private _focusedTotalRowIndex?: number;
-    private _visibleRowCount?: number;
-    private _focusedCellIndex?: number;
+    private _focusedRow?: TableRow | TableGroupRow;
     private readonly virtualizerNotifier: Notifier;
     private readonly tableNotifier: Notifier;
-    private scrollAction?: () => void;
     private visibleRowNotifiers: Notifier[] = [];
 
     public constructor(private readonly table: Table<TData>, private readonly virtualizer: Virtualizer<TData>) {
         table.addEventListener('keydown', e => this.onKeyDown(e));
         table.addEventListener('focusout', this.resetState);
+        table.addEventListener('mousedown', e => this.onMouseDown(e));
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
@@ -34,9 +30,7 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
 
     public handleChange(source: unknown, args: unknown): void {
         if (source === this.virtualizer && args === 'visibleItems') {
-            const visibleItems = this.virtualizer.visibleItems;
-            this._firstVisibleTotalIndex = visibleItems[0]?.index;
-            this._lastVisibleTotalIndex = visibleItems[visibleItems.length - 1]?.index;
+            this.focusVisibleRow();
         } else if (source === this.table && args === 'rowElements') {
             for (const notifier of this.visibleRowNotifiers) {
                 notifier.unsubscribe(this);
@@ -46,16 +40,24 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
                 const rowNotifier = Observable.getNotifier(visibleRow);
                 rowNotifier.subscribe(this, 'dataIndex');
             }
-            this.scrollAction?.();
-            this.scrollAction = undefined;
+            this.focusVisibleRow();
         } else if (args === 'dataIndex') {
             const dataIndex = (source as (TableRow | TableGroupRow)).dataIndex;
             if (dataIndex === this._focusedTotalRowIndex) {
-                this.scrollAction?.();
-                this.scrollAction = undefined;
+                this.focusVisibleRow();
             }
         }
     }
+
+    private readonly onMouseDown = (event: MouseEvent): boolean => {
+        const row = this.getClickedRow(event.clientX, event.clientY);
+        if (row) {
+            this._focusedTotalRowIndex = row.dataIndex;
+            this.focusVisibleRow();
+        }
+
+        return true;
+    };
 
     private readonly onKeyDown = (event: KeyboardEvent): boolean => {
         if (!this.table.rowElements.length) {
@@ -64,34 +66,16 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
 
         switch (event.key) {
             case keyTab: {
-                if (document.activeElement === this.table) {
-                    this.table.blur();
-                }
+                this.resetState();
                 break;
             }
             case keyArrowDown:
             {
-                if (this._focusedTotalRowIndex === undefined) {
-                    this._focusedVisibleRowIndex = 0;
-                    this.focusVisibleRow();
-                    this._focusedTotalRowIndex = this._firstVisibleTotalIndex;
-                    event.preventDefault();
-                    return false;
-                }
-
-                if (this._focusedTotalRowIndex < this.table.tableData.length - 1) {
-                    this.table.rowElements[this._focusedVisibleRowIndex!]!.tabIndex = -1;
-                    const shiftFocusDownOneRow = (): void => {
-                        this._focusedVisibleRowIndex! += 1;
-                        this._focusedTotalRowIndex! += 1;
-                        this.focusVisibleRow();
-                    };
-                    if (this._focusedVisibleRowIndex === this.virtualizer.visibleItems.length - 1) {
-                        this.virtualizer.scrollToIndex(this.virtualizer.visibleItems[1]!.index);
-                        this.scrollAction = shiftFocusDownOneRow;
-                    } else {
-                        shiftFocusDownOneRow();
-                    }
+                const newFocusedTotalRowIndex = this._focusedTotalRowIndex === undefined
+                    ? 0
+                    : this._focusedTotalRowIndex + 1;
+                if (newFocusedTotalRowIndex < this.table.tableData.length - 1) {
+                    this.scrollToAndFocusRow(newFocusedTotalRowIndex);
                     event.preventDefault();
                     return false;
                 }
@@ -104,51 +88,37 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
                 }
 
                 if (this._focusedTotalRowIndex === 0) {
-                    this.table.rowElements[this._focusedVisibleRowIndex!]!.tabIndex = -1;
-                    this.table.rowElements[this._focusedVisibleRowIndex!]!.blur();
+                    this.table.rowElements[this.getVisibleRowIndex()]!.blur();
                     this.setFocusOnHeader();
                     event.preventDefault();
                     return false;
                 }
 
                 if (this._focusedTotalRowIndex > 0) {
-                    this.table.rowElements[this._focusedVisibleRowIndex!]!.tabIndex = -1;
-                    const shiftFocusUpOneRow = (): void => {
-                        this._focusedVisibleRowIndex! -= 1;
-                        this._focusedTotalRowIndex! -= 1;
-                        this.focusVisibleRow();
-                    };
-                    if (this._focusedVisibleRowIndex === 0) {
-                        this.virtualizer.scrollToIndex(this.virtualizer.visibleItems[0]!.index - 1);
-                        this.scrollAction = shiftFocusUpOneRow;
-                    } else {
-                        shiftFocusUpOneRow();
-                    }
+                    this.scrollToAndFocusRow(this._focusedTotalRowIndex - 1);
                     event.preventDefault();
                     return false;
                 }
                 break;
             }
+            case keyPageUp:
+            {
+                const newFocusedRowIndex = Math.max(this.table.rowElements[0]!.dataIndex! - this.table.rowElements.length + 1, 0);
+                this.scrollToAndFocusRow(newFocusedRowIndex, { align: 'start' });
+                event.preventDefault();
+                return false;
+            }
+            case keyPageDown:
+            {
+                const newFocusedRowIndex = this.table.rowElements[this.table.rowElements.length - 1]!.dataIndex!;
+                this.scrollToAndFocusRow(newFocusedRowIndex, { align: 'start' });
+                event.preventDefault();
+                return false;
+            }
             case keyHome:
             {
                 if (event.ctrlKey) {
-                    this._focusedTotalRowIndex = 0;
-                    const indexInRange = this._focusedTotalRowIndex >= this.table.rowElements[0]!.dataIndex!
-                        && this._focusedTotalRowIndex <= this.table.rowElements[this.table.rowElements.length - 1]!.dataIndex!;
-                    this.virtualizer.scrollToIndex(this._focusedTotalRowIndex);
-                    if (this._focusedVisibleRowIndex) {
-                        this.table.rowElements[this._focusedVisibleRowIndex]!.tabIndex = -1;
-                    }
-                    const scrollToTop = (): void => {
-                        this._focusedVisibleRowIndex = 0;
-                        this._focusedTotalRowIndex = 0;
-                        this.focusVisibleRow();
-                    };
-                    if (indexInRange) {
-                        scrollToTop();
-                    } else {
-                        this.scrollAction = scrollToTop;
-                    }
+                    this.scrollToAndFocusRow(0);
                 }
                 event.preventDefault();
                 return false;
@@ -156,23 +126,7 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
             case keyEnd:
             {
                 if (event.ctrlKey) {
-                    this._focusedTotalRowIndex = this.table.tableData.length - 1;
-                    const indexInRange = this._focusedTotalRowIndex >= this.table.rowElements[0]!.dataIndex!
-                        && this._focusedTotalRowIndex <= this.table.rowElements[this.table.rowElements.length - 1]!.dataIndex!;
-                    this.virtualizer.scrollToIndex(this._focusedTotalRowIndex);
-                    if (this._focusedVisibleRowIndex) {
-                        this.table.rowElements[this._focusedVisibleRowIndex]!.tabIndex = -1;
-                    }
-                    const scrollToBottom = (): void => {
-                        this._focusedVisibleRowIndex = this.table.rowElements.length - 1;
-                        this._focusedTotalRowIndex = this.table.tableData.length - 1;
-                        this.focusVisibleRow();
-                    };
-                    if (indexInRange) {
-                        scrollToBottom();
-                    } else {
-                        this.scrollAction = scrollToBottom;
-                    }
+                    this.scrollToAndFocusRow(this.table.tableData.length - 1);
                 }
                 event.preventDefault();
                 return false;
@@ -194,16 +148,27 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
         }
     }
 
+    private scrollToAndFocusRow(totalRowIndex: number, scrollOptions?: ScrollToOptions): void {
+        this._focusedTotalRowIndex = totalRowIndex;
+        this.virtualizer.scrollToIndex(this._focusedTotalRowIndex, scrollOptions);
+        this.focusVisibleRow();
+    }
+
     private focusVisibleRow(): void {
-        if (this._focusedVisibleRowIndex === undefined) {
+        const visibleRowIndex = this.getVisibleRowIndex();
+        if (visibleRowIndex < 0) {
+            this._focusedRow = undefined;
             return;
         }
-        const focusedRow = this.table.rowElements[this._focusedVisibleRowIndex]!;
-        focusedRow.tabIndex = 0;
-        focusedRow.focus({ preventScroll: true });
-        focusedRow.addEventListener('focusout', e => {
-            (e.target as HTMLElement).tabIndex = -1;
-        });
+        this._focusedRow = this.table.rowElements[visibleRowIndex]!;
+        this._focusedRow.tabIndex = 0;
+        this._focusedRow.focus({ preventScroll: true });
+        this._focusedRow.removeEventListener('focusout', this.focusOutHandler);
+        this._focusedRow.addEventListener('focusout', e => this.focusOutHandler(e));
+    }
+
+    private getVisibleRowIndex(): number {
+        return this.table.rowElements.findIndex(row => row.dataIndex === this._focusedTotalRowIndex);
     }
 
     private getTableHeaderFocusableElement(): HTMLElement | undefined {
@@ -218,8 +183,27 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
         return undefined;
     }
 
+    private readonly focusOutHandler = (event: Event): void => {
+        (event.target as HTMLElement).tabIndex = -1;
+        (event.target as HTMLElement).removeEventListener('focusout', this.focusOutHandler);
+    };
+
     private readonly resetState = (): void => {
-        this._focusedVisibleRowIndex = undefined;
+        const visibleRowIndex = this.getVisibleRowIndex();
+        if (visibleRowIndex >= 0) {
+            this.table.rowElements[visibleRowIndex]!.tabIndex = -1;
+            this.table.rowElements[visibleRowIndex]?.blur();
+        }
         this._focusedTotalRowIndex = undefined;
     };
+
+    private getClickedRow(clientX: number, clientY: number): TableRow | TableGroupRow | undefined {
+        return this.table.rowElements.find(row => {
+            const rowRect = row.getBoundingClientRect();
+            return (clientX >= rowRect.x
+                && clientX < rowRect.x + rowRect.width
+                && clientY >= rowRect.y
+                && clientY < rowRect.y + rowRect.height);
+        });
+    }
 }

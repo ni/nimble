@@ -6,7 +6,8 @@ import {
     elementScroll,
     observeElementOffset,
     observeElementRect,
-    VirtualItem
+    VirtualItem,
+    ScrollToOptions
 } from '@tanstack/virtual-core';
 import { borderWidth, controlHeight } from '../../theme-provider/design-tokens';
 import type { Table } from '..';
@@ -70,8 +71,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
     }
 
-    public scrollToIndex(index: number): void {
-        this.virtualizer?.scrollToIndex(index);
+    public scrollToIndex(index: number, options?: ScrollToOptions): void {
+        this.virtualizer?.scrollToIndex(index, options);
     }
 
     private updateVirtualizer(): void {
@@ -98,7 +99,6 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
             },
             estimateSize: (_: number) => rowHeight,
             enableSmoothScroll: true,
-            overscan: 3,
             scrollingDelay: 5,
             scrollToFn: elementScroll,
             observeElementOffset,
