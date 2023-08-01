@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Implemented the update tracker for the wafermap and split the render in the new update functions for each module",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
