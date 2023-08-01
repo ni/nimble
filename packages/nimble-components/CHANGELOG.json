@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 01 Aug 2023 20:43:24 GMT",
+      "tag": "@ni/nimble-components_v20.0.5",
+      "version": "20.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0073be19aed7f9b1efe428f5f9f5b261ab1983db",
+            "comment": "Add formatting API to date column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Aug 2023 19:55:33 GMT",
       "tag": "@ni/nimble-components_v20.0.4",
       "version": "20.0.4",
