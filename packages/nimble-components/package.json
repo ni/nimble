@@ -104,7 +104,6 @@
     "@storybook/html-webpack5": "^7.0.4",
     "@storybook/theming": "^7.0.4",
     "@types/jasmine": "^4.3.1",
-    "@types/markdown-it": "^12.2.3",
     "@types/webpack-env": "^1.15.2",
     "babel-loader": "^9.1.2",
     "circular-dependency-plugin": "^5.2.0",
