@@ -72,7 +72,7 @@ export const styles = css`
 
     @media (prefers-reduced-motion) {
         a::before {
-            transition-duration: 0.01s;
+            transition-duration: 0s;
         }
     }
 
@@ -103,7 +103,7 @@ export const styles = css`
 
     @media (prefers-reduced-motion) {
         a::after {
-            transition-duration: 0.01s;
+            transition-duration: 0s;
         }
     }
 

@@ -76,7 +76,7 @@ export const styles = css`
 
     @media (prefers-reduced-motion) {
         :host::before {
-            transition-duration: 0.01s;
+            transition-duration: 0s;
         }
     }
 
@@ -97,7 +97,7 @@ export const styles = css`
 
     @media (prefers-reduced-motion) {
         :host::after {
-            transition-duration: 0.01s;
+            transition-duration: 0s;
         }
     }
 
