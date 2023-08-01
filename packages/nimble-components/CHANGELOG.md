@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Aug 2023 19:55:33 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Aug 2023 20:43:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.5
+
+Tue, 01 Aug 2023 20:43:24 GMT
+
+### Patches
+
+- Add formatting API to date column ([ni/nimble@0073be1](https://github.com/ni/nimble/commit/0073be19aed7f9b1efe428f5f9f5b261ab1983db))
 
 ## 20.0.4
 
