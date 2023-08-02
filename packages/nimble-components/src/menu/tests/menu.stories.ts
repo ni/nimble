@@ -1,15 +1,13 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    anchorTargetGuidelines,
-    createUserSelectedThemeStory
-} from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { menuTag } from '..';
 import { iconArrowLeftFromLineTag } from '../../icons/arrow-left-from-line';
 import { iconUserTag } from '../../icons/user';
 import { menuItemTag } from '../../menu-item';
 import { anchorMenuItemTag } from '../../anchor-menu-item';
+import { targetGuidelines } from '../../patterns/anchor/tests/doc-strings';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
@@ -183,7 +181,7 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
         docs: {
             description: {
                 story: `Use a \`nimble-anchor-menu-item\` to navigate to a URL from a \`nimble-menu\`. If you want a menu item that executes a command when activated, use a \`nimble-menu-item\` instead.
-                ${anchorTargetGuidelines}`
+                ${targetGuidelines}`
             }
         }
     },

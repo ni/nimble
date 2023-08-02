@@ -1,16 +1,14 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import {
-    anchorTargetGuidelines,
-    createUserSelectedThemeStory
-} from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
 import { treeViewTag } from '..';
 import { iconCogTag } from '../../icons/cog';
 import { iconDatabaseTag } from '../../icons/database';
 import { treeItemTag } from '../../tree-item';
 import { anchorTreeItemTag } from '../../anchor-tree-item';
+import { targetGuidelines } from '../../patterns/anchor/tests/doc-strings';
 
 interface TreeArgs {
     selectionMode: TreeViewSelectionMode;
@@ -119,7 +117,7 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
         docs: {
             description: {
                 story: `Use a \`nimble-anchor-tree-item\` to navigate to a URL from a \`nimble-tree-view\`. If you want a tree item that can have a value and/or child items, use a \`nimble-tree-item\` instead.
-                ${anchorTargetGuidelines}`
+                ${targetGuidelines}`
             }
         }
     },
