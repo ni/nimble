@@ -45,6 +45,7 @@ public class NimbleButtonTests
     [Theory]
     [InlineData(ButtonAppearanceVariant.Default, "<nimble-button>")]
     [InlineData(ButtonAppearanceVariant.Primary, "appearance-variant=\"primary\"")]
+    [InlineData(ButtonAppearanceVariant.Accent, "appearance-variant=\"accent\"")]
     public void ButtonAppearanceVariant_AttributeIsSet(ButtonAppearanceVariant value, string expectedAttribute)
     {
         var button = RenderWithPropertySet(x => x.AppearanceVariant, value);
