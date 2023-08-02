@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { html, customElement } from '@microsoft/fast-element';
 import { TableCell } from '..';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
@@ -11,9 +10,6 @@ import type { TableCellRecord } from '../../../../table-column/base/types';
 import { TableCellPageObject } from './table-cell.pageobject';
 import { TableCellView } from '../../../../table-column/base/cell-view';
 import { createCellViewTemplate } from '../../../../table-column/base/cell-view/template';
-import { TableColumn } from '../../../../table-column/base';
-import type { ColumnInternalsOptions } from '../../../../table-column/base/models/column-internals';
-import { TableGroupHeaderView } from '../../../../table-column/base/group-header-view';
 
 interface SimpleTableCellRecord extends TableCellRecord {
     stringData: string;
@@ -28,31 +24,6 @@ const columnCellViewName = uniqueElementName();
     >`
 })
 class TestTableColumnCellView extends TableCellView<SimpleTableCellRecord> {}
-
-const columnGroupHeaderName = uniqueElementName();
-
-@customElement({
-    name: columnGroupHeaderName,
-    template: html<TestTableColumnGroupHeader>`<div></div>`
-})
-class TestTableColumnGroupHeader extends TableGroupHeaderView {}
-
-const columnName = uniqueElementName();
-
-@customElement({
-    name: columnName,
-    template: html<TestTableColumn>`<div></div>`
-})
-class TestTableColumn extends TableColumn {
-    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
-        return {
-            cellViewTag: columnCellViewName,
-            cellRecordFieldNames: [''],
-            groupHeaderViewTag: columnGroupHeaderName,
-            delegatedEvents: []
-        };
-    }
-}
 
 // prettier-ignore
 async function setup(): Promise<Fixture<TableCell<SimpleTableCellRecord>>> {
