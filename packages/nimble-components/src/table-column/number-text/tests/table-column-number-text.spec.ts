@@ -364,14 +364,24 @@ describe('TableColumnNumberText', () => {
 
         const testCases: readonly NumericTestCase[] = [
             {
-                name: 'rounds down numbers',
+                name: 'rounds down positive numbers',
                 value: 1.23,
                 expectedRenderedString: '1'
             },
             {
-                name: 'rounds up numbers',
+                name: 'rounds up positive numbers',
                 value: 1.76,
                 expectedRenderedString: '2'
+            },
+            {
+                name: 'rounds down negative numbers',
+                value: -1.76,
+                expectedRenderedString: '-2'
+            },
+            {
+                name: 'rounds up negative numbers',
+                value: -1.23,
+                expectedRenderedString: '-1'
             }
         ] as const;
 
