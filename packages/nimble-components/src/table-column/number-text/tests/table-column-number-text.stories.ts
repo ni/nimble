@@ -108,16 +108,16 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
             data-unused="${x => x.updateData(x)}"
         >
             <${tableColumnTextTag} field-name="firstName">
-            First Name
+                First Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag} field-name="lastName">
-            Last Name
+                Last Name
             </${tableColumnTextTag}>
             <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}">
-            Age
+                Age
             </${tableColumnNumberTextTag}>
             <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}">
-            Favorite Number
+                Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
     `),
