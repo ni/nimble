@@ -27,10 +27,10 @@ import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
 export const styles = css`
-    ${display('inline-flex')}
+    @layer base, hover, focusVisible, active, disabled, top;
 
     @layer base {
-        @layer base, hover, focusVisible, active, disabled, top;
+        ${display('inline-flex')}
 
         :host {
             background-color: transparent;
