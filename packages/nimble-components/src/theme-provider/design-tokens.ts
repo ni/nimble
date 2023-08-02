@@ -230,8 +230,8 @@ export const buttonPrimaryFontColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.buttonPrimaryFontColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
 
-export const buttonFillPrimaryActiveColor = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.buttonFillPrimaryActiveColor)
+export const buttonFillActivePrimaryColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillActivePrimaryColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(
     element,
     hexToRgbaCssColor(Black91, 0.85),

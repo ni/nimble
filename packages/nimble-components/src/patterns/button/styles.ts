@@ -16,7 +16,7 @@ import {
     standardPadding,
     buttonPrimaryFontColor,
     buttonFillPrimaryColor,
-    buttonFillPrimaryActiveColor,
+    buttonFillActivePrimaryColor,
     buttonFillAccentColor,
     buttonAccentBlockFontColor,
     buttonFillAccentActiveColor,
@@ -27,11 +27,11 @@ import { appearanceBehavior } from '../../utilities/style/appearance';
 import { ButtonAppearance } from './types';
 
 export const styles = css`
-    @layer default, hover, focusVisible, active, disabled;
-
     ${display('inline-flex')}
 
-    @layer default {
+    @layer base {
+        @layer base, hover, focusVisible, active, disabled, top;
+
         :host {
             background-color: transparent;
             height: ${controlHeight};
@@ -192,20 +192,22 @@ export const styles = css`
         }
     }
 
-    @media (prefers-reduced-motion) {
-        .control {
-            transition-duration: 0s;
+    @layer top {
+        @media (prefers-reduced-motion) {
+            .control {
+                transition-duration: 0s;
+            }
         }
-    }
 
-    :host([content-hidden]) [part='end'] {
-        display: none;
+        :host([content-hidden]) [part='end'] {
+            display: none;
+        }
     }
 `.withBehaviors(
     appearanceBehavior(
         ButtonAppearance.outline,
         css`
-            @layer default {
+            @layer base {
                 .control {
                     border-color: rgba(${actionRgbPartialColor}, 0.3);
                 }
@@ -231,7 +233,7 @@ export const styles = css`
     appearanceBehavior(
         ButtonAppearance.block,
         css`
-            @layer default {
+            @layer base {
                 .control {
                     background-image: linear-gradient(
                         rgba(${borderRgbPartialColor}, 0.1),
@@ -271,7 +273,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
     appearanceBehavior(
         ButtonAppearance.outline,
         css`
-            @layer default {
+            @layer base {
                 :host([appearance-variant='primary']) .control {
                     border-color: ${actionRgbPartialColor};
                 }
@@ -286,7 +288,7 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
     appearanceBehavior(
         ButtonAppearance.block,
         css`
-            @layer default {
+            @layer base {
                 :host([appearance-variant='primary']) [part='start'] {
                     ${iconColor.cssCustomProperty}: white;
                 }
@@ -325,8 +327,8 @@ export const buttonAppearanceVariantStyles = css``.withBehaviors(
             @layer active {
                 :host([appearance-variant='primary']) .control:active {
                     background-image: linear-gradient(
-                        ${buttonFillPrimaryActiveColor},
-                        ${buttonFillPrimaryActiveColor}
+                        ${buttonFillActivePrimaryColor},
+                        ${buttonFillActivePrimaryColor}
                     );
                 }
 

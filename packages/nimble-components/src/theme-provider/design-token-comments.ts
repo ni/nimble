@@ -13,7 +13,7 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Control fill color for "primary" appearance-variant buttons',
     buttonPrimaryFontColor:
         'Font color for "primary" appearance-variant buttons',
-    buttonFillPrimaryActiveColor:
+    buttonFillActivePrimaryColor:
         'Active fill color for "primary" appearance-variant buttons',
     buttonFillAccentColor:
         'Control fill color for "accent" appearance-variant buttons',

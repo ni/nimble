@@ -15,7 +15,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     sectionBackgroundColor: 'section-background-color',
     buttonFillPrimaryColor: 'button-fill-primary-color',
     buttonPrimaryFontColor: 'button-primary-font-color',
-    buttonFillPrimaryActiveColor: 'button-fill-primary-active-color',
+    buttonFillActivePrimaryColor: 'button-fill-active-primary-color',
     buttonFillAccentColor: 'button-fill-accent-color',
     buttonAccentBlockFontColor: 'button-accent-block-font-color',
     buttonAccentOutlineFontColor: 'button-accent-outline-font-color',
