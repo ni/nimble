@@ -27,6 +27,7 @@ import type {
     WeekdayFormat
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
+import { optionalBooleanConverter } from '../../utilities/models/converter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
@@ -82,7 +83,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-format-matcher' })
     public customFormatMatcher: FormatMatcherAlgorithm;
 
-    @attr({ attribute: 'custom-hour12', mode: 'boolean' })
+    @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
     public customHour12?: boolean;
 
     @attr({ attribute: 'custom-time-zone' })

@@ -396,6 +396,19 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
         });
 
+        it('honors setting customHour12 property to undefined', async () => {
+            await element.setData([
+                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+            ]);
+            await waitForUpdatesAsync();
+            column.format = 'custom';
+            column.customHour = 'numeric'; // must specify hour
+            column.customHour12 = undefined;
+            expect(column.customHour12).toBeUndefined();
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
+        });
+
         it('honors customHourCycle property', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
