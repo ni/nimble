@@ -1,4 +1,6 @@
+import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { template } from './template';
@@ -15,11 +17,34 @@ declare global {
  * A nimble styled rich text editor
  */
 export class RichTextEditor extends FoundationElement {
-    public editor!: HTMLDivElement;
+    /**
+     * @internal
+     */
+    @observable
     public bold!: ToggleButton;
+
+    /**
+     * @internal
+     */
+    @observable
     public italics!: ToggleButton;
+
+    /**
+     * @internal
+     */
+    @observable
     public bulletList!: ToggleButton;
+
+    /**
+     * @internal
+     */
+    @observable
     public numberedList!: ToggleButton;
+
+    /**
+     * @internal
+     */
+    public editor!: HTMLDivElement;
 
     private tiptapEditor!: Editor;
 
@@ -41,6 +66,7 @@ export class RichTextEditor extends FoundationElement {
     }
 
     /**
+     * Toggle the bold mark and focus back to the editor
      * @internal
      */
     public boldButtonClickHandler(): void {
@@ -48,13 +74,45 @@ export class RichTextEditor extends FoundationElement {
     }
 
     /**
+     * Toggle the bold mark and focus back to the editor
      * @internal
      */
-    public italicButtonClickHandler(): void {
+    public boldButtonKeyDownHandler(e: KeyboardEvent): boolean {
+        switch (e.key) {
+            case keySpace:
+            case keyEnter:
+                this.tiptapEditor.chain().focus().toggleBold().run();
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    /**
+     * Toggle the italics mark and focus back to the editor
+     * @internal
+     */
+    public italicsButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleItalic().run();
     }
 
     /**
+     * Toggle the italics mark and focus back to the editor
+     * @internal
+     */
+    public italicsButtonKeyDownHandler(e: KeyboardEvent): boolean {
+        switch (e.key) {
+            case keySpace:
+            case keyEnter:
+                this.tiptapEditor.chain().focus().toggleItalic().run();
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    /**
+     * Toggle the unordered list node and focus back to the editor
      * @internal
      */
     public bulletListButtonClickHandler(): void {
@@ -62,23 +120,59 @@ export class RichTextEditor extends FoundationElement {
     }
 
     /**
+     * Toggle the unordered list node and focus back to the editor
+     * @internal
+     */
+    public bulletListButtonKeyDownHandler(e: KeyboardEvent): boolean {
+        switch (e.key) {
+            case keySpace:
+            case keyEnter:
+                this.tiptapEditor.chain().focus().toggleBulletList().run();
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    /**
+     * Toggle the ordered list node and focus back to the editor
      * @internal
      */
     public numberedListButtonClickHandler(): void {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
     }
 
+    /**
+     * Toggle the unordered list node and focus back to the editor
+     * @internal
+     */
+    public numberedListButtonKeyDownHandler(e: KeyboardEvent): boolean {
+        switch (e.key) {
+            case keySpace:
+            case keyEnter:
+                this.tiptapEditor.chain().focus().toggleOrderedList().run();
+                return false;
+            default:
+                return true;
+        }
+    }
+
     private initializeEditor(): void {
         if (this.$fastController.isConnected) {
             const extensions = [
+                /**
+                 * Tiptap starter-kit provides the basic formatting options such as bold, italics, lists etc,. along with some necessary nodes and extensions.
+                 * https://tiptap.dev/api/extensions/starter-kit
+                 * Disabled other not supported marks and nodes for the initial pass.
+                 */
                 StarterKit.configure({
-                    heading: false,
                     blockquote: false,
-                    hardBreak: false,
                     code: false,
+                    codeBlock: false,
+                    hardBreak: false,
+                    heading: false,
                     horizontalRule: false,
-                    strike: false,
-                    codeBlock: false
+                    strike: false
                 })
             ];
 
@@ -89,6 +183,11 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
+    /**
+     * Binding the "transaction" event to the editor allows continuous monitoring the events and updating the button state in response to
+     * various actions such as mouse events, keyboard events, changes in the editor content etc,.
+     * https://tiptap.dev/api/events#transaction
+     */
     private bindEditorTransactionEvent(): void {
         if (this.$fastController.isConnected) {
             this.tiptapEditor.on('transaction', () => {

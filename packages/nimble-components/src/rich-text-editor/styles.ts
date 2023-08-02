@@ -6,9 +6,7 @@ import {
     borderHoverColor,
     borderRgbPartialColor,
     borderWidth,
-    controlLabelFontColor,
     smallDelay,
-    smallPadding,
     standardPadding
 } from '../theme-provider/design-tokens';
 
@@ -24,6 +22,13 @@ export const styles = css`
         flex-direction: column;
         position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
+        ${
+            /**
+             * Min inline size to accommodate all the possible buttons in the toolbar and max inline size is referred from the visual design.
+             */ ''
+        }
+        min-inline-size: 360px;
+        max-inline-size: 720px;
     }
 
     .container {
@@ -33,7 +38,6 @@ export const styles = css`
         position: relative;
         max-block-size: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
-        min-inline-size: 350px;
     }
 
     .container::after {
@@ -76,7 +80,7 @@ export const styles = css`
         ${
             /**
              * Min block size represents the one line space for the initial view and max block size is referred from the visual design.
-             * However, max block size will be `fit-content` when the `fit-to-content` attribute is enabled.
+             * However, max block size will be `fit-content` when the `fit-to-content` attribute is implemented.
              */ ''
         }
         min-block-size: 32px;
@@ -138,7 +142,7 @@ export const styles = css`
 
     nimble-toolbar::part(positioning-region) {
         background: transparent;
-        padding-right: ${smallPadding};
+        padding-right: 8px;
     }
 
     nimble-toolbar::part(start) {
@@ -151,13 +155,5 @@ export const styles = css`
         margin-inline-end: ${standardPadding};
         gap: ${standardPadding};
         place-items: center;
-    }
-
-    .ProseMirror p.is-editor-empty:first-child::before {
-        color: ${controlLabelFontColor};
-        content: attr(data-placeholder);
-        float: left;
-        height: 0;
-        pointer-events: none;
     }
 `;

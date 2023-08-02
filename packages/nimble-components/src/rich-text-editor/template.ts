@@ -12,39 +12,54 @@ export const template = html<RichTextEditor>`
         <div class="container">
             <section ${ref('editor')} class="editor"></section>
             <section class="footer-section">
-                <${toolbarTag}
-                    class="footer-toolbar">
+                <${toolbarTag}>
                     <${toggleButtonTag} ${ref('bold')}
                         content-hidden
                         appearance="ghost"
                         slot="start"
-                        @click=${x => x.boldButtonClickHandler()}>
+                        class="bold"
+                        @click=${x => x.boldButtonClickHandler()}
+                        @keydown=${(x, c) => x.boldButtonKeyDownHandler(
+        c.event as KeyboardEvent
+    )}
+                        >
                         <${iconBoldBTag} slot="start"></${iconBoldBTag}>
-                        Bold
                     </${toggleButtonTag}>
                     <${toggleButtonTag} ${ref('italics')}
                         content-hidden
                         appearance="ghost"
                         slot="start"
-                        @click=${x => x.italicButtonClickHandler()}>
+                        class="italics"
+                        @click=${x => x.italicsButtonClickHandler()}
+                        @keydown=${(x, c) => x.italicsButtonKeyDownHandler(
+        c.event as KeyboardEvent
+    )}
+                        >
                         <${iconItalicITag} slot="start"></${iconItalicITag}>
-                        Italics
                     </${toggleButtonTag}>
                     <${toggleButtonTag} ${ref('bulletList')}
                         content-hidden
                         appearance="ghost"
                         slot="start"
-                        @click=${x => x.bulletListButtonClickHandler()}>
+                        class="bullet-list"
+                        @click=${x => x.bulletListButtonClickHandler()}
+                        @keydown=${(x, c) => x.bulletListButtonKeyDownHandler(
+        c.event as KeyboardEvent
+    )}
+                        >
                         <${iconListTag} slot="start"></${iconListTag}>
-                        Bullet list
                     </${toggleButtonTag}>
                     <${toggleButtonTag} ${ref('numberedList')}
                         content-hidden
                         appearance="ghost"
                         slot="start"
-                        @click=${x => x.numberedListButtonClickHandler()}>
+                        class="numbered-list"
+                        @click=${x => x.numberedListButtonClickHandler()}
+                        @keydown=${(x, c) => x.numberedListButtonKeyDownHandler(
+        c.event as KeyboardEvent
+    )}
+                        >
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
-                        Numbered list
                     </${toggleButtonTag}>
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
