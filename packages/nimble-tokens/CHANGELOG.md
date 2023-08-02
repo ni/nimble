@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Fri, 14 Jul 2023 22:15:57 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.3.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Adding new DigitalGreenDark color tokens (105 and 110) for new button appearance variants (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
 
 ## 6.2.1
 

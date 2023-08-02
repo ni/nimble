@@ -2,6 +2,27 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 02 Aug 2023 19:10:45 GMT",
+      "tag": "@ni/nimble-components_v20.1.0",
+      "version": "20.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3b37cf1deb3377b36c069e884d2b938b11048acd",
+            "comment": "Storybook integration for primary and accent appearance-variant buttons (#663)"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-components",
+            "comment": "Bump @ni/nimble-tokens to v6.3.0",
+            "commit": "3b37cf1deb3377b36c069e884d2b938b11048acd"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Aug 2023 00:19:04 GMT",
       "tag": "@ni/nimble-components_v20.0.6",
       "version": "20.0.6",
