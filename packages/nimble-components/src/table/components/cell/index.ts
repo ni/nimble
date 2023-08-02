@@ -32,7 +32,7 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @observable
+    @attr({ attribute: 'column-id' })
     public columnId?: string;
 
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
