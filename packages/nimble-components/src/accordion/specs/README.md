@@ -89,6 +89,8 @@ The Figma design includes appearances of the accordion header that reflect those
 
 Documentation will be added to advise against using multiple Nimble Accordions with different appearances next to each other.
 
+When using nested accordions, the parent accordion will have the selected `appearance` type, and all children accordions will be forced to have the `ghost` appearance type.
+
 `expand-mode` is a FAST attribute, but is being temporarily omitted to have one default value (`multi`) instead of two values (`multi` and `single`). This is because of these issues:
 
 When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item.
