@@ -28,16 +28,21 @@ export class AccordionItem extends FoundationAccordionItem {
     @attr({ mode: 'boolean' })
     public open = false;
 
-    @attr({ mode: 'boolean' })
-    public override expanded = false;
-
-    /**
-     * @internal
-     */
-    public override clickHandler = (_e: MouseEvent): void => {
-        this.open = !this.open;
-        this.expanded = !this.expanded;
-    };
+    public firstUpdated(): void {
+        const details: HTMLElement = document.querySelector('#accordion-1')!;
+        const observer = new MutationObserver(changes => {
+            for (const change of changes) {
+                if (change.type === 'attributes' && change.attributeName === 'expanded') {
+                    if (this.expanded) {
+                        this.open = true;
+                    } else {
+                        this.open = false;
+                    }
+                }
+            }
+        });
+        observer.observe(details, { attributes: true });
+    }
 }
 
 const nimbleAccordionItem = AccordionItem.compose<AccordionItemOptions>({

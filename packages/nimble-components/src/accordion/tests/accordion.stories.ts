@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { html, repeat, when } from '@microsoft/fast-element';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { createUserSelectedThemeStory, incubatingWarning } from '../../utilities/tests/storybook';
 import { AccordionAppearance } from '../../accordion-item/types';
 import { accordionTag } from '..';
 import { accordionItemTag } from '../../accordion-item';
@@ -22,7 +22,7 @@ interface ItemArgs {
 const overviewText = 'hello';
 
 const metadata: Meta<AccordionArgs> = {
-    title: 'Components/Accordion',
+    title: 'Incubating/Accordion',
     decorators: [withActions],
     tags: ['autodocs'],
 
@@ -35,7 +35,7 @@ const metadata: Meta<AccordionArgs> = {
         actions: {
             handles: ['change']
         }
-    }
+    },
 };
 
 export default metadata;
@@ -43,6 +43,10 @@ export default metadata;
 export const _standardAccordion: StoryObj<AccordionArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+    ${incubatingWarning({
+        componentName: 'accordion',
+        statusLink: 'https://github.com/ni/nimble/issues/533'
+    })}
         <${accordionTag}
         >
             ${repeat(x => x.options, html<ItemArgs, AccordionArgs>`
@@ -96,6 +100,10 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
 
 export const accordionItem: StoryObj<ItemArgs> = {
     render: createUserSelectedThemeStory(html`
+    ${incubatingWarning({
+        componentName: 'accordion',
+        statusLink: 'https://github.com/ni/nimble/issues/533'
+    })}
         <${accordionTag}>
             <${accordionItemTag}
                 ?error-visible="${x => x.errorVisible}"
