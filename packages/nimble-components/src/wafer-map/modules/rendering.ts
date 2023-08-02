@@ -1,24 +1,20 @@
 import type { WaferMap } from '..';
-import { DieRenderInfo, Dimensions, HoverDieOpacity } from '../types';
+import { DieRenderInfo, HoverDieOpacity } from '../types';
 
 /**
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class RenderingModule {
-    private readonly dies: DieRenderInfo[];
-    private readonly dimensions: Dimensions;
-    private readonly labelFontSize: number;
+    private dies!: DieRenderInfo[];
+    private readonly minDieDim = 50;
 
-    public constructor(private readonly wafermap: WaferMap) {
-        this.dies = wafermap.dataManager!.diesRenderInfo;
-        this.dimensions = wafermap.dataManager!.dieDimensions;
-        this.labelFontSize = wafermap.dataManager!.labelsFontSize;
-    }
+    public constructor(private readonly wafermap: WaferMap) {}
 
     public drawWafer(): void {
         this.wafermap.canvasContext.save();
         this.clearCanvas();
         this.scaleCanvas();
+        this.sortDies();
         this.renderDies();
         this.renderText();
         this.wafermap.canvasContext.restore();
@@ -26,9 +22,9 @@ export class RenderingModule {
     }
 
     public renderHover(): void {
-        this.wafermap.hoverWidth = this.wafermap.dataManager!.dieDimensions.width
+        this.wafermap.hoverWidth = this.wafermap.dataManager.dieDimensions.width
             * this.wafermap.transform.k;
-        this.wafermap.hoverHeight = this.wafermap.dataManager!.dieDimensions.height
+        this.wafermap.hoverHeight = this.wafermap.dataManager.dieDimensions.height
             * this.wafermap.transform.k;
         this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
             ? HoverDieOpacity.hide
@@ -38,23 +34,23 @@ export class RenderingModule {
 
     private calculateHoverTransform(): string {
         if (this.wafermap.hoverDie !== undefined) {
-            const scaledX = this.wafermap.dataManager!.horizontalScale(
+            const scaledX = this.wafermap.dataManager.horizontalScale(
                 this.wafermap.hoverDie.x
             )!;
-            const scaledY = this.wafermap.dataManager!.verticalScale(
+            const scaledY = this.wafermap.dataManager.verticalScale(
                 this.wafermap.hoverDie.y
             )!;
             const transformedPoint = this.wafermap.transform.apply([
-                scaledX + this.wafermap.dataManager!.margin.left,
-                scaledY + this.wafermap.dataManager!.margin.top
+                scaledX + this.wafermap.dataManager.margin.left,
+                scaledY + this.wafermap.dataManager.margin.top
             ]);
             return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
         }
         return '';
     }
 
-    private renderDies(): void {
-        this.dies.sort((a, b) => {
+    private sortDies(): void {
+        this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
             }
@@ -64,7 +60,9 @@ export class RenderingModule {
 
             return 0;
         });
+    }
 
+    private renderDies(): void {
         let prev: DieRenderInfo | undefined;
 
         for (const die of this.dies) {
@@ -77,33 +75,34 @@ export class RenderingModule {
             this.wafermap.canvasContext.fillRect(
                 die.x,
                 die.y,
-                this.dimensions.width,
-                this.dimensions.height
+                this.wafermap.dataManager.dieDimensions.width,
+                this.wafermap.dataManager.dieDimensions.height
             );
             prev = die;
         }
     }
 
     private renderText(): void {
-        const dieSize = this.dimensions.width
-            * this.dimensions.height
+        const dieSize = this.wafermap.dataManager.dieDimensions.width
+            * this.wafermap.dataManager.dieDimensions.height
             * (this.wafermap.transform.k || 1);
-        const fontsize = this.labelFontSize;
+        const fontsize = this.wafermap.dataManager.labelsFontSize;
         this.wafermap.canvasContext.font = `${fontsize.toString()}px sans-serif`;
         this.wafermap.canvasContext.fillStyle = '#ffffff';
         this.wafermap.canvasContext.textAlign = 'center';
         this.wafermap.canvasContext.lineCap = 'butt';
         const approxTextHeight = this.wafermap.canvasContext.measureText('M');
 
-        if (dieSize >= 50) {
+        const dieDimensions = this.wafermap.dataManager.dieDimensions;
+        if (dieSize >= this.minDieDim) {
             for (const die of this.dies) {
                 this.wafermap.canvasContext.fillText(
                     die.text,
-                    die.x + this.dimensions.width / 2,
+                    die.x + dieDimensions.width / 2,
                     die.y
-                        + this.dimensions.height / 2
+                        + dieDimensions.height / 2
                         + approxTextHeight.width / 2,
-                    this.dimensions.width - (this.dimensions.width / 100) * 20
+                    dieDimensions.width - (dieDimensions.width / 100) * 20
                 );
             }
         }
