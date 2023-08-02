@@ -1,5 +1,5 @@
 import { css } from '@microsoft/fast-element';
-import { display, focusVisible } from '@microsoft/fast-foundation';
+import { display } from '@microsoft/fast-foundation';
 import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,

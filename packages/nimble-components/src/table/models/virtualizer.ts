@@ -142,7 +142,8 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
         if (this.table.openActionMenuRecordId !== undefined) {
             const activeRow = this.table.rowElements.find(
-                row => row instanceof TableRow && row.recordId === this.table.openActionMenuRecordId
+                row => row instanceof TableRow
+                    && row.recordId === this.table.openActionMenuRecordId
             );
             if (activeRow) {
                 (activeRow as TableRow).closeOpenActionMenus();
@@ -150,7 +151,12 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
         }
     }
 
-    private readonly getActiveRow = (row: TableRow | TableGroupRow): row is TableRow => {
-        return row instanceof TableRow && row.recordId === this.table.openActionMenuRecordId;
+    private readonly getActiveRow = (
+        row: TableRow | TableGroupRow
+    ): row is TableRow => {
+        return (
+            row instanceof TableRow
+            && row.recordId === this.table.openActionMenuRecordId
+        );
     };
 }

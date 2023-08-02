@@ -28,7 +28,7 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
-import { keyShift, keyTab } from '@microsoft/fast-web-utilities';
+import { keyShift } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -252,7 +252,10 @@ export class Table<
         };
         this.table = tanStackCreateTable(this.options);
         this.virtualizer = new Virtualizer(this, this.table);
-        this.tableNavigationManager = new TableNavigationManager(this, this.virtualizer);
+        this.tableNavigationManager = new TableNavigationManager(
+            this,
+            this.virtualizer
+        );
         this.layoutManager = new TableLayoutManager(this);
         this.layoutManagerNotifier = Observable.getNotifier(this.layoutManager);
         this.layoutManagerNotifier.subscribe(this, 'isColumnBeingSized');

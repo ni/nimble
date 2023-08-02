@@ -1,5 +1,13 @@
 import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
-import { keyArrowDown, keyArrowUp, keyEnd, keyHome, keyPageDown, keyPageUp, keyTab } from '@microsoft/fast-web-utilities';
+import {
+    keyArrowDown,
+    keyArrowUp,
+    keyEnd,
+    keyHome,
+    keyPageDown,
+    keyPageUp,
+    keyTab
+} from '@microsoft/fast-web-utilities';
 import type { ScrollToOptions } from '@tanstack/virtual-core';
 import type { Table } from '..';
 import type { TableRecord } from '../types';
@@ -11,14 +19,18 @@ import type { TableRow } from '../components/row';
  * This class manages the keyboard navigation within the table
  * @interal
  */
-export class TableNavigationManager<TData extends TableRecord> implements Subscriber {
+export class TableNavigationManager<TData extends TableRecord>
+implements Subscriber {
     private _focusedTotalRowIndex?: number;
     private _focusedRow?: TableRow | TableGroupRow;
     private readonly virtualizerNotifier: Notifier;
     private readonly tableNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
 
-    public constructor(private readonly table: Table<TData>, private readonly virtualizer: Virtualizer<TData>) {
+    public constructor(
+        private readonly table: Table<TData>,
+        private readonly virtualizer: Virtualizer<TData>
+    ) {
         table.addEventListener('keydown', e => this.onKeyDown(e));
         table.addEventListener('focusout', this.resetState);
         table.addEventListener('mousedown', e => this.onMouseDown(e));
@@ -42,7 +54,7 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
             }
             this.focusVisibleRow();
         } else if (args === 'dataIndex') {
-            const dataIndex = (source as (TableRow | TableGroupRow)).dataIndex;
+            const dataIndex = (source as TableRow | TableGroupRow).dataIndex;
             if (dataIndex === this._focusedTotalRowIndex) {
                 this.focusVisibleRow();
             }
@@ -69,8 +81,7 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
                 this.resetState();
                 break;
             }
-            case keyArrowDown:
-            {
+            case keyArrowDown: {
                 const newFocusedTotalRowIndex = this._focusedTotalRowIndex === undefined
                     ? 0
                     : this._focusedTotalRowIndex + 1;
@@ -81,8 +92,7 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
                 }
                 break;
             }
-            case keyArrowUp:
-            {
+            case keyArrowUp: {
                 if (this._focusedTotalRowIndex === undefined) {
                     return true;
                 }
@@ -101,30 +111,36 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
                 }
                 break;
             }
-            case keyPageUp:
-            {
-                const newFocusedRowIndex = Math.max(this.table.rowElements[0]!.dataIndex! - this.table.rowElements.length + 1, 0);
-                this.scrollToAndFocusRow(newFocusedRowIndex, { align: 'start' });
+            case keyPageUp: {
+                const newFocusedRowIndex = Math.max(
+                    this.table.rowElements[0]!.dataIndex!
+                        - this.table.rowElements.length
+                        + 1,
+                    0
+                );
+                this.scrollToAndFocusRow(newFocusedRowIndex, {
+                    align: 'start'
+                });
                 event.preventDefault();
                 return false;
             }
-            case keyPageDown:
-            {
-                const newFocusedRowIndex = this.table.rowElements[this.table.rowElements.length - 1]!.dataIndex!;
-                this.scrollToAndFocusRow(newFocusedRowIndex, { align: 'start' });
+            case keyPageDown: {
+                const newFocusedRowIndex = this.table.rowElements[this.table.rowElements.length - 1]!
+                    .dataIndex!;
+                this.scrollToAndFocusRow(newFocusedRowIndex, {
+                    align: 'start'
+                });
                 event.preventDefault();
                 return false;
             }
-            case keyHome:
-            {
+            case keyHome: {
                 if (event.ctrlKey) {
                     this.scrollToAndFocusRow(0);
                 }
                 event.preventDefault();
                 return false;
             }
-            case keyEnd:
-            {
+            case keyEnd: {
                 if (event.ctrlKey) {
                     this.scrollToAndFocusRow(this.table.tableData.length - 1);
                 }
@@ -148,9 +164,15 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
         }
     }
 
-    private scrollToAndFocusRow(totalRowIndex: number, scrollOptions?: ScrollToOptions): void {
+    private scrollToAndFocusRow(
+        totalRowIndex: number,
+        scrollOptions?: ScrollToOptions
+    ): void {
         this._focusedTotalRowIndex = totalRowIndex;
-        this.virtualizer.scrollToIndex(this._focusedTotalRowIndex, scrollOptions);
+        this.virtualizer.scrollToIndex(
+            this._focusedTotalRowIndex,
+            scrollOptions
+        );
         this.focusVisibleRow();
     }
 
@@ -168,7 +190,9 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
     }
 
     private getVisibleRowIndex(): number {
-        return this.table.rowElements.findIndex(row => row.dataIndex === this._focusedTotalRowIndex);
+        return this.table.rowElements.findIndex(
+            row => row.dataIndex === this._focusedTotalRowIndex
+        );
     }
 
     private getTableHeaderFocusableElement(): HTMLElement | undefined {
@@ -185,7 +209,10 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
 
     private readonly focusOutHandler = (event: Event): void => {
         (event.target as HTMLElement).tabIndex = -1;
-        (event.target as HTMLElement).removeEventListener('focusout', this.focusOutHandler);
+        (event.target as HTMLElement).removeEventListener(
+            'focusout',
+            this.focusOutHandler
+        );
     };
 
     private readonly resetState = (): void => {
@@ -197,13 +224,18 @@ export class TableNavigationManager<TData extends TableRecord> implements Subscr
         this._focusedTotalRowIndex = undefined;
     };
 
-    private getClickedRow(clientX: number, clientY: number): TableRow | TableGroupRow | undefined {
+    private getClickedRow(
+        clientX: number,
+        clientY: number
+    ): TableRow | TableGroupRow | undefined {
         return this.table.rowElements.find(row => {
             const rowRect = row.getBoundingClientRect();
-            return (clientX >= rowRect.x
+            return (
+                clientX >= rowRect.x
                 && clientX < rowRect.x + rowRect.width
                 && clientY >= rowRect.y
-                && clientY < rowRect.y + rowRect.height);
+                && clientY < rowRect.y + rowRect.height
+            );
         });
     }
 }
