@@ -28,20 +28,28 @@ export class AccordionItem extends FoundationAccordionItem {
     @attr({ mode: 'boolean' })
     public open = false;
 
-    public firstUpdated(): void {
-        const details: HTMLElement = document.querySelector('#accordion-1')!;
-        const observer = new MutationObserver(changes => {
+    public details!: HTMLDetailsElement;
+
+    public observer?: MutationObserver;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.observer = new MutationObserver(changes => {
             for (const change of changes) {
-                if (change.type === 'attributes' && change.attributeName === 'expanded') {
-                    if (this.expanded) {
-                        this.open = true;
+                if (change.type === 'attributes' && change.attributeName === 'open') {
+                    if ((change.target as HTMLDetailsElement).open) {
+                        this.expanded = true;
                     } else {
-                        this.open = false;
+                        this.expanded = false;
                     }
                 }
             }
         });
-        observer.observe(details, { attributes: true });
+        this.observer.observe(this.details, { attributes: true });
+    }
+
+    public override disconnectedCallback(): void {
+        this.observer?.disconnect();
     }
 }
 
