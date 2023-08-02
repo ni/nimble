@@ -10,8 +10,6 @@ The `nimble-accordion` is a vertical stack of interactive headings. The headings
 
 [Visual Design](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-85131&mode=design&t=DxDRlqT7MeCPLOxi-0)
 
-There are several open questions with the current visual design. They're tracked in this GitHub issue [#1399](https://github.com/ni/nimble/issues/1399).
-
 ## Design
 
 Accordion group, appearance ghost
@@ -81,7 +79,7 @@ Accordion group, appearance block with a nested accordion
 -   _Component Name:_ `nimble-accordion`
 -   _Properties/Attributes:_
     -   `appearance` - `block`, `outline`, `ghost`
-    -   `expand-mode` - `multi`
+    -   FAST's attribute `expand-mode` will be omitted from the FAST base class due to issues discussed below.
 -   _Methods:_ Unchanged
 -   _Events:_ Unchanged
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
@@ -91,7 +89,7 @@ The Figma design includes appearances of the accordion header that reflect those
 
 Documentation will be added to advise against using multiple Nimble Accordions with different appearances next to each other.
 
-`expand-mode` is a FAST attribute, but is being temporarily modified to have one default value (`multi`) instead of two values (`multi` and `single`). This is because of these issues:
+`expand-mode` is a FAST attribute, but is being temporarily omitted to have one default value (`multi`) instead of two values (`multi` and `single`). This is because of these issues:
 
 When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item.
 
@@ -99,7 +97,7 @@ This issue will be discussed with UX designers to determine if having this `sing
 
 Additionally, when using nested accordions with the single expand mode, once you open a child accordion, the parent accordion closes- when you open the parent accordion again, the previously selected child accordion is open, but when clicking on it, it doesn't close. Also, when opening the second child accordion, the first child accordion stays open, which goes against the functionality of single expand mode.
 
-This issue with nested accordions will be filed to FAST, and the `expand-mode` attribute will be updated to include the `single` expand mode once FAST resolves this.
+This issue with nested accordions will be filed to FAST. Once FAST resolves the issue and UX confirms the `single` expand mode behavior, the `expand-mode` attribute will be updated to include the `single` expand mode.
 
 #### Nimble Accordion Item
 
@@ -113,7 +111,7 @@ This issue with nested accordions will be filed to FAST, and the `expand-mode` a
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ The `start` and `end` slots will not be used. The `collapsed-icon` and `expanded-icon` slots are set by the nimble-accordion-item in its index.ts, so overriding them will not be supported.
 
-The Figma design also includes an `error` state. This will be controlled with the boolean attribute `error-visible`, which has a default attribute value of "". When needed, "error-visible" would be added to the accordion attributes, changing the color of the accordion item border color to red. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. `:host([error-visible])` will have styling for when `error-visible` is true).
+The Figma design also includes an `error` state. This will be specific to each accordion item and controlled with the boolean attribute `error-visible`, which has a default attribute value of "". When needed, "error-visible" would be added to the accordion-item attributes, changing the color of the accordion item border color to red. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. `:host([error-visible])` will have styling for when `error-visible` is true).
 
 Usage guidance for the `error-visible` state will be created, as its usage may be unclear.
 
@@ -142,7 +140,7 @@ Blazor wrappers will be created for both components.
     -   No Additional Requirements
 -   _Accessibility: keyboard navigation/focus, form input, use with assistive technology, etc._
     -   These are [aria's guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for keyboard interactions: enter or space for actions, tab and shift + tab for moving up and down, arrow keys for moving up and down between headers, and home / end (optional) for moving to the first and last accordion header, respectively. I tested all of these in the FAST component explorer, and they're functional. It is expected that these interactions will still be functional when implemented in Nimble.
-    -   These are [aria's guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for WAI-ARIA Roles, States, and Properties. FAST follows the required guidelines including `aria-level`, accordion ids, `aria-expanded`, `aria-controls` `aria-labelledby`, and `aria-hidden`. It does not use `region`, which is an optional panel content role that can be helpful in cases like nested accordions and panels containing heading elements.
+    -   These are [aria's guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for WAI-ARIA Roles, States, and Properties. FAST follows the required guidelines including `aria-level`, accordion ids, `aria-expanded`, `aria-controls` `aria-labelledby`, `aria-hidden`, and the panel content role `region` (which can be helpful incases like nested accordions and panels containing heading elements).
 -   _Globalization: special RTL handling, swapping of icons/visuals, localization, etc._
     -   No Additional Requirements
 -   _Performance: does the FAST component meet Nimble's performance requirements?_
