@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Aug 2023 20:43:24 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Aug 2023 00:19:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.0.6
+
+Wed, 02 Aug 2023 00:19:04 GMT
+
+### Patches
+
+- Fix table bug where shift-selecting rows would highlight all cell content ([ni/nimble@aa64ac8](https://github.com/ni/nimble/commit/aa64ac8f7b8e200e07af05c88b5f45d9a2b560db))
 
 ## 20.0.5
 
