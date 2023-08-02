@@ -1,14 +1,8 @@
-import {
-    attr,
-    Notifier,
-    observable,
-    Observable,
-    ViewTemplate
-} from '@microsoft/fast-element';
+import { attr, observable, ViewTemplate } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import type { MenuButton } from '../../../menu-button';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
-import { TableColumn } from '../../../table-column/base';
+import type { TableColumn } from '../../../table-column/base';
 import type {
     TableCellRecord,
     TableCellState
@@ -38,7 +32,7 @@ export class TableCell<
     @observable
     public recordId?: string;
 
-    @attr({ attribute: 'column-id' })
+    @observable
     public columnId?: string;
 
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
@@ -58,13 +52,6 @@ export class TableCell<
 
     public readonly actionMenuButton?: MenuButton;
 
-    private columnNotifier?: Notifier;
-
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.observeColumn();
-    }
-
     public onActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>
     ): void {
@@ -76,37 +63,6 @@ export class TableCell<
     ): void {
         this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
-    }
-
-    /**
-     * @internal
-     *
-     * The event handler that is called when a notifier detects a change. Notifiers are added
-     * to the column, so `source` is expected to be an instance of `TableColumn`, and `args`
-     * is the string name of the property that changed on that column.
-     */
-    public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof TableColumn && args === 'columnId') {
-            this.columnId = this.column?.columnId;
-        }
-    }
-
-    private columnChanged(): void {
-        this.columnId = this.column?.columnId;
-        this.observeColumn();
-    }
-
-    private observeColumn(): void {
-        if (this.columnNotifier) {
-            this.columnNotifier.unsubscribe(this);
-            this.columnNotifier = undefined;
-        }
-
-        if (this.column) {
-            const notifier = Observable.getNotifier(this.column);
-            notifier.subscribe(this);
-            this.columnNotifier = notifier;
-        }
     }
 }
 

@@ -87,6 +87,51 @@ describe('TableRow', () => {
         expect(secondCellRecord.value).toBe('foo');
     });
 
+    it('updates cell.columnId when column changes', async () => {
+        await connect();
+
+        const textColumn1 = new TableColumnText();
+        textColumn1.columnId = 'foo';
+        textColumn1.fieldName = 'stringData';
+        const textColumn2 = new TableColumnText();
+        textColumn2.columnId = 'bar';
+        textColumn2.fieldName = 'moreStringData';
+        element.columns = [textColumn1];
+        element.dataRecord = {
+            stringData: 'string 1',
+            moreStringData: 'string 2'
+        };
+        await waitForUpdatesAsync();
+
+        const cell = pageObject.getRenderedCell(0)!;
+        await waitForUpdatesAsync();
+        expect(cell.columnId).toEqual('foo');
+        element.columns = [textColumn2];
+        await waitForUpdatesAsync();
+        expect(cell.columnId).toBe('bar');
+    });
+
+    it('updates cell.columnId when id of column changes', async () => {
+        await connect();
+
+        const textColumn1 = new TableColumnText();
+        textColumn1.columnId = 'foo';
+        textColumn1.fieldName = 'stringData';
+        element.columns = [textColumn1];
+        element.dataRecord = {
+            stringData: 'string 1',
+            moreStringData: 'string 2'
+        };
+        await waitForUpdatesAsync();
+
+        const cell = pageObject.getRenderedCell(0)!;
+        await waitForUpdatesAsync();
+        expect(cell.columnId).toEqual('foo');
+        textColumn1.columnId = 'bar';
+        await waitForUpdatesAsync();
+        expect(cell.columnId).toBe('bar');
+    });
+
     it('does not have aria-selected attribute when it is not selectable', async () => {
         element.selectable = false;
         element.selected = false;

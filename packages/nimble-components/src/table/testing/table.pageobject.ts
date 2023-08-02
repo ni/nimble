@@ -620,7 +620,7 @@ export class TablePageObject<T extends TableRecord> {
 
     private getRowById(recordId: string): TableRow {
         const row: TableRow | null = this.tableElement.shadowRoot!.querySelector(
-            `nimble-table-row[record-id="${recordId}"]`
+            `nimble-table-row[record-id="${CSS.escape(recordId)}"]`
         );
         if (!row) {
             throw new Error(
@@ -646,7 +646,7 @@ export class TablePageObject<T extends TableRecord> {
     private getCellById(recordId: string, columnId: string): TableCell {
         const row = this.getRowById(recordId);
         const cell: TableCell | null = row.shadowRoot!.querySelector(
-            `nimble-table-cell[column-id="${columnId}"]`
+            `nimble-table-cell[column-id="${CSS.escape(columnId)}"]`
         );
 
         if (!cell) {

@@ -108,25 +108,4 @@ describe('TableCell', () => {
         const renderedContent = pageObject.getRenderedCellContent();
         expect(renderedContent).toBe('bar');
     });
-
-    it('updates columnId when column changes', async () => {
-        await connect();
-
-        element.column = document.createElement(columnName) as TestTableColumn;
-        await waitForUpdatesAsync();
-        expect(element.columnId).toEqual(element.column.columnId);
-        element.column = undefined;
-        await waitForUpdatesAsync();
-        expect(element.columnId).toBeUndefined();
-    });
-
-    it('updates columnId when id of column changes', async () => {
-        await connect();
-
-        element.column = document.createElement(columnName) as TestTableColumn;
-        await waitForUpdatesAsync();
-        element.column.columnId = 'foo';
-        await waitForUpdatesAsync();
-        expect(element.columnId).toEqual('foo');
-    });
 });
