@@ -10,11 +10,11 @@ export function formatNumber(
             if (columnConfig.useDefaultFormatting) {
                 return formatNumberDefault(
                     number,
-                    columnConfig.formatter!,
+                    columnConfig.formatter,
                     columnConfig.defaultScientificFormatter!
                 );
             }
-            return columnConfig.formatter!.format(number);
+            return columnConfig.formatter.format(number);
         } catch (e) {
             return '';
         }

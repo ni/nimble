@@ -3,8 +3,7 @@
  */
 export const NumberTextFormat = {
     default: undefined,
-    integer: 'integer',
-    decimal: 'decimal'
+    integer: 'integer'
 } as const;
 export type NumberTextFormat =
     (typeof NumberTextFormat)[keyof typeof NumberTextFormat];

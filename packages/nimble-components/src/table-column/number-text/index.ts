@@ -12,7 +12,7 @@ import { NumberTextFormat } from './types';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
-    formatter?: Intl.NumberFormat;
+    formatter: Intl.NumberFormat;
     useDefaultFormatting: boolean;
     defaultScientificFormatter?: Intl.NumberFormat;
 }
@@ -29,9 +29,6 @@ declare global {
 export class TableColumnNumberText extends TableColumnTextBase {
     @attr
     public format: NumberTextFormat;
-
-    @attr({ attribute: 'decimal-digits' })
-    public decimalDigits = 2;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -52,13 +49,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
-    private decimalDigitsChanged(): void {
-        this.updateColumnConfig();
-    }
-
     private updateColumnConfig(): void {
-        const columnConfig: TableColumnNumberTextColumnConfig = this.createFormatterConfig();
-        this.columnInternals.columnConfig = columnConfig;
+        this.columnInternals.columnConfig = this.createFormatterConfig();
     }
 
     private createFormatterConfig(): TableColumnNumberTextColumnConfig {
@@ -67,14 +59,6 @@ export class TableColumnNumberText extends TableColumnTextBase {
         switch (this.format) {
             case NumberTextFormat.integer:
                 options = { maximumFractionDigits: 0, useGrouping: false };
-                break;
-            case NumberTextFormat.decimal:
-                // TODO: coerce minimumFractionDigits/maximumFractionDigits to within their valid range (0-20), or set a validation error when decimalDigits is outside of that range
-                options = {
-                    minimumFractionDigits: this.decimalDigits,
-                    maximumFractionDigits: this.decimalDigits,
-                    useGrouping: false
-                };
                 break;
             default:
                 options = {

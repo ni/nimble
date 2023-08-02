@@ -85,7 +85,6 @@ export default metadata;
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     format: keyof typeof NumberTextFormat;
-    decimalDigits: number;
 }
 
 const numberTextColumnDescription = 'The `nimble-table-column-number-text` column is used to display number fields as text in the `nimble-table`.';
@@ -114,10 +113,10 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="lastName">
             Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}">
             Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}">
             Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -134,17 +133,9 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
                 'By default, numbers are formatted similarly to `Number.toString()`: shows integers with no trailing zeros, uses 16 significant digits, and switches to exponential notation for very large (`>= 1e16`) and small (`< 1e-6`) numbers.',
             options: Object.keys(NumberTextFormat),
             control: { type: 'radio' }
-        },
-        decimalDigits: {
-            name: 'decimal-digits',
-            description:
-                'When `format` is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Valid range is from 0 to 20 (inclusive).',
-            control: { type: 'number', min: 0, max: 20 },
-            defaultValue: { summary: 2 }
         }
     },
     args: {
-        format: 'default',
-        decimalDigits: 2
+        format: 'default'
     }
 };
