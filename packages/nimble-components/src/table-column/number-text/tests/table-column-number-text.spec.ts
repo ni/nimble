@@ -15,13 +15,29 @@ interface NumericTestCase {
 }
 
 const wackyNumbers: readonly NumericTestCase[] = [
-    { name: '-Inf', value: Number.NEGATIVE_INFINITY, expectedRenderedString: '-∞' },
-    { name: '+Inf', value: Number.POSITIVE_INFINITY, expectedRenderedString: '∞' },
+    {
+        name: '-Inf',
+        value: Number.NEGATIVE_INFINITY,
+        expectedRenderedString: '-∞'
+    },
+    {
+        name: '+Inf',
+        value: Number.POSITIVE_INFINITY,
+        expectedRenderedString: '∞'
+    },
     { name: '-0', value: -0, expectedRenderedString: '-0' },
     { name: '+0', value: 0, expectedRenderedString: '0' },
     { name: 'NaN', value: Number.NaN, expectedRenderedString: 'NaN' },
-    { name: 'MAX_SAFE_INTEGER + 9999', value: Number.MAX_SAFE_INTEGER + 9999, expectedRenderedString: '9007199254750990' },
-    { name: 'MIN_SAFE_INTEGER - 9999', value: Number.MIN_SAFE_INTEGER - 9999, expectedRenderedString: '-9007199254750990' },
+    {
+        name: 'MAX_SAFE_INTEGER + 9999',
+        value: Number.MAX_SAFE_INTEGER + 9999,
+        expectedRenderedString: '9007199254750990'
+    },
+    {
+        name: 'MIN_SAFE_INTEGER - 9999',
+        value: Number.MIN_SAFE_INTEGER - 9999,
+        expectedRenderedString: '-9007199254750990'
+    }
 ] as const;
 
 interface SimpleTableRecord extends TableRecord {
@@ -210,16 +226,24 @@ describe('TableColumnNumberText', () => {
             await element.setData([{ number1: 28729375089724643 }]);
             await connect();
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseover')
+            );
             await waitForUpdatesAsync();
-            expect(pageObject.getGroupHeaderTitle(0)).toBe('2.872937508972464e+16');
+            expect(pageObject.getGroupHeaderTitle(0)).toBe(
+                '2.872937508972464e+16'
+            );
         });
 
         it('does not set title when group header text is fully visible', async () => {
             await element.setData([{ number1: 1 }]);
             await connect();
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseover')
+            );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe('');
         });
@@ -230,9 +254,15 @@ describe('TableColumnNumberText', () => {
             await element.setData([{ number1: 28729375089724643 }]);
             await connect();
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseover'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseover')
+            );
             await waitForUpdatesAsync();
-            pageObject.dispatchEventToGroupHeader(0, new MouseEvent('mouseout'));
+            pageObject.dispatchEventToGroupHeader(
+                0,
+                new MouseEvent('mouseout')
+            );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe('');
         });
@@ -243,10 +273,16 @@ describe('TableColumnNumberText', () => {
         const disabled: string[] = [];
         for (const format of Object.values(NumberTextFormat)) {
             for (const testCase of wackyNumbers) {
-                const specType = getSpecTypeByNamedList(testCase, focused, disabled);
+                const specType = getSpecTypeByNamedList(
+                    testCase,
+                    focused,
+                    disabled
+                );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(
-                    `data "${testCase.name}" renders as "${testCase.expectedRenderedString}" with column format of ${format ?? 'default'}`,
+                    `data "${testCase.name}" renders as "${
+                        testCase.expectedRenderedString
+                    }" with column format of ${format ?? 'default'}`,
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
                     async () => {
                         columnInstances.column1.format = format;
@@ -269,16 +305,36 @@ describe('TableColumnNumberText', () => {
 
     describe('with default formatting', () => {
         const testCases: readonly NumericTestCase[] = [
-            { name: '"E" renders as "+e"', value: 28729375089724643, expectedRenderedString: '2.872937508972464e+16' },
-            { name: '"-E" renders as "-e"', value: 0.0000002358967325, expectedRenderedString: '2.358967325e-7' },
-            { name: 'displays at most 16 decimal places', value: 1.234567890123456789, expectedRenderedString: '1.234567890123457' },
-            { name: 'shows less than 16 decimal places for numbers without many decimal', value: 1.23, expectedRenderedString: '1.23' },
+            {
+                name: '"E" renders as "+e"',
+                value: 28729375089724643,
+                expectedRenderedString: '2.872937508972464e+16'
+            },
+            {
+                name: '"-E" renders as "-e"',
+                value: 0.0000002358967325,
+                expectedRenderedString: '2.358967325e-7'
+            },
+            {
+                name: 'displays at most 16 decimal places',
+                value: 1.234567890123456789,
+                expectedRenderedString: '1.234567890123457'
+            },
+            {
+                name: 'shows less than 16 decimal places for numbers without many decimal',
+                value: 1.23,
+                expectedRenderedString: '1.23'
+            }
         ] as const;
 
         const focused: string[] = [];
         const disabled: string[] = [];
         for (const testCase of testCases) {
-            const specType = getSpecTypeByNamedList(testCase, focused, disabled);
+            const specType = getSpecTypeByNamedList(
+                testCase,
+                focused,
+                disabled
+            );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `${testCase.name}`,
@@ -307,14 +363,26 @@ describe('TableColumnNumberText', () => {
         });
 
         const testCases: readonly NumericTestCase[] = [
-            { name: 'rounds down numbers', value: 1.23, expectedRenderedString: '1' },
-            { name: 'rounds up numbers', value: 1.76, expectedRenderedString: '2' },
+            {
+                name: 'rounds down numbers',
+                value: 1.23,
+                expectedRenderedString: '1'
+            },
+            {
+                name: 'rounds up numbers',
+                value: 1.76,
+                expectedRenderedString: '2'
+            }
         ] as const;
 
         const focused: string[] = [];
         const disabled: string[] = [];
         for (const testCase of testCases) {
-            const specType = getSpecTypeByNamedList(testCase, focused, disabled);
+            const specType = getSpecTypeByNamedList(
+                testCase,
+                focused,
+                disabled
+            );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `${testCase.name}`,
