@@ -1,7 +1,10 @@
 import { html, repeat, when } from '@microsoft/fast-element';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import {
+    anchorTargetGuidelines,
+    createUserSelectedThemeStory
+} from '../../utilities/tests/storybook';
 import { TreeViewSelectionMode } from '../types';
 import { treeViewTag } from '..';
 import { iconCogTag } from '../../icons/cog';
@@ -115,7 +118,8 @@ export const anchorTreeItem: StoryObj<AnchorItemArgs> = {
     parameters: {
         docs: {
             description: {
-                story: 'Use a `nimble-anchor-tree-item` to navigate to a URL from a `nimble-tree-view`. If you want a tree item that can have a value and/or child items, use a `nimble-tree-item` instead.'
+                story: `Use a \`nimble-anchor-tree-item\` to navigate to a URL from a \`nimble-tree-view\`. If you want a tree item that can have a value and/or child items, use a \`nimble-tree-item\` instead.
+                ${anchorTargetGuidelines}`
             }
         }
     },
