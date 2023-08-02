@@ -225,7 +225,7 @@ export class TableColumnDateText extends TableColumnTextBase {
             formatter: this.createFormatter()
         };
         this.columnInternals.columnConfig = columnConfig;
-        this.validateConfig(columnConfig.formatter);
+        this.validateConfig(columnConfig.formatter !== undefined);
     }
 
     private createFormatter(): Intl.DateTimeFormat | undefined {
@@ -273,10 +273,10 @@ export class TableColumnDateText extends TableColumnTextBase {
         return options;
     }
 
-    private validateConfig(formatter: Intl.DateTimeFormat | undefined): void {
+    private validateConfig(configIsValid: boolean): void {
         let invalidLangCode = false;
         let invalidCustomOptions = false;
-        if (formatter === undefined) {
+        if (!configIsValid) {
             try {
                 // We don't know whether the lang code we used was bad, or if the config
                 // options were bad. To determine which, try constructing a formatter

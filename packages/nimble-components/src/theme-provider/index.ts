@@ -48,8 +48,8 @@ export class ThemeProvider extends FoundationElement {
     public theme: Theme = Theme.light;
 
     public langChanged(
-        _prev: string | undefined,
-        next: string | undefined
+        _prev: string | undefined | null,
+        next: string | undefined | null
     ): void {
         if (next !== undefined && next !== null) {
             lang.setValueFor(this, next);
@@ -59,8 +59,8 @@ export class ThemeProvider extends FoundationElement {
     }
 
     public directionChanged(
-        _prev: Direction | undefined,
-        next: Direction | undefined
+        _prev: Direction | undefined | null,
+        next: Direction | undefined | null
     ): void {
         if (next !== undefined && next !== null) {
             direction.setValueFor(this, next);
@@ -70,8 +70,8 @@ export class ThemeProvider extends FoundationElement {
     }
 
     public themeChanged(
-        _prev: Theme | undefined,
-        next: Theme | undefined
+        _prev: Theme | undefined | null,
+        next: Theme | undefined | null
     ): void {
         if (next !== undefined && next !== null) {
             theme.setValueFor(this, next);
