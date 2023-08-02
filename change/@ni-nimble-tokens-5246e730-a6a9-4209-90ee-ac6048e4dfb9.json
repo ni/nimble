@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Adding new DigitalGreenDark color tokens (105 and 110) for new button appearance variants (#663)",
+  "packageName": "@ni/nimble-tokens",
+  "email": "103057880+aidendk@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
