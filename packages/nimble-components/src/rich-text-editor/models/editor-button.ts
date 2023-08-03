@@ -9,14 +9,14 @@ export class EditorButton {
         tiptapEditor.commands.focus();
     }
 
-    public keyDownActivateHandler(tiptapEditor: Editor, event: KeyboardEvent): boolean {
+    public keyDownActivateHandler(tiptapEditor: Editor, event: KeyboardEvent): void {
         switch (event.key) {
             case keySpace:
             case keyEnter:
                 tiptapEditor.commands.focus();
-                return false;
+                break;
             default:
-                return true;
+                break;
         }
     }
 }
