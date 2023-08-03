@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 03 Aug 2023 16:47:18 GMT",
+      "tag": "@ni/nimble-components_v20.1.1",
+      "version": "20.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e90a0dc4df48e6e243cf67f528735397fdff4c9c",
+            "comment": "Facilitate getting cells by row/column ID"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 02 Aug 2023 19:10:45 GMT",
       "tag": "@ni/nimble-components_v20.1.0",
       "version": "20.1.0",
