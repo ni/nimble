@@ -51,7 +51,7 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         return this.elementRef.nativeElement.fieldName;
     }
 
-    // Renaming because property should have camel casing }; but attribute should not
+    // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('field-name') public set fieldName(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'fieldName', value);
