@@ -15,6 +15,7 @@ import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provide
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
+import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text-viewer';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
@@ -73,6 +74,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleTableModule,
         NimbleTableColumnTextModule,
         NimbleTableColumnAnchorModule,
+        NimbleTableColumnDateTextModule,
         NimbleBannerModule,
         NimbleRichTextViewerModule,
         RouterModule.forRoot(

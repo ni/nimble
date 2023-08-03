@@ -16,6 +16,7 @@ interface SimpleTableRecord extends TableRecord {
     stringValue2: string;
     href?: string;
     linkLabel?: string;
+    date: number;
 }
 
 @Component({
@@ -105,7 +106,8 @@ export class CustomAppComponent {
             stringValue1: `new string ${tableData.length}`,
             stringValue2: `bar ${tableData.length}`,
             href: '/customapp',
-            linkLabel: 'Link'
+            linkLabel: 'Link',
+            date: new Date().valueOf()
         });
         this.tableDataSubject.next(tableData);
     }
