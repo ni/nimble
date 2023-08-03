@@ -14,7 +14,6 @@ import {
 import { anchorButtonTag } from '..';
 import { iconLinkTag } from '../../icons/link';
 import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
-import { targetGuidelines } from '../../patterns/anchor/tests/doc-strings';
 
 const hrefDescription = `
 In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
@@ -36,8 +35,8 @@ const metadata: Meta<AnchorButtonArgs> = {
     parameters: {
         docs: {
             description: {
-                component: `An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.
-                    ${targetGuidelines}`
+                component:
+                    'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
             }
         },
         actions: {}

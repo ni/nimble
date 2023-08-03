@@ -4,7 +4,6 @@ import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
 import { AnchorAppearance } from '../types';
 import { bodyFont } from '../../theme-provider/design-tokens';
 import { anchorTag } from '..';
-import { targetGuidelines } from '../../patterns/anchor/tests/doc-strings';
 
 const hrefDescription = `
 To disable the control, remove the \`href\` attribute.
@@ -21,12 +20,11 @@ interface AnchorArgs {
 
 const metadata: Meta<AnchorArgs> = {
     title: 'Components/Anchor',
-    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
-                component: `Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.
-                    ${targetGuidelines}`
+                component:
+                    'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
             }
         },
         actions: {}

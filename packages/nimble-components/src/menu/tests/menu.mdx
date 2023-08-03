@@ -1,0 +1,35 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
+import * as menuStories from './menu.stories';
+
+<Meta of={menuStories} />
+
+<Title of={menuStories} />
+<Description of={menuStories} />
+
+<DocsStory of={menuStories.menu} expanded={false} />
+<Controls of={menuStories.menu} />
+
+# Usage Docs
+
+## Child Elements
+
+- `nimble-menu-item` - Use this child element to execute a function when the item is selected or to include a sub-menu. To include a sub-menu, place a `nimble-menu` as a child of a `nimble-menu-item`.
+- `nimble-anchor-menu-item` - Use this child element to navigate to a URL when the item is selected.
+
+### Custom Header
+
+The menu can be configured to display a custom header with arbitrary content. This could include other nimble components, or even custom elements.
+
+## Accessibility
+
+### `nimble-anchor-menu-item` accessibility
+
+<TargetDocs />
