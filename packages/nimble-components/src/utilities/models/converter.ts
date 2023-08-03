@@ -12,6 +12,6 @@ export const optionalBooleanConverter: ValueConverter = {
         if (value === null) {
             return null;
         }
-        return booleanConverter.fromView(value);
+        return booleanConverter.fromView(value) as boolean;
     }
 };
