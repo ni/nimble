@@ -242,6 +242,11 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
+-   `open-link-in-new-tab` - is a boolean attribute to open a link present in the viewer in a new tab. By default, all the links will open in the same tab
+    as per the accessibility guidelines on WCAG (linked below). If opening in a new window/tab, `nimble-icon-up-right-from-square` will be placed right next to all the links
+    in the viewer instance to indicate the link will be opened in a new tab.
+    -   Accessibility guidelines to open link only in new window when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
+    -   Accessibility guidelines on opening in a new window: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
 _Methods_
 
@@ -282,6 +287,11 @@ _CSS Parts_
 An Angular directive will be created for both components. Input and accessor APIs will be created for the attributes and properties and output event
 emitters will be created for the events, similar to how it's done in other directives. The components will not have form
 association, so a `ControlValueAccessor` will not be created.
+
+_Future enhancements:_
+
+An Angular router integration will be implemented for the `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
+Instead of a full page reload, the Angular router will handle the navigation, making the user experience smoother and more seamless.
 
 ### Blazor integration
 
@@ -333,11 +343,9 @@ _Configurations on Tiptap to support only absolute URL links_:
 By installing the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
 1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to allow `HTTP` and `HTTPS` URL to support only absolute URL links in the editor.
-2.  By default, the `<a>` tag in Tiptap editor will have `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes. We can remove or override the existing attributes
-    using [HTMLAttributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) in Tiptap links.
-3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to true to add the valid link automatically when typing.
-4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to false to replace the current selection in the editor with the URL instead of adding a link to the selection
-    if the pasted content contains a valid url.
+2.  By default, the `<a>` tag in Tiptap editor will have `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes.
+3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true` to add the valid link automatically when typing.
+4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will replace the current selection in the editor with the URL. If it is `true`, adding a link to the selection will add the link behind the word.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
@@ -414,7 +422,7 @@ _Note_: All other keyboard interaction determined by the slotted element will no
 
 ### Globalization
 
-Localization: The `nimble-rich-text-editor` will use the `bold`, `italics`, `numberedList`, and `bulletedList` labels from `nimble-label-provider-core` for the icons displayed in
+Localization: The `nimble-rich-text-editor` will use the `bold`, `italics`, `numberedList`, and `bulletedList` labels from `nimble-label-provider-rich-text` for the icons displayed in
 the formatting toolbar located in the footer section. The text in this toolbar will be visually hidden, but it will be present for accessibility.
 
 ### Security
