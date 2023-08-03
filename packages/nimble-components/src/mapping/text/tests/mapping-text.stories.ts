@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { hiddenWrapper } from '../../../utilities/tests/hidden';
-import { keyDescription } from '../../base/tests/story-helpers';
+import { mappingKeyDescription } from '../../base/tests/story-helpers';
 
 const metadata: Meta = {
     title: 'Internal/Mappings',
@@ -22,7 +22,7 @@ export const textMapping: StoryObj = {
     render: createUserSelectedThemeStory(hiddenWrapper(html`<style></style>`)),
     argTypes: {
         key: {
-            description: keyDescription('the mapped display text'),
+            description: mappingKeyDescription('the mapped display text'),
             control: { type: 'none' }
         },
         text: {

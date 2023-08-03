@@ -4,7 +4,7 @@ import { template } from '../../text-base/group-header-view/template';
 import type { TableColumnEnumColumnConfig } from '../../enum-base';
 import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header-view';
 import type { TableFieldValue } from '../../../table/types';
-import type { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
+import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -35,7 +35,7 @@ TableColumnEnumColumnConfig
         }
 
         const config = this.columnConfig?.mappingConfigs.get(value);
-        this.text = config ? (config as MappingTextConfig).text : '';
+        this.text = config instanceof MappingTextConfig ? config.text : '';
     }
 }
 

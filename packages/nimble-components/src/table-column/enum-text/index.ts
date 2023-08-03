@@ -1,5 +1,9 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { TableColumnEnumBase, TableColumnEnumColumnConfig } from '../enum-base';
+import {
+    MappingConfigs,
+    TableColumnEnumBase,
+    TableColumnEnumColumnConfig
+} from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
@@ -51,9 +55,12 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
         };
     }
 
-    protected override updateColumnConfig(): void {
-        this.validator.validate(this.mappings, this.keyType);
-        this.columnInternals.columnConfig = this.createColumnConfig();
+    protected override createColumnConfig(
+        mappingConfigs: MappingConfigs
+    ): TableColumnEnumColumnConfig {
+        return {
+            mappingConfigs
+        };
     }
 
     protected createMappingConfig(mapping: Mapping): MappingConfig {

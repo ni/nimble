@@ -3,7 +3,7 @@ import type { Table } from '..';
 import { TableColumn } from '../../table-column/base';
 import type { DelegatedEventEventDetails } from '../../table-column/base/types';
 import { tableColumnTextCellViewTag } from '../../table-column/text/cell-view';
-import { tableColumnTextGroupHeaderTag } from '../../table-column/text/group-header-view';
+import { tableColumnTextGroupHeaderViewTag } from '../../table-column/text/group-header-view';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import {
     type Fixture,
@@ -28,7 +28,7 @@ class TestTableColumn extends TableColumn {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['click', 'keydown']
         };
     }

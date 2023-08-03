@@ -69,34 +69,38 @@ export abstract class TableColumnEnumBase<
     public abstract createValidator(): TEnumValidator;
 
     /**
-     * Called when any Mapping related state has changed.
-     * Implementations should run validation before updating the column config.
-     */
-    protected abstract updateColumnConfig(): void;
-
-    /**
      * Implementations should throw an error if an invalid Mapping is passed.
      */
     protected abstract createMappingConfig(mapping: Mapping): MappingConfig;
 
+    protected abstract createColumnConfig(
+        mappingConfigs: MappingConfigs
+    ): TColumnConfig;
+
     /**
-     * Validation state should be updated before calling this function.
+     * Called when any Mapping related state has changed.
+     * Implementations should run validation before updating the column config.
      */
-    protected createColumnConfig(): TableColumnEnumColumnConfig | undefined {
-        if (!this.validator.isValid) {
-            return undefined;
-        }
+    private updateColumnConfig(): void {
+        this.validator.validate(this.mappings, this.keyType);
+        this.columnInternals.columnConfig = this.validator.isValid()
+            ? this.createColumnConfig(this.getMappingConfigs())
+            : undefined;
+    }
+
+    private getMappingConfigs(): MappingConfigs {
         const mappingConfigs = new Map<MappingKey, MappingConfig>();
         this.mappings.forEach(mapping => {
             const key = resolveKeyWithType(mapping.key, this.keyType);
-            if (key !== undefined) {
-                const mappingConfig = this.createMappingConfig(mapping);
-                mappingConfigs.set(key, mappingConfig);
+            if (key === undefined) {
+                throw Error(
+                    'Key was invalid for type. Validation should have prevented this.'
+                );
             }
+            const mappingConfig = this.createMappingConfig(mapping);
+            mappingConfigs.set(key, mappingConfig);
         });
-        return {
-            mappingConfigs
-        };
+        return mappingConfigs;
     }
 
     private fieldNameChanged(): void {

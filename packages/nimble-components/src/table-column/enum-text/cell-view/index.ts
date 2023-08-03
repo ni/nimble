@@ -6,7 +6,7 @@ import type {
     TableColumnEnumColumnConfig
 } from '../../enum-base';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
-import type { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
+import { MappingTextConfig } from '../../enum-base/models/mapping-text-config';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -37,7 +37,7 @@ TableColumnEnumColumnConfig
         }
 
         const config = this.columnConfig?.mappingConfigs.get(value);
-        this.text = config ? (config as MappingTextConfig).text : '';
+        this.text = config instanceof MappingTextConfig ? config.text : '';
     }
 }
 

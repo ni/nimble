@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { html, ref, repeat } from '@microsoft/fast-element';
 import { Table, tableTag } from '../../../table';
 import { TableColumnEnumText, tableColumnEnumTextTag } from '..';
@@ -156,7 +155,6 @@ describe('TableColumnEnumText', () => {
         const disabled: string[] = [];
         for (const value of wackyStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `data "${value.name}" renders as "${value.name}"`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -184,7 +182,6 @@ describe('TableColumnEnumText', () => {
         const disabled: string[] = [];
         for (const value of wackyStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `data "${value.name}" renders as "${value.name}"`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func

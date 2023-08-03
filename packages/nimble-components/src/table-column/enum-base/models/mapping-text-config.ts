@@ -3,8 +3,4 @@ import { MappingConfig } from './mapping-config';
 /**
  * Mapping configuration corresponding to a text mapping
  */
-export class MappingTextConfig extends MappingConfig {
-    public constructor(text: string) {
-        super(text);
-    }
-}
+export class MappingTextConfig extends MappingConfig {}

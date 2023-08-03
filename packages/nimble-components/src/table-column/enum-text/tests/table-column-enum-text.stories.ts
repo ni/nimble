@@ -13,7 +13,7 @@ import {
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
 import { mappingTextTag } from '../../../mapping/text';
-import { sharedMappingValidityDescription } from '../../enum-base/tests/shared';
+import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
 
 const simpleData = [
     {
