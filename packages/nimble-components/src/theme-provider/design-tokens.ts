@@ -89,7 +89,9 @@ import {
     PowerGreen,
     GridHeaderFamily,
     GridHeaderWeight,
-    GridHeaderSize
+    GridHeaderSize,
+    DigitalGreenDark105,
+    DigitalGreenDark110
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -214,6 +216,63 @@ export const tooltipBackgroundColor = DesignToken.create<string>(
 export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const buttonFillPrimaryColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.75),
+    hexToRgbaCssColor(Black15, 0.3),
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const buttonPrimaryFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonPrimaryFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
+
+export const buttonFillActivePrimaryColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillActivePrimaryColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.85),
+    hexToRgbaCssColor(Black15, 0.2),
+    hexToRgbaCssColor(White, 0.2)
+));
+
+export const buttonFillAccentColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillAccentColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark,
+    DigitalGreenLight,
+    hexToRgbaCssColor(White, 0.1)
+));
+
+export const buttonAccentBlockFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonAccentBlockFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
+
+export const buttonAccentOutlineFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonAccentOutlineFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White));
+
+export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonBorderAccentOutlineColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    PowerGreen,
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const buttonFillAccentActiveColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillAccentActiveColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark,
+    hexToRgbaCssColor(White, 0.2)
+));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(

@@ -20,7 +20,9 @@ getTestBed().initTestEnvironment(
     BrowserDynamicTestingModule,
     platformBrowserDynamicTesting(),
     {
-        teardown: { destroyAfterEach: false }
+        teardown: { destroyAfterEach: false },
+        errorOnUnknownElements: true,
+        errorOnUnknownProperties: true
     }
 );
 // Then we find all the tests.
@@ -28,9 +30,6 @@ const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
 
-// Workaround to make console.error calls fail tests:
-// https://github.com/angular/angular/issues/36430#issuecomment-874772398
-// Might be removable after upgrading to Angular 14:
-// https://github.com/angular/angular/issues/36430#issuecomment-1117801535
+// Elevate console errors to test failures
 // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
 console.error = (data: any): void => fail(data);
