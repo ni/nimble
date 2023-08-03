@@ -191,12 +191,12 @@ export class RichTextEditor extends FoundationElement {
     private bindEditorTransactionEvent(): void {
         if (this.$fastController.isConnected) {
             this.tiptapEditor.on('transaction', () => {
-                this.toggleTipTapButtonState();
+                this.updateTipTapButtonState();
             });
         }
     }
 
-    private toggleTipTapButtonState(): void {
+    private updateTipTapButtonState(): void {
         this.bold.checked = this.tiptapEditor.isActive('bold');
         this.italics.checked = this.tiptapEditor.isActive('italic');
         this.bulletList.checked = this.tiptapEditor.isActive('bulletList');

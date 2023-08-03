@@ -34,7 +34,7 @@ export const styles = css`
     .container {
         display: flex;
         flex-direction: column;
-        height: inherit;
+        block-size: inherit;
         position: relative;
         max-block-size: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
