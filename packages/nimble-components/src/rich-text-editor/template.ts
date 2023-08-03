@@ -19,9 +19,7 @@ export const template = html<RichTextEditor>`
                         slot="start"
                         class="bold"
                         @click=${x => x.boldButtonClickHandler()}
-                        @keydown=${(x, c) => x.boldButtonKeyDownHandler(
-        c.event as KeyboardEvent
-    )}
+                        @keydown=${(x, c) => x.boldButtonKeyDownHandler(c.event as KeyboardEvent)}
                         >
                         <${iconBoldBTag} slot="start"></${iconBoldBTag}>
                     </${toggleButtonTag}>
@@ -31,9 +29,7 @@ export const template = html<RichTextEditor>`
                         slot="start"
                         class="italics"
                         @click=${x => x.italicsButtonClickHandler()}
-                        @keydown=${(x, c) => x.italicsButtonKeyDownHandler(
-        c.event as KeyboardEvent
-    )}
+                        @keydown=${(x, c) => x.italicsButtonKeyDownHandler(c.event as KeyboardEvent)}
                         >
                         <${iconItalicITag} slot="start"></${iconItalicITag}>
                     </${toggleButtonTag}>
@@ -43,9 +39,7 @@ export const template = html<RichTextEditor>`
                         slot="start"
                         class="bullet-list"
                         @click=${x => x.bulletListButtonClickHandler()}
-                        @keydown=${(x, c) => x.bulletListButtonKeyDownHandler(
-        c.event as KeyboardEvent
-    )}
+                        @keydown=${(x, c) => x.bulletListButtonKeyDownHandler(c.event as KeyboardEvent)}
                         >
                         <${iconListTag} slot="start"></${iconListTag}>
                     </${toggleButtonTag}>
@@ -55,9 +49,7 @@ export const template = html<RichTextEditor>`
                         slot="start"
                         class="numbered-list"
                         @click=${x => x.numberedListButtonClickHandler()}
-                        @keydown=${(x, c) => x.numberedListButtonKeyDownHandler(
-        c.event as KeyboardEvent
-    )}
+                        @keydown=${(x, c) => x.numberedListButtonKeyDownHandler(c.event as KeyboardEvent)}
                         >
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>

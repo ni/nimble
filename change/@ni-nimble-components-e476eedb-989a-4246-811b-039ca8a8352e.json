@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Initial code bring up for nimble-rich-text-editor component",
+  "comment": "Initial component bring up by integrating tiptap editor along with the footer formatting options",
   "packageName": "@ni/nimble-components",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
