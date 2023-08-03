@@ -1,11 +1,14 @@
 import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
+import { BoldButton } from './models/bold-button';
+import { ItalicsButton } from './models/italics-button';
+import { NumberedListButton } from './models/numbered-list-button';
+import { BulletListButton } from './models/bullet-list-button copy';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -47,6 +50,18 @@ export class RichTextEditor extends FoundationElement {
     public editor!: HTMLDivElement;
 
     private tiptapEditor!: Editor;
+    private readonly boldButton: BoldButton;
+    private readonly italicsButton: ItalicsButton;
+    private readonly bulletListButton: BulletListButton;
+    private readonly numberedListButton: NumberedListButton;
+
+    public constructor() {
+        super();
+        this.boldButton = new BoldButton();
+        this.italicsButton = new ItalicsButton();
+        this.bulletListButton = new BulletListButton();
+        this.numberedListButton = new NumberedListButton();
+    }
 
     /**
      * @internal
@@ -70,7 +85,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public boldButtonClickHandler(): void {
-        this.tiptapEditor.chain().focus().toggleBold().run();
+        this.boldButton.clickHandler(this.tiptapEditor);
     }
 
     /**
@@ -78,14 +93,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public boldButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        switch (e.key) {
-            case keySpace:
-            case keyEnter:
-                this.tiptapEditor.chain().focus().toggleBold().run();
-                return false;
-            default:
-                return true;
-        }
+        return this.boldButton.keyDownActivateHandler(this.tiptapEditor, e);
     }
 
     /**
@@ -93,7 +101,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public italicsButtonClickHandler(): void {
-        this.tiptapEditor.chain().focus().toggleItalic().run();
+        this.italicsButton.clickHandler(this.tiptapEditor);
     }
 
     /**
@@ -101,14 +109,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public italicsButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        switch (e.key) {
-            case keySpace:
-            case keyEnter:
-                this.tiptapEditor.chain().focus().toggleItalic().run();
-                return false;
-            default:
-                return true;
-        }
+        return this.italicsButton.keyDownActivateHandler(this.tiptapEditor, e);
     }
 
     /**
@@ -116,7 +117,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public bulletListButtonClickHandler(): void {
-        this.tiptapEditor.chain().focus().toggleBulletList().run();
+        this.bulletListButton.clickHandler(this.tiptapEditor);
     }
 
     /**
@@ -124,14 +125,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public bulletListButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        switch (e.key) {
-            case keySpace:
-            case keyEnter:
-                this.tiptapEditor.chain().focus().toggleBulletList().run();
-                return false;
-            default:
-                return true;
-        }
+        return this.bulletListButton.keyDownActivateHandler(this.tiptapEditor, e);
     }
 
     /**
@@ -139,7 +133,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public numberedListButtonClickHandler(): void {
-        this.tiptapEditor.chain().focus().toggleOrderedList().run();
+        this.numberedListButton.clickHandler(this.tiptapEditor);
     }
 
     /**
@@ -147,14 +141,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public numberedListButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        switch (e.key) {
-            case keySpace:
-            case keyEnter:
-                this.tiptapEditor.chain().focus().toggleOrderedList().run();
-                return false;
-            default:
-                return true;
-        }
+        return this.numberedListButton.keyDownActivateHandler(this.tiptapEditor, e);
     }
 
     private initializeEditor(): void {
