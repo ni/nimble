@@ -1,8 +1,121 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 21 Jul 2023 19:25:16 GMT and should not be manually modified.
+This log was last generated on Thu, 03 Aug 2023 16:47:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.8
+
+Thu, 03 Aug 2023 16:47:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.1
+
+## 17.0.7
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.0
+
+## 17.0.6
+
+Wed, 02 Aug 2023 00:19:04 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.6
+
+## 17.0.5
+
+Tue, 01 Aug 2023 20:43:24 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.5
+
+## 17.0.4
+
+Tue, 01 Aug 2023 19:55:33 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.4
+
+## 17.0.3
+
+Tue, 01 Aug 2023 16:43:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.3
+
+## 17.0.2
+
+Mon, 31 Jul 2023 22:52:43 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.2
+
+## 17.0.1
+
+Wed, 26 Jul 2023 21:12:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.0.1
+
+## 17.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
+- Bump @ni/nimble-components to v20.0.0
+
+## 16.9.3
+
+Tue, 25 Jul 2023 04:49:38 GMT
+
+### Patches
+
+- Update angular directive to support properties for nimble rich text viewer ([ni/nimble@6b33b03](https://github.com/ni/nimble/commit/6b33b032c63bcf2b5dc79bf4b648c0e118548959))
+
+## 16.9.2
+
+Tue, 25 Jul 2023 03:47:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.2
+
+## 16.9.1
+
+Mon, 24 Jul 2023 21:12:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.1
+
+## 16.9.0
+
+Mon, 24 Jul 2023 19:06:11 GMT
+
+### Minor changes
+
+- Angular integration for label providers (with secondary entry points) ([ni/nimble@238805c](https://github.com/ni/nimble/commit/238805ceedc7f12996b10a7571434830d6239a2b))
+
+## 16.8.9
+
+Mon, 24 Jul 2023 15:02:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v19.9.0
 
 ## 16.8.8
 

@@ -1,0 +1,24 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
+import * as anchorButtonStories from './anchor-button.stories';
+
+<Meta of={anchorButtonStories} />
+
+<Title of={anchorButtonStories} />
+<Description of={anchorButtonStories} />
+
+<DocsStory of={anchorButtonStories.outlineAnchorButton} expanded={false} />
+<Controls of={anchorButtonStories.outlineAnchorButton} />
+
+# Usage Docs
+
+## Accessibility
+
+<ContentHiddenDocs buttonElement="nimble-anchor-button" />

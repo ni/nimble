@@ -163,7 +163,7 @@ export class TableLayoutManager<TData extends TableRecord> {
                 currentDelta
             )
             : delta;
-        const actualDelta = Math.round(allowedDelta);
+        const actualDelta = allowedDelta;
         const leftColumn = this.visibleColumns[leftColumnIndex]!;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
@@ -186,7 +186,7 @@ export class TableLayoutManager<TData extends TableRecord> {
                 currentDelta
             )
             : delta;
-        const actualDelta = Math.round(allowedDelta);
+        const actualDelta = allowedDelta;
         const rightColumn = this.visibleColumns[rightColumnIndex]!;
         rightColumn.columnInternals.currentPixelWidth! -= actualDelta;
 
