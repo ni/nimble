@@ -1,22 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { html, repeat, when } from '@microsoft/fast-element';
-import { createUserSelectedThemeStory, incubatingWarning } from '../../utilities/tests/storybook';
-import { AccordionAppearance } from '../../accordion-item/types';
+import { html, repeat } from '@microsoft/fast-element';
+import {
+    createUserSelectedThemeStory,
+    incubatingWarning
+} from '../../utilities/tests/storybook';
+import { AccordionAppearance } from '../types';
 import { accordionTag } from '..';
 import { accordionItemTag } from '../../accordion-item';
-import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 import { checkboxTag } from '../../checkbox';
 
 interface AccordionArgs {
     options: ItemArgs[];
+    appearance: keyof typeof AccordionAppearance;
 }
 
 interface ItemArgs {
     heading: string;
     label: string;
     errorVisible: boolean;
-    appearance: keyof typeof AccordionAppearance;
 }
 
 const overviewText = 'hello';
@@ -35,7 +37,7 @@ const metadata: Meta<AccordionArgs> = {
         actions: {
             handles: ['change']
         }
-    },
+    }
 };
 
 export default metadata;
@@ -48,17 +50,14 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
         statusLink: 'https://github.com/ni/nimble/issues/533'
     })}
         <${accordionTag}
+            appearance="${x => AccordionAppearance[x.appearance]}"
         >
             ${repeat(x => x.options, html<ItemArgs, AccordionArgs>`
                 <${accordionItemTag}
                     ?error-visible="${x => x.errorVisible}",
-                    appearance="${x => AccordionAppearance[x.appearance]}"
                 >
                     <div slot="heading">
                         <span>${x => x.heading}</span>
-                        ${when(x => x.errorVisible, html`
-                            <${iconExclamationMarkTag} slot="start"></${iconExclamationMarkTag}>
-                        `)}
                     </div>
                     <div>
                         <span>${x => x.label}</span>
@@ -73,28 +72,32 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
         options: {
             description: ''
         },
+        appearance: {
+            options: Object.keys(AccordionAppearance),
+            control: { type: 'radio' },
+            description:
+                'This attribute affects the appearance of the accordion.'
+        }
     },
     args: {
         options: [
             {
                 heading: 'Accordion 1',
                 label: 'Accordion 1 Content',
-                errorVisible: false,
-                appearance: AccordionAppearance.outline,
+                errorVisible: false
             },
             {
                 heading: 'Accordion 2',
                 label: 'Accordion 2 Content',
-                errorVisible: false,
-                appearance: AccordionAppearance.outline,
+                errorVisible: false
             },
             {
                 heading: 'Accordion 3',
                 label: 'Accordion 3 Content',
-                errorVisible: false,
-                appearance: AccordionAppearance.outline,
+                errorVisible: false
             }
         ],
+        appearance: 'ghost'
     }
 };
 
@@ -104,16 +107,14 @@ export const accordionItem: StoryObj<ItemArgs> = {
         componentName: 'accordion',
         statusLink: 'https://github.com/ni/nimble/issues/533'
     })}
-        <${accordionTag}>
+        <${accordionTag}
+            appearance="block"
+        >
             <${accordionItemTag}
                 ?error-visible="${x => x.errorVisible}"
-                appearance="${x => AccordionAppearance[x.appearance]}"
             >
                 <div slot="heading">
                     ${x => x.heading}
-                    ${when(x => x.errorVisible, html`
-                        <${iconExclamationMarkTag} slot="start"></${iconExclamationMarkTag}>
-                    `)}
                 </div>
                 <div>
                     ${x => x.label}
@@ -131,23 +132,16 @@ export const accordionItem: StoryObj<ItemArgs> = {
         },
         label: {
             description:
-                '(Optional) Where to display the linked URL (destination browsing context): `_self`, `_blank`, etc.',
+                '(Optional) Where to display the linked URL (destination browsing context): `_self`, `_blank`, etc.'
         },
         errorVisible: {
-            name: 'hello',
-            description:
-                'description.'
-        },
-        appearance: {
-            options: Object.keys(AccordionAppearance),
-            control: { type: 'radio' },
-            description: 'This attribute affects the appearance of the accordion.'
-        },
+            name: 'errorVisible',
+            description: ''
+        }
     },
     args: {
         heading: 'Accordion 1',
         label: 'Accordion 1 content',
-        errorVisible: false,
-        appearance: 'block',
+        errorVisible: false
     }
 };

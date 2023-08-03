@@ -4,8 +4,11 @@ import {
     AccordionItem as FoundationAccordionItem,
     AccordionItemOptions
 } from '@microsoft/fast-foundation';
-import { arrowExpanderDown16X16, arrowExpanderRight16X16 } from '@ni/nimble-tokens/dist/icons/js';
-import { AccordionAppearance } from './types';
+import {
+    arrowExpanderDown16X16,
+    arrowExpanderRight16X16
+} from '@ni/nimble-tokens/dist/icons/js';
+import type { AccordionAppearance } from '../accordion/types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -20,7 +23,7 @@ declare global {
  */
 export class AccordionItem extends FoundationAccordionItem {
     @attr
-    public appearance: AccordionAppearance = AccordionAppearance.outline;
+    public appearance!: AccordionAppearance;
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;
@@ -36,7 +39,10 @@ export class AccordionItem extends FoundationAccordionItem {
         super.connectedCallback();
         this.observer = new MutationObserver(changes => {
             for (const change of changes) {
-                if (change.type === 'attributes' && change.attributeName === 'open') {
+                if (
+                    change.type === 'attributes'
+                    && change.attributeName === 'open'
+                ) {
                     if ((change.target as HTMLDetailsElement).open) {
                         this.expanded = true;
                     } else {
@@ -49,6 +55,7 @@ export class AccordionItem extends FoundationAccordionItem {
     }
 
     public override disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.observer?.disconnect();
     }
 }
@@ -62,7 +69,5 @@ const nimbleAccordionItem = AccordionItem.compose<AccordionItemOptions>({
     collapsedIcon: arrowExpanderRight16X16.data
 });
 
-DesignSystem.getOrCreate()
-    .withPrefix('nimble')
-    .register(nimbleAccordionItem());
+DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleAccordionItem());
 export const accordionItemTag = DesignSystem.tagFor(AccordionItem);

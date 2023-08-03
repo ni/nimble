@@ -1,10 +1,11 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, when } from '@microsoft/fast-element';
 import type { ViewTemplate } from '@microsoft/fast-element';
 import type {
     FoundationElementTemplate,
     AccordionItemOptions
 } from '@microsoft/fast-foundation';
 import type { AccordionItem } from '.';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 /**
  * Reasoning for putting expanded icon inside of button is because allows focusVisible to wrap
@@ -16,30 +17,44 @@ import type { AccordionItem } from '.';
 export const template: FoundationElementTemplate<
 ViewTemplate<AccordionItem>,
 AccordionItemOptions
-> = (context, definition) => html`
-    <details ?open="${x => x.open || x.expanded}" ${ref('details')}>
+> = (_context, definition) => html`
+<template slot="item"
+    appearance="${x => x.appearance}"
+>
+    <details class="details" ?open="${x => x.open || x.expanded}" ${ref('details')}>
         <summary
-            class="button"
-            part="header"
-            role="button"
-            ${ref('expandbutton')}
-            aria-expanded="${x => x.open}"
+            class="heading"
+            part="heading"
+            role="heading"
             aria-level="${x => x.headinglevel}"
-            aria-controls="${x => x.id}-panel"
-            id="${x => x.id}"
-            @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
         >
-            <span class="icon" part="icon" aria-hidden="true">
-                <slot name="expanded-icon" part="expanded-icon">
-                    ${definition.expandedIcon || ''}
-                </slot>
-                <slot name="collapsed-icon" part="collapsed-icon">
-                    ${definition.collapsedIcon || ''}
-                </slot>
-            </span>
-            <span class="heading-content" part="heading-content">
-                <slot name="heading"></slot>
-            </span>
+
+            <button
+                    class="button"
+                    part="button"
+                    ${ref('expandbutton')}
+                    aria-expanded="${x => x.expanded}"
+                    aria-controls="${x => x.id}-panel"
+                    id="${x => x.id}"
+                    @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+            >
+                <span class="icon" part="icon" aria-hidden="true">
+                    <slot name="expanded-icon" part="expanded-icon">
+                        ${definition.expandedIcon || ''}
+                    </slot>
+                    <slot name="collapsed-icon" part="collapsed-icon">
+                        ${definition.collapsedIcon || ''}
+                    </slot>
+                </span>
+                <span class="heading-content" part="heading-content">
+                    <slot name="heading"></slot>
+                </span>
+                <span class="errorIcon" part="icon">
+                ${when(x => x.errorVisible, html`
+                    <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
+                `)}
+                </span>
+            </button>
         </summary>
         <div
             class="region"
@@ -51,4 +66,5 @@ AccordionItemOptions
             <slot></slot>
         </div>
     </details>
+</template>
 `;

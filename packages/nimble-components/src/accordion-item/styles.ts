@@ -1,8 +1,15 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import { actionRgbPartialColor, bodyFont, bodyFontColor, borderHoverColor, borderWidth, iconSize, mediumDelay, placeholderFontColor } from '../theme-provider/design-tokens';
+import {
+    actionRgbPartialColor,
+    bodyFont,
+    bodyFontColor,
+    borderHoverColor,
+    borderWidth,
+    iconSize
+} from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
-import { AccordionAppearance } from './types';
+import { AccordionAppearance } from '../accordion/types';
 import { focusVisible } from '../utilities/style/focus';
 
 export const styles = css`
@@ -26,36 +33,32 @@ export const styles = css`
         box-sizing: border-box;
         flex-direction: column;
         line-height: 16px;
-        margin: 4px;
+        margin: 2px;
         border: 0px solid transparent;
     }
 
-    :host(:hover) {
+    .details${focusVisible} {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
     }
 
-    :host(${focusVisible}) {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
-    }
-
-    :host(:active) {
+    .details:active {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
     }
 
-    :host(:hover[expanded]) {
+    :host([expanded]) .details:focus-within {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
-    }
-
-    :host(:active[expanded]) {
-        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
     }
 
     :host([disabled]) {
         opacity: var(--disabled-opacity);
     }
 
-    .heading {
+    .details {
         display: flex;
+    }
+
+    .heading {
+        display: contents;
         position: relative;
         grid-template-columns: auto 1fr auto calc((10 + 0) * 4 * 1px);
         background-color: transparent;
@@ -66,17 +69,13 @@ export const styles = css`
         width: 100%;
     }
 
-    .button${focusVisible} {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
-    }
-
-    slot[name="heading"]::slotted(*) {
+    slot[name='heading']::slotted(*) {
         display: flex;
         justify-content: space-between;
         flex-direction: unset;
         width: 100%;
     }
-    
+
     .region {
         font: ${bodyFont};
         color: ${bodyFontColor};
@@ -85,7 +84,6 @@ export const styles = css`
         padding-bottom: 5px;
         padding-left: 38px;
         padding-right: 4px;
-
     }
 
     :host([expanded]) .region {
@@ -105,9 +103,8 @@ export const styles = css`
         appearance: none;
         border: none;
         background: none;
-        grid-column: 2;
-        grid-row: 1;
         padding: 3px;
+        gap: 8px;
         outline: none;
         text-align: left;
         cursor: pointer;
@@ -129,8 +126,6 @@ export const styles = css`
         color: var(--neutral-foreground-rest);
     }
 
-
-
     .icon {
         display: flex;
         position: relative;
@@ -143,12 +138,28 @@ export const styles = css`
         cursor: pointer;
         padding-top: 4.5px;
         padding-left: 13px;
-        padding-right: 8px;
         padding-bottom: 5.5px;
         pointer-events: none;
     }
 
+    .errorIcon {
+        display: flex;
+        position: relative;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        padding-top: 4.5px;
+        padding-bottom: 5.5px;
+        padding-right: 13px;
+        pointer-events: none;
+    }
+
     .heading-content {
+        width: 100%;
         padding-left: 0px;
         padding-top: 4px;
         padding-bottom: 6px;
@@ -158,12 +169,12 @@ export const styles = css`
         border-color: rgba(${actionRgbPartialColor}, 0.3);
     }
 
-    slot[name="expanded-icon"],
-    slot[name="collapsed-icon"] {
+    slot[name='expanded-icon'],
+    slot[name='collapsed-icon'] {
         fill: var(--accent-fill-rest);
     }
 
-    slot[name="collapsed-icon"] {
+    slot[name='collapsed-icon'] {
         display: flex;
     }
 
@@ -173,46 +184,42 @@ export const styles = css`
         fill: currentColor;
     }
 
-    :host([expanded]) slot[name="collapsed-icon"] {
+    :host([expanded]) slot[name='collapsed-icon'] {
         display: none;
     }
 
-    slot[name="expanded-icon"] {
+    slot[name='expanded-icon'] {
         display: none;
     }
 
-    :host([expanded]) slot[name="expanded-icon"] {
+    :host([expanded]) slot[name='expanded-icon'] {
         display: flex;
     }
 
-    
-    :host([expanded]) slot[name="expanded-icon"] svg {
+    :host([expanded]) slot[name='expanded-icon'] svg {
         width: ${iconSize};
         height: ${iconSize};
         fill: currentColor;
     }
 
-    ::slotted([slot="start"]) {
+    ::slotted([slot='start']) {
         display: none;
     }
 
-    ::slotted([slot="end"]) {
+    ::slotted([slot='end']) {
         display: none;
     }
-    /* 
-        I believe appearanceBehavior has to be set on the accordion item. If we set it on the accordion itself (the styles.ts of the accordion), we can't use appearanceBehaviors in the accordion item styles.ts, 
-        and when using them in the accordion styles.ts, individual accordion items can't be styled (ex. gaps, borders around accordion items, etc.).
-    */
 `.withBehaviors(
     appearanceBehavior(
         AccordionAppearance.outline,
         css`
-            .heading {
-                box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+            .button {
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
-            .heading:hover {
-                box-shadow: none
+            .button:hover {
+                box-shadow: none;
             }
 
             :host([expanded]) .heading {
@@ -220,20 +227,17 @@ export const styles = css`
             }
 
             :host([expanded]) {
-                box-shadow: 0px 0px 0px ${borderWidth} rgba(${actionRgbPartialColor}, 0.3) inset;
+                box-shadow: 0px 0px 0px ${borderWidth}
+                    rgba(${actionRgbPartialColor}, 0.3) inset;
             }
         `
     ),
-    appearanceBehavior(
-        AccordionAppearance.ghost,
-        css`
-        `
-    ),
+    appearanceBehavior(AccordionAppearance.ghost, css``),
     appearanceBehavior(
         AccordionAppearance.block,
         css`
             .button {
-                background-color: rgba(${actionRgbPartialColor}, 0.1)
+                background-color: rgba(${actionRgbPartialColor}, 0.1);
             }
 
             .button:hover {
@@ -252,10 +256,6 @@ export const styles = css`
                     rgba(${actionRgbPartialColor}, 0.1)
                 );
                 background-size: calc(100% - 4px) calc(100% - 4px);
-            }
-
-            :host([expanded]) .heading:hover {
-                
             }
 
             .button${focusVisible} {
