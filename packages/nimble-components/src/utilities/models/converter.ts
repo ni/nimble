@@ -5,7 +5,7 @@ export const optionalBooleanConverter: ValueConverter = {
         return typeof value === 'boolean' ? value.toString() : '';
     },
 
-    fromView(value: unknown): unknown {
+    fromView(value: string): boolean | null | undefined {
         if (value === undefined) {
             return undefined;
         }
