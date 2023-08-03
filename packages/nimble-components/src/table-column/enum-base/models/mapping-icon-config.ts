@@ -4,7 +4,7 @@ import { MappingConfig } from './mapping-config';
 
 export interface IconView {
     severity: IconSeverity;
-    label: string;
+    text: string;
 }
 const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
     <${icon}
