@@ -11,7 +11,10 @@ export class BoldButton extends EditorButton {
         tiptapEditor.commands.toggleBold();
     }
 
-    public override keyDownActivateHandler(tiptapEditor: Editor, event: KeyboardEvent): boolean {
+    public override keyDownActivateHandler(
+        tiptapEditor: Editor,
+        event: KeyboardEvent
+    ): boolean {
         super.keyDownActivateHandler(tiptapEditor, event);
         switch (event.key) {
             case keySpace:

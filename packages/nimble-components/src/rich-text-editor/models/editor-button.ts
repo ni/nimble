@@ -9,7 +9,10 @@ export class EditorButton {
         tiptapEditor.commands.focus();
     }
 
-    public keyDownActivateHandler(tiptapEditor: Editor, event: KeyboardEvent): void {
+    public keyDownActivateHandler(
+        tiptapEditor: Editor,
+        event: KeyboardEvent
+    ): void {
         switch (event.key) {
             case keySpace:
             case keyEnter:

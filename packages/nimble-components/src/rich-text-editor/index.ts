@@ -125,7 +125,10 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public bulletListButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        return this.bulletListButton.keyDownActivateHandler(this.tiptapEditor, e);
+        return this.bulletListButton.keyDownActivateHandler(
+            this.tiptapEditor,
+            e
+        );
     }
 
     /**
@@ -141,7 +144,10 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     public numberedListButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        return this.numberedListButton.keyDownActivateHandler(this.tiptapEditor, e);
+        return this.numberedListButton.keyDownActivateHandler(
+            this.tiptapEditor,
+            e
+        );
     }
 
     private initializeEditor(): void {
