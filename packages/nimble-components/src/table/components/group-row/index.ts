@@ -71,16 +71,6 @@ export class TableGroupRow extends FoundationElement {
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
 
-    public override connectedCallback(): void {
-        super.connectedCallback();
-        this.removeEventListener('keydown', e => this.onKeyDown(e));
-        this.addEventListener('keydown', e => this.onKeyDown(e));
-    }
-
-    public override disconnectedCallback(): void {
-        this.removeEventListener('keydown', e => this.onKeyDown(e));
-    }
-
     public onGroupExpandToggle(): void {
         this.$emit('group-expand-toggle');
         // To avoid a visual glitch with improper expand/collapse icons performing an
@@ -94,6 +84,18 @@ export class TableGroupRow extends FoundationElement {
             'transitionend',
             this.removeAnimatingClass
         );
+    }
+
+    public onKeyDown(event: KeyboardEvent): boolean {
+        const shouldExpand = (event.key === keyArrowDown && event.altKey && !this.expanded);
+        const shouldCollapse = (event.key === keyArrowUp && event.altKey && this.expanded);
+        if (shouldExpand || shouldCollapse) {
+            this.onGroupExpandToggle();
+            event.stopPropagation();
+            return false;
+        }
+
+        return true;
     }
 
     /** @internal */
@@ -138,18 +140,6 @@ export class TableGroupRow extends FoundationElement {
             'transitionend',
             this.removeAnimatingClass
         );
-    };
-
-    private readonly onKeyDown = (event: KeyboardEvent): boolean => {
-        const shouldExpand = (event.key === keyArrowDown && event.altKey && !this.expanded);
-        const shouldCollapse = (event.key === keyArrowUp && event.altKey && this.expanded);
-        if (shouldExpand || shouldCollapse) {
-            this.onGroupExpandToggle();
-            event.stopPropagation();
-            return false;
-        }
-
-        return true;
     };
 }
 

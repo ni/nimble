@@ -16,6 +16,7 @@ export const template = html<TableGroupRow>`
         role="row"
         @click=${x => x.onGroupExpandToggle()}
         style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
+        @keydown=${(x, c) => x.onKeyDown(c.event as KeyboardEvent)}
     >
         ${when(x => x.selectable, html<TableGroupRow>`
             <span role="gridcell" class="checkbox-container">

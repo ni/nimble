@@ -1,4 +1,4 @@
-import { attr, observable, volatile } from '@microsoft/fast-element';
+import { attr, DOM, observable, volatile } from '@microsoft/fast-element';
 import {
     Checkbox,
     DesignSystem,
@@ -87,6 +87,7 @@ export class TableRow<
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
     private focusedElement?: HTMLElement;
+    private focusoutAction?: () => void;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -305,12 +306,19 @@ export class TableRow<
     }
 
     private readonly rowFocusInHandler = (): void => {
+        if (this.focusoutAction) {
+            this.focusoutAction = undefined;
+        }
         this.setAttribute('has-focus', 'true');
     };
 
     private readonly rowFocusOutHandler = (): void => {
-        this.focusedElement = undefined;
-        this.removeAttribute('has-focus');
+        this.focusoutAction = () => {
+            this.focusedElement = undefined;
+            this.removeAttribute('has-focus');
+            this.focusoutAction = undefined;
+        };
+        DOM.queueUpdate(() => this.focusoutAction?.());
     };
 
     private readonly focusableFocusOutHandler = (event: Event): void => {
