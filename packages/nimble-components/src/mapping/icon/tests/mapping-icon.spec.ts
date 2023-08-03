@@ -17,7 +17,7 @@ describe('Icon Mapping', () => {
         return fixture<MappingIcon>(html`
         <${mappingIconTag}
             key="foo"
-            label="foo"
+            text="foo"
             icon="nimble-test-icon">
         </${mappingIconTag}>`);
     }

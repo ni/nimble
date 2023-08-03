@@ -10,7 +10,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-icon` column type element.'
+                    'The `nimble-mapping-icon` element defines a mapping from a data value to an icon representation to use for that value. It is meant to be used as content of the `nimble-table-column-icon` element.'
             }
         }
     }
@@ -34,9 +34,9 @@ export const iconMapping: StoryObj = {
             description:
                 'One of `error`, `warning`, `success`, `information`, or unspecified. Controls the color of the icon.'
         },
-        label: {
+        text: {
             description:
-                'A textual description of the value which will be used as the tooltip and accessible name of the icon. The label is also displayed next to the icon in a group header.'
+                'A textual description of the value which will be used as the tooltip and accessible name of the icon. The text is also displayed next to the icon in a group header.'
         }
     },
     args: {}

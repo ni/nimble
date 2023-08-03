@@ -10,7 +10,7 @@ const metadata: Meta = {
         docs: {
             description: {
                 component:
-                    'The `nimble-mapping-spinner` element defines a mapping from a data value to the Nimble spinner. It is meant to be used as content of the `nimble-table-column-icon` column type element.'
+                    'The `nimble-mapping-spinner` element defines a mapping from a data value to the Nimble spinner. It is meant to be used as content of the `nimble-table-column-icon` element.'
             }
         }
     }
@@ -25,9 +25,9 @@ export const spinnerMapping: StoryObj = {
             description: mappingKeyDescription('a spinner'),
             control: { type: 'none' }
         },
-        label: {
+        text: {
             description:
-                'A textual description of the value which will be used as the tooltip and accessible name of the spinner. The label is also displayed next to the spinner in a group header.'
+                'A textual description of the value which will be used as the tooltip and accessible name of the spinner. The text is also displayed next to the spinner in a group header.'
         }
     },
     args: {}

@@ -8,23 +8,23 @@ export interface IconView {
 }
 const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
     <${icon}
-        title="${x => x.label}"
-        aria-label="${x => x.label}"
+        title="${x => x.text}"
+        aria-label="${x => x.text}"
         severity="${x => x.severity}"
     >
     </${icon}>`;
 
 /**
- * Mapping configuration corresponding to a text mapping
+ * Mapping configuration corresponding to a icon mapping
  */
 export class MappingIconConfig extends MappingConfig {
     public readonly iconTemplate: ViewTemplate<IconView>;
     public constructor(
-        label: string,
+        text: string,
         public readonly severity: IconSeverity,
         resolvedIcon: string
     ) {
-        super(label);
+        super(text);
         this.iconTemplate = createIconTemplate(resolvedIcon);
     }
 }

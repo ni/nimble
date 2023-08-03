@@ -97,14 +97,14 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnIconTag} field-name="status" group-index="0">
                 Status
-                <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" label="Not a Simpson"></${mappingIconTag}>
-                <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" label="Is a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
                 <${mappingSpinnerTag} key="calculating" label="Calculating"></${mappingSpinnerTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">
                 Is Child
-                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" label="Not a child"></${mappingIconTag}>
-                <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" label="Is a child"></${mappingIconTag}>
+                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child"></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child"></${mappingIconTag}>
             </${tableColumnIconTag}>
         </${tableTag}>
     `),
