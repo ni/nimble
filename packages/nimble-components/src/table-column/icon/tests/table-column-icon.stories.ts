@@ -14,10 +14,9 @@ import {
 import { iconXmarkTag } from '../../../icons/xmark';
 import { tableColumnTextTag } from '../../text';
 import { iconCheckLargeTag } from '../../../icons/check-large';
-import { iconQuestionTag } from '../../../icons/question';
 import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
-import { sharedMappingValidityDescription } from '../../enum-base/tests/shared';
+import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
 
 const simpleData = [
     {

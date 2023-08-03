@@ -54,11 +54,11 @@ export class TableColumnIconGroupHeaderView
         if (mappingConfig instanceof MappingIconConfig) {
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
-            this.label = mappingConfig.label;
+            this.label = mappingConfig.text;
             this.iconTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
-            this.label = mappingConfig.label;
+            this.label = mappingConfig.text;
         }
     }
 }

@@ -20,11 +20,11 @@ const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
 export class MappingIconConfig extends MappingConfig {
     public readonly iconTemplate: ViewTemplate<IconView>;
     public constructor(
-        public readonly label: string,
+        label: string,
         public readonly severity: IconSeverity,
         resolvedIcon: string
     ) {
-        super();
+        super(label);
         this.iconTemplate = createIconTemplate(resolvedIcon);
     }
 }

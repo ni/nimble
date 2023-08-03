@@ -1,5 +1,9 @@
 import { DesignSystem } from '@microsoft/fast-foundation';
-import { TableColumnEnumBase, TableColumnEnumColumnConfig } from '../enum-base';
+import {
+    MappingConfigs,
+    TableColumnEnumBase,
+    TableColumnEnumColumnConfig
+} from '../enum-base';
 import { styles } from '../enum-base/styles';
 import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
@@ -54,27 +58,24 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
         };
     }
 
-    protected override updateColumnConfig(): void {
-        this.validator.validate(
-            this.supportedMappingElements,
-            this.mappings,
-            this.keyType
-        );
-        this.columnInternals.columnConfig = this.validator.isValid()
-            ? this.createColumnConfig()
-            : undefined;
+    protected override createColumnConfig(
+        mappingConfigs: MappingConfigs
+    ): TableColumnEnumColumnConfig {
+        return {
+            mappingConfigs
+        };
     }
 
     protected createMappingConfig(mapping: Mapping): MappingConfig {
         if (mapping instanceof MappingIcon) {
             return new MappingIconConfig(
-                mapping.label!,
+                mapping.text!,
                 mapping.severity,
                 mapping.resolvedIcon!
             );
         }
         if (mapping instanceof MappingSpinner) {
-            return new MappingSpinnerConfig(mapping.label!);
+            return new MappingSpinnerConfig(mapping.text!);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.

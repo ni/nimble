@@ -18,16 +18,18 @@ const iconValidityFlagNames = [
 export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     typeof iconValidityFlagNames
 > {
-    public constructor(columnInternals: ColumnInternals<unknown>) {
-        super(columnInternals, iconValidityFlagNames);
+    public constructor(
+        columnInternals: ColumnInternals<unknown>,
+        supportedMappingElements: readonly (typeof Mapping)[]
+    ) {
+        super(columnInternals, iconValidityFlagNames, supportedMappingElements);
     }
 
     public override validate(
-        supportedMappingElements: readonly (typeof Mapping)[],
         mappings: Mapping[],
         keyType: MappingKeyType
     ): void {
-        super.validate(supportedMappingElements, mappings, keyType);
+        super.validate(mappings, keyType);
         this.validateIconNames(mappings);
     }
 
