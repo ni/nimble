@@ -4,7 +4,7 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowUp, keySpace } from '@microsoft/fast-web-utilities';
+import { keyArrowDown, keyArrowUp } from '@microsoft/fast-web-utilities';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
