@@ -152,7 +152,7 @@ An example of constant overriding:
     border-color: ${borderHoverColor};
 }
 ```
-In this example, the border-color class has to be constantly overridden back to `borderHoverColor` in `:host .content:hover` because `:host .content` changes the color to `actionRgbPartialColor` and overrides the `.content:hover` css class.
+In this example, the border-color property has to be repeatedly overridden back to `borderHoverColor` in `:host([some-attribute='...']) .content:hover` because `:host([some-attribute='...']) .content` changes the color to `actionRgbPartialColor` and overrides the `.content:hover` styling.
 
 This example instead uses hierarchical cascade layers with @layer:
 ```css
@@ -174,13 +174,16 @@ This example instead uses hierarchical cascade layers with @layer:
     }
 }
 ```
-In this example, using @layer gives the `content:hover` non-host class precedence to apply to all `:host` classes in the `hover` state.
+In this example, using @layer gives the `.content:hover` selector precedence over all selectors in the `base` layer, even though it has lower specificity.
 
 States should flow from plain base -> hover -> focus -> active -> error -> disabled -> top (which overrides all others)
 
-Note: Custom layer names should be avoided.
+Notes:
+-   Selectors that are not in a layer will take precedence over all layers, so if you use layers, all selectors should be in a layer.
 
-Corresponding states will be placed in layers with each other, in the order specified by [group selectors by target and document order](https://github.com/ni/nimble/blob/main/packages/nimble-components/docs/css-guidelines.md#group-selectors-by-target-and-document-order).
+-   Custom layer names should be avoided.
+
+Selectors should be organized by layer, then within a layer they should be ordered by [target and document order](https://github.com/ni/nimble/blob/main/packages/nimble-components/docs/css-guidelines.md#group-selectors-by-target-and-document-order).
 
 For Example:
 ```css
