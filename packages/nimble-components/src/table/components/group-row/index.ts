@@ -87,8 +87,8 @@ export class TableGroupRow extends FoundationElement {
     }
 
     public onKeyDown(event: KeyboardEvent): boolean {
-        const shouldExpand = (event.key === keyArrowDown && event.altKey && !this.expanded);
-        const shouldCollapse = (event.key === keyArrowUp && event.altKey && this.expanded);
+        const shouldExpand = event.key === keyArrowDown && event.altKey && !this.expanded;
+        const shouldCollapse = event.key === keyArrowUp && event.altKey && this.expanded;
         if (shouldExpand || shouldCollapse) {
             this.onGroupExpandToggle();
             event.stopPropagation();

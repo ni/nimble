@@ -4,10 +4,7 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import {
-    keyArrowLeft,
-    keyArrowRight
-} from '@microsoft/fast-web-utilities';
+import { keyArrowLeft, keyArrowRight } from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';

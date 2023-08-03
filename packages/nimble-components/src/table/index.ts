@@ -659,7 +659,11 @@ export class Table<
             case keySpace: {
                 const row = this.tableNavigationManager.focusedRow;
                 if (row && row instanceof TableRow) {
-                    this.selectionManager.handleRowSelectionToggle(this.tableData[row.dataIndex!], !row.selected, event.shiftKey);
+                    this.selectionManager.handleRowSelectionToggle(
+                        this.tableData[row.dataIndex!],
+                        !row.selected,
+                        event.shiftKey
+                    );
                     event.preventDefault();
                     return false;
                 }
