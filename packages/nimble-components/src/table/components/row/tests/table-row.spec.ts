@@ -20,26 +20,16 @@ interface SimpleTableRecord extends TableRecord {
     moreStringData: string;
 }
 
-// prettier-ignore
-async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
-    return fixture<TableRow<SimpleTableRecord>>(
-        html`<nimble-table-row>
-            </nimble-table-row>`
-    );
-}
-
-// prettier-ignore
-async function setupTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table>
-                <nimble-table-column-text id="first-column" field-name="stringData" column-id='foo'>Column 1</nimble-table-column-text>
-                <nimble-table-column-text id="second-column" field-name="moreStringData" column-id='bar'>Column 2</nimble-table-column-text>
-            </nimble-table>`
-    );
-}
-
 describe('TableRow', () => {
     describe('standalone', () => {
+        // prettier-ignore
+        async function setup(): Promise<Fixture<TableRow<SimpleTableRecord>>> {
+            return fixture<TableRow<SimpleTableRecord>>(
+                html`<nimble-table-row>
+                    </nimble-table-row>`
+            );
+        }
+
         let element: TableRow<SimpleTableRecord>;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
@@ -210,6 +200,16 @@ describe('TableRow', () => {
     });
 
     describe('in table', () => {
+        // prettier-ignore
+        async function setupTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<nimble-table>
+                        <nimble-table-column-text id="first-column" field-name="stringData" column-id='foo'>Column 1</nimble-table-column-text>
+                        <nimble-table-column-text id="second-column" field-name="moreStringData" column-id='bar'>Column 2</nimble-table-column-text>
+                    </nimble-table>`
+            );
+        }
+
         let element: Table<SimpleTableRecord>;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
