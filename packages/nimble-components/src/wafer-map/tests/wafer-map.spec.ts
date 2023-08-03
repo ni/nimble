@@ -31,67 +31,67 @@ describe('WaferMap', () => {
         );
     });
 
-    describe('render flow', () => {
+    describe('update flow', () => {
         let spy: jasmine.Spy;
         beforeEach(() => {
-            spy = spyOn(element, 'render');
+            spy = spyOn(element, 'update');
         });
 
-        it('will render once after quadrant changes', () => {
+        it('will update once after quadrant changes', () => {
             element.quadrant = WaferMapQuadrant.topRight;
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after orientation changes', () => {
+        it('will not update after orientation changes', () => {
             element.orientation = WaferMapOrientation.right;
             processUpdates();
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(0);
         });
 
-        it('will render once after maxCharacters change', () => {
+        it('will update once after maxCharacters change', () => {
             element.maxCharacters = 3;
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after dieLabelsHidden change', () => {
+        it('will update once after dieLabelsHidden change', () => {
             element.dieLabelsHidden = true;
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after dieLabelsSuffix changes', () => {
+        it('will update once after dieLabelsSuffix changes', () => {
             element.dieLabelsSuffix = '%';
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after colorScaleMode changes', () => {
+        it('will update once after colorScaleMode changes', () => {
             element.colorScaleMode = WaferMapColorScaleMode.ordinal;
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after highlightedValues change', () => {
+        it('will update once after highlightedValues change', () => {
             element.highlightedValues = ['1'];
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after dies change', () => {
+        it('will update once after dies change', () => {
             element.dies = [{ x: 1, y: 1, value: '1' }];
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after colorScale changes', () => {
-            element.colorScale = { colors: ['red'], values: ['1'] };
+        it('will update once after colorScale changes', () => {
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it('will render once after sequential attribute changes', () => {
+        it('will update once after sequential attribute changes', () => {
             element.quadrant = WaferMapQuadrant.topRight;
             element.orientation = WaferMapOrientation.right;
             element.maxCharacters = 3;
@@ -100,7 +100,7 @@ describe('WaferMap', () => {
             element.colorScaleMode = WaferMapColorScaleMode.ordinal;
             element.highlightedValues = ['1'];
             element.dies = [{ x: 1, y: 1, value: '1' }];
-            element.colorScale = { colors: ['red'], values: ['1'] };
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
@@ -113,7 +113,7 @@ describe('WaferMap', () => {
             element.canvasWidth = 500;
             element.canvasHeight = 500;
             element.dies = [{ x: 1, y: 1, value: '1' }];
-            element.colorScale = { colors: ['red'], values: ['1'] };
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
             initialValue = getTransform();
             expect(initialValue).toBe('translate(0,0) scale(1)');
@@ -165,7 +165,7 @@ describe('WaferMap', () => {
             element.canvasWidth = 500;
             element.canvasHeight = 500;
             element.dies = [{ x: 1, y: 1, value: '1' }];
-            element.colorScale = { colors: ['red'], values: ['1'] };
+            element.colorScale = { colors: ['red', 'red'], values: ['1', '1'] };
             processUpdates();
         });
 
