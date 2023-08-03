@@ -3,6 +3,8 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import {
     eventChange,
     keyArrowDown,
+    keyArrowLeft,
+    keyArrowRight,
     keyArrowUp,
     keyEscape
 } from '@microsoft/fast-web-utilities';
@@ -176,6 +178,13 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
                 this.setOpen(false);
                 this.toggleButton!.focus();
                 return false;
+            case keyArrowDown:
+            case keyArrowUp:
+            case keyArrowLeft:
+            case keyArrowRight: {
+                e.stopImmediatePropagation();
+                return false;
+            }
             default:
                 return true;
         }

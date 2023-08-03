@@ -8,6 +8,7 @@ export const template = html<MenuButton>`
     <template
         ?open="${x => x.open}"
         @focusout="${(x, c) => x.focusoutHandler(c.event as FocusEvent)}"
+        tabindex="${x => (!x.disabled ? '0' : null)}"
     >
         <${toggleButtonTag}
             part="button"
@@ -21,6 +22,7 @@ export const template = html<MenuButton>`
             @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('toggleButton')}
             exportparts="start,end"
+            tabIndex="${x => x.tabIndex}"
         >
             ${'' /* Forward the contents of the 'start', 'end', and default slots to the toggle button */}
             <slot slot="start" name="start"></slot>

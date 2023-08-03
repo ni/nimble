@@ -117,6 +117,7 @@ export const template = html<Table>`
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         :dataIndex="${x => x.index}"
+                                        @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
                                     >

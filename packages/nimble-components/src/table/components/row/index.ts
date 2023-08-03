@@ -4,6 +4,10 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
+import {
+    keyArrowLeft,
+    keyArrowRight
+} from '@microsoft/fast-web-utilities';
 import { styles } from './styles';
 import { template } from './template';
 import type { TableCellState } from '../../../table-column/base/types';
@@ -82,6 +86,20 @@ export class TableRow<
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
+    private focusedElement?: HTMLElement;
+
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.addEventListener('keydown', e => this.onKeyDown(e));
+        this.addEventListener('focusout', this.rowFocusOutHandler);
+        this.addEventListener('focusin', this.rowFocusInHandler);
+    }
+
+    public override disconnectedCallback(): void {
+        this.removeEventListener('keydown', this.onKeyDown);
+        this.removeEventListener('focusout', this.rowFocusOutHandler);
+        this.removeEventListener('focusin', this.rowFocusInHandler);
+    }
 
     @volatile
     public get columnStates(): ColumnState[] {
@@ -130,12 +148,7 @@ export class TableRow<
 
         const checkbox = event.target as Checkbox;
         const checked = checkbox.checked;
-        this.selected = checked;
-        const detail: TableRowSelectionToggleEventDetail = {
-            oldState: !checked,
-            newState: checked
-        };
-        this.$emit('row-selection-toggle', detail);
+        this.updateSelectedState(checked);
     }
 
     public onCellActionMenuBeforeToggle(
@@ -173,6 +186,88 @@ export class TableRow<
         }
     }
 
+    private updateSelectedState(selected: boolean): void {
+        this.selected = selected;
+        const detail: TableRowSelectionToggleEventDetail = {
+            oldState: !selected,
+            newState: selected
+        };
+        this.$emit('row-selection-toggle', detail);
+    }
+
+    private readonly onKeyDown = (event: KeyboardEvent): boolean => {
+        switch (event.key) {
+            case keyArrowRight: {
+                const focusableElements = this.getFocusableElements();
+                if (!this.focusedElement && focusableElements.length) {
+                    this.focusedElement = focusableElements[0];
+                } else if (this.focusedElement) {
+                    const focusedElementIndex = focusableElements.indexOf(
+                        this.focusedElement
+                    );
+                    if (focusedElementIndex < focusableElements.length - 1) {
+                        this.focusedElement = focusableElements[focusedElementIndex + 1];
+                    }
+                }
+
+                if (this.focusedElement) {
+                    this.focusedElement.tabIndex = 0;
+                    this.focusedElement.focus();
+                    this.focusedElement.addEventListener(
+                        'focusout',
+                        this.focusableFocusOutHandler
+                    );
+                    event.preventDefault();
+                    return false;
+                }
+
+                break;
+            }
+            case keyArrowLeft: {
+                const focusableElements = this.getFocusableElements();
+                if (this.focusedElement) {
+                    const focusedElementIndex = focusableElements.indexOf(
+                        this.focusedElement
+                    );
+                    if (focusedElementIndex > 0) {
+                        this.focusedElement = focusableElements[focusedElementIndex - 1];
+                    }
+                }
+
+                if (this.focusedElement) {
+                    this.focusedElement.tabIndex = 0;
+                    this.focusedElement.focus();
+                    this.focusedElement.addEventListener(
+                        'focusout',
+                        this.focusableFocusOutHandler
+                    );
+                    event.preventDefault();
+                    return false;
+                }
+
+                break;
+            }
+
+            default:
+                break;
+        }
+
+        return true;
+    };
+
+    private getFocusableElements(): HTMLElement[] {
+        const focusableElements: HTMLElement[] = [];
+        focusableElements.push(this.selectionCheckbox!);
+        const rowCells = this.shadowRoot?.querySelectorAll('nimble-table-cell');
+        rowCells?.forEach(cell => {
+            const cellFocusableElements = cell.shadowRoot?.querySelectorAll<HTMLElement>('[focusable]');
+            cellFocusableElements?.forEach(e => {
+                focusableElements.push(e);
+            });
+        });
+        return focusableElements;
+    }
+
     private emitActionMenuToggleEvent(
         eventType: string,
         menuButtonEventDetail: MenuButtonToggleEventDetail,
@@ -208,6 +303,23 @@ export class TableRow<
             this.ignoreSelectionChangeEvents = false;
         }
     }
+
+    private readonly rowFocusInHandler = (): void => {
+        this.setAttribute('has-focus', 'true');
+    };
+
+    private readonly rowFocusOutHandler = (): void => {
+        this.focusedElement = undefined;
+        this.removeAttribute('has-focus');
+    };
+
+    private readonly focusableFocusOutHandler = (event: Event): void => {
+        (event.target as HTMLElement).tabIndex = -1;
+        (event.target as HTMLElement).removeEventListener(
+            'focusout',
+            this.focusableFocusOutHandler
+        );
+    };
 }
 
 const nimbleTableRow = TableRow.compose({

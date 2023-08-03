@@ -28,7 +28,7 @@ import {
     ExpandedState as TanStackExpandedState,
     OnChangeFn as TanStackOnChangeFn
 } from '@tanstack/table-core';
-import { keyShift } from '@microsoft/fast-web-utilities';
+import { keyShift, keySpace } from '@microsoft/fast-web-utilities';
 import { TableColumn } from '../table-column/base';
 import { TableValidator } from './models/table-validator';
 import { styles } from './styles';
@@ -50,7 +50,7 @@ import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import type { TableRow } from './components/row';
+import { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 import { TableNavigationManager } from './models/table-navigation-manager';
@@ -392,16 +392,19 @@ export class Table<
 
     /** @internal */
     public onRowClick(rowIndex: number, event: MouseEvent): boolean {
-        const selectionChanged = this.selectionManager.handleRowClick(
-            this.tableData[rowIndex],
-            event.shiftKey,
-            event.ctrlKey || event.metaKey
-        );
+        if (this.rowElements[rowIndex] instanceof TableRow) {
+            const selectionChanged = this.selectionManager.handleRowClick(
+                this.tableData[rowIndex],
+                event.shiftKey,
+                event.ctrlKey || event.metaKey
+            );
 
-        if (selectionChanged) {
-            void this.emitSelectionChangeEvent();
+            if (selectionChanged) {
+                void this.emitSelectionChangeEvent();
+            }
         }
 
+        this.tableNavigationManager.setFocusedRow(rowIndex);
         return true;
     }
 
@@ -647,10 +650,26 @@ export class Table<
         this.scrollX = (event.target as HTMLElement).scrollLeft;
     };
 
-    private readonly onKeyDown = (event: KeyboardEvent): void => {
-        if (event.key === keyShift) {
-            this.documentShiftKeyDown = true;
+    private readonly onKeyDown = (event: KeyboardEvent): boolean => {
+        switch (event.key) {
+            case keyShift: {
+                this.documentShiftKeyDown = true;
+                break;
+            }
+            case keySpace: {
+                const row = this.tableNavigationManager.focusedRow;
+                if (row && row instanceof TableRow) {
+                    this.selectionManager.handleRowSelectionToggle(this.tableData[row.dataIndex!], !row.selected, event.shiftKey);
+                    event.preventDefault();
+                    return false;
+                }
+                break;
+            }
+            default:
+                return true;
         }
+
+        return true;
     };
 
     private readonly onKeyUp = (event: KeyboardEvent): void => {

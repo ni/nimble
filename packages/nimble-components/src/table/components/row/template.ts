@@ -14,6 +14,8 @@ export const template = html<TableRow>`
                     class="selection-checkbox"
                     @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                     @click="${(_, c) => c.event.stopPropagation()}"
+                    tabindex="-1"
+                    focusable
                 >
                 </${checkboxTag}>
             </span>

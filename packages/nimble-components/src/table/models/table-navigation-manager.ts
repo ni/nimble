@@ -27,17 +27,24 @@ implements Subscriber {
     private readonly tableNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
 
+    public get focusedRow(): TableRow | TableGroupRow | undefined {
+        return this._focusedRow;
+    }
+
     public constructor(
         private readonly table: Table<TData>,
         private readonly virtualizer: Virtualizer<TData>
     ) {
         table.addEventListener('keydown', e => this.onKeyDown(e));
-        table.addEventListener('focusout', this.resetState);
-        table.addEventListener('mousedown', e => this.onMouseDown(e));
+        table.addEventListener('focusout', () => this.resetState());
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
         this.virtualizerNotifier.subscribe(this, 'visibleItems');
+    }
+
+    public setFocusedRow(rowIndex: number): void {
+        this.scrollToAndFocusRow(rowIndex);
     }
 
     public handleChange(source: unknown, args: unknown): void {
@@ -61,16 +68,6 @@ implements Subscriber {
         }
     }
 
-    private readonly onMouseDown = (event: MouseEvent): boolean => {
-        const row = this.getClickedRow(event.clientX, event.clientY);
-        if (row) {
-            this._focusedTotalRowIndex = row.dataIndex;
-            this.focusVisibleRow();
-        }
-
-        return true;
-    };
-
     private readonly onKeyDown = (event: KeyboardEvent): boolean => {
         if (!this.table.rowElements.length) {
             return true;
@@ -78,14 +75,14 @@ implements Subscriber {
 
         switch (event.key) {
             case keyTab: {
-                this.resetState();
+                this.resetState(true);
                 break;
             }
             case keyArrowDown: {
                 const newFocusedTotalRowIndex = this._focusedTotalRowIndex === undefined
                     ? 0
                     : this._focusedTotalRowIndex + 1;
-                if (newFocusedTotalRowIndex < this.table.tableData.length - 1) {
+                if (newFocusedTotalRowIndex < this.table.tableData.length) {
                     this.scrollToAndFocusRow(newFocusedTotalRowIndex);
                     event.preventDefault();
                     return false;
@@ -98,7 +95,6 @@ implements Subscriber {
                 }
 
                 if (this._focusedTotalRowIndex === 0) {
-                    this.table.rowElements[this.getVisibleRowIndex()]!.blur();
                     this.setFocusOnHeader();
                     event.preventDefault();
                     return false;
@@ -156,6 +152,13 @@ implements Subscriber {
     };
 
     private setFocusOnHeader(): void {
+        if (this._focusedRow) {
+            this._focusedRow.blur();
+            this._focusedRow.tabIndex = -1;
+            this._focusedTotalRowIndex = undefined;
+            this._focusedRow = undefined;
+        }
+
         const focusableElement = this.getTableHeaderFocusableElement();
         if (focusableElement) {
             focusableElement.focus();
@@ -177,15 +180,17 @@ implements Subscriber {
     }
 
     private focusVisibleRow(): void {
+        if (this._focusedRow) {
+            this._focusedRow.blur();
+            this._focusedRow.tabIndex = -1;
+        }
         const visibleRowIndex = this.getVisibleRowIndex();
         if (visibleRowIndex < 0) {
-            this._focusedRow = undefined;
             return;
         }
         this._focusedRow = this.table.rowElements[visibleRowIndex]!;
         this._focusedRow.tabIndex = 0;
         this._focusedRow.focus({ preventScroll: true });
-        this._focusedRow.removeEventListener('focusout', this.focusOutHandler);
         this._focusedRow.addEventListener('focusout', e => this.focusOutHandler(e));
     }
 
@@ -215,27 +220,13 @@ implements Subscriber {
         );
     };
 
-    private readonly resetState = (): void => {
-        const visibleRowIndex = this.getVisibleRowIndex();
-        if (visibleRowIndex >= 0) {
-            this.table.rowElements[visibleRowIndex]!.tabIndex = -1;
-            this.table.rowElements[visibleRowIndex]?.blur();
+    private readonly resetState = (resetRowIndex = false): void => {
+        if (this._focusedRow) {
+            this._focusedRow.tabIndex = -1;
+            this._focusedRow.blur();
         }
-        this._focusedTotalRowIndex = undefined;
+        if (resetRowIndex) {
+            this._focusedTotalRowIndex = undefined;
+        }
     };
-
-    private getClickedRow(
-        clientX: number,
-        clientY: number
-    ): TableRow | TableGroupRow | undefined {
-        return this.table.rowElements.find(row => {
-            const rowRect = row.getBoundingClientRect();
-            return (
-                clientX >= rowRect.x
-                && clientX < rowRect.x + rowRect.width
-                && clientY >= rowRect.y
-                && clientY < rowRect.y + rowRect.height
-            );
-        });
-    }
 }

@@ -38,7 +38,7 @@ export const styles = css`
         position: absolute;
     }
 
-    :host(:focus) {
+    :host([has-focus]) {
         box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
         outline: ${borderWidth} solid ${borderHoverColor};
         outline-offset: -2px;
@@ -94,6 +94,10 @@ export const styles = css`
     }
 
     :host([selected]) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: block;
+    }
+
+    :host([has-focus]) nimble-table-cell {
         --ni-private-table-cell-action-menu-display: block;
     }
 `.withBehaviors(
