@@ -483,13 +483,12 @@ describe('TableColumnDateText', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('２０１２');
         });
 
-        it('has no invalid flags on column when using default formatting', async () => {
+        it('has no invalid flag on column when using default formatting', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
-            expect(column.validity.invalidLangCode).toBeFalse();
         });
 
         it('sets invalidCustomOptionsCombination flag on column when custom options are incompatible', async () => {
@@ -502,7 +501,6 @@ describe('TableColumnDateText', () => {
             column.customDateStyle = 'full';
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeTrue();
-            expect(column.validity.invalidLangCode).toBeFalse();
         });
 
         it('clears invalidCustomOptionsCombination flag on column after fixing custom option incompatibility', async () => {
@@ -517,26 +515,6 @@ describe('TableColumnDateText', () => {
             column.customDateStyle = undefined;
             await waitForUpdatesAsync();
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
-        });
-
-        it('sets invalidLangCode flag on column when lang code is malformed', async () => {
-            await element.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
-            lang.setValueFor(element, '');
-            await waitForUpdatesAsync();
-            expect(column.validity.invalidLangCode).toBeTrue();
-            expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
-        });
-
-        it('clears invalidLangCode flag on column after fixing lang code', async () => {
-            await element.setData([
-                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
-            ]);
-            lang.setValueFor(element, '');
-            await waitForUpdatesAsync();
-            lang.setValueFor(element, 'en');
-            expect(column.validity.invalidLangCode).toBeFalse();
         });
     });
 
