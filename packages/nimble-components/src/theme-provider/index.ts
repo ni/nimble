@@ -8,6 +8,7 @@ import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
 import { Theme } from './types';
+import { pageLocale } from '../utilities/models/page-locale';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -18,7 +19,7 @@ declare global {
 export const lang = DesignToken.create<string>({
     name: 'lang',
     cssCustomPropertyName: null
-}).withDefault(document.documentElement.lang);
+}).withDefault((): string => pageLocale.lang);
 
 // Not represented as a CSS Custom Property, instead available
 // as an attribute of theme provider.
@@ -39,7 +40,7 @@ export const theme = DesignToken.create<Theme>({
  */
 export class ThemeProvider extends FoundationElement {
     @attr()
-    public override lang: string = document.documentElement.lang;
+    public override lang = '';
 
     @attr()
     public direction: Direction = Direction.ltr;
@@ -51,7 +52,7 @@ export class ThemeProvider extends FoundationElement {
         _prev: string | undefined | null,
         next: string | undefined | null
     ): void {
-        if (next !== undefined && next !== null) {
+        if (next !== undefined && next !== null && next !== '') {
             lang.setValueFor(this, next);
         } else {
             lang.deleteValueFor(this);
