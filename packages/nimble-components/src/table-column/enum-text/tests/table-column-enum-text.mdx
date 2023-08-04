@@ -1,0 +1,24 @@
+import {
+    ArgTypes,
+    Canvas,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as tableColumnEnumTextStories from './table-column-enum-text.stories';
+import * as textMappingStories from '../../../mapping/text/tests/mapping-text.stories';
+
+<Meta of={tableColumnEnumTextStories} />
+
+<Title of={tableColumnEnumTextStories} />
+<Description of={tableColumnEnumTextStories} />
+
+<Canvas of={tableColumnEnumTextStories.enumTextColumn} />
+<ArgTypes of={tableColumnEnumTextStories.enumTextColumn} />
+
+### Text Mapping
+
+<Description of={textMappingStories} />
+<ArgTypes of={textMappingStories.textMapping} />

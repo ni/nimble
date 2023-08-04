@@ -20,6 +20,12 @@ export type TableFieldValue = string | number | boolean | null | undefined;
 export type TableStringFieldValue = string | null | undefined;
 
 /**
+ * TableBooleanFieldValue describes the type associated with values within
+ * a table's boolean records.
+ */
+export type TableBooleanFieldValue = boolean | null | undefined;
+
+/**
  * TableNumberFieldValue describes the type associated with values within
  * a table's number records.
  */
@@ -36,6 +42,10 @@ export interface TableRecord {
 
 export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
+};
+
+export type TableBooleanField<FieldName extends TableFieldName> = {
+    [name in FieldName]: TableBooleanFieldValue;
 };
 
 export type TableNumberField<FieldName extends TableFieldName> = {

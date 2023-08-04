@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `nimble-table-column-mapping` is a component that supports rendering specific number, boolean, or string values as mapped text. `nimble-table-column-icon` is a specialized version of `nimble-table-column-mapping` that instead maps values to icons and/or spinners and has a minimal, fixed width. The actual mappings are defined by child elements `nimble-mapping-icon`, `nimble-mapping-spinner`, and `nimble-mapping-text`.
+The `nimble-table-column-enum-text` is a component that supports rendering specific number, boolean, or string values as mapped text. `nimble-table-column-icon` instead maps values to icons and/or spinners. The actual mappings are defined by child elements `nimble-mapping-icon`, `nimble-mapping-spinner`, and `nimble-mapping-text`.
 
 ### Background
 
@@ -45,12 +45,12 @@ Below is an example of how these elements would be used within a `nimble-table`:
         <nimble-mapping-icon key="pass" icon="nimble-icon-check" severity="success" label="Passed"></nimble-mapping-icon>
         <nimble-mapping-spinner key="running" label="Running"></nimble-mapping-spinner>
     </nimble-table-column-icon>
-    <nimble-table-column-mapping field-name="errorCode" key-type="number">
+    <nimble-table-column-enum-text field-name="errorCode" key-type="number">
         Error Code
         <nimble-mapping-text key="1" label="A bad thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="2" label="A worse thing happened"></nimble-mapping-text>
         <nimble-mapping-text key="3" label="A terrible thing happened"></nimble-mapping-text>
-    </nimble-table-column-mapping>
+    </nimble-table-column-enum-text>
     <nimble-table-column-icon field-name="archived" key-type="boolean">
         Archived
         <nimble-mapping-icon key="true" icon="nimble-icon-database" label="Archived"></nimble-mapping-icon>
@@ -70,7 +70,7 @@ If multiple mappings in a column have the same key, an error flag will be set on
 
 If an invalid `icon` value is passed to `nimble-mapping-icon`, an error flag will be set on the column's validity object. An invalid `icon` value is any element that cannot be resolved or that does not derive from `Icon`.
 
-`nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. `nimble-table-column-mapping` supports only `nimble-mapping-text`. Unsupported mappings will result in an error flag being set on the column's validity object.
+`nimble-table-column-icon` supports only `nimble-mapping-icon` and `nimble-mapping-spinner` as mapping elements. `nimble-table-column-enum-text` supports only `nimble-mapping-text`. Unsupported mappings will result in an error flag being set on the column's validity object.
 
 Text in a grouping header or in the cell will be ellipsized and gain a tooltip when the full text is too long to display.
 
@@ -113,7 +113,7 @@ _Content_
 
 _Component Name_
 
--   `nimble-table-column-mapping`
+-   `nimble-table-column-enum-text`
 
 _Props/Attrs_
 
@@ -139,7 +139,6 @@ _Props/Attrs_
 -   `icon`: string - name of the Nimble icon element
 -   `severity`: string - one of the supported enum values. Controls color of the icon.
 -   `label`: string - localized value used as the accessible name and `title` of the icon. Will also be displayed in the group header.
--   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
 #### Mapping element (spinner):
 
@@ -151,7 +150,6 @@ _Props/Attrs_
 
 -   `key`: string | number | boolean | undefined
 -   `label`: string - localized value used as the accessible name and `title` of the spinner. Will also be displayed in the group header.
--   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
 #### Mapping element (text):
 
@@ -163,11 +161,10 @@ _Props/Attrs_
 
 -   `key`: string | number | boolean | undefined
 -   `label`: string - display text
--   `default-mapping`: boolean - presence causes this mapping to be used when no others match the value
 
 ### Anatomy
 
-#### `nimble-table-column-mapping`
+#### `nimble-table-column-enum-text`
 
 ```HTML
 <template slot="${x => x.columnInternals.uniqueId}">
@@ -264,7 +261,7 @@ For icons, if multiple values map to the same icon, it is possible that sorting 
 
 `nimble-table-column-icon` will support only a fixed width. We will introduce a new mixin for fixed-width support that exposes a `pixel-width` property. The default value will be the minimum supported by the table, which is still significantly larger than the width of an icon.
 
-`nimble-table-column-mapping` will support fixed or fractional widths. If `pixel-width` is set, the column will have a fixed width, otherwise it defaults to a fractional width of 1. The client may configure `fractional-width` and/or `min-pixel-width`.
+`nimble-table-column-enum-text` will support fixed or fractional widths. If `pixel-width` is set, the column will have a fixed width, otherwise it defaults to a fractional width of 1. The client may configure `fractional-width` and/or `min-pixel-width`.
 
 ### Angular integration
 
@@ -275,10 +272,10 @@ Angular directives will be created for the column components and the mapping com
 Blazor wrappers will be created for the components. Columns will be generic in the type of the key, and will cascade that type parameter to contained mapping elements (see [`CascadingTypeParameter`](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/generic-type-support?view=aspnetcore-7.0#cascaded-generic-type-support)):
 
 ```HTML
-<NimbleTableColumnMapping TKey=int Field="NumberData">
+<NimbleTableColumnEnumText TKey=int Field="NumberData">
     <NimbleMappingText Key="1" Label="foo"></NimbleMappingText>
     <NimbleMappingText Key="2" Label="bar"></NimbleMappingText>
-</NimbleTableColumnMapping>
+</NimbleTableColumnEnumText>
 ```
 
 ### Visual Appearance

@@ -1,8 +1,49 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 01 Aug 2023 19:55:33 GMT and should not be manually modified.
+This log was last generated on Thu, 03 Aug 2023 22:50:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.2
+
+Thu, 03 Aug 2023 22:50:39 GMT
+
+### Patches
+
+- Enum-text table column ([ni/nimble@058f6cb](https://github.com/ni/nimble/commit/058f6cb563d5756a95ea06875c868719f87278d4))
+
+## 20.1.1
+
+Thu, 03 Aug 2023 16:47:18 GMT
+
+### Patches
+
+- Facilitate getting cells by row/column ID ([ni/nimble@e90a0dc](https://github.com/ni/nimble/commit/e90a0dc4df48e6e243cf67f528735397fdff4c9c))
+
+## 20.1.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Storybook integration for primary and accent appearance-variant buttons (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+- Bump @ni/nimble-tokens to v6.3.0
+
+## 20.0.6
+
+Wed, 02 Aug 2023 00:19:04 GMT
+
+### Patches
+
+- Fix table bug where shift-selecting rows would highlight all cell content ([ni/nimble@aa64ac8](https://github.com/ni/nimble/commit/aa64ac8f7b8e200e07af05c88b5f45d9a2b560db))
+
+## 20.0.5
+
+Tue, 01 Aug 2023 20:43:24 GMT
+
+### Patches
+
+- Add formatting API to date column ([ni/nimble@0073be1](https://github.com/ni/nimble/commit/0073be19aed7f9b1efe428f5f9f5b261ab1983db))
 
 ## 20.0.4
 

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Tue, 25 Jul 2023 21:12:32 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.1.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Blazor integration for primary and accent appearance-variant buttons (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
 
 ## 12.0.0
 
