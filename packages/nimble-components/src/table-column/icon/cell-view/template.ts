@@ -11,8 +11,8 @@ export const template = html<TableColumnIconCellView>`
         x => x.visual === 'spinner',
         html<TableColumnIconCellView>`
         <${spinnerTag}
-            title="${x => x.label}"
-            aria-label="${x => x.label}">
+            title="${x => x.text}"
+            aria-label="${x => x.text}">
         </${spinnerTag}>
     `
     )}
