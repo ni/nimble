@@ -1,4 +1,5 @@
-import type { TableRecord, ValidityObject } from '../../table/types';
+import type { TableRecord } from '../../table/types';
+import type { ValidityObject } from '../../utilities/models/validator';
 
 /**
  * An object whose fields are defined by a particular TableColumn, which is used by the column's

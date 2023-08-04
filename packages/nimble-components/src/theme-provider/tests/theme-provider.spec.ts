@@ -1,9 +1,11 @@
+import { html } from '@microsoft/fast-element';
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import * as designTokensNamespace from '../design-tokens';
 import { tokenNames, suffixFromTokenName } from '../design-token-names';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
-import { ThemeProvider, lang } from '..';
+import { ThemeProvider, lang, themeProviderTag } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { fixture, type Fixture } from '../../utilities/tests/fixture';
 
 type DesignTokenPropertyName = keyof typeof designTokensNamespace;
 const designTokenPropertyNames = Object.keys(
@@ -17,22 +19,77 @@ describe('Theme Provider', () => {
         );
     });
 
-    it('sets lang token value to "foo" when lang attribute is assigned value "foo"', async () => {
-        const element: ThemeProvider = document.createElement(
-            'nimble-theme-provider'
-        );
-        element.setAttribute('lang', 'foo');
-        await waitForUpdatesAsync();
-        expect(lang.getValueFor(element)).toBe('foo');
-    });
+    describe('lang token', () => {
+        async function setup(
+            langValue = 'foo'
+        ): Promise<Fixture<ThemeProvider>> {
+            return fixture<ThemeProvider>(
+                html`<${themeProviderTag} lang="${langValue}">
+                    </${themeProviderTag}>`
+            );
+        }
 
-    it('clears lang token value when lang attribute is removed', async () => {
-        const element: ThemeProvider = document.createElement(
-            'nimble-theme-provider'
-        );
-        element.removeAttribute('lang');
-        await waitForUpdatesAsync();
-        expect(lang.getValueFor(element)).toBe('');
+        let element: ThemeProvider;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('value is set to "foo" when theme provider lang attribute is assigned value "foo"', async () => {
+            ({ element, connect, disconnect } = await setup());
+            await connect();
+            await waitForUpdatesAsync();
+            expect(lang.getValueFor(element)).toBe('foo');
+        });
+
+        it('value defaults to page lang when theme provider lang attribute is removed', async () => {
+            document.documentElement.lang = 'bar';
+            ({ element, connect, disconnect } = await setup());
+            await connect();
+            element.removeAttribute('lang');
+            await waitForUpdatesAsync();
+            expect(lang.getValueFor(element)).toBe('bar');
+        });
+
+        it('value defaults to page lang when theme provider lang attribute is empty string', async () => {
+            document.documentElement.lang = 'bar';
+            ({ element, connect, disconnect } = await setup(''));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(lang.getValueFor(element)).toBe('bar');
+            expect(element.validity.invalidLang).toBeFalse();
+        });
+
+        it('value defaults to page lang when theme provider lang attribute is malformed', async () => {
+            document.documentElement.lang = 'bar';
+            ({ element, connect, disconnect } = await setup('123'));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(lang.getValueFor(element)).toBe('bar');
+            expect(element.validity.invalidLang).toBeTrue();
+        });
+
+        it('value updates when theme provider lang attribute goes from bad to good', async () => {
+            document.documentElement.lang = 'bar';
+            ({ element, connect, disconnect } = await setup('123'));
+            await connect();
+            await waitForUpdatesAsync();
+            element.setAttribute('lang', 'fr-CA');
+            await waitForUpdatesAsync();
+            expect(lang.getValueFor(element)).toBe('fr-CA');
+            expect(element.validity.invalidLang).toBeFalse();
+        });
+
+        it('value defaults to system default (en-US) when page lang is malformed and theme provider lang is malformed', async () => {
+            document.documentElement.lang = '123';
+            ({ element, connect, disconnect } = await setup('456'));
+            await connect();
+            await waitForUpdatesAsync();
+            // our karma config and GitHub actions config set the lang to en-US
+            expect(lang.getValueFor(element)).toBe('en-US');
+        });
     });
 
     describe('design token should match CSSDesignToken', () => {

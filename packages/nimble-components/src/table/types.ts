@@ -1,4 +1,5 @@
 import type { TableColumn } from '../table-column/base';
+import type { ValidityObject } from '../utilities/models/validator';
 
 /**
  * TableFieldName describes the type associated with keys within
@@ -40,10 +41,6 @@ export type TableStringField<FieldName extends TableFieldName> = {
 export type TableNumberField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableNumberFieldValue;
 };
-
-export interface ValidityObject {
-    [key: string]: boolean;
-}
 
 export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;

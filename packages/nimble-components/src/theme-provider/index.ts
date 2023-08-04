@@ -9,6 +9,7 @@ import { template } from './template';
 import { styles } from './styles';
 import { Theme } from './types';
 import { pageLocale } from '../utilities/models/page-locale';
+import type { ValidityObject } from '../utilities/models/validator';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -16,10 +17,24 @@ declare global {
     }
 }
 
+function isInvalidLang(value: string): boolean {
+    try {
+        // eslint-disable-next-line no-new
+        new Intl.DateTimeFormat(value);
+        return false;
+    } catch (e) {
+        return true;
+    }
+}
+
+function getSystemLocale(): string {
+    return new Intl.DateTimeFormat(undefined).resolvedOptions().locale;
+}
+
 export const lang = DesignToken.create<string>({
     name: 'lang',
     cssCustomPropertyName: null
-}).withDefault((): string => pageLocale.lang);
+}).withDefault((): string => (isInvalidLang(pageLocale.lang) ? getSystemLocale() : pageLocale.lang));
 
 // Not represented as a CSS Custom Property, instead available
 // as an attribute of theme provider.
@@ -48,11 +63,26 @@ export class ThemeProvider extends FoundationElement {
     @attr()
     public theme: Theme = Theme.light;
 
+    public get validity(): ValidityObject {
+        return {
+            invalidLang: this.langIsInvalid
+        };
+    }
+
+    private langIsInvalid = false;
+
     public langChanged(
         _prev: string | undefined | null,
         next: string | undefined | null
     ): void {
-        if (next !== undefined && next !== null && next !== '') {
+        this.langIsInvalid = false;
+        if (
+            next !== undefined
+            && next !== null
+            && next !== ''
+            // eslint-disable-next-line no-cond-assign
+            && !(this.langIsInvalid = isInvalidLang(next))
+        ) {
             lang.setValueFor(this, next);
         } else {
             lang.deleteValueFor(this);
