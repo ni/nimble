@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
+This log was last generated on Thu, 03 Aug 2023 22:50:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.2
+
+Thu, 03 Aug 2023 22:50:39 GMT
+
+### Patches
+
+- Enum-text table column ([ni/nimble@058f6cb](https://github.com/ni/nimble/commit/058f6cb563d5756a95ea06875c868719f87278d4))
+
+## 20.1.1
+
+Thu, 03 Aug 2023 16:47:18 GMT
+
+### Patches
+
+- Facilitate getting cells by row/column ID ([ni/nimble@e90a0dc](https://github.com/ni/nimble/commit/e90a0dc4df48e6e243cf67f528735397fdff4c9c))
 
 ## 20.1.0
 
