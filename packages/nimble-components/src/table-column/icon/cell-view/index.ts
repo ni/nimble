@@ -29,7 +29,7 @@ export class TableColumnIconCellView
     >
     implements IconView {
     public severity: IconSeverity;
-    public label!: string;
+    public text!: string;
     public iconTemplate?: ViewTemplate<IconView>;
     @observable
     public visual?: 'spinner' | 'icon';
@@ -55,11 +55,11 @@ export class TableColumnIconCellView
         if (mappingConfig instanceof MappingIconConfig) {
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
-            this.label = mappingConfig.text;
+            this.text = mappingConfig.text;
             this.iconTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
-            this.label = mappingConfig.text;
+            this.text = mappingConfig.text;
         }
     }
 }
