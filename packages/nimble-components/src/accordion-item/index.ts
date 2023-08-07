@@ -2,13 +2,13 @@ import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AccordionItem as FoundationAccordionItem,
-    AccordionItemOptions
+    AccordionItemOptions,
 } from '@microsoft/fast-foundation';
 import {
     arrowExpanderDown16X16,
     arrowExpanderRight16X16
 } from '@ni/nimble-tokens/dist/icons/js';
-import type { AccordionAppearance } from '../accordion/types';
+import { AccordionAppearance } from '../accordion/types';
 import { styles } from './styles';
 import { template } from './template';
 
@@ -23,7 +23,7 @@ declare global {
  */
 export class AccordionItem extends FoundationAccordionItem {
     @attr
-    public appearance!: AccordionAppearance;
+    public appearance: AccordionAppearance = AccordionAppearance.outline;
 
     @attr({ attribute: 'error-visible', mode: 'boolean' })
     public errorVisible = false;

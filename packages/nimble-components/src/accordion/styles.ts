@@ -3,7 +3,6 @@ import { display } from '@microsoft/fast-foundation';
 import {
     bodyEmphasizedFont,
     bodyEmphasizedFontColor,
-    standardPadding
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -13,7 +12,6 @@ export const styles = css`
         box-sizing: border-box;
         height: 100%;
         width: 100%;
-        line-height: ${standardPadding};
         flex-direction: column;
         font: ${bodyEmphasizedFont};
         color: ${bodyEmphasizedFontColor};

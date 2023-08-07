@@ -6,7 +6,8 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
-    iconSize
+    iconSize,
+    standardPadding
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { AccordionAppearance } from '../accordion/types';
@@ -32,29 +33,17 @@ export const styles = css`
         display: flex;
         box-sizing: border-box;
         flex-direction: column;
-        line-height: 16px;
+        line-height: ${standardPadding};
         margin: 2px;
         border: 0px solid transparent;
-    }
-
-    .details${focusVisible} {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
-    }
-
-    .details:active {
-        box-shadow: 0px 0px 0px ${borderWidth} ${borderHoverColor} inset;
-    }
-
-    :host([expanded]) .details:focus-within {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
-    }
-
-    :host([disabled]) {
-        opacity: var(--disabled-opacity);
+        pointer-events: none;
     }
 
     .details {
         display: flex;
+        position: relative;
+        pointer-events: none;
+        width: 100%;
     }
 
     .heading {
@@ -67,6 +56,7 @@ export const styles = css`
         background-position: center;
         box-sizing: border-box;
         width: 100%;
+        pointer-events: all;
     }
 
     slot[name='heading']::slotted(*) {
@@ -76,35 +66,13 @@ export const styles = css`
         width: 100%;
     }
 
-    .region {
-        font: ${bodyFont};
-        color: ${bodyFontColor};
-        gap: 13px;
-        padding-top: 9px;
-        padding-bottom: 5px;
-        padding-left: 38px;
-        padding-right: 4px;
-    }
-
-    :host([expanded]) .region {
-        display: flex;
-        color: black;
-    }
-
-    ::slotted(*) {
-        display: flex;
-        flex-direction: column;
-        width: fit-content;
-        gap: 18px;
-    }
-
     .button {
         display: flex;
         appearance: none;
         border: none;
         background: none;
         padding: 3px;
-        gap: 8px;
+        column-gap: 8px;
         outline: none;
         text-align: left;
         cursor: pointer;
@@ -126,6 +94,60 @@ export const styles = css`
         color: var(--neutral-foreground-rest);
     }
 
+    .button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+
+    .button:hover::before {
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
+    }
+
+    .button${focusVisible}::before {
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
+    }
+
+    .button:active::before {
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
+    }
+
+    .button${focusVisible}::after {
+        outline: ${borderWidth} solid ${borderHoverColor};
+        outline-offset: -4px;
+    }
+
+    .region {
+        font: ${bodyFont};
+        color: ${bodyFontColor};
+        gap: 13px;
+        padding-top: 4px;
+        padding-bottom: 5px;
+        padding-left: 38px;
+        padding-right: 4px;
+        pointer-events: all;
+    }
+
+    :host([expanded]) .region {
+        display: flex;
+        color: black;
+    }
+
+    ::slotted(*) {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        gap: 18px;
+    }
+    
     .icon {
         display: flex;
         position: relative;
@@ -142,20 +164,9 @@ export const styles = css`
         pointer-events: none;
     }
 
-    .errorIcon {
-        display: flex;
-        position: relative;
-        background: none;
-        border: none;
-        outline: none;
-        padding: 0px;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        padding-top: 4.5px;
-        padding-bottom: 5.5px;
+    .icon.error {
+        padding-left: 0px;
         padding-right: 13px;
-        pointer-events: none;
     }
 
     .heading-content {
@@ -163,10 +174,6 @@ export const styles = css`
         padding-left: 0px;
         padding-top: 4px;
         padding-bottom: 6px;
-    }
-
-    :host([appearance='outline']) {
-        border-color: rgba(${actionRgbPartialColor}, 0.3);
     }
 
     slot[name='expanded-icon'],
@@ -218,11 +225,7 @@ export const styles = css`
                     rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
-            .button:hover {
-                box-shadow: none;
-            }
-
-            :host([expanded]) .heading {
+            :host([expanded]) .button{
                 box-shadow: none;
             }
 
@@ -245,8 +248,8 @@ export const styles = css`
                 background-image: linear-gradient(
                     rgba(${actionRgbPartialColor}, 0.1),
                     rgba(${actionRgbPartialColor}, 0.1)
-                );
-                background-size: calc(100% - 6px) calc(100% - 6px);
+                );px);
+                background-size: calc(100% - 6px) calc(100% - 6
             }
 
             .button:active {

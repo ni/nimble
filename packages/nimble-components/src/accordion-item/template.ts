@@ -18,7 +18,7 @@ export const template: FoundationElementTemplate<
 ViewTemplate<AccordionItem>,
 AccordionItemOptions
 > = (_context, definition) => html`
-<template slot="item"
+<template
     appearance="${x => x.appearance}"
 >
     <details class="details" ?open="${x => x.open || x.expanded}" ${ref('details')}>
@@ -49,7 +49,7 @@ AccordionItemOptions
                 <span class="heading-content" part="heading-content">
                     <slot name="heading"></slot>
                 </span>
-                <span class="errorIcon" part="icon">
+                <span class="icon error" part="icon">
                 ${when(x => x.errorVisible, html`
                     <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
                 `)}
