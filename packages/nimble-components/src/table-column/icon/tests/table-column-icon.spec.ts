@@ -24,7 +24,7 @@ interface BasicIconMapping {
     icon: string;
 }
 
-fdescribe('TableColumnIcon', () => {
+describe('TableColumnIcon', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
