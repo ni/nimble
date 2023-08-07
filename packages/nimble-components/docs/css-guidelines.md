@@ -128,13 +128,13 @@ Useful reference: [When do the :hover, :focus, and :active pseudo-classes apply?
 
 ### Organize styles with CSS Cascade Layers 
 
-New controls and existing controls undergoing major refactoring should migrate to [CSS Cascade Layers with @layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for organizing styles that override states. Cascade Layers with @layer define the order of precedence when multiple cascade layers are present, and help enforce that property overrides have higher specificity over base styles without modifying selectors to increase specificity.
+New controls and existing controls undergoing major refactoring should migrate to [CSS Cascade Layers with `@layer`](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for organizing styles that override states. Cascade Layers with `@layer` define the order of precedence when multiple cascade layers are present. This helps enforce that property overrides have higher specificity over base styles without needing to modify selectors to increase specificity.
 
 For consistency, control styles using CSS Cascade Layers should follow these practices:
 -   Define the cascade layers: `@layer base, hover, focusVisible, active, disabled, top`
     -   Avoid changing the order of layers, changing layer names, or creating additional layers.
 -   Layers in the stylesheet should follow the order by which they are defined above.
--   Ensure that all styles are in a layer- no styles for the control should be outside of a layer.
+-   Ensure that all styles are in a layer; no styles for the control should be outside of a layer.
 -   Styles in layers should continue to follow existing best organization practices, including grouping using document order.
 
 For example:
