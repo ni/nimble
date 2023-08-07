@@ -24,7 +24,7 @@ const metadata: Meta<AnchorArgs> = {
         docs: {
             description: {
                 component:
-                    'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
+                    'Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
             }
         },
         actions: {}
