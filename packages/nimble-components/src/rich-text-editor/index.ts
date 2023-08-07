@@ -101,7 +101,7 @@ export class RichTextEditor extends FoundationElement {
     private bindEditorTransactionEvent(): void {
         if (this.$fastController.isConnected) {
             this.tiptapEditor.on('transaction', () => {
-                this.updateTipTapButtonState();
+                this.updateEditorButtonsState();
             });
         }
     }
@@ -110,7 +110,7 @@ export class RichTextEditor extends FoundationElement {
         this.tiptapEditor.off('transaction');
     }
 
-    private updateTipTapButtonState(): void {
+    private updateEditorButtonsState(): void {
         if (this.editorButtonRefs.length > 0) {
             this.editorButtons.forEach(button => {
                 const buttonToUpdate = this.editorButtonRefs.find(editorButtonRef => editorButtonRef.classList.contains(button.class));
