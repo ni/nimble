@@ -814,7 +814,7 @@ describe('NimbleTableColumnDateText', () => {
             fixture.detectChanges();
 
             expect(directive.customHour12).toBe('twelve-hour');
-            expect(nativeElement.customHour12).toBeTrue('twelve-hour');
+            expect(nativeElement.customHour12).toBe('twelve-hour');
         });
 
         it('can be configured with property binding for customHour12 updated to undefined', () => {
