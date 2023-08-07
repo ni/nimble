@@ -28,7 +28,11 @@ export class Accordion extends FoundationAccordion {
         this.expandmode = AccordionExpandMode.multi;
     }
 
-    public override accordionItemsChanged(): void {
+    public override accordionItemsChanged(
+        oldValue: HTMLElement[],
+        newValue: HTMLElement[]
+    ): void {
+        super.accordionItemsChanged(oldValue, newValue);
         this.accordionItems.forEach((appearance: HTMLElement) => {
             appearance.setAttribute('appearance', this.appearance);
         });

@@ -77,7 +77,7 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
             control: { type: 'radio' },
             description:
                 'This attribute affects the appearance of the accordion.'
-        },
+        }
     },
     args: {
         options: [
@@ -97,7 +97,7 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
                 errorVisible: false
             }
         ],
-        appearance: 'outline',
+        appearance: 'outline'
     }
 };
 

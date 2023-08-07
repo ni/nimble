@@ -2,7 +2,7 @@ import { attr } from '@microsoft/fast-element';
 import {
     DesignSystem,
     AccordionItem as FoundationAccordionItem,
-    AccordionItemOptions,
+    AccordionItemOptions
 } from '@microsoft/fast-foundation';
 import {
     arrowExpanderDown16X16,

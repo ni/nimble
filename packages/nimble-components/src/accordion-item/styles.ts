@@ -95,7 +95,7 @@ export const styles = css`
     }
 
     .button::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -114,15 +114,13 @@ export const styles = css`
 
     .button${focusVisible}::before {
         box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
+        outline: ${borderWidth} solid ${borderHoverColor};
+        outline-offset: -4px;
     }
 
     .button:active::before {
         box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
-    }
-
-    .button${focusVisible}::after {
-        outline: ${borderWidth} solid ${borderHoverColor};
-        outline-offset: -4px;
+        outline: none;
     }
 
     .region {
@@ -136,6 +134,24 @@ export const styles = css`
         pointer-events: all;
     }
 
+    .region::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+
+    .region:hover::before {
+        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
+    }
+
     :host([expanded]) .region {
         display: flex;
         color: black;
@@ -147,7 +163,7 @@ export const styles = css`
         width: fit-content;
         gap: 18px;
     }
-    
+
     .icon {
         display: flex;
         position: relative;
@@ -225,7 +241,7 @@ export const styles = css`
                     rgba(${actionRgbPartialColor}, 0.3) inset;
             }
 
-            :host([expanded]) .button{
+            :host([expanded]) .button {
                 box-shadow: none;
             }
 
@@ -248,8 +264,8 @@ export const styles = css`
                 background-image: linear-gradient(
                     rgba(${actionRgbPartialColor}, 0.1),
                     rgba(${actionRgbPartialColor}, 0.1)
-                );px);
-                background-size: calc(100% - 6px) calc(100% - 6
+                );
+                background-size: calc(100% - 6px) calc(100% - 6px);
             }
 
             .button:active {
@@ -268,6 +284,26 @@ export const styles = css`
                     rgba(${actionRgbPartialColor}, 0.1)
                 );
                 background-size: calc(100% - 6px) calc(100% - 6px);
+            }
+
+            :host([expanded]) .button${focusVisible} {
+                background-color: transparent;
+                background-position: bottom;
+                background-image: linear-gradient(
+                    rgba(${actionRgbPartialColor}, 0.1),
+                    rgba(${actionRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 6px) calc(100% - 3px);
+            }
+
+            :host([expanded]) .button:active {
+                background-color: transparent;
+                background-position: bottom;
+                background-image: linear-gradient(
+                    rgba(${actionRgbPartialColor}, 0.1),
+                    rgba(${actionRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 4px) calc(100% - 2px);
             }
         `
     )
