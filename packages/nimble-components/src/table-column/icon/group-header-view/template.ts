@@ -19,8 +19,4 @@ export const template = html<TableColumnIconGroupHeaderView>`
         ${x => x.label}
     `
     )}
-    ${when(
-        x => x.visual === undefined,
-        html<TableColumnIconGroupHeaderView>`${x => x.groupHeaderValue}`
-    )}
 `;
