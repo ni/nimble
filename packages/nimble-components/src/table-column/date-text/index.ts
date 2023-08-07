@@ -123,6 +123,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     public override disconnectedCallback(): void {
+        super.disconnectedCallback();
         lang.unsubscribe(this.langSubscriber, this);
     }
 

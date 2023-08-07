@@ -19,8 +19,7 @@ declare global {
 
 function isInvalidLang(value: string): boolean {
     try {
-        // eslint-disable-next-line no-new
-        new Intl.DateTimeFormat(value);
+        Intl.DateTimeFormat(value);
         return false;
     } catch (e) {
         return true;
@@ -77,9 +76,7 @@ export class ThemeProvider extends FoundationElement {
     ): void {
         this.langIsInvalid = false;
         if (
-            next !== undefined
-            && next !== null
-            && next !== ''
+            next
             // eslint-disable-next-line no-cond-assign
             && !(this.langIsInvalid = isInvalidLang(next))
         ) {
