@@ -70,6 +70,10 @@ export class ThemeProvider extends FoundationElement {
 
     private langIsInvalid = false;
 
+    public checkValidity(): boolean {
+        return !this.langIsInvalid;
+    }
+
     public langChanged(
         _prev: string | undefined | null,
         next: string | undefined | null
