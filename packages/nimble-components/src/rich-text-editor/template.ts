@@ -1,66 +1,40 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, repeat, children, elements } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../toolbar';
 import { toggleButtonTag } from '../toggle-button';
-import { iconBoldBTag } from '../icons/bold-b';
-import { iconItalicITag } from '../icons/italic-i';
-import { iconNumberListTag } from '../icons/number-list';
-import { iconListTag } from '../icons/list';
+import type { EditorButton } from './models/editor-button';
 
 export const template = html<RichTextEditor>`
     <template>
         <div class="container">
             <section ${ref('editor')} class="editor"></section>
             <section class="footer-section">
-                <${toolbarTag}>
-                    <${toggleButtonTag} ${ref('bold')}
-                        content-hidden
-                        appearance="ghost"
-                        slot="start"
-                        class="bold"
-                        @click=${x => x.boldButtonClickHandler()}
-                        @keydown=${(x, c) => x.boldButtonKeyDownHandler(
+                <${toolbarTag} ${children({
+    property: 'childButtonRefs',
+    filter: elements(toggleButtonTag)
+})}>
+                    ${repeat(
+        x => x.editorButtons,
+        html<EditorButton>`
+                        <${toggleButtonTag}
+                            appearance="ghost"
+                            class=${x => x.class}
+                            content-hidden
+                            part="button"
+                            slot="start"
+                            @click=${x => x.clickHandler()}
+                            @keydown=${(x, c) => x.keyDownActivateHandler(
         c.event as KeyboardEvent
     )}
-                        >
-                        <${iconBoldBTag} slot="start"></${iconBoldBTag}>
-                    </${toggleButtonTag}>
-                    <${toggleButtonTag} ${ref('italics')}
-                        content-hidden
-                        appearance="ghost"
-                        slot="start"
-                        class="italics"
-                        @click=${x => x.italicsButtonClickHandler()}
-                        @keydown=${(x, c) => x.italicsButtonKeyDownHandler(
-        c.event as KeyboardEvent
+                            >
+                            ${x => x.iconTemplate}
+                            ${
+    /* Below label will be modified when the label provider PR for the formatting buttons goes in. */ ''
+}
+                            ${x => x.iconLabel}
+                        </${toggleButtonTag}>
+                    `
     )}
-                        >
-                        <${iconItalicITag} slot="start"></${iconItalicITag}>
-                    </${toggleButtonTag}>
-                    <${toggleButtonTag} ${ref('bulletList')}
-                        content-hidden
-                        appearance="ghost"
-                        slot="start"
-                        class="bullet-list"
-                        @click=${x => x.bulletListButtonClickHandler()}
-                        @keydown=${(x, c) => x.bulletListButtonKeyDownHandler(
-        c.event as KeyboardEvent
-    )}
-                        >
-                        <${iconListTag} slot="start"></${iconListTag}>
-                    </${toggleButtonTag}>
-                    <${toggleButtonTag} ${ref('numberedList')}
-                        content-hidden
-                        appearance="ghost"
-                        slot="start"
-                        class="numbered-list"
-                        @click=${x => x.numberedListButtonClickHandler()}
-                        @keydown=${(x, c) => x.numberedListButtonKeyDownHandler(
-        c.event as KeyboardEvent
-    )}
-                        >
-                        <${iconNumberListTag} slot="start"></${iconNumberListTag}>
-                    </${toggleButtonTag}>
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
                     <slot name="footer-actions"></slot>

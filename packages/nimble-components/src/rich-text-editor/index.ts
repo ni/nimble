@@ -8,7 +8,8 @@ import type { ToggleButton } from '../toggle-button';
 import { BoldButton } from './models/bold-button';
 import { ItalicsButton } from './models/italics-button';
 import { NumberedListButton } from './models/numbered-list-button';
-import { BulletListButton } from './models/bullet-list-button copy';
+import { BulletListButton } from './models/bullet-list-button';
+import type { EditorButton } from './models/editor-button';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,29 +21,11 @@ declare global {
  * A nimble styled rich text editor
  */
 export class RichTextEditor extends FoundationElement {
-    /**
-     * @internal
-     */
     @observable
-    public bold!: ToggleButton;
+    public editorButtons: EditorButton[] = [];
 
-    /**
-     * @internal
-     */
     @observable
-    public italics!: ToggleButton;
-
-    /**
-     * @internal
-     */
-    @observable
-    public bulletList!: ToggleButton;
-
-    /**
-     * @internal
-     */
-    @observable
-    public numberedList!: ToggleButton;
+    public childButtonRefs: ToggleButton[] = [];
 
     /**
      * @internal
@@ -50,18 +33,6 @@ export class RichTextEditor extends FoundationElement {
     public editor!: HTMLDivElement;
 
     private tiptapEditor!: Editor;
-    private readonly boldButton: BoldButton;
-    private readonly italicsButton: ItalicsButton;
-    private readonly bulletListButton: BulletListButton;
-    private readonly numberedListButton: NumberedListButton;
-
-    public constructor() {
-        super();
-        this.boldButton = new BoldButton();
-        this.italicsButton = new ItalicsButton();
-        this.bulletListButton = new BulletListButton();
-        this.numberedListButton = new NumberedListButton();
-    }
 
     /**
      * @internal
@@ -69,6 +40,7 @@ export class RichTextEditor extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initializeEditor();
+        this.initializeButtons();
         this.bindEditorTransactionEvent();
     }
 
@@ -77,77 +49,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
-        this.tiptapEditor.off('transaction');
-    }
-
-    /**
-     * Toggle the bold mark and focus back to the editor
-     * @internal
-     */
-    public boldButtonClickHandler(): void {
-        this.boldButton.clickHandler(this.tiptapEditor);
-    }
-
-    /**
-     * Toggle the bold mark and focus back to the editor
-     * @internal
-     */
-    public boldButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        return this.boldButton.keyDownActivateHandler(this.tiptapEditor, e);
-    }
-
-    /**
-     * Toggle the italics mark and focus back to the editor
-     * @internal
-     */
-    public italicsButtonClickHandler(): void {
-        this.italicsButton.clickHandler(this.tiptapEditor);
-    }
-
-    /**
-     * Toggle the italics mark and focus back to the editor
-     * @internal
-     */
-    public italicsButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        return this.italicsButton.keyDownActivateHandler(this.tiptapEditor, e);
-    }
-
-    /**
-     * Toggle the unordered list node and focus back to the editor
-     * @internal
-     */
-    public bulletListButtonClickHandler(): void {
-        this.bulletListButton.clickHandler(this.tiptapEditor);
-    }
-
-    /**
-     * Toggle the unordered list node and focus back to the editor
-     * @internal
-     */
-    public bulletListButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        return this.bulletListButton.keyDownActivateHandler(
-            this.tiptapEditor,
-            e
-        );
-    }
-
-    /**
-     * Toggle the ordered list node and focus back to the editor
-     * @internal
-     */
-    public numberedListButtonClickHandler(): void {
-        this.numberedListButton.clickHandler(this.tiptapEditor);
-    }
-
-    /**
-     * Toggle the unordered list node and focus back to the editor
-     * @internal
-     */
-    public numberedListButtonKeyDownHandler(e: KeyboardEvent): boolean {
-        return this.numberedListButton.keyDownActivateHandler(
-            this.tiptapEditor,
-            e
-        );
+        this.unbindEditorTransactionEvent();
     }
 
     private initializeEditor(): void {
@@ -176,6 +78,15 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
+    private initializeButtons(): void {
+        if (this.$fastController.isConnected) {
+            this.editorButtons.push(new BoldButton(this.tiptapEditor));
+            this.editorButtons.push(new ItalicsButton(this.tiptapEditor));
+            this.editorButtons.push(new BulletListButton(this.tiptapEditor));
+            this.editorButtons.push(new NumberedListButton(this.tiptapEditor));
+        }
+    }
+
     /**
      * Binding the "transaction" event to the editor allows continuous monitoring the events and updating the button state in response to
      * various actions such as mouse events, keyboard events, changes in the editor content etc,.
@@ -189,11 +100,31 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
+    private unbindEditorTransactionEvent(): void {
+        this.tiptapEditor.off('transaction');
+    }
+
     private updateTipTapButtonState(): void {
-        this.bold.checked = this.tiptapEditor.isActive('bold');
-        this.italics.checked = this.tiptapEditor.isActive('italic');
-        this.bulletList.checked = this.tiptapEditor.isActive('bulletList');
-        this.numberedList.checked = this.tiptapEditor.isActive('orderedList');
+        if (this.childButtonRefs.length > 0) {
+            this.editorButtons.forEach(button => {
+                const buttonToUpdate = this.childButtonRefs.find(childButton => childButton.classList.contains(button.class));
+                this.updateButtonCheckedState(
+                    buttonToUpdate,
+                    button.tiptapName
+                );
+            });
+        }
+        // else do nothing
+    }
+
+    private updateButtonCheckedState(
+        button: ToggleButton | undefined,
+        name: string
+    ): void {
+        if (button) {
+            button.checked = this.tiptapEditor.isActive(name);
+        }
+        // else do nothing
     }
 }
 

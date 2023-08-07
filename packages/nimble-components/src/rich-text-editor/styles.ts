@@ -47,7 +47,6 @@ export const styles = css`
         bottom: calc(-1 * ${borderWidth});
         inline-size: 0px;
         block-size: 0px;
-        bottom: 0%;
         left: 50%;
         transform: translate(-50%, 50%);
         border-bottom: ${borderHoverColor}
@@ -96,12 +95,12 @@ export const styles = css`
         color: inherit;
         ${
             /**
-             * Below are the styles from prosemirror-view.
+             * Below are the styles from prosemirror-view as the Prosemirror excepts the "white-space" to be set. The recommendation is to load the style from the below package.
+             * https://github.com/ProseMirror/prosemirror-view/blob/db2223a88b540a8f381fc2720198342e29a60566/style/prosemirror.css#L5C1-L12C2
              */ ''
         }
         word-wrap: break-word;
         white-space: pre-wrap;
-        white-space: break-spaces;
         -webkit-font-variant-ligatures: none;
         font-variant-ligatures: none;
         font-feature-settings: 'liga' 0;

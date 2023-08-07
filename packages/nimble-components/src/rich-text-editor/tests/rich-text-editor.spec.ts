@@ -60,7 +60,8 @@ describe('RichTextEditor', () => {
         );
     });
 
-    it('should have either one of the list buttons checked at the same time', () => {
+    it('should have either one of the list buttons checked at the same time', async () => {
+        await waitForUpdatesAsync();
         const bulletListButton = pageObject.getFormattingButton('bullet-list');
         const numberedListButton = pageObject.getFormattingButton('numbered-list');
         expect(bulletListButton.checked).toBeFalse();
@@ -116,7 +117,8 @@ describe('RichTextEditor', () => {
             specType(
                 `button "${value.name}" with necessary settings`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
+                async () => {
+                    await waitForUpdatesAsync();
                     const button = pageObject.getFormattingButton(value.name);
 
                     expect(button.contentHidden).toBeTrue();
@@ -141,7 +143,8 @@ describe('RichTextEditor', () => {
             specType(
                 `"${value.name}" button click check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
+                async () => {
+                    await waitForUpdatesAsync();
                     const button = pageObject.getFormattingButton(value.name);
                     expect(button.checked).toBeFalse();
 
@@ -164,7 +167,8 @@ describe('RichTextEditor', () => {
             specType(
                 `"${value.name}" button key press check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
+                async () => {
+                    await waitForUpdatesAsync();
                     const button = pageObject.getFormattingButton(value.name);
                     expect(button.checked).toBeFalse();
 
@@ -189,7 +193,8 @@ describe('RichTextEditor', () => {
             specType(
                 `"${value.name}" button key press check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
+                async () => {
+                    await waitForUpdatesAsync();
                     const button = pageObject.getFormattingButton(value.name);
                     expect(button.checked).toBeFalse();
 
@@ -214,7 +219,8 @@ describe('RichTextEditor', () => {
             specType(
                 `"${value.name}" button keyboard shortcut check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
-                () => {
+                async () => {
+                    await waitForUpdatesAsync();
                     const button = pageObject.getFormattingButton(value.name);
                     const editor = pageObject.getTiptapEditor();
                     expect(button.checked).toBeFalse();
@@ -236,6 +242,7 @@ describe('RichTextEditor', () => {
 
     describe('rich text formatting options to its respective HTML elements', () => {
         it('should have "strong" tag name for bold button click', async () => {
+            await waitForUpdatesAsync();
             const button = pageObject.getFormattingButton('bold');
             const editor = pageObject.getTiptapEditor()!;
 
@@ -249,6 +256,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "em" tag name for italics button click', async () => {
+            await waitForUpdatesAsync();
             const button = pageObject.getFormattingButton('italics');
             const editor = pageObject.getTiptapEditor()!;
 
@@ -262,6 +270,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "ol" tag name for numbered list button click', async () => {
+            await waitForUpdatesAsync();
             const button = pageObject.getFormattingButton('numbered-list');
             const editor = pageObject.getTiptapEditor()!;
 
@@ -277,6 +286,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "ul" tag name for bullet list button click', async () => {
+            await waitForUpdatesAsync();
             const button = pageObject.getFormattingButton('bullet-list');
             const editor = pageObject.getTiptapEditor()!;
 
@@ -290,6 +300,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
+            await waitForUpdatesAsync();
             const boldButton = pageObject.getFormattingButton('bold');
             const italicsButton = pageObject.getFormattingButton('italics');
             const editor = pageObject.getTiptapEditor()!;
@@ -312,6 +323,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "strong", "em" and "ol" tag name for all bold, italics and numbered list button clicks', async () => {
+            await waitForUpdatesAsync();
             const boldButton = pageObject.getFormattingButton('bold');
             const italicsButton = pageObject.getFormattingButton('italics');
             const numberedListButton = pageObject.getFormattingButton('numbered-list');
@@ -339,6 +351,7 @@ describe('RichTextEditor', () => {
         });
 
         it('should have "strong", "em" and "ul" tag name for all bold, italics and bullet list button clicks', async () => {
+            await waitForUpdatesAsync();
             const boldButton = pageObject.getFormattingButton('bold');
             const italicsButton = pageObject.getFormattingButton('italics');
             const bulletListButton = pageObject.getFormattingButton('bullet-list');
@@ -377,6 +390,7 @@ describe('RichTextEditor', () => {
                 `wacky string "${value.name}" that are unmodified when rendered the same value within paragraph tag`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
+                    await waitForUpdatesAsync();
                     const editor = pageObject.getTiptapEditor()!;
                     editor.textContent = value.name;
 

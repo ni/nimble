@@ -1,28 +1,31 @@
+import { html } from '@microsoft/fast-element';
 import type { Editor } from '@tiptap/core';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { EditorButton } from './editor-button';
+import { iconItalicITag } from '../../icons/italic-i';
 
 /**
  * Derived class from EditorButton for handling italics button events.
  */
 export class ItalicsButton extends EditorButton {
-    public override clickHandler(tiptapEditor: Editor): void {
-        super.clickHandler(tiptapEditor);
-        tiptapEditor.commands.toggleItalic();
+    public constructor(public override tiptapEditor: Editor) {
+        super(tiptapEditor);
+        this.class = 'italics';
+        this.iconLabel = 'italics';
+        this.tiptapName = 'italic';
+        this.iconTemplate = html`<${iconItalicITag} slot="start"></${iconItalicITag}>`;
     }
 
-    public override keyDownActivateHandler(
-        tiptapEditor: Editor,
-        event: KeyboardEvent
-    ): boolean {
-        super.keyDownActivateHandler(tiptapEditor, event);
-        switch (event.key) {
-            case keySpace:
-            case keyEnter:
-                tiptapEditor.commands.toggleItalic();
-                return false;
-            default:
-                return true;
+    public override clickHandler(): void {
+        super.clickHandler();
+        this.tiptapEditor.commands.toggleItalic();
+    }
+
+    public override keyDownActivateHandler(event: KeyboardEvent): boolean {
+        const isDesiredKeyDownForToggle = super.keyDownActivateHandler(event);
+        if (isDesiredKeyDownForToggle) {
+            this.tiptapEditor.commands.toggleItalic();
+            return false;
         }
+        return true;
     }
 }

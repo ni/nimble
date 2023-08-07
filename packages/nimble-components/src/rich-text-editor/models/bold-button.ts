@@ -1,28 +1,31 @@
+import { html } from '@microsoft/fast-element';
 import type { Editor } from '@tiptap/core';
-import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { EditorButton } from './editor-button';
+import { iconBoldBTag } from '../../icons/bold-b';
 
 /**
  * Derived class from EditorButton for handling bold button events.
  */
 export class BoldButton extends EditorButton {
-    public override clickHandler(tiptapEditor: Editor): void {
-        super.clickHandler(tiptapEditor);
-        tiptapEditor.commands.toggleBold();
+    public constructor(public override tiptapEditor: Editor) {
+        super(tiptapEditor);
+        this.class = 'bold';
+        this.iconLabel = 'bold';
+        this.tiptapName = 'bold';
+        this.iconTemplate = html`<${iconBoldBTag} slot="start"></${iconBoldBTag}>`;
     }
 
-    public override keyDownActivateHandler(
-        tiptapEditor: Editor,
-        event: KeyboardEvent
-    ): boolean {
-        super.keyDownActivateHandler(tiptapEditor, event);
-        switch (event.key) {
-            case keySpace:
-            case keyEnter:
-                tiptapEditor.commands.toggleBold();
-                return false;
-            default:
-                return true;
+    public override clickHandler(): void {
+        super.clickHandler();
+        this.tiptapEditor.commands.toggleBold();
+    }
+
+    public override keyDownActivateHandler(event: KeyboardEvent): boolean {
+        const isDesiredKeyDownForToggle = super.keyDownActivateHandler(event);
+        if (isDesiredKeyDownForToggle) {
+            this.tiptapEditor.commands.toggleBold();
+            return false;
         }
+        return true;
     }
 }
