@@ -10,7 +10,7 @@ export const template = html<RichTextEditor>`
             <section ${ref('editor')} class="editor"></section>
             <section class="footer-section">
                 <${toolbarTag} ${children({
-    property: 'childButtonRefs',
+    property: 'editorButtonRefs',
     filter: elements(toggleButtonTag)
 })}>
                     ${repeat(

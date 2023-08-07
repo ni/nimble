@@ -10,8 +10,8 @@ export class NumberedListButton extends EditorButton {
     public constructor(public override tiptapEditor: Editor) {
         super(tiptapEditor);
         this.class = 'numbered-list';
-        this.iconLabel = 'numbered list';
-        this.tiptapName = 'orderedList';
+        this.iconLabel = 'Numbered List';
+        this.tiptapNodeOrMarkName = 'orderedList';
         this.iconTemplate = html`<${iconNumberListTag} slot="start"></${iconNumberListTag}>`;
     }
 
@@ -24,8 +24,10 @@ export class NumberedListButton extends EditorButton {
         const isDesiredKeyDownForToggle = super.keyDownActivateHandler(event);
         if (isDesiredKeyDownForToggle) {
             this.tiptapEditor.commands.toggleOrderedList();
+            // Return false to prevent the default behavior for the "Enter" and "space" key
             return false;
         }
+        // Return true for other key values to allow default behavior, such as enabling navigation keys like "Tab" and arrow keys to take effect
         return true;
     }
 }

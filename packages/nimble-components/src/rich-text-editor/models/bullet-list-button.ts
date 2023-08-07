@@ -10,8 +10,8 @@ export class BulletListButton extends EditorButton {
     public constructor(public override tiptapEditor: Editor) {
         super(tiptapEditor);
         this.class = 'bullet-list';
-        this.iconLabel = 'bullet list';
-        this.tiptapName = 'bulletList';
+        this.iconLabel = 'Bullet List';
+        this.tiptapNodeOrMarkName = 'bulletList';
         this.iconTemplate = html`<${iconListTag} slot="start"></${iconListTag}>`;
     }
 
@@ -24,8 +24,10 @@ export class BulletListButton extends EditorButton {
         const isDesiredKeyDownForToggle = super.keyDownActivateHandler(event);
         if (isDesiredKeyDownForToggle) {
             this.tiptapEditor.commands.toggleBulletList();
+            // Return false to prevent the default behavior for the "Enter" and "space" key
             return false;
         }
+        // Return true for other key values to allow default behavior, such as enabling navigation keys like "Tab" and arrow keys to take effect
         return true;
     }
 }

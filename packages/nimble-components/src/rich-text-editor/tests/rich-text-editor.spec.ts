@@ -62,8 +62,8 @@ describe('RichTextEditor', () => {
 
     it('should have either one of the list buttons checked at the same time', async () => {
         await waitForUpdatesAsync();
-        const bulletListButton = pageObject.getFormattingButton('bullet-list');
-        const numberedListButton = pageObject.getFormattingButton('numbered-list');
+        const bulletListButton = pageObject.getFormattingButton('bullet-list')!;
+        const numberedListButton = pageObject.getFormattingButton('numbered-list')!;
         expect(bulletListButton.checked).toBeFalse();
         expect(numberedListButton.checked).toBeFalse();
 
@@ -119,7 +119,7 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name);
+                    const button = pageObject.getFormattingButton(value.name)!;
 
                     expect(button.contentHidden).toBeTrue();
                     expect(button.checked).toBeFalse();
@@ -133,7 +133,7 @@ describe('RichTextEditor', () => {
         }
     });
 
-    describe('clicking buttons should update the checked state of the toggle button', () => {
+    describe('clicking buttons should update the checked state of the toggle button with focus', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
 
@@ -145,7 +145,7 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name);
+                    const button = pageObject.getFormattingButton(value.name)!;
                     expect(button.checked).toBeFalse();
 
                     button.click();
@@ -169,7 +169,7 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name);
+                    const button = pageObject.getFormattingButton(value.name)!;
                     expect(button.checked).toBeFalse();
 
                     const event = new KeyboardEvent('keypress', {
@@ -195,7 +195,7 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name);
+                    const button = pageObject.getFormattingButton(value.name)!;
                     expect(button.checked).toBeFalse();
 
                     const event = new KeyboardEvent('keypress', {
@@ -221,7 +221,7 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name);
+                    const button = pageObject.getFormattingButton(value.name)!;
                     const editor = pageObject.getTiptapEditor();
                     expect(button.checked).toBeFalse();
 
@@ -243,7 +243,7 @@ describe('RichTextEditor', () => {
     describe('rich text formatting options to its respective HTML elements', () => {
         it('should have "strong" tag name for bold button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('bold');
+            const button = pageObject.getFormattingButton('bold')!;
             const editor = pageObject.getTiptapEditor()!;
 
             button.click();
@@ -257,7 +257,7 @@ describe('RichTextEditor', () => {
 
         it('should have "em" tag name for italics button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('italics');
+            const button = pageObject.getFormattingButton('italics')!;
             const editor = pageObject.getTiptapEditor()!;
 
             button.click();
@@ -271,7 +271,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ol" tag name for numbered list button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('numbered-list');
+            const button = pageObject.getFormattingButton('numbered-list')!;
             const editor = pageObject.getTiptapEditor()!;
 
             editor.textContent = 'numbered list';
@@ -287,7 +287,7 @@ describe('RichTextEditor', () => {
 
         it('should have "ul" tag name for bullet list button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('bullet-list');
+            const button = pageObject.getFormattingButton('bullet-list')!;
             const editor = pageObject.getTiptapEditor()!;
 
             editor.textContent = 'bullet list';
@@ -301,8 +301,8 @@ describe('RichTextEditor', () => {
 
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
             await waitForUpdatesAsync();
-            const boldButton = pageObject.getFormattingButton('bold');
-            const italicsButton = pageObject.getFormattingButton('italics');
+            const boldButton = pageObject.getFormattingButton('bold')!;
+            const italicsButton = pageObject.getFormattingButton('italics')!;
             const editor = pageObject.getTiptapEditor()!;
 
             boldButton.click();
@@ -324,9 +324,9 @@ describe('RichTextEditor', () => {
 
         it('should have "strong", "em" and "ol" tag name for all bold, italics and numbered list button clicks', async () => {
             await waitForUpdatesAsync();
-            const boldButton = pageObject.getFormattingButton('bold');
-            const italicsButton = pageObject.getFormattingButton('italics');
-            const numberedListButton = pageObject.getFormattingButton('numbered-list');
+            const boldButton = pageObject.getFormattingButton('bold')!;
+            const italicsButton = pageObject.getFormattingButton('italics')!;
+            const numberedListButton = pageObject.getFormattingButton('numbered-list')!;
             const editor = pageObject.getTiptapEditor()!;
 
             boldButton.click();
@@ -352,9 +352,9 @@ describe('RichTextEditor', () => {
 
         it('should have "strong", "em" and "ul" tag name for all bold, italics and bullet list button clicks', async () => {
             await waitForUpdatesAsync();
-            const boldButton = pageObject.getFormattingButton('bold');
-            const italicsButton = pageObject.getFormattingButton('italics');
-            const bulletListButton = pageObject.getFormattingButton('bullet-list');
+            const boldButton = pageObject.getFormattingButton('bold')!;
+            const italicsButton = pageObject.getFormattingButton('italics')!;
+            const bulletListButton = pageObject.getFormattingButton('bullet-list')!;
             const editor = pageObject.getTiptapEditor()!;
 
             boldButton.click();

@@ -29,11 +29,10 @@ export class RichTextEditorPageObject {
         return this.richTextEditorElement.shadowRoot?.querySelector('slot');
     }
 
-    public getFormattingButton(className: string): ToggleButton {
-        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
+    public getFormattingButton(className: string): ToggleButton | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector(
             `.${className}`
-        ) as ToggleButton;
+        );
     }
 
     public getEditorLastChildElement(): Element | null | undefined {

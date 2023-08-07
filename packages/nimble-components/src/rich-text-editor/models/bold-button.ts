@@ -10,8 +10,8 @@ export class BoldButton extends EditorButton {
     public constructor(public override tiptapEditor: Editor) {
         super(tiptapEditor);
         this.class = 'bold';
-        this.iconLabel = 'bold';
-        this.tiptapName = 'bold';
+        this.iconLabel = 'Bold';
+        this.tiptapNodeOrMarkName = 'bold';
         this.iconTemplate = html`<${iconBoldBTag} slot="start"></${iconBoldBTag}>`;
     }
 
@@ -24,8 +24,10 @@ export class BoldButton extends EditorButton {
         const isDesiredKeyDownForToggle = super.keyDownActivateHandler(event);
         if (isDesiredKeyDownForToggle) {
             this.tiptapEditor.commands.toggleBold();
+            // Return false to prevent the default behavior for the "Enter" and "space" key
             return false;
         }
+        // Return true for other key values to allow default behavior, such as enabling navigation keys like "Tab" and arrow keys to take effect
         return true;
     }
 }

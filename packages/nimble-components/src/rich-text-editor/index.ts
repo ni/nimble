@@ -31,7 +31,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     @observable
-    public childButtonRefs: ToggleButton[] = [];
+    public editorButtonRefs: ToggleButton[] = [];
 
     /**
      * @internal
@@ -111,12 +111,12 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private updateTipTapButtonState(): void {
-        if (this.childButtonRefs.length > 0) {
+        if (this.editorButtonRefs.length > 0) {
             this.editorButtons.forEach(button => {
-                const buttonToUpdate = this.childButtonRefs.find(childButton => childButton.classList.contains(button.class));
+                const buttonToUpdate = this.editorButtonRefs.find(editorButtonRef => editorButtonRef.classList.contains(button.class));
                 this.updateButtonCheckedState(
                     buttonToUpdate,
-                    button.tiptapName
+                    button.tiptapNodeOrMarkName
                 );
             });
         }

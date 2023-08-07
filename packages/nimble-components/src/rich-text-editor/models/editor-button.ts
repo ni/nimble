@@ -8,7 +8,7 @@ import type { ViewTemplate } from '@microsoft/fast-element';
 export class EditorButton {
     public class!: string;
     public iconLabel!: string;
-    public tiptapName!: string;
+    public tiptapNodeOrMarkName!: string;
     public iconTemplate!: ViewTemplate;
 
     public constructor(protected tiptapEditor: Editor) {}

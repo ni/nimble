@@ -10,8 +10,8 @@ export class ItalicsButton extends EditorButton {
     public constructor(public override tiptapEditor: Editor) {
         super(tiptapEditor);
         this.class = 'italics';
-        this.iconLabel = 'italics';
-        this.tiptapName = 'italic';
+        this.iconLabel = 'Italics';
+        this.tiptapNodeOrMarkName = 'italic';
         this.iconTemplate = html`<${iconItalicITag} slot="start"></${iconItalicITag}>`;
     }
 
@@ -24,8 +24,10 @@ export class ItalicsButton extends EditorButton {
         const isDesiredKeyDownForToggle = super.keyDownActivateHandler(event);
         if (isDesiredKeyDownForToggle) {
             this.tiptapEditor.commands.toggleItalic();
+            // Return false to prevent the default behavior for the "Enter" and "space" key
             return false;
         }
+        // Return true for other key values to allow default behavior, such as enabling navigation keys like "Tab" and arrow keys to take effect
         return true;
     }
 }
