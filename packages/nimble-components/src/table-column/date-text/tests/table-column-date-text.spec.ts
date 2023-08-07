@@ -13,55 +13,6 @@ interface SimpleTableRecord extends TableRecord {
     anotherField?: number | null;
 }
 
-// prettier-ignore
-async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
-                <${tableColumnDateTextTag} field-name="field" group-index="0">
-                    Column 1
-                </${tableColumnDateTextTag}>
-                <${tableColumnDateTextTag} field-name="anotherField">
-                    Squeeze Column 1
-                </${tableColumnDateTextTag}>
-            </nimble-table>`
-    );
-}
-
-// prettier-ignore
-async function setupWithConfig(): Promise<Fixture<Table<SimpleTableRecord>>> {
-    return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
-                <${tableColumnDateTextTag} field-name="field" group-index="0"
-                    format="custom"
-                    custom-locale-matcher="lookup"
-                    custom-weekday="short"
-                    custom-era="short"
-                    custom-year="2-digit"
-                    custom-month="short"
-                    custom-day="2-digit"
-                    custom-hour="2-digit"
-                    custom-minute="2-digit"
-                    custom-second="2-digit"
-                    custom-time-zone-name="longOffset"
-                    custom-format-matcher="basic"
-                    custom-hour12="false"
-                    custom-time-zone="America/Chicago"
-                    custom-calendar="hebrew"
-                    custom-day-period="short"
-                    custom-numbering-system="fullwide"
-                    custom-date-style="long"
-                    custom-time-style="long"
-                    custom-hour-cycle="h23"
-                    >
-                    Column 1
-                </${tableColumnDateTextTag}>
-                <${tableColumnDateTextTag} field-name="anotherField">
-                    Squeeze Column 1
-                </${tableColumnDateTextTag}>
-            </nimble-table>`
-    );
-}
-
 describe('TableColumnDateText', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
@@ -69,6 +20,20 @@ describe('TableColumnDateText', () => {
     let tablePageObject: TablePageObject<SimpleTableRecord>;
     let pageObject: TableColumnDateTextPageObject<SimpleTableRecord>;
     let column: TableColumnDateText;
+
+    // prettier-ignore
+    async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
+        return fixture<Table<SimpleTableRecord>>(
+            html`<nimble-table style="width: 700px">
+                    <${tableColumnDateTextTag} field-name="field" group-index="0">
+                        Column 1
+                    </${tableColumnDateTextTag}>
+                    <${tableColumnDateTextTag} field-name="anotherField">
+                        Squeeze Column 1
+                    </${tableColumnDateTextTag}>
+                </nimble-table>`
+        );
+    }
 
     describe('no static config', () => {
         beforeEach(async () => {
@@ -391,7 +356,7 @@ describe('TableColumnDateText', () => {
             column.format = 'custom';
             column.customHour = 'numeric'; // must specify hour
             column.customHourCycle = 'h24'; // must force 24hr clock to override with hour12
-            column.customHour12 = true;
+            column.customHour12 = 'twelve-hour';
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
         });
@@ -511,6 +476,38 @@ describe('TableColumnDateText', () => {
     });
 
     describe('with static config', () => {
+        // prettier-ignore
+        async function setupWithConfig(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<nimble-table style="width: 700px">
+                        <${tableColumnDateTextTag} field-name="field" group-index="0"
+                            format="custom"
+                            custom-locale-matcher="lookup"
+                            custom-weekday="short"
+                            custom-era="short"
+                            custom-year="2-digit"
+                            custom-month="short"
+                            custom-day="2-digit"
+                            custom-hour="2-digit"
+                            custom-minute="2-digit"
+                            custom-second="2-digit"
+                            custom-time-zone-name="longOffset"
+                            custom-format-matcher="basic"
+                            custom-hour12="twenty-four-hour"
+                            custom-time-zone="America/Chicago"
+                            custom-calendar="hebrew"
+                            custom-day-period="short"
+                            custom-numbering-system="fullwide"
+                            custom-date-style="long"
+                            custom-time-style="long"
+                            custom-hour-cycle="h23"
+                            >
+                            Column 1
+                        </${tableColumnDateTextTag}>
+                    </nimble-table>`
+            );
+        }
+
         beforeEach(async () => {
             ({ element, connect, disconnect } = await setupWithConfig());
             tablePageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -569,7 +566,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors custom-hour12 attribute', () => {
-            expect(column.customHour12).toBeFalse();
+            expect(column.customHour12).toBe('twenty-four-hour');
         });
 
         it('honors custom-hour-cycle attribute', () => {

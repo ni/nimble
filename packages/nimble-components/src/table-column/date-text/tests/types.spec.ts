@@ -96,4 +96,10 @@ describe('Date-text column types', () => {
         const format: HourCycleFormat = 'hello';
         expect(format).toEqual('hello');
     });
+
+    it('Hour12Format fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const format: Hour12Format = 'hello';
+        expect(format).toEqual('hello');
+    });
 });
