@@ -7,7 +7,13 @@ import { iconArrowLeftFromLineTag } from '../../icons/arrow-left-from-line';
 import { iconUserTag } from '../../icons/user';
 import { menuItemTag } from '../../menu-item';
 import { anchorMenuItemTag } from '../../anchor-menu-item';
-import { bodyEmphasizedFont, bodyEmphasizedFontColor, bodyEmphasizedFontWeight, bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
+import {
+    bodyEmphasizedFont,
+    bodyEmphasizedFontColor,
+    bodyEmphasizedFontWeight,
+    bodyFont,
+    bodyFontColor
+} from '../../theme-provider/design-tokens';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
