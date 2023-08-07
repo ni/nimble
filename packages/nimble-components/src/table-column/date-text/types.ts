@@ -25,3 +25,10 @@ export type DayPeriodFormat = Intl.DateTimeFormatOptions['dayPeriod'];
 export type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];
 export type TimeStyle = Intl.DateTimeFormatOptions['timeStyle'];
 export type HourCycleFormat = Intl.DateTimeFormatOptions['hourCycle'];
+
+export const Hour12Format = {
+    default: undefined,
+    twelveHour: true,
+    twentyFourHour: false
+} as const;
+export type Hour12Format = (typeof Hour12Format)[keyof typeof Hour12Format];

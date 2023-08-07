@@ -9,6 +9,7 @@ import type {
     DayPeriodFormat,
     EraFormat,
     FormatMatcherAlgorithm,
+    Hour12Format,
     HourCycleFormat,
     HourFormat,
     LocaleMatcherAlgorithm,
@@ -175,13 +176,13 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         this.renderer.setProperty(this.elementRef.nativeElement, 'customFormatMatcher', value);
     }
 
-    public get customHour12(): boolean | undefined {
+    public get customHour12(): Hour12Format {
         return this.elementRef.nativeElement.customHour12;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('custom-hour12') public set customHour12(value: BooleanValueOrAttribute | undefined) {
+    @Input('custom-hour12') public set customHour12(value: Hour12Format) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'customHour12', value);
     }
 

@@ -19,6 +19,7 @@ import type {
     SecondFormat,
     TimeZoneNameFormat,
     FormatMatcherAlgorithm,
+    Hour12Format,
     DayPeriodFormat,
     DateStyle,
     TimeStyle,
@@ -84,7 +85,7 @@ export class TableColumnDateText extends TableColumnTextBase {
     public customFormatMatcher: FormatMatcherAlgorithm;
 
     @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
-    public customHour12?: boolean;
+    public customHour12: Hour12Format;
 
     @attr({ attribute: 'custom-time-zone' })
     public customTimeZone?: string;
@@ -249,7 +250,7 @@ export class TableColumnDateText extends TableColumnTextBase {
             second: this.customSecond ?? undefined,
             timeZoneName: this.customTimeZoneName ?? undefined,
             formatMatcher: this.customFormatMatcher ?? undefined,
-            hour12: this.customHour12 ?? undefined,
+            hour12: this.customHour12,
             timeZone: this.customTimeZone ?? undefined,
             calendar: this.customCalendar ?? undefined,
             dayPeriod: this.customDayPeriod ?? undefined,
