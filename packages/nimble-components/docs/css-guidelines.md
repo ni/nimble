@@ -126,95 +126,37 @@ For example:
 
 Useful reference: [When do the :hover, :focus, and :active pseudo-classes apply?](https://bitsofco.de/when-do-the-hover-focus-and-active-pseudo-classes-apply/)
 
-## Hierarchical Cascade Layers with @layer
+### Organize styles with CSS Cascade Layers 
 
-If you find yourself constantly overriding css classes when conditionally changing them based on the value of an html attribute, the [@layer css at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) should be used to declare a cascade layer and define the order of precedence / hierarchy in css classes. 
+New controls and existing controls undergoing major refactoring should migrate to [CSS Cascade Layers with @layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for organizing styles that override states. Cascade Layers with @layer define the order of precedence when multiple cascade layers are present, and help enforce that property overrides have higher specificity over base styles without modifying selectors to increase specificity.
 
-An example of constant overriding:
-```css
-.content:hover {
-    border-color: ${borderHoverColor};
-}
+For consistency, control styles using CSS Cascade Layers should follow these practices:
+-   Define the cascade layers: `@layer base, hover, focusVisible, active, disabled, top`
+    -   Avoid changing the order of layers, changing layer names, or creating additional layers.
+-   Layers in the stylesheet should follow the order by which they are defined above.
+-   Ensure that all styles are in a layer- no styles for the control should be outside of a layer.
+-   Styles in layers should continue to follow existing best organization practices, including grouping using document order.
 
-:host([some-attribute='some-value']) .content {
-    border-color: ${actionRgbPartialColor};
-}
-
-:host([some-attribute='some-value']) .content:hover {
-    border-color: ${borderHoverColor};
-}
-
-:host([some-attribute='some-other-value']) .content {
-    border-color: ${actionRgbPartialColor};
-}
-
-:host([some-attribute='some-other-value']) .content:hover {
-    border-color: ${borderHoverColor};
-}
-```
-In this example, the border-color property has to be repeatedly overridden back to `borderHoverColor` in `:host([some-attribute='...']) .content:hover` because `:host([some-attribute='...']) .content` changes the color to `actionRgbPartialColor` and overrides the `.content:hover` styling.
-
-This example instead uses hierarchical cascade layers with @layer:
-```css
-@layer base, hover, ...
-
-@layer base {
-    :host([some-attribute='some-value']) .content {
-        border-color: ${actionRgbPartialColor};
-    }
-
-    :host([some-attribute='some-other-value']) .content {
-        border-color: ${actionRgbPartialColor};
-    }
-}
-
-@layer hover {
-    .content:hover {
-        border-color: ${borderHoverColor};
-    }
-}
-```
-In this example, using @layer gives the `.content:hover` selector precedence over all selectors in the `base` layer, even though it has lower specificity.
-
-States should flow from plain base -> hover -> focus -> active -> error -> disabled -> top (which overrides all others)
-
-Notes:
--   Selectors that are not in a layer will take precedence over all layers, so if you use layers, all selectors should be in a layer.
-
--   Custom layer names should be avoided.
-
-Selectors should be organized by layer, then within a layer they should be ordered by [target and document order](https://github.com/ni/nimble/blob/main/packages/nimble-components/docs/css-guidelines.md#group-selectors-by-target-and-document-order).
-
-For Example:
+For example:
 ```css
 @layer base, hover, focusVisible, active, disabled, top
 
 @layer base {
-    :host {}
-    .content {}
+    :host {
+        border: green;
+    }
 }
-@layer hover {
-    :host(:hover) {}
-    .content(:hover) {}
-}
-@layer focusVisible {
-    .content${focusVisible} {}
-    .content${focusVisible}::before {}
-} /* focusVisible is specific to FAST */
-@layer active {
-    .control:active {}
-    :host([some-attribute="some-value"]) .content:active {}
-}
+@layer hover {}
+@layer focusVisible {}
+@layer active {}
 @layer disabled {
-    :host([disabled]) {}
-    :host([disabled]) slot[name="some-slot"]::slotted(*) {}
+    :host([disabled]) {
+        border: gray;
+    }
 }
-@layer top {
-    :host([content-hidden]) [part="end"] {}
-} /* top styles override all others in the cascade*/
+@layer top {}
 ```
-Useful reference: [nimble-button styles](https://github.com/ni/nimble/blob/158b1d29e9cb8d6591662404ee4ed0921b3e1361/packages/nimble-components/src/patterns/button/styles.ts), which uses hierarchical cascade layers with @layer
-
+Useful reference: [CSS Cascade Layers - CSS Tricks](https://css-tricks.com/css-cascade-layers/)
 ## Prefer modern layouts
 
 Prefer flex and grid for layouts. If you find yourself with position absolute / relative and tricky sizing and offsets from top, etc. it might be worth stepping back and seeing if you can take a different approach.
