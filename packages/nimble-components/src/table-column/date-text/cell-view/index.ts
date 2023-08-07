@@ -6,6 +6,7 @@ import type {
 } from '..';
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
+import { formatNumericDate } from '../models/format-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -20,20 +21,20 @@ export class TableColumnDateTextCellView extends TableColumnTextCellViewBase<
 TableColumnDateTextCellRecord,
 TableColumnDateTextColumnConfig
 > {
-    private static readonly formatter = new Intl.DateTimeFormat(undefined, {
-        dateStyle: 'medium',
-        timeStyle: 'medium'
-    });
+    private columnConfigChanged(): void {
+        this.updateText();
+    }
 
     private cellRecordChanged(): void {
-        if (typeof this.cellRecord.value === 'number') {
-            try {
-                this.text = TableColumnDateTextCellView.formatter.format(
-                    this.cellRecord.value
-                );
-            } catch (e) {
-                this.text = '';
-            }
+        this.updateText();
+    }
+
+    private updateText(): void {
+        if (this.columnConfig?.formatter) {
+            this.text = formatNumericDate(
+                this.columnConfig.formatter,
+                this.cellRecord.value
+            );
         } else {
             this.text = '';
         }

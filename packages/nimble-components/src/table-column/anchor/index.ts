@@ -8,7 +8,7 @@ import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import type { TableStringField } from '../../table/types';
 import { tableColumnAnchorCellViewTag } from './cell-view';
-import { tableColumnTextGroupHeaderTag } from '../text/group-header-view';
+import { tableColumnTextGroupHeaderViewTag } from '../text/group-header-view';
 import type { AnchorAppearance } from '../../anchor/types';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
@@ -74,7 +74,7 @@ export class TableColumnAnchor extends mixinGroupableColumnAPI(
         return {
             cellRecordFieldNames: ['label', 'href'],
             cellViewTag: tableColumnAnchorCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: ['click'],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
         };
