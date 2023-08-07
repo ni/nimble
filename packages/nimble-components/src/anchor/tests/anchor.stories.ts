@@ -32,15 +32,15 @@ const metadata: Meta<AnchorArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
-            * {
+            span {
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        Click on the <${anchorTag}
+        <span>Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
             appearance=${x => x.appearance}
-        >${x => x.label}</${anchorTag}> to navigate.
+        >${x => x.label}</${anchorTag}> to navigate.</span>
     `),
     argTypes: {
         href: {
