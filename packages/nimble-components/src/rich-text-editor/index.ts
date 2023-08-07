@@ -21,9 +21,15 @@ declare global {
  * A nimble styled rich text editor
  */
 export class RichTextEditor extends FoundationElement {
+    /**
+     * @internal
+     */
     @observable
     public editorButtons: EditorButton[] = [];
 
+    /**
+     * @internal
+     */
     @observable
     public childButtonRefs: ToggleButton[] = [];
 
