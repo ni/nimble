@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 07 Aug 2023 21:36:46 GMT",
+      "tag": "@ni/nimble-components_v20.1.2",
+      "version": "20.1.2",
+      "comments": {
+        "none": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "df5853d6cefbeaba3826ca6472ba3981ea34a574",
+            "comment": "Adding CSS Guidelines for Hierarchical Cascade Layers with @layer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Aug 2023 22:50:39 GMT",
       "tag": "@ni/nimble-components_v20.1.2",
       "version": "20.1.2",
