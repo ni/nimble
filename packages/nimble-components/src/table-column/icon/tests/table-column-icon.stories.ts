@@ -34,7 +34,7 @@ const simpleData = [
     {
         firstName: 'Homer',
         lastName: 'Simpson',
-        status: 'success',
+        status: 'calculating',
         isChild: false
     },
     {
@@ -42,18 +42,6 @@ const simpleData = [
         lastName: 'Simpson',
         status: 'success',
         isChild: true
-    },
-    {
-        firstName: 'Greg',
-        lastName: '',
-        status: 'calculating',
-        isChild: true
-    },
-    {
-        firstName: 'Frank',
-        lastName: '',
-        status: 'foo',
-        isChild: false
     }
 ];
 
