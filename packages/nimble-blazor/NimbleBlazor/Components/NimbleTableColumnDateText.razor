@@ -1,0 +1,38 @@
+﻿@namespace NimbleBlazor
+@inherits NimbleTableColumn
+
+<nimble-table-column-date-text
+    column-id="@ColumnId"
+    field-name="@FieldName"
+    action-menu-slot="@ActionMenuSlot"
+    action-menu-label="@ActionMenuLabel"
+    column-hidden="@ColumnHidden"
+    fractional-width="@FractionalWidth"
+    min-pixel-width="@MinPixelWidth"
+    sort-direction="@SortDirection.ToAttributeValue()"
+    sort-index="@SortIndex"
+    group-index="@GroupIndex"
+    grouping-disabled="@GroupingDisabled"
+    format="@Format"
+    custom-locale-matcher="@CustomLocaleMatcher"
+    custom-weekday="@CustomWeekday"
+    custom-era="@CustomEra"
+    custom-year="@CustomYear"
+    custom-month="@CustomMonth"
+    custom-day="@CustomDay"
+    custom-hour="@CustomHour"
+    custom-minute="@CustomMinute"
+    custom-second="@CustomSecond"
+    custom-time-zone-name="@CustomTimeZoneName"
+    custom-format-matcher="@CustomFormatMatcher"
+    custom-hour12="@CustomHour12"
+    custom-time-zone="@CustomTimeZone"
+    custom-calendar="@CustomCalendar"
+    custom-day-period="@CustomDayPeriod"
+    custom-numbering-system="@CustomNumberingSystem"
+    custom-date-style="@CustomDateStyle"
+    custom-time-style="@CustomTimeStyle"
+    custom-hour-cycle="@CustomHourCycle"
+    @ChildContent
+</nimble-table-column-date-text>
+

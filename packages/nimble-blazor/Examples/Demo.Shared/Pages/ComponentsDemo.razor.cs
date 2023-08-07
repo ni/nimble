@@ -66,13 +66,15 @@ namespace Demo.Shared.Pages
                     Faker.Name.First(),
                     Faker.Name.Last(),
                     "https://nimble.ni.dev",
-                    "Link");
+                    "Link",
+                    DateTime.UtcNow);
             }
             tableData[numberOfRows] = new Person(
                 numberOfRows.ToString(null, null),
                 null,
                 null,
                 null,
+                null, 
                 null);
 
             TableData = tableData;
@@ -81,13 +83,14 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel)
+        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel, DateTime? date)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             Href = href;
             LinkLabel = linkLabel;
+            Date = (uint?)(date - DateTime.UnixEpoch)?.TotalMilliseconds;
         }
 
         public string Id { get; }
@@ -95,6 +98,7 @@ namespace Demo.Shared.Pages
         public string? LastName { get; }
         public string? Href { get; }
         public string? LinkLabel { get; }
+        public uint? Date { get; }
     }
 
     public enum DialogResult
