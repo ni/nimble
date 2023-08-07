@@ -29,7 +29,9 @@ export class RichTextEditorPageObject {
         return this.richTextEditorElement.shadowRoot?.querySelector('slot');
     }
 
-    public getFormattingButton(className: string): ToggleButton | null | undefined {
+    public getFormattingButton(
+        className: string
+    ): ToggleButton | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector(
             `.${className}`
         );
