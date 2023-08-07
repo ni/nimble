@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Show url of focused anchor tab at bottom of page",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

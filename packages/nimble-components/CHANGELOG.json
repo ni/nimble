@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 07 Aug 2023 22:54:53 GMT",
+      "tag": "@ni/nimble-components_v20.1.3",
+      "version": "20.1.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "48d64be4f2beca10d2643c621970f88d34d5c5c6",
+            "comment": "Show url of focused anchor tab at bottom of page"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Aug 2023 21:36:46 GMT",
       "tag": "@ni/nimble-components_v20.1.2",
       "version": "20.1.2",
