@@ -99,7 +99,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
                 Status
                 <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
                 <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
-                <${mappingSpinnerTag} key="calculating" label="Calculating"></${mappingSpinnerTag}>
+                <${mappingSpinnerTag} key="calculating" text="Calculating"></${mappingSpinnerTag}>
             </${tableColumnIconTag}>
             <${tableColumnIconTag} field-name="isChild" key-type="boolean">
                 Is Child
