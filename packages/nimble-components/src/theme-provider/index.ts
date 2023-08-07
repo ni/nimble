@@ -88,7 +88,7 @@ export class ThemeProvider extends FoundationElement {
         }
 
         if (shouldSetNewTokenValue) {
-            lang.setValueFor(this, next);
+            lang.setValueFor(this, next!);
         } else {
             lang.deleteValueFor(this);
         }
