@@ -4,7 +4,7 @@ import { template } from '../base/template';
 import type { TableStringField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
 import { TableColumnSortOperation } from '../base/types';
-import { tableColumnTextGroupHeaderTag } from './group-header-view';
+import { tableColumnTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 
@@ -26,7 +26,7 @@ export class TableColumnText extends TableColumnTextBase {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnTextCellViewTag,
-            groupHeaderViewTag: tableColumnTextGroupHeaderTag,
+            groupHeaderViewTag: tableColumnTextGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.localeAwareCaseSensitive
         };

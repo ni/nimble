@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 03 Aug 2023 16:47:18 GMT and should not be manually modified.
+This log was last generated on Thu, 03 Aug 2023 22:50:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.2
+
+Thu, 03 Aug 2023 22:50:39 GMT
+
+### Patches
+
+- Enum-text table column ([ni/nimble@058f6cb](https://github.com/ni/nimble/commit/058f6cb563d5756a95ea06875c868719f87278d4))
 
 ## 20.1.1
 
