@@ -30,6 +30,7 @@ export type { DayPeriodFormat };
 export type { EraFormat };
 export type { FormatMatcherAlgorithm };
 export type { HourCycleFormat };
+export type { Hour12Format };
 export type { HourFormat };
 export type { LocaleMatcherAlgorithm };
 export type { MinuteFormat };

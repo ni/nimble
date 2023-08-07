@@ -12,6 +12,7 @@ import {
     EraFormat,
     FormatMatcherAlgorithm,
     HourCycleFormat,
+    Hour12Format,
     HourFormat,
     LocaleMatcherAlgorithm,
     MinuteFormat,
@@ -362,7 +363,7 @@ describe('NimbleTableColumnDateText', () => {
             public customSecond: SecondFormat = 'numeric';
             public customTimeZoneName: TimeZoneNameFormat = 'shortOffset';
             public customFormatMatcher: FormatMatcherAlgorithm = 'basic';
-            public customHour12?: boolean = false;
+            public customHour12: Hour12Format = false;
             public customTimeZone?: string = 'America/Chicago';
             public customCalendar?: string = 'hebrew';
             public customDayPeriod: DayPeriodFormat = 'long';
@@ -1049,7 +1050,7 @@ describe('NimbleTableColumnDateText', () => {
             public customSecond: SecondFormat = 'numeric';
             public customTimeZoneName: TimeZoneNameFormat = 'shortOffset';
             public customFormatMatcher: FormatMatcherAlgorithm = 'basic';
-            public customHour12?: boolean = false;
+            public customHour12: Hour12Format = false;
             public customTimeZone?: string = 'America/Chicago';
             public customCalendar?: string = 'hebrew';
             public customDayPeriod: DayPeriodFormat = 'long';
