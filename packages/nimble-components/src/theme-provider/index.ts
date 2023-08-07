@@ -79,11 +79,15 @@ export class ThemeProvider extends FoundationElement {
         next: string | undefined | null
     ): void {
         this.langIsInvalid = false;
-        if (
-            next
-            // eslint-disable-next-line no-cond-assign
-            && !(this.langIsInvalid = isInvalidLang(next))
-        ) {
+        let shouldSetNewTokenValue = false;
+        if (next) {
+            this.langIsInvalid = isInvalidLang(next);
+            if (!this.langIsInvalid) {
+                shouldSetNewTokenValue = true;
+            }
+        }
+
+        if (shouldSetNewTokenValue) {
             lang.setValueFor(this, next);
         } else {
             lang.deleteValueFor(this);
