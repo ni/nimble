@@ -6,6 +6,8 @@ import {
     bodyFontColor,
     borderHoverColor,
     borderWidth,
+    failColor,
+    iconColor,
     iconSize,
     standardPadding
 } from '../theme-provider/design-tokens';
@@ -149,7 +151,7 @@ export const styles = css`
     }
 
     .region:hover::before {
-        box-shadow: 0px 0px 0px 2px ${borderHoverColor} inset;
+        box-shadow: 0px 0px 0px 1px ${borderHoverColor} inset;
     }
 
     :host([expanded]) .region {
@@ -160,7 +162,7 @@ export const styles = css`
     ::slotted(*) {
         display: flex;
         flex-direction: column;
-        width: fit-content;
+        width: 100%;
         gap: 18px;
     }
 
@@ -180,9 +182,16 @@ export const styles = css`
         pointer-events: none;
     }
 
-    .icon.error {
+    :host([error-visible]) .error-icon {
         padding-left: 0px;
         padding-right: 13px;
+        ${iconColor.cssCustomProperty}: ${failColor};
+    }
+
+    .error-icon svg {
+        width: ${iconSize};
+        height: ${iconSize};
+        fill: red;
     }
 
     .heading-content {
@@ -192,11 +201,6 @@ export const styles = css`
         padding-bottom: 6px;
     }
 
-    slot[name='expanded-icon'],
-    slot[name='collapsed-icon'] {
-        fill: var(--accent-fill-rest);
-    }
-
     slot[name='collapsed-icon'] {
         display: flex;
     }
@@ -204,7 +208,7 @@ export const styles = css`
     slot[name='collapsed-icon'] svg {
         width: ${iconSize};
         height: ${iconSize};
-        fill: currentColor;
+        fill: ${iconColor};
     }
 
     :host([expanded]) slot[name='collapsed-icon'] {
@@ -222,7 +226,7 @@ export const styles = css`
     :host([expanded]) slot[name='expanded-icon'] svg {
         width: ${iconSize};
         height: ${iconSize};
-        fill: currentColor;
+        fill: ${iconColor};
     }
 
     ::slotted([slot='start']) {
@@ -286,6 +290,24 @@ export const styles = css`
                 background-size: calc(100% - 6px) calc(100% - 6px);
             }
 
+            :host([expanded]) .button {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${actionRgbPartialColor}, 0.1),
+                    rgba(${actionRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 4px) calc(100% - 4px);
+            }
+
+            :host([expanded]) .button:hover {
+                background-color: transparent;
+                background-image: linear-gradient(
+                    rgba(${actionRgbPartialColor}, 0.1),
+                    rgba(${actionRgbPartialColor}, 0.1)
+                );
+                background-size: calc(100% - 6px) calc(100% - 6px);
+            }
+
             :host([expanded]) .button${focusVisible} {
                 background-color: transparent;
                 background-position: bottom;
@@ -296,14 +318,8 @@ export const styles = css`
                 background-size: calc(100% - 6px) calc(100% - 3px);
             }
 
-            :host([expanded]) .button:active {
-                background-color: transparent;
-                background-position: bottom;
-                background-image: linear-gradient(
-                    rgba(${actionRgbPartialColor}, 0.1),
-                    rgba(${actionRgbPartialColor}, 0.1)
-                );
-                background-size: calc(100% - 4px) calc(100% - 2px);
+            :where(div.region:hover) .button {
+                background-color: red;
             }
         `
     )

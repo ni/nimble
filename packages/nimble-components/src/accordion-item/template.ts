@@ -49,9 +49,9 @@ AccordionItemOptions
                 <span class="heading-content" part="heading-content">
                     <slot name="heading"></slot>
                 </span>
-                <span class="icon error" part="icon">
+                <span class="icon" part="icon">
                 ${when(x => x.errorVisible, html`
-                    <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
+                    <${iconExclamationMarkTag} class="error-icon"></${iconExclamationMarkTag}>
                 `)}
                 </span>
             </button>
