@@ -32,11 +32,11 @@ const metadata: Meta<AnchorArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
-            span {
+            .anchor-container {
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        <span>Click on the <${anchorTag}
+        <span class="anchor-container">Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
             appearance=${x => x.appearance}

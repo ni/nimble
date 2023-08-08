@@ -249,6 +249,10 @@ export const customMenu: StoryObj<MenuArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style>
+            .header-wrapper {
+                display: grid;
+            }
+
             .header-primary-text {
                 font: var(${bodyEmphasizedFont.cssCustomProperty});
                 color: var(${bodyEmphasizedFontColor.cssCustomProperty});
@@ -261,7 +265,7 @@ export const customMenu: StoryObj<MenuArgs> = {
             }
         </style>
         <${menuTag}>
-            <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
+            <div style="header-wrapper">
                 <div class="header-primary-text">lvadmin User</div>
                 <div class="header-secondary-text">lvadmin</div>
             </div>
