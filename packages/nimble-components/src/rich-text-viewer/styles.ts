@@ -4,7 +4,8 @@ import {
     bodyFont,
     bodyFontColor,
     linkActiveFontColor,
-    linkFontColor
+    linkFontColor,
+    bodyFontLineHeight
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
@@ -17,7 +18,7 @@ export const styles = css`
         inline-size: auto;
         overflow: auto;
         block-size: 100%;
-        min-block-size: 36px;
+        min-block-size: ${bodyFontLineHeight};
     }
 
     .viewer {
