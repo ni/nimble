@@ -1,4 +1,4 @@
-import { html, repeat } from '@microsoft/fast-element';
+import { html, repeat, ref } from '@microsoft/fast-element';
 import { Table, tableTag } from '../../../table';
 import { TableColumnIcon, tableColumnIconTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
@@ -24,28 +24,40 @@ interface BasicIconMapping {
     icon: string;
 }
 
+class Model {
+    public col1!: TableColumnIcon;
+}
+interface ModelFixture<T> extends Fixture<T> {
+    model: Model;
+}
+
 describe('TableColumnIcon', () => {
     let element: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: TablePageObject<SimpleTableRecord>;
+    let model: Model;
 
     // prettier-ignore
-    async function setup(mappings: BasicIconMapping[], keyType = 'string'): Promise<Fixture<Table<SimpleTableRecord>>> {
-        return fixture<Table<SimpleTableRecord>>(
-            html`<nimble-table style="width: 700px">
-                    <${tableColumnIconTag} field-name="field1" key-type="${keyType}">
-                        Column 1
-                        ${repeat(() => mappings, html<BasicIconMapping>`
-                            <${mappingIconTag}
-                                key="${x => x.key}"
-                                text="${x => x.text}"
-                                icon="${x => x.icon}">
-                            </${mappingIconTag}>
-                        `)}
-                    </${tableColumnIconTag}>
-                </nimble-table>`
-        );
+    async function setup(mappings: BasicIconMapping[], keyType = 'string'): Promise<ModelFixture<Table<SimpleTableRecord>>> {
+        const source = new Model();
+        const result = await fixture<Table<SimpleTableRecord>>(html<Model>`
+            <${tableTag} style="width: 700px">
+                <${tableColumnIconTag} ${ref('col1')} field-name="field1" key-type="${keyType}">
+                    Column 1
+                    ${repeat(() => mappings, html<BasicIconMapping>`
+                        <${mappingIconTag}
+                            key="${x => x.key}"
+                            text="${x => x.text}"
+                            icon="${x => x.icon}">
+                        </${mappingIconTag}>
+                    `)}
+                </${tableColumnIconTag}>
+            </${tableTag}>`, { source });
+        return {
+            ...result,
+            model: source
+        };
     }
 
     afterEach(async () => {
@@ -59,7 +71,7 @@ describe('TableColumnIcon', () => {
     ]) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         it(`displays icon mapped from ${test.type}`, async () => {
-            ({ element, connect, disconnect } = await setup(
+            ({ element, connect, disconnect, model } = await setup(
                 [{ key: test.key, text: 'alpha', icon: 'nimble-icon-xmark' }],
                 test.type
             ));
@@ -75,7 +87,7 @@ describe('TableColumnIcon', () => {
     }
 
     it('displays blank when no matches', async () => {
-        ({ element, connect, disconnect } = await setup([
+        ({ element, connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -87,7 +99,7 @@ describe('TableColumnIcon', () => {
     });
 
     it('changing fieldName updates display', async () => {
-        ({ element, connect, disconnect } = await setup([
+        ({ element, connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' },
             { key: 'b', text: 'bravo', icon: 'nimble-icon-check' }
         ]));
@@ -96,8 +108,7 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const firstColumn = element.columns[0] as TableColumnIcon;
-        firstColumn.fieldName = 'field2';
+        model.col1.fieldName = 'field2';
         await waitForUpdatesAsync();
 
         expect(
@@ -106,7 +117,7 @@ describe('TableColumnIcon', () => {
     });
 
     it('changing mapping icon updates display', async () => {
-        ({ element, connect, disconnect } = await setup([
+        ({ element, connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -114,8 +125,7 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const mapping = (element.columns[0] as TableColumnIcon)
-            .mappings[0] as MappingIcon;
+        const mapping = model.col1.mappings[0] as MappingIcon;
         mapping.icon = 'nimble-icon-check';
         await waitForUpdatesAsync();
 
@@ -125,7 +135,7 @@ describe('TableColumnIcon', () => {
     });
 
     it('changing mapping key updates display', async () => {
-        ({ element, connect, disconnect } = await setup([
+        ({ element, connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -133,8 +143,7 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        const mapping = (element.columns[0] as TableColumnIcon)
-            .mappings[0] as MappingIcon;
+        const mapping = model.col1.mappings[0] as MappingIcon;
         mapping.key = 'b';
         await waitForUpdatesAsync();
 
@@ -144,7 +153,7 @@ describe('TableColumnIcon', () => {
     });
 
     it('sets label as title of icon', async () => {
-        ({ element, connect, disconnect } = await setup([
+        ({ element, connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -155,7 +164,7 @@ describe('TableColumnIcon', () => {
     });
 
     it('sets label as aria-label of icon', async () => {
-        ({ element, connect, disconnect } = await setup([
+        ({ element, connect, disconnect, model } = await setup([
             { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -175,7 +184,7 @@ describe('TableColumnIcon', () => {
                 `data "${value.name}" renders as "${value.name}"`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
-                    ({ element, connect, disconnect } = await setup([
+                    ({ element, connect, disconnect, model } = await setup([
                         {
                             key: 'a',
                             text: value.name,
@@ -188,7 +197,7 @@ describe('TableColumnIcon', () => {
                     await element.setData([{ field1: 'a' }]);
                     await connect();
                     await waitForUpdatesAsync();
-                    (element.columns[0] as TableColumnIcon).groupIndex = 0;
+                    model.col1.groupIndex = 0;
                     await waitForUpdatesAsync();
 
                     expect(
@@ -199,28 +208,29 @@ describe('TableColumnIcon', () => {
         }
     });
 
-    it('sets group header text to key value when unmatched (instead of blank)', async () => {
-        ({ element, connect, disconnect } = await setup([
+    it('sets group header text to blank when unmatched', async () => {
+        ({ element, connect, disconnect, model } = await setup([
             { key: 'b', text: 'bravo', icon: 'nimble-icon-xmark' }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);
         await connect();
         await waitForUpdatesAsync();
-        (element.columns[0] as TableColumnIcon).groupIndex = 0;
+        model.col1.groupIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toContain(
-            'unmatched'
-        );
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
     });
 
     describe('validation', () => {
         it('is valid with no mappings', async () => {
-            ({ element, connect, disconnect } = await setup([], 'number'));
+            ({ element, connect, disconnect, model } = await setup(
+                [],
+                'number'
+            ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
+            const column = model.col1;
             expect(column.checkValidity()).toBeTrue();
             expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
             expect(column.validity.unsupportedMappingType).toBeFalse();
@@ -230,7 +240,7 @@ describe('TableColumnIcon', () => {
         });
 
         it('is valid with valid numeric key values', async () => {
-            ({ element, connect, disconnect } = await setup(
+            ({ element, connect, disconnect, model } = await setup(
                 [
                     { key: '0', text: 'alpha', icon: 'nimble-icon-xmark' },
                     { key: '1', text: 'alpha', icon: 'nimble-icon-xmark' },
@@ -242,9 +252,10 @@ describe('TableColumnIcon', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeTrue();
-            expect(column.validity.invalidMappingKeyValueForType).toBeFalse();
+            expect(model.col1.checkValidity()).toBeTrue();
+            expect(
+                model.col1.validity.invalidMappingKeyValueForType
+            ).toBeFalse();
         });
 
         describe('is invalid with invalid boolean key values:', () => {
@@ -263,7 +274,7 @@ describe('TableColumnIcon', () => {
                 );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(` ${test.name}`, async () => {
-                    ({ element, connect, disconnect } = await setup(
+                    ({ element, connect, disconnect, model } = await setup(
                         [
                             {
                                 key: test.key,
@@ -275,25 +286,25 @@ describe('TableColumnIcon', () => {
                     ));
                     await connect();
                     await waitForUpdatesAsync();
-                    const column = element.columns[0] as TableColumnIcon;
-                    expect(column.checkValidity()).toBeFalse();
+                    expect(model.col1.checkValidity()).toBeFalse();
                     expect(
-                        column.validity.invalidMappingKeyValueForType
+                        model.col1.validity.invalidMappingKeyValueForType
                     ).toBeTrue();
                 });
             }
         });
 
         it('is invalid with invalid numeric key values', async () => {
-            ({ element, connect, disconnect } = await setup(
+            ({ element, connect, disconnect, model } = await setup(
                 [{ key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }],
                 'number'
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.invalidMappingKeyValueForType).toBeTrue();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(
+                model.col1.validity.invalidMappingKeyValueForType
+            ).toBeTrue();
         });
 
         describe('invalid mappings', () => {
@@ -320,19 +331,18 @@ describe('TableColumnIcon', () => {
         });
 
         it('is invalid with duplicate key values', async () => {
-            ({ element, connect, disconnect } = await setup([
+            ({ element, connect, disconnect, model } = await setup([
                 { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' },
                 { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.duplicateMappingKey).toBeTrue();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.duplicateMappingKey).toBeTrue();
         });
 
         it('is invalid with equivalent numeric key values', async () => {
-            ({ element, connect, disconnect } = await setup(
+            ({ element, connect, disconnect, model } = await setup(
                 [
                     { key: '0', text: 'alpha', icon: 'nimble-icon-xmark' },
                     { key: '0.0', text: 'alpha', icon: 'nimble-icon-xmark' }
@@ -341,53 +351,48 @@ describe('TableColumnIcon', () => {
             ));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.duplicateMappingKey).toBeTrue();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.duplicateMappingKey).toBeTrue();
         });
 
         it('is invalid with missing key value', async () => {
-            ({ element, connect, disconnect } = await setup([
+            ({ element, connect, disconnect, model } = await setup([
                 { text: 'alpha', icon: 'nimble-icon-xmark' }
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.missingKeyValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.missingKeyValue).toBeTrue();
         });
 
         it('is invalid with missing text value', async () => {
-            ({ element, connect, disconnect } = await setup([
+            ({ element, connect, disconnect, model } = await setup([
                 { key: 'a', icon: 'nimble-icon-xmark' }
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.missingTextValue).toBeTrue();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.missingTextValue).toBeTrue();
         });
 
         it('is invalid with non-icon icon value', async () => {
-            ({ element, connect, disconnect } = await setup([
+            ({ element, connect, disconnect, model } = await setup([
                 { key: 'a', text: 'alpha', icon: 'div' }
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.invalidIconName).toBeTrue();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.invalidIconName).toBeTrue();
         });
 
         it('is invalid with completely made up icon value', async () => {
-            ({ element, connect, disconnect } = await setup([
+            ({ element, connect, disconnect, model } = await setup([
                 { key: 'a', text: 'alpha', icon: 'foo' }
             ]));
             await connect();
             await waitForUpdatesAsync();
-            const column = element.columns[0] as TableColumnIcon;
-            expect(column.checkValidity()).toBeFalse();
-            expect(column.validity.invalidIconName).toBeTrue();
+            expect(model.col1.checkValidity()).toBeFalse();
+            expect(model.col1.validity.invalidIconName).toBeTrue();
         });
     });
 });
