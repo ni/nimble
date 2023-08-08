@@ -7,6 +7,13 @@ import { iconArrowLeftFromLineTag } from '../../icons/arrow-left-from-line';
 import { iconUserTag } from '../../icons/user';
 import { menuItemTag } from '../../menu-item';
 import { anchorMenuItemTag } from '../../anchor-menu-item';
+import {
+    bodyEmphasizedFont,
+    bodyEmphasizedFontColor,
+    bodyEmphasizedFontWeight,
+    bodyFont,
+    bodyFontColor
+} from '../../theme-provider/design-tokens';
 
 interface MenuArgs {
     itemOptions: ItemArgs[];
@@ -35,12 +42,10 @@ menubars commonly found at the top of many desktop application windows. A menu i
 choosing an item in a menu that opens a sub menu, or by invoking a command, such as Shift + F10 in Windows, that opens a context specific menu.
 When a user activates a choice in a menu, the menu usually closes unless the choice opened a submenu.
 
-The \`nimble-menu\` supports several child elements including \`<header>\`, \`<hr>\`, \`<nimble-menu-item>\` and \`<nimble-anchor-menu-item>\`,
-and will format them and any Nimble icons added as children of \`<nimble-menu-item>\` or \`<nimble-anchor-menu-item>\`.`;
+The \`nimble-menu\` supports several child elements including \`<header>\`, \`<hr>\`, \`<nimble-menu-item>\` and \`<nimble-anchor-menu-item>\`.`;
 
 const metadata: Meta<MenuArgs> = {
     title: 'Components/Menu',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
@@ -146,13 +151,6 @@ export const menu: StoryObj<MenuArgs> = {
 };
 
 export const menuItem: StoryObj<MenuItemArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'Use a `nimble-menu-item` to execute a command from a `nimble-menu`. If you want a menu item that navigates to a URL when activated, use a `nimble-anchor-menu-item` instead.'
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
@@ -176,13 +174,6 @@ export const menuItem: StoryObj<MenuItemArgs> = {
 };
 
 export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'Use a `nimble-anchor-menu-item` to navigate to a URL from a `nimble-menu`. If you want a menu item that executes a command when activated, use a `nimble-menu-item` instead.'
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <${menuTag}>
@@ -207,13 +198,6 @@ export const anchorMenuItem: StoryObj<AnchorMenuItemArgs> = {
 };
 
 export const nestedMenu: StoryObj<MenuArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'Items in the menu can contain sub-menus that will be displayed when the top-level menu item is selected.'
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <div style="width: 600px; height: 300px;">
@@ -262,19 +246,28 @@ export const nestedMenu: StoryObj<MenuArgs> = {
 };
 
 export const customMenu: StoryObj<MenuArgs> = {
-    parameters: {
-        docs: {
-            description: {
-                story: 'The menu can be configured to display a custom header with arbitrary content.  This could include other nimble components, or even custom elements.'
-            }
-        }
-    },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
+        <style>
+            .header-wrapper {
+                display: grid;
+            }
+
+            .header-primary-text {
+                font: var(${bodyEmphasizedFont.cssCustomProperty});
+                color: var(${bodyEmphasizedFontColor.cssCustomProperty});
+                font-weight: var(${bodyEmphasizedFontWeight.cssCustomProperty});
+            }
+
+            .header-secondary-text {
+                font: var(${bodyFont.cssCustomProperty});
+                color: var(${bodyFontColor.cssCustomProperty});
+            }
+        </style>
         <${menuTag}>
-            <div style="display: grid; font-family: Source Sans Pro; font-size: 11px;">
-                <div style="font-weight: bold; color: black;">lvadmin User</div>
-                <div style="color: gray;">lvadmin</div>
+            <div style="header-wrapper">
+                <div class="header-primary-text">lvadmin User</div>
+                <div class="header-secondary-text">lvadmin</div>
             </div>
             <${menuItemTag}><${iconUserTag} slot="start"></${iconUserTag}>Account</${menuItemTag}>
             <${menuItemTag}><${iconArrowLeftFromLineTag} slot="start"></${iconArrowLeftFromLineTag}>Log out</${menuItemTag}>
