@@ -109,6 +109,10 @@ export const differentContentsInMobileWidth: StoryFn = createStory(html`
             [
                 'Long word',
                 'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
+            ],
+            [
+                'Single line',
+                'This is to test how single line rendered in viewer'
             ]
         ],
         [
