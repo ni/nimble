@@ -266,7 +266,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
         customHour12: {
             name: 'custom-hour12',
             description:
-                'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
+                'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat). Note that in this API, the value `12Hour` corresponds to a value of `true` and `24Hour` corresponds to `false` in the `Intl.DateTimeFormat` API.',
             options: [undefined, '12hour', '24hour'],
             control: { type: 'radio' }
         },
