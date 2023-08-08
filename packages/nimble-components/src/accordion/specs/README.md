@@ -91,15 +91,7 @@ Documentation will be added to advise against using multiple Nimble Accordions w
 
 When using nested accordions, the parent accordion will have the selected `appearance` type, and all children accordions will be forced to have the `ghost` appearance type.
 
-`expand-mode` is a FAST attribute, but is being temporarily omitted to have one default value (`multi`) instead of two values (`multi` and `single`). This is because of these issues:
-
-When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item.
-
-This issue will be discussed with UX designers to determine if having this `single` expand mode functionality is necessary.
-
-Additionally, when using nested accordions with the single expand mode, once you open a child accordion, the parent accordion closes- when you open the parent accordion again, the previously selected child accordion is open, but when clicking on it, it doesn't close. Also, when opening the second child accordion, the first child accordion stays open, which goes against the functionality of single expand mode.
-
-This issue with nested accordions will be filed to FAST. Once FAST resolves the issue and UX confirms the `single` expand mode behavior, the `expand-mode` attribute will be updated to include the `single` expand mode.
+`expand-mode` is a FAST attribute, but is being temporarily restricted / removed from then nimble-accordion due to issues with the `single` expand-mode. See "Future Work" for more info.
 
 #### Nimble Accordion Item
 
@@ -113,11 +105,66 @@ This issue with nested accordions will be filed to FAST. Once FAST resolves the 
 -   _CSS Classes and Custom Properties that affect the component:_ Unchanged
 -   _Slots:_ The `start` and `end` slots will not be used. The `collapsed-icon` and `expanded-icon` slots are set by the nimble-accordion-item in its index.ts, so overriding them will not be supported.
 
-The design also includes an `error` state. This will be specific to each accordion item and controlled with the boolean attribute `error-visible`, which has a default attribute value of "". When needed, "error-visible" would be added to the accordion-item attributes, changing the color of the accordion item border color to red. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. `:host([error-visible])` will have styling for when `error-visible` is true).
+The design also includes an `error` state. This will be specific to each accordion item and controlled with the boolean attribute `error-visible`. When needed, "error-visible" would be added to the accordion-item attributes, changing the color of the accordion item border to red, and displaying a red exclamation mark icon at the end of the header. This will be implemented in the accordion styling through conditional css styles based on `error-visible`'s value (ex. `:host([error-visible])` will have styling for when `error-visible` is true).
 
 Usage guidance for the `error-visible` state will be created, as its usage may be unclear.
 
 The shoelace design system switched to using `summary` and `details` elements in their accordion styled component, which allowed the [native browser search feature](https://github.com/shoelace-style/shoelace/pull/1470) to search inside of accordions that are closed. FAST does not allow this, so their template for the accordion item will be forked and changed to allow the native browser search feature.
+
+##### Accordion Item Template
+
+Here is an example of the new template using `summary` and `details` from the [nimble-accordion](https://.com/ni/nimble/tree/nimble-accordion) prototype branch. The `details` html element requires the `open` attribute in order to expand while FAST's accordion requires `expanded`, so new functionality in the accordion item class is used to set `open` to true when `expanded` is true, and vice versa.
+
+```html
+<template
+    appearance="${x => x.appearance}"
+>
+    <details class="details" ?open="${x => x.open || x.expanded}" ${ref('details')}>
+        <summary
+            class="heading"
+            part="heading"
+            role="heading"
+            aria-level="${x => x.headinglevel}"
+        >
+            <button
+                    class="button"
+                    part="button"
+                    ${ref('expandbutton')}
+                    aria-expanded="${x => x.expanded}"
+                    aria-controls="${x => x.id}-panel"
+                    id="${x => x.id}"
+                    @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
+            >
+                <span class="icon" part="icon" aria-hidden="true">
+                    <slot name="expanded-icon" part="expanded-icon">
+                        ${definition.expandedIcon || ''}
+                    </slot>
+                    <slot name="collapsed-icon" part="collapsed-icon">
+                        ${definition.collapsedIcon || ''}
+                    </slot>
+                </span>
+                <span class="heading-content" part="heading-content">
+                    <slot name="heading"></slot>
+                </span>
+                <span class="icon error" part="icon">
+                ${when(x => x.errorVisible, html`
+                    <${iconExclamationMarkTag}></${iconExclamationMarkTag}>
+                `)}
+                </span>
+            </button>
+        </summary>
+        <div
+            class="region"
+            part="region"
+            id="${x => x.id}-panel"
+            role="region"
+            aria-labelledby="${x => x.id}"
+        >
+            <slot></slot>
+        </div>
+    </details>
+</template>
+```
 
 ### Angular integration
 
@@ -135,7 +182,7 @@ Blazor wrappers will be created for both components.
 -   _Styling: Does FAST provide APIs to achieve the styling in the visual design spec?_
     -   No Additional Requirements
 -   _Testing: Is FAST's coverage sufficient? Should we write any tests beyond Chromatic visual tests?_
-    -   No Additional Requirements
+    -   Tests for the nimble-accordion will use FAST's existing tests along with additional tests for the `details` and `summary` elements (ex. testing that `open` works properly) and accordion appearances (ex. testing that all accordions items change to the same appearance when the `appearance` attribute is changed).
 -   _Documentation: Any requirements besides standard Storybook docs and updating the Example Client App demo?_
     -   No Additional Requirements
 -   _Tooling: Any new tools, updates to tools, code generation, etc?_
@@ -150,6 +197,14 @@ Blazor wrappers will be created for both components.
 -   _Security: Any requirements for security?_
     -   No Additional Requirements
 
----
+## Future Work
+
+When single expand mode is enabled, the first accordion item is initially open, and can't be closed by clicking on it- it is only closed by clicking a different accordion item. At least one accordion has to be open at all times, which could be confusing to users as the expected functionality would be that all accordion items are initially closed until you open them and can be closed by clicking on that specific accordion item.
+
+This issue will be discussed with UX designers to determine if having this `single` expand mode functionality is necessary.
+
+Additionally, when using nested accordions with the single expand mode, once you open a child accordion, the parent accordion closes- when you open the parent accordion again, the previously selected child accordion is open, but when clicking on it, it doesn't close. Also, when opening the second child accordion, the first child accordion stays open, which goes against the functionality of single expand mode.
+
+This issue with nested accordions will be filed to FAST. Once FAST resolves the issue and UX confirms the `single` expand mode behavior, the `expand-mode` attribute will be updated to include the `single` expand mode.
 
 ## Open Issues
