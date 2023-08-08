@@ -27,17 +27,7 @@ const wackyNumbers: readonly NumericTestCase[] = [
     },
     { name: '-0', value: -0, expectedRenderedString: '-0' },
     { name: '+0', value: 0, expectedRenderedString: '0' },
-    { name: 'NaN', value: Number.NaN, expectedRenderedString: 'NaN' },
-    {
-        name: 'MAX_SAFE_INTEGER + 9999',
-        value: Number.MAX_SAFE_INTEGER + 9999,
-        expectedRenderedString: '9007199254750990'
-    },
-    {
-        name: 'MIN_SAFE_INTEGER - 9999',
-        value: Number.MIN_SAFE_INTEGER - 9999,
-        expectedRenderedString: '-9007199254750990'
-    }
+    { name: 'NaN', value: Number.NaN, expectedRenderedString: 'NaN' }
 ] as const;
 
 interface SimpleTableRecord extends TableRecord {
@@ -188,15 +178,20 @@ describe('TableColumnNumberText', () => {
     });
 
     describe('displays title when appropriate', () => {
+        beforeEach(async () => {
+            columnInstances.column1.format = NumberTextFormat.integer;
+            await waitForUpdatesAsync();
+        });
+
         it('sets title when cell text is ellipsized', async () => {
             element.style.width = '200px';
-            await element.setData([{ number1: 28729375089724643 }]);
+            await element.setData([{ number1: 8729375089724643 }]);
             await connect();
             await waitForUpdatesAsync();
 
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
-            expect(pageObject.getCellTitle(0, 0)).toBe('2.872937508972464e+16');
+            expect(pageObject.getCellTitle(0, 0)).toBe('8,729,375,089,724,643');
         });
 
         it('does not set title when cell text is fully visible', async () => {
@@ -210,7 +205,7 @@ describe('TableColumnNumberText', () => {
 
         it('removes title on mouseout of cell', async () => {
             element.style.width = '200px';
-            await element.setData([{ number1: 28729375089724643 }]);
+            await element.setData([{ number1: 8729375089724643 }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
@@ -223,7 +218,7 @@ describe('TableColumnNumberText', () => {
         it('sets title when group header text is ellipsized', async () => {
             element.style.width = '100px';
             columnInstances.column2.columnHidden = true;
-            await element.setData([{ number1: 28729375089724643 }]);
+            await element.setData([{ number1: 8729375089724643 }]);
             await connect();
             await waitForUpdatesAsync();
             pageObject.dispatchEventToGroupHeader(
@@ -232,7 +227,7 @@ describe('TableColumnNumberText', () => {
             );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe(
-                '2.872937508972464e+16'
+                '8,729,375,089,724,643'
             );
         });
 
@@ -306,24 +301,49 @@ describe('TableColumnNumberText', () => {
     describe('with default formatting', () => {
         const testCases: readonly NumericTestCase[] = [
             {
-                name: '"E" renders as "+e"',
-                value: 28729375089724643,
-                expectedRenderedString: '2.872937508972464e+16'
+                name: 'without scientific notation limits to 4 digits with rounding decimals up',
+                value: 1.23456789,
+                expectedRenderedString: '1.23457'
             },
             {
-                name: '"-E" renders as "-e"',
-                value: 0.0000002358967325,
-                expectedRenderedString: '2.358967325e-7'
+                name: 'without scientific notation limits to 4 digits with rounding decimals down',
+                value: 10.001122,
+                expectedRenderedString: '10.0011'
             },
             {
-                name: 'displays at most 16 decimal places',
-                value: 1.234567890123456789,
-                expectedRenderedString: '1.234567890123457'
+                name: 'shows 1,000,000 as 1E6',
+                value: 1000000,
+                expectedRenderedString: '1E6'
             },
             {
-                name: 'shows less than 16 decimal places for numbers without many decimal',
-                value: 1.23,
-                expectedRenderedString: '1.23'
+                name: 'does not show decimals for an integer value',
+                value: 16,
+                expectedRenderedString: '16'
+            },
+            {
+                name: 'does not add extra decimals',
+                value: -98.75,
+                expectedRenderedString: '-98.75'
+            },
+            {
+                name: 'converts numbers with large magnitudes to scientific notation',
+                value: -123456789.123456789,
+                expectedRenderedString: '-1.23457E8'
+            },
+            {
+                name: 'converts numbers with small magnitudes to scientific notation',
+                value: 0.000000123456789,
+                expectedRenderedString: '1.23457E-7'
+            },
+            {
+                name: 'MAX_SAFE_INTEGER + 9999',
+                value: Number.MAX_SAFE_INTEGER + 9999,
+                expectedRenderedString: '9.0072E15'
+            },
+            {
+                name: 'MIN_SAFE_INTEGER - 9999',
+                value: Number.MIN_SAFE_INTEGER - 9999,
+                expectedRenderedString: '-9.0072E15'
             }
         ] as const;
 
@@ -382,6 +402,26 @@ describe('TableColumnNumberText', () => {
                 name: 'rounds up negative numbers',
                 value: -1.23,
                 expectedRenderedString: '-1'
+            },
+            {
+                name: 'shows more than 6 digits for positive numbers',
+                value: 987654321,
+                expectedRenderedString: '987,654,321'
+            },
+            {
+                name: 'shows more than 6 digits for negative numbers',
+                value: -123456789,
+                expectedRenderedString: '-123,456,789'
+            },
+            {
+                name: 'MAX_SAFE_INTEGER + 9999',
+                value: Number.MAX_SAFE_INTEGER + 9999,
+                expectedRenderedString: '9,007,199,254,750,990'
+            },
+            {
+                name: 'MIN_SAFE_INTEGER - 9999',
+                value: Number.MIN_SAFE_INTEGER - 9999,
+                expectedRenderedString: '-9,007,199,254,750,990'
             }
         ] as const;
 
