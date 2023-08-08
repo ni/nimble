@@ -289,15 +289,7 @@ export const styles = css`
                 );
                 background-size: calc(100% - 6px) calc(100% - 6px);
             }
-
-            :host([expanded]) .button {
-                background-color: transparent;
-                background-image: linear-gradient(
-                    rgba(${actionRgbPartialColor}, 0.1),
-                    rgba(${actionRgbPartialColor}, 0.1)
-                );
-                background-size: calc(100% - 4px) calc(100% - 4px);
-            }
+            /* Needs to be fixed */
 
             :host([expanded]) .button:hover {
                 background-color: transparent;
@@ -316,10 +308,6 @@ export const styles = css`
                     rgba(${actionRgbPartialColor}, 0.1)
                 );
                 background-size: calc(100% - 6px) calc(100% - 3px);
-            }
-
-            :where(div.region:hover) .button {
-                background-color: red;
             }
         `
     )
