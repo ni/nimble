@@ -23,7 +23,6 @@ const columnCellViewName = uniqueElementName();
         >${x => x.cellRecord?.stringData}</span
     >`
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestTableColumnCellView extends TableCellView<SimpleTableCellRecord> {}
 
 // prettier-ignore
