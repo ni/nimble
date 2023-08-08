@@ -112,7 +112,7 @@ export const differentContentsInMobileWidth: StoryFn = createStory(html`
             ],
             [
                 'Single line',
-                'This is to test how single line rendered in viewer'
+                'This is to test how single line is rendered in viewer'
             ]
         ],
         [
