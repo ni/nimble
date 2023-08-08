@@ -8,7 +8,7 @@ import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import { NumberTextFormat } from './types';
+import { NumberTextFormat, defaultNumberOfDigits } from './types';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -61,12 +61,11 @@ export class TableColumnNumberText extends TableColumnTextBase {
                 break;
             default:
                 options = {
-                    maximumSignificantDigits: 6,
-                    maximumFractionDigits: 6,
+                    maximumSignificantDigits: defaultNumberOfDigits,
                     useGrouping: true
                 };
                 scientificFormatter = new Intl.NumberFormat(undefined, {
-                    maximumSignificantDigits: 6,
+                    maximumSignificantDigits: defaultNumberOfDigits,
                     notation: 'scientific'
                 });
                 break;

@@ -1,5 +1,6 @@
 import type { TableColumnNumberTextColumnConfig } from '..';
 import type { TableNumberFieldValue } from '../../../table/types';
+import { defaultScientificLowerBound, defaultScientificUpperBound } from '../types';
 
 export function formatNumber(
     number: TableNumberFieldValue,
@@ -20,5 +21,5 @@ export function formatNumber(
 
 function shouldUseScientificFormatter(number: number): boolean {
     const absoluteValue = Math.abs(number);
-    return absoluteValue > 0 && (absoluteValue < 1e-6 || absoluteValue >= 1e6);
+    return absoluteValue > 0 && (absoluteValue < defaultScientificLowerBound || absoluteValue >= defaultScientificUpperBound);
 }

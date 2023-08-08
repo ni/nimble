@@ -311,9 +311,24 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '10.0011'
             },
             {
-                name: 'shows 1,000,000 as 1E6',
+                name: 'does not use scientific notation for 999,999',
+                value: 999999,
+                expectedRenderedString: '999,999'
+            },
+            {
+                name: 'uses scientific notation for 1,000,000',
                 value: 1000000,
                 expectedRenderedString: '1E6'
+            },
+            {
+                name: 'does not use scientific notation for 0.000001',
+                value: 0.000001,
+                expectedRenderedString: '0.000001'
+            },
+            {
+                name: 'uses scientific notation for 0.000000999',
+                value: 0.000000999,
+                expectedRenderedString: '9.99E-7'
             },
             {
                 name: 'does not show decimals for an integer value',
