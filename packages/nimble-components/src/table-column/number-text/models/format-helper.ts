@@ -1,6 +1,9 @@
 import type { TableColumnNumberTextColumnConfig } from '..';
 import type { TableNumberFieldValue } from '../../../table/types';
-import { defaultScientificLowerBound, defaultScientificUpperBound } from '../types';
+import {
+    defaultScientificLowerBound,
+    defaultScientificUpperBound
+} from '../types';
 
 export function formatNumber(
     number: TableNumberFieldValue,
@@ -8,7 +11,8 @@ export function formatNumber(
 ): string {
     if (typeof number === 'number') {
         try {
-            return columnConfig.scientificFormatter && shouldUseScientificFormatter(number)
+            return columnConfig.scientificFormatter
+                && shouldUseScientificFormatter(number)
                 ? columnConfig.scientificFormatter.format(number)
                 : columnConfig.formatter.format(number);
         } catch (e) {
@@ -21,5 +25,9 @@ export function formatNumber(
 
 function shouldUseScientificFormatter(number: number): boolean {
     const absoluteValue = Math.abs(number);
-    return absoluteValue > 0 && (absoluteValue < defaultScientificLowerBound || absoluteValue >= defaultScientificUpperBound);
+    return (
+        absoluteValue > 0
+        && (absoluteValue < defaultScientificLowerBound
+            || absoluteValue >= defaultScientificUpperBound)
+    );
 }
