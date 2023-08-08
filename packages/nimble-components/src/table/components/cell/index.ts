@@ -32,6 +32,9 @@ export class TableCell<
     @observable
     public recordId?: string;
 
+    @attr({ attribute: 'column-id' })
+    public columnId?: string;
+
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;
 

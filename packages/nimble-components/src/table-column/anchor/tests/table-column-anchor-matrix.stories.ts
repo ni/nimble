@@ -16,7 +16,7 @@ import {
 } from '../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column Types',
+    title: 'Tests/Table Column - Anchor',
     parameters: {
         ...sharedMatrixParameters()
     }

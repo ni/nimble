@@ -25,13 +25,13 @@ TableColumnTextColumnConfig
 }
 
 const tableColumnTextGroupHeaderView = TableColumnTextGroupHeaderView.compose({
-    baseName: 'table-column-text-group-header',
+    baseName: 'table-column-text-group-header-view',
     template,
     styles
 });
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(tableColumnTextGroupHeaderView());
-export const tableColumnTextGroupHeaderTag = DesignSystem.tagFor(
+export const tableColumnTextGroupHeaderViewTag = DesignSystem.tagFor(
     TableColumnTextGroupHeaderView
 );
