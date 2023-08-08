@@ -54,7 +54,7 @@ See the **Table** page for information about configuring the table itself and th
 information about common column configuration.`;
 
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column Types',
+    title: 'Incubating/Table Column - Number Text',
     decorators: [withActions],
     parameters: {
         docs: {
