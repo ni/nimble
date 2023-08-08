@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 03 Aug 2023 22:50:39 GMT and should not be manually modified.
+This log was last generated on Mon, 07 Aug 2023 22:54:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.3
+
+Mon, 07 Aug 2023 22:54:53 GMT
+
+### Patches
+
+- Show url of focused anchor tab at bottom of page ([ni/nimble@48d64be](https://github.com/ni/nimble/commit/48d64be4f2beca10d2643c621970f88d34d5c5c6))
 
 ## 20.1.2
 
