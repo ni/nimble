@@ -356,7 +356,7 @@ describe('TableColumnDateText', () => {
             column.format = 'custom';
             column.customHour = 'numeric'; // must specify hour
             column.customHourCycle = 'h24'; // must force 24hr clock to override with hour12
-            column.customHour12 = 'twelve-hour';
+            column.customHour12 = '12hour';
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
         });
@@ -493,7 +493,7 @@ describe('TableColumnDateText', () => {
                             custom-second="2-digit"
                             custom-time-zone-name="longOffset"
                             custom-format-matcher="basic"
-                            custom-hour12="twenty-four-hour"
+                            custom-hour12="24hour"
                             custom-time-zone="America/Chicago"
                             custom-calendar="hebrew"
                             custom-day-period="short"
@@ -566,7 +566,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors custom-hour12 attribute', () => {
-            expect(column.customHour12).toBe('twenty-four-hour');
+            expect(column.customHour12).toBe('24hour');
         });
 
         it('honors custom-hour-cycle attribute', () => {

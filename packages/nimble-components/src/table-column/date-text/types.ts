@@ -28,7 +28,7 @@ export type HourCycleFormat = Intl.DateTimeFormatOptions['hourCycle'];
 
 export const Hour12Format = {
     default: undefined,
-    twelveHour: 'twelve-hour',
-    twentyFourHour: 'twenty-four-hour'
+    twelveHour: '12hour',
+    twentyFourHour: '24hour'
 } as const;
 export type Hour12Format = (typeof Hour12Format)[keyof typeof Hour12Format];

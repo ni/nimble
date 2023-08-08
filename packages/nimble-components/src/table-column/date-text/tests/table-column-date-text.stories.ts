@@ -267,7 +267,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             name: 'custom-hour12',
             description:
                 'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
-            options: [undefined, 'twelve-hour', 'twenty-four-hour'],
+            options: [undefined, '12hour', '24hour'],
             control: { type: 'radio' }
         },
         customHourCycle: {
