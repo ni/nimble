@@ -242,11 +242,11 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
--   `open-link-in-new-tab` - is a boolean attribute to open a link present in the viewer in a new tab. By default, all the links will open in the same tab
+-   `open-link-in-new-tab` - is a boolean attribute determining whether all absolute links within the viewer component should open in a new tab. By default, all the links will open in the same tab
     as per the accessibility guidelines on WCAG (linked below). If opening in a new window/tab, `nimble-icon-up-right-from-square` will be placed right next to all the links
     in the viewer instance to indicate the link will be opened in a new tab.
     -   Accessibility guidelines to open link only in new window when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
-    -   Accessibility guidelines on opening in a new window: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
+    -   Accessibility guidelines on opening a link in a new window: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
 _Methods_
 
@@ -349,6 +349,41 @@ By installing the [link extension](https://tiptap.dev/api/marks/link) mark from 
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
+
+_Implementation details for supporting absolute link_
+
+For the `nimble-rich-text-viewer` component, we will set up the link mark in the Prosemirror schema as shown below, allowing links in the component to open either in a new tab or in the same tab.
+
+```js
+link: {
+    attrs: {
+        href: {},
+        target: { default: this.openLinkInNewTab ? '_blank' : null },
+        rel: { default: 'noopener noreferrer nofollow' }
+    },
+    inclusive: false,
+    parseDOM: [{ tag: 'a[href]' }],
+    toDOM(node) {
+        return [
+            anchorTag,
+            {
+                href: node.attrs.href as Attr,
+                target: node.attrs.target as Attr,
+                rel: node.attrs.rel as Attr
+            },
+            [
+                iconUpRightFromSquareTag, { slot: 'end' }
+            ]
+        ];
+    }
+}
+```
+
+1.  As in the above schema, we will modify the `target` value according to the boolean attribute `openLinkInNewTab` that is configured by the client component.
+2.  We also set the `rel` attribute value to `noopener noreferrer nofollow` to enhance security and ensure responsible linking practices.
+3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
+4.  Additionally, we have included the child node `iconUpRightFromSquareTag` to render the `nimble-icon-up-right-from-square` icon and configuring the slot attribute value as `end`.
+    With appropriate styling, we can effectively display the icon next to the link.
 
 ### Prototype
 
