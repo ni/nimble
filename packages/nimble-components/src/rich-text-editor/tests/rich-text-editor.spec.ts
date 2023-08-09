@@ -17,7 +17,7 @@ async function setup(): Promise<Fixture<RichTextEditor>> {
     );
 }
 
-fdescribe('RichTextEditor', () => {
+describe('RichTextEditor', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
