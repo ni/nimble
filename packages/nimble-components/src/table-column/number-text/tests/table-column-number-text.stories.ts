@@ -21,7 +21,7 @@ const simpleData = [
         firstName: 'Homer',
         lastName: 'Simpson',
         age: 45.2358734623,
-        favoriteNumber: 0.0000002358967325
+        favoriteNumber: Math.PI
     },
     {
         firstName: 'Marge',
