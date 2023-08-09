@@ -400,7 +400,7 @@ link: {
 ```
 
 1.  As in the above schema, we will modify the `target` value according to the boolean attribute `externalLink` that is configured by the client component.
-2.  We also set the `rel` attribute value to `noopener noreferrer nofollow` to enhance security and ensure responsible linking practices.
+2.  We also set the `rel` attribute value to `noopener noreferrer` to enhance security and ensure responsible linking practices.
 3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
 4.  Additionally, we have included the child node `iconUpRightFromSquareTag` to render the `nimble-icon-up-right-from-square` icon and configuring the slot attribute value as `end` to display it in the end.
     With appropriate styling, we can effectively display the icon next to the link.
