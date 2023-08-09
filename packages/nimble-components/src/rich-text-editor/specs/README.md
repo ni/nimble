@@ -255,6 +255,7 @@ they are external (i.e., not from the same domain/origin); for internal links, t
 links. Below is the design we could come up with,
 
 We will introduce an attribute named `link-configuration` that can accept the following values:
+
 1.  `open-in-same-tab` - This value is the default setting. If chosen, all links within the component will open in the same tab.
 2.  `open-in-new-tab` - When selected, all links in the component will open in new tab. A warning icon will be placed next to each link, conveying the user that
     clicking the link will result in a new tab opening.
