@@ -89,11 +89,11 @@ _The key elements of the component's public API surface:_
         -   x: number
         -   y: number
         -   value: string
-    -   `quadrant` - represents the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map. The four possible combinations are represented with the position of the quadrant respective to the specific axes directions . It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
-    -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
-    -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
-    -   topRight - ![Top Right Quadrant](./Resources/top_right.png)
-    -   bottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
+    -   `originLocation` - represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas. The four possible combinations are represented with the position of the origin respective to the specific axes directions . It can be represented by a const (as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
+    -   topLeft - ![Top Left Origin Location](./Resources/top_left.png)
+    -   bottomLeft - ![Bottom Left Origin Location](./Resources/bottom_left.png)
+    -   topRight - ![Top Right Origin Location](./Resources/top_right.png)
+    -   bottomRight - ![Bottom Right Origin Location](./Resources/bottom_right.png)
     -   `orientation` - represents the orientation of the notch on the wafer map outline. As only four static orientations are possible, it can be represented by an Enum with the following values: `top`, `bottom`, `left`, `right`. This value does not influence the die grid display in any measure, it affects only the circle outline of the wafer.
     -   `dieGridOriginX` - represents the origin coordinates for the X axis of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X corner value of the bounding box of the dies coordinates.
     -   `dieGridOriginY` - represents the origin coordinates for the Y axis of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y corner value of the bounding box of the dies coordinates.
@@ -112,7 +112,7 @@ _The key elements of the component's public API surface:_
     -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is WaferMapValidity, and it contains the following boolean properties:
         -   `invalidDieGridDimensions` : true when only one or two of the `dieGridOriginX`, `dieGridOriginY`, `dieGridRows` or `dieGridCols` is `undefined`.
 
-The `quadrant`, `orientation`, `dieGridOriginX`, `dieGridOriginY`, `dieGridRows`, `dieGridCols`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
+The `originLocation`, `orientation`, `dieGridOriginX`, `dieGridOriginY`, `dieGridRows`, `dieGridCols`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
 The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
