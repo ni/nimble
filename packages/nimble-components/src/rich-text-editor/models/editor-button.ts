@@ -37,8 +37,10 @@ export abstract class EditorButton {
             case keyEnter:
                 this.tiptapEditor.commands.focus();
                 this.doAction();
+                // Return false to prevent the default behavior for the "Enter" and "space" key
                 return false;
             default:
+                // Return true for other key values to allow default behavior, such as enabling navigation keys like "Tab" and arrow keys to take effect
                 return true;
         }
     }
