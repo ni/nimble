@@ -113,9 +113,7 @@ export class RichTextEditor extends FoundationElement {
     private updateEditorButtonsState(): void {
         if (this.toggleButtons.length > 0) {
             this.editorButtons.forEach(button => {
-                const buttonToUpdate = this.toggleButtons.find(
-                    toggleButton => toggleButton.classList.contains(button.class)
-                );
+                const buttonToUpdate = this.toggleButtons.find(toggleButton => toggleButton.classList.contains(button.class));
                 this.updateButtonCheckedState(
                     buttonToUpdate,
                     button.tiptapNodeOrMarkName

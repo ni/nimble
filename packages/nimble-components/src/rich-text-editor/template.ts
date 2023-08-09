@@ -7,12 +7,18 @@ import type { EditorButton } from './models/editor-button';
 export const template = html<RichTextEditor>`
     <template>
         <div class="container">
-            <section ${ref('editor')} class="editor" role="textbox" aria-multiline="true"></section>
+            <section
+                ${ref('editor')}
+                class="editor"
+                role="textbox"
+                aria-multiline="true">
+            </section>
             <section class="footer-section">
-                <${toolbarTag} ${children({
-    property: 'toggleButtons',
-    filter: elements(toggleButtonTag)
-})}>
+                <${toolbarTag}
+                    ${children({
+        property: 'toggleButtons',
+        filter: elements(toggleButtonTag)
+    })}>
                     ${repeat(
         x => x.editorButtons,
         html<EditorButton>`
@@ -29,7 +35,9 @@ export const template = html<RichTextEditor>`
                             >
                             ${x => x.iconTemplate}
                             ${
-    /* Below label will be modified when the label provider PR for the formatting buttons goes in. */ ''
+    '' /*
+                            Below label will be modified when the label provider PR for the formatting buttons goes in.
+                            */
 }
                             ${x => x.iconLabel}
                         </${toggleButtonTag}>

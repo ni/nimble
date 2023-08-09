@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Editor } from '@tiptap/core';
-import { ButtonInitializers, EditorButton } from './editor-button';
+import { ButtonProperties, EditorButton } from './editor-button';
 import { iconBoldBTag } from '../../icons/bold-b';
 
 /**
@@ -15,7 +15,7 @@ export class BoldButton extends EditorButton {
         this.tiptapEditor.commands.toggleBold();
     }
 
-    protected getInitializers(): ButtonInitializers {
+    protected getProperties(): ButtonProperties {
         return {
             class: 'bold',
             iconLabel: 'Bold',

@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Editor } from '@tiptap/core';
-import { ButtonInitializers, EditorButton } from './editor-button';
+import { ButtonProperties, EditorButton } from './editor-button';
 import { iconItalicITag } from '../../icons/italic-i';
 
 /**
@@ -15,7 +15,7 @@ export class ItalicsButton extends EditorButton {
         this.tiptapEditor.commands.toggleItalic();
     }
 
-    protected getInitializers(): ButtonInitializers {
+    protected getProperties(): ButtonProperties {
         return {
             class: 'italics',
             iconLabel: 'Italics',

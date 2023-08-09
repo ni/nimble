@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Editor } from '@tiptap/core';
-import { ButtonInitializers, EditorButton } from './editor-button';
+import { ButtonProperties, EditorButton } from './editor-button';
 import { iconNumberListTag } from '../../icons/number-list';
 
 /**
@@ -15,7 +15,7 @@ export class NumberedListButton extends EditorButton {
         this.tiptapEditor.commands.toggleOrderedList();
     }
 
-    protected getInitializers(): ButtonInitializers {
+    protected getProperties(): ButtonProperties {
         return {
             class: 'numbered-list',
             iconLabel: 'Numbered List',

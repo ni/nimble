@@ -2,7 +2,7 @@ import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import type { ViewTemplate } from '@microsoft/fast-element';
 import type { Editor } from '@tiptap/core';
 
-export interface ButtonInitializers {
+export interface ButtonProperties {
     readonly class: string;
     readonly iconLabel: string;
     readonly tiptapNodeOrMarkName: string;
@@ -19,11 +19,11 @@ export abstract class EditorButton {
     public iconTemplate: ViewTemplate;
 
     public constructor(protected tiptapEditor: Editor) {
-        const initializers = this.getInitializers();
-        this.class = initializers.class;
-        this.iconLabel = initializers.iconLabel;
-        this.tiptapNodeOrMarkName = initializers.tiptapNodeOrMarkName;
-        this.iconTemplate = initializers.iconTemplate;
+        const buttonProperties = this.getProperties();
+        this.class = buttonProperties.class;
+        this.iconLabel = buttonProperties.iconLabel;
+        this.tiptapNodeOrMarkName = buttonProperties.tiptapNodeOrMarkName;
+        this.iconTemplate = buttonProperties.iconTemplate;
     }
 
     public clickHandler(): void {
@@ -43,6 +43,6 @@ export abstract class EditorButton {
         }
     }
 
-    protected abstract getInitializers(): ButtonInitializers;
+    protected abstract getProperties(): ButtonProperties;
     protected abstract doAction(): void;
 }

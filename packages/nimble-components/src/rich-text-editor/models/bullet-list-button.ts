@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 import type { Editor } from '@tiptap/core';
-import { ButtonInitializers, EditorButton } from './editor-button';
+import { ButtonProperties, EditorButton } from './editor-button';
 import { iconListTag } from '../../icons/list';
 
 /**
@@ -15,7 +15,7 @@ export class BulletListButton extends EditorButton {
         this.tiptapEditor.commands.toggleBulletList();
     }
 
-    protected getInitializers(): ButtonInitializers {
+    protected getProperties(): ButtonProperties {
         return {
             class: 'bullet-list',
             iconLabel: 'Bullet List',
