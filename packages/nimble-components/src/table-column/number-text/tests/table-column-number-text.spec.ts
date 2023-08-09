@@ -14,22 +14,6 @@ interface NumericTestCase {
     expectedRenderedString: string;
 }
 
-const wackyNumbers: readonly NumericTestCase[] = [
-    {
-        name: '-Inf',
-        value: Number.NEGATIVE_INFINITY,
-        expectedRenderedString: '-∞'
-    },
-    {
-        name: '+Inf',
-        value: Number.POSITIVE_INFINITY,
-        expectedRenderedString: '∞'
-    },
-    { name: '-0', value: -0, expectedRenderedString: '-0' },
-    { name: '+0', value: 0, expectedRenderedString: '0' },
-    { name: 'NaN', value: Number.NaN, expectedRenderedString: 'NaN' }
-] as const;
-
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;
     number2?: number | null;
@@ -48,7 +32,7 @@ async function setup(source: ColumnInstances): Promise<Fixture<Table<SimpleTable
                     Column 1
                 </${tableColumnNumberTextTag}>
                 <${tableColumnNumberTextTag} ${ref('column2')} field-name="number2">
-                    Squeeze Column 1
+                    Column 2
                 </${tableColumnNumberTextTag}>
             </nimble-table>`,
         { source }
@@ -146,9 +130,7 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('10');
 
-        const updatedValue = { number1: null };
-        const updatedData = [updatedValue];
-        await element.setData(updatedData);
+        await element.setData([{ number1: null }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
@@ -178,26 +160,32 @@ describe('TableColumnNumberText', () => {
     });
 
     describe('displays title when appropriate', () => {
+        const largeNumber = 8729375089724643;
+        const largeNumberAsIntegerString = '8,729,375,089,724,643';
+
         beforeEach(async () => {
+            // Change the format to 'integer' for the title tests so that the number isn't displayed in
+            // exponential notation, which makes it difficult to render a long enough string to have overflow.
             columnInstances.column1.format = NumberTextFormat.integer;
             await waitForUpdatesAsync();
         });
 
         it('sets title when cell text is ellipsized', async () => {
             element.style.width = '200px';
-            await element.setData([{ number1: 8729375089724643 }]);
+            await element.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
 
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
-            expect(pageObject.getCellTitle(0, 0)).toBe('8,729,375,089,724,643');
+            expect(pageObject.getCellTitle(0, 0)).toBe(largeNumberAsIntegerString);
         });
 
         it('does not set title when cell text is fully visible', async () => {
             await element.setData([{ number1: 0 }]);
             await connect();
             await waitForUpdatesAsync();
+
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
             expect(pageObject.getCellTitle(0, 0)).toBe('');
@@ -205,9 +193,10 @@ describe('TableColumnNumberText', () => {
 
         it('removes title on mouseout of cell', async () => {
             element.style.width = '200px';
-            await element.setData([{ number1: 8729375089724643 }]);
+            await element.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
+
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseout'));
@@ -218,16 +207,17 @@ describe('TableColumnNumberText', () => {
         it('sets title when group header text is ellipsized', async () => {
             element.style.width = '100px';
             columnInstances.column2.columnHidden = true;
-            await element.setData([{ number1: 8729375089724643 }]);
+            await element.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
+
             pageObject.dispatchEventToGroupHeader(
                 0,
                 new MouseEvent('mouseover')
             );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe(
-                '8,729,375,089,724,643'
+                largeNumberAsIntegerString
             );
         });
 
@@ -235,6 +225,7 @@ describe('TableColumnNumberText', () => {
             await element.setData([{ number1: 1 }]);
             await connect();
             await waitForUpdatesAsync();
+
             pageObject.dispatchEventToGroupHeader(
                 0,
                 new MouseEvent('mouseover')
@@ -246,9 +237,10 @@ describe('TableColumnNumberText', () => {
         it('removes title on mouseout of group header', async () => {
             element.style.width = '100px';
             columnInstances.column2.columnHidden = true;
-            await element.setData([{ number1: 28729375089724643 }]);
+            await element.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
+
             pageObject.dispatchEventToGroupHeader(
                 0,
                 new MouseEvent('mouseover')
@@ -263,70 +255,60 @@ describe('TableColumnNumberText', () => {
         });
     });
 
-    describe('various numeric values render as expected', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const format of Object.values(NumberTextFormat)) {
-            for (const testCase of wackyNumbers) {
-                const specType = getSpecTypeByNamedList(
-                    testCase,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(
-                    `data "${testCase.name}" renders as "${
-                        testCase.expectedRenderedString
-                    }" with column format of ${format ?? 'default'}`,
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
-                    async () => {
-                        columnInstances.column1.format = format;
-                        await connect();
-
-                        await element.setData([{ number1: testCase.value }]);
-                        await waitForUpdatesAsync();
-
-                        expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                            testCase.expectedRenderedString
-                        );
-                        expect(
-                            pageObject.getRenderedGroupHeaderContent(0)
-                        ).toContain(testCase.expectedRenderedString);
-                    }
-                );
-            }
-        }
-    });
-
     describe('with default formatting', () => {
         const testCases: readonly NumericTestCase[] = [
             {
-                name: 'without scientific notation limits to 4 digits with rounding decimals up',
+                name: 'NEGATIVE_INFINITY renders as -∞',
+                value: Number.NEGATIVE_INFINITY,
+                expectedRenderedString: '-∞'
+            },
+            {
+                name: 'POSITIVE_INFINITY renders as ∞',
+                value: Number.POSITIVE_INFINITY,
+                expectedRenderedString: '∞'
+            },
+            {
+                name: 'NaN renders as NaN',
+                value: Number.NaN,
+                expectedRenderedString: 'NaN'
+            },
+            {
+                name: '-0 renders with negative sign',
+                value: -0,
+                expectedRenderedString: '-0'
+            },
+            {
+                name: '+0 renders without positive sign',
+                value: 0,
+                expectedRenderedString: '0'
+            },
+            {
+                name: 'without exponential notation limits to 4 digits with rounding decimals up',
                 value: 1.23456789,
                 expectedRenderedString: '1.23457'
             },
             {
-                name: 'without scientific notation limits to 4 digits with rounding decimals down',
+                name: 'without exponential notation limits to 4 digits with rounding decimals down',
                 value: 10.001122,
                 expectedRenderedString: '10.0011'
             },
             {
-                name: 'does not use scientific notation for 999,999',
+                name: 'does not use exponential notation for 999,999',
                 value: 999999,
                 expectedRenderedString: '999,999'
             },
             {
-                name: 'uses scientific notation for 1,000,000',
+                name: 'uses exponential notation for 1,000,000',
                 value: 1000000,
                 expectedRenderedString: '1E6'
             },
             {
-                name: 'does not use scientific notation for 0.000001',
+                name: 'does not use exponential notation for 0.000001',
                 value: 0.000001,
                 expectedRenderedString: '0.000001'
             },
             {
-                name: 'uses scientific notation for 0.000000999',
+                name: 'uses exponential notation for 0.000000999',
                 value: 0.000000999,
                 expectedRenderedString: '9.99E-7'
             },
@@ -341,22 +323,22 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '-98.75'
             },
             {
-                name: 'converts numbers with large magnitudes to scientific notation',
+                name: 'converts numbers with large magnitudes to exponential notation',
                 value: -123456789.123456789,
                 expectedRenderedString: '-1.23457E8'
             },
             {
-                name: 'converts numbers with small magnitudes to scientific notation',
+                name: 'converts numbers with small magnitudes to exponential notation',
                 value: 0.000000123456789,
                 expectedRenderedString: '1.23457E-7'
             },
             {
-                name: 'MAX_SAFE_INTEGER + 9999',
+                name: 'MAX_SAFE_INTEGER + 9999 renders as expected',
                 value: Number.MAX_SAFE_INTEGER + 9999,
                 expectedRenderedString: '9.0072E15'
             },
             {
-                name: 'MIN_SAFE_INTEGER - 9999',
+                name: 'MIN_SAFE_INTEGER - 9999 renders as expected',
                 value: Number.MIN_SAFE_INTEGER - 9999,
                 expectedRenderedString: '-9.0072E15'
             }
@@ -399,6 +381,31 @@ describe('TableColumnNumberText', () => {
 
         const testCases: readonly NumericTestCase[] = [
             {
+                name: 'NEGATIVE_INFINITY renders as -∞',
+                value: Number.NEGATIVE_INFINITY,
+                expectedRenderedString: '-∞'
+            },
+            {
+                name: 'POSITIVE_INFINITY renders as ∞',
+                value: Number.POSITIVE_INFINITY,
+                expectedRenderedString: '∞'
+            },
+            {
+                name: 'NaN renders as NaN',
+                value: Number.NaN,
+                expectedRenderedString: 'NaN'
+            },
+            {
+                name: '-0 renders with negative sign',
+                value: -0,
+                expectedRenderedString: '-0'
+            },
+            {
+                name: '+0 renders without positive sign',
+                value: 0,
+                expectedRenderedString: '0'
+            },
+            {
                 name: 'rounds down positive numbers',
                 value: 1.23,
                 expectedRenderedString: '1'
@@ -429,12 +436,12 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '-123,456,789'
             },
             {
-                name: 'MAX_SAFE_INTEGER + 9999',
+                name: 'MAX_SAFE_INTEGER + 9999 renders as expected',
                 value: Number.MAX_SAFE_INTEGER + 9999,
                 expectedRenderedString: '9,007,199,254,750,990'
             },
             {
-                name: 'MIN_SAFE_INTEGER - 9999',
+                name: 'MIN_SAFE_INTEGER - 9999 renders as expected',
                 value: Number.MIN_SAFE_INTEGER - 9999,
                 expectedRenderedString: '-9,007,199,254,750,990'
             }

@@ -19,14 +19,14 @@ export const defaultNumberOfDigits = 6;
  * @internal
  *
  * When the format is `default`, the lower magnitude cutoff for values the number-text column
- * before formatting them in scientific notation.
+ * before formatting them in exponential notation.
  * */
-export const defaultScientificLowerBound = 10 ** -defaultNumberOfDigits;
+export const defaultExponentialLowerBound = 10 ** -defaultNumberOfDigits;
 
 /**
  * @internal
  *
  * When the format is `default`, the upper magnitude cutoff for values the number-text column
- * before formatting them in scientific notation.
+ * before formatting them in exponential notation.
  * */
-export const defaultScientificUpperBound = 10 ** defaultNumberOfDigits;
+export const defaultExponentialUpperBound = 10 ** defaultNumberOfDigits;

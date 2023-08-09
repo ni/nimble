@@ -1,8 +1,8 @@
 import type { TableColumnNumberTextColumnConfig } from '..';
 import type { TableNumberFieldValue } from '../../../table/types';
 import {
-    defaultScientificLowerBound,
-    defaultScientificUpperBound
+    defaultExponentialLowerBound,
+    defaultExponentialUpperBound
 } from '../types';
 
 export function formatNumber(
@@ -11,9 +11,9 @@ export function formatNumber(
 ): string {
     if (typeof number === 'number') {
         try {
-            return columnConfig.scientificFormatter
-                && shouldUseScientificFormatter(number)
-                ? columnConfig.scientificFormatter.format(number)
+            return columnConfig.exponentialFormatter
+                && shouldUseExponentialFormatter(number)
+                ? columnConfig.exponentialFormatter.format(number)
                 : columnConfig.formatter.format(number);
         } catch (e) {
             return '';
@@ -23,11 +23,11 @@ export function formatNumber(
     }
 }
 
-function shouldUseScientificFormatter(number: number): boolean {
+function shouldUseExponentialFormatter(number: number): boolean {
     const absoluteValue = Math.abs(number);
     return (
         absoluteValue > 0
-        && (absoluteValue < defaultScientificLowerBound
-            || absoluteValue >= defaultScientificUpperBound)
+        && (absoluteValue < defaultExponentialLowerBound
+            || absoluteValue >= defaultExponentialUpperBound)
     );
 }

@@ -13,7 +13,7 @@ import { NumberTextFormat, defaultNumberOfDigits } from './types';
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
     formatter: Intl.NumberFormat;
-    scientificFormatter?: Intl.NumberFormat;
+    exponentialFormatter?: Intl.NumberFormat;
 }
 
 declare global {
@@ -53,7 +53,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private createFormatterConfig(): TableColumnNumberTextColumnConfig {
-        let scientificFormatter: Intl.NumberFormat | undefined;
+        let exponentialFormatter: Intl.NumberFormat | undefined;
         let options: Intl.NumberFormatOptions;
         switch (this.format) {
             case NumberTextFormat.integer:
@@ -64,7 +64,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
                     maximumSignificantDigits: defaultNumberOfDigits,
                     useGrouping: true
                 };
-                scientificFormatter = new Intl.NumberFormat(undefined, {
+                exponentialFormatter = new Intl.NumberFormat(undefined, {
                     maximumSignificantDigits: defaultNumberOfDigits,
                     notation: 'scientific'
                 });
@@ -73,7 +73,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
         const formatter = new Intl.NumberFormat(undefined, options);
         return {
             formatter,
-            scientificFormatter
+            exponentialFormatter
         };
     }
 }

@@ -6,7 +6,6 @@ import {
     sharedMatrixParameters
 } from '../../../utilities/tests/matrix';
 import { tableColumnNumberTextTag } from '..';
-import { iconUserTag } from '../../../icons/user';
 import { Table, tableTag } from '../../../table';
 import {
     controlLabelFont,
@@ -39,12 +38,19 @@ const data = [
 // prettier-ignore
 const component = (): ViewTemplate => html`
     <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">Number Text Table Column</label>
-    <${tableTag} id-field-name="id" style="height: 250px">
+    <${tableTag} id-field-name="id" style="height: 350px">
         <${tableColumnNumberTextTag}
             field-name="number"
             group-index="0"
         >
-            <${iconUserTag}></${iconUserTag}>
+            Default
+        </${tableColumnNumberTextTag}>
+        <${tableColumnNumberTextTag}
+            format="integer"
+            field-name="number"
+            group-index="1"
+        >
+            Integer
         </${tableColumnNumberTextTag}>
     </${tableTag}>
 `;

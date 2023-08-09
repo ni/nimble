@@ -89,6 +89,20 @@ interface TextColumnTableArgs extends SharedTableArgs {
 
 const numberTextColumnDescription = 'The `nimble-table-column-number-text` column is used to display number fields as text in the `nimble-table`.';
 
+const formatDescription = `Configures the way that the numeric value is formatted to render within the table.
+
+<details>
+    <summary>Format Options</summary>
+
+    <ul>
+        <li>\`default\`: Integers are shown with no trailing zeros, the value is limited to 6 significant digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-6\`) in magnitude.
+        </li>
+        <li>\`integer\`: Values are rounded to the nearest whole number. Exponential notation is never used.
+        </li>
+    </ul>
+</details>
+`;
+
 export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
     parameters: {
         docs: {
@@ -129,8 +143,7 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
             control: { type: 'none' }
         },
         format: {
-            description:
-                'By default, numbers are formatted similarly to `Number.toString()`: shows integers with no trailing zeros, uses 16 significant digits, and switches to exponential notation for very large (`>= 1e16`) and small (`< 1e-6`) numbers.',
+            description: formatDescription,
             options: Object.keys(NumberTextFormat),
             control: { type: 'radio' }
         }

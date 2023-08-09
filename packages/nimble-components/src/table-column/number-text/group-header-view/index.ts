@@ -27,7 +27,7 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.columnConfig?.formatter) {
+        if (this.columnConfig) {
             this.text = formatNumber(this.groupHeaderValue, this.columnConfig);
         } else {
             this.text = '';
