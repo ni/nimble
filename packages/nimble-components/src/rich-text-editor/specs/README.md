@@ -254,17 +254,10 @@ For comments feature in SLE, there is a requirement to have all links open in a 
 they are external (i.e., not from the same domain/origin); for internal links, they will open in the same tab. Here, we will show the same warning mentioned above for the external
 links. Below is proposed high level design for the same,
 
-<<<<<<< HEAD
 We will introduce an attribute named `link-configuration` that can accept the following enum values:
 
 1.  `openInSameTab` - This value is the default setting. If chosen, all links within the component will open in the same tab.
 2.  `openInNewTab` - When selected, all links in the component will open in new tab. A warning icon will be placed next to each link, conveying the user that
-=======
-We will introduce an attribute named `link-configuration` that can accept the following values:
-
-1.  `open-in-same-tab` - This value is the default setting. If chosen, all links within the component will open in the same tab.
-2.  `open-in-new-tab` - When selected, all links in the component will open in new tab. A warning icon will be placed next to each link, conveying the user that
->>>>>>> 0326be99bd7e9737baf65b5586317bb5b0f76c8b
     clicking the link will result in a new tab opening.
 3.  `externalLinkBasedOnOrigin` - With this setting, links will be validated based on their origins. If a link's origin differs from the current origin, it is categorized as
     external link and will open in a new tab. Conversely, links originating from the same domain will be treated as internal link and open in the same tab.
