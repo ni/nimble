@@ -245,9 +245,9 @@ During these manual benchmark runs we would like to obtain more details on:
 
 Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks.
 
-After doing various benchmarks, we are able to attest that the initial rendering performance of the `nimble-wafer-map` component is lower than 100 ms even for for wafer maps between 10k and 100k data points. These values may be different based on the system configuration.
+After doing various benchmarks, we are able to attest that the initial rendering performance of the `nimble-wafer-map` component is lower than 100 ms even for wafer maps between 10k and 100k data points. These values may be different based on the system configuration.
 
-Another information of note is that although the initial render is is fast even for large data sets, the actual responsive behavior of the component, especially the zooming, is degrading visibly for a higher load.
+Another information of note is that although the initial render is fast even for large data sets, the actual responsive behavior of the component, especially the zooming, is degrading visibly for a higher load.
 
 We are planning improvements in this regard in the short and medium term, looking for ways to improve the rendering and responsiveness of the component for data sets up to 500k data points.
 
