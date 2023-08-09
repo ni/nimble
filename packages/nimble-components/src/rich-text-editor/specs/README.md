@@ -35,7 +35,7 @@ Both components provide support for the following basic text formatting options:
 3. Numbered List
 4. Bulleted List
 5. Absolute URL links - Supports only [absolute URI](https://spec.commonmark.org/0.30/#absolute-uri) with a valid [scheme](https://spec.commonmark.org/0.30/#scheme).
-   In the initial phase, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
+   In the initial release, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
    [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
    [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
    [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
@@ -54,7 +54,7 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
 -   Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
-    link icon in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
+    link button in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
 -   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
     [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
     versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
@@ -243,10 +243,10 @@ _Props/Attrs_
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
 -   `external-link` - is a boolean attribute determining whether all absolute links within the viewer component should open in a new tab. By default, all the links will open in the same tab
-    as per the accessibility guidelines on WCAG (links are below). If opening in a new window/tab, `nimble-icon-up-right-from-square` will be placed right next to all the links
+    as per the accessibility guidelines on WCAG (links are below). If opening in a new tab, `nimble-icon-up-right-from-square` will be placed right next to all the links
     in the viewer instance to indicate the link will be opened in a new tab.
-    -   Accessibility guidelines to open link only in new window when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
-    -   Accessibility guidelines on opening a link in a new window: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
+    -   Accessibility guidelines to open link only in new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
+    -   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
 _Alternative implementations:_
 
@@ -261,7 +261,7 @@ We will introduce an attribute named `link-configuration` that can accept the fo
 3.  `external-link-based-on-origin` - With this setting, links will be validated based on their origins. If a link's origin differs from the current origin, it is categorized as
     external link and will open in a new tab. Conversely, links originating from the same domain will be treated as internal link and open in the same tab.
 
-If this appears to be a more favorable approach, we should consider implementing it instead of the previously mentioned `external-link` attribute approach.
+If this appears to be a more favorable approach, we will implement it instead of the previously mentioned `external-link` attribute approach.
 
 _Methods_
 
@@ -351,25 +351,27 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Italics - `*Italics*`
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
--   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, refer [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
+-   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 
 _Configurations on Tiptap to support only absolute links_:
 
 By installing the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
-1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to allow `HTTP` and `HTTPS` URL to support only absolute URL links in the editor.
-2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false`, to restrict the user opening a link in the editor on click. User can open the link only by
-    `Right-click >> Open link in new tab`.
+1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to support only `HTTP` and `HTTPS` absolute links in the editor.
+2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false`, to restrict the user opening a link from the editor by clicking. User can open the link only by
+    `Right-click >> Open link in new tab` from the editor.
 3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
 4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will replace the current selection in the editor with the URL. If it is `true`,
-    adding a link to the selection will add the link behind the word.
+    adding a link to the selection will add the link behind the word which is not supported for the initial pass.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
 
 _Implementation details for supporting absolute link:_
 
-For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as shown below, allowing links in the component to open either in a new tab or in the same tab.
+For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open either in a new tab or in the same tab.
+Here is the default [link configuration](https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/schema.ts#L138C5-L148C6)
+from the `prosemirror-markdown` package for the comparison with the newly updated configuration.
 
 ```js
 link: {
@@ -399,17 +401,16 @@ link: {
 1.  As in the above schema, we will modify the `target` value according to the boolean attribute `externalLink` that is configured by the client component.
 2.  We also set the `rel` attribute value to `noopener noreferrer nofollow` to enhance security and ensure responsible linking practices.
 3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
-4.  Additionally, we have included the child node `iconUpRightFromSquareTag` to render the `nimble-icon-up-right-from-square` icon and configuring the slot attribute value as `end`.
+4.  Additionally, we have included the child node `iconUpRightFromSquareTag` to render the `nimble-icon-up-right-from-square` icon and configuring the slot attribute value as `end` to display it in the end.
     With appropriate styling, we can effectively display the icon next to the link.
 
 _Future Enhancements:_
 
 We have observed that issues such as [#1412](https://github.com/ni/nimble/issues/1412) and [#1331](https://github.com/ni/nimble/issues/1331) were created for the guidelines on
-opening anchor elements in a new tab. Once the visual design is finalized and integrated the implemented into the `nimble-anchor`, we will update the above `link` mark schema.
+opening anchor elements in a new tab. Once the visual design is finalized and integrated the implemention into the `nimble-anchor`, we will update the above `link` mark schema.
 It will involve removing the child node for the icon and instead adding the `external` attribute (assuming it will be implemented in `nimble-anchor`). This attribute could
 potentially add the icon or display any relevant warnings as per the design and implementation within the `nimble-anchor`. If assigning the `external` attribute also results in the
-automatic configuration of the `target` value as `_blank`, we will subsequently omit the `target` attribute from the schema
-mentioned above.
+automatic configuration of the `target` value as `_blank`, we will subsequently omit the `target` attribute from the schema mentioned above.
 
 ### Prototype
 
@@ -485,6 +486,7 @@ _Note_: All other keyboard interaction determined by the slotted element will no
 
 Localization: The `nimble-rich-text-editor` will use the `bold`, `italics`, `numberedList`, and `bulletedList` labels from `nimble-label-provider-rich-text` for the icons displayed in
 the formatting toolbar located in the footer section. The text in this toolbar will be visually hidden, but it will be present for accessibility.
+Therefore, a new label provider will be created for rich text component.
 
 ### Security
 
