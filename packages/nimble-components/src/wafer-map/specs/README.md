@@ -95,10 +95,10 @@ _The key elements of the component's public API surface:_
     -   topRight - ![Top Right Origin Location](./Resources/top_right.png)
     -   bottomRight - ![Bottom Right Origin Location](./Resources/bottom_right.png)
     -   `orientation` - represents the orientation of the notch on the wafer map outline. As only four static orientations are possible, it can be represented by an Enum with the following values: `top`, `bottom`, `left`, `right`. This value does not influence the die grid display in any measure, it affects only the circle outline of the wafer.
-    -   `dieGridOriginX` - represents the origin coordinates for the X axis of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X corner value of the bounding box of the dies coordinates.
-    -   `dieGridOriginY` - represents the origin coordinates for the Y axis of the dies grid for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y corner value of the bounding box of the dies coordinates.
-    -   `dieGridRows` - represents the number of values on the Y axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum Y values of the bounding box of the dies coordinates plus one.
-    -   `dieGridCols` - represents the number of values on the X axis. Leaving the value `undefined` will set the value to the difference between the maximum and the minimum X values of the bounding box of the dies coordinates plus one.
+    -   `gridMinX` - represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X value of the bounding box of the input dies coordinates.
+    -   `gridMinY` - represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.
+    -   `gridMaxX` - represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.
+    -   `gridMaxY` - represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The objects we use internally for the colorScale are [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal) and [d3.scaleLinear](https://observablehq.com/@d3/d3-scalelinear). Basically, what this does is it associates a specific string (or in our case a value) with a specific color. The values which are not specified in the array, will be calculated as a interpolation from the provided colors for the linear scale or will be assigned to one of the specified color values from the provided colors for the ordinal scale.
         In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale\
@@ -109,11 +109,11 @@ _The key elements of the component's public API surface:_
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
     -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
-    -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is WaferMapValidity, and it contains the following boolean properties:
-        -   `invalidDieGridDimensions` : true when only one or two of the `dieGridOriginX`, `dieGridOriginY`, `dieGridRows` or `dieGridCols` is `undefined`.
+    -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is `WaferMapValidity`, and it contains the following boolean properties:
+        -   `invalidGridDimensions` : true when any of the `gridMinX`, `gridMinY`, `gridMaxX` or `gridMaxY` is `undefined`, but false when all of them are `undefined`.
 
-The `originLocation`, `orientation`, `dieGridOriginX`, `dieGridOriginY`, `dieGridRows`, `dieGridCols`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
-The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
+The `originLocation`, `orientation`, `gridMinX`, `gridMinY`, `gridMaxX`, `gridMaxY`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
+The `dies`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 
