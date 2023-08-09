@@ -89,7 +89,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
 
 const numberTextColumnDescription = 'The `nimble-table-column-number-text` column is used to display number fields as text in the `nimble-table`.';
 
-const formatDescription = `Configures the way that the numeric value is formatted to render within the table.
+const formatDescription = `Configures the way that the numeric value is formatted to render within the column.
 
 <details>
     <summary>Format Options</summary>
