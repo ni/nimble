@@ -4,17 +4,24 @@
 export class DefaultFormatter {
     private static readonly significantDigits = 6;
     private static readonly exponentialLowerBound = 10 ** -DefaultFormatter.significantDigits;
+
     private static readonly exponentialUpperBound = 10 ** DefaultFormatter.significantDigits;
 
-    private static readonly defaultFormatter = new Intl.NumberFormat(undefined, {
-        maximumSignificantDigits: DefaultFormatter.significantDigits,
-        useGrouping: true
-    });
+    private static readonly defaultFormatter = new Intl.NumberFormat(
+        undefined,
+        {
+            maximumSignificantDigits: DefaultFormatter.significantDigits,
+            useGrouping: true
+        }
+    );
 
-    private static readonly exponentialFormatter = new Intl.NumberFormat(undefined, {
-        maximumSignificantDigits: DefaultFormatter.significantDigits,
-        notation: 'scientific'
-    });
+    private static readonly exponentialFormatter = new Intl.NumberFormat(
+        undefined,
+        {
+            maximumSignificantDigits: DefaultFormatter.significantDigits,
+            notation: 'scientific'
+        }
+    );
 
     public format(number: number): string {
         return this.shouldUseExponentialFormatter(number)
@@ -24,6 +31,10 @@ export class DefaultFormatter {
 
     private shouldUseExponentialFormatter(number: number): boolean {
         const absoluteValue = Math.abs(number);
-        return absoluteValue > 0 && (absoluteValue < DefaultFormatter.exponentialLowerBound || absoluteValue >= DefaultFormatter.exponentialUpperBound);
+        return (
+            absoluteValue > 0
+            && (absoluteValue < DefaultFormatter.exponentialLowerBound
+                || absoluteValue >= DefaultFormatter.exponentialUpperBound)
+        );
     }
 }
