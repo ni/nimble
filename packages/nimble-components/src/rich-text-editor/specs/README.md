@@ -242,11 +242,26 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
--   `open-link-in-new-tab` - is a boolean attribute determining whether all absolute links within the viewer component should open in a new tab. By default, all the links will open in the same tab
-    as per the accessibility guidelines on WCAG (linked below). If opening in a new window/tab, `nimble-icon-up-right-from-square` will be placed right next to all the links
+-   `external-link` - is a boolean attribute determining whether all absolute links within the viewer component should open in a new tab. By default, all the links will open in the same tab
+    as per the accessibility guidelines on WCAG (links are below). If opening in a new window/tab, `nimble-icon-up-right-from-square` will be placed right next to all the links
     in the viewer instance to indicate the link will be opened in a new tab.
     -   Accessibility guidelines to open link only in new window when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
     -   Accessibility guidelines on opening a link in a new window: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
+
+_Alternative implementations:_
+
+For comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an enhancement where links will open in a new tab only if
+they are external (i.e., not from the same domain/origin); for internal links, they will open in the same tab. Here, we will show the same warning mentioned above for the external
+links. Below is the design we could come up with,
+
+We will introduce an attribute named `link-configuration` that can accept the following values:
+1.  `open-in-same-tab` - This value is the default setting. If chosen, all links within the component will open in the same tab.
+2.  `open-in-new-tab` - When selected, all links in the component will open in new tab. A warning icon will be placed next to each link, conveying the user that
+    clicking the link will result in a new tab opening.
+3.  `external-link-based-on-origin` - With this setting, links will be validated based on their origins. If a link's origin differs from the current origin, it is categorized as
+    external link and will open in a new tab. Conversely, links originating from the same domain will be treated as internal link and open in the same tab.
+
+If this appears to be a more favorable approach, we should consider implementing it instead of the previously mentioned `external-link` attribute approach.
 
 _Methods_
 
@@ -338,27 +353,29 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, refer [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
 
-_Configurations on Tiptap to support only absolute URL links_:
+_Configurations on Tiptap to support only absolute links_:
 
 By installing the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
 1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to allow `HTTP` and `HTTPS` URL to support only absolute URL links in the editor.
-2.  By default, the `<a>` tag in Tiptap editor will have `target='_blank'` and `rel='noopener noreferrer nofollow'` attributes.
-3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true` to add the valid link automatically when typing.
-4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will replace the current selection in the editor with the URL. If it is `true`, adding a link to the selection will add the link behind the word.
+2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false`, to restrict the user opening a link in the editor on click. User can open the link only by
+    `Right-click >> Open link in new tab`.
+3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
+4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will replace the current selection in the editor with the URL. If it is `true`,
+    adding a link to the selection will add the link behind the word.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
 
-_Implementation details for supporting absolute link_
+_Implementation details for supporting absolute link:_
 
-For the `nimble-rich-text-viewer` component, we will set up the link mark in the Prosemirror schema as shown below, allowing links in the component to open either in a new tab or in the same tab.
+For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as shown below, allowing links in the component to open either in a new tab or in the same tab.
 
 ```js
 link: {
     attrs: {
         href: {},
-        target: { default: this.openLinkInNewTab ? '_blank' : null },
+        target: { default: this.externalLink ? '_blank' : null },
         rel: { default: 'noopener noreferrer nofollow' }
     },
     inclusive: false,
@@ -379,11 +396,20 @@ link: {
 }
 ```
 
-1.  As in the above schema, we will modify the `target` value according to the boolean attribute `openLinkInNewTab` that is configured by the client component.
+1.  As in the above schema, we will modify the `target` value according to the boolean attribute `externalLink` that is configured by the client component.
 2.  We also set the `rel` attribute value to `noopener noreferrer nofollow` to enhance security and ensure responsible linking practices.
 3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
 4.  Additionally, we have included the child node `iconUpRightFromSquareTag` to render the `nimble-icon-up-right-from-square` icon and configuring the slot attribute value as `end`.
     With appropriate styling, we can effectively display the icon next to the link.
+
+_Future Enhancements:_
+
+We have observed that issues such as [#1412](https://github.com/ni/nimble/issues/1412) and [#1331](https://github.com/ni/nimble/issues/1331) were created for the guidelines on
+opening anchor elements in a new tab. Once the visual design is finalized and integrated the implemented into the `nimble-anchor`, we will update the above `link` mark schema.
+It will involve removing the child node for the icon and instead adding the `external` attribute (assuming it will be implemented in `nimble-anchor`). This attribute could
+potentially add the icon or display any relevant warnings as per the design and implementation within the `nimble-anchor`. If assigning the `external` attribute also results in the
+automatic configuration of the `target` value as `_blank`, we will subsequently omit the `target` attribute from the schema
+mentioned above.
 
 ### Prototype
 
