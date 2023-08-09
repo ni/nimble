@@ -13,10 +13,10 @@ export interface ButtonProperties {
  * Base class for handling editor button events.
  */
 export abstract class EditorButton {
-    public class: string;
-    public iconLabel: string;
-    public tiptapNodeOrMarkName: string;
-    public iconTemplate: ViewTemplate;
+    public readonly class: string;
+    public readonly iconLabel: string;
+    public readonly tiptapNodeOrMarkName: string;
+    public readonly iconTemplate: ViewTemplate;
 
     public constructor(protected tiptapEditor: Editor) {
         const buttonProperties = this.getProperties();
