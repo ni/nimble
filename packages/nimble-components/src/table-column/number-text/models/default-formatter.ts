@@ -3,6 +3,7 @@
  */
 export class DefaultFormatter {
     private static readonly significantDigits = 6;
+
     private static readonly exponentialLowerBound = 10 ** -DefaultFormatter.significantDigits;
 
     private static readonly exponentialUpperBound = 10 ** DefaultFormatter.significantDigits;
