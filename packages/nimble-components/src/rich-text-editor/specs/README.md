@@ -250,15 +250,16 @@ _Props/Attrs_
 
 _Alternative implementations:_
 
-For comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an enhancement where links will open in a new tab only if
+For comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab only if
 they are external (i.e., not from the same domain/origin); for internal links, they will open in the same tab. Here, we will show the same warning mentioned above for the external
-links. Below is the design we could come up with,
+links. Below is proposed high level design for the same,
 
-We will introduce an attribute named `link-configuration` that can accept the following values:
-1.  `open-in-same-tab` - This value is the default setting. If chosen, all links within the component will open in the same tab.
-2.  `open-in-new-tab` - When selected, all links in the component will open in new tab. A warning icon will be placed next to each link, conveying the user that
+We will introduce an attribute named `link-configuration` that can accept the following enum values:
+
+1.  `openInSameTab` - This value is the default setting. If chosen, all links within the component will open in the same tab.
+2.  `openInNewTab` - When selected, all links in the component will open in new tab. A warning icon will be placed next to each link, conveying the user that
     clicking the link will result in a new tab opening.
-3.  `external-link-based-on-origin` - With this setting, links will be validated based on their origins. If a link's origin differs from the current origin, it is categorized as
+3.  `externalLinkBasedOnOrigin` - With this setting, links will be validated based on their origins. If a link's origin differs from the current origin, it is categorized as
     external link and will open in a new tab. Conversely, links originating from the same domain will be treated as internal link and open in the same tab.
 
 If this appears to be a more favorable approach, we will implement it instead of the previously mentioned `external-link` attribute approach.
@@ -305,8 +306,8 @@ association, so a `ControlValueAccessor` will not be created.
 
 _Future enhancements:_
 
-An Angular router integration will be implemented for the `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
-Instead of a full page reload, the Angular router will handle the navigation, making the user experience smoother and more seamless.
+An Angular router integration will be implemented for the same domain internal `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
+Instead of a full page reload, the Angular router integration is expected to enable rendering of components only on the activated route relative to existing route, making the user experience smoother while keeping the background work on lower side.
 
 ### Blazor integration
 
@@ -355,10 +356,10 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 
 _Configurations on Tiptap to support only absolute links_:
 
-By installing the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
+Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
 1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to support only `HTTP` and `HTTPS` absolute links in the editor.
-2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false`, to restrict the user opening a link from the editor by clicking. User can open the link only by
+2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for editor, to restrict the user opening a link from the editor by clicking. User can open the link only by
     `Right-click >> Open link in new tab` from the editor.
 3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
 4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will replace the current selection in the editor with the URL. If it is `true`,
@@ -378,20 +379,20 @@ link: {
     attrs: {
         href: {},
         target: { default: this.externalLink ? '_blank' : null },
-        rel: { default: 'noopener noreferrer nofollow' }
+        rel: { default: 'noopener noreferrer' }
     },
     inclusive: false,
     parseDOM: [{ tag: 'a[href]' }],
     toDOM(node) {
         return [
-            anchorTag,
+            anchorTag, // nimble-anchor here
             {
                 href: node.attrs.href as Attr,
                 target: node.attrs.target as Attr,
                 rel: node.attrs.rel as Attr
             },
             [
-                iconUpRightFromSquareTag, { slot: 'end' }
+                iconUpRightFromSquareTag, { slot: 'end' } // nimble-icon-up-right-from-square here in the slot "end" of nimble-anchor element 
             ]
         ];
     }
