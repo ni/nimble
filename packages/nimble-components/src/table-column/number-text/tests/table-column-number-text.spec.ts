@@ -178,7 +178,9 @@ describe('TableColumnNumberText', () => {
 
             pageObject.dispatchEventToCell(0, 0, new MouseEvent('mouseover'));
             await waitForUpdatesAsync();
-            expect(pageObject.getCellTitle(0, 0)).toBe(largeNumberAsIntegerString);
+            expect(pageObject.getCellTitle(0, 0)).toBe(
+                largeNumberAsIntegerString
+            );
         });
 
         it('does not set title when cell text is fully visible', async () => {
