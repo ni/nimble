@@ -56,6 +56,7 @@ information about common column configuration.`;
 const metadata: Meta<SharedTableArgs> = {
     title: 'Incubating/Table Column - Number Text',
     decorators: [withActions],
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
