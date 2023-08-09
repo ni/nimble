@@ -31,7 +31,7 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     @observable
-    public editorButtonRefs: ToggleButton[] = [];
+    public toggleButtons: ToggleButton[] = [];
 
     /**
      * @internal
@@ -111,10 +111,10 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private updateEditorButtonsState(): void {
-        if (this.editorButtonRefs.length > 0) {
+        if (this.toggleButtons.length > 0) {
             this.editorButtons.forEach(button => {
-                const buttonToUpdate = this.editorButtonRefs.find(
-                    editorButtonRef => editorButtonRef.classList.contains(button.class)
+                const buttonToUpdate = this.toggleButtons.find(
+                    toggleButton => toggleButton.classList.contains(button.class)
                 );
                 this.updateButtonCheckedState(
                     buttonToUpdate,

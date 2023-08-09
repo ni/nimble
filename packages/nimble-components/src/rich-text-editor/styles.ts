@@ -22,6 +22,7 @@ export const styles = css`
         flex-direction: column;
         position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
+        --ni-private-footer-section-height: 40px;
         ${
             /**
              * Min inline size to accommodate all the possible buttons in the toolbar and max inline size is referred from the visual design.
@@ -71,7 +72,7 @@ export const styles = css`
     .editor {
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        block-size: calc(100% - 44px);
+        block-size: calc(100% - var(--ni-private-footer-section-height));
         overflow: auto;
     }
 
@@ -135,7 +136,7 @@ export const styles = css`
         justify-content: space-between;
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
-        block-size: 40px;
+        block-size: var(--ni-private-footer-section-height);
         overflow-y: auto;
     }
 

@@ -7,10 +7,10 @@ import type { EditorButton } from './models/editor-button';
 export const template = html<RichTextEditor>`
     <template>
         <div class="container">
-            <section ${ref('editor')} class="editor"></section>
+            <section ${ref('editor')} class="editor" role="textbox" aria-multiline="true"></section>
             <section class="footer-section">
                 <${toolbarTag} ${children({
-    property: 'editorButtonRefs',
+    property: 'toggleButtons',
     filter: elements(toggleButtonTag)
 })}>
                     ${repeat(

@@ -16,8 +16,8 @@ const richTextEditorDescription = 'The rich text editor component allows users t
 const footerActionButtonDescription = `To place content such as a button at the far-right of the footer section, set \`slot="footer-actions"\`.
 
 Note: The content in the \`footer-actions\` slot will not adjust based on the state of the rich-text-editor (e.g. disabled). It is the responsibility of the
-consuming application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
-consuming application must implement that functionality.
+client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
+client application must implement that functionality.
 `;
 
 const metadata: Meta<RichTextEditorArgs> = {
@@ -39,7 +39,7 @@ const metadata: Meta<RichTextEditorArgs> = {
     <${richTextEditorTag}>
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
-            <${buttonTag} slot="footer-actions">Ok</${buttonTag}>`)}
+            <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
     </${richTextEditorTag}>
     `),
     argTypes: {

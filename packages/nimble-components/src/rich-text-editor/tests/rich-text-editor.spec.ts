@@ -9,10 +9,9 @@ import { wackyStrings } from '../../utilities/tests/wacky-strings';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
+        // prettier-ignore
         html`<nimble-rich-text-editor>
-            <nimble-button slot="footer-actions" id="cancel"
-                >Cancel</nimble-button
-            >
+            <nimble-button slot="footer-actions" id="cancel">Cancel</nimble-button>
             <nimble-button slot="footer-actions" id="ok">OK</nimble-button>
         </nimble-rich-text-editor>`
     );

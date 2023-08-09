@@ -2,7 +2,7 @@ import type { RichTextEditor } from '..';
 import type { ToggleButton } from '../../toggle-button';
 
 /**
- * Page object for the `nimble-rich-text-viewer` component.
+ * Page object for the `nimble-rich-text-editor` component.
  */
 export class RichTextEditorPageObject {
     public constructor(
