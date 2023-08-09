@@ -8,12 +8,14 @@ import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import { NumberTextFormat, defaultNumberOfDigits } from './types';
+import { NumberTextFormat } from './types';
+import type { NumberFormatter } from './models/number-formatter';
+import { IntegerFormatter } from './models/integer-formatter';
+import { DefaultFormatter } from './models/default-formatter';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
-    formatter: Intl.NumberFormat;
-    exponentialFormatter?: Intl.NumberFormat;
+    formatter: NumberFormatter;
 }
 
 declare global {
@@ -49,32 +51,19 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        this.columnInternals.columnConfig = this.createFormatterConfig();
+        const columnConfig: TableColumnNumberTextColumnConfig = {
+            formatter: this.createFormatter()
+        };
+        this.columnInternals.columnConfig = columnConfig;
     }
 
-    private createFormatterConfig(): TableColumnNumberTextColumnConfig {
-        let exponentialFormatter: Intl.NumberFormat | undefined;
-        let options: Intl.NumberFormatOptions;
+    private createFormatter(): NumberFormatter {
         switch (this.format) {
             case NumberTextFormat.integer:
-                options = { maximumFractionDigits: 0, useGrouping: true };
-                break;
+                return new IntegerFormatter();
             default:
-                options = {
-                    maximumSignificantDigits: defaultNumberOfDigits,
-                    useGrouping: true
-                };
-                exponentialFormatter = new Intl.NumberFormat(undefined, {
-                    maximumSignificantDigits: defaultNumberOfDigits,
-                    notation: 'scientific'
-                });
-                break;
+                return new DefaultFormatter();
         }
-        const formatter = new Intl.NumberFormat(undefined, options);
-        return {
-            formatter,
-            exponentialFormatter
-        };
     }
 }
 

@@ -335,12 +335,12 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '1.23457E-7'
             },
             {
-                name: 'MAX_SAFE_INTEGER + 9999 renders as expected',
+                name: 'MAX_SAFE_INTEGER + 9999 renders as an exponential with most significant digits of MAX_SAFE_INTEGER',
                 value: Number.MAX_SAFE_INTEGER + 9999,
                 expectedRenderedString: '9.0072E15'
             },
             {
-                name: 'MIN_SAFE_INTEGER - 9999 renders as expected',
+                name: 'MIN_SAFE_INTEGER - 9999 renders as an exponential with most significant digits of MIN_SAFE_INTEGER',
                 value: Number.MIN_SAFE_INTEGER - 9999,
                 expectedRenderedString: '-9.0072E15'
             }
@@ -438,14 +438,24 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '-123,456,789'
             },
             {
-                name: 'MAX_SAFE_INTEGER + 9999 renders as expected',
-                value: Number.MAX_SAFE_INTEGER + 9999,
-                expectedRenderedString: '9,007,199,254,750,990'
+                name: 'MAX_SAFE_INTEGER + 1 renders as the exact value',
+                value: Number.MAX_SAFE_INTEGER + 1,
+                expectedRenderedString: '9,007,199,254,740,992'
             },
             {
-                name: 'MIN_SAFE_INTEGER - 9999 renders as expected',
-                value: Number.MIN_SAFE_INTEGER - 9999,
-                expectedRenderedString: '-9,007,199,254,750,990'
+                name: 'MAX_SAFE_INTEGER + 1.5  renders with rounding precision errors',
+                value: Number.MAX_SAFE_INTEGER + 1.5,
+                expectedRenderedString: '9,007,199,254,740,992'
+            },
+            {
+                name: 'MIN_SAFE_INTEGER - 1 renders as the exact value',
+                value: Number.MIN_SAFE_INTEGER - 1,
+                expectedRenderedString: '-9,007,199,254,740,992'
+            },
+            {
+                name: 'MIN_SAFE_INTEGER - 1.5  renders with rounding precision errors',
+                value: Number.MIN_SAFE_INTEGER - 1.5,
+                expectedRenderedString: '-9,007,199,254,740,992'
             }
         ] as const;
 

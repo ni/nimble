@@ -4,7 +4,6 @@ import { TableColumnTextGroupHeaderViewBase } from '../../text-base/group-header
 import { template } from '../../text-base/group-header-view/template';
 import { styles } from '../../text-base/group-header-view/styles';
 import type { TableColumnNumberTextColumnConfig } from '..';
-import { formatNumber } from '../models/format-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -27,10 +26,11 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.columnConfig) {
-            this.text = formatNumber(this.groupHeaderValue, this.columnConfig);
-        } else {
+        const value = this.groupHeaderValue;
+        if (!this.columnConfig || typeof value !== 'number') {
             this.text = '';
+        } else {
+            this.text = this.columnConfig.formatter.format(value);
         }
     }
 }

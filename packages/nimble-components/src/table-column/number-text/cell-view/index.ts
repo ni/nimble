@@ -6,7 +6,6 @@ import type {
 } from '..';
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
-import { formatNumber } from '../models/format-helper';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -30,10 +29,11 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.columnConfig) {
-            this.text = formatNumber(this.cellRecord.value, this.columnConfig);
-        } else {
+        const value = this.cellRecord.value;
+        if (!this.columnConfig || typeof value !== 'number') {
             this.text = '';
+        } else {
+            this.text = this.columnConfig.formatter.format(value);
         }
     }
 }
