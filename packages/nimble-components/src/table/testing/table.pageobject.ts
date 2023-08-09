@@ -144,6 +144,20 @@ export class TablePageObject<T extends TableRecord> {
         return cellView as TableCellView;
     }
 
+    public getRenderedCellViewById(
+        recordId: string,
+        columnId: string
+    ): TableCellView {
+        const cell = this.getCellById(recordId, columnId);
+        const cellView = cell.shadowRoot!.firstElementChild;
+        if (!(cellView instanceof TableCellView)) {
+            throw new Error(
+                'Cell view not found in cell - ensure cellViewTag is set for column'
+            );
+        }
+        return cellView as TableCellView;
+    }
+
     public getRenderedCellContent(
         rowIndex: number,
         columnIndex: number
@@ -604,6 +618,19 @@ export class TablePageObject<T extends TableRecord> {
         return rows.item(rowIndex);
     }
 
+    private getRowById(recordId: string): TableRow {
+        const row: TableRow | null = this.tableElement.shadowRoot!.querySelector(
+            `nimble-table-row[record-id="${CSS.escape(recordId)}"]`
+        );
+        if (!row) {
+            throw new Error(
+                'Row with given id was not found. It may not be scrolled into view.'
+            );
+        }
+
+        return row;
+    }
+
     private getCell(rowIndex: number, columnIndex: number): TableCell {
         const row = this.getRow(rowIndex);
         const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
@@ -614,6 +641,19 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return cells.item(columnIndex);
+    }
+
+    private getCellById(recordId: string, columnId: string): TableCell {
+        const row = this.getRowById(recordId);
+        const cell: TableCell | null = row.shadowRoot!.querySelector(
+            `nimble-table-cell[column-id="${CSS.escape(columnId)}"]`
+        );
+
+        if (!cell) {
+            throw new Error('Cell with given columnId was not found in row');
+        }
+
+        return cell;
     }
 
     private getCollapseAllButton(): Button | null {

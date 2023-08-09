@@ -40,19 +40,11 @@ const simpleData = [
     }
 ];
 
-const overviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`.
-See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
-information about common column configuration.`;
-
 const metadata: Meta<SharedTableArgs> = {
-    title: 'Incubating/Table Column Types',
+    title: 'Incubating/Table Column - Text',
     decorators: [withActions],
+    tags: ['autodocs'],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: sharedTableActions
         }

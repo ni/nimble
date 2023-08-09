@@ -29,7 +29,7 @@ const commonChromeFlags = [
     '--disable-infobars',
     '--disable-translate',
     '--force-prefers-reduced-motion',
-    '--lang=en'
+    '--lang=en-US'
 ];
 
 // Create a webpack environment plugin to use while running tests so that

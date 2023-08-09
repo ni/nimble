@@ -5,7 +5,7 @@ import { template } from '../base/template';
 import type { TableNumberField } from '../../table/types';
 import { TableColumnTextBase } from '../text-base';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
-import { tableColumnDateTextGroupHeaderTag } from './group-header-view';
+import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import type {
@@ -120,7 +120,7 @@ export class TableColumnDateText extends TableColumnTextBase {
         return {
             cellRecordFieldNames: ['value'],
             cellViewTag: tableColumnDateTextCellViewTag,
-            groupHeaderViewTag: tableColumnDateTextGroupHeaderTag,
+            groupHeaderViewTag: tableColumnDateTextGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.basic
         };
