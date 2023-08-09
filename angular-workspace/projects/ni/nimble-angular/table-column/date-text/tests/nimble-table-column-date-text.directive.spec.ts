@@ -12,7 +12,6 @@ import {
     EraFormat,
     FormatMatcherAlgorithm,
     HourCycleFormat,
-    Hour12Format,
     HourFormat,
     LocaleMatcherAlgorithm,
     MinuteFormat,
@@ -256,8 +255,8 @@ describe('NimbleTableColumnDateText', () => {
         });
 
         it('will use template string values for customHour12', () => {
-            expect(directive.customHour12).toBe('24hour');
-            expect(nativeElement.customHour12).toBe('24hour');
+            expect(directive.customHour12).toBeFalse();
+            expect(nativeElement.customHour12).toBeFalse();
         });
 
         it('will use template string values for customTimeZone', () => {
@@ -363,7 +362,7 @@ describe('NimbleTableColumnDateText', () => {
             public customSecond: SecondFormat = 'numeric';
             public customTimeZoneName: TimeZoneNameFormat = 'shortOffset';
             public customFormatMatcher: FormatMatcherAlgorithm = 'basic';
-            public customHour12: Hour12Format = '24hour';
+            public customHour12?: boolean = false;
             public customTimeZone?: string = 'America/Chicago';
             public customCalendar?: string = 'hebrew';
             public customDayPeriod: DayPeriodFormat = 'long';
@@ -807,19 +806,19 @@ describe('NimbleTableColumnDateText', () => {
         });
 
         it('can be configured with property binding for customHour12', () => {
-            expect(directive.customHour12).toBe('24hour');
-            expect(nativeElement.customHour12).toBe('24hour');
+            expect(directive.customHour12).toBeFalse();
+            expect(nativeElement.customHour12).toBeFalse();
 
-            fixture.componentInstance.customHour12 = '12hour';
+            fixture.componentInstance.customHour12 = true;
             fixture.detectChanges();
 
-            expect(directive.customHour12).toBe('12hour');
-            expect(nativeElement.customHour12).toBe('12hour');
+            expect(directive.customHour12).toBeTrue();
+            expect(nativeElement.customHour12).toBeTrue();
         });
 
         it('can be configured with property binding for customHour12 updated to undefined', () => {
-            expect(directive.customHour12).toBe('24hour');
-            expect(nativeElement.customHour12).toBe('24hour');
+            expect(directive.customHour12).toBeFalse();
+            expect(nativeElement.customHour12).toBeFalse();
 
             fixture.componentInstance.customHour12 = undefined;
             fixture.detectChanges();
@@ -1050,7 +1049,7 @@ describe('NimbleTableColumnDateText', () => {
             public customSecond: SecondFormat = 'numeric';
             public customTimeZoneName: TimeZoneNameFormat = 'shortOffset';
             public customFormatMatcher: FormatMatcherAlgorithm = 'basic';
-            public customHour12: Hour12Format = '24hour';
+            public customHour12?: boolean = false;
             public customTimeZone?: string = 'America/Chicago';
             public customCalendar?: string = 'hebrew';
             public customDayPeriod: DayPeriodFormat = 'long';
@@ -1494,19 +1493,19 @@ describe('NimbleTableColumnDateText', () => {
         });
 
         it('can be configured with attribute binding for customHour12', () => {
-            expect(directive.customHour12).toBe('24hour');
-            expect(nativeElement.customHour12).toBe('24hour');
+            expect(directive.customHour12).toBeFalse();
+            expect(nativeElement.customHour12).toBeFalse();
 
-            fixture.componentInstance.customHour12 = '12hour';
+            fixture.componentInstance.customHour12 = true;
             fixture.detectChanges();
 
-            expect(directive.customHour12).toBe('12hour');
-            expect(nativeElement.customHour12).toBe('12hour');
+            expect(directive.customHour12).toBeTrue();
+            expect(nativeElement.customHour12).toBeTrue();
         });
 
         it('can be configured with attribute binding for customHour12 updated to undefined', () => {
-            expect(directive.customHour12).toBe('24hour');
-            expect(nativeElement.customHour12).toBe('24hour');
+            expect(directive.customHour12).toBeFalse();
+            expect(nativeElement.customHour12).toBeFalse();
 
             fixture.componentInstance.customHour12 = undefined;
             fixture.detectChanges();

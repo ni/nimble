@@ -39,7 +39,7 @@ TableColumnDateTextColumnConfig
 }
 
 const tableColumnDateTextGroupHeaderView = TableColumnDateTextGroupHeaderView.compose({
-    baseName: 'table-column-date-text-group-header',
+    baseName: 'table-column-date-text-group-header-view',
     template,
     styles
 });

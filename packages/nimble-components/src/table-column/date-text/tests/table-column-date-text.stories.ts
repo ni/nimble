@@ -30,8 +30,7 @@ import {
     SecondFormat,
     TimeStyle,
     TimeZoneNameFormat,
-    WeekdayFormat,
-    Hour12Format
+    WeekdayFormat
 } from '../types';
 
 const simpleData = [
@@ -103,7 +102,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
     customHour: HourFormat;
     customMinute: MinuteFormat;
     customSecond: SecondFormat;
-    customHour12: Hour12Format;
+    customHour12?: boolean;
     customHourCycle: HourCycleFormat;
     customTimeZoneName: TimeZoneNameFormat;
     customTimeZone?: string;
@@ -266,8 +265,8 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
         customHour12: {
             name: 'custom-hour12',
             description:
-                'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat). Note that in this API, the value `12Hour` corresponds to a value of `true` and `24Hour` corresponds to `false` in the `Intl.DateTimeFormat` API.',
-            options: [undefined, '12hour', '24hour'],
+                'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
+            options: [undefined, true, false],
             control: { type: 'radio' }
         },
         customHourCycle: {

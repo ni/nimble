@@ -356,7 +356,7 @@ describe('TableColumnDateText', () => {
             column.format = 'custom';
             column.customHour = 'numeric'; // must specify hour
             column.customHourCycle = 'h24'; // must force 24hr clock to override with hour12
-            column.customHour12 = '12hour';
+            column.customHour12 = true;
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
         });
@@ -368,10 +368,11 @@ describe('TableColumnDateText', () => {
             await waitForUpdatesAsync();
             column.format = 'custom';
             column.customHour = 'numeric'; // must specify hour
+            column.customHourCycle = 'h24'; // must force 24hr clock to ensure not overridden by hour12
             column.customHour12 = undefined;
             expect(column.customHour12).toBeUndefined();
             await waitForUpdatesAsync();
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('10 PM');
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('22');
         });
 
         it('honors customHourCycle property', async () => {
@@ -493,7 +494,7 @@ describe('TableColumnDateText', () => {
                             custom-second="2-digit"
                             custom-time-zone-name="longOffset"
                             custom-format-matcher="basic"
-                            custom-hour12="24hour"
+                            custom-hour12="false"
                             custom-time-zone="America/Chicago"
                             custom-calendar="hebrew"
                             custom-day-period="short"
@@ -566,7 +567,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors custom-hour12 attribute', () => {
-            expect(column.customHour12).toBe('24hour');
+            expect(column.customHour12).toBeFalse();
         });
 
         it('honors custom-hour-cycle attribute', () => {

@@ -8,7 +8,7 @@ import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnDateTextGroupHeaderTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import {
+import type {
     DateTextFormat,
     LocaleMatcherAlgorithm,
     EraFormat,
@@ -19,7 +19,6 @@ import {
     SecondFormat,
     TimeZoneNameFormat,
     FormatMatcherAlgorithm,
-    Hour12Format,
     DayPeriodFormat,
     DateStyle,
     TimeStyle,
@@ -28,6 +27,7 @@ import {
     WeekdayFormat
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
+import { optionalBooleanConverter } from '../../utilities/models/converter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
@@ -83,8 +83,8 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-format-matcher' })
     public customFormatMatcher: FormatMatcherAlgorithm;
 
-    @attr({ attribute: 'custom-hour12' })
-    public customHour12: Hour12Format;
+    @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
+    public customHour12?: boolean;
 
     @attr({ attribute: 'custom-time-zone' })
     public customTimeZone?: string;
@@ -249,10 +249,7 @@ export class TableColumnDateText extends TableColumnTextBase {
             second: this.customSecond ?? undefined,
             timeZoneName: this.customTimeZoneName ?? undefined,
             formatMatcher: this.customFormatMatcher ?? undefined,
-            hour12:
-                this.customHour12 === undefined
-                    ? undefined
-                    : this.customHour12 === Hour12Format.twelveHour,
+            hour12: this.customHour12 ?? undefined,
             timeZone: this.customTimeZone ?? undefined,
             calendar: this.customCalendar ?? undefined,
             dayPeriod: this.customDayPeriod ?? undefined,

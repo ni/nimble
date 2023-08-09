@@ -9,7 +9,6 @@ import type {
     DayPeriodFormat,
     EraFormat,
     FormatMatcherAlgorithm,
-    Hour12Format,
     HourCycleFormat,
     HourFormat,
     LocaleMatcherAlgorithm,
@@ -30,7 +29,6 @@ export type { DayPeriodFormat };
 export type { EraFormat };
 export type { FormatMatcherAlgorithm };
 export type { HourCycleFormat };
-export type { Hour12Format };
 export type { HourFormat };
 export type { LocaleMatcherAlgorithm };
 export type { MinuteFormat };
@@ -177,14 +175,22 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
         this.renderer.setProperty(this.elementRef.nativeElement, 'customFormatMatcher', value);
     }
 
-    public get customHour12(): Hour12Format {
+    public get customHour12(): boolean | undefined {
         return this.elementRef.nativeElement.customHour12;
     }
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('custom-hour12') public set customHour12(value: Hour12Format) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'customHour12', value);
+    @Input('custom-hour12') public set customHour12(value: boolean | string | undefined) {
+        let convertedValue;
+        if (typeof value === 'boolean') {
+            convertedValue = value;
+        } else if (value === undefined) {
+            convertedValue = undefined;
+        } else {
+            convertedValue = value === 'true';
+        }
+        this.renderer.setProperty(this.elementRef.nativeElement, 'customHour12', convertedValue);
     }
 
     public get customTimeZone(): string | undefined {
