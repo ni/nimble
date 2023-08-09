@@ -17,7 +17,7 @@ async function setup(): Promise<Fixture<RichTextEditor>> {
     );
 }
 
-describe('RichTextEditor', () => {
+fdescribe('RichTextEditor', () => {
     let element: RichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
@@ -46,8 +46,20 @@ describe('RichTextEditor', () => {
     it('should initialize Tiptap editor', () => {
         const editor = pageObject.getEditorSection();
 
-        expect(editor!.hasChildNodes()).toBe(true);
+        expect(editor!.hasChildNodes()).toBeTrue();
         expect(editor?.firstElementChild!.className).toBe('ProseMirror');
+    });
+
+    it('should set aria role as "textbox"', () => {
+        const editor = pageObject.getEditorSection();
+
+        expect(editor!.getAttribute('role')).toBe('textbox');
+    });
+
+    it('should set aria-multiline textbox to true', () => {
+        const editor = pageObject.getEditorSection();
+
+        expect(editor!.getAttribute('aria-multiline')).toBe('true');
     });
 
     it('should have a slot and part named "footer-actions"', () => {
