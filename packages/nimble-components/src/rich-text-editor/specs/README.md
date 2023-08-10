@@ -35,7 +35,7 @@ Both components provide support for the following basic text formatting options:
 3. Numbered List
 4. Bulleted List
 5. Absolute URL links - Supports only [absolute URI](https://spec.commonmark.org/0.30/#absolute-uri) with a valid [scheme](https://spec.commonmark.org/0.30/#scheme).
-   In the initial release, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
+   In the initial release for the editor, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
    [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
    [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
    [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
@@ -271,7 +271,7 @@ We will introduce an attribute named `link-configuration` that can accept the fo
 3.  `externalLinkBasedOnOrigin` - With this setting, links will be validated based on their origins. If a link's origin differs from the current origin, it is categorized as
     external link and will open in a new tab. Conversely, links originating from the same domain will be treated as internal link and open in the same tab.
 
-If this appears to be a more favorable approach, we will implement it instead of the previously mentioned `external-link` attribute approach.
+If this appears to be a more favorable approach, we will proceed with its implementation rather than the previously discussed design.
 
 _Methods_
 
@@ -387,11 +387,10 @@ from the `prosemirror-markdown` package for the comparison with the newly update
 link: {
     attrs: {
         href: {},
-        target: { default: this.externalLink ? '_blank' : null },
+        target: { default: this.linkTarget },
         rel: { default: 'noopener noreferrer' }
     },
     inclusive: false,
-    parseDOM: [{ tag: 'a[href]' }],
     toDOM(node) {
         return [
             anchorTag, // nimble-anchor here
@@ -408,7 +407,7 @@ link: {
 }
 ```
 
-1.  As in the above schema, we will modify the `target` value according to the boolean attribute `externalLink` that is configured by the client component.
+1.  As in the above schema, we will modify the `target` value according to the attribute `linkTarget` that is configured by the client component. The default value of the `linkTarget` is same as the `anchor` element, that is `_self`.
 2.  We also set the `rel` attribute value to `noopener noreferrer` to enhance security and ensure responsible linking practices.
 3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
 4.  Additionally, we have included the child node `iconUpRightFromSquareTag` to render the `nimble-icon-up-right-from-square` icon and configuring the slot attribute value as `end` to display it in the end.
@@ -417,10 +416,9 @@ link: {
 _Future Enhancements:_
 
 We have observed that issues such as [#1412](https://github.com/ni/nimble/issues/1412) and [#1331](https://github.com/ni/nimble/issues/1331) were created for the guidelines on
-opening anchor elements in a new tab. Once the visual design is finalized and integrated the implemention into the `nimble-anchor`, we will update the above `link` mark schema.
-It will involve removing the child node for the icon and instead adding the `external` attribute (assuming it will be implemented in `nimble-anchor`). This attribute could
-potentially add the icon or display any relevant warnings as per the design and implementation within the `nimble-anchor`. If assigning the `external` attribute also results in the
-automatic configuration of the `target` value as `_blank`, we will subsequently omit the `target` attribute from the schema mentioned above.
+opening anchor elements in a new tab. Once the visual design is finalized and integrated the implementation into the `nimble-anchor`, we will update the above `link` mark schema.
+It will involve removing the child node for the icon from the Prosemirror schema and instead adding the necessary attribute for the `nimble-anchor`. This attribute could
+potentially add the icon or display any relevant warnings as per the design when the link is opening in a new tab.
 
 ### Prototype
 
