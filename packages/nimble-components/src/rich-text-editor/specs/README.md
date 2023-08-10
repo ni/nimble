@@ -399,7 +399,7 @@ link: {
                 rel: node.attrs.rel as Attr
             },
             [
-                iconUpRightFromSquareTag, { slot: 'end' } // nimble-icon-up-right-from-square here in the slot "end" of nimble-anchor element 
+                iconUpRightFromSquareTag, { slot: 'end' } // nimble-icon-up-right-from-square here in the slot "end" of nimble-anchor element
             ]
         ];
     }
