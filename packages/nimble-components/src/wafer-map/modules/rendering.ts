@@ -10,13 +10,28 @@ export class RenderingModule {
 
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public drawWafer(): void {
+    public updateSortedDies(): void {
+        this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
+            if (a.fillStyle > b.fillStyle) {
+                return 1;
+            }
+            if (b.fillStyle > a.fillStyle) {
+                return -1;
+            }
+
+            return 0;
+        });
+        this.updateDrawnWafer();
+    }
+
+    public updateDrawnWafer(): void {
         this.wafermap.canvasContext.save();
         this.clearCanvas();
         this.scaleCanvas();
-        this.sortDies();
         this.renderDies();
-        this.renderText();
+        if (!this.wafermap.dieLabelsHidden) {
+            this.renderText();
+        }
         this.wafermap.canvasContext.restore();
         this.renderHover();
     }
@@ -49,61 +64,72 @@ export class RenderingModule {
         return '';
     }
 
-    private sortDies(): void {
-        this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
-            if (a.fillStyle > b.fillStyle) {
-                return 1;
-            }
-            if (b.fillStyle > a.fillStyle) {
-                return -1;
-            }
-
-            return 0;
-        });
-    }
-
     private renderDies(): void {
-        let prev: DieRenderInfo | undefined;
+        let fillStyle = '';
+        const context = this.wafermap.canvasContext;
+        const transformMatrix = context.getTransform().invertSelf();
+        let { x: trCanvasMinPointX, y: trCanvasMinPointY } = transformMatrix.transformPoint({ x: 0, y: 0 });
+        const { x: trCanvasMaxPointX, y: trCanvasMaxPointY } = transformMatrix.transformPoint({
+            x: this.wafermap.canvas.width,
+            y: this.wafermap.canvas.height
+        });
+        const dieWidth = this.wafermap.dataManager.dieDimensions.width;
+        const dieHeight = this.wafermap.dataManager.dieDimensions.height;
+        trCanvasMinPointX -= dieWidth;
+        trCanvasMinPointY -= dieHeight;
 
         for (const die of this.dies) {
-            if (!prev) {
-                this.wafermap.canvasContext.fillStyle = die.fillStyle;
+            if (
+                die.x >= trCanvasMinPointX && die.x < trCanvasMaxPointX
+                && die.y >= trCanvasMinPointY && die.y < trCanvasMaxPointY
+            ) {
+                if (fillStyle !== die.fillStyle) {
+                    context.fillStyle = die.fillStyle;
+                    fillStyle = die.fillStyle;
+                }
+                context.fillRect(die.x, die.y, dieWidth, dieHeight);
             }
-            if (prev && die.fillStyle !== prev.fillStyle && die.fillStyle) {
-                this.wafermap.canvasContext.fillStyle = die.fillStyle;
-            }
-            this.wafermap.canvasContext.fillRect(
-                die.x,
-                die.y,
-                this.wafermap.dataManager.dieDimensions.width,
-                this.wafermap.dataManager.dieDimensions.height
-            );
-            prev = die;
         }
     }
 
     private renderText(): void {
-        const dieSize = this.wafermap.dataManager.dieDimensions.width
-            * this.wafermap.dataManager.dieDimensions.height
+        const dieWidth = this.wafermap.dataManager.dieDimensions.width;
+        const dieHeight = this.wafermap.dataManager.dieDimensions.height;
+        const dieSize = dieWidth
+            * dieHeight
             * (this.wafermap.transform.k || 1);
-        const fontsize = this.wafermap.dataManager.labelsFontSize;
-        this.wafermap.canvasContext.font = `${fontsize.toString()}px sans-serif`;
-        this.wafermap.canvasContext.fillStyle = '#ffffff';
-        this.wafermap.canvasContext.textAlign = 'center';
-        this.wafermap.canvasContext.lineCap = 'butt';
-        const approxTextHeight = this.wafermap.canvasContext.measureText('M');
-
-        const dieDimensions = this.wafermap.dataManager.dieDimensions;
         if (dieSize >= this.minDieDim) {
+            const fontsize = this.wafermap.dataManager.labelsFontSize;
+            const context = this.wafermap.canvasContext;
+            context.font = `${fontsize.toString()}px sans-serif`;
+            context.fillStyle = '#ffffff';
+            context.textAlign = 'center';
+            context.lineCap = 'butt';
+            const approxTextHeight = context.measureText('M');
+
+            const transformMatrix = context.getTransform().invertSelf();
+            let { x: trCanvasMinPointX, y: trCanvasMinPointY } = transformMatrix.transformPoint({ x: 0, y: 0 });
+            const { x: trCanvasMaxPointX, y: trCanvasMaxPointY } = transformMatrix.transformPoint({
+                x: this.wafermap.canvas.width,
+                y: this.wafermap.canvas.height
+            });
+            trCanvasMinPointX -= dieWidth;
+            trCanvasMinPointY -= dieHeight;
+
             for (const die of this.dies) {
-                this.wafermap.canvasContext.fillText(
-                    die.text,
-                    die.x + dieDimensions.width / 2,
-                    die.y
-                        + dieDimensions.height / 2
+                if (
+                    die.x >= trCanvasMinPointX && die.x < trCanvasMaxPointX
+                    && die.y >= trCanvasMinPointY && die.y < trCanvasMaxPointY
+                ) {
+                    context.fillText(
+                        die.text,
+                        die.x + dieWidth / 2,
+                        die.y
+                        + dieHeight / 2
                         + approxTextHeight.width / 2,
-                    dieDimensions.width - (dieDimensions.width / 100) * 20
-                );
+                        dieWidth - (dieWidth / 100) * 20
+                    );
+                }
             }
         }
     }
@@ -112,8 +138,8 @@ export class RenderingModule {
         this.wafermap.canvasContext.clearRect(
             0,
             0,
-            this.wafermap.canvasWidth * this.wafermap.transform.k,
-            this.wafermap.canvasHeight * this.wafermap.transform.k
+            this.wafermap.canvas.width,
+            this.wafermap.canvas.height
         );
     }
 
