@@ -242,9 +242,16 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
--   `external-link` - is a boolean attribute determining whether all absolute links within the viewer component should open in a new tab. By default, all the links will open in the same tab
-    as per the accessibility guidelines on WCAG (links are below). If opening in a new tab, `nimble-icon-up-right-from-square` will be placed right next to all the links
-    in the viewer instance to indicate the link will be opened in a new tab.
+-   `link-target` - is an attribute that accepts valid `target` values for the `anchor` element, applicable to all links within the viewer component.
+    The following values are accepted by this attribute :
+    1.  `_self`: the current browsing context. (Default)
+    2.  `_blank`: usually a new tab, but users can configure browsers to open a new window instead.
+    3.  `_parent`: the parent browsing context of the current one. If no parent, behaves as `_self`.
+    4.  `_top`: the topmost browsing context (the "highest" context that's an ancestor of the current one). If no ancestors, behaves as `_self`.
+Above definitions are from the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#:~:text=separated%20link%20types.-,target,-Where%20to%20display).
+
+By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are below). If opening in a new tab, `nimble-icon-up-right-from-square` will be placed right 
+next to all the links in the viewer instance to indicate the link will be opened in a new tab.
     -   Accessibility guidelines to open link only in new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
     -   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
