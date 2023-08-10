@@ -79,8 +79,10 @@ export class RenderingModule {
 
         for (const die of this.dies) {
             if (
-                die.x >= trCanvasMinPointX && die.x < trCanvasMaxPointX
-                && die.y >= trCanvasMinPointY && die.y < trCanvasMaxPointY
+                die.x >= trCanvasMinPointX
+                && die.x < trCanvasMaxPointX
+                && die.y >= trCanvasMinPointY
+                && die.y < trCanvasMaxPointY
             ) {
                 if (fillStyle !== die.fillStyle) {
                     context.fillStyle = die.fillStyle;
@@ -94,9 +96,7 @@ export class RenderingModule {
     private renderText(): void {
         const dieWidth = this.wafermap.dataManager.dieDimensions.width;
         const dieHeight = this.wafermap.dataManager.dieDimensions.height;
-        const dieSize = dieWidth
-            * dieHeight
-            * (this.wafermap.transform.k || 1);
+        const dieSize = dieWidth * dieHeight * (this.wafermap.transform.k || 1);
         if (dieSize >= this.minDieDim) {
             const fontsize = this.wafermap.dataManager.labelsFontSize;
             const context = this.wafermap.canvasContext;
@@ -116,15 +116,15 @@ export class RenderingModule {
 
             for (const die of this.dies) {
                 if (
-                    die.x >= trCanvasMinPointX && die.x < trCanvasMaxPointX
-                    && die.y >= trCanvasMinPointY && die.y < trCanvasMaxPointY
+                    die.x >= trCanvasMinPointX
+                    && die.x < trCanvasMaxPointX
+                    && die.y >= trCanvasMinPointY
+                    && die.y < trCanvasMaxPointY
                 ) {
                     context.fillText(
                         die.text,
                         die.x + dieWidth / 2,
-                        die.y
-                        + dieHeight / 2
-                        + approxTextHeight.width / 2,
+                        die.y + dieHeight / 2 + approxTextHeight.width / 2,
                         dieWidth - (dieWidth / 100) * 20
                     );
                 }

@@ -184,9 +184,7 @@ export class WaferMap extends FoundationElement {
             ) {
                 this.dataManager.updateDiesRenderInfo();
                 this.renderer.updateSortedDies();
-            } else if (
-                this.waferMapUpdateTracker.requiresDrawnWaferUpdate
-            ) {
+            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
                 this.renderer.updateDrawnWafer();
             }
             this.eventCoordinator.attachEvents();
