@@ -1,6 +1,8 @@
 import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
 import {
     keyArrowDown,
+    keyArrowLeft,
+    keyArrowRight,
     keyArrowUp,
     keyEnd,
     keyHome,
@@ -14,6 +16,15 @@ import type { TableRecord } from '../types';
 import type { Virtualizer } from './virtualizer';
 import type { TableGroupRow } from '../components/group-row';
 import type { TableRow } from '../components/row';
+import type { TableCell } from '../components/cell';
+
+const TableFocusState = {
+    none: 0,
+    tableFocused: 1,
+    rowFocused: 2,
+    cellFocused: 3,
+    cellContentFocused: 4
+};
 
 /**
  * This class manages the keyboard navigation within the table
@@ -22,10 +33,15 @@ import type { TableRow } from '../components/row';
 export class TableNavigationManager<TData extends TableRecord>
 implements Subscriber {
     private _focusedTotalRowIndex?: number;
+    private _focusedColumnIndex?: number;
     private _focusedRow?: TableRow | TableGroupRow;
+    private _focusedCell?: TableCell;
     private readonly virtualizerNotifier: Notifier;
     private readonly tableNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
+    private focusableRowElements: HTMLElement[] = [];
+    private _inNavigationMode = true;
+    private _tableFocusState = TableFocusState.none;
 
     public get focusedRow(): TableRow | TableGroupRow | undefined {
         return this._focusedRow;
@@ -36,7 +52,7 @@ implements Subscriber {
         private readonly virtualizer: Virtualizer<TData>
     ) {
         table.addEventListener('keydown', e => this.onKeyDown(e));
-        table.addEventListener('focusout', () => this.resetState());
+        table.addEventListener('focusout', () => this.resetState);
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
@@ -77,6 +93,33 @@ implements Subscriber {
             case keyTab: {
                 this.resetState(true);
                 break;
+            }
+            case keyArrowRight: {
+                const handled = this.handleNavigationRight();
+                if (handled) {
+                    event.preventDefault();
+                }
+                return !handled;
+            }
+            case keyArrowLeft: {
+                if (!this.focusableRowElements.length) {
+                    return true;
+                }
+
+                if (this._focusedColumnIndex === undefined) {
+                    return true;
+                }
+
+                if (this._focusedColumnIndex === 0) {
+                    this._focusedColumnIndex = undefined;
+                    this.focusVisibleRow();
+                    return true;
+                }
+
+                this._focusedColumnIndex -= 1;
+                this.focusRowElement();
+                event.preventDefault();
+                return false;
             }
             case keyArrowDown: {
                 const newFocusedTotalRowIndex = this._focusedTotalRowIndex === undefined
@@ -151,6 +194,27 @@ implements Subscriber {
         return true;
     };
 
+    private handleNavigationRight(): boolean {
+        if (!this.focusableRowElements.length) {
+            return false;
+        }
+
+        if (this._focusedColumnIndex === undefined) {
+            this._focusedColumnIndex = 0;
+            this.focusRowElement();
+            return true;
+        }
+
+        if (this._focusedColumnIndex !== undefined
+            && this._focusedColumnIndex < this.focusableRowElements.length - 1) {
+            this._focusedColumnIndex += 1;
+            this.focusRowElement();
+            return true;
+        }
+
+        return false;
+    }
+
     private setFocusOnHeader(): void {
         if (this._focusedRow) {
             this._focusedRow.blur();
@@ -181,17 +245,46 @@ implements Subscriber {
 
     private focusVisibleRow(): void {
         if (this._focusedRow) {
-            this._focusedRow.blur();
-            this._focusedRow.tabIndex = -1;
+            this._focusedRow.removeFocus();
         }
         const visibleRowIndex = this.getVisibleRowIndex();
         if (visibleRowIndex < 0) {
             return;
         }
         this._focusedRow = this.table.rowElements[visibleRowIndex]!;
-        this._focusedRow.tabIndex = 0;
-        this._focusedRow.focus({ preventScroll: true });
+        this._focusedRow.setFocus();
         this._focusedRow.addEventListener('focusout', e => this.focusOutHandler(e));
+        this.focusableRowElements = this.getFocusedRowFocusableElements();
+        if (this._focusedColumnIndex && this._focusedColumnIndex < this.focusableRowElements.length) {
+            this.focusRowElement();
+        }
+    }
+
+    private focusRowElement(): void {
+        if (this._focusedRow) {
+            this._focusedRow.removeFocus();
+        }
+        const elementToFocus = this.focusableRowElements[this._focusedColumnIndex!]!;
+        elementToFocus.tabIndex = 0;
+        elementToFocus.focus({ preventScroll: true });
+        elementToFocus.addEventListener('focusout', e => this.focusOutHandler(e));
+    }
+
+    // private focusCellContent(cell: TableCell): boolean {
+    //     const focusableCellContent = cell.q
+    // }
+
+    private getFocusedRowFocusableElements(): HTMLElement[] {
+        return this._focusedRow!.getFocusableElements();
+        // const focusableElements: HTMLElement[] = [];
+        // const rowCells = this._focusedRow!.shadowRoot?.querySelectorAll('nimble-table-cell');
+        // rowCells?.forEach(cell => {
+        //     const cellFocusableElements = cell.shadowRoot?.querySelectorAll<HTMLElement>('[focusable]');
+        //     cellFocusableElements?.forEach(e => {
+        //         focusableElements.push(e);
+        //     });
+        // });
+        // return focusableElements;
     }
 
     private getVisibleRowIndex(): number {

@@ -28,11 +28,12 @@ import { tableGroupsCollapseAllLabel } from '../label-provider/table/label-token
 // prettier-ignore
 export const template = html<Table>`
     <template
-        role="grid"
+        role="treegrid"
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
         <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
+            role="presentation"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -43,8 +44,8 @@ export const template = html<Table>`
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
             ">
-            <div class="glass-overlay">
-                <div role="rowgroup" class="header-row-container">
+            <div class="glass-overlay" role="presentation">
+                <div role="presentation" class="header-row-container">
                     <div class="header-row" role="row">
                         <span class="header-row-action-container" ${ref('headerRowActionContainer')}>
                             ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`

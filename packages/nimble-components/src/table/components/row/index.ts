@@ -88,13 +88,13 @@ export class TableRow<
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.addEventListener('keydown', e => this.onKeyDown(e));
+        // this.addEventListener('keydown', e => this.onKeyDown(e));
         this.addEventListener('focusout', this.rowFocusOutHandler);
         this.addEventListener('focusin', this.rowFocusInHandler);
     }
 
     public override disconnectedCallback(): void {
-        this.removeEventListener('keydown', this.onKeyDown);
+        // this.removeEventListener('keydown', this.onKeyDown);
         this.removeEventListener('focusout', this.rowFocusOutHandler);
         this.removeEventListener('focusin', this.rowFocusInHandler);
     }
@@ -184,6 +184,30 @@ export class TableRow<
         }
     }
 
+    public getFocusableElements(): HTMLElement[] {
+        const focusableElements: HTMLElement[] = [];
+        if (this.selectionCheckbox) {
+            focusableElements.push(this.selectionCheckbox);
+        }
+        this.shadowRoot!.querySelectorAll('nimble-table-cell').forEach(cell => {
+            focusableElements.push(cell);
+            if (cell.actionMenuButton) {
+                focusableElements.push(cell.actionMenuButton);
+            }
+        });
+        return focusableElements;
+    }
+
+    public setFocus(): void {
+        this.tabIndex = 0;
+        this.focus({ preventScroll: true });
+    }
+
+    public removeFocus(): void {
+        this.tabIndex = -1;
+        this.blur();
+    }
+
     private updateSelectedState(selected: boolean): void {
         this.selected = selected;
         const detail: TableRowSelectionToggleEventDetail = {
@@ -252,19 +276,6 @@ export class TableRow<
 
         return true;
     };
-
-    private getFocusableElements(): HTMLElement[] {
-        const focusableElements: HTMLElement[] = [];
-        focusableElements.push(this.selectionCheckbox!);
-        const rowCells = this.shadowRoot?.querySelectorAll('nimble-table-cell');
-        rowCells?.forEach(cell => {
-            const cellFocusableElements = cell.shadowRoot?.querySelectorAll<HTMLElement>('[focusable]');
-            cellFocusableElements?.forEach(e => {
-                focusableElements.push(e);
-            });
-        });
-        return focusableElements;
-    }
 
     private emitActionMenuToggleEvent(
         eventType: string,

@@ -4,7 +4,7 @@ import {
     DesignSystem,
     FoundationElement
 } from '@microsoft/fast-foundation';
-import { keyArrowDown, keyArrowUp } from '@microsoft/fast-web-utilities';
+import { keyArrowDown, keyArrowLeft, keyArrowRight, keyArrowUp } from '@microsoft/fast-web-utilities';
 import type { TableColumn } from '../../../table-column/base';
 import { styles } from './styles';
 import { template } from './template';
@@ -70,6 +70,7 @@ export class TableGroupRow extends FoundationElement {
     // the selection checkbox 'checked' value should be ingored.
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
+    private isFocused = false;
 
     public onGroupExpandToggle(): void {
         this.$emit('group-expand-toggle');
@@ -87,15 +88,56 @@ export class TableGroupRow extends FoundationElement {
     }
 
     public onKeyDown(event: KeyboardEvent): boolean {
-        const shouldExpand = event.key === keyArrowDown && event.altKey && !this.expanded;
-        const shouldCollapse = event.key === keyArrowUp && event.altKey && this.expanded;
-        if (shouldExpand || shouldCollapse) {
-            this.onGroupExpandToggle();
-            event.stopPropagation();
-            return false;
+        switch (event.key) {
+            case keyArrowRight: {
+                if (!this.expanded) {
+                    this.onGroupExpandToggle();
+                    event.stopPropagation();
+                    return false;
+                }
+                break;
+            }
+            case keyArrowLeft: {
+                if (this.expanded && this.isFocused) {
+                    this.onGroupExpandToggle();
+                    event.stopPropagation();
+                    return false;
+                }
+                break;
+            }
+            default:
+                return true;
         }
 
         return true;
+    }
+
+    public onFocusIn(event: Event): void {
+        const eventPath = event.composedPath();
+        if (eventPath.length && eventPath[0] === this) {
+            this.isFocused = true;
+        }
+    }
+
+    public onFocusOut(event: Event): void {
+        const eventPath = event.composedPath();
+        if (eventPath.length && eventPath[0] === this) {
+            this.isFocused = false;
+        } else {
+            this.isFocused = true;
+        }
+    }
+
+    public setFocus(): void {
+        this.tabIndex = 0;
+        this.focus({ preventScroll: true });
+        this.isFocused = true;
+    }
+
+    public removeFocus(): void {
+        this.tabIndex = -1;
+        this.blur();
+        this.isFocused = false;
     }
 
     /** @internal */
@@ -114,6 +156,14 @@ export class TableGroupRow extends FoundationElement {
             newState: checked
         };
         this.$emit('group-selection-toggle', detail);
+    }
+
+    public getFocusableElements(): HTMLElement[] {
+        if (this.selectionCheckbox) {
+            return [this.selectionCheckbox];
+        }
+
+        return [];
     }
 
     private selectionStateChanged(): void {

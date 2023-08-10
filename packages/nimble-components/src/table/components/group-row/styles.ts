@@ -67,7 +67,7 @@ export const styles = css`
         outline-offset: -2px;
     }
 
-    .expand-collapse-button {
+    .expander-icon {
         margin-left: calc(
             ${smallPadding} * 2 + ${standardPadding} * 2 *
                 var(--ni-private-table-group-row-indent-level)
@@ -77,6 +77,11 @@ export const styles = css`
 
     :host([expanded]) .expander-icon {
         transform: rotate(90deg);
+    }
+
+    .expander-container {
+        display: flex;
+        align-self: center;
     }
 
     .expander-icon {

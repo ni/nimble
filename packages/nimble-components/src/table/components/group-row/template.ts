@@ -17,6 +17,9 @@ export const template = html<TableGroupRow>`
         @click=${x => x.onGroupExpandToggle()}
         style="--ni-private-table-group-row-indent-level: ${x => x.nestingLevel};"
         @keydown=${(x, c) => x.onKeyDown(c.event as KeyboardEvent)}
+        @focus=${(x, c) => x.onFocusIn(c.event)}
+        @focusout=${(x, c) => x.onFocusOut(c.event)}
+        aria-expanded="${x => x.expanded}"
     >
         ${when(x => x.selectable, html<TableGroupRow>`
             <span role="gridcell" class="checkbox-container">
@@ -32,17 +35,9 @@ export const template = html<TableGroupRow>`
             </span>
         `)}
 
-        <span role="gridcell">
-            <${buttonTag}
-                appearance="${ButtonAppearance.ghost}"
-                content-hidden
-                class="expand-collapse-button"
-                tabindex="-1"
-            >
-                <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
-                ${x => (x.expanded ? tableGroupCollapseLabel.getValueFor(x) : tableGroupExpandLabel.getValueFor(x))}
-            </${buttonTag}>
-        </span>
+        <div role="gridcell" class="expander-container">
+            <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
+        </div>
 
         <div class="group-row-header-content">
             ${x => x.groupColumn?.columnInternals.groupHeaderViewTemplate}
