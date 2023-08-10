@@ -251,8 +251,9 @@ _Props/Attrs_
 
 Above definitions are from the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#:~:text=separated%20link%20types.-,target,-Where%20to%20display).
 
-By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are below). If opening in a new tab, `nimble-icon-up-right-from-square` will be placed right 
+By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are below). If opening in a new tab, `nimble-icon-up-right-from-square` will be placed right
 next to all the links in the viewer instance to indicate the link will be opened in a new tab.
+
 -   Accessibility guidelines to open link only in new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
 -   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
