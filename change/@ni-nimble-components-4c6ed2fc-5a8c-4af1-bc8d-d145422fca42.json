@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "New API for Grid Dimensions in the Wafer Map Component",
-  "packageName": "@ni/nimble-components",
-  "email": "33986780+munteannatan@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
