@@ -31,6 +31,9 @@ export class AccordionItem extends FoundationAccordionItem {
     @attr({ mode: 'boolean' })
     public open = false;
 
+    @attr({ mode: 'boolean' })
+    public disabled = false;
+
     public details!: HTMLDetailsElement;
 
     public observer?: MutationObserver;

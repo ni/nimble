@@ -20,6 +20,7 @@ AccordionItemOptions
 > = (_context, definition) => html`
 <template
     appearance="${x => x.appearance}"
+    ?disabled="${x => x.disabled}"
 >
     <details class="details" ?open="${x => x.open || x.expanded}" ${ref('details')}>
         <summary
@@ -35,6 +36,7 @@ AccordionItemOptions
                     ${ref('expandbutton')}
                     aria-expanded="${x => x.expanded}"
                     aria-controls="${x => x.id}-panel"
+                    tabindex="${x => (x.disabled ? -1 : 0)}"
                     id="${x => x.id}"
                     @click="${(x, c) => x.clickHandler(c.event as MouseEvent)}"
             >

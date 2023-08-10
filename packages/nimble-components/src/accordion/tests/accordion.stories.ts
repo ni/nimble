@@ -24,12 +24,14 @@ interface ItemArgs {
     heading: string;
     label: string;
     errorVisible: boolean;
+    disabled: boolean;
 }
 
 interface ItemAndTableArgs {
     heading: string;
     label: string;
     errorVisible: boolean;
+    disabled: boolean;
     tableRef: Table;
     updateData: (args: ItemAndTableArgs) => void;
 }
@@ -89,6 +91,7 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
             ${repeat(x => x.options, html<ItemArgs, AccordionArgs>`
                 <${accordionItemTag}
                     ?error-visible="${x => x.errorVisible}",
+                    ?disabled="${x => x.disabled}"
                 >
                     <div slot="heading">
                         <span>${x => x.heading}</span>
@@ -118,17 +121,20 @@ export const _standardAccordion: StoryObj<AccordionArgs> = {
             {
                 heading: 'Accordion 1',
                 label: 'Accordion 1 Content',
-                errorVisible: false
+                errorVisible: false,
+                disabled: false
             },
             {
                 heading: 'Accordion 2',
                 label: 'Accordion 2 Content',
-                errorVisible: false
+                errorVisible: false,
+                disabled: false
             },
             {
                 heading: 'Accordion 3',
                 label: 'Accordion 3 Content',
-                errorVisible: false
+                errorVisible: false,
+                disabled: false
             }
         ],
         appearance: 'outline'
@@ -151,6 +157,7 @@ export const accordionItem: StoryObj<ItemArgs> = {
         >
             <${accordionItemTag}
                 ?error-visible="${x => x.errorVisible}"
+                ?disabled="${x => x.disabled}"
             >
                 <div slot="heading">
                     ${x => x.heading}
@@ -164,15 +171,8 @@ export const accordionItem: StoryObj<ItemArgs> = {
         </${accordionTag}>
     `),
     argTypes: {
-        heading: {
-            description:
-                '(Optional) The URL that this breadcrumb item/ link points to. Generally, the last breadcrumb item '
-                + 'representing the current page has no `href` set.'
-        },
-        label: {
-            description:
-                '(Optional) Where to display the linked URL (destination browsing context): `_self`, `_blank`, etc.'
-        },
+        heading: {},
+        label: {},
         errorVisible: {
             name: 'errorVisible',
             description: ''
@@ -181,7 +181,8 @@ export const accordionItem: StoryObj<ItemArgs> = {
     args: {
         heading: 'Accordion 1',
         label: 'Accordion 1 content',
-        errorVisible: false
+        errorVisible: false,
+        disabled: false
     }
 };
 
@@ -205,6 +206,7 @@ export const highLevelAccordionItem: StoryObj<ItemAndTableArgs> = {
         >
             <${accordionItemTag}
                 ?error-visible="${x => x.errorVisible}"
+                ?disabled="${x => x.disabled}"
             >
                 <div slot="heading">
                     ${x => x.heading}
@@ -290,6 +292,7 @@ export const highLevelAccordionItem: StoryObj<ItemAndTableArgs> = {
         heading: 'Accordion 1',
         label: 'Accordion 1 content',
         errorVisible: false,
+        disabled: false,
         tableRef: undefined,
         updateData: x => {
             void (async () => {
