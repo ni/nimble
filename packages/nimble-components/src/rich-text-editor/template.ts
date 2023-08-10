@@ -28,6 +28,7 @@ export const template = html<RichTextEditor>`
                         @click=${x => x.boldButtonClick()}
                         @keydown=${(x, c) => x.boldButtonKeyDown(c.event as KeyboardEvent)}
                     >
+                        Bold
                         <${iconBoldBTag} slot="start"></${iconBoldBTag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -39,6 +40,7 @@ export const template = html<RichTextEditor>`
                         @click=${x => x.italicsButtonClick()}
                         @keydown=${(x, c) => x.italicsButtonKeyDown(c.event as KeyboardEvent)}
                     >
+                        Italics
                         <${iconItalicITag} slot="start"></${iconItalicITag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -50,6 +52,7 @@ export const template = html<RichTextEditor>`
                         @click=${x => x.bulletListButtonClick()}
                         @keydown=${(x, c) => x.bulletListButtonKeyDown(c.event as KeyboardEvent)}
                     >
+                        Bullet List
                         <${iconListTag} slot="start"></${iconListTag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -61,6 +64,7 @@ export const template = html<RichTextEditor>`
                         @click=${x => x.numberedListButtonClick()}
                         @keydown=${(x, c) => x.numberedListButtonKeyDown(c.event as KeyboardEvent)}
                     >
+                        Numbered List
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
                 </${toolbarTag}>
