@@ -1,9 +1,13 @@
-import { html, ref, repeat, children, elements } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../toolbar';
 import { toggleButtonTag } from '../toggle-button';
-import type { EditorButton } from './models/editor-button';
+import { iconBoldBTag } from '../icons/bold-b';
+import { iconItalicITag } from '../icons/italic-i';
+import { iconListTag } from '../icons/list';
+import { iconNumberListTag } from '../icons/number-list';
 
+// prettier-ignore
 export const template = html<RichTextEditor>`
     <template>
         <div class="container">
@@ -14,35 +18,51 @@ export const template = html<RichTextEditor>`
                 aria-multiline="true">
             </section>
             <section class="footer-section">
-                <${toolbarTag}
-                    ${children({
-        property: 'toggleButtons',
-        filter: elements(toggleButtonTag)
-    })}>
-                    ${repeat(
-        x => x.editorButtons,
-        html<EditorButton>`
-                        <${toggleButtonTag}
-                            appearance="ghost"
-                            class=${x => x.class}
-                            content-hidden
-                            part="button"
-                            slot="start"
-                            @click=${x => x.clickHandler()}
-                            @keydown=${(x, c) => x.keyDownActivateHandler(
-        c.event as KeyboardEvent
-    )}
-                            >
-                            ${x => x.iconTemplate}
-                            ${
-    '' /*
-                            Below label will be modified when the label provider PR for the formatting buttons goes in.
-                            */
-}
-                            ${x => x.iconLabel}
-                        </${toggleButtonTag}>
-                    `
-    )}
+                <${toolbarTag}>
+                    <${toggleButtonTag}
+                        ${ref('boldButton')}
+                        appearance="ghost"
+                        class="bold"
+                        content-hidden
+                        slot="start"
+                        @click=${x => x.boldButtonClick()}
+                        @keydown=${(x, c) => x.boldButtonKeyDown(c.event as KeyboardEvent)}
+                    >
+                        <${iconBoldBTag} slot="start"></${iconBoldBTag}>
+                    </${toggleButtonTag}>
+                    <${toggleButtonTag}
+                        ${ref('italicsButton')}
+                        appearance="ghost"
+                        class="italics"
+                        content-hidden
+                        slot="start"
+                        @click=${x => x.italicsButtonClick()}
+                        @keydown=${(x, c) => x.italicsButtonKeyDown(c.event as KeyboardEvent)}
+                    >
+                        <${iconItalicITag} slot="start"></${iconItalicITag}>
+                    </${toggleButtonTag}>
+                    <${toggleButtonTag}
+                        ${ref('bulletListButton')}
+                        appearance="ghost"
+                        class="bullet-list"
+                        content-hidden
+                        slot="start"
+                        @click=${x => x.bulletListButtonClick()}
+                        @keydown=${(x, c) => x.bulletListButtonKeyDown(c.event as KeyboardEvent)}
+                    >
+                        <${iconListTag} slot="start"></${iconListTag}>
+                    </${toggleButtonTag}>
+                    <${toggleButtonTag}
+                        ${ref('numberedListButton')}
+                        appearance="ghost"
+                        class="numbered-list"
+                        content-hidden
+                        slot="start"
+                        @click=${x => x.numberedListButtonClick()}
+                        @keydown=${(x, c) => x.numberedListButtonKeyDown(c.event as KeyboardEvent)}
+                    >
+                        <${iconNumberListTag} slot="start"></${iconNumberListTag}>
+                    </${toggleButtonTag}>
                 </${toolbarTag}>
                 <span class="footer-actions" part="footer-actions">
                     <slot name="footer-actions"></slot>

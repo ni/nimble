@@ -1,15 +1,11 @@
 import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
-import { BoldButton } from './models/bold-button';
-import { ItalicsButton } from './models/italics-button';
-import { NumberedListButton } from './models/numbered-list-button';
-import { BulletListButton } from './models/bullet-list-button';
-import type { EditorButton } from './models/editor-button';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -25,13 +21,25 @@ export class RichTextEditor extends FoundationElement {
      * @internal
      */
     @observable
-    public editorButtons: EditorButton[] = [];
+    public boldButton!: ToggleButton;
 
     /**
      * @internal
      */
     @observable
-    public toggleButtons: ToggleButton[] = [];
+    public italicsButton!: ToggleButton;
+
+    /**
+     * @internal
+     */
+    @observable
+    public bulletListButton!: ToggleButton;
+
+    /**
+     * @internal
+     */
+    @observable
+    public numberedListButton!: ToggleButton;
 
     /**
      * @internal
@@ -46,7 +54,6 @@ export class RichTextEditor extends FoundationElement {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.initializeEditor();
-        this.initializeButtons();
         this.bindEditorTransactionEvent();
     }
 
@@ -56,6 +63,86 @@ export class RichTextEditor extends FoundationElement {
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.unbindEditorTransactionEvent();
+    }
+
+    /**
+     * Toggle the bold mark and focus back to the editor
+     * @internal
+     */
+    public boldButtonClick(): void {
+        this.tiptapEditor.chain().focus().toggleBold().run();
+    }
+
+    /**
+     * Toggle the bold mark and focus back to the editor
+     * @internal
+     */
+    public boldButtonKeyDown(e: KeyboardEvent): boolean {
+        if (this.isDesiredKeyDownForButton(e)) {
+            this.tiptapEditor.chain().focus().toggleBold().run();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Toggle the italics mark and focus back to the editor
+     * @internal
+     */
+    public italicsButtonClick(): void {
+        this.tiptapEditor.chain().focus().toggleItalic().run();
+    }
+
+    /**
+     * Toggle the italics mark and focus back to the editor
+     * @internal
+     */
+    public italicsButtonKeyDown(e: KeyboardEvent): boolean {
+        if (this.isDesiredKeyDownForButton(e)) {
+            this.tiptapEditor.chain().focus().toggleItalic().run();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Toggle the unordered list node and focus back to the editor
+     * @internal
+     */
+    public bulletListButtonClick(): void {
+        this.tiptapEditor.chain().focus().toggleBulletList().run();
+    }
+
+    /**
+     * Toggle the unordered list node and focus back to the editor
+     * @internal
+     */
+    public bulletListButtonKeyDown(e: KeyboardEvent): boolean {
+        if (this.isDesiredKeyDownForButton(e)) {
+            this.tiptapEditor.chain().focus().toggleBulletList().run();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Toggle the ordered list node and focus back to the editor
+     * @internal
+     */
+    public numberedListButtonClick(): void {
+        this.tiptapEditor.chain().focus().toggleOrderedList().run();
+    }
+
+    /**
+     * Toggle the ordered list node and focus back to the editor
+     * @internal
+     */
+    public numberedListButtonKeyDown(e: KeyboardEvent): boolean {
+        if (this.isDesiredKeyDownForButton(e)) {
+            this.tiptapEditor.chain().focus().toggleOrderedList().run();
+            return false;
+        }
+        return true;
     }
 
     private initializeEditor(): void {
@@ -84,15 +171,6 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
-    private initializeButtons(): void {
-        if (this.$fastController.isConnected) {
-            this.editorButtons.push(new BoldButton(this.tiptapEditor));
-            this.editorButtons.push(new ItalicsButton(this.tiptapEditor));
-            this.editorButtons.push(new BulletListButton(this.tiptapEditor));
-            this.editorButtons.push(new NumberedListButton(this.tiptapEditor));
-        }
-    }
-
     /**
      * Binding the "transaction" event to the editor allows continuous monitoring the events and updating the button state in response to
      * various actions such as mouse events, keyboard events, changes in the editor content etc,.
@@ -111,26 +189,20 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private updateEditorButtonsState(): void {
-        if (this.toggleButtons.length > 0) {
-            this.editorButtons.forEach(button => {
-                const buttonToUpdate = this.toggleButtons.find(toggleButton => toggleButton.classList.contains(button.class));
-                this.updateButtonCheckedState(
-                    buttonToUpdate,
-                    button.tiptapNodeOrMarkName
-                );
-            });
-        }
-        // else do nothing
+        this.boldButton.checked = this.tiptapEditor.isActive('bold');
+        this.italicsButton.checked = this.tiptapEditor.isActive('italic');
+        this.bulletListButton.checked = this.tiptapEditor.isActive('bulletList');
+        this.numberedListButton.checked = this.tiptapEditor.isActive('orderedList');
     }
 
-    private updateButtonCheckedState(
-        button: ToggleButton | undefined,
-        name: string
-    ): void {
-        if (button) {
-            button.checked = this.tiptapEditor.isActive(name);
+    private isDesiredKeyDownForButton(e: KeyboardEvent): boolean {
+        switch (e.key) {
+            case keySpace:
+            case keyEnter:
+                return true;
+            default:
+                return false;
         }
-        // else do nothing
     }
 }
 
