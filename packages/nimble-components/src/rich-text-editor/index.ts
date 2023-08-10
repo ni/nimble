@@ -62,6 +62,9 @@ export class RichTextEditor extends FoundationElement {
     private readonly domSerializer: DOMSerializer;
     private readonly xmlSerializer: XMLSerializer;
 
+    /**
+     * @internal
+     */
     public constructor() {
         super();
         this.domSerializer = DOMSerializer.fromSchema(schema);
@@ -169,6 +172,7 @@ export class RichTextEditor extends FoundationElement {
 
     /**
      * This function load tip tap editor with provided markdown content by parsing into html
+     * @public
      */
     public setMarkdown(value: string): void {
         if (this.$fastController.isConnected) {
@@ -180,6 +184,7 @@ export class RichTextEditor extends FoundationElement {
 
     /**
      * This function returns markdown string by serializing tiptap editor document using prosemirror MarkdownSerializer
+     * @public
      */
     public getMarkdown(): string {
         if (this.$fastController.isConnected) {
