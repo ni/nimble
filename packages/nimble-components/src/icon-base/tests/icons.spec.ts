@@ -1,9 +1,12 @@
 import * as nimbleIconsMap from '@ni/nimble-tokens/dist/icons/js';
 import type { NimbleIconName } from '@ni/nimble-tokens/dist/icons/js';
 import { DesignSystem } from '@microsoft/fast-foundation';
+import { html } from '@microsoft/fast-element';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import * as allIconsNamespace from '../../icons/all-icons';
 import { iconMetadata } from './icon-metadata';
+import { Fixture, fixture } from '../../utilities/tests/fixture';
+import { IconAdd, iconAddTag } from '../../icons/add';
 
 describe('Icons', () => {
     describe('should have correct SVG structure', () => {
@@ -72,5 +75,53 @@ describe('Icons', () => {
                 expect(icon.metadata.tags).not.toContain('');
             });
         }
+    });
+
+    describe('Representative icon', () => {
+        async function setup(): Promise<Fixture<IconAdd>> {
+            return fixture<IconAdd>(
+                html`<${iconAddTag} aria-label="initial aria label"></${iconAddTag}>`
+            );
+        }
+        let element: IconAdd;
+        let connect: () => Promise<void>;
+        let disconnect: () => Promise<void>;
+
+        beforeEach(async () => {
+            ({ element, connect, disconnect } = await setup());
+        });
+
+        afterEach(async () => {
+            await disconnect();
+        });
+
+        it('sets initial aria-label on inner SVG', async () => {
+            await connect();
+            const svg = element.shadowRoot!.querySelector('svg');
+            expect(svg?.getAttribute('aria-label')).toEqual(
+                'initial aria label'
+            );
+        });
+
+        it('supports setting blank aria-label on inner SVG', async () => {
+            await connect();
+            element.setAttribute('aria-label', '');
+            const svg = element.shadowRoot!.querySelector('svg');
+            expect(svg?.getAttribute('aria-label')).toEqual('');
+        });
+
+        it('clears aria-label from inner SVG when removed from icon', async () => {
+            await connect();
+            element.removeAttribute('aria-label');
+            const svg = element.shadowRoot!.querySelector('svg');
+            expect(svg?.hasAttribute('aria-label')).toBeFalse();
+        });
+
+        it('updates aria-label on inner SVG when changed on icon', async () => {
+            await connect();
+            element.setAttribute('aria-label', 'new aria label');
+            const svg = element.shadowRoot!.querySelector('svg');
+            expect(svg?.getAttribute('aria-label')).toEqual('new aria label');
+        });
     });
 });

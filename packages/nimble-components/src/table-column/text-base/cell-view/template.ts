@@ -6,9 +6,8 @@ import { overflow } from '../../../utilities/directive/overflow';
 export const template = html<TableColumnTextCellViewBase>`
     <span
         ${overflow('hasOverflow')}
-        class="${x => (x.shouldUsePlaceholder ? 'placeholder' : '')}"
-        title=${x => (x.hasOverflow && x.content ? x.content : null)}
+        title=${x => (x.hasOverflow && x.text ? x.text : null)}
     >
-        ${x => x.content}
+        ${x => x.text}
     </span>
 `;

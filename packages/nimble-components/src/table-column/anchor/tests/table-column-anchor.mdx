@@ -1,0 +1,36 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import TargetDocs from '../../../patterns/anchor/tests/target-docs.mdx';
+import * as tableColumnAnchorStories from './table-column-anchor.stories';
+
+<Meta of={tableColumnAnchorStories} />
+
+<Title of={tableColumnAnchorStories} />
+<Description of={tableColumnAnchorStories.anchorColumn} />
+
+<DocsStory of={tableColumnAnchorStories.anchorColumn} expanded={false} />
+<Controls of={tableColumnAnchorStories.anchorColumn} />
+
+# Usage Docs
+
+## Target Configuration
+
+<TargetDocs />
+
+## Angular Usage
+
+In an Angular app, you can configure a callback to intercept clicks so that you may invoke the router to perform the navigation instead of the default handler:
+
+```
+<nimble-table-column-anchor [navigationGuard]="doRouterNavigation">
+    Link
+</nimble-table-column-anchor>
+```
+
+The function bound to `navigationGuard` should be of type `NavigationGuard`. It receives the clicked row id and should return a boolean indicating whether the default click handler should be run. I.e. return `false` if you have handled the navigation. The function is only called for left clicks with no modifier keys pressed.

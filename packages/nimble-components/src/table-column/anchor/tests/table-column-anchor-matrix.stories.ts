@@ -10,9 +10,13 @@ import { tableColumnAnchorTag } from '..';
 import { iconUserTag } from '../../../icons/user';
 import { Table, tableTag } from '../../../table';
 import { AnchorAppearance } from '../../../anchor/types';
+import {
+    controlLabelFont,
+    controlLabelFontColor
+} from '../../../theme-provider/design-tokens';
 
 const metadata: Meta = {
-    title: 'Tests/Table Column Types',
+    title: 'Tests/Table Column - Anchor',
     parameters: {
         ...sharedMatrixParameters()
     }
@@ -52,12 +56,11 @@ const component = (
     [appearanceName, appearance]: AppearanceState,
     [underlineHiddenName, underlineHidden]: UnderlineHiddenState
 ): ViewTemplate => html`
-    <label style="color: var(--ni-nimble-control-label-font-color); font: var(--ni-nimble-control-label-font)">${appearanceName} ${underlineHiddenName} Anchor Table Column</label>
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">${appearanceName} ${underlineHiddenName} Anchor Table Column</label>
     <${tableTag} id-field-name="id" style="height: 300px">
         <${tableColumnAnchorTag}
             label-field-name="firstName"
             href-field-name="link"
-            placeholder="no value"
             group-index="0"
             appearance="${() => appearance}"
             underline-hidden="${() => underlineHidden}"

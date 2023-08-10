@@ -114,7 +114,7 @@ The object's type is \`TableValidity\`, and it contains the following boolean pr
 -   \`missingRecordId\`: \`true\` when a record was found that did not have a field with the name specified by \`id-field-name\`
 -   \`invalidRecordId\`: \`true\` when a record was found where \`id-field-name\` did not refer to a value of type \`string\`
 -   \`duplicateColumnId\`: \`true\` when multiple columns were defined with the same \`column-id\`
--   \`invalidColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
+-   \`missingColumnId\`: \`true\` when a \`column-id\` was specified for some, but not all, columns
 -   \`invalidColumnConfiguration\`: \`true\` when one or more columns have an invalid configuration. Call \`checkValidity()\` on each column to see which configuration is invalid and read the \`validity\` property of a column for more information about why it's invalid.
 -   \`duplicateSortIndex\`: \`true\` when \`sort-index\` is specified as the same value for multiple columns that have \`sort-direction\` set to a value other than \`none\`
 -   \`duplicateGroupIndex\`: \`true\` when \`group-index\` is specified as the same value for multiple columns
@@ -155,27 +155,27 @@ const metadata: Meta<TableArgs> = {
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
-                field-name="firstName" placeholder="no value"
+                field-name="firstName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 <${iconUserTag} title="First Name"></${iconUserTag}>
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="last-name-column"
-                field-name="lastName" placeholder="no value"
+                field-name="lastName"
                 action-menu-slot="name-menu" action-menu-label="Configure name"
             >
                 Last Name
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="favorite-color-column"
-                field-name="favoriteColor" placeholder="no value"
+                field-name="favoriteColor"
             >
                 Favorite Color
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 column-id="quote-column"
-                field-name="quote" placeholder="no value"
+                field-name="quote"
                 action-menu-slot="quote-menu" action-menu-label="Configure quote"
             >
                 Quote

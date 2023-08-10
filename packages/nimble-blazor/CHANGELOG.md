@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 17 Jul 2023 17:19:39 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.1.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Blazor integration for primary and accent appearance-variant buttons (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+
+## 12.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
+
+## 11.11.0
+
+Mon, 24 Jul 2023 19:42:55 GMT
+
+### Minor changes
+
+- Blazor integration for label providers, doc updates ([ni/nimble@2df1e98](https://github.com/ni/nimble/commit/2df1e989a3da722c233e49221952c48d63321c38))
+
+## 11.10.5
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
 
 ## 11.10.0
 

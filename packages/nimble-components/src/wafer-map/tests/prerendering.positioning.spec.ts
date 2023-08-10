@@ -1,7 +1,8 @@
 import type { WaferMap } from '..';
+import type { DataManager } from '../modules/data-manager';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
-import { getScaleBand, getWaferMapDies } from './utilities';
+import { getDataManagerMock, getScaleBand, getWaferMapDies } from './utilities';
 
 describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
@@ -36,13 +37,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                getScaleBand([2, 3, 4, 5, 6], [2, 7]),
+                getScaleBand([1, 2, 3, 4, 5, 6], [1, 7])
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([2, 3, 4, 5, 6], [2, 7]),
-                getScaleBand([1, 2, 3, 4, 5, 6], [1, 7]),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have die positions offset from margins', () => {
@@ -96,13 +101,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                horizontalScale,
+                verticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                horizontalScale,
-                verticalScale,
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have die horizontal position scaled', () => {
@@ -152,13 +161,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                horizontalScale,
+                verticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                horizontalScale,
-                verticalScale,
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have die horizontal position scaled', () => {

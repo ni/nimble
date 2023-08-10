@@ -74,24 +74,20 @@ type BooleanField<FieldName extends string> = {
 
 ### Data type usage within column definitions
 
-The types shown above can be used by column providers to enforce the data types they require. For example, if a numeric column required a numeric value, a unit string, and a placeholder string, it could export a type similar to the following:
+The types shown above can be used by column providers to enforce the data types they require. For example, if a numeric column required a numeric value and a unit string, it could export a type similar to the following:
 
 ```ts
 type NumericColumnRecord<
     ValueFieldName extends string,
-    UnitsFieldName extends string,
-    PlaceholderFieldName extends string
-> = NumberData<ValueFieldName> &
-    StringData<UnitsFieldName> &
-    StringData<PlaceholderFieldName>;
+    UnitsFieldName extends string
+> = NumberData<ValueFieldName> & StringData<UnitsFieldName>;
 ```
 
 Using the column definition, the user of a table can type a reference to the table as:
 
 ```ts
 const tableRef: Table<
-    NumericColumnRecord<'value', 'units', 'placeholder'> &
-        BooleanField<'awesome'>
+    NumericColumnRecord<'value', 'units'> & BooleanField<'awesome'>
 >;
 
 // The field names and types in the array passed to setData()
@@ -100,7 +96,6 @@ tableRef.setData([
     {
         value: 3,
         units: 'a',
-        placeholder: 'b',
         awesome: true
     }
 ]);

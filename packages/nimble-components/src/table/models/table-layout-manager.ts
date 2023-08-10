@@ -24,7 +24,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     private dragStart = 0;
     private leftColumnIndex?: number;
     private rightColumnIndex?: number;
-    private initialColumnPixelWidths: {
+    private initialColumnWidths: {
         initalColumnFractionalWidth: number,
         initialPixelWidth: number,
         minPixelWidth: number
@@ -83,7 +83,7 @@ export class TableLayoutManager<TData extends TableRecord> {
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;
         for (let i = 0; i < this.visibleColumns.length; i++) {
-            this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnPixelWidths[i]?.initialPixelWidth;
+            this.visibleColumns[i]!.columnInternals.currentPixelWidth = this.initialColumnWidths[i]?.initialPixelWidth;
         }
         this.currentTotalDelta = this.getAllowedSizeDelta(
             mouseEvent.clientX - this.dragStart
@@ -141,7 +141,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         // size left
         let currentIndex = this.leftColumnIndex!;
         while (currentIndex >= 0) {
-            const columnInitialWidths = this.initialColumnPixelWidths[currentIndex]!;
+            const columnInitialWidths = this.initialColumnWidths[currentIndex]!;
             availableSpace
                 += columnInitialWidths.initialPixelWidth
                 - columnInitialWidths.minPixelWidth;
@@ -155,7 +155,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         delta: number
     ): void {
         let currentDelta = delta;
-        const leftColumnInitialWidths = this.initialColumnPixelWidths[leftColumnIndex]!;
+        const leftColumnInitialWidths = this.initialColumnWidths[leftColumnIndex]!;
         const allowedDelta = delta < 0
             ? Math.max(
                 leftColumnInitialWidths.minPixelWidth
@@ -163,7 +163,7 @@ export class TableLayoutManager<TData extends TableRecord> {
                 currentDelta
             )
             : delta;
-        const actualDelta = Math.round(allowedDelta);
+        const actualDelta = allowedDelta;
         const leftColumn = this.visibleColumns[leftColumnIndex]!;
         leftColumn.columnInternals.currentPixelWidth! += actualDelta;
 
@@ -178,7 +178,7 @@ export class TableLayoutManager<TData extends TableRecord> {
         delta: number
     ): void {
         let currentDelta = delta;
-        const rightColumnInitialWidths = this.initialColumnPixelWidths[rightColumnIndex]!;
+        const rightColumnInitialWidths = this.initialColumnWidths[rightColumnIndex]!;
         const allowedDelta = delta > 0
             ? Math.min(
                 rightColumnInitialWidths.initialPixelWidth
@@ -186,7 +186,7 @@ export class TableLayoutManager<TData extends TableRecord> {
                 currentDelta
             )
             : delta;
-        const actualDelta = Math.round(allowedDelta);
+        const actualDelta = allowedDelta;
         const rightColumn = this.visibleColumns[rightColumnIndex]!;
         rightColumn.columnInternals.currentPixelWidth! -= actualDelta;
 
@@ -210,9 +210,9 @@ export class TableLayoutManager<TData extends TableRecord> {
     }
 
     private cacheColumnInitialPixelWidths(): void {
-        this.initialColumnPixelWidths = [];
+        this.initialColumnWidths = [];
         for (const column of this.visibleColumns) {
-            this.initialColumnPixelWidths.push({
+            this.initialColumnWidths.push({
                 initalColumnFractionalWidth:
                     column.columnInternals.currentFractionalWidth,
                 initialPixelWidth: column.columnInternals.currentPixelWidth!,
@@ -237,9 +237,8 @@ export class TableLayoutManager<TData extends TableRecord> {
             if (column === this.gridSizedColumns[gridColumnIndex]) {
                 gridColumnIndex += 1;
                 column.columnInternals.currentFractionalWidth = (column.columnInternals.currentPixelWidth!
-                        / this.initialColumnPixelWidths[i]!.initialPixelWidth)
-                    * this.initialColumnPixelWidths[i]!
-                        .initalColumnFractionalWidth;
+                        / this.initialColumnWidths[i]!.initialPixelWidth)
+                    * this.initialColumnWidths[i]!.initalColumnFractionalWidth;
                 column.columnInternals.currentPixelWidth = undefined;
             }
         }

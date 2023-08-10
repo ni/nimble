@@ -2,6 +2,66 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Wed, 02 Aug 2023 19:10:45 GMT",
+      "tag": "@ni/nimble-blazor_v12.1.0",
+      "version": "12.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "103057880+aidendk@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "3b37cf1deb3377b36c069e884d2b938b11048acd",
+            "comment": "Blazor integration for primary and accent appearance-variant buttons (#663)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 25 Jul 2023 21:12:32 GMT",
+      "tag": "@ni/nimble-blazor_v12.0.0",
+      "version": "12.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2c77e8e7b542572ca792c3d1aa00d8ac2010a888",
+            "comment": "Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core)"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 24 Jul 2023 19:42:55 GMT",
+      "tag": "@ni/nimble-blazor_v11.11.0",
+      "version": "11.11.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20709258+msmithNI@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2df1e989a3da722c233e49221952c48d63321c38",
+            "comment": "Blazor integration for label providers, doc updates"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 20 Jul 2023 16:23:00 GMT",
+      "tag": "@ni/nimble-blazor_v11.10.5",
+      "version": "11.10.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "a3180102e5798540621a0d60ef93ca827649a988",
+            "comment": "Remove placeholder support from table columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Jul 2023 03:09:06 GMT",
       "tag": "@ni/nimble-blazor_v11.10.4",
       "version": "11.10.4",
