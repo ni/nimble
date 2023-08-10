@@ -24,6 +24,7 @@ describe('Wafermap Computations module', () => {
                 canvasHeight: 100
             };
             computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule.updateContainerDimensions();
         });
 
         it('should have expected square container', () => {
@@ -76,6 +77,7 @@ describe('Wafermap Computations module', () => {
                 canvasHeight: 100
             };
             computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule.updateContainerDimensions();
         });
 
         it('should have adjusted square container', () => {
@@ -122,6 +124,7 @@ describe('Wafermap Computations module', () => {
                 canvasHeight: 100
             };
             computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule.updateContainerDimensions();
         });
 
         it('should have increasing horizontal range', () => {
@@ -145,6 +148,7 @@ describe('Wafermap Computations module', () => {
                 canvasHeight: 100
             };
             computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule.updateContainerDimensions();
         });
 
         it('should have decreasing horizontal range', () => {
@@ -168,6 +172,7 @@ describe('Wafermap Computations module', () => {
                 canvasHeight: 100
             };
             computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule.updateContainerDimensions();
         });
 
         it('should have increasing horizontal range', () => {
@@ -191,6 +196,7 @@ describe('Wafermap Computations module', () => {
                 canvasHeight: 100
             };
             computationsModule = new Computations(waferMock as WaferMap);
+            computationsModule.updateContainerDimensions();
         });
 
         it('should have decreasing horizontal range', () => {

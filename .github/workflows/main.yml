@@ -9,6 +9,9 @@ on:
 env:
   GITHUB_SERVICE_USER: "rajsite"
   GITHUB_SERVICE_EMAIL: "rajsite@users.noreply.github.com"
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+  LANGUAGE: "en_US.UTF-8"
 
 jobs:
   build:

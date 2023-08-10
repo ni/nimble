@@ -16,15 +16,10 @@ interface TabsArgs {
 const overviewText = `Anchor tabs are a sequence of links that are styled to look like tab elements, where one link can
 be distinguished as the currently active item. Use this component instead of the standard tabs component when each tab
 represents a different URL to navigate to. Use the standard tabs component when the tabs should switch between different
-tab panels hosted on the same page.
-
-In an Angular application, it is common to integrate with the router by setting \`nimbleRouterLink\` (rather than \`href\`)
-on each \`nimble-anchor-tab\` element. In those cases, it is recommended to also set \`replaceUrl="true"\` so that switching
-between tabs does not add to the browser history.`;
+tab panels hosted on the same page.`;
 
 const metadata: Meta<TabsArgs> = {
     title: 'Components/Anchor Tabs',
-    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
