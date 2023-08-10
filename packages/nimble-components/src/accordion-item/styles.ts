@@ -84,6 +84,8 @@ export const styles = css`
             height: 100%;
             width: 100%;
             cursor: pointer;
+            outline: 0px solid transparent;
+            color: transparent;
             box-sizing: border-box;
             pointer-events: none;
             transition: box-shadow ${smallDelay} ease-in-out,
