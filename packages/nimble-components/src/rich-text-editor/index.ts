@@ -3,7 +3,14 @@ import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import { schema, defaultMarkdownParser, MarkdownParser, MarkdownSerializer, defaultMarkdownSerializer, MarkdownSerializerState } from 'prosemirror-markdown';
+import {
+    schema,
+    defaultMarkdownParser,
+    MarkdownParser,
+    MarkdownSerializer,
+    defaultMarkdownSerializer,
+    MarkdownSerializerState
+} from 'prosemirror-markdown';
 import { DOMSerializer, Node } from 'prosemirror-model';
 import { template } from './template';
 import { styles } from './styles';
@@ -176,7 +183,9 @@ export class RichTextEditor extends FoundationElement {
      */
     public getMarkdown(): string {
         if (this.$fastController.isConnected) {
-            const markdownContent = this.markdownSerializer.serialize(this.tiptapEditor.state.doc);
+            const markdownContent = this.markdownSerializer.serialize(
+                this.tiptapEditor.state.doc
+            );
             return markdownContent;
         }
         return '';
@@ -220,8 +229,11 @@ export class RichTextEditor extends FoundationElement {
          * Assigned updated node in place of orderedList node from defaultMarkdownSerializer
          * https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/to_markdown.ts#L94C2-L101C7
          */
-        const orderedListNode = function orderedList(state: MarkdownSerializerState, node: Node): void {
-            const start = node.attrs.start as number || 1;
+        const orderedListNode = function orderedList(
+            state: MarkdownSerializerState,
+            node: Node
+        ): void {
+            const start = (node.attrs.start as number) || 1;
             const maxW = String(start + node.childCount - 1).length;
             const space = state.repeat(' ', maxW + 2);
             state.renderList(node, space, i => {
@@ -235,7 +247,10 @@ export class RichTextEditor extends FoundationElement {
          * adding unnecessary slashes while serializing and not to affect text nodes.
          * https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/to_markdown.ts#L409C3-L417C4
          */
-        const textNode = function text(state: MarkdownSerializerState, node: Node): void {
+        const textNode = function text(
+            state: MarkdownSerializerState,
+            node: Node
+        ): void {
             state.text(node.text!, false);
         };
 
@@ -251,7 +266,7 @@ export class RichTextEditor extends FoundationElement {
             orderedList: orderedListNode,
             doc: defaultMarkdownSerializer.nodes.doc!,
             paragraph: defaultMarkdownSerializer.nodes.paragraph!,
-            text: textNode,
+            text: textNode
         };
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,

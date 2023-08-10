@@ -47,7 +47,9 @@ if (remaining.length > 0) {
 }
 
 const playFunction = (): void => {
-    document.querySelector('nimble-rich-text-editor')!.setMarkdown(richTextMarkdownString);
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(richTextMarkdownString);
 };
 
 const editorSizingTestCase = (
@@ -102,34 +104,58 @@ const mobileWidthComponent = (): ViewTemplate => html`
 </div>
 `;
 
-export const editorWhenMarkdownValueSetInLightThemeWhiteBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), lightThemeWhiteBackground);
+export const editorWhenMarkdownValueSetInLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
+    createMatrix(styledComponent),
+    lightThemeWhiteBackground
+);
 
 editorWhenMarkdownValueSetInLightThemeWhiteBackground.play = playFunction;
 
-export const editorWhenMarkdownValueSetInColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), colorThemeDarkGreenBackground);
+export const editorWhenMarkdownValueSetInColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
+    createMatrix(styledComponent),
+    colorThemeDarkGreenBackground
+);
 
 editorWhenMarkdownValueSetInColorThemeDarkGreenBackground.play = playFunction;
 
-export const editorWhenMarkdownValueSetInDarkThemeBlackBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), darkThemeBlackBackground);
+export const editorWhenMarkdownValueSetInDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
+    createMatrix(styledComponent),
+    darkThemeBlackBackground
+);
 
 editorWhenMarkdownValueSetInDarkThemeBlackBackground.play = playFunction;
 
-export const plainTextContentInMobileWidth: StoryFn = createFixedThemeStory(createMatrix(mobileWidthComponent), lightThemeWhiteBackground);
+export const plainTextContentInMobileWidth: StoryFn = createFixedThemeStory(
+    createMatrix(mobileWidthComponent),
+    lightThemeWhiteBackground
+);
 
 plainTextContentInMobileWidth.play = (): void => {
     document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
 };
 
-export const multipleSubPointsContentInMobileWidth: StoryFn = createFixedThemeStory(createMatrix(mobileWidthComponent), lightThemeWhiteBackground);
+export const multipleSubPointsContentInMobileWidth: StoryFn = createFixedThemeStory(
+    createMatrix(mobileWidthComponent),
+    lightThemeWhiteBackground
+);
 
 multipleSubPointsContentInMobileWidth.play = (): void => {
-    document.querySelector('nimble-rich-text-editor')!.setMarkdown('1. Sub point 1\n   1. Sub point 2\n       1. Sub point 3\n          1. Sub point 4\n             1. Sub point 5\n                 1. Sub point 6\n                    1. Sub point 7\n');
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(
+            '1. Sub point 1\n   1. Sub point 2\n       1. Sub point 3\n          1. Sub point 4\n             1. Sub point 5\n                 1. Sub point 6\n                    1. Sub point 7\n'
+        );
 };
 
-export const longWordContentInMobileWidth: StoryFn = createFixedThemeStory(createMatrix(mobileWidthComponent), lightThemeWhiteBackground);
+export const longWordContentInMobileWidth: StoryFn = createFixedThemeStory(
+    createMatrix(mobileWidthComponent),
+    lightThemeWhiteBackground
+);
 
 longWordContentInMobileWidth.play = (): void => {
-    document.querySelector('nimble-rich-text-editor')!.setMarkdown('ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth');
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown('ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth');
 };
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)

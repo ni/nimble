@@ -9,7 +9,7 @@ import { buttonTag } from '../../button';
 import { ExampleDataType } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface RichTextEditorArgs{
+interface RichTextEditorArgs {
     data: ExampleDataType;
     footerActionButtons: boolean;
     getMarkdown: undefined;
@@ -71,7 +71,8 @@ const metadata: Meta<RichTextEditorArgs> = {
                 type: 'radio',
                 labels: {
                     [ExampleDataType.plainString]: 'Plain string',
-                    [ExampleDataType.markdownString]: 'Combination of all supported markdown string'
+                    [ExampleDataType.markdownString]:
+                        'Combination of all supported markdown string'
                 }
             }
         },

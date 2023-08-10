@@ -423,9 +423,7 @@ describe('RichTextEditor', () => {
     it('set a empty string should clear a value in the editor', () => {
         element.setMarkdown('markdown string');
         expect(pageObject.getEditorTagNames()).toEqual(['P']);
-        expect(pageObject.getEditorLeafContents()).toEqual(
-            ['markdown string']
-        );
+        expect(pageObject.getEditorLeafContents()).toEqual(['markdown string']);
 
         element.setMarkdown('');
         expect(pageObject.getEditorTagNames()).toEqual(['P', 'BR']);
@@ -433,9 +431,9 @@ describe('RichTextEditor', () => {
 
         element.setMarkdown('new markdown string');
         expect(pageObject.getEditorTagNames()).toEqual(['P']);
-        expect(pageObject.getEditorLeafContents()).toEqual(
-            ['new markdown string']
-        );
+        expect(pageObject.getEditorLeafContents()).toEqual([
+            'new markdown string'
+        ]);
     });
 
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
@@ -449,37 +447,22 @@ describe('RichTextEditor', () => {
 
         it('bold markdown string("**") to "strong" HTML tag', () => {
             element.setMarkdown('**Bold**');
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'P',
-                'STRONG'
-            ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Bold']
-            );
+            expect(pageObject.getEditorTagNames()).toEqual(['P', 'STRONG']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Bold']);
         });
 
         it('bold markdown string("__") to "strong" HTML tag', () => {
             element.setMarkdown('__Bold__');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'P',
-                'STRONG'
-            ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Bold']
-            );
+            expect(pageObject.getEditorTagNames()).toEqual(['P', 'STRONG']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Bold']);
         });
 
         it('italics markdown string("*") to "em" HTML tag', () => {
             element.setMarkdown('*Italics*');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'P',
-                'EM'
-            ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Italics']
-            );
+            expect(pageObject.getEditorTagNames()).toEqual(['P', 'EM']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Italics']);
         });
 
         it('italics markdown string("_") to "em" HTML tag', async () => {
@@ -487,39 +470,26 @@ describe('RichTextEditor', () => {
 
             await connect();
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'P',
-                'EM'
-            ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Italics']
-            );
+            expect(pageObject.getEditorTagNames()).toEqual(['P', 'EM']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Italics']);
         });
 
         it('numbered list markdown string("1.") to "ol" and "li" HTML tags', () => {
             element.setMarkdown('1. Numbered list');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'OL',
-                'LI',
-                'P'
+            expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Numbered list'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Numbered list']
-            );
         });
 
         it('numbered list markdown string("1)") to "ol" and "li" HTML tags', () => {
             element.setMarkdown('1) Numbered list');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'OL',
-                'LI',
-                'P'
+            expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Numbered list'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Numbered list']
-            );
         });
 
         it('multiple numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
@@ -550,10 +520,7 @@ describe('RichTextEditor', () => {
                 'P',
                 'BR'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual([
-                '',
-                ''
-            ]);
+            expect(pageObject.getEditorLeafContents()).toEqual(['', '']);
         });
 
         it('numbered lists that start with numbers and are not sequential to "ol" and "li" HTML tags', () => {
@@ -573,7 +540,9 @@ describe('RichTextEditor', () => {
         });
 
         it('numbered lists if there is some content between lists', () => {
-            element.setMarkdown('1. Option 1\n\nSome content in between lists\n\n 2. Option 2');
+            element.setMarkdown(
+                '1. Option 1\n\nSome content in between lists\n\n 2. Option 2'
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -594,40 +563,28 @@ describe('RichTextEditor', () => {
         it('bulleted list markdown string("*") to "ul" and "li" HTML tags', () => {
             element.setMarkdown('* Bulleted list');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'UL',
-                'LI',
-                'P'
+            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Bulleted list'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Bulleted list']
-            );
         });
 
         it('bulleted list markdown string("-") to "ul" and "li" HTML tags', () => {
             element.setMarkdown('- Bulleted list');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'UL',
-                'LI',
-                'P'
+            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Bulleted list'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Bulleted list']
-            );
         });
 
         it('bulleted list markdown string("+") to "ul" and "li" HTML tags', () => {
             element.setMarkdown('+ Bulleted list');
 
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'UL',
-                'LI',
-                'P'
+            expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Bulleted list'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Bulleted list']
-            );
         });
 
         it('multiple bulleted lists markdown string("* \n* \n*") to "ul" and "li" HTML tags', () => {
@@ -650,7 +607,9 @@ describe('RichTextEditor', () => {
         });
 
         it('bulleted lists if there is some content between lists', () => {
-            element.setMarkdown('* Option 1\n\nSome content in between lists\n\n * Option 2');
+            element.setMarkdown(
+                '* Option 1\n\nSome content in between lists\n\n * Option 2'
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -677,9 +636,9 @@ describe('RichTextEditor', () => {
                 'P',
                 'STRONG'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Numbered list in bold']
-            );
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Numbered list in bold'
+            ]);
         });
 
         it('bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', () => {
@@ -691,13 +650,15 @@ describe('RichTextEditor', () => {
                 'P',
                 'EM'
             ]);
-            expect(pageObject.getEditorLeafContents()).toEqual(
-                ['Bulleted list in italics']
-            );
+            expect(pageObject.getEditorLeafContents()).toEqual([
+                'Bulleted list in italics'
+            ]);
         });
 
         it('combination of all supported markdown string', () => {
-            element.setMarkdown('1. ***Numbered list with bold and italics***\n* ___Bulleted list with bold and italics___');
+            element.setMarkdown(
+                '1. ***Numbered list with bold and italics***\n* ___Bulleted list with bold and italics___'
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -709,11 +670,11 @@ describe('RichTextEditor', () => {
                 'LI',
                 'P',
                 'STRONG',
-                'EM',
+                'EM'
             ]);
             expect(pageObject.getEditorLeafContents()).toEqual([
                 'Numbered list with bold and italics',
-                'Bulleted list with bold and italics',
+                'Bulleted list with bold and italics'
             ]);
         });
     });
@@ -759,12 +720,10 @@ describe('RichTextEditor', () => {
 
                     await connect();
 
-                    expect(pageObject.getEditorTagNames()).toEqual([
-                        'P'
+                    expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                    expect(pageObject.getEditorLeafContents()).toEqual([
+                        value.name
                     ]);
-                    expect(
-                        pageObject.getEditorLeafContents()
-                    ).toEqual([value.name]);
 
                     await disconnect();
                 }
@@ -793,12 +752,10 @@ describe('RichTextEditor', () => {
 
                         await connect();
 
-                        expect(
-                            pageObject.getEditorTagNames()
-                        ).toEqual(['P']);
-                        expect(
-                            pageObject.getEditorLeafContents()
-                        ).toEqual([value.name]);
+                        expect(pageObject.getEditorTagNames()).toEqual(['P']);
+                        expect(pageObject.getEditorLeafContents()).toEqual([
+                            value.name
+                        ]);
 
                         await disconnect();
                     }
@@ -817,7 +774,7 @@ describe('RichTextEditor', () => {
             { name: '\0', tags: ['P'], textContent: ['�'] },
             { name: '\uFFFD', tags: ['P'], textContent: ['�'] },
             { name: '\x00', tags: ['P'], textContent: ['�'] },
-            { name: '\r\r', tags: ['P', 'BR'], textContent: [''] },
+            { name: '\r\r', tags: ['P', 'BR'], textContent: [''] }
         ];
 
         for (const value of modifiedWackyStrings) {
@@ -831,12 +788,10 @@ describe('RichTextEditor', () => {
 
                     await connect();
 
-                    expect(pageObject.getEditorTagNames()).toEqual(
-                        value.tags
+                    expect(pageObject.getEditorTagNames()).toEqual(value.tags);
+                    expect(pageObject.getEditorLeafContents()).toEqual(
+                        value.textContent
                     );
-                    expect(
-                        pageObject.getEditorLeafContents()
-                    ).toEqual(value.textContent);
 
                     await disconnect();
                 }
@@ -910,8 +865,12 @@ describe('RichTextEditor', () => {
         });
 
         it('Should return respective markdown when numbered lists if there is some content between lists is assigned', () => {
-            element.setMarkdown('1. Option 1\n\nSome content in between lists\n\n2. Option 2');
-            expect(element.getMarkdown()).toBe('1. Option 1\n\nSome content in between lists\n\n2. Option 2');
+            element.setMarkdown(
+                '1. Option 1\n\nSome content in between lists\n\n2. Option 2'
+            );
+            expect(element.getMarkdown()).toBe(
+                '1. Option 1\n\nSome content in between lists\n\n2. Option 2'
+            );
         });
 
         it('Should return respective markdown when bulleted list markdown string("*") is assigned', () => {
@@ -931,12 +890,18 @@ describe('RichTextEditor', () => {
 
         it('Should return respective markdown when multiple bulleted lists markdown string("* \n* \n*") is assigned', () => {
             element.setMarkdown('* Option 1\n\n* Option 2\n\n* Option 3');
-            expect(element.getMarkdown()).toBe('* Option 1\n\n* Option 2\n\n* Option 3');
+            expect(element.getMarkdown()).toBe(
+                '* Option 1\n\n* Option 2\n\n* Option 3'
+            );
         });
 
         it('Should return respective markdown when bulleted lists with some content between lists is assigned', () => {
-            element.setMarkdown('* Option 1\n\nSome content in between lists\n\n* Option 2');
-            expect(element.getMarkdown()).toBe('* Option 1\n\nSome content in between lists\n\n* Option 2');
+            element.setMarkdown(
+                '* Option 1\n\nSome content in between lists\n\n* Option 2'
+            );
+            expect(element.getMarkdown()).toBe(
+                '* Option 1\n\nSome content in between lists\n\n* Option 2'
+            );
         });
 
         it('Should return respective markdown when numbered list with bold markdown string is assigned', () => {
@@ -950,8 +915,12 @@ describe('RichTextEditor', () => {
         });
 
         it('Should return respective markdown when combination of all supported markdown string is assigned', () => {
-            element.setMarkdown('1. ***Numbered list with bold and italics***\n\n* ___Bulleted list with bold and italics___');
-            expect(element.getMarkdown()).toBe('1. ***Numbered list with bold and italics***\n\n* ***Bulleted list with bold and italics***');
+            element.setMarkdown(
+                '1. ***Numbered list with bold and italics***\n\n* ___Bulleted list with bold and italics___'
+            );
+            expect(element.getMarkdown()).toBe(
+                '1. ***Numbered list with bold and italics***\n\n* ***Bulleted list with bold and italics***'
+            );
         });
     });
 
@@ -1043,7 +1012,7 @@ describe('RichTextEditor', () => {
             { name: '\0', content: '�' },
             { name: '\uFFFD', content: '�' },
             { name: '\x00', content: '�' },
-            { name: '\r\r', content: '' },
+            { name: '\r\r', content: '' }
         ];
 
         for (const value of modifiedWackyStrings) {
