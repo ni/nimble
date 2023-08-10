@@ -67,12 +67,11 @@ export class RenderingModule {
     private renderDies(): void {
         let fillStyle = '';
         const context = this.wafermap.canvasContext;
-        const transformMatrix = context.getTransform().invertSelf();
-        let { x: trCanvasMinPointX, y: trCanvasMinPointY } = transformMatrix.transformPoint({ x: 0, y: 0 });
-        const { x: trCanvasMaxPointX, y: trCanvasMaxPointY } = transformMatrix.transformPoint({
-            x: this.wafermap.canvas.width,
-            y: this.wafermap.canvas.height
-        });
+        let [trCanvasMinPointX, trCanvasMinPointY] = this.wafermap.transform.invert([0, 0]);
+        const [trCanvasMaxPointX, trCanvasMaxPointY] = this.wafermap.transform.invert([
+            this.wafermap.canvas.width,
+            this.wafermap.canvas.height
+        ]);
         const dieWidth = this.wafermap.dataManager.dieDimensions.width;
         const dieHeight = this.wafermap.dataManager.dieDimensions.height;
         trCanvasMinPointX -= dieWidth;
@@ -107,12 +106,11 @@ export class RenderingModule {
             context.lineCap = 'butt';
             const approxTextHeight = context.measureText('M');
 
-            const transformMatrix = context.getTransform().invertSelf();
-            let { x: trCanvasMinPointX, y: trCanvasMinPointY } = transformMatrix.transformPoint({ x: 0, y: 0 });
-            const { x: trCanvasMaxPointX, y: trCanvasMaxPointY } = transformMatrix.transformPoint({
-                x: this.wafermap.canvas.width,
-                y: this.wafermap.canvas.height
-            });
+            let [trCanvasMinPointX, trCanvasMinPointY] = this.wafermap.transform.invert([0, 0]);
+            const [trCanvasMaxPointX, trCanvasMaxPointY] = this.wafermap.transform.invert([
+                this.wafermap.canvas.width,
+                this.wafermap.canvas.height
+            ]);
             trCanvasMinPointX -= dieWidth;
             trCanvasMinPointY -= dieHeight;
 
