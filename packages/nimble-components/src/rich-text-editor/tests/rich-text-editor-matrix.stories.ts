@@ -17,6 +17,7 @@ import {
 } from '../../theme-provider/design-token-names';
 import { buttonTag } from '../../button';
 import { backgroundStates } from '../../utilities/tests/states';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -92,18 +93,44 @@ const styledComponent = (): ViewTemplate => html`
 </div>
 `;
 
-export const editorMarkdownValueSetLightThemeWhiteBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), lightThemeWhiteBackground);
+const mobileWidthComponent = (): ViewTemplate => html`
+<div style="padding: 20px; width: 300px;">
+    <${richTextEditorTag}>
+        <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
+        <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
+    </${richTextEditorTag}>
+</div>
+`;
 
-editorMarkdownValueSetLightThemeWhiteBackground.play = playFunction;
+export const editorWhenMarkdownValueSetInLightThemeWhiteBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), lightThemeWhiteBackground);
 
-export const editorMarkdownValueSetColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), colorThemeDarkGreenBackground);
+editorWhenMarkdownValueSetInLightThemeWhiteBackground.play = playFunction;
 
-editorMarkdownValueSetColorThemeDarkGreenBackground.play = playFunction;
+export const editorWhenMarkdownValueSetInColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), colorThemeDarkGreenBackground);
 
-export const editorMarkdownValueSetDarkThemeBlackBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), darkThemeBlackBackground);
+editorWhenMarkdownValueSetInColorThemeDarkGreenBackground.play = playFunction;
 
-editorMarkdownValueSetDarkThemeBlackBackground.play = playFunction;
+export const editorWhenMarkdownValueSetInDarkThemeBlackBackground: StoryFn = createFixedThemeStory(createMatrix(styledComponent), darkThemeBlackBackground);
 
+editorWhenMarkdownValueSetInDarkThemeBlackBackground.play = playFunction;
+
+export const plainTextContentInMobileWidth: StoryFn = createFixedThemeStory(createMatrix(mobileWidthComponent), lightThemeWhiteBackground);
+
+plainTextContentInMobileWidth.play = (): void => {
+    document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
+};
+
+export const multipleSubPointsContentInMobileWidth: StoryFn = createFixedThemeStory(createMatrix(mobileWidthComponent), lightThemeWhiteBackground);
+
+multipleSubPointsContentInMobileWidth.play = (): void => {
+    document.querySelector('nimble-rich-text-editor')!.setMarkdown('1. Sub point 1\n   1. Sub point 2\n       1. Sub point 3\n          1. Sub point 4\n             1. Sub point 5\n                 1. Sub point 6\n                    1. Sub point 7\n');
+};
+
+export const longWordContentInMobileWidth: StoryFn = createFixedThemeStory(createMatrix(mobileWidthComponent), lightThemeWhiteBackground);
+
+longWordContentInMobileWidth.play = (): void => {
+    document.querySelector('nimble-rich-text-editor')!.setMarkdown('ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth');
+};
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)
 );
