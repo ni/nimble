@@ -9,8 +9,8 @@ import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { mappingTextTag } from '../../../mapping/text';
 import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
-import { IconXmark } from '../../../icons/xmark';
-import { IconCheck } from '../../../icons/check';
+import { IconXmark, iconXmarkTag } from '../../../icons/xmark';
+import { IconCheck, iconCheckTag } from '../../../icons/check';
 import type { MappingKey } from '../../../mapping/base/types';
 
 interface SimpleTableRecord extends TableRecord {
@@ -72,7 +72,7 @@ describe('TableColumnIcon', () => {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         it(`displays icon mapped from ${test.type}`, async () => {
             ({ element, connect, disconnect, model } = await setup(
-                [{ key: test.key, text: 'alpha', icon: 'nimble-icon-xmark' }],
+                [{ key: test.key, text: 'alpha', icon: iconXmarkTag }],
                 test.type
             ));
             pageObject = new TablePageObject<SimpleTableRecord>(element);
@@ -88,7 +88,7 @@ describe('TableColumnIcon', () => {
 
     it('displays blank when no matches', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'no match' }]);
@@ -100,8 +100,8 @@ describe('TableColumnIcon', () => {
 
     it('changing fieldName updates display', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' },
-            { key: 'b', text: 'bravo', icon: 'nimble-icon-check' }
+            { key: 'a', text: 'alpha', icon: iconXmarkTag },
+            { key: 'b', text: 'bravo', icon: iconCheckTag }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a', field2: 'b' }]);
@@ -118,7 +118,7 @@ describe('TableColumnIcon', () => {
 
     it('changing mapping icon updates display', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
@@ -126,7 +126,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         const mapping = model.col1.mappings[0] as MappingIcon;
-        mapping.icon = 'nimble-icon-check';
+        mapping.icon = iconCheckTag;
         await waitForUpdatesAsync();
 
         expect(
@@ -136,7 +136,7 @@ describe('TableColumnIcon', () => {
 
     it('changing mapping key updates display', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'b' }]);
@@ -154,7 +154,7 @@ describe('TableColumnIcon', () => {
 
     it('sets label as title of icon', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
@@ -165,7 +165,7 @@ describe('TableColumnIcon', () => {
 
     it('sets label as aria-label of icon', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'a' }]);
@@ -188,7 +188,7 @@ describe('TableColumnIcon', () => {
                         {
                             key: 'a',
                             text: value.name,
-                            icon: 'nimble-icon-xmark'
+                            icon: iconXmarkTag
                         }
                     ]));
                     pageObject = new TablePageObject<SimpleTableRecord>(
@@ -210,7 +210,7 @@ describe('TableColumnIcon', () => {
 
     it('sets group header text to blank when unmatched', async () => {
         ({ element, connect, disconnect, model } = await setup([
-            { key: 'b', text: 'bravo', icon: 'nimble-icon-xmark' }
+            { key: 'b', text: 'bravo', icon: iconXmarkTag }
         ]));
         pageObject = new TablePageObject<SimpleTableRecord>(element);
         await element.setData([{ field1: 'unmatched' }]);
@@ -242,11 +242,11 @@ describe('TableColumnIcon', () => {
         it('is valid with valid numeric key values', async () => {
             ({ element, connect, disconnect, model } = await setup(
                 [
-                    { key: '0', text: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '1', text: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '1.01', text: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '-1.01', text: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '-1e3', text: 'alpha', icon: 'nimble-icon-xmark' }
+                    { key: '0', text: 'alpha', icon: iconXmarkTag },
+                    { key: '1', text: 'alpha', icon: iconXmarkTag },
+                    { key: '1.01', text: 'alpha', icon: iconXmarkTag },
+                    { key: '-1.01', text: 'alpha', icon: iconXmarkTag },
+                    { key: '-1e3', text: 'alpha', icon: iconXmarkTag }
                 ],
                 'number'
             ));
@@ -279,7 +279,7 @@ describe('TableColumnIcon', () => {
                             {
                                 key: test.key,
                                 text: 'alpha',
-                                icon: 'nimble-icon-xmark'
+                                icon: iconXmarkTag
                             }
                         ],
                         'boolean'
@@ -296,7 +296,7 @@ describe('TableColumnIcon', () => {
 
         it('is invalid with invalid numeric key values', async () => {
             ({ element, connect, disconnect, model } = await setup(
-                [{ key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }],
+                [{ key: 'a', text: 'alpha', icon: iconXmarkTag }],
                 'number'
             ));
             await connect();
@@ -332,8 +332,8 @@ describe('TableColumnIcon', () => {
 
         it('is invalid with duplicate key values', async () => {
             ({ element, connect, disconnect, model } = await setup([
-                { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' },
-                { key: 'a', text: 'alpha', icon: 'nimble-icon-xmark' }
+                { key: 'a', text: 'alpha', icon: iconXmarkTag },
+                { key: 'a', text: 'alpha', icon: iconXmarkTag }
             ]));
             await connect();
             await waitForUpdatesAsync();
@@ -344,8 +344,8 @@ describe('TableColumnIcon', () => {
         it('is invalid with equivalent numeric key values', async () => {
             ({ element, connect, disconnect, model } = await setup(
                 [
-                    { key: '0', text: 'alpha', icon: 'nimble-icon-xmark' },
-                    { key: '0.0', text: 'alpha', icon: 'nimble-icon-xmark' }
+                    { key: '0', text: 'alpha', icon: iconXmarkTag },
+                    { key: '0.0', text: 'alpha', icon: iconXmarkTag }
                 ],
                 'number'
             ));
@@ -357,7 +357,7 @@ describe('TableColumnIcon', () => {
 
         it('is invalid with missing key value', async () => {
             ({ element, connect, disconnect, model } = await setup([
-                { text: 'alpha', icon: 'nimble-icon-xmark' }
+                { text: 'alpha', icon: iconXmarkTag }
             ]));
             await connect();
             await waitForUpdatesAsync();
@@ -367,7 +367,7 @@ describe('TableColumnIcon', () => {
 
         it('is invalid with missing text value', async () => {
             ({ element, connect, disconnect, model } = await setup([
-                { key: 'a', icon: 'nimble-icon-xmark' }
+                { key: 'a', icon: iconXmarkTag }
             ]));
             await connect();
             await waitForUpdatesAsync();
