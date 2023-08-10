@@ -57,7 +57,7 @@ export class MappingIcon extends Mapping {
 
     private iconChanged(): void {
         const icon = this.icon;
-        if (typeof icon !== 'string') {
+        if (icon === undefined) {
             this.resolvedIcon = undefined;
             return;
         }

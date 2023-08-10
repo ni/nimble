@@ -95,7 +95,7 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellIcon(0, 0)).toBeNull();
+        expect(() => pageObject.getRenderedCellIcon(0, 0)).toThrowError();
     });
 
     it('changing fieldName updates display', async () => {

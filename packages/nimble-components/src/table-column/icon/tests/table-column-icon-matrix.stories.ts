@@ -7,6 +7,7 @@ import { tableColumnIconTag } from '..';
 import { iconCheckTag } from '../../../icons/check';
 import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
+import { isChromatic } from '../../../utilities/tests/isChromatic';
 
 const metadata: Meta = {
     title: 'Tests/Table Column - Icon',
@@ -34,7 +35,7 @@ const data = [
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
-    <${tableTag} id-field-name="id" style="height: 250px; --ni-private-spinner-animation-play-state: paused">
+    <${tableTag} id-field-name="id" style="height: 250px; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}">
         <${tableColumnIconTag}
             field-name="code"
             key-type="number"

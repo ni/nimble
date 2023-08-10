@@ -195,7 +195,9 @@ export class TablePageObject<T extends TableRecord> {
         const icon = this.getRenderedCellView(rowIndex, columnIndex).shadowRoot!
             .firstElementChild;
         if (!icon || !(icon instanceof Icon)) {
-            return null;
+            throw new Error(
+                `Icon not found at cell ${rowIndex},${columnIndex}`
+            );
         }
         return icon;
     }
@@ -207,7 +209,9 @@ export class TablePageObject<T extends TableRecord> {
         const spinner = this.getRenderedCellView(rowIndex, columnIndex)
             .shadowRoot!.firstElementChild;
         if (!spinner || !(spinner instanceof Spinner)) {
-            return null;
+            throw new Error(
+                `Spinner not found at cell ${rowIndex},${columnIndex}`
+            );
         }
         return spinner;
     }

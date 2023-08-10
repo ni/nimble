@@ -30,9 +30,8 @@ export class TableColumnIconCellView
     implements IconView {
     public severity: IconSeverity;
     public text!: string;
-    public iconTemplate?: ViewTemplate<IconView>;
     @observable
-    public visual?: 'spinner' | 'icon';
+    public iconTemplate?: ViewTemplate<IconView>;
 
     private columnConfigChanged(): void {
         this.updateState();
@@ -43,7 +42,7 @@ export class TableColumnIconCellView
     }
 
     private updateState(): void {
-        this.visual = undefined;
+        this.iconTemplate = undefined;
         if (!this.columnConfig || !this.cellRecord) {
             return;
         }
@@ -53,12 +52,10 @@ export class TableColumnIconCellView
         }
         const mappingConfig = this.columnConfig.mappingConfigs.get(value);
         if (mappingConfig instanceof MappingIconConfig) {
-            this.visual = 'icon';
             this.severity = mappingConfig.severity;
             this.text = mappingConfig.text;
             this.iconTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
-            this.visual = 'spinner';
             this.text = mappingConfig.text;
         }
     }

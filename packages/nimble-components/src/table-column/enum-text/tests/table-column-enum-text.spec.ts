@@ -366,47 +366,45 @@ describe('TableColumnEnumText', () => {
             }
         });
 
-        describe('invalid mappings', () => {
-            class ModelInvalidMappings {
-                public col1!: TableColumnEnumText;
-                public col2!: TableColumnEnumText;
-            }
-            interface ModelInvalidMappingsFixture<T> extends Fixture<T> {
-                model: ModelInvalidMappings;
-            }
-            // prettier-ignore
-            async function setupInvalidMappings(): Promise<ModelInvalidMappingsFixture<Table<SimpleTableRecord>>> {
-                const source = new ModelInvalidMappings();
-                const result = await fixture<Table<SimpleTableRecord>>(html<ModelInvalidMappings>`
-                    <${tableTag} style="width: 700px">
-                        <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1">
-                            Column 1
-                            <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
-                            <${mappingIconTag} key="bar" label="bar" icon="nimble-icon-xmark"></${mappingIconTag}>
-                        </${tableColumnEnumTextTag}>
-                        <${tableColumnEnumTextTag} ${ref('col2')} field-name="field1">
-                            Column 2
-                            <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
-                            <${mappingSpinnerTag} key="bar" label="bar"></${mappingSpinnerTag}>
-                        </${tableColumnEnumTextTag}>
-                    </${tableTag}>
-                `, { source });
-                return {
-                    ...result,
-                    model: source
-                };
-            }
-            it('is invalid with icon or spinner mappings', async () => {
-                ({ element, connect, disconnect, model } = await setupInvalidMappings());
-                await connect();
-                await waitForUpdatesAsync();
-                const column1 = model.col1;
-                const column2 = model.col2;
-                expect(column1.checkValidity()).toBeFalse();
-                expect(column1.validity.unsupportedMappingType).toBeTrue();
-                expect(column2.checkValidity()).toBeFalse();
-                expect(column2.validity.unsupportedMappingType).toBeTrue();
-            });
+        class ModelInvalidMappings {
+            public col1!: TableColumnEnumText;
+            public col2!: TableColumnEnumText;
+        }
+        interface ModelInvalidMappingsFixture<T> extends Fixture<T> {
+            model: ModelInvalidMappings;
+        }
+        // prettier-ignore
+        async function setupInvalidMappings(): Promise<ModelInvalidMappingsFixture<Table<SimpleTableRecord>>> {
+            const source = new ModelInvalidMappings();
+            const result = await fixture<Table<SimpleTableRecord>>(html<ModelInvalidMappings>`
+                <${tableTag} style="width: 700px">
+                    <${tableColumnEnumTextTag} ${ref('col1')} field-name="field1">
+                        Column 1
+                        <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
+                        <${mappingIconTag} key="bar" label="bar" icon="nimble-icon-xmark"></${mappingIconTag}>
+                    </${tableColumnEnumTextTag}>
+                    <${tableColumnEnumTextTag} ${ref('col2')} field-name="field1">
+                        Column 2
+                        <${mappingTextTag} key="foo" label="foo"></${mappingTextTag}>
+                        <${mappingSpinnerTag} key="bar" label="bar"></${mappingSpinnerTag}>
+                    </${tableColumnEnumTextTag}>
+                </${tableTag}>
+            `, { source });
+            return {
+                ...result,
+                model: source
+            };
+        }
+        it('is invalid with icon or spinner mappings', async () => {
+            ({ element, connect, disconnect, model } = await setupInvalidMappings());
+            await connect();
+            await waitForUpdatesAsync();
+            const column1 = model.col1;
+            const column2 = model.col2;
+            expect(column1.checkValidity()).toBeFalse();
+            expect(column1.validity.unsupportedMappingType).toBeTrue();
+            expect(column2.checkValidity()).toBeFalse();
+            expect(column2.validity.unsupportedMappingType).toBeTrue();
         });
 
         it('is invalid with duplicate key values', async () => {

@@ -11,6 +11,7 @@ const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
         title="${x => x.text}"
         aria-label="${x => x.text}"
         severity="${x => x.severity}"
+        class="no-shrink"
     >
     </${icon}>`;
 

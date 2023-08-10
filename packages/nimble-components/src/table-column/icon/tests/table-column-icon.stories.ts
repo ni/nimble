@@ -17,6 +17,7 @@ import { iconCheckLargeTag } from '../../../icons/check-large';
 import { mappingIconTag } from '../../../mapping/icon';
 import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
+import { isChromatic } from '../../../utilities/tests/isChromatic';
 
 const simpleData = [
     {
@@ -78,7 +79,7 @@ export const iconColumn: StoryObj<IconColumnTableArgs> = {
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
-            style="--ni-private-spinner-animation-play-state: paused"
+            style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
             <${tableColumnTextTag} field-name="firstName" >
                 Name
