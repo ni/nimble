@@ -107,7 +107,7 @@ export class CustomAppComponent {
             stringValue2: `bar ${tableData.length}`,
             href: '/customapp',
             linkLabel: 'Link',
-            statusCode: (Math.floor(Math.random() * 10) % 2) === 0 ? 100 : 101
+            statusCode: (tableData.length % 2 === 0) ? 100 : 101
         });
         this.tableDataSubject.next(tableData);
     }
