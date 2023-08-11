@@ -56,6 +56,18 @@ describe('TableColumnNumberText', () => {
         await disconnect();
     });
 
+    it('should export its tag', () => {
+        expect(tableColumnNumberTextTag).toBe(
+            'nimble-table-column-number-text'
+        );
+    });
+
+    it('can construct an element instance', () => {
+        expect(
+            document.createElement('nimble-table-column-number-text')
+        ).toBeInstanceOf(TableColumnNumberText);
+    });
+
     it('reports column configuration valid', async () => {
         await connect();
         await waitForUpdatesAsync();
@@ -275,9 +287,9 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: 'NaN'
             },
             {
-                name: '-0 renders with negative sign',
+                name: '-0 renders without negative sign',
                 value: -0,
-                expectedRenderedString: '-0'
+                expectedRenderedString: '0'
             },
             {
                 name: '+0 renders without positive sign',
@@ -295,9 +307,39 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '10.0011'
             },
             {
+                name: 'does not use exponential notation for -999,999',
+                value: -999999,
+                expectedRenderedString: '-999,999'
+            },
+            {
+                name: 'does not use exponential notation for -999,999.4999',
+                value: -999999.4999,
+                expectedRenderedString: '-999,999'
+            },
+            {
+                name: 'uses exponential notation for -999,999.5',
+                value: -999999.5,
+                expectedRenderedString: '-1E6'
+            },
+            {
+                name: 'uses exponential notation for -1,000,000',
+                value: -1000000,
+                expectedRenderedString: '-1E6'
+            },
+            {
                 name: 'does not use exponential notation for 999,999',
                 value: 999999,
                 expectedRenderedString: '999,999'
+            },
+            {
+                name: 'does not use exponential notation for 999,999.4999',
+                value: 999999.4999,
+                expectedRenderedString: '999,999'
+            },
+            {
+                name: 'uses exponential notation for 999,999.5',
+                value: 999999.5,
+                expectedRenderedString: '1E6'
             },
             {
                 name: 'uses exponential notation for 1,000,000',
@@ -305,14 +347,24 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '1E6'
             },
             {
-                name: 'does not use exponential notation for 0.000001',
-                value: 0.000001,
-                expectedRenderedString: '0.000001'
+                name: 'does not use exponential notation for 0.001',
+                value: 0.001,
+                expectedRenderedString: '0.001'
             },
             {
-                name: 'uses exponential notation for 0.000000999',
-                value: 0.000000999,
-                expectedRenderedString: '9.99E-7'
+                name: 'does not use exponential notation for 0.000995',
+                value: 0.000999999,
+                expectedRenderedString: '0.001'
+            },
+            {
+                name: 'uses exponential notation for 0.000994',
+                value: 0.000994,
+                expectedRenderedString: '9.94E-4'
+            },
+            {
+                name: 'does not show more than 6 digits even if the rendered value has fewer than 6 significant digits',
+                value: 0.0123456,
+                expectedRenderedString: '0.01235'
             },
             {
                 name: 'does not show decimals for an integer value',
@@ -398,13 +450,18 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: 'NaN'
             },
             {
-                name: '-0 renders with negative sign',
+                name: '-0 renders without negative sign',
                 value: -0,
-                expectedRenderedString: '-0'
+                expectedRenderedString: '0'
             },
             {
                 name: '+0 renders without positive sign',
                 value: 0,
+                expectedRenderedString: '0'
+            },
+            {
+                name: '-0.1 renders as 0 without negative sign',
+                value: -0.1,
                 expectedRenderedString: '0'
             },
             {

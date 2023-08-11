@@ -1,25 +1,34 @@
+import { NumberFormatter } from './number-formatter';
+
 /**
  * The formatter for a number-text column whose format is configured to be 'default'.
  */
-export class DefaultFormatter {
-    private static readonly significantDigits = 6;
-
-    private static readonly exponentialLowerBound = 10 ** -DefaultFormatter.significantDigits;
-
-    private static readonly exponentialUpperBound = 10 ** DefaultFormatter.significantDigits;
+export class DefaultFormatter extends NumberFormatter {
+    private static readonly maximumDigits = 6;
+    // Use exponential notation for numbers that will be displayed with
+    // 3 leading 0s or more because otherwise at least half of the displayed
+    // digits will be leading 0s.
+    private static readonly exponentialLowerBound = 0.000995;
+    // Use exponential formatting for numbers whose magnitude cannot
+    // otherwise be displayed with less than 6 digits or less.
+    private static readonly exponentialUpperBound = 999999.5;
 
     private static readonly defaultFormatter = new Intl.NumberFormat(
         undefined,
         {
-            maximumSignificantDigits: DefaultFormatter.significantDigits,
-            useGrouping: true
+            maximumSignificantDigits: DefaultFormatter.maximumDigits,
+            maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
+            roundingPriority: 'lessPrecision',
+            useGrouping: true,
+            // @ts-expect-error - The version of TypeScript currently being used does not include 'negative' as a valid signDisplay value
+            signDisplay: 'negative'
         }
     );
 
     private static readonly exponentialFormatter = new Intl.NumberFormat(
         undefined,
         {
-            maximumSignificantDigits: DefaultFormatter.significantDigits,
+            maximumSignificantDigits: DefaultFormatter.maximumDigits,
             notation: 'scientific'
         }
     );
