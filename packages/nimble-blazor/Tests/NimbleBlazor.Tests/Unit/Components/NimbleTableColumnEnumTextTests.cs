@@ -22,7 +22,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithIntTypeParameter_HasNumberMarkup()
     {
-        var column = Render<int>();
+        var column = RenderTableEnumColumn<int>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -31,7 +31,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithUIntTypeParameter_HasNumberMarkup()
     {
-        var column = Render<uint>();
+        var column = RenderTableEnumColumn<uint>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -40,7 +40,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithShortTypeParameter_HasNumberMarkup()
     {
-        var column = Render<short>();
+        var column = RenderTableEnumColumn<short>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -49,7 +49,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithUShortTypeParameter_HasNumberMarkup()
     {
-        var column = Render<ushort>();
+        var column = RenderTableEnumColumn<ushort>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -58,7 +58,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithLongTypeParameter_HasNumberMarkup()
     {
-        var column = Render<long>();
+        var column = RenderTableEnumColumn<long>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -67,7 +67,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithULongTypeParameter_HasNumberMarkup()
     {
-        var column = Render<ulong>();
+        var column = RenderTableEnumColumn<ulong>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -76,7 +76,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithByteTypeParameter_HasNumberMarkup()
     {
-        var column = Render<byte>();
+        var column = RenderTableEnumColumn<byte>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -85,7 +85,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithSByteTypeParameter_HasNumberMarkup()
     {
-        var column = Render<sbyte>();
+        var column = RenderTableEnumColumn<sbyte>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -94,7 +94,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithFloatTypeParameter_HasNumberMarkup()
     {
-        var column = Render<float>();
+        var column = RenderTableEnumColumn<float>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -103,7 +103,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithDoubleTypeParameter_HasNumberMarkup()
     {
-        var column = Render<double>();
+        var column = RenderTableEnumColumn<double>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -112,7 +112,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithDecimalTypeParameter_HasNumberMarkup()
     {
-        var column = Render<decimal>();
+        var column = RenderTableEnumColumn<decimal>();
 
         var expectedMarkup = @"key-type=""number""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -121,7 +121,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithBooleanTypeParameter_HasBooleanMarkup()
     {
-        var column = Render<bool>();
+        var column = RenderTableEnumColumn<bool>();
 
         var expectedMarkup = @"key-type=""boolean""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -130,7 +130,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithStringTypeParameter_HasStringMarkup()
     {
-        var column = Render<string>();
+        var column = RenderTableEnumColumn<string>();
 
         var expectedMarkup = @"key-type=""string""";
         Assert.Contains(expectedMarkup, column.Markup);
@@ -139,7 +139,7 @@ public class NimbleTableColumnEnumTextTests
     [Fact]
     public void NimbleTableColumnEnumText_WithObjectTypeParameter_ThrowsException()
     {
-        Assert.Throws<ArgumentException>(() => Render<object>());
+        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<object>());
     }
 
     [Fact]
@@ -151,7 +151,7 @@ public class NimbleTableColumnEnumTextTests
         Assert.Contains(expectedMarkup, column.Markup);
     }
 
-    private IRenderedComponent<NimbleTableColumnEnumText<TKey>> Render<TKey>()
+    private IRenderedComponent<NimbleTableColumnEnumText<TKey>> RenderTableEnumColumn<TKey>()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
