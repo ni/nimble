@@ -50,8 +50,6 @@ export * from './directives/icons';
 export * from './directives/list-option/nimble-combobox-list-option.directive';
 export * from './directives/list-option/nimble-select-list-option.directive';
 export * from './directives/list-option/nimble-list-option.module';
-export * from './directives/mapping/text/nimble-mapping-text.directive';
-export * from './directives/mapping/text/nimble-mapping-text.module';
 export * from './directives/menu/nimble-menu.directive';
 export * from './directives/menu/nimble-menu.module';
 export * from './directives/menu-button/nimble-menu-button.directive';
