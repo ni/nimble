@@ -23,7 +23,9 @@ export const styles = css`
         position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-footer-section-height: 40px;
-        ${/** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''}
+        ${
+            /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
+        }
         min-width: 360px;
     }
 
