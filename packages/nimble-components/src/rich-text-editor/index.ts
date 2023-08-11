@@ -178,7 +178,6 @@ export class RichTextEditor extends FoundationElement {
         if (this.$fastController.isConnected) {
             const html = this.getHtmlContent(markdown);
             this.tiptapEditor.commands.setContent(html);
-            this.tiptapEditor.commands.focus();
         }
     }
 
