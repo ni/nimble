@@ -242,36 +242,22 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
--   `link-target` - is an attribute that accepts valid `target` values for the `anchor` element, applicable to all links within the viewer component.
-    The following values are accepted by this attribute:
-    1.  `_self`: the current browsing context. (Default)
-    2.  `_blank`: usually a new tab, but users can configure browsers to open a new window instead.
-    3.  `_parent`: the parent browsing context of the current one. If no parent, behaves as `_self`.
-    4.  `_top`: the topmost browsing context (the "highest" context that's an ancestor of the current one). If no ancestors, behaves as `_self`.
+-   `anchor-target` - is a string attribute that aligns with `target` values of the `anchor` element, applicable to all links within the viewer component.
+    Some of the values have special meanings and to see their definitions refer
+    [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#:~:text=separated%20link%20types.-,target,-Where%20to%20display).
 
-Above definitions are from the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#:~:text=separated%20link%20types.-,target,-Where%20to%20display).
+By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are below).
 
-By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are below). If opening in a new tab, `nimble-icon-up-right-from-square` will be placed right
-next to all the links in the viewer instance to indicate the link will be opened in a new tab.
-
--   Accessibility guidelines to open link only in new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
+-   Accessibility guidelines to open link only in a new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
 -   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
 _Alternative implementations:_
 
-For comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab only if
+For the comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab and show a warning to the user only if
 they are external (i.e., not from the same domain/origin); for internal links, they will open in the same tab. Here, we will show the same warning mentioned above for the external
-links. Below is proposed high level design for the same,
+links.
 
-We will introduce an attribute named `link-configuration` that can accept the following enum values:
-
-1.  `openInSameTab` - This value is the default setting. If chosen, all links within the component will open in the same tab.
-2.  `openInNewTab` - When selected, all links in the component will open in new tab. A warning icon will be placed next to each link, conveying the user that
-    clicking the link will result in a new tab opening.
-3.  `externalLinkBasedOnOrigin` - With this setting, links will be validated based on their origins. If a link's origin differs from the current origin, it is categorized as
-    external link and will open in a new tab. Conversely, links originating from the same domain will be treated as internal link and open in the same tab.
-
-If this appears to be a more favorable approach, we will proceed with its implementation rather than the previously discussed design.
+However, if it is an external link, it need not be an untrusted link, so showing a warning to the link doesn't align with the accessibility WCAG guideline.
 
 _Methods_
 
@@ -316,7 +302,7 @@ association, so a `ControlValueAccessor` will not be created.
 _Future enhancements:_
 
 An Angular router integration will be implemented for the same domain internal `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
-Instead of a full page reload, the Angular router integration is expected to enable rendering of components only on the activated route relative to existing route, making the user experience smoother while keeping the background work on lower side.
+Instead of a full page reload, the Angular router integration is expected to enable the rendering of components only on the activated route relative to the existing route, making the user experience smoother while keeping the background work on the lower side.
 
 ### Blazor integration
 
@@ -368,7 +354,7 @@ _Configurations on Tiptap to support only absolute links_:
 Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
 
 1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to support only `HTTP` and `HTTPS` absolute links in the editor.
-2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for editor, to restrict the user opening a link from the editor by clicking. User can open the link only by
+2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for the editor, to restrict the user from opening a link from the editor by clicking. Users can open the link only by
     `Right-click >> Open link in new tab` from the editor.
 3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
 4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will replace the current selection in the editor with the URL. If it is `true`,
@@ -381,7 +367,7 @@ _Implementation details for supporting absolute link:_
 
 For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open either in a new tab or in the same tab.
 Here is the default [link configuration](https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/schema.ts#L138C5-L148C6)
-from the `prosemirror-markdown` package for the comparison with the newly updated configuration.
+from the `prosemirror-markdown` package for comparison with the newly updated configuration.
 
 ```js
 link: {
@@ -398,20 +384,15 @@ link: {
                 href: node.attrs.href as Attr,
                 target: node.attrs.target as Attr,
                 rel: node.attrs.rel as Attr
-            },
-            [
-                iconUpRightFromSquareTag, { slot: 'end' } // nimble-icon-up-right-from-square here in the slot "end" of nimble-anchor element
-            ]
+            }
         ];
     }
 }
 ```
 
-1.  As in the above schema, we will modify the `target` value according to the attribute `linkTarget` that is configured by the client component. The default value of the `linkTarget` is same as the `anchor` element, that is `_self`.
+1.  As in the above schema, we will modify the `target` value according to the attribute `linkTarget` that is configured by the client component. The default value of the `linkTarget` is the same as the `anchor` element, that is `_self`.
 2.  We also set the `rel` attribute value to `noopener noreferrer` to enhance security and ensure responsible linking practices.
 3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
-4.  Additionally, we have included the child node `iconUpRightFromSquareTag` to render the `nimble-icon-up-right-from-square` icon and configuring the slot attribute value as `end` to display it in the end.
-    With appropriate styling, we can effectively display the icon next to the link.
 
 _Future Enhancements:_
 
