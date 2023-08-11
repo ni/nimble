@@ -10,7 +10,7 @@ import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
 import { NumberTextFormat } from './types';
 import type { NumberFormatter } from './models/number-formatter';
-import { IntegerFormatter } from './models/integer-formatter';
+import { RoundToIntegerFormatter } from './models/round-to-integer-formatter';
 import { DefaultFormatter } from './models/default-formatter';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
@@ -59,8 +59,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     private createFormatter(): NumberFormatter {
         switch (this.format) {
-            case NumberTextFormat.integer:
-                return new IntegerFormatter();
+            case NumberTextFormat.roundToInteger:
+                return new RoundToIntegerFormatter();
             default:
                 return new DefaultFormatter();
         }

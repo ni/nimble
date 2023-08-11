@@ -3,7 +3,7 @@
  */
 export const NumberTextFormat = {
     default: undefined,
-    integer: 'integer'
+    roundToInteger: 'round-to-integer'
 } as const;
 export type NumberTextFormat =
     (typeof NumberTextFormat)[keyof typeof NumberTextFormat];

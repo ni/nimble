@@ -46,11 +46,11 @@ const component = (): ViewTemplate => html`
             Default
         </${tableColumnNumberTextTag}>
         <${tableColumnNumberTextTag}
-            format="integer"
+            format="round-to-integer"
             field-name="number"
             group-index="1"
         >
-            Integer
+            Round to integer
         </${tableColumnNumberTextTag}>
     </${tableTag}>
 `;

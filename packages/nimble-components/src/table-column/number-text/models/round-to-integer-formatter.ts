@@ -1,9 +1,9 @@
 import { NumberFormatter } from './number-formatter';
 
 /**
- * The formatter for a number-text column whose format is configured to be 'integer'.
+ * The formatter for a number-text column whose format is configured to be 'roundToInteger'.
  */
-export class IntegerFormatter extends NumberFormatter {
+export class RoundToIntegerFormatter extends NumberFormatter {
     private static readonly formatter = new Intl.NumberFormat(undefined, {
         maximumFractionDigits: 0,
         useGrouping: true,
@@ -12,6 +12,6 @@ export class IntegerFormatter extends NumberFormatter {
     });
 
     public format(number: number): string {
-        return IntegerFormatter.formatter.format(number);
+        return RoundToIntegerFormatter.formatter.format(number);
     }
 }

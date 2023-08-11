@@ -108,7 +108,7 @@ describe('TableColumnNumberText', () => {
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('2.9');
         expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('2.9');
 
-        columnInstances.column1.format = NumberTextFormat.integer;
+        columnInstances.column1.format = NumberTextFormat.roundToInteger;
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('3');
@@ -176,9 +176,9 @@ describe('TableColumnNumberText', () => {
         const largeNumberAsIntegerString = '8,729,375,089,724,643';
 
         beforeEach(async () => {
-            // Change the format to 'integer' for the title tests so that the number isn't displayed in
+            // Change the format to 'roundToInteger' for the title tests so that the number isn't displayed in
             // exponential notation, which makes it difficult to render a long enough string to have overflow.
-            columnInstances.column1.format = NumberTextFormat.integer;
+            columnInstances.column1.format = NumberTextFormat.roundToInteger;
             await waitForUpdatesAsync();
         });
 
@@ -427,9 +427,9 @@ describe('TableColumnNumberText', () => {
         }
     });
 
-    describe('with integer formatting', () => {
+    describe('with round-to-integer formatting', () => {
         beforeEach(async () => {
-            columnInstances.column1.format = NumberTextFormat.integer;
+            columnInstances.column1.format = NumberTextFormat.roundToInteger;
             await waitForUpdatesAsync();
         });
 
