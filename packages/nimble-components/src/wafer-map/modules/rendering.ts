@@ -67,23 +67,22 @@ export class RenderingModule {
     private renderDies(): void {
         let fillStyle = '';
         const context = this.wafermap.canvasContext;
-        let [trCanvasMinPointX, trCanvasMinPointY] = this.wafermap.transform.invert([0, 0]);
-        const [trCanvasMaxPointX, trCanvasMaxPointY] = this.wafermap.transform.invert([
+        const dieWidth = this.wafermap.dataManager.dieDimensions.width;
+        const dieHeight = this.wafermap.dataManager.dieDimensions.height;
+        const transformedCanvasMinPoint = this.wafermap.transform.invert([0, 0]);
+        const transformedCanvasMaxPoint = this.wafermap.transform.invert([
             this.wafermap.canvas.width,
             this.wafermap.canvas.height
         ]);
-        const dieWidth = this.wafermap.dataManager.dieDimensions.width;
-        const dieHeight = this.wafermap.dataManager.dieDimensions.height;
-        trCanvasMinPointX -= dieWidth;
-        trCanvasMinPointY -= dieHeight;
+        transformedCanvasMinPoint[0] -= dieWidth;
+        transformedCanvasMinPoint[1] -= dieHeight;
 
         for (const die of this.dies) {
-            if (
-                die.x >= trCanvasMinPointX
-                && die.x < trCanvasMaxPointX
-                && die.y >= trCanvasMinPointY
-                && die.y < trCanvasMaxPointY
-            ) {
+            if (this.isDieVisible(
+                die,
+                transformedCanvasMinPoint,
+                transformedCanvasMaxPoint
+            )) {
                 if (fillStyle !== die.fillStyle) {
                     context.fillStyle = die.fillStyle;
                     fillStyle = die.fillStyle;
@@ -106,21 +105,20 @@ export class RenderingModule {
             context.lineCap = 'butt';
             const approxTextHeight = context.measureText('M');
 
-            let [trCanvasMinPointX, trCanvasMinPointY] = this.wafermap.transform.invert([0, 0]);
-            const [trCanvasMaxPointX, trCanvasMaxPointY] = this.wafermap.transform.invert([
+            const transformedCanvasMinPoint = this.wafermap.transform.invert([0, 0]);
+            const transformedCanvasMaxPoint = this.wafermap.transform.invert([
                 this.wafermap.canvas.width,
                 this.wafermap.canvas.height
             ]);
-            trCanvasMinPointX -= dieWidth;
-            trCanvasMinPointY -= dieHeight;
+            transformedCanvasMinPoint[0] -= dieWidth;
+            transformedCanvasMinPoint[1] -= dieHeight;
 
             for (const die of this.dies) {
-                if (
-                    die.x >= trCanvasMinPointX
-                    && die.x < trCanvasMaxPointX
-                    && die.y >= trCanvasMinPointY
-                    && die.y < trCanvasMaxPointY
-                ) {
+                if (this.isDieVisible(
+                    die,
+                    transformedCanvasMinPoint,
+                    transformedCanvasMaxPoint
+                )) {
                     context.fillText(
                         die.text,
                         die.x + dieWidth / 2,
@@ -150,5 +148,12 @@ export class RenderingModule {
             this.wafermap.transform.k,
             this.wafermap.transform.k
         );
+    }
+
+    private isDieVisible(die: DieRenderInfo, minPoint: [number, number], maxPoint: [number, number]): boolean {
+        return die.x >= minPoint[0]
+        && die.x < maxPoint[0]
+        && die.y >= minPoint[1]
+        && die.y < maxPoint[1];
     }
 }
