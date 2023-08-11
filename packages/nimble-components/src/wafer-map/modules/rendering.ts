@@ -29,9 +29,7 @@ export class RenderingModule {
         this.clearCanvas();
         this.scaleCanvas();
         this.renderDies();
-        if (!this.wafermap.dieLabelsHidden) {
-            this.renderText();
-        }
+        this.renderText();
         this.wafermap.canvasContext.restore();
         this.renderHover();
     }
@@ -97,6 +95,9 @@ export class RenderingModule {
     }
 
     private renderText(): void {
+        if (this.wafermap.dieLabelsHidden) {
+            return;
+        }
         const dieWidth = this.wafermap.dataManager.dieDimensions.width;
         const dieHeight = this.wafermap.dataManager.dieDimensions.height;
         const dieSize = dieWidth * dieHeight * (this.wafermap.transform.k || 1);
@@ -137,6 +138,7 @@ export class RenderingModule {
             }
         }
     }
+    
 
     private clearCanvas(): void {
         this.wafermap.canvasContext.clearRect(
