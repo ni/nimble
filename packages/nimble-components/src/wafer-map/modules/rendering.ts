@@ -108,7 +108,7 @@ export class RenderingModule {
             context.fillStyle = '#ffffff';
             context.textAlign = 'center';
             context.lineCap = 'butt';
-            const approxTextHeight = context.measureText('M');
+            const approximateTextHeight = context.measureText('M');
 
             const transformedCanvasMinPoint = this.wafermap.transform.invert([
                 0, 0
@@ -130,15 +130,14 @@ export class RenderingModule {
                 ) {
                     context.fillText(
                         die.text,
-                        die.x + dieWidth / 2,
-                        die.y + dieHeight / 2 + approxTextHeight.width / 2,
+                        die.x + (dieWidth / 2),
+                        die.y + (dieHeight / 2) + (approximateTextHeight.width / 2),
                         dieWidth - (dieWidth / 100) * 20
                     );
                 }
             }
         }
     }
-    
 
     private clearCanvas(): void {
         this.wafermap.canvasContext.clearRect(
