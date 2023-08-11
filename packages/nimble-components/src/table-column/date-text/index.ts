@@ -83,6 +83,8 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-format-matcher' })
     public customFormatMatcher: FormatMatcherAlgorithm;
 
+    // Later versions of FAST (than the legacy branch we're on) have a nullableBooleanConverter.
+    // We should replace our converter with that one when it is available to us.
     @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
     public customHour12?: boolean;
 
