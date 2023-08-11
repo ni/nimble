@@ -420,7 +420,7 @@ describe('RichTextEditor', () => {
         });
     });
 
-    it('set a empty string should clear a value in the editor', () => {
+    it('setting an empty string should clear a value in the editor', () => {
         element.setMarkdown('markdown string');
         expect(pageObject.getEditorTagNames()).toEqual(['P']);
         expect(pageObject.getEditorLeafContents()).toEqual(['markdown string']);
@@ -465,10 +465,8 @@ describe('RichTextEditor', () => {
             expect(pageObject.getEditorLeafContents()).toEqual(['Italics']);
         });
 
-        it('italics markdown string("_") to "em" HTML tag', async () => {
+        it('italics markdown string("_") to "em" HTML tag', () => {
             element.setMarkdown('_Italics_');
-
-            await connect();
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'EM']);
             expect(pageObject.getEditorLeafContents()).toEqual(['Italics']);

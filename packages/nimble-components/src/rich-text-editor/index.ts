@@ -174,10 +174,10 @@ export class RichTextEditor extends FoundationElement {
      * This function load tip tap editor with provided markdown content by parsing into html
      * @public
      */
-    public setMarkdown(value: string): void {
+    public setMarkdown(markdown: string): void {
         if (this.$fastController.isConnected) {
-            const htmlConvertedContent = this.getHtmlContent(value);
-            this.tiptapEditor.commands.setContent(htmlConvertedContent);
+            const html = this.getHtmlContent(markdown);
+            this.tiptapEditor.commands.setContent(html);
             this.tiptapEditor.commands.focus();
         }
     }
@@ -199,9 +199,9 @@ export class RichTextEditor extends FoundationElement {
     /**
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
-    private getHtmlContent(value: string): string {
-        const markdownDocumentFragment = this.parseMarkdownToDOM(value);
-        return this.xmlSerializer.serializeToString(markdownDocumentFragment);
+    private getHtmlContent(markdown: string): string {
+        const documentFragment = this.parseMarkdownToDOM(markdown);
+        return this.xmlSerializer.serializeToString(documentFragment);
     }
 
     private initializeMarkdownParser(): MarkdownParser {
