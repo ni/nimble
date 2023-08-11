@@ -36,7 +36,7 @@ TableColumnNumberTextColumnConfig
 }
 
 const tableColumnNumberTextGroupHeaderView = TableColumnNumberTextGroupHeaderView.compose({
-    baseName: 'table-column-number-text-group-header',
+    baseName: 'table-column-number-text-group-header-view',
     template,
     styles
 });
