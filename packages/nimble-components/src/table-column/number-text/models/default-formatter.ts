@@ -48,6 +48,9 @@ export class DefaultFormatter extends NumberFormatter {
         }
 
         const absoluteValue = Math.abs(number);
-        return absoluteValue < DefaultFormatter.exponentialLowerBound || absoluteValue >= DefaultFormatter.exponentialUpperBound;
+        return (
+            absoluteValue < DefaultFormatter.exponentialLowerBound
+            || absoluteValue >= DefaultFormatter.exponentialUpperBound
+        );
     }
 }
