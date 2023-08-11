@@ -17,9 +17,9 @@ public class NimbleMappingTextTests
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-mapping-text";
 
-        var anchor = context.RenderComponent<NimbleMappingText>();
+        var element = context.RenderComponent<NimbleMappingText>();
 
-        Assert.Contains(expectedMarkup, anchor.Markup);
+        Assert.Contains(expectedMarkup, element.Markup);
     }
 
     [Fact]
