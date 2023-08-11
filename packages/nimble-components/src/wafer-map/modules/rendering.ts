@@ -21,10 +21,10 @@ export class RenderingModule {
 
             return 0;
         });
-        this.updateDrawnWafer();
+        this.drawWafer();
     }
 
-    public updateDrawnWafer(): void {
+    public drawWafer(): void {
         this.wafermap.canvasContext.save();
         this.clearCanvas();
         this.scaleCanvas();
