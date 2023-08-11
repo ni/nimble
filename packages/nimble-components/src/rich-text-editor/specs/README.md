@@ -249,11 +249,12 @@ _Props/Attrs_
 
 _Alternative implementations:_
 
-For the comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab and show a warning to the user if
-they are external link (i.e., not from the same domain/origin); for internal links, they will open in the same tab. Here, we will show the same warning mentioned above for the external
-links.
+For the comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab and show a warning to the user only if
+they are external links (i.e., not from the same domain/origin); for internal links, they will open in the same tab.
+Here, we will show the warning to the external link by adding an icon next to the link that specifically states that the link will open in a new tab for the external links.
+The visual design is not yet finalized but we had an initial thought of adding `nimble-icon-up-right-from-square` next to the icon to represent the link will open in a new tab.
 
-However, if it is an external link, it need not be an untrusted link, so showing a warning to the link doesn't align with the accessibility WCAG guideline.
+However, if it is an external link, it need not be an untrusted link, so showing a warning to the link doesn't align with the accessibility WCAG guideline of opening a link only when required.
 
 _Methods_
 
