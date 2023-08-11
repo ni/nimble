@@ -18,6 +18,9 @@ export class DefaultFormatter extends NumberFormatter {
         {
             maximumSignificantDigits: DefaultFormatter.maximumDigits,
             maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
+            // Use 'lessPrecision' rounding priority to help ensure that no more than 6 digits are rendered
+            // in the formatted value, even if 'maximumSignificantDigits' or 'maximumFractionDigits' alone
+            // would result in more than 6 rendered digits.
             roundingPriority: 'lessPrecision',
             useGrouping: true,
             // @ts-expect-error - The version of TypeScript currently being used does not include 'negative' as a valid signDisplay value
