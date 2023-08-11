@@ -94,7 +94,7 @@ export const styles = css`
     ${
         /**
          * Below are the styles from prosemirror-view as the Prose mirror expects the "white-space" to be set. The recommendation is to load the style from the below package.
-         * However, the other classes used in the below file like ".ProseMirror-selectednode", ".ProseMirror-hideselection" were not used anywhere in the ".Prosemirror" content editable div in the DOM. So added only the necessary classes below.
+         * However, the other classes used in the below file like ".ProseMirror-selectednode", ".ProseMirror-hideselection" were not used anywhere in the ".Prosemirror" content editable div in the DOM. So added only the necessary styles below.
          *
          * https://github.com/ProseMirror/prosemirror-view/blob/db2223a88b540a8f381fc2720198342e29a60566/style/prosemirror.css#L5C1-L12C2
          */ ''
