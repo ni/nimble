@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 10 Aug 2023 22:03:46 GMT",
+      "tag": "@ni/nimble-components_v20.1.3",
+      "version": "20.1.3",
+      "comments": {
+        "none": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1b763225a6f02189990767218c273a0e078b696c",
+            "comment": "New API for Grid Dimensions in the Wafer Map Component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 08 Aug 2023 18:33:23 GMT",
       "tag": "@ni/nimble-components_v20.1.3",
       "version": "20.1.3",

@@ -2,7 +2,6 @@ import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { Editor } from '@tiptap/core';
-import StarterKit from '@tiptap/starter-kit';
 import {
     schema,
     defaultMarkdownParser,
@@ -12,6 +11,15 @@ import {
     MarkdownSerializerState
 } from 'prosemirror-markdown';
 import { DOMSerializer, Node } from 'prosemirror-model';
+import Bold from '@tiptap/extension-bold';
+import BulletList from '@tiptap/extension-bullet-list';
+import Document from '@tiptap/extension-document';
+import History from '@tiptap/extension-history';
+import Italic from '@tiptap/extension-italic';
+import ListItem from '@tiptap/extension-list-item';
+import OrderedList from '@tiptap/extension-ordered-list';
+import Paragraph from '@tiptap/extension-paragraph';
+import Text from '@tiptap/extension-text';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
@@ -102,8 +110,8 @@ export class RichTextEditor extends FoundationElement {
      * Toggle the bold mark and focus back to the editor
      * @internal
      */
-    public boldButtonKeyDown(e: KeyboardEvent): boolean {
-        if (this.isDesiredKeyDownForButton(e)) {
+    public boldButtonKeyDown(event: KeyboardEvent): boolean {
+        if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBold().run();
             return false;
         }
@@ -122,8 +130,8 @@ export class RichTextEditor extends FoundationElement {
      * Toggle the italics mark and focus back to the editor
      * @internal
      */
-    public italicsButtonKeyDown(e: KeyboardEvent): boolean {
-        if (this.isDesiredKeyDownForButton(e)) {
+    public italicsButtonKeyDown(event: KeyboardEvent): boolean {
+        if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleItalic().run();
             return false;
         }
@@ -142,8 +150,8 @@ export class RichTextEditor extends FoundationElement {
      * Toggle the unordered list node and focus back to the editor
      * @internal
      */
-    public bulletListButtonKeyDown(e: KeyboardEvent): boolean {
-        if (this.isDesiredKeyDownForButton(e)) {
+    public bulletListButtonKeyDown(event: KeyboardEvent): boolean {
+        if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBulletList().run();
             return false;
         }
@@ -162,8 +170,8 @@ export class RichTextEditor extends FoundationElement {
      * Toggle the ordered list node and focus back to the editor
      * @internal
      */
-    public numberedListButtonKeyDown(e: KeyboardEvent): boolean {
-        if (this.isDesiredKeyDownForButton(e)) {
+    public numberedListButtonKeyDown(event: KeyboardEvent): boolean {
+        if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleOrderedList().run();
             return false;
         }
@@ -193,6 +201,16 @@ export class RichTextEditor extends FoundationElement {
             return markdownContent;
         }
         return '';
+    }
+
+    /**
+     * @internal
+     */
+    public stopEventPropagation(event: Event): boolean {
+        // Don't bubble the 'change' event from the toggle button because
+        // all the formatting button has its own 'toggle' event through 'click' and 'keydown'.
+        event.stopPropagation();
+        return false;
     }
 
     /**
@@ -295,29 +313,25 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private initializeEditor(): void {
-        if (this.$fastController.isConnected) {
-            const extensions = [
-                /**
-                 * Tiptap starter-kit provides the basic formatting options such as bold, italics, lists etc,. along with some necessary nodes and extensions.
-                 * https://tiptap.dev/api/extensions/starter-kit
-                 * Disabled other not supported marks and nodes for the initial pass.
-                 */
-                StarterKit.configure({
-                    blockquote: false,
-                    code: false,
-                    codeBlock: false,
-                    hardBreak: false,
-                    heading: false,
-                    horizontalRule: false,
-                    strike: false
-                })
-            ];
-
-            this.tiptapEditor = new Editor({
-                element: this.editor,
-                extensions
-            });
-        }
+        /**
+         * For more information on the extensions for the supported formatting options, refer to the links below.
+         * Tiptap marks: https://tiptap.dev/api/marks
+         * Tiptap nodes: https://tiptap.dev/api/nodes
+         */
+        this.tiptapEditor = new Editor({
+            element: this.editor,
+            extensions: [
+                Document,
+                Paragraph,
+                Text,
+                BulletList,
+                OrderedList,
+                ListItem,
+                Bold,
+                Italic,
+                History
+            ]
+        });
     }
 
     /**
@@ -326,11 +340,9 @@ export class RichTextEditor extends FoundationElement {
      * https://tiptap.dev/api/events#transaction
      */
     private bindEditorTransactionEvent(): void {
-        if (this.$fastController.isConnected) {
-            this.tiptapEditor.on('transaction', () => {
-                this.updateEditorButtonsState();
-            });
-        }
+        this.tiptapEditor.on('transaction', () => {
+            this.updateEditorButtonsState();
+        });
     }
 
     private unbindEditorTransactionEvent(): void {
@@ -344,8 +356,8 @@ export class RichTextEditor extends FoundationElement {
         this.numberedListButton.checked = this.tiptapEditor.isActive('orderedList');
     }
 
-    private isDesiredKeyDownForButton(e: KeyboardEvent): boolean {
-        switch (e.key) {
+    private keyActivatesButton(event: KeyboardEvent): boolean {
+        switch (event.key) {
             case keySpace:
             case keyEnter:
                 return true;
