@@ -244,17 +244,13 @@ _Props/Attrs_
     The parsed node will then be rendered in the viewer component as rich text.
 -   `anchor-target` - is a string attribute that aligns with `target` values of the `anchor` element, applicable to all links within the viewer component.
     Some of the values have special meanings and to see their definitions refer
-    [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#:~:text=separated%20link%20types.-,target,-Where%20to%20display).
-
-By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are below).
-
--   Accessibility guidelines to open link only in a new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
--   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
+    [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#:~:text=separated%20link%20types.-,target,-Where%20to%20display).
+    By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are added in the accessibility section).
 
 _Alternative implementations:_
 
-For the comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab and show a warning to the user only if
-they are external (i.e., not from the same domain/origin); for internal links, they will open in the same tab. Here, we will show the same warning mentioned above for the external
+For the comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab and show a warning to the user if
+they are external link (i.e., not from the same domain/origin); for internal links, they will open in the same tab. Here, we will show the same warning mentioned above for the external
 links.
 
 However, if it is an external link, it need not be an untrusted link, so showing a warning to the link doesn't align with the accessibility WCAG guideline.
@@ -373,7 +369,7 @@ from the `prosemirror-markdown` package for comparison with the newly updated co
 link: {
     attrs: {
         href: {},
-        target: { default: this.linkTarget },
+        target: { default: this.anchorTarget },
         rel: { default: 'noopener noreferrer' }
     },
     inclusive: false,
@@ -390,16 +386,15 @@ link: {
 }
 ```
 
-1.  As in the above schema, we will modify the `target` value according to the attribute `linkTarget` that is configured by the client component. The default value of the `linkTarget` is the same as the `anchor` element, that is `_self`.
+1.  As in the above schema, we will modify the `target` value according to the attribute `anchorTarget` that is configured by the client component. The default value of the `anchorTarget` is the same as the `anchor` element, that is `_self`.
 2.  We also set the `rel` attribute value to `noopener noreferrer` to enhance security and ensure responsible linking practices.
 3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
 
 _Future Enhancements:_
 
 We have observed that issues such as [#1412](https://github.com/ni/nimble/issues/1412) and [#1331](https://github.com/ni/nimble/issues/1331) were created for the guidelines on
-opening anchor elements in a new tab. Once the visual design is finalized and integrated the implementation into the `nimble-anchor`, we will update the above `link` mark schema.
-It will involve removing the child node for the icon from the Prosemirror schema and instead adding the necessary attribute for the `nimble-anchor`. This attribute could
-potentially add the icon or display any relevant warnings as per the design when the link is opening in a new tab.
+opening anchor elements in a new tab. Once the visual design is finalized and integrated the implementation into the `nimble-anchor`, we will update the above `link` mark schema,
+in case we are required to update any attributes for the `nimble-anchor` component.
 
 ### Prototype
 
@@ -436,6 +431,11 @@ text in the editor.
 [Toolbar Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/)
 
 [Button Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
+
+Accessibility for links in the component:
+
+-   Accessibility guidelines to open link only in a new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
+-   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
 _Focus_
 
