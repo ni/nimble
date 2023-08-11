@@ -7,7 +7,7 @@ import { overflow } from '../../../utilities/directive/overflow';
 // prettier-ignore
 export const template = html<TableColumnIconGroupHeaderView>`
     ${when(
-        x => x.iconTemplate,
+        x => x.visual === 'icon',
         html<TableColumnIconGroupHeaderView>`${x => x.iconTemplate!}
             <span    
                 ${overflow('hasOverflow')}
@@ -15,7 +15,7 @@ export const template = html<TableColumnIconGroupHeaderView>`
             >${x => x.text}</span>`
     )}
     ${when(
-        x => !x.iconTemplate,
+        x => x.visual === 'spinner',
         html<TableColumnIconGroupHeaderView>`
         <${spinnerTag}
             title="${x => x.text}"

@@ -4,11 +4,11 @@ import { spinnerTag } from '../../../spinner';
 
 export const template = html<TableColumnIconCellView>`
     ${when(
-        x => x.iconTemplate,
+        x => x.visual === 'icon',
         x => x.iconTemplate!
     )}
     ${when(
-        x => !x.iconTemplate,
+        x => x.visual === 'spinner',
         html<TableColumnIconCellView>`
         <${spinnerTag}
             title="${x => x.text}"
