@@ -9,7 +9,8 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
-    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule,
+    NimbleMappingIconModule, NimbleMappingSpinnerModule } from '@ni/nimble-angular';
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
 import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
 import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
@@ -18,6 +19,7 @@ import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/tex
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
 import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
 import { NimbleTableColumnEnumTextModule } from '@ni/nimble-angular/table-column/enum-text';
+import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/icon';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text-viewer';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
@@ -81,6 +83,9 @@ import { HeaderComponent } from './header/header.component';
         NimbleMappingTextModule,
         NimbleBannerModule,
         NimbleRichTextViewerModule,
+        NimbleTableColumnIconModule,
+        NimbleMappingIconModule,
+        NimbleMappingSpinnerModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
