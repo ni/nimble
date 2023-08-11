@@ -11,33 +11,32 @@ import {
 } from '../theme-provider/design-tokens';
 
 export const styles = css`
-    ${display('flex')}
+    ${display('inline-flex')}
 
     :host {
         font: ${bodyFont};
         outline: none;
         color: ${bodyFontColor};
-        inline-size: auto;
-        block-size: 100%;
+        width: auto;
+        height: 100%;
         flex-direction: column;
         position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-footer-section-height: 40px;
         ${
             /**
-             * Min inline size to accommodate all the possible buttons in the toolbar and max inline size is referred from the visual design.
+             * Minimum width to accommodate all the possible buttons in the toolbar and to support for mobile screens.
              */ ''
         }
-        min-inline-size: 360px;
-        max-inline-size: 720px;
+        min-width: 360px;
     }
 
     .container {
         display: flex;
         flex-direction: column;
-        block-size: inherit;
+        height: inherit;
         position: relative;
-        max-block-size: 100%;
+        max-height: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
     }
 
@@ -46,8 +45,8 @@ export const styles = css`
         content: ' ';
         position: absolute;
         bottom: calc(-1 * ${borderWidth});
-        inline-size: 0px;
-        block-size: 0px;
+        width: 0px;
+        height: 0px;
         left: 50%;
         transform: translate(-50%, 50%);
         border-bottom: ${borderHoverColor}
@@ -66,26 +65,26 @@ export const styles = css`
     }
 
     :host(:hover) .container::after {
-        inline-size: 100%;
+        width: 100%;
     }
 
     .editor {
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        block-size: calc(100% - var(--ni-private-footer-section-height));
+        height: calc(100% - var(--ni-private-footer-section-height));
         overflow: auto;
     }
 
     .ProseMirror {
         ${
             /**
-             * Min block size represents the one line space for the initial view and max block size is referred from the visual design.
-             * However, max block size will be `fit-content` when the `fit-to-content` attribute is implemented.
+             * Min height represents the one line space for the initial view and max height is referred from the visual design.
+             * However, max height will be `fit-content` when the `fit-to-content` attribute is implemented.
              */ ''
         }
-        min-block-size: 32px;
-        max-block-size: 132px;
-        block-size: 100%;
+        min-height: 32px;
+        max-height: 132px;
+        height: 100%;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
         background-color: transparent;
@@ -94,12 +93,17 @@ export const styles = css`
         box-sizing: border-box;
         position: relative;
         color: inherit;
-        ${
-            /**
-             * Below are the styles from prosemirror-view as the Prosemirror excepts the "white-space" to be set. The recommendation is to load the style from the below package.
-             * https://github.com/ProseMirror/prosemirror-view/blob/db2223a88b540a8f381fc2720198342e29a60566/style/prosemirror.css#L5C1-L12C2
-             */ ''
-        }
+    }
+
+    ${
+        /**
+         * Below are the styles from prosemirror-view as the Prosemirror expects the "white-space" to be set. The recommendation is to load the style from the below package.
+         * However, the other classes used in the below file like ".ProseMirror-selectednode", ".ProseMirror-hideselection" were not clearly used anywhere in the ".Prosemirror" content editable div in the DOM. So added only the necessary classes below.
+         *
+         * https://github.com/ProseMirror/prosemirror-view/blob/db2223a88b540a8f381fc2720198342e29a60566/style/prosemirror.css#L5C1-L12C2
+         */ ''
+    }
+    .ProseMirror {
         word-wrap: break-word;
         white-space: pre-wrap;
         -webkit-font-variant-ligatures: none;
@@ -114,6 +118,8 @@ export const styles = css`
     .ProseMirror li {
         position: relative;
     }
+
+    ${/** End of Prose Mirror defined styles */ ''}
 
     .ProseMirror-focused {
         outline: none;
@@ -136,7 +142,7 @@ export const styles = css`
         justify-content: space-between;
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
-        block-size: var(--ni-private-footer-section-height);
+        height: var(--ni-private-footer-section-height);
         overflow-y: auto;
     }
 
