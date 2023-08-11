@@ -10,7 +10,7 @@ export class RenderingModule {
 
     public constructor(private readonly wafermap: WaferMap) {}
 
-    public updateSortedDies(): void {
+    public updateSortedDiesAndDrawWafer(): void {
         this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
             if (a.fillStyle > b.fillStyle) {
                 return 1;
@@ -63,7 +63,6 @@ export class RenderingModule {
     }
 
     private renderDies(): void {
-        let fillStyle = '';
         const context = this.wafermap.canvasContext;
         const dieWidth = this.wafermap.dataManager.dieDimensions.width;
         const dieHeight = this.wafermap.dataManager.dieDimensions.height;
@@ -85,10 +84,7 @@ export class RenderingModule {
                     transformedCanvasMaxPoint
                 )
             ) {
-                if (fillStyle !== die.fillStyle) {
-                    context.fillStyle = die.fillStyle;
-                    fillStyle = die.fillStyle;
-                }
+                context.fillStyle = die.fillStyle;
                 context.fillRect(die.x, die.y, dieWidth, dieHeight);
             }
         }
