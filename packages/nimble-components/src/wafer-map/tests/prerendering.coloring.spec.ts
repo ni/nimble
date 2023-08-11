@@ -1,7 +1,8 @@
 import type { WaferMap } from '..';
+import type { DataManager } from '../modules/data-manager';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
-import { getScaleBand, getWaferMapDies } from './utilities';
+import { getDataManagerMock, getWaferMapDies } from './utilities';
 
 describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
@@ -38,13 +39,15 @@ describe('Wafermap Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters
                 };
-                prerenderingModule = new Prerendering(
-                    waferMock as WaferMap,
-                    getScaleBand([], []),
-                    getScaleBand([], []),
+                const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin
                 );
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    dataManagerMock as DataManager
+                );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have black fill style for all dies', () => {
@@ -84,13 +87,15 @@ describe('Wafermap Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters
                 };
-                prerenderingModule = new Prerendering(
-                    waferMock as WaferMap,
-                    getScaleBand([], []),
-                    getScaleBand([], []),
+                const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin
                 );
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    dataManagerMock as DataManager
+                );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have the same fill style for all dies', () => {
@@ -130,13 +135,15 @@ describe('Wafermap Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters
                 };
-                prerenderingModule = new Prerendering(
-                    waferMock as WaferMap,
-                    getScaleBand([], []),
-                    getScaleBand([], []),
+                const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin
                 );
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    dataManagerMock as DataManager
+                );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have the fill style equally distributed to dies', () => {
@@ -185,13 +192,15 @@ describe('Wafermap Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters
                 };
-                prerenderingModule = new Prerendering(
-                    waferMock as WaferMap,
-                    getScaleBand([], []),
-                    getScaleBand([], []),
+                const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin
                 );
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    dataManagerMock as DataManager
+                );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have the same fill style for all dies', () => {
@@ -231,13 +240,15 @@ describe('Wafermap Prerendering module', () => {
                     dieLabelsSuffix,
                     maxCharacters
                 };
-                prerenderingModule = new Prerendering(
-                    waferMock as WaferMap,
-                    getScaleBand([], []),
-                    getScaleBand([], []),
+                const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin
                 );
+                prerenderingModule = new Prerendering(
+                    waferMock as WaferMap,
+                    dataManagerMock as DataManager
+                );
+                prerenderingModule.updateLabelsFontSize();
             });
 
             it('should have alternating fill style for the dies', () => {
@@ -295,13 +306,12 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have NaN color fill style', () => {
@@ -347,13 +357,12 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have empty color fill style', () => {
@@ -390,13 +399,12 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have highlighted value with full opacity and the rest with expected opacity', () => {
@@ -442,13 +450,12 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(dieDimensions, margin);
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have all dies with full opacity', () => {

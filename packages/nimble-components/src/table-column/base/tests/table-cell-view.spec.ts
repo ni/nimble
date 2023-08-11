@@ -10,7 +10,8 @@ import type { DelegatedEventEventDetails } from '../types';
 import {
     tableColumnEmptyCellViewTag,
     TableColumnEmpty,
-    tableColumnEmptyGroupHeaderViewTag
+    tableColumnEmptyGroupHeaderViewTag,
+    tableColumnEmptyTag
 } from './table-column.fixtures';
 import type { ColumnInternalsOptions } from '../models/column-internals';
 
@@ -71,7 +72,9 @@ describe('TableCellView', () => {
             }
         });
         // Configure column that delegates no events
-        const emptyColumn = new TableColumnEmpty();
+        const emptyColumn = document.createElement(
+            tableColumnEmptyTag
+        ) as TableColumnEmpty;
         let gotClickOnEmptyColumn = false;
         let gotKeydownOnEmptyColumn = false;
         let gotOtherEventOnEmptyColumn = false;

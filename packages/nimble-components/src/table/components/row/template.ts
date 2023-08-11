@@ -30,6 +30,7 @@ export const template = html<TableRow>`
                         :cellState="${x => x.cellState}"
                         :cellViewTemplate="${x => x.column.columnInternals.cellViewTemplate}"
                         :column="${x => x.column}"
+                        column-id="${x => x.column.columnId}"
                         :recordId="${(_, c) => c.parent.recordId}"
                         ?has-action-menu="${x => !!x.column.actionMenuSlot}"
                         action-menu-label="${x => x.column.actionMenuLabel}"

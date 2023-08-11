@@ -3,7 +3,7 @@ import {
     Tab as FoundationTab,
     tabTemplate as template
 } from '@microsoft/fast-foundation';
-import { styles } from '../patterns/tab/styles';
+import { styles } from './styles';
 
 declare global {
     interface HTMLElementTagNameMap {
