@@ -158,7 +158,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public stopEventPropagation(event: Event): boolean {
         // Don't bubble the 'change' event from the toggle button because
-        // all the formatting button has its own 'toggle' event through 'click' and 'keydown' event.
+        // all the formatting button has its own 'toggle' event through 'click' and 'keydown'.
         event.stopPropagation();
         return false;
     }
