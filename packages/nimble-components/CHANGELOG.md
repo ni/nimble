@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Aug 2023 15:22:19 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Aug 2023 22:00:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.5
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Update dependency on fast-foundation ([ni/nimble@ffc6db5](https://github.com/ni/nimble/commit/ffc6db59108c21570fdca623ecd566313b09c595))
 
 ## 20.1.4
 
