@@ -23,11 +23,7 @@ export const styles = css`
         position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-footer-section-height: 40px;
-        ${
-            /**
-             * Minimum width to accommodate all the possible buttons in the toolbar and to support for mobile screens.
-             */ ''
-        }
+        ${/** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''}
         min-width: 360px;
     }
 
@@ -79,7 +75,7 @@ export const styles = css`
         ${
             /**
              * Min height represents the one line space for the initial view and max height is referred from the visual design.
-             * However, max height will be `fit-content` when the `fit-to-content` attribute is implemented.
+             * However, max height will be `fit-content` when the `fit-to-content` attribute for the editor component is implemented.
              */ ''
         }
         min-height: 32px;
@@ -97,8 +93,8 @@ export const styles = css`
 
     ${
         /**
-         * Below are the styles from prosemirror-view as the Prosemirror expects the "white-space" to be set. The recommendation is to load the style from the below package.
-         * However, the other classes used in the below file like ".ProseMirror-selectednode", ".ProseMirror-hideselection" were not clearly used anywhere in the ".Prosemirror" content editable div in the DOM. So added only the necessary classes below.
+         * Below are the styles from prosemirror-view as the Prose mirror expects the "white-space" to be set. The recommendation is to load the style from the below package.
+         * However, the other classes used in the below file like ".ProseMirror-selectednode", ".ProseMirror-hideselection" were not used anywhere in the ".Prosemirror" content editable div in the DOM. So added only the necessary classes below.
          *
          * https://github.com/ProseMirror/prosemirror-view/blob/db2223a88b540a8f381fc2720198342e29a60566/style/prosemirror.css#L5C1-L12C2
          */ ''
@@ -119,7 +115,7 @@ export const styles = css`
         position: relative;
     }
 
-    ${/** End of Prose Mirror defined styles */ ''}
+    ${/** End of Prose Mirror defined styles from prosemirror-view */ ''}
 
     .ProseMirror-focused {
         outline: none;

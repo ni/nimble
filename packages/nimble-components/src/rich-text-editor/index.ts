@@ -162,21 +162,24 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private initializeEditor(): void {
-        const extensions = [
-            Document,
-            Paragraph,
-            Text,
-            BulletList,
-            OrderedList,
-            ListItem,
-            Bold,
-            Italic,
-            History
-        ];
-
+        /**
+         * For more information on the extensions for the supported formatting options, please refer to the links below.
+         * Tiptap marks: https://tiptap.dev/api/marks
+         * Tiptap nodes: https://tiptap.dev/api/nodes
+         */
         this.tiptapEditor = new Editor({
             element: this.editor,
-            extensions
+            extensions: [
+                Document,
+                Paragraph,
+                Text,
+                BulletList,
+                OrderedList,
+                ListItem,
+                Bold,
+                Italic,
+                History
+            ]
         });
     }
 
