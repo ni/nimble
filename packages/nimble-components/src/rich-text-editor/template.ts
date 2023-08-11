@@ -17,7 +17,7 @@ export const template = html<RichTextEditor>`
                 role="textbox"
                 aria-multiline="true">
             </section>
-            <section class="footer-section">
+            <section class="footer-section" part="footer-section">
                 <${toolbarTag}>
                     <${toggleButtonTag}
                         ${ref('boldButton')}

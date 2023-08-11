@@ -141,7 +141,7 @@ export const styles = css`
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-footer-section-height);
-        overflow-y: auto;
+        overflow: hidden;
     }
 
     nimble-toolbar::part(positioning-region) {

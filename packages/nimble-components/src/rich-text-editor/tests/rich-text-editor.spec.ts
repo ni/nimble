@@ -71,7 +71,7 @@ describe('RichTextEditor', () => {
         );
     });
 
-    it('should have either one of the list buttons checked at the same time', async () => {
+    it('should have either one of the list buttons checked at the same time on click', async () => {
         await waitForUpdatesAsync();
         const bulletListButton = pageObject.getFormattingButton('bullet-list')!;
         const numberedListButton = pageObject.getFormattingButton('numbered-list')!;
@@ -246,6 +246,34 @@ describe('RichTextEditor', () => {
                     editor!.dispatchEvent(event);
 
                     expect(button.checked).toBeTrue();
+                }
+            );
+        }
+    });
+
+    describe('should not leak change event through shadow DOM for buttons', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+
+        for (const value of formattingButtons) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `"${value.name}" button not propagate change event to parent element`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                () => {
+                    const button = pageObject.getFormattingButton(value.name)!;
+                    const buttonParent = button.parentElement;
+                    let parentChangeEventFired = false;
+
+                    buttonParent?.addEventListener('change', () => {
+                        parentChangeEventFired = true;
+                    });
+
+                    const event = new Event('change', { bubbles: true });
+                    button.dispatchEvent(event);
+
+                    expect(parentChangeEventFired).toBeFalse();
                 }
             );
         }
