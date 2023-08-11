@@ -43,11 +43,11 @@ export class DefaultFormatter extends NumberFormatter {
     }
 
     private shouldUseExponentialFormatter(number: number): boolean {
+        if (number === 0) {
+            return false;
+        }
+
         const absoluteValue = Math.abs(number);
-        return (
-            absoluteValue > 0
-            && (absoluteValue < DefaultFormatter.exponentialLowerBound
-                || absoluteValue >= DefaultFormatter.exponentialUpperBound)
-        );
+        return absoluteValue < DefaultFormatter.exponentialLowerBound || absoluteValue >= DefaultFormatter.exponentialUpperBound;
     }
 }
