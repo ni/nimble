@@ -297,12 +297,12 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '0'
             },
             {
-                name: 'without exponential notation limits to 4 digits with rounding decimals up',
+                name: 'without exponential notation limits to 6 digits with rounding decimals up',
                 value: 1.23456789,
                 expectedRenderedString: '1.23457'
             },
             {
-                name: 'without exponential notation limits to 4 digits with rounding decimals down',
+                name: 'without exponential notation limits to 6 digits with rounding decimals down',
                 value: 10.001122,
                 expectedRenderedString: '10.0011'
             },
@@ -372,7 +372,7 @@ describe('TableColumnNumberText', () => {
                 expectedRenderedString: '16'
             },
             {
-                name: 'does not add extra decimals',
+                name: 'does not add extra decimals to reach 6 digits',
                 value: -98.75,
                 expectedRenderedString: '-98.75'
             },
