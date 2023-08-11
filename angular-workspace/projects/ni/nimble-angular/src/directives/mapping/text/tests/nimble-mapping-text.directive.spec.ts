@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NimbleTableModule } from '../../../table/nimble-table.module';
-import { NimbleTableColumnEnumTextModule } from '../nimble-table-column-enum-text.module';
+import { NimbleTableModule } from '../../../../../table/nimble-table.module';
+import { NimbleTableColumnEnumTextModule } from '../../../../../table-column/enum-text/nimble-table-column-enum-text.module';
 import { NimbleMappingTextDirective, type MappingText } from '../nimble-mapping-text.directive';
 
 describe('NimbleMappingText', () => {
