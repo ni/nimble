@@ -307,27 +307,25 @@ describe('TableColumnIcon', () => {
             ).toBeTrue();
         });
 
-        describe('invalid mappings', () => {
-            // prettier-ignore
-            async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
-                return fixture<Table<SimpleTableRecord>>(
-                    html`<${tableTag} style="width: 700px">
-                            <${tableColumnIconTag} field-name="field1">
-                                Column 1
-                                <${mappingTextTag} key="foo" text="foo"></${mappingTextTag}>
-                                <${mappingIconTag} key="bar" text="bar" icon="nimble-icon-xmark"></${mappingIconTag}>
-                            </${tableColumnIconTag}>
-                        </${tableTag}>`
-                );
-            }
-            it('is invalid with text mapping', async () => {
-                ({ element, connect, disconnect } = await setupInvalidMappings());
-                await connect();
-                await waitForUpdatesAsync();
-                const column = element.columns[0] as TableColumnIcon;
-                expect(column.checkValidity()).toBeFalse();
-                expect(column.validity.unsupportedMappingType).toBeTrue();
-            });
+        // prettier-ignore
+        async function setupInvalidMappings(): Promise<Fixture<Table<SimpleTableRecord>>> {
+            return fixture<Table<SimpleTableRecord>>(
+                html`<${tableTag} style="width: 700px">
+                        <${tableColumnIconTag} field-name="field1">
+                            Column 1
+                            <${mappingTextTag} key="foo" text="foo"></${mappingTextTag}>
+                            <${mappingIconTag} key="bar" text="bar" icon="nimble-icon-xmark"></${mappingIconTag}>
+                        </${tableColumnIconTag}>
+                    </${tableTag}>`
+            );
+        }
+        it('is invalid with text mapping', async () => {
+            ({ element, connect, disconnect } = await setupInvalidMappings());
+            await connect();
+            await waitForUpdatesAsync();
+            const column = element.columns[0] as TableColumnIcon;
+            expect(column.checkValidity()).toBeFalse();
+            expect(column.validity.unsupportedMappingType).toBeTrue();
         });
 
         it('is invalid with duplicate key values', async () => {
