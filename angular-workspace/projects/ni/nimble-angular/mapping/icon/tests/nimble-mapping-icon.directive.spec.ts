@@ -1,20 +1,21 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NimbleTableModule } from '../../../../../table/nimble-table.module';
-import { NimbleTableColumnIconModule } from '../../../../../table-column/icon/nimble-table-column-icon.module';
-import { NimbleMappingSpinnerDirective, type MappingSpinner } from '../nimble-mapping-spinner.directive';
-import { NimbleMappingSpinnerModule } from '../nimble-mapping-spinner.module';
+import { IconSeverity } from '@ni/nimble-angular';
+import { NimbleTableModule } from '../../../table/nimble-table.module';
+import { NimbleTableColumnIconModule } from '../../../table-column/icon/nimble-table-column-icon.module';
+import { NimbleMappingIconDirective, type MappingIcon } from '../nimble-mapping-icon.directive';
+import { NimbleMappingIconModule } from '../nimble-mapping-icon.module';
 
-describe('NimbleMappingSpinner', () => {
+describe('NimbleMappingIcon', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [NimbleMappingSpinnerModule]
+                imports: [NimbleMappingIconModule]
             });
         });
 
         it('custom element is defined', () => {
-            expect(customElements.get('nimble-mapping-spinner')).not.toBeUndefined();
+            expect(customElements.get('nimble-mapping-text')).not.toBeUndefined();
         });
     });
 
@@ -23,28 +24,30 @@ describe('NimbleMappingSpinner', () => {
             template: `
                 <nimble-table>
                     <nimble-table-column-icon key-type="boolean">
-                        <nimble-mapping-spinner
+                        <nimble-mapping-icon
                             #mapping
                             key="false"
                             text="nope"
+                            icon="nimble-icon-xmark"
+                            severity="error"
                         >
-                        </nimble-mapping-spinner>
+                        </nimble-mapping-icon>
                     </nimble-table-column-icon>
                 </nimble-table>
             `
         })
         class TestHostComponent {
-            @ViewChild('mapping', { read: NimbleMappingSpinnerDirective }) public directive: NimbleMappingSpinnerDirective;
-            @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingSpinner>;
+            @ViewChild('mapping', { read: NimbleMappingIconDirective }) public directive: NimbleMappingIconDirective;
+            @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingIcon>;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
-        let directive: NimbleMappingSpinnerDirective;
-        let nativeElement: MappingSpinner;
+        let directive: NimbleMappingIconDirective;
+        let nativeElement: MappingIcon;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnIconModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -62,6 +65,16 @@ describe('NimbleMappingSpinner', () => {
             expect(directive.text).toBe('nope');
             expect(nativeElement.text).toBe('nope');
         });
+
+        it('will use template string values for icon', () => {
+            expect(directive.text).toBe('nimble-icon-xmark');
+            expect(nativeElement.text).toBe('nimble-icon-xmark');
+        });
+
+        it('will use template string values for severity', () => {
+            expect(directive.text).toBe('error');
+            expect(nativeElement.text).toBe('error');
+        });
     });
 
     describe('with property bound values', () => {
@@ -69,30 +82,34 @@ describe('NimbleMappingSpinner', () => {
             template: `
                 <nimble-table>
                     <nimble-table-column-icon key-type="boolean">
-                        <nimble-mapping-spinner
+                        <nimble-mapping-icon
                             #mapping
                             [key]="key"
                             [text]="text"
+                            [icon]="icon"
+                            [severity]="severity"
                         >
-                        </nimble-mapping-spinner>
+                        </nimble-mapping-icon>
                     </nimble-table-column-icon>
                 </nimble-table>
             `
         })
         class TestHostComponent {
-            @ViewChild('mapping', { read: NimbleMappingSpinnerDirective }) public directive: NimbleMappingSpinnerDirective;
-            @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingSpinner>;
+            @ViewChild('mapping', { read: NimbleMappingIconDirective }) public directive: NimbleMappingIconDirective;
+            @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingIcon>;
             public key = false;
             public text = 'nope';
+            public icon = 'nimble-icon-xmark';
+            public severity = IconSeverity.error;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
-        let directive: NimbleMappingSpinnerDirective;
-        let nativeElement: MappingSpinner;
+        let directive: NimbleMappingIconDirective;
+        let nativeElement: MappingIcon;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnIconModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -122,6 +139,28 @@ describe('NimbleMappingSpinner', () => {
             expect(directive.text).toBe('yep');
             expect(nativeElement.text).toBe('yep');
         });
+
+        it('can be configured with property binding for icon', () => {
+            expect(directive.text).toBe('nimble-icon-xmark');
+            expect(nativeElement.text).toBe('nimble-icon-xmark');
+
+            fixture.componentInstance.text = 'nimble-icon-check';
+            fixture.detectChanges();
+
+            expect(directive.text).toBe('nimble-icon-check');
+            expect(nativeElement.text).toBe('nimble-icon-check');
+        });
+
+        it('can be configured with property binding for severity', () => {
+            expect(directive.text).toBe('error');
+            expect(nativeElement.text).toBe('error');
+
+            fixture.componentInstance.text = IconSeverity.success;
+            fixture.detectChanges();
+
+            expect(directive.text).toBe('success');
+            expect(nativeElement.text).toBe('success');
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -129,30 +168,34 @@ describe('NimbleMappingSpinner', () => {
             template: `
                 <nimble-table>
                     <nimble-table-column-icon key-type="boolean">
-                        <nimble-mapping-spinner
+                        <nimble-mapping-icon
                             #mapping
                             [attr.key]="key"
                             [attr.text]="text"
+                            [attr.icon]="icon"
+                            [attr.severity]="severity"
                         >
-                        </nimble-mapping-spinner>
+                        </nimble-mapping-icon>
                     </nimble-table-column-icon>
                 </nimble-table>
             `
         })
         class TestHostComponent {
-            @ViewChild('mapping', { read: NimbleMappingSpinnerDirective }) public directive: NimbleMappingSpinnerDirective;
-            @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingSpinner>;
+            @ViewChild('mapping', { read: NimbleMappingIconDirective }) public directive: NimbleMappingIconDirective;
+            @ViewChild('mapping', { read: ElementRef }) public elementRef: ElementRef<MappingIcon>;
             public key = false;
             public text = 'nope';
+            public icon = 'nimble-icon-xmark';
+            public severity = IconSeverity.error;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
-        let directive: NimbleMappingSpinnerDirective;
-        let nativeElement: MappingSpinner;
+        let directive: NimbleMappingIconDirective;
+        let nativeElement: MappingIcon;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleMappingSpinnerModule, NimbleTableColumnIconModule, NimbleTableModule]
+                imports: [NimbleMappingIconModule, NimbleTableColumnIconModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -181,6 +224,28 @@ describe('NimbleMappingSpinner', () => {
 
             expect(directive.text).toBe('yep');
             expect(nativeElement.text).toBe('yep');
+        });
+
+        it('can be configured with property binding for icon', () => {
+            expect(directive.text).toBe('nimble-icon-xmark');
+            expect(nativeElement.text).toBe('nimble-icon-xmark');
+
+            fixture.componentInstance.text = 'nimble-icon-check';
+            fixture.detectChanges();
+
+            expect(directive.text).toBe('nimble-icon-check');
+            expect(nativeElement.text).toBe('nimble-icon-check');
+        });
+
+        it('can be configured with property binding for severity', () => {
+            expect(directive.text).toBe('error');
+            expect(nativeElement.text).toBe('error');
+
+            fixture.componentInstance.text = IconSeverity.success;
+            fixture.detectChanges();
+
+            expect(directive.text).toBe('success');
+            expect(nativeElement.text).toBe('success');
         });
     });
 });

@@ -50,10 +50,6 @@ export * from './directives/icons';
 export * from './directives/list-option/nimble-combobox-list-option.directive';
 export * from './directives/list-option/nimble-select-list-option.directive';
 export * from './directives/list-option/nimble-list-option.module';
-export * from './directives/mapping/icon/nimble-mapping-icon.directive';
-export * from './directives/mapping/icon/nimble-mapping-icon.module';
-export * from './directives/mapping/spinner/nimble-mapping-spinner.directive';
-export * from './directives/mapping/spinner/nimble-mapping-spinner.module';
 export * from './directives/menu/nimble-menu.directive';
 export * from './directives/menu/nimble-menu.module';
 export * from './directives/menu-button/nimble-menu-button.directive';
@@ -113,4 +109,3 @@ export { DropdownAppearance } from '@ni/nimble-components/dist/esm/patterns/drop
 export { IconSeverity } from '@ni/nimble-components/dist/esm/icon-base/types';
 export { type ListOption, listOptionTag } from '@ni/nimble-components/dist/esm/list-option';
 export { UserDismissed } from '@ni/nimble-components/dist/esm/dialog';
-export { MappingKey } from '@ni/nimble-components/dist/esm/mapping/base/types';
