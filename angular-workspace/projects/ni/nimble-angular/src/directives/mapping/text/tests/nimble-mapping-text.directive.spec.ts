@@ -3,12 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../../../table/nimble-table.module';
 import { NimbleTableColumnEnumTextModule } from '../../../../../table-column/enum-text/nimble-table-column-enum-text.module';
 import { NimbleMappingTextDirective, type MappingText } from '../nimble-mapping-text.directive';
+import { NimbleMappingTextModule } from '../nimble-mapping-text.module';
 
 describe('NimbleMappingText', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [NimbleTableColumnEnumTextModule]
+                imports: [NimbleMappingTextModule]
             });
         });
 
@@ -43,7 +44,7 @@ describe('NimbleMappingText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnEnumTextModule, NimbleTableModule]
+                imports: [NimbleMappingTextModule, NimbleTableColumnEnumTextModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -91,7 +92,7 @@ describe('NimbleMappingText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnEnumTextModule, NimbleTableModule]
+                imports: [NimbleMappingTextModule, NimbleTableColumnEnumTextModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
@@ -151,7 +152,7 @@ describe('NimbleMappingText', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestHostComponent],
-                imports: [NimbleTableColumnEnumTextModule, NimbleTableModule]
+                imports: [NimbleMappingTextModule, NimbleTableColumnEnumTextModule, NimbleTableModule]
             });
 
             fixture = TestBed.createComponent(TestHostComponent);
