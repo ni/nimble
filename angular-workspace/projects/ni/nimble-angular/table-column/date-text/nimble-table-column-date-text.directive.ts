@@ -181,7 +181,7 @@ export class NimbleTableColumnDateTextDirective extends NimbleTableColumnBaseDir
 
     // Renaming because property should have camel casing, but attribute should not
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('custom-hour12') public set customHour12(value: boolean | string | undefined) {
+    @Input('custom-hour12') public set customHour12(value: boolean | 'true' | 'false' | undefined) {
         let convertedValue;
         if (typeof value === 'boolean') {
             convertedValue = value;

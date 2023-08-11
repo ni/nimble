@@ -502,7 +502,7 @@ describe('TableColumnDateText', () => {
                             custom-date-style="long"
                             custom-time-style="long"
                             custom-hour-cycle="h23"
-                            >
+                        >
                             Column 1
                         </${tableColumnDateTextTag}>
                     </nimble-table>`
