@@ -1,5 +1,7 @@
 ﻿@namespace NimbleBlazor
 @inherits NimbleTableColumn
+@attribute [CascadingTypeParameter(nameof(TKey))]
+@typeparam TKey
 
 <nimble-table-column-enum-text
     column-id="@ColumnId"
@@ -13,7 +15,7 @@
     sort-index="@SortIndex"
     group-index="@GroupIndex"
     grouping-disabled="@GroupingDisabled"
-    key-type="@KeyType.ToAttributeValue()"
+    key-type="@GetTKeyAsJSType()"
 >
     @ChildContent
 </nimble-table-column-enum-text>

@@ -2,13 +2,13 @@
 
 namespace NimbleBlazor;
 
-public partial class NimbleMappingText : ComponentBase
+public partial class NimbleMappingText<TKey> : ComponentBase
 {
     /// <summary>
     /// Gets or sets the key value being mapped.
     /// </summary>
     [Parameter]
-    public string? Key { get; set; }
+    public TKey? Key { get; set; }
 
     /// <summary>
     /// Gets or sets the text being mapped to.

@@ -17,7 +17,7 @@ public class NimbleMappingTextTests
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         var expectedMarkup = "nimble-mapping-text";
 
-        var element = context.RenderComponent<NimbleMappingText>();
+        var element = context.RenderComponent<NimbleMappingText<int>>();
 
         Assert.Contains(expectedMarkup, element.Markup);
     }
@@ -25,23 +25,23 @@ public class NimbleMappingTextTests
     [Fact]
     public void NimbleMappingTextKeyAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet(x => x.Key, "foo");
+        var element = RenderWithPropertySet<int, int>(x => x.Key, 1001);
 
-        Assert.Contains($"key=\"foo\"", element.Markup);
+        Assert.Contains($"key=\"1001\"", element.Markup);
     }
 
     [Fact]
     public void NimbleMappingTextTextAttribute_HasCorrectMarkup()
     {
-        var element = RenderWithPropertySet(x => x.Text, "foo");
+        var element = RenderWithPropertySet<int, string>(x => x.Text, "foo");
 
         Assert.Contains($"text=\"foo\"", element.Markup);
     }
 
-    private IRenderedComponent<NimbleMappingText> RenderWithPropertySet<TProperty>(Expression<Func<NimbleMappingText, TProperty>> propertyGetter, TProperty propertyValue)
+    private IRenderedComponent<NimbleMappingText<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleMappingText<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleMappingText>(p => p.Add(propertyGetter, propertyValue));
+        return context.RenderComponent<NimbleMappingText<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }

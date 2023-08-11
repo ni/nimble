@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnEnumText : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn
+public partial class NimbleTableColumnEnumText<TKey> : NimbleTableColumn, IFractionalWidthColumn, IGroupableColumn
 {
     /// <summary>
     /// Gets or sets the field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display
@@ -11,12 +11,6 @@ public partial class NimbleTableColumnEnumText : NimbleTableColumn, IFractionalW
     [Parameter]
     [DisallowNull]
     public string FieldName { get; set; } = null!;
-
-    /// <summary>
-    /// The expected type of values being mapped to text
-    /// </summary>
-    [Parameter]
-    public MappingKeyType? KeyType { get; set; }
 
     /// <summary>
     /// The fractional/proportional width to use for this column
@@ -46,4 +40,37 @@ public partial class NimbleTableColumnEnumText : NimbleTableColumn, IFractionalW
     /// </summary>
     [Parameter]
     public bool? GroupingDisabled { get; set; }
+
+    private readonly Type[] cSharpNumberTypes = new[]
+    {
+        typeof(int),
+        typeof(uint),
+        typeof(short),
+        typeof(ushort),
+        typeof(long),
+        typeof(ulong),
+        typeof(byte),
+        typeof(sbyte),
+        typeof(float),
+        typeof(double),
+        typeof(decimal)
+    };
+
+    private string GetTKeyAsJSType()
+    {
+        if (cSharpNumberTypes.Contains(typeof(TKey)))
+        {
+            return "number";
+        }
+        if (typeof(TKey) == typeof(bool))
+        {
+            return "boolean";
+        }
+        if (typeof(TKey) == typeof(string))
+        {
+            return "string";
+        }
+
+        throw new ArgumentException("TKey was not a numeric, boolean, or string.");
+    }
 }
