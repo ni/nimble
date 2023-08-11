@@ -40,7 +40,7 @@ export class MappingIcon extends Mapping {
         } catch (ex) {
             // If any error (i.e. invalid custom element name) don't continue
             // Don't update the resolvedIcon as it was already set to undefined before async resolution
-            // (in-case other async resolutions were started)
+            // (in case other async resolutions were started)
             return;
         }
 
@@ -48,7 +48,7 @@ export class MappingIcon extends Mapping {
         if (icon !== this.icon) {
             // Possible the icon has changed while waiting for async resolution
             // Don't update the resolvedIcon as it was already set to undefined before async resolution
-            // (in-case other async resolutions were started)
+            // (in case other async resolutions were started)
             return;
         }
 
