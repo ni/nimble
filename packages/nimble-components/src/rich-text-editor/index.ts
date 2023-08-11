@@ -163,7 +163,7 @@ export class RichTextEditor extends FoundationElement {
 
     private initializeEditor(): void {
         /**
-         * For more information on the extensions for the supported formatting options, please refer to the links below.
+         * For more information on the extensions for the supported formatting options, refer to the links below.
          * Tiptap marks: https://tiptap.dev/api/marks
          * Tiptap nodes: https://tiptap.dev/api/nodes
          */
