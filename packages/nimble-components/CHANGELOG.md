@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 07 Aug 2023 22:54:53 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Aug 2023 22:00:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.5
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Update dependency on fast-foundation ([ni/nimble@ffc6db5](https://github.com/ni/nimble/commit/ffc6db59108c21570fdca623ecd566313b09c595))
+
+## 20.1.4
+
+Fri, 11 Aug 2023 15:22:19 GMT
+
+### Patches
+
+- Set both aria-current and aria-selected on anchor tabs ([ni/nimble@511d982](https://github.com/ni/nimble/commit/511d982f0eedb7b2db4cf937d850d02720caa3c3))
 
 ## 20.1.3
 
