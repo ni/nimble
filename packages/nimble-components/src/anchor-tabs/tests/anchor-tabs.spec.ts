@@ -99,8 +99,8 @@ describe('AnchorTabs', () => {
             expect(element.activetab).toBe(tab(1));
         });
 
-        it('should set aria-selected on active tab', () => {
-            expect(element.activetab?.ariaSelected).toBe('true');
+        it('should set aria-current on active tab', () => {
+            expect(element.activetab?.ariaCurrent).toBe('page');
         });
 
         it('should update activetab when activeid is changed', () => {
@@ -338,6 +338,9 @@ describe('AnchorTabs', () => {
                     await waitForUpdatesAsync();
                     expect(document.activeElement).toBe(
                         tab(test.expectedFinalFocusIndex)
+                    );
+                    expect(tab(test.expectedFinalFocusIndex).ariaSelected).toBe(
+                        'true'
                     );
                 });
             }
