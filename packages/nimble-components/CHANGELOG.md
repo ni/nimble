@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 11 Aug 2023 22:00:19 GMT and should not be manually modified.
+This log was last generated on Sat, 12 Aug 2023 08:35:41 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.6
+
+Sat, 12 Aug 2023 08:35:41 GMT
+
+### Patches
+
+- New render update and canvas die filtering for the wafer map component ([ni/nimble@96f22af](https://github.com/ni/nimble/commit/96f22af9a8f8eeddc995237e06cb8622eea436b2))
 
 ## 20.1.5
 
