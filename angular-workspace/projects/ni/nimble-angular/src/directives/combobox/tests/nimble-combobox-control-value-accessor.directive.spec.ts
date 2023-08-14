@@ -6,6 +6,7 @@ import { NimbleListOptionModule } from '../../list-option/nimble-list-option.mod
 import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
 import { OptionNotFound, OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
+import type { ListOption } from '../../../public-api';
 
 function clickOnListOption(combobox: Combobox, index: number): void {
     combobox.dispatchEvent(new Event('click'));
@@ -33,12 +34,13 @@ describe('Nimble combobox control value accessor', () => {
                     <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                     <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                     <nimble-list-option *ngIf="showFirstSharedOption" [ngValue]="sharedOption">{{ sharedOption?.name }}</nimble-list-option>
-                    <nimble-list-option [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
+                    <nimble-list-option #lastOption [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
                 </nimble-combobox>
              `
         })
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;
+            @ViewChild('lastOption', { static: true }) public lastOption: ElementRef<ListOption>;
 
             public selectOptions: (TestModel | null)[] = [
                 { name: 'Duplicate Option 1', value: 1 },
@@ -71,6 +73,7 @@ describe('Nimble combobox control value accessor', () => {
         }
 
         let combobox: Combobox;
+        let lastOption: ListOption;
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
 
@@ -85,6 +88,7 @@ describe('Nimble combobox control value accessor', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             combobox = testHostComponent.combobox.nativeElement;
+            lastOption = testHostComponent.lastOption.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
             await waitForUpdatesAsync();
@@ -172,6 +176,27 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.dynamicOption);
         });
 
+        it('text is changed in DOM for selected option, combobox display text and model value are unchanged', async () => {
+            const lastOptionInitialText = lastOption.text;
+            clickOnListOption(combobox, 7); // select last option (sharedOption)
+            fixture.detectChanges();
+            lastOption.textContent = 'Option 2';
+            await waitForUpdatesAsync();
+
+            expect(testHostComponent.selectedOption).toBe(testHostComponent.sharedOption);
+            expect(combobox.control.value).toBe(lastOptionInitialText);
+        });
+
+        it('text is changed in DOM for non-selected option, when changed option is selected, combobox display text matches DOM', async () => {
+            lastOption.textContent = 'foo';
+            await waitForUpdatesAsync();
+            clickOnListOption(combobox, 7); // select last option (sharedOption)
+            fixture.detectChanges();
+
+            expect(testHostComponent.selectedOption).toBe(testHostComponent.sharedOption);
+            expect(combobox.control.value).toBe('foo');
+        });
+
         it('null option is selected, combobox display value is set to provided display string for null', async () => {
             clickOnListOption(combobox, 4); // select null option
             fixture.detectChanges();
@@ -233,12 +258,12 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.control.value).toEqual(testHostComponent.selectOptions[1]!.name);
         });
 
-        it('selecting duplicate value finds last model value associated with that display value', async () => {
-            clickOnListOption(combobox, 0); // select first duplicate display value
+        it('selecting duplicate value finds first model value associated with that display value', async () => {
+            clickOnListOption(combobox, 1); // select last duplicate display value
             fixture.detectChanges();
             await waitForUpdatesAsync();
 
-            expect(testHostComponent.selectedOption).toEqual(testHostComponent.selectOptions[1]);
+            expect(testHostComponent.selectedOption).toEqual(testHostComponent.selectOptions[0]);
         });
 
         it('setting bound model value to duplicate value, updates display text', async () => {
@@ -297,13 +322,14 @@ describe('Nimble combobox control value accessor', () => {
                         <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                         <nimble-list-option *ngIf="showFirstSharedOption" [ngValue]="sharedOption">{{ sharedOption?.name }}</nimble-list-option>
-                    <nimble-list-option [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
+                        <nimble-list-option #lastOption [ngValue]="sharedOption">{{ sharedOption?.otherName }}</nimble-list-option>
                     </nimble-combobox>
                 </form>
              `
         })
         class TestHostComponent {
             @ViewChild('combobox', { static: true }) public combobox: ElementRef<Combobox>;
+            @ViewChild('lastOption', { static: true }) public lastOption: ElementRef<ListOption>;
 
             public selectOptions: (TestModel | null)[] = [
                 { name: 'Duplicate Option 1', value: 1 },
@@ -332,6 +358,7 @@ describe('Nimble combobox control value accessor', () => {
         }
 
         let combobox: Combobox;
+        let lastOption: ListOption;
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
 
@@ -346,6 +373,7 @@ describe('Nimble combobox control value accessor', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             combobox = testHostComponent.combobox.nativeElement;
+            lastOption = testHostComponent.lastOption.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
             await waitForUpdatesAsync();
@@ -446,6 +474,27 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption.value).toBe(testHostComponent.dynamicOption);
         });
 
+        it('text is changed in DOM for selected option, combobox display text and model value are unchanged', async () => {
+            const lastOptionText = lastOption.text;
+            clickOnListOption(combobox, 7); // select last option (sharedOption)
+            fixture.detectChanges();
+            lastOption.textContent = 'Option 2';
+            await waitForUpdatesAsync();
+
+            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.sharedOption);
+            expect(combobox.control.value).toBe(lastOptionText);
+        });
+
+        it('text is changed in DOM for non-selected option, when changed option is selected, combobox display text matches DOM', async () => {
+            lastOption.textContent = 'foo';
+            await waitForUpdatesAsync();
+            clickOnListOption(combobox, 7); // select last option (sharedOption)
+            fixture.detectChanges();
+
+            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.sharedOption);
+            expect(combobox.control.value).toBe('foo');
+        });
+
         it('null option is selected, combobox display value is set to provided display string for null', async () => {
             clickOnListOption(combobox, 4); // select null option
             fixture.detectChanges();
@@ -508,12 +557,12 @@ describe('Nimble combobox control value accessor', () => {
             expect(combobox.control.value).toEqual(testHostComponent.selectOptions[1]!.name);
         });
 
-        it('selecting duplicate value finds last model value associated with that display value', async () => {
-            clickOnListOption(combobox, 0); // select second duplicate display value
+        it('selecting duplicate value finds first model value associated with that display value', async () => {
+            clickOnListOption(combobox, 1); // select second duplicate display value
             fixture.detectChanges();
             await waitForUpdatesAsync();
 
-            expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[1]);
+            expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);
         });
 
         it('setting bound model value to duplicate value, updates display text', async () => {
