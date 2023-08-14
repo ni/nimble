@@ -36,7 +36,7 @@ export const styles = css`
         background-color: ${fillHoverColor};
     }
 
-    :host(:hover[aria-selected='true']) {
+    :host(:hover[aria-current]) {
         background-color: ${fillHoverSelectedColor};
     }
 
@@ -112,12 +112,12 @@ export const styles = css`
         border-bottom-width: var(--ni-private-focus-indicator-width);
     }
 
-    :host([aria-selected='true']) a::after {
+    :host([aria-current]) a::after {
         width: 100%;
         border-bottom-width: var(--ni-private-active-indicator-width);
     }
 
-    :host([disabled][aria-selected='true']) a::after {
+    :host([disabled][aria-current]) a::after {
         border-bottom-color: rgba(${borderHoverColor}, 0.3);
     }
 

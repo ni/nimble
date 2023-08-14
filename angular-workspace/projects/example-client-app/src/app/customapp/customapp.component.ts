@@ -51,7 +51,7 @@ export class CustomAppComponent {
 4. Bulleted lists
     * Option 1
     * Option 2
-5. Direct link: <https://nimble.ni.dev/>
+5. Absolute link: <https://nimble.ni.dev/>
 `;
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;

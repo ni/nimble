@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 14 Aug 2023 14:35:00 GMT",
+      "tag": "@ni/nimble-angular_v17.0.15",
+      "version": "17.0.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.7",
+            "commit": "e70768bd1d42364f51a5e486be771e4c84b132d4"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 12 Aug 2023 08:35:41 GMT",
+      "tag": "@ni/nimble-angular_v17.0.14",
+      "version": "17.0.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.6",
+            "commit": "96f22af9a8f8eeddc995237e06cb8622eea436b2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Aug 2023 22:00:19 GMT",
+      "tag": "@ni/nimble-angular_v17.0.13",
+      "version": "17.0.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.5",
+            "commit": "ffc6db59108c21570fdca623ecd566313b09c595"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Aug 2023 15:22:19 GMT",
+      "tag": "@ni/nimble-angular_v17.0.12",
+      "version": "17.0.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.4",
+            "commit": "511d982f0eedb7b2db4cf937d850d02720caa3c3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Aug 2023 22:54:53 GMT",
       "tag": "@ni/nimble-angular_v17.0.10",
       "version": "17.0.10",
