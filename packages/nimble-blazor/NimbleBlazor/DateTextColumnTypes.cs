@@ -198,19 +198,6 @@ internal static class FormatMatcherAlgorithmExtensions
     public static string? ToAttributeValue(this FormatMatcherAlgorithm? value) => value == null ? null : _enumValues[value.Value];
 }
 
-public enum Hour12Format
-{
-    TwelveHour,
-    TwentyFourHour
-}
-
-internal static class Hour12FormatExtensions
-{
-    private static readonly Dictionary<Hour12Format, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<Hour12Format>();
-
-    public static string? ToAttributeValue(this Hour12Format? value) => value == null ? null : _enumValues[value.Value];
-}
-
 public enum DayPeriodFormat
 {
     Narrow,

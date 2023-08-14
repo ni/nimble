@@ -129,7 +129,7 @@ public partial class NimbleTableColumnDateText : NimbleTableColumn, IFractionalW
     /// Refer to the options documentation for the JS Intl.DateTimeFormat constructor: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
     /// </summary>
     [Parameter]
-    public Hour12Format? CustomHour12 { get; set; }
+    public bool? CustomHour12 { get; set; }
 
     /// <summary>
     /// Time zone to use

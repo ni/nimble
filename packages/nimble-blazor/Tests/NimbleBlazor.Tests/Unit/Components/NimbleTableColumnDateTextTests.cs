@@ -139,9 +139,9 @@ public class NimbleTableColumnDateTextTests
     [Fact]
     public void NimbleTableColumnDateText_WithCustomHour12Attribute_HasTableMarkup()
     {
-        var table = RenderWithPropertySet(x => x.CustomHour12, Hour12Format.TwentyFourHour);
+        var table = RenderWithPropertySet(x => x.CustomHour12, false);
 
-        var expectedMarkup = @"custom-hour12=""twenty-four-hour""";
+        var expectedMarkup = @"custom-hour12=""false""";
         Assert.Contains(expectedMarkup, table.Markup);
     }
 
