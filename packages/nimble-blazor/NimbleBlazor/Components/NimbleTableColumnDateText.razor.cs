@@ -45,7 +45,7 @@ public partial class NimbleTableColumnDateText : NimbleTableColumn, IFractionalW
     /// Formatting scheme to use
     /// </summary>
     [Parameter]
-    public DateTextFormat? Format { get; set; }
+    public DateTextFormat Format { get; set; }
 
     /// <summary>
     /// Algorithm to use when finding a match for the provided locale string

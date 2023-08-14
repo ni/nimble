@@ -4,12 +4,17 @@ namespace NimbleBlazor;
 
 public enum DateTextFormat
 {
+    Default,
     Custom
 }
 
 internal static class DateTextFormatExtensions
 {
-    private static readonly Dictionary<DateTextFormat, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DateTextFormat>();
+    private static readonly Dictionary<DateTextFormat, string?> _enumValues = new Dictionary<DateTextFormat, string?>
+    {
+        [DateTextFormat.Default] = null,
+        [DateTextFormat.Custom] = "custom"
+    };
 
     public static string? ToAttributeValue(this DateTextFormat? value) => value == null ? null : _enumValues[value.Value];
 }
