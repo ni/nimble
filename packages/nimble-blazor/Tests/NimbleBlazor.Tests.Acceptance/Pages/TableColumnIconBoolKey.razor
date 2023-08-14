@@ -1,0 +1,45 @@
+﻿@page "/TableColumnIconBoolKey"
+@namespace NimbleBlazor.Tests.Acceptance.Pages
+@using System.Diagnostics.CodeAnalysis;
+@inherits LayoutComponentBase
+
+<NimbleTable IdFieldName="Id" @bind-Data="TableData">
+    <NimbleTableColumnIcon TKey="bool" FieldName="Field1" ColumnId="1">
+        <NimbleMappingIcon Key="true" Text="foo" Icon="nimble-check-icon" Severity="IconSeverity.Success"></NimbleMappingIcon>
+        <NimbleMappingSpinner Key="false" Text="bar"></NimbleMappingSpinner>
+        Column 1
+    </NimbleTableColumnIcon>
+</NimbleTable>
+
+@code {
+    [NotNull]
+    public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
+
+    public TableColumnEnumTextIntKey()
+    {
+        UpdateTableData(2);
+    }
+
+    public void UpdateTableData(int numberOfRows)
+    {
+        var tableData = new RowData[numberOfRows];
+        for (int i = 0; i < numberOfRows; i++)
+        {
+            tableData[i] = new RowData(i);
+        }
+
+        TableData = tableData;
+    }
+
+    public class RowData
+    {
+        public RowData(int id)
+        {
+            Id = id.ToString();
+            Field1 = id == 1;
+        }
+
+        public string Id { get; }
+        public bool Field1 { get; }
+    }
+}
