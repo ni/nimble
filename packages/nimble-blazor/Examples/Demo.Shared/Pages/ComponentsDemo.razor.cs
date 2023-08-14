@@ -74,7 +74,7 @@ namespace Demo.Shared.Pages
                 null,
                 null,
                 null,
-                null, 
+                null,
                 null);
 
             TableData = tableData;
