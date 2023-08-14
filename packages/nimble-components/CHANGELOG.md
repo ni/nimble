@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Sat, 12 Aug 2023 08:35:41 GMT and should not be manually modified.
+This log was last generated on Mon, 14 Aug 2023 14:35:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.7
+
+Mon, 14 Aug 2023 14:35:00 GMT
+
+### Patches
+
+- Updated the default height of the component ([ni/nimble@e70768b](https://github.com/ni/nimble/commit/e70768bd1d42364f51a5e486be771e4c84b132d4))
 
 ## 20.1.6
 

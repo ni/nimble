@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Aug 2023 14:35:00 GMT",
+      "tag": "@ni/nimble-components_v20.1.7",
+      "version": "20.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e70768bd1d42364f51a5e486be771e4c84b132d4",
+            "comment": "Updated the default height of the component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 12 Aug 2023 08:35:41 GMT",
       "tag": "@ni/nimble-components_v20.1.6",
       "version": "20.1.6",
