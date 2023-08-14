@@ -21,7 +21,7 @@ TableColumnTextCellRecord,
 TableColumnTextColumnConfig
 > {
     private cellRecordChanged(): void {
-        this.text = typeof this.cellRecord.value === 'string'
+        this.text = typeof this.cellRecord?.value === 'string'
             ? this.cellRecord.value
             : '';
     }
