@@ -1,4 +1,6 @@
-﻿namespace NimbleBlazor;
+﻿// Suppressing rule "Identifiers should not contain type names" because "long" and "short" come from the underlying API
+#pragma warning disable CA1720
+namespace NimbleBlazor;
 
 public enum DateTextFormat
 {
@@ -20,7 +22,8 @@ public enum LocaleMatcherAlgorithm
 
 internal static class LocaleMatcherAlgorithmExtensions
 {
-    private static readonly Dictionary<LocaleMatcherAlgorithm, string> _enumValues = new Dictionary<LocaleMatcherAlgorithm, string> {
+    private static readonly Dictionary<LocaleMatcherAlgorithm, string> _enumValues = new Dictionary<LocaleMatcherAlgorithm, string>
+    {
         [LocaleMatcherAlgorithm.BestFit] = "best fit",
         [LocaleMatcherAlgorithm.Lookup] = "lookup"
     };
@@ -64,7 +67,8 @@ public enum YearFormat
 
 internal static class YearFormatExtensions
 {
-    private static readonly Dictionary<YearFormat, string> _enumValues = new Dictionary<YearFormat, string> {
+    private static readonly Dictionary<YearFormat, string> _enumValues = new Dictionary<YearFormat, string>
+    {
         [YearFormat.Numeric] = "numeric",
         [YearFormat.TwoDigit] = "2-digit"
     };
@@ -83,7 +87,8 @@ public enum MonthFormat
 
 internal static class MonthFormatExtensions
 {
-    private static readonly Dictionary<MonthFormat, string> _enumValues = new Dictionary<MonthFormat, string> {
+    private static readonly Dictionary<MonthFormat, string> _enumValues = new Dictionary<MonthFormat, string>
+    {
         [MonthFormat.Numeric] = "numeric",
         [MonthFormat.TwoDigit] = "2-digit",
         [MonthFormat.Long] = "long",
@@ -102,7 +107,8 @@ public enum DayFormat
 
 internal static class DayFormatExtensions
 {
-    private static readonly Dictionary<DayFormat, string> _enumValues = new Dictionary<DayFormat, string> {
+    private static readonly Dictionary<DayFormat, string> _enumValues = new Dictionary<DayFormat, string>
+    {
         [DayFormat.Numeric] = "numeric",
         [DayFormat.TwoDigit] = "2-digit"
     };
@@ -118,7 +124,8 @@ public enum HourFormat
 
 internal static class HourFormatExtensions
 {
-    private static readonly Dictionary<HourFormat, string> _enumValues = new Dictionary<HourFormat, string> {
+    private static readonly Dictionary<HourFormat, string> _enumValues = new Dictionary<HourFormat, string>
+    {
         [HourFormat.Numeric] = "numeric",
         [HourFormat.TwoDigit] = "2-digit"
     };
@@ -134,7 +141,8 @@ public enum MinuteFormat
 
 internal static class MinuteFormatExtensions
 {
-    private static readonly Dictionary<MinuteFormat, string> _enumValues = new Dictionary<MinuteFormat, string> {
+    private static readonly Dictionary<MinuteFormat, string> _enumValues = new Dictionary<MinuteFormat, string>
+    {
         [MinuteFormat.Numeric] = "numeric",
         [MinuteFormat.TwoDigit] = "2-digit"
     };
@@ -150,7 +158,8 @@ public enum SecondFormat
 
 internal static class SecondFormatExtensions
 {
-    private static readonly Dictionary<SecondFormat, string> _enumValues = new Dictionary<SecondFormat, string> {
+    private static readonly Dictionary<SecondFormat, string> _enumValues = new Dictionary<SecondFormat, string>
+    {
         [SecondFormat.Numeric] = "numeric",
         [SecondFormat.TwoDigit] = "2-digit"
     };
@@ -170,7 +179,8 @@ public enum TimeZoneNameFormat
 
 internal static class TimeZoneNameFormatExtensions
 {
-    private static readonly Dictionary<TimeZoneNameFormat, string> _enumValues = new Dictionary<TimeZoneNameFormat, string> {
+    private static readonly Dictionary<TimeZoneNameFormat, string> _enumValues = new Dictionary<TimeZoneNameFormat, string>
+    {
         [TimeZoneNameFormat.Long] = "long",
         [TimeZoneNameFormat.Short] = "short",
         [TimeZoneNameFormat.ShortOffset] = "shortOffset",
@@ -190,7 +200,8 @@ public enum FormatMatcherAlgorithm
 
 internal static class FormatMatcherAlgorithmExtensions
 {
-    private static readonly Dictionary<FormatMatcherAlgorithm, string> _enumValues = new Dictionary<FormatMatcherAlgorithm, string> {
+    private static readonly Dictionary<FormatMatcherAlgorithm, string> _enumValues = new Dictionary<FormatMatcherAlgorithm, string>
+    {
         [FormatMatcherAlgorithm.BestFit] = "best fit",
         [FormatMatcherAlgorithm.Basic] = "basic"
     };
@@ -224,7 +235,6 @@ internal static class DateStyleExtensions
 {
     private static readonly Dictionary<DateStyle, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DateStyle>();
 
-
     public static string? ToAttributeValue(this DateStyle? value) => value == null ? null : _enumValues[value.Value];
 }
 
@@ -253,7 +263,8 @@ public enum HourCycleFormat
 
 internal static class HourCycleFormatExtensions
 {
-    private static readonly Dictionary<HourCycleFormat, string> _enumValues = new Dictionary<HourCycleFormat, string> {
+    private static readonly Dictionary<HourCycleFormat, string> _enumValues = new Dictionary<HourCycleFormat, string>
+    {
         [HourCycleFormat.H11] = "h11",
         [HourCycleFormat.H12] = "h12",
         [HourCycleFormat.H23] = "h23",
@@ -262,3 +273,4 @@ internal static class HourCycleFormatExtensions
 
     public static string? ToAttributeValue(this HourCycleFormat? value) => value == null ? null : _enumValues[value.Value];
 }
+#pragma warning restore CA1720
