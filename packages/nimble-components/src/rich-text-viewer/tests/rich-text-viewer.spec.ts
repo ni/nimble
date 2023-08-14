@@ -193,6 +193,44 @@ describe('RichTextViewer', () => {
             ]);
         });
 
+        it('nested numbered lists markdown string to "ol" and "li" HTML tags', async () => {
+            element.markdown = '1. Option 1\n\n    1. Option 2';
+
+            await connect();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'OL',
+                'LI',
+                'P'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('numbered lists markdown string to "ol" tag and nested bullet list markdown string to "ul" tag', async () => {
+            element.markdown = '1. Option 1\n\n    * Option 2';
+
+            await connect();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'UL',
+                'LI',
+                'P'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
         it('multiple empty numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', async () => {
             element.markdown = '1.    \n 2.    ';
 
@@ -293,6 +331,44 @@ describe('RichTextViewer', () => {
             expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'Bulleted list'
             );
+        });
+
+        it('nested bullet lists markdown string to "ul" and "li" HTML tags', async () => {
+            element.markdown = '* Option 1\n\n    * Option 2';
+
+            await connect();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'UL',
+                'LI',
+                'P'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('bullet lists markdown string to "ul" tag and nested numbered list markdown string to "ol" tag', async () => {
+            element.markdown = '* Option 1\n\n    1. Option 2';
+
+            await connect();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'OL',
+                'LI',
+                'P'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
         });
 
         it('multiple bulleted lists markdown string("* \n* \n*") to "ul" and "li" HTML tags', async () => {

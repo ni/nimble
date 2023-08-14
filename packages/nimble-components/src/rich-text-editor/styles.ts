@@ -20,7 +20,6 @@ export const styles = css`
         width: auto;
         height: 100%;
         flex-direction: column;
-        position: relative;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-footer-section-height: 40px;
         ${
@@ -32,7 +31,6 @@ export const styles = css`
     .container {
         display: flex;
         flex-direction: column;
-        height: inherit;
         position: relative;
         max-height: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
