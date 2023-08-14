@@ -14,10 +14,9 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         color: ${bodyFontColor};
-        inline-size: auto;
+        width: auto;
         overflow: auto;
-        block-size: 100%;
-        min-block-size: 36px;
+        height: 100%;
     }
 
     .viewer {
