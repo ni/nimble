@@ -26,12 +26,7 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        const value = this.groupHeaderValue;
-        if (!this.columnConfig || typeof value !== 'number') {
-            this.text = '';
-        } else {
-            this.text = this.columnConfig.formatter.format(value);
-        }
+        this.text = this.columnConfig?.formatter?.formatValue(this.groupHeaderValue) ?? '';
     }
 }
 
