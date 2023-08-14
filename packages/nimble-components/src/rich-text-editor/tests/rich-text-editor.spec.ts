@@ -952,20 +952,7 @@ describe('RichTextEditor', () => {
 
     describe('Should return markdown without any changes when various not supported markdown string values are assigned', () => {
         const notSupportedMarkdownStrings: { name: string }[] = [
-            { name: '> blockquote' },
-            { name: '`code`' },
-            { name: '```fence```' },
-            { name: '~~Strikethrough~~' },
-            { name: '# Heading 1' },
-            { name: '## Heading 2' },
-            { name: '### Heading 3' },
-            { name: '[link](url)' },
-            { name: '[ref][link] [link]:url' },
-            { name: '![Text](Image)' },
             { name: '&nbsp;' },
-            { name: '---' },
-            { name: '***' },
-            { name: '___' },
             { name: '(c) (C) (r) (R) (tm) (TM) (p) (P) +-' },
             { name: '<div><p>text</p></div>' },
             { name: '<b>not bold</b>' },
@@ -999,11 +986,70 @@ describe('RichTextEditor', () => {
         }
     });
 
+    describe('Should return markdown with escape character (back slash) when various special markdown syntax are assigned', () => {
+        const specialMarkdownStrings: { name: string, value: string }[] = [
+            { name: '> blockquote', value: '\\> blockquote' },
+            { name: '`code`', value: '\\`code\\`' },
+            { name: '```fence```', value: '\\`\\`\\`fence\\`\\`\\`' },
+            { name: '~~Strikethrough~~', value: '\\~\\~Strikethrough\\~\\~' },
+            { name: '# Heading 1', value: '\\# Heading 1' },
+            { name: '## Heading 2', value: '\\## Heading 2' },
+            { name: '### Heading 3', value: '\\### Heading 3' },
+            { name: '[link](url)', value: '\\[link\\](url)' },
+            {
+                name: '[ref][link] [link]:url',
+                value: '\\[ref\\]\\[link\\] \\[link\\]:url'
+            },
+            { name: '![Text](Image)', value: '!\\[Text\\](Image)' },
+            { name: '---', value: '\\---' },
+            { name: '***', value: '\\*\\*\\*' },
+            { name: '___', value: '\\__\\_' },
+            { name: '-Infinity', value: '\\-Infinity' },
+            { name: '-2147483648/-1', value: '\\-2147483648/-1' }
+        ];
+
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const value of specialMarkdownStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `special markdown string "${value.name}" returns as plain text "${value.value}" with added esacpe character`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    element.setMarkdown(value.name);
+
+                    await connect();
+
+                    expect(element.getMarkdown()).toBe(value.value);
+
+                    await disconnect();
+                }
+            );
+        }
+    });
+
     describe('Should return markdown without any changes when various wacky string values are assigned', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
 
-        wackyStrings
+        const wackyStringsWithoutSpecialMarkdownCharacter = [
+            { name: '<button></button>' },
+            { name: 'null' },
+            { name: 'undefined' },
+            { name: 'null' },
+            { name: 'NaN' },
+            { name: 'Infinity' },
+            { name: '\x00' },
+            { name: '田' },
+            { name: 'Ω' },
+            { name: '( ͡° ͜ʖ ͡°)' },
+            { name: '😍' },
+            { name: 'Iñtërnâtiônàlizætiøn☃💩' },
+            { name: '１' }
+        ];
+
+        wackyStringsWithoutSpecialMarkdownCharacter
             .filter(value => value.name !== '\x00')
             .forEach(value => {
                 const specType = getSpecTypeByNamedList(

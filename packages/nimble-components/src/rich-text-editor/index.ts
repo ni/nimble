@@ -265,18 +265,6 @@ export class RichTextEditor extends FoundationElement {
         };
 
         /**
-         * Setting the escape argument as false to skip esc method under MarkdownSerializerState as regExpression
-         * adding unnecessary slashes while serializing and not to affect text nodes.
-         * https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/to_markdown.ts#L409C3-L417C4
-         */
-        const textNode = function text(
-            state: MarkdownSerializerState,
-            node: Node
-        ): void {
-            state.text(node.text!, false);
-        };
-
-        /**
          * Internally Tiptap editor creates it own schema ( Nodes AND Marks ) based on the extensions ( Here Starter Kit is used for Bold, italic, orderedList and
          * bulletList extensions) and defaultMarkdownSerializer uses schema from prosemirror-markdown to serialize the markdown.
          * So, there is variations in the nodes and marks name (Eg. 'ordered_list' in prosemirror-markdown schema whereas 'orderedList' in tip tap editor schema),
@@ -288,7 +276,7 @@ export class RichTextEditor extends FoundationElement {
             orderedList: orderedListNode,
             doc: defaultMarkdownSerializer.nodes.doc!,
             paragraph: defaultMarkdownSerializer.nodes.paragraph!,
-            text: textNode
+            text: defaultMarkdownSerializer.nodes.text!
         };
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,
