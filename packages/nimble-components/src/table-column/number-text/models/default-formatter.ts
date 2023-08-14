@@ -49,7 +49,7 @@ export class DefaultFormatter extends NumberFormatter {
     protected format(number: number): string {
         // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
         // Because that option cannot be used to avoid rendering "-0", coerce the value -0 to 0 prior to formatting.
-        const valueToFormat = (number === 0) ? 0 : number;
+        const valueToFormat = number === 0 ? 0 : number;
         const formatter = this.getFormatterForNumber(valueToFormat);
         return formatter.format(valueToFormat);
     }
@@ -60,7 +60,10 @@ export class DefaultFormatter extends NumberFormatter {
         }
 
         const absoluteValue = Math.abs(number);
-        if (absoluteValue >= DefaultFormatter.exponentialUpperBound || absoluteValue < DefaultFormatter.exponentialLowerBound) {
+        if (
+            absoluteValue >= DefaultFormatter.exponentialUpperBound
+            || absoluteValue < DefaultFormatter.exponentialLowerBound
+        ) {
             return DefaultFormatter.exponentialFormatter;
         }
         // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and

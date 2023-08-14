@@ -29,7 +29,8 @@ TableColumnNumberTextColumnConfig
     }
 
     private updateText(): void {
-        this.text = this.columnConfig?.formatter?.formatValue(this.cellRecord.value) ?? '';
+        this.text = this.columnConfig?.formatter?.formatValue(this.cellRecord.value)
+            ?? '';
     }
 }
 
