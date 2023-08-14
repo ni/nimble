@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 14 Aug 2023 14:35:00 GMT",
+      "tag": "@ni/nimble-components_v20.1.7",
+      "version": "20.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e70768bd1d42364f51a5e486be771e4c84b132d4",
+            "comment": "Updated the default height of the component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 12 Aug 2023 08:35:41 GMT",
+      "tag": "@ni/nimble-components_v20.1.6",
+      "version": "20.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "96f22af9a8f8eeddc995237e06cb8622eea436b2",
+            "comment": "New render update and canvas die filtering for the wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Aug 2023 22:00:19 GMT",
+      "tag": "@ni/nimble-components_v20.1.5",
+      "version": "20.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ffc6db59108c21570fdca623ecd566313b09c595",
+            "comment": "Update dependency on fast-foundation"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 11 Aug 2023 15:22:19 GMT",
       "tag": "@ni/nimble-components_v20.1.4",
       "version": "20.1.4",

@@ -99,7 +99,7 @@ export const differentContentsInMobileWidth: StoryFn = createStory(html`
             ['No content', ''],
             ['Plain text', loremIpsum],
             [
-                'Multiple sup points',
+                'Multiple sub points',
                 '1. Sub point 1\n   1. Sub point 2\n       1. Sub point 3\n          1. Sub point 4\n             1. Sub point 5\n                 1. Sub point 6\n                    1. Sub point 7\n'
             ],
             [
@@ -109,6 +109,10 @@ export const differentContentsInMobileWidth: StoryFn = createStory(html`
             [
                 'Long word',
                 'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
+            ],
+            [
+                'Single line',
+                'This is to test how single line is rendered in viewer'
             ]
         ],
         [
