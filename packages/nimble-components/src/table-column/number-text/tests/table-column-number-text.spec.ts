@@ -121,6 +121,7 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('2');
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('2');
         expect(pageObject.getRenderedCellContent(0, 1)).toBe('-99');
     });
 
@@ -141,11 +142,13 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('10');
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('10');
 
         await element.setData([{ number1: null }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
     });
 
     it('changing data from null to value displays value', async () => {
@@ -153,11 +156,13 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
 
         await element.setData([{ number1: -16 }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('-16');
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('-16');
     });
 
     it('when no fieldName provided, nothing is displayed', async () => {
@@ -169,6 +174,7 @@ describe('TableColumnNumberText', () => {
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
     });
 
     describe('displays title when appropriate', () => {
