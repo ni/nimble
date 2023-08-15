@@ -56,7 +56,7 @@ describe('RichTextEditor', () => {
         expect(editor!.getAttribute('role')).toBe('textbox');
     });
 
-    it('should set aria-multiline textbox to true', () => {
+    it('should set aria-multiline to true', () => {
         const editor = pageObject.getEditorSection();
 
         expect(editor!.getAttribute('aria-multiline')).toBe('true');
