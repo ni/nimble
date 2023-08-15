@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 15 Aug 2023 16:05:54 GMT",
+      "tag": "@ni/nimble-components_v20.1.8",
+      "version": "20.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d",
+            "comment": "Improve typing for cell view"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Aug 2023 14:35:00 GMT",
       "tag": "@ni/nimble-components_v20.1.7",
       "version": "20.1.7",

@@ -219,6 +219,11 @@
                 </NimbleTableColumnText>
                 <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
                 <NimbleTableColumnDateText FieldName="Date" ColumnId="date-column">Date</NimbleTableColumnDateText>
+                <NimbleTableColumnEnumText FieldName="StatusCode" TKey="int" ColumnId="status-column">
+                    <NimbleMappingText Key="100" Text="Status message 1"></NimbleMappingText>
+                    <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
+                    Status
+                </NimbleTableColumnEnumText>
                 <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" GroupIndex="0">Last Name</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">
