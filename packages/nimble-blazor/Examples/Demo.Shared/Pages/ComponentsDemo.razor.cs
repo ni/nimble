@@ -66,10 +66,12 @@ namespace Demo.Shared.Pages
                     Faker.Name.First(),
                     Faker.Name.Last(),
                     "https://nimble.ni.dev",
-                    "Link");
+                    "Link",
+                    i % 2 == 0 ? 100 : 101);
             }
             tableData[numberOfRows] = new Person(
                 numberOfRows.ToString(null, null),
+                null,
                 null,
                 null,
                 null,
@@ -81,13 +83,14 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel)
+        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel, int? statusCode)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             Href = href;
             LinkLabel = linkLabel;
+            StatusCode = statusCode;
         }
 
         public string Id { get; }
@@ -95,6 +98,7 @@ namespace Demo.Shared.Pages
         public string? LastName { get; }
         public string? Href { get; }
         public string? LinkLabel { get; }
+        public int? StatusCode { get; }
     }
 
     public enum DialogResult
