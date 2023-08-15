@@ -143,7 +143,6 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
             }
         }
         this._optionToModelValueMap.delete(option);
-        this.updateDisplayValue();
     }
 
     public updateOption(modelValue: unknown, option: ListOption): void {
