@@ -1,8 +1,57 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 07 Aug 2023 22:54:53 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Aug 2023 16:05:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.0.17
+
+Tue, 15 Aug 2023 16:05:54 GMT
+
+### Patches
+
+- Improve typing for cell view ([ni/nimble@4fbf1bc](https://github.com/ni/nimble/commit/4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d))
+- Bump @ni/nimble-components to v20.1.8
+
+## 17.0.16
+
+Mon, 14 Aug 2023 16:14:55 GMT
+
+### Patches
+
+- Angular support for enum-text table column ([ni/nimble@a8e29e5](https://github.com/ni/nimble/commit/a8e29e5042ddb9ad9258b09c4844f5c360844628))
+
+## 17.0.15
+
+Mon, 14 Aug 2023 14:35:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.7
+
+## 17.0.14
+
+Sat, 12 Aug 2023 08:35:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.6
+
+## 17.0.13
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.5
+
+## 17.0.12
+
+Fri, 11 Aug 2023 15:22:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.4
 
 ## 17.0.10
 

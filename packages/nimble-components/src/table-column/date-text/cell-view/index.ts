@@ -33,7 +33,7 @@ TableColumnDateTextColumnConfig
         if (this.columnConfig?.formatter) {
             this.text = formatNumericDate(
                 this.columnConfig.formatter,
-                this.cellRecord.value
+                this.cellRecord?.value
             );
         } else {
             this.text = '';

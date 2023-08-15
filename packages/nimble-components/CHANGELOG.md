@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 07 Aug 2023 22:54:53 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Aug 2023 16:05:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.8
+
+Tue, 15 Aug 2023 16:05:54 GMT
+
+### Patches
+
+- Improve typing for cell view ([ni/nimble@4fbf1bc](https://github.com/ni/nimble/commit/4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d))
+
+## 20.1.7
+
+Mon, 14 Aug 2023 14:35:00 GMT
+
+### Patches
+
+- Updated the default height of the component ([ni/nimble@e70768b](https://github.com/ni/nimble/commit/e70768bd1d42364f51a5e486be771e4c84b132d4))
+
+## 20.1.6
+
+Sat, 12 Aug 2023 08:35:41 GMT
+
+### Patches
+
+- New render update and canvas die filtering for the wafer map component ([ni/nimble@96f22af](https://github.com/ni/nimble/commit/96f22af9a8f8eeddc995237e06cb8622eea436b2))
+
+## 20.1.5
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Update dependency on fast-foundation ([ni/nimble@ffc6db5](https://github.com/ni/nimble/commit/ffc6db59108c21570fdca623ecd566313b09c595))
+
+## 20.1.4
+
+Fri, 11 Aug 2023 15:22:19 GMT
+
+### Patches
+
+- Set both aria-current and aria-selected on anchor tabs ([ni/nimble@511d982](https://github.com/ni/nimble/commit/511d982f0eedb7b2db4cf937d850d02720caa3c3))
 
 ## 20.1.3
 
