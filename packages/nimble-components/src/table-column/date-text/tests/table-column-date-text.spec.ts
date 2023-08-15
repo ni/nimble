@@ -369,9 +369,13 @@ describe('TableColumnDateText', () => {
             column.format = 'custom';
             column.customHour = 'numeric'; // must specify hour
             column.customHourCycle = 'h24'; // must force 24hr clock to ensure not overridden by hour12
+            column.customHour12 = true; // first set it to true so that we're actually changing the value (affects view)
             column.customHour12 = undefined;
             expect(column.customHour12).toBeUndefined();
             await waitForUpdatesAsync();
+            expect(column.outerHTML).toMatch(
+                /<nimble-table-column-date-text((?!custom-hour12).)*>/
+            );
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('22');
         });
 

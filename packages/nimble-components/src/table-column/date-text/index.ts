@@ -85,6 +85,7 @@ export class TableColumnDateText extends TableColumnTextBase {
 
     // Later versions of FAST (than the legacy branch we're on) have a nullableBooleanConverter.
     // We should replace our converter with that one when it is available to us.
+    // See issue related to adopting FastElement 2.0: https://github.com/ni/nimble/issues/572
     @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
     public customHour12?: boolean;
 
