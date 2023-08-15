@@ -33,11 +33,11 @@ export class NimbleTableColumnAnchorNavigationGuardDirective {
 
         const cellView = delegatedEvent.target as TableColumnAnchorCellView;
         // Based on: https://github.com/angular/angular/blob/35a3fde5b71ef3b50282fe6f7b37ca1c92b8d2a0/packages/router/src/directives/router_link.ts#L457
-        if (typeof cellView.columnConfig.target === 'string' && cellView.columnConfig.target !== '_self') {
+        if (typeof cellView.columnConfig?.target === 'string' && cellView.columnConfig.target !== '_self') {
             return;
         }
 
-        const href = cellView.cellRecord.href;
+        const href = cellView.cellRecord?.href;
         if (!href) {
             return;
         }

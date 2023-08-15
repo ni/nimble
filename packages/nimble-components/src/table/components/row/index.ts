@@ -25,7 +25,7 @@ declare global {
 
 export interface ColumnState {
     column: TableColumn;
-    cellState: TableCellState;
+    cellState?: TableCellState;
     cellIndentLevel: number;
 }
 
@@ -84,7 +84,7 @@ export class TableRow<
     public get columnStates(): ColumnState[] {
         return this.columns.map((column, i) => {
             const fieldNames = column.columnInternals.dataRecordFieldNames;
-            let cellState: TableCellState;
+            let cellState: TableCellState | undefined;
             if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
                 const cellDataValues = fieldNames.map(
                     field => this.dataRecord![field]
@@ -95,15 +95,10 @@ export class TableRow<
                         cellDataValues[j]
                     ])
                 );
-                const columnConfig = column.columnInternals.columnConfig ?? {};
+                const columnConfig = column.columnInternals.columnConfig;
                 cellState = {
                     cellRecord,
                     columnConfig
-                };
-            } else {
-                cellState = {
-                    cellRecord: {},
-                    columnConfig: {}
                 };
             }
             const cellIndentLevel = i === 0 && this.nestingLevel > 0 ? this.nestingLevel - 1 : 0;

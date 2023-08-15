@@ -11,8 +11,8 @@ export interface TableCellState<
     TCellRecord extends TableCellRecord = TableCellRecord,
     TColumnConfig = unknown
 > {
-    cellRecord: TCellRecord;
-    columnConfig: TColumnConfig;
+    cellRecord?: TCellRecord;
+    columnConfig?: TColumnConfig;
 }
 
 /**
