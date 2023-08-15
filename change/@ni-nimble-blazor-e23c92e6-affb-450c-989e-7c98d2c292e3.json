@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add Blazor support for enum-text table column",
-  "packageName": "@ni/nimble-blazor",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
