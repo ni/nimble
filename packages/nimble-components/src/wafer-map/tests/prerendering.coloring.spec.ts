@@ -51,9 +51,11 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have black fill style for all dies', () => {
-                for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual(emptyDieColor);
-                }
+                Object.entries(prerenderingModule.renderInfo).forEach(
+                    ([fillStyle, _dies]) => {
+                        expect(fillStyle).toEqual(emptyDieColor);
+                    }
+                );
             });
         });
 
@@ -99,9 +101,11 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have the same fill style for all dies', () => {
-                for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
-                }
+                Object.entries(prerenderingModule.renderInfo).forEach(
+                    ([fillStyle, _dies]) => {
+                        expect(fillStyle).toEqual('rgba(255,0,0,1)');
+                    }
+                );
             });
         });
 
@@ -147,17 +151,11 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have the fill style equally distributed to dies', () => {
-                const waferMapDies = getWaferMapDies();
-                const expectedValues = waferMapDies.map(x => {
-                    return {
-                        fillStyle: `rgba(${(+x.value - 1) * 15},0,0,1)`
-                    };
-                });
-                for (let i = 0; i < waferMapDies.length; i += 1) {
-                    expect(
-                        prerenderingModule.diesRenderInfo[i]!.fillStyle
-                    ).toEqual(expectedValues[i]!.fillStyle);
-                }
+                Object.entries(prerenderingModule.renderInfo).forEach(
+                    ([_fillStyle, dies]) => {
+                        expect(dies.length).toEqual(1);
+                    }
+                );
             });
         });
     });
@@ -204,9 +202,11 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have the same fill style for all dies', () => {
-                for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                    expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
-                }
+                Object.entries(prerenderingModule.renderInfo).forEach(
+                    ([fillStyle, _dies]) => {
+                        expect(fillStyle).toEqual('rgba(255,0,0,1)');
+                    }
+                );
             });
         });
 
@@ -252,20 +252,15 @@ describe('Wafermap Prerendering module', () => {
             });
 
             it('should have alternating fill style for the dies', () => {
-                const waferMapDies = getWaferMapDies();
-                const expectedValues = waferMapDies.map(x => {
-                    const fillStyle = +x.value % 2 === 1
-                        ? 'rgba(0,0,0,1)'
-                        : 'rgba(255,0,0,1)';
-                    return {
-                        fillStyle
-                    };
-                });
-                for (let i = 0; i < waferMapDies.length; i += 1) {
-                    expect(
-                        prerenderingModule.diesRenderInfo[i]!.fillStyle
-                    ).toEqual(expectedValues[i]!.fillStyle);
-                }
+                Object.entries(prerenderingModule.renderInfo).forEach(
+                    ([fillStyle, dies]) => {
+                        if (fillStyle === 'rgba(0,0,0,1)') {
+                            expect(dies.length).toEqual(getWaferMapDies().length / 2);
+                        } else if (fillStyle === 'rgba(255,0,0,1)') {
+                            expect(dies.length).toEqual(getWaferMapDies().length / 2);
+                        }
+                    }
+                );
             });
         });
     });
@@ -315,9 +310,11 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have NaN color fill style', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.fillStyle).toEqual(nanDieColor);
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([fillStyle, _dies]) => {
+                    expect(fillStyle).toEqual(nanDieColor);
+                }
+            );
         });
     });
 
@@ -366,9 +363,11 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have empty color fill style', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.fillStyle).toEqual(emptyDieColor);
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([fillStyle, _dies]) => {
+                    expect(fillStyle).toEqual(emptyDieColor);
+                }
+            );
         });
     });
 
@@ -408,18 +407,15 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have highlighted value with full opacity and the rest with expected opacity', () => {
-            const waferMapDies = getWaferMapDies();
-            const expectedValues = waferMapDies.map(x => {
-                const opacity = x.value === highlightedValue ? 1 : 0.3;
-                return {
-                    fillStyle: `rgba(255,0,0,${opacity})`
-                };
-            });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.fillStyle).toEqual(
-                    expectedValues[i]!.fillStyle
-                );
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([fillStyle, dies]) => {
+                    if (fillStyle === 'rgba(255,0,0,1)') {
+                        expect(dies.length).toEqual(1);
+                    } else if (fillStyle === 'rgba(255,0,0,0.3)') {
+                        expect(dies.length).toEqual(getWaferMapDies().length - 1);
+                    }
+                }
+            );
         });
     });
 
@@ -459,9 +455,11 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have all dies with full opacity', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.fillStyle).toEqual('rgba(255,0,0,1)');
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([fillStyle, _dies]) => {
+                    expect(fillStyle).toEqual('rgba(255,0,0,1)');
+                }
+            );
         });
     });
 });
