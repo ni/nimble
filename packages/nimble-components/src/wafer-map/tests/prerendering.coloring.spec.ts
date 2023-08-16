@@ -255,9 +255,13 @@ describe('Wafermap Prerendering module', () => {
                 Object.entries(prerenderingModule.renderInfo).forEach(
                     ([fillStyle, dies]) => {
                         if (fillStyle === 'rgba(0,0,0,1)') {
-                            expect(dies.length).toEqual(getWaferMapDies().length / 2);
+                            expect(dies.length).toEqual(
+                                getWaferMapDies().length / 2
+                            );
                         } else if (fillStyle === 'rgba(255,0,0,1)') {
-                            expect(dies.length).toEqual(getWaferMapDies().length / 2);
+                            expect(dies.length).toEqual(
+                                getWaferMapDies().length / 2
+                            );
                         }
                     }
                 );
@@ -412,7 +416,9 @@ describe('Wafermap Prerendering module', () => {
                     if (fillStyle === 'rgba(255,0,0,1)') {
                         expect(dies.length).toEqual(1);
                     } else if (fillStyle === 'rgba(255,0,0,0.3)') {
-                        expect(dies.length).toEqual(getWaferMapDies().length - 1);
+                        expect(dies.length).toEqual(
+                            getWaferMapDies().length - 1
+                        );
                     }
                 }
             );

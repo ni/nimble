@@ -57,29 +57,32 @@ export class Prerendering {
         const maxCharacters = this.wafermap.maxCharacters;
         const dieLabelsHidden = this.wafermap.dieLabelsHidden;
         const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
-        this._renderInfo = this.wafermap.dies.reduce<RenderInfo>((result, die) => {
-            const scaledX = horizontalScale(die.x) ?? 0;
-            const scaledY = verticalScale(die.y) ?? 0;
-            const fillStyle = this.calculateFillStyle(
-                die.value,
-                colorScaleMode,
-                highlightedValues
-            );
-            if (!result[fillStyle]) {
-                result[fillStyle] = [];
-            }
-            result[fillStyle]!.push({
-                x: scaledX + margin.right,
-                y: scaledY + margin.top,
-                text: this.buildLabel(
+        this._renderInfo = this.wafermap.dies.reduce<RenderInfo>(
+            (result, die) => {
+                const scaledX = horizontalScale(die.x) ?? 0;
+                const scaledY = verticalScale(die.y) ?? 0;
+                const fillStyle = this.calculateFillStyle(
                     die.value,
-                    maxCharacters,
-                    dieLabelsHidden,
-                    dieLabelsSuffix
-                )
-            });
-            return result;
-        }, {});
+                    colorScaleMode,
+                    highlightedValues
+                );
+                if (!result[fillStyle]) {
+                    result[fillStyle] = [];
+                }
+                result[fillStyle]!.push({
+                    x: scaledX + margin.right,
+                    y: scaledY + margin.top,
+                    text: this.buildLabel(
+                        die.value,
+                        maxCharacters,
+                        dieLabelsHidden,
+                        dieLabelsSuffix
+                    )
+                });
+                return result;
+            },
+            {}
+        );
     }
 
     private calculateLabelsFontSize(

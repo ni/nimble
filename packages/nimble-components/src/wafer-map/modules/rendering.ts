@@ -119,7 +119,9 @@ export class RenderingModule {
                             context.fillText(
                                 die.text,
                                 die.x + dieWidth / 2,
-                                die.y + dieHeight / 2 + approximateTextHeight.width / 2,
+                                die.y
+                                    + dieHeight / 2
+                                    + approximateTextHeight.width / 2,
                                 dieWidth - (dieWidth / 100) * 20
                             );
                         }

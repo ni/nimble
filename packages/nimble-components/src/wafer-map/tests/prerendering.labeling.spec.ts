@@ -203,7 +203,9 @@ describe('Wafermap Prerendering module', () => {
             Object.entries(prerenderingModule.renderInfo).forEach(
                 ([_fillStyle, diesRenderInfo]) => {
                     for (const dieRenderInfo of diesRenderInfo) {
-                        expect(dieRenderInfo.text).not.toContain(dieLabelsSuffix);
+                        expect(dieRenderInfo.text).not.toContain(
+                            dieLabelsSuffix
+                        );
                         expect(dieRenderInfo.text).toContain('…');
                     }
                 }

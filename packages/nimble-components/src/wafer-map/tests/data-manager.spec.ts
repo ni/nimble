@@ -150,7 +150,9 @@ describe('Wafermap Data Manager', () => {
             ([fillStyle, diesRenderInfo]) => {
                 if (!fillStyle.endsWith(',1)')) {
                     for (const dieRenderInfo of diesRenderInfo) {
-                        expect(highlightedValues).not.toContain(dieRenderInfo.text);
+                        expect(highlightedValues).not.toContain(
+                            dieRenderInfo.text
+                        );
                     }
                 }
             }
