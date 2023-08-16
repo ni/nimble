@@ -1,5 +1,4 @@
 import { html } from '@microsoft/fast-element';
-import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
@@ -44,75 +43,74 @@ describe('RichTextEditor', () => {
     });
 
     it('should initialize Tiptap editor', () => {
-        const editor = pageObject.getEditorSection();
-
-        expect(editor!.hasChildNodes()).toBeTrue();
-        expect(editor?.firstElementChild!.className).toBe('ProseMirror');
+        expect(pageObject.editorSectionHasChildNodes()).toBeTrue();
+        expect(pageObject.getEditorSectionFirstElementChildClassName()).toBe(
+            'ProseMirror'
+        );
     });
 
     it('should set aria role as "textbox"', () => {
-        const editor = pageObject.getEditorSection();
+        const editor = element.shadowRoot?.querySelector('.editor');
 
         expect(editor!.getAttribute('role')).toBe('textbox');
     });
 
     it('should set aria-multiline to true', () => {
-        const editor = pageObject.getEditorSection();
+        const editor = element.shadowRoot?.querySelector('.editor');
 
         expect(editor!.getAttribute('aria-multiline')).toBe('true');
     });
 
     it('should have a slot and part named "footer-actions"', () => {
-        const slot = pageObject.getSlotElement();
-
-        expect(slot?.getAttribute('name')).toBe('footer-actions');
-        expect(slot?.parentElement?.getAttribute('part')).toBe(
-            'footer-actions'
-        );
+        expect(pageObject.getSlotName()).toBe('footer-actions');
+        expect(pageObject.getSlotPartName()).toBe('footer-actions');
     });
 
     it('should have either one of the list buttons checked at the same time on click', async () => {
         await waitForUpdatesAsync();
-        const bulletListButton = pageObject.getFormattingButton('bullet-list')!;
-        const numberedListButton = pageObject.getFormattingButton('numbered-list')!;
-        expect(bulletListButton.checked).toBeFalse();
-        expect(numberedListButton.checked).toBeFalse();
+        expect(pageObject.getButtonCheckedState('bullet-list')).toBeFalse();
+        expect(pageObject.getButtonCheckedState('numbered-list')).toBeFalse();
 
-        bulletListButton.click();
-        expect(bulletListButton.checked).toBeTrue();
-        expect(numberedListButton.checked).toBeFalse();
+        await pageObject.clickBulletListButton();
+        expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
+        expect(pageObject.getButtonCheckedState('numbered-list')).toBeFalse();
 
-        numberedListButton.click();
-        expect(bulletListButton.checked).toBeFalse();
-        expect(numberedListButton.checked).toBeTrue();
+        await pageObject.clickNumberedListButton();
+        expect(pageObject.getButtonCheckedState('bullet-list')).toBeFalse();
+        expect(pageObject.getButtonCheckedState('numbered-list')).toBeTrue();
     });
 
     const formattingButtons: {
         name: string,
+        className: string,
         iconName: string,
         shortcutKey: string,
         shiftKey: boolean
     }[] = [
         {
             name: 'bold',
+            className: 'bold',
             iconName: 'NIMBLE-ICON-BOLD-B',
             shortcutKey: 'b',
             shiftKey: false
         },
         {
             name: 'italics',
+            className: 'italics',
             iconName: 'NIMBLE-ICON-ITALIC-I',
             shortcutKey: 'i',
             shiftKey: false
         },
         {
             name: 'bullet-list',
+            className: 'bullet-list',
             iconName: 'NIMBLE-ICON-LIST',
             shortcutKey: '8',
             shiftKey: true
         },
         {
             name: 'numbered-list',
+            className: 'numbered-list',
             iconName: 'NIMBLE-ICON-NUMBER-LIST',
             shortcutKey: '7',
             shiftKey: true
@@ -130,15 +128,21 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name)!;
-
-                    expect(button.contentHidden).toBeTrue();
-                    expect(button.checked).toBeFalse();
-                    expect(button.appearance).toBe('ghost');
-                    expect(button.slot).toBe('start');
-                    expect(button.firstElementChild!.tagName).toBe(
-                        value.iconName
+                    expect(
+                        pageObject.getButtonContentHiddenState(value.className)
+                    ).toBeTrue();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeFalse();
+                    expect(
+                        pageObject.getButtonAppearance(value.className)
+                    ).toBe('ghost');
+                    expect(pageObject.getButtonSlotName(value.className)).toBe(
+                        'start'
                     );
+                    expect(
+                        pageObject.getButtonIconTagName(value.className)
+                    ).toBe(value.iconName);
                 }
             );
         }
@@ -156,13 +160,18 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name)!;
-                    expect(button.checked).toBeFalse();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeFalse();
 
-                    button.click();
+                    await pageObject.clickFooterButton(value.className);
 
-                    expect(button.checked).toBeTrue();
-                    expect(button.tabIndex).toBe(0);
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeTrue();
+                    expect(pageObject.getButtonTabIndex(value.className)).toBe(
+                        0
+                    );
                 }
             );
         }
@@ -180,15 +189,15 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name)!;
-                    expect(button.checked).toBeFalse();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeFalse();
 
-                    const event = new KeyboardEvent('keypress', {
-                        key: keySpace
-                    } as KeyboardEventInit);
-                    button.control.dispatchEvent(event);
+                    pageObject.spaceKeyActivatesButton(value.className);
 
-                    expect(button.checked).toBeTrue();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeTrue();
                 }
             );
         }
@@ -206,15 +215,15 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name)!;
-                    expect(button.checked).toBeFalse();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeFalse();
 
-                    const event = new KeyboardEvent('keypress', {
-                        key: keyEnter
-                    } as KeyboardEventInit);
-                    button.control.dispatchEvent(event);
+                    pageObject.enterKeyActivatesButton(value.className);
 
-                    expect(button.checked).toBeTrue();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeTrue();
                 }
             );
         }
@@ -232,20 +241,18 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const button = pageObject.getFormattingButton(value.name)!;
-                    const editor = pageObject.getTiptapEditor();
-                    expect(button.checked).toBeFalse();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeFalse();
 
-                    const event = new KeyboardEvent('keydown', {
-                        key: value.shortcutKey,
-                        ctrlKey: true,
-                        shiftKey: value.shiftKey,
-                        bubbles: true,
-                        cancelable: true
-                    });
-                    editor!.dispatchEvent(event);
+                    await pageObject.clickEditorShortcutKeys(
+                        value.shortcutKey,
+                        value.shiftKey
+                    );
 
-                    expect(button.checked).toBeTrue();
+                    expect(
+                        pageObject.getButtonCheckedState(value.className)
+                    ).toBeTrue();
                 }
             );
         }
@@ -262,13 +269,15 @@ describe('RichTextEditor', () => {
                 `"${value.name}" button not propagate change event to parent element`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
-                    const button = pageObject.getFormattingButton(value.name)!;
-                    const buttonParent = button.parentElement;
+                    const button = element.shadowRoot?.querySelector(
+                        `.${value.className}`
+                    );
+                    const buttonParent = button!.parentElement;
                     const spy = jasmine.createSpy();
                     const event = new Event('change', { bubbles: true });
 
                     buttonParent?.addEventListener('change', spy);
-                    button.dispatchEvent(event);
+                    button!.dispatchEvent(event);
 
                     expect(spy).toHaveBeenCalledTimes(0);
                 }
@@ -279,13 +288,9 @@ describe('RichTextEditor', () => {
     describe('rich text formatting options to its respective HTML elements', () => {
         it('should have "strong" tag name for bold button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('bold')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            button.click();
-            await waitForUpdatesAsync();
-            editor.textContent = 'bold';
-            await waitForUpdatesAsync();
+            await pageObject.clickBoldButton();
+            await pageObject.setEditorTextContent('bold');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'STRONG']);
             expect(pageObject.getEditorLeafContents()).toEqual(['bold']);
@@ -293,13 +298,9 @@ describe('RichTextEditor', () => {
 
         it('should have "em" tag name for italics button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('italics')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            button.click();
-            await waitForUpdatesAsync();
-            editor.textContent = 'italics';
-            await waitForUpdatesAsync();
+            await pageObject.clickItalicsButton();
+            await pageObject.setEditorTextContent('italics');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'EM']);
             expect(pageObject.getEditorLeafContents()).toEqual(['italics']);
@@ -307,13 +308,9 @@ describe('RichTextEditor', () => {
 
         it('should have "ol" tag name for numbered list button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('numbered-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'numbered list';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('numbered list');
+            await pageObject.clickNumberedListButton();
 
             expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
             expect(pageObject.getEditorLeafContents()).toEqual([
@@ -323,22 +320,11 @@ describe('RichTextEditor', () => {
 
         it('should have multiple "ol" tag names for numbered list button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('numbered-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'numbered list 1';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
-            const event = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(event);
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'numbered list 2';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('numbered list 1');
+            await pageObject.clickNumberedListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('numbered list 2');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -355,29 +341,12 @@ describe('RichTextEditor', () => {
 
         it('should have "ol" tag names for nested numbered lists when clicking "tab"', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('numbered-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'List';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
-            const enterEvent = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(enterEvent);
-            await waitForUpdatesAsync();
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(tabEvent);
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'Nested List';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('List');
+            await pageObject.clickNumberedListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.setEditorTextContent('Nested List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -391,34 +360,19 @@ describe('RichTextEditor', () => {
                 'List',
                 'Nested List'
             ]);
-            expect(button.checked).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState('numbered-list')
+            ).toBeTrue();
         });
 
         it('should have "ol" tag names for numbered lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('numbered-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'List';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
-            const enterEvent = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(enterEvent);
-            await waitForUpdatesAsync();
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(tabEvent);
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'Nested List';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('List');
+            await pageObject.clickNumberedListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.setEditorTextContent('Nested List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -429,14 +383,7 @@ describe('RichTextEditor', () => {
                 'P'
             ]);
 
-            const shiftTabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                shiftKey: true,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(shiftTabEvent);
-            await waitForUpdatesAsync();
+            await pageObject.pressShiftTabKeysInEditor();
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -449,37 +396,20 @@ describe('RichTextEditor', () => {
                 'List',
                 'Nested List'
             ]);
-            expect(button.checked).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState('numbered-list')
+            ).toBeTrue();
         });
 
         it('should have "ol" tag name for numbered list and "ul" tag name for nested bullet list', async () => {
             await waitForUpdatesAsync();
-            const numberedListButton = pageObject.getFormattingButton('numbered-list')!;
-            const bulletListButton = pageObject.getFormattingButton('bullet-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'Numbered List';
-            await waitForUpdatesAsync();
-            numberedListButton.click();
-            await waitForUpdatesAsync();
-            const enterEvent = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(enterEvent);
-            await waitForUpdatesAsync();
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(tabEvent);
-            await waitForUpdatesAsync();
-            bulletListButton.click();
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'Nested Bullet List';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('Numbered List');
+            await pageObject.clickNumberedListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.clickBulletListButton();
+            await pageObject.setEditorTextContent('Nested Bullet List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -493,42 +423,29 @@ describe('RichTextEditor', () => {
                 'Numbered List',
                 'Nested Bullet List'
             ]);
-            expect(numberedListButton.checked).toBeTrue();
-            expect(bulletListButton.checked).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState('numbered-list')
+            ).toBeTrue();
+            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
         });
 
         it('should have "ul" tag name for bullet list button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('bullet-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'bullet list';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('Bullet List');
+            await pageObject.clickBulletListButton();
 
             expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
-            expect(pageObject.getEditorLeafContents()).toEqual(['bullet list']);
+            expect(pageObject.getEditorLeafContents()).toEqual(['Bullet List']);
         });
 
         it('should have multiple "ul" tag names for bullet list button click', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('bullet-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'bullet list 1';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
-            const event = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(event);
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'bullet list 2';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('Bullet List 1');
+            await pageObject.clickBulletListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.setEditorTextContent('Bullet List 2');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -538,36 +455,19 @@ describe('RichTextEditor', () => {
                 'P'
             ]);
             expect(pageObject.getEditorLeafContents()).toEqual([
-                'bullet list 1',
-                'bullet list 2'
+                'Bullet List 1',
+                'Bullet List 2'
             ]);
         });
 
         it('should have "ul" tag names for nested bullet lists when clicking "tab"', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('bullet-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'List';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
-            const enterEvent = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(enterEvent);
-            await waitForUpdatesAsync();
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(tabEvent);
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'Nested List';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('List');
+            await pageObject.clickBulletListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.setEditorTextContent('Nested List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -581,37 +481,18 @@ describe('RichTextEditor', () => {
                 'List',
                 'Nested List'
             ]);
-            expect(button.checked).toBeTrue();
+            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
         });
 
         it('should have "ul" tag name for bullet list and "ol" tag name for nested numbered list', async () => {
             await waitForUpdatesAsync();
-            const numberedListButton = pageObject.getFormattingButton('numbered-list')!;
-            const bulletListButton = pageObject.getFormattingButton('bullet-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'Bullet List';
-            await waitForUpdatesAsync();
-            bulletListButton.click();
-            await waitForUpdatesAsync();
-            const enterEvent = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(enterEvent);
-            await waitForUpdatesAsync();
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(tabEvent);
-            await waitForUpdatesAsync();
-            numberedListButton.click();
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'Nested Numbered List';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('Bullet List');
+            await pageObject.clickBulletListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.clickNumberedListButton();
+            await pageObject.setEditorTextContent('Nested Numbered List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -625,35 +506,20 @@ describe('RichTextEditor', () => {
                 'Bullet List',
                 'Nested Numbered List'
             ]);
-            expect(numberedListButton.checked).toBeTrue();
-            expect(bulletListButton.checked).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState('numbered-list')
+            ).toBeTrue();
+            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
         });
 
         it('should have "ul" tag names for bullet lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
             await waitForUpdatesAsync();
-            const button = pageObject.getFormattingButton('bullet-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            editor.textContent = 'List';
-            await waitForUpdatesAsync();
-            button.click();
-            await waitForUpdatesAsync();
-            const enterEvent = new KeyboardEvent('keydown', {
-                key: keyEnter,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(enterEvent);
-            await waitForUpdatesAsync();
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(tabEvent);
-            await waitForUpdatesAsync();
-            pageObject.getEditorLastChildElement()!.parentElement!.textContent = 'Nested List';
-            await waitForUpdatesAsync();
+            await pageObject.setEditorTextContent('List');
+            await pageObject.clickBulletListButton();
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.setEditorTextContent('Nested List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -664,14 +530,7 @@ describe('RichTextEditor', () => {
                 'P'
             ]);
 
-            const shiftTabEvent = new KeyboardEvent('keydown', {
-                key: keyTab,
-                shiftKey: true,
-                bubbles: true,
-                cancelable: true
-            });
-            editor.dispatchEvent(shiftTabEvent);
-            await waitForUpdatesAsync();
+            await pageObject.pressShiftTabKeysInEditor();
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -684,21 +543,15 @@ describe('RichTextEditor', () => {
                 'List',
                 'Nested List'
             ]);
-            expect(button.checked).toBeTrue();
+            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
         });
 
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
             await waitForUpdatesAsync();
-            const boldButton = pageObject.getFormattingButton('bold')!;
-            const italicsButton = pageObject.getFormattingButton('italics')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            boldButton.click();
-            await waitForUpdatesAsync();
-            italicsButton.click();
-            await waitForUpdatesAsync();
-            editor.textContent = 'bold and italics';
-            await waitForUpdatesAsync();
+            await pageObject.clickBoldButton();
+            await pageObject.clickItalicsButton();
+            await pageObject.setEditorTextContent('bold and italics');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'P',
@@ -712,19 +565,13 @@ describe('RichTextEditor', () => {
 
         it('should have "strong", "em" and "ol" tag name for all bold, italics and numbered list button clicks', async () => {
             await waitForUpdatesAsync();
-            const boldButton = pageObject.getFormattingButton('bold')!;
-            const italicsButton = pageObject.getFormattingButton('italics')!;
-            const numberedListButton = pageObject.getFormattingButton('numbered-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            boldButton.click();
-            await waitForUpdatesAsync();
-            italicsButton.click();
-            await waitForUpdatesAsync();
-            editor.textContent = 'bold, italics and numbered list';
-            await waitForUpdatesAsync();
-            numberedListButton.click();
-            await waitForUpdatesAsync();
+            await pageObject.clickBoldButton();
+            await pageObject.clickItalicsButton();
+            await pageObject.setEditorTextContent(
+                'bold, italics and numbered list'
+            );
+            await pageObject.clickNumberedListButton();
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -740,19 +587,13 @@ describe('RichTextEditor', () => {
 
         it('should have "strong", "em" and "ul" tag name for all bold, italics and bullet list button clicks', async () => {
             await waitForUpdatesAsync();
-            const boldButton = pageObject.getFormattingButton('bold')!;
-            const italicsButton = pageObject.getFormattingButton('italics')!;
-            const bulletListButton = pageObject.getFormattingButton('bullet-list')!;
-            const editor = pageObject.getTiptapEditor()!;
 
-            boldButton.click();
-            await waitForUpdatesAsync();
-            italicsButton.click();
-            await waitForUpdatesAsync();
-            editor.textContent = 'bold, italics and bullet list';
-            await waitForUpdatesAsync();
-            bulletListButton.click();
-            await waitForUpdatesAsync();
+            await pageObject.clickBoldButton();
+            await pageObject.clickItalicsButton();
+            await pageObject.setEditorTextContent(
+                'bold, italics and bullet list'
+            );
+            await pageObject.clickBulletListButton();
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -779,17 +620,16 @@ describe('RichTextEditor', () => {
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     await waitForUpdatesAsync();
-                    const editor = pageObject.getTiptapEditor()!;
-                    editor.textContent = value.name;
+                    await pageObject.setEditorTextContent(value.name);
 
                     await connect();
 
-                    expect(
-                        pageObject.getEditorFirstChildElement()?.tagName
-                    ).toEqual('P');
-                    expect(
-                        pageObject.getEditorFirstChildElement()?.textContent
-                    ).toBe(value.name);
+                    expect(pageObject.getEditorFirstChildTagName()).toEqual(
+                        'P'
+                    );
+                    expect(pageObject.getEditorFirstChildTextContent()).toBe(
+                        value.name
+                    );
 
                     await disconnect();
                 }

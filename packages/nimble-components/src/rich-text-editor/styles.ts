@@ -17,8 +17,6 @@ export const styles = css`
         font: ${bodyFont};
         outline: none;
         color: ${bodyFontColor};
-        width: auto;
-        height: 100%;
         flex-direction: column;
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-footer-section-height: 40px;
@@ -32,7 +30,6 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         position: relative;
-        max-height: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
     }
 
