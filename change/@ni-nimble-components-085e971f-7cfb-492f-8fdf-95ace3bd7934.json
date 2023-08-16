@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "changed the prerendering of the dies to cluster them based on colors",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
