@@ -7,11 +7,11 @@ export const optionalBooleanConverter: ValueConverter = {
         return typeof value === 'boolean' ? value.toString() : null;
     },
 
-    fromView(value: string): boolean | undefined {
-        if (value === 'true') {
+    fromView(value: string | boolean): boolean | undefined {
+        if (value === 'true' || value === true) {
             return true;
         }
-        if (value === 'false') {
+        if (value === 'false' || value === false) {
             return false;
         }
         return undefined;
