@@ -28,4 +28,4 @@ The value of the combobox comes from the text content of the selected autocomple
 
 In Angular, an autocomplete `nimble-list-option` can be created with an `ngValue`. In that case the `ngModel` of the combobox will be the `ngValue` of the matched autocomplete option.
 If no matching autocomplete option is found, the `ngModel` of the combobox will be set to `OPTION_NOT_FOUND`, and if the application needs to access the user-entered text, that should be done
-through the `value` on the `nativeElement` associated with the `nimble-combobox`.
+through the `value` property on the `NimbleComboboxDirective`.
