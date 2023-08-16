@@ -198,13 +198,21 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
                 'OL',
                 'LI',
                 'P',
+                '/P',
                 'OL',
                 'LI',
-                'P'
+                'P',
+                '/P',
+                '/LI',
+                '/OL',
+                '/LI',
+                '/OL'
             ]);
             expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
@@ -217,13 +225,48 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
                 'OL',
                 'LI',
                 'P',
+                '/P',
                 'UL',
                 'LI',
-                'P'
+                'P',
+                '/P',
+                '/LI',
+                '/UL',
+                '/LI',
+                '/OL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('sequential numbered and bulleted lists should to "ol" and once "ol" tags are closed, should have "ul" tags', async () => {
+            element.markdown = '1. Option 1\n\n* Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/OL',
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/UL'
             ]);
             expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
@@ -338,13 +381,21 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
                 'UL',
                 'LI',
                 'P',
+                '/P',
                 'UL',
                 'LI',
-                'P'
+                'P',
+                '/P',
+                '/LI',
+                '/UL',
+                '/LI',
+                '/UL'
             ]);
             expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
@@ -357,13 +408,48 @@ describe('RichTextViewer', () => {
 
             await connect();
 
-            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
                 'UL',
                 'LI',
                 'P',
+                '/P',
                 'OL',
                 'LI',
-                'P'
+                'P',
+                '/P',
+                '/LI',
+                '/OL',
+                '/LI',
+                '/UL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('sequential bullet and numbered lists should to "ul" and once "ul" tags are closed, should have "ol" tags', async () => {
+            element.markdown = '* Option 1\n\n1. Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/UL',
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/OL'
             ]);
             expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
                 'Option 1',
