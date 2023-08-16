@@ -242,19 +242,6 @@ _Props/Attrs_
 -   `markdown` - for retrieving and modifying the markdown value. If the client modifies the markdown value, it will be parsed into a Node using the
     [prosemirror-markdown parser](https://github.com/ProseMirror/prosemirror-markdown/blob/9049cd1ec20540d70352f8a3e8736fb0d1f9ce1b/src/from_markdown.ts#L199).
     The parsed node will then be rendered in the viewer component as rich text.
--   `anchor-target` - is a string attribute that aligns with `target` values of the `anchor` element, applicable to all links within the viewer component.
-    Some of the values have special meanings and to see their definitions refer
-    [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#:~:text=separated%20link%20types.-,target,-Where%20to%20display).
-    By default, all the links will open in the same tab as per the accessibility guidelines on WCAG (links are added in the accessibility section).
-
-_Alternative implementations:_
-
-For the comments feature in SLE, there is a requirement to have all links open in a new tab. However, we are also considering an alternative approach where links will open in a new tab and show a warning to the user only if
-they are external links (i.e., not from the same domain/origin); for internal links, they will open in the same tab.
-Here, we will show the warning to the external link by adding an icon next to the link that specifically states that the link will open in a new tab for the external links.
-The visual design is not yet finalized but we had an initial thought of adding `nimble-icon-up-right-from-square` next to the icon to represent the link will open in a new tab.
-
-However, if it is an external link, it need not be an untrusted link, so showing a warning to the link doesn't align with the accessibility WCAG guideline of opening a link only when required.
 
 _Methods_
 
@@ -297,8 +284,8 @@ emitters will be created for the events, similar to how it's done in other direc
 association, so a `ControlValueAccessor` will not be created.
 
 _Future enhancements:_
-
-An Angular router integration will be implemented for the same domain internal `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
+1. Support for intelligent behavior of links which includes configurations for opening in the same tab, new tab, indications for external links, etc. based on [Accessibility Guidelines](#accessibility)
+2. An Angular router integration will be implemented for the same domain internal `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
 Instead of a full page reload, the Angular router integration is expected to enable the rendering of components only on the activated route relative to the existing route, making the user experience smoother while keeping the background work on the lower side.
 
 ### Blazor integration
@@ -354,15 +341,15 @@ Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap
 2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for the editor, to restrict the user from opening a link from the editor by clicking. Users can open the link only by
     `Right-click >> Open link in new tab` from the editor.
 3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
-4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will replace the current selection in the editor with the URL. If it is `true`,
-    adding a link to the selection will add the link behind the word which is not supported for the initial pass.
+4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will attach the URL to current selected text in the editor, converting it into a hyperlink. If it is `true`,
+    pasting a link to the selection will add the link behind the word which is not supported for the initial pass.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
 
 _Implementation details for supporting absolute link:_
 
-For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open either in a new tab or in the same tab.
+For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open with default behavior (same tab).
 Here is the default [link configuration](https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/schema.ts#L138C5-L148C6)
 from the `prosemirror-markdown` package for comparison with the newly updated configuration.
 
@@ -370,7 +357,6 @@ from the `prosemirror-markdown` package for comparison with the newly updated co
 link: {
     attrs: {
         href: {},
-        target: { default: this.anchorTarget },
         rel: { default: 'noopener noreferrer' }
     },
     inclusive: false,
@@ -379,7 +365,6 @@ link: {
             anchorTag, // nimble-anchor here
             {
                 href: node.attrs.href as Attr,
-                target: node.attrs.target as Attr,
                 rel: node.attrs.rel as Attr
             }
         ];
@@ -387,9 +372,8 @@ link: {
 }
 ```
 
-1.  As in the above schema, we will modify the `target` value according to the attribute `anchorTarget` that is configured by the client component. The default value of the `anchorTarget` is the same as the `anchor` element, that is `_self`.
-2.  We also set the `rel` attribute value to `noopener noreferrer` to enhance security and ensure responsible linking practices.
-3.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
+1.  We will set the `rel` attribute value to `noopener noreferrer` to enhance security and ensure responsible linking practices.
+2.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
 
 _Future Enhancements:_
 
