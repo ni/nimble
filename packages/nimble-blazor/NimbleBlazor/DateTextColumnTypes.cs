@@ -10,13 +10,9 @@ public enum DateTextFormat
 
 internal static class DateTextFormatExtensions
 {
-    private static readonly Dictionary<DateTextFormat, string?> _enumValues = new Dictionary<DateTextFormat, string?>
-    {
-        [DateTextFormat.Default] = null,
-        [DateTextFormat.Custom] = "custom"
-    };
+    private static readonly Dictionary<DateTextFormat, string> _enumValues = AttributeHelpers.GetEnumNamesAsKebabCaseValues<DateTextFormat>();
 
-    public static string? ToAttributeValue(this DateTextFormat? value) => value == null ? null : _enumValues[value.Value];
+    public static string? ToAttributeValue(this DateTextFormat? value) => (value == null || value == DateTextFormat.Default) ? null : _enumValues[value.Value];
 }
 
 public enum LocaleMatcherAlgorithm
