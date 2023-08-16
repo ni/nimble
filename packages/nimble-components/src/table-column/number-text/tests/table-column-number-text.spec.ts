@@ -5,14 +5,7 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { NumberTextFormat } from '../types';
-
-interface NumericTestCase {
-    name: string;
-    value: number;
-    expectedRenderedString: string;
-}
 
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;

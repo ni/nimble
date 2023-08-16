@@ -98,11 +98,7 @@ describe('RoundToIntegerFormatter', () => {
     const focused: string[] = [];
     const disabled: string[] = [];
     for (const testCase of testCases) {
-        const specType = getSpecTypeByNamedList(
-            testCase,
-            focused,
-            disabled
-        );
+        const specType = getSpecTypeByNamedList(testCase, focused, disabled);
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         specType(
             `${testCase.name}`,
