@@ -6,25 +6,40 @@ import {
 } from '../../utilities/tests/storybook';
 import { RichTextEditor, richTextEditorTag } from '..';
 import { buttonTag } from '../../button';
-import { ExampleDataType } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs {
     data: ExampleDataType;
     footerActionButtons: boolean;
     getMarkdown: undefined;
-    setMarkdown: undefined;
     editorRef: RichTextEditor;
     setMarkdownData: (args: RichTextEditorArgs) => void;
 }
 
+type ExampleDataType =
+    (typeof exampleDataType)[keyof typeof exampleDataType];
+
+const exampleDataType = {
+    plainString: 'PlainString',
+    markdownString: 'MarkdownString'
+} as const;
+
 const plainString = 'Plain text' as const;
 
-const markdownString = 'Supported rich text formatting options:\n1. **Bold**\n2. *Italics*\n3. Numbered lists\n   1. Option 1\n   2. Option 2\n4. Bulleted lists\n   * Option 1\n   * Option 2' as const;
+const markdownString = `
+Supported rich text formatting options:
+1. **Bold**
+2. *Italics*
+3. Numbered lists
+   1. Option 1
+   2. Option 2
+4. Bulleted lists
+   * Option 1
+   * Option 2` as const;
 
 const dataSets = {
-    [ExampleDataType.plainString]: plainString,
-    [ExampleDataType.markdownString]: markdownString
+    [exampleDataType.plainString]: plainString,
+    [exampleDataType.markdownString]: markdownString
 } as const;
 
 const richTextEditorDescription = 'The rich text editor component allows users to add/edit text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The editor generates markdown output and takes markdown as input. The markdown flavor used is [CommonMark](https://spec.commonmark.org/0.30/).\n\n See the [rich text viewer](?path=/docs/incubating-rich-text-viewer--docs) component to render markdown without allowing editing.';
@@ -66,12 +81,12 @@ const metadata: Meta<RichTextEditorArgs> = {
         data: {
             name: 'setMarkdown(value)',
             description: setMarkdownDescription,
-            options: Object.values(ExampleDataType),
+            options: Object.values(exampleDataType),
             control: {
                 type: 'radio',
                 labels: {
-                    [ExampleDataType.plainString]: 'Plain string',
-                    [ExampleDataType.markdownString]:
+                    [exampleDataType.plainString]: 'Plain string',
+                    [exampleDataType.markdownString]:
                         'Combination of all supported markdown string'
                 }
             }
@@ -92,7 +107,7 @@ const metadata: Meta<RichTextEditorArgs> = {
         }
     },
     args: {
-        data: ExampleDataType.plainString,
+        data: exampleDataType.plainString,
         footerActionButtons: false,
         editorRef: undefined,
         setMarkdownData: x => {

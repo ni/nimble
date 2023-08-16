@@ -65,21 +65,10 @@ export class RichTextEditor extends FoundationElement {
 
     private tiptapEditor!: Editor;
 
-    private readonly markdownParser: MarkdownParser;
-    private readonly markdownSerializer: MarkdownSerializer;
-    private readonly domSerializer: DOMSerializer;
-    private readonly xmlSerializer: XMLSerializer;
-
-    /**
-     * @internal
-     */
-    public constructor() {
-        super();
-        this.domSerializer = DOMSerializer.fromSchema(schema);
-        this.xmlSerializer = new XMLSerializer();
-        this.markdownParser = this.initializeMarkdownParser();
-        this.markdownSerializer = this.initializeMarkdownSerializer();
-    }
+    private readonly markdownParser = this.initializeMarkdownParser();
+    private readonly markdownSerializer = this.initializeMarkdownSerializer();
+    private readonly domSerializer = DOMSerializer.fromSchema(schema);
+    private readonly xmlSerializer = new XMLSerializer();
 
     /**
      * @internal

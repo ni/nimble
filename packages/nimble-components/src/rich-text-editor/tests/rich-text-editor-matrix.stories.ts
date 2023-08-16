@@ -1,7 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
-    createFixedThemeStory,
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
@@ -16,7 +15,6 @@ import {
     tokenNames
 } from '../../theme-provider/design-token-names';
 import { buttonTag } from '../../button';
-import { backgroundStates } from '../../utilities/tests/states';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
@@ -35,21 +33,10 @@ const component = (): ViewTemplate => html`
     <${richTextEditorTag}></${richTextEditorTag}>
 `;
 
-const [
-    lightThemeWhiteBackground,
-    colorThemeDarkGreenBackground,
-    darkThemeBlackBackground,
-    ...remaining
-] = backgroundStates;
-
-if (remaining.length > 0) {
-    throw new Error('New backgrounds need to be supported');
-}
-
 const playFunction = (): void => {
-    document
-        .querySelector('nimble-rich-text-editor')!
-        .setMarkdown(richTextMarkdownString);
+    const editorNodeList = document
+        .querySelectorAll('nimble-rich-text-editor');
+    editorNodeList.forEach(element => element.setMarkdown(richTextMarkdownString));
 };
 
 const editorSizingTestCase = (
@@ -71,6 +58,8 @@ export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
+richTextEditorThemeMatrix.play = playFunction;
+
 export const richTextEditorSizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
         [
@@ -86,76 +75,43 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ])}
 `);
 
-const styledComponent = (): ViewTemplate => html`
-<div style="padding: 20px">
-    <${richTextEditorTag}>
+const mobileWidthComponent = html`
+    <${richTextEditorTag} style="padding: 20px; width: 300px;">
         <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
         <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
     </${richTextEditorTag}>
-</div>
 `;
 
-const mobileWidthComponent = (): ViewTemplate => html`
-<div style="padding: 20px; width: 300px;">
-    <${richTextEditorTag}>
-        <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
-        <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
-    </${richTextEditorTag}>
-</div>
-`;
-
-export const editorWhenMarkdownValueSetInLightThemeWhiteBackground: StoryFn = createFixedThemeStory(
-    createMatrix(styledComponent),
-    lightThemeWhiteBackground
-);
-
-editorWhenMarkdownValueSetInLightThemeWhiteBackground.play = playFunction;
-
-export const editorWhenMarkdownValueSetInColorThemeDarkGreenBackground: StoryFn = createFixedThemeStory(
-    createMatrix(styledComponent),
-    colorThemeDarkGreenBackground
-);
-
-editorWhenMarkdownValueSetInColorThemeDarkGreenBackground.play = playFunction;
-
-export const editorWhenMarkdownValueSetInDarkThemeBlackBackground: StoryFn = createFixedThemeStory(
-    createMatrix(styledComponent),
-    darkThemeBlackBackground
-);
-
-editorWhenMarkdownValueSetInDarkThemeBlackBackground.play = playFunction;
-
-export const plainTextContentInMobileWidth: StoryFn = createFixedThemeStory(
-    createMatrix(mobileWidthComponent),
-    lightThemeWhiteBackground
-);
+export const plainTextContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 
 plainTextContentInMobileWidth.play = (): void => {
     document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
 };
 
-export const multipleSubPointsContentInMobileWidth: StoryFn = createFixedThemeStory(
-    createMatrix(mobileWidthComponent),
-    lightThemeWhiteBackground
-);
+const multipleSubPointsContent = `
+1. Sub point 1
+   1. Sub point 2
+      1. Sub point 3
+         1. Sub point 4
+            1. Sub point 5
+               1. Sub point 6
+                  1. Sub point 7
+                     1. Sub point 8`;
+
+export const multipleSubPointsContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 
 multipleSubPointsContentInMobileWidth.play = (): void => {
     document
         .querySelector('nimble-rich-text-editor')!
-        .setMarkdown(
-            '1. Sub point 1\n   1. Sub point 2\n       1. Sub point 3\n          1. Sub point 4\n             1. Sub point 5\n                 1. Sub point 6\n                    1. Sub point 7\n'
-        );
+        .setMarkdown(multipleSubPointsContent);
 };
 
-export const longWordContentInMobileWidth: StoryFn = createFixedThemeStory(
-    createMatrix(mobileWidthComponent),
-    lightThemeWhiteBackground
-);
+export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 
 longWordContentInMobileWidth.play = (): void => {
     document
         .querySelector('nimble-rich-text-editor')!
-        .setMarkdown('ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth');
+        .setMarkdown('ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth');
 };
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)
