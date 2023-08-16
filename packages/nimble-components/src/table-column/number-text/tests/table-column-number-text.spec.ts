@@ -359,7 +359,7 @@ describe('TableColumnNumberText', () => {
             },
             {
                 name: 'does not use exponential notation for 0.000995',
-                value: 0.000999999,
+                value: 0.000995,
                 expectedRenderedString: '0.001'
             },
             {
