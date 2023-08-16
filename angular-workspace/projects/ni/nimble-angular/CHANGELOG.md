@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 15 Aug 2023 16:05:54 GMT and should not be manually modified.
+This log was last generated on Wed, 16 Aug 2023 18:45:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.0
+
+Wed, 16 Aug 2023 18:45:15 GMT
+
+### Minor changes
+
+- enable reading the component value using the combobox directive ([ni/nimble@501e91b](https://github.com/ni/nimble/commit/501e91b66bc55a27c9acd7958fb3ab1545353dc0))
 
 ## 17.0.17
 
