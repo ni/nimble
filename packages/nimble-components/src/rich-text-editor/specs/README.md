@@ -258,7 +258,6 @@ _CSS Classes and CSS Custom Properties that affect the component_
     enabled when there is overflow of content in the component.
 -   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
     of the component or will enable the vertical scrollbar.
-
 ### Anatomy
 
 _Slot Names_
