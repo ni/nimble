@@ -63,7 +63,9 @@ describe('TableColumnEnumText', () => {
     }
 
     afterEach(async () => {
-        await disconnect();
+        if (disconnect) {
+            await disconnect();
+        }
     });
 
     it('should export its tag', () => {

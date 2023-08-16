@@ -28,8 +28,8 @@ export class TableColumnIconCellView
     TableColumnEnumColumnConfig
     >
     implements IconView {
-    public severity: IconSeverity;
-    public text = '';
+    public severity?: IconSeverity;
+    public text?: string;
     public iconTemplate?: ViewTemplate<IconView>;
     @observable
     public visual?: 'spinner' | 'icon';
@@ -44,7 +44,7 @@ export class TableColumnIconCellView
 
     private updateState(): void {
         this.visual = undefined;
-        if (!this.columnConfig || !this.cellRecord) {
+        if (!this.columnConfig?.mappingConfigs || !this.cellRecord) {
             return;
         }
         const value = this.cellRecord.value;

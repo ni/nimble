@@ -27,7 +27,7 @@ export class TableColumnIconGroupHeaderView
     TableColumnEnumColumnConfig
     >
     implements IconView {
-    public severity: IconSeverity;
+    public severity?: IconSeverity;
     public iconTemplate?: ViewTemplate<IconView>;
     @observable
     public visual?: 'spinner' | 'icon';
@@ -53,11 +53,11 @@ export class TableColumnIconGroupHeaderView
         if (mappingConfig instanceof MappingIconConfig) {
             this.visual = 'icon';
             this.severity = mappingConfig.severity;
-            this.text = mappingConfig.text;
+            this.text = mappingConfig.text ?? '';
             this.iconTemplate = mappingConfig.iconTemplate;
         } else if (mappingConfig instanceof MappingSpinnerConfig) {
             this.visual = 'spinner';
-            this.text = mappingConfig.text;
+            this.text = mappingConfig.text ?? '';
         }
     }
 }

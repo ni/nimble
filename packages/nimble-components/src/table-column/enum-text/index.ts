@@ -65,7 +65,7 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
 
     protected createMappingConfig(mapping: Mapping): MappingConfig {
         if (mapping instanceof MappingText) {
-            return new MappingTextConfig(mapping.text!);
+            return new MappingTextConfig(mapping.text);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.
