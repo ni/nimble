@@ -34,8 +34,7 @@ const component = (): ViewTemplate => html`
 `;
 
 const playFunction = (): void => {
-    const editorNodeList = document
-        .querySelectorAll('nimble-rich-text-editor');
+    const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
     editorNodeList.forEach(element => element.setMarkdown(richTextMarkdownString));
 };
 
@@ -111,7 +110,9 @@ export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComp
 longWordContentInMobileWidth.play = (): void => {
     document
         .querySelector('nimble-rich-text-editor')!
-        .setMarkdown('ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth');
+        .setMarkdown(
+            'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
+        );
 };
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)

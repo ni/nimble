@@ -16,8 +16,7 @@ interface RichTextEditorArgs {
     setMarkdownData: (args: RichTextEditorArgs) => void;
 }
 
-type ExampleDataType =
-    (typeof exampleDataType)[keyof typeof exampleDataType];
+type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
 
 const exampleDataType = {
     plainString: 'PlainString',
