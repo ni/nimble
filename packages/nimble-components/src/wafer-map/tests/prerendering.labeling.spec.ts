@@ -51,8 +51,12 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have as many dies as provided', () => {
-            expect(prerenderingModule.diesRenderInfo.length).toEqual(
-                getWaferMapDies().length
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    expect(diesRenderInfo.length).toEqual(
+                        getWaferMapDies().length
+                    );
+                }
             );
         });
 
@@ -147,9 +151,13 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have label suffix for each die', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.text).toContain(dieLabelsSuffix);
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (const dieRenderInfo of diesRenderInfo) {
+                        expect(dieRenderInfo.text).toContain(dieLabelsSuffix);
+                    }
+                }
+            );
         });
     });
 
@@ -192,10 +200,14 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should not have full label suffix for each die and end in ellipsis', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.text).not.toContain(dieLabelsSuffix);
-                expect(dieRenderInfo.text).toContain('…');
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (const dieRenderInfo of diesRenderInfo) {
+                        expect(dieRenderInfo.text).not.toContain(dieLabelsSuffix);
+                        expect(dieRenderInfo.text).toContain('…');
+                    }
+                }
+            );
         });
     });
 
@@ -239,11 +251,15 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have labels equal with values for each die', () => {
             const waferMapDies = getWaferMapDies();
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.text).toEqual(
-                    waferMapDies[i]!.value
-                );
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (let i = 0; i < waferMapDies.length; i += 1) {
+                        expect(diesRenderInfo[i]!.text).toEqual(
+                            waferMapDies[i]!.value
+                        );
+                    }
+                }
+            );
         });
     });
 
@@ -287,11 +303,15 @@ describe('Wafermap Prerendering module', () => {
 
         it('should have labels equal with values for each die', () => {
             const waferMapNaNDies = getWaferMapDiesAsNaN();
-            for (let i = 0; i < waferMapNaNDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.text).toEqual(
-                    waferMapNaNDies[i]!.value
-                );
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (let i = 0; i < waferMapNaNDies.length; i += 1) {
+                        expect(diesRenderInfo[i]!.text).toEqual(
+                            waferMapNaNDies[i]!.value
+                        );
+                    }
+                }
+            );
         });
     });
 
@@ -343,11 +363,15 @@ describe('Wafermap Prerendering module', () => {
                         text: `${x.value.substring(0, maxCharacters)}…`
                     };
                 });
-                for (let i = 0; i < waferMapFloatDies.length; i += 1) {
-                    expect(prerenderingModule.diesRenderInfo[i]!.text).toEqual(
-                        expectedValues[i]!.text
-                    );
-                }
+                Object.entries(prerenderingModule.renderInfo).forEach(
+                    ([_fillStyle, diesRenderInfo]) => {
+                        for (let i = 0; i < waferMapFloatDies.length; i += 1) {
+                            expect(diesRenderInfo[i]!.text).toEqual(
+                                expectedValues[i]!.text
+                            );
+                        }
+                    }
+                );
             }
         );
     });
@@ -391,9 +415,13 @@ describe('Wafermap Prerendering module', () => {
         });
 
         it('should have empty label for each die', () => {
-            for (const dieRenderInfo of prerenderingModule.diesRenderInfo) {
-                expect(dieRenderInfo.text).toEqual('');
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (const dieRenderInfo of diesRenderInfo) {
+                        expect(dieRenderInfo.text).toEqual('');
+                    }
+                }
+            );
         });
     });
 });
