@@ -31,10 +31,10 @@ TableColumnAnchorColumnConfig
 
     @volatile
     public get text(): string {
-        if (typeof this.cellRecord.label === 'string') {
+        if (typeof this.cellRecord?.label === 'string') {
             return this.cellRecord.label;
         }
-        if (typeof this.cellRecord.href === 'string') {
+        if (typeof this.cellRecord?.href === 'string') {
             return this.cellRecord.href;
         }
         return '';

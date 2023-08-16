@@ -2,6 +2,42 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 16 Aug 2023 18:45:15 GMT",
+      "tag": "@ni/nimble-angular_v17.1.0",
+      "version": "17.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "501e91b66bc55a27c9acd7958fb3ab1545353dc0",
+            "comment": "enable reading the component value using the combobox directive"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Aug 2023 16:05:54 GMT",
+      "tag": "@ni/nimble-angular_v17.0.17",
+      "version": "17.0.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d",
+            "comment": "Improve typing for cell view"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.8",
+            "commit": "4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 14 Aug 2023 16:14:55 GMT",
       "tag": "@ni/nimble-angular_v17.0.16",
       "version": "17.0.16",

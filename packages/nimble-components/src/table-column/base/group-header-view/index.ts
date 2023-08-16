@@ -6,7 +6,7 @@ export interface TableGroupHeaderState<
     TGroupValue = TableFieldValue,
     TColumnConfig = unknown
 > {
-    groupHeaderValue: TGroupValue;
+    groupHeaderValue?: TGroupValue;
     columnConfig?: TColumnConfig;
 }
 
@@ -22,7 +22,7 @@ export abstract class TableGroupHeaderView<
     extends FoundationElement
     implements TableGroupHeaderState<TGroupValue, TColumnConfig> {
     @observable
-    public groupHeaderValue!: TGroupValue;
+    public groupHeaderValue?: TGroupValue;
 
     @observable
     public columnConfig?: TColumnConfig;
