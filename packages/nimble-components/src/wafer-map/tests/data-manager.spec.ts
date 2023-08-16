@@ -110,11 +110,13 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have as many dies as provided', () => {
+        let length = 0;
         Object.entries(dataManagerModule.renderInfo).forEach(
             ([_fillStyle, diesRenderInfo]) => {
-                expect(diesRenderInfo.length).toEqual(getWaferMapDies().length);
+                length += diesRenderInfo.length;
             }
         );
+        expect(length).toEqual(getWaferMapDies().length);
     });
 
     it('should have label with suffix for each die', () => {
