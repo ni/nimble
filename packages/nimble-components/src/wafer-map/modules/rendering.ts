@@ -106,8 +106,7 @@ export class RenderingModule {
             transformedCanvasMinPoint[1] -= dieHeight;
 
             Object.entries(this.wafermap.dataManager.renderInfo).forEach(
-                ([fillStyle, dies]) => {
-                    context.fillStyle = fillStyle;
+                ([_fillStyle, dies]) => {
                     for (const die of dies) {
                         if (
                             this.isDieVisible(

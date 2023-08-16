@@ -180,9 +180,8 @@ export class WaferMap extends FoundationElement {
                 this.waferMapUpdateTracker.requiresDiesRenderInfoUpdate
             ) {
                 this.dataManager.updateDiesRenderInfo();
-            } else if (this.waferMapUpdateTracker.requiresDrawnWaferUpdate) {
-                this.renderer.drawWafer();
             }
+            this.renderer.drawWafer();
             this.eventCoordinator.attachEvents();
         } else if (this.waferMapUpdateTracker.requiresRenderHoverUpdate) {
             this.renderer.renderHover();
