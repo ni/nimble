@@ -71,8 +71,11 @@ export interface Margin {
 export interface DieRenderInfo {
     readonly x: number;
     readonly y: number;
-    readonly fillStyle: string;
     readonly text: string;
+}
+
+export interface RenderInfo {
+    [key: string]: DieRenderInfo[];
 }
 
 export interface PointCoordinates {

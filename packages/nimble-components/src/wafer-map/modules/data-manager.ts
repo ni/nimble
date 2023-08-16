@@ -5,9 +5,9 @@ import type { WaferMap } from '..';
 import type {
     Dimensions,
     Margin,
-    DieRenderInfo,
     WaferMapDie,
-    PointCoordinates
+    PointCoordinates,
+    RenderInfo
 } from '../types';
 
 /**
@@ -50,8 +50,8 @@ export class DataManager {
         return this.prerendering.labelsFontSize;
     }
 
-    public get diesRenderInfo(): DieRenderInfo[] {
-        return this.prerendering.diesRenderInfo;
+    public get renderInfo(): RenderInfo {
+        return this.prerendering.renderInfo;
     }
 
     public get data(): Map<string, WaferMapDie> {

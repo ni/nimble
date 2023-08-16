@@ -1,7 +1,7 @@
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale';
 import { ColorRGBA64, parseColor } from '@microsoft/fast-colors';
 import { WaferMapColorScaleMode } from '../types';
-import type { Dimensions, DieRenderInfo, WaferMapColorScale } from '../types';
+import type { Dimensions, WaferMapColorScale, RenderInfo } from '../types';
 import type { WaferMap } from '..';
 import type { DataManager } from './data-manager';
 
@@ -13,8 +13,8 @@ export class Prerendering {
         return this._labelsFontSize;
     }
 
-    public get diesRenderInfo(): DieRenderInfo[] {
-        return this._diesRenderInfo;
+    public get renderInfo(): RenderInfo {
+        return this._renderInfo;
     }
 
     public d3ColorScale!:
@@ -22,7 +22,7 @@ export class Prerendering {
     | ScaleLinear<string, string>;
 
     private _labelsFontSize!: number;
-    private _diesRenderInfo!: DieRenderInfo[];
+    private _renderInfo!: RenderInfo;
 
     private readonly fontSizeFactor = 0.8;
     private readonly nonHighlightedOpacity = 0.3;
@@ -57,18 +57,20 @@ export class Prerendering {
         const maxCharacters = this.wafermap.maxCharacters;
         const dieLabelsHidden = this.wafermap.dieLabelsHidden;
         const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
-        this._diesRenderInfo = [];
-        for (const die of this.wafermap.dies) {
+        this._renderInfo = this.wafermap.dies.reduce<RenderInfo>((result, die) => {
             const scaledX = horizontalScale(die.x) ?? 0;
             const scaledY = verticalScale(die.y) ?? 0;
-            this._diesRenderInfo.push({
+            const fillStyle = this.calculateFillStyle(
+                die.value,
+                colorScaleMode,
+                highlightedValues
+            );
+            if (!result[fillStyle]) {
+                result[fillStyle] = [];
+            }
+            result[fillStyle]!.push({
                 x: scaledX + margin.right,
                 y: scaledY + margin.top,
-                fillStyle: this.calculateFillStyle(
-                    die.value,
-                    colorScaleMode,
-                    highlightedValues
-                ),
                 text: this.buildLabel(
                     die.value,
                     maxCharacters,
@@ -76,7 +78,8 @@ export class Prerendering {
                     dieLabelsSuffix
                 )
             });
-        }
+            return result;
+        }, {});
     }
 
     private calculateLabelsFontSize(

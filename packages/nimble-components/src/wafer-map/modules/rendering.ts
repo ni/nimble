@@ -5,24 +5,9 @@ import { DieRenderInfo, HoverDieOpacity } from '../types';
  * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class RenderingModule {
-    private dies!: DieRenderInfo[];
     private readonly minDieDim = 50;
 
     public constructor(private readonly wafermap: WaferMap) {}
-
-    public updateSortedDiesAndDrawWafer(): void {
-        this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
-            if (a.fillStyle > b.fillStyle) {
-                return 1;
-            }
-            if (b.fillStyle > a.fillStyle) {
-                return -1;
-            }
-
-            return 0;
-        });
-        this.drawWafer();
-    }
 
     public drawWafer(): void {
         this.wafermap.canvasContext.save();
@@ -76,18 +61,22 @@ export class RenderingModule {
         transformedCanvasMinPoint[0] -= dieWidth;
         transformedCanvasMinPoint[1] -= dieHeight;
 
-        for (const die of this.dies) {
-            if (
-                this.isDieVisible(
-                    die,
-                    transformedCanvasMinPoint,
-                    transformedCanvasMaxPoint
-                )
-            ) {
-                context.fillStyle = die.fillStyle;
-                context.fillRect(die.x, die.y, dieWidth, dieHeight);
+        Object.entries(this.wafermap.dataManager.renderInfo).forEach(
+            ([fillStyle, dies]) => {
+                context.fillStyle = fillStyle;
+                for (const die of dies) {
+                    if (
+                        this.isDieVisible(
+                            die,
+                            transformedCanvasMinPoint,
+                            transformedCanvasMaxPoint
+                        )
+                    ) {
+                        context.fillRect(die.x, die.y, dieWidth, dieHeight);
+                    }
+                }
             }
-        }
+        );
     }
 
     private renderText(): void {
@@ -116,22 +105,27 @@ export class RenderingModule {
             transformedCanvasMinPoint[0] -= dieWidth;
             transformedCanvasMinPoint[1] -= dieHeight;
 
-            for (const die of this.dies) {
-                if (
-                    this.isDieVisible(
-                        die,
-                        transformedCanvasMinPoint,
-                        transformedCanvasMaxPoint
-                    )
-                ) {
-                    context.fillText(
-                        die.text,
-                        die.x + dieWidth / 2,
-                        die.y + dieHeight / 2 + approximateTextHeight.width / 2,
-                        dieWidth - (dieWidth / 100) * 20
-                    );
+            Object.entries(this.wafermap.dataManager.renderInfo).forEach(
+                ([fillStyle, dies]) => {
+                    context.fillStyle = fillStyle;
+                    for (const die of dies) {
+                        if (
+                            this.isDieVisible(
+                                die,
+                                transformedCanvasMinPoint,
+                                transformedCanvasMaxPoint
+                            )
+                        ) {
+                            context.fillText(
+                                die.text,
+                                die.x + dieWidth / 2,
+                                die.y + dieHeight / 2 + approximateTextHeight.width / 2,
+                                dieWidth - (dieWidth / 100) * 20
+                            );
+                        }
+                    }
                 }
-            }
+            );
         }
     }
 
