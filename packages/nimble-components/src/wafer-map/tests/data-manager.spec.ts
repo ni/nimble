@@ -110,53 +110,71 @@ describe('Wafermap Data Manager', () => {
     });
 
     it('should have as many dies as provided', () => {
-        expect(dataManagerModule.diesRenderInfo.length).toEqual(
-            getWaferMapDies().length
+        Object.entries(dataManagerModule.renderInfo).forEach(
+            ([_fillStyle, diesRenderInfo]) => {
+                expect(diesRenderInfo.length).toEqual(getWaferMapDies().length);
+            }
         );
     });
 
     it('should have label with suffix for each die', () => {
-        for (const dieInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieInfo.text).toContain(dieLabelsSuffix);
-        }
+        Object.entries(dataManagerModule.renderInfo).forEach(
+            ([_fillStyle, diesRenderInfo]) => {
+                for (const dieInfo of diesRenderInfo) {
+                    expect(dieInfo.text).toContain(dieLabelsSuffix);
+                }
+            }
+        );
     });
 
     it('should have all dies with full opacity from the highlighted list', () => {
         const highlightedValues = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
-        const diesWithFullOpacity = dataManagerModule.diesRenderInfo.filter(x => x.fillStyle.endsWith(',1)'));
-        for (const dieRenderInfo of diesWithFullOpacity) {
-            expect(highlightedValues).toContain(dieRenderInfo.text);
-        }
+        Object.entries(dataManagerModule.renderInfo).forEach(
+            ([fillStyle, diesRenderInfo]) => {
+                if (fillStyle.endsWith(',1)')) {
+                    for (const dieRenderInfo of diesRenderInfo) {
+                        expect(highlightedValues).toContain(dieRenderInfo.text);
+                    }
+                }
+            }
+        );
     });
 
     it('should not have any dies with partial opacity from the highlighted list', () => {
         const highlightedValues = getHighlightedValues().map(
             value => value + dieLabelsSuffix
         );
-        const diesWithPartialOpacity = dataManagerModule.diesRenderInfo.filter(
-            x => !x.fillStyle.endsWith(',1)')
+        Object.entries(dataManagerModule.renderInfo).forEach(
+            ([fillStyle, diesRenderInfo]) => {
+                if (!fillStyle.endsWith(',1)')) {
+                    for (const dieRenderInfo of diesRenderInfo) {
+                        expect(highlightedValues).not.toContain(dieRenderInfo.text);
+                    }
+                }
+            }
         );
-        for (const dieRenderInfo of diesWithPartialOpacity) {
-            expect(highlightedValues).not.toContain(dieRenderInfo.text);
-        }
     });
 
     it('should have all dies inside the canvas with margins', () => {
-        for (const dieRenderInfo of dataManagerModule.diesRenderInfo) {
-            expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
-            expect(dieRenderInfo.x).toBeLessThanOrEqual(
-                canvasDimensions.width
-                    - dataManagerModule.dieDimensions.width
-                    - expectedMargin.left
-            );
-            expect(dieRenderInfo.y).toBeLessThanOrEqual(
-                canvasDimensions.height
-                    - dataManagerModule.dieDimensions.height
-                    - expectedMargin.bottom
-            );
-        }
+        Object.entries(dataManagerModule.renderInfo).forEach(
+            ([_fillStyle, diesRenderInfo]) => {
+                for (const dieRenderInfo of diesRenderInfo) {
+                    expect(dieRenderInfo.x).toBeGreaterThanOrEqual(0);
+                    expect(dieRenderInfo.y).toBeGreaterThanOrEqual(0);
+                    expect(dieRenderInfo.x).toBeLessThanOrEqual(
+                        canvasDimensions.width
+                            - dataManagerModule.dieDimensions.width
+                            - expectedMargin.left
+                    );
+                    expect(dieRenderInfo.y).toBeLessThanOrEqual(
+                        canvasDimensions.height
+                            - dataManagerModule.dieDimensions.height
+                            - expectedMargin.bottom
+                    );
+                }
+            }
+        );
     });
 });
