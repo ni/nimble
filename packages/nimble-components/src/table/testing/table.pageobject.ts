@@ -17,7 +17,6 @@ import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
-import { Spinner } from '../../spinner';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
