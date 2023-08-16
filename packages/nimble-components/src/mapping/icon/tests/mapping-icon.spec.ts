@@ -22,6 +22,16 @@ describe('Icon Mapping', () => {
         </${mappingIconTag}>`);
     }
 
+    it('should export its tag', () => {
+        expect(mappingIconTag).toBe('nimble-mapping-icon');
+    });
+
+    it('can construct an element instance', () => {
+        expect(document.createElement('nimble-mapping-icon')).toBeInstanceOf(
+            MappingIcon
+        );
+    });
+
     it('resolves icon after it is defined', async () => {
         ({ element, connect, disconnect } = await setup());
         await connect();

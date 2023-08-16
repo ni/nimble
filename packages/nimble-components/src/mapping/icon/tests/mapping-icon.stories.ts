@@ -5,7 +5,7 @@ import { hiddenWrapper } from '../../../utilities/tests/hidden';
 import { mappingKeyDescription } from '../../base/tests/story-helpers';
 
 const metadata: Meta = {
-    title: 'Tests/Mappings',
+    title: 'Internal/Mappings',
     parameters: {
         docs: {
             description: {
@@ -32,7 +32,7 @@ export const iconMapping: StoryObj = {
         },
         severity: {
             description:
-                'One of `error`, `warning`, `success`, `information`, or unspecified. Controls the color of the icon.'
+                'Must be one of the values in the `IconSeverity` enum. Controls the color of the icon.'
         },
         text: {
             description:

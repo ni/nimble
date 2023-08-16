@@ -29,7 +29,7 @@ export class TableColumnIconCellView
     >
     implements IconView {
     public severity: IconSeverity;
-    public text!: string;
+    public text = '';
     public iconTemplate?: ViewTemplate<IconView>;
     @observable
     public visual?: 'spinner' | 'icon';

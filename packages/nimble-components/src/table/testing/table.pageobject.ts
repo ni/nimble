@@ -188,10 +188,10 @@ export class TablePageObject<T extends TableRecord> {
         return anchor as Anchor;
     }
 
-    public getRenderedCellIcon(
+    public getRenderedIconColumnCellIcon(
         rowIndex: number,
         columnIndex: number
-    ): Icon | null {
+    ): Icon {
         const icon = this.getRenderedCellView(rowIndex, columnIndex).shadowRoot!
             .firstElementChild;
         if (!icon || !(icon instanceof Icon)) {
@@ -200,20 +200,6 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
         return icon;
-    }
-
-    public getRenderedCellSpinner(
-        rowIndex: number,
-        columnIndex: number
-    ): Spinner | null {
-        const spinner = this.getRenderedCellView(rowIndex, columnIndex)
-            .shadowRoot!.firstElementChild;
-        if (!spinner || !(spinner instanceof Spinner)) {
-            throw new Error(
-                `Spinner not found at cell ${rowIndex},${columnIndex}`
-            );
-        }
-        return spinner;
     }
 
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {

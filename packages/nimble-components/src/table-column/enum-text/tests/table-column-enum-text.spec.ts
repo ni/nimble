@@ -66,6 +66,16 @@ describe('TableColumnEnumText', () => {
         await disconnect();
     });
 
+    it('should export its tag', () => {
+        expect(tableColumnEnumTextTag).toBe('nimble-table-column-enum-text');
+    });
+
+    it('can construct an element instance', () => {
+        expect(
+            document.createElement('nimble-table-column-enum-text')
+        ).toBeInstanceOf(TableColumnEnumText);
+    });
+
     describe('data type tests', () => {
         const dataTypeTests = [
             { name: 'string', key: 'a' },

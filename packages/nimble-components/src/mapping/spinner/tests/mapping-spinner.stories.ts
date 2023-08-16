@@ -5,7 +5,7 @@ import { hiddenWrapper } from '../../../utilities/tests/hidden';
 import { mappingKeyDescription } from '../../base/tests/story-helpers';
 
 const metadata: Meta = {
-    title: 'Tests/Mappings',
+    title: 'Internal/Mappings',
     parameters: {
         docs: {
             description: {

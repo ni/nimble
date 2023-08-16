@@ -12,6 +12,7 @@ import { MappingIcon, mappingIconTag } from '../../../mapping/icon';
 import { IconXmark, iconXmarkTag } from '../../../icons/xmark';
 import { IconCheck, iconCheckTag } from '../../../icons/check';
 import type { MappingKey } from '../../../mapping/base/types';
+import { IconSeverity } from '../../../icon-base/types';
 
 interface SimpleTableRecord extends TableRecord {
     field1?: MappingKey | undefined;
@@ -64,6 +65,16 @@ describe('TableColumnIcon', () => {
         await disconnect();
     });
 
+    it('should export its tag', () => {
+        expect(tableColumnIconTag).toBe('nimble-table-column-icon');
+    });
+
+    it('can construct an element instance', () => {
+        expect(
+            document.createElement('nimble-table-column-icon')
+        ).toBeInstanceOf(TableColumnIcon);
+    });
+
     for (const test of [
         { type: 'string', key: 'a' },
         { type: 'number', key: 10 },
@@ -81,7 +92,8 @@ describe('TableColumnIcon', () => {
             await waitForUpdatesAsync();
 
             expect(
-                pageObject.getRenderedCellIcon(0, 0) instanceof IconXmark
+                pageObject.getRenderedIconColumnCellIcon(0, 0)
+                    instanceof IconXmark
             ).toBeTrue();
         });
     }
@@ -95,7 +107,7 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(() => pageObject.getRenderedCellIcon(0, 0)).toThrowError();
+        expect(() => pageObject.getRenderedIconColumnCellIcon(0, 0)).toThrowError();
     });
 
     it('changing fieldName updates display', async () => {
@@ -112,7 +124,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(
-            pageObject.getRenderedCellIcon(0, 0) instanceof IconCheck
+            pageObject.getRenderedIconColumnCellIcon(0, 0) instanceof IconCheck
         ).toBeTrue();
     });
 
@@ -130,8 +142,27 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(
-            pageObject.getRenderedCellIcon(0, 0) instanceof IconCheck
+            pageObject.getRenderedIconColumnCellIcon(0, 0) instanceof IconCheck
         ).toBeTrue();
+    });
+
+    it('changing mapping severity updates display', async () => {
+        ({ element, connect, disconnect, model } = await setup([
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
+        ]));
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        await element.setData([{ field1: 'a' }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        const mapping = model.col1.mappings[0] as MappingIcon;
+        mapping.severity = IconSeverity.warning;
+        await waitForUpdatesAsync();
+
+        expect(
+            (pageObject.getRenderedIconColumnCellIcon(0, 0) as IconCheck)
+                .severity
+        ).toBe(IconSeverity.warning);
     });
 
     it('changing mapping key updates display', async () => {
@@ -148,7 +179,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(
-            pageObject.getRenderedCellIcon(0, 0) instanceof IconXmark
+            pageObject.getRenderedIconColumnCellIcon(0, 0) instanceof IconXmark
         ).toBeTrue();
     });
 
@@ -171,7 +202,9 @@ describe('TableColumnIcon', () => {
         await element.setData([{ field1: 'a' }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellIcon(0, 0)?.ariaLabel).toBe('alpha');
+        expect(pageObject.getRenderedIconColumnCellIcon(0, 0).ariaLabel).toBe(
+            'alpha'
+        );
     });
 
     describe('various string values render in group header as expected', () => {

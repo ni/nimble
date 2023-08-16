@@ -11,12 +11,14 @@ declare global {
     }
 }
 
-const isIconClass = (elementClass: CustomElementConstructor): boolean => {
-    return elementClass !== undefined && elementClass.prototype instanceof Icon;
-};
+function isIconClass(elementClass: CustomElementConstructor): boolean {
+    return elementClass.prototype instanceof Icon;
+}
 
 /**
- * Maps values to an icon.
+ * Maps a data value to an icon.
+ * One or more may be added as children of a nimble-table-column-icon element to define
+ * how specific data values should be displayed as icons in that column's cells.
  */
 export class MappingIcon extends Mapping {
     @attr()
@@ -27,8 +29,8 @@ export class MappingIcon extends Mapping {
 
     /**
      * @internal
-     * Calculated asynchronously by the icon mapping based on the configured icon value
-     * When assigned it corresponds to an element name that is resolved to type of Nimble Icon
+     * Calculated asynchronously by the icon mapping based on the configured icon value.
+     * When assigned it corresponds to an element name that is resolved to type of Nimble Icon.
      */
     @observable
     public resolvedIcon?: string;
@@ -36,6 +38,8 @@ export class MappingIcon extends Mapping {
     // Allow icons to be defined asynchronously from when the property is configured
     private async resolveIconAsync(icon: string): Promise<void> {
         try {
+            // Clear the current resolution while waiting for async resolution
+            this.resolvedIcon = undefined;
             await customElements.whenDefined(icon);
         } catch (ex) {
             // If any error (i.e. invalid custom element name) don't continue
@@ -44,7 +48,6 @@ export class MappingIcon extends Mapping {
             return;
         }
 
-        const elementClass = customElements.get(icon)!;
         if (icon !== this.icon) {
             // Possible the icon has changed while waiting for async resolution
             // Don't update the resolvedIcon as it was already set to undefined before async resolution
@@ -52,6 +55,7 @@ export class MappingIcon extends Mapping {
             return;
         }
 
+        const elementClass = customElements.get(icon)!;
         this.resolvedIcon = isIconClass(elementClass) ? icon : undefined;
     }
 
@@ -62,12 +66,10 @@ export class MappingIcon extends Mapping {
             return;
         }
         const elementClass = customElements.get(icon);
-        if (elementClass !== undefined) {
+        if (elementClass) {
             this.resolvedIcon = isIconClass(elementClass) ? icon : undefined;
             return;
         }
-        // Clear the current resolution while waiting for async resolution
-        this.resolvedIcon = undefined;
         void this.resolveIconAsync(icon);
     }
 }
