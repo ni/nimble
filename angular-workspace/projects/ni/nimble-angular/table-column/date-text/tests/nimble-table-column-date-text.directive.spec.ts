@@ -1510,8 +1510,8 @@ describe('NimbleTableColumnDateText', () => {
             fixture.componentInstance.customHour12 = undefined;
             fixture.detectChanges();
 
-            expect(directive.customHour12).toBeNull();
-            expect(nativeElement.customHour12).toBeNull();
+            expect(directive.customHour12).toBeUndefined();
+            expect(nativeElement.customHour12).toBeUndefined();
         });
 
         it('can be configured with attribute binding for customTimeZone', () => {
