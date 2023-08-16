@@ -58,14 +58,18 @@ describe('Wafermap Prerendering module', () => {
                     y: die.y + margin.top
                 };
             });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.x).toEqual(
-                    expectedValues[i]!.x
-                );
-                expect(prerenderingModule.diesRenderInfo[i]!.y).toEqual(
-                    expectedValues[i]!.y
-                );
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (let i = 0; i < waferMapDies.length; i += 1) {
+                        expect(diesRenderInfo[i]!.x).toEqual(
+                            expectedValues[i]!.x
+                        );
+                        expect(diesRenderInfo[i]!.y).toEqual(
+                            expectedValues[i]!.y
+                        );
+                    }
+                }
+            );
         });
     });
 
@@ -121,11 +125,15 @@ describe('Wafermap Prerendering module', () => {
                     x: x.x * 10
                 };
             });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.x).toEqual(
-                    expectedValues[i]!.x
-                );
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (let i = 0; i < waferMapDies.length; i += 1) {
+                        expect(diesRenderInfo[i]!.x).toEqual(
+                            expectedValues[i]!.x
+                        );
+                    }
+                }
+            );
         });
     });
 
@@ -181,11 +189,15 @@ describe('Wafermap Prerendering module', () => {
                     y: x.y * 10
                 };
             });
-            for (let i = 0; i < waferMapDies.length; i += 1) {
-                expect(prerenderingModule.diesRenderInfo[i]!.y).toEqual(
-                    expectedValues[i]!.y
-                );
-            }
+            Object.entries(prerenderingModule.renderInfo).forEach(
+                ([_fillStyle, diesRenderInfo]) => {
+                    for (let i = 0; i < waferMapDies.length; i += 1) {
+                        expect(diesRenderInfo[i]!.y).toEqual(
+                            expectedValues[i]!.y
+                        );
+                    }
+                }
+            );
         });
     });
 });
