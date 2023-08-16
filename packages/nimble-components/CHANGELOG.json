@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 16 Aug 2023 20:59:57 GMT",
+      "tag": "@ni/nimble-components_v20.1.8",
+      "version": "20.1.8",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "c0f1e5a1897993d523cc19dea26cbe881788f9f5",
+            "comment": "Add badge to component status table"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Aug 2023 18:45:15 GMT",
       "tag": "@ni/nimble-components_v20.1.8",
       "version": "20.1.8",
