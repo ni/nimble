@@ -9,12 +9,12 @@ describe('NimbleTableColumnText', () => {
     describe('module', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [NimbleTableModule]
+                imports: [NimbleTableColumnTextModule]
             });
         });
 
         it('custom element is defined', () => {
-            expect(customElements.get('nimble-table')).not.toBeUndefined();
+            expect(customElements.get('nimble-table-column-text')).not.toBeUndefined();
         });
     });
 
