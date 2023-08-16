@@ -67,7 +67,7 @@ namespace Demo.Shared.Pages
                     Faker.Name.Last(),
                     "https://nimble.ni.dev",
                     "Link",
-                    DateTime.UtcNow,
+                    i % 2 == 0 ? new DateTime(2023, 8, 16, 3, 56, 11, DateTimeKind.Utc) : new DateTime(2022, 3, 7, 20, 28, 41, DateTimeKind.Utc),
                     i % 2 == 0 ? 100 : 101);
             }
             tableData[numberOfRows] = new Person(
@@ -92,7 +92,7 @@ namespace Demo.Shared.Pages
             LastName = lastName;
             Href = href;
             LinkLabel = linkLabel;
-            Date = (uint?)(date - DateTime.UnixEpoch)?.TotalMilliseconds;
+            Date = (ulong?)(date - DateTime.UnixEpoch)?.TotalMilliseconds;
             StatusCode = statusCode;
         }
 
@@ -101,7 +101,7 @@ namespace Demo.Shared.Pages
         public string? LastName { get; }
         public string? Href { get; }
         public string? LinkLabel { get; }
-        public uint? Date { get; }
+        public ulong? Date { get; }
         public int? StatusCode { get; }
     }
 

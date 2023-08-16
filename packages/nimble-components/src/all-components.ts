@@ -40,6 +40,7 @@ import './tab';
 import './tab-panel';
 import './table';
 import './table-column/anchor';
+import './table-column/date-text';
 import './table-column/enum-text';
 import './table-column/text';
 import './tabs';
