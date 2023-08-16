@@ -1,8 +1,25 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Mon, 14 Aug 2023 16:14:55 GMT and should not be manually modified.
+This log was last generated on Wed, 16 Aug 2023 18:45:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.0
+
+Wed, 16 Aug 2023 18:45:15 GMT
+
+### Minor changes
+
+- enable reading the component value using the combobox directive ([ni/nimble@501e91b](https://github.com/ni/nimble/commit/501e91b66bc55a27c9acd7958fb3ab1545353dc0))
+
+## 17.0.17
+
+Tue, 15 Aug 2023 16:05:54 GMT
+
+### Patches
+
+- Improve typing for cell view ([ni/nimble@4fbf1bc](https://github.com/ni/nimble/commit/4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d))
+- Bump @ni/nimble-components to v20.1.8
 
 ## 17.0.16
 

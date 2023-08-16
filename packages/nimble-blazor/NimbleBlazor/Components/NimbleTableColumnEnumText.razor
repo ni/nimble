@@ -1,19 +1,11 @@
 ﻿@namespace NimbleBlazor
 @inherits NimbleTableColumn
+@attribute [CascadingTypeParameter(nameof(TKey))]
+@typeparam TKey
 
-<nimble-table-column-anchor
-    label-field-name="@LabelFieldName"
-    href-field-name="@HrefFieldName"
-    appearance="@Appearance.ToAttributeValue()"
-    underline-hidden="@UnderlineHidden"
-    hreflang="@HrefLang"
-    ping="@Ping"
-    referrerpolicy="@ReferrerPolicy"
-    rel="@Rel"
-    target="@Target"
-    type="@Type"
-    download="@Download"
+<nimble-table-column-enum-text
     column-id="@ColumnId"
+    field-name="@FieldName"
     action-menu-slot="@ActionMenuSlot"
     action-menu-label="@ActionMenuLabel"
     column-hidden="@ColumnHidden"
@@ -23,8 +15,9 @@
     sort-index="@SortIndex"
     group-index="@GroupIndex"
     grouping-disabled="@GroupingDisabled"
+    key-type="@GetTKeyAsJSType()"
     @attributes="AdditionalAttributes"
 >
     @ChildContent
-</nimble-table-column-anchor>
+</nimble-table-column-enum-text>
 
