@@ -108,7 +108,7 @@ export class CustomAppComponent {
             stringValue2: `bar ${tableData.length}`,
             href: '/customapp',
             linkLabel: 'Link',
-            date: new Date().valueOf(),
+            date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
             statusCode: (tableData.length % 2 === 0) ? 100 : 101
         });
         this.tableDataSubject.next(tableData);
