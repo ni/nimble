@@ -3,7 +3,7 @@ import type { IconSeverity } from '../../../icon-base/types';
 import { MappingConfig } from './mapping-config';
 
 export interface IconView {
-    severity?: IconSeverity;
+    severity: IconSeverity;
     text?: string;
 }
 const createIconTemplate = (icon: string): ViewTemplate<IconView> => html`
@@ -22,8 +22,8 @@ export class MappingIconConfig extends MappingConfig {
     public readonly iconTemplate: ViewTemplate<IconView>;
     public constructor(
         resolvedIcon: string,
-        text?: string,
-        public readonly severity?: IconSeverity
+        public readonly severity: IconSeverity,
+        text: string | undefined
     ) {
         super(text);
         this.iconTemplate = createIconTemplate(resolvedIcon);

@@ -201,6 +201,17 @@ export class TablePageObject<T extends TableRecord> {
         return icon;
     }
 
+    public getRenderedIconColumnGroupHeaderIcon(groupRowIndex: number): Icon {
+        const icon = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
+            .firstElementChild;
+        if (!icon || !(icon instanceof Icon)) {
+            throw new Error(
+                `Icon not found at group header ${groupRowIndex}`
+            );
+        }
+        return icon;
+    }
+
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {
         return (
             this.getGroupRowHeaderView(

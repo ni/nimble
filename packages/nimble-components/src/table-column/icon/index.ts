@@ -73,8 +73,8 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
             }
             return new MappingIconConfig(
                 mapping.resolvedIcon,
-                mapping.text,
-                mapping.severity
+                mapping.severity,
+                mapping.text
             );
         }
         if (mapping instanceof MappingSpinner) {

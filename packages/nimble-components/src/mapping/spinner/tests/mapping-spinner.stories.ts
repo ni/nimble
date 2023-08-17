@@ -27,7 +27,7 @@ export const spinnerMapping: StoryObj = {
         },
         text: {
             description:
-                'A textual description of the value which will be used as the tooltip and accessible name of the spinner. The text is also displayed next to the spinner in a group header.'
+                'A textual description of the value which will be used as the tooltip and accessible name of the spinner. The text is also displayed next to the spinner in a group header. This attribute is required.'
         }
     },
     args: {}

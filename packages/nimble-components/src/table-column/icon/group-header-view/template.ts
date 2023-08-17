@@ -8,7 +8,8 @@ import { overflow } from '../../../utilities/directive/overflow';
 export const template = html<TableColumnIconGroupHeaderView>`
     ${when(
         x => x.visual === 'icon',
-        html<TableColumnIconGroupHeaderView>`${x => x.iconTemplate!}
+        html<TableColumnIconGroupHeaderView>`
+            ${x => x.iconTemplate!}
             <span    
                 ${overflow('hasOverflow')}
                 title="${x => (x.hasOverflow && x.text ? x.text : null)}"

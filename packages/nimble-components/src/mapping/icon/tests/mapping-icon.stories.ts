@@ -36,7 +36,7 @@ export const iconMapping: StoryObj = {
         },
         text: {
             description:
-                'A textual description of the value which will be used as the tooltip and accessible name of the icon. The text is also displayed next to the icon in a group header.'
+                'A textual description of the value which will be used as the tooltip and accessible name of the icon. The text is also displayed next to the icon in a group header. This attribute is required.'
         }
     },
     args: {}

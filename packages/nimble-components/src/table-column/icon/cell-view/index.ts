@@ -28,9 +28,15 @@ export class TableColumnIconCellView
     TableColumnEnumColumnConfig
     >
     implements IconView {
-    public severity?: IconSeverity;
+    @observable
+    public severity: IconSeverity;
+
+    @observable
     public text?: string;
+
+    @observable
     public iconTemplate?: ViewTemplate<IconView>;
+
     @observable
     public visual?: 'spinner' | 'icon';
 

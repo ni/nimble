@@ -257,6 +257,42 @@ describe('TableColumnIcon', () => {
         expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
     });
 
+    it('clears cell when mappings removed', async () => {
+        ({ element, connect, disconnect, model } = await setup([
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
+        ]));
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        await element.setData([{ field1: 'a' }]);
+        await connect();
+        await waitForUpdatesAsync();
+        expect(
+            pageObject.getRenderedIconColumnCellIcon(0, 0) instanceof IconXmark
+        ).toBeTrue();
+
+        model.col1.removeChild(model.col1.firstElementChild!);
+        await waitForUpdatesAsync();
+        expect(() => pageObject.getRenderedIconColumnCellIcon(0, 0)).toThrowError();
+    });
+
+    it('clears group header when mappings removed', async () => {
+        ({ element, connect, disconnect, model } = await setup([
+            { key: 'a', text: 'alpha', icon: iconXmarkTag }
+        ]));
+        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        await element.setData([{ field1: 'a' }]);
+        model.col1.groupIndex = 0;
+        await connect();
+        await waitForUpdatesAsync();
+        expect(
+            pageObject.getRenderedIconColumnGroupHeaderIcon(0)
+                instanceof IconXmark
+        ).toBeTrue();
+
+        model.col1.removeChild(model.col1.firstElementChild!);
+        await waitForUpdatesAsync();
+        expect(() => pageObject.getRenderedIconColumnGroupHeaderIcon(0)).toThrowError();
+    });
+
     describe('validation', () => {
         it('is valid with no mappings', async () => {
             ({ element, connect, disconnect, model } = await setup(

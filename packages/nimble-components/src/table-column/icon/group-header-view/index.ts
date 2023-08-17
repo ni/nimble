@@ -27,8 +27,12 @@ export class TableColumnIconGroupHeaderView
     TableColumnEnumColumnConfig
     >
     implements IconView {
-    public severity?: IconSeverity;
+    @observable
+    public severity: IconSeverity;
+
+    @observable
     public iconTemplate?: ViewTemplate<IconView>;
+
     @observable
     public visual?: 'spinner' | 'icon';
 
@@ -42,7 +46,7 @@ export class TableColumnIconGroupHeaderView
 
     private updateState(): void {
         this.visual = undefined;
-        if (!this.columnConfig) {
+        if (!this.columnConfig?.mappingConfigs) {
             return;
         }
         const value = this.groupHeaderValue;
