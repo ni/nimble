@@ -987,25 +987,26 @@ describe('RichTextEditor', () => {
     });
 
     describe('Should return markdown with escape character (back slash) when various special markdown syntax are assigned', () => {
+        const r = String.raw;
         const specialMarkdownStrings: { name: string, value: string }[] = [
-            { name: '> blockquote', value: String.raw`\> blockquote` },
+            { name: '> blockquote', value: r`\> blockquote` },
             { name: '`code`', value: '\\`code\\`' },
             { name: '```fence```', value: '\\`\\`\\`fence\\`\\`\\`' },
-            { name: '~~Strikethrough~~', value: String.raw`\~\~Strikethrough\~\~` },
-            { name: '# Heading 1', value: String.raw`\# Heading 1` },
-            { name: '## Heading 2', value: String.raw`\## Heading 2` },
-            { name: '### Heading 3', value: String.raw`\### Heading 3` },
-            { name: '[link](url)', value: String.raw`\[link\](url)` },
+            { name: '~~Strikethrough~~', value: r`\~\~Strikethrough\~\~` },
+            { name: '# Heading 1', value: r`\# Heading 1` },
+            { name: '## Heading 2', value: r`\## Heading 2` },
+            { name: '### Heading 3', value: r`\### Heading 3` },
+            { name: '[link](url)', value: r`\[link\](url)` },
             {
                 name: '[ref][link] [link]:url',
-                value: String.raw`\[ref\]\[link\] \[link\]:url`
+                value: r`\[ref\]\[link\] \[link\]:url`
             },
-            { name: '![Text](Image)', value: String.raw`!\[Text\](Image)` },
-            { name: '---', value: String.raw`\---` },
-            { name: '***', value: String.raw`\*\*\*` },
-            { name: '___', value: String.raw`\__\_` },
-            { name: '-Infinity', value: String.raw`\-Infinity` },
-            { name: '-2147483648/-1', value: String.raw`\-2147483648/-1` }
+            { name: '![Text](Image)', value: r`!\[Text\](Image)` },
+            { name: '---', value: r`\---` },
+            { name: '***', value: r`\*\*\*` },
+            { name: '___', value: r`\__\_` },
+            { name: '-Infinity', value: r`\-Infinity` },
+            { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ];
 
         const focused: string[] = [];
@@ -1059,9 +1060,10 @@ describe('RichTextEditor', () => {
     });
 
     describe('Should return markdown with escape character (back slash) when wacky string with special markdown syntax are assigned', () => {
+        const r = String.raw;
         const wackyStringWithSpecialMarkdownCharacter: { name: string, value: string }[] = [
-            { name: '-Infinity', value: String.raw`\-Infinity` },
-            { name: '-2147483648/-1', value: String.raw`\-2147483648/-1` }
+            { name: '-Infinity', value: r`\-Infinity` },
+            { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ];
 
         const focused: string[] = [];
