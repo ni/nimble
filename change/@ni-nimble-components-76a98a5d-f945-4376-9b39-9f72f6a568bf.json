@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Initial implementation of nimble-table-column-number-text",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
