@@ -145,13 +145,14 @@ public class NimbleTableColumnDateTextTests
         Assert.Matches(expectedMarkupRegEx, table.Markup);
     }
 
-    [Fact]
-    public void NimbleTableColumnDateText_WithCustomHour12Attribute_HasTableMarkup()
+    [Theory]
+    [InlineData(null, "<nimble-table-column-date-text((?!custom-hour12).)*>")]
+    [InlineData(true, @"custom-hour12=""true""")]
+    [InlineData(false, @"custom-hour12=""false""")]
+    public void NimbleTableColumnDateText_WithCustomHour12Attribute_HasTableMarkup(bool? value, string expectedMarkupRegEx)
     {
-        var table = RenderWithPropertySet(x => x.CustomHour12, false);
-
-        var expectedMarkup = @"custom-hour12=""false""";
-        Assert.Contains(expectedMarkup, table.Markup);
+        var table = RenderWithPropertySet(x => x.CustomHour12, value);
+        Assert.Matches(expectedMarkupRegEx, table.Markup);
     }
 
     [Fact]

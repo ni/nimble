@@ -25,7 +25,7 @@
     custom-second="@CustomSecond.ToAttributeValue()"
     custom-time-zone-name="@CustomTimeZoneName.ToAttributeValue()"
     custom-format-matcher="@CustomFormatMatcher.ToAttributeValue()"
-    custom-hour12="@CustomHour12"
+    custom-hour12="@(CustomHour12.HasValue ? (CustomHour12.Value ? "true" : "false") : null)"
     custom-time-zone="@CustomTimeZone"
     custom-calendar="@CustomCalendar"
     custom-day-period="@CustomDayPeriod.ToAttributeValue()"
