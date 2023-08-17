@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 17 Aug 2023 00:10:58 GMT",
+      "tag": "@ni/nimble-angular_v17.1.1",
+      "version": "17.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d2ca08cd621c10c0c8dbb13c4cc01c930d29392e",
+            "comment": "Add support for date-text table column"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.9",
+            "commit": "d2ca08cd621c10c0c8dbb13c4cc01c930d29392e"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Aug 2023 18:45:15 GMT",
       "tag": "@ni/nimble-angular_v17.1.0",
       "version": "17.1.0",

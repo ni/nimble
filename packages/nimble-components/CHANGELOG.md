@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 15 Aug 2023 16:05:54 GMT and should not be manually modified.
+This log was last generated on Thu, 17 Aug 2023 00:10:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.9
+
+Thu, 17 Aug 2023 00:10:58 GMT
+
+### Patches
+
+- Allow date-text column customHour12 to be undefined ([ni/nimble@d2ca08c](https://github.com/ni/nimble/commit/d2ca08cd621c10c0c8dbb13c4cc01c930d29392e))
 
 ## 20.1.8
 
