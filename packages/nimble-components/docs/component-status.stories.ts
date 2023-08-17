@@ -69,6 +69,14 @@ const components = [
         blazorStatus: '✅',
     },
     {
+        componentName: 'Badge',
+        issueHref: 'https://github.com/ni/nimble/issues/1428',
+        issueLabel: 'Issue',
+        componentStatus: '⭕',
+        angularStatus: '⭕',
+        blazorStatus: '⭕',
+    },
+    {
         componentName: 'Banner',
         componentHref: './?path=/docs/components-banner--docs',
         designHref: 'https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?node-id=1295%3A65855&mode=dev',

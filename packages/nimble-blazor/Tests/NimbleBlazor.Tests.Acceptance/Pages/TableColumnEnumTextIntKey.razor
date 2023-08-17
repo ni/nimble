@@ -1,19 +1,24 @@
-﻿@page "/TableBindToData"
+﻿@page "/TableColumnEnumTextIntKey"
 @namespace NimbleBlazor.Tests.Acceptance.Pages
 @using System.Diagnostics.CodeAnalysis;
 @inherits LayoutComponentBase
 
 <NimbleTable IdFieldName="Id" @bind-Data="TableData">
-    <NimbleTableColumnText FieldName="Field1" ColumnId="1">Column 1</NimbleTableColumnText>
+    <NimbleTableColumnEnumText TKey="int" FieldName="Field1" ColumnId="1">
+        <NimbleMappingText Key="0" Text="foo"></NimbleMappingText>
+        <NimbleMappingText Key="1" Text="bar"></NimbleMappingText>
+        <NimbleMappingText Key="2" Text="baz"></NimbleMappingText>
+        Column 1
+    </NimbleTableColumnEnumText>
 </NimbleTable>
 
 @code {
     [NotNull]
     public IEnumerable<RowData> TableData { get; set; } = Enumerable.Empty<RowData>();
 
-    public TableBindToData()
+    public TableColumnEnumTextIntKey()
     {
-        UpdateTableData(5);
+        UpdateTableData(4);
     }
 
     public void UpdateTableData(int numberOfRows)
@@ -21,9 +26,7 @@
         var tableData = new RowData[numberOfRows];
         for (int i = 0; i < numberOfRows; i++)
         {
-            tableData[i] = new RowData(
-                i.ToString(null, null),
-                $"A{i}");
+            tableData[i] = new RowData(i);
         }
 
         TableData = tableData;
@@ -31,13 +34,13 @@
 
     public class RowData
     {
-        public RowData(string id, string field1)
+        public RowData(int id)
         {
-            Id = id;
-            Field1 = field1;
+            Id = id.ToString();
+            Field1 = id;
         }
 
         public string Id { get; }
-        public string Field1 { get; }
+        public int Field1 { get; }
     }
 }
