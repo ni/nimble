@@ -45,7 +45,7 @@ const editorSizingTestCase = (
     <p style="font: var(${cssPropertyFromTokenName(
         tokenNames.bodyFont
     )}); margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
-    <div style="width: 500px; height: 150px; outline: 1px dotted black;">
+    <div style="width: 500px; height: 180px; outline: 1px dotted black;">
         <${richTextEditorTag} style="${widthStyle}; ${heightStyle};">
             <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
@@ -63,12 +63,12 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
         [
             ['No width', ''],
-            ['Width 360px', 'width: 360px'],
+            ['Width 450px', 'width: 450px'],
             ['Width 100%', 'width: 100%']
         ],
         [
             ['No height', ''],
-            ['Height 80px', 'height: 80px'],
+            ['Height 100px', 'height: 100px'],
             ['Height 100%', 'height: 100%']
         ]
     ])}

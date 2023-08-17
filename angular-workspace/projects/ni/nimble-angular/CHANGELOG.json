@@ -2,6 +2,138 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 17 Aug 2023 00:10:58 GMT",
+      "tag": "@ni/nimble-angular_v17.1.1",
+      "version": "17.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d2ca08cd621c10c0c8dbb13c4cc01c930d29392e",
+            "comment": "Add support for date-text table column"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.9",
+            "commit": "d2ca08cd621c10c0c8dbb13c4cc01c930d29392e"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Aug 2023 18:45:15 GMT",
+      "tag": "@ni/nimble-angular_v17.1.0",
+      "version": "17.1.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "501e91b66bc55a27c9acd7958fb3ab1545353dc0",
+            "comment": "enable reading the component value using the combobox directive"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Aug 2023 16:05:54 GMT",
+      "tag": "@ni/nimble-angular_v17.0.17",
+      "version": "17.0.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d",
+            "comment": "Improve typing for cell view"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.8",
+            "commit": "4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Aug 2023 16:14:55 GMT",
+      "tag": "@ni/nimble-angular_v17.0.16",
+      "version": "17.0.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a8e29e5042ddb9ad9258b09c4844f5c360844628",
+            "comment": "Angular support for enum-text table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 14 Aug 2023 14:35:00 GMT",
+      "tag": "@ni/nimble-angular_v17.0.15",
+      "version": "17.0.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.7",
+            "commit": "e70768bd1d42364f51a5e486be771e4c84b132d4"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 12 Aug 2023 08:35:41 GMT",
+      "tag": "@ni/nimble-angular_v17.0.14",
+      "version": "17.0.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.6",
+            "commit": "96f22af9a8f8eeddc995237e06cb8622eea436b2"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Aug 2023 22:00:19 GMT",
+      "tag": "@ni/nimble-angular_v17.0.13",
+      "version": "17.0.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.5",
+            "commit": "ffc6db59108c21570fdca623ecd566313b09c595"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Aug 2023 15:22:19 GMT",
+      "tag": "@ni/nimble-angular_v17.0.12",
+      "version": "17.0.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.4",
+            "commit": "511d982f0eedb7b2db4cf937d850d02720caa3c3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Aug 2023 22:54:53 GMT",
       "tag": "@ni/nimble-angular_v17.0.10",
       "version": "17.0.10",

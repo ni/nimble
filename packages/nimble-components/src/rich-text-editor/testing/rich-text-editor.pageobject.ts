@@ -1,5 +1,14 @@
+import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { ToggleButton } from '../../toggle-button';
+
+export const BUTTON_INDEX = {
+    bold: 0,
+    italics: 1,
+    bulletList: 2,
+    numberedList: 3
+};
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -9,45 +18,134 @@ export class RichTextEditorPageObject {
         private readonly richTextEditorElement: RichTextEditor
     ) {}
 
-    public getEditorSection(): Element | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
+    public editorSectionHasChildNodes(): boolean {
+        const editorSection = this.getEditorSection();
+        return editorSection!.hasChildNodes();
     }
 
-    public getTiptapEditor(): Element | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector(
-            '.ProseMirror'
-        );
+    public getEditorSectionFirstElementChildClassName(): string {
+        const editorSection = this.getEditorSection();
+        return editorSection!.firstElementChild!.className;
     }
 
-    public getFooterSection(): Element | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector(
-            '.footer-section'
-        );
+    public async clickEditorShortcutKeys(
+        shortcutKey: string,
+        isShiftKey: boolean
+    ): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const event = new KeyboardEvent('keydown', {
+            key: shortcutKey,
+            ctrlKey: true,
+            shiftKey: isShiftKey,
+            bubbles: true,
+            cancelable: true
+        });
+        editor!.dispatchEvent(event);
+        await waitForUpdatesAsync();
     }
 
-    public getSlotElement(): Element | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector('slot');
+    public async pressEnterKeyInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const event = new KeyboardEvent('keydown', {
+            key: keyEnter,
+            bubbles: true,
+            cancelable: true
+        });
+        editor!.dispatchEvent(event);
+        await waitForUpdatesAsync();
     }
 
-    public getFormattingButton(
-        className: string
-    ): ToggleButton | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector(
-            `.${className}`
-        );
+    public async pressTabKeyInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const event = new KeyboardEvent('keydown', {
+            key: keyTab,
+            bubbles: true,
+            cancelable: true
+        });
+        editor!.dispatchEvent(event);
+        await waitForUpdatesAsync();
     }
 
-    public getEditorLastChildElement(): Element | null | undefined {
+    public async pressShiftTabKeysInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const shiftTabEvent = new KeyboardEvent('keydown', {
+            key: keyTab,
+            shiftKey: true,
+            bubbles: true,
+            cancelable: true
+        });
+        editor!.dispatchEvent(shiftTabEvent);
+        await waitForUpdatesAsync();
+    }
+
+    /**
+     * To click a formatting button in the footer section, pass its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public async clickFooterButton(buttonIndex: number): Promise<void> {
+        const button = this.getFormattingButton(buttonIndex);
+        button!.click();
+        await waitForUpdatesAsync();
+    }
+
+    /**
+     * To retrieve the checked state of the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public getButtonCheckedState(buttonIndex: number): boolean {
+        const button = this.getFormattingButton(buttonIndex);
+        return button!.checked;
+    }
+
+    /**
+     * To retrieve the tab index of the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public getButtonTabIndex(buttonIndex: number): number {
+        const button = this.getFormattingButton(buttonIndex);
+        return button!.tabIndex;
+    }
+
+    /**
+     * To trigger a space key press for the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public spaceKeyActivatesButton(buttonIndex: number): void {
+        const button = this.getFormattingButton(buttonIndex)!;
+        const event = new KeyboardEvent('keypress', {
+            key: keySpace
+        } as KeyboardEventInit);
+        button.control.dispatchEvent(event);
+    }
+
+    /**
+     * To trigger a enter key press for the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public enterKeyActivatesButton(buttonIndex: number): void {
+        const button = this.getFormattingButton(buttonIndex)!;
+        const event = new KeyboardEvent('keypress', {
+            key: keyEnter
+        } as KeyboardEventInit);
+        button.control.dispatchEvent(event);
+    }
+
+    public async setEditorTextContent(value: string): Promise<void> {
         let lastElement = this.getTiptapEditor()?.lastElementChild;
 
         while (lastElement?.lastElementChild) {
             lastElement = lastElement?.lastElementChild;
         }
-        return lastElement;
+        lastElement!.parentElement!.textContent = value;
+        await waitForUpdatesAsync();
     }
 
-    public getEditorFirstChildElement(): Element | null | undefined {
-        return this.getTiptapEditor()?.firstElementChild;
+    public getEditorFirstChildTagName(): string {
+        return this.getTiptapEditor()?.firstElementChild?.tagName ?? '';
+    }
+
+    public getEditorFirstChildTextContent(): string {
+        return this.getTiptapEditor()?.firstElementChild?.textContent ?? '';
     }
 
     public getEditorTagNames(): string[] {
@@ -62,5 +160,24 @@ export class RichTextEditorPageObject {
                 return el.children.length === 0;
             })
             .map(el => el.textContent || '');
+    }
+
+    private getEditorSection(): Element | null | undefined {
+        return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
+    }
+
+    private getTiptapEditor(): Element | null | undefined {
+        return this.richTextEditorElement.shadowRoot?.querySelector(
+            '.ProseMirror'
+        );
+    }
+
+    private getFormattingButton(
+        index: number
+    ): ToggleButton | null | undefined {
+        const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
+            'nimble-toggle-button'
+        );
+        return buttons[index];
     }
 }
