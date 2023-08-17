@@ -205,9 +205,7 @@ export class TablePageObject<T extends TableRecord> {
         const icon = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
             .firstElementChild;
         if (!icon || !(icon instanceof Icon)) {
-            throw new Error(
-                `Icon not found at group header ${groupRowIndex}`
-            );
+            throw new Error(`Icon not found at group header ${groupRowIndex}`);
         }
         return icon;
     }
