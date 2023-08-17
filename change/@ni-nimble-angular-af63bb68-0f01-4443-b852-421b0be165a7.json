@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fully import date-text column types before exporting them",
+  "packageName": "@ni/nimble-angular",
+  "email": "7282195+m-akinc@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
