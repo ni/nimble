@@ -61,21 +61,29 @@ export class RichTextEditor extends FoundationElement {
     /**
      * @internal
      */
-    public editor!: HTMLDivElement;
+    public editorContainer!: HTMLDivElement;
 
     private tiptapEditor!: Editor;
+    private editor!: HTMLDivElement;
 
     private readonly markdownParser = this.initializeMarkdownParser();
     private readonly markdownSerializer = this.initializeMarkdownSerializer();
     private readonly domSerializer = DOMSerializer.fromSchema(schema);
     private readonly xmlSerializer = new XMLSerializer();
 
+    public constructor() {
+        super();
+        this.initializeEditor();
+    }
+
     /**
      * @internal
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.initializeEditor();
+        if (!this.editor.isConnected) {
+            this.editorContainer.append(this.editor);
+        }
         this.bindEditorTransactionEvent();
     }
 
@@ -172,10 +180,8 @@ export class RichTextEditor extends FoundationElement {
      * @public
      */
     public setMarkdown(markdown: string): void {
-        if (this.$fastController.isConnected) {
-            const html = this.getHtmlContent(markdown);
-            this.tiptapEditor.commands.setContent(html);
-        }
+        const html = this.getHtmlContent(markdown);
+        this.tiptapEditor.commands.setContent(html);
     }
 
     /**
@@ -183,13 +189,10 @@ export class RichTextEditor extends FoundationElement {
      * @public
      */
     public getMarkdown(): string {
-        if (this.$fastController.isConnected) {
-            const markdownContent = this.markdownSerializer.serialize(
-                this.tiptapEditor.state.doc
-            );
-            return markdownContent;
-        }
-        return '';
+        const markdownContent = this.markdownSerializer.serialize(
+            this.tiptapEditor.state.doc
+        );
+        return markdownContent;
     }
 
     /**
@@ -290,6 +293,12 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private initializeEditor(): void {
+        // Creating div element to land tiptap editor
+        this.editor = document.createElement('div');
+        this.editor.className = 'editor';
+        this.editor.ariaMultiLine = 'true';
+        this.editor.setAttribute('role', 'textbox');
+
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
          * Tiptap marks: https://tiptap.dev/api/marks

@@ -95,7 +95,8 @@ const multipleSubPointsContent = `
             1. Sub point 5
                1. Sub point 6
                   1. Sub point 7
-                     1. Sub point 8`;
+                     1. Sub point 8
+                        1. Sub point 9`;
 
 export const multipleSubPointsContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 
