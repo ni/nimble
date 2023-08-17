@@ -1035,7 +1035,11 @@ describe('RichTextEditor', () => {
         const disabled: string[] = [];
 
         wackyStrings
-            .filter(value => value.name !== '\x00' && value.name !== '-Infinity' && value.name !== '-2147483648/-1')
+            .filter(
+                value => value.name !== '\x00'
+                    && value.name !== '-Infinity'
+                    && value.name !== '-2147483648/-1'
+            )
             .forEach(value => {
                 const specType = getSpecTypeByNamedList(
                     value,
@@ -1061,7 +1065,10 @@ describe('RichTextEditor', () => {
 
     describe('Should return markdown with escape character (back slash) when wacky string with special markdown syntax are assigned', () => {
         const r = String.raw;
-        const wackyStringWithSpecialMarkdownCharacter: { name: string, value: string }[] = [
+        const wackyStringWithSpecialMarkdownCharacter: {
+            name: string,
+            value: string
+        }[] = [
             { name: '-Infinity', value: r`\-Infinity` },
             { name: '-2147483648/-1', value: r`\-2147483648/-1` }
         ];
