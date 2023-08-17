@@ -3,6 +3,13 @@ import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { ToggleButton } from '../../toggle-button';
 
+export const BUTTON_INDEX = {
+    bold: 0,
+    italics: 1,
+    bulletList: 2,
+    numberedList: 3
+};
+
 /**
  * Page object for the `nimble-rich-text-editor` component.
  */
@@ -71,86 +78,52 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public getSlotName(): string {
-        const slotElement = this.richTextEditorElement.shadowRoot?.querySelector('slot');
-        return slotElement!.getAttribute('name') ?? '';
-    }
-
-    public getSlotPartName(): string {
-        const slotElement = this.richTextEditorElement.shadowRoot?.querySelector('slot');
-        return slotElement?.parentElement!.getAttribute('part') ?? '';
-    }
-
-    public async clickFooterButton(className: string): Promise<void> {
-        const button = this.getFormattingButton(className);
+    /**
+     * To click a formatting button in the footer section, pass its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public async clickFooterButton(buttonIndex: number): Promise<void> {
+        const button = this.getFormattingButton(buttonIndex);
         button!.click();
         await waitForUpdatesAsync();
     }
 
-    public async clickBoldButton(): Promise<void> {
-        const boldButton = this.getFormattingButton('bold');
-        boldButton!.click();
-        await waitForUpdatesAsync();
-    }
-
-    public async clickItalicsButton(): Promise<void> {
-        const italicsButton = this.getFormattingButton('italics');
-        italicsButton!.click();
-        await waitForUpdatesAsync();
-    }
-
-    public async clickBulletListButton(): Promise<void> {
-        const bulletListButton = this.getFormattingButton('bullet-list');
-        bulletListButton!.click();
-        await waitForUpdatesAsync();
-    }
-
-    public async clickNumberedListButton(): Promise<void> {
-        const numberedListButton = this.getFormattingButton('numbered-list');
-        numberedListButton!.click();
-        await waitForUpdatesAsync();
-    }
-
-    public getButtonCheckedState(className: string): boolean {
-        const button = this.getFormattingButton(className);
+    /**
+     * To retrieve the checked state of the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public getButtonCheckedState(buttonIndex: number): boolean {
+        const button = this.getFormattingButton(buttonIndex);
         return button!.checked;
     }
 
-    public getButtonContentHiddenState(className: string): boolean {
-        const button = this.getFormattingButton(className);
-        return button!.contentHidden;
-    }
-
-    public getButtonAppearance(className: string): string {
-        const button = this.getFormattingButton(className);
-        return button!.appearance;
-    }
-
-    public getButtonSlotName(className: string): string {
-        const button = this.getFormattingButton(className);
-        return button!.slot;
-    }
-
-    public getButtonIconTagName(className: string): string {
-        const button = this.getFormattingButton(className);
-        return button!.firstElementChild!.tagName;
-    }
-
-    public getButtonTabIndex(className: string): number {
-        const button = this.getFormattingButton(className);
+    /**
+     * To retrieve the tab index of the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public getButtonTabIndex(buttonIndex: number): number {
+        const button = this.getFormattingButton(buttonIndex);
         return button!.tabIndex;
     }
 
-    public spaceKeyActivatesButton(className: string): void {
-        const button = this.getFormattingButton(className)!;
+    /**
+     * To trigger a space key press for the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public spaceKeyActivatesButton(buttonIndex: number): void {
+        const button = this.getFormattingButton(buttonIndex)!;
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         } as KeyboardEventInit);
         button.control.dispatchEvent(event);
     }
 
-    public enterKeyActivatesButton(className: string): void {
-        const button = this.getFormattingButton(className)!;
+    /**
+     * To trigger a enter key press for the button, provide its position value as an index (starting from '0')
+     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     */
+    public enterKeyActivatesButton(buttonIndex: number): void {
+        const button = this.getFormattingButton(buttonIndex)!;
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         } as KeyboardEventInit);
@@ -200,10 +173,11 @@ export class RichTextEditorPageObject {
     }
 
     private getFormattingButton(
-        className: string
+        index: number
     ): ToggleButton | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector(
-            `.${className}`
+        const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
+            'nimble-toggle-button'
         );
+        return buttons[index];
     }
 }

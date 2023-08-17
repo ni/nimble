@@ -18,8 +18,10 @@ export const styles = css`
         outline: none;
         color: ${bodyFontColor};
         flex-direction: column;
-        --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
-        --ni-private-footer-section-height: 40px;
+        --ni-private-rich-text-editor-hover-indicator-width: calc(
+            ${borderWidth} + 1px
+        );
+        --ni-private-rich-text-editor-footer-section-height: 40px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
@@ -30,6 +32,7 @@ export const styles = css`
         display: flex;
         flex-direction: column;
         position: relative;
+        height: 100%;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
     }
 
@@ -43,7 +46,7 @@ export const styles = css`
         left: 50%;
         transform: translate(-50%, 50%);
         border-bottom: ${borderHoverColor}
-            var(--ni-private-hover-indicator-width) solid;
+            var(--ni-private-rich-text-editor-hover-indicator-width) solid;
         transition: width ${smallDelay} ease-in;
     }
 
@@ -64,7 +67,9 @@ export const styles = css`
     .editor {
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        height: calc(100% - var(--ni-private-footer-section-height));
+        height: calc(
+            100% - var(--ni-private-rich-text-editor-footer-section-height)
+        );
         overflow: auto;
     }
 
@@ -135,7 +140,7 @@ export const styles = css`
         justify-content: space-between;
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
-        height: var(--ni-private-footer-section-height);
+        height: var(--ni-private-rich-text-editor-footer-section-height);
         overflow: hidden;
     }
 

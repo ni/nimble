@@ -22,7 +22,6 @@ export const template = html<RichTextEditor>`
                     <${toggleButtonTag}
                         ${ref('boldButton')}
                         appearance="ghost"
-                        class="bold"
                         content-hidden
                         slot="start"
                         @click=${x => x.boldButtonClick()}
@@ -35,7 +34,6 @@ export const template = html<RichTextEditor>`
                     <${toggleButtonTag}
                         ${ref('italicsButton')}
                         appearance="ghost"
-                        class="italics"
                         content-hidden
                         slot="start"
                         @click=${x => x.italicsButtonClick()}
@@ -48,7 +46,6 @@ export const template = html<RichTextEditor>`
                     <${toggleButtonTag}
                         ${ref('bulletListButton')}
                         appearance="ghost"
-                        class="bullet-list"
                         content-hidden
                         slot="start"
                         @click=${x => x.bulletListButtonClick()}
@@ -61,7 +58,6 @@ export const template = html<RichTextEditor>`
                     <${toggleButtonTag}
                         ${ref('numberedListButton')}
                         appearance="ghost"
-                        class="numbered-list"
                         content-hidden
                         slot="start"
                         @click=${x => x.numberedListButtonClick()}

@@ -53,12 +53,12 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
         [
             ['No width', ''],
-            ['Width 360px', 'width: 360px'],
+            ['Width 450px', 'width: 450px'],
             ['Width 100%', 'width: 100%']
         ],
         [
             ['No height', ''],
-            ['Height 80px', 'height: 80px'],
+            ['Height 100px', 'height: 100px'],
             ['Height 100%', 'height: 100%']
         ]
     ])}

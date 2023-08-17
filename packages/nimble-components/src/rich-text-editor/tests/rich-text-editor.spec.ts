@@ -2,9 +2,14 @@ import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
-import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
+import {
+    BUTTON_INDEX,
+    RichTextEditorPageObject
+} from '../testing/rich-text-editor.pageobject';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { wackyStrings } from '../../utilities/tests/wacky-strings';
+import type { Button } from '../../button';
+import type { ToggleButton } from '../../toggle-button';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -61,92 +66,83 @@ describe('RichTextEditor', () => {
         expect(editor!.getAttribute('aria-multiline')).toBe('true');
     });
 
-    it('should have a slot and part named "footer-actions"', () => {
-        expect(pageObject.getSlotName()).toBe('footer-actions');
-        expect(pageObject.getSlotPartName()).toBe('footer-actions');
-    });
-
     it('should have either one of the list buttons checked at the same time on click', async () => {
         await waitForUpdatesAsync();
-        expect(pageObject.getButtonCheckedState('bullet-list')).toBeFalse();
-        expect(pageObject.getButtonCheckedState('numbered-list')).toBeFalse();
+        expect(
+            pageObject.getButtonCheckedState(BUTTON_INDEX.bulletList)
+        ).toBeFalse();
+        expect(
+            pageObject.getButtonCheckedState(BUTTON_INDEX.numberedList)
+        ).toBeFalse();
 
-        await pageObject.clickBulletListButton();
-        expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
-        expect(pageObject.getButtonCheckedState('numbered-list')).toBeFalse();
+        await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
+        expect(
+            pageObject.getButtonCheckedState(BUTTON_INDEX.bulletList)
+        ).toBeTrue();
+        expect(
+            pageObject.getButtonCheckedState(BUTTON_INDEX.numberedList)
+        ).toBeFalse();
 
-        await pageObject.clickNumberedListButton();
-        expect(pageObject.getButtonCheckedState('bullet-list')).toBeFalse();
-        expect(pageObject.getButtonCheckedState('numbered-list')).toBeTrue();
+        await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
+        expect(
+            pageObject.getButtonCheckedState(BUTTON_INDEX.bulletList)
+        ).toBeFalse();
+        expect(
+            pageObject.getButtonCheckedState(BUTTON_INDEX.numberedList)
+        ).toBeTrue();
+    });
+
+    it('clicking buttons in the slot element should call the click event once', () => {
+        const cancelButton: Button = element.querySelector('#cancel')!;
+        const okButton: Button = element.querySelector('#ok')!;
+        const cancelButtonSpy = jasmine.createSpy();
+        const okButtonSpy = jasmine.createSpy();
+        cancelButton?.addEventListener('click', cancelButtonSpy);
+        okButton?.addEventListener('click', okButtonSpy);
+
+        cancelButton.click();
+        okButton.click();
+
+        expect(cancelButtonSpy).toHaveBeenCalledTimes(1);
+        expect(okButtonSpy).toHaveBeenCalledTimes(1);
     });
 
     const formattingButtons: {
         name: string,
-        className: string,
+        buttonIndex: number,
         iconName: string,
         shortcutKey: string,
         shiftKey: boolean
     }[] = [
         {
             name: 'bold',
-            className: 'bold',
+            buttonIndex: BUTTON_INDEX.bold,
             iconName: 'NIMBLE-ICON-BOLD-B',
             shortcutKey: 'b',
             shiftKey: false
         },
         {
             name: 'italics',
-            className: 'italics',
+            buttonIndex: BUTTON_INDEX.italics,
             iconName: 'NIMBLE-ICON-ITALIC-I',
             shortcutKey: 'i',
             shiftKey: false
         },
         {
             name: 'bullet-list',
-            className: 'bullet-list',
+            buttonIndex: BUTTON_INDEX.bulletList,
             iconName: 'NIMBLE-ICON-LIST',
             shortcutKey: '8',
             shiftKey: true
         },
         {
             name: 'numbered-list',
-            className: 'numbered-list',
+            buttonIndex: BUTTON_INDEX.numberedList,
             iconName: 'NIMBLE-ICON-NUMBER-LIST',
             shortcutKey: '7',
             shiftKey: true
         }
     ];
-
-    describe('should initialize nimble toggle buttons with necessary settings', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const value of formattingButtons) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `button "${value.name}" with necessary settings`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    await waitForUpdatesAsync();
-                    expect(
-                        pageObject.getButtonContentHiddenState(value.className)
-                    ).toBeTrue();
-                    expect(
-                        pageObject.getButtonCheckedState(value.className)
-                    ).toBeFalse();
-                    expect(
-                        pageObject.getButtonAppearance(value.className)
-                    ).toBe('ghost');
-                    expect(pageObject.getButtonSlotName(value.className)).toBe(
-                        'start'
-                    );
-                    expect(
-                        pageObject.getButtonIconTagName(value.className)
-                    ).toBe(value.iconName);
-                }
-            );
-        }
-    });
 
     describe('clicking buttons should update the checked state of the toggle button with focus', () => {
         const focused: string[] = [];
@@ -161,17 +157,17 @@ describe('RichTextEditor', () => {
                 async () => {
                     await waitForUpdatesAsync();
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeFalse();
 
-                    await pageObject.clickFooterButton(value.className);
+                    await pageObject.clickFooterButton(value.buttonIndex);
 
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeTrue();
-                    expect(pageObject.getButtonTabIndex(value.className)).toBe(
-                        0
-                    );
+                    expect(
+                        pageObject.getButtonTabIndex(value.buttonIndex)
+                    ).toBe(0);
                 }
             );
         }
@@ -190,13 +186,13 @@ describe('RichTextEditor', () => {
                 async () => {
                     await waitForUpdatesAsync();
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeFalse();
 
-                    pageObject.spaceKeyActivatesButton(value.className);
+                    pageObject.spaceKeyActivatesButton(value.buttonIndex);
 
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeTrue();
                 }
             );
@@ -216,13 +212,13 @@ describe('RichTextEditor', () => {
                 async () => {
                     await waitForUpdatesAsync();
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeFalse();
 
-                    pageObject.enterKeyActivatesButton(value.className);
+                    pageObject.enterKeyActivatesButton(value.buttonIndex);
 
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeTrue();
                 }
             );
@@ -242,7 +238,7 @@ describe('RichTextEditor', () => {
                 async () => {
                     await waitForUpdatesAsync();
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeFalse();
 
                     await pageObject.clickEditorShortcutKeys(
@@ -251,7 +247,7 @@ describe('RichTextEditor', () => {
                     );
 
                     expect(
-                        pageObject.getButtonCheckedState(value.className)
+                        pageObject.getButtonCheckedState(value.buttonIndex)
                     ).toBeTrue();
                 }
             );
@@ -269,9 +265,10 @@ describe('RichTextEditor', () => {
                 `"${value.name}" button not propagate change event to parent element`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
-                    const button = element.shadowRoot?.querySelector(
-                        `.${value.className}`
+                    const buttons: NodeListOf<ToggleButton> = element.shadowRoot!.querySelectorAll(
+                        'nimble-toggle-button'
                     );
+                    const button = buttons[value.buttonIndex];
                     const buttonParent = button!.parentElement;
                     const spy = jasmine.createSpy();
                     const event = new Event('change', { bubbles: true });
@@ -289,7 +286,7 @@ describe('RichTextEditor', () => {
         it('should have "strong" tag name for bold button click', async () => {
             await waitForUpdatesAsync();
 
-            await pageObject.clickBoldButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bold);
             await pageObject.setEditorTextContent('bold');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'STRONG']);
@@ -299,7 +296,7 @@ describe('RichTextEditor', () => {
         it('should have "em" tag name for italics button click', async () => {
             await waitForUpdatesAsync();
 
-            await pageObject.clickItalicsButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.italics);
             await pageObject.setEditorTextContent('italics');
 
             expect(pageObject.getEditorTagNames()).toEqual(['P', 'EM']);
@@ -310,7 +307,7 @@ describe('RichTextEditor', () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('numbered list');
-            await pageObject.clickNumberedListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
 
             expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P']);
             expect(pageObject.getEditorLeafContents()).toEqual([
@@ -322,7 +319,7 @@ describe('RichTextEditor', () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('numbered list 1');
-            await pageObject.clickNumberedListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('numbered list 2');
 
@@ -343,7 +340,7 @@ describe('RichTextEditor', () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickNumberedListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -361,7 +358,7 @@ describe('RichTextEditor', () => {
                 'Nested List'
             ]);
             expect(
-                pageObject.getButtonCheckedState('numbered-list')
+                pageObject.getButtonCheckedState(BUTTON_INDEX.numberedList)
             ).toBeTrue();
         });
 
@@ -369,7 +366,7 @@ describe('RichTextEditor', () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickNumberedListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -397,7 +394,7 @@ describe('RichTextEditor', () => {
                 'Nested List'
             ]);
             expect(
-                pageObject.getButtonCheckedState('numbered-list')
+                pageObject.getButtonCheckedState(BUTTON_INDEX.numberedList)
             ).toBeTrue();
         });
 
@@ -405,10 +402,10 @@ describe('RichTextEditor', () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('Numbered List');
-            await pageObject.clickNumberedListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickBulletListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
             await pageObject.setEditorTextContent('Nested Bullet List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
@@ -424,16 +421,18 @@ describe('RichTextEditor', () => {
                 'Nested Bullet List'
             ]);
             expect(
-                pageObject.getButtonCheckedState('numbered-list')
+                pageObject.getButtonCheckedState(BUTTON_INDEX.numberedList)
             ).toBeTrue();
-            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(BUTTON_INDEX.bulletList)
+            ).toBeTrue();
         });
 
         it('should have "ul" tag name for bullet list button click', async () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('Bullet List');
-            await pageObject.clickBulletListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
 
             expect(pageObject.getEditorTagNames()).toEqual(['UL', 'LI', 'P']);
             expect(pageObject.getEditorLeafContents()).toEqual(['Bullet List']);
@@ -443,7 +442,7 @@ describe('RichTextEditor', () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('Bullet List 1');
-            await pageObject.clickBulletListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.setEditorTextContent('Bullet List 2');
 
@@ -464,7 +463,7 @@ describe('RichTextEditor', () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickBulletListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -481,17 +480,19 @@ describe('RichTextEditor', () => {
                 'List',
                 'Nested List'
             ]);
-            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(BUTTON_INDEX.bulletList)
+            ).toBeTrue();
         });
 
         it('should have "ul" tag name for bullet list and "ol" tag name for nested numbered list', async () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('Bullet List');
-            await pageObject.clickBulletListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
-            await pageObject.clickNumberedListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
             await pageObject.setEditorTextContent('Nested Numbered List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
@@ -507,16 +508,18 @@ describe('RichTextEditor', () => {
                 'Nested Numbered List'
             ]);
             expect(
-                pageObject.getButtonCheckedState('numbered-list')
+                pageObject.getButtonCheckedState(BUTTON_INDEX.numberedList)
             ).toBeTrue();
-            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(BUTTON_INDEX.bulletList)
+            ).toBeTrue();
         });
 
         it('should have "ul" tag names for bullet lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
             await waitForUpdatesAsync();
 
             await pageObject.setEditorTextContent('List');
-            await pageObject.clickBulletListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.setEditorTextContent('Nested List');
@@ -543,14 +546,16 @@ describe('RichTextEditor', () => {
                 'List',
                 'Nested List'
             ]);
-            expect(pageObject.getButtonCheckedState('bullet-list')).toBeTrue();
+            expect(
+                pageObject.getButtonCheckedState(BUTTON_INDEX.bulletList)
+            ).toBeTrue();
         });
 
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
             await waitForUpdatesAsync();
 
-            await pageObject.clickBoldButton();
-            await pageObject.clickItalicsButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bold);
+            await pageObject.clickFooterButton(BUTTON_INDEX.italics);
             await pageObject.setEditorTextContent('bold and italics');
 
             expect(pageObject.getEditorTagNames()).toEqual([
@@ -566,12 +571,12 @@ describe('RichTextEditor', () => {
         it('should have "strong", "em" and "ol" tag name for all bold, italics and numbered list button clicks', async () => {
             await waitForUpdatesAsync();
 
-            await pageObject.clickBoldButton();
-            await pageObject.clickItalicsButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bold);
+            await pageObject.clickFooterButton(BUTTON_INDEX.italics);
             await pageObject.setEditorTextContent(
                 'bold, italics and numbered list'
             );
-            await pageObject.clickNumberedListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.numberedList);
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -588,12 +593,12 @@ describe('RichTextEditor', () => {
         it('should have "strong", "em" and "ul" tag name for all bold, italics and bullet list button clicks', async () => {
             await waitForUpdatesAsync();
 
-            await pageObject.clickBoldButton();
-            await pageObject.clickItalicsButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bold);
+            await pageObject.clickFooterButton(BUTTON_INDEX.italics);
             await pageObject.setEditorTextContent(
                 'bold, italics and bullet list'
             );
-            await pageObject.clickBulletListButton();
+            await pageObject.clickFooterButton(BUTTON_INDEX.bulletList);
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
