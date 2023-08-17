@@ -8,7 +8,7 @@ import { Direction } from '@microsoft/fast-web-utilities';
 import { template } from './template';
 import { styles } from './styles';
 import { Theme } from './types';
-import { pageLocale } from '../utilities/models/page-locale';
+import { documentElementLang } from '../utilities/models/document-element-lang';
 import type { ValidityObject } from '../utilities/models/validator';
 
 declare global {
@@ -26,14 +26,10 @@ function isInvalidLang(value: string): boolean {
     }
 }
 
-function getSystemLocale(): string {
-    return new Intl.DateTimeFormat(undefined).resolvedOptions().locale;
-}
-
 export const lang = DesignToken.create<string>({
     name: 'lang',
     cssCustomPropertyName: null
-}).withDefault((): string => (isInvalidLang(pageLocale.lang) ? getSystemLocale() : pageLocale.lang));
+}).withDefault((): string => (isInvalidLang(documentElementLang.lang) ? 'en-US' : documentElementLang.lang));
 
 // Not represented as a CSS Custom Property, instead available
 // as an attribute of theme provider.

@@ -3,7 +3,7 @@ import { observable } from '@microsoft/fast-element';
 /**
  * Observable class to subscribe to changes in the page's lang attribute
  */
-class PageLocale {
+class DocumentElementLang {
     @observable
     public lang: string = document.documentElement.lang;
 
@@ -24,4 +24,4 @@ class PageLocale {
     }
 }
 
-export const pageLocale = new PageLocale();
+export const documentElementLang = new DocumentElementLang();
