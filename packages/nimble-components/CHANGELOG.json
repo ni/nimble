@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 17 Aug 2023 21:57:29 GMT",
+      "tag": "@ni/nimble-components_v20.1.10",
+      "version": "20.1.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "270d7fe2085569c0dad6deee75160c774f6c3ecc",
+            "comment": "Initial implementation of nimble-table-column-number-text"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Aug 2023 00:10:58 GMT",
       "tag": "@ni/nimble-components_v20.1.9",
       "version": "20.1.9",
