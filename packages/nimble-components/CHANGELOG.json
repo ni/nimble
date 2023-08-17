@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 17 Aug 2023 00:10:58 GMT",
+      "tag": "@ni/nimble-components_v20.1.9",
+      "version": "20.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "d2ca08cd621c10c0c8dbb13c4cc01c930d29392e",
+            "comment": "Allow date-text column customHour12 to be undefined"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 16 Aug 2023 20:59:57 GMT",
       "tag": "@ni/nimble-components_v20.1.8",
       "version": "20.1.8",
