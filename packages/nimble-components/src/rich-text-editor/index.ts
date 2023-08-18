@@ -204,7 +204,6 @@ export class RichTextEditor extends FoundationElement {
         event.stopPropagation();
         return false;
     }
-
     /**
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
