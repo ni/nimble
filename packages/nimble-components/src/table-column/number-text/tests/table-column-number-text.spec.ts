@@ -96,7 +96,9 @@ describe('TableColumnNumberText', () => {
     });
 
     it('defaults to "default" alignment', () => {
-        expect(columnInstances.column1.alignment).toBe(NumberTextAlignment.default);
+        expect(columnInstances.column1.alignment).toBe(
+            NumberTextAlignment.default
+        );
     });
 
     it('changing format updates display', async () => {
@@ -276,12 +278,42 @@ describe('TableColumnNumberText', () => {
 
     describe('alignment', () => {
         const alignmentTestCases = [
-            { name: 'with default format and default alignment', format: NumberTextFormat.default, alignment: NumberTextAlignment.default, shouldRightAlign: false },
-            { name: 'with default format and left alignment', format: NumberTextFormat.default, alignment: NumberTextAlignment.left, shouldRightAlign: false },
-            { name: 'with default format and right alignment', format: NumberTextFormat.default, alignment: NumberTextAlignment.right, shouldRightAlign: true },
-            { name: 'with roundToInteger format and default alignment', format: NumberTextFormat.roundToInteger, alignment: NumberTextAlignment.default, shouldRightAlign: true },
-            { name: 'with roundToInteger format and left alignment', format: NumberTextFormat.roundToInteger, alignment: NumberTextAlignment.left, shouldRightAlign: false },
-            { name: 'with roundToInteger format and right alignment', format: NumberTextFormat.roundToInteger, alignment: NumberTextAlignment.right, shouldRightAlign: true },
+            {
+                name: 'with default format and default alignment',
+                format: NumberTextFormat.default,
+                alignment: NumberTextAlignment.default,
+                shouldRightAlign: false
+            },
+            {
+                name: 'with default format and left alignment',
+                format: NumberTextFormat.default,
+                alignment: NumberTextAlignment.left,
+                shouldRightAlign: false
+            },
+            {
+                name: 'with default format and right alignment',
+                format: NumberTextFormat.default,
+                alignment: NumberTextAlignment.right,
+                shouldRightAlign: true
+            },
+            {
+                name: 'with roundToInteger format and default alignment',
+                format: NumberTextFormat.roundToInteger,
+                alignment: NumberTextAlignment.default,
+                shouldRightAlign: true
+            },
+            {
+                name: 'with roundToInteger format and left alignment',
+                format: NumberTextFormat.roundToInteger,
+                alignment: NumberTextAlignment.left,
+                shouldRightAlign: false
+            },
+            {
+                name: 'with roundToInteger format and right alignment',
+                format: NumberTextFormat.roundToInteger,
+                alignment: NumberTextAlignment.right,
+                shouldRightAlign: true
+            }
         ] as const;
         describe('sets the correct initial alignment on the cell', () => {
             const focused: string[] = [];
@@ -300,8 +332,13 @@ describe('TableColumnNumberText', () => {
                     await connect();
                     await waitForUpdatesAsync();
 
-                    const cellView = pageObject.getRenderedCellView(0, 0) as TableColumnNumberTextCellView;
-                    expect(cellView.rightAlign).toEqual(testCase.shouldRightAlign);
+                    const cellView = pageObject.getRenderedCellView(
+                        0,
+                        0
+                    ) as TableColumnNumberTextCellView;
+                    expect(cellView.rightAlign).toEqual(
+                        testCase.shouldRightAlign
+                    );
                 });
             }
         });
@@ -315,7 +352,10 @@ describe('TableColumnNumberText', () => {
                 columnInstances.column1.format = NumberTextFormat.default;
                 await connect();
                 await waitForUpdatesAsync();
-                cellView = pageObject.getRenderedCellView(0, 0) as TableColumnNumberTextCellView;
+                cellView = pageObject.getRenderedCellView(
+                    0,
+                    0
+                ) as TableColumnNumberTextCellView;
                 expect(cellView.rightAlign).toEqual(false);
             });
 

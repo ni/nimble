@@ -1,6 +1,10 @@
 import { customElement } from '@microsoft/fast-element';
 import { TableColumnTextCellViewBase } from '..';
-import { uniqueElementName, type Fixture, fixture } from '../../../../utilities/tests/fixture';
+import {
+    uniqueElementName,
+    type Fixture,
+    fixture
+} from '../../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { template as textBaseCellViewTemplate } from '../template';
 import { styles as textBaseCellViewStyles } from '../styles';
