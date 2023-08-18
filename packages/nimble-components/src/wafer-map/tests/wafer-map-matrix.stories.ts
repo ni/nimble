@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { WaferMapOrientation, WaferMapQuadrant } from '../types';
+import { WaferMapOrientation, WaferMapOriginLocation } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -29,10 +29,10 @@ const orientationStates = [
 type OrientationState = (typeof orientationStates)[number];
 
 const dieOrientation = [
-    [WaferMapQuadrant.topLeft],
-    [WaferMapQuadrant.bottomLeft],
-    [WaferMapQuadrant.topRight],
-    [WaferMapQuadrant.bottomRight]
+    [WaferMapOriginLocation.topLeft],
+    [WaferMapOriginLocation.bottomLeft],
+    [WaferMapOriginLocation.topRight],
+    [WaferMapOriginLocation.bottomRight]
 ] as const;
 type DieOrientation = (typeof dieOrientation)[number];
 
@@ -106,7 +106,7 @@ const componentWaferWithHiddenDieLabel = (
 const componentWaferWithDieOrientation = ([
     orientation
 ]: DieOrientation): ViewTemplate => html`<${waferMapTag}
-    quadrant="${() => orientation}"
+    originLocation="${() => orientation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
