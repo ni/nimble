@@ -2,6 +2,7 @@ import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { ToggleButton } from '../../toggle-button';
+import type { ToolbarButton } from './types';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -75,7 +76,7 @@ export class RichTextEditorPageObject {
      * To click a formatting button in the footer section, pass its position value as an index (starting from '0')
      * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
-    public async clickFooterButton(buttonIndex: number): Promise<void> {
+    public async clickFooterButton(buttonIndex: ToolbarButton): Promise<void> {
         const button = this.getFormattingButton(buttonIndex);
         button!.click();
         await waitForUpdatesAsync();
@@ -85,7 +86,7 @@ export class RichTextEditorPageObject {
      * To retrieve the checked state of the button, provide its position value as an index (starting from '0')
      * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
-    public getButtonCheckedState(buttonIndex: number): boolean {
+    public getButtonCheckedState(buttonIndex: ToolbarButton): boolean {
         const button = this.getFormattingButton(buttonIndex);
         return button!.checked;
     }
@@ -94,7 +95,7 @@ export class RichTextEditorPageObject {
      * To retrieve the tab index of the button, provide its position value as an index (starting from '0')
      * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
-    public getButtonTabIndex(buttonIndex: number): number {
+    public getButtonTabIndex(buttonIndex: ToolbarButton): number {
         const button = this.getFormattingButton(buttonIndex);
         return button!.tabIndex;
     }
@@ -103,7 +104,7 @@ export class RichTextEditorPageObject {
      * To trigger a space key press for the button, provide its position value as an index (starting from '0')
      * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
-    public spaceKeyActivatesButton(buttonIndex: number): void {
+    public spaceKeyActivatesButton(buttonIndex: ToolbarButton): void {
         const button = this.getFormattingButton(buttonIndex)!;
         const event = new KeyboardEvent('keypress', {
             key: keySpace
@@ -115,7 +116,7 @@ export class RichTextEditorPageObject {
      * To trigger a enter key press for the button, provide its position value as an index (starting from '0')
      * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
-    public enterKeyActivatesButton(buttonIndex: number): void {
+    public enterKeyActivatesButton(buttonIndex: ToolbarButton): void {
         const button = this.getFormattingButton(buttonIndex)!;
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
@@ -166,7 +167,7 @@ export class RichTextEditorPageObject {
     }
 
     private getFormattingButton(
-        index: number
+        index: ToolbarButton
     ): ToggleButton | null | undefined {
         const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
             'nimble-toggle-button'

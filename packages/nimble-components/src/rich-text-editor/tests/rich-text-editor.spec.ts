@@ -105,7 +105,7 @@ describe('RichTextEditor', () => {
 
     const formattingButtons: {
         name: string,
-        toolbarButtonIndex: number,
+        toolbarButtonIndex: ToolbarButton,
         iconName: string,
         shortcutKey: string,
         shiftKey: boolean
