@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Add setMarkdown and getmarkdown method in rich-text-editor",
+  "comment": "Add setMarkdown and getMarkdown methods in rich-text-editor",
   "packageName": "@ni/nimble-components",
   "email": "jattasNI@users.noreply.github.com",
   "dependentChangeType": "patch"
