@@ -54,6 +54,10 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
+    private alignmentChanged(): void {
+        this.updateColumnConfig();
+    }
+
     private updateColumnConfig(): void {
         const columnConfig: TableColumnNumberTextColumnConfig = {
             formatter: this.createFormatter(),
