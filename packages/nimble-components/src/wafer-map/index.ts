@@ -16,7 +16,7 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
-    WaferMapQuadrant
+    WaferMapOriginLocation
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 
@@ -36,8 +36,10 @@ export class WaferMap extends FoundationElement {
      */
     public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
-    @attr
-    public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
+    @attr({
+        attribute: 'origin-location'
+    })
+    public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
     @attr
     public orientation: WaferMapOrientation = WaferMapOrientation.top;
@@ -210,8 +212,8 @@ export class WaferMap extends FoundationElement {
         return resizeObserver;
     }
 
-    private quadrantChanged(): void {
-        this.waferMapUpdateTracker.track('quadrant');
+    private originLocationChanged(): void {
+        this.waferMapUpdateTracker.track('originLocation');
         this.waferMapUpdateTracker.queueUpdate();
     }
 
