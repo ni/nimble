@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Changed quadrant to originLocation and default to bottomLeft",
+  "packageName": "@ni/nimble-components",
+  "email": "33986780+munteannatan@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
