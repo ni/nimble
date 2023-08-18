@@ -296,7 +296,7 @@ export class RichTextEditor extends FoundationElement {
         // Creating div element to land tiptap editor
         this.editor = document.createElement('div');
         this.editor.className = 'editor';
-        this.editor.setAttribute('ariaMultiLine', 'true');
+        this.editor.setAttribute('aria-multiline', 'true');
         this.editor.setAttribute('role', 'textbox');
 
         /**
