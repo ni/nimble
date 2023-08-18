@@ -31,7 +31,12 @@ describe('TableColumnTextCellViewBase', () => {
     }
 
     beforeEach(async () => {
-        ({ element, connect, disconnect } = await setup());
+        let parent: HTMLElement;
+        ({ element, connect, disconnect, parent } = await setup());
+        // Style the parent with flex layout and a non-zero width so that marginLeft
+        // on 'element' will have an effect.
+        parent.style.display = 'flex';
+        parent.style.width = '100px';
         await connect();
     });
 
@@ -46,7 +51,7 @@ describe('TableColumnTextCellViewBase', () => {
     it('styles cell correctly with "rightAlign" set to true', async () => {
         element.rightAlign = true;
         await waitForUpdatesAsync();
-        expect(getComputedStyle(element).marginLeft).toEqual('auto');
+        expect(getComputedStyle(element).marginLeft).not.toEqual('0px');
     });
 
     it('styles cell correctly with "rightAlign" set to false', async () => {
