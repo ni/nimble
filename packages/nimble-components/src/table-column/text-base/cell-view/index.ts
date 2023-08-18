@@ -18,4 +18,10 @@ export abstract class TableColumnTextCellViewBase<
      */
     @observable
     public text = '';
+
+    /**
+     * Whether or not to right-align the content of the cell.
+     */
+    @observable
+    public rightAlign = false;
 }

@@ -22,6 +22,7 @@ TableColumnNumberTextColumnConfig
 > {
     private columnConfigChanged(): void {
         this.updateText();
+        this.rightAlign = this.columnConfig?.rightAlign ?? false;
     }
 
     private cellRecordChanged(): void {

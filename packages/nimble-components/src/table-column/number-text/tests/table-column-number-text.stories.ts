@@ -14,7 +14,7 @@ import {
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
-import { NumberTextFormat } from '../types';
+import { NumberTextAlignment, NumberTextFormat } from '../types';
 
 const simpleData = [
     {
@@ -86,6 +86,7 @@ export default metadata;
 interface TextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     format: keyof typeof NumberTextFormat;
+    alignment: keyof typeof NumberTextAlignment;
 }
 
 const numberTextColumnDescription = `The \`nimble-table-column-number-text\` column is used to display number fields as text in the \`nimble-table\`. Column operations, such as sorting and grouping,
@@ -100,6 +101,21 @@ const formatDescription = `Configures the way that the numeric value is formatte
         <li>\`default\`: Integers are shown with no trailing zeros, the value is limited to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude.
         </li>
         <li>\`roundToInteger\`: Values are rounded to the nearest whole number. Exponential notation is never used. It can only safely represent integers up to the magnitude of \`MAX_SAFE_INTEGER\`.
+        </li>
+    </ul>
+</details>
+`;
+
+const alignmentDescription = `Configures the alignment of the value within the column.
+
+<details>
+    <summary>Default Alignment</summary>
+
+    The default alignment of the value depends on the column's format.
+    <ul>
+        <li>\`default\` format: Values are left-aligned by default.
+        </li>
+        <li>\`roundToInteger\` format: Values are right-aligned by default.
         </li>
     </ul>
 </details>
@@ -129,10 +145,10 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="lastName">
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}">
+            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}">
                 Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -148,9 +164,15 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
             description: formatDescription,
             options: Object.keys(NumberTextFormat),
             control: { type: 'radio' }
+        },
+        alignment: {
+            description: alignmentDescription,
+            options: Object.keys(NumberTextAlignment),
+            control: { type: 'radio' }
         }
     },
     args: {
-        format: 'default'
+        format: 'default',
+        alignment: 'default'
     }
 };

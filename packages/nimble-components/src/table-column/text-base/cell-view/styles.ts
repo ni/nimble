@@ -9,4 +9,8 @@ export const styles = css`
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    :host(.right-align) {
+        margin-left: auto;
+    }
 `;

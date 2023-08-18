@@ -8,7 +8,7 @@ import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import { NumberTextFormat } from './types';
+import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { NumberFormatter } from './models/number-formatter';
 import { RoundToIntegerFormatter } from './models/round-to-integer-formatter';
 import { DefaultFormatter } from './models/default-formatter';
@@ -16,6 +16,7 @@ import { DefaultFormatter } from './models/default-formatter';
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
     formatter: NumberFormatter;
+    rightAlign: boolean;
 }
 
 declare global {
@@ -30,6 +31,9 @@ declare global {
 export class TableColumnNumberText extends TableColumnTextBase {
     @attr
     public format: NumberTextFormat;
+
+    @attr
+    public alignment: NumberTextAlignment;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -52,7 +56,8 @@ export class TableColumnNumberText extends TableColumnTextBase {
 
     private updateColumnConfig(): void {
         const columnConfig: TableColumnNumberTextColumnConfig = {
-            formatter: this.createFormatter()
+            formatter: this.createFormatter(),
+            rightAlign: this.shouldRightAlign()
         };
         this.columnInternals.columnConfig = columnConfig;
     }
@@ -64,6 +69,22 @@ export class TableColumnNumberText extends TableColumnTextBase {
             default:
                 return new DefaultFormatter();
         }
+    }
+
+    private shouldRightAlign(): boolean {
+        if (this.alignment === NumberTextAlignment.left) {
+            return false;
+        }
+
+        if (this.alignment === NumberTextAlignment.right) {
+            return true;
+        }
+
+        // Look at format to determine the default alignment
+        if (this.format === NumberTextFormat.roundToInteger) {
+            return true;
+        }
+        return false;
     }
 }
 
