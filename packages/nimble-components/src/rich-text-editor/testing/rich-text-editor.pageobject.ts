@@ -3,13 +3,6 @@ import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { ToggleButton } from '../../toggle-button';
 
-export const BUTTON_INDEX = {
-    bold: 0,
-    italics: 1,
-    bulletList: 2,
-    numberedList: 3
-};
-
 /**
  * Page object for the `nimble-rich-text-editor` component.
  */
@@ -80,7 +73,7 @@ export class RichTextEditorPageObject {
 
     /**
      * To click a formatting button in the footer section, pass its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
     public async clickFooterButton(buttonIndex: number): Promise<void> {
         const button = this.getFormattingButton(buttonIndex);
@@ -90,7 +83,7 @@ export class RichTextEditorPageObject {
 
     /**
      * To retrieve the checked state of the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
     public getButtonCheckedState(buttonIndex: number): boolean {
         const button = this.getFormattingButton(buttonIndex);
@@ -99,7 +92,7 @@ export class RichTextEditorPageObject {
 
     /**
      * To retrieve the tab index of the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
     public getButtonTabIndex(buttonIndex: number): number {
         const button = this.getFormattingButton(buttonIndex);
@@ -108,7 +101,7 @@ export class RichTextEditorPageObject {
 
     /**
      * To trigger a space key press for the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
     public spaceKeyActivatesButton(buttonIndex: number): void {
         const button = this.getFormattingButton(buttonIndex)!;
@@ -120,7 +113,7 @@ export class RichTextEditorPageObject {
 
     /**
      * To trigger a enter key press for the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `BUTTON_INDEX` object.
+     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
      */
     public enterKeyActivatesButton(buttonIndex: number): void {
         const button = this.getFormattingButton(buttonIndex)!;

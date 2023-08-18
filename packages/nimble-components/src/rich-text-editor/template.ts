@@ -20,6 +20,7 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
+                        title="Bold"
                         @click=${x => x.boldButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.boldButtonKeyDown(c.event as KeyboardEvent)}
@@ -32,6 +33,7 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
+                        title="Italics"
                         @click=${x => x.italicsButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.italicsButtonKeyDown(c.event as KeyboardEvent)}
@@ -44,6 +46,7 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
+                        title="Bullet List"
                         @click=${x => x.bulletListButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.bulletListButtonKeyDown(c.event as KeyboardEvent)}
@@ -56,6 +59,7 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
+                        title="Numbered List"
                         @click=${x => x.numberedListButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.numberedListButtonKeyDown(c.event as KeyboardEvent)}
