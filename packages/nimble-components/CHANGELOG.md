@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 17 Aug 2023 00:10:58 GMT and should not be manually modified.
+This log was last generated on Fri, 18 Aug 2023 11:34:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.11
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Initial component bring up by integrating tiptap editor along with the footer formatting options ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
+
+## 20.1.10
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Initial implementation of nimble-table-column-number-text ([ni/nimble@270d7fe](https://github.com/ni/nimble/commit/270d7fe2085569c0dad6deee75160c774f6c3ecc))
 
 ## 20.1.9
 

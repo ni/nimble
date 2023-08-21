@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 17 Aug 2023 00:10:58 GMT and should not be manually modified.
+This log was last generated on Mon, 21 Aug 2023 21:38:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.5
+
+Mon, 21 Aug 2023 21:38:56 GMT
+
+### Patches
+
+- Fully import date-text column types before exporting them ([ni/nimble@2a73240](https://github.com/ni/nimble/commit/2a73240f77e6c45cb0de13c5db4482bdc881d3ba))
+
+## 17.1.4
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.11
+
+## 17.1.3
+
+Thu, 17 Aug 2023 22:37:05 GMT
+
+### Patches
+
+- Export date-text column enums fully ([ni/nimble@cf03fa3](https://github.com/ni/nimble/commit/cf03fa396190d1f6f28be670ed532018d5641d39))
+
+## 17.1.2
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.10
 
 ## 17.1.1
 

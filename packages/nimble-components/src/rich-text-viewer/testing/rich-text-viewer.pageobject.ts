@@ -31,6 +31,31 @@ export class RichTextViewerPageObject {
     }
 
     /**
+     * @returns An array of tag names with the closing tags (eg: '/P') in a document order
+     */
+    public getRenderedMarkdownTagNamesWithClosingTags(): string[] {
+        const tagNames: string[] = [];
+        const renderedElement = this.getMarkdownRenderedElement();
+
+        const processNode = (node: Node): void => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                const el = node as Element;
+                tagNames.push(el.tagName);
+
+                el.childNodes.forEach(processNode);
+
+                tagNames.push(`/${el.tagName}`);
+            }
+        };
+
+        if (renderedElement) {
+            processNode(renderedElement);
+        }
+
+        return tagNames.slice(1, -1);
+    }
+
+    /**
      * Retrieves text contents for the rendered markdown content in document order
      * @returns An array of text contents of last elements in a tree
      */
