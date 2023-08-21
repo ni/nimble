@@ -42,6 +42,7 @@ import './tab';
 import './tab-panel';
 import './table';
 import './table-column/anchor';
+import './table-column/date-text';
 import './table-column/enum-text';
 import './table-column/icon';
 import './table-column/text';
