@@ -1,8 +1,122 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 03 Aug 2023 22:50:39 GMT and should not be manually modified.
+This log was last generated on Mon, 21 Aug 2023 22:42:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.6
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.12
+
+## 17.1.5
+
+Mon, 21 Aug 2023 21:38:56 GMT
+
+### Patches
+
+- Fully import date-text column types before exporting them ([ni/nimble@2a73240](https://github.com/ni/nimble/commit/2a73240f77e6c45cb0de13c5db4482bdc881d3ba))
+
+## 17.1.4
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.11
+
+## 17.1.3
+
+Thu, 17 Aug 2023 22:37:05 GMT
+
+### Patches
+
+- Export date-text column enums fully ([ni/nimble@cf03fa3](https://github.com/ni/nimble/commit/cf03fa396190d1f6f28be670ed532018d5641d39))
+
+## 17.1.2
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.10
+
+## 17.1.1
+
+Thu, 17 Aug 2023 00:10:58 GMT
+
+### Patches
+
+- Add support for date-text table column ([ni/nimble@d2ca08c](https://github.com/ni/nimble/commit/d2ca08cd621c10c0c8dbb13c4cc01c930d29392e))
+- Bump @ni/nimble-components to v20.1.9
+
+## 17.1.0
+
+Wed, 16 Aug 2023 18:45:15 GMT
+
+### Minor changes
+
+- enable reading the component value using the combobox directive ([ni/nimble@501e91b](https://github.com/ni/nimble/commit/501e91b66bc55a27c9acd7958fb3ab1545353dc0))
+
+## 17.0.17
+
+Tue, 15 Aug 2023 16:05:54 GMT
+
+### Patches
+
+- Improve typing for cell view ([ni/nimble@4fbf1bc](https://github.com/ni/nimble/commit/4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d))
+- Bump @ni/nimble-components to v20.1.8
+
+## 17.0.16
+
+Mon, 14 Aug 2023 16:14:55 GMT
+
+### Patches
+
+- Angular support for enum-text table column ([ni/nimble@a8e29e5](https://github.com/ni/nimble/commit/a8e29e5042ddb9ad9258b09c4844f5c360844628))
+
+## 17.0.15
+
+Mon, 14 Aug 2023 14:35:00 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.7
+
+## 17.0.14
+
+Sat, 12 Aug 2023 08:35:41 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.6
+
+## 17.0.13
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.5
+
+## 17.0.12
+
+Fri, 11 Aug 2023 15:22:19 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.4
+
+## 17.0.10
+
+Mon, 07 Aug 2023 22:54:53 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.3
 
 ## 17.0.9
 

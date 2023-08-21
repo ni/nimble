@@ -93,7 +93,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
     customHour: HourFormat;
     customMinute: MinuteFormat;
     customSecond: SecondFormat;
-    customHour12: boolean;
+    customHour12?: boolean;
     customHourCycle: HourCycleFormat;
     customTimeZoneName: TimeZoneNameFormat;
     customTimeZone?: string;
@@ -149,7 +149,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
                 custom-hour="${x => x.customHour}"
                 custom-minute="${x => x.customMinute}"
                 custom-second="${x => x.customSecond}"
-                ?custom-hour12="${x => x.customHour12}"
+                custom-hour12="${x => x.customHour12}"
                 custom-hour-cycle="${x => x.customHourCycle}"
                 custom-time-zone-name="${x => x.customTimeZoneName}"
                 custom-time-zone="${x => x.customTimeZone}"
@@ -256,7 +256,9 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
         customHour12: {
             name: 'custom-hour12',
             description:
-                'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).'
+                'Refer to the option [documentation for the `Intl.DateTimeFormat()` constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat).',
+            options: [undefined, true, false],
+            control: { type: 'radio' }
         },
         customHourCycle: {
             name: 'custom-hour-cycle',
@@ -357,7 +359,7 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
         customHour: undefined,
         customMinute: undefined,
         customSecond: undefined,
-        customHour12: false,
+        customHour12: undefined,
         customHourCycle: undefined,
         customTimeZoneName: undefined,
         customTimeZone: undefined,

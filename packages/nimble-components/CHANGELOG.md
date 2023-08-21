@@ -1,8 +1,88 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 03 Aug 2023 22:50:39 GMT and should not be manually modified.
+This log was last generated on Mon, 21 Aug 2023 22:42:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.12
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Export date-text column from all-components ([ni/nimble@0ab6b4f](https://github.com/ni/nimble/commit/0ab6b4f5df8d01f6734c824d65e62e3c88546000))
+
+## 20.1.11
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Initial component bring up by integrating tiptap editor along with the footer formatting options ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
+
+## 20.1.10
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Initial implementation of nimble-table-column-number-text ([ni/nimble@270d7fe](https://github.com/ni/nimble/commit/270d7fe2085569c0dad6deee75160c774f6c3ecc))
+
+## 20.1.9
+
+Thu, 17 Aug 2023 00:10:58 GMT
+
+### Patches
+
+- Allow date-text column customHour12 to be undefined ([ni/nimble@d2ca08c](https://github.com/ni/nimble/commit/d2ca08cd621c10c0c8dbb13c4cc01c930d29392e))
+
+## 20.1.8
+
+Tue, 15 Aug 2023 16:05:54 GMT
+
+### Patches
+
+- Improve typing for cell view ([ni/nimble@4fbf1bc](https://github.com/ni/nimble/commit/4fbf1bcf9644d9cf515ac4032c2bffb6e10b937d))
+
+## 20.1.7
+
+Mon, 14 Aug 2023 14:35:00 GMT
+
+### Patches
+
+- Updated the default height of the component ([ni/nimble@e70768b](https://github.com/ni/nimble/commit/e70768bd1d42364f51a5e486be771e4c84b132d4))
+
+## 20.1.6
+
+Sat, 12 Aug 2023 08:35:41 GMT
+
+### Patches
+
+- New render update and canvas die filtering for the wafer map component ([ni/nimble@96f22af](https://github.com/ni/nimble/commit/96f22af9a8f8eeddc995237e06cb8622eea436b2))
+
+## 20.1.5
+
+Fri, 11 Aug 2023 22:00:19 GMT
+
+### Patches
+
+- Update dependency on fast-foundation ([ni/nimble@ffc6db5](https://github.com/ni/nimble/commit/ffc6db59108c21570fdca623ecd566313b09c595))
+
+## 20.1.4
+
+Fri, 11 Aug 2023 15:22:19 GMT
+
+### Patches
+
+- Set both aria-current and aria-selected on anchor tabs ([ni/nimble@511d982](https://github.com/ni/nimble/commit/511d982f0eedb7b2db4cf937d850d02720caa3c3))
+
+## 20.1.3
+
+Mon, 07 Aug 2023 22:54:53 GMT
+
+### Patches
+
+- Show url of focused anchor tab at bottom of page ([ni/nimble@48d64be](https://github.com/ni/nimble/commit/48d64be4f2beca10d2643c621970f88d34d5c5c6))
 
 ## 20.1.2
 

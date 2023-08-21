@@ -126,7 +126,11 @@ export class AnchorTabs extends FoundationElement {
             }
             const isTabStop = this.activeid === tabId && this.isFocusableElement(tab);
             tab.setAttribute('id', tabId);
-            tab.setAttribute('aria-selected', isActiveTab ? 'true' : 'false');
+            if (isActiveTab) {
+                tab.setAttribute('aria-current', 'page');
+            } else {
+                tab.removeAttribute('aria-current');
+            }
             tab.removeEventListener('click', this.handleTabClick);
             tab.addEventListener('click', this.handleTabClick);
             tab.removeEventListener('keydown', this.handleTabKeyDown);
@@ -268,6 +272,10 @@ export class AnchorTabs extends FoundationElement {
 
         this.tabs.forEach((tab: HTMLElement) => {
             tab.setAttribute('tabindex', tab === focusedTab ? '0' : '-1');
+            tab.setAttribute(
+                'aria-selected',
+                tab === focusedTab ? 'true' : 'false'
+            );
         });
     };
 

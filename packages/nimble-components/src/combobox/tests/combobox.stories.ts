@@ -32,14 +32,13 @@ interface OptionArgs {
 
 const metadata: Meta<ComboboxArgs> = {
     title: 'Components/Combobox',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {
             description: {
-                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area.
-                     The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
-                     list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
+                component: `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), a combobox is an input widget that has an associated popup. The popup enables users to choose a value for the input from a collection.
+                The \`nimble-combobox\` provides 'autocomplete' options that can help a user find and select a particular value. Unlike with the \`nimble-select\` component, the \`nimble-combobox\` allows the user to enter
+                arbitrary values in the input area, not just those that exist as autocomplete options.`
             }
         },
         actions: {
