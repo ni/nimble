@@ -77,32 +77,34 @@ describe('TableColumnIcon', () => {
         ).toBeInstanceOf(TableColumnIcon);
     });
 
-    const dataTypeTests = [
-        { name: 'string', key: 'a' },
-        { name: 'number', key: 10 },
-        { name: 'boolean', key: true }
-    ];
-    const focused: string[] = [];
-    const disabled: string[] = [];
-    for (const test of dataTypeTests) {
-        const specType = getSpecTypeByNamedList(test, focused, disabled);
-        // eslint-disable-next-line @typescript-eslint/no-loop-func
-        specType(`displays icon mapped from ${test.name}`, async () => {
-            ({ element, connect, disconnect, model } = await setup(
-                [{ key: test.key, text: 'alpha', icon: iconXmarkTag }],
-                test.name
-            ));
-            pageObject = new TablePageObject<SimpleTableRecord>(element);
-            await element.setData([{ field1: test.key }]);
-            await connect();
-            await waitForUpdatesAsync();
+    describe('various key types', () => {
+        const dataTypeTests = [
+            { name: 'string', key: 'a' },
+            { name: 'number', key: 10 },
+            { name: 'boolean', key: true }
+        ];
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const test of dataTypeTests) {
+            const specType = getSpecTypeByNamedList(test, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`displays icon mapped from ${test.name}`, async () => {
+                ({ element, connect, disconnect, model } = await setup(
+                    [{ key: test.key, text: 'alpha', icon: iconXmarkTag }],
+                    test.name
+                ));
+                pageObject = new TablePageObject<SimpleTableRecord>(element);
+                await element.setData([{ field1: test.key }]);
+                await connect();
+                await waitForUpdatesAsync();
 
-            expect(
-                pageObject.getRenderedIconColumnCellIcon(0, 0)
-                    instanceof IconXmark
-            ).toBeTrue();
-        });
-    }
+                expect(
+                    pageObject.getRenderedIconColumnCellIcon(0, 0)
+                        instanceof IconXmark
+                ).toBeTrue();
+            });
+        }
+    });
 
     it('displays blank when no matches', async () => {
         ({ element, connect, disconnect, model } = await setup([
