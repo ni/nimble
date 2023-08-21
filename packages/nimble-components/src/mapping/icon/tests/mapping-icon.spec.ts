@@ -6,11 +6,11 @@ import {
     type Fixture
 } from '../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import { registerIcon } from '../../../icon-base';
-import { IconXmark } from '../../../icons/xmark';
+import { Icon, registerIcon } from '../../../icon-base';
 
 describe('Icon Mapping', () => {
     const testIconElementName = uniqueElementName();
+    class TestIcon extends Icon {}
 
     let element: MappingIcon;
     let connect: () => Promise<void>;
@@ -43,7 +43,7 @@ describe('Icon Mapping', () => {
 
         expect(element.resolvedIcon).toBeUndefined();
 
-        registerIcon(testIconElementName, IconXmark);
+        registerIcon(testIconElementName, TestIcon);
         await waitForUpdatesAsync();
 
         expect(element.resolvedIcon).toBeDefined();
