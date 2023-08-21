@@ -14,6 +14,14 @@ interface RichTextEditorArgs {
     getMarkdown: undefined;
     editorRef: RichTextEditor;
     setMarkdownData: (args: RichTextEditorArgs) => void;
+    disabled: boolean;
+    footerHidden: boolean;
+    fitToContent: boolean;
+    errorVisible: boolean;
+    errorText: string;
+    input: unknown;
+    empty: unknown;
+    placeholder: string;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -50,6 +58,16 @@ Note: The content in the \`footer-actions\` slot will not adjust based on the st
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
 client application must implement that functionality.
 `;
+const fitToContentDescription = `Setting \`fit-to-content\` allows the editor to grow vertically to fit the content instead of enabling the
+vertical scrollbar when it reaches the certain height.
+
+To observe the changes when toggling, add more than five lines in the editor; this will enable the vertical scrollbar to view the hidden content.
+If the \`fit-to-content\` option is enabled, the editor will grow vertically to accommodate the content, instead of displaying the vertical scrollbar.`;
+const inputEventDescription = `This event is fired when there is a change in the content of the editor.
+
+The client can utilize this event to execute various functionalities for every input to the editor. For instance, it can be utilized to assess
+whether the editor is empty by utilizing the \`empty\` read-only property with each input, and subsequently disabling a button if the editor is
+indeed empty.`;
 
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
@@ -70,6 +88,12 @@ const metadata: Meta<RichTextEditorArgs> = {
     <${richTextEditorTag}
         ${ref('editorRef')}
         data-unused="${x => x.setMarkdownData(x)}"
+        ?disabled="${x => x.disabled}"
+        ?footer-hidden="${x => x.footerHidden}"
+        ?fit-to-content="${x => x.fitToContent}"
+        ?error-visible="${x => x.errorVisible}"
+        error-text="${x => x.errorText}"
+        placeholder="${x => x.placeholder}"
     >
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
@@ -103,11 +127,47 @@ const metadata: Meta<RichTextEditorArgs> = {
         },
         setMarkdownData: {
             table: { disable: true }
+        },
+        errorVisible: {
+            description:
+                'Whether the editor should be styled to indicate that it is in an invalid state.'
+        },
+        errorText: {
+            description:
+                'A message to be displayed when the editor is in the invalid state explaining why the value is invalid.'
+        },
+        placeholder: {
+            description:
+                'Placeholder text to show it in the editor when it is empty.'
+        },
+        footerHidden: {
+            description:
+                'Setting `footer-hidden` hides the footer section which consists of all formatting option buttons and the `footer-actions` slot content.'
+        },
+        fitToContent: {
+            description: fitToContentDescription
+        },
+        empty: {
+            name: 'empty',
+            description:
+                'Ready only boolean value returns true if the editor is empty.',
+            control: false
+        },
+        input: {
+            name: 'input',
+            description: inputEventDescription,
+            control: false
         }
     },
     args: {
         data: exampleDataType.plainString,
         footerActionButtons: false,
+        disabled: false,
+        footerHidden: false,
+        fitToContent: false,
+        errorVisible: false,
+        errorText: 'Value is invalid',
+        placeholder: 'Placeholder',
         editorRef: undefined,
         setMarkdownData: x => {
             void (async () => {

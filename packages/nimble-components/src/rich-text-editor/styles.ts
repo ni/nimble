@@ -1,17 +1,25 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
     borderHoverColor,
     borderRgbPartialColor,
     borderWidth,
+    controlLabelFontColor,
+    controlLabelDisabledFontColor,
+    failColor,
+    iconSize,
     smallDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
+import { userSelectNone } from '../utilities/style/user-select';
+import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -22,6 +30,7 @@ export const styles = css`
             ${borderWidth} + 1px
         );
         --ni-private-rich-text-editor-footer-section-height: 40px;
+        --ni-private-rich-text-editor-editor-minimum-height: 32px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
@@ -64,6 +73,25 @@ export const styles = css`
         width: 100%;
     }
 
+    :host([disabled]) *,
+    :host([disabled]) {
+        ${userSelectNone}
+        color: ${bodyDisabledFontColor};
+    }
+
+    :host([disabled]) .container,
+    :host([disabled]) .container::after {
+        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
+    }
+
+    :host([disabled]:hover) .container::after {
+        width: 0px;
+    }
+
+    :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${controlLabelDisabledFontColor};
+    }
+
     .editor {
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
@@ -84,7 +112,7 @@ export const styles = css`
              * However, max height will be `fit-content` when the `fit-to-content` attribute for the editor component is implemented.
              */ ''
         }
-        min-height: 32px;
+        min-height: var(--ni-private-rich-text-editor-editor-minimum-height);
         max-height: 132px;
         height: 100%;
         border: ${borderWidth} solid transparent;
@@ -92,6 +120,10 @@ export const styles = css`
         background-color: transparent;
         font: inherit;
         padding: 8px;
+        ${
+            /* This padding ensures that showing/hiding the error icon doesn't affect text layout */ ''
+        }
+        padding-right: calc(${iconSize});
         box-sizing: border-box;
         position: relative;
         color: inherit;
@@ -146,6 +178,29 @@ export const styles = css`
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-rich-text-editor-footer-section-height);
         overflow: hidden;
+        visibility: visible;
+    }
+
+    :host([footer-hidden]) .footer-section {
+        visibility: hidden;
+        height: 0px;
+    }
+
+    :host([footer-hidden]) .ProseMirror {
+        ${
+            /**
+             * Minimum height is the combination of existing minimum height of the tiptap div, footer height and extra padding added to the tiptap div.
+             * With this calculation, the editor will extend to use the footer height when it is hidden.
+             *
+             * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
+             * and the footer will smoothly appear within the editor.
+             */ ''
+        }
+        min-height: calc(var(--ni-private-rich-text-editor-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height) + 4px);
+    }
+
+    :host([fit-to-content]) .ProseMirror {
+        max-height: fit-content;
     }
 
     nimble-toolbar::part(positioning-region) {
@@ -163,5 +218,33 @@ export const styles = css`
         margin-inline-end: ${standardPadding};
         gap: ${standardPadding};
         place-items: center;
+    }
+
+    .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${controlLabelFontColor};
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
+        word-break: break-all;
+    }
+
+    :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+        display: inline-flex;
+        position: absolute;
+        top: calc(${standardPadding} / 2);
+        right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
 `;

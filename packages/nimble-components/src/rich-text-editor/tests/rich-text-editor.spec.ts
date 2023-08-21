@@ -7,6 +7,8 @@ import { wackyStrings } from '../../utilities/tests/wacky-strings';
 import type { Button } from '../../button';
 import type { ToggleButton } from '../../toggle-button';
 import { ToolbarButton } from '../testing/types';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { createEventListener } from '../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -61,6 +63,12 @@ describe('RichTextEditor', () => {
         const editor = element.shadowRoot?.querySelector('.editor');
 
         expect(editor!.getAttribute('aria-multiline')).toBe('true');
+    });
+
+    it('should set aria-label to "Rich Text Editor"', () => {
+        const editor = element.shadowRoot?.querySelector('.editor');
+
+        expect(editor!.getAttribute('aria-label')).toBe('Rich Text Editor');
     });
 
     it('should have either one of the list buttons checked at the same time on click', async () => {
@@ -1301,5 +1309,167 @@ describe('RichTextEditor', () => {
                 }
             );
         }
+    });
+
+    describe('disabled state', () => {
+        beforeEach(async () => {
+            await waitForUpdatesAsync();
+        });
+
+        it('should reflect disabled value to the aria-disabled of the element', async () => {
+            expect(element.getAttribute('aria-disabled')).toBe('false');
+
+            await pageObject.setDisabledState();
+
+            expect(element.getAttribute('aria-disabled')).toBe('true');
+        });
+
+        it('should reflect disabled value to the aria-disabled of editor-section', async () => {
+            const editor = element.shadowRoot?.querySelector('.editor');
+            expect(editor!.getAttribute('aria-disabled')).toBe('false');
+
+            await pageObject.setDisabledState();
+
+            expect(editor!.getAttribute('aria-disabled')).toBe('true');
+        });
+
+        it('should reflect disabled value to the "contenteditable" attribute of tiptap editor', async () => {
+            const editor = element.shadowRoot?.querySelector('.ProseMirror');
+            expect(editor!.getAttribute('contenteditable')).toBe('true');
+
+            await pageObject.setDisabledState();
+
+            expect(editor!.getAttribute('contenteditable')).toBe('false');
+        });
+
+        it('should reflect disabled value to the disabled and aria-disabled state of toolbar', async () => {
+            const toolbar = element.shadowRoot?.querySelector('nimble-toolbar');
+            expect(toolbar!.hasAttribute('disabled')).toBeFalse();
+            expect(toolbar!.getAttribute('aria-disabled')).toBe('false');
+
+            await pageObject.setDisabledState();
+
+            expect(toolbar!.hasAttribute('disabled')).toBeTrue();
+            expect(toolbar!.getAttribute('aria-disabled')).toBe('true');
+        });
+
+        describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
+            const focused: string[] = [];
+            const disabled: string[] = [];
+            for (const value of formattingButtons) {
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                specType(
+                    `for "${value.name}" button`,
+                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+                    async () => {
+                        expect(
+                            pageObject.hasButtonDisabled(
+                                value.toolbarButtonIndex
+                            )
+                        ).toBeFalse();
+                        expect(
+                            pageObject.getButtonAriaDisabledValue(
+                                value.toolbarButtonIndex
+                            )
+                        ).toBe('false');
+
+                        await pageObject.setDisabledState();
+
+                        expect(
+                            pageObject.hasButtonDisabled(
+                                value.toolbarButtonIndex
+                            )
+                        ).toBeTrue();
+                        expect(
+                            pageObject.getButtonAriaDisabledValue(
+                                value.toolbarButtonIndex
+                            )
+                        ).toBe('true');
+                    }
+                );
+            }
+        });
+    });
+
+    it('should have footer section hidden when footer-hidden enabled', async () => {
+        expect(pageObject.isFooterVisible()).toBeTrue();
+
+        await pageObject.setFooterHiddenAttribute();
+
+        expect(pageObject.isFooterVisible()).toBeFalse();
+        expect(pageObject.getFooterHeight()).toBe('0px');
+    });
+
+    it('should fire "input" event when there is an input to the editor', async () => {
+        const inputEventListener = createEventListener(element, 'input');
+
+        await pageObject.setEditorTextContent('input');
+        await inputEventListener.promise;
+
+        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fire "input" event when setting the content through "setMarkdown"', async () => {
+        const inputEventListener = createEventListener(element, 'input');
+
+        element.setMarkdown('input');
+        await inputEventListener.promise;
+
+        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fire "input" event when the text is updated/removed from the editor', async () => {
+        const inputEventListener = createEventListener(element, 'input');
+
+        await pageObject.setEditorTextContent('update');
+        await inputEventListener.promise;
+
+        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+
+        await pageObject.setEditorTextContent('');
+        await inputEventListener.promise;
+
+        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should initialize "empty" to true and false when there is a content', async () => {
+        expect(element.empty).toBeTrue();
+
+        await pageObject.setEditorTextContent('not empty');
+        expect(element.empty).toBeFalse();
+
+        await pageObject.setEditorTextContent('');
+        expect(element.empty).toBeTrue();
+    });
+
+    it('should "empty" return true when the content is loaded with "setMarkdown"', () => {
+        expect(element.empty).toBeTrue();
+
+        element.setMarkdown('not empty');
+        expect(element.empty).toBeFalse();
+
+        element.setMarkdown('');
+        expect(element.empty).toBeTrue();
+    });
+
+    it('should "empty" return true if there is only a whitespace', async () => {
+        expect(element.empty).toBeTrue();
+
+        await pageObject.setEditorTextContent('       ');
+        expect(element.empty).toBeTrue();
+
+        element.setMarkdown('  ');
+        expect(element.empty).toBeTrue();
+    });
+
+    it('should reflect the "placeholder" value to its internal attribute', () => {
+        element.placeholder = 'Placeholder text';
+
+        expect(pageObject.getDataPlaceholderValue()).toBe('Placeholder text');
     });
 });

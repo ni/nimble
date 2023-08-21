@@ -1,7 +1,7 @@
-import { observable } from '@microsoft/fast-element';
+import { observable, attr, DOM } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor } from '@tiptap/core';
+import { Editor, Extension } from '@tiptap/core';
 import {
     schema,
     defaultMarkdownParser,
@@ -19,10 +19,13 @@ import Italic from '@tiptap/extension-italic';
 import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
+import Placeholder from '@tiptap/extension-placeholder';
+import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
+import type { ErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -33,7 +36,66 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends FoundationElement {
+export class RichTextEditor extends FoundationElement implements ErrorPattern {
+    /**
+     * @public
+     * HTML Attribute: disabled
+     */
+    @attr({ attribute: 'disabled', mode: 'boolean' })
+    public disabled = false;
+
+    /**
+     * Whether to hide the footer of the rich text editor
+     *
+     * @public
+     * HTML Attribute: footer-hidden
+     */
+    @attr({ attribute: 'footer-hidden', mode: 'boolean' })
+    public footerHidden = false;
+
+    /**
+     * Whether to grow the editor vertically to fit the content
+     *
+     * @public
+     * HTML Attribute: fit-to-content
+     */
+    @attr({ attribute: 'fit-to-content', mode: 'boolean' })
+    public fitToContent = false;
+
+    /**
+     * Whether to display the error state.
+     *
+     * @public
+     * HTML Attribute: error-visible
+     */
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
+
+    /**
+     * A message explaining why the value is invalid.
+     *
+     * @public
+     * HTML Attribute: error-text
+     */
+    @attr({ attribute: 'error-text' })
+    public errorText?: string;
+
+    /**
+     * @public
+     * HTML Attribute: placeholder
+     */
+    @attr({ attribute: 'placeholder' })
+    public placeholder = '';
+
+    /**
+     * True if the editor is empty, false otherwise
+     *
+     * @public
+     */
+    public get empty(): boolean {
+        return this.tiptapEditor.state.doc.textContent.trim().length === 0;
+    }
+
     /**
      * @internal
      */
@@ -59,12 +121,21 @@ export class RichTextEditor extends FoundationElement {
     public numberedListButton!: ToggleButton;
 
     /**
+     * The width of the vertical scrollbar, if displayed.
+     * @internal
+     */
+    @observable
+    public scrollbarWidth = -1;
+
+    /**
      * @internal
      */
     public editorContainer!: HTMLDivElement;
 
     private tiptapEditor!: Editor;
     private editor!: HTMLDivElement;
+    private resizeObserver?: ResizeObserver;
+    private updateScrollbarWidthQueued = false;
 
     private readonly markdownParser = this.initializeMarkdownParser();
     private readonly markdownSerializer = this.initializeMarkdownSerializer();
@@ -85,6 +156,9 @@ export class RichTextEditor extends FoundationElement {
             this.editorContainer.append(this.editor);
         }
         this.bindEditorTransactionEvent();
+        this.resizeObserver = new ResizeObserver(() => this.onResize());
+        this.resizeObserver.observe(this);
+        this.bindEditorUpdateEvent();
     }
 
     /**
@@ -93,6 +167,39 @@ export class RichTextEditor extends FoundationElement {
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.unbindEditorTransactionEvent();
+        this.unbindEditorUpdateEvent();
+        this.resizeObserver?.disconnect();
+    }
+
+    /**
+     * @internal
+     */
+    public disabledChanged(): void {
+        if (this.tiptapEditor) {
+            this.tiptapEditor.setEditable(!this.disabled);
+            this.editor.setAttribute(
+                'aria-disabled',
+                this.disabled ? 'true' : 'false'
+            );
+        }
+    }
+
+    /**
+     * Update the placeholder text and view of the editor.
+     * @internal
+     */
+    public placeholderChanged(): void {
+        if (this.tiptapEditor) {
+            const placeholderExtension: Extension<PlaceholderOptions> = this.tiptapEditor.extensionManager.extensions.filter(
+                extension => {
+                    return extension.name === 'placeholder';
+                }
+            )[0] as Extension<PlaceholderOptions>;
+            placeholderExtension.options.placeholder = this.placeholder;
+            this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
+
+            this.queueUpdateScrollbarWidth();
+        }
     }
 
     /**
@@ -181,7 +288,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
-        this.tiptapEditor.commands.setContent(html);
+        this.tiptapEditor.commands.setContent(html, true);
     }
 
     /**
@@ -298,6 +405,8 @@ export class RichTextEditor extends FoundationElement {
         this.editor.className = 'editor';
         this.editor.setAttribute('aria-multiline', 'true');
         this.editor.setAttribute('role', 'textbox');
+        this.editor.setAttribute('aria-disabled', 'false');
+        this.editor.setAttribute('aria-label', 'Rich Text Editor');
 
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -315,7 +424,11 @@ export class RichTextEditor extends FoundationElement {
                 ListItem,
                 Bold,
                 Italic,
-                History
+                History,
+                Placeholder.configure({
+                    placeholder: this.placeholder,
+                    showOnlyWhenEditable: false
+                })
             ]
         });
     }
@@ -350,6 +463,41 @@ export class RichTextEditor extends FoundationElement {
             default:
                 return false;
         }
+    }
+
+    private unbindEditorUpdateEvent(): void {
+        this.tiptapEditor.off('update');
+    }
+
+    /**
+     * input event is fired when there is a change in the content of the editor.
+     *
+     * https://tiptap.dev/api/events#update
+     */
+    private bindEditorUpdateEvent(): void {
+        this.tiptapEditor.on('update', () => {
+            this.$emit('input');
+            this.queueUpdateScrollbarWidth();
+        });
+    }
+
+    private queueUpdateScrollbarWidth(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.updateScrollbarWidthQueued) {
+            this.updateScrollbarWidthQueued = true;
+            DOM.queueUpdate(() => this.updateScrollbarWidth());
+        }
+    }
+
+    private updateScrollbarWidth(): void {
+        this.updateScrollbarWidthQueued = false;
+        this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
+    }
+
+    private onResize(): void {
+        this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
     }
 }
 
