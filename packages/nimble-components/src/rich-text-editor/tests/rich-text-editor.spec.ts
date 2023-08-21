@@ -1303,3 +1303,44 @@ describe('RichTextEditor', () => {
         }
     });
 });
+
+describe('RichTextEditor Before DOM Connection', () => {
+    let element: RichTextEditor;
+    let connect: () => Promise<void>;
+    let disconnect: () => Promise<void>;
+    let pageObject: RichTextEditorPageObject;
+
+    beforeEach(async () => {
+        ({ element, connect, disconnect } = await setup());
+    });
+
+    it('Should return respective markdown when combination of all supported markdown string is assigned before the dom is connected to element', async () => {
+        element.setMarkdown(
+            '1. ***Numbered list with bold and italics***\n\n* ___Bulleted list with bold and italics___'
+        );
+        expect(element.isConnected).toBeFalsy();
+        await connect();
+        expect(element.isConnected).toBeTruthy();
+        pageObject = new RichTextEditorPageObject(element);
+        expect(pageObject.getEditorTagNames()).toEqual([
+            'OL',
+            'LI',
+            'P',
+            'STRONG',
+            'EM',
+            'UL',
+            'LI',
+            'P',
+            'STRONG',
+            'EM'
+        ]);
+        expect(pageObject.getEditorLeafContents()).toEqual([
+            'Numbered list with bold and italics',
+            'Bulleted list with bold and italics'
+        ]);
+        expect(element.getMarkdown()).toBe(
+            '1. ***Numbered list with bold and italics***\n\n* ***Bulleted list with bold and italics***'
+        );
+        await disconnect();
+    });
+});
