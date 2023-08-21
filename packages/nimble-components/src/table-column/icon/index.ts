@@ -9,34 +9,36 @@ import { template } from '../enum-base/template';
 import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { mixinGroupableColumnAPI } from '../mixins/groupable-column';
 import { mixinFractionalWidthColumnAPI } from '../mixins/fractional-width-column';
-import { MappingText } from '../../mapping/text';
-import { TableColumnEnumTextValidator } from './models/table-column-enum-text-validator';
+import { MappingSpinner } from '../../mapping/spinner';
+import { MappingIcon } from '../../mapping/icon';
+import { TableColumnIconValidator } from './models/table-column-icon-validator';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import { tableColumnEnumTextCellViewTag } from './cell-view';
-import { tableColumnEnumTextGroupHeaderViewTag } from './group-header-view';
+import { tableColumnIconGroupHeaderViewTag } from './group-header-view';
+import { tableColumnIconCellViewTag } from './cell-view';
 import type { Mapping } from '../../mapping/base';
 import type { MappingConfig } from '../enum-base/models/mapping-config';
-import { MappingTextConfig } from '../enum-base/models/mapping-text-config';
+import { MappingIconConfig } from '../enum-base/models/mapping-icon-config';
+import { MappingSpinnerConfig } from '../enum-base/models/mapping-spinner-config';
 
 declare global {
     interface HTMLElementTagNameMap {
-        'nimble-table-column-enum-text': TableColumnEnumText;
+        'nimble-table-column-icon': TableColumnIcon;
     }
 }
 
 /**
- * Table column that maps values to strings
+ * Table column that maps values to icons / spinners
  */
-export class TableColumnEnumText extends mixinGroupableColumnAPI(
+export class TableColumnIcon extends mixinGroupableColumnAPI(
     mixinFractionalWidthColumnAPI(
         TableColumnEnumBase<
         TableColumnEnumColumnConfig,
-        TableColumnEnumTextValidator
+        TableColumnIconValidator
         >
     )
 ) {
-    public override createValidator(): TableColumnEnumTextValidator {
-        return new TableColumnEnumTextValidator(this.columnInternals);
+    public override createValidator(): TableColumnIconValidator {
+        return new TableColumnIconValidator(this.columnInternals);
     }
 
     public override get validity(): TableColumnValidity {
@@ -46,8 +48,8 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
         return {
             cellRecordFieldNames: ['value'],
-            cellViewTag: tableColumnEnumTextCellViewTag,
-            groupHeaderViewTag: tableColumnEnumTextGroupHeaderViewTag,
+            cellViewTag: tableColumnIconCellViewTag,
+            groupHeaderViewTag: tableColumnIconGroupHeaderViewTag,
             delegatedEvents: [],
             sortOperation: TableColumnSortOperation.basic
         };
@@ -62,8 +64,18 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     }
 
     protected createMappingConfig(mapping: Mapping): MappingConfig {
-        if (mapping instanceof MappingText) {
-            return new MappingTextConfig(mapping.text);
+        if (mapping instanceof MappingIcon) {
+            if (!mapping.resolvedIcon) {
+                throw Error('Unresolved icon');
+            }
+            return new MappingIconConfig(
+                mapping.resolvedIcon,
+                mapping.severity,
+                mapping.text
+            );
+        }
+        if (mapping instanceof MappingSpinner) {
+            return new MappingSpinnerConfig(mapping.text);
         }
         // Getting here would indicate a programming error, b/c validation will prevent
         // this function from running when there is an unsupported mapping.
@@ -71,13 +83,13 @@ export class TableColumnEnumText extends mixinGroupableColumnAPI(
     }
 }
 
-const nimbleTableColumnEnumText = TableColumnEnumText.compose({
-    baseName: 'table-column-enum-text',
+const nimbleTableColumnIcon = TableColumnIcon.compose({
+    baseName: 'table-column-icon',
     template,
     styles
 });
 
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
-    .register(nimbleTableColumnEnumText());
-export const tableColumnEnumTextTag = DesignSystem.tagFor(TableColumnEnumText);
+    .register(nimbleTableColumnIcon());
+export const tableColumnIconTag = DesignSystem.tagFor(TableColumnIcon);

@@ -5,49 +5,57 @@ import {
     incubatingWarning
 } from '../../../utilities/tests/storybook';
 import { tableTag } from '../../../table';
-import { tableColumnEnumTextTag } from '..';
+import { tableColumnIconTag } from '..';
 import {
     SharedTableArgs,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
+import { iconXmarkTag } from '../../../icons/xmark';
 import { tableColumnTextTag } from '../../text';
-import { mappingTextTag } from '../../../mapping/text';
+import { iconCheckLargeTag } from '../../../icons/check-large';
+import { mappingIconTag } from '../../../mapping/icon';
+import { mappingSpinnerTag } from '../../../mapping/spinner';
 import { sharedMappingValidityDescription } from '../../enum-base/tests/shared-storybook-docs';
+import { isChromatic } from '../../../utilities/tests/isChromatic';
 
 const simpleData = [
     {
         firstName: 'Ralph',
         lastName: 'Wiggum',
-        status: 'fail'
+        status: 'fail',
+        isChild: true
     },
     {
         firstName: 'Marge',
         lastName: 'Simpson',
-        status: 'success'
+        status: 'success',
+        isChild: false
     },
     {
         firstName: 'Homer',
         lastName: 'Simpson',
-        status: 'success'
+        status: 'calculating',
+        isChild: false
     },
     {
         firstName: 'Bart',
         lastName: 'Simpson',
-        status: 'success'
+        status: 'success',
+        isChild: true
     }
 ];
 
-const enumTextColumnDescription = `The \`nimble-table-column-enum-text\` column renders string, number, or boolean values as mapped text in the \`nimble-table\`.
+const iconColumnDescription = `The \`nimble-table-column-icon\` column renders string, number, or boolean values as a Nimble icon or \`nimble-spinner\` in the \`nimble-table\`.
 
-When sorting or grouping the column, the raw data values are used, not the mapped text being displayed.`;
+When sorting or grouping the column, the raw data values are used, not the mapped visuals.`;
 
-const metadata: Meta<EnumTextColumnTableArgs> = {
-    title: 'Incubating/Table Column - Enum Text',
+const metadata: Meta<IconColumnTableArgs> = {
+    title: 'Incubating/Table Column - Icon',
     parameters: {
         docs: {
             description: {
-                component: enumTextColumnDescription
+                component: iconColumnDescription
             }
         }
     }
@@ -55,29 +63,40 @@ const metadata: Meta<EnumTextColumnTableArgs> = {
 
 export default metadata;
 
-interface EnumTextColumnTableArgs extends SharedTableArgs {
+interface IconColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     keyType: string;
     checkValidity: () => void;
     validity: () => void;
 }
 
-export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
+const validityDescription = `${sharedMappingValidityDescription}
+-   \`invalidIconName\`: \`true\` when a mapping's \`icon\` value is not the tag name of a valid, loaded Nimble icon (e.g. \`nimble-icon-check\`)
+`;
+
+export const iconColumn: StoryObj<IconColumnTableArgs> = {
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<EnumTextColumnTableArgs>`
+    render: createUserSelectedThemeStory(html<IconColumnTableArgs>`
         ${incubatingWarning({ componentName: 'table', statusLink: 'https://github.com/orgs/ni/projects/7/views/21' })}
         <${tableTag}
             ${ref('tableRef')}
             data-unused="${x => x.updateData(x)}"
+            style="${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
         >
             <${tableColumnTextTag} field-name="firstName" >
                 Name
             </${tableColumnTextTag}>
-            <${tableColumnEnumTextTag} field-name="status">
+            <${tableColumnIconTag} field-name="status" group-index="0">
                 Status
-                <${mappingTextTag} key="fail" text="Not a Simpson"></${mappingTextTag}>
-                <${mappingTextTag} key="success" text="Is a Simpson"></${mappingTextTag}>
-            </${tableColumnEnumTextTag}>
+                <${mappingIconTag} key="fail" icon="${iconXmarkTag}" severity="error" text="Not a Simpson"></${mappingIconTag}>
+                <${mappingIconTag} key="success" icon="${iconCheckLargeTag}" severity="success" text="Is a Simpson"></${mappingIconTag}>
+                <${mappingSpinnerTag} key="calculating" text="Calculating"></${mappingSpinnerTag}>
+            </${tableColumnIconTag}>
+            <${tableColumnIconTag} field-name="isChild" key-type="boolean">
+                Is Child
+                <${mappingIconTag} key="false" icon="${iconXmarkTag}" severity="error" text="Not a child"></${mappingIconTag}>
+                <${mappingIconTag} key="true" icon="${iconCheckLargeTag}" severity="success" text="Is a child"></${mappingIconTag}>
+            </${tableColumnIconTag}>
         </${tableTag}>
     `),
     argTypes: {
@@ -106,7 +125,7 @@ export const enumTextColumn: StoryObj<EnumTextColumnTableArgs> = {
                 'Returns `true` if the column configuration is valid, otherwise `false`.'
         },
         validity: {
-            description: sharedMappingValidityDescription
+            description: validityDescription
         }
     },
     args: {
