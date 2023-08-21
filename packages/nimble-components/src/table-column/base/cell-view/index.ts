@@ -18,10 +18,10 @@ export abstract class TableCellView<
     extends FoundationElement
     implements TableCellState<TCellRecord, TColumnConfig> {
     @observable
-    public cellRecord!: TCellRecord;
+    public cellRecord?: TCellRecord;
 
     @observable
-    public columnConfig!: TColumnConfig;
+    public columnConfig?: TColumnConfig;
 
     @observable
     public column?: TableColumn<TColumnConfig>;

@@ -1,0 +1,24 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import TargetDocs from '../../patterns/anchor/tests/target-docs.mdx';
+import * as anchorStories from './anchor.stories';
+
+<Meta of={anchorStories} />
+
+<Title of={anchorStories} />
+<Description of={anchorStories} />
+
+<DocsStory of={anchorStories.anchor} expanded={false} />
+<Controls of={anchorStories.anchor} />
+
+# Usage Docs
+
+## Target Configuration
+
+<TargetDocs />

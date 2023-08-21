@@ -30,7 +30,7 @@ TableColumnEnumColumnConfig
     }
 
     private updateText(): void {
-        const value = this.cellRecord.value;
+        const value = this.cellRecord?.value;
         if (value === undefined || value === null) {
             this.text = '';
             return;
