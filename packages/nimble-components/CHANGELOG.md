@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 17 Aug 2023 21:57:29 GMT and should not be manually modified.
+This log was last generated on Fri, 18 Aug 2023 11:34:36 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.11
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Initial component bring up by integrating tiptap editor along with the footer formatting options ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
 
 ## 20.1.10
 
