@@ -1,5 +1,6 @@
 import type { Mapping } from '../../../mapping/base';
 import { MappingIcon } from '../../../mapping/icon';
+import { MappingSpinner } from '../../../mapping/spinner';
 import type { ColumnInternals } from '../../base/models/column-internals';
 import {
     TableColumnEnumBaseValidator,
@@ -18,11 +19,11 @@ const iconValidityFlagNames = [
 export class TableColumnIconValidator extends TableColumnEnumBaseValidator<
     typeof iconValidityFlagNames
 > {
-    public constructor(
-        columnInternals: ColumnInternals<unknown>,
-        supportedMappingElements: readonly (typeof Mapping)[]
-    ) {
-        super(columnInternals, iconValidityFlagNames, supportedMappingElements);
+    public constructor(columnInternals: ColumnInternals<unknown>) {
+        super(columnInternals, iconValidityFlagNames, [
+            MappingIcon,
+            MappingSpinner
+        ]);
     }
 
     public override validate(

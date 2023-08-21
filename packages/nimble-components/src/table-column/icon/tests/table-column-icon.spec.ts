@@ -77,16 +77,20 @@ describe('TableColumnIcon', () => {
         ).toBeInstanceOf(TableColumnIcon);
     });
 
-    for (const test of [
-        { type: 'string', key: 'a' },
-        { type: 'number', key: 10 },
-        { type: 'boolean', key: true }
-    ]) {
+    const dataTypeTests = [
+        { name: 'string', key: 'a' },
+        { name: 'number', key: 10 },
+        { name: 'boolean', key: true }
+    ];
+    const focused: string[] = [];
+    const disabled: string[] = [];
+    for (const test of dataTypeTests) {
+        const specType = getSpecTypeByNamedList(test, focused, disabled);
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        it(`displays icon mapped from ${test.type}`, async () => {
+        specType(`displays icon mapped from ${test.name}`, async () => {
             ({ element, connect, disconnect, model } = await setup(
                 [{ key: test.key, text: 'alpha', icon: iconXmarkTag }],
-                test.type
+                test.name
             ));
             pageObject = new TablePageObject<SimpleTableRecord>(element);
             await element.setData([{ field1: test.key }]);

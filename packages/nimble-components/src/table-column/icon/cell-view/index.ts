@@ -50,7 +50,7 @@ export class TableColumnIconCellView
 
     private updateState(): void {
         this.visual = undefined;
-        if (!this.columnConfig?.mappingConfigs || !this.cellRecord) {
+        if (!this.columnConfig || !this.cellRecord) {
             return;
         }
         const value = this.cellRecord.value;

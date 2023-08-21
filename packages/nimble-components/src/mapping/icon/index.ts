@@ -30,7 +30,7 @@ export class MappingIcon extends Mapping {
     /**
      * @internal
      * Calculated asynchronously by the icon mapping based on the configured icon value.
-     * When assigned it corresponds to an element name that is resolved to type of Nimble Icon.
+     * When assigned, it corresponds to an element name that is resolved to type of Nimble Icon.
      */
     @observable
     public resolvedIcon?: string;
@@ -61,7 +61,7 @@ export class MappingIcon extends Mapping {
 
     private iconChanged(): void {
         const icon = this.icon;
-        if (icon === undefined) {
+        if (!icon) {
             this.resolvedIcon = undefined;
             return;
         }

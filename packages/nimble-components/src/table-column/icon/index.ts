@@ -38,10 +38,7 @@ export class TableColumnIcon extends mixinGroupableColumnAPI(
     )
 ) {
     public override createValidator(): TableColumnIconValidator {
-        return new TableColumnIconValidator(this.columnInternals, [
-            MappingIcon,
-            MappingSpinner
-        ]);
+        return new TableColumnIconValidator(this.columnInternals);
     }
 
     public override get validity(): TableColumnValidity {

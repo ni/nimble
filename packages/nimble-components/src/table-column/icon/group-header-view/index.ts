@@ -46,7 +46,7 @@ export class TableColumnIconGroupHeaderView
 
     private updateState(): void {
         this.visual = undefined;
-        if (!this.columnConfig?.mappingConfigs) {
+        if (!this.columnConfig) {
             return;
         }
         const value = this.groupHeaderValue;

@@ -1,12 +1,16 @@
 import { html } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
 import { MappingIcon, mappingIconTag } from '..';
-import { fixture, type Fixture } from '../../../utilities/tests/fixture';
+import {
+    fixture,
+    uniqueElementName,
+    type Fixture
+} from '../../../utilities/tests/fixture';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
-import { Icon } from '../../../icon-base';
+import { registerIcon } from '../../../icon-base';
+import { IconXmark } from '../../../icons/xmark';
 
 describe('Icon Mapping', () => {
-    class TestIcon extends Icon {}
+    const testIconElementName = uniqueElementName();
 
     let element: MappingIcon;
     let connect: () => Promise<void>;
@@ -18,7 +22,7 @@ describe('Icon Mapping', () => {
         <${mappingIconTag}
             key="foo"
             text="foo"
-            icon="nimble-test-icon">
+            icon="nimble-${testIconElementName}">
         </${mappingIconTag}>`);
     }
 
@@ -39,14 +43,7 @@ describe('Icon Mapping', () => {
 
         expect(element.resolvedIcon).toBeUndefined();
 
-        DesignSystem.getOrCreate()
-            .withPrefix('nimble')
-            .register(
-                TestIcon.compose({
-                    baseName: 'test-icon',
-                    template: html`<nimble-xmark-icon></nimble-xmark-icon>`
-                })()
-            );
+        registerIcon(testIconElementName, IconXmark);
         await waitForUpdatesAsync();
 
         expect(element.resolvedIcon).toBeDefined();
