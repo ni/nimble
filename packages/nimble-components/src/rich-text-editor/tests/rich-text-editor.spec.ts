@@ -1318,6 +1318,9 @@ describe('RichTextEditor Before DOM Connection', () => {
         element.setMarkdown(
             '1. ***Numbered list with bold and italics***\n\n* ___Bulleted list with bold and italics___'
         );
+        expect(element.getMarkdown()).toBe(
+            '1. ***Numbered list with bold and italics***\n\n* ***Bulleted list with bold and italics***'
+        );
         expect(element.isConnected).toBeFalsy();
         await connect();
         expect(element.isConnected).toBeTruthy();
