@@ -277,10 +277,6 @@ export class RichTextEditor extends FoundationElement {
         return new MarkdownSerializer(nodes, marks);
     }
 
-    /** This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
-     * DOM structure using a DOMSerializer, and returns the serialized result.
-     * If the markdown parser returns null, it will clear the editor component by creating an empty document fragment.
-     */
     private parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
         const parsedMarkdownContent = this.markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
@@ -293,7 +289,7 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private initializeEditor(): void {
-        // Creating div element to land tiptap editor
+        // Create div from the constructor because the TipTap editor requires its host element before the template is instantiated.
         this.editor = document.createElement('div');
         this.editor.className = 'editor';
         this.editor.setAttribute('aria-multiline', 'true');
