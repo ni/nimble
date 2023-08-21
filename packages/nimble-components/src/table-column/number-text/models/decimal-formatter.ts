@@ -5,10 +5,6 @@ import { NumberFormatter } from './number-formatter';
  */
 export class DecimalFormatter extends NumberFormatter {
     private readonly formatter: Intl.NumberFormat;
-    // private static readonly formatter = new Intl.NumberFormat(undefined, {
-    //     maximumFractionDigits: 0,
-    //     useGrouping: true
-    // });
 
     public constructor(decimalsToDisplay: number) {
         super();
