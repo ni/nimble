@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Mon, 21 Aug 2023 21:38:56 GMT",
+      "tag": "@ni/nimble-angular_v17.1.5",
+      "version": "17.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2a73240f77e6c45cb0de13c5db4482bdc881d3ba",
+            "comment": "Fully import date-text column types before exporting them"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 18 Aug 2023 11:34:36 GMT",
       "tag": "@ni/nimble-angular_v17.1.4",
       "version": "17.1.4",
