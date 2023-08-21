@@ -16,6 +16,8 @@ interface SimpleTableRecord extends TableRecord {
     stringValue2: string;
     href?: string;
     linkLabel?: string;
+    date: number;
+    statusCode: number;
 }
 
 @Component({
@@ -50,7 +52,7 @@ export class CustomAppComponent {
 4. Bulleted lists
     * Option 1
     * Option 2
-5. Direct link: <https://nimble.ni.dev/>
+5. Absolute link: <https://nimble.ni.dev/>
 `;
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
@@ -105,7 +107,9 @@ export class CustomAppComponent {
             stringValue1: `new string ${tableData.length}`,
             stringValue2: `bar ${tableData.length}`,
             href: '/customapp',
-            linkLabel: 'Link'
+            linkLabel: 'Link',
+            date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
+            statusCode: (tableData.length % 2 === 0) ? 100 : 101
         });
         this.tableDataSubject.next(tableData);
     }

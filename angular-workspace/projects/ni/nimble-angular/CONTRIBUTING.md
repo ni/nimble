@@ -8,6 +8,8 @@ Each Nimble element should have at least one directive which references its tag 
 
 Directives for the underlying Nimble web components should generally be stateless. While you would normally expect directives to own their own property state which are reflected outside using `@HostBinding`s, we instead are treating directives as proxies for the underlying web component which will actually own the directive state. Directive properties are accessors that write updates directly to elements via `Renderer2` and read values from elements via `nativeElement` references.
 
+Each Nimble element should have its own module, even if it is closely associated with another Nimble element.
+
 ### Angular forms integration
 
 We can make Nimble components integrate well with Angular forms and `ngModel` binding by implementing the `ControlValueAccessor` interface on directives. Unless custom behavior is needed, we extend Angular's built-in `ControlValueAccessor` implementations to target our controls.

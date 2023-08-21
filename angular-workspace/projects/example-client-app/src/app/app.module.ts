@@ -12,9 +12,12 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
 import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
+import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
+import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
+import { NimbleTableColumnEnumTextModule } from '@ni/nimble-angular/table-column/enum-text';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text-viewer';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
@@ -73,6 +76,9 @@ import { HeaderComponent } from './header/header.component';
         NimbleTableModule,
         NimbleTableColumnTextModule,
         NimbleTableColumnAnchorModule,
+        NimbleTableColumnDateTextModule,
+        NimbleTableColumnEnumTextModule,
+        NimbleMappingTextModule,
         NimbleBannerModule,
         NimbleRichTextViewerModule,
         RouterModule.forRoot(
