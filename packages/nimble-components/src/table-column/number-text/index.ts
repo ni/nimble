@@ -90,7 +90,9 @@ export class TableColumnNumberText extends TableColumnTextBase {
             case NumberTextFormat.roundToInteger:
                 return new RoundToIntegerFormatter();
             case NumberTextFormat.decimal:
-                return new DecimalFormatter(this.decimalDigits ?? defaultDecimalDigits);
+                return new DecimalFormatter(
+                    this.decimalDigits ?? defaultDecimalDigits
+                );
             default:
                 return new DefaultFormatter();
         }

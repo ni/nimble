@@ -290,15 +290,21 @@ describe('TableColumnNumberText', () => {
 
             it('displays two decimal digits by default', () => {
                 expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
-                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
+                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                    '11.00'
+                );
             });
 
             it('updating decimal-digits updates rendered value', async () => {
                 columnInstances.column1.decimalDigits = 5;
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00000');
-                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00000');
+                expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    '11.00000'
+                );
+                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                    '11.00000'
+                );
             });
 
             it('updating decimal-digits to undefined uses two digits', async () => {
@@ -308,7 +314,9 @@ describe('TableColumnNumberText', () => {
                 await waitForUpdatesAsync();
 
                 expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
-                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
+                expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                    '11.00'
+                );
             });
 
             it('setting an invalid decimal-digits value makes the column invalid', async () => {
@@ -316,7 +324,9 @@ describe('TableColumnNumberText', () => {
                 await waitForUpdatesAsync();
 
                 expect(columnInstances.column1.checkValidity()).toBeFalse();
-                expect(columnInstances.column1.validity.invalidDecimalDigits).toBeTrue();
+                expect(
+                    columnInstances.column1.validity.invalidDecimalDigits
+                ).toBeTrue();
             });
 
             it('changing format of invalid decimal column makes it valid', async () => {
@@ -324,13 +334,17 @@ describe('TableColumnNumberText', () => {
                 await waitForUpdatesAsync();
 
                 expect(columnInstances.column1.checkValidity()).toBeFalse();
-                expect(columnInstances.column1.validity.invalidDecimalDigits).toBeTrue();
+                expect(
+                    columnInstances.column1.validity.invalidDecimalDigits
+                ).toBeTrue();
 
                 columnInstances.column1.format = NumberTextFormat.default;
                 await waitForUpdatesAsync();
 
                 expect(columnInstances.column1.checkValidity()).toBeTrue();
-                expect(columnInstances.column1.validity.invalidDecimalDigits).toBeFalse();
+                expect(
+                    columnInstances.column1.validity.invalidDecimalDigits
+                ).toBeFalse();
             });
 
             it('changing to a valid decimal-digits value makes an invalid column valid', async () => {
@@ -338,13 +352,17 @@ describe('TableColumnNumberText', () => {
                 await waitForUpdatesAsync();
 
                 expect(columnInstances.column1.checkValidity()).toBeFalse();
-                expect(columnInstances.column1.validity.invalidDecimalDigits).toBeTrue();
+                expect(
+                    columnInstances.column1.validity.invalidDecimalDigits
+                ).toBeTrue();
 
                 columnInstances.column1.decimalDigits = 1;
                 await waitForUpdatesAsync();
 
                 expect(columnInstances.column1.checkValidity()).toBeTrue();
-                expect(columnInstances.column1.validity.invalidDecimalDigits).toBeFalse();
+                expect(
+                    columnInstances.column1.validity.invalidDecimalDigits
+                ).toBeFalse();
             });
         });
     });

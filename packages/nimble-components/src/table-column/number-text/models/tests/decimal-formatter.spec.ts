@@ -64,7 +64,9 @@ describe('DecimalFormatter', () => {
             `${testCase.name}`,
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             () => {
-                const formatter = new DecimalFormatter(testCase.decimalDigits ?? 2);
+                const formatter = new DecimalFormatter(
+                    testCase.decimalDigits ?? 2
+                );
                 const formattedValue = formatter.formatValue(testCase.value);
                 expect(formattedValue).toEqual(testCase.expectedFormattedValue);
             }

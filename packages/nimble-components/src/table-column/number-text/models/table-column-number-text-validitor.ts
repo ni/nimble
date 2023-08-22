@@ -19,13 +19,22 @@ export class TableColumnNumberTextValidator extends ColumnValidator<
         super(columnInternals, numberTextValidityFlagNames);
     }
 
-    public validateDecimalDigits(format: NumberTextFormat, decimalDigits: number | undefined): void {
-        const shouldValidateDecimalDigitsValue = format === NumberTextFormat.decimal && typeof decimalDigits === 'number';
-        const invalid = shouldValidateDecimalDigitsValue ? this.isInvalidDecimalDigitsValue(decimalDigits) : false;
+    public validateDecimalDigits(
+        format: NumberTextFormat,
+        decimalDigits: number | undefined
+    ): void {
+        const shouldValidateDecimalDigitsValue = format === NumberTextFormat.decimal
+            && typeof decimalDigits === 'number';
+        const invalid = shouldValidateDecimalDigitsValue
+            ? this.isInvalidDecimalDigitsValue(decimalDigits)
+            : false;
         this.setConditionValue('invalidDecimalDigits', invalid);
     }
 
     private isInvalidDecimalDigitsValue(decimalDigits: number): boolean {
-        return decimalDigits < minimumValidDecimalDigits || decimalDigits > maximumValidDecimalDigits;
+        return (
+            decimalDigits < minimumValidDecimalDigits
+            || decimalDigits > maximumValidDecimalDigits
+        );
     }
 }
