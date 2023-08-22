@@ -100,7 +100,7 @@ describe('NimbleMappingIcon', () => {
             public key = false;
             public text = 'nope';
             public icon = 'nimble-icon-xmark';
-            public severity = IconSeverity.error;
+            public severity: IconSeverity = IconSeverity.error;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -141,25 +141,25 @@ describe('NimbleMappingIcon', () => {
         });
 
         it('can be configured with property binding for icon', () => {
-            expect(directive.text).toBe('nimble-icon-xmark');
-            expect(nativeElement.text).toBe('nimble-icon-xmark');
+            expect(directive.icon).toBe('nimble-icon-xmark');
+            expect(nativeElement.icon).toBe('nimble-icon-xmark');
 
-            fixture.componentInstance.text = 'nimble-icon-check';
+            fixture.componentInstance.icon = 'nimble-icon-check';
             fixture.detectChanges();
 
-            expect(directive.text).toBe('nimble-icon-check');
-            expect(nativeElement.text).toBe('nimble-icon-check');
+            expect(directive.icon).toBe('nimble-icon-check');
+            expect(nativeElement.icon).toBe('nimble-icon-check');
         });
 
         it('can be configured with property binding for severity', () => {
-            expect(directive.text).toBe('error');
-            expect(nativeElement.text).toBe('error');
+            expect(directive.severity).toBe('error');
+            expect(nativeElement.severity).toBe('error');
 
-            fixture.componentInstance.text = IconSeverity.success;
+            fixture.componentInstance.severity = IconSeverity.success;
             fixture.detectChanges();
 
-            expect(directive.text).toBe('success');
-            expect(nativeElement.text).toBe('success');
+            expect(directive.severity).toBe('success');
+            expect(nativeElement.severity).toBe('success');
         });
     });
 
@@ -186,7 +186,7 @@ describe('NimbleMappingIcon', () => {
             public key = false;
             public text = 'nope';
             public icon = 'nimble-icon-xmark';
-            public severity = IconSeverity.error;
+            public severity: IconSeverity = IconSeverity.error;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -227,25 +227,25 @@ describe('NimbleMappingIcon', () => {
         });
 
         it('can be configured with property binding for icon', () => {
-            expect(directive.text).toBe('nimble-icon-xmark');
-            expect(nativeElement.text).toBe('nimble-icon-xmark');
+            expect(directive.icon).toBe('nimble-icon-xmark');
+            expect(nativeElement.icon).toBe('nimble-icon-xmark');
 
-            fixture.componentInstance.text = 'nimble-icon-check';
+            fixture.componentInstance.icon = 'nimble-icon-check';
             fixture.detectChanges();
 
-            expect(directive.text).toBe('nimble-icon-check');
-            expect(nativeElement.text).toBe('nimble-icon-check');
+            expect(directive.icon).toBe('nimble-icon-check');
+            expect(nativeElement.icon).toBe('nimble-icon-check');
         });
 
         it('can be configured with property binding for severity', () => {
-            expect(directive.text).toBe('error');
-            expect(nativeElement.text).toBe('error');
+            expect(directive.severity).toBe('error');
+            expect(nativeElement.severity).toBe('error');
 
-            fixture.componentInstance.text = IconSeverity.success;
+            fixture.componentInstance.severity = IconSeverity.success;
             fixture.detectChanges();
 
-            expect(directive.text).toBe('success');
-            expect(nativeElement.text).toBe('success');
+            expect(directive.severity).toBe('success');
+            expect(nativeElement.severity).toBe('success');
         });
     });
 });
