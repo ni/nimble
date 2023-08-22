@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Tue, 22 Aug 2023 12:48:52 GMT",
+      "tag": "@ni/nimble-angular_v17.1.8",
+      "version": "17.1.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.14",
+            "commit": "42928b304ad9b9362501f6bc923f21b4e1e81ddc"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 21 Aug 2023 23:23:23 GMT",
+      "tag": "@ni/nimble-angular_v17.1.7",
+      "version": "17.1.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.13",
+            "commit": "4f0f4745ba013ddfbb0dbf8820df2bb6f4fb4db5"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 21 Aug 2023 22:42:29 GMT",
+      "tag": "@ni/nimble-angular_v17.1.6",
+      "version": "17.1.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.12",
+            "commit": "0ab6b4f5df8d01f6734c824d65e62e3c88546000"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 21 Aug 2023 21:38:56 GMT",
+      "tag": "@ni/nimble-angular_v17.1.5",
+      "version": "17.1.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2a73240f77e6c45cb0de13c5db4482bdc881d3ba",
+            "comment": "Fully import date-text column types before exporting them"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 18 Aug 2023 11:34:36 GMT",
       "tag": "@ni/nimble-angular_v17.1.4",
       "version": "17.1.4",
