@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 22 Aug 2023 12:48:52 GMT",
+      "tag": "@ni/nimble-components_v20.1.14",
+      "version": "20.1.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "42928b304ad9b9362501f6bc923f21b4e1e81ddc",
+            "comment": "Add setMarkdown and getMarkdown methods in rich-text-editor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 21 Aug 2023 23:23:23 GMT",
       "tag": "@ni/nimble-components_v20.1.13",
       "version": "20.1.13",
