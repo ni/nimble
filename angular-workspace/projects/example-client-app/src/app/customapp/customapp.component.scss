@@ -83,3 +83,14 @@ nimble-table {
     padding: $ni-nimble-small-padding;
     width: 350px;
 }
+
+.rich-text-editor-container {
+    padding: $ni-nimble-small-padding;
+}
+
+.editor-slot-container{
+    padding: $ni-nimble-standard-padding;
+    display: flex;
+    gap: $ni-nimble-standard-padding;
+}
+

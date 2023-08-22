@@ -177,6 +177,15 @@
             </div>
         </div>
         <div class="sub-container">
+            <div class="container-label">Rich Text Viewer</div>
+            <div class="rich-text-editor-container">
+                <nimble-rich-text-editor #editor></nimble-rich-text-editor>
+                <div class="editor-slot-container">
+                    <nimble-button (click)="setMarkdown()">Set Markdown</nimble-button>
+                </div>
+            </div>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Spinner</div>
             <nimble-spinner aria-label="Loading example content"></nimble-spinner>
         </div>
