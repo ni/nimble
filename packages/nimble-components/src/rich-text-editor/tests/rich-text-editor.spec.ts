@@ -7,7 +7,6 @@ import { wackyStrings } from '../../utilities/tests/wacky-strings';
 import type { Button } from '../../button';
 import type { ToggleButton } from '../../toggle-button';
 import { ToolbarButton } from '../testing/types';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
@@ -1312,10 +1311,6 @@ describe('RichTextEditor', () => {
     });
 
     describe('disabled state', () => {
-        beforeEach(async () => {
-            await waitForUpdatesAsync();
-        });
-
         it('should reflect disabled value to the aria-disabled of the element', async () => {
             expect(element.getAttribute('aria-disabled')).toBe('false');
 
