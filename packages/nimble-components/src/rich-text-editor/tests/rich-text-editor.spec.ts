@@ -1337,15 +1337,12 @@ describe('RichTextEditor', () => {
             expect(editor!.getAttribute('contenteditable')).toBe('false');
         });
 
-        it('should reflect disabled value to the disabled and aria-disabled state of toolbar', async () => {
-            const toolbar = element.shadowRoot?.querySelector('nimble-toolbar');
-            expect(toolbar!.hasAttribute('disabled')).toBeFalse();
-            expect(toolbar!.getAttribute('aria-disabled')).toBe('false');
+        it('should change the tabindex value of the editor when disabled value changes', async () => {
+            expect(pageObject.getEditorTabIndex()).toBe('0');
 
             await pageObject.setDisabledState();
 
-            expect(toolbar!.hasAttribute('disabled')).toBeTrue();
-            expect(toolbar!.getAttribute('aria-disabled')).toBe('true');
+            expect(pageObject.getEditorTabIndex()).toBe('-1');
         });
 
         describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
@@ -1367,11 +1364,6 @@ describe('RichTextEditor', () => {
                                 value.toolbarButtonIndex
                             )
                         ).toBeFalse();
-                        expect(
-                            pageObject.getButtonAriaDisabledValue(
-                                value.toolbarButtonIndex
-                            )
-                        ).toBe('false');
 
                         await pageObject.setDisabledState();
 
@@ -1380,11 +1372,6 @@ describe('RichTextEditor', () => {
                                 value.toolbarButtonIndex
                             )
                         ).toBeTrue();
-                        expect(
-                            pageObject.getButtonAriaDisabledValue(
-                                value.toolbarButtonIndex
-                            )
-                        ).toBe('true');
                     }
                 );
             }
@@ -1394,7 +1381,7 @@ describe('RichTextEditor', () => {
     it('should have footer section hidden when footer-hidden enabled', async () => {
         expect(pageObject.isFooterVisible()).toBeTrue();
 
-        await pageObject.setFooterHiddenAttribute();
+        await pageObject.hideFooter();
 
         expect(pageObject.isFooterVisible()).toBeFalse();
         expect(pageObject.getFooterHeight()).toBe('0px');
@@ -1462,10 +1449,29 @@ describe('RichTextEditor', () => {
         expect(element.empty).toBeTrue();
     });
 
+    it('should "empty" return true even if the placeholder content is set', () => {
+        expect(element.empty).toBeTrue();
+
+        element.placeholder = 'Placeholder text';
+        expect(element.empty).toBeTrue();
+    });
+
     it('should reflect the "placeholder" value to its internal attribute', () => {
+        expect(pageObject.getDataPlaceholderValue()).toBe('');
+
         element.placeholder = 'Placeholder text';
 
         expect(pageObject.getDataPlaceholderValue()).toBe('Placeholder text');
+    });
+
+    it('should "placeholder" value set to empty when attribute is cleared with an empty string', () => {
+        element.placeholder = 'Placeholder text';
+
+        expect(pageObject.getDataPlaceholderValue()).toBe('Placeholder text');
+
+        element.placeholder = '';
+
+        expect(pageObject.getDataPlaceholderValue()).toBe('');
     });
 });
 

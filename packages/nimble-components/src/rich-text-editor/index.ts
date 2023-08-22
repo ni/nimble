@@ -1,7 +1,7 @@
 import { observable, attr, DOM } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor, Extension } from '@tiptap/core';
+import { Editor, AnyExtension, Extension } from '@tiptap/core';
 import {
     schema,
     defaultMarkdownParser,
@@ -38,6 +38,8 @@ declare global {
  */
 export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
+     * Whether to disable user from editing and interacting with toolbar buttons
+     *
      * @public
      * HTML Attribute: disabled
      */
@@ -177,6 +179,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public disabledChanged(): void {
         if (this.tiptapEditor) {
             this.tiptapEditor.setEditable(!this.disabled);
+            this.setEditorTabIndex();
             this.editor.setAttribute(
                 'aria-disabled',
                 this.disabled ? 'true' : 'false'
@@ -190,11 +193,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public placeholderChanged(): void {
         if (this.tiptapEditor) {
-            const placeholderExtension = this.tiptapEditor.extensionManager.extensions.filter(
-                extension => {
-                    return extension.name === 'placeholder';
-                }
-            )[0] as Extension<PlaceholderOptions>;
+            const placeholderExtension = this.getTipTapExtension(
+                'placeholder'
+            ) as Extension<PlaceholderOptions>;
             placeholderExtension.options.placeholder = this.placeholder;
             this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
 
@@ -494,6 +495,24 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private onResize(): void {
         this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
+    }
+
+    private getTipTapExtension(
+        extensionName: string
+    ): AnyExtension | undefined {
+        return this.tiptapEditor.extensionManager.extensions.find(
+            extension => extension.name === extensionName
+        );
+    }
+
+    private setEditorTabIndex(): void {
+        this.tiptapEditor.setOptions({
+            editorProps: {
+                attributes: {
+                    tabindex: this.disabled ? '-1' : '0'
+                }
+            }
+        });
     }
 }
 

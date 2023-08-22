@@ -59,7 +59,7 @@ client application to make any necessary adjustments. For example, if the button
 client application must implement that functionality.
 `;
 const fitToContentDescription = `Setting \`fit-to-content\` allows the editor to grow vertically to fit the content instead of enabling the
-vertical scrollbar when it reaches the certain height.
+vertical scrollbar when content reaches the default height.
 
 To observe the changes when toggling, add more than five lines in the editor; this will enable the vertical scrollbar to view the hidden content.
 If the \`fit-to-content\` option is enabled, the editor will grow vertically to accommodate the content, instead of displaying the vertical scrollbar.`;
@@ -137,8 +137,7 @@ const metadata: Meta<RichTextEditorArgs> = {
                 'A message to be displayed when the editor is in the invalid state explaining why the value is invalid.'
         },
         placeholder: {
-            description:
-                'Placeholder text to show it in the editor when it is empty.'
+            description: 'Placeholder text to show when editor is empty.'
         },
         footerHidden: {
             description:
@@ -150,7 +149,7 @@ const metadata: Meta<RichTextEditorArgs> = {
         empty: {
             name: 'empty',
             description:
-                'Ready only boolean value returns true if the editor is empty.',
+                'Read-only boolean value. Returns true if editor is empty.',
             control: false
         },
         input: {

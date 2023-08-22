@@ -30,11 +30,17 @@ export const styles = css`
             ${borderWidth} + 1px
         );
         --ni-private-rich-text-editor-footer-section-height: 40px;
-        --ni-private-rich-text-editor-editor-minimum-height: 32px;
+        --ni-private-rich-text-editor-tiptap-editor-minimum-height: 36px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
         min-width: 360px;
+    }
+
+    :host([disabled]) *,
+    :host([disabled]) {
+        ${userSelectNone}
+        color: ${bodyDisabledFontColor};
     }
 
     .container {
@@ -73,12 +79,6 @@ export const styles = css`
         width: 100%;
     }
 
-    :host([disabled]) *,
-    :host([disabled]) {
-        ${userSelectNone}
-        color: ${bodyDisabledFontColor};
-    }
-
     :host([disabled]) .container,
     :host([disabled]) .container::after {
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
@@ -88,8 +88,12 @@ export const styles = css`
         width: 0px;
     }
 
-    :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
-        color: ${controlLabelDisabledFontColor};
+    :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
+    }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
     }
 
     .editor {
@@ -112,7 +116,7 @@ export const styles = css`
              * However, max height will be `fit-content` when the `fit-to-content` attribute for the editor component is implemented.
              */ ''
         }
-        min-height: var(--ni-private-rich-text-editor-editor-minimum-height);
+        min-height: var(--ni-private-rich-text-editor-tiptap-editor-minimum-height);
         max-height: 132px;
         height: 100%;
         border: ${borderWidth} solid transparent;
@@ -167,8 +171,25 @@ export const styles = css`
         margin-block-end: 0;
     }
 
+    :host([fit-to-content]) .ProseMirror {
+        max-height: fit-content;
+    }
+
     li > p {
         margin-block: 0;
+    }
+
+    .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${controlLabelFontColor};
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
+        word-break: break-all;
+    }
+
+    :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${controlLabelDisabledFontColor};
     }
 
     .footer-section {
@@ -189,18 +210,14 @@ export const styles = css`
     :host([footer-hidden]) .ProseMirror {
         ${
             /**
-             * Minimum height is the combination of existing minimum height of the tiptap div, footer height and extra padding added to the tiptap div.
+             * Minimum height is the addition of existing minimum height of the tiptap editor div and the footer section height.
              * With this calculation, the editor will extend to use the footer height when it is hidden.
              *
              * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
              * and the footer will smoothly appear within the editor.
              */ ''
         }
-        min-height: calc(var(--ni-private-rich-text-editor-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height) + 4px);
-    }
-
-    :host([fit-to-content]) .ProseMirror {
-        max-height: fit-content;
+        min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height));
     }
 
     nimble-toolbar::part(positioning-region) {
@@ -220,28 +237,11 @@ export const styles = css`
         place-items: center;
     }
 
-    .ProseMirror p.is-editor-empty:first-child::before {
-        color: ${controlLabelFontColor};
-        content: attr(data-placeholder);
-        float: left;
-        height: 0;
-        pointer-events: none;
-        word-break: break-all;
-    }
-
     :host([error-visible]) .error-icon {
         display: none;
     }
 
-    :host([error-visible]) .container {
-        border-bottom-color: ${failColor};
-    }
-
-    :host([error-visible]) .container::after {
-        border-bottom-color: ${failColor};
-    }
-
-    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+    :host([error-visible]) .error-icon[scrollbar-visible] {
         display: inline-flex;
         position: absolute;
         top: calc(${standardPadding} / 2);

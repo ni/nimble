@@ -19,14 +19,12 @@ export const template = html<RichTextEditor>`
             </section>
             <${iconExclamationMarkTag}
                 severity="error"
-                class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
+                class="error-icon"
                 style="--ni-private-rich-text-editor-scrollbar-width: ${x => x.scrollbarWidth}px;"
+                ?scrollbar-visible="${x => x.scrollbarWidth >= 0}"
             ></${iconExclamationMarkTag}>
             <section class="footer-section">
-                <${toolbarTag}
-                    ?disabled="${x => x.disabled}"
-                    aria-disabled="${x => x.disabled}"
-                >
+                <${toolbarTag}>
                     <${toggleButtonTag}
                         ${ref('boldButton')}
                         appearance="ghost"
