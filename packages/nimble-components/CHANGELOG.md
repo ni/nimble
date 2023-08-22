@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 21 Aug 2023 23:23:23 GMT and should not be manually modified.
+This log was last generated on Tue, 22 Aug 2023 12:48:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.14
+
+Tue, 22 Aug 2023 12:48:52 GMT
+
+### Patches
+
+- Add setMarkdown and getMarkdown methods in rich-text-editor ([ni/nimble@42928b3](https://github.com/ni/nimble/commit/42928b304ad9b9362501f6bc923f21b4e1e81ddc))
 
 ## 20.1.13
 
