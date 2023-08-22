@@ -30,7 +30,6 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Bold"
                         @click=${x => x.boldButtonClick()}
@@ -45,7 +44,6 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Italics"
                         @click=${x => x.italicsButtonClick()}
@@ -60,7 +58,6 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Bullet List"
                         @click=${x => x.bulletListButtonClick()}
@@ -75,7 +72,6 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Numbered List"
                         @click=${x => x.numberedListButtonClick()}
