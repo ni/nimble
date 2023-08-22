@@ -335,9 +335,7 @@ describe('TableColumnNumberText', () => {
                     0,
                     0
                 ) as TableColumnNumberTextCellView;
-                expect(cellView.rightAlign).toEqual(
-                    testCase.shouldRightAlign
-                );
+                expect(cellView.rightAlign).toEqual(testCase.shouldRightAlign);
             });
         }
     });
