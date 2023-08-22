@@ -276,100 +276,98 @@ describe('TableColumnNumberText', () => {
         });
     });
 
-    describe('alignment', () => {
-        const alignmentTestCases = [
-            {
-                name: 'with default format and default alignment',
-                format: NumberTextFormat.default,
-                alignment: NumberTextAlignment.default,
-                shouldRightAlign: false
-            },
-            {
-                name: 'with default format and left alignment',
-                format: NumberTextFormat.default,
-                alignment: NumberTextAlignment.left,
-                shouldRightAlign: false
-            },
-            {
-                name: 'with default format and right alignment',
-                format: NumberTextFormat.default,
-                alignment: NumberTextAlignment.right,
-                shouldRightAlign: true
-            },
-            {
-                name: 'with roundToInteger format and default alignment',
-                format: NumberTextFormat.roundToInteger,
-                alignment: NumberTextAlignment.default,
-                shouldRightAlign: true
-            },
-            {
-                name: 'with roundToInteger format and left alignment',
-                format: NumberTextFormat.roundToInteger,
-                alignment: NumberTextAlignment.left,
-                shouldRightAlign: false
-            },
-            {
-                name: 'with roundToInteger format and right alignment',
-                format: NumberTextFormat.roundToInteger,
-                alignment: NumberTextAlignment.right,
-                shouldRightAlign: true
-            }
-        ] as const;
-        describe('sets the correct initial alignment on the cell', () => {
-            const focused: string[] = [];
-            const disabled: string[] = [];
-            for (const testCase of alignmentTestCases) {
-                const specType = getSpecTypeByNamedList(
-                    testCase,
-                    focused,
-                    disabled
-                );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                specType(`${testCase.name}`, async () => {
-                    await element.setData([{ number1: 10 }]);
-                    columnInstances.column1.format = testCase.format;
-                    columnInstances.column1.alignment = testCase.alignment;
-                    await connect();
-                    await waitForUpdatesAsync();
-
-                    const cellView = pageObject.getRenderedCellView(
-                        0,
-                        0
-                    ) as TableColumnNumberTextCellView;
-                    expect(cellView.rightAlign).toEqual(
-                        testCase.shouldRightAlign
-                    );
-                });
-            }
-        });
-
-        describe('updates alignment', () => {
-            let cellView: TableColumnNumberTextCellView;
-
-            beforeEach(async () => {
+    const alignmentTestCases = [
+        {
+            name: 'with default format and default alignment',
+            format: NumberTextFormat.default,
+            alignment: NumberTextAlignment.default,
+            shouldRightAlign: false
+        },
+        {
+            name: 'with default format and left alignment',
+            format: NumberTextFormat.default,
+            alignment: NumberTextAlignment.left,
+            shouldRightAlign: false
+        },
+        {
+            name: 'with default format and right alignment',
+            format: NumberTextFormat.default,
+            alignment: NumberTextAlignment.right,
+            shouldRightAlign: true
+        },
+        {
+            name: 'with roundToInteger format and default alignment',
+            format: NumberTextFormat.roundToInteger,
+            alignment: NumberTextAlignment.default,
+            shouldRightAlign: true
+        },
+        {
+            name: 'with roundToInteger format and left alignment',
+            format: NumberTextFormat.roundToInteger,
+            alignment: NumberTextAlignment.left,
+            shouldRightAlign: false
+        },
+        {
+            name: 'with roundToInteger format and right alignment',
+            format: NumberTextFormat.roundToInteger,
+            alignment: NumberTextAlignment.right,
+            shouldRightAlign: true
+        }
+    ] as const;
+    describe('sets the correct initial alignment on the cell', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const testCase of alignmentTestCases) {
+            const specType = getSpecTypeByNamedList(
+                testCase,
+                focused,
+                disabled
+            );
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`${testCase.name}`, async () => {
                 await element.setData([{ number1: 10 }]);
-                columnInstances.column1.alignment = NumberTextAlignment.default;
-                columnInstances.column1.format = NumberTextFormat.default;
+                columnInstances.column1.format = testCase.format;
+                columnInstances.column1.alignment = testCase.alignment;
                 await connect();
                 await waitForUpdatesAsync();
-                cellView = pageObject.getRenderedCellView(
+
+                const cellView = pageObject.getRenderedCellView(
                     0,
                     0
                 ) as TableColumnNumberTextCellView;
-                expect(cellView.rightAlign).toEqual(false);
+                expect(cellView.rightAlign).toEqual(
+                    testCase.shouldRightAlign
+                );
             });
+        }
+    });
 
-            it('when alignment changes', async () => {
-                columnInstances.column1.alignment = NumberTextAlignment.right;
-                await waitForUpdatesAsync();
-                expect(cellView.rightAlign).toEqual(true);
-            });
+    describe('updates alignment', () => {
+        let cellView: TableColumnNumberTextCellView;
 
-            it('when format changes and alignment is set to "default"', async () => {
-                columnInstances.column1.format = NumberTextFormat.roundToInteger;
-                await waitForUpdatesAsync();
-                expect(cellView.rightAlign).toEqual(true);
-            });
+        beforeEach(async () => {
+            await element.setData([{ number1: 10 }]);
+            columnInstances.column1.alignment = NumberTextAlignment.default;
+            columnInstances.column1.format = NumberTextFormat.default;
+            await connect();
+            await waitForUpdatesAsync();
+            cellView = pageObject.getRenderedCellView(
+                0,
+                0
+            ) as TableColumnNumberTextCellView;
+            expect(cellView.rightAlign).toEqual(false);
+        });
+
+        it('when alignment changes', async () => {
+            columnInstances.column1.alignment = NumberTextAlignment.right;
+            await waitForUpdatesAsync();
+            expect(cellView.rightAlign).toEqual(true);
+        });
+
+        it('when format changes and alignment is set to "default"', async () => {
+            columnInstances.column1.format = NumberTextFormat.roundToInteger;
+            await waitForUpdatesAsync();
+            expect(cellView.rightAlign).toEqual(true);
         });
     });
 });

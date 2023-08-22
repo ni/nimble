@@ -83,7 +83,7 @@ const metadata: Meta<SharedTableArgs> = {
 
 export default metadata;
 
-interface TextColumnTableArgs extends SharedTableArgs {
+interface NumberTextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     format: keyof typeof NumberTextFormat;
     alignment: keyof typeof NumberTextAlignment;
@@ -121,7 +121,7 @@ const alignmentDescription = `Configures the alignment of the value within the c
 </details>
 `;
 
-export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
+export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
@@ -130,7 +130,7 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
+    render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
         ${incubatingWarning({
         componentName: 'table',
         statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
