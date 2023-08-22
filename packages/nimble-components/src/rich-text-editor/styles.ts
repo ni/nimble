@@ -73,6 +73,10 @@ export const styles = css`
         overflow: auto;
     }
 
+    .editor-container {
+        display: contents;
+    }
+
     .ProseMirror {
         ${
             /**

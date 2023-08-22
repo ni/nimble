@@ -15,6 +15,7 @@ import {
     tokenNames
 } from '../../theme-provider/design-token-names';
 import { buttonTag } from '../../button';
+import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -23,12 +24,19 @@ const metadata: Meta = {
     }
 };
 
+const richTextMarkdownString = '1. **Bold*Italics***';
+
 export default metadata;
 
 // prettier-ignore
 const component = (): ViewTemplate => html`
     <${richTextEditorTag}></${richTextEditorTag}>
 `;
+
+const playFunction = (): void => {
+    const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
+    editorNodeList.forEach(element => element.setMarkdown(richTextMarkdownString));
+};
 
 const editorSizingTestCase = (
     [widthLabel, widthStyle]: [string, string],
@@ -49,6 +57,8 @@ export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component)
 );
 
+richTextEditorThemeMatrix.play = playFunction;
+
 export const richTextEditorSizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
         [
@@ -64,6 +74,47 @@ export const richTextEditorSizing: StoryFn = createStory(html`
     ])}
 `);
 
+const mobileWidthComponent = html`
+    <${richTextEditorTag} style="padding: 20px; width: 300px;">
+        <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
+        <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
+    </${richTextEditorTag}>
+`;
+
+export const plainTextContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
+
+plainTextContentInMobileWidth.play = (): void => {
+    document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
+};
+
+const multipleSubPointsContent = `
+1. Sub point 1
+   1. Sub point 2
+      1. Sub point 3
+         1. Sub point 4
+            1. Sub point 5
+               1. Sub point 6
+                  1. Sub point 7
+                     1. Sub point 8
+                        1. Sub point 9`;
+
+export const multipleSubPointsContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
+
+multipleSubPointsContentInMobileWidth.play = (): void => {
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(multipleSubPointsContent);
+};
+
+export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
+
+longWordContentInMobileWidth.play = (): void => {
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(
+            'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
+        );
+};
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)
 );
