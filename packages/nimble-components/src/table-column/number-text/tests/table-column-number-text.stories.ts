@@ -113,9 +113,9 @@ const alignmentDescription = `Configures the alignment of the value within the c
 
     The default alignment of the value depends on the column's format.
     <ul>
-        <li>\`default\` format: Values are left-aligned by default.
+        <li>\`default\` format: Values are left-aligned.
         </li>
-        <li>\`roundToInteger\` format: Values are right-aligned by default.
+        <li>\`roundToInteger\` format: Values are right-aligned.
         </li>
     </ul>
 </details>
