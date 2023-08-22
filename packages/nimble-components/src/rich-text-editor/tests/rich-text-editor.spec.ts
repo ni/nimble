@@ -49,7 +49,7 @@ describe('RichTextEditor', () => {
     it('should initialize Tiptap editor', () => {
         expect(pageObject.editorSectionHasChildNodes()).toBeTrue();
         expect(pageObject.getEditorSectionFirstElementChildClassName()).toBe(
-            'ProseMirror'
+            'tiptap ProseMirror'
         );
     });
 

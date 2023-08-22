@@ -190,7 +190,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public placeholderChanged(): void {
         if (this.tiptapEditor) {
-            const placeholderExtension: Extension<PlaceholderOptions> = this.tiptapEditor.extensionManager.extensions.filter(
+            const placeholderExtension = this.tiptapEditor.extensionManager.extensions.filter(
                 extension => {
                     return extension.name === 'placeholder';
                 }
