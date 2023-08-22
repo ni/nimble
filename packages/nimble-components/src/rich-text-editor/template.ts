@@ -15,10 +15,7 @@ export const template = html<RichTextEditor>`
         aria-disabled="${x => x.disabled}"
     >
         <div class="container">
-            <section
-                ${ref('editorContainer')}
-                class="editor-container"
-            >
+            <section ${ref('editorContainer')} class="editor-container">
             </section>
             <${iconExclamationMarkTag}
                 severity="error"
