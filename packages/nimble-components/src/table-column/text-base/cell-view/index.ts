@@ -1,6 +1,7 @@
 import { observable } from '@microsoft/fast-element';
 import { TableCellView } from '../../base/cell-view';
 import type { TableCellRecord } from '../../base/types';
+import { TextCellViewBaseAlignment } from './types';
 
 /**
  * The cell view base class for displaying fields of any type as text.
@@ -20,8 +21,8 @@ export abstract class TableColumnTextCellViewBase<
     public text = '';
 
     /**
-     * Whether or not to right-align the content of the cell.
+     * The alignment of the text within the cell.
      */
     @observable
-    public rightAlign = false;
+    public alignment: TextCellViewBaseAlignment = TextCellViewBaseAlignment.left;
 }

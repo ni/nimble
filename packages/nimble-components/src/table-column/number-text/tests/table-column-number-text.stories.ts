@@ -108,7 +108,7 @@ const formatDescription = `Configures the way that the numeric value is formatte
 
 const alignmentDescription = `Configures the alignment of the value within the column.
 
-To improve the ability for users to visually scan values, applications should select `right` if it is known that the decimal separators of all values in the column will align in the given the format.
+To improve the ability for users to visually scan values, applications should select \`right\` if it is known that the decimal separators of all values in the column will align in the given the format.
 
 <details>
     <summary>Default Alignment</summary>

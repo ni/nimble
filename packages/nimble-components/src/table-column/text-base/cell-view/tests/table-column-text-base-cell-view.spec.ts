@@ -8,6 +8,7 @@ import {
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
 import { template as textBaseCellViewTemplate } from '../template';
 import { styles as textBaseCellViewStyles } from '../styles';
+import { TextCellViewBaseAlignment } from '../types';
 
 describe('TableColumnTextCellViewBase', () => {
     let element: TableColumnTextCellViewBase;
@@ -44,18 +45,18 @@ describe('TableColumnTextCellViewBase', () => {
         await disconnect();
     });
 
-    it('defaults "rightAlign" to false', () => {
-        expect(element.rightAlign).toBeFalse();
+    it('defaults to left alignment', () => {
+        expect(element.alignment).toBe(TextCellViewBaseAlignment.left);
     });
 
-    it('styles cell correctly with "rightAlign" set to true', async () => {
-        element.rightAlign = true;
+    it('styles cell correctly with left alignment', async () => {
+        element.alignment = TextCellViewBaseAlignment.left;
         await waitForUpdatesAsync();
         expect(getComputedStyle(element).marginLeft).not.toEqual('0px');
     });
 
-    it('styles cell correctly with "rightAlign" set to false', async () => {
-        element.rightAlign = false;
+    it('styles cell correctly with right alignment', async () => {
+        element.alignment = TextCellViewBaseAlignment.right;
         await waitForUpdatesAsync();
         expect(getComputedStyle(element).marginLeft).toEqual('0px');
     });
