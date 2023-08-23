@@ -30,7 +30,6 @@ export const styles = css`
         );
         --ni-private-rich-text-editor-footer-section-height: 40px;
         --ni-private-rich-text-editor-tiptap-editor-minimum-height: 36px;
-        --ni-private-rich-text-editor-tiptap-editor-maximum-height: 132px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
@@ -111,9 +110,7 @@ export const styles = css`
              */ ''
         }
         min-height: var(--ni-private-rich-text-editor-tiptap-editor-minimum-height);
-        max-height: var(
-            --ni-private-rich-text-editor-tiptap-editor-maximum-height
-        );
+        max-height: 132px;
         height: 100%;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
@@ -174,14 +171,14 @@ export const styles = css`
     :host([footer-hidden]) .ProseMirror {
         ${
             /**
-             * Minimum height is the addition of existing minimum height of the tiptap editor div and the footer section height.
+             * Minimum height is the addition of existing minimum height of the tiptap editor div, the footer section height and the top and bottom border width.
              * With this calculation, the editor will extend to use the footer height when it is hidden.
              *
              * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
              * and the footer will smoothly appear within the editor.
              */ ''
         }
-        min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height));
+        min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height) + calc(${borderWidth} * 2));
     }
 
     li > p {
@@ -212,8 +209,7 @@ export const styles = css`
     }
 
     :host([footer-hidden]) .footer-section {
-        visibility: hidden;
-        height: 0px;
+        display: none;
     }
 
     nimble-toolbar::part(positioning-region) {

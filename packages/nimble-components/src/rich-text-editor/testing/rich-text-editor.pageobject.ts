@@ -158,12 +158,7 @@ export class RichTextEditorPageObject {
 
     public isFooterVisible(): boolean {
         const footerSection = this.getFooter()!;
-        return window.getComputedStyle(footerSection).visibility === 'visible';
-    }
-
-    public getFooterHeight(): string {
-        const footerSection = this.getFooter()!;
-        return window.getComputedStyle(footerSection).height;
+        return window.getComputedStyle(footerSection).display === 'none';
     }
 
     public getEditorTabIndex(): string {

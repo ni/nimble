@@ -1370,7 +1370,6 @@ describe('RichTextEditor', () => {
         await pageObject.hideFooter();
 
         expect(pageObject.isFooterVisible()).toBeFalse();
-        expect(pageObject.getFooterHeight()).toBe('0px');
     });
 
     it('should fire "input" event when there is an input to the editor', async () => {
