@@ -156,7 +156,7 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
-    public isFooterVisible(): boolean {
+    public isFooterHidden(): boolean {
         const footerSection = this.getFooter()!;
         return window.getComputedStyle(footerSection).display === 'none';
     }

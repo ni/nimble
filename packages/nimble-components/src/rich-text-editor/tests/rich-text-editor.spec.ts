@@ -1364,12 +1364,12 @@ describe('RichTextEditor', () => {
         });
     });
 
-    it('should have footer section hidden when footer-hidden enabled', async () => {
-        expect(pageObject.isFooterVisible()).toBeTrue();
+    it('should hide the footer when "footer-hidden" attribute is enabled', async () => {
+        expect(pageObject.isFooterHidden()).toBeFalse();
 
         await pageObject.hideFooter();
 
-        expect(pageObject.isFooterVisible()).toBeFalse();
+        expect(pageObject.isFooterHidden()).toBeTrue();
     });
 
     it('should fire "input" event when there is an input to the editor', async () => {
