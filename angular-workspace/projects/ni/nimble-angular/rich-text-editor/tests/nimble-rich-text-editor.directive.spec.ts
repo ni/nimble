@@ -74,8 +74,8 @@ describe('Nimble Rich Text Editor', () => {
         });
 
         it('has expected defaults for placeholder', () => {
-            expect(directive.placeholder).toBeUndefined();
-            expect(nativeElement.placeholder).toBeUndefined();
+            expect(directive.placeholder).toBe('');
+            expect(nativeElement.placeholder).toBe('');
         });
 
         it('has expected defaults for empty', () => {
