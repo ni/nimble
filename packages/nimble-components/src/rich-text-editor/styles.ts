@@ -174,7 +174,7 @@ export const styles = css`
     :host([footer-hidden]) .ProseMirror {
         ${
             /**
-             * Minimum/maximum height is the addition of existing minimum/maximum height of the tiptap editor div and the footer section height.
+             * Minimum height is the addition of existing minimum height of the tiptap editor div and the footer section height.
              * With this calculation, the editor will extend to use the footer height when it is hidden.
              *
              * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
@@ -182,10 +182,6 @@ export const styles = css`
              */ ''
         }
         min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height));
-        max-height: calc(
-            var(--ni-private-rich-text-editor-tiptap-editor-maximum-height) +
-                var(--ni-private-rich-text-editor-footer-section-height)
-        );
     }
 
     li > p {
