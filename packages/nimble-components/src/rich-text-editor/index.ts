@@ -100,7 +100,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      */
     public get empty(): boolean {
-        // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns true even if the editor has white spaces.
+        // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns false even if the editor has only whitespace.
         // However, the expectation is to return true if the editor is empty or contains only whitespace.
         // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
