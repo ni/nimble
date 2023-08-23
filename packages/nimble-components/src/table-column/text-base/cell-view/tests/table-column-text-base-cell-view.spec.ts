@@ -52,12 +52,12 @@ describe('TableColumnTextCellViewBase', () => {
     it('styles cell correctly with left alignment', async () => {
         element.alignment = TextCellViewBaseAlignment.left;
         await waitForUpdatesAsync();
-        expect(getComputedStyle(element).marginLeft).not.toEqual('0px');
+        expect(getComputedStyle(element).marginLeft).toEqual('0px');
     });
 
     it('styles cell correctly with right alignment', async () => {
         element.alignment = TextCellViewBaseAlignment.right;
         await waitForUpdatesAsync();
-        expect(getComputedStyle(element).marginLeft).toEqual('0px');
+        expect(getComputedStyle(element).marginLeft).not.toEqual('0px');
     });
 });
