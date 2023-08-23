@@ -156,21 +156,16 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
-    public isFooterVisible(): boolean {
-        const footerSection = this.richTextEditorElement.shadowRoot!.querySelector(
-            '.footer-section'
-        )!;
-        return window.getComputedStyle(footerSection).visibility === 'visible';
+    public isFooterHidden(): boolean {
+        const footerSection = this.getFooter()!;
+        return window.getComputedStyle(footerSection).display === 'none';
     }
 
-    public getFooterHeight(): string {
-        const footerSection = this.richTextEditorElement.shadowRoot!.querySelector(
-            '.footer-section'
-        )!;
-        return window.getComputedStyle(footerSection).height;
+    public getEditorTabIndex(): string {
+        return this.getTiptapEditor()?.getAttribute('tabindex') ?? '';
     }
 
-    public async setFooterHiddenAttribute(): Promise<void> {
+    public async hideFooter(): Promise<void> {
         this.richTextEditorElement.setAttribute('footer-hidden', '');
         await waitForUpdatesAsync();
     }
@@ -180,23 +175,24 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public hasButtonDisabled(buttonIndex: ToolbarButton): boolean {
+    public isButtonDisabled(buttonIndex: ToolbarButton): boolean {
         const button = this.getFormattingButton(buttonIndex)!;
         return button.hasAttribute('disabled');
     }
 
-    public getButtonAriaDisabledValue(buttonIndex: ToolbarButton): string {
-        const button = this.getFormattingButton(buttonIndex)!;
-        return button.getAttribute('aria-disabled') ?? '';
-    }
-
-    public getDataPlaceholderValue(): string {
+    public getPlaceholderValue(): string {
         const editor = this.getTiptapEditor()!;
         return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
     }
 
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
+    }
+
+    private getFooter(): Element | null | undefined {
+        return this.richTextEditorElement.shadowRoot!.querySelector(
+            '.footer-section'
+        );
     }
 
     private getTiptapEditor(): Element | null | undefined {

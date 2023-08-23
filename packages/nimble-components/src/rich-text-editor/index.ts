@@ -1,7 +1,12 @@
 import { observable, attr, DOM } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    applyMixins,
+    ARIAGlobalStatesAndProperties,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor, Extension } from '@tiptap/core';
+import { Editor, AnyExtension, Extension } from '@tiptap/core';
 import {
     schema,
     defaultMarkdownParser,
@@ -38,10 +43,12 @@ declare global {
  */
 export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
+     * Whether to disable user from editing and interacting with toolbar buttons
+     *
      * @public
      * HTML Attribute: disabled
      */
-    @attr({ attribute: 'disabled', mode: 'boolean' })
+    @attr({ mode: 'boolean' })
     public disabled = false;
 
     /**
@@ -84,15 +91,18 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      * HTML Attribute: placeholder
      */
-    @attr({ attribute: 'placeholder' })
+    @attr
     public placeholder = '';
 
     /**
-     * True if the editor is empty, false otherwise
+     * True if the editor is empty or contains only whitespace, false otherwise.
      *
      * @public
      */
     public get empty(): boolean {
+        // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns true even if the editor has white spaces.
+        // However, the expectation is to return true if the editor is empty or contains only whitespace.
+        // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
     }
 
@@ -177,6 +187,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public disabledChanged(): void {
         if (this.tiptapEditor) {
             this.tiptapEditor.setEditable(!this.disabled);
+            this.setEditorTabIndex();
             this.editor.setAttribute(
                 'aria-disabled',
                 this.disabled ? 'true' : 'false'
@@ -190,16 +201,21 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public placeholderChanged(): void {
         if (this.tiptapEditor) {
-            const placeholderExtension = this.tiptapEditor.extensionManager.extensions.filter(
-                extension => {
-                    return extension.name === 'placeholder';
-                }
-            )[0] as Extension<PlaceholderOptions>;
+            const placeholderExtension = this.getTipTapExtension(
+                'placeholder'
+            ) as Extension<PlaceholderOptions>;
             placeholderExtension.options.placeholder = this.placeholder;
             this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
 
             this.queueUpdateScrollbarWidth();
         }
+    }
+
+    /**
+     * @internal
+     */
+    public ariaLabelChanged(): void {
+        this.editor.setAttribute('aria-label', this.ariaLabel ?? '');
     }
 
     /**
@@ -402,7 +418,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.editor.setAttribute('aria-multiline', 'true');
         this.editor.setAttribute('role', 'textbox');
         this.editor.setAttribute('aria-disabled', 'false');
-        this.editor.setAttribute('aria-label', 'Rich Text Editor');
 
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -495,7 +510,29 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private onResize(): void {
         this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
     }
+
+    private getTipTapExtension(
+        extensionName: string
+    ): AnyExtension | undefined {
+        return this.tiptapEditor.extensionManager.extensions.find(
+            extension => extension.name === extensionName
+        );
+    }
+
+    private setEditorTabIndex(): void {
+        this.tiptapEditor.setOptions({
+            editorProps: {
+                attributes: {
+                    tabindex: this.disabled ? '-1' : '0'
+                }
+            }
+        });
+    }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
+applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 
 const nimbleRichTextEditor = RichTextEditor.compose({
     baseName: 'rich-text-editor',

@@ -16,6 +16,7 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
+import { Icon } from '../../icon-base';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -184,6 +185,29 @@ export class TablePageObject<T extends TableRecord> {
             );
         }
         return anchor as Anchor;
+    }
+
+    public getRenderedIconColumnCellIcon(
+        rowIndex: number,
+        columnIndex: number
+    ): Icon {
+        const icon = this.getRenderedCellView(rowIndex, columnIndex).shadowRoot!
+            .firstElementChild;
+        if (!icon || !(icon instanceof Icon)) {
+            throw new Error(
+                `Icon not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return icon;
+    }
+
+    public getRenderedIconColumnGroupHeaderIcon(groupRowIndex: number): Icon {
+        const icon = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
+            .firstElementChild;
+        if (!icon || !(icon instanceof Icon)) {
+            throw new Error(`Icon not found at group header ${groupRowIndex}`);
+        }
+        return icon;
     }
 
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {

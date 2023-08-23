@@ -106,20 +106,34 @@ const editorSizingTestCase = (
     </div>
 `;
 
-const stateMatrix = createMatrix(component, [
-    disabledStates,
-    footerHiddenStates,
-    errorStates,
-    placeholderValueStates
-]);
-
-export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(stateMatrix);
+export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        footerHiddenStates,
+        errorStates,
+        [placeholderValueStates[0]]
+    ])
+);
 richTextEditorThemeMatrix.play = playFunction;
 
-export const richTextEditorThemeMatrixForLongContent: StoryFn = createMatrixThemeStory(stateMatrix);
+export const richTextEditorThemeMatrixForLongContent: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        [disabledStates[0]],
+        [footerHiddenStates[0]],
+        errorStates,
+        [placeholderValueStates[0]]
+    ])
+);
 richTextEditorThemeMatrixForLongContent.play = longTextPlayFunction;
 
-export const richTextEditorThemeMatrixForEmptyContent: StoryFn = createMatrixThemeStory(stateMatrix);
+export const richTextEditorThemeMatrixForEmptyContent: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        [footerHiddenStates[0]],
+        [errorStates[0]],
+        placeholderValueStates
+    ])
+);
 
 export const richTextEditorSizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
@@ -145,8 +159,7 @@ const mobileWidthComponent = html`
 
 const componentFitToContent = (
     [fitToContentName, fitToContent]: FitToContentState,
-    [footerHiddenName, footerHidden]: FooterHiddenState,
-    [widthName, widthStyle]: [string, string]
+    [footerHiddenName, footerHidden]: FooterHiddenState
 ): ViewTemplate => html`
     <p 
         style="
@@ -155,10 +168,10 @@ const componentFitToContent = (
         margin-bottom: 0px;
         "
     >
-        ${() => fitToContentName} ${() => footerHiddenName} ${() => widthName}
+        ${() => fitToContentName} ${() => footerHiddenName}
     </p>
     <${richTextEditorTag}
-        style="margin: 5px 0px; ${widthStyle}"
+        style="margin: 5px 0px; width: 360px"
         ?fit-to-content="${() => fitToContent}"
         ?footer-hidden="${() => footerHidden}"
     >
@@ -200,11 +213,7 @@ longWordContentInMobileWidth.play = (): void => {
 export const fitToContentTest: StoryFn = createStory(html`
     ${createMatrix(componentFitToContent, [
         fitToContentStates,
-        footerHiddenStates,
-        [
-            ['No width', ''],
-            ['Width 360px', 'width: 360px']
-        ]
+        footerHiddenStates
     ])}
 `);
 fitToContentTest.play = longTextPlayFunction;

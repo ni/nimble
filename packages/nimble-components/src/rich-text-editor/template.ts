@@ -11,31 +11,22 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
-    <template
-        aria-disabled="${x => x.disabled}"
-    >
+    <template>
         <div class="container">
-            <section
-                ${ref('editorContainer')}
-                class="editor-container"
-            >
+            <section ${ref('editorContainer')} class="editor-container">
             </section>
             <${iconExclamationMarkTag}
                 severity="error"
-                class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
+                class="error-icon"
                 style="--ni-private-rich-text-editor-scrollbar-width: ${x => x.scrollbarWidth}px;"
             ></${iconExclamationMarkTag}>
             <section class="footer-section">
-                <${toolbarTag}
-                    ?disabled="${x => x.disabled}"
-                    aria-disabled="${x => x.disabled}"
-                >
+                <${toolbarTag}>
                     <${toggleButtonTag}
                         ${ref('boldButton')}
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Bold"
                         @click=${x => x.boldButtonClick()}
@@ -50,7 +41,6 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Italics"
                         @click=${x => x.italicsButtonClick()}
@@ -65,7 +55,6 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Bullet List"
                         @click=${x => x.bulletListButtonClick()}
@@ -80,7 +69,6 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
-                        aria-disabled="${x => x.disabled}"
                         slot="start"
                         title="Numbered List"
                         @click=${x => x.numberedListButtonClick()}
