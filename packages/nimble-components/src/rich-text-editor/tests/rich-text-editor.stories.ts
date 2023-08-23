@@ -58,16 +58,8 @@ Note: The content in the \`footer-actions\` slot will not adjust based on the st
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
 client application must implement that functionality.
 `;
-const fitToContentDescription = `Setting \`fit-to-content\` allows the editor to grow vertically to fit the content instead of enabling the
-vertical scrollbar when content reaches the default height.
-
-To observe the changes when toggling, add more than five lines in the editor; this will enable the vertical scrollbar to view the hidden content.
-If the \`fit-to-content\` option is enabled, the editor will grow vertically to accommodate the content, instead of displaying the vertical scrollbar.`;
-const inputEventDescription = `This event is fired when there is a change in the content of the editor.
-
-The client can utilize this event to execute various functionalities for every input to the editor. For instance, it can be utilized to assess
-whether the editor is empty by utilizing the \`empty\` read-only property with each input, and subsequently disabling a button if the editor is
-indeed empty.`;
+const fitToContentDescription = `Setting \`fit-to-content\` allows the editor to grow vertically to fit the content instead of displaying a
+vertical scrollbar when content exceeds the visible height.`;
 
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
@@ -149,12 +141,13 @@ const metadata: Meta<RichTextEditorArgs> = {
         empty: {
             name: 'empty',
             description:
-                'Read-only boolean value. Returns true if editor is empty.',
+                'Read-only boolean value. Returns true if editor is either empty or contains only whitespace.',
             control: false
         },
         input: {
             name: 'input',
-            description: inputEventDescription,
+            description:
+                'This event is fired when there is a change in the content of the editor.',
             control: false
         }
     },

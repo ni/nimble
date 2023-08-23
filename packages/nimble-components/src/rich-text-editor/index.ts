@@ -1,5 +1,10 @@
 import { observable, attr, DOM } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import {
+    applyMixins,
+    ARIAGlobalStatesAndProperties,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { Editor, AnyExtension, Extension } from '@tiptap/core';
 import {
@@ -43,7 +48,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      * HTML Attribute: disabled
      */
-    @attr({ attribute: 'disabled', mode: 'boolean' })
+    @attr({ mode: 'boolean' })
     public disabled = false;
 
     /**
@@ -86,15 +91,18 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      * HTML Attribute: placeholder
      */
-    @attr({ attribute: 'placeholder' })
+    @attr
     public placeholder = '';
 
     /**
-     * True if the editor is empty, false otherwise
+     * True if the editor is empty, false otherwise.
      *
      * @public
      */
     public get empty(): boolean {
+        // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns true even if the editor has white spaces.
+        // However, the expectation is to return true if the editor contains any content.
+        // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
         return this.tiptapEditor.state.doc.textContent.trim().length === 0;
     }
 
@@ -201,6 +209,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
             this.queueUpdateScrollbarWidth();
         }
+    }
+
+    /**
+     * @internal
+     */
+    public ariaLabelChanged(): void {
+        this.editor.setAttribute('aria-label', this.ariaLabel ?? '');
     }
 
     /**
@@ -403,7 +418,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.editor.setAttribute('aria-multiline', 'true');
         this.editor.setAttribute('role', 'textbox');
         this.editor.setAttribute('aria-disabled', 'false');
-        this.editor.setAttribute('aria-label', 'Rich Text Editor');
 
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
@@ -515,6 +529,10 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         });
     }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
+applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 
 const nimbleRichTextEditor = RichTextEditor.compose({
     baseName: 'rich-text-editor',

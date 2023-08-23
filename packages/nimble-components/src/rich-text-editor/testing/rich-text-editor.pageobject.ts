@@ -180,12 +180,12 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    public hasButtonDisabled(buttonIndex: ToolbarButton): boolean {
+    public isButtonDisabled(buttonIndex: ToolbarButton): boolean {
         const button = this.getFormattingButton(buttonIndex)!;
         return button.hasAttribute('disabled');
     }
 
-    public getDataPlaceholderValue(): string {
+    public getPlaceholderValue(): string {
         const editor = this.getTiptapEditor()!;
         return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
     }

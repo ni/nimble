@@ -14,7 +14,6 @@ import {
     smallDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
-import { userSelectNone } from '../utilities/style/user-select';
 import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
@@ -31,16 +30,11 @@ export const styles = css`
         );
         --ni-private-rich-text-editor-footer-section-height: 40px;
         --ni-private-rich-text-editor-tiptap-editor-minimum-height: 36px;
+        --ni-private-rich-text-editor-tiptap-editor-maximum-height: 132px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
         min-width: 360px;
-    }
-
-    :host([disabled]) *,
-    :host([disabled]) {
-        ${userSelectNone}
-        color: ${bodyDisabledFontColor};
     }
 
     .container {
@@ -75,25 +69,29 @@ export const styles = css`
         }
     }
 
-    :host(:hover) .container::after {
-        width: 100%;
-    }
-
-    :host([disabled]) .container,
-    :host([disabled]) .container::after {
+    :host([disabled]) .container {
+        color: ${bodyDisabledFontColor};
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
-    }
-
-    :host([disabled]:hover) .container::after {
-        width: 0px;
     }
 
     :host([error-visible]) .container {
         border-bottom-color: ${failColor};
     }
 
+    :host(:hover) .container::after {
+        width: 100%;
+    }
+
+    :host([disabled]:hover) .container::after {
+        width: 0px;
+    }
+
     :host([error-visible]) .container::after {
         border-bottom-color: ${failColor};
+    }
+
+    .editor-container {
+        display: contents;
     }
 
     .editor {
@@ -105,10 +103,6 @@ export const styles = css`
         overflow: auto;
     }
 
-    .editor-container {
-        display: contents;
-    }
-
     .ProseMirror {
         ${
             /**
@@ -117,7 +111,9 @@ export const styles = css`
              */ ''
         }
         min-height: var(--ni-private-rich-text-editor-tiptap-editor-minimum-height);
-        max-height: 132px;
+        max-height: var(
+            --ni-private-rich-text-editor-tiptap-editor-maximum-height
+        );
         height: 100%;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
@@ -175,6 +171,23 @@ export const styles = css`
         max-height: fit-content;
     }
 
+    :host([footer-hidden]) .ProseMirror {
+        ${
+            /**
+             * Minimum/maximum height is the addition of existing minimum/maximum height of the tiptap editor div and the footer section height.
+             * With this calculation, the editor will extend to use the footer height when it is hidden.
+             *
+             * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
+             * and the footer will smoothly appear within the editor.
+             */ ''
+        }
+        min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height));
+        max-height: calc(
+            var(--ni-private-rich-text-editor-tiptap-editor-maximum-height) +
+                var(--ni-private-rich-text-editor-footer-section-height)
+        );
+    }
+
     li > p {
         margin-block: 0;
     }
@@ -185,7 +198,7 @@ export const styles = css`
         float: left;
         height: 0;
         pointer-events: none;
-        word-break: break-all;
+        word-break: break-word;
     }
 
     :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
@@ -207,19 +220,6 @@ export const styles = css`
         height: 0px;
     }
 
-    :host([footer-hidden]) .ProseMirror {
-        ${
-            /**
-             * Minimum height is the addition of existing minimum height of the tiptap editor div and the footer section height.
-             * With this calculation, the editor will extend to use the footer height when it is hidden.
-             *
-             * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
-             * and the footer will smoothly appear within the editor.
-             */ ''
-        }
-        min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height));
-    }
-
     nimble-toolbar::part(positioning-region) {
         background: transparent;
         padding-right: 8px;
@@ -238,11 +238,6 @@ export const styles = css`
     }
 
     :host([error-visible]) .error-icon {
-        display: none;
-    }
-
-    :host([error-visible]) .error-icon[scrollbar-visible] {
-        display: inline-flex;
         position: absolute;
         top: calc(${standardPadding} / 2);
         right: var(--ni-private-rich-text-editor-scrollbar-width);

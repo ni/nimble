@@ -11,9 +11,7 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
-    <template
-        aria-disabled="${x => x.disabled}"
-    >
+    <template>
         <div class="container">
             <section ${ref('editorContainer')} class="editor-container">
             </section>
@@ -21,7 +19,6 @@ export const template = html<RichTextEditor>`
                 severity="error"
                 class="error-icon"
                 style="--ni-private-rich-text-editor-scrollbar-width: ${x => x.scrollbarWidth}px;"
-                ?scrollbar-visible="${x => x.scrollbarWidth >= 0}"
             ></${iconExclamationMarkTag}>
             <section class="footer-section">
                 <${toolbarTag}>
