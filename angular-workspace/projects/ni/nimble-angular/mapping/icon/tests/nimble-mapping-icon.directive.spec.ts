@@ -67,13 +67,13 @@ describe('NimbleMappingIcon', () => {
         });
 
         it('will use template string values for icon', () => {
-            expect(directive.text).toBe('nimble-icon-xmark');
-            expect(nativeElement.text).toBe('nimble-icon-xmark');
+            expect(directive.icon).toBe('nimble-icon-xmark');
+            expect(nativeElement.icon).toBe('nimble-icon-xmark');
         });
 
         it('will use template string values for severity', () => {
-            expect(directive.text).toBe('error');
-            expect(nativeElement.text).toBe('error');
+            expect(directive.severity).toBe('error');
+            expect(nativeElement.severity).toBe('error');
         });
     });
 
