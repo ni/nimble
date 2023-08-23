@@ -44,7 +44,8 @@ export class CustomAppComponent {
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
-    public markdownString = `Supported rich text formatting options:
+    public isEditorButtonDisabled = true;
+    public viewerMarkdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
 3. Numbered lists
@@ -56,7 +57,7 @@ export class CustomAppComponent {
 5. Absolute link: <https://nimble.ni.dev/>
 `;
 
-    public editorSupportedMarkdownString = `Supported rich text formatting options:
+    public editorMarkdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
 3. Numbered lists
@@ -128,6 +129,14 @@ export class CustomAppComponent {
     }
 
     public setMarkdown(): void {
-        this.editor.setMarkdown(this.editorSupportedMarkdownString);
+        this.editor.setMarkdown(this.editorMarkdownString);
+    }
+
+    public getMarkdown(): void {
+        this.viewerMarkdownString = this.editor.getMarkdown();
+    }
+
+    public onEditorInput(): void {
+        this.isEditorButtonDisabled = this.editor.empty;
     }
 }
