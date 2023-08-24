@@ -44,7 +44,6 @@ export class CustomAppComponent {
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
-    public isEditorButtonDisabled = true;
     public markdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
@@ -115,9 +114,5 @@ export class CustomAppComponent {
             statusCode: (tableData.length % 2 === 0) ? 100 : 101
         });
         this.tableDataSubject.next(tableData);
-    }
-
-    public setContent(): void {
-        this.editor.setMarkdown(this.markdownString);
     }
 }
