@@ -1,7 +1,7 @@
 export const ComponentFrameworkStatus = {
     ready: 'ready',
     incubating: 'incubating',
-    notReady: 'not_ready'
+    doesNotExist: 'does_not_exist'
 } as const;
 export type ComponentFrameworkStatus =
     (typeof ComponentFrameworkStatus)[keyof typeof ComponentFrameworkStatus];

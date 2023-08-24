@@ -5,7 +5,6 @@ import {
 } from '../src/utilities/tests/storybook';
 import { Table, tableTag } from '../src/table';
 import { tableColumnAnchorTag } from '../src/table-column/anchor';
-import { tableColumnTextTag } from '../src/table-column/text';
 import { tableColumnIconTag } from '../src/table-column/icon';
 import { mappingIconTag } from '../src/mapping/icon';
 import { iconCheckTag } from '../src/icons/check';
@@ -28,9 +27,9 @@ const components = [
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/533',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Anchor',
@@ -78,9 +77,9 @@ const components = [
         componentName: 'Badge',
         issueHref: 'https://github.com/ni/nimble/issues/1428',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Banner',
@@ -108,9 +107,9 @@ const components = [
         componentName: 'Card',
         issueHref: 'https://github.com/ni/nimble/issues/296',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Card button',
@@ -147,17 +146,17 @@ const components = [
         componentName: 'Date picker',
         issueHref: 'https://github.com/ni/nimble/issues/342',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Date Time Text',
         issueHref: 'https://github.com/ni/nimble/issues/294',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Dialog',
@@ -183,9 +182,9 @@ const components = [
         componentName: 'Filter Builder (Query Builder)',
         issueHref: 'https://github.com/ni/nimble/issues/310',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Icon Button',
@@ -218,9 +217,9 @@ const components = [
         componentName: 'Label',
         issueHref: 'https://github.com/ni/nimble/issues/312',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Menu',
@@ -259,25 +258,25 @@ const components = [
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/458',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Progress Bar',
         issueHref: 'https://github.com/ni/nimble/issues/304',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Query Builder',
         issueHref: 'https://github.com/ni/nimble/issues/506',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Radio',
@@ -297,7 +296,7 @@ const components = [
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Rich Text Viewer',
@@ -306,7 +305,7 @@ const components = [
         issueLabel: 'Issue',
         componentStatus: ComponentFrameworkStatus.incubating,
         angularStatus: ComponentFrameworkStatus.incubating,
-        blazorStatus: ComponentFrameworkStatus.incubating,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Search Field',
@@ -314,9 +313,9 @@ const components = [
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/299',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Select (Dropdown)',
@@ -331,9 +330,9 @@ const components = [
         componentName: 'Skeleton',
         issueHref: 'https://github.com/ni/nimble/issues/762',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Slider',
@@ -341,9 +340,9 @@ const components = [
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/295',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Spinner',
@@ -362,17 +361,17 @@ const components = [
         designLabel: 'XD',
         issueHref: 'https://github.com/ni/nimble/issues/298',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Stepper',
         issueHref: 'https://github.com/ni/nimble/issues/624',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Switch',
@@ -438,9 +437,9 @@ const components = [
         designLabel: 'Figma',
         issueHref: 'https://github.com/ni/nimble/issues/513',
         issueLabel: 'Issue',
-        componentStatus: ComponentFrameworkStatus.notReady,
-        angularStatus: ComponentFrameworkStatus.notReady,
-        blazorStatus: ComponentFrameworkStatus.notReady,
+        componentStatus: ComponentFrameworkStatus.doesNotExist,
+        angularStatus: ComponentFrameworkStatus.doesNotExist,
+        blazorStatus: ComponentFrameworkStatus.doesNotExist,
     },
     {
         componentName: 'Toggle Icon Button',
@@ -494,7 +493,7 @@ const components = [
 const iconMappings = html`
     <${mappingIconTag} key="${ComponentFrameworkStatus.ready}" text="Ready" icon="${iconCheckTag}" severity="success"></${mappingIconTag}>
     <${mappingIconTag} key="${ComponentFrameworkStatus.incubating}" text="Incubating" icon="${iconTriangleTag}" severity="warning"></${mappingIconTag}>
-    <${mappingIconTag} key="${ComponentFrameworkStatus.notReady}" text="Not ready" icon="${iconXmarkTag}" severity="error"></${mappingIconTag}>
+    <${mappingIconTag} key="${ComponentFrameworkStatus.doesNotExist}" text="Does not exist" icon="${iconXmarkTag}" severity="error"></${mappingIconTag}>
 `;
 
 const metadata: Meta<TableArgs> = {
@@ -536,6 +535,7 @@ const metadata: Meta<TableArgs> = {
                 ?column-hidden="${x => x.status === 'future'}"
             >
                 Web Component
+                ${iconMappings}
             </${tableColumnIconTag}>
             <${tableColumnIconTag}
                 column-id="angular-status-column"
@@ -543,6 +543,7 @@ const metadata: Meta<TableArgs> = {
                 ?column-hidden="${x => x.status === 'future'}"
             >
                 Angular
+                ${iconMappings}
             </${tableColumnIconTag}>
             <${tableColumnIconTag}
                 column-id="blazor-status-column"
@@ -550,6 +551,7 @@ const metadata: Meta<TableArgs> = {
                 ?column-hidden="${x => x.status === 'future'}"
             >
                 Blazor
+                ${iconMappings}
             </${tableColumnIconTag}>
 
         </${tableTag}>
@@ -580,9 +582,9 @@ const metadata: Meta<TableArgs> = {
                 // but doesn't seem to be upgraded to a custom element yet
                 await customElements.whenDefined('nimble-table');
                 const isFuture = (component: typeof components[number]): boolean =>
-                    component.angularStatus  === ComponentFrameworkStatus.notReady
-                    && component.blazorStatus === ComponentFrameworkStatus.notReady
-                    && component.componentStatus === ComponentFrameworkStatus.notReady;
+                    component.angularStatus  === ComponentFrameworkStatus.doesNotExist
+                    && component.blazorStatus === ComponentFrameworkStatus.doesNotExist
+                    && component.componentStatus === ComponentFrameworkStatus.doesNotExist;
                 const data = components.filter(component => x.status === 'future' ? isFuture(component) : !isFuture(component))
                 await x.tableRef.setData(data);
             })();
