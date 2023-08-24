@@ -45,7 +45,7 @@ export class CustomAppComponent {
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
     public isEditorButtonDisabled = true;
-    public viewerMarkdownString = `Supported rich text formatting options:
+    public markdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
 3. Numbered lists
@@ -55,17 +55,6 @@ export class CustomAppComponent {
     * Option 1
     * Option 2
 5. Absolute link: <https://nimble.ni.dev/>
-`;
-
-    public editorMarkdownString = `Supported rich text formatting options:
-1. **Bold**
-2. *Italics*
-3. Numbered lists
-    1. Option 1
-    2. Option 2
-4. Bulleted lists
-    * Option 1
-    * Option 2
 `;
 
     public readonly tableData$: Observable<SimpleTableRecord[]>;
@@ -128,15 +117,7 @@ export class CustomAppComponent {
         this.tableDataSubject.next(tableData);
     }
 
-    public setMarkdown(): void {
-        this.editor.setMarkdown(this.editorMarkdownString);
-    }
-
-    public getMarkdown(): void {
-        this.viewerMarkdownString = this.editor.getMarkdown();
-    }
-
-    public onEditorInput(): void {
-        this.isEditorButtonDisabled = this.editor.empty;
+    public setContent(): void {
+        this.editor.setMarkdown(this.markdownString);
     }
 }
