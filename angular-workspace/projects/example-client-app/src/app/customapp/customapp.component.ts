@@ -3,7 +3,6 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
 import type { TableRecord } from '@ni/nimble-angular/table';
-import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text-editor';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 interface ComboboxItem {
@@ -61,7 +60,6 @@ export class CustomAppComponent {
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
-    @ViewChild('editor', { read: NimbleRichTextEditorDirective }) private readonly editor: NimbleRichTextEditorDirective;
 
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
