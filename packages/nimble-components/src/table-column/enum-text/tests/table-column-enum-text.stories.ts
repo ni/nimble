@@ -40,7 +40,10 @@ const simpleData = [
 
 const enumTextColumnDescription = `The \`nimble-table-column-enum-text\` column renders string, number, or boolean values as mapped text in the \`nimble-table\`.
 
-When sorting or grouping the column, the raw data values are used, not the mapped text being displayed.`;
+When sorting or grouping the column, the raw data values are used, not the mapped text being displayed.
+
+**Blazor**: When setting a child mapping elment's \`Key\` value to a string, you must wrap it in \`@()\` so that the compiler treats it as a string, e.g.
+\`<NimbleMappingText Key=@("foo") ...>\``;
 
 const metadata: Meta<EnumTextColumnTableArgs> = {
     title: 'Incubating/Table Column - Enum Text',

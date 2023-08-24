@@ -48,7 +48,10 @@ const simpleData = [
 
 const iconColumnDescription = `The \`nimble-table-column-icon\` column renders string, number, or boolean values as a Nimble icon or \`nimble-spinner\` in the \`nimble-table\`.
 
-When sorting or grouping the column, the raw data values are used, not the mapped visuals.`;
+When sorting or grouping the column, the raw data values are used, not the mapped visuals.
+
+**Blazor**: When setting a child mapping elment's \`Key\` value to a string, you must wrap it in \`@()\` so that the compiler treats it as a string, e.g.
+\`<NimbleMappingIcon Key=@("foo") ...>\``;
 
 const metadata: Meta<IconColumnTableArgs> = {
     title: 'Incubating/Table Column - Icon',
