@@ -155,8 +155,8 @@ _empty_
 We considered utilizing Tiptap's [isEmpty](https://tiptap.dev/api/editor#is-empty) API to determine whether the editor is empty. However, this API
 does not return true if the editor only consists of whitespace. In the context of the comments feature, this property is exposed to find out the
 editor's empty state, even when it contains only whitespace. This is necessary because the Backend service for comments does not permit the
-creation of comments comprised with just whitespace. Consequently, by using this property, we should disable the `OK` button when the editor is
-empty. To achieve this, we retrieve the current text content value, trim the string, and return its length.
+creation of comments comprised of just whitespace. Consequently, by using this property, we should disable the `OK` button when the editor is
+empty. To achieve this, we retrieve the current text content value, trim the string, and return true if its length is zero.
 
 _Events_
 
