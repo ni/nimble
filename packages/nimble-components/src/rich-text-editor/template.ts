@@ -11,11 +11,7 @@ import { iconNumberListTag } from '../icons/number-list';
 export const template = html<RichTextEditor>`
     <template>
         <div class="container">
-            <section
-                ${ref('editor')}
-                class="editor"
-                role="textbox"
-                aria-multiline="true">
+            <section ${ref('editorContainer')} class="editor-container">
             </section>
             <section class="footer-section" part="footer-section">
                 <${toolbarTag}>

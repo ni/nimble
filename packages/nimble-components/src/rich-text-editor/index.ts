@@ -2,6 +2,15 @@ import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { Editor } from '@tiptap/core';
+import {
+    schema,
+    defaultMarkdownParser,
+    MarkdownParser,
+    MarkdownSerializer,
+    defaultMarkdownSerializer,
+    MarkdownSerializerState
+} from 'prosemirror-markdown';
+import { DOMSerializer, Node } from 'prosemirror-model';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
@@ -52,16 +61,29 @@ export class RichTextEditor extends FoundationElement {
     /**
      * @internal
      */
-    public editor!: HTMLDivElement;
+    public editorContainer!: HTMLDivElement;
 
     private tiptapEditor!: Editor;
+    private editor!: HTMLDivElement;
+
+    private readonly markdownParser = this.initializeMarkdownParser();
+    private readonly markdownSerializer = this.initializeMarkdownSerializer();
+    private readonly domSerializer = DOMSerializer.fromSchema(schema);
+    private readonly xmlSerializer = new XMLSerializer();
+
+    public constructor() {
+        super();
+        this.initializeEditor();
+    }
 
     /**
      * @internal
      */
     public override connectedCallback(): void {
         super.connectedCallback();
-        this.initializeEditor();
+        if (!this.editor.isConnected) {
+            this.editorContainer.append(this.editor);
+        }
         this.bindEditorTransactionEvent();
     }
 
@@ -154,6 +176,26 @@ export class RichTextEditor extends FoundationElement {
     }
 
     /**
+     * This function load tip tap editor with provided markdown content by parsing into html
+     * @public
+     */
+    public setMarkdown(markdown: string): void {
+        const html = this.getHtmlContent(markdown);
+        this.tiptapEditor.commands.setContent(html);
+    }
+
+    /**
+     * This function returns markdown string by serializing tiptap editor document using prosemirror MarkdownSerializer
+     * @public
+     */
+    public getMarkdown(): string {
+        const markdownContent = this.markdownSerializer.serialize(
+            this.tiptapEditor.state.doc
+        );
+        return markdownContent;
+    }
+
+    /**
      * @internal
      */
     public stopEventPropagation(event: Event): boolean {
@@ -163,7 +205,96 @@ export class RichTextEditor extends FoundationElement {
         return false;
     }
 
+    /**
+     * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
+     */
+    private getHtmlContent(markdown: string): string {
+        const documentFragment = this.parseMarkdownToDOM(markdown);
+        return this.xmlSerializer.serializeToString(documentFragment);
+    }
+
+    private initializeMarkdownParser(): MarkdownParser {
+        /**
+         * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
+         * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
+         * https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/presets/zero.js#L1
+         *
+         */
+        const zeroTokenizerConfiguration = defaultMarkdownParser.tokenizer.configure('zero');
+
+        // The detailed information of the supported rules were provided in the below CommonMark spec document.
+        // https://spec.commonmark.org/0.30/
+        const supportedTokenizerRules = zeroTokenizerConfiguration.enable([
+            'emphasis',
+            'list'
+        ]);
+
+        return new MarkdownParser(
+            schema,
+            supportedTokenizerRules,
+            defaultMarkdownParser.tokens
+        );
+    }
+
+    private initializeMarkdownSerializer(): MarkdownSerializer {
+        /**
+         * orderedList Node is getting 'order' attribute which it is not present in the
+         * tip-tap orderedList Node and having start instead of order, Changed it to start (nodes.attrs.start)
+         * Assigned updated node in place of orderedList node from defaultMarkdownSerializer
+         * https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/to_markdown.ts#L94C2-L101C7
+         */
+        const orderedListNode = function orderedList(
+            state: MarkdownSerializerState,
+            node: Node
+        ): void {
+            const start = (node.attrs.start as number) || 1;
+            const maxW = String(start + node.childCount - 1).length;
+            const space = state.repeat(' ', maxW + 2);
+            state.renderList(node, space, i => {
+                const nStr = String(start + i);
+                return `${state.repeat(' ', maxW - nStr.length) + nStr}. `;
+            });
+        };
+
+        /**
+         * Internally Tiptap editor creates it own schema ( Nodes AND Marks ) based on the extensions ( Here Starter Kit is used for Bold, italic, orderedList and
+         * bulletList extensions) and defaultMarkdownSerializer uses schema from prosemirror-markdown to serialize the markdown.
+         * So, there is variations in the nodes and marks name (Eg. 'ordered_list' in prosemirror-markdown schema whereas 'orderedList' in tip tap editor schema),
+         * To fix up this reassigned the respective nodes and marks with tip-tap editor schema.
+         */
+        const nodes = {
+            bulletList: defaultMarkdownSerializer.nodes.bullet_list!,
+            listItem: defaultMarkdownSerializer.nodes.list_item!,
+            orderedList: orderedListNode,
+            doc: defaultMarkdownSerializer.nodes.doc!,
+            paragraph: defaultMarkdownSerializer.nodes.paragraph!,
+            text: defaultMarkdownSerializer.nodes.text!
+        };
+        const marks = {
+            italic: defaultMarkdownSerializer.marks.em!,
+            bold: defaultMarkdownSerializer.marks.strong!
+        };
+        return new MarkdownSerializer(nodes, marks);
+    }
+
+    private parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
+        const parsedMarkdownContent = this.markdownParser.parse(value);
+        if (parsedMarkdownContent === null) {
+            return document.createDocumentFragment();
+        }
+
+        return this.domSerializer.serializeFragment(
+            parsedMarkdownContent.content
+        );
+    }
+
     private initializeEditor(): void {
+        // Create div from the constructor because the TipTap editor requires its host element before the template is instantiated.
+        this.editor = document.createElement('div');
+        this.editor.className = 'editor';
+        this.editor.setAttribute('aria-multiline', 'true');
+        this.editor.setAttribute('role', 'textbox');
+
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
          * Tiptap marks: https://tiptap.dev/api/marks
