@@ -226,13 +226,13 @@
                 </NimbleTableColumnEnumText>
                 <NimbleTableColumnIcon FieldName="Result" TKey="string" ColumnId="result-column">
                     <NimbleMappingIcon
-                        Key="success"
+                        Key=@("success")
                         Text="Success"
                         Icon="nimble-icon-check"
-                        Severity="success">
+                        Severity="IconSeverity.Success">
                     </NimbleMappingIcon>
                     <NimbleMappingSpinner
-                        Key="unknown"
+                        Key=@("unknown")
                         Text="Unknown">
                     </NimbleMappingSpinner>
                     Result
