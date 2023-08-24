@@ -23,9 +23,7 @@ TableColumnNumberTextColumnConfig
 > {
     private columnConfigChanged(): void {
         this.updateText();
-        this.alignment = this.columnConfig?.rightAlign
-            ? TextCellViewBaseAlignment.right
-            : TextCellViewBaseAlignment.left;
+        this.alignment = this.columnConfig?.alignment ?? TextCellViewBaseAlignment.left;
     }
 
     private cellRecordChanged(): void {

@@ -12,11 +12,12 @@ import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { NumberFormatter } from './models/number-formatter';
 import { RoundToIntegerFormatter } from './models/round-to-integer-formatter';
 import { DefaultFormatter } from './models/default-formatter';
+import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
     formatter: NumberFormatter;
-    rightAlign: boolean;
+    alignment: TextCellViewBaseAlignment;
 }
 
 declare global {
@@ -61,7 +62,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     private updateColumnConfig(): void {
         const columnConfig: TableColumnNumberTextColumnConfig = {
             formatter: this.createFormatter(),
-            rightAlign: this.shouldRightAlign()
+            alignment: this.determineCellContentAlignment()
         };
         this.columnInternals.columnConfig = columnConfig;
     }
@@ -75,20 +76,20 @@ export class TableColumnNumberText extends TableColumnTextBase {
         }
     }
 
-    private shouldRightAlign(): boolean {
+    private determineCellContentAlignment(): TextCellViewBaseAlignment {
         if (this.alignment === NumberTextAlignment.left) {
-            return false;
+            return TextCellViewBaseAlignment.left;
         }
 
         if (this.alignment === NumberTextAlignment.right) {
-            return true;
+            return TextCellViewBaseAlignment.right;
         }
 
         // Look at format to determine the default alignment
         if (this.format === NumberTextFormat.roundToInteger) {
-            return true;
+            return TextCellViewBaseAlignment.right;
         }
-        return false;
+        return TextCellViewBaseAlignment.left;
     }
 }
 
