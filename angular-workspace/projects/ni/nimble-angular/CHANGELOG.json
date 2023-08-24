@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 24 Aug 2023 20:06:06 GMT",
+      "tag": "@ni/nimble-angular_v17.1.9",
+      "version": "17.1.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "d3f5a24b3f00a86f0c0abc0b271ea4b9bcee25b4",
+            "comment": "Angular support for icon table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 22 Aug 2023 12:48:52 GMT",
       "tag": "@ni/nimble-angular_v17.1.8",
       "version": "17.1.8",
