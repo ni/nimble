@@ -205,7 +205,6 @@ export const styles = css`
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-rich-text-editor-footer-section-height);
         overflow: hidden;
-        visibility: visible;
     }
 
     :host([footer-hidden]) .footer-section {
