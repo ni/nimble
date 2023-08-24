@@ -14,16 +14,6 @@ export type { RichTextEditor };
 export class NimbleRichTextEditorDirective {
     @Output() public inputEvent = new EventEmitter<boolean>();
 
-    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RichTextEditor>) { }
-
-    public getMarkdown(): string {
-        return this.elementRef.nativeElement.getMarkdown();
-    }
-
-    public setMarkdown(value: string): void {
-        this.elementRef.nativeElement.setMarkdown(value);
-    }
-
     public get disabled(): boolean {
         return this.elementRef.nativeElement.disabled;
     }
@@ -78,6 +68,16 @@ export class NimbleRichTextEditorDirective {
 
     @Input() public set placeholder(value: string) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
+    }
+
+    public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<RichTextEditor>) { }
+
+    public getMarkdown(): string {
+        return this.elementRef.nativeElement.getMarkdown();
+    }
+
+    public setMarkdown(value: string): void {
+        this.elementRef.nativeElement.setMarkdown(value);
     }
 
     public get empty(): boolean {
