@@ -19,6 +19,7 @@ interface SimpleTableRecord extends TableRecord {
     linkLabel?: string;
     date: number;
     statusCode: number;
+    result: string;
 }
 
 @Component({
@@ -122,7 +123,8 @@ export class CustomAppComponent {
             href: '/customapp',
             linkLabel: 'Link',
             date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
-            statusCode: (tableData.length % 2 === 0) ? 100 : 101
+            statusCode: (tableData.length % 2 === 0) ? 100 : 101,
+            result: (tableData.length % 2 === 0) ? 'success' : 'unknown'
         });
         this.tableDataSubject.next(tableData);
     }
