@@ -356,6 +356,10 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
+    // In Firefox browser, Once the editor gets focused, the blinking caret will be visible until we click format buttons (Bold, Italic ...) in the Firefox browser (Changing focus).
+    // But once the any of the buttons clicked, the editor internally has its focus but the blinking caret disappears.
+    // As a workaround, manually trigerring blur and setting focus on editor will hepls making the caret re-appears.
+    // It seems like this issue in not fixed in firefox browser yet, Created Issue https://github.com/ni/nimble/issues/1454 tracks removal of this workaround.
     private focusEditorInFirefoxEnv(): void {
         const browserInfo = navigator.userAgent;
         if (browserInfo.includes('Firefox')) {
