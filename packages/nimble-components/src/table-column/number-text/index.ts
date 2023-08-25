@@ -8,14 +8,16 @@ import { TableColumnSortOperation } from '../base/types';
 import { tableColumnNumberTextGroupHeaderTag } from './group-header-view';
 import { tableColumnNumberTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import { NumberTextFormat } from './types';
+import { NumberTextAlignment, NumberTextFormat } from './types';
 import type { NumberFormatter } from './models/number-formatter';
 import { RoundToIntegerFormatter } from './models/round-to-integer-formatter';
 import { DefaultFormatter } from './models/default-formatter';
+import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
     formatter: NumberFormatter;
+    alignment: TextCellViewBaseAlignment;
 }
 
 declare global {
@@ -30,6 +32,9 @@ declare global {
 export class TableColumnNumberText extends TableColumnTextBase {
     @attr
     public format: NumberTextFormat;
+
+    @attr
+    public alignment: NumberTextAlignment;
 
     public override connectedCallback(): void {
         super.connectedCallback();
@@ -50,9 +55,14 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
+    private alignmentChanged(): void {
+        this.updateColumnConfig();
+    }
+
     private updateColumnConfig(): void {
         const columnConfig: TableColumnNumberTextColumnConfig = {
-            formatter: this.createFormatter()
+            formatter: this.createFormatter(),
+            alignment: this.determineCellContentAlignment()
         };
         this.columnInternals.columnConfig = columnConfig;
     }
@@ -64,6 +74,22 @@ export class TableColumnNumberText extends TableColumnTextBase {
             default:
                 return new DefaultFormatter();
         }
+    }
+
+    private determineCellContentAlignment(): TextCellViewBaseAlignment {
+        if (this.alignment === NumberTextAlignment.left) {
+            return TextCellViewBaseAlignment.left;
+        }
+
+        if (this.alignment === NumberTextAlignment.right) {
+            return TextCellViewBaseAlignment.right;
+        }
+
+        // Look at format to determine the default alignment
+        if (this.format === NumberTextFormat.roundToInteger) {
+            return TextCellViewBaseAlignment.right;
+        }
+        return TextCellViewBaseAlignment.left;
     }
 }
 

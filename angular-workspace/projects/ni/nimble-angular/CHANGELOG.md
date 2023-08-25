@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Tue, 22 Aug 2023 12:48:52 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Aug 2023 21:19:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.10
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.15
+
+## 17.1.9
+
+Thu, 24 Aug 2023 20:06:06 GMT
+
+### Patches
+
+- Angular support for icon table column ([ni/nimble@d3f5a24](https://github.com/ni/nimble/commit/d3f5a24b3f00a86f0c0abc0b271ea4b9bcee25b4))
 
 ## 17.1.8
 
