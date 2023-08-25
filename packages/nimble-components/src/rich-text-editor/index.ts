@@ -101,7 +101,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public boldButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBold().run();
-        this.focusEditorInFirefoxEnv();
+        this.focusEditorInFirefox();
     }
 
     /**
@@ -111,7 +111,7 @@ export class RichTextEditor extends FoundationElement {
     public boldButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBold().run();
-            this.focusEditorInFirefoxEnv();
+            this.focusEditorInFirefox();
             return false;
         }
         return true;
@@ -123,7 +123,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public italicsButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleItalic().run();
-        this.focusEditorInFirefoxEnv();
+        this.focusEditorInFirefox();
     }
 
     /**
@@ -133,7 +133,7 @@ export class RichTextEditor extends FoundationElement {
     public italicsButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleItalic().run();
-            this.focusEditorInFirefoxEnv();
+            this.focusEditorInFirefox();
             return false;
         }
         return true;
@@ -145,7 +145,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public bulletListButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBulletList().run();
-        this.focusEditorInFirefoxEnv();
+        this.focusEditorInFirefox();
     }
 
     /**
@@ -155,7 +155,7 @@ export class RichTextEditor extends FoundationElement {
     public bulletListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBulletList().run();
-            this.focusEditorInFirefoxEnv();
+            this.focusEditorInFirefox();
             return false;
         }
         return true;
@@ -167,7 +167,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public numberedListButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
-        this.focusEditorInFirefoxEnv();
+        this.focusEditorInFirefox();
     }
 
     /**
@@ -177,7 +177,7 @@ export class RichTextEditor extends FoundationElement {
     public numberedListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleOrderedList().run();
-            this.focusEditorInFirefoxEnv();
+            this.focusEditorInFirefox();
             return false;
         }
         return true;
@@ -357,10 +357,9 @@ export class RichTextEditor extends FoundationElement {
     }
 
     // In Firefox browser, Once the editor gets focused, the blinking caret will be visible until we click format buttons (Bold, Italic ...) in the Firefox browser (Changing focus).
-    // But once the any of the buttons clicked, the editor internally has its focus but the blinking caret disappears.
-    // As a workaround, manually triggering blur and setting focus on editor will hepls making the caret re-appears.
-    // It seems like this issue in not fixed in firefox browser yet, Created Issue https://github.com/ni/nimble/issues/1454 tracks removal of this workaround.
-    private focusEditorInFirefoxEnv(): void {
+    // But once any of the toolbar button is clicked, editor internally has its focus but the blinking caret disappears.
+    // As a workaround, manually triggering blur and setting focus on editor makes the blinking caret to re-appear.
+    private focusEditorInFirefox(): void {
         const browserInfo = navigator.userAgent;
         if (browserInfo.includes('Firefox')) {
             this.tiptapEditor.commands.blur();
