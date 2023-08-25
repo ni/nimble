@@ -298,18 +298,14 @@ describe('TableColumnNumberText', () => {
 
         it('displays two decimal digits by default', () => {
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
-                '11.00'
-            );
+            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
         });
 
         it('updating decimal-digits updates rendered value', async () => {
             columnInstances.column1.decimalDigits = 5;
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
-                '11.00000'
-            );
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00000');
             expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
                 '11.00000'
             );
@@ -322,9 +318,7 @@ describe('TableColumnNumberText', () => {
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
-                '11.00'
-            );
+            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
         });
 
         it('setting an invalid decimal-digits value makes the column invalid', async () => {
