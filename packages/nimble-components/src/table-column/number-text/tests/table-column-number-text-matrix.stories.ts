@@ -49,7 +49,7 @@ const component = (
     <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
         Number Text Table Column with ${alignmentName} alignment
     </label>
-    <${tableTag} id-field-name="id" style="height: 350px">
+    <${tableTag} id-field-name="id" style="height: 450px">
         <${tableColumnNumberTextTag}
             field-name="number"
             group-index="0"

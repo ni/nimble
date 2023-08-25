@@ -161,7 +161,6 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
                 Age
             </${tableColumnNumberTextTag}>
             <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" >
                 Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
