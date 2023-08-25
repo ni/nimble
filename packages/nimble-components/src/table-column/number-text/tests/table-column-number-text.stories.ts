@@ -14,7 +14,7 @@ import {
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
 import { tableColumnTextTag } from '../../text';
-import { NumberTextFormat } from '../types';
+import { NumberTextAlignment, NumberTextFormat } from '../types';
 
 const simpleData = [
     {
@@ -83,9 +83,10 @@ const metadata: Meta<SharedTableArgs> = {
 
 export default metadata;
 
-interface TextColumnTableArgs extends SharedTableArgs {
+interface NumberTextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     format: keyof typeof NumberTextFormat;
+    alignment: keyof typeof NumberTextAlignment;
     decimalDigits: number;
     checkValidity: () => void;
     validity: () => void;
@@ -115,7 +116,24 @@ The object's type is \`TableColumnValidity\`, and it contains the following bool
 -   \`invalidDecimalDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-digits\` is set to a number less than 0 or greater than 20.
 `;
 
-export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
+const alignmentDescription = `Configures the alignment of the value within the column.
+
+To improve the ability for users to visually scan values, applications should select \`right\` if it is known that the decimal separators of all values in the column will align in the given the format.
+
+<details>
+    <summary>Default Alignment</summary>
+
+    The default alignment of the value depends on the column's format.
+    <ul>
+        <li>\`default\` format: Values are left-aligned.
+        </li>
+        <li>\`roundToInteger\` format: Values are right-aligned.
+        </li>
+    </ul>
+</details>
+`;
+
+export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
     parameters: {
         docs: {
             description: {
@@ -124,7 +142,7 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
         }
     },
     // prettier-ignore
-    render: createUserSelectedThemeStory(html<TextColumnTableArgs>`
+    render: createUserSelectedThemeStory(html<NumberTextColumnTableArgs>`
         ${incubatingWarning({
         componentName: 'table',
         statusLink: 'https://github.com/orgs/ni/projects/7/views/21'
@@ -139,10 +157,11 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="lastName">
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
                 Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
+            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" >
                 Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -157,6 +176,11 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
         format: {
             description: formatDescription,
             options: Object.keys(NumberTextFormat),
+            control: { type: 'radio' }
+        },
+        alignment: {
+            description: alignmentDescription,
+            options: Object.keys(NumberTextAlignment),
             control: { type: 'radio' }
         },
         decimalDigits: {
@@ -175,6 +199,7 @@ export const numberTextColumn: StoryObj<TextColumnTableArgs> = {
     },
     args: {
         format: 'default',
+        alignment: 'default',
         decimalDigits: 2
     }
 };

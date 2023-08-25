@@ -6,6 +6,7 @@ import type {
 } from '..';
 import { styles } from '../../text-base/cell-view/styles';
 import { TableColumnTextCellViewBase } from '../../text-base/cell-view';
+import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -22,6 +23,7 @@ TableColumnNumberTextColumnConfig
 > {
     private columnConfigChanged(): void {
         this.updateText();
+        this.alignment = this.columnConfig?.alignment ?? TextCellViewBaseAlignment.left;
     }
 
     private cellRecordChanged(): void {

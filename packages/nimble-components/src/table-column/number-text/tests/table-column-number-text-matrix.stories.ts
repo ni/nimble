@@ -1,5 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
+import { pascalCase } from '@microsoft/fast-web-utilities';
 import { createMatrixThemeStory } from '../../../utilities/tests/storybook';
 import {
     createMatrix,
@@ -11,6 +12,7 @@ import {
     controlLabelFont,
     controlLabelFontColor
 } from '../../../theme-provider/design-tokens';
+import { NumberTextAlignment } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Table Column - Number Text',
@@ -35,13 +37,23 @@ const data = [
     }
 ] as const;
 
+const alignmentStates: [string, string | undefined][] = Object.entries(
+    NumberTextAlignment
+).map(([key, value]) => [pascalCase(key), value]);
+type AlignmentState = (typeof alignmentStates)[number];
+
 // prettier-ignore
-const component = (): ViewTemplate => html`
-    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">Number Text Table Column</label>
+const component = (
+    [alignmentName, alignment]: AlignmentState
+): ViewTemplate => html`
+    <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
+        Number Text Table Column with ${alignmentName} alignment
+    </label>
     <${tableTag} id-field-name="id" style="height: 350px">
         <${tableColumnNumberTextTag}
             field-name="number"
             group-index="0"
+            alignment="${() => alignment}"
         >
             Default
         </${tableColumnNumberTextTag}>
@@ -49,6 +61,7 @@ const component = (): ViewTemplate => html`
             format="round-to-integer"
             field-name="number"
             group-index="1"
+            alignment="${() => alignment}"
         >
             Round to integer
         </${tableColumnNumberTextTag}>
@@ -56,7 +69,7 @@ const component = (): ViewTemplate => html`
 `;
 
 export const tableColumnNumberTextThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [alignmentStates])
 );
 
 tableColumnNumberTextThemeMatrix.play = async (): Promise<void> => {
