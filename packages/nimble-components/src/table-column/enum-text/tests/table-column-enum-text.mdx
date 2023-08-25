@@ -1,6 +1,5 @@
 import {
-    ArgTypes,
-    Canvas,
+    DocsStory,
     Meta,
     Controls,
     Stories,
@@ -15,10 +14,17 @@ import * as textMappingStories from '../../../mapping/text/tests/mapping-text.st
 <Title of={tableColumnEnumTextStories} />
 <Description of={tableColumnEnumTextStories} />
 
-<Canvas of={tableColumnEnumTextStories.enumTextColumn} />
-<ArgTypes of={tableColumnEnumTextStories.enumTextColumn} />
+<DocsStory of={tableColumnEnumTextStories.enumTextColumn} expanded={false} />
+<Controls of={tableColumnEnumTextStories.enumTextColumn} />
 
-### Text Mapping
+# Usage Docs
+
+## Blazor Usage
+
+When setting a child mapping elment's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
+`<NimbleMappingText Key=@("foo") ...>`
+
+# Text Mapping
 
 <Description of={textMappingStories} />
-<ArgTypes of={textMappingStories.textMapping} />
+<Controls of={textMappingStories.textMapping} />

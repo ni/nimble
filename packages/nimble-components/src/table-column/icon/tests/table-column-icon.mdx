@@ -1,6 +1,5 @@
 import {
-    ArgTypes,
-    Canvas,
+    DocsStory,
     Meta,
     Controls,
     Stories,
@@ -16,15 +15,22 @@ import * as spinnerMappingStories from '../../../mapping/spinner/tests/mapping-s
 <Title of={tableColumnIconStories} />
 <Description of={tableColumnIconStories} />
 
-<Canvas of={tableColumnIconStories.iconColumn} />
-<ArgTypes of={tableColumnIconStories.iconColumn} />
+<DocsStory of={tableColumnIconStories.iconColumn} expanded={false} />
+<Controls of={tableColumnIconStories.iconColumn} />
 
-### Icon Mapping
+# Usage Docs
+
+## Blazor Usage
+
+When setting a child mapping elment's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
+`<NimbleMappingIcon Key=@("foo") ...>`
+
+# Icon Mapping
 
 <Description of={iconMappingStories} />
-<ArgTypes of={iconMappingStories.iconMapping} />
+<Controls of={iconMappingStories.iconMapping} />
 
-### Spinner Mapping
+# Spinner Mapping
 
 <Description of={spinnerMappingStories} />
-<ArgTypes of={spinnerMappingStories.spinnerMapping} />
+<Controls of={spinnerMappingStories.spinnerMapping} />
