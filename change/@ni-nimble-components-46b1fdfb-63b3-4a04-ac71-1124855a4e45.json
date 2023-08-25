@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix for Firefox caret disappearing issue",
+  "packageName": "@ni/nimble-components",
+  "email": "aagash.maridas@solitontech.com",
+  "dependentChangeType": "patch"
+}
