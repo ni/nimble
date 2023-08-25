@@ -86,6 +86,9 @@ import { HeaderComponent } from './header/header.component';
         NimbleBannerModule,
         NimbleRichTextViewerModule,
         NimbleRichTextEditorModule,
+        NimbleTableColumnIconModule,
+        NimbleMappingIconModule,
+        NimbleMappingSpinnerModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
