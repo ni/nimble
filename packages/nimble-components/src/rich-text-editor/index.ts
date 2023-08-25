@@ -101,6 +101,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public boldButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBold().run();
+        this.focusEditorInFirefoxEnv();
     }
 
     /**
@@ -110,6 +111,7 @@ export class RichTextEditor extends FoundationElement {
     public boldButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBold().run();
+            this.focusEditorInFirefoxEnv();
             return false;
         }
         return true;
@@ -121,6 +123,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public italicsButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleItalic().run();
+        this.focusEditorInFirefoxEnv();
     }
 
     /**
@@ -130,6 +133,7 @@ export class RichTextEditor extends FoundationElement {
     public italicsButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleItalic().run();
+            this.focusEditorInFirefoxEnv();
             return false;
         }
         return true;
@@ -141,6 +145,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public bulletListButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBulletList().run();
+        this.focusEditorInFirefoxEnv();
     }
 
     /**
@@ -150,6 +155,7 @@ export class RichTextEditor extends FoundationElement {
     public bulletListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBulletList().run();
+            this.focusEditorInFirefoxEnv();
             return false;
         }
         return true;
@@ -161,6 +167,7 @@ export class RichTextEditor extends FoundationElement {
      */
     public numberedListButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
+        this.focusEditorInFirefoxEnv();
     }
 
     /**
@@ -170,6 +177,7 @@ export class RichTextEditor extends FoundationElement {
     public numberedListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleOrderedList().run();
+            this.focusEditorInFirefoxEnv();
             return false;
         }
         return true;
@@ -345,6 +353,14 @@ export class RichTextEditor extends FoundationElement {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    private focusEditorInFirefoxEnv(): void {
+        const browserInfo = navigator.userAgent;
+        if (browserInfo.includes('Firefox')) {
+            this.tiptapEditor.commands.blur();
+            this.tiptapEditor.commands.focus();
         }
     }
 }
