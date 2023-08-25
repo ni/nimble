@@ -118,7 +118,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
         }
 
         // Look at format to determine the default alignment
-        if (this.format === NumberTextFormat.roundToInteger) {
+        if (this.format === NumberTextFormat.roundToInteger || this.format === NumberTextFormat.decimal) {
             return TextCellViewBaseAlignment.right;
         }
         return TextCellViewBaseAlignment.left;

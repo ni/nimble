@@ -410,6 +410,24 @@ describe('TableColumnNumberText', () => {
             format: NumberTextFormat.roundToInteger,
             configuredColumnAlignment: NumberTextAlignment.right,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with decimal format and default alignment',
+            format: NumberTextFormat.decimal,
+            configuredColumnAlignment: NumberTextAlignment.default,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with decimal format and left alignment',
+            format: NumberTextFormat.decimal,
+            configuredColumnAlignment: NumberTextAlignment.left,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+        },
+        {
+            name: 'with decimal format and right alignment',
+            format: NumberTextFormat.decimal,
+            configuredColumnAlignment: NumberTextAlignment.right,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
         }
     ] as const;
     describe('sets the correct initial alignment on the cell', () => {
