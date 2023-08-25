@@ -2,20 +2,8 @@
 
 namespace NimbleBlazor;
 
-public partial class NimbleMappingIcon<TKey> : ComponentBase
+public partial class NimbleMappingIcon<TKey> : NimbleMappingBase<TKey>
 {
-    /// <summary>
-    /// Gets or sets the key value being mapped.
-    /// </summary>
-    [Parameter]
-    public TKey? Key { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text used for the tooltip and accessible name of the icon.
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
-
     /// <summary>
     /// Gets or sets the (element name of the) Nimble icon being mapped to.
     /// </summary>
@@ -27,10 +15,4 @@ public partial class NimbleMappingIcon<TKey> : ComponentBase
     /// </summary>
     [Parameter]
     public IconSeverity? Severity { get; set; }
-
-    /// <summary>
-    /// Gets or sets a collection of additional attributes that will be applied to the created element.
-    /// </summary>
-    [Parameter(CaptureUnmatchedValues = true)]
-    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 }

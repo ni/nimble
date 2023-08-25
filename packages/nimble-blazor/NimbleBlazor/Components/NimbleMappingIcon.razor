@@ -1,8 +1,9 @@
 @namespace NimbleBlazor
 @typeparam TKey
+@inherits NimbleMappingBase<TKey>
 
 <nimble-mapping-icon
-    key="@Key"
+    key="@FormattedKey"
     text="@Text"
     icon="@Icon"
     severity="@Severity.ToAttributeValue()"

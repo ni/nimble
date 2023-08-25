@@ -19,7 +19,7 @@ namespace NimbleBlazor.Tests.Acceptance
                 var table = page.Locator("nimble-table");
                 await Assertions.Expect(table).ToBeVisibleAsync();
 
-                var icon = table.Locator("nimble-check-icon");
+                var icon = table.Locator("nimble-icon-check");
                 await Assertions.Expect(icon).ToHaveCountAsync(1);
                 await Assertions.Expect(icon).ToHaveAttributeAsync("severity", "success");
                 var spinner = table.Locator("nimble-spinner");
