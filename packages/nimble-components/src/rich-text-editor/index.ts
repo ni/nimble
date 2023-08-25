@@ -1,7 +1,7 @@
 import { observable } from '@microsoft/fast-element';
 import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor } from '@tiptap/core';
+import { Editor, findParentNode, isList } from '@tiptap/core';
 import {
     schema,
     defaultMarkdownParser,
@@ -332,10 +332,17 @@ export class RichTextEditor extends FoundationElement {
     }
 
     private updateEditorButtonsState(): void {
+        const { extensionManager, state } = this.tiptapEditor;
+        const { extensions } = extensionManager;
+        const { selection } = state;
+        const parentList = findParentNode(node => isList(node.type.name, extensions))(
+            selection,
+        );
+
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
-        this.bulletListButton.checked = this.tiptapEditor.isActive('bulletList');
-        this.numberedListButton.checked = this.tiptapEditor.isActive('orderedList');
+        this.bulletListButton.checked = parentList !== undefined && parentList.node.type.name === 'bulletList';
+        this.numberedListButton.checked = parentList !== undefined && parentList.node.type.name === 'orderedList';
     }
 
     private keyActivatesButton(event: KeyboardEvent): boolean {
