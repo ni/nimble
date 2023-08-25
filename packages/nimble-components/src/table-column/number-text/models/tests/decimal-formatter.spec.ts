@@ -4,22 +4,25 @@ import { DecimalFormatter } from '../decimal-formatter';
 describe('DecimalFormatter', () => {
     const testCases: readonly {
         name: string,
-        decimalDigits?: number,
+        decimalDigits: number,
         value: number,
         expectedFormattedValue: string
     }[] = [
         {
             name: 'NEGATIVE_INFINITY renders as -∞',
+            decimalDigits: 1,
             value: Number.NEGATIVE_INFINITY,
             expectedFormattedValue: '-∞'
         },
         {
             name: 'POSITIVE_INFINITY renders as ∞',
+            decimalDigits: 1,
             value: Number.POSITIVE_INFINITY,
             expectedFormattedValue: '∞'
         },
         {
             name: 'NaN renders as NaN',
+            decimalDigits: 1,
             value: Number.NaN,
             expectedFormattedValue: 'NaN'
         },
@@ -64,9 +67,7 @@ describe('DecimalFormatter', () => {
             `${testCase.name}`,
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             () => {
-                const formatter = new DecimalFormatter(
-                    testCase.decimalDigits ?? 2
-                );
+                const formatter = new DecimalFormatter(testCase.decimalDigits);
                 const formattedValue = formatter.formatValue(testCase.value);
                 expect(formattedValue).toEqual(testCase.expectedFormattedValue);
             }
