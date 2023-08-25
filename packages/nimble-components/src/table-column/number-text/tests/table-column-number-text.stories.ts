@@ -185,7 +185,7 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
         decimalDigits: {
             name: 'decimal-digits',
             description:
-                'The number of decimal places to format values to when using the column `format` is configured to be `decimal`. When not configured, a default value of `2` is used. The value must be in the range 0 - 20 (inclusive).'
+                'The number of decimal places to format values to when the column\'s `format` is configured to be `decimal`. When not configured, a default value of `2` is used. The value must be in the range 0 - 20 (inclusive).'
         },
         checkValidity: {
             name: 'checkValidity()',
