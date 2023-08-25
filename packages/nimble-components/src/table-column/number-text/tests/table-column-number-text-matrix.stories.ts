@@ -65,6 +65,15 @@ const component = (
         >
             Round to integer
         </${tableColumnNumberTextTag}>
+        <${tableColumnNumberTextTag}
+            format="decimal"
+            decimal-digits="3"
+            field-name="number"
+            group-index="2"
+            alignment="${() => alignment}"
+        >
+            Decimal (3 digits)
+        </${tableColumnNumberTextTag}>
     </${tableTag}>
 `;
 
