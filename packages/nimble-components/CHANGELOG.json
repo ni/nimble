@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 24 Aug 2023 21:19:51 GMT",
+      "tag": "@ni/nimble-components_v20.1.15",
+      "version": "20.1.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2292048647dfcd1f61fbf897ec083eacb3e269db",
+            "comment": "Implement `alignment` attribute on number-text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 22 Aug 2023 12:48:52 GMT",
       "tag": "@ni/nimble-components_v20.1.14",
       "version": "20.1.14",
