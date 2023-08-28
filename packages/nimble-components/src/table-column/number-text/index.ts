@@ -74,11 +74,7 @@ export class TableColumnNumberText extends TableColumnTextBase {
     }
 
     private decimalDigitsChanged(): void {
-        // decimalDigits is only used by the 'decimal' format option. Only update the
-        // column configuration if that is the current format option.
-        if (this.format === NumberTextFormat.decimal) {
-            this.updateColumnConfig();
-        }
+        this.updateColumnConfig();
     }
 
     private updateColumnConfig(): void {

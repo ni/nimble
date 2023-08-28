@@ -127,6 +127,8 @@ To improve the ability for users to visually scan values, applications should se
     <ul>
         <li>\`default\` format: Values are left-aligned.
         </li>
+        <li>\`decimal\` format: Values are right-aligned.
+        </li>
         <li>\`roundToInteger\` format: Values are right-aligned.
         </li>
     </ul>
