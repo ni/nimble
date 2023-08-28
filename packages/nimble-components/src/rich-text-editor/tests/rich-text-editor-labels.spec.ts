@@ -30,7 +30,9 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
         let themeProvider: ThemeProvider;
         ({ element: themeProvider, connect, disconnect } = await setup());
         element = themeProvider.querySelector(richTextEditorTag)!;
-        labelProvider = themeProvider.querySelector(labelProviderRichTextEditorTag)!;
+        labelProvider = themeProvider.querySelector(
+            labelProviderRichTextEditorTag
+        )!;
         pageObject = new RichTextEditorPageObject(element);
     });
 
@@ -49,7 +51,9 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
     it('uses correct labels for Italics button', async () => {
         await connect();
         labelProvider.toggleItalics = 'Italics';
-        const italicButton = pageObject.getFormattingButton(ToolbarButton.italics);
+        const italicButton = pageObject.getFormattingButton(
+            ToolbarButton.italics
+        );
         expect(italicButton!.textContent!.trim()).toBe('Italics');
         expect(italicButton!.title).toBe('Italics');
     });
@@ -57,7 +61,9 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
     it('uses correct labels for bullet list button', async () => {
         await connect();
         labelProvider.toggleBulletList = 'Bullet List';
-        const bulletListButton = pageObject.getFormattingButton(ToolbarButton.bulletList);
+        const bulletListButton = pageObject.getFormattingButton(
+            ToolbarButton.bulletList
+        );
         expect(bulletListButton!.textContent!.trim()).toBe('Bullet List');
         expect(bulletListButton!.title).toBe('Bullet List');
     });
@@ -65,7 +71,9 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
     it('uses correct labels for numbered list button', async () => {
         await connect();
         labelProvider.toggleNumberedList = 'Numbered List';
-        const numberedListButton = pageObject.getFormattingButton(ToolbarButton.numberedList);
+        const numberedListButton = pageObject.getFormattingButton(
+            ToolbarButton.numberedList
+        );
         expect(numberedListButton!.textContent!.trim()).toBe('Numbered List');
         expect(numberedListButton!.title).toBe('Numbered List');
     });

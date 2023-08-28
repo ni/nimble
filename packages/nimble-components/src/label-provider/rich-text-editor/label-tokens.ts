@@ -16,7 +16,11 @@ export const richTextEditorToggleBulletListLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(richTextEditorLabelDefaults.richTextEditorToggleBulletListLabel);
 
-export const richTextEditorToggleNumberedListLabel = DesignToken.create<string>({
-    name: 'rich-text-editor-toggle-numbered-list-label',
-    cssCustomPropertyName: null
-}).withDefault(richTextEditorLabelDefaults.richTextEditorToggleNumberedListLabel);
+export const richTextEditorToggleNumberedListLabel = DesignToken.create<string>(
+    {
+        name: 'rich-text-editor-toggle-numbered-list-label',
+        cssCustomPropertyName: null
+    }
+).withDefault(
+    richTextEditorLabelDefaults.richTextEditorToggleNumberedListLabel
+);

@@ -1,7 +1,10 @@
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
 import * as labelTokensNamespace from '../label-tokens';
-import { LabelProviderRichTextEditor, labelProviderRichTextEditorTag } from '..';
+import {
+    LabelProviderRichTextEditor,
+    labelProviderRichTextEditorTag
+} from '..';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import {
     getAttributeName,

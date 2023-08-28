@@ -6,7 +6,12 @@ import { iconBoldBTag } from '../icons/bold-b';
 import { iconItalicITag } from '../icons/italic-i';
 import { iconListTag } from '../icons/list';
 import { iconNumberListTag } from '../icons/number-list';
-import { richTextEditorToggleBoldLabel, richTextEditorToggleItalicsLabel, richTextEditorToggleBulletListLabel, richTextEditorToggleNumberedListLabel } from '../label-provider/rich-text-editor/label-tokens';
+import {
+    richTextEditorToggleBoldLabel,
+    richTextEditorToggleItalicsLabel,
+    richTextEditorToggleBulletListLabel,
+    richTextEditorToggleNumberedListLabel
+} from '../label-provider/rich-text-editor/label-tokens';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`

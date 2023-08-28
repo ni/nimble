@@ -18,7 +18,7 @@ const supportedLabels = {
     toggleBold: richTextEditorToggleBoldLabel,
     toggleItalics: richTextEditorToggleItalicsLabel,
     toggleBulletList: richTextEditorToggleBulletListLabel,
-    toggleNumberedList: richTextEditorToggleNumberedListLabel,
+    toggleNumberedList: richTextEditorToggleNumberedListLabel
 } as const;
 
 /**
@@ -49,4 +49,6 @@ const nimbleLabelProviderRichTextEditor = LabelProviderRichTextEditor.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleLabelProviderRichTextEditor());
-export const labelProviderRichTextEditorTag = DesignSystem.tagFor(LabelProviderRichTextEditor);
+export const labelProviderRichTextEditorTag = DesignSystem.tagFor(
+    LabelProviderRichTextEditor
+);

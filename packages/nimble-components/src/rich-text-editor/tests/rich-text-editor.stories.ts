@@ -6,7 +6,10 @@ import {
 } from '../../utilities/tests/storybook';
 import { RichTextEditor, richTextEditorTag } from '..';
 import { buttonTag } from '../../button';
-import { addLabelUseMetadata, type LabelUserArgs } from '../../label-provider/base/tests/label-user-stories-utils';
+import {
+    addLabelUseMetadata,
+    type LabelUserArgs
+} from '../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderRichTextEditorTag } from '../../label-provider/rich-text-editor';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
