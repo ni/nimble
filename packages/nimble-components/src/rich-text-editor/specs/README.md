@@ -485,7 +485,15 @@ This component is dependent on the [`tiptap`](https://tiptap.dev/) third party l
 library. For the currently supported features, we will include the following libraries that will be added to the package.json
 
 -   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
--   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
+-   [@tiptap/extension-bold](https://www.npmjs.com/package/@tiptap/extension-bold)
+-   [@tiptap/extension-bullet-list](https://www.npmjs.com/package/@tiptap/extension-bullet-list)
+-   [@tiptap/extension-document](https://www.npmjs.com/package/@tiptap/extension-document)
+-   [@tiptap/extension-history](https://www.npmjs.com/package/@tiptap/extension-history)
+-   [@tiptap/extension-italic](https://www.npmjs.com/package/@tiptap/extension-italic)
+-   [@tiptap/extension-list-item](https://www.npmjs.com/package/@tiptap/extension-list-item)
+-   [@tiptap/extension-ordered-list](https://www.npmjs.com/package/@tiptap/extension-ordered-list)
+-   [@tiptap/extension-paragraph](https://www.npmjs.com/package/@tiptap/extension-paragraph)
+-   [@tiptap/extension-text](https://www.npmjs.com/package/@tiptap/extension-text)
 -   [@tiptap/extension-placeholder](https://www.npmjs.com/package/@tiptap/extension-placeholder)
 -   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
 -   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)

@@ -27,6 +27,7 @@ import type {
     WeekdayFormat
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
+import { optionalBooleanConverter } from '../../utilities/models/converter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
@@ -82,7 +83,10 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-format-matcher' })
     public customFormatMatcher: FormatMatcherAlgorithm;
 
-    @attr({ attribute: 'custom-hour12', mode: 'boolean' })
+    // Later versions of FAST (than the legacy branch we're on) have a nullableBooleanConverter.
+    // We should replace our converter with that one when it is available to us.
+    // See issue related to adopting FastElement 2.0: https://github.com/ni/nimble/issues/572
+    @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
     public customHour12?: boolean;
 
     @attr({ attribute: 'custom-time-zone' })

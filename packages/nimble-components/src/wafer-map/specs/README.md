@@ -46,9 +46,9 @@ We consider now that the most important features of the current component would 
 
 Additional implemented features:
 
--   [Nimble Wafer Map Hover Die](features/hover.md).
-
--   [Nimble Wafer Map Die Padding](features/die-padding.md).
+-   [Nimble Wafer Map Hover Die](features/hover.md)
+-   [Nimble Wafer Map Die Padding](features/die-padding.md)
+-   [Nimble Wafer Map Grid Dimensions](features/grid-dimension.md)
 
 ### Risks and Challenges
 
@@ -89,12 +89,16 @@ _The key elements of the component's public API surface:_
         -   x: number
         -   y: number
         -   value: string
-    -   `quadrant` - represents the orientation of the dies on the wafer map (the layout of the values on the dies). It can be represented by a const(as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
-    -   topLeft - ![Top Left Quadrant](./Resources/top_left.png)
-    -   bottomLeft - ![Bottom Left Quadrant](./Resources/bottom_left.png)
-    -   topRight - ![Top Right Quadrant](./Resources/top_right.png)
-    -   bottomRight - ![Bottom Right Quadrant](./Resources/bottom_right.png)
-    -   `orientation` - represent the orientation of the notch on the wafer map outline (only visual). As only four static orientations are possible, it can be represented by an Enum with the following values: top, bottom, left, right.
+    -   `originLocation` - represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas. The four possible combinations are represented with the position of the origin respective to the specific axes directions . It can be represented by a const (as suggested [here](https://github.com/ni/nimble/blob/12a84ea7ad9103ab848aa2cd9f724e8853751a10/packages/nimble-components/docs/coding-conventions.md#use-const-objects-instead-of-typescript-enums)) with the following values:
+    -   topLeft - ![Top Left Origin Location](./Resources/top_left.png)
+    -   bottomLeft - ![Bottom Left Origin Location](./Resources/bottom_left.png)
+    -   topRight - ![Top Right Origin Location](./Resources/top_right.png)
+    -   bottomRight - ![Bottom Right Origin Location](./Resources/bottom_right.png)
+    -   `orientation` - represents the orientation of the notch on the wafer map outline. As only four static orientations are possible, it can be represented by an Enum with the following values: `top`, `bottom`, `left`, `right`. This value does not influence the die grid display in any measure, it affects only the circle outline of the wafer.
+    -   `gridMinX` - represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X value of the bounding box of the input dies coordinates.
+    -   `gridMinY` - represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.
+    -   `gridMaxX` - represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.
+    -   `gridMaxY` - represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.
     -   `colorScale` - represents the color spectrum which shows the status of the dies on the wafer.\
         The objects we use internally for the colorScale are [d3.scaleOrdinal](https://observablehq.com/@d3/d3-scaleordinal) and [d3.scaleLinear](https://observablehq.com/@d3/d3-scalelinear). Basically, what this does is it associates a specific string (or in our case a value) with a specific color. The values which are not specified in the array, will be calculated as a interpolation from the provided colors for the linear scale or will be assigned to one of the specified color values from the provided colors for the ordinal scale.
         In the following example the colorScale object is defined as `WaferMapColorScale(['red', 'blue', 'green'], [1, 2, 8]);` and uses an internal linear scale\
@@ -104,14 +108,16 @@ _The key elements of the component's public API surface:_
     -   `dieLabelsSuffix` - represent a string that can be added as a label in the end of the each data information in the wafer map dies value.
     -   `colorScaleMode` - represent an Enum value that determent if the colorScale is represent a continues gradient values (linear), or is set categorically (ordinal).
     -   `highlightedValues` - represent a list of strings of dies values that will be highlighted in the wafer map view
-    -   disabled - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
+    -   `disabled` - it's represented by a boolean value and refers to the state of the `nimble-wafer-map` component. If true, the component should be rendered dimmed out and no user interaction should be allowed.
+    -   `validity` - readonly object of boolean values that represents the validity states that the wafer map's configuration can be in. The object's type is `WaferMapValidity`, and it contains the following boolean properties:
+        -   `invalidGridDimensions` : true when any of the `gridMinX`, `gridMinY`, `gridMaxX` or `gridMaxY` is `undefined`, but false when all of them are `undefined`.
 
-The `quadrant`, `orientation`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
-The `die`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
+The `originLocation`, `orientation`, `gridMinX`, `gridMinY`, `gridMaxX`, `gridMaxY`, `dieCharacterCount`, `disabled`, `waferDataType` and `colorBy` properties will be configurable via properties and attributes.
+The `dies`, `colorScale` and `highlightedValues` properties will be configurable only via properties and will not have attributes.
 
 Methods: The following methods will be exposed in the public API:
 
--   focus() - adds a green box around the component when it has tab focus.
+-   `focus()` - adds a green box around the component when it has tab focus.
 
 Events: The events mentioned below will all be handled internally by the nimble component and they will not be part of the public API. In the initial implementation the following events should be handled:
 
@@ -226,8 +232,8 @@ N/A
 
 ### Performance
 
-As mentioned in the "Risks" section, the biggest challenge from the performance standpoint is the representation of large number of datapoints and interacting with these datapoints in the browser.
-Currently the only thing we would like to achieve is to measure (benchmark) the time it takes a `nimble-wafer-map` component to be loaded with various number of datapoints. Initially this could be a manual benchmark on a demo site hosted within the repository. Longer term we may automate and trend this by including benchmarking on the PR build.
+As mentioned in the "Risks" section, the biggest challenge from the performance standpoint is the representation of large number of data points and interacting with these data points in the browser.
+Currently the only thing we would like to achieve is to measure (benchmark) the time it takes a `nimble-wafer-map` component to be loaded with various number of data points. Initially this could be a manual benchmark on a demo site hosted within the repository. Longer term we may automate and trend this by including benchmarking on the PR build.
 
 During these manual benchmark runs we would like to obtain more details on:
 "How much time it takes to render a `nimble-wafer-map` component with":
@@ -239,10 +245,11 @@ During these manual benchmark runs we would like to obtain more details on:
 
 Based on this information we can plan how we would like to approach performance improvements in the future and probably detect major bottlenecks.
 
-For the moment we don't have a clear understanding how long it will take to load a `nimble-wafer-map` component but we desire the following behavior:
+After doing various benchmarks, we are able to attest that the initial rendering performance of the `nimble-wafer-map` component is lower than 100 ms even for wafer maps between 10k and 100k data points. These values may be different based on the system configuration.
 
--   between 10 and 500ms for wafermaps under 10k data points
--   betweem 1000 and 5000ms for wafermaps between 10k and 100k datapoints
+Another information of note is that although the initial render is fast even for large data sets, the actual responsive behavior of the component, especially the zooming, is degrading visibly for a higher load.
+
+We are planning improvements in this regard in the short and medium term, looking for ways to improve the rendering and responsiveness of the component for data sets up to 500k data points.
 
 ### Dependencies
 

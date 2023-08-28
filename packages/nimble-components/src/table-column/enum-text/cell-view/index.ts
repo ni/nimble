@@ -30,14 +30,16 @@ TableColumnEnumColumnConfig
     }
 
     private updateText(): void {
-        const value = this.cellRecord.value;
+        const value = this.cellRecord?.value;
         if (value === undefined || value === null) {
             this.text = '';
             return;
         }
 
         const config = this.columnConfig?.mappingConfigs.get(value);
-        this.text = config instanceof MappingTextConfig ? config.text : '';
+        this.text = config instanceof MappingTextConfig && config.text
+            ? config.text
+            : '';
     }
 }
 

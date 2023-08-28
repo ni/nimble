@@ -67,5 +67,9 @@ export class NimbleComboboxDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
     }
 
+    public get value(): string {
+        return this.elementRef.nativeElement.value;
+    }
+
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<Combobox>) {}
 }

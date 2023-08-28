@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import type { TableColumn } from '@ni/nimble-components/dist/esm/table-column/base';
-import type { DelegatedEventEventDetails } from '@ni/nimble-components/dist/esm/table-column/base/types';
+import type { DelegatedEventEventDetails, TableColumnValidity } from '@ni/nimble-components/dist/esm/table-column/base/types';
 import { TableColumnSortDirection } from '@ni/nimble-components/dist/esm/table/types';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 
-export { TableColumnSortDirection, DelegatedEventEventDetails };
+export { TableColumnSortDirection, DelegatedEventEventDetails, TableColumnValidity };
 
 /**
  * Base class for table column directives.
@@ -72,4 +72,12 @@ export class NimbleTableColumnBaseDirective<T extends TableColumn> {
     }
 
     public constructor(protected readonly renderer: Renderer2, protected readonly elementRef: ElementRef<T>) {}
+
+    public checkValidity(): boolean {
+        return this.elementRef.nativeElement.checkValidity();
+    }
+
+    public get validity(): TableColumnValidity {
+        return this.elementRef.nativeElement.validity;
+    }
 }

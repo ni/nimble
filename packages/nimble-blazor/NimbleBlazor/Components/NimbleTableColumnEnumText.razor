@@ -1,0 +1,23 @@
+﻿@namespace NimbleBlazor
+@inherits NimbleTableColumn
+@attribute [CascadingTypeParameter(nameof(TKey))]
+@typeparam TKey
+
+<nimble-table-column-enum-text
+    column-id="@ColumnId"
+    field-name="@FieldName"
+    action-menu-slot="@ActionMenuSlot"
+    action-menu-label="@ActionMenuLabel"
+    column-hidden="@ColumnHidden"
+    fractional-width="@FractionalWidth"
+    min-pixel-width="@MinPixelWidth"
+    sort-direction="@SortDirection.ToAttributeValue()"
+    sort-index="@SortIndex"
+    group-index="@GroupIndex"
+    grouping-disabled="@GroupingDisabled"
+    key-type="@GetTKeyAsJSType()"
+    @attributes="AdditionalAttributes"
+>
+    @ChildContent
+</nimble-table-column-enum-text>
+
