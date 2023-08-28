@@ -156,6 +156,15 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
+    public getFormattingButton(
+        index: ToolbarButton
+    ): ToggleButton | null | undefined {
+        const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
+            'nimble-toggle-button'
+        );
+        return buttons[index];
+    }
+
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
     }
@@ -164,14 +173,5 @@ export class RichTextEditorPageObject {
         return this.richTextEditorElement.shadowRoot?.querySelector(
             '.ProseMirror'
         );
-    }
-
-    private getFormattingButton(
-        index: ToolbarButton
-    ): ToggleButton | null | undefined {
-        const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
-            'nimble-toggle-button'
-        );
-        return buttons[index];
     }
 }
