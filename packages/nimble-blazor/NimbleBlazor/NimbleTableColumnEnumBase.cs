@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace NimbleBlazor;
 
-public class NimbleTableColumnMapping<TKey> : NimbleTableColumn, IGroupableColumn
+public class NimbleTableColumnEnumBase<TKey> : NimbleTableColumn, IGroupableColumn
 {
     /// <summary>
     /// Gets or sets the field in the element representing a row of data in a <see cref="NimbleTable{TData}"/>to display

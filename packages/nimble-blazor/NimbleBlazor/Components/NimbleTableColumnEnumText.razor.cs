@@ -2,7 +2,7 @@
 
 namespace NimbleBlazor;
 
-public partial class NimbleTableColumnEnumText<TKey> : NimbleTableColumnMapping<TKey>, IFractionalWidthColumn
+public partial class NimbleTableColumnEnumText<TKey> : NimbleTableColumnEnumBase<TKey>, IFractionalWidthColumn
 {
     /// <summary>
     /// The fractional/proportional width to use for this column
