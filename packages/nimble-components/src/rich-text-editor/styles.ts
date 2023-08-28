@@ -29,7 +29,7 @@ export const styles = css`
             ${borderWidth} + 1px
         );
         --ni-private-rich-text-editor-footer-section-height: 40px;
-        --ni-private-rich-text-editor-min-height: 36px;
+        --ni-private-rich-text-editor-min-height: 78px;
         --ni-private-rich-text-editor-max-height: 172px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''

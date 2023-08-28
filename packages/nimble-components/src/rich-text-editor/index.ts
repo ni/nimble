@@ -138,14 +138,14 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public scrollbarWidth = -1;
 
     /**
-     * The height of the container.
+     * The maximum height of the container.
      * @internal
      */
     @observable
     public editorMaxHeight = '172px';
 
     /**
-     * The height of the container.
+     * The minimum height of the container.
      * @internal
      */
     @observable

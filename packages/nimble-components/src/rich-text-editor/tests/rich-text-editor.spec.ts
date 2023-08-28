@@ -1381,11 +1381,10 @@ describe('RichTextEditor', () => {
         expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should fire "input" event when setting the content through "setMarkdown"', async () => {
+    it('should not fire "input" event when setting the content through "setMarkdown"', () => {
         const inputEventListener = createEventListener(element, 'input');
 
         element.setMarkdown('input');
-        await inputEventListener.promise;
 
         expect(inputEventListener.spy).not.toHaveBeenCalled();
     });
