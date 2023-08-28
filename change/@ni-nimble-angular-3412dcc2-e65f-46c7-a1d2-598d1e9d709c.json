@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Export MappingKeyType fully instead of just as type",
-  "packageName": "@ni/nimble-angular",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
