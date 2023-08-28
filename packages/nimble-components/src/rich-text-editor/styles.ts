@@ -29,7 +29,8 @@ export const styles = css`
             ${borderWidth} + 1px
         );
         --ni-private-rich-text-editor-footer-section-height: 40px;
-        --ni-private-rich-text-editor-tiptap-editor-minimum-height: 36px;
+        --ni-private-rich-text-editor-min-height: 36px;
+        --ni-private-rich-text-editor-max-height: 172px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
@@ -37,6 +38,7 @@ export const styles = css`
     }
 
     .container {
+        box-sizing: border-box
         display: flex;
         flex-direction: column;
         position: relative;
@@ -94,6 +96,7 @@ export const styles = css`
     }
 
     .editor {
+        box-sizing: border-box
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
         height: calc(
@@ -102,17 +105,21 @@ export const styles = css`
         overflow: auto;
     }
 
+    :host([footer-hidden]) .editor {
+        height: 100%;
+    }
+
     .ProseMirror {
         ${
             /**
-             * Min height represents the one line space for the initial view and max height is referred from the visual design.
+             * Min height represents the one line space for the initial view and max height is referred from the current visual design.
              * However, max height will be `fit-content` when the `fit-to-content` attribute for the editor component is implemented.
              */ ''
         }
-        min-height: var(--ni-private-rich-text-editor-tiptap-editor-minimum-height);
-        max-height: 132px;
+        min-height: calc(var(--ni-private-rich-text-editor-min-height) - var(--ni-private-rich-text-editor-footer-section-height) - 4px);
+        max-height: calc(var(--ni-private-rich-text-editor-max-height) - var(--ni-private-rich-text-editor-footer-section-height) - 4px);
         height: 100%;
-        border: ${borderWidth} solid transparent;
+        border: 0px;
         border-radius: 0px;
         background-color: transparent;
         font: inherit;
@@ -164,21 +171,17 @@ export const styles = css`
         margin-block-end: 0;
     }
 
-    :host([fit-to-content]) .ProseMirror {
-        max-height: fit-content;
-    }
-
     :host([footer-hidden]) .ProseMirror {
         ${
             /**
-             * Minimum height is the addition of existing minimum height of the tiptap editor div, the footer section height and the top and bottom border width.
-             * With this calculation, the editor will extend to use the footer height when it is hidden.
+             * Minimum height is the addition of existing minimum height of the editor element with the top and bottom border width.
              *
              * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
              * and the footer will smoothly appear within the editor.
              */ ''
         }
-        min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height) + calc(${borderWidth} * 2));
+        min-height: calc(var(--ni-private-rich-text-editor-min-height) + calc(${borderWidth} * 2));
+        max-height: calc(var(--ni-private-rich-text-editor-max-height) + calc(${borderWidth} * 2));
     }
 
     li > p {

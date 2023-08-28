@@ -138,6 +138,20 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public scrollbarWidth = -1;
 
     /**
+     * The height of the container.
+     * @internal
+     */
+    @observable
+    public editorMaxHeight = '172px';
+
+    /**
+     * The height of the container.
+     * @internal
+     */
+    @observable
+    public editorMinHeight = '78px';
+
+    /**
      * @internal
      */
     public editorContainer!: HTMLDivElement;
@@ -146,6 +160,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private editor!: HTMLDivElement;
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
+    private updateEditorHeightQueued = false;
+
+    // Default min height represents the one line space for the initial view and default max height is referred from the current visual design.
+    private readonly editorDefaultMaxHeight = '172px';
+    private readonly editorDefaultMinHeight = '78px';
 
     private readonly markdownParser = this.initializeMarkdownParser();
     private readonly markdownSerializer = this.initializeMarkdownSerializer();
@@ -208,6 +227,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
 
             this.queueUpdateScrollbarWidth();
+            this.queueUpdateEditorHeight();
         }
     }
 
@@ -304,7 +324,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public setMarkdown(markdown: string): void {
         const html = this.getHtmlContent(markdown);
-        this.tiptapEditor.commands.setContent(html, true);
+        this.tiptapEditor.commands.setContent(html);
     }
 
     /**
@@ -489,6 +509,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.tiptapEditor.on('update', () => {
             this.$emit('input');
             this.queueUpdateScrollbarWidth();
+            this.queueUpdateEditorHeight();
         });
     }
 
@@ -507,8 +528,42 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
     }
 
+    private queueUpdateEditorHeight(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.updateEditorHeightQueued) {
+            this.updateEditorHeightQueued = true;
+            DOM.queueUpdate(() => this.updateEditorHeight());
+        }
+    }
+
+    private updateEditorHeight(): void {
+        this.updateEditorHeightQueued = false;
+        this.updateEditorMinMaxHeight();
+    }
+
     private onResize(): void {
         this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
+        this.updateEditorMinMaxHeight();
+    }
+
+    private updateEditorMinMaxHeight(): void {
+        const computedStyles = getComputedStyle(this);
+        const currentMaxHeight = computedStyles.getPropertyValue('max-height');
+        const currentMinHeight = computedStyles.getPropertyValue('min-height');
+
+        // Verify whether the min/max height is in its default value; if not, update it with the min/max height set by the client.
+        this.editorMaxHeight = currentMaxHeight !== 'none'
+            ? currentMaxHeight
+            : this.editorDefaultMaxHeight;
+        this.editorMinHeight = currentMinHeight !== '0px'
+            ? currentMinHeight
+            : this.editorDefaultMinHeight;
+
+        if (currentMaxHeight === 'none' && this.fitToContent) {
+            this.editorMaxHeight = 'fit-content';
+        }
     }
 
     private getTipTapExtension(

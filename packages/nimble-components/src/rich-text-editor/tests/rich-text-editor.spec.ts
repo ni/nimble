@@ -1381,15 +1381,6 @@ describe('RichTextEditor', () => {
         expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should fire "input" event when setting the content through "setMarkdown"', async () => {
-        const inputEventListener = createEventListener(element, 'input');
-
-        element.setMarkdown('input');
-        await inputEventListener.promise;
-
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
-    });
-
     it('should fire "input" event when the text is updated/removed from the editor', async () => {
         const inputEventListener = createEventListener(element, 'input');
 
