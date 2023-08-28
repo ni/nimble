@@ -258,6 +258,7 @@ _CSS Classes and CSS Custom Properties that affect the component_
     enabled when there is overflow of content in the component.
 -   The width of the component will be determined by the client. Reducing the width will cause the content to reflow, resulting in an increased height
     of the component or will enable the vertical scrollbar.
+
 ### Anatomy
 
 _Slot Names_
@@ -283,9 +284,10 @@ emitters will be created for the events, similar to how it's done in other direc
 association, so a `ControlValueAccessor` will not be created.
 
 _Future enhancements:_
+
 1. Support for intelligent behavior of links which includes configurations for opening in the same tab, new tab, indications for external links, etc. based on [Accessibility Guidelines](#accessibility)
 2. An Angular router integration will be implemented for the same domain internal `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
-Instead of a full page reload, the Angular router integration is expected to enable the rendering of components only on the activated route relative to the existing route, making the user experience smoother while keeping the background work on the lower side.
+   Instead of a full page reload, the Angular router integration is expected to enable the rendering of components only on the activated route relative to the existing route, making the user experience smoother while keeping the background work on the lower side.
 
 ### Blazor integration
 
