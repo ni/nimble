@@ -11,7 +11,11 @@ import { ToolbarButton } from '../testing/types';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
-type LabelProvider = 'toggleBold' | 'toggleItalics' | 'toggleBulletList' | 'toggleNumberedList';
+type LabelProvider =
+    | 'toggleBold'
+    | 'toggleItalics'
+    | 'toggleBulletList'
+    | 'toggleNumberedList';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
     return fixture<ThemeProvider>(
@@ -33,25 +37,25 @@ const formattingButtons: {
         name: 'Bold',
         property: 'toggleBold',
         label: 'Customized Bold Label',
-        toolbarButtonIndex: ToolbarButton.bold,
+        toolbarButtonIndex: ToolbarButton.bold
     },
     {
         name: 'Italics',
         property: 'toggleItalics',
         label: 'Customized Italics Label',
-        toolbarButtonIndex: ToolbarButton.italics,
+        toolbarButtonIndex: ToolbarButton.italics
     },
     {
         name: 'BulletList',
         property: 'toggleBulletList',
         label: 'Customized Bullet List Label',
-        toolbarButtonIndex: ToolbarButton.bulletList,
+        toolbarButtonIndex: ToolbarButton.bulletList
     },
     {
         name: 'NumberedList',
         property: 'toggleNumberedList',
         label: 'Customized Numbered List Label',
-        toolbarButtonIndex: ToolbarButton.numberedList,
+        toolbarButtonIndex: ToolbarButton.numberedList
     }
 ];
 
@@ -88,7 +92,9 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
             async () => {
                 labelProvider[value.property] = value.label;
                 await waitForUpdatesAsync();
-                const formatButton = pageObject.getFormattingButton(value.toolbarButtonIndex);
+                const formatButton = pageObject.getFormattingButton(
+                    value.toolbarButtonIndex
+                );
                 expect(formatButton!.textContent!.trim()).toBe(value.label);
                 expect(formatButton!.title).toBe(value.label);
             }
