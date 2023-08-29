@@ -25,6 +25,21 @@ Best practice is to use multiple disclosures in one accordion and avoid one disc
 <img src="spec-images/Accordion-13.png" alt="Alt text" style="box-shadow: 0px 0px 10px #000000;">
 <sup>Add your tiny text</sup>
 
+|![pictureAliasName](spec-images/Accordion-13.png)|
+-
+
+> [![screenshot][1]][1]
+
+  [1]: spec-images/Accordion-13.png
+
+| ![Alt name of image](spec-images/Accordion-13.png) |
+|-|
+
+<kbd><img src="spec-images/Accordion-13.png"></kbd>
+
+<img style="border: .5px solid;" src="spec-images/Accordion-13.png">
+
+
 
 <figure style="margin-left: 0px;">
   <img style="filter: drop-shadow(0 0 0.5rem #000000); border: 1px solid black;" src="spec-images/Accordion-13.png">
