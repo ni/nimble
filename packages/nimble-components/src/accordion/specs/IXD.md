@@ -22,18 +22,9 @@ Do not use an accordion:
 - For selectable or navigable lists or trees
 
 Best practice is to use multiple disclosures in one accordion and avoid one disclosure in multiple accordions.
-
-|![Alt name of image](spec-images/Accordion-13.png)|
-|-|
-
-<kbd><img src="spec-images/Accordion-13.png"></kbd>
-
-
-
-
-<figure style="margin-left: 0px;">
-  <img style="filter: drop-shadow(0 0 0.5rem #000000); border: 1px solid black;" src="spec-images/Accordion-13.png">
-  <figcaption style="color: rgba(0, 0, 0, 0.5);">Do this</figcaption>
+<figure>
+  <img src="spec-images/Accordion-13.png">
+  <figcaption><sup>Do this</sup></figcaption>
 </figure>
 <figure style="margin-left: 0px;">
   <img style="filter: drop-shadow(0 0 0.5rem #000000);" src="spec-images/Accordion-14.png">
