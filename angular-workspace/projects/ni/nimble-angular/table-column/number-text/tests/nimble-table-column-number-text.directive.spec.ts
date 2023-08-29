@@ -47,7 +47,7 @@ describe('NimbleTableColumnNumberText', () => {
 
         it('has valid configuration by default', () => {
             expect(directive.checkValidity()).toBeTrue();
-            expect(directive.validity.invalidCustomOptionsCombination).toBeFalse();
+            expect(directive.validity.invalidDecimalDigits).toBeFalse();
         });
 
         it('has invalid configuration with format set to decimal with invalid decimal-digits', () => {
