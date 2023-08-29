@@ -134,7 +134,6 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 |----------------------|----------------------------------|
 | `TAB` | Moves focus to next focusable element |
 | `SPACE` or `ENTER` | Opens/closes accordion section when header is focused |
-| | | 
 
 `TAB` to the accordion focuses the first header button (if not also visually indicating the entire accordion).
 
