@@ -1,25 +1,32 @@
 # Nimble Accordion (IxD)
 
 ## Overview
+
 The accordion component is used to present a large amount of information in a small space via progressive disclosure. Accordions make information easier to parse when not all of the information may be relevant or important to the user at the same time.
+n
 
 ## Background
-- [IxD recommendation for Tree, Accordion, Disclosure, Table row details (#1150)](https://github.com/orgs/ni/projects/7/views/13?pane=issue&itemId=24667320)
-- [ViD Accordion Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-85131&mode=design)
+
+-   [IxD recommendation for Tree, Accordion, Disclosure, Table row details (#1150)](https://github.com/orgs/ni/projects/7/views/13?pane=issue&itemId=24667320)
+-   [ViD Accordion Styles (Figma)](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1295-85131&mode=design)
 
 ## Usage
+
 ### Accordions & Disclosures
-Accordions are vertically stacked sets of disclosures. A disclosure is made up of a a header button and a content panel. Clicking the button shows/hides the panel. The panel can have almost any type of content. 
+
+Accordions are vertically stacked sets of disclosures. A disclosure is made up of a a header button and a content panel. Clicking the button shows/hides the panel. The panel can have almost any type of content.
 
 Use an accordion:
-- To organize large amounts of information into related panels
-- To shorten scrolled views when not all information is equally important
-- In views with reduced horizontal or vertical space
+
+-   To organize large amounts of information into related panels
+-   To shorten scrolled views when not all information is equally important
+-   In views with reduced horizontal or vertical space
 
 Do not use an accordion:
-- For a single panel of content
-- To organize unrelated information into panels
-- For selectable or navigable lists or trees
+
+-   For a single panel of content
+-   To organize unrelated information into panels
+-   For selectable or navigable lists or trees
 
 Best practice is to use multiple disclosures in one accordion and avoid one disclosure in multiple accordions.
 
@@ -51,25 +58,28 @@ If only one section (relative to the content) is needed, use a disclosure compon
 </p>
 
 ### Tree & Navigation
+
 With a disclosure/accordion, the heading is a label for a group of content, not content in-and-of itself. With a tree, the content is the list items and all the list items represent data.
 
-| Component | Content | Organization |
-|-----------|---------|--------------|
-| Disclosure | Any | Group labels |
-| Tree | List items | Parent/child |
+| Component  | Content    | Organization |
+| ---------- | ---------- | ------------ |
+| Disclosure | Any        | Group labels |
+| Tree       | List items | Parent/child |
 
 [ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/examples/treeview-navigation/) recommends avoiding using a tree component for navigation because the `tree` role requires unecessary implementation of complex functionality that is not needed for navigation styled to look like a tree with expandable sections. However, the accordion is not necessarily the correct component to try and replace it with.
 
-| Component | Content | Organization |
-|-----------|---------|--------------|
-| Disclosure | Any | Group labels |
-| Tree | List items | Hierarchical |
-| ??? | List items | Group labels |
+| Component  | Content    | Organization |
+| ---------- | ---------- | ------------ |
+| Disclosure | Any        | Group labels |
+| Tree       | List items | Hierarchical |
+| ???        | List items | Group labels |
 
 [**QUESTION:** Maybe a new navigation-specific component?]
 
 ## Design
+
 ### Interactions & States
+
 Header buttons are used to expand and collapse associated panels of content. The client user can specify which panels are open by default (if applicable).
 
 <p>
@@ -111,6 +121,7 @@ If a component in a panel is in an error state, the error state is indicated on 
 </p>
 
 ### Additional Options
+
 Client users may need/want to have additional buttons and/or icons in the header.
 
 <p>
@@ -120,6 +131,7 @@ Client users may need/want to have additional buttons and/or icons in the header
 </p>
 
 ### Nested Accordions
+
 Accordion panels can have one level of nested accordions. Nested accordions are always ghost style. [**QUESTION:** Can accordions be nested anywhere in the panel?]
 
 <p>
@@ -128,11 +140,11 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <sub>Nested accordion in "info" panel</sub>
 </p>
 
-
 ### Keyboard Interactions
-| Key                  | Description                      |
-|----------------------|----------------------------------|
-| `TAB` | Moves focus to next focusable element |
+
+| Key                | Description                                           |
+| ------------------ | ----------------------------------------------------- |
+| `TAB`              | Moves focus to next focusable element                 |
 | `SPACE` or `ENTER` | Opens/closes accordion section when header is focused |
 
 `TAB` to the accordion focuses the first header button (if not also visually indicating the entire accordion).
@@ -173,7 +185,9 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 </p>
 
 ## Validation
+
 TBD
 
 ## Open Issues
+
 See content marked "**QUESTION**" or "**NOTE**".
