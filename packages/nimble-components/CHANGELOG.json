@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Mon, 28 Aug 2023 21:12:37 GMT",
+      "tag": "@ni/nimble-components_v20.1.16",
+      "version": "20.1.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "40b952e1910a61a4532821033bfbd2de0e8309d4",
+            "comment": "Add 'decimal' format to number-text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 28 Aug 2023 16:39:13 GMT",
       "tag": "@ni/nimble-components_v20.1.15",
       "version": "20.1.15",

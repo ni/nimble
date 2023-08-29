@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 24 Aug 2023 21:19:51 GMT and should not be manually modified.
+This log was last generated on Mon, 28 Aug 2023 21:12:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.12
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.16
+
+## 17.1.11
+
+Mon, 28 Aug 2023 20:03:32 GMT
+
+### Patches
+
+- Export MappingKeyType fully instead of just as type ([ni/nimble@f734040](https://github.com/ni/nimble/commit/f734040392806895f0b0ffcab2e88e5d11775148))
 
 ## 17.1.10
 
