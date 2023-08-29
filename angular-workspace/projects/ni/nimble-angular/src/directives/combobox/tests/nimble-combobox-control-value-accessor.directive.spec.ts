@@ -225,6 +225,8 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
         });
+        
+        it('update option value with new model, followed by updating combobox value with same model updates display correctly, ')
     });
 
     describe('when using option\'s [ngValue] binding on Reactive form', () => {
