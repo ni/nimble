@@ -70,6 +70,10 @@ export class RichTextEditor extends FoundationElement {
     private readonly markdownSerializer = this.initializeMarkdownSerializer();
     private readonly domSerializer = DOMSerializer.fromSchema(schema);
     private readonly xmlSerializer = new XMLSerializer();
+    private readonly tipTapNodeNames = {
+        bulletList: 'bulletList',
+        numberedList: 'orderedList'
+    } as const;
 
     public constructor() {
         super();
@@ -340,9 +344,9 @@ export class RichTextEditor extends FoundationElement {
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
         this.bulletListButton.checked = parentList !== undefined
-            && parentList.node.type.name === 'bulletList';
+            && parentList.node.type.name === this.tipTapNodeNames.bulletList;
         this.numberedListButton.checked = parentList !== undefined
-            && parentList.node.type.name === 'orderedList';
+            && parentList.node.type.name === this.tipTapNodeNames.numberedList;
     }
 
     private keyActivatesButton(event: KeyboardEvent): boolean {
