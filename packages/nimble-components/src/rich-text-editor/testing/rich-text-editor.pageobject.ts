@@ -156,22 +156,30 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
-    private getEditorSection(): Element | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
-    }
-
-    private getTiptapEditor(): Element | null | undefined {
-        return this.richTextEditorElement.shadowRoot?.querySelector(
-            '.ProseMirror'
-        );
-    }
-
-    private getFormattingButton(
+    public getFormattingButton(
         index: ToolbarButton
     ): ToggleButton | null | undefined {
         const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
             'nimble-toggle-button'
         );
         return buttons[index];
+    }
+
+    public getActiveElementFromDocument(): Element | null {
+        return document.activeElement;
+    }
+
+    public getShadowDomActiveElement(): Element | null | undefined {
+        return document.activeElement?.shadowRoot?.activeElement;
+    }
+
+    public getTiptapEditor(): Element | null | undefined {
+        return this.richTextEditorElement.shadowRoot?.querySelector(
+            '.ProseMirror'
+        );
+    }
+
+    private getEditorSection(): Element | null | undefined {
+        return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
     }
 }
