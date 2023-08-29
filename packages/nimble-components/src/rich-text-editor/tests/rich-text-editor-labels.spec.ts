@@ -7,15 +7,9 @@ import {
     labelProviderRichTextEditorTag
 } from '../../label-provider/rich-text-editor';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
-import { ToolbarButton } from '../testing/types';
+import { LabelProvider, ToolbarButton } from '../testing/types';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-
-type LabelProvider =
-    | 'toggleBold'
-    | 'toggleItalics'
-    | 'toggleBulletList'
-    | 'toggleNumberedList';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
     return fixture<ThemeProvider>(
