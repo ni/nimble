@@ -26,6 +26,7 @@ Best practice is to use multiple disclosures in one accordion and avoid one disc
   <img style="filter: drop-shadow(0 0 0.5rem #000000); border: 1px solid black;" src="spec-images/Accordion-13.png">
   <figcaption style="color: rgba(0, 0, 0, 0.5);">Do this</figcaption>
 </figure>
+<sup><sub>Add your tiny text</sub></sup>
 <figure style="margin-left: 0px;">
   <img style="filter: drop-shadow(0 0 0.5rem #000000);" src="spec-images/Accordion-14.png">
   <figcaption style="color: rgba(0, 0, 0, 0.5);">Don't do this</figcaption>
