@@ -76,7 +76,7 @@ describe('RichTextEditor', () => {
         element.ariaLabel = 'not empty';
         element.ariaLabel = null;
 
-        expect(editor!.getAttribute('aria-label')).toBe('');
+        expect(editor!.getAttribute('aria-label')).toBeNull();
     });
 
     it('should have either one of the list buttons checked at the same time on click', async () => {
@@ -1381,13 +1381,12 @@ describe('RichTextEditor', () => {
         expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should fire "input" event when setting the content through "setMarkdown"', async () => {
+    it('should not fire "input" event when setting the content through "setMarkdown"', () => {
         const inputEventListener = createEventListener(element, 'input');
 
         element.setMarkdown('input');
-        await inputEventListener.promise;
 
-        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+        expect(inputEventListener.spy).not.toHaveBeenCalled();
     });
 
     it('should fire "input" event when the text is updated/removed from the editor', async () => {

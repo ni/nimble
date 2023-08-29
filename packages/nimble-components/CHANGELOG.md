@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 22 Aug 2023 12:48:52 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Aug 2023 21:19:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.15
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Implement `alignment` attribute on number-text column ([ni/nimble@2292048](https://github.com/ni/nimble/commit/2292048647dfcd1f61fbf897ec083eacb3e269db))
 
 ## 20.1.14
 
