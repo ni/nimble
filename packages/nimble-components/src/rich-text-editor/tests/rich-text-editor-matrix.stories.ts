@@ -172,7 +172,7 @@ const componentFitToContent = (
         ${() => fitToContentName} ${() => footerHiddenName} ${() => heightLabel}
     </p>
     <${richTextEditorTag}
-        style="margin: 5px 0px; width: 360px; ${() => heightStyle};"
+        style="width: 360px; ${() => heightStyle};"
         ?fit-to-content="${() => fitToContent}"
         ?footer-hidden="${() => footerHidden}"
     >
@@ -217,9 +217,10 @@ export const fitToContentTest: StoryFn = createStory(html`
         footerHiddenStates,
         [
             ['No height', ''],
-            ['Height 100px', 'height: 100px'],
+            ['Height 120px', 'height: 120px'],
             ['Height 100%', 'height: 100%'],
-            ['Max Height 300px', 'max-height: 300px']
+            ['Max Height 300px', 'max-height: 300px'],
+            ['Min Height 200px', 'min-height: 200px']
         ]
     ])}
 `);

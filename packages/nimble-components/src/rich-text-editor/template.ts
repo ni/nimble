@@ -12,13 +12,7 @@ import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 // prettier-ignore
 export const template = html<RichTextEditor>`
     <template>
-        <div
-            class="container"
-            style="
-            --ni-private-rich-text-editor-max-height: ${x => x.editorMaxHeight};
-            --ni-private-rich-text-editor-min-height: ${x => x.editorMinHeight};
-            "
-        >
+        <div class="container">
             <section ${ref('editorContainer')} class="editor-container">
             </section>
             <${iconExclamationMarkTag}
