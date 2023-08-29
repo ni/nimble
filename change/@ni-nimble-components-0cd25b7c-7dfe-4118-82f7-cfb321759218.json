@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Add test cases for SLE supported languages",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
