@@ -8,6 +8,10 @@ import {
 } from '../../label-provider/rich-text-editor';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { ToolbarButton } from '../testing/types';
+import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
+
+type LabelProvider = 'toggleBold' | 'toggleItalics' | 'toggleBulletList' | 'toggleNumberedList';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
     return fixture<ThemeProvider>(
@@ -19,16 +23,51 @@ async function setup(): Promise<Fixture<ThemeProvider>> {
     );
 }
 
+const formattingButtons: {
+    name: string,
+    property: LabelProvider,
+    label: string,
+    toolbarButtonIndex: ToolbarButton
+}[] = [
+    {
+        name: 'Bold',
+        property: 'toggleBold',
+        label: 'Customized Bold Label',
+        toolbarButtonIndex: ToolbarButton.bold,
+    },
+    {
+        name: 'Italics',
+        property: 'toggleItalics',
+        label: 'Customized Italics Label',
+        toolbarButtonIndex: ToolbarButton.italics,
+    },
+    {
+        name: 'BulletList',
+        property: 'toggleBulletList',
+        label: 'Customized Bullet List Label',
+        toolbarButtonIndex: ToolbarButton.bulletList,
+    },
+    {
+        name: 'NumberedList',
+        property: 'toggleNumberedList',
+        label: 'Customized Numbered List Label',
+        toolbarButtonIndex: ToolbarButton.numberedList,
+    }
+];
+
 describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
     let element: RichTextEditor;
     let labelProvider: LabelProviderRichTextEditor;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: RichTextEditorPageObject;
+    const focused: string[] = [];
+    const disabled: string[] = [];
 
     beforeEach(async () => {
         let themeProvider: ThemeProvider;
         ({ element: themeProvider, connect, disconnect } = await setup());
+        await connect();
         element = themeProvider.querySelector(richTextEditorTag)!;
         labelProvider = themeProvider.querySelector(
             labelProviderRichTextEditorTag
@@ -40,41 +79,19 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
         await disconnect();
     });
 
-    it('uses correct labels for bold button', async () => {
-        await connect();
-        labelProvider.toggleBold = 'Bold';
-        const boldButton = pageObject.getFormattingButton(ToolbarButton.bold);
-        expect(boldButton!.textContent!.trim()).toBe('Bold');
-        expect(boldButton!.title).toBe('Bold');
-    });
-
-    it('uses correct labels for Italics button', async () => {
-        await connect();
-        labelProvider.toggleItalics = 'Italics';
-        const italicButton = pageObject.getFormattingButton(
-            ToolbarButton.italics
+    for (const value of formattingButtons) {
+        const specType = getSpecTypeByNamedList(value, focused, disabled);
+        // eslint-disable-next-line @typescript-eslint/no-loop-func
+        specType(
+            `uses correct labels '${value.label}' for ${value.name} button`,
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            async () => {
+                labelProvider[value.property] = value.label;
+                await waitForUpdatesAsync();
+                const formatButton = pageObject.getFormattingButton(value.toolbarButtonIndex);
+                expect(formatButton!.textContent!.trim()).toBe(value.label);
+                expect(formatButton!.title).toBe(value.label);
+            }
         );
-        expect(italicButton!.textContent!.trim()).toBe('Italics');
-        expect(italicButton!.title).toBe('Italics');
-    });
-
-    it('uses correct labels for bullet list button', async () => {
-        await connect();
-        labelProvider.toggleBulletList = 'Bullet List';
-        const bulletListButton = pageObject.getFormattingButton(
-            ToolbarButton.bulletList
-        );
-        expect(bulletListButton!.textContent!.trim()).toBe('Bullet List');
-        expect(bulletListButton!.title).toBe('Bullet List');
-    });
-
-    it('uses correct labels for numbered list button', async () => {
-        await connect();
-        labelProvider.toggleNumberedList = 'Numbered List';
-        const numberedListButton = pageObject.getFormattingButton(
-            ToolbarButton.numberedList
-        );
-        expect(numberedListButton!.textContent!.trim()).toBe('Numbered List');
-        expect(numberedListButton!.title).toBe('Numbered List');
-    });
+    }
 });
