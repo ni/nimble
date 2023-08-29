@@ -141,7 +141,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-8.png"></kbd>
 <br>
-<sub>`TAB` to accordion</sub>
+<sub>TAB to accordion</sub>
 </p>
 
 `TAB` focuses the next focusable element (if not also visually indicating the header button and/or the entire accordion). All focusable elements in the accordion are included in the `TAB` sequence.
@@ -149,12 +149,12 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-9.png"></kbd>
 <br>
-<sub>`TAB` to focusable element in accordion panel</sub>
+<sub>TAB to focusable element in accordion panel</sub>
 </p>
 <p>
 <kbd><img src="spec-images/Accordion-10.png"></kbd>
 <br>
-<sub>`TAB` to next header button in accordion</sub>
+<sub>TAB to next header button in accordion</sub>
 </p>
 
 `ENTER` or `SPACE` on a focused header button for a closed panel opens the associated panel. If only one panel can be opened at a time and another panel is open, it collapses.
@@ -162,7 +162,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-11.png"></kbd>
 <br>
-<sub>`ENTER` to open a closed section</sub>
+<sub>ENTER to open a closed section</sub>
 </p>
 
 `ENTER` or `SPACE` on a focused header button for an open panel closes the associated panel.
@@ -170,7 +170,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-12.png"></kbd>
 <br>
-<sub>`ENTER` to close an opened section</sub>
+<sub>ENTER to close an opened section</sub>
 </p>
 
 ## Validation
