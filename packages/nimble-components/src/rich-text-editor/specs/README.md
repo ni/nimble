@@ -34,9 +34,12 @@ Both components provide support for the following basic text formatting options:
 2. Italics
 3. Numbered List
 4. Bulleted List
-5. Absolute URL links - Supports only [absolute URI](https://spec.commonmark.org/0.30/#absolute-uri) with a valid [scheme](https://spec.commonmark.org/0.30/#scheme).
-   In the initial release, we will provide support for the `HTTP` and `HTTPS` schemes. Depending on future requirements, we may extend support to include other schemes as well.
-   [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
+5. Absolute URL links
+   1. Supports only [absolute URI as per common mark spec](https://spec.commonmark.org/0.30/#absolute-uri) with valid [schemes](https://spec.commonmark.org/0.30/#scheme).
+   2. In the initial release, we will provide support for `HTTP` and `HTTPS` schemes only. Depending on future requirements, we may extend support to include other schemes as well. To summarize:
+      1. Supports `<https://www.ni.com>` as a valid markdown syntax for an absolute link
+      2. Any other syntaxes like `https://www.ni.com` and `[NI Homepage](https://www.ni.com)` will not be supported for initial release
+   3. [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
    [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
    [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
 
@@ -389,10 +392,10 @@ in case we are required to update any attributes for the `nimble-anchor` compone
 
 The prototype includes the below functionalities,
 
-1. Basic formatting support.
-2. Image support. - The prototype includes [`Tiptap Extension`](https://tiptap.dev/api/nodes/image) to support images.
-3. `@mention` support. - The prototype includes a default user list that gets triggered using `@` character.
-4. Markdown support. - The prototype includes support to render/retrieve content in markdown format.
+1. Basic formatting support
+2. Image support - The prototype includes [`Tiptap Extension`](https://tiptap.dev/api/nodes/image) to support images.
+3. `@mention` support - The prototype includes a default user list that gets triggered using `@` character.
+4. Markdown support - The prototype includes support to render/retrieve content in markdown format.
 5. `Shadow root` support - The prototype uses [Microsoft Fast](https://github.com/microsoft/fast) to create the rich text editor as a
    custom component that renders in the shadow root.
 6. `Top layer` support - Hyperlink using `nimble-dialog` which renders the popup in the top layer.
