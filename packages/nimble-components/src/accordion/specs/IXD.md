@@ -22,7 +22,8 @@ Do not use an accordion:
 - For selectable or navigable lists or trees
 
 Best practice is to use multiple disclosures in one accordion and avoid one disclosure in multiple accordions.
-<p><kbd><img src="spec-images/Accordion-13.png"></kbd></p>
+<kbd><img src="spec-images/Accordion-13.png"></kbd>
+<br>
 <sup>Do this</sup>
 </figure>
 <figure style="margin-left: 0px;">
