@@ -31,7 +31,7 @@ Best practice is to use multiple disclosures in one accordion and avoid one disc
 <p>
 <kbd><img src="spec-images/Accordion-14.png"></kbd>
 <br>
-<sub>Don't do this</sup>
+<sub>Don't do this</sub>
 </p>
 
 Multiple disclosures can be used in a row for panels of unrelated content, at the client user's discretion and in accordance with component guidelines and product consistency.
@@ -39,7 +39,7 @@ Multiple disclosures can be used in a row for panels of unrelated content, at th
 <p>
 <kbd><img src="spec-images/Accordion-15.png"></kbd>
 <br>
-<sup>Avoid this</sup>
+<sub>Avoid this</sub>
 </p>
 
 If only one section (relative to the content) is needed, use a disclosure component.
@@ -47,7 +47,7 @@ If only one section (relative to the content) is needed, use a disclosure compon
 <p>
 <kbd><img src="spec-images/Accordion-16.png"></kbd>
 <br>
-<sup>Disclosure with other content</sup>
+<sub>Disclosure with other content</sub>
 </p>
 
 ### Tree & Navigation
@@ -75,7 +75,7 @@ Header buttons are used to expand and collapse associated panels of content. The
 <p>
 <kbd><img src="spec-images/Accordion-1.png"></kbd>
 <br>
-<sup>Default (all panels closed)</sup>
+<sub>Default (all panels closed)</sub>
 </p>
 
 Hovering over a header button indicates interactivity.
@@ -83,7 +83,7 @@ Hovering over a header button indicates interactivity.
 <p>
 <kbd><img src="spec-images/Accordion-2.png"></kbd>
 <br>
-<sup>Hover</sup>
+<sub>Hover</sub>
 </p>
 
 Clicking anywhere on a header button opens (if closed) or closes (if opened) the associated panel of content. [**QUESTION:** Do panels only display block content (one component per "line") or do they display flex content?]
@@ -91,7 +91,7 @@ Clicking anywhere on a header button opens (if closed) or closes (if opened) the
 <p>
 <kbd><img src="spec-images/Accordion-3.png"></kbd>
 <br>
-<sup>Click</sup>
+<sub>Click</sub>
 </p>
 
 The client user can specify whether one panel or more than one panel can be opened at a time. If the former, clicking to open a closed panel will close the open panel (if applicable).
@@ -99,7 +99,7 @@ The client user can specify whether one panel or more than one panel can be open
 <p>
 <kbd><img src="spec-images/Accordion-4.png"></kbd>
 <br>
-<sup>Click (one panel open at a time)</sup>
+<sub>Click (one panel open at a time)</sub>
 </p>
 
 If a component in a panel is in an error state, the error state is indicated on the associated header button when closed (if not also when open).
@@ -107,7 +107,7 @@ If a component in a panel is in an error state, the error state is indicated on 
 <p>
 <kbd><img src="spec-images/Accordion-5.png"></kbd>
 <br>
-<sup>Error</sup>
+<sub>Error</sub>
 </p>
 
 ### Additional Options
@@ -116,7 +116,7 @@ Client users may need/want to have additional buttons and/or icons in the header
 <p>
 <kbd><img src="spec-images/Accordion-6.png"></kbd>
 <br>
-<sup>"Expand" button</sup>
+<sub>"Expand" button</sub>
 </p>
 
 ### Nested Accordions
@@ -125,7 +125,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-7.png"></kbd>
 <br>
-<sup>Nested accordion in "info" panel</sup>
+<sub>Nested accordion in "info" panel</sub>
 </p>
 
 
@@ -141,7 +141,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-8.png"></kbd>
 <br>
-<sup>`TAB` to accordion</sup>
+<sub>`TAB` to accordion</sub>
 </p>
 
 `TAB` focuses the next focusable element (if not also visually indicating the header button and/or the entire accordion). All focusable elements in the accordion are included in the `TAB` sequence.
@@ -149,12 +149,12 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-9.png"></kbd>
 <br>
-<sup>`TAB` to focusable element in accordion panel</sup>
+<sub>`TAB` to focusable element in accordion panel</sub>
 </p>
 <p>
 <kbd><img src="spec-images/Accordion-10.png"></kbd>
 <br>
-<sup>`TAB` to next header button in accordion</sup>
+<sub>`TAB` to next header button in accordion</sub>
 </p>
 
 `ENTER` or `SPACE` on a focused header button for a closed panel opens the associated panel. If only one panel can be opened at a time and another panel is open, it collapses.
@@ -162,7 +162,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-11.png"></kbd>
 <br>
-<sup>`ENTER` to open a closed section</sup>
+<sub>`ENTER` to open a closed section</sub>
 </p>
 
 `ENTER` or `SPACE` on a focused header button for an open panel closes the associated panel.
@@ -170,7 +170,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <p>
 <kbd><img src="spec-images/Accordion-12.png"></kbd>
 <br>
-<sup>`ENTER` to close an opened section</sup>
+<sub>`ENTER` to close an opened section</sub>
 </p>
 
 ## Validation
