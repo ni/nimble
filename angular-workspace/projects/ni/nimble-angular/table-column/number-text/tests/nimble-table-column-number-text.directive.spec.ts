@@ -392,11 +392,11 @@ describe('NimbleTableColumnNumberText', () => {
             expect(directive.format).toBe(NumberTextFormat.roundToInteger);
             expect(nativeElement.format).toBe(NumberTextFormat.roundToInteger);
 
-            fixture.componentInstance.format = NumberTextFormat.default;
+            fixture.componentInstance.format = NumberTextFormat.decimal;
             fixture.detectChanges();
 
-            expect(directive.format).toBe(NumberTextFormat.default);
-            expect(nativeElement.format).toBe(NumberTextFormat.default);
+            expect(directive.format).toBe(NumberTextFormat.decimal);
+            expect(nativeElement.format).toBe(NumberTextFormat.decimal);
         });
 
         it('can be configured with property binding for decimalDigits', () => {
@@ -647,11 +647,11 @@ describe('NimbleTableColumnNumberText', () => {
             expect(directive.format).toBe(NumberTextFormat.roundToInteger);
             expect(nativeElement.format).toBe(NumberTextFormat.roundToInteger);
 
-            fixture.componentInstance.format = NumberTextFormat.default;
+            fixture.componentInstance.format = NumberTextFormat.decimal;
             fixture.detectChanges();
 
-            expect(directive.format).toBe(NumberTextFormat.default);
-            expect(nativeElement.format).toBe(NumberTextFormat.default);
+            expect(directive.format).toBe(NumberTextFormat.decimal);
+            expect(nativeElement.format).toBe(NumberTextFormat.decimal);
         });
 
         it('can be configured with attribute binding for decimalDigts', () => {
