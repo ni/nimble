@@ -129,7 +129,7 @@ export class CustomAppComponent {
         this.tableDataSubject.next(tableData);
     }
 
-    public loadContent(): void {
+    public loadRichTextEditorContent(): void {
         this.editor.setMarkdown(this.editorMarkdownString);
     }
 }

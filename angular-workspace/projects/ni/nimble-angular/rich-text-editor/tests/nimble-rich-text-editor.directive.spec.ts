@@ -60,7 +60,7 @@ describe('Nimble Rich Text Editor', () => {
 
         it('has expected defaults for fitToContent', () => {
             expect(directive.fitToContent).toBeFalse();
-            expect(nativeElement.footerHidden).toBeFalse();
+            expect(nativeElement.fitToContent).toBeFalse();
         });
 
         it('has expected defaults for errorVisible', () => {
@@ -129,7 +129,7 @@ describe('Nimble Rich Text Editor', () => {
 
         it('will use template string values for fitToContent', () => {
             expect(directive.fitToContent).toBeTrue();
-            expect(nativeElement.footerHidden).toBeTrue();
+            expect(nativeElement.fitToContent).toBeTrue();
         });
 
         it('will use template string values for errorVisible', () => {
@@ -266,7 +266,7 @@ describe('Nimble Rich Text Editor', () => {
             expect(nativeElement.placeholder).toBe('updated placeholder value');
         });
 
-        it('can be configured with method for empty', () => {
+        it('updates empty when markdown is cleared', () => {
             expect(directive.empty).toBeFalse();
             expect(nativeElement.empty).toBeFalse();
 
