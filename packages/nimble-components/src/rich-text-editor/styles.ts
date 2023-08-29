@@ -28,21 +28,27 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
+        ${/** Initial height of rich text editor with one line space. */ ''}
+        height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
-        --ni-private-rich-text-editor-min-height: 78px;
-        --ni-private-rich-text-editor-max-height: 172px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
         min-width: 360px;
     }
 
+    :host([fit-to-content]) {
+        max-height: inherit;
+        height: fit-content;
+    }
+
     .container {
-        box-sizing: border-box
         display: flex;
         flex-direction: column;
         position: relative;
         height: 100%;
+        min-height: inherit;
+        max-height: inherit;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
     }
 
@@ -96,13 +102,14 @@ export const styles = css`
     }
 
     .editor {
-        box-sizing: border-box
+        display: flex;
+        flex-direction: column;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        height: calc(
-            100% - var(--ni-private-rich-text-editor-footer-section-height)
-        );
-        overflow: auto;
+        max-height: 100%;
+        min-height: inherit;
+        flex: 1;
+        overflow: hidden;
     }
 
     :host([footer-hidden]) .editor {
@@ -110,14 +117,9 @@ export const styles = css`
     }
 
     .ProseMirror {
-        ${
-            /**
-             * Min height represents the one line space for the initial view and max height is referred from the current visual design.
-             * However, max height will be `fit-content` when the `fit-to-content` attribute for the editor component is implemented.
-             */ ''
-        }
-        min-height: calc(var(--ni-private-rich-text-editor-min-height) - var(--ni-private-rich-text-editor-footer-section-height) - 4px);
-        max-height: calc(var(--ni-private-rich-text-editor-max-height) - var(--ni-private-rich-text-editor-footer-section-height) - 4px);
+        min-height: inherit;
+        max-height: 100%;
+        overflow: auto;
         height: 100%;
         border: 0px;
         border-radius: 0px;
@@ -171,19 +173,6 @@ export const styles = css`
         margin-block-end: 0;
     }
 
-    :host([footer-hidden]) .ProseMirror {
-        ${
-            /**
-             * Minimum height is the addition of existing minimum height of the editor element with the top and bottom border width.
-             *
-             * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
-             * and the footer will smoothly appear within the editor.
-             */ ''
-        }
-        min-height: calc(var(--ni-private-rich-text-editor-min-height) + calc(${borderWidth} * 2));
-        max-height: calc(var(--ni-private-rich-text-editor-max-height) + calc(${borderWidth} * 2));
-    }
-
     li > p {
         margin-block: 0;
     }
@@ -204,6 +193,7 @@ export const styles = css`
     .footer-section {
         display: flex;
         justify-content: space-between;
+        flex-shrink: 0;
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-rich-text-editor-footer-section-height);
