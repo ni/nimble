@@ -422,7 +422,7 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-            ).toBeTrue();
+            ).toBeFalse();
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
             ).toBeTrue();
@@ -504,7 +504,7 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeTrue();
+            ).toBeFalse();
         });
 
         it('should have "ul" tag names for bullet lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
