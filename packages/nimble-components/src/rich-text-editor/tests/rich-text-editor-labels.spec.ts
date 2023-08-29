@@ -87,7 +87,7 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
         const specType = getSpecTypeByNamedList(value, focused, disabled);
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         specType(
-            `uses correct labels '${value.label}' for ${value.name} button`,
+            `uses correct label '${value.label}' for ${value.name} button`,
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             async () => {
                 labelProvider[value.property] = value.label;
