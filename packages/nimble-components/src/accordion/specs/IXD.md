@@ -23,7 +23,7 @@ Do not use an accordion:
 
 Best practice is to use multiple disclosures in one accordion and avoid one disclosure in multiple accordions.
 <figure>
-  <img src="spec-images/Accordion-13.png">
+  <kbd><img src="spec-images/Accordion-13.png"></kbd>
   <figcaption><sup>Do this</sup></figcaption>
 </figure>
 <figure style="margin-left: 0px;">
