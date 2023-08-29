@@ -26,7 +26,7 @@ Best practice is to use multiple disclosures in one accordion and avoid one disc
 <p>
 <kbd><img src="spec-images/Accordion-13.png"></kbd>
 <br>
-<sup>Do this</sup>
+<sub>Do this</sub>
 </p>
 <p>
 <kbd><img src="spec-images/Accordion-14.png"></kbd>
