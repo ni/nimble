@@ -87,6 +87,9 @@ interface NumberTextColumnTableArgs extends SharedTableArgs {
     fieldName: string;
     format: keyof typeof NumberTextFormat;
     alignment: keyof typeof NumberTextAlignment;
+    decimalDigits: number;
+    checkValidity: () => void;
+    validity: () => void;
 }
 
 const numberTextColumnDescription = `The \`nimble-table-column-number-text\` column is used to display number fields as text in the \`nimble-table\`. Column operations, such as sorting and grouping,
@@ -100,10 +103,17 @@ const formatDescription = `Configures the way that the numeric value is formatte
     <ul>
         <li>\`default\`: Integers are shown with no trailing zeros, the value is limited to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude.
         </li>
+        <li>\`decimal\`: Values as are formatted as decimal values, always displaying \`decimal-digits\` digits after the separator and never displaying exponential notation.
+        </li>
         <li>\`roundToInteger\`: Values are rounded to the nearest whole number. Exponential notation is never used. It can only safely represent integers up to the magnitude of \`MAX_SAFE_INTEGER\`.
         </li>
     </ul>
 </details>
+`;
+
+const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
+The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:
+-   \`invalidDecimalDigits\`: \`true\` when \`format\` is configured to \`decimal\` and \`decimal-digits\` is set to a number less than 0 or greater than 20.
 `;
 
 const alignmentDescription = `Configures the alignment of the value within the column.
@@ -116,6 +126,8 @@ To improve the ability for users to visually scan values, applications should se
     The default alignment of the value depends on the column's format.
     <ul>
         <li>\`default\` format: Values are left-aligned.
+        </li>
+        <li>\`decimal\` format: Values are right-aligned.
         </li>
         <li>\`roundToInteger\` format: Values are right-aligned.
         </li>
@@ -147,10 +159,10 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             <${tableColumnTextTag} field-name="lastName">
                 Last Name
             </${tableColumnTextTag}>
-            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}">
+            <${tableColumnNumberTextTag} field-name="age" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
                 Age
             </${tableColumnNumberTextTag}>
-            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}">
+            <${tableColumnNumberTextTag} field-name="favoriteNumber" format="${x => NumberTextFormat[x.format]}" alignment="${x => NumberTextAlignment[x.alignment]}" decimal-digits="${x => x.decimalDigits}">
                 Favorite Number
             </${tableColumnNumberTextTag}>
         </${tableTag}>
@@ -171,10 +183,24 @@ export const numberTextColumn: StoryObj<NumberTextColumnTableArgs> = {
             description: alignmentDescription,
             options: Object.keys(NumberTextAlignment),
             control: { type: 'radio' }
+        },
+        decimalDigits: {
+            name: 'decimal-digits',
+            description:
+                "The number of decimal places to format values to when the column's `format` is configured to be `decimal`. When not configured, a default value of `2` is used. The value must be in the range 0 - 20 (inclusive)."
+        },
+        checkValidity: {
+            name: 'checkValidity()',
+            description:
+                'Returns `true` if the column configuration is valid, otherwise `false`.'
+        },
+        validity: {
+            description: validityDescription
         }
     },
     args: {
         format: 'default',
-        alignment: 'default'
+        alignment: 'default',
+        decimalDigits: 2
     }
 };

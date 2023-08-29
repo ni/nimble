@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 24 Aug 2023 21:19:51 GMT and should not be manually modified.
+This log was last generated on Mon, 28 Aug 2023 21:12:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.16
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Add 'decimal' format to number-text column ([ni/nimble@40b952e](https://github.com/ni/nimble/commit/40b952e1910a61a4532821033bfbd2de0e8309d4))
 
 ## 20.1.15
 
