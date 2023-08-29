@@ -14,7 +14,7 @@ n
 
 ### Accordions & Disclosures
 
-Accordions are vertically stacked sets of disclosures. A disclosure is made up of a a header button and a content panel. Clicking the button shows/hides the panel. The panel can have almost any type of content.
+Accordions are vertically stacked sets of disclosures. A disclosure is made up of a header button and a content panel. Clicking the button shows/hides the panel. The panel can have almost any type of content.
 
 Use an accordion:
 
@@ -80,7 +80,7 @@ With a disclosure/accordion, the heading is a label for a group of content, not 
 
 ### Interactions & States
 
-Header buttons are used to expand and collapse associated panels of content. The client user can specify which panels are open by default (if applicable).
+Header buttons are used to expand and collapse associated panels of content. The client user can specify which panels (if any) are open by default.
 
 <p>
 <kbd><img src="spec-images/Accordion-1.png"></kbd>
@@ -132,7 +132,7 @@ Client users may need/want to have additional buttons and/or icons in the header
 
 ### Nested Accordions
 
-Accordion panels can have one level of nested accordions. Nested accordions are always ghost style. [**QUESTION:** Can accordions be nested anywhere in the panel?]
+Accordion panels can have one level of nested accordions. Nested accordions are always ghost style. [**QUESTION:** Can accordions be nested anywhere in the panel? Can there be multiple child accordions nested in an accordion?]
 
 <p>
 <kbd><img src="spec-images/Accordion-7.png"></kbd>
