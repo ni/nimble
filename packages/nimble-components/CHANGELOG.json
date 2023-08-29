@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 29 Aug 2023 15:52:29 GMT",
+      "tag": "@ni/nimble-components_v20.1.16",
+      "version": "20.1.16",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "9634cede9467b0983c1bc816f6512275a21e8ac4",
+            "comment": "Add test cases for SLE supported languages"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 28 Aug 2023 21:12:37 GMT",
       "tag": "@ni/nimble-components_v20.1.16",
       "version": "20.1.16",
