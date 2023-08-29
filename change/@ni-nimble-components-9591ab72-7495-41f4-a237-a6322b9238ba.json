@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Make DateText columnConfig `undefined` when the column is invalid",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
