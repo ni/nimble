@@ -25,6 +25,7 @@ import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text-viewer'
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
+import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-column/number-text';
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleTableColumnAnchorModule,
         NimbleTableColumnDateTextModule,
         NimbleTableColumnEnumTextModule,
+        NimbleTableColumnNumberTextModule,
         NimbleMappingTextModule,
         NimbleBannerModule,
         NimbleRichTextViewerModule,
