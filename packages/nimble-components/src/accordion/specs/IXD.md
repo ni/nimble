@@ -31,7 +31,7 @@ Best practice is to use multiple disclosures in one accordion and avoid one disc
 <p>
 <kbd><img src="spec-images/Accordion-14.png"></kbd>
 <br>
-<sup>Don't do this</sup>
+<sub>Don't do this</sup>
 </p>
 
 Multiple disclosures can be used in a row for panels of unrelated content, at the client user's discretion and in accordance with component guidelines and product consistency.
