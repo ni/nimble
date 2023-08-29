@@ -335,14 +335,14 @@ export class RichTextEditor extends FoundationElement {
         const { extensionManager, state } = this.tiptapEditor;
         const { extensions } = extensionManager;
         const { selection } = state;
-        const parentList = findParentNode(node => isList(node.type.name, extensions))(
-            selection,
-        );
+        const parentList = findParentNode(node => isList(node.type.name, extensions))(selection);
 
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
-        this.bulletListButton.checked = parentList !== undefined && parentList.node.type.name === 'bulletList';
-        this.numberedListButton.checked = parentList !== undefined && parentList.node.type.name === 'orderedList';
+        this.bulletListButton.checked = parentList !== undefined
+            && parentList.node.type.name === 'bulletList';
+        this.numberedListButton.checked = parentList !== undefined
+            && parentList.node.type.name === 'orderedList';
     }
 
     private keyActivatesButton(event: KeyboardEvent): boolean {
