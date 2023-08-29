@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
+This log was last generated on Mon, 21 Aug 2023 22:42:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.1.14
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Blazor support for date text column ([ni/nimble@0ab6b4f](https://github.com/ni/nimble/commit/0ab6b4f5df8d01f6734c824d65e62e3c88546000))
+
+## 12.1.10
+
+Tue, 15 Aug 2023 19:50:33 GMT
+
+### Patches
+
+- Add Blazor support for enum-text table column ([ni/nimble@72fa5e6](https://github.com/ni/nimble/commit/72fa5e6e16a1f8aa023febb8ff92577fff3afce1))
 
 ## 12.1.0
 

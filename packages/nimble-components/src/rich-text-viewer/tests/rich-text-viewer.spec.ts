@@ -193,6 +193,87 @@ describe('RichTextViewer', () => {
             ]);
         });
 
+        it('nested numbered lists markdown string to "ol" and "li" HTML tags', async () => {
+            element.markdown = '1. Option 1\n\n    1. Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/OL',
+                '/LI',
+                '/OL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('numbered lists markdown string to "ol" tag and nested bullet list markdown string to "ul" tag', async () => {
+            element.markdown = '1. Option 1\n\n    * Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/UL',
+                '/LI',
+                '/OL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('sequential numbered and bulleted lists should to "ol" and once "ol" tags are closed, should have "ul" tags', async () => {
+            element.markdown = '1. Option 1\n\n* Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/OL',
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/UL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
         it('multiple empty numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', async () => {
             element.markdown = '1.    \n 2.    ';
 
@@ -293,6 +374,87 @@ describe('RichTextViewer', () => {
             expect(pageObject.getRenderedMarkdownLastChildContents()).toBe(
                 'Bulleted list'
             );
+        });
+
+        it('nested bullet lists markdown string to "ul" and "li" HTML tags', async () => {
+            element.markdown = '* Option 1\n\n    * Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/UL',
+                '/LI',
+                '/UL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('bullet lists markdown string to "ul" tag and nested numbered list markdown string to "ol" tag', async () => {
+            element.markdown = '* Option 1\n\n    1. Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/OL',
+                '/LI',
+                '/UL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
+        });
+
+        it('sequential bullet and numbered lists should to "ul" and once "ul" tags are closed, should have "ol" tags', async () => {
+            element.markdown = '* Option 1\n\n1. Option 2';
+
+            await connect();
+
+            expect(
+                pageObject.getRenderedMarkdownTagNamesWithClosingTags()
+            ).toEqual([
+                'UL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/UL',
+                'OL',
+                'LI',
+                'P',
+                '/P',
+                '/LI',
+                '/OL'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
         });
 
         it('multiple bulleted lists markdown string("* \n* \n*") to "ul" and "li" HTML tags', async () => {
