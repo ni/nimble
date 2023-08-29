@@ -65,6 +65,13 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
      */
     private focusLastItemWhenOpened = false;
 
+    public override connectedCallback(): void {
+        super.connectedCallback();
+        this.toggleButton!.tabIndex = this.tabIndex;
+        this.addEventListener('focusin', () => console.log('menu button focusin'));
+        this.addEventListener('focusout', () => console.log('menu button focusout'));
+    }
+
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         if (this.region) {

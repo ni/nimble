@@ -27,6 +27,7 @@ export const createCellViewTemplate = (
             :column="${y => y.column}"
             :recordId="${y => y.recordId}"
             class="cell-view"
+            role="gridcell"
         >
         </${cellViewTag}>
     `;

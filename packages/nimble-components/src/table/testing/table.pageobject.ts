@@ -329,7 +329,7 @@ export class TablePageObject<T extends TableRecord> {
         if (hover) {
             cells.forEach(cell => cell.style.setProperty(
                 '--ni-private-table-cell-action-menu-display',
-                'block'
+                'visible'
             ));
         } else {
             cells.forEach(cell => cell.style.removeProperty(

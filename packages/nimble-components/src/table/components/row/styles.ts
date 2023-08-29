@@ -14,6 +14,7 @@ import {
 import { Theme } from '../../../theme-provider/types';
 import { hexToRgbaCssColor } from '../../../utilities/style/colors';
 import { themeBehavior } from '../../../utilities/style/theme';
+import { focusVisible } from '../../../utilities/style/focus';
 
 export const styles = css`
     ${display('flex')}
@@ -82,23 +83,27 @@ export const styles = css`
     }
 
     nimble-table-cell {
-        --ni-private-table-cell-action-menu-display: none;
+        --ni-private-table-cell-action-menu-display: hidden;
     }
 
     nimble-table-cell[menu-open] {
-        --ni-private-table-cell-action-menu-display: block;
+        --ni-private-table-cell-action-menu-display: visible;
     }
 
     :host(:hover) nimble-table-cell {
-        --ni-private-table-cell-action-menu-display: block;
+        --ni-private-table-cell-action-menu-display: visible;
     }
 
     :host([selected]) nimble-table-cell {
-        --ni-private-table-cell-action-menu-display: block;
+        --ni-private-table-cell-action-menu-display: visible;
     }
 
     :host([has-focus]) nimble-table-cell {
-        --ni-private-table-cell-action-menu-display: block;
+        --ni-private-table-cell-action-menu-display: visible;
+    }
+
+    :host(:focus-within) nimble-table-cell {
+        --ni-private-table-cell-action-menu-display: visible;
     }
 `.withBehaviors(
     themeBehavior(

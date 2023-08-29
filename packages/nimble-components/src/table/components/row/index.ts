@@ -178,9 +178,9 @@ export class TableRow<
             const cellWithMenuOpen = Array.from(
                 this.cellContainer.children
             ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
-            if (cellWithMenuOpen?.actionMenuButton?.open) {
-                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
-            }
+            // if (cellWithMenuOpen?.actionMenuButton?.open) {
+            //     cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
+            // }
         }
     }
 
@@ -190,7 +190,7 @@ export class TableRow<
             focusableElements.push(this.selectionCheckbox);
         }
         this.shadowRoot!.querySelectorAll('nimble-table-cell').forEach(cell => {
-            focusableElements.push(cell);
+            focusableElements.push(cell.shadowRoot!.querySelector<HTMLElement>('.cell-view')!);
             if (cell.actionMenuButton) {
                 focusableElements.push(cell.actionMenuButton);
             }
@@ -201,6 +201,7 @@ export class TableRow<
     public setFocus(): void {
         this.tabIndex = 0;
         this.focus({ preventScroll: true });
+        this.setAttribute('has-focus', 'true');
     }
 
     public removeFocus(): void {
@@ -208,41 +209,10 @@ export class TableRow<
         this.blur();
     }
 
-    private updateSelectedState(selected: boolean): void {
-        this.selected = selected;
-        const detail: TableRowSelectionToggleEventDetail = {
-            oldState: !selected,
-            newState: selected
-        };
-        this.$emit('row-selection-toggle', detail);
-    }
-
-    private readonly onKeyDown = (event: KeyboardEvent): boolean => {
+    public onKeyDown(event: KeyboardEvent): boolean {
         switch (event.key) {
             case keyArrowRight: {
-                const focusableElements = this.getFocusableElements();
-                if (!this.focusedElement && focusableElements.length) {
-                    this.focusedElement = focusableElements[0];
-                } else if (this.focusedElement) {
-                    const focusedElementIndex = focusableElements.indexOf(
-                        this.focusedElement
-                    );
-                    if (focusedElementIndex < focusableElements.length - 1) {
-                        this.focusedElement = focusableElements[focusedElementIndex + 1];
-                    }
-                }
-
-                if (this.focusedElement) {
-                    this.focusedElement.tabIndex = 0;
-                    this.focusedElement.focus();
-                    this.focusedElement.addEventListener(
-                        'focusout',
-                        this.focusableFocusOutHandler
-                    );
-                    event.preventDefault();
-                    return false;
-                }
-
+                this.removeAttribute('has-focus');
                 break;
             }
             case keyArrowLeft: {
@@ -275,7 +245,16 @@ export class TableRow<
         }
 
         return true;
-    };
+    }
+
+    private updateSelectedState(selected: boolean): void {
+        this.selected = selected;
+        const detail: TableRowSelectionToggleEventDetail = {
+            oldState: !selected,
+            newState: selected
+        };
+        this.$emit('row-selection-toggle', detail);
+    }
 
     private emitActionMenuToggleEvent(
         eventType: string,
@@ -313,11 +292,14 @@ export class TableRow<
         }
     }
 
-    private readonly rowFocusInHandler = (): void => {
+    private readonly rowFocusInHandler = (event: Event): void => {
         if (this.focusoutAction) {
             this.focusoutAction = undefined;
         }
-        this.setAttribute('has-focus', 'true');
+        const path = event.composedPath();
+        if (path.length && path[0] === this) {
+            this.setAttribute('has-focus', 'true');
+        }
     };
 
     private readonly rowFocusOutHandler = (): void => {

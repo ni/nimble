@@ -22,7 +22,6 @@ export const template = html<MenuButton>`
             @keydown="${(x, c) => x.toggleButtonKeyDownHandler(c.event as KeyboardEvent)}"
             ${ref('toggleButton')}
             exportparts="start,end"
-            tabIndex="${x => x.tabIndex}"
         >
             ${'' /* Forward the contents of the 'start', 'end', and default slots to the toggle button */}
             <slot slot="start" name="start"></slot>

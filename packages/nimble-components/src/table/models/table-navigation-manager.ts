@@ -1,10 +1,13 @@
-import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
+import { Notifier, Subscriber, Observable, DOM } from '@microsoft/fast-element';
 import {
     keyArrowDown,
     keyArrowLeft,
     keyArrowRight,
     keyArrowUp,
     keyEnd,
+    keyEnter,
+    keyEscape,
+    keyFunction2,
     keyHome,
     keyPageDown,
     keyPageUp,
@@ -33,7 +36,7 @@ const TableFocusState = {
 export class TableNavigationManager<TData extends TableRecord>
 implements Subscriber {
     private _focusedTotalRowIndex?: number;
-    private _focusedColumnIndex?: number;
+    private _focusedRowElementIndex = -1;
     private _focusedRow?: TableRow | TableGroupRow;
     private _focusedCell?: TableCell;
     private readonly virtualizerNotifier: Notifier;
@@ -51,8 +54,9 @@ implements Subscriber {
         private readonly table: Table<TData>,
         private readonly virtualizer: Virtualizer<TData>
     ) {
-        table.addEventListener('keydown', e => this.onKeyDown(e));
+        table.addEventListener('keydown', e => this.onKeyDown(e), { capture: true });
         table.addEventListener('focusout', () => this.resetState);
+        table.addEventListener('blur', () => this.resetState);
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
         this.virtualizerNotifier = Observable.getNotifier(this.virtualizer);
@@ -89,6 +93,11 @@ implements Subscriber {
             return true;
         }
 
+        if (!this._inNavigationMode
+            && !(event.key === keyEnter || event.key === keyFunction2 || event.key === keyEscape)) {
+            return false;
+        }
+
         switch (event.key) {
             case keyTab: {
                 this.resetState(true);
@@ -102,21 +111,17 @@ implements Subscriber {
                 return !handled;
             }
             case keyArrowLeft: {
-                if (!this.focusableRowElements.length) {
+                if (!this.focusableRowElements.length || this._focusedRowElementIndex === -1) {
                     return true;
                 }
 
-                if (this._focusedColumnIndex === undefined) {
-                    return true;
-                }
-
-                if (this._focusedColumnIndex === 0) {
-                    this._focusedColumnIndex = undefined;
+                if (this._focusedRowElementIndex === 0) {
+                    this._focusedRowElementIndex -= 1;
                     this.focusVisibleRow();
                     return true;
                 }
 
-                this._focusedColumnIndex -= 1;
+                this._focusedRowElementIndex -= 1;
                 this.focusRowElement();
                 event.preventDefault();
                 return false;
@@ -128,6 +133,7 @@ implements Subscriber {
                 if (newFocusedTotalRowIndex < this.table.tableData.length) {
                     this.scrollToAndFocusRow(newFocusedTotalRowIndex);
                     event.preventDefault();
+                    event.stopPropagation();
                     return false;
                 }
                 break;
@@ -140,12 +146,14 @@ implements Subscriber {
                 if (this._focusedTotalRowIndex === 0) {
                     this.setFocusOnHeader();
                     event.preventDefault();
+                    event.stopPropagation();
                     return false;
                 }
 
                 if (this._focusedTotalRowIndex > 0) {
                     this.scrollToAndFocusRow(this._focusedTotalRowIndex - 1);
                     event.preventDefault();
+                    event.stopPropagation();
                     return false;
                 }
                 break;
@@ -186,6 +194,20 @@ implements Subscriber {
                 event.preventDefault();
                 return false;
             }
+            case keyEnter:
+            case keyFunction2: {
+                if (this._inNavigationMode && this._focusedRowElementIndex >= 0) {
+                    this._inNavigationMode = false;
+                    return false;
+                }
+
+                this._inNavigationMode = true;
+                break;
+            }
+            case keyEscape: {
+                this._inNavigationMode = true;
+                break;
+            }
 
             default:
                 break;
@@ -199,15 +221,15 @@ implements Subscriber {
             return false;
         }
 
-        if (this._focusedColumnIndex === undefined) {
-            this._focusedColumnIndex = 0;
+        if (this._focusedRowElementIndex === undefined) {
+            this._focusedRowElementIndex = 0;
             this.focusRowElement();
             return true;
         }
 
-        if (this._focusedColumnIndex !== undefined
-            && this._focusedColumnIndex < this.focusableRowElements.length - 1) {
-            this._focusedColumnIndex += 1;
+        if (this._focusedRowElementIndex !== undefined
+            && this._focusedRowElementIndex < this.focusableRowElements.length - 1) {
+            this._focusedRowElementIndex += 1;
             this.focusRowElement();
             return true;
         }
@@ -255,36 +277,20 @@ implements Subscriber {
         this._focusedRow.setFocus();
         this._focusedRow.addEventListener('focusout', e => this.focusOutHandler(e));
         this.focusableRowElements = this.getFocusedRowFocusableElements();
-        if (this._focusedColumnIndex && this._focusedColumnIndex < this.focusableRowElements.length) {
+        if (this._focusedRowElementIndex !== -1 && this._focusedRowElementIndex < this.focusableRowElements.length) {
             this.focusRowElement();
         }
     }
 
     private focusRowElement(): void {
-        if (this._focusedRow) {
-            this._focusedRow.removeFocus();
-        }
-        const elementToFocus = this.focusableRowElements[this._focusedColumnIndex!]!;
+        const elementToFocus = this.focusableRowElements[this._focusedRowElementIndex!]!;
         elementToFocus.tabIndex = 0;
         elementToFocus.focus({ preventScroll: true });
         elementToFocus.addEventListener('focusout', e => this.focusOutHandler(e));
     }
 
-    // private focusCellContent(cell: TableCell): boolean {
-    //     const focusableCellContent = cell.q
-    // }
-
     private getFocusedRowFocusableElements(): HTMLElement[] {
         return this._focusedRow!.getFocusableElements();
-        // const focusableElements: HTMLElement[] = [];
-        // const rowCells = this._focusedRow!.shadowRoot?.querySelectorAll('nimble-table-cell');
-        // rowCells?.forEach(cell => {
-        //     const cellFocusableElements = cell.shadowRoot?.querySelectorAll<HTMLElement>('[focusable]');
-        //     cellFocusableElements?.forEach(e => {
-        //         focusableElements.push(e);
-        //     });
-        // });
-        // return focusableElements;
     }
 
     private getVisibleRowIndex(): number {
@@ -307,13 +313,15 @@ implements Subscriber {
 
     private readonly focusOutHandler = (event: Event): void => {
         (event.target as HTMLElement).tabIndex = -1;
+
         (event.target as HTMLElement).removeEventListener(
             'focusout',
             this.focusOutHandler
         );
     };
 
-    private readonly resetState = (resetRowIndex = false): void => {
+    private readonly resetState = (resetRowIndex = true): void => {
+        this._focusedRowElementIndex = -1;
         if (this._focusedRow) {
             this._focusedRow.tabIndex = -1;
             this._focusedRow.blur();
@@ -321,5 +329,9 @@ implements Subscriber {
         if (resetRowIndex) {
             this._focusedTotalRowIndex = undefined;
         }
+    };
+
+    private readonly handleNimbleKeyDown = (): boolean => {
+        return !this._inNavigationMode;
     };
 }

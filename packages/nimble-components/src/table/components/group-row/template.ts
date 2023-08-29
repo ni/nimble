@@ -22,7 +22,7 @@ export const template = html<TableGroupRow>`
         aria-expanded="${x => x.expanded}"
     >
         ${when(x => x.selectable, html<TableGroupRow>`
-            <span role="gridcell" class="checkbox-container">
+            <span role="presentation" class="checkbox-container">
                 <${checkboxTag}
                     ${ref('selectionCheckbox')}
                     class="selection-checkbox"
@@ -35,7 +35,7 @@ export const template = html<TableGroupRow>`
             </span>
         `)}
 
-        <div role="gridcell" class="expander-container">
+        <div role="presentation" class="expander-container">
             <${iconArrowExpanderRightTag} ${ref('expandIcon')} slot="start" class="expander-icon ${x => x.animationClass}"></${iconArrowExpanderRightTag}>
         </div>
 

@@ -58,7 +58,7 @@ export const template = html<Table>`
                                     </${checkboxTag}>
                                 </span>
                             `)}
-                            <span role="gridcell">
+                            <span role="presentation">
                                 <${buttonTag}
                                     ${ref('collapseAllButton')}
                                     class="collapse-all-button ${x => `${x.showCollapseAll ? 'visible' : ''}`}"

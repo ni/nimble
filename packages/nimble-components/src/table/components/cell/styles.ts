@@ -22,7 +22,7 @@ export const styles = css`
         align-self: center;
         height: 100%;
         /* A default value that will be overridden by the row */
-        --ni-private-table-cell-action-menu-display: block;
+        --ni-private-table-cell-action-menu-display: visible;
     }
 
     :host(:${focusVisible}) .cell-view {
@@ -37,8 +37,14 @@ export const styles = css`
         flex-grow: 1;
     }
 
+    .cell-view${focusVisible} {
+        outline: 2px solid ${borderHoverColor};
+        outline-offset: -2px;
+    }
+
     .action-menu {
-        display: var(--ni-private-table-cell-action-menu-display);
+        display: block;
+        visibility: var(--ni-private-table-cell-action-menu-display);
         margin-left: auto;
         flex-shrink: 0;
         flex-grow: 0;
