@@ -76,7 +76,7 @@ describe('RichTextEditor', () => {
         element.ariaLabel = 'not empty';
         element.ariaLabel = null;
 
-        expect(editor!.getAttribute('aria-label')).toBe('');
+        expect(editor!.getAttribute('aria-label')).toBeNull();
     });
 
     it('should have either one of the list buttons checked at the same time on click', async () => {

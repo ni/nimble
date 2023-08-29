@@ -235,7 +235,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public ariaLabelChanged(): void {
-        this.editor.setAttribute('aria-label', this.ariaLabel ?? '');
+        if (this.ariaLabel) {
+            this.editor.setAttribute('aria-label', this.ariaLabel);
+        } else {
+            this.editor.removeAttribute('aria-label');
+        }
     }
 
     /**
