@@ -40,12 +40,6 @@ const footerHiddenStates = [
 ] as const;
 type FooterHiddenState = (typeof footerHiddenStates)[number];
 
-const fitToContentStates = [
-    ['No Fit To Content', false],
-    ['Fit To Content', true]
-] as const;
-type FitToContentState = (typeof fitToContentStates)[number];
-
 const placeholderValueStates = [
     ['', null],
     ['Placeholder', 'Placeholder text']
@@ -157,28 +151,6 @@ const mobileWidthComponent = html`
     </${richTextEditorTag}>
 `;
 
-const componentFitToContent = (
-    [fitToContentName, fitToContent]: FitToContentState,
-    [footerHiddenName, footerHidden]: FooterHiddenState,
-    [heightLabel, heightStyle]: [string, string]
-): ViewTemplate => html`
-    <p 
-        style="
-        font: var(${cssPropertyFromTokenName(tokenNames.bodyFont)});
-        color: var(${cssPropertyFromTokenName(tokenNames.bodyFontColor)});
-        margin-bottom: 0px;
-        "
-    >
-        ${() => fitToContentName} ${() => footerHiddenName} ${() => heightLabel}
-    </p>
-    <${richTextEditorTag}
-        style="width: 360px; ${() => heightStyle};"
-        ?fit-to-content="${() => fitToContent}"
-        ?footer-hidden="${() => footerHidden}"
-    >
-    </${richTextEditorTag}>
-`;
-
 export const plainTextContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 plainTextContentInMobileWidth.play = (): void => {
     document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
@@ -210,21 +182,6 @@ longWordContentInMobileWidth.play = (): void => {
             'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
         );
 };
-
-export const fitToContentTest: StoryFn = createStory(html`
-    ${createMatrix(componentFitToContent, [
-        fitToContentStates,
-        footerHiddenStates,
-        [
-            ['No height', ''],
-            ['Height 120px', 'height: 120px'],
-            ['Height 100%', 'height: 100%'],
-            ['Max Height 300px', 'max-height: 300px'],
-            ['Min Height 200px', 'min-height: 200px']
-        ]
-    ])}
-`);
-fitToContentTest.play = longTextPlayFunction;
 
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)

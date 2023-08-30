@@ -71,15 +71,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public footerHidden = false;
 
     /**
-     * Whether to grow the editor vertically to fit the content
-     *
-     * @public
-     * HTML Attribute: fit-to-content
-     */
-    @attr({ attribute: 'fit-to-content', mode: 'boolean' })
-    public fitToContent = false;
-
-    /**
      * Whether to display the error state.
      *
      * @public

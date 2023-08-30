@@ -37,18 +37,12 @@ export const styles = css`
         min-width: 360px;
     }
 
-    :host([fit-to-content]) {
-        max-height: inherit;
-        height: fit-content;
-    }
-
     .container {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         position: relative;
         height: 100%;
-        min-height: inherit;
-        max-height: inherit;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
     }
 
@@ -86,7 +80,7 @@ export const styles = css`
     }
 
     :host(:hover) .container::after {
-        width: 100%;
+        width: calc(100% + 2 * ${borderWidth});
     }
 
     :host([disabled]:hover) .container::after {
@@ -106,8 +100,6 @@ export const styles = css`
         flex-direction: column;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        max-height: 100%;
-        min-height: inherit;
         flex: 1;
         overflow: hidden;
     }
@@ -117,8 +109,6 @@ export const styles = css`
     }
 
     .ProseMirror {
-        min-height: inherit;
-        max-height: 100%;
         overflow: auto;
         height: 100%;
         border: 0px;
