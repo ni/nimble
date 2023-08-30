@@ -2,6 +2,66 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 30 Aug 2023 18:22:20 GMT",
+      "tag": "@ni/nimble-angular_v17.1.14",
+      "version": "17.1.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.18",
+            "commit": "6343b16415af699b84e911aa25506e58a03dbde9"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Aug 2023 16:32:09 GMT",
+      "tag": "@ni/nimble-angular_v17.1.13",
+      "version": "17.1.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.17",
+            "commit": "6837caaf36898d3537da8b2f352d7c1bdc31dce1"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 28 Aug 2023 21:12:37 GMT",
+      "tag": "@ni/nimble-angular_v17.1.12",
+      "version": "17.1.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.16",
+            "commit": "40b952e1910a61a4532821033bfbd2de0e8309d4"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 28 Aug 2023 20:03:32 GMT",
+      "tag": "@ni/nimble-angular_v17.1.11",
+      "version": "17.1.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f734040392806895f0b0ffcab2e88e5d11775148",
+            "comment": "Export MappingKeyType fully instead of just as type"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Aug 2023 21:19:51 GMT",
       "tag": "@ni/nimble-angular_v17.1.10",
       "version": "17.1.10",
