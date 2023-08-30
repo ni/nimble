@@ -235,6 +235,22 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(combobox.value).toBe('newName');
         });
+
+        it('combobox supports a large amount of options', () => {
+            const newOptions: TestModel[] = [];
+            for (let i = 0; i < 300; i++) {
+                newOptions.push({ name: i.toString(), value: i });
+            }
+            testHostComponent.selectOptions = newOptions;
+            let exceptionThrown = false;
+            try {
+                fixture.detectChanges();
+            } catch (e) {
+                exceptionThrown = true;
+            }
+
+            expect(exceptionThrown).toBeFalse();
+        });
     });
 
     describe('when using option\'s [ngValue] binding on Reactive form', () => {
@@ -461,6 +477,22 @@ describe('Nimble combobox control value accessor', () => {
             await waitForUpdatesAsync();
 
             expect(combobox.value).toBe('newName');
+        });
+
+        it('combobox supports a large amount of options', () => {
+            const newOptions: TestModel[] = [];
+            for (let i = 0; i < 300; i++) {
+                newOptions.push({ name: i.toString(), value: i });
+            }
+            testHostComponent.selectOptions = newOptions;
+            let exceptionThrown = false;
+            try {
+                fixture.detectChanges();
+            } catch (e) {
+                exceptionThrown = true;
+            }
+
+            expect(exceptionThrown).toBeFalse();
         });
     });
 });
