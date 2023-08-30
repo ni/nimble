@@ -122,8 +122,8 @@ describe('NimbleTableColumnNumberText', () => {
         });
 
         it('will use template string value for columnHidden', () => {
-            expect(directive.columnHidden).toBe(true);
-            expect(nativeElement.columnHidden).toBe(true);
+            expect(directive.columnHidden).toBeTrue();
+            expect(nativeElement.columnHidden).toBeTrue();
         });
 
         it('will use template string values for sortDirection', () => {
@@ -268,14 +268,14 @@ describe('NimbleTableColumnNumberText', () => {
         });
 
         it('can be configured with property binding for columnHidden', () => {
-            expect(directive.columnHidden).toBe(true);
-            expect(nativeElement.columnHidden).toBe(true);
+            expect(directive.columnHidden).toBeTrue();
+            expect(nativeElement.columnHidden).toBeTrue();
 
             fixture.componentInstance.columnHidden = false;
             fixture.detectChanges();
 
-            expect(directive.columnHidden).toBe(false);
-            expect(nativeElement.columnHidden).toBe(false);
+            expect(directive.columnHidden).toBeFalse();
+            expect(nativeElement.columnHidden).toBeFalse();
         });
 
         it('can be configured with property binding for sortDirection', () => {
@@ -523,14 +523,14 @@ describe('NimbleTableColumnNumberText', () => {
         });
 
         it('can be configured with attribute binding for columnHidden', () => {
-            expect(directive.columnHidden).toBe(true);
-            expect(nativeElement.columnHidden).toBe(true);
+            expect(directive.columnHidden).toBeTrue();
+            expect(nativeElement.columnHidden).toBeTrue();
 
             fixture.componentInstance.columnHidden = false;
             fixture.detectChanges();
 
-            expect(directive.columnHidden).toBe(false);
-            expect(nativeElement.columnHidden).toBe(false);
+            expect(directive.columnHidden).toBeFalse();
+            expect(nativeElement.columnHidden).toBeFalse();
         });
 
         it('can be configured with attribute binding for sortDirection', () => {
@@ -633,14 +633,14 @@ describe('NimbleTableColumnNumberText', () => {
         });
 
         it('can be configured with attribute binding for groupingDisabled', () => {
-            expect(directive.groupingDisabled).toBe(false);
-            expect(nativeElement.groupingDisabled).toBe(false);
+            expect(directive.groupingDisabled).toBeFalse();
+            expect(nativeElement.groupingDisabled).toBeFalse();
 
             fixture.componentInstance.groupingDisabled = true;
             fixture.detectChanges();
 
-            expect(directive.groupingDisabled).toBe(true);
-            expect(nativeElement.groupingDisabled).toBe(true);
+            expect(directive.groupingDisabled).toBeTrue();
+            expect(nativeElement.groupingDisabled).toBeTrue();
         });
 
         it('can be configured with attribute binding for format', () => {
