@@ -32,16 +32,6 @@ export class NimbleRichTextEditorDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'footerHidden', toBooleanProperty(value));
     }
 
-    public get fitToContent(): boolean {
-        return this.elementRef.nativeElement.fitToContent;
-    }
-
-    // Renaming because property should have camel casing, but attribute should not
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    @Input('fit-to-content') public set fitToContent(value: BooleanValueOrAttribute) {
-        this.renderer.setProperty(this.elementRef.nativeElement, 'fitToContent', toBooleanProperty(value));
-    }
-
     public get errorVisible(): boolean {
         return this.elementRef.nativeElement.errorVisible;
     }
