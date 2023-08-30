@@ -71,15 +71,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public footerHidden = false;
 
     /**
-     * Whether to grow the editor vertically to fit the content
-     *
-     * @public
-     * HTML Attribute: fit-to-content
-     */
-    @attr({ attribute: 'fit-to-content', mode: 'boolean' })
-    public fitToContent = false;
-
-    /**
      * Whether to display the error state.
      *
      * @public
@@ -529,11 +520,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private updateScrollbarWidth(): void {
         this.updateScrollbarWidthQueued = false;
-        this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
     }
 
     private onResize(): void {
-        this.scrollbarWidth = this.editor.offsetWidth - this.editor.clientWidth;
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
     }
 
     private getTipTapExtension(

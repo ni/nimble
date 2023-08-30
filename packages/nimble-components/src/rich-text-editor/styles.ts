@@ -28,7 +28,9 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
-        ${/** Initial height of rich text editor with one line space. */ ''}
+        ${
+            /** Initial height of rich text editor with one line space when the footer is visible. */ ''
+        }
         height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
         ${
@@ -37,18 +39,12 @@ export const styles = css`
         min-width: 360px;
     }
 
-    :host([fit-to-content]) {
-        max-height: inherit;
-        height: fit-content;
-    }
-
     .container {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         position: relative;
         height: 100%;
-        min-height: inherit;
-        max-height: inherit;
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.3);
     }
 
@@ -86,7 +82,7 @@ export const styles = css`
     }
 
     :host(:hover) .container::after {
-        width: 100%;
+        width: calc(100% + 2 * ${borderWidth});
     }
 
     :host([disabled]:hover) .container::after {
@@ -106,8 +102,6 @@ export const styles = css`
         flex-direction: column;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        max-height: 100%;
-        min-height: inherit;
         flex: 1;
         overflow: hidden;
     }
@@ -117,8 +111,6 @@ export const styles = css`
     }
 
     .ProseMirror {
-        min-height: inherit;
-        max-height: 100%;
         overflow: auto;
         height: 100%;
         border: 0px;
@@ -179,7 +171,7 @@ export const styles = css`
 
     ${
         /**
-         * Styles recommended by Tiptap are applied to display the placeholder value when the editor is empty.
+         * Styles provided by Tiptap are necessary to display the placeholder value when the editor is empty.
          * Tiptap doc reference: https://tiptap.dev/api/extensions/placeholder#additional-setup
          */ ''
     }
@@ -228,6 +220,11 @@ export const styles = css`
     }
 
     :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon[scrollbar-width-calculated] {
+        display: inline-flex;
         position: absolute;
         top: calc(${standardPadding} / 2);
         right: var(--ni-private-rich-text-editor-scrollbar-width);

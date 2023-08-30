@@ -17,7 +17,6 @@ interface RichTextEditorArgs {
     setMarkdownData: (args: RichTextEditorArgs) => void;
     disabled: boolean;
     footerHidden: boolean;
-    fitToContent: boolean;
     errorVisible: boolean;
     errorText: string;
     input: unknown;
@@ -59,11 +58,6 @@ Note: The content in the \`footer-actions\` slot will not adjust based on the st
 client application to make any necessary adjustments. For example, if the buttons should be disabled when the rich-text-editor is disabled, the
 client application must implement that functionality.
 `;
-const fitToContentDescription = `Setting \`fit-to-content\` allows the editor to grow vertically to fit the content instead of displaying a
-vertical scrollbar when content exceeds the visible height.
-
-When \`fit-to-content\` is set the component will only grow to its \`max-height\`. A vertical scrollbar will be enabled when the content it
-exceeds the specified maximum height.`;
 
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
@@ -90,7 +84,6 @@ const metadata: Meta<RichTextEditorArgs> = {
         data-unused="${x => x.setMarkdownData(x)}"
         ?disabled="${x => x.disabled}"
         ?footer-hidden="${x => x.footerHidden}"
-        ?fit-to-content="${x => x.fitToContent}"
         ?error-visible="${x => x.errorVisible}"
         error-text="${x => x.errorText}"
         placeholder="${x => x.placeholder}"
@@ -143,9 +136,6 @@ const metadata: Meta<RichTextEditorArgs> = {
             description:
                 'Setting `footer-hidden` hides the footer section which consists of all formatting option buttons and the `footer-actions` slot content.'
         },
-        fitToContent: {
-            description: fitToContentDescription
-        },
         empty: {
             name: 'empty',
             description:
@@ -164,7 +154,6 @@ const metadata: Meta<RichTextEditorArgs> = {
         footerActionButtons: false,
         disabled: false,
         footerHidden: false,
-        fitToContent: false,
         errorVisible: false,
         errorText: 'Value is invalid',
         placeholder: 'Placeholder',

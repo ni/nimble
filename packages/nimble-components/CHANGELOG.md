@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 28 Aug 2023 21:12:37 GMT and should not be manually modified.
+This log was last generated on Tue, 29 Aug 2023 16:32:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.17
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Make DateText columnConfig `undefined` when the column is invalid ([ni/nimble@6837caa](https://github.com/ni/nimble/commit/6837caaf36898d3537da8b2f352d7c1bdc31dce1))
 
 ## 20.1.16
 
