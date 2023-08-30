@@ -28,7 +28,9 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
-        ${/** Initial height of rich text editor with one line space when the footer is visible. */ ''}
+        ${
+            /** Initial height of rich text editor with one line space when the footer is visible. */ ''
+        }
         height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
         ${

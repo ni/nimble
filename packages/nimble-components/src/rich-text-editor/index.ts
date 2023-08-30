@@ -520,11 +520,13 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     private updateScrollbarWidth(): void {
         this.updateScrollbarWidthQueued = false;
-        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth - this.tiptapEditor.view.dom.clientWidth;
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
     }
 
     private onResize(): void {
-        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth - this.tiptapEditor.view.dom.clientWidth;
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
     }
 
     private getTipTapExtension(
