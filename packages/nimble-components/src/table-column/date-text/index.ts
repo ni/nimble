@@ -8,7 +8,7 @@ import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import type {
+import {
     DateTextFormat,
     LocaleMatcherAlgorithm,
     EraFormat,
@@ -31,7 +31,7 @@ import { optionalBooleanConverter } from '../../utilities/models/converter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
-    formatter?: Intl.DateTimeFormat;
+    formatter: Intl.DateTimeFormat;
 }
 
 declare global {
@@ -210,18 +210,23 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        const columnConfig: TableColumnDateTextColumnConfig = {
-            formatter: this.createFormatter()
-        };
-        this.columnInternals.columnConfig = columnConfig;
-        this.validator.setCustomOptionsValidity(
-            columnConfig.formatter !== undefined
-        );
+        const formatter = this.createFormatter();
+
+        if (formatter) {
+            const columnConfig: TableColumnDateTextColumnConfig = {
+                formatter
+            };
+            this.columnInternals.columnConfig = columnConfig;
+            this.validator.setCustomOptionsValidity(true);
+        } else {
+            this.columnInternals.columnConfig = undefined;
+            this.validator.setCustomOptionsValidity(false);
+        }
     }
 
     private createFormatter(): Intl.DateTimeFormat | undefined {
         let options: Intl.DateTimeFormatOptions;
-        if (!this.format) {
+        if (this.format === DateTextFormat.default) {
             options = {
                 dateStyle: 'medium',
                 timeStyle: 'medium'

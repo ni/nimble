@@ -49,7 +49,7 @@ const component = (
     <label style="color: var(${controlLabelFontColor.cssCustomProperty}); font: var(${controlLabelFont.cssCustomProperty})">
         Number Text Table Column with ${alignmentName} alignment
     </label>
-    <${tableTag} id-field-name="id" style="height: 350px">
+    <${tableTag} id-field-name="id" style="height: 450px">
         <${tableColumnNumberTextTag}
             field-name="number"
             group-index="0"
@@ -64,6 +64,15 @@ const component = (
             alignment="${() => alignment}"
         >
             Round to integer
+        </${tableColumnNumberTextTag}>
+        <${tableColumnNumberTextTag}
+            format="decimal"
+            decimal-digits="3"
+            field-name="number"
+            group-index="2"
+            alignment="${() => alignment}"
+        >
+            Decimal (3 digits)
         </${tableColumnNumberTextTag}>
     </${tableTag}>
 `;

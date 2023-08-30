@@ -16,13 +16,6 @@ export class ColumnValidator<
     }
 
     /**
-     * @returns whether the entire column configuration is valid
-     */
-    public isValidColumn(): boolean {
-        return this.isValid();
-    }
-
-    /**
      * @returns an object containing flags for various ways the configuation can be invalid
      */
     public getValidity(): TableColumnValidity {
