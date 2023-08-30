@@ -43,6 +43,16 @@ declare global {
  */
 export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
+     * @internal
+     */
+    public editor = this.createEditor();
+
+    /**
+     * @internal
+     */
+    public tiptapEditor = this.createTiptapEditor();
+
+    /**
      * Whether to disable user from editing and interacting with toolbar buttons
      *
      * @public
@@ -92,7 +102,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * HTML Attribute: placeholder
      */
     @attr
-    public placeholder = '';
+    public placeholder?: string;
 
     /**
      * True if the editor is empty or contains only whitespace, false otherwise.
@@ -142,8 +152,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public editorContainer!: HTMLDivElement;
 
-    private tiptapEditor!: Editor;
-    private editor!: HTMLDivElement;
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 
@@ -151,11 +159,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private readonly markdownSerializer = this.initializeMarkdownSerializer();
     private readonly domSerializer = DOMSerializer.fromSchema(schema);
     private readonly xmlSerializer = new XMLSerializer();
-
-    public constructor() {
-        super();
-        this.initializeEditor();
-    }
 
     /**
      * @internal
@@ -187,14 +190,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public disabledChanged(): void {
-        if (this.tiptapEditor) {
-            this.tiptapEditor.setEditable(!this.disabled);
-            this.setEditorTabIndex();
-            this.editor.setAttribute(
-                'aria-disabled',
-                this.disabled ? 'true' : 'false'
-            );
-        }
+        this.tiptapEditor.setEditable(!this.disabled);
+        this.setEditorTabIndex();
+        this.editor.setAttribute(
+            'aria-disabled',
+            this.disabled ? 'true' : 'false'
+        );
     }
 
     /**
@@ -202,22 +203,20 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     public placeholderChanged(): void {
-        if (this.tiptapEditor) {
-            const placeholderExtension = this.getTipTapExtension(
-                'placeholder'
-            ) as Extension<PlaceholderOptions>;
-            placeholderExtension.options.placeholder = this.placeholder;
-            this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
+        const placeholderExtension = this.getTipTapExtension(
+            'placeholder'
+        ) as Extension<PlaceholderOptions>;
+        placeholderExtension.options.placeholder = this.placeholder ?? '';
+        this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
 
-            this.queueUpdateScrollbarWidth();
-        }
+        this.queueUpdateScrollbarWidth();
     }
 
     /**
      * @internal
      */
     public ariaLabelChanged(): void {
-        if (this.ariaLabel) {
+        if (this.ariaLabel !== null && this.ariaLabel !== undefined) {
             this.editor.setAttribute('aria-label', this.ariaLabel);
         } else {
             this.editor.removeAttribute('aria-label');
@@ -334,6 +333,41 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         return false;
     }
 
+    private createEditor(): HTMLDivElement {
+        const editor = document.createElement('div');
+        editor.className = 'editor';
+        editor.setAttribute('aria-multiline', 'true');
+        editor.setAttribute('role', 'textbox');
+        editor.setAttribute('aria-disabled', 'false');
+        return editor;
+    }
+
+    private createTiptapEditor(): Editor {
+        /**
+         * For more information on the extensions for the supported formatting options, refer to the links below.
+         * Tiptap marks: https://tiptap.dev/api/marks
+         * Tiptap nodes: https://tiptap.dev/api/nodes
+         */
+        return new Editor({
+            element: this.editor,
+            extensions: [
+                Document,
+                Paragraph,
+                Text,
+                BulletList,
+                OrderedList,
+                ListItem,
+                Bold,
+                Italic,
+                History,
+                Placeholder.configure({
+                    placeholder: '',
+                    showOnlyWhenEditable: false
+                })
+            ]
+        });
+    }
+
     /**
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
@@ -417,39 +451,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         );
     }
 
-    private initializeEditor(): void {
-        // Create div from the constructor because the TipTap editor requires its host element before the template is instantiated.
-        this.editor = document.createElement('div');
-        this.editor.className = 'editor';
-        this.editor.setAttribute('aria-multiline', 'true');
-        this.editor.setAttribute('role', 'textbox');
-        this.editor.setAttribute('aria-disabled', 'false');
-
-        /**
-         * For more information on the extensions for the supported formatting options, refer to the links below.
-         * Tiptap marks: https://tiptap.dev/api/marks
-         * Tiptap nodes: https://tiptap.dev/api/nodes
-         */
-        this.tiptapEditor = new Editor({
-            element: this.editor,
-            extensions: [
-                Document,
-                Paragraph,
-                Text,
-                BulletList,
-                OrderedList,
-                ListItem,
-                Bold,
-                Italic,
-                History,
-                Placeholder.configure({
-                    placeholder: this.placeholder,
-                    showOnlyWhenEditable: false
-                })
-            ]
-        });
-    }
-
     /**
      * Binding the "transaction" event to the editor allows continuous monitoring the events and updating the button state in response to
      * various actions such as mouse events, keyboard events, changes in the editor content etc,.
@@ -500,11 +501,11 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
 
     /**
      * Stopping the native input event propagation emitted by the contenteditable element in the Tiptap
-     * since there is an issue(linked below) in ProseMirror where selecting the text and removing them
+     * since there is an issue (linked below) in ProseMirror where selecting the text and removing it
      * does not trigger the native HTMLElement input event. So using the "update" event emitted by the
-     * Tiptap to capture it as an "input" customEvent in the Rich text editor.
+     * Tiptap to capture it as an "input" customEvent in the rich text editor.
      *
-     * Prose mirror issue: https://discuss.prosemirror.net/t/how-to-handle-select-backspace-delete-cut-type-kind-of-events-handletextinput-or-handledomevents-input-doesnt-help/4844
+     * Prose Mirror issue: https://discuss.prosemirror.net/t/how-to-handle-select-backspace-delete-cut-type-kind-of-events-handletextinput-or-handledomevents-input-doesnt-help/4844
      */
     private stopNativeInputEventPropagation(): void {
         this.tiptapEditor.view.dom.addEventListener('input', event => {

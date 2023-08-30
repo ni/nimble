@@ -177,6 +177,12 @@ export const styles = css`
         margin-block: 0;
     }
 
+    ${
+        /**
+         * Styles recommended by Tiptap are applied to display the placeholder value when the editor is empty.
+         * Tiptap doc reference: https://tiptap.dev/api/extensions/placeholder#additional-setup
+         */ ''
+    }
     .ProseMirror p.is-editor-empty:first-child::before {
         color: ${controlLabelFontColor};
         content: attr(data-placeholder);
