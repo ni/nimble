@@ -62,11 +62,11 @@ export class NimbleRichTextEditorDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
 
-    public get placeholder(): string {
+    public get placeholder(): string | undefined {
         return this.elementRef.nativeElement.placeholder;
     }
 
-    @Input() public set placeholder(value: string) {
+    @Input() public set placeholder(value: string | undefined) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'placeholder', value);
     }
 
