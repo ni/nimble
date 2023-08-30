@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Update number-text HLD to reflect new API decisions",
+  "packageName": "@ni/nimble-components",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "none"
+}
