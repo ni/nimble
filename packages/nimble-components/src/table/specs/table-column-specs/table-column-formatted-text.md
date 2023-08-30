@@ -188,7 +188,10 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
         Tag
     </nimble-table-column-number-text>
 
-    <nimble-table-column-number-text field-name="count" format="round-to-integer">
+    <nimble-table-column-number-text
+        field-name="count"
+        format="round-to-integer"
+    >
         Count
     </nimble-table-column-number-text>
 
