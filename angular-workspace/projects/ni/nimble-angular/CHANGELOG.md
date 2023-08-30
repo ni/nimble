@@ -1,8 +1,96 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 17 Aug 2023 22:37:05 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Aug 2023 18:22:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.14
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.18
+
+## 17.1.13
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.17
+
+## 17.1.12
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.16
+
+## 17.1.11
+
+Mon, 28 Aug 2023 20:03:32 GMT
+
+### Patches
+
+- Export MappingKeyType fully instead of just as type ([ni/nimble@f734040](https://github.com/ni/nimble/commit/f734040392806895f0b0ffcab2e88e5d11775148))
+
+## 17.1.10
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.15
+
+## 17.1.9
+
+Thu, 24 Aug 2023 20:06:06 GMT
+
+### Patches
+
+- Angular support for icon table column ([ni/nimble@d3f5a24](https://github.com/ni/nimble/commit/d3f5a24b3f00a86f0c0abc0b271ea4b9bcee25b4))
+
+## 17.1.8
+
+Tue, 22 Aug 2023 12:48:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.14
+
+## 17.1.7
+
+Mon, 21 Aug 2023 23:23:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.13
+
+## 17.1.6
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.12
+
+## 17.1.5
+
+Mon, 21 Aug 2023 21:38:56 GMT
+
+### Patches
+
+- Fully import date-text column types before exporting them ([ni/nimble@2a73240](https://github.com/ni/nimble/commit/2a73240f77e6c45cb0de13c5db4482bdc881d3ba))
+
+## 17.1.4
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.11
 
 ## 17.1.3
 

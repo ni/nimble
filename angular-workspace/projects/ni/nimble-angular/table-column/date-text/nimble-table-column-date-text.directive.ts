@@ -2,7 +2,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { type TableColumnDateText, tableColumnDateTextTag } from '@ni/nimble-components/dist/esm/table-column/date-text';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
-import type {
+import {
     DateTextFormat,
     DateStyle,
     DayFormat,
