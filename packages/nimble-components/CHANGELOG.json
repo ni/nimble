@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 30 Aug 2023 18:22:20 GMT",
+      "tag": "@ni/nimble-components_v20.1.18",
+      "version": "20.1.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6343b16415af699b84e911aa25506e58a03dbde9",
+            "comment": "Fix typo in file name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Aug 2023 16:32:09 GMT",
       "tag": "@ni/nimble-components_v20.1.17",
       "version": "20.1.17",
