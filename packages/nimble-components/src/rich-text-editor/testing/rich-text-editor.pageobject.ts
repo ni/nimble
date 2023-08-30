@@ -167,8 +167,11 @@ export class RichTextEditorPageObject {
 
     public async isRichTextEditorActiveElement(): Promise<boolean> {
         await waitForUpdatesAsync();
-        return document.activeElement === this.richTextEditorElement
-            && document.activeElement?.shadowRoot?.activeElement === this.getTiptapEditor();
+        return (
+            document.activeElement === this.richTextEditorElement
+            && document.activeElement?.shadowRoot?.activeElement
+                === this.getTiptapEditor()
+        );
     }
 
     private getTiptapEditor(): Element | null | undefined {
