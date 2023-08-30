@@ -36,34 +36,22 @@ export class WaferMap extends FoundationElement {
      */
     public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
-    @attr({
-        attribute: 'origin-location'
-    })
+    @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
     @attr
     public orientation: WaferMapOrientation = WaferMapOrientation.top;
 
-    @attr({
-        attribute: 'max-characters',
-        converter: nullableNumberConverter
-    })
+    @attr({ attribute: 'max-characters', converter: nullableNumberConverter })
     public maxCharacters = 4;
 
-    @attr({
-        attribute: 'die-labels-hidden',
-        mode: 'boolean'
-    })
+    @attr({ attribute: 'die-labels-hidden', mode: 'boolean' })
     public dieLabelsHidden = false;
 
-    @attr({
-        attribute: 'die-labels-suffix'
-    })
+    @attr({ attribute: 'die-labels-suffix' })
     public dieLabelsSuffix = '';
 
-    @attr({
-        attribute: 'color-scale-mode'
-    })
+    @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
