@@ -62,7 +62,7 @@ client application must implement that functionality.
 const fitToContentDescription = `Setting \`fit-to-content\` allows the editor to grow vertically to fit the content instead of displaying a
 vertical scrollbar when content exceeds the visible height.
 
-However, \`fit-to-content\` will not take effect if the \`max-height\` of the element is set to the element i.e. vertical scrollbar will be enabled if it
+When \`fit-to-content\` is set the component will only grow to its \`max-height\`. A vertical scrollbar will be enabled when the content it
 exceeds the specified maximum height.`;
 
 const metadata: Meta<RichTextEditorArgs> = {
