@@ -156,8 +156,7 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
-    public async isRichTextEditorActiveElement(): Promise<boolean> {
-        await waitForUpdatesAsync();
+    public isRichTextEditorActiveElement(): boolean {
         return (
             document.activeElement === this.richTextEditorElement
             && document.activeElement?.shadowRoot?.activeElement

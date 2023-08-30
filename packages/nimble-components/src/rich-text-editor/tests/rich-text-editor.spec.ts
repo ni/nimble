@@ -103,9 +103,10 @@ describe('RichTextEditor', () => {
         expect(okButtonSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('Should return editor as active element when clicking formatting button', async () => {
+    it('Should return editor as active element after clicking formatting button', async () => {
+        await pageObject.setEditorTextContent('Sample Text');
         await pageObject.clickFooterButton(ToolbarButton.bulletList);
-        expect(await pageObject.isRichTextEditorActiveElement()).toBeTrue();
+        expect(pageObject.isRichTextEditorActiveElement()).toBeTrue();
     });
 
     const formattingButtons: {

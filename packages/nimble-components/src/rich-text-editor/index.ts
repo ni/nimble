@@ -356,7 +356,7 @@ export class RichTextEditor extends FoundationElement {
         }
     }
 
-    // In Firefox browser, Once the editor gets focused, the blinking caret will be visible until we click format buttons (Bold, Italic ...) in the Firefox browser (Changing focus).
+    // In Firefox browser, once the editor gets focused, the blinking caret will be visible until we click format buttons (Bold, Italic ...) in the Firefox browser (changing focus).
     // But once any of the toolbar button is clicked, editor internally has its focus but the blinking caret disappears.
     // As a workaround, manually triggering blur and setting focus on editor makes the blinking caret to re-appear.
     // Mozilla issue https://bugzilla.mozilla.org/show_bug.cgi?id=1496769 tracks removal of this workaround.
