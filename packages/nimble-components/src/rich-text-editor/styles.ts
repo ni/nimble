@@ -169,7 +169,7 @@ export const styles = css`
 
     ${
         /**
-         * Styles recommended by Tiptap are applied to display the placeholder value when the editor is empty.
+         * Styles provided by Tiptap are necessary to display the placeholder value when the editor is empty.
          * Tiptap doc reference: https://tiptap.dev/api/extensions/placeholder#additional-setup
          */ ''
     }
