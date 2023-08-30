@@ -168,12 +168,13 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 -   `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of `format`. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
 -   `format` - a string which controls how the number is formatted for display. It can take one of the following values:
     -   `undefined` - use a default formatter that will display integers with no trailing zeros, limits to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
-    -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. Using a format of `decimal` with `decimal-digits` set to `0` will display values rounded to the nearest integer. Will be displayed right-aligned by default.
-    -   This could be extended to other pre-configured formats in future. Their configuration attributes would similarly be prefixed with the name of the format mode.
-    -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. For all modes besides `custom` Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
+    -   `'round-to-integer'` - format all values as integers, rounding to nearest if the value isn't an integer and never displaying exponential notation. Will be displayed right-aligned by default.
+    -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. Will be displayed right-aligned by default.
+    -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
+    -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2.
 -   `unit` - an optional string that specifies the units to apply to the value when it is displayed. The value must be [one of the units sanctioned for use in ECMAScript](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers). When a unit is specified, the `style` of the `Intl.NumberFormat` formatter will be set to `unit`.
--   `unitDisplay` - an optional display format for the specified `unit` on the column. This corresponds to `unitDisplay` on []`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat). Possible values are `"long"`, `"short"`, and `"narrow"`, with the default being `"short"`.
+-   `unitDisplay` - an optional display format for the specified `unit` on the column. This corresponds to `unitDisplay` on [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat). Possible values are `"long"`, `"short"`, and `"narrow"`, with the default being `"short"`.
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
@@ -187,18 +188,17 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
         Tag
     </nimble-table-column-number-text>
 
-    <nimble-table-column-number-text field-name="count" format="integer">
+    <nimble-table-column-number-text field-name="count" format="round-to-integer">
         Count
     </nimble-table-column-number-text>
 
     <nimble-table-column-number-text
-        field-name="voltage"
-        format="custom"
-        custom-style="decimal"
-        custom-use-grouping="false"
-        suffix=" V"
+        field-name="temperature"
+        format="decimal"
+        decimal-digits="1"
+        unit="celsius"
     >
-        Voltage
+        Temperature
     </nimble-table-column-number-text>
 </nimble-table>
 ```
@@ -331,7 +331,7 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 ### Additional unit APIs
 
-We considered adding attributes for `prefix` and `suffix` that could be used to specify any string to append to the front or back of the formatted number. We decided against this idea, at least initially because it poses a localization challenge where units that might be a suffix in one locale might be a prefix in another. Therefore, we decided to require units to be those supported by ECMAScript so that localization would be built in to the formatter.
+We considered adding attributes for `prefix` and `suffix` that could be used to specify any string to append to the front or back of the formatted number. We decided against this idea because it poses a localization challenge where units that are a suffix in one locale might be a prefix in another. Therefore, we decided to require units to be those supported by ECMAScript so that localization would be built in to the formatter.
 
 Additionally, we considered adding attributes for `prefix-field-name` and `suffix-field-name` which would allow those values to be populated with a dynamic field value rather than a constant string. This could help use cases where values have disparate types or units. We decided this is not necessary initially but could revisit in the future. See [this thread](https://github.com/ni/nimble/pull/1268#discussion_r1212385898) for more discussion.
 
