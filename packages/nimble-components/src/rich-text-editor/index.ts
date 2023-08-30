@@ -23,7 +23,7 @@ import Text from '@tiptap/extension-text';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
-import { TipTapNodeNames } from './types';
+import { TipTapNodeName } from './types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -340,10 +340,8 @@ export class RichTextEditor extends FoundationElement {
 
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
-        this.bulletListButton.checked = parentList !== undefined
-            && parentList.node.type.name === TipTapNodeNames.bulletList;
-        this.numberedListButton.checked = parentList !== undefined
-            && parentList.node.type.name === TipTapNodeNames.numberedList;
+        this.bulletListButton.checked = parentList?.node.type.name === TipTapNodeName.bulletList;
+        this.numberedListButton.checked = parentList?.node.type.name === TipTapNodeName.numberedList;
     }
 
     private keyActivatesButton(event: KeyboardEvent): boolean {

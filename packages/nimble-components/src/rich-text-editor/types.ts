@@ -2,11 +2,10 @@
  * TipTap node types.
  * @public
  */
-
-export const TipTapNodeNames = {
+export const TipTapNodeName = {
     bulletList: 'bulletList',
     numberedList: 'orderedList'
 } as const;
 
-export type TipTapNodeNames =
-    (typeof TipTapNodeNames)[keyof typeof TipTapNodeNames];
+export type TipTapNodeName =
+    (typeof TipTapNodeName)[keyof typeof TipTapNodeName];
