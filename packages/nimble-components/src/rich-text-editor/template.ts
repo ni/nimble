@@ -19,6 +19,7 @@ export const template = html<RichTextEditor>`
                 severity="error"
                 class="error-icon"
                 style="--ni-private-rich-text-editor-scrollbar-width: ${x => x.scrollbarWidth}px;"
+                ?scrollbar-width-calculated="${x => x.scrollbarWidth >= 0}"
             ></${iconExclamationMarkTag}>
             <section class="footer-section">
                 <${toolbarTag}>

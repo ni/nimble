@@ -28,7 +28,7 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
-        ${/** Initial height of rich text editor with one line space. */ ''}
+        ${/** Initial height of rich text editor with one line space when the footer is visible. */ ''}
         height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
         ${
@@ -218,6 +218,11 @@ export const styles = css`
     }
 
     :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon[scrollbar-width-calculated] {
+        display: inline-flex;
         position: absolute;
         top: calc(${standardPadding} / 2);
         right: var(--ni-private-rich-text-editor-scrollbar-width);
