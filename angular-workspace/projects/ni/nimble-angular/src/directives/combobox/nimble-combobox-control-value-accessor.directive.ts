@@ -135,13 +135,6 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     public queueOptionUpdate(listOption: ListOption, modelValue: unknown): void {
         this.removeOption(listOption.text);
         this._optionUpdateQueue.push({ listOption, modelValue });
-        // window.requestAnimationFrame(() => {
-        //     this.changeDetector.detectChanges();
-        //     for (const updateValue of this._optionUpdateQueue) {
-        //         this.addOption(updateValue.listOption.text, updateValue.modelValue);
-        //     }
-        //     this._optionUpdateQueue = [];
-        // });
     }
 
     private updateDisplayValue(): void {

@@ -225,8 +225,16 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
         });
-        
-        it('update option value with new model, followed by updating combobox value with same model updates display correctly, ')
+
+        it('update option value with new model, followed by updating combobox value with same model updates display correctly', async () => {
+            const newModelValue: TestModel = { name: 'newName', value: 100 };
+            testHostComponent.dynamicOption = newModelValue;
+            testHostComponent.selectedOption = newModelValue;
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+
+            expect(combobox.value).toBe('newName');
+        });
     });
 
     describe('when using option\'s [ngValue] binding on Reactive form', () => {
@@ -443,6 +451,16 @@ describe('Nimble combobox control value accessor', () => {
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);
+        });
+
+        it('update option value with new model, followed by updating combobox value with same model updates display correctly', async () => {
+            const newModelValue: TestModel = { name: 'newName', value: 100 };
+            testHostComponent.dynamicOption = newModelValue;
+            testHostComponent.selectedOption.setValue(newModelValue);
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+
+            expect(combobox.value).toBe('newName');
         });
     });
 });
