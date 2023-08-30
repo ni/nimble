@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 29 Aug 2023 16:32:09 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Aug 2023 18:22:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.18
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Fix typo in file name ([ni/nimble@6343b16](https://github.com/ni/nimble/commit/6343b16415af699b84e911aa25506e58a03dbde9))
 
 ## 20.1.17
 
