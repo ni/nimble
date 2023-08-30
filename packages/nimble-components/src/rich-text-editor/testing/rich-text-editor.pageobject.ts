@@ -165,15 +165,13 @@ export class RichTextEditorPageObject {
         return buttons[index];
     }
 
-    public getActiveElementFromDocument(): Element | null {
-        return document.activeElement;
+    public async isRichTextEditorActiveElement(): Promise<boolean> {
+        await waitForUpdatesAsync();
+        return document.activeElement === this.richTextEditorElement
+            && document.activeElement?.shadowRoot?.activeElement === this.getTiptapEditor();
     }
 
-    public getShadowDomActiveElement(): Element | null | undefined {
-        return document.activeElement?.shadowRoot?.activeElement;
-    }
-
-    public getTiptapEditor(): Element | null | undefined {
+    private getTiptapEditor(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector(
             '.ProseMirror'
         );

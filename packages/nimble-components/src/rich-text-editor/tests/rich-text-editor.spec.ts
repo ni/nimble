@@ -105,12 +105,7 @@ describe('RichTextEditor', () => {
 
     it('Should return editor as active element when clicking formatting button', async () => {
         await pageObject.clickFooterButton(ToolbarButton.bulletList);
-        expect(pageObject.getActiveElementFromDocument()).toBe(element);
-        await pageObject.clickFooterButton(ToolbarButton.numberedList);
-        expect(pageObject.getActiveElementFromDocument()).toBe(element);
-        expect(pageObject.getShadowDomActiveElement()).toBe(
-            pageObject.getTiptapEditor()
-        );
+        expect(await pageObject.isRichTextEditorActiveElement()).toBeTrue();
     });
 
     const formattingButtons: {
