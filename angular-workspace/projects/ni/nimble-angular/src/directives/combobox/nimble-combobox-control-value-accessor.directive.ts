@@ -1,4 +1,4 @@
-import { AfterViewChecked, Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { ListOption } from '../../public-api';
 
@@ -66,7 +66,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
 
     public constructor(
         private readonly _renderer: Renderer2,
-        private readonly _elementRef: ElementRef
+        private readonly _elementRef: ElementRef,
+        private readonly changeDetector: ChangeDetectorRef
     ) {}
 
     public ngAfterViewChecked(): void {
