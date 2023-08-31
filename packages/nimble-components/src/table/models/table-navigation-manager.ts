@@ -1,4 +1,4 @@
-import { Notifier, Subscriber, Observable, DOM } from '@microsoft/fast-element';
+import { Notifier, Subscriber, Observable } from '@microsoft/fast-element';
 import {
     keyArrowDown,
     keyArrowLeft,
@@ -18,7 +18,7 @@ import type { Table } from '..';
 import type { TableRecord } from '../types';
 import type { Virtualizer } from './virtualizer';
 import type { TableGroupRow } from '../components/group-row';
-import type { TableRow } from '../components/row';
+import { TableRow } from '../components/row';
 import type { TableCell } from '../components/cell';
 
 const TableFocusState = {
@@ -56,6 +56,7 @@ implements Subscriber {
     ) {
         table.addEventListener('keydown', e => this.onKeyDown(e), { capture: true });
         table.addEventListener('focusout', () => this.resetState);
+        table.addEventListener('focusin', e => this.handleFocus(e), { capture: true });
         table.addEventListener('blur', () => this.resetState);
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
@@ -94,7 +95,7 @@ implements Subscriber {
         }
 
         if (!this._inNavigationMode
-            && !(event.key === keyEnter || event.key === keyFunction2 || event.key === keyEscape)) {
+            && !(event.key === keyFunction2 || event.key === keyEscape)) {
             return false;
         }
 
@@ -127,9 +128,10 @@ implements Subscriber {
                 return false;
             }
             case keyArrowDown: {
-                const newFocusedTotalRowIndex = this._focusedTotalRowIndex === undefined
+                const rowWithFocus = this.getRowWithFocus();
+                const newFocusedTotalRowIndex = rowWithFocus === undefined
                     ? 0
-                    : this._focusedTotalRowIndex + 1;
+                    : rowWithFocus.dataIndex! + 1;
                 if (newFocusedTotalRowIndex < this.table.tableData.length) {
                     this.scrollToAndFocusRow(newFocusedTotalRowIndex);
                     event.preventDefault();
@@ -139,6 +141,11 @@ implements Subscriber {
                 break;
             }
             case keyArrowUp: {
+                const rowWithFocus = this.getRowWithFocus();
+                const newFocusedTotalRowIndex = rowWithFocus === undefined
+                    ? 0
+                    : rowWithFocus.dataIndex! + 1;
+
                 if (this._focusedTotalRowIndex === undefined) {
                     return true;
                 }
@@ -243,6 +250,7 @@ implements Subscriber {
             this._focusedRow.tabIndex = -1;
             this._focusedTotalRowIndex = undefined;
             this._focusedRow = undefined;
+            this._focusedRowElementIndex = -1;
         }
 
         const focusableElement = this.getTableHeaderFocusableElement();
@@ -278,6 +286,7 @@ implements Subscriber {
         this._focusedRow.addEventListener('focusout', e => this.focusOutHandler(e));
         this.focusableRowElements = this.getFocusedRowFocusableElements();
         if (this._focusedRowElementIndex !== -1 && this._focusedRowElementIndex < this.focusableRowElements.length) {
+            this._focusedRow.removeAttribute('has-focus');
             this.focusRowElement();
         }
     }
@@ -331,7 +340,27 @@ implements Subscriber {
         }
     };
 
-    private readonly handleNimbleKeyDown = (): boolean => {
-        return !this._inNavigationMode;
+    // The row with focus is the row that either has focus or an element
+    // inside of it has focus
+    private getRowWithFocus(): TableRow | undefined {
+        return this.getContainingRow(document.activeElement);
+    }
+
+    private getContainingRow(start: Element | null): TableRow | undefined {
+        let possibleRow = start;
+        if (this.table.contains(possibleRow)) {
+            while (possibleRow && possibleRow !== this.table) {
+                if (possibleRow instanceof TableRow) {
+                    return possibleRow;
+                }
+                possibleRow = possibleRow.parentElement;
+            }
+        }
+
+        return undefined;
+    }
+
+    private readonly handleFocus = (event: FocusEvent): void => {
+        console.log("focus target = " + (event.target as HTMLElement).localName);
     };
 }
