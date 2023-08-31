@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Revamp rich text components folder structure",
+  "packageName": "@ni/nimble-angular",
+  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
