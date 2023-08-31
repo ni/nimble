@@ -223,7 +223,7 @@ export const styles = css`
         display: none;
     }
 
-    :host([error-visible]) .error-icon[scrollbar-width-calculated] {
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
         display: inline-flex;
         position: absolute;
         top: calc(${standardPadding} / 2);
