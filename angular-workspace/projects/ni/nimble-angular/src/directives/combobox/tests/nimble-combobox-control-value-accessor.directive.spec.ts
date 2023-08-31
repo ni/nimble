@@ -242,14 +242,9 @@ describe('Nimble combobox control value accessor', () => {
                 newOptions.push({ name: i.toString(), value: i });
             }
             testHostComponent.selectOptions = newOptions;
-            let exceptionThrown = false;
-            try {
-                fixture.detectChanges();
-            } catch (e) {
-                exceptionThrown = true;
-            }
-
-            expect(exceptionThrown).toBeFalse();
+    expect(() => {
+        fixture.detectChanges();
+    }).not.toThrow();
         });
     });
 
