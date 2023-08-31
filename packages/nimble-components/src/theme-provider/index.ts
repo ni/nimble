@@ -11,25 +11,29 @@ import { Theme } from './types';
 import { documentElementLang } from '../utilities/models/document-element-lang';
 import type { ValidityObject } from '../utilities/models/validator';
 
+export { Direction };
+
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-theme-provider': ThemeProvider;
     }
 }
 
-function isInvalidLang(value: string): boolean {
+function isValidLang(value: string): boolean {
     try {
-        Intl.DateTimeFormat(value);
-        return false;
-    } catch (e) {
+        // We are relying on the Locale constructor to validate the value
+        // eslint-disable-next-line no-new
+        new Intl.Locale(value);
         return true;
+    } catch (e) {
+        return false;
     }
 }
 
 export const lang = DesignToken.create<string>({
     name: 'lang',
     cssCustomPropertyName: null
-}).withDefault((): string => (isInvalidLang(documentElementLang.lang) ? 'en-US' : documentElementLang.lang));
+}).withDefault((): string => (isValidLang(documentElementLang.lang) ? documentElementLang.lang : 'en-US'));
 
 // Not represented as a CSS Custom Property, instead available
 // as an attribute of theme provider.
@@ -50,10 +54,11 @@ export const theme = DesignToken.create<Theme>({
  */
 export class ThemeProvider extends FoundationElement {
     @attr()
-    public override lang = '';
+    // @ts-expect-error: Do not want to initialize, but type cannot include undefined because of override
+    public override lang: string;
 
     @attr()
-    public direction: Direction = Direction.ltr;
+    public direction?: Direction;
 
     @attr()
     public theme: Theme = Theme.light;
@@ -74,19 +79,18 @@ export class ThemeProvider extends FoundationElement {
         _prev: string | undefined | null,
         next: string | undefined | null
     ): void {
-        this.langIsInvalid = false;
-        let shouldSetNewTokenValue = false;
-        if (next) {
-            this.langIsInvalid = isInvalidLang(next);
-            if (!this.langIsInvalid) {
-                shouldSetNewTokenValue = true;
-            }
+        if (next === null || next === undefined) {
+            lang.deleteValueFor(this);
+            this.langIsInvalid = false;
+            return;
         }
 
-        if (shouldSetNewTokenValue) {
-            lang.setValueFor(this, next!);
+        if (isValidLang(next)) {
+            lang.setValueFor(this, next);
+            this.langIsInvalid = false;
         } else {
             lang.deleteValueFor(this);
+            this.langIsInvalid = true;
         }
     }
 

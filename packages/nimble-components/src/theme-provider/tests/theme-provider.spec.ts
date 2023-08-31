@@ -21,10 +21,12 @@ describe('Theme Provider', () => {
 
     describe('lang token', () => {
         async function setup(
-            langValue = 'fr-FR'
+            langValue: string | undefined
         ): Promise<Fixture<ThemeProvider>> {
             return fixture<ThemeProvider>(
-                html`<${themeProviderTag} lang="${langValue}">
+                html`<${themeProviderTag} ${
+                    langValue === undefined ? '' : `lang="${langValue}"`
+                }>
                     </${themeProviderTag}>`
             );
         }
@@ -32,13 +34,23 @@ describe('Theme Provider', () => {
         let element: ThemeProvider;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
+        let pageLangToRestore: string | undefined;
+
+        beforeEach(() => {
+            pageLangToRestore = document.documentElement.lang;
+        });
 
         afterEach(async () => {
             await disconnect();
+            if (pageLangToRestore) {
+                document.documentElement.lang = pageLangToRestore;
+            } else {
+                document.documentElement.removeAttribute('lang');
+            }
         });
 
         it('value is set to "fr-FR" when theme provider lang attribute is assigned value "fr-FR"', async () => {
-            ({ element, connect, disconnect } = await setup());
+            ({ element, connect, disconnect } = await setup('fr-FR'));
             await connect();
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('fr-FR');
@@ -46,11 +58,20 @@ describe('Theme Provider', () => {
 
         it('value defaults to page lang when theme provider lang attribute is removed', async () => {
             document.documentElement.lang = 'de-DE';
-            ({ element, connect, disconnect } = await setup());
+            ({ element, connect, disconnect } = await setup('fr-FR'));
             await connect();
             element.removeAttribute('lang');
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('de-DE');
+        });
+
+        it('value defaults to page lang when theme provider lang attribute is undefined', async () => {
+            document.documentElement.lang = 'de-DE';
+            ({ element, connect, disconnect } = await setup(undefined));
+            await connect();
+            await waitForUpdatesAsync();
+            expect(lang.getValueFor(element)).toBe('de-DE');
+            expect(element.validity.invalidLang).toBeFalse();
         });
 
         it('value defaults to page lang when theme provider lang attribute is empty string', async () => {
@@ -59,7 +80,7 @@ describe('Theme Provider', () => {
             await connect();
             await waitForUpdatesAsync();
             expect(lang.getValueFor(element)).toBe('de-DE');
-            expect(element.validity.invalidLang).toBeFalse();
+            expect(element.validity.invalidLang).toBeTrue();
         });
 
         it('value defaults to page lang when theme provider lang attribute is malformed', async () => {
@@ -71,7 +92,18 @@ describe('Theme Provider', () => {
             expect(element.validity.invalidLang).toBeTrue();
         });
 
-        it('value updates when theme provider lang attribute goes from bad to good', async () => {
+        it('value updates when page lang changes (while theme provider lang unset)', async () => {
+            document.documentElement.lang = 'de-DE';
+            ({ element, connect, disconnect } = await setup(undefined));
+            await connect();
+            await waitForUpdatesAsync();
+            document.documentElement.lang = 'fr-FR';
+            await waitForUpdatesAsync();
+            expect(lang.getValueFor(element)).toBe('fr-FR');
+            expect(element.validity.invalidLang).toBeFalse();
+        });
+
+        it('value updates when theme provider lang attribute goes from invalid to valid', async () => {
             document.documentElement.lang = 'de-DE';
             ({ element, connect, disconnect } = await setup('123'));
             await connect();
@@ -82,9 +114,9 @@ describe('Theme Provider', () => {
             expect(element.validity.invalidLang).toBeFalse();
         });
 
-        it('value updates when theme provider lang attribute goes from good to bad', async () => {
+        it('value updates when theme provider lang attribute goes from valid to invalid', async () => {
             document.documentElement.lang = 'de-DE';
-            ({ element, connect, disconnect } = await setup());
+            ({ element, connect, disconnect } = await setup('fr-FR'));
             await connect();
             await waitForUpdatesAsync();
             element.setAttribute('lang', '123');
