@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 31 Aug 2023 17:09:05 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 19:17:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.17
+
+Thu, 31 Aug 2023 19:17:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.20
+
+## 17.1.16
+
+Thu, 31 Aug 2023 18:31:42 GMT
+
+### Patches
+
+- Angular integration for rich text editor component ([ni/nimble@8cc3101](https://github.com/ni/nimble/commit/8cc3101283de8f101c2c8dcb8874dabd6d5abdad))
 
 ## 17.1.15
 

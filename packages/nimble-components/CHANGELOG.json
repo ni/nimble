@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 19:17:18 GMT",
+      "tag": "@ni/nimble-components_v20.1.20",
+      "version": "20.1.20",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fcc12d554b6342d1751f6bc54d598189d5465fc3",
+            "comment": "Fix for Firefox caret disappearing issue"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Aug 2023 17:09:05 GMT",
       "tag": "@ni/nimble-components_v20.1.19",
       "version": "20.1.19",

@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 31 Aug 2023 17:09:05 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 19:17:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.20
+
+Thu, 31 Aug 2023 19:17:18 GMT
+
+### Patches
+
+- Fix for Firefox caret disappearing issue ([ni/nimble@fcc12d5](https://github.com/ni/nimble/commit/fcc12d554b6342d1751f6bc54d598189d5465fc3))
 
 ## 20.1.19
 

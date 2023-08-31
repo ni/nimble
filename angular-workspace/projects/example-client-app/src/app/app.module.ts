@@ -22,6 +22,7 @@ import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column
 import { NimbleTableColumnEnumTextModule } from '@ni/nimble-angular/table-column/enum-text';
 import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/icon';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text-viewer';
+import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text-editor';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -84,6 +85,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleMappingTextModule,
         NimbleBannerModule,
         NimbleRichTextViewerModule,
+        NimbleRichTextEditorModule,
         NimbleTableColumnIconModule,
         NimbleMappingIconModule,
         NimbleMappingSpinnerModule,
