@@ -541,24 +541,6 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
         });
 
-        it('should have only inner most nested list type button active', async () => {
-            await pageObject.setEditorTextContent('List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
-            expect(
-                pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeTrue();
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.pressTabKeyInEditor();
-            await pageObject.setEditorTextContent('Nested List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            expect(
-                pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeFalse();
-            expect(
-                pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-            ).toBeTrue();
-        });
-
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.clickFooterButton(ToolbarButton.italics);

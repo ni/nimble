@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "updates the list button to be higlighted only on last node type",
+  "comment": "Fix bug with rich text editor nested list button state",
   "packageName": "@ni/nimble-components",
   "email": "123591928+saikrishnan-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
