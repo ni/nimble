@@ -300,7 +300,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
-        return this.markdownSerializer.serializeToMarkdown(this.tiptapEditor.state.doc);
+        return this.markdownSerializer.serializeToMarkdown(
+            this.tiptapEditor.state.doc
+        );
     }
 
     /**
