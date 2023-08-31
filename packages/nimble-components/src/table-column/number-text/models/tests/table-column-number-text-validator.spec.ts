@@ -1,5 +1,5 @@
 import { ColumnInternals } from '../../../base/models/column-internals';
-import { TableColumnNumberTextValidator } from '../table-column-number-text-validitor';
+import { TableColumnNumberTextValidator } from '../table-column-number-text-validator';
 import { TableColumnSortOperation } from '../../../base/types';
 import { NumberTextFormat } from '../../types';
 import { tableColumnNumberTextCellViewTag } from '../../cell-view';
