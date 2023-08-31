@@ -12,14 +12,14 @@ export class RichTextMarkdownSerializer {
     private readonly markdownSerializer: MarkdownSerializer;
 
     public constructor() {
-        this.markdownSerializer = this.initializeMarkdownSerializer();
+        this.markdownSerializer = this.initializeMarkdownSerializerForTipTap();
     }
 
     public serializeToMarkdown(doc: Node): string {
         return this.markdownSerializer.serialize(doc);
     }
 
-    private initializeMarkdownSerializer(): MarkdownSerializer {
+    private initializeMarkdownSerializerForTipTap(): MarkdownSerializer {
         /**
          * orderedList Node is getting 'order' attribute which it is not present in the
          * tip-tap orderedList Node and having start instead of order, Changed it to start (nodes.attrs.start)
