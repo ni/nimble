@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 23:28:43 GMT",
+      "tag": "@ni/nimble-angular_v17.1.19",
+      "version": "17.1.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "38a495ff56b8fb86e292c6c2e8ea1ee04a7a4155",
+            "comment": "Angular support for number-text table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Aug 2023 22:45:50 GMT",
       "tag": "@ni/nimble-angular_v17.1.18",
       "version": "17.1.18",

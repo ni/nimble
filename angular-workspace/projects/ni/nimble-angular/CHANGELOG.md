@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 31 Aug 2023 22:45:50 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 23:28:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.19
+
+Thu, 31 Aug 2023 23:28:43 GMT
+
+### Patches
+
+- Angular support for number-text table column ([ni/nimble@38a495f](https://github.com/ni/nimble/commit/38a495ff56b8fb86e292c6c2e8ea1ee04a7a4155))
 
 ## 17.1.18
 
