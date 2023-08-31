@@ -29,24 +29,28 @@ public class NimbleTableColumnEnumBase<TKey> : NimbleTableColumn, IGroupableColu
     [Parameter]
     public bool? GroupingDisabled { get; set; }
 
-    private readonly Type[] cSharpNumberTypes = new[]
+    private readonly Type[] supportedCSharpNumberTypes = new[]
     {
         typeof(int),
         typeof(uint),
         typeof(short),
         typeof(ushort),
-        typeof(long),
-        typeof(ulong),
         typeof(byte),
         typeof(sbyte),
         typeof(float),
-        typeof(double),
+        typeof(double)
+    };
+
+    private readonly Type[] unsupportedCSharpNumberTypes = new[]
+    {
+        typeof(long),
+        typeof(ulong),
         typeof(decimal)
     };
 
     protected string GetTKeyAsJSType()
     {
-        if (cSharpNumberTypes.Contains(typeof(TKey)))
+        if (supportedCSharpNumberTypes.Contains(typeof(TKey)))
         {
             return "number";
         }
@@ -57,6 +61,10 @@ public class NimbleTableColumnEnumBase<TKey> : NimbleTableColumn, IGroupableColu
         if (typeof(TKey) == typeof(string))
         {
             return "string";
+        }
+        if (unsupportedCSharpNumberTypes.Contains(typeof(TKey)))
+        {
+            throw new ArgumentException("TKey was an unsupported numeric type.");
         }
 
         throw new ArgumentException("TKey was not a numeric, boolean, or string.");

@@ -56,21 +56,15 @@ public class NimbleTableColumnIconTests
     }
 
     [Fact]
-    public void NimbleTableColumnIcon_WithLongTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithLongTypeParameter_ThrowsException()
     {
-        var column = RenderTableEnumColumn<long>();
-
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<long>());
     }
 
     [Fact]
-    public void NimbleTableColumnIcon_WithULongTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithULongTypeParameter_ThrowsException()
     {
-        var column = RenderTableEnumColumn<ulong>();
-
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<ulong>());
     }
 
     [Fact]
@@ -110,12 +104,9 @@ public class NimbleTableColumnIconTests
     }
 
     [Fact]
-    public void NimbleTableColumnIcon_WithDecimalTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithDecimalTypeParameter_ThrowsException()
     {
-        var column = RenderTableEnumColumn<decimal>();
-
-        var expectedMarkup = @"key-type=""number""";
-        Assert.Contains(expectedMarkup, column.Markup);
+        Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<decimal>());
     }
 
     [Fact]
