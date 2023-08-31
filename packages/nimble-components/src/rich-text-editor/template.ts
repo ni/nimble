@@ -6,23 +6,27 @@ import { iconBoldBTag } from '../icons/bold-b';
 import { iconItalicITag } from '../icons/italic-i';
 import { iconListTag } from '../icons/list';
 import { iconNumberListTag } from '../icons/number-list';
+import { errorTextTemplate } from '../patterns/error/template';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
     <template>
         <div class="container">
-            <section
-                ${ref('editor')}
-                class="editor"
-                role="textbox"
-                aria-multiline="true">
+            <section ${ref('editorContainer')} class="editor-container">
             </section>
-            <section class="footer-section" part="footer-section">
+            <${iconExclamationMarkTag}
+                severity="error"
+                class="error-icon ${x => (x.scrollbarWidth >= 0 ? 'scrollbar-width-calculated' : '')}"
+                style="--ni-private-rich-text-editor-scrollbar-width: ${x => x.scrollbarWidth}px;"
+            ></${iconExclamationMarkTag}>
+            <section class="footer-section">
                 <${toolbarTag}>
                     <${toggleButtonTag}
                         ${ref('boldButton')}
                         appearance="ghost"
                         content-hidden
+                        ?disabled="${x => x.disabled}"
                         slot="start"
                         title="Bold"
                         @click=${x => x.boldButtonClick()}
@@ -36,6 +40,7 @@ export const template = html<RichTextEditor>`
                         ${ref('italicsButton')}
                         appearance="ghost"
                         content-hidden
+                        ?disabled="${x => x.disabled}"
                         slot="start"
                         title="Italics"
                         @click=${x => x.italicsButtonClick()}
@@ -49,6 +54,7 @@ export const template = html<RichTextEditor>`
                         ${ref('bulletListButton')}
                         appearance="ghost"
                         content-hidden
+                        ?disabled="${x => x.disabled}"
                         slot="start"
                         title="Bullet List"
                         @click=${x => x.bulletListButtonClick()}
@@ -62,6 +68,7 @@ export const template = html<RichTextEditor>`
                         ${ref('numberedListButton')}
                         appearance="ghost"
                         content-hidden
+                        ?disabled="${x => x.disabled}"
                         slot="start"
                         title="Numbered List"
                         @click=${x => x.numberedListButtonClick()}
@@ -76,6 +83,7 @@ export const template = html<RichTextEditor>`
                     <slot name="footer-actions"></slot>
                 </span>
             </section>
+            ${errorTextTemplate}
         </div>
     </template>
 `;

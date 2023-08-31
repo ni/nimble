@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 21 Aug 2023 22:42:29 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Aug 2023 18:22:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.18
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Fix typo in file name ([ni/nimble@6343b16](https://github.com/ni/nimble/commit/6343b16415af699b84e911aa25506e58a03dbde9))
+
+## 20.1.17
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Make DateText columnConfig `undefined` when the column is invalid ([ni/nimble@6837caa](https://github.com/ni/nimble/commit/6837caaf36898d3537da8b2f352d7c1bdc31dce1))
+
+## 20.1.16
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Add 'decimal' format to number-text column ([ni/nimble@40b952e](https://github.com/ni/nimble/commit/40b952e1910a61a4532821033bfbd2de0e8309d4))
+
+## 20.1.15
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Implement `alignment` attribute on number-text column ([ni/nimble@2292048](https://github.com/ni/nimble/commit/2292048647dfcd1f61fbf897ec083eacb3e269db))
+
+## 20.1.14
+
+Tue, 22 Aug 2023 12:48:52 GMT
+
+### Patches
+
+- Add setMarkdown and getMarkdown methods in rich-text-editor ([ni/nimble@42928b3](https://github.com/ni/nimble/commit/42928b304ad9b9362501f6bc923f21b4e1e81ddc))
+
+## 20.1.13
+
+Mon, 21 Aug 2023 23:23:23 GMT
+
+### Patches
+
+- Icon table column ([ni/nimble@4f0f474](https://github.com/ni/nimble/commit/4f0f4745ba013ddfbb0dbf8820df2bb6f4fb4db5))
 
 ## 20.1.12
 

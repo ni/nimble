@@ -5,7 +5,10 @@ import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
 import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
-import { NumberTextFormat } from '../types';
+import { NumberTextAlignment, NumberTextFormat } from '../types';
+import type { TableColumnNumberTextCellView } from '../cell-view';
+import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
 
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;
@@ -91,6 +94,12 @@ describe('TableColumnNumberText', () => {
 
     it('defaults to "default" format', () => {
         expect(columnInstances.column1.format).toBe(NumberTextFormat.default);
+    });
+
+    it('defaults to "default" alignment', () => {
+        expect(columnInstances.column1.alignment).toBe(
+            NumberTextAlignment.default
+        );
     });
 
     it('changing format updates display', async () => {
@@ -265,6 +274,210 @@ describe('TableColumnNumberText', () => {
             );
             await waitForUpdatesAsync();
             expect(pageObject.getGroupHeaderTitle(0)).toBe('');
+        });
+    });
+
+    it('uses decimal-digits applied before connection', async () => {
+        columnInstances.column1.format = NumberTextFormat.decimal;
+        columnInstances.column1.decimalDigits = 4;
+        await element.setData([{ number1: 11.01234567 }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.0123');
+        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.0123');
+    });
+
+    describe('updating configuration after connection', () => {
+        beforeEach(async () => {
+            columnInstances.column1.format = NumberTextFormat.decimal;
+            await connect();
+            await element.setData([{ number1: 11 }]);
+            await waitForUpdatesAsync();
+        });
+
+        it('displays two decimal digits by default', () => {
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
+            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
+        });
+
+        it('updating decimal-digits updates rendered value', async () => {
+            columnInstances.column1.decimalDigits = 5;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00000');
+            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+                '11.00000'
+            );
+        });
+
+        it('updating decimal-digits to undefined uses two digits', async () => {
+            columnInstances.column1.decimalDigits = 5;
+            await waitForUpdatesAsync();
+            columnInstances.column1.decimalDigits = undefined;
+            await waitForUpdatesAsync();
+
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
+            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
+        });
+
+        it('setting an invalid decimal-digits value makes the column invalid', async () => {
+            columnInstances.column1.decimalDigits = -5;
+            await waitForUpdatesAsync();
+
+            expect(columnInstances.column1.checkValidity()).toBeFalse();
+            expect(
+                columnInstances.column1.validity.invalidDecimalDigits
+            ).toBeTrue();
+        });
+
+        it('changing format of invalid decimal column makes it valid', async () => {
+            columnInstances.column1.decimalDigits = -5;
+            await waitForUpdatesAsync();
+
+            expect(columnInstances.column1.checkValidity()).toBeFalse();
+            expect(
+                columnInstances.column1.validity.invalidDecimalDigits
+            ).toBeTrue();
+
+            columnInstances.column1.format = NumberTextFormat.default;
+            await waitForUpdatesAsync();
+
+            expect(columnInstances.column1.checkValidity()).toBeTrue();
+            expect(
+                columnInstances.column1.validity.invalidDecimalDigits
+            ).toBeFalse();
+        });
+
+        it('changing to a valid decimal-digits value makes an invalid column valid', async () => {
+            columnInstances.column1.decimalDigits = -5;
+            await waitForUpdatesAsync();
+
+            expect(columnInstances.column1.checkValidity()).toBeFalse();
+            expect(
+                columnInstances.column1.validity.invalidDecimalDigits
+            ).toBeTrue();
+
+            columnInstances.column1.decimalDigits = 1;
+            await waitForUpdatesAsync();
+
+            expect(columnInstances.column1.checkValidity()).toBeTrue();
+            expect(
+                columnInstances.column1.validity.invalidDecimalDigits
+            ).toBeFalse();
+        });
+    });
+
+    const alignmentTestCases = [
+        {
+            name: 'with default format and default alignment',
+            format: NumberTextFormat.default,
+            configuredColumnAlignment: NumberTextAlignment.default,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+        },
+        {
+            name: 'with default format and left alignment',
+            format: NumberTextFormat.default,
+            configuredColumnAlignment: NumberTextAlignment.left,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+        },
+        {
+            name: 'with default format and right alignment',
+            format: NumberTextFormat.default,
+            configuredColumnAlignment: NumberTextAlignment.right,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with roundToInteger format and default alignment',
+            format: NumberTextFormat.roundToInteger,
+            configuredColumnAlignment: NumberTextAlignment.default,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with roundToInteger format and left alignment',
+            format: NumberTextFormat.roundToInteger,
+            configuredColumnAlignment: NumberTextAlignment.left,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+        },
+        {
+            name: 'with roundToInteger format and right alignment',
+            format: NumberTextFormat.roundToInteger,
+            configuredColumnAlignment: NumberTextAlignment.right,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with decimal format and default alignment',
+            format: NumberTextFormat.decimal,
+            configuredColumnAlignment: NumberTextAlignment.default,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        },
+        {
+            name: 'with decimal format and left alignment',
+            format: NumberTextFormat.decimal,
+            configuredColumnAlignment: NumberTextAlignment.left,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.left
+        },
+        {
+            name: 'with decimal format and right alignment',
+            format: NumberTextFormat.decimal,
+            configuredColumnAlignment: NumberTextAlignment.right,
+            expectedCellViewAlignment: TextCellViewBaseAlignment.right
+        }
+    ] as const;
+    describe('sets the correct initial alignment on the cell', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        for (const testCase of alignmentTestCases) {
+            const specType = getSpecTypeByNamedList(
+                testCase,
+                focused,
+                disabled
+            );
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(`${testCase.name}`, async () => {
+                await element.setData([{ number1: 10 }]);
+                columnInstances.column1.format = testCase.format;
+                columnInstances.column1.alignment = testCase.configuredColumnAlignment;
+                await connect();
+                await waitForUpdatesAsync();
+
+                const cellView = pageObject.getRenderedCellView(
+                    0,
+                    0
+                ) as TableColumnNumberTextCellView;
+                expect(cellView.alignment).toEqual(
+                    testCase.expectedCellViewAlignment
+                );
+            });
+        }
+    });
+
+    describe('updates alignment', () => {
+        let cellView: TableColumnNumberTextCellView;
+
+        beforeEach(async () => {
+            await element.setData([{ number1: 10 }]);
+            columnInstances.column1.alignment = NumberTextAlignment.default;
+            columnInstances.column1.format = NumberTextFormat.default;
+            await connect();
+            await waitForUpdatesAsync();
+            cellView = pageObject.getRenderedCellView(
+                0,
+                0
+            ) as TableColumnNumberTextCellView;
+            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.left);
+        });
+
+        it('when alignment changes', async () => {
+            columnInstances.column1.alignment = NumberTextAlignment.right;
+            await waitForUpdatesAsync();
+            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
+        });
+
+        it('when format changes and alignment is set to "default"', async () => {
+            columnInstances.column1.format = NumberTextFormat.roundToInteger;
+            await waitForUpdatesAsync();
+            expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
         });
     });
 });

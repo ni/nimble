@@ -13,11 +13,14 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
 import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
 import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
+import { NimbleMappingIconModule } from '@ni/nimble-angular/mapping/icon';
+import { NimbleMappingSpinnerModule } from '@ni/nimble-angular/mapping/spinner';
 import { NimbleTableModule } from '@ni/nimble-angular/table';
 import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
 import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
 import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
 import { NimbleTableColumnEnumTextModule } from '@ni/nimble-angular/table-column/enum-text';
+import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/icon';
 import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text-viewer';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
@@ -81,6 +84,9 @@ import { HeaderComponent } from './header/header.component';
         NimbleMappingTextModule,
         NimbleBannerModule,
         NimbleRichTextViewerModule,
+        NimbleTableColumnIconModule,
+        NimbleMappingIconModule,
+        NimbleMappingSpinnerModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
