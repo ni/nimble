@@ -2,8 +2,10 @@
 @typeparam TKey
 @inherits NimbleMappingBase<TKey>
 
-<nimble-mapping-text
+<nimble-mapping-icon
     key="@FormattedKey"
     text="@Text"
+    icon="@Icon"
+    severity="@Severity.ToAttributeValue()"
     @attributes="AdditionalAttributes">
-</nimble-mapping-text>
+</nimble-mapping-icon>
