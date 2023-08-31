@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 31 Aug 2023 19:17:18 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 22:45:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.1.18
+
+Thu, 31 Aug 2023 22:45:50 GMT
+
+### Patches
+
+- Fix issue with large amount of options in Combobox in Angular causing endless recursion. ([ni/nimble@3020020](https://github.com/ni/nimble/commit/30200207363c7cb772c26bd0e74f10d9f6533037))
 
 ## 17.1.17
 

@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 22:45:50 GMT",
+      "tag": "@ni/nimble-angular_v17.1.18",
+      "version": "17.1.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "30200207363c7cb772c26bd0e74f10d9f6533037",
+            "comment": "Fix issue with large amount of options in Combobox in Angular causing endless recursion."
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Aug 2023 19:17:18 GMT",
       "tag": "@ni/nimble-angular_v17.1.17",
       "version": "17.1.17",
