@@ -17,6 +17,7 @@ import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
 import { Icon } from '../../icon-base';
+import { Spinner } from '../../spinner';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -187,27 +188,37 @@ export class TablePageObject<T extends TableRecord> {
         return anchor as Anchor;
     }
 
-    public getRenderedIconColumnCellIcon(
+    public getRenderedIconColumnCellContent(
         rowIndex: number,
         columnIndex: number
-    ): Icon {
-        const icon = this.getRenderedCellView(rowIndex, columnIndex).shadowRoot!
-            .firstElementChild;
-        if (!icon || !(icon instanceof Icon)) {
+    ): Icon | Spinner {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
             throw new Error(
-                `Icon not found at cell ${rowIndex},${columnIndex}`
+                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
             );
         }
-        return icon;
+        return content;
     }
 
-    public getRenderedIconColumnGroupHeaderIcon(groupRowIndex: number): Icon {
-        const icon = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
+    public getRenderedIconColumnGroupHeaderContent(
+        groupRowIndex: number
+    ): Icon | Spinner {
+        const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
             .firstElementChild;
-        if (!icon || !(icon instanceof Icon)) {
-            throw new Error(`Icon not found at group header ${groupRowIndex}`);
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at group header ${groupRowIndex}`
+            );
         }
-        return icon;
+        return content;
     }
 
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {
