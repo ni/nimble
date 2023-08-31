@@ -4,8 +4,8 @@ import {
     labelProviderMetadata
 } from '../../base/tests/label-provider-stories-utils';
 import { labelProviderTableTag } from '..';
-import { removeTablePrefixAndCamelCase } from '../name-utils';
 import * as labelTokensNamespace from '../label-tokens';
+import { removePrefixAndCamelCase } from '../../base/tests/label-name-utils';
 
 const metadata = {
     ...labelProviderMetadata,
@@ -18,6 +18,7 @@ export const tableLabelProvider: StoryObj<LabelProviderArgs> = {
     args: {
         labelProviderTag: labelProviderTableTag,
         labelTokens: Object.entries(labelTokensNamespace),
-        removeNamePrefix: removeTablePrefixAndCamelCase
+        prefixSubstring: 'table',
+        removeNamePrefix: removePrefixAndCamelCase
     }
 };

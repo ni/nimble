@@ -7,11 +7,11 @@ import { iconItalicITag } from '../icons/italic-i';
 import { iconListTag } from '../icons/list';
 import { iconNumberListTag } from '../icons/number-list';
 import {
-    richTextEditorToggleBoldLabel,
-    richTextEditorToggleItalicsLabel,
-    richTextEditorToggleBulletListLabel,
-    richTextEditorToggleNumberedListLabel
-} from '../label-provider/rich-text-editor/label-tokens';
+    richTextToggleBoldLabel,
+    richTextToggleItalicsLabel,
+    richTextToggleBulletedListLabel,
+    richTextToggleNumberedListLabel
+} from '../label-provider/rich-text/label-tokens';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -26,12 +26,12 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
-                        title=${x => richTextEditorToggleBoldLabel.getValueFor(x)}
+                        title=${x => richTextToggleBoldLabel.getValueFor(x)}
                         @click=${x => x.boldButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.boldButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        ${x => richTextEditorToggleBoldLabel.getValueFor(x)}
+                        ${x => richTextToggleBoldLabel.getValueFor(x)}
                         <${iconBoldBTag} slot="start"></${iconBoldBTag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -39,12 +39,12 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
-                        title=${x => richTextEditorToggleItalicsLabel.getValueFor(x)}
+                        title=${x => richTextToggleItalicsLabel.getValueFor(x)}
                         @click=${x => x.italicsButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.italicsButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        ${x => richTextEditorToggleItalicsLabel.getValueFor(x)}
+                        ${x => richTextToggleItalicsLabel.getValueFor(x)}
                         <${iconItalicITag} slot="start"></${iconItalicITag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -52,12 +52,12 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
-                        title=${x => richTextEditorToggleBulletListLabel.getValueFor(x)}
+                        title=${x => richTextToggleBulletedListLabel.getValueFor(x)}
                         @click=${x => x.bulletListButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.bulletListButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        ${x => richTextEditorToggleBulletListLabel.getValueFor(x)}
+                        ${x => richTextToggleBulletedListLabel.getValueFor(x)}
                         <${iconListTag} slot="start"></${iconListTag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -65,12 +65,12 @@ export const template = html<RichTextEditor>`
                         appearance="ghost"
                         content-hidden
                         slot="start"
-                        title=${x => richTextEditorToggleNumberedListLabel.getValueFor(x)}
+                        title=${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         @click=${x => x.numberedListButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.numberedListButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        ${x => richTextEditorToggleNumberedListLabel.getValueFor(x)}
+                        ${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
                 </${toolbarTag}>

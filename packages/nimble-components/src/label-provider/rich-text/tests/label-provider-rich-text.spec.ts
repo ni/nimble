@@ -2,17 +2,15 @@ import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
 import * as labelTokensNamespace from '../label-tokens';
 import {
-    LabelProviderRichTextEditor,
-    labelProviderRichTextEditorTag
+    LabelProviderRichText,
+    labelProviderRichTextTag
 } from '..';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
-import {
-    getAttributeName,
-    getPropertyName
-} from '../../base/tests/label-name-utils';
+import { getAttributeName,
+    getPropertyName,
+    removePrefixAndCamelCase } from '../../base/tests/label-name-utils';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import { Fixture, fixture } from '../../../utilities/tests/fixture';
-import { removeRichTextEditorPrefixAndCamelCase } from '../name-utils';
 
 type DesignTokenPropertyName = keyof typeof labelTokensNamespace;
 const designTokenPropertyNames = Object.keys(
@@ -22,20 +20,20 @@ const designTokenPropertyNames = Object.keys(
 async function setup(): Promise<Fixture<ThemeProvider>> {
     return fixture<ThemeProvider>(html`
         <${themeProviderTag}>
-            <${labelProviderRichTextEditorTag}></${labelProviderRichTextEditorTag}>
+            <${labelProviderRichTextTag}></${labelProviderRichTextTag}>
         </${themeProviderTag}>
     `);
 }
 
-describe('Label Provider Rich Text Editor', () => {
-    let element: LabelProviderRichTextEditor;
+describe('Label Provider Rich Text', () => {
+    let element: LabelProviderRichText;
     let themeProvider: ThemeProvider;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
     beforeEach(async () => {
         ({ element: themeProvider, connect, disconnect } = await setup());
-        element = themeProvider.querySelector(labelProviderRichTextEditorTag)!;
+        element = themeProvider.querySelector(labelProviderRichTextTag)!;
         await connect();
     });
 
@@ -45,8 +43,8 @@ describe('Label Provider Rich Text Editor', () => {
 
     it('can construct an element instance', () => {
         expect(
-            document.createElement('nimble-label-provider-rich-text-editor')
-        ).toBeInstanceOf(LabelProviderRichTextEditor);
+            document.createElement('nimble-label-provider-rich-text')
+        ).toBeInstanceOf(LabelProviderRichText);
     });
 
     describe('token JS key should match DesignToken.name', () => {
@@ -90,8 +88,9 @@ describe('Label Provider Rich Text Editor', () => {
             );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for token name ${tokenEntry.name}`, () => {
-                const tokenName = removeRichTextEditorPrefixAndCamelCase(
-                    tokenEntry.name
+                const tokenName = removePrefixAndCamelCase(
+                    tokenEntry.name,
+                    'richText',
                 );
                 const expectedPropertyName = getPropertyName(tokenName);
                 const expectedAttributeName = getAttributeName(tokenName);
@@ -124,8 +123,9 @@ describe('Label Provider Rich Text Editor', () => {
             );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for token name ${tokenEntry.name}`, () => {
-                const tokenName = removeRichTextEditorPrefixAndCamelCase(
-                    tokenEntry.name
+                const tokenName = removePrefixAndCamelCase(
+                    tokenEntry.name,
+                    'richText'
                 );
                 const attributeName = getAttributeName(tokenName);
                 const updatedValue = `NewString-${tokenName}`;

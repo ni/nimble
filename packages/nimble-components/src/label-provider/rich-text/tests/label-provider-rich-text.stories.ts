@@ -3,9 +3,9 @@ import {
     LabelProviderArgs,
     labelProviderMetadata
 } from '../../base/tests/label-provider-stories-utils';
-import { labelProviderRichTextEditorTag } from '..';
+import { labelProviderRichTextTag } from '..';
 import * as labelTokensNamespace from '../label-tokens';
-import { removeRichTextEditorPrefixAndCamelCase } from '../name-utils';
+import { removePrefixAndCamelCase } from '../../base/tests/label-name-utils';
 
 const metadata = {
     ...labelProviderMetadata,
@@ -14,10 +14,11 @@ const metadata = {
 
 export default metadata;
 
-export const richTextEditorLabelProvider: StoryObj<LabelProviderArgs> = {
+export const richTextLabelProvider: StoryObj<LabelProviderArgs> = {
     args: {
-        labelProviderTag: labelProviderRichTextEditorTag,
+        labelProviderTag: labelProviderRichTextTag,
         labelTokens: Object.entries(labelTokensNamespace),
-        removeNamePrefix: removeRichTextEditorPrefixAndCamelCase
+        prefixSubstring: 'richText',
+        removeNamePrefix: removePrefixAndCamelCase
     }
 };

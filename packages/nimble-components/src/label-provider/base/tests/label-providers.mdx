@@ -1,7 +1,7 @@
 import { Canvas, Meta, Title } from '@storybook/blocks';
 import { coreLabelProvider } from '../../core/tests/label-provider-core.stories';
 import { tableLabelProvider } from '../../table/tests/label-provider-table.stories';
-import { richTextEditorLabelProvider } from '../../rich-text-editor/tests/label-provider-rich-text-editor.stories';
+import { richTextLabelProvider } from '../../rich-text/tests/label-provider-rich-text.stories';
 
 <Meta title="Tokens/Label Providers" />
 <Title>Label Providers</Title>
@@ -21,15 +21,15 @@ See the [Localization section of the nimble-blazor readme](https://github.com/ni
 
 ## Core Label Provider
 
-Provides labels for all Nimble components besides the table and the rich text editor component.
+Provides labels for all Nimble components that do not have a dedicated label provider.
 
 <Canvas of={coreLabelProvider} sourceState="none" />
 
-## Rich Text Editor Label Provider
+## Rich Text Label Provider
 
-Provides labels for the `nimble-rich-text-editor`.
+Provides labels for the the  rich text components.
 
-<Canvas of={richTextEditorLabelProvider} sourceState="none" />
+<Canvas of={richTextLabelProvider} sourceState="none" />
 
 ## Table Label Provider
 

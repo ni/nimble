@@ -10,7 +10,7 @@ import {
     addLabelUseMetadata,
     type LabelUserArgs
 } from '../../label-provider/base/tests/label-user-stories-utils';
-import { labelProviderRichTextEditorTag } from '../../label-provider/rich-text-editor';
+import { labelProviderRichTextTag } from '../../label-provider/rich-text';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
@@ -125,7 +125,7 @@ const metadata: Meta<RichTextEditorArgs> = {
     }
 };
 
-addLabelUseMetadata(metadata, labelProviderRichTextEditorTag);
+addLabelUseMetadata(metadata, labelProviderRichTextTag);
 
 export default metadata;
 

@@ -11,7 +11,8 @@ export interface LabelProviderArgs {
     tableRef: Table;
     labelProviderTag: string;
     labelTokens: [string, DesignToken<string>][];
-    removeNamePrefix(tokenName: string): string;
+    prefixSubstring: string;
+    removeNamePrefix(tokenName: string, elementName?: string,): string;
     updateData(args: LabelProviderArgs): void;
 }
 
@@ -89,11 +90,17 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
             table: {
                 disable: true
             }
+        },
+        prefixSubstring: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
         removeNamePrefix: jsTokenName => jsTokenName,
         tableRef: undefined,
+        prefixSubstring: undefined,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
@@ -104,10 +111,10 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                     return {
                         tokenName: token[0],
                         htmlAttributeName: getAttributeName(
-                            x.removeNamePrefix(token[0])
+                            x.removeNamePrefix(token[0], x.prefixSubstring)
                         ),
                         jsPropertyName: getPropertyName(
-                            x.removeNamePrefix(token[0])
+                            x.removeNamePrefix(token[0], x.prefixSubstring)
                         ),
                         defaultValue: token[1].getValueFor(document.body)
                     };

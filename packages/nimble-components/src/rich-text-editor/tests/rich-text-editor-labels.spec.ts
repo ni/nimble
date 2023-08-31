@@ -3,9 +3,9 @@ import { richTextEditorTag, type RichTextEditor } from '..';
 import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
 import {
-    LabelProviderRichTextEditor,
-    labelProviderRichTextEditorTag
-} from '../../label-provider/rich-text-editor';
+    LabelProviderRichText,
+    labelProviderRichTextTag
+} from '../../label-provider/rich-text';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { LabelProvider, ToolbarButton } from '../testing/types';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
@@ -15,7 +15,7 @@ async function setup(): Promise<Fixture<ThemeProvider>> {
     return fixture<ThemeProvider>(
         html`
       <${themeProviderTag}>
-          <${labelProviderRichTextEditorTag}></${labelProviderRichTextEditorTag}>
+          <${labelProviderRichTextTag}></${labelProviderRichTextTag}>
           <${richTextEditorTag}></${richTextEditorTag}>
       <${themeProviderTag}>`
     );
@@ -25,37 +25,37 @@ const formattingButtons: {
     name: string,
     property: LabelProvider,
     label: string,
-    toolbarButtonIndex: ToolbarButton
+    toolbarButton: ToolbarButton
 }[] = [
     {
         name: 'Bold',
         property: 'toggleBold',
         label: 'Customized Bold Label',
-        toolbarButtonIndex: ToolbarButton.bold
+        toolbarButton: ToolbarButton.bold
     },
     {
         name: 'Italics',
         property: 'toggleItalics',
         label: 'Customized Italics Label',
-        toolbarButtonIndex: ToolbarButton.italics
+        toolbarButton: ToolbarButton.italics
     },
     {
         name: 'BulletList',
-        property: 'toggleBulletList',
-        label: 'Customized Bullet List Label',
-        toolbarButtonIndex: ToolbarButton.bulletList
+        property: 'toggleBulletedList',
+        label: 'Customized Bulleted List Label',
+        toolbarButton: ToolbarButton.bulletList
     },
     {
         name: 'NumberedList',
         property: 'toggleNumberedList',
         label: 'Customized Numbered List Label',
-        toolbarButtonIndex: ToolbarButton.numberedList
+        toolbarButton: ToolbarButton.numberedList
     }
 ];
 
-describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
+describe('Rich Text Editor with LabelProviderRichText', () => {
     let element: RichTextEditor;
-    let labelProvider: LabelProviderRichTextEditor;
+    let labelProvider: LabelProviderRichText;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
     let pageObject: RichTextEditorPageObject;
@@ -68,7 +68,7 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
         await connect();
         element = themeProvider.querySelector(richTextEditorTag)!;
         labelProvider = themeProvider.querySelector(
-            labelProviderRichTextEditorTag
+            labelProviderRichTextTag
         )!;
         pageObject = new RichTextEditorPageObject(element);
     });
@@ -85,11 +85,8 @@ describe('Rich Text Editor with LabelProviderRichTextEditor', () => {
             async () => {
                 labelProvider[value.property] = value.label;
                 await waitForUpdatesAsync();
-                const formatButton = pageObject.getFormattingButton(
-                    value.toolbarButtonIndex
-                );
-                expect(formatButton!.textContent!.trim()).toBe(value.label);
-                expect(formatButton!.title).toBe(value.label);
+                expect(pageObject.getFormattingButtonTextContent(value.toolbarButton)).toBe(value.label);
+                expect(pageObject.getFormattingButtonTitle(value.toolbarButton)).toBe(value.label);
             }
         );
     }

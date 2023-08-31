@@ -156,13 +156,27 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
-    public getFormattingButton(
-        index: ToolbarButton
+    public getFormattingButtonTextContent(
+        toolbarButton: ToolbarButton
+    ): string {
+        const button = this.getFormattingButton(toolbarButton);
+        return button!.textContent!.trim();
+    }
+
+    public getFormattingButtonTitle(
+        toolbarButton: ToolbarButton
+    ): string {
+        const button = this.getFormattingButton(toolbarButton);
+        return button!.title;
+    }
+
+    private getFormattingButton(
+        toolbarButton: ToolbarButton
     ): ToggleButton | null | undefined {
         const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
             'nimble-toggle-button'
         );
-        return buttons[index];
+        return buttons[toolbarButton];
     }
 
     private getEditorSection(): Element | null | undefined {

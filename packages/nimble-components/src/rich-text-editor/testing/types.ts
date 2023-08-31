@@ -9,5 +9,5 @@ export type ToolbarButton = (typeof ToolbarButton)[keyof typeof ToolbarButton];
 export type LabelProvider =
     | 'toggleBold'
     | 'toggleItalics'
-    | 'toggleBulletList'
+    | 'toggleBulletedList'
     | 'toggleNumberedList';
