@@ -58,11 +58,6 @@ describe('Nimble Rich Text Editor', () => {
             expect(nativeElement.footerHidden).toBeFalse();
         });
 
-        it('has expected defaults for fitToContent', () => {
-            expect(directive.fitToContent).toBeFalse();
-            expect(nativeElement.fitToContent).toBeFalse();
-        });
-
         it('has expected defaults for errorVisible', () => {
             expect(directive.errorVisible).toBeFalse();
             expect(nativeElement.errorVisible).toBeFalse();
@@ -74,8 +69,8 @@ describe('Nimble Rich Text Editor', () => {
         });
 
         it('has expected defaults for placeholder', () => {
-            expect(directive.placeholder).toBe('');
-            expect(nativeElement.placeholder).toBe('');
+            expect(directive.placeholder).toBeUndefined();
+            expect(nativeElement.placeholder).toBeUndefined();
         });
 
         it('has expected defaults for empty', () => {
@@ -90,7 +85,6 @@ describe('Nimble Rich Text Editor', () => {
                 <nimble-rich-text-editor #editor
                     disabled
                     footer-hidden
-                    fit-to-content
                     error-visible
                     error-text="Error text"
                     placeholder="Placeholder value"
@@ -127,11 +121,6 @@ describe('Nimble Rich Text Editor', () => {
             expect(nativeElement.footerHidden).toBeTrue();
         });
 
-        it('will use template string values for fitToContent', () => {
-            expect(directive.fitToContent).toBeTrue();
-            expect(nativeElement.fitToContent).toBeTrue();
-        });
-
         it('will use template string values for errorVisible', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
@@ -154,7 +143,6 @@ describe('Nimble Rich Text Editor', () => {
                 <nimble-rich-text-editor #editor
                     [disabled]="disabled"
                     [footer-hidden]="footerHidden"
-                    [fit-to-content]="fitToContent"
                     [error-visible]="errorVisible"
                     [error-text]="errorText"
                     [placeholder]="placeholder"
@@ -166,7 +154,6 @@ describe('Nimble Rich Text Editor', () => {
             @ViewChild('editor', { read: ElementRef }) public elementRef: ElementRef<RichTextEditor>;
             public disabled = false;
             public footerHidden = false;
-            public fitToContent = false;
             public errorVisible = false;
             public errorText = 'initial';
             public placeholder = 'initial';
@@ -222,17 +209,6 @@ describe('Nimble Rich Text Editor', () => {
             expect(nativeElement.footerHidden).toBeTrue();
         });
 
-        it('can be configured with property binding for fitToContent', () => {
-            expect(directive.fitToContent).toBeFalse();
-            expect(nativeElement.fitToContent).toBeFalse();
-
-            fixture.componentInstance.fitToContent = true;
-            fixture.detectChanges();
-
-            expect(directive.fitToContent).toBeTrue();
-            expect(nativeElement.fitToContent).toBeTrue();
-        });
-
         it('can be configured with property binding for errorVisible', () => {
             expect(directive.errorVisible).toBeFalse();
             expect(nativeElement.errorVisible).toBeFalse();
@@ -284,7 +260,6 @@ describe('Nimble Rich Text Editor', () => {
                 <nimble-rich-text-editor #editor
                     [attr.disabled]="disabled"
                     [attr.footer-hidden]="footerHidden"
-                    [attr.fit-to-content]="fitToContent"
                     [attr.error-visible]="errorVisible"
                     [attr.error-text]="errorText"
                     [attr.placeholder]="placeholder"
@@ -296,7 +271,6 @@ describe('Nimble Rich Text Editor', () => {
             @ViewChild('editor', { read: ElementRef }) public elementRef: ElementRef<RichTextEditor>;
             public disabled: BooleanValueOrAttribute = null;
             public footerHidden: BooleanValueOrAttribute = null;
-            public fitToContent: BooleanValueOrAttribute = null;
             public errorVisible: BooleanValueOrAttribute = null;
             public errorText = 'initial';
             public placeholder = 'initial';
@@ -337,17 +311,6 @@ describe('Nimble Rich Text Editor', () => {
 
             expect(directive.footerHidden).toBeTrue();
             expect(nativeElement.footerHidden).toBeTrue();
-        });
-
-        it('can be configured with attribute binding for fitToContent', () => {
-            expect(directive.fitToContent).toBeFalse();
-            expect(nativeElement.fitToContent).toBeFalse();
-
-            fixture.componentInstance.fitToContent = '';
-            fixture.detectChanges();
-
-            expect(directive.fitToContent).toBeTrue();
-            expect(nativeElement.fitToContent).toBeTrue();
         });
 
         it('can be configured with attribute binding for errorVisible', () => {
