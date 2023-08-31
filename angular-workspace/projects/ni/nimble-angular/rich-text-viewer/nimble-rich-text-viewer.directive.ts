@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { RichTextViewer } from '@ni/nimble-components/dist/esm/rich-text-viewer';
+import type { RichTextViewer } from '@ni/nimble-components/dist/esm/rich-text/viewer';
 
 export type { RichTextViewer };
 
