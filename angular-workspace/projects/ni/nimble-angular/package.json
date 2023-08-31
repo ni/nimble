@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-angular",
-  "version": "17.1.10",
+  "version": "17.1.14",
   "description": "Angular components for the NI Nimble Design System",
   "scripts": {
     "invoke-publish": "cd ../../../ && npm run build:library && cd dist/ni/nimble-angular && npm publish"
@@ -28,7 +28,7 @@
     "@angular/forms": "^14.2.0",
     "@angular/localize": "^14.2.0",
     "@angular/router": "^14.2.0",
-    "@ni/nimble-components": "^20.1.15"
+    "@ni/nimble-components": "^20.1.18"
   },
   "dependencies": {
     "tslib": "^2.2.0"

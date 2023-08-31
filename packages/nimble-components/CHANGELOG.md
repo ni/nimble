@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 24 Aug 2023 21:19:51 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Aug 2023 18:22:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.18
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Fix typo in file name ([ni/nimble@6343b16](https://github.com/ni/nimble/commit/6343b16415af699b84e911aa25506e58a03dbde9))
+
+## 20.1.17
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Make DateText columnConfig `undefined` when the column is invalid ([ni/nimble@6837caa](https://github.com/ni/nimble/commit/6837caaf36898d3537da8b2f352d7c1bdc31dce1))
+
+## 20.1.16
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Add 'decimal' format to number-text column ([ni/nimble@40b952e](https://github.com/ni/nimble/commit/40b952e1910a61a4532821033bfbd2de0e8309d4))
 
 ## 20.1.15
 

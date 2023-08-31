@@ -28,8 +28,11 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
+        ${
+            /** Initial height of rich text editor with one line space when the footer is visible. */ ''
+        }
+        height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
-        --ni-private-rich-text-editor-tiptap-editor-minimum-height: 36px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
         }
@@ -37,6 +40,7 @@ export const styles = css`
     }
 
     .container {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -78,7 +82,7 @@ export const styles = css`
     }
 
     :host(:hover) .container::after {
-        width: 100%;
+        width: calc(100% + 2 * ${borderWidth});
     }
 
     :host([disabled]:hover) .container::after {
@@ -94,25 +98,22 @@ export const styles = css`
     }
 
     .editor {
+        display: flex;
+        flex-direction: column;
         border: ${borderWidth} solid transparent;
         border-radius: 0px;
-        height: calc(
-            100% - var(--ni-private-rich-text-editor-footer-section-height)
-        );
-        overflow: auto;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    :host([footer-hidden]) .editor {
+        height: 100%;
     }
 
     .ProseMirror {
-        ${
-            /**
-             * Min height represents the one line space for the initial view and max height is referred from the visual design.
-             * However, max height will be `fit-content` when the `fit-to-content` attribute for the editor component is implemented.
-             */ ''
-        }
-        min-height: var(--ni-private-rich-text-editor-tiptap-editor-minimum-height);
-        max-height: 132px;
+        overflow: auto;
         height: 100%;
-        border: ${borderWidth} solid transparent;
+        border: 0px;
         border-radius: 0px;
         background-color: transparent;
         font: inherit;
@@ -164,27 +165,16 @@ export const styles = css`
         margin-block-end: 0;
     }
 
-    :host([fit-to-content]) .ProseMirror {
-        max-height: fit-content;
-    }
-
-    :host([footer-hidden]) .ProseMirror {
-        ${
-            /**
-             * Minimum height is the addition of existing minimum height of the tiptap editor div, the footer section height and the top and bottom border width.
-             * With this calculation, the editor will extend to use the footer height when it is hidden.
-             *
-             * Use case: If the footer is initially hidden and is dynamically enabled when the editor is focused, there will be no layout shift,
-             * and the footer will smoothly appear within the editor.
-             */ ''
-        }
-        min-height: calc(var(--ni-private-rich-text-editor-tiptap-editor-minimum-height) + var(--ni-private-rich-text-editor-footer-section-height) + calc(${borderWidth} * 2));
-    }
-
     li > p {
         margin-block: 0;
     }
 
+    ${
+        /**
+         * Styles provided by Tiptap are necessary to display the placeholder value when the editor is empty.
+         * Tiptap doc reference: https://tiptap.dev/api/extensions/placeholder#additional-setup
+         */ ''
+    }
     .ProseMirror p.is-editor-empty:first-child::before {
         color: ${controlLabelFontColor};
         content: attr(data-placeholder);
@@ -201,6 +191,7 @@ export const styles = css`
     .footer-section {
         display: flex;
         justify-content: space-between;
+        flex-shrink: 0;
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-rich-text-editor-footer-section-height);
@@ -229,6 +220,11 @@ export const styles = css`
     }
 
     :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+        display: inline-flex;
         position: absolute;
         top: calc(${standardPadding} / 2);
         right: var(--ni-private-rich-text-editor-scrollbar-width);
