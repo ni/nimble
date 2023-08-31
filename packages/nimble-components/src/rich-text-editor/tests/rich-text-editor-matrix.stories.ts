@@ -16,6 +16,12 @@ import {
 } from '../../theme-provider/design-token-names';
 import { buttonTag } from '../../button';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import {
+    DisabledState,
+    ErrorState,
+    disabledStates,
+    errorStates
+} from '../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',
@@ -28,14 +34,55 @@ const richTextMarkdownString = '1. **Bold*Italics***';
 
 export default metadata;
 
+const footerHiddenStates = [
+    ['Footer Visible', false],
+    ['Footer Hidden', true]
+] as const;
+type FooterHiddenState = (typeof footerHiddenStates)[number];
+
+const placeholderValueStates = [
+    ['', null],
+    ['Placeholder', 'Placeholder text']
+] as const;
+type PlaceholderValueStates = (typeof placeholderValueStates)[number];
+
 // prettier-ignore
-const component = (): ViewTemplate => html`
-    <${richTextEditorTag}></${richTextEditorTag}>
+const component = (
+    [disabledName, disabled]: DisabledState,
+    [footerHiddenName, footerHidden]: FooterHiddenState,
+    [errorStateName, isError, errorText]: ErrorState,
+    [placeholderName, placeholderText]: PlaceholderValueStates
+): ViewTemplate => html`
+    <p 
+        style="
+        font: var(${cssPropertyFromTokenName(tokenNames.bodyFont)});
+        color: var(${cssPropertyFromTokenName(tokenNames.bodyFontColor)});
+        margin-bottom: 0px;
+        "
+    >
+        ${() => footerHiddenName} ${() => errorStateName} ${() => placeholderName} ${() => disabledName} 
+    </p>
+    <${richTextEditorTag}
+        style="margin: 5px 0px; width: 500px;"
+        ?disabled="${() => disabled}"
+        ?footer-hidden="${() => footerHidden}"
+        ?error-visible="${() => isError}"
+        error-text="${() => errorText}"
+        placeholder="${() => placeholderText}"
+    >
+    </${richTextEditorTag}>
 `;
 
 const playFunction = (): void => {
     const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
     editorNodeList.forEach(element => element.setMarkdown(richTextMarkdownString));
+};
+
+const longTextPlayFunction = (): void => {
+    const editorNodeList = document.querySelectorAll('nimble-rich-text-editor');
+    editorNodeList.forEach(element => element.setMarkdown(
+        `${loremIpsum}\n\n **${loremIpsum}**\n\n ${loremIpsum}`
+    ));
 };
 
 const editorSizingTestCase = (
@@ -44,9 +91,9 @@ const editorSizingTestCase = (
 ): ViewTemplate => html`
     <p style="font: var(${cssPropertyFromTokenName(
         tokenNames.bodyFont
-    )}); margin-bottom: 0px;">${widthLabel}; ${heightLabel}</p>
+    )}); margin-bottom: 0px;">${() => widthLabel}; ${() => heightLabel}</p>
     <div style="width: 500px; height: 180px; outline: 1px dotted black;">
-        <${richTextEditorTag} style="${widthStyle}; ${heightStyle};">
+        <${richTextEditorTag} style="${() => widthStyle}; ${() => heightStyle};">
             <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
         </${richTextEditorTag}>
@@ -54,10 +101,33 @@ const editorSizingTestCase = (
 `;
 
 export const richTextEditorThemeMatrix: StoryFn = createMatrixThemeStory(
-    createMatrix(component)
+    createMatrix(component, [
+        disabledStates,
+        footerHiddenStates,
+        errorStates,
+        [placeholderValueStates[0]]
+    ])
 );
-
 richTextEditorThemeMatrix.play = playFunction;
+
+export const errorStateThemeMatrixWithLengthyContent: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        [disabledStates[0]],
+        [footerHiddenStates[0]],
+        errorStates,
+        [placeholderValueStates[0]]
+    ])
+);
+errorStateThemeMatrixWithLengthyContent.play = longTextPlayFunction;
+
+export const placeholderStateThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [
+        disabledStates,
+        [footerHiddenStates[0]],
+        [errorStates[0]],
+        placeholderValueStates
+    ])
+);
 
 export const richTextEditorSizing: StoryFn = createStory(html`
     ${createMatrix(editorSizingTestCase, [
@@ -75,14 +145,13 @@ export const richTextEditorSizing: StoryFn = createStory(html`
 `);
 
 const mobileWidthComponent = html`
-    <${richTextEditorTag} style="padding: 20px; width: 300px;">
+    <${richTextEditorTag} style="padding: 20px; width: 300px; height: 250px;">
         <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
         <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
     </${richTextEditorTag}>
 `;
 
 export const plainTextContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-
 plainTextContentInMobileWidth.play = (): void => {
     document.querySelector('nimble-rich-text-editor')!.setMarkdown(loremIpsum);
 };
@@ -99,7 +168,6 @@ const multipleSubPointsContent = `
                         1. Sub point 9`;
 
 export const multipleSubPointsContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-
 multipleSubPointsContentInMobileWidth.play = (): void => {
     document
         .querySelector('nimble-rich-text-editor')!
@@ -107,7 +175,6 @@ multipleSubPointsContentInMobileWidth.play = (): void => {
 };
 
 export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
-
 longWordContentInMobileWidth.play = (): void => {
     document
         .querySelector('nimble-rich-text-editor')!
@@ -115,6 +182,7 @@ longWordContentInMobileWidth.play = (): void => {
             'ThisIsALongWordWithoutSpaceToTestLongWordInSmallWidthThisIsALongWordWithoutSpaceToTestLongWordInSmallWidth'
         );
 };
+
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)
 );

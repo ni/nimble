@@ -7,6 +7,7 @@ import { wackyStrings } from '../../utilities/tests/wacky-strings';
 import type { Button } from '../../button';
 import type { ToggleButton } from '../../toggle-button';
 import { ToolbarButton } from '../testing/types';
+import { createEventListener } from '../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(
@@ -47,7 +48,7 @@ describe('RichTextEditor', () => {
     it('should initialize Tiptap editor', () => {
         expect(pageObject.editorSectionHasChildNodes()).toBeTrue();
         expect(pageObject.getEditorSectionFirstElementChildClassName()).toBe(
-            'ProseMirror'
+            'tiptap ProseMirror'
         );
     });
 
@@ -61,6 +62,34 @@ describe('RichTextEditor', () => {
         const editor = element.shadowRoot?.querySelector('.editor');
 
         expect(editor!.getAttribute('aria-multiline')).toBe('true');
+    });
+
+    it('should initialize "aria-label" with undefined when there is no "aria-label" set in the element', () => {
+        const editor = element.shadowRoot?.querySelector('.editor');
+
+        expect(editor!.hasAttribute('aria-label')).toBeFalse();
+    });
+
+    it('should forwards value of aria-label to internal control', () => {
+        const editor = element.shadowRoot?.querySelector('.editor');
+        element.ariaLabel = 'Rich Text Editor';
+
+        expect(editor!.getAttribute('aria-label')).toBe('Rich Text Editor');
+    });
+
+    it('should support setting blank "aria-label" value when setting empty string', () => {
+        const editor = element.shadowRoot?.querySelector('.editor');
+        element.ariaLabel = '';
+
+        expect(editor!.getAttribute('aria-label')).toBe('');
+    });
+
+    it('should remove value of aria-label from internal control when cleared from host', () => {
+        const editor = element.shadowRoot?.querySelector('.editor');
+        element.ariaLabel = 'not empty';
+        element.ariaLabel = null;
+
+        expect(editor!.getAttribute('aria-label')).toBeNull();
     });
 
     it('should have either one of the list buttons checked at the same time on click', async () => {
@@ -152,7 +181,6 @@ describe('RichTextEditor', () => {
 
         for (const value of formattingButtons) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `"${value.name}" button click check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -186,7 +214,6 @@ describe('RichTextEditor', () => {
 
         for (const value of formattingButtons) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `"${value.name}" button key press check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -217,7 +244,6 @@ describe('RichTextEditor', () => {
 
         for (const value of formattingButtons) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `"${value.name}" button key press check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -248,7 +274,6 @@ describe('RichTextEditor', () => {
 
         for (const value of formattingButtons) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `"${value.name}" button keyboard shortcut check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -280,7 +305,6 @@ describe('RichTextEditor', () => {
 
         for (const value of formattingButtons) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `"${value.name}" button not propagate change event to parent element`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -609,7 +633,6 @@ describe('RichTextEditor', () => {
 
         wackyStrings.forEach(value => {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `wacky string "${value.name}" that are unmodified when rendered the same value within paragraph tag`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -920,7 +943,6 @@ describe('RichTextEditor', () => {
         const disabled: string[] = [];
         for (const value of notSupportedMarkdownStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -952,7 +974,6 @@ describe('RichTextEditor', () => {
                     focused,
                     disabled
                 );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(
                     `wacky string "${value.name}" that are unmodified when set the same "${value.name}" within paragraph tag`,
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -988,7 +1009,6 @@ describe('RichTextEditor', () => {
 
         for (const value of modifiedWackyStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `wacky string "${value.name}" modified when rendered`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -1152,7 +1172,6 @@ describe('RichTextEditor', () => {
         const disabled: string[] = [];
         for (const value of notSupportedMarkdownStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `markdown string "${value.name}" returns as plain text "${value.name}" without any change`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -1196,7 +1215,6 @@ describe('RichTextEditor', () => {
         const disabled: string[] = [];
         for (const value of specialMarkdownStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `special markdown string "${value.name}" returns as plain text "${value.value}" with added esacpe character`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -1229,7 +1247,6 @@ describe('RichTextEditor', () => {
                     focused,
                     disabled
                 );
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(
                     `wacky string "${value.name}" returns unmodified when set the same markdown string"${value.name}"`,
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -1260,9 +1277,8 @@ describe('RichTextEditor', () => {
         const disabled: string[] = [];
         for (const value of wackyStringWithSpecialMarkdownCharacter) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
-                ` wacky string contains special markdown syntax "${value.name}" returns as plain text "${value.value}" with added esacpe character`,
+                ` wacky string contains special markdown syntax "${value.name}" returns as plain text "${value.value}" with added escape character`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
                     element.setMarkdown(value.name);
@@ -1292,7 +1308,6 @@ describe('RichTextEditor', () => {
 
         for (const value of modifiedWackyStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `wacky string "${value.name}" returns modified when assigned`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -1307,6 +1322,182 @@ describe('RichTextEditor', () => {
                 }
             );
         }
+    });
+
+    describe('disabled state', () => {
+        it('should reflect disabled value to the aria-disabled of editor-section', async () => {
+            const editor = element.shadowRoot?.querySelector('.editor');
+            expect(editor!.getAttribute('aria-disabled')).toBe('false');
+
+            await pageObject.setDisabled(true);
+
+            expect(editor!.getAttribute('aria-disabled')).toBe('true');
+        });
+
+        it('should reflect disabled value to the "contenteditable" attribute of tiptap editor', async () => {
+            const editor = element.shadowRoot?.querySelector('.ProseMirror');
+            expect(editor!.getAttribute('contenteditable')).toBe('true');
+
+            await pageObject.setDisabled(true);
+
+            expect(editor!.getAttribute('contenteditable')).toBe('false');
+        });
+
+        it('should enable the editor when "disabled" attribute is set and removed', async () => {
+            const editor = element.shadowRoot?.querySelector('.ProseMirror');
+            expect(pageObject.getEditorTabIndex()).toBe('0');
+
+            await pageObject.setDisabled(true);
+            await pageObject.setDisabled(false);
+
+            expect(editor!.getAttribute('contenteditable')).toBe('true');
+        });
+
+        it('should change the tabindex value of the editor when disabled value changes', async () => {
+            expect(pageObject.getEditorTabIndex()).toBe('0');
+
+            await pageObject.setDisabled(true);
+
+            expect(pageObject.getEditorTabIndex()).toBe('-1');
+        });
+
+        describe('should reflect disabled value to the disabled and aria-disabled state of toggle buttons', () => {
+            const focused: string[] = [];
+            const disabled: string[] = [];
+            for (const value of formattingButtons) {
+                const specType = getSpecTypeByNamedList(
+                    value,
+                    focused,
+                    disabled
+                );
+                specType(
+                    `for "${value.name}" button`,
+                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+                    async () => {
+                        expect(
+                            pageObject.isButtonDisabled(
+                                value.toolbarButtonIndex
+                            )
+                        ).toBeFalse();
+
+                        await pageObject.setDisabled(true);
+
+                        expect(
+                            pageObject.isButtonDisabled(
+                                value.toolbarButtonIndex
+                            )
+                        ).toBeTrue();
+                    }
+                );
+            }
+        });
+    });
+
+    it('should hide the footer when "footer-hidden" attribute is enabled', async () => {
+        expect(pageObject.isFooterHidden()).toBeFalse();
+
+        await pageObject.setFooterHidden(true);
+
+        expect(pageObject.isFooterHidden()).toBeTrue();
+    });
+
+    it('should show the footer when "footer-hidden" attribute is disabled', async () => {
+        expect(pageObject.isFooterHidden()).toBeFalse();
+
+        await pageObject.setFooterHidden(true);
+        await pageObject.setFooterHidden(false);
+
+        expect(pageObject.isFooterHidden()).toBeFalse();
+    });
+
+    it('should fire "input" event when there is an input to the editor', async () => {
+        const inputEventListener = createEventListener(element, 'input');
+
+        await pageObject.setEditorTextContent('input');
+        await inputEventListener.promise;
+
+        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not fire "input" event when setting the content through "setMarkdown"', () => {
+        const inputEventListener = createEventListener(element, 'input');
+
+        element.setMarkdown('input');
+
+        expect(inputEventListener.spy).not.toHaveBeenCalled();
+    });
+
+    it('should fire "input" event when the text is updated/removed from the editor', async () => {
+        const inputEventListener = createEventListener(element, 'input');
+
+        await pageObject.setEditorTextContent('update');
+        await inputEventListener.promise;
+
+        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+
+        await pageObject.setEditorTextContent('');
+        await inputEventListener.promise;
+
+        expect(inputEventListener.spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should initialize "empty" to true and set false when there is content', async () => {
+        expect(element.empty).toBeTrue();
+
+        await pageObject.setEditorTextContent('not empty');
+        expect(element.empty).toBeFalse();
+
+        await pageObject.setEditorTextContent('');
+        expect(element.empty).toBeTrue();
+    });
+
+    it('should update "empty" when the content is loaded with "setMarkdown"', () => {
+        expect(element.empty).toBeTrue();
+
+        element.setMarkdown('not empty');
+        expect(element.empty).toBeFalse();
+
+        element.setMarkdown('');
+        expect(element.empty).toBeTrue();
+    });
+
+    it('should return true for "empty" if there is only whitespace', async () => {
+        expect(element.empty).toBeTrue();
+
+        await pageObject.setEditorTextContent('       ');
+        expect(element.empty).toBeTrue();
+
+        element.setMarkdown('  ');
+        expect(element.empty).toBeTrue();
+    });
+
+    it('should return true for "empty" even if the placeholder content is set', () => {
+        expect(element.empty).toBeTrue();
+
+        element.placeholder = 'Placeholder text';
+        expect(element.empty).toBeTrue();
+    });
+
+    it('should initialize the "placeholder" attribute with undefined', () => {
+        expect(element.placeholder).toBeUndefined();
+    });
+
+    it('should reflect the "placeholder" value to its internal attribute', () => {
+        expect(pageObject.getPlaceholderValue()).toBe('');
+
+        element.placeholder = 'Placeholder text';
+
+        expect(pageObject.getPlaceholderValue()).toBe('Placeholder text');
+    });
+
+    it('should set "placeholder" value to empty when attribute is cleared with an empty string', () => {
+        element.placeholder = 'Placeholder text';
+
+        expect(pageObject.getPlaceholderValue()).toBe('Placeholder text');
+
+        element.placeholder = '';
+
+        expect(pageObject.getPlaceholderValue()).toBe('');
     });
 });
 
