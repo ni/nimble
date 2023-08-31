@@ -99,8 +99,10 @@ describe('TableColumnIcon', () => {
                 await waitForUpdatesAsync();
 
                 expect(
-                    pageObject.getRenderedIconColumnCellContent(0, 0)
-                        instanceof IconXmark
+                    pageObject.getRenderedIconColumnCellContentElement(
+                        0,
+                        0
+                    ) instanceof IconXmark
                 ).toBeTrue();
             });
         }
@@ -115,7 +117,7 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(() => pageObject.getRenderedIconColumnCellContent(0, 0)).toThrowError();
+        expect(() => pageObject.getRenderedIconColumnCellContentElement(0, 0)).toThrowError();
     });
 
     it('changing fieldName updates display', async () => {
@@ -132,7 +134,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(
-            pageObject.getRenderedIconColumnCellContent(0, 0)
+            pageObject.getRenderedIconColumnCellContentElement(0, 0)
                 instanceof IconCheck
         ).toBeTrue();
     });
@@ -151,7 +153,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(
-            pageObject.getRenderedIconColumnCellContent(0, 0)
+            pageObject.getRenderedIconColumnCellContentElement(0, 0)
                 instanceof IconCheck
         ).toBeTrue();
     });
@@ -170,8 +172,12 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(
-            (pageObject.getRenderedIconColumnCellContent(0, 0) as IconCheck)
-                .severity
+            (
+                pageObject.getRenderedIconColumnCellContentElement(
+                    0,
+                    0
+                ) as IconCheck
+            ).severity
         ).toBe(IconSeverity.warning);
     });
 
@@ -189,7 +195,7 @@ describe('TableColumnIcon', () => {
         await waitForUpdatesAsync();
 
         expect(
-            pageObject.getRenderedIconColumnCellContent(0, 0)
+            pageObject.getRenderedIconColumnCellContentElement(0, 0)
                 instanceof IconXmark
         ).toBeTrue();
     });
@@ -214,7 +220,7 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(
-            pageObject.getRenderedIconColumnCellContent(0, 0).ariaLabel
+            pageObject.getRenderedIconColumnCellContentElement(0, 0).ariaLabel
         ).toBe('alpha');
     });
 
@@ -245,7 +251,7 @@ describe('TableColumnIcon', () => {
                     await waitForUpdatesAsync();
 
                     expect(
-                        pageObject.getRenderedGroupHeaderContent(0)
+                        pageObject.getRenderedGroupHeaderTextContent(0)
                     ).toContain(value.name);
                 }
             );
@@ -263,7 +269,7 @@ describe('TableColumnIcon', () => {
         model.col1.groupIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
     });
 
     it('clears cell when mappings removed', async () => {
@@ -275,13 +281,13 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(
-            pageObject.getRenderedIconColumnCellContent(0, 0)
+            pageObject.getRenderedIconColumnCellContentElement(0, 0)
                 instanceof IconXmark
         ).toBeTrue();
 
         model.col1.removeChild(model.col1.firstElementChild!);
         await waitForUpdatesAsync();
-        expect(() => pageObject.getRenderedIconColumnCellContent(0, 0)).toThrowError();
+        expect(() => pageObject.getRenderedIconColumnCellContentElement(0, 0)).toThrowError();
     });
 
     it('clears group header when mappings removed', async () => {
@@ -294,13 +300,14 @@ describe('TableColumnIcon', () => {
         await connect();
         await waitForUpdatesAsync();
         expect(
-            pageObject.getRenderedIconColumnGroupHeaderContent(0)
-                instanceof IconXmark
+            pageObject.getRenderedIconColumnGroupHeaderContentElement(
+                0
+            ) instanceof IconXmark
         ).toBeTrue();
 
         model.col1.removeChild(model.col1.firstElementChild!);
         await waitForUpdatesAsync();
-        expect(() => pageObject.getRenderedIconColumnGroupHeaderContent(0)).toThrowError();
+        expect(() => pageObject.getRenderedIconColumnGroupHeaderContentElement(0)).toThrowError();
     });
 
     describe('validation', () => {

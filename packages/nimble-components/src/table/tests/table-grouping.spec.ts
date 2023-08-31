@@ -340,8 +340,8 @@ describe('Table grouping', () => {
         ]);
         expect(pageObject.getRenderedGroupRowCount()).toBe(6);
         expect(getRenderedRecordIds()).toEqual(['1', '4', '2', '3']);
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('world');
-        expect(pageObject.getRenderedGroupHeaderContent(1)).toBe('hello');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('world');
+        expect(pageObject.getRenderedGroupHeaderTextContent(1)).toBe('hello');
     });
 
     it('can update group index', async () => {
@@ -583,13 +583,17 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('foo');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toEqual(
+                'foo'
+            );
 
             const newColumn = await addNewColumn('column-3', 'stringData3');
             newColumn.groupIndex = 0;
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toEqual('bar');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toEqual(
+                'bar'
+            );
         });
 
         it('hidden column can still be grouped by', async () => {

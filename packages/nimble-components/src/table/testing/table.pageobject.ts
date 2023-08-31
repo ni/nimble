@@ -160,7 +160,7 @@ export class TablePageObject<T extends TableRecord> {
         return cellView as TableCellView;
     }
 
-    public getRenderedCellContent(
+    public getRenderedCellTextContent(
         rowIndex: number,
         columnIndex: number
     ): string {
@@ -188,7 +188,7 @@ export class TablePageObject<T extends TableRecord> {
         return anchor as Anchor;
     }
 
-    public getRenderedIconColumnCellContent(
+    public getRenderedIconColumnCellContentElement(
         rowIndex: number,
         columnIndex: number
     ): Icon | Spinner {
@@ -205,7 +205,7 @@ export class TablePageObject<T extends TableRecord> {
         return content;
     }
 
-    public getRenderedIconColumnGroupHeaderContent(
+    public getRenderedIconColumnGroupHeaderContentElement(
         groupRowIndex: number
     ): Icon | Spinner {
         const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
@@ -221,7 +221,7 @@ export class TablePageObject<T extends TableRecord> {
         return content;
     }
 
-    public getRenderedGroupHeaderContent(groupRowIndex: number): string {
+    public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
         return (
             this.getGroupRowHeaderView(
                 groupRowIndex
@@ -234,7 +234,7 @@ export class TablePageObject<T extends TableRecord> {
             'nimble-table-group-row'
         );
         return Array.from(groupRows).map((_, i) => {
-            return this.getRenderedGroupHeaderContent(i);
+            return this.getRenderedGroupHeaderTextContent(i);
         });
     }
 
