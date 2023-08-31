@@ -1,7 +1,12 @@
-import { observable } from '@microsoft/fast-element';
-import { DesignSystem, FoundationElement } from '@microsoft/fast-foundation';
+import { observable, attr, DOM } from '@microsoft/fast-element';
+import {
+    applyMixins,
+    ARIAGlobalStatesAndProperties,
+    DesignSystem,
+    FoundationElement
+} from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor } from '@tiptap/core';
+import { Editor, AnyExtension, Extension } from '@tiptap/core';
 import {
     schema,
     defaultMarkdownParser,
@@ -19,10 +24,13 @@ import Italic from '@tiptap/extension-italic';
 import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
+import Placeholder from '@tiptap/extension-placeholder';
+import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
+import type { ErrorPattern } from '../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -33,7 +41,72 @@ declare global {
 /**
  * A nimble styled rich text editor
  */
-export class RichTextEditor extends FoundationElement {
+export class RichTextEditor extends FoundationElement implements ErrorPattern {
+    /**
+     * @internal
+     */
+    public editor = this.createEditor();
+
+    /**
+     * @internal
+     */
+    public tiptapEditor = this.createTiptapEditor();
+
+    /**
+     * Whether to disable user from editing and interacting with toolbar buttons
+     *
+     * @public
+     * HTML Attribute: disabled
+     */
+    @attr({ mode: 'boolean' })
+    public disabled = false;
+
+    /**
+     * Whether to hide the footer of the rich text editor
+     *
+     * @public
+     * HTML Attribute: footer-hidden
+     */
+    @attr({ attribute: 'footer-hidden', mode: 'boolean' })
+    public footerHidden = false;
+
+    /**
+     * Whether to display the error state.
+     *
+     * @public
+     * HTML Attribute: error-visible
+     */
+    @attr({ attribute: 'error-visible', mode: 'boolean' })
+    public errorVisible = false;
+
+    /**
+     * A message explaining why the value is invalid.
+     *
+     * @public
+     * HTML Attribute: error-text
+     */
+    @attr({ attribute: 'error-text' })
+    public errorText?: string;
+
+    /**
+     * @public
+     * HTML Attribute: placeholder
+     */
+    @attr
+    public placeholder?: string;
+
+    /**
+     * True if the editor is empty or contains only whitespace, false otherwise.
+     *
+     * @public
+     */
+    public get empty(): boolean {
+        // Tiptap [isEmpty](https://tiptap.dev/api/editor#is-empty) returns false even if the editor has only whitespace.
+        // However, the expectation is to return true if the editor is empty or contains only whitespace.
+        // Hence, by retrieving the current text content using Tiptap state docs and then trimming the string to determine whether it is empty or not.
+        return this.tiptapEditor.state.doc.textContent.trim().length === 0;
+    }
+
     /**
      * @internal
      */
@@ -59,22 +132,24 @@ export class RichTextEditor extends FoundationElement {
     public numberedListButton!: ToggleButton;
 
     /**
+     * The width of the vertical scrollbar, if displayed.
+     * @internal
+     */
+    @observable
+    public scrollbarWidth = -1;
+
+    /**
      * @internal
      */
     public editorContainer!: HTMLDivElement;
 
-    private tiptapEditor!: Editor;
-    private editor!: HTMLDivElement;
+    private resizeObserver?: ResizeObserver;
+    private updateScrollbarWidthQueued = false;
 
     private readonly markdownParser = this.initializeMarkdownParser();
     private readonly markdownSerializer = this.initializeMarkdownSerializer();
     private readonly domSerializer = DOMSerializer.fromSchema(schema);
     private readonly xmlSerializer = new XMLSerializer();
-
-    public constructor() {
-        super();
-        this.initializeEditor();
-    }
 
     /**
      * @internal
@@ -85,6 +160,10 @@ export class RichTextEditor extends FoundationElement {
             this.editorContainer.append(this.editor);
         }
         this.bindEditorTransactionEvent();
+        this.bindEditorUpdateEvent();
+        this.stopNativeInputEventPropagation();
+        this.resizeObserver = new ResizeObserver(() => this.onResize());
+        this.resizeObserver.observe(this);
     }
 
     /**
@@ -93,6 +172,46 @@ export class RichTextEditor extends FoundationElement {
     public override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.unbindEditorTransactionEvent();
+        this.unbindEditorUpdateEvent();
+        this.unbindNativeInputEvent();
+        this.resizeObserver?.disconnect();
+    }
+
+    /**
+     * @internal
+     */
+    public disabledChanged(): void {
+        this.tiptapEditor.setEditable(!this.disabled);
+        this.setEditorTabIndex();
+        this.editor.setAttribute(
+            'aria-disabled',
+            this.disabled ? 'true' : 'false'
+        );
+    }
+
+    /**
+     * Update the placeholder text and view of the editor.
+     * @internal
+     */
+    public placeholderChanged(): void {
+        const placeholderExtension = this.getTipTapExtension(
+            'placeholder'
+        ) as Extension<PlaceholderOptions>;
+        placeholderExtension.options.placeholder = this.placeholder ?? '';
+        this.tiptapEditor.view.dispatch(this.tiptapEditor.state.tr);
+
+        this.queueUpdateScrollbarWidth();
+    }
+
+    /**
+     * @internal
+     */
+    public ariaLabelChanged(): void {
+        if (this.ariaLabel !== null && this.ariaLabel !== undefined) {
+            this.editor.setAttribute('aria-label', this.ariaLabel);
+        } else {
+            this.editor.removeAttribute('aria-label');
+        }
     }
 
     /**
@@ -205,6 +324,41 @@ export class RichTextEditor extends FoundationElement {
         return false;
     }
 
+    private createEditor(): HTMLDivElement {
+        const editor = document.createElement('div');
+        editor.className = 'editor';
+        editor.setAttribute('aria-multiline', 'true');
+        editor.setAttribute('role', 'textbox');
+        editor.setAttribute('aria-disabled', 'false');
+        return editor;
+    }
+
+    private createTiptapEditor(): Editor {
+        /**
+         * For more information on the extensions for the supported formatting options, refer to the links below.
+         * Tiptap marks: https://tiptap.dev/api/marks
+         * Tiptap nodes: https://tiptap.dev/api/nodes
+         */
+        return new Editor({
+            element: this.editor,
+            extensions: [
+                Document,
+                Paragraph,
+                Text,
+                BulletList,
+                OrderedList,
+                ListItem,
+                Bold,
+                Italic,
+                History,
+                Placeholder.configure({
+                    placeholder: '',
+                    showOnlyWhenEditable: false
+                })
+            ]
+        });
+    }
+
     /**
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
@@ -288,34 +442,6 @@ export class RichTextEditor extends FoundationElement {
         );
     }
 
-    private initializeEditor(): void {
-        // Create div from the constructor because the TipTap editor requires its host element before the template is instantiated.
-        this.editor = document.createElement('div');
-        this.editor.className = 'editor';
-        this.editor.setAttribute('aria-multiline', 'true');
-        this.editor.setAttribute('role', 'textbox');
-
-        /**
-         * For more information on the extensions for the supported formatting options, refer to the links below.
-         * Tiptap marks: https://tiptap.dev/api/marks
-         * Tiptap nodes: https://tiptap.dev/api/nodes
-         */
-        this.tiptapEditor = new Editor({
-            element: this.editor,
-            extensions: [
-                Document,
-                Paragraph,
-                Text,
-                BulletList,
-                OrderedList,
-                ListItem,
-                Bold,
-                Italic,
-                History
-            ]
-        });
-    }
-
     /**
      * Binding the "transaction" event to the editor allows continuous monitoring the events and updating the button state in response to
      * various actions such as mouse events, keyboard events, changes in the editor content etc,.
@@ -347,7 +473,84 @@ export class RichTextEditor extends FoundationElement {
                 return false;
         }
     }
+
+    private unbindEditorUpdateEvent(): void {
+        this.tiptapEditor.off('update');
+    }
+
+    /**
+     * input event is fired when there is a change in the content of the editor.
+     *
+     * https://tiptap.dev/api/events#update
+     */
+    private bindEditorUpdateEvent(): void {
+        this.tiptapEditor.on('update', () => {
+            this.$emit('input');
+            this.queueUpdateScrollbarWidth();
+        });
+    }
+
+    /**
+     * Stopping the native input event propagation emitted by the contenteditable element in the Tiptap
+     * since there is an issue (linked below) in ProseMirror where selecting the text and removing it
+     * does not trigger the native HTMLElement input event. So using the "update" event emitted by the
+     * Tiptap to capture it as an "input" customEvent in the rich text editor.
+     *
+     * Prose Mirror issue: https://discuss.prosemirror.net/t/how-to-handle-select-backspace-delete-cut-type-kind-of-events-handletextinput-or-handledomevents-input-doesnt-help/4844
+     */
+    private stopNativeInputEventPropagation(): void {
+        this.tiptapEditor.view.dom.addEventListener('input', event => {
+            event.stopPropagation();
+        });
+    }
+
+    private unbindNativeInputEvent(): void {
+        this.tiptapEditor.view.dom.removeEventListener('input', () => {});
+    }
+
+    private queueUpdateScrollbarWidth(): void {
+        if (!this.$fastController.isConnected) {
+            return;
+        }
+        if (!this.updateScrollbarWidthQueued) {
+            this.updateScrollbarWidthQueued = true;
+            DOM.queueUpdate(() => this.updateScrollbarWidth());
+        }
+    }
+
+    private updateScrollbarWidth(): void {
+        this.updateScrollbarWidthQueued = false;
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
+    }
+
+    private onResize(): void {
+        this.scrollbarWidth = this.tiptapEditor.view.dom.offsetWidth
+            - this.tiptapEditor.view.dom.clientWidth;
+    }
+
+    private getTipTapExtension(
+        extensionName: string
+    ): AnyExtension | undefined {
+        return this.tiptapEditor.extensionManager.extensions.find(
+            extension => extension.name === extensionName
+        );
+    }
+
+    private setEditorTabIndex(): void {
+        this.tiptapEditor.setOptions({
+            editorProps: {
+                attributes: {
+                    tabindex: this.disabled ? '-1' : '0'
+                }
+            }
+        });
+    }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RichTextEditor extends ARIAGlobalStatesAndProperties {}
+applyMixins(RichTextEditor, ARIAGlobalStatesAndProperties);
 
 const nimbleRichTextEditor = RichTextEditor.compose({
     baseName: 'rich-text-editor',

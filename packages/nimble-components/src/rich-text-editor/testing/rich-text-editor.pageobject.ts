@@ -72,38 +72,22 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    /**
-     * To click a formatting button in the footer section, pass its position value as an index (starting from '0')
-     * @param button can be imported from an enum for each button using the `ButtonIndex`.
-     */
     public async clickFooterButton(button: ToolbarButton): Promise<void> {
         const toggleButton = this.getFormattingButton(button);
         toggleButton!.click();
         await waitForUpdatesAsync();
     }
 
-    /**
-     * To retrieve the checked state of the button, provide its position value as an index (starting from '0')
-     * @param button can be imported from an enum for each button using the `ButtonIndex`.
-     */
     public getButtonCheckedState(button: ToolbarButton): boolean {
         const toggleButton = this.getFormattingButton(button);
         return toggleButton!.checked;
     }
 
-    /**
-     * To retrieve the tab index of the button, provide its position value as an index (starting from '0')
-     * @param button can be imported from an enum for each button using the `ButtonIndex`.
-     */
     public getButtonTabIndex(button: ToolbarButton): number {
         const toggleButton = this.getFormattingButton(button);
         return toggleButton!.tabIndex;
     }
 
-    /**
-     * To trigger a space key press for the button, provide its position value as an index (starting from '0')
-     * @param button can be imported from an enum for each button using the `ButtonIndex`.
-     */
     public spaceKeyActivatesButton(button: ToolbarButton): void {
         const toggleButton = this.getFormattingButton(button)!;
         const event = new KeyboardEvent('keypress', {
@@ -112,10 +96,6 @@ export class RichTextEditorPageObject {
         toggleButton.control.dispatchEvent(event);
     }
 
-    /**
-     * To trigger a enter key press for the button, provide its position value as an index (starting from '0')
-     * @param button can be imported from an enum for each button using the `ButtonIndex`.
-     */
     public enterKeyActivatesButton(button: ToolbarButton): void {
         const toggleButton = this.getFormattingButton(button)!;
         const event = new KeyboardEvent('keypress', {
@@ -156,8 +136,51 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
+    public getEditorTabIndex(): string {
+        return this.getTiptapEditor()?.getAttribute('tabindex') ?? '';
+    }
+
+    public async setFooterHidden(footerHidden: boolean): Promise<void> {
+        if (footerHidden) {
+            this.richTextEditorElement.setAttribute('footer-hidden', '');
+        } else {
+            this.richTextEditorElement.removeAttribute('footer-hidden');
+        }
+        await waitForUpdatesAsync();
+    }
+
+    public isFooterHidden(): boolean {
+        const footerSection = this.getFooter()!;
+        return window.getComputedStyle(footerSection).display === 'none';
+    }
+
+    public async setDisabled(disabled: boolean): Promise<void> {
+        if (disabled) {
+            this.richTextEditorElement.setAttribute('disabled', '');
+        } else {
+            this.richTextEditorElement.removeAttribute('disabled');
+        }
+        await waitForUpdatesAsync();
+    }
+
+    public isButtonDisabled(button: ToolbarButton): boolean {
+        const toggleButton = this.getFormattingButton(button)!;
+        return toggleButton.hasAttribute('disabled');
+    }
+
+    public getPlaceholderValue(): string {
+        const editor = this.getTiptapEditor()!;
+        return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
+    }
+
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
+    }
+
+    private getFooter(): Element | null | undefined {
+        return this.richTextEditorElement.shadowRoot!.querySelector(
+            '.footer-section'
+        );
     }
 
     private getTiptapEditor(): Element | null | undefined {
@@ -167,11 +190,11 @@ export class RichTextEditorPageObject {
     }
 
     private getFormattingButton(
-        index: ToolbarButton
+        button: ToolbarButton
     ): ToggleButton | null | undefined {
         const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
             'nimble-toggle-button'
         );
-        return buttons[index];
+        return buttons[button];
     }
 }
