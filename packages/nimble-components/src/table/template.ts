@@ -33,7 +33,7 @@ export const template = html<Table>`
         ${children({ property: 'childItems', filter: elements() })}
     >
         <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
-            role="presentation"
+            role="none"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -100,7 +100,7 @@ export const template = html<Table>`
                         </span>
                     </div>
                 </div>
-                <div class="table-viewport" ${ref('viewport')} tabindex="-1">
+                <div class="table-viewport" ${ref('viewport')} tabindex="-1" role="presentation">
                     <div class="table-scroll"></div>
                     <div class="table-row-container"
                         ${children({ property: 'rowElements', filter: elements(`${tableRowTag}, ${tableGroupRowTag}`) })}

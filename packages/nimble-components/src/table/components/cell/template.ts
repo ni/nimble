@@ -10,7 +10,7 @@ import { tableCellActionMenuLabel } from '../../../label-provider/table/label-to
 
 // prettier-ignore
 export const template = html<TableCell>`
-    <template role="cell" style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}">
+    <template style="--ni-private-table-cell-nesting-level: ${x => x.nestingLevel}" role="presentation">
         ${x => x.cellViewTemplate}
         ${when(x => x.hasActionMenu, html<TableCell>`
             <${menuButtonTag} ${ref('actionMenuButton')}
@@ -22,6 +22,7 @@ export const template = html<TableCell>`
                 class="action-menu"
                 tabindex="-1"
                 focusable
+                role="gridcell"
             >
                 <${iconThreeDotsLineTag} slot="start"></${iconThreeDotsLineTag}>
                 ${x => x.actionMenuLabel ?? tableCellActionMenuLabel.getValueFor(x)}

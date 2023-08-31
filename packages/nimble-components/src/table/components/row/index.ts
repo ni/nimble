@@ -88,13 +88,11 @@ export class TableRow<
 
     public override connectedCallback(): void {
         super.connectedCallback();
-        // this.addEventListener('keydown', e => this.onKeyDown(e));
         this.addEventListener('focusout', this.rowFocusOutHandler);
         this.addEventListener('focusin', this.rowFocusInHandler);
     }
 
     public override disconnectedCallback(): void {
-        // this.removeEventListener('keydown', this.onKeyDown);
         this.removeEventListener('focusout', this.rowFocusOutHandler);
         this.removeEventListener('focusin', this.rowFocusInHandler);
     }
@@ -178,9 +176,9 @@ export class TableRow<
             const cellWithMenuOpen = Array.from(
                 this.cellContainer.children
             ).find(c => c instanceof TableCell && c.menuOpen) as TableCell;
-            // if (cellWithMenuOpen?.actionMenuButton?.open) {
-            //     cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
-            // }
+            if (cellWithMenuOpen?.actionMenuButton?.open) {
+                cellWithMenuOpen.actionMenuButton.toggleButton!.control.click();
+            }
         }
     }
 
@@ -207,6 +205,7 @@ export class TableRow<
     public removeFocus(): void {
         this.tabIndex = -1;
         this.blur();
+        this.removeAttribute('has-focus');
     }
 
     public onKeyDown(event: KeyboardEvent): boolean {
