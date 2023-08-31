@@ -6,21 +6,21 @@ using Xunit;
 namespace NimbleBlazor.Tests.Unit.Components;
 
 /// <summary>
-/// Tests for <see cref="NimbleTableColumnEnumText"/>
+/// Tests for <see cref="NimbleTableColumnIcon"/>
 /// </summary>
-public class NimbleTableColumnEnumTextTests
+public class NimbleTableColumnIconTests
 {
     [Fact]
-    public void NimbleTableColumnEnumText_SupportsAdditionalAttributes()
+    public void NimbleTableColumnIcon_SupportsAdditionalAttributes()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnEnumText<int>>(ComponentParameter.CreateParameter("class", "foo")));
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTableColumnIcon<int>>(ComponentParameter.CreateParameter("class", "foo")));
         Assert.Null(exception);
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithIntTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithIntTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<int>();
 
@@ -29,7 +29,7 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithUIntTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithUIntTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<uint>();
 
@@ -38,7 +38,7 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithShortTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithShortTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<short>();
 
@@ -47,7 +47,7 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithUShortTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithUShortTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<ushort>();
 
@@ -56,19 +56,19 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithLongTypeParameter_ThrowsException()
+    public void NimbleTableColumnIcon_WithLongTypeParameter_ThrowsException()
     {
         Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<long>());
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithULongTypeParameter_ThrowsException()
+    public void NimbleTableColumnIcon_WithULongTypeParameter_ThrowsException()
     {
         Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<ulong>());
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithByteTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithByteTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<byte>();
 
@@ -77,7 +77,7 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithSByteTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithSByteTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<sbyte>();
 
@@ -86,7 +86,7 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithFloatTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithFloatTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<float>();
 
@@ -95,7 +95,7 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithDoubleTypeParameter_HasNumberMarkup()
+    public void NimbleTableColumnIcon_WithDoubleTypeParameter_HasNumberMarkup()
     {
         var column = RenderTableEnumColumn<double>();
 
@@ -104,13 +104,13 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithDecimalTypeParameter_ThrowsException()
+    public void NimbleTableColumnIcon_WithDecimalTypeParameter_ThrowsException()
     {
         Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<decimal>());
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithBooleanTypeParameter_HasBooleanMarkup()
+    public void NimbleTableColumnIcon_WithBooleanTypeParameter_HasBooleanMarkup()
     {
         var column = RenderTableEnumColumn<bool>();
 
@@ -119,7 +119,7 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithStringTypeParameter_HasStringMarkup()
+    public void NimbleTableColumnIcon_WithStringTypeParameter_HasStringMarkup()
     {
         var column = RenderTableEnumColumn<string>();
 
@@ -128,13 +128,13 @@ public class NimbleTableColumnEnumTextTests
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithObjectTypeParameter_ThrowsException()
+    public void NimbleTableColumnIcon_WithObjectTypeParameter_ThrowsException()
     {
         Assert.Throws<ArgumentException>(() => RenderTableEnumColumn<object>());
     }
 
     [Fact]
-    public void NimbleTableColumnEnumText_WithFieldNameAttribute_HasMarkup()
+    public void NimbleTableColumnIcon_WithFieldNameAttribute_HasMarkup()
     {
         var column = RenderWithPropertySet<int, string>(x => x.FieldName!, "Status");
 
@@ -142,38 +142,38 @@ public class NimbleTableColumnEnumTextTests
         Assert.Contains(expectedMarkup, column.Markup);
     }
 
-    private IRenderedComponent<NimbleTableColumnEnumText<TKey>> RenderTableEnumColumn<TKey>()
+    private IRenderedComponent<NimbleTableColumnIcon<TKey>> RenderTableEnumColumn<TKey>()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnEnumText<TKey>>();
+        return context.RenderComponent<NimbleTableColumnIcon<TKey>>();
     }
 
-    private IRenderedComponent<NimbleTableColumnEnumText<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleTableColumnEnumText<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
+    private IRenderedComponent<NimbleTableColumnIcon<TKey>> RenderWithPropertySet<TKey, TProperty>(Expression<Func<NimbleTableColumnIcon<TKey>, TProperty>> propertyGetter, TProperty propertyValue)
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        return context.RenderComponent<NimbleTableColumnEnumText<TKey>>(p => p.Add(propertyGetter, propertyValue));
+        return context.RenderComponent<NimbleTableColumnIcon<TKey>>(p => p.Add(propertyGetter, propertyValue));
     }
 }
 
 /// <summary>
-/// Tests for NimbleTableColumn API on <see cref="NimbleTableColumnEnumText"/>
+/// Tests for NimbleTableColumn API on <see cref="NimbleTableColumnIcon"/>
 /// </summary>
-public class NimbleTableColumnEnumTextBaseTests : NimbleTableColumnTests<NimbleTableColumnEnumText<int>>
+public class NimbleTableColumnIconBaseTests : NimbleTableColumnTests<NimbleTableColumnIcon<int>>
 {
 }
 
 /// <summary>
-/// Tests for FractionalWidthAPI on <see cref="NimbleTableColumnEnumText"/>
+/// Tests for FractionalWidthAPI on <see cref="NimbleTableColumnIcon"/>
 /// </summary>
-public class NimbleTableColumnEnumTextFractionalWidthTests : FractionalWidthBaseTests<NimbleTableColumnEnumText<int>>
+public class NimbleTableColumnIconFractionalWidthTests : FractionalWidthBaseTests<NimbleTableColumnIcon<int>>
 {
 }
 
 /// <summary>
-/// Tests for GroupableAPI on <see cref="NimbleTableColumnEnumText"/>
+/// Tests for GroupableAPI on <see cref="NimbleTableColumnIcon"/>
 /// </summary>
-public class NimbleTableColumnEnumTextGroupableTests : GroupableBaseTests<NimbleTableColumnEnumText<int>>
+public class NimbleTableColumnIconGroupableTests : GroupableBaseTests<NimbleTableColumnIcon<int>>
 {
 }
