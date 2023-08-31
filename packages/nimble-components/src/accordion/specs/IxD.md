@@ -3,7 +3,6 @@
 ## Overview
 
 The accordion component is used to present a large amount of information in a small space via progressive disclosure. Accordions make information easier to parse when not all of the information may be relevant or important to the user at the same time.
-n
 
 ## Background
 
