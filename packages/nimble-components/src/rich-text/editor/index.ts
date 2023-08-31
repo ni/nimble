@@ -23,7 +23,7 @@ import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
-import { richTextMarkdownSerializer } from '../models/markdown-serializer';
+import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -140,7 +140,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private updateScrollbarWidthQueued = false;
 
     private readonly markdownParser = new RichTextMarkdownParser();
-    private readonly markdownSerializer = richTextMarkdownSerializer();
+    private readonly markdownSerializer = new RichTextMarkdownSerializer();
     private readonly xmlSerializer = new XMLSerializer();
 
     /**
@@ -300,10 +300,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
-        const markdownContent = this.markdownSerializer.serialize(
-            this.tiptapEditor.state.doc
-        );
-        return markdownContent;
+        return this.markdownSerializer.serializeToMarkdown(this.tiptapEditor.state.doc);
     }
 
     /**

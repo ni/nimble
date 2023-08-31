@@ -18,7 +18,6 @@ export class RichTextMarkdownParser {
     }
 
     /**
-     *
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
      * DOM structure using a DOMSerializer, and returns the serialized result.
      * If the markdown parser returns null, it will clear the viewer component by creating an empty document fragment.
