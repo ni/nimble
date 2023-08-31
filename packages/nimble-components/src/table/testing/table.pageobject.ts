@@ -188,7 +188,7 @@ export class TablePageObject<T extends TableRecord> {
         return anchor as Anchor;
     }
 
-    public getRenderedIconColumnCellContentElement(
+    public getRenderedIconColumnCellIcon(
         rowIndex: number,
         columnIndex: number
     ): Icon | Spinner {
@@ -205,7 +205,7 @@ export class TablePageObject<T extends TableRecord> {
         return content;
     }
 
-    public getRenderedIconColumnGroupHeaderContentElement(
+    public getRenderedIconColumnGroupHeaderIcon(
         groupRowIndex: number
     ): Icon | Spinner {
         const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
@@ -229,7 +229,7 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
-    public getAllRenderedGroupHeaderContent(): string[] {
+    public getAllRenderedGroupHeaderTextContent(): string[] {
         const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-group-row'
         );

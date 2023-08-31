@@ -611,7 +611,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'foo',
                 'abc',
                 'zzz',
@@ -640,7 +640,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'jupiter',
                 'moon',
                 'saturn',
@@ -667,7 +667,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'world',
                 'saturn',
                 'moon',
@@ -697,7 +697,7 @@ describe('Table grouping', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getAllRenderedGroupHeaderContent()).toEqual([
+            expect(pageObject.getAllRenderedGroupHeaderTextContent()).toEqual([
                 'world',
                 'good bye',
                 'hello',
