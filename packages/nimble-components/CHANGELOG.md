@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 30 Aug 2023 18:22:20 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 17:09:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.19
+
+Thu, 31 Aug 2023 17:09:05 GMT
+
+### Patches
+
+- Implementation of additional APIs for rich text editor ([ni/nimble@ce10bda](https://github.com/ni/nimble/commit/ce10bda19b1b9cc4e935f22cfa2b0d7ca02ed20b))
 
 ## 20.1.18
 

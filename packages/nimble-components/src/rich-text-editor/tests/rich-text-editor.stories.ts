@@ -1,5 +1,6 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
+import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
@@ -19,6 +20,13 @@ interface RichTextEditorArgs extends LabelUserArgs {
     getMarkdown: undefined;
     editorRef: RichTextEditor;
     setMarkdownData: (args: RichTextEditorArgs) => void;
+    disabled: boolean;
+    footerHidden: boolean;
+    errorVisible: boolean;
+    errorText: string;
+    input: unknown;
+    empty: unknown;
+    placeholder: string;
 }
 
 type ExampleDataType = (typeof exampleDataType)[keyof typeof exampleDataType];
@@ -59,11 +67,15 @@ client application must implement that functionality.
 const metadata: Meta<RichTextEditorArgs> = {
     title: 'Incubating/Rich Text Editor',
     tags: ['autodocs'],
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: richTextEditorDescription
             }
+        },
+        actions: {
+            handles: ['input']
         }
     },
     // prettier-ignore
@@ -75,6 +87,11 @@ const metadata: Meta<RichTextEditorArgs> = {
     <${richTextEditorTag}
         ${ref('editorRef')}
         data-unused="${x => x.setMarkdownData(x)}"
+        ?disabled="${x => x.disabled}"
+        ?footer-hidden="${x => x.footerHidden}"
+        ?error-visible="${x => x.errorVisible}"
+        error-text="${x => x.errorText}"
+        placeholder="${x => x.placeholder}"
     >
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
@@ -108,11 +125,43 @@ const metadata: Meta<RichTextEditorArgs> = {
         },
         setMarkdownData: {
             table: { disable: true }
+        },
+        errorVisible: {
+            description:
+                'Whether the editor should be styled to indicate that it is in an invalid state.'
+        },
+        errorText: {
+            description:
+                'A message to be displayed when the editor is in the invalid state explaining why the value is invalid.'
+        },
+        placeholder: {
+            description: 'Placeholder text to show when editor is empty.'
+        },
+        footerHidden: {
+            description:
+                'Setting `footer-hidden` hides the footer section which consists of all formatting option buttons and the `footer-actions` slot content.'
+        },
+        empty: {
+            name: 'empty',
+            description:
+                'Read-only boolean value. Returns true if editor is either empty or contains only whitespace.',
+            control: false
+        },
+        input: {
+            name: 'input',
+            description:
+                'This event is fired when there is a change in the content of the editor.',
+            control: false
         }
     },
     args: {
         data: exampleDataType.plainString,
         footerActionButtons: false,
+        disabled: false,
+        footerHidden: false,
+        errorVisible: false,
+        errorText: 'Value is invalid',
+        placeholder: 'Placeholder',
         editorRef: undefined,
         setMarkdownData: x => {
             void (async () => {
