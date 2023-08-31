@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 17:09:05 GMT",
+      "tag": "@ni/nimble-components_v20.1.19",
+      "version": "20.1.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ce10bda19b1b9cc4e935f22cfa2b0d7ca02ed20b",
+            "comment": "Implementation of additional APIs for rich text editor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 30 Aug 2023 18:22:20 GMT",
       "tag": "@ni/nimble-components_v20.1.18",
       "version": "20.1.18",
