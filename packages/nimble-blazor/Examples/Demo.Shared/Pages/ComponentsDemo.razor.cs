@@ -68,10 +68,12 @@ namespace Demo.Shared.Pages
                     "https://nimble.ni.dev",
                     "Link",
                     i % 2 == 0 ? new DateTime(2023, 8, 16, 3, 56, 11, DateTimeKind.Local) : new DateTime(2022, 3, 7, 20, 28, 41, DateTimeKind.Local),
-                    i % 2 == 0 ? 100 : 101);
+                    i % 2 == 0 ? 100 : 101,
+                    (i % 2 == 0) ? "success" : "unknown");
             }
             tableData[numberOfRows] = new Person(
                 numberOfRows.ToString(null, null),
+                null,
                 null,
                 null,
                 null,
@@ -85,7 +87,7 @@ namespace Demo.Shared.Pages
 
     public class Person
     {
-        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel, DateTime? date, int? statusCode)
+        public Person(string id, string? firstName, string? lastName, string? href, string? linkLabel, DateTime? date, int? statusCode, string? result)
         {
             Id = id;
             FirstName = firstName;
@@ -94,6 +96,7 @@ namespace Demo.Shared.Pages
             LinkLabel = linkLabel;
             Date = (ulong?)(date - DateTime.UnixEpoch.ToLocalTime())?.TotalMilliseconds;
             StatusCode = statusCode;
+            Result = result;
         }
 
         public string Id { get; }
@@ -103,6 +106,7 @@ namespace Demo.Shared.Pages
         public string? LinkLabel { get; }
         public ulong? Date { get; }
         public int? StatusCode { get; }
+        public string? Result { get; }
     }
 
     public enum DialogResult

@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 19:17:18 GMT",
+      "tag": "@ni/nimble-angular_v17.1.17",
+      "version": "17.1.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.20",
+            "commit": "fcc12d554b6342d1751f6bc54d598189d5465fc3"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 18:31:42 GMT",
+      "tag": "@ni/nimble-angular_v17.1.16",
+      "version": "17.1.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8cc3101283de8f101c2c8dcb8874dabd6d5abdad",
+            "comment": "Angular integration for rich text editor component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 17:09:05 GMT",
+      "tag": "@ni/nimble-angular_v17.1.15",
+      "version": "17.1.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.19",
+            "commit": "ce10bda19b1b9cc4e935f22cfa2b0d7ca02ed20b"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 30 Aug 2023 18:22:20 GMT",
+      "tag": "@ni/nimble-angular_v17.1.14",
+      "version": "17.1.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.18",
+            "commit": "6343b16415af699b84e911aa25506e58a03dbde9"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 29 Aug 2023 16:32:09 GMT",
+      "tag": "@ni/nimble-angular_v17.1.13",
+      "version": "17.1.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.17",
+            "commit": "6837caaf36898d3537da8b2f352d7c1bdc31dce1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 28 Aug 2023 21:12:37 GMT",
       "tag": "@ni/nimble-angular_v17.1.12",
       "version": "17.1.12",

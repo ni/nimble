@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Mon, 28 Aug 2023 21:12:37 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 19:17:18 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.20
+
+Thu, 31 Aug 2023 19:17:18 GMT
+
+### Patches
+
+- Fix for Firefox caret disappearing issue ([ni/nimble@fcc12d5](https://github.com/ni/nimble/commit/fcc12d554b6342d1751f6bc54d598189d5465fc3))
+
+## 20.1.19
+
+Thu, 31 Aug 2023 17:09:05 GMT
+
+### Patches
+
+- Implementation of additional APIs for rich text editor ([ni/nimble@ce10bda](https://github.com/ni/nimble/commit/ce10bda19b1b9cc4e935f22cfa2b0d7ca02ed20b))
+
+## 20.1.18
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Fix typo in file name ([ni/nimble@6343b16](https://github.com/ni/nimble/commit/6343b16415af699b84e911aa25506e58a03dbde9))
+
+## 20.1.17
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Make DateText columnConfig `undefined` when the column is invalid ([ni/nimble@6837caa](https://github.com/ni/nimble/commit/6837caaf36898d3537da8b2f352d7c1bdc31dce1))
 
 ## 20.1.16
 
