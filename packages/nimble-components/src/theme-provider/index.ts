@@ -54,8 +54,7 @@ export const theme = DesignToken.create<Theme>({
  */
 export class ThemeProvider extends FoundationElement {
     @attr()
-    // @ts-expect-error: Do not want to initialize, but type cannot include undefined because of override
-    public override lang: string;
+    public override lang!: string;
 
     @attr()
     public direction?: Direction;
