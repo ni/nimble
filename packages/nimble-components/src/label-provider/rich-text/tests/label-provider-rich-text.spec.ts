@@ -1,14 +1,13 @@
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
 import * as labelTokensNamespace from '../label-tokens';
-import {
-    LabelProviderRichText,
-    labelProviderRichTextTag
-} from '..';
+import { LabelProviderRichText, labelProviderRichTextTag } from '..';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
-import { getAttributeName,
+import {
+    getAttributeName,
     getPropertyName,
-    removePrefixAndCamelCase } from '../../base/tests/label-name-utils';
+    removePrefixAndCamelCase
+} from '../../base/tests/label-name-utils';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import { Fixture, fixture } from '../../../utilities/tests/fixture';
 
@@ -90,7 +89,7 @@ describe('Label Provider Rich Text', () => {
             specType(`for token name ${tokenEntry.name}`, () => {
                 const tokenName = removePrefixAndCamelCase(
                     tokenEntry.name,
-                    'richText',
+                    'richText'
                 );
                 const expectedPropertyName = getPropertyName(tokenName);
                 const expectedAttributeName = getAttributeName(tokenName);

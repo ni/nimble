@@ -67,9 +67,7 @@ describe('Rich Text Editor with LabelProviderRichText', () => {
         ({ element: themeProvider, connect, disconnect } = await setup());
         await connect();
         element = themeProvider.querySelector(richTextEditorTag)!;
-        labelProvider = themeProvider.querySelector(
-            labelProviderRichTextTag
-        )!;
+        labelProvider = themeProvider.querySelector(labelProviderRichTextTag)!;
         pageObject = new RichTextEditorPageObject(element);
     });
 
@@ -85,8 +83,14 @@ describe('Rich Text Editor with LabelProviderRichText', () => {
             async () => {
                 labelProvider[value.property] = value.label;
                 await waitForUpdatesAsync();
-                expect(pageObject.getFormattingButtonTextContent(value.toolbarButton)).toBe(value.label);
-                expect(pageObject.getFormattingButtonTitle(value.toolbarButton)).toBe(value.label);
+                expect(
+                    pageObject.getFormattingButtonTextContent(
+                        value.toolbarButton
+                    )
+                ).toBe(value.label);
+                expect(
+                    pageObject.getFormattingButtonTitle(value.toolbarButton)
+                ).toBe(value.label);
             }
         );
     }

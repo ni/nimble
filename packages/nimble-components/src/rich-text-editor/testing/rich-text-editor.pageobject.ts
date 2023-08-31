@@ -163,9 +163,7 @@ export class RichTextEditorPageObject {
         return button!.textContent!.trim();
     }
 
-    public getFormattingButtonTitle(
-        toolbarButton: ToolbarButton
-    ): string {
+    public getFormattingButtonTitle(toolbarButton: ToolbarButton): string {
         const button = this.getFormattingButton(toolbarButton);
         return button!.title;
     }

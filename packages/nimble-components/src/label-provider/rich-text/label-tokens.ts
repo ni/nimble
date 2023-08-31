@@ -16,11 +16,7 @@ export const richTextToggleBulletedListLabel = DesignToken.create<string>({
     cssCustomPropertyName: null
 }).withDefault(richTextLabelDefaults.richTextToggleBulletedListLabel);
 
-export const richTextToggleNumberedListLabel = DesignToken.create<string>(
-    {
-        name: 'rich-text-toggle-numbered-list-label',
-        cssCustomPropertyName: null
-    }
-).withDefault(
-    richTextLabelDefaults.richTextToggleNumberedListLabel
-);
+export const richTextToggleNumberedListLabel = DesignToken.create<string>({
+    name: 'rich-text-toggle-numbered-list-label',
+    cssCustomPropertyName: null
+}).withDefault(richTextLabelDefaults.richTextToggleNumberedListLabel);

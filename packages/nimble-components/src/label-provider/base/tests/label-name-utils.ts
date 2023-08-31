@@ -13,7 +13,10 @@ export function getAttributeName(jsKey: string): string {
  * (The design token name has the element/types prefix, but the properties do not, as they're already
  * scoped to the respective element)
  */
-export function removePrefixAndCamelCase(jsTokenName: string, prefix: string): string {
+export function removePrefixAndCamelCase(
+    jsTokenName: string,
+    prefix: string
+): string {
     return jsTokenName.replace(
         new RegExp(`^${prefix}(\\w)(\\w+)`),
         (_match: string, firstChar: string, restOfString: string) => `${firstChar.toLowerCase()}${restOfString}`

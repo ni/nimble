@@ -12,7 +12,7 @@ export interface LabelProviderArgs {
     labelProviderTag: string;
     labelTokens: [string, DesignToken<string>][];
     prefixSubstring: string;
-    removeNamePrefix(tokenName: string, elementName?: string,): string;
+    removeNamePrefix(tokenName: string, elementName?: string): string;
     updateData(args: LabelProviderArgs): void;
 }
 
