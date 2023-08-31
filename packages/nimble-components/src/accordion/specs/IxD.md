@@ -111,7 +111,7 @@ The client user can specify whether one panel or more than one panel can be open
 <sub>Click (one panel open at a time)</sub>
 </p>
 
-If a component in a panel is in an error state, the error state is indicated on the associated header button when closed (if not also when open).
+If a component in a panel is in an error state, the error state is visually indicated on the associated header button when closed (and maybe also be visually indicated when open).
 
 <p>
 <kbd><img src="spec-images/Accordion-5.png"></kbd>
@@ -146,7 +146,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 | `TAB`              | Moves focus to next focusable element                 |
 | `SPACE` or `ENTER` | Opens/closes accordion section when header is focused |
 
-`TAB` to the accordion focuses the first header button (if not also visually indicating the entire accordion).
+`TAB` to the accordion focuses the first header button (and maybe also visually indicate the entire accordion).
 
 <p>
 <kbd><img src="spec-images/Accordion-8.png"></kbd>
@@ -154,7 +154,7 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 <sub>TAB to accordion</sub>
 </p>
 
-`TAB` focuses the next focusable element (if not also visually indicating the header button and/or the entire accordion). All focusable elements in the accordion are included in the `TAB` sequence.
+`TAB` focuses the next focusable element (and maybe also visually indicate the header button and/or the entire accordion) in each open panel. All focusable elements in the accordion are included in the `TAB` sequence.
 
 <p>
 <kbd><img src="spec-images/Accordion-9.png"></kbd>
