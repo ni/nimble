@@ -39,6 +39,7 @@ implements Subscriber {
     private _focusedRowElementIndex = -1;
     private _focusedRow?: TableRow | TableGroupRow;
     private _focusedCell?: TableCell;
+    private _tableActiveElement?: Element;
     private readonly virtualizerNotifier: Notifier;
     private readonly tableNotifier: Notifier;
     private visibleRowNotifiers: Notifier[] = [];
@@ -56,7 +57,7 @@ implements Subscriber {
     ) {
         table.addEventListener('keydown', e => this.onKeyDown(e), { capture: true });
         table.addEventListener('focusout', () => this.resetState);
-        table.addEventListener('focusin', e => this.handleFocus(e), { capture: true });
+        table.addEventListener('focusin', e => this.handleFocus(e), true);
         table.addEventListener('blur', () => this.resetState);
         this.tableNotifier = Observable.getNotifier(this.table);
         this.tableNotifier.subscribe(this, 'rowElements');
@@ -142,23 +143,23 @@ implements Subscriber {
             }
             case keyArrowUp: {
                 const rowWithFocus = this.getRowWithFocus();
-                const newFocusedTotalRowIndex = rowWithFocus === undefined
-                    ? 0
-                    : rowWithFocus.dataIndex! + 1;
+                const currentRowIndex = rowWithFocus === undefined
+                    ? undefined
+                    : rowWithFocus.dataIndex!;
 
-                if (this._focusedTotalRowIndex === undefined) {
+                if (currentRowIndex === undefined) {
                     return true;
                 }
 
-                if (this._focusedTotalRowIndex === 0) {
+                if (currentRowIndex === 0) {
                     this.setFocusOnHeader();
                     event.preventDefault();
                     event.stopPropagation();
                     return false;
                 }
 
-                if (this._focusedTotalRowIndex > 0) {
-                    this.scrollToAndFocusRow(this._focusedTotalRowIndex - 1);
+                if (currentRowIndex > 0) {
+                    this.scrollToAndFocusRow(currentRowIndex - 1);
                     event.preventDefault();
                     event.stopPropagation();
                     return false;
@@ -343,24 +344,32 @@ implements Subscriber {
     // The row with focus is the row that either has focus or an element
     // inside of it has focus
     private getRowWithFocus(): TableRow | undefined {
-        return this.getContainingRow(document.activeElement);
+        return this.getContainingRow(this.getActiveElement());
     }
 
-    private getContainingRow(start: Element | null): TableRow | undefined {
+    private getContainingRow(start: Element | undefined | null): TableRow | undefined {
         let possibleRow = start;
-        if (this.table.contains(possibleRow)) {
-            while (possibleRow && possibleRow !== this.table) {
-                if (possibleRow instanceof TableRow) {
-                    return possibleRow;
-                }
-                possibleRow = possibleRow.parentElement;
+        while (possibleRow && possibleRow !== this.table) {
+            if (possibleRow instanceof TableRow) {
+                return possibleRow;
             }
+            possibleRow = possibleRow.parentElement ?? (possibleRow.parentNode as ShadowRoot)?.host;
         }
 
         return undefined;
     }
 
+    private getActiveElement(): Element | null {
+        let documentActiveElement = document.activeElement;
+        while (documentActiveElement?.shadowRoot?.activeElement) {
+            documentActiveElement = documentActiveElement.shadowRoot.activeElement;
+        }
+
+        return documentActiveElement;
+    }
+
     private readonly handleFocus = (event: FocusEvent): void => {
-        console.log("focus target = " + (event.target as HTMLElement).localName);
+        const targetElement = event.composedPath()[0] as Element;
+        this._tableActiveElement = targetElement;
     };
 }

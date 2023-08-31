@@ -197,7 +197,7 @@ export class TableRow<
     }
 
     public setFocus(): void {
-        this.tabIndex = 0;
+        this.tabIndex = -1;
         this.focus({ preventScroll: true });
         this.setAttribute('has-focus', 'true');
     }

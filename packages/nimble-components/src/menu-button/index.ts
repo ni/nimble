@@ -68,7 +68,9 @@ export class MenuButton extends FoundationElement implements ButtonPattern {
     public override connectedCallback(): void {
         super.connectedCallback();
         this.toggleButton!.tabIndex = this.tabIndex;
-        this.addEventListener('focusin', () => console.log('menu button focusin'));
+        this.addEventListener('focusin', () => {
+            console.log('menu button focusin: activeElement = ' + document.activeElement!.localName);
+        });
         this.addEventListener('focusout', () => console.log('menu button focusout'));
     }
 
