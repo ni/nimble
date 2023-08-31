@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 18:31:42 GMT",
+      "tag": "@ni/nimble-angular_v17.1.16",
+      "version": "17.1.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8cc3101283de8f101c2c8dcb8874dabd6d5abdad",
+            "comment": "Angular integration for rich text editor component"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Aug 2023 17:09:05 GMT",
       "tag": "@ni/nimble-angular_v17.1.15",
       "version": "17.1.15",
