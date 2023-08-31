@@ -1,17 +1,24 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
+    bodyDisabledFontColor,
     bodyFont,
     bodyFontColor,
     borderHoverColor,
     borderRgbPartialColor,
     borderWidth,
+    controlLabelFontColor,
+    controlLabelDisabledFontColor,
+    failColor,
+    iconSize,
     smallDelay,
     standardPadding
-} from '../theme-provider/design-tokens';
+} from '../../theme-provider/design-tokens';
+import { styles as errorStyles } from '../../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
+    ${errorStyles}
 
     :host {
         font: ${bodyFont};
@@ -21,6 +28,10 @@ export const styles = css`
         --ni-private-rich-text-editor-hover-indicator-width: calc(
             ${borderWidth} + 1px
         );
+        ${
+            /** Initial height of rich text editor with one line space when the footer is visible. */ ''
+        }
+        height: 82px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''
@@ -29,6 +40,7 @@ export const styles = css`
     }
 
     .container {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -60,38 +72,56 @@ export const styles = css`
         }
     }
 
-    :host(:hover) .container::after {
-        width: 100%;
+    :host([disabled]) .container {
+        color: ${bodyDisabledFontColor};
+        border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    .editor {
-        border: ${borderWidth} solid transparent;
-        border-radius: 0px;
-        height: calc(
-            100% - var(--ni-private-rich-text-editor-footer-section-height)
-        );
-        overflow: auto;
+    :host([error-visible]) .container {
+        border-bottom-color: ${failColor};
+    }
+
+    :host(:hover) .container::after {
+        width: calc(100% + 2 * ${borderWidth});
+    }
+
+    :host([disabled]:hover) .container::after {
+        width: 0px;
+    }
+
+    :host([error-visible]) .container::after {
+        border-bottom-color: ${failColor};
     }
 
     .editor-container {
         display: contents;
     }
 
-    .ProseMirror {
-        ${
-            /**
-             * Min height represents the one line space for the initial view and max height is referred from the visual design.
-             * However, max height will be `fit-content` when the `fit-to-content` attribute for the editor component is implemented.
-             */ ''
-        }
-        min-height: 32px;
-        max-height: 132px;
-        height: 100%;
+    .editor {
+        display: flex;
+        flex-direction: column;
         border: ${borderWidth} solid transparent;
+        border-radius: 0px;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    :host([footer-hidden]) .editor {
+        height: 100%;
+    }
+
+    .ProseMirror {
+        overflow: auto;
+        height: 100%;
+        border: 0px;
         border-radius: 0px;
         background-color: transparent;
         font: inherit;
         padding: 8px;
+        ${
+            /* This padding ensures that showing/hiding the error icon doesn't affect text layout */ ''
+        }
+        padding-right: calc(${iconSize});
         box-sizing: border-box;
         position: relative;
         color: inherit;
@@ -139,13 +169,37 @@ export const styles = css`
         margin-block: 0;
     }
 
+    ${
+        /**
+         * Styles provided by Tiptap are necessary to display the placeholder value when the editor is empty.
+         * Tiptap doc reference: https://tiptap.dev/api/extensions/placeholder#additional-setup
+         */ ''
+    }
+    .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${controlLabelFontColor};
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
+        word-break: break-word;
+    }
+
+    :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
+        color: ${controlLabelDisabledFontColor};
+    }
+
     .footer-section {
         display: flex;
         justify-content: space-between;
+        flex-shrink: 0;
         border: ${borderWidth} solid transparent;
         border-top-color: rgba(${borderRgbPartialColor}, 0.1);
         height: var(--ni-private-rich-text-editor-footer-section-height);
         overflow: hidden;
+    }
+
+    :host([footer-hidden]) .footer-section {
+        display: none;
     }
 
     nimble-toolbar::part(positioning-region) {
@@ -163,5 +217,16 @@ export const styles = css`
         margin-inline-end: ${standardPadding};
         gap: ${standardPadding};
         place-items: center;
+    }
+
+    :host([error-visible]) .error-icon {
+        display: none;
+    }
+
+    :host([error-visible]) .error-icon.scrollbar-width-calculated {
+        display: inline-flex;
+        position: absolute;
+        top: calc(${standardPadding} / 2);
+        right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
 `;

@@ -102,8 +102,8 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 _Props/Attrs_
 
--   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
-    [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
+-   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved by retrieving the current text
+    content from the editor and calculating its length. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
 -   `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
 -   `placeholder` - is a string attribute to include a placeholder text for the editor when it is empty. This text is passed as plain text (not markdown)
@@ -149,6 +149,14 @@ However, in frameworks like Angular, using `markdown` as a data binding may lead
 problematic when attempting to clear the editor's content by setting the markdown value to an empty string, as it won't trigger the desired behavior if the markdown value is already
 empty and hasn't undergone processing. To overcome this issue, utilizing `methods` could offer a potential solution, allowing the content to be set regardless of whether it has
 changed from its previous value.
+
+_empty_
+
+We considered utilizing Tiptap's [isEmpty](https://tiptap.dev/api/editor#is-empty) API to determine whether the editor is empty. However, this API
+does not return true if the editor only consists of whitespace. In the context of the comments feature, this property is exposed to find out the
+editor's empty state, even when it contains only whitespace. This is necessary because the Backend service for comments does not permit the
+creation of comments comprised of just whitespace. Consequently, by using this property, we should disable the `OK` button when the editor is
+empty. To achieve this, we retrieve the current text content value, trim the string, and return true if its length is zero.
 
 _Events_
 

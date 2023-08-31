@@ -3,19 +3,19 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
     createStory
-} from '../../utilities/tests/storybook';
+} from '../../../utilities/tests/storybook';
 import {
     createMatrix,
     sharedMatrixParameters
-} from '../../utilities/tests/matrix';
-import { hiddenWrapper } from '../../utilities/tests/hidden';
+} from '../../../utilities/tests/matrix';
+import { hiddenWrapper } from '../../../utilities/tests/hidden';
 import { richTextViewerTag } from '..';
-import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
-import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
+import { loremIpsum } from '../../../utilities/tests/lorem-ipsum';
 import {
     cssPropertyFromTokenName,
     tokenNames
-} from '../../theme-provider/design-token-names';
+} from '../../../theme-provider/design-token-names';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Viewer',

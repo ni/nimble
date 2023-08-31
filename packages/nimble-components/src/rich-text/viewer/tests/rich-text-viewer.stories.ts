@@ -3,9 +3,9 @@ import type { Meta, StoryObj } from '@storybook/html';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
-} from '../../utilities/tests/storybook';
+} from '../../../utilities/tests/storybook';
 import { richTextViewerTag } from '..';
-import { richTextMarkdownString } from '../../utilities/tests/rich-text-markdown-string';
+import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
 
 interface RichTextViewerArgs {
     markdown: string;

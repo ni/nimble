@@ -5,7 +5,7 @@ import {
     bodyFontColor,
     linkActiveFontColor,
     linkFontColor
-} from '../theme-provider/design-tokens';
+} from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
