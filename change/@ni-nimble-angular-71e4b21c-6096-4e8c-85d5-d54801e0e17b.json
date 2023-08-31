@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Angular integration for rich text editor component",
-  "packageName": "@ni/nimble-angular",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
