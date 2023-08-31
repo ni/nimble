@@ -3,6 +3,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
 import type { TableRecord } from '@ni/nimble-angular/table';
+import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text-editor';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 interface ComboboxItem {
@@ -44,7 +45,7 @@ export class CustomAppComponent {
     public selectedRadio = 'mango';
     public activeTabId = 'tab-1';
     public activeAnchorTabId = 'a-tab-2';
-    public markdownString = `Supported rich text formatting options:
+    public viewerMarkdownString = `Supported rich text formatting options:
 1. **Bold**
 2. *Italics*
 3. Numbered lists
@@ -56,11 +57,23 @@ export class CustomAppComponent {
 5. Absolute link: <https://nimble.ni.dev/>
 `;
 
+    public editorMarkdownString = `Supported rich text formatting options:
+1. **Bold**
+2. *Italics*
+3. Numbered lists
+    1. Option 1
+    2. Option 2
+4. Bulleted lists
+    * Option 1
+    * Option 2
+`;
+
     public readonly tableData$: Observable<SimpleTableRecord[]>;
     private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
+    @ViewChild('editor', { read: NimbleRichTextEditorDirective }) private readonly editor: NimbleRichTextEditorDirective;
 
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
@@ -114,5 +127,9 @@ export class CustomAppComponent {
             result: (tableData.length % 2 === 0) ? 'success' : 'unknown'
         });
         this.tableDataSubject.next(tableData);
+    }
+
+    public loadRichTextEditorContent(): void {
+        this.editor.setMarkdown(this.editorMarkdownString);
     }
 }
