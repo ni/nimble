@@ -242,14 +242,9 @@ describe('Nimble combobox control value accessor', () => {
                 newOptions.push({ name: i.toString(), value: i });
             }
             testHostComponent.selectOptions = newOptions;
-            let exceptionThrown = false;
-            try {
+            expect(() => {
                 fixture.detectChanges();
-            } catch (e) {
-                exceptionThrown = true;
-            }
-
-            expect(exceptionThrown).toBeFalse();
+            }).not.toThrow();
         });
     });
 
@@ -485,14 +480,9 @@ describe('Nimble combobox control value accessor', () => {
                 newOptions.push({ name: i.toString(), value: i });
             }
             testHostComponent.selectOptions = newOptions;
-            let exceptionThrown = false;
-            try {
+            expect(() => {
                 fixture.detectChanges();
-            } catch (e) {
-                exceptionThrown = true;
-            }
-
-            expect(exceptionThrown).toBeFalse();
+            }).not.toThrow();
         });
     });
 });
