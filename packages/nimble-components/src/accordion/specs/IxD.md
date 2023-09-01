@@ -23,18 +23,18 @@ Do not use an accordion:
 
 Best practice is to use multiple disclosures in one accordion and avoid one disclosure in multiple accordions.
 
-Do this:
+Do this:  
 ![ ](spec-images/Accordion-13.png)
 
-Don't do this:
+Don't do this:  
 ![ ](spec-images/Accordion-14.png)
 
 Multiple disclosures can be used in a row for panels of unrelated content, at the client user's discretion and in accordance with component guidelines and product consistency.
 
-Avoid this:
+Avoid this:  
 ![ ](spec-images/Accordion-15.png)
 
-If only one section (relative to the content) is needed, use a disclosure component.
+If only one section (relative to the content) is needed, use a disclosure component.  
 ![ ](spec-images/Accordion-16.png)
 
 ### Tree & Navigation
@@ -61,24 +61,24 @@ Header buttons are used to expand and collapse associated panels of content. The
 
 ![ ](spec-images/Accordion-1.png)
 
-Hovering over a header button indicates interactivity:
+Hovering over a header button indicates interactivity:  
 ![ ](spec-images/Accordion-2.png)
 
-Clicking anywhere on a header button opens (if closed) or closes (if opened) the associated panel of content. [**QUESTION:** Do panels only display block content (one component per "line") or do they display flex content?]
+Clicking anywhere on a header button opens (if closed) or closes (if opened) the associated panel of content. [**QUESTION:** Do panels only display block content (one component per "line") or do they display flex content?]  
 ![ ](spec-images/Accordion-3.png)
 
-The client user can specify whether one panel or more than one panel can be opened at a time. If the former, clicking to open a closed panel will close the open panel (if applicable).
+The client user can specify whether one panel or more than one panel can be opened at a time. If the former, clicking to open a closed panel will close the open panel (if applicable).  
 ![ ](spec-images/Accordion-4.png)
 
-If a component in a panel is in an error state, the error state is visually indicated on the associated header button when closed (and maybe also be visually indicated when open).
+If a component in a panel is in an error state, the error state is visually indicated on the associated header button when closed (and maybe also be visually indicated when open).  
 ![ ](spec-images/Accordion-5.png)
 
 ### Additional Options
-Client users may need/want to have additional buttons and/or icons in the header. For example, an expand button:
+Client users may need/want to have additional buttons and/or icons in the header. For example, an expand button:  
 ![ ](spec-images/Accordion-6.png)
 
 ### Nested Accordions
-Accordion panels can have one level of nested accordions. Nested accordions are always ghost style. [**QUESTION:** Can accordions be nested anywhere in the panel? Can there be multiple child accordions nested in an accordion?]
+Accordion panels can have one level of nested accordions. Nested accordions are always ghost style. [**QUESTION:** Can accordions be nested anywhere in the panel? Can there be multiple child accordions nested in an accordion?]  
 ![ ](spec-images/Accordion-7.png)
 
 ### Keyboard Interactions
@@ -87,18 +87,18 @@ Accordion panels can have one level of nested accordions. Nested accordions are 
 | `TAB`              | Moves focus to next focusable element                 |
 | `SPACE` or `ENTER` | Opens/closes accordion section when header is focused |
 
-`TAB` to the accordion focuses the first header button (and maybe also visually indicate the entire accordion).
+`TAB` to the accordion focuses the first header button (and maybe also visually indicate the entire accordion).  
 ![ ](spec-images/Accordion-8.png)
 
-`TAB` focuses the next focusable element (and maybe also visually indicate the header button and/or the entire accordion) in each open panel. All focusable elements in the accordion are included in the `TAB` sequence.
+`TAB` focuses the next focusable element (and maybe also visually indicate the header button and/or the entire accordion) in each open panel. All focusable elements in the accordion are included in the `TAB` sequence.  
 ![ ](spec-images/Accordion-9.png)
 
 ![ ](spec-images/Accordion-10.png)
 
-`ENTER` or `SPACE` on a focused header button for a closed panel opens the associated panel. If only one panel can be opened at a time and another panel is open, it collapses.
+`ENTER` or `SPACE` on a focused header button for a closed panel opens the associated panel. If only one panel can be opened at a time and another panel is open, it collapses.  
 ![ ](spec-images/Accordion-11.png)
 
-`ENTER` or `SPACE` on a focused header button for an open panel closes the associated panel.
+`ENTER` or `SPACE` on a focused header button for an open panel closes the associated panel.  
 ![ ](spec-images/Accordion-12.png)
 
 ## Validation
