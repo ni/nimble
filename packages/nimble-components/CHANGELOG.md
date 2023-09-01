@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Sep 2023 19:43:28 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Sep 2023 20:47:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.1
+
+Fri, 01 Sep 2023 20:47:01 GMT
+
+### Patches
+
+- Update table page object to return spinner from icon column ([ni/nimble@a229bd6](https://github.com/ni/nimble/commit/a229bd60ac4258bf9f9cf67d2a2560fc4d2912fa))
 
 ## 20.2.0
 
