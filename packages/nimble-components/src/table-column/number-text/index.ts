@@ -13,7 +13,7 @@ import type { NumberFormatter } from './models/number-formatter';
 import { RoundToIntegerFormatter } from './models/round-to-integer-formatter';
 import { DefaultFormatter } from './models/default-formatter';
 import { DecimalFormatter } from './models/decimal-formatter';
-import { TableColumnNumberTextValidator } from './models/table-column-number-text-validitor';
+import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
