@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Sep 2023 06:00:57 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Sep 2023 07:27:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.22
+
+Fri, 01 Sep 2023 07:27:14 GMT
+
+### Patches
+
+- Changed quadrant to originLocation and default to bottomLeft ([ni/nimble@11a47cc](https://github.com/ni/nimble/commit/11a47cc637634d5b79e56088a7431bc4fbd2fcd2))
 
 ## 20.1.21
 
