@@ -168,8 +168,7 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
 -   `alignment` - a string value matching `"left"`, `"right"`, or `undefined` (the default, meaning `"automatic"`) which controls whether values and column headers are left or right aligned within the column. If set to `undefined` Nimble will choose left or right based on the value of `format`. Clients should select `right` if it is known that the decimal separators of all values in the column will align in the given the `format`.
 -   `format` - a string which controls how the number is formatted for display. It can take one of the following values:
     -   `undefined` - use a default formatter that will display integers with no trailing zeros, limits to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude. Will be displayed left-aligned by default (since numbers will display an inconsistent number of fractional digits).
-    -   `'round-to-integer'` - format all values as integers, rounding to nearest if the value isn't an integer and never displaying exponential notation. Will be displayed right-aligned by default.
-    -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. Will be displayed right-aligned by default.
+    -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Will be displayed right-aligned by default.
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
 -   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2.
@@ -190,7 +189,8 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
 
     <nimble-table-column-number-text
         field-name="count"
-        format="round-to-integer"
+        format="decimal"
+        decimal-digits="0"
     >
         Count
     </nimble-table-column-number-text>
@@ -334,7 +334,7 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 ### Additional unit APIs
 
-We considered adding attributes for `prefix` and `suffix` that could be used to specify any string to append to the front or back of the formatted number. We decided against this idea because it poses a localization challenge where units that are a suffix in one locale might be a prefix in another. Therefore, we decided to require units to be those supported by ECMAScript so that localization would be built in to the formatter.
+We considered adding attributes for `prefix` and `suffix` that could be used to specify any string to append to the front or back of the formatted number. We decided against this idea because it poses some localization challenges. For example, the prefix or suffix might change based on the value of the number (e.g. `1 gram` vs `2 grams`). Additionally, there may be cases where units that are a suffix in one locale are a prefix in another (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese). Therefore, we decided to require units to be those supported by ECMAScript so that localization would be built in to the formatter.
 
 Additionally, we considered adding attributes for `prefix-field-name` and `suffix-field-name` which would allow those values to be populated with a dynamic field value rather than a constant string. This could help use cases where values have disparate types or units. We decided this is not necessary initially but could revisit in the future. See [this thread](https://github.com/ni/nimble/pull/1268#discussion_r1212385898) for more discussion.
 
@@ -374,7 +374,7 @@ We will add standard unit tests, Blazor/Angular tests, and Chromatic tests for n
 
 #### Number column
 
--   number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER -n) should render as numbers
+-   number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER - n) should render as numbers
 -   non-number edge cases (e.g. strings containing numbers, undefined, null) should display blank
 -   formatting should change with different locales
 -   invalid formatter configuration should be reflected in column validity state
