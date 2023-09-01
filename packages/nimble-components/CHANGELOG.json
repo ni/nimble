@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 01 Sep 2023 06:00:57 GMT",
+      "tag": "@ni/nimble-components_v20.1.21",
+      "version": "20.1.21",
+      "comments": {
+        "patch": [
+          {
+            "author": "123591928+saikrishnan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "903a5d25104c6e5bfa0439fb7f41c191f0048abb",
+            "comment": "Fix bug with rich text editor nested list button state"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Aug 2023 21:41:33 GMT",
       "tag": "@ni/nimble-components_v20.1.20",
       "version": "20.1.20",
