@@ -145,7 +145,7 @@ export const richTextEditorSizing: StoryFn = createStory(html`
 `);
 
 const mobileWidthComponent = html`
-    <${richTextEditorTag} style="padding: 20px; width: 300px;">
+    <${richTextEditorTag} style="padding: 20px; width: 300px; height: 250px;">
         <${buttonTag} slot="footer-actions" appearance="ghost">Cancel</${buttonTag}>
         <${buttonTag} slot="footer-actions" appearance="outline">Ok</${buttonTag}>
     </${richTextEditorTag}>

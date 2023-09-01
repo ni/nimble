@@ -27,7 +27,7 @@ TableColumnDateTextColumnConfig
     }
 
     private updateText(): void {
-        if (this.columnConfig?.formatter) {
+        if (this.columnConfig) {
             this.text = formatNumericDate(
                 this.columnConfig.formatter,
                 this.groupHeaderValue

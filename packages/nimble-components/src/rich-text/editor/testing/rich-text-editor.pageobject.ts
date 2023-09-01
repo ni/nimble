@@ -136,6 +136,14 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
+    public isRichTextEditorActiveElement(): boolean {
+        return (
+            document.activeElement === this.richTextEditorElement
+            && document.activeElement?.shadowRoot?.activeElement
+                === this.getTiptapEditor()
+        );
+    }
+
     public getEditorTabIndex(): string {
         return this.getTiptapEditor()?.getAttribute('tabindex') ?? '';
     }
