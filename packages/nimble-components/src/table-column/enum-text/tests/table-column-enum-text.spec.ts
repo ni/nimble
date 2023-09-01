@@ -99,7 +99,9 @@ describe('TableColumnEnumText', () => {
                 await connect();
                 await waitForUpdatesAsync();
 
-                expect(pageObject.getRenderedCellContent(0, 0)).toBe('alpha');
+                expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                    'alpha'
+                );
             });
         }
     });
@@ -113,7 +115,7 @@ describe('TableColumnEnumText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
     });
 
     it('changing fieldName updates display', async () => {
@@ -130,7 +132,7 @@ describe('TableColumnEnumText', () => {
         firstColumn.fieldName = 'field2';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('bravo');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('bravo');
     });
 
     it('changing mapping text updates display', async () => {
@@ -146,7 +148,7 @@ describe('TableColumnEnumText', () => {
         mapping.text = 'bravo';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('bravo');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('bravo');
     });
 
     it('changing mapping key updates display', async () => {
@@ -162,7 +164,7 @@ describe('TableColumnEnumText', () => {
         mapping.key = 'b';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('alpha');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('alpha');
     });
 
     describe('various string values render as expected', () => {
@@ -184,7 +186,7 @@ describe('TableColumnEnumText', () => {
                     await connect();
                     await waitForUpdatesAsync();
 
-                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                         value.name
                     );
                 }
@@ -214,7 +216,7 @@ describe('TableColumnEnumText', () => {
                     await waitForUpdatesAsync();
 
                     expect(
-                        pageObject.getRenderedGroupHeaderContent(0)
+                        pageObject.getRenderedGroupHeaderTextContent(0)
                     ).toContain(value.name);
                 }
             );
@@ -232,7 +234,7 @@ describe('TableColumnEnumText', () => {
         model.col1.groupIndex = 0;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
     });
 
     it('sets title when group header text is ellipsized', async () => {

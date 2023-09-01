@@ -2,6 +2,81 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 01 Sep 2023 20:47:01 GMT",
+      "tag": "@ni/nimble-components_v20.2.1",
+      "version": "20.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a229bd60ac4258bf9f9cf67d2a2560fc4d2912fa",
+            "comment": "Update table page object to return spinner from icon column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 01 Sep 2023 19:43:28 GMT",
+      "tag": "@ni/nimble-components_v20.2.0",
+      "version": "20.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5e462b1baf6d1867f4e273a753856568f514ba0f",
+            "comment": "Add locale support to theme provider and use in date-text column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 01 Sep 2023 07:27:14 GMT",
+      "tag": "@ni/nimble-components_v20.1.22",
+      "version": "20.1.22",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "11a47cc637634d5b79e56088a7431bc4fbd2fcd2",
+            "comment": "Changed quadrant to originLocation and default to bottomLeft"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 01 Sep 2023 06:00:57 GMT",
+      "tag": "@ni/nimble-components_v20.1.21",
+      "version": "20.1.21",
+      "comments": {
+        "patch": [
+          {
+            "author": "123591928+saikrishnan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "903a5d25104c6e5bfa0439fb7f41c191f0048abb",
+            "comment": "Fix bug with rich text editor nested list button state"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 21:41:33 GMT",
+      "tag": "@ni/nimble-components_v20.1.20",
+      "version": "20.1.20",
+      "comments": {
+        "none": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "49a4b98696681bcfc1bc8730de2fa9ef931da96a",
+            "comment": "Document Blazor key issue for enum-text and icon columns"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 31 Aug 2023 19:17:18 GMT",
       "tag": "@ni/nimble-components_v20.1.20",
       "version": "20.1.20",

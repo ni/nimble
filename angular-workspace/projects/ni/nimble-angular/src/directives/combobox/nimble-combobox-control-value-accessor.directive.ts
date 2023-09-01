@@ -1,5 +1,6 @@
-import { Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { AfterViewChecked, Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { ListOption } from '../../public-api';
 
 /**
 * @description
@@ -25,7 +26,7 @@ export type OptionNotFound = typeof OPTION_NOT_FOUND;
         multi: true
     }]
 })
-export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor {
+export class NimbleComboboxControlValueAccessorDirective implements ControlValueAccessor, AfterViewChecked {
     /**
      * @description
      * Tracks the option comparison algorithm for tracking identities when
@@ -42,6 +43,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     private readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
 
     private _modelValue: unknown;
+
+    private _optionUpdateQueue: { listOption: ListOption, modelValue: unknown }[] = [];
 
     private _compareWith: (o1: unknown, o2: unknown) => boolean = Object.is;
 
@@ -61,7 +64,17 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     @HostListener('blur')
     private onTouched: () => void;
 
-    public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef) {}
+    public constructor(
+        private readonly _renderer: Renderer2,
+        private readonly _elementRef: ElementRef
+    ) {}
+
+    public ngAfterViewChecked(): void {
+        for (const updateValue of this._optionUpdateQueue) {
+            this.addOption(updateValue.listOption.text, updateValue.modelValue);
+        }
+        this._optionUpdateQueue = [];
+    }
 
     /**
      * Updates the underlying nimble-combobox value with the expected display string.
@@ -116,6 +129,11 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public removeOption(displayValue: string): void {
         this._optionMap.delete(displayValue);
+    }
+
+    public queueOptionUpdate(listOption: ListOption, modelValue: unknown): void {
+        this.removeOption(listOption.text);
+        this._optionUpdateQueue.push({ listOption, modelValue });
     }
 
     private updateDisplayValue(): void {
