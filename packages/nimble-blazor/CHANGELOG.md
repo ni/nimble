@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Mon, 21 Aug 2023 22:42:29 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 21:41:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.1.23
+
+Thu, 31 Aug 2023 21:41:33 GMT
+
+### Patches
+
+- Blazor support for icon table column ([ni/nimble@49a4b98](https://github.com/ni/nimble/commit/49a4b98696681bcfc1bc8730de2fa9ef931da96a))
 
 ## 12.1.14
 
