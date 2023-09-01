@@ -106,7 +106,7 @@ interface TextColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Dates are formatted in a locale-specific way based on the value of the `lang` token, which can be set via the [`nimble-theme-provider`](/docs/tokens-theme-provider--docs).';
+const dateTextColumnDescription = 'The `nimble-table-column-date-text` column is used to display date-time fields as text in the `nimble-table`. The date-time values must be of type `number` and represent the number of milliseconds since January 1, 1970 UTC. This is the representation used by the [JavaScript `Date` type](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Dates are formatted in a locale-specific way based on the value of the `lang` token, which can be set via the [`nimble-theme-provider`](?path=/docs/tokens-theme-provider--docs).';
 
 const validityDescription = `Readonly object of boolean values that represents the validity states that the column's configuration can be in.
 The object's type is \`TableColumnValidity\`, and it contains the following boolean properties:

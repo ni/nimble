@@ -52,7 +52,7 @@ export default metadata;
 
 const langDescription = `Defines the language of the element. See [external documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) for details.
 
-Users should set \`lang\` on the root \`html\` element of the page to reflect the language of the content. If necessary, users may override the language for a subtree by inserting a \`nimble-theme-provider\` element and setting its \`lang\` attribute. Nimble elements will not honor a \`lang\` value set on any other type of ancestor element.`;
+Applications should set \`lang\` on the root \`html\` element of the page to reflect the language of the content. If necessary, users may override the language for a subtree by inserting a \`nimble-theme-provider\` element and setting its \`lang\` attribute. Nimble elements will not honor a \`lang\` value set on any other type of ancestor element.`;
 
 interface ThemeProviderArgs extends SharedTableArgs {
     theme: keyof typeof Theme;
@@ -101,7 +101,7 @@ export const themeProvider: StoryObj<ThemeProviderArgs> = {
         },
         direction: {
             description:
-                'The text direction of the element. Either `"ltr"` or `"rtl"`. The `Direction` type exposes these values.',
+                'The text direction of the element. Either `"ltr"` or `"rtl"`. The `Direction` type exposes these values. Note: Right-to-left support in Nimble is untested. If you need this capability, please file an issue.',
             defaultValue: {
                 summary: '"ltr"'
             },
