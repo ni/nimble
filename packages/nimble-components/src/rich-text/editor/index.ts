@@ -6,7 +6,13 @@ import {
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor, AnyExtension, Extension } from '@tiptap/core';
+import {
+    Editor,
+    findParentNode,
+    isList,
+    AnyExtension,
+    Extension
+} from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
@@ -22,6 +28,7 @@ import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
 import type { ErrorPattern } from '../../patterns/error/types';
+import { TipTapNodeName } from './types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 
@@ -382,10 +389,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private updateEditorButtonsState(): void {
+        const { extensionManager, state } = this.tiptapEditor;
+        const { extensions } = extensionManager;
+        const { selection } = state;
+        const parentList = findParentNode((node: { type: { name: string } }) => isList(node.type.name, extensions))(selection);
+
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
-        this.bulletListButton.checked = this.tiptapEditor.isActive('bulletList');
-        this.numberedListButton.checked = this.tiptapEditor.isActive('orderedList');
+        this.bulletListButton.checked = parentList?.node.type.name === TipTapNodeName.bulletList;
+        this.numberedListButton.checked = parentList?.node.type.name === TipTapNodeName.numberedList;
     }
 
     private keyActivatesButton(event: KeyboardEvent): boolean {
@@ -457,7 +469,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         extensionName: string
     ): AnyExtension | undefined {
         return this.tiptapEditor.extensionManager.extensions.find(
-            extension => extension.name === extensionName
+            (extension: { name: string }) => extension.name === extensionName
         );
     }
 
