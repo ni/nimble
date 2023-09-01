@@ -93,11 +93,14 @@ Most user-visible strings displayed by Nimble components are provided by the cli
 The standard way to use these in Angular (for localized apps using `@angular/localize`) is:
 1. Import the label provider module(s) from your app module:
     - `NimbleLabelProviderCoreModule` from `@ni/nimble-angular/label-provider/core`: Used for labels for all components besides the table
+    - `NimbleLabelProviderRichTextModule` from `@ni/nimble-angular/label-provider/rich-text`: Used for labels for the rich text components
     - `NimbleLabelProviderTableModule` from `@ni/nimble-angular/label-provider/table`: Used for labels for the table (and table sub-components / column types)
 2. To use the Nimble-provided strings (which are already declared with `$localize`), use the `NimbleLabelProvider[Core/Table]WithDefaultsDirective`:
     ```html
     <nimble-theme-provider theme="light">
         <nimble-label-provider-core withDefaults></nimble-label-provider-core>
+        <!-- if using the Nimble rich text components: -->
+        <nimble-label-provider-rich-text withDefaults></nimble-label-provider-rich-text>
         <!-- if using the Nimble table component: -->
         <nimble-label-provider-table withDefaults></nimble-label-provider-table>
         <router-outlet></router-outlet>
