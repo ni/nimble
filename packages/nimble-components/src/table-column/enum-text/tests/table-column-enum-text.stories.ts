@@ -38,7 +38,9 @@ const simpleData = [
     }
 ];
 
-const enumTextColumnDescription = 'The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
+const enumTextColumnDescription = `The \`nimble-table-column-enum-text\` column renders string, number, or boolean values as mapped text in the \`nimble-table\`.
+
+When sorting or grouping the column, the raw data values are used, not the mapped text being displayed.`;
 
 const metadata: Meta<EnumTextColumnTableArgs> = {
     title: 'Incubating/Table Column - Enum Text',

@@ -171,9 +171,17 @@
             </nimble-combobox>
         </div>
         <div class="sub-container">
+            <div class="container-label">Rich Text Editor</div>
+            <div class="rich-text-editor-container">
+                <nimble-rich-text-editor placeholder="Rich text editor" #editor>
+                    <nimble-button slot="footer-actions" (click)="loadRichTextEditorContent()">Load Content</nimble-button>
+                </nimble-rich-text-editor>
+            </div>
+        </div>
+        <div class="sub-container">
             <div class="container-label">Rich Text Viewer</div>
             <div class="rich-text-viewer-container">
-                <nimble-rich-text-viewer [markdown]="markdownString"></nimble-rich-text-viewer>
+                <nimble-rich-text-viewer [markdown]="viewerMarkdownString"></nimble-rich-text-viewer>
             </div>
         </div>
         <div class="sub-container">
@@ -222,6 +230,27 @@
                     <nimble-mapping-text key="101" text="Status message 2"></nimble-mapping-text>
                     Status
                 </nimble-table-column-enum-text>
+                <nimble-table-column-icon
+                    field-name="result"
+                    key-type="string"
+                >
+                    <nimble-mapping-icon
+                        key="success"
+                        text="Success"
+                        icon="nimble-icon-check"
+                        severity="success">
+                    </nimble-mapping-icon>
+                    <nimble-mapping-spinner
+                        key="unknown"
+                        text="Unknown">
+                    </nimble-mapping-spinner>
+                    Result
+                </nimble-table-column-icon>
+                <nimble-table-column-number-text
+                    field-name="number"
+                >
+                    Number
+                </nimble-table-column-number-text>
                 <nimble-table-column-text field-name="stringValue2" min-pixel-width="400" group-index="0">String 2</nimble-table-column-text>
 
                 <nimble-menu slot="action-menu">

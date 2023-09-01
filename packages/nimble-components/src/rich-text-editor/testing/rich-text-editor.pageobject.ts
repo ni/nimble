@@ -2,6 +2,7 @@ import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import type { ToggleButton } from '../../toggle-button';
+import type { ToolbarButton } from './types';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -71,56 +72,36 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
-    /**
-     * To click a formatting button in the footer section, pass its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
-     */
-    public async clickFooterButton(buttonIndex: number): Promise<void> {
-        const button = this.getFormattingButton(buttonIndex);
-        button!.click();
+    public async clickFooterButton(button: ToolbarButton): Promise<void> {
+        const toggleButton = this.getFormattingButton(button);
+        toggleButton!.click();
         await waitForUpdatesAsync();
     }
 
-    /**
-     * To retrieve the checked state of the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
-     */
-    public getButtonCheckedState(buttonIndex: number): boolean {
-        const button = this.getFormattingButton(buttonIndex);
-        return button!.checked;
+    public getButtonCheckedState(button: ToolbarButton): boolean {
+        const toggleButton = this.getFormattingButton(button);
+        return toggleButton!.checked;
     }
 
-    /**
-     * To retrieve the tab index of the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
-     */
-    public getButtonTabIndex(buttonIndex: number): number {
-        const button = this.getFormattingButton(buttonIndex);
-        return button!.tabIndex;
+    public getButtonTabIndex(button: ToolbarButton): number {
+        const toggleButton = this.getFormattingButton(button);
+        return toggleButton!.tabIndex;
     }
 
-    /**
-     * To trigger a space key press for the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
-     */
-    public spaceKeyActivatesButton(buttonIndex: number): void {
-        const button = this.getFormattingButton(buttonIndex)!;
+    public spaceKeyActivatesButton(button: ToolbarButton): void {
+        const toggleButton = this.getFormattingButton(button)!;
         const event = new KeyboardEvent('keypress', {
             key: keySpace
         } as KeyboardEventInit);
-        button.control.dispatchEvent(event);
+        toggleButton.control.dispatchEvent(event);
     }
 
-    /**
-     * To trigger a enter key press for the button, provide its position value as an index (starting from '0')
-     * @param buttonIndex can be imported from an enum for each button using the `ButtonIndex`.
-     */
-    public enterKeyActivatesButton(buttonIndex: number): void {
-        const button = this.getFormattingButton(buttonIndex)!;
+    public enterKeyActivatesButton(button: ToolbarButton): void {
+        const toggleButton = this.getFormattingButton(button)!;
         const event = new KeyboardEvent('keypress', {
             key: keyEnter
         } as KeyboardEventInit);
-        button.control.dispatchEvent(event);
+        toggleButton.control.dispatchEvent(event);
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
@@ -155,8 +136,59 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
+    public isRichTextEditorActiveElement(): boolean {
+        return (
+            document.activeElement === this.richTextEditorElement
+            && document.activeElement?.shadowRoot?.activeElement
+                === this.getTiptapEditor()
+        );
+    }
+
+    public getEditorTabIndex(): string {
+        return this.getTiptapEditor()?.getAttribute('tabindex') ?? '';
+    }
+
+    public async setFooterHidden(footerHidden: boolean): Promise<void> {
+        if (footerHidden) {
+            this.richTextEditorElement.setAttribute('footer-hidden', '');
+        } else {
+            this.richTextEditorElement.removeAttribute('footer-hidden');
+        }
+        await waitForUpdatesAsync();
+    }
+
+    public isFooterHidden(): boolean {
+        const footerSection = this.getFooter()!;
+        return window.getComputedStyle(footerSection).display === 'none';
+    }
+
+    public async setDisabled(disabled: boolean): Promise<void> {
+        if (disabled) {
+            this.richTextEditorElement.setAttribute('disabled', '');
+        } else {
+            this.richTextEditorElement.removeAttribute('disabled');
+        }
+        await waitForUpdatesAsync();
+    }
+
+    public isButtonDisabled(button: ToolbarButton): boolean {
+        const toggleButton = this.getFormattingButton(button)!;
+        return toggleButton.hasAttribute('disabled');
+    }
+
+    public getPlaceholderValue(): string {
+        const editor = this.getTiptapEditor()!;
+        return editor.firstElementChild?.getAttribute('data-placeholder') ?? '';
+    }
+
     private getEditorSection(): Element | null | undefined {
         return this.richTextEditorElement.shadowRoot?.querySelector('.editor');
+    }
+
+    private getFooter(): Element | null | undefined {
+        return this.richTextEditorElement.shadowRoot!.querySelector(
+            '.footer-section'
+        );
     }
 
     private getTiptapEditor(): Element | null | undefined {
@@ -166,11 +198,11 @@ export class RichTextEditorPageObject {
     }
 
     private getFormattingButton(
-        index: number
+        button: ToolbarButton
     ): ToggleButton | null | undefined {
         const buttons: NodeListOf<ToggleButton> = this.richTextEditorElement.shadowRoot!.querySelectorAll(
             'nimble-toggle-button'
         );
-        return buttons[index];
+        return buttons[button];
     }
 }
