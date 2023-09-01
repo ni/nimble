@@ -95,7 +95,7 @@ The standard way to use these in Angular (for localized apps using `@angular/loc
     - `NimbleLabelProviderCoreModule` from `@ni/nimble-angular/label-provider/core`: Used for labels for all components besides the table
     - `NimbleLabelProviderRichTextModule` from `@ni/nimble-angular/label-provider/rich-text`: Used for labels for the rich text components
     - `NimbleLabelProviderTableModule` from `@ni/nimble-angular/label-provider/table`: Used for labels for the table (and table sub-components / column types)
-2. To use the Nimble-provided strings (which are already declared with `$localize`), use the `NimbleLabelProvider[Core/Table]WithDefaultsDirective`:
+2. To use the Nimble-provided strings (which are already declared with `$localize`), use the `NimbleLabelProvider[Core/Table/RichText]WithDefaultsDirective`:
     ```html
     <nimble-theme-provider theme="light">
         <nimble-label-provider-core withDefaults></nimble-label-provider-core>
