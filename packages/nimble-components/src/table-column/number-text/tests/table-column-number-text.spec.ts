@@ -88,7 +88,7 @@ describe('TableColumnNumberText', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
     }
 
@@ -107,14 +107,14 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('2.9');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('2.9');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('2.9');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('2.9');
 
         columnInstances.column1.format = NumberTextFormat.roundToInteger;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('3');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('3');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('3');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('3');
     });
 
     it('shows initial values', async () => {
@@ -122,9 +122,9 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('2');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('2');
-        expect(pageObject.getRenderedCellContent(0, 1)).toBe('-99');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('2');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('2');
+        expect(pageObject.getRenderedCellTextContent(0, 1)).toBe('-99');
     });
 
     it('changing fieldName updates display', async () => {
@@ -135,36 +135,36 @@ describe('TableColumnNumberText', () => {
         columnInstances.column1.fieldName = 'number2';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('-99');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('-99');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('-99');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('-99');
     });
 
     it('changing data from value to null displays blank', async () => {
         await element.setData([{ number1: 10 }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('10');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('10');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('10');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('10');
 
         await element.setData([{ number1: null }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
     });
 
     it('changing data from null to value displays value', async () => {
         await element.setData([{ number1: null }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
 
         await element.setData([{ number1: -16 }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('-16');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('-16');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('-16');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('-16');
     });
 
     it('when no fieldName provided, nothing is displayed', async () => {
@@ -175,8 +175,8 @@ describe('TableColumnNumberText', () => {
         await element.setData([{ number1: 11 }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
     });
 
     describe('displays title when appropriate', () => {
@@ -284,8 +284,8 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.0123');
-        expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.0123');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('11.0123');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('11.0123');
     });
 
     describe('updating configuration after connection', () => {
@@ -297,16 +297,20 @@ describe('TableColumnNumberText', () => {
         });
 
         it('displays two decimal digits by default', () => {
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('11.00');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '11.00'
+            );
         });
 
         it('updating decimal-digits updates rendered value', async () => {
             columnInstances.column1.decimalDigits = 5;
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00000');
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe(
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
+                '11.00000'
+            );
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
                 '11.00000'
             );
         });
@@ -317,8 +321,10 @@ describe('TableColumnNumberText', () => {
             columnInstances.column1.decimalDigits = undefined;
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('11.00');
-            expect(pageObject.getRenderedGroupHeaderContent(0)).toBe('11.00');
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('11.00');
+            expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe(
+                '11.00'
+            );
         });
 
         it('setting an invalid decimal-digits value makes the column invalid', async () => {
