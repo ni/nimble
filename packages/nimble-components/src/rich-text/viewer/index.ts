@@ -27,12 +27,7 @@ export class RichTextViewer extends FoundationElement {
      */
     public viewer!: HTMLDivElement;
 
-    private readonly markdownParser: RichTextMarkdownParser;
-
-    public constructor() {
-        super();
-        this.markdownParser = new RichTextMarkdownParser();
-    }
+    private readonly markdownParser = new RichTextMarkdownParser();
 
     /**
      * @internal
