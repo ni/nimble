@@ -27,8 +27,8 @@ import Text from '@tiptap/extension-text';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
-import type { ErrorPattern } from '../../patterns/error/types';
 import { TipTapNodeName } from './types';
+import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 

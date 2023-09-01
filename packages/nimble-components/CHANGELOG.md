@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 31 Aug 2023 19:17:18 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Sep 2023 06:00:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.1.21
+
+Fri, 01 Sep 2023 06:00:57 GMT
+
+### Patches
+
+- Fix bug with rich text editor nested list button state ([ni/nimble@903a5d2](https://github.com/ni/nimble/commit/903a5d25104c6e5bfa0439fb7f41c191f0048abb))
 
 ## 20.1.20
 
