@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 23:28:43 GMT",
+      "tag": "@ni/nimble-angular_v17.1.19",
+      "version": "17.1.19",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "38a495ff56b8fb86e292c6c2e8ea1ee04a7a4155",
+            "comment": "Angular support for number-text table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 22:45:50 GMT",
+      "tag": "@ni/nimble-angular_v17.1.18",
+      "version": "17.1.18",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "30200207363c7cb772c26bd0e74f10d9f6533037",
+            "comment": "Fix issue with large amount of options in Combobox in Angular causing endless recursion."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 19:17:18 GMT",
+      "tag": "@ni/nimble-angular_v17.1.17",
+      "version": "17.1.17",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.20",
+            "commit": "fcc12d554b6342d1751f6bc54d598189d5465fc3"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 18:31:42 GMT",
+      "tag": "@ni/nimble-angular_v17.1.16",
+      "version": "17.1.16",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8cc3101283de8f101c2c8dcb8874dabd6d5abdad",
+            "comment": "Angular integration for rich text editor component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 31 Aug 2023 17:09:05 GMT",
+      "tag": "@ni/nimble-angular_v17.1.15",
+      "version": "17.1.15",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.1.19",
+            "commit": "ce10bda19b1b9cc4e935f22cfa2b0d7ca02ed20b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 30 Aug 2023 18:22:20 GMT",
       "tag": "@ni/nimble-angular_v17.1.14",
       "version": "17.1.14",

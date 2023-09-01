@@ -4,6 +4,7 @@
         <Recognized>
             <Word>args</Word>
             <Word>blazor</Word>
+            <Word>bool</Word>
             <Word>combobox</Word>
             <Word>dropdown</Word>
             <Word>enum</Word>
