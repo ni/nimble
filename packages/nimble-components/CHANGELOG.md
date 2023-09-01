@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Sep 2023 07:27:14 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Sep 2023 19:43:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.0
+
+Fri, 01 Sep 2023 19:43:28 GMT
+
+### Minor changes
+
+- Add locale support to theme provider and use in date-text column ([ni/nimble@5e462b1](https://github.com/ni/nimble/commit/5e462b1baf6d1867f4e273a753856568f514ba0f))
 
 ## 20.1.22
 

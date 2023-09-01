@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add locale support to theme provider and use in date-text column",
-  "packageName": "@ni/nimble-components",
-  "email": "7282195+m-akinc@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
