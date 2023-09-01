@@ -34,18 +34,21 @@ describe('Theme Provider', () => {
         let element: ThemeProvider;
         let connect: () => Promise<void>;
         let disconnect: () => Promise<void>;
-        let pageLangToRestore: string | undefined;
+        let pageLangToRestore: string | null;
 
         beforeEach(() => {
-            pageLangToRestore = document.documentElement.lang;
+            pageLangToRestore = document.documentElement.getAttribute('lang');
         });
 
         afterEach(async () => {
             await disconnect();
-            if (pageLangToRestore) {
-                document.documentElement.lang = pageLangToRestore;
-            } else {
+            if (pageLangToRestore === null) {
                 document.documentElement.removeAttribute('lang');
+            } else {
+                document.documentElement.setAttribute(
+                    'lang',
+                    pageLangToRestore
+                );
             }
         });
 
