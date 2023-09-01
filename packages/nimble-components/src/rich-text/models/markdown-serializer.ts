@@ -15,7 +15,7 @@ export class RichTextMarkdownSerializer {
         this.markdownSerializer = this.initializeMarkdownSerializerForTipTap();
     }
 
-    public serializeToMarkdown(doc: Node): string {
+    public serializeDOMToMarkdown(doc: Node): string {
         return this.markdownSerializer.serialize(doc);
     }
 
