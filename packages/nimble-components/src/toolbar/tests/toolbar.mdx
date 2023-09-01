@@ -1,0 +1,27 @@
+import {
+    Controls,
+    DocsStory,
+    Meta,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as toolbarStories from './toolbar.stories';
+
+<Meta of={toolbarStories} />
+
+<Title of={toolbarStories} />
+<Description of={toolbarStories} />
+
+<DocsStory of={toolbarStories.toolbar} expanded={false} />
+
+# Usage Docs
+
+## Mobile Usage
+
+When the width available to the toolbar is insufficient to display all the toolbar items,
+consider moving less important items to a `nimble-menu-button`.
+The `nimble-toolbar` cannot detect this situation automatically, but applications can
+do so using CSS media queries or container queries.
+
+<DocsStory of={toolbarStories.mobileToolbar} expanded={false} />
