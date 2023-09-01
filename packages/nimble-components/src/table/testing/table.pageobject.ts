@@ -188,10 +188,24 @@ export class TablePageObject<T extends TableRecord> {
         return anchor as Anchor;
     }
 
-    public getRenderedIconColumnCellIcon(
+    public getRenderedIconColumnCellIconSeverity(
         rowIndex: number,
         columnIndex: number
-    ): Icon | Spinner {
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (!content || !(content instanceof Icon)) {
+            throw new Error(
+                `Icon not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.severity ?? '';
+    }
+
+    public getRenderedIconColumnCellIconAriaLabel(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
         const content = this.getRenderedCellView(rowIndex, columnIndex)
             .shadowRoot!.firstElementChild;
         if (
@@ -202,12 +216,29 @@ export class TablePageObject<T extends TableRecord> {
                 `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
             );
         }
-        return content;
+        return content.ariaLabel ?? '';
     }
 
-    public getRenderedIconColumnGroupHeaderIcon(
+    public getRenderedIconColumnCellIconTagName(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedIconColumnGroupHeaderIconTagName(
         groupRowIndex: number
-    ): Icon | Spinner {
+    ): string {
         const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
             .firstElementChild;
         if (
@@ -218,7 +249,7 @@ export class TablePageObject<T extends TableRecord> {
                 `Icon or Spinner not found at group header ${groupRowIndex}`
             );
         }
-        return content;
+        return content.tagName.toLocaleLowerCase();
     }
 
     public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
