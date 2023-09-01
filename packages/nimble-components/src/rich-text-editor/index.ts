@@ -6,7 +6,13 @@ import {
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor, findParentNode, isList, AnyExtension, Extension } from '@tiptap/core';
+import {
+    Editor,
+    findParentNode,
+    isList,
+    AnyExtension,
+    Extension
+} from '@tiptap/core';
 import {
     schema,
     defaultMarkdownParser,
@@ -470,7 +476,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         const { extensionManager, state } = this.tiptapEditor;
         const { extensions } = extensionManager;
         const { selection } = state;
-        const parentList = findParentNode(node => isList(node.type.name, extensions))(selection);
+        const parentList = findParentNode((node: { type: { name: string } }) => isList(node.type.name, extensions))(selection);
 
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
@@ -547,7 +553,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         extensionName: string
     ): AnyExtension | undefined {
         return this.tiptapEditor.extensionManager.extensions.find(
-            extension => extension.name === extensionName
+            (extension: { name: string }) => extension.name === extensionName
         );
     }
 
