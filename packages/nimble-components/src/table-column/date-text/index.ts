@@ -1,4 +1,7 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    DesignTokenSubscriber
+} from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -27,6 +30,7 @@ import {
     WeekdayFormat
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
+import { lang } from '../../theme-provider';
 import { optionalBooleanConverter } from '../../utilities/models/converter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
@@ -110,9 +114,21 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-hour-cycle' })
     public customHourCycle: HourCycleFormat;
 
+    private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
+        handleChange: () => {
+            this.updateColumnConfig();
+        }
+    };
+
     public override connectedCallback(): void {
         super.connectedCallback();
+        lang.subscribe(this.langSubscriber, this);
         this.updateColumnConfig();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        lang.unsubscribe(this.langSubscriber, this);
     }
 
     public override get validity(): TableColumnValidity {
@@ -235,7 +251,7 @@ export class TableColumnDateText extends TableColumnTextBase {
             options = this.getCustomFormattingOptions();
         }
         try {
-            return new Intl.DateTimeFormat(undefined, options);
+            return new Intl.DateTimeFormat(lang.getValueFor(this), options);
         } catch (e) {
             return undefined;
         }
