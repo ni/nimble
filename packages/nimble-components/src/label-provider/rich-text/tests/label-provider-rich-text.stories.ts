@@ -5,7 +5,6 @@ import {
 } from '../../base/tests/label-provider-stories-utils';
 import { labelProviderRichTextTag } from '..';
 import * as labelTokensNamespace from '../label-tokens';
-import { removePrefixAndCamelCase } from '../../base/tests/label-name-utils';
 
 const metadata = {
     ...labelProviderMetadata,
@@ -19,6 +18,5 @@ export const richTextLabelProvider: StoryObj<LabelProviderArgs> = {
         labelProviderTag: labelProviderRichTextTag,
         labelTokens: Object.entries(labelTokensNamespace),
         prefixSubstring: 'richText',
-        removeNamePrefix: removePrefixAndCamelCase
     }
 };

@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/html';
 import type { DesignToken } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { bodyFont } from '../../../theme-provider/design-tokens';
-import { getAttributeName, getPropertyName } from './label-name-utils';
+import { getAttributeName, getPropertyName, removePrefixAndCamelCase } from './label-name-utils';
 import { Table, tableTag } from '../../../table';
 import { tableColumnTextTag } from '../../../table-column/text';
 
@@ -12,7 +12,6 @@ export interface LabelProviderArgs {
     labelProviderTag: string;
     labelTokens: [string, DesignToken<string>][];
     prefixSubstring: string;
-    removeNamePrefix(tokenName: string, elementName?: string): string;
     updateData(args: LabelProviderArgs): void;
 }
 
@@ -66,11 +65,6 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
         </div>
     `),
     argTypes: {
-        removeNamePrefix: {
-            table: {
-                disable: true
-            }
-        },
         labelProviderTag: {
             table: {
                 disable: true
@@ -98,7 +92,6 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
         }
     },
     args: {
-        removeNamePrefix: jsTokenName => jsTokenName,
         tableRef: undefined,
         prefixSubstring: undefined,
         updateData: x => {
@@ -111,10 +104,10 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                     return {
                         tokenName: token[0],
                         htmlAttributeName: getAttributeName(
-                            x.removeNamePrefix(token[0], x.prefixSubstring)
+                            removePrefixAndCamelCase(token[0], x.prefixSubstring)
                         ),
                         jsPropertyName: getPropertyName(
-                            x.removeNamePrefix(token[0], x.prefixSubstring)
+                            removePrefixAndCamelCase(token[0], x.prefixSubstring)
                         ),
                         defaultValue: token[1].getValueFor(document.body)
                     };
