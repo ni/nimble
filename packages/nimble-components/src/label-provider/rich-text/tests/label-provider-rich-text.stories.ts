@@ -17,6 +17,6 @@ export const richTextLabelProvider: StoryObj<LabelProviderArgs> = {
     args: {
         labelProviderTag: labelProviderRichTextTag,
         labelTokens: Object.entries(labelTokensNamespace),
-        prefixSubstring: 'richText',
+        prefixSubstring: 'richText'
     }
 };

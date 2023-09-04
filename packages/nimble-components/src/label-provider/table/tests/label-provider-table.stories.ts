@@ -17,6 +17,6 @@ export const tableLabelProvider: StoryObj<LabelProviderArgs> = {
     args: {
         labelProviderTag: labelProviderTableTag,
         labelTokens: Object.entries(labelTokensNamespace),
-        prefixSubstring: 'table',
+        prefixSubstring: 'table'
     }
 };
