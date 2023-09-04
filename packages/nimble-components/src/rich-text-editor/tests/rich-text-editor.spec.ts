@@ -571,30 +571,6 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
         });
 
-        it('should have different type of list at same level possible', async () => {
-            await pageObject.setEditorTextContent('Bullet List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.pressTabKeyInEditor();
-            await pageObject.setEditorTextContent('Numbered List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.pressShiftTabKeysInEditor();
-            await pageObject.pressTabKeyInEditor();
-            await pageObject.setEditorTextContent('Bullet List');
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'UL',
-                'LI',
-                'P',
-                'OL',
-                'LI',
-                'P',
-                'UL',
-                'LI',
-                'P'
-            ]);
-        });
-
         it('should have "strong" and "em" tag name for both bold and italics button clicks', async () => {
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.clickFooterButton(ToolbarButton.italics);
@@ -647,6 +623,31 @@ describe('RichTextEditor', () => {
             ]);
             expect(pageObject.getEditorLeafContents()).toEqual([
                 'bold, italics and bullet list'
+            ]);
+        });
+
+        it('should have different type of list at same level possible', async () => {
+            await pageObject.clickFooterButton(ToolbarButton.bulletList);
+            await pageObject.setEditorTextContent('Bullet List');
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.setEditorTextContent('Numbered List');
+            await pageObject.clickFooterButton(ToolbarButton.numberedList);
+            await pageObject.pressEnterKeyInEditor();
+            await pageObject.pressShiftTabKeysInEditor();
+            await pageObject.pressTabKeyInEditor();
+            await pageObject.setEditorTextContent('Bullet List');
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'OL',
+                'LI',
+                'BR',
+                'P',
+                'UL',
+                'LI',
+                'P'
             ]);
         });
     });
