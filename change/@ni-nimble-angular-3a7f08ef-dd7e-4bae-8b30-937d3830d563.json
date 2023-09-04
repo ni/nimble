@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Update folder paths for importing rich text components",
+  "comment": "Revamp folder structure for rich text components",
   "packageName": "@ni/nimble-angular",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
   "dependentChangeType": "patch"

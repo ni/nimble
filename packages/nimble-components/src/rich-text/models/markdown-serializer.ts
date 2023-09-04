@@ -9,11 +9,7 @@ import type { Node } from 'prosemirror-model';
  * Provides markdown serializer for rich text components
  */
 export class RichTextMarkdownSerializer {
-    private readonly markdownSerializer: MarkdownSerializer;
-
-    public constructor() {
-        this.markdownSerializer = this.initializeMarkdownSerializerForTipTap();
-    }
+    private readonly markdownSerializer = this.initializeMarkdownSerializerForTipTap();
 
     public serializeDOMToMarkdown(doc: Node): string {
         return this.markdownSerializer.serialize(doc);
