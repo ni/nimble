@@ -6,7 +6,13 @@ import {
     FoundationElement
 } from '@microsoft/fast-foundation';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
-import { Editor, AnyExtension, Extension } from '@tiptap/core';
+import {
+    Editor,
+    findParentNode,
+    isList,
+    AnyExtension,
+    Extension
+} from '@tiptap/core';
 import {
     schema,
     defaultMarkdownParser,
@@ -30,6 +36,7 @@ import Text from '@tiptap/extension-text';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
+import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../patterns/error/types';
 
 declare global {
@@ -220,6 +227,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public boldButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBold().run();
+        this.forceFocusEditor();
     }
 
     /**
@@ -229,6 +237,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public boldButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBold().run();
+            this.forceFocusEditor();
             return false;
         }
         return true;
@@ -240,6 +249,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public italicsButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleItalic().run();
+        this.forceFocusEditor();
     }
 
     /**
@@ -249,6 +259,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public italicsButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleItalic().run();
+            this.forceFocusEditor();
             return false;
         }
         return true;
@@ -260,6 +271,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public bulletListButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleBulletList().run();
+        this.forceFocusEditor();
     }
 
     /**
@@ -269,6 +281,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public bulletListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBulletList().run();
+            this.forceFocusEditor();
             return false;
         }
         return true;
@@ -280,6 +293,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     public numberedListButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
+        this.forceFocusEditor();
     }
 
     /**
@@ -289,6 +303,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public numberedListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleOrderedList().run();
+            this.forceFocusEditor();
             return false;
         }
         return true;
@@ -458,10 +473,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private updateEditorButtonsState(): void {
+        const { extensionManager, state } = this.tiptapEditor;
+        const { extensions } = extensionManager;
+        const { selection } = state;
+        const parentList = findParentNode((node: { type: { name: string } }) => isList(node.type.name, extensions))(selection);
+
         this.boldButton.checked = this.tiptapEditor.isActive('bold');
         this.italicsButton.checked = this.tiptapEditor.isActive('italic');
-        this.bulletListButton.checked = this.tiptapEditor.isActive('bulletList');
-        this.numberedListButton.checked = this.tiptapEditor.isActive('orderedList');
+        this.bulletListButton.checked = parentList?.node.type.name === TipTapNodeName.bulletList;
+        this.numberedListButton.checked = parentList?.node.type.name === TipTapNodeName.numberedList;
     }
 
     private keyActivatesButton(event: KeyboardEvent): boolean {
@@ -533,7 +553,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
         extensionName: string
     ): AnyExtension | undefined {
         return this.tiptapEditor.extensionManager.extensions.find(
-            extension => extension.name === extensionName
+            (extension: { name: string }) => extension.name === extensionName
         );
     }
 
@@ -545,6 +565,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 }
             }
         });
+    }
+
+    // In Firefox browser, once the editor gets focused, the blinking caret will be visible until we click format buttons (Bold, Italic ...) in the Firefox browser (changing focus).
+    // But once any of the toolbar button is clicked, editor internally has its focus but the blinking caret disappears.
+    // As a workaround, manually triggering blur and setting focus on editor makes the blinking caret to re-appear.
+    // Mozilla issue https://bugzilla.mozilla.org/show_bug.cgi?id=1496769 tracks removal of this workaround.
+    private forceFocusEditor(): void {
+        this.tiptapEditor.commands.blur();
+        this.tiptapEditor.commands.focus();
     }
 }
 

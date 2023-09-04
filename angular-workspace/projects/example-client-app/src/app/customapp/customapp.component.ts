@@ -20,6 +20,7 @@ interface SimpleTableRecord extends TableRecord {
     date: number;
     statusCode: number;
     result: string;
+    number: number;
 }
 
 @Component({
@@ -77,6 +78,13 @@ export class CustomAppComponent {
 
     public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
         this.tableData$ = this.tableDataSubject.asObservable();
+        this.comboboxItems = [];
+        for (let i = 0; i < 300; i++) {
+            this.comboboxItems.push({
+                first: i.toString(),
+                last: i.toString()
+            });
+        }
     }
 
     public onMenuButtonMenuChange(event: Event): void {
@@ -124,7 +132,8 @@ export class CustomAppComponent {
             linkLabel: 'Link',
             date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
             statusCode: (tableData.length % 2 === 0) ? 100 : 101,
-            result: (tableData.length % 2 === 0) ? 'success' : 'unknown'
+            result: (tableData.length % 2 === 0) ? 'success' : 'unknown',
+            number: tableData.length / 10
         });
         this.tableDataSubject.next(tableData);
     }
