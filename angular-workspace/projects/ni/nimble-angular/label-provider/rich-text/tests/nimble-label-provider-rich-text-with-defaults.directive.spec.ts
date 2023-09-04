@@ -24,9 +24,6 @@ describe('Nimble LabelProviderRichText withDefaults directive', () => {
             declarations: [TestHostComponent],
             imports: [NimbleLabelProviderRichTextModule, CommonModule]
         });
-    });
-
-    beforeEach(() => {
         loadTranslations({
             [computeMsgId('Bold', 'Nimble rich text - toggle bold')]: 'Translated Bold',
             [computeMsgId('Italics', 'Nimble rich text - toggle italics')]: 'Translated Italics',
