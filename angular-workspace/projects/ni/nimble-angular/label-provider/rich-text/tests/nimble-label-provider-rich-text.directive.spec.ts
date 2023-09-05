@@ -4,10 +4,10 @@ import { LabelProviderRichText, NimbleLabelProviderRichTextDirective } from '../
 import { NimbleLabelProviderRichTextModule } from '../nimble-label-provider-rich-text.module';
 
 describe('Nimble Label Provider Rich text', () => {
-    const label1 = 'String 1';
-    const label2 = 'String 2';
-    const label3 = 'String 3';
-    const label4 = 'String 4';
+    const boldLabel = 'Bold';
+    const italicsLabel = 'Italics';
+    const numberedListLabel = 'Numbered List';
+    const bulletedListLabel = 'Bulleted List';
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -70,10 +70,10 @@ describe('Nimble Label Provider Rich text', () => {
         @Component({
             template: `
                 <nimble-label-provider-rich-text #labelProvider
-                    toggle-bold="${label1}"
-                    toggle-italics="${label2}"
-                    toggle-bulleted-list="${label3}"
-                    toggle-numbered-list="${label4}"
+                    toggle-bold="${boldLabel}"
+                    toggle-italics="${italicsLabel}"
+                    toggle-bulleted-list="${bulletedListLabel}"
+                    toggle-numbered-list="${numberedListLabel}"
                     >
                 </nimble-label-provider-rich-text>
             `
@@ -99,23 +99,23 @@ describe('Nimble Label Provider Rich text', () => {
         });
 
         it('will use template string values for toggleBold', () => {
-            expect(directive.toggleBold).toBe(label1);
-            expect(nativeElement.toggleBold).toBe(label1);
+            expect(directive.toggleBold).toBe(boldLabel);
+            expect(nativeElement.toggleBold).toBe(boldLabel);
         });
 
         it('will use template string values for toggleItalics', () => {
-            expect(directive.toggleItalics).toBe(label2);
-            expect(nativeElement.toggleItalics).toBe(label2);
+            expect(directive.toggleItalics).toBe(italicsLabel);
+            expect(nativeElement.toggleItalics).toBe(italicsLabel);
         });
 
         it('will use template string values for toggleBulletedList', () => {
-            expect(directive.toggleBulletedList).toBe(label3);
-            expect(nativeElement.toggleBulletedList).toBe(label3);
+            expect(directive.toggleBulletedList).toBe(bulletedListLabel);
+            expect(nativeElement.toggleBulletedList).toBe(bulletedListLabel);
         });
 
         it('will use template string values for toggleNumberedList', () => {
-            expect(directive.toggleNumberedList).toBe(label4);
-            expect(nativeElement.toggleNumberedList).toBe(label4);
+            expect(directive.toggleNumberedList).toBe(numberedListLabel);
+            expect(nativeElement.toggleNumberedList).toBe(numberedListLabel);
         });
     });
 
@@ -134,10 +134,10 @@ describe('Nimble Label Provider Rich text', () => {
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderRichTextDirective }) public directive: NimbleLabelProviderRichTextDirective;
             @ViewChild('labelProvider', { read: ElementRef }) public elementRef: ElementRef<LabelProviderRichText>;
-            public toggleBold = label1;
-            public toggleItalics = label1;
-            public toggleBulletedList = label1;
-            public toggleNumberedList = label1;
+            public toggleBold = boldLabel;
+            public toggleItalics = italicsLabel;
+            public toggleBulletedList = bulletedListLabel;
+            public toggleNumberedList = numberedListLabel;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -156,47 +156,47 @@ describe('Nimble Label Provider Rich text', () => {
         });
 
         it('can be configured with property binding for toggleBold', () => {
-            expect(directive.toggleBold).toBe(label1);
-            expect(nativeElement.toggleBold).toBe(label1);
+            expect(directive.toggleBold).toBe(boldLabel);
+            expect(nativeElement.toggleBold).toBe(boldLabel);
 
-            fixture.componentInstance.toggleBold = label2;
+            fixture.componentInstance.toggleBold = 'newBoldLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleBold).toBe(label2);
-            expect(nativeElement.toggleBold).toBe(label2);
+            expect(directive.toggleBold).toBe('newBoldLabel');
+            expect(nativeElement.toggleBold).toBe('newBoldLabel');
         });
 
         it('can be configured with property binding for toggleItalics', () => {
-            expect(directive.toggleItalics).toBe(label1);
-            expect(nativeElement.toggleItalics).toBe(label1);
+            expect(directive.toggleItalics).toBe(italicsLabel);
+            expect(nativeElement.toggleItalics).toBe(italicsLabel);
 
-            fixture.componentInstance.toggleItalics = label2;
+            fixture.componentInstance.toggleItalics = 'newItalicsLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleItalics).toBe(label2);
-            expect(nativeElement.toggleItalics).toBe(label2);
+            expect(directive.toggleItalics).toBe('newItalicsLabel');
+            expect(nativeElement.toggleItalics).toBe('newItalicsLabel');
         });
 
         it('can be configured with property binding for toggleBulletedList', () => {
-            expect(directive.toggleBulletedList).toBe(label1);
-            expect(nativeElement.toggleBulletedList).toBe(label1);
+            expect(directive.toggleBulletedList).toBe(bulletedListLabel);
+            expect(nativeElement.toggleBulletedList).toBe(bulletedListLabel);
 
-            fixture.componentInstance.toggleBulletedList = label2;
+            fixture.componentInstance.toggleBulletedList = 'newBulletedListLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleBulletedList).toBe(label2);
-            expect(nativeElement.toggleBulletedList).toBe(label2);
+            expect(directive.toggleBulletedList).toBe('newBulletedListLabel');
+            expect(nativeElement.toggleBulletedList).toBe('newBulletedListLabel');
         });
 
         it('can be configured with property binding for toggleNumberedList', () => {
-            expect(directive.toggleNumberedList).toBe(label1);
-            expect(nativeElement.toggleNumberedList).toBe(label1);
+            expect(directive.toggleNumberedList).toBe(numberedListLabel);
+            expect(nativeElement.toggleNumberedList).toBe(numberedListLabel);
 
-            fixture.componentInstance.toggleNumberedList = label2;
+            fixture.componentInstance.toggleNumberedList = 'newNumberedListLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleNumberedList).toBe(label2);
-            expect(nativeElement.toggleNumberedList).toBe(label2);
+            expect(directive.toggleNumberedList).toBe('newNumberedListLabel');
+            expect(nativeElement.toggleNumberedList).toBe('newNumberedListLabel');
         });
     });
 
@@ -215,10 +215,10 @@ describe('Nimble Label Provider Rich text', () => {
         class TestHostComponent {
             @ViewChild('labelProvider', { read: NimbleLabelProviderRichTextDirective }) public directive: NimbleLabelProviderRichTextDirective;
             @ViewChild('labelProvider', { read: ElementRef }) public elementRef: ElementRef<LabelProviderRichText>;
-            public toggleBold = label1;
-            public toggleItalics = label1;
-            public toggleBulletedList = label1;
-            public toggleNumberedList = label1;
+            public toggleBold = boldLabel;
+            public toggleItalics = italicsLabel;
+            public toggleBulletedList = bulletedListLabel;
+            public toggleNumberedList = numberedListLabel;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -237,47 +237,47 @@ describe('Nimble Label Provider Rich text', () => {
         });
 
         it('can be configured with attribute binding for toggleBold', () => {
-            expect(directive.toggleBold).toBe(label1);
-            expect(nativeElement.toggleBold).toBe(label1);
+            expect(directive.toggleBold).toBe(boldLabel);
+            expect(nativeElement.toggleBold).toBe(boldLabel);
 
-            fixture.componentInstance.toggleBold = label2;
+            fixture.componentInstance.toggleBold = 'newBoldLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleBold).toBe(label2);
-            expect(nativeElement.toggleBold).toBe(label2);
+            expect(directive.toggleBold).toBe('newBoldLabel');
+            expect(nativeElement.toggleBold).toBe('newBoldLabel');
         });
 
         it('can be configured with attribute binding for toggleItalics', () => {
-            expect(directive.toggleItalics).toBe(label1);
-            expect(nativeElement.toggleItalics).toBe(label1);
+            expect(directive.toggleItalics).toBe(italicsLabel);
+            expect(nativeElement.toggleItalics).toBe(italicsLabel);
 
-            fixture.componentInstance.toggleItalics = label2;
+            fixture.componentInstance.toggleItalics = 'newItalicsLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleItalics).toBe(label2);
-            expect(nativeElement.toggleItalics).toBe(label2);
+            expect(directive.toggleItalics).toBe('newItalicsLabel');
+            expect(nativeElement.toggleItalics).toBe('newItalicsLabel');
         });
 
         it('can be configured with attribute binding for toggleBulletedList', () => {
-            expect(directive.toggleBulletedList).toBe(label1);
-            expect(nativeElement.toggleBulletedList).toBe(label1);
+            expect(directive.toggleBulletedList).toBe(bulletedListLabel);
+            expect(nativeElement.toggleBulletedList).toBe(bulletedListLabel);
 
-            fixture.componentInstance.toggleBulletedList = label2;
+            fixture.componentInstance.toggleBulletedList = 'newBulletedListLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleBulletedList).toBe(label2);
-            expect(nativeElement.toggleBulletedList).toBe(label2);
+            expect(directive.toggleBulletedList).toBe('newBulletedListLabel');
+            expect(nativeElement.toggleBulletedList).toBe('newBulletedListLabel');
         });
 
         it('can be configured with attribute binding for toggleNumberedList', () => {
-            expect(directive.toggleNumberedList).toBe(label1);
-            expect(nativeElement.toggleNumberedList).toBe(label1);
+            expect(directive.toggleNumberedList).toBe(numberedListLabel);
+            expect(nativeElement.toggleNumberedList).toBe(numberedListLabel);
 
-            fixture.componentInstance.toggleNumberedList = label2;
+            fixture.componentInstance.toggleNumberedList = 'newNumberedListLabel';
             fixture.detectChanges();
 
-            expect(directive.toggleNumberedList).toBe(label2);
-            expect(nativeElement.toggleNumberedList).toBe(label2);
+            expect(directive.toggleNumberedList).toBe('newNumberedListLabel');
+            expect(nativeElement.toggleNumberedList).toBe('newNumberedListLabel');
         });
     });
 });
