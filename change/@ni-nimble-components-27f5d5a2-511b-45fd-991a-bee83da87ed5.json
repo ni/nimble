@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Spec update to include link support for rich text editor and viewer",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
