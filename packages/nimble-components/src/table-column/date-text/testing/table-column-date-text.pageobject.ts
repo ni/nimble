@@ -18,13 +18,13 @@ export class TableColumnDateTextPageObject<T extends TableRecord> {
     ): string {
         this.verifyCellType(rowIndex, columnIndex);
         return this.tablePageObject
-            .getRenderedCellContent(rowIndex, columnIndex)
+            .getRenderedCellTextContent(rowIndex, columnIndex)
             .replace(this.narrowNonBreakingSpace, ' ');
     }
 
     public getRenderedGroupHeaderContent(groupRowIndex: number): string {
         return this.tablePageObject
-            .getRenderedGroupHeaderContent(groupRowIndex)
+            .getRenderedGroupHeaderTextContent(groupRowIndex)
             .replace(this.narrowNonBreakingSpace, ' ');
     }
 

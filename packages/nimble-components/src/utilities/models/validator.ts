@@ -1,5 +1,8 @@
-import type { ValidityObject } from '../../table/types';
 import { Tracker } from './tracker';
+
+export interface ValidityObject {
+    [key: string]: boolean;
+}
 
 /**
  * Generic Validator Utility extends Tracker Utility for validation purposes

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Directive, ElementRef, Host, Inject, Input, Optional, Renderer2, AfterViewInit, OnDestroy } from '@angular/core';
 import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleComboboxControlValueAccessorDirective } from '../combobox/nimble-combobox-control-value-accessor.directive';
@@ -36,7 +36,6 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
     public constructor(
         private readonly elementRef: ElementRef<ListOption>,
         private readonly renderer: Renderer2,
-        private readonly changeDetector: ChangeDetectorRef,
         @Inject(NimbleComboboxControlValueAccessorDirective) @Optional() @Host() private readonly combobox?: NimbleComboboxControlValueAccessorDirective
     ) { }
 
@@ -54,9 +53,6 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
     }
 
     private updateComboboxValue(value: unknown): void {
-        this.combobox!.removeOption(this._currentTextContent);
-        this.changeDetector.detectChanges();
-        this._currentTextContent = this.elementRef.nativeElement.text;
-        this.combobox!.addOption(this._currentTextContent, value);
+        this.combobox!.queueOptionUpdate(this.elementRef.nativeElement, value);
     }
 }

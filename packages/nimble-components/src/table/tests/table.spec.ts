@@ -114,7 +114,10 @@ describe('Table', () => {
                         .dataRecordFieldNames[0]!;
                     const expectedCellData = visibleData[rowIndex]![dataKey]!;
                     expect(
-                        pageObject.getRenderedCellContent(rowIndex, columnIndex)
+                        pageObject.getRenderedCellTextContent(
+                            rowIndex,
+                            columnIndex
+                        )
                     ).toEqual(expectedCellData.toString());
                 }
             }
