@@ -233,7 +233,16 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * Toggle the bold mark and focus back to the editor
      * @internal
-     */
+    */
+    public boldButtonTouchStart(e: Event): void {
+        e.preventDefault();
+        this.tiptapEditor.chain().focus().toggleBold().run();
+    }
+
+    /**
+     * Toggle the bold mark and focus back to the editor
+     * @internal
+    */
     public boldButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBold().run();
@@ -250,6 +259,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public italicsButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleItalic().run();
         this.forceFocusEditor();
+    }
+
+    /**
+     * Toggle the italics mark and focus back to the editor
+     * @internal
+     */
+    public italicsButtonTouchStart(e: Event): void {
+        this.tiptapEditor.chain().focus().toggleItalic().run();
+        e.preventDefault();
     }
 
     /**
@@ -278,6 +296,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * Toggle the unordered list node and focus back to the editor
      * @internal
      */
+    public bulletListTouchStart(e: Event): void {
+        e.preventDefault();
+        this.tiptapEditor.chain().focus().toggleBulletList().run();
+    }
+
+    /**
+     * Toggle the unordered list node and focus back to the editor
+     * @internal
+     */
     public bulletListButtonKeyDown(event: KeyboardEvent): boolean {
         if (this.keyActivatesButton(event)) {
             this.tiptapEditor.chain().focus().toggleBulletList().run();
@@ -294,6 +321,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     public numberedListButtonClick(): void {
         this.tiptapEditor.chain().focus().toggleOrderedList().run();
         this.forceFocusEditor();
+    }
+
+    /**
+     * Toggle the ordered list node and focus back to the editor
+     * @internal
+     */
+    public numberedListTouchStart(e: Event): void {
+        e.preventDefault();
+        this.tiptapEditor.chain().focus().toggleOrderedList().run();
     }
 
     /**
