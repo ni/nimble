@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 05 Sep 2023 12:47:21 GMT",
+      "tag": "@ni/nimble-components_v20.2.1",
+      "version": "20.2.1",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "82d93d4ff53a3458c67011c7adae8e6c0178b85c",
+            "comment": "Spec update to include link support for rich text editor and viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 01 Sep 2023 20:47:01 GMT",
       "tag": "@ni/nimble-components_v20.2.1",
       "version": "20.2.1",
