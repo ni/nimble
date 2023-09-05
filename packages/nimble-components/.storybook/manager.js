@@ -8,7 +8,7 @@ addons.setConfig({
             patterns: item => {
                 return (
                     !item.title.startsWith('Internal/')
-                    && !item.title.startsWith('patterns')
+                    && !item.title.startsWith('patterns/')
                 );
             }
         }
