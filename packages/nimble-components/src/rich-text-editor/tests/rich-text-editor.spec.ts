@@ -626,24 +626,14 @@ describe('RichTextEditor', () => {
             ]);
         });
 
-        it('should have different type of list at same level possible', async () => {
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
-            await pageObject.setEditorTextContent('Bullet List');
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.pressTabKeyInEditor();
-            await pageObject.setEditorTextContent('Numbered List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.pressShiftTabKeysInEditor();
-            await pageObject.pressTabKeyInEditor();
-            await pageObject.setEditorTextContent('Bullet List');
+        it('should have different type of list at same level possible', () => {
+            element.setMarkdown('- Bullet List \n  1. Numbered List \n  - Bullet List');
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
                 'LI',
                 'P',
                 'OL',
                 'LI',
-                'BR',
                 'P',
                 'UL',
                 'LI',
