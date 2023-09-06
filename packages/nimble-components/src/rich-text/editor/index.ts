@@ -35,9 +35,9 @@ import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
 import { template } from './template';
 import { styles } from './styles';
-import type { ToggleButton } from '../toggle-button';
+import type { ToggleButton } from '../../toggle-button';
 import { TipTapNodeName } from './types';
-import type { ErrorPattern } from '../patterns/error/types';
+import type { ErrorPattern } from '../../patterns/error/types';
 
 declare global {
     interface HTMLElementTagNameMap {

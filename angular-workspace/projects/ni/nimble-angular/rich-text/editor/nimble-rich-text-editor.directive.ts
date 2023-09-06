@@ -1,5 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import type { RichTextEditor } from '@ni/nimble-components/dist/esm/rich-text-editor';
+import type { RichTextEditor } from '@ni/nimble-components/dist/esm/rich-text/editor';
 import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { RichTextEditor };

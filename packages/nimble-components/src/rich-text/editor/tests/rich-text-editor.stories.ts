@@ -4,14 +4,14 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import {
     createUserSelectedThemeStory,
     incubatingWarning
-} from '../../utilities/tests/storybook';
+} from '../../../utilities/tests/storybook';
 import { RichTextEditor, richTextEditorTag } from '..';
-import { buttonTag } from '../../button';
+import { buttonTag } from '../../../button';
 import {
     addLabelUseMetadata,
     type LabelUserArgs
-} from '../../label-provider/base/tests/label-user-stories-utils';
-import { labelProviderRichTextTag } from '../../label-provider/rich-text';
+} from '../../../label-provider/base/tests/label-user-stories-utils';
+import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {

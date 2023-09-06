@@ -1,7 +1,7 @@
 import { keySpace, keyEnter, keyTab } from '@microsoft/fast-web-utilities';
 import type { RichTextEditor } from '..';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import type { ToggleButton } from '../../toggle-button';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
+import type { ToggleButton } from '../../../toggle-button';
 import type { ToolbarButton } from './types';
 
 /**

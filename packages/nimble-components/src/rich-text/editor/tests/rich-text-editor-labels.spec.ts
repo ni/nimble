@@ -1,15 +1,15 @@
 import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, type RichTextEditor } from '..';
-import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import { themeProviderTag, type ThemeProvider } from '../../theme-provider';
+import { type Fixture, fixture } from '../../../utilities/tests/fixture';
+import { themeProviderTag, type ThemeProvider } from '../../../theme-provider';
 import {
     LabelProviderRichText,
     labelProviderRichTextTag
-} from '../../label-provider/rich-text';
+} from '../../../label-provider/rich-text';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
 import { LabelProvider, ToolbarButton } from '../testing/types';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
-import { waitForUpdatesAsync } from '../../testing/async-helpers';
+import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ThemeProvider>> {
     return fixture<ThemeProvider>(

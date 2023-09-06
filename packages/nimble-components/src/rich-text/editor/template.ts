@@ -1,19 +1,19 @@
 import { html, ref } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
-import { toolbarTag } from '../toolbar';
-import { toggleButtonTag } from '../toggle-button';
-import { iconBoldBTag } from '../icons/bold-b';
-import { iconItalicITag } from '../icons/italic-i';
-import { iconListTag } from '../icons/list';
-import { iconNumberListTag } from '../icons/number-list';
+import { toolbarTag } from '../../toolbar';
+import { toggleButtonTag } from '../../toggle-button';
+import { iconBoldBTag } from '../../icons/bold-b';
+import { iconItalicITag } from '../../icons/italic-i';
+import { iconListTag } from '../../icons/list';
+import { iconNumberListTag } from '../../icons/number-list';
 import {
     richTextToggleBoldLabel,
     richTextToggleItalicsLabel,
     richTextToggleBulletedListLabel,
     richTextToggleNumberedListLabel
-} from '../label-provider/rich-text/label-tokens';
-import { errorTextTemplate } from '../patterns/error/template';
-import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+} from '../../label-provider/rich-text/label-tokens';
+import { errorTextTemplate } from '../../patterns/error/template';
+import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`

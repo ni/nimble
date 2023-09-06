@@ -2,6 +2,27 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 06 Sep 2023 20:42:14 GMT",
+      "tag": "@ni/nimble-angular_v17.2.5",
+      "version": "17.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "97cc70d749dbca3251e3efc18920ada8b4cbdfee",
+            "comment": "Revamp folder structure for rich text components"
+          },
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.5",
+            "commit": "97cc70d749dbca3251e3efc18920ada8b4cbdfee"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Sep 2023 19:06:56 GMT",
       "tag": "@ni/nimble-angular_v17.2.4",
       "version": "17.2.4",

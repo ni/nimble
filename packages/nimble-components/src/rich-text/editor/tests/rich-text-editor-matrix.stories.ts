@@ -3,25 +3,25 @@ import { html, ViewTemplate } from '@microsoft/fast-element';
 import {
     createMatrixThemeStory,
     createStory
-} from '../../utilities/tests/storybook';
+} from '../../../utilities/tests/storybook';
 import {
     createMatrix,
     sharedMatrixParameters
-} from '../../utilities/tests/matrix';
-import { hiddenWrapper } from '../../utilities/tests/hidden';
+} from '../../../utilities/tests/matrix';
+import { hiddenWrapper } from '../../../utilities/tests/hidden';
 import { richTextEditorTag } from '..';
 import {
     cssPropertyFromTokenName,
     tokenNames
-} from '../../theme-provider/design-token-names';
-import { buttonTag } from '../../button';
-import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+} from '../../../theme-provider/design-token-names';
+import { buttonTag } from '../../../button';
+import { loremIpsum } from '../../../utilities/tests/lorem-ipsum';
 import {
     DisabledState,
     ErrorState,
     disabledStates,
     errorStates
-} from '../../utilities/tests/states';
+} from '../../../utilities/tests/states';
 
 const metadata: Meta = {
     title: 'Tests/Rich Text Editor',

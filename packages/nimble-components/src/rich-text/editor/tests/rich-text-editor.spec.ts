@@ -1,13 +1,13 @@
 import { html } from '@microsoft/fast-element';
 import { richTextEditorTag, RichTextEditor } from '..';
-import { type Fixture, fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { type Fixture, fixture } from '../../../utilities/tests/fixture';
+import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { RichTextEditorPageObject } from '../testing/rich-text-editor.pageobject';
-import { wackyStrings } from '../../utilities/tests/wacky-strings';
-import type { Button } from '../../button';
-import type { ToggleButton } from '../../toggle-button';
+import { wackyStrings } from '../../../utilities/tests/wacky-strings';
+import type { Button } from '../../../button';
+import type { ToggleButton } from '../../../toggle-button';
 import { ToolbarButton } from '../testing/types';
-import { createEventListener } from '../../utilities/tests/component';
+import { createEventListener } from '../../../utilities/tests/component';
 
 async function setup(): Promise<Fixture<RichTextEditor>> {
     return fixture<RichTextEditor>(

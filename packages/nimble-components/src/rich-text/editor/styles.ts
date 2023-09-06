@@ -13,8 +13,8 @@ import {
     iconSize,
     smallDelay,
     standardPadding
-} from '../theme-provider/design-tokens';
-import { styles as errorStyles } from '../patterns/error/styles';
+} from '../../theme-provider/design-tokens';
+import { styles as errorStyles } from '../../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
