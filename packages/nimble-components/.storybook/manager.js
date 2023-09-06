@@ -7,7 +7,10 @@ addons.setConfig({
         filters: {
             patterns: item => {
                 return (
-                    !item.title.startsWith('Internal/')
+                    // Hide docs that aren't useful to clients from the sidebar on public site
+                    window.location.hostname !== 'nimble.ni.dev'
+                    && !item.title.startsWith('Tests/')
+                    && !item.title.startsWith('Internal/')
                     && !item.title.startsWith('patterns/')
                 );
             }
