@@ -179,7 +179,7 @@ npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 
 ## Updating dependencies
 
-This repository uses [Renovate](https://docs.renovatebot.com/) to automatically create pull requests that bump the version of key dependencies on a schedule. Renovate is configured via [`renovate.json`](./renovate.json).
+This repository uses [Renovate](https://docs.renovatebot.com/) to automatically create pull requests that bump the version of key dependencies on a schedule. Renovate is configured via [`renovate.json`](./.github/renovate.json).
 
 Code owners are responsible for completing or rejecting Renovate PRs. Completing a PR currently requires manually adding a beachball change file to the branch.
 
