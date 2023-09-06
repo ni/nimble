@@ -144,6 +144,11 @@ export class Table<
     /**
      * @internal
      */
+    public readonly columnHeaderDragElement!: HTMLElement;
+
+    /**
+     * @internal
+     */
     @observable
     public readonly selectionCheckbox?: Checkbox;
 
@@ -454,6 +459,21 @@ export class Table<
             this.layoutManager.beginColumnInteractiveSize(
                 event.clientX,
                 columnIndex * 2 - 1
+            );
+        }
+    }
+
+    /** @internal */
+    public onHeaderMouseDown(
+        event: MouseEvent,
+        column: TableColumn,
+        columnIndex: number
+    ): void {
+        if (event.button === 0) {
+            this.layoutManager.onHeaderMouseDown(
+                event,
+                column,
+                columnIndex
             );
         }
     }

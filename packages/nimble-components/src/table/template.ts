@@ -32,7 +32,7 @@ export const template = html<Table>`
         aria-multiselectable="${x => x.ariaMultiSelectable}"
         ${children({ property: 'childItems', filter: elements() })}
     >
-        <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')}"
+        <div class="table-container ${x => (x.documentShiftKeyDown ? 'disable-select' : '')} ${x => (x.layoutManager.isDraggingColumnHeader ? 'dragging-columns' : '')}"
             style="
             --ni-private-table-scroll-x: -${x => x.scrollX}px;
             --ni-private-table-header-container-margin-right: ${x => x.virtualizer.headerContainerMarginRight}px;
@@ -82,7 +82,7 @@ export const template = html<Table>`
                                             class="header"
                                             sort-direction="${x => (typeof x.columnInternals.currentSortIndex === 'number' ? x.columnInternals.currentSortDirection : TableColumnSortDirection.none)}"
                                             ?first-sorted-column="${(x, c) => x === c.parent.firstSortedColumn}"
-                                            @click="${(x, c) => c.parent.toggleColumnSort(x, (c.event as MouseEvent).shiftKey)}"
+                                            @mousedown="${(x, c) => c.parent.onHeaderMouseDown(c.event as MouseEvent, x, c.index)}"
                                             :isGrouped=${x => (typeof x.columnInternals.groupIndex === 'number' && !x.columnInternals.groupingDisabled)}
                                         >
                                             <slot name="${x => x.slot}"></slot>
@@ -97,6 +97,7 @@ export const template = html<Table>`
                             <div class="header-scrollbar-spacer"></div>
                         </span>
                     </div>
+                    <div class="reorder-drag-line" style="left: ${x => x.layoutManager.headerDragLineX}px;"></div>
                 </div>
                 <div class="table-viewport" ${ref('viewport')}>
                     <div class="table-scroll"></div>
@@ -147,8 +148,10 @@ export const template = html<Table>`
                             `)}
                         `)}
                     </div>
+                    <div class="reorder-drag-line" style="left: ${x => x.layoutManager.headerDragLineX}px;"></div>
                 </div>
             </div>
+            <div class="column-header-drag-element" ${ref('columnHeaderDragElement')} style="left: ${x => x.layoutManager.headerDragElementX}px; top: ${x => x.layoutManager.headerDragElementY}px;"></div>
         </div>
     </template>
 `;

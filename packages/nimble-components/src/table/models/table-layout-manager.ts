@@ -2,17 +2,32 @@ import { observable } from '@microsoft/fast-element';
 import type { Table } from '..';
 import type { TableColumn } from '../../table-column/base';
 import type { TableRecord } from '../types';
+import { tableHeaderTag } from '../components/header';
+
+const minDistForDrag = 5;
 
 /**
  * This class manages the layout of columns within a Table.
- * @interal
+ * @internal
  */
 export class TableLayoutManager<TData extends TableRecord> {
     @observable
     public isColumnBeingSized = false;
 
     @observable
+    public isDraggingColumnHeader = false;
+
+    @observable
     public activeColumnIndex?: number;
+
+    @observable
+    public headerDragLineX = 0;
+
+    @observable
+    public headerDragElementX = 0;
+
+    @observable
+    public headerDragElementY = 0;
 
     private activeColumnDivider?: number;
     private gridSizedColumns?: TableColumn[];
@@ -29,6 +44,14 @@ export class TableLayoutManager<TData extends TableRecord> {
         initialPixelWidth: number,
         minPixelWidth: number
     }[] = [];
+
+    private mouseDownX?: number;
+    private mouseDownY?: number;
+    private dragColumnDestinationIndex?: number;
+    private tableBounds?: DOMRect;
+    private columnXOffsets: number[] = [];
+    private dragColumn?: TableColumn;
+    private isClickingOrDraggingColumnHeader = false;
 
     public constructor(private readonly table: Table<TData>) {}
 
@@ -79,6 +102,93 @@ export class TableLayoutManager<TData extends TableRecord> {
         document.addEventListener('mousemove', this.onDividerMouseMove);
         document.addEventListener('mouseup', this.onDividerMouseUp);
     }
+
+    public onHeaderMouseDown(event: MouseEvent, column: TableColumn, _columnIndex: number): void {
+        this.mouseDownX = event.clientX;
+        this.mouseDownY = event.clientY;
+        this.visibleColumns = this.getVisibleColumns();
+        if (this.visibleColumns.length > 0) {
+            this.columnXOffsets = [
+                this.getColumnRect(this.visibleColumns[0]!).left,
+                ...this.visibleColumns.map(c => this.getColumnRect(c).right - 1)
+            ];
+        } else {
+            this.columnXOffsets = [];
+        }
+        this.tableBounds = this.table.getBoundingClientRect();
+        this.isClickingOrDraggingColumnHeader = true;
+        this.dragColumn = column;
+
+        // TODO instead of cloning content from the header, we might slot the existing header content into the drag element
+        while (this.table.columnHeaderDragElement.firstChild) {
+            this.table.columnHeaderDragElement.removeChild(this.table.columnHeaderDragElement.firstChild);
+        }
+        const clonedContent = this.dragColumn.contentSlot.assignedNodes().map(e => e.cloneNode(true));
+        clonedContent.forEach(e => this.table.columnHeaderDragElement.appendChild(e));
+
+        this.onHeaderDocumentMouseMove(event);
+
+        document.addEventListener('mousemove', this.onHeaderDocumentMouseMove);
+        document.addEventListener('mouseup', this.onHeaderDocumentMouseUp);
+    }
+
+    private getColumnRect(column: TableColumn): DOMRect {
+        return this.table.shadowRoot!.querySelector(`slot[name="${column.slot}"]`)!.closest(tableHeaderTag)!.getBoundingClientRect();
+    }
+
+    private endColumnHeaderDrag(event: MouseEvent): void {
+        if (this.dragColumn !== undefined) {
+            const diffX = Math.abs(event.clientX - this.mouseDownX!);
+            const diffY = Math.abs(event.clientY - this.mouseDownY!);
+            if (diffX < minDistForDrag && diffY <= minDistForDrag) {
+                this.table.toggleColumnSort(this.dragColumn, event.shiftKey);
+            }
+
+            if (this.dragColumnDestinationIndex !== undefined) {
+                const currentIndex = this.visibleColumns.indexOf(this.dragColumn);
+                if (this.dragColumnDestinationIndex !== currentIndex && this.dragColumnDestinationIndex !== currentIndex + 1) {
+                    let destIndex = this.dragColumnDestinationIndex - 1;
+                    let position: InsertPosition = 'afterend';
+                    if (destIndex === -1) {
+                        destIndex = 0;
+                        position = 'beforebegin';
+                    }
+                    this.visibleColumns[destIndex]!.insertAdjacentElement(position, this.dragColumn);
+                }
+            }
+        }
+        this.isClickingOrDraggingColumnHeader = false;
+        this.isDraggingColumnHeader = false;
+        this.dragColumn = undefined;
+        this.dragColumnDestinationIndex = undefined;
+    }
+
+    private readonly onHeaderDocumentMouseMove = (event: MouseEvent): void => {
+        if (this.isClickingOrDraggingColumnHeader) {
+            const diffX = Math.abs(event.clientX - this.mouseDownX!);
+            const diffY = Math.abs(event.clientY - this.mouseDownY!);
+
+            if ((diffX >= minDistForDrag || diffY >= minDistForDrag) && !this.isDraggingColumnHeader) {
+                this.isDraggingColumnHeader = true;
+            }
+
+            this.headerDragElementX = event.clientX - this.tableBounds!.left;
+            this.headerDragElementY = event.clientY - this.tableBounds!.top;
+
+            const deltaXs = this.columnXOffsets.map(x => Math.abs(event.clientX - x));
+            const minDelta = Math.min(...deltaXs);
+            const minIndex = deltaXs.indexOf(minDelta);
+            this.dragColumnDestinationIndex = minIndex;
+
+            this.headerDragLineX = this.columnXOffsets[minIndex]! - this.tableBounds!.left;
+        }
+    };
+
+    private readonly onHeaderDocumentMouseUp = (event: MouseEvent): void => {
+        if (this.isClickingOrDraggingColumnHeader) {
+            this.endColumnHeaderDrag(event);
+        }
+    };
 
     private readonly onDividerMouseMove = (event: Event): void => {
         const mouseEvent = event as MouseEvent;

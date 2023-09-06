@@ -9,7 +9,12 @@ import {
     controlSlimHeight,
     smallPadding,
     standardPadding,
-    tableRowBorderColor
+    tableRowBorderColor,
+    borderHoverColor,
+    borderColor,
+    tableHeaderFontColor,
+    tableHeaderFont,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -23,6 +28,41 @@ export const styles = css`
         height: 480px;
         --ni-private-column-divider-width: 2px;
         --ni-private-column-divider-padding: 3px;
+    }
+
+    div.column-header-drag-element {
+        position: absolute;
+        width: fit-content;
+        height: 32px;
+        background-color: ${applicationBackgroundColor};
+        border: 1px solid ${popupBorderColor};
+        z-index: 100;
+        display: none;
+        opacity: 0.85;
+        align-items: center;
+        padding: 4px;
+        color: ${tableHeaderFontColor};
+        ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
+        font: ${tableHeaderFont};
+        text-transform: uppercase;
+    }
+
+    .dragging-columns div.column-header-drag-element {
+        display: flex;
+    }
+
+    div.reorder-drag-line {
+        display: none;
+        position: absolute;
+        width: 1px;
+        top: 0px;
+        height: 100%;
+        z-index: 99;
+        background-color: ${borderHoverColor};
+    }
+
+    .dragging-columns div.reorder-drag-line {
+        display: block;
     }
 
     .disable-select {
