@@ -136,6 +136,18 @@ export class RichTextEditorPageObject {
             .map(el => el.textContent || '');
     }
 
+    public getFormattingButtonTextContent(
+        toolbarButton: ToolbarButton
+    ): string {
+        const button = this.getFormattingButton(toolbarButton);
+        return button!.textContent!.trim();
+    }
+
+    public getFormattingButtonTitle(toolbarButton: ToolbarButton): string {
+        const button = this.getFormattingButton(toolbarButton);
+        return button!.title;
+    }
+
     public isRichTextEditorActiveElement(): boolean {
         return (
             document.activeElement === this.richTextEditorElement

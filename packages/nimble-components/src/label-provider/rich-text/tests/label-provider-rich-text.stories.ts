@@ -3,7 +3,7 @@ import {
     LabelProviderArgs,
     labelProviderMetadata
 } from '../../base/tests/label-provider-stories-utils';
-import { labelProviderTableTag } from '..';
+import { labelProviderRichTextTag } from '..';
 import * as labelTokensNamespace from '../label-tokens';
 
 const metadata = {
@@ -13,10 +13,10 @@ const metadata = {
 
 export default metadata;
 
-export const tableLabelProvider: StoryObj<LabelProviderArgs> = {
+export const richTextLabelProvider: StoryObj<LabelProviderArgs> = {
     args: {
-        labelProviderTag: labelProviderTableTag,
+        labelProviderTag: labelProviderRichTextTag,
         labelTokens: Object.entries(labelTokensNamespace),
-        prefixSubstring: 'table'
+        prefixSubstring: 'richText'
     }
 };
