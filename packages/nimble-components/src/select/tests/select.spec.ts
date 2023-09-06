@@ -3,7 +3,6 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { createEventListener } from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { SelectPageObject } from '../testing/select.pageobject';
 
@@ -22,12 +21,6 @@ async function setup(
         </nimble-select>
     `;
     return fixture<Select>(viewTemplate);
-}
-
-async function clickAndWaitForOpen(select: Select): Promise<void> {
-    const regionLoadedListener = createEventListener(select, 'loaded');
-    select.click();
-    await regionLoadedListener.promise;
 }
 
 describe('Select', () => {
@@ -148,8 +141,9 @@ describe('Select', () => {
 
         it('should limit dropdown height to viewport', async () => {
             const { element, connect, disconnect } = await setup500Options();
+            const pageObject = new SelectPageObject(element);
             await connect();
-            await clickAndWaitForOpen(element);
+            await pageObject.clickAndWaitForOpen();
             const fullyVisible = await checkFullyInViewport(element.listbox);
 
             expect(element.listbox.scrollHeight).toBeGreaterThan(
@@ -177,10 +171,10 @@ describe('Select', () => {
 
         it('should not confine dropdown to div with "overflow: auto"', async () => {
             const { element, connect, disconnect } = await setupInDiv();
-            const select: Select = element.querySelector(selectTag)!;
+            const pageObject = new SelectPageObject(element);
             await connect();
-            await clickAndWaitForOpen(select);
-            const fullyVisible = await checkFullyInViewport(select.listbox);
+            await pageObject.clickAndWaitForOpen();
+            const fullyVisible = await checkFullyInViewport(element);
 
             expect(fullyVisible).toBe(true);
 
