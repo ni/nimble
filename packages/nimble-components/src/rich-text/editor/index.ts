@@ -146,8 +146,6 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 
-    private readonly markdownParser = new RichTextMarkdownParser();
-    private readonly markdownSerializer = new RichTextMarkdownSerializer();
     private readonly xmlSerializer = new XMLSerializer();
 
     /**
@@ -315,7 +313,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
-        return this.markdownSerializer.serializeDOMToMarkdown(
+        return RichTextMarkdownSerializer.serializeDOMToMarkdown(
             this.tiptapEditor.state.doc
         );
     }
@@ -369,7 +367,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = this.markdownParser.parseMarkdownToDOM(markdown);
+        const documentFragment = RichTextMarkdownParser.parseMarkdownToDOM(markdown);
         return this.xmlSerializer.serializeToString(documentFragment);
     }
 

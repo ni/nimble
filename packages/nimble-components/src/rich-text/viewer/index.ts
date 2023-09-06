@@ -27,8 +27,6 @@ export class RichTextViewer extends FoundationElement {
      */
     public viewer!: HTMLDivElement;
 
-    private readonly markdownParser = new RichTextMarkdownParser();
-
     /**
      * @internal
      */
@@ -48,7 +46,7 @@ export class RichTextViewer extends FoundationElement {
 
     private updateView(): void {
         if (this.markdown) {
-            const serializedContent = this.markdownParser.parseMarkdownToDOM(
+            const serializedContent = RichTextMarkdownParser.parseMarkdownToDOM(
                 this.markdown
             );
             this.viewer.replaceChildren(serializedContent);

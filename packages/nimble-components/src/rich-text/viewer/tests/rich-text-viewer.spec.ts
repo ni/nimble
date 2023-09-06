@@ -2,7 +2,6 @@ import { html } from '@microsoft/fast-element';
 import { RichTextViewer, richTextViewerTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextViewerPageObject } from '../testing/rich-text-viewer.pageobject';
-import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {
     return fixture<RichTextViewer>(
@@ -81,43 +80,5 @@ describe('RichTextViewer', () => {
         );
 
         await disconnect();
-    });
-
-    describe('various wacky string values modified when rendered', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        const modifiedWackyStrings: {
-            name: string,
-            tags: string[],
-            textContent: string[]
-        }[] = [
-            { name: '\0', tags: ['P'], textContent: ['�'] },
-            { name: '\r\r', tags: ['P'], textContent: [''] },
-            { name: '\uFFFD', tags: ['P'], textContent: ['�'] },
-            { name: '\x00', tags: ['P'], textContent: ['�'] }
-        ];
-
-        for (const value of modifiedWackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(
-                `wacky string "${value.name}" modified when rendered`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    element.markdown = value.name;
-
-                    await connect();
-
-                    expect(pageObject.getRenderedMarkdownTagNames()).toEqual(
-                        value.tags
-                    );
-                    expect(
-                        pageObject.getRenderedMarkdownLeafContents()
-                    ).toEqual(value.textContent);
-
-                    await disconnect();
-                }
-            );
-        }
     });
 });

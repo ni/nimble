@@ -9,13 +9,13 @@ import type { Node } from 'prosemirror-model';
  * Provides markdown serializer for rich text components
  */
 export class RichTextMarkdownSerializer {
-    private readonly markdownSerializer = this.initializeMarkdownSerializerForTipTap();
+    private static readonly markdownSerializer = this.initializeMarkdownSerializerForTipTap();
 
-    public serializeDOMToMarkdown(doc: Node): string {
+    public static serializeDOMToMarkdown(doc: Node): string {
         return this.markdownSerializer.serialize(doc);
     }
 
-    private initializeMarkdownSerializerForTipTap(): MarkdownSerializer {
+    private static initializeMarkdownSerializerForTipTap(): MarkdownSerializer {
         /**
          * orderedList Node is getting 'order' attribute which it is not present in the
          * tip-tap orderedList Node and having start instead of order, Changed it to start (nodes.attrs.start)

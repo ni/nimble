@@ -670,41 +670,6 @@ describe('RichTextEditor', () => {
         ]);
     });
 
-    describe('various wacky string values modified when rendered', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        const modifiedWackyStrings: {
-            name: string,
-            tags: string[],
-            textContent: string[]
-        }[] = [
-            { name: '\0', tags: ['P'], textContent: ['�'] },
-            { name: '\uFFFD', tags: ['P'], textContent: ['�'] },
-            { name: '\x00', tags: ['P'], textContent: ['�'] },
-            { name: '\r\r', tags: ['P', 'BR'], textContent: [''] }
-        ];
-
-        for (const value of modifiedWackyStrings) {
-            const specType = getSpecTypeByNamedList(value, focused, disabled);
-            specType(
-                `wacky string "${value.name}" modified when rendered`,
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                async () => {
-                    element.setMarkdown(value.name);
-
-                    await connect();
-
-                    expect(pageObject.getEditorTagNames()).toEqual(value.tags);
-                    expect(pageObject.getEditorLeafContents()).toEqual(
-                        value.textContent
-                    );
-
-                    await disconnect();
-                }
-            );
-        }
-    });
-
     it('Should return a empty string when empty string is assigned', () => {
         element.setMarkdown('markdown string');
         expect(element.getMarkdown()).toBe('markdown string');

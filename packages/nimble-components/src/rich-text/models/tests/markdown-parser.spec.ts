@@ -3,12 +3,6 @@ import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
 
 describe('Markdown parser', () => {
-    let markDownParser: RichTextMarkdownParser = new RichTextMarkdownParser();
-
-    beforeEach(() => {
-        markDownParser = new RichTextMarkdownParser();
-    });
-
     function getTagsFromDocumentFragment(doc: DocumentFragment): string[] {
         const nodes = Array.from(doc.querySelectorAll('*')).map(
             el => el.tagName
@@ -29,7 +23,7 @@ describe('Markdown parser', () => {
 
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         it('bold markdown string("**") to "strong" HTML tag', () => {
-            const doc = markDownParser.parseMarkdownToDOM('**Bold**');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('**Bold**');
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
             ).toEqual(['P', 'STRONG']);
@@ -39,7 +33,7 @@ describe('Markdown parser', () => {
         });
 
         it('bold markdown string("__") to "strong" HTML tag', () => {
-            const doc = markDownParser.parseMarkdownToDOM('__Bold__');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('__Bold__');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -50,7 +44,7 @@ describe('Markdown parser', () => {
         });
 
         it('italics markdown string("*") to "em" HTML tag', () => {
-            const doc = markDownParser.parseMarkdownToDOM('*Italics*');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('*Italics*');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -61,7 +55,7 @@ describe('Markdown parser', () => {
         });
 
         it('italics markdown string("_") to "em" HTML tag', () => {
-            const doc = markDownParser.parseMarkdownToDOM('_Italics_');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('_Italics_');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -72,7 +66,7 @@ describe('Markdown parser', () => {
         });
 
         it('numbered list markdown string("1.") to "ol" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('1. Numbered list');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('1. Numbered list');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -83,7 +77,7 @@ describe('Markdown parser', () => {
         });
 
         it('numbered list markdown string("1)") to "ol" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('1) Numbered list');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('1) Numbered list');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -94,7 +88,7 @@ describe('Markdown parser', () => {
         });
 
         it('multiple numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '1. Option 1\n 2. Option 2'
             );
 
@@ -107,7 +101,7 @@ describe('Markdown parser', () => {
         });
 
         it('multiple empty numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('1.    \n 2.    ');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('1.    \n 2.    ');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -118,7 +112,7 @@ describe('Markdown parser', () => {
         });
 
         it('numbered lists that start with numbers and are not sequential to "ol" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '1. Option 1\n 1. Option 2'
             );
 
@@ -131,7 +125,7 @@ describe('Markdown parser', () => {
         });
 
         it('numbered lists if there is some content between lists', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '1. Option 1\n\nSome content in between lists\n\n 2. Option 2'
             );
 
@@ -148,7 +142,7 @@ describe('Markdown parser', () => {
         });
 
         it('bulleted list markdown string("*") to "ul" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('* Bulleted list');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('* Bulleted list');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -159,7 +153,7 @@ describe('Markdown parser', () => {
         });
 
         it('bulleted list markdown string("-") to "ul" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('- Bulleted list');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('- Bulleted list');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -170,7 +164,7 @@ describe('Markdown parser', () => {
         });
 
         it('bulleted list markdown string("+") to "ul" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('+ Bulleted list');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('+ Bulleted list');
 
             expect(
                 getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -181,7 +175,7 @@ describe('Markdown parser', () => {
         });
 
         it('multiple bulleted lists markdown string("* \n* \n*") to "ul" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '* Option 1\n * Option 2\n * Option 3'
             );
 
@@ -194,7 +188,7 @@ describe('Markdown parser', () => {
         });
 
         it('bulleted lists if there is some content between lists', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '* Option 1\n\nSome content in between lists\n\n * Option 2'
             );
 
@@ -211,7 +205,7 @@ describe('Markdown parser', () => {
         });
 
         it('numbered list with bold markdown string to "ol", "li" and "strong" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '1. **Numbered list in bold**'
             );
 
@@ -224,7 +218,7 @@ describe('Markdown parser', () => {
         });
 
         it('bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '* *Bulleted list in italics*'
             );
 
@@ -237,7 +231,7 @@ describe('Markdown parser', () => {
         });
 
         it('combination of all supported markdown string', () => {
-            const doc = markDownParser.parseMarkdownToDOM(
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 '1. ***Numbered list with bold and italics***\n* ___Bulleted list with bold and italics___'
             );
 
@@ -300,7 +294,7 @@ describe('Markdown parser', () => {
                 `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
-                    const doc = markDownParser.parseMarkdownToDOM(value.name);
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(value.name);
 
                     expect(
                         getTagsFromDocumentFragment(doc as DocumentFragment)
@@ -331,7 +325,7 @@ describe('Markdown parser', () => {
                     `wacky string "${value.name}" that are unmodified when set the same "${value.name}" within paragraph tag`,
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
                     () => {
-                        const doc = markDownParser.parseMarkdownToDOM(
+                        const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                             value.name
                         );
 
@@ -346,5 +340,43 @@ describe('Markdown parser', () => {
                     }
                 );
             });
+    });
+
+    describe('various wacky string values modified when rendered', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        const modifiedWackyStrings: {
+            name: string,
+            tags: string[],
+            textContent: string[]
+        }[] = [
+            { name: '\0', tags: ['P'], textContent: ['�'] },
+            { name: '\r\r', tags: ['P'], textContent: [''] },
+            { name: '\uFFFD', tags: ['P'], textContent: ['�'] },
+            { name: '\x00', tags: ['P'], textContent: ['�'] }
+        ];
+
+        for (const value of modifiedWackyStrings) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            // eslint-disable-next-line @typescript-eslint/no-loop-func
+            specType(
+                `wacky string "${value.name}" modified when rendered`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                () => {
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        value.name
+                    );
+
+                    expect(
+                        getTagsFromDocumentFragment(doc as DocumentFragment)
+                    ).toEqual(value.tags);
+                    expect(
+                        getLeafContentsFromDocumentFragment(
+                            doc as DocumentFragment
+                        )
+                    ).toEqual(value.textContent);
+                }
+            );
+        }
     });
 });

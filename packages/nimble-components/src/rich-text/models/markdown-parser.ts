@@ -9,20 +9,15 @@ import { DOMSerializer } from 'prosemirror-model';
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    private readonly markdownParser: MarkdownParser;
-    private readonly domSerializer: DOMSerializer;
-
-    public constructor() {
-        this.markdownParser = this.initializeMarkdownParser();
-        this.domSerializer = DOMSerializer.fromSchema(schema);
-    }
+    private static readonly markdownParser = this.initializeMarkdownParser();
+    private static readonly domSerializer = DOMSerializer.fromSchema(schema);
 
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
      * DOM structure using a DOMSerializer, and returns the serialized result.
      * If the markdown parser returns null, it will clear the viewer component by creating an empty document fragment.
      */
-    public parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
+    public static parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
         const parsedMarkdownContent = this.markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
             return document.createDocumentFragment();
@@ -32,7 +27,7 @@ export class RichTextMarkdownParser {
         );
     }
 
-    private initializeMarkdownParser(): MarkdownParser {
+    private static initializeMarkdownParser(): MarkdownParser {
         /**
          * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
          * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
