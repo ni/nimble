@@ -5,3 +5,9 @@ export const ToolbarButton = {
     numberedList: 3
 } as const;
 export type ToolbarButton = (typeof ToolbarButton)[keyof typeof ToolbarButton];
+
+export type LabelProvider =
+    | 'toggleBold'
+    | 'toggleItalics'
+    | 'toggleBulletedList'
+    | 'toggleNumberedList';
