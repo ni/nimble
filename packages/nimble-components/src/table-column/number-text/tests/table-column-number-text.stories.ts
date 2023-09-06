@@ -9,6 +9,7 @@ import { tableTag } from '../../../table';
 import { tableColumnNumberTextTag } from '..';
 import {
     SharedTableArgs,
+    columnOperationBehavior,
     sharedTableActions,
     sharedTableArgTypes,
     sharedTableArgs
@@ -49,20 +50,11 @@ const simpleData = [
     }
 ];
 
-const overviewText = `This page contains information about the types of columns that can be displayed in a \`nimble-table\`.
-See the **Table** page for information about configuring the table itself and the **Table Column Configuration** page for
-information about common column configuration.`;
-
 const metadata: Meta<SharedTableArgs> = {
     title: 'Incubating/Table Column - Number Text',
     decorators: [withActions],
     tags: ['autodocs'],
     parameters: {
-        docs: {
-            description: {
-                component: overviewText
-            }
-        },
         actions: {
             handles: sharedTableActions
         }
@@ -92,8 +84,9 @@ interface NumberTextColumnTableArgs extends SharedTableArgs {
     validity: () => void;
 }
 
-const numberTextColumnDescription = `The \`nimble-table-column-number-text\` column is used to display number fields as text in the \`nimble-table\`. Column operations, such as sorting and grouping,
-are performed numerically on the data values.`;
+const numberTextColumnDescription = `The \`nimble-table-column-number-text\` column is used to display number fields as text in the \`nimble-table\`.
+
+${columnOperationBehavior}`;
 
 const formatDescription = `Configures the way that the numeric value is formatted to render within the column.
 

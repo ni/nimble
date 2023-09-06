@@ -50,3 +50,5 @@ export const sharedTableActions = [
     'selection-change',
     'column-configuration-change'
 ] as const;
+
+export const columnOperationBehavior = 'Column operations, such as sorting and grouping, are preformed on the field values in the data records, not by the formatted values displayed within a cell.';
