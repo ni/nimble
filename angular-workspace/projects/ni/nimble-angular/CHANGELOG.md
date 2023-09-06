@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 06 Sep 2023 16:21:23 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 19:06:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.2.4
+
+Wed, 06 Sep 2023 19:06:56 GMT
+
+### Patches
+
+- Angular Integration for rich text label provider ([ni/nimble@27889e4](https://github.com/ni/nimble/commit/27889e4d8621fca72631e24fa8ae515a0911c7b7))
 
 ## 17.2.3
 
