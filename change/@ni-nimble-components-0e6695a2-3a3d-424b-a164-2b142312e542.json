@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Fix typo in hidden patterns docs",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

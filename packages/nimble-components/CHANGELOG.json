@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 06 Sep 2023 19:47:09 GMT",
+      "tag": "@ni/nimble-components_v20.2.4",
+      "version": "20.2.4",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4742c036722d441e62b17f8acd81481fee36463b",
+            "comment": "Fix typo in hidden patterns docs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Sep 2023 17:12:23 GMT",
       "tag": "@ni/nimble-components_v20.2.4",
       "version": "20.2.4",
