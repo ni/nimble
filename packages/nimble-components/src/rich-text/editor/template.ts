@@ -6,6 +6,12 @@ import { iconBoldBTag } from '../../icons/bold-b';
 import { iconItalicITag } from '../../icons/italic-i';
 import { iconListTag } from '../../icons/list';
 import { iconNumberListTag } from '../../icons/number-list';
+import {
+    richTextToggleBoldLabel,
+    richTextToggleItalicsLabel,
+    richTextToggleBulletedListLabel,
+    richTextToggleNumberedListLabel
+} from '../../label-provider/rich-text/label-tokens';
 import { errorTextTemplate } from '../../patterns/error/template';
 import { iconExclamationMarkTag } from '../../icons/exclamation-mark';
 
@@ -28,12 +34,12 @@ export const template = html<RichTextEditor>`
                         content-hidden
                         ?disabled="${x => x.disabled}"
                         slot="start"
-                        title="Bold"
+                        title=${x => richTextToggleBoldLabel.getValueFor(x)}
                         @click=${x => x.boldButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.boldButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        Bold
+                        ${x => richTextToggleBoldLabel.getValueFor(x)}
                         <${iconBoldBTag} slot="start"></${iconBoldBTag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -42,12 +48,12 @@ export const template = html<RichTextEditor>`
                         content-hidden
                         ?disabled="${x => x.disabled}"
                         slot="start"
-                        title="Italics"
+                        title=${x => richTextToggleItalicsLabel.getValueFor(x)}
                         @click=${x => x.italicsButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.italicsButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        Italics
+                        ${x => richTextToggleItalicsLabel.getValueFor(x)}
                         <${iconItalicITag} slot="start"></${iconItalicITag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -56,12 +62,12 @@ export const template = html<RichTextEditor>`
                         content-hidden
                         ?disabled="${x => x.disabled}"
                         slot="start"
-                        title="Bullet List"
+                        title=${x => richTextToggleBulletedListLabel.getValueFor(x)}
                         @click=${x => x.bulletListButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.bulletListButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        Bullet List
+                        ${x => richTextToggleBulletedListLabel.getValueFor(x)}
                         <${iconListTag} slot="start"></${iconListTag}>
                     </${toggleButtonTag}>
                     <${toggleButtonTag}
@@ -70,12 +76,12 @@ export const template = html<RichTextEditor>`
                         content-hidden
                         ?disabled="${x => x.disabled}"
                         slot="start"
-                        title="Numbered List"
+                        title=${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         @click=${x => x.numberedListButtonClick()}
                         @change=${(x, c) => x.stopEventPropagation(c.event)}
                         @keydown=${(x, c) => x.numberedListButtonKeyDown(c.event as KeyboardEvent)}
                     >
-                        Numbered List
+                        ${x => richTextToggleNumberedListLabel.getValueFor(x)}
                         <${iconNumberListTag} slot="start"></${iconNumberListTag}>
                     </${toggleButtonTag}>
                 </${toolbarTag}>

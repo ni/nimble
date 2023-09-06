@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Sep 2023 20:47:01 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 05:43:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.2
+
+Wed, 06 Sep 2023 05:43:09 GMT
+
+### Patches
+
+- Add label provider for rich-text-editor ([ni/nimble@75dcf39](https://github.com/ni/nimble/commit/75dcf394df02a54bf85c6d41cdaab40963d9ef3f))
 
 ## 20.2.1
 
