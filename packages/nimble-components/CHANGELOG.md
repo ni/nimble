@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 06 Sep 2023 05:43:09 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 14:58:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.3
+
+Wed, 06 Sep 2023 14:58:43 GMT
+
+### Patches
+
+- Revert firefox workaround for caret disappear ([ni/nimble@ff093f4](https://github.com/ni/nimble/commit/ff093f4490485f0ffe0eca8733f6a16957ecda86))
 
 ## 20.2.2
 
