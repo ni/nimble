@@ -6,7 +6,7 @@
   "enabledManagers": ["npm"],
   "rangeStrategy": "update-lockfile",
   "schedule": [
-    "every weekend"
+    "on the first Sunday of the month"
   ],
   "vulnerabilityAlerts": {
       "enabled": false
@@ -22,6 +22,11 @@
       "enabled": true
     },
     {
+      "groupName": "D3",
+      "matchPackagePatterns": ["^d3-", "^@types/d3-"],
+      "enabled": true
+    },
+    {
       "groupName": "FAST",
       "matchPackagePatterns": ["^@microsoft/fast"],
       "enabled": true
@@ -29,6 +34,26 @@
     {
       "groupName": "NI ESLint config",
       "matchPackagePatterns": ["^@ni/eslint-config"],
+      "enabled": true
+    }
+    {
+      "groupName": "Playwright",
+      "matchPackagePatterns": ["playwright"],
+      "enabled": true
+    },
+    {
+      "groupName": "Rich Text",
+      "matchPackagePatterns": ["^@tiptap/", "@types/markdown-it", "prosemirror-"],
+      "enabled": true
+    },
+    {
+      "groupName": "Storybook",
+      "matchPackagePatterns": ["storybook"],
+      "enabled": true
+    },
+    {
+      "groupName": "TanStack",
+      "matchPackagePatterns": ["^@tanstack/"],
       "enabled": true
     }
   ]
