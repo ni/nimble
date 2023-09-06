@@ -218,11 +218,26 @@
                     <NimbleIconKey title="First Name"></NimbleIconKey>
                 </NimbleTableColumnText>
                 <NimbleTableColumnAnchor HrefFieldName="Href" LabelFieldName="LinkLabel" ColumnId="link-column" >Link</NimbleTableColumnAnchor>
+                <NimbleTableColumnDateText FieldName="Date" ColumnId="date-column">Date</NimbleTableColumnDateText>
                 <NimbleTableColumnEnumText FieldName="StatusCode" TKey="int" ColumnId="status-column">
                     <NimbleMappingText Key="100" Text="Status message 1"></NimbleMappingText>
                     <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
                     Status
                 </NimbleTableColumnEnumText>
+                <NimbleTableColumnIcon FieldName="Result" TKey="string" ColumnId="result-column">
+                    <NimbleMappingIcon
+                        Key=@("success")
+                        Text="Success"
+                        Icon="nimble-icon-check"
+                        Severity="IconSeverity.Success">
+                    </NimbleMappingIcon>
+                    <NimbleMappingSpinner
+                        Key=@("unknown")
+                        Text="Unknown">
+                    </NimbleMappingSpinner>
+                    Result
+                    Status
+                </NimbleTableColumnIcon>
                 <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" GroupIndex="0">Last Name</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">

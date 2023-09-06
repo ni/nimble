@@ -2,6 +2,36 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Thu, 31 Aug 2023 21:41:33 GMT",
+      "tag": "@ni/nimble-blazor_v12.1.23",
+      "version": "12.1.23",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "49a4b98696681bcfc1bc8730de2fa9ef931da96a",
+            "comment": "Blazor support for icon table column"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Mon, 21 Aug 2023 22:42:29 GMT",
+      "tag": "@ni/nimble-blazor_v12.1.14",
+      "version": "12.1.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "7282195+m-akinc@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "0ab6b4f5df8d01f6734c824d65e62e3c88546000",
+            "comment": "Blazor support for date text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 15 Aug 2023 19:50:33 GMT",
       "tag": "@ni/nimble-blazor_v12.1.10",
       "version": "12.1.10",

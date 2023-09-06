@@ -34,6 +34,14 @@ Both components provide support for the following basic text formatting options:
 2. Italics
 3. Numbered List
 4. Bulleted List
+5. Absolute URL links
+    1. Supports only [absolute URI as per common mark spec](https://spec.commonmark.org/0.30/#absolute-uri) with valid [schemes](https://spec.commonmark.org/0.30/#scheme).
+    2. In the initial release, we will provide support for `HTTP` and `HTTPS` schemes only. Depending on future requirements, we may extend support to include other schemes as well. To summarize:
+        1. Supports `<https://www.ni.com>` as a valid markdown syntax for an absolute link
+        2. Any other syntaxes like `https://www.ni.com` and `[NI Homepage](https://www.ni.com)` will not be supported for initial release
+    3. [Tiptap's link extension](https://tiptap.dev/api/marks/link) provides various configurations to
+       [add/remove HTML attributes](https://tiptap.dev/api/marks/link#removing-and-overriding-existing-html-attributes) for links,
+       [validate](https://tiptap.dev/api/marks/link#validate) URLs entered or pasted into the editor and more.
 
 The `nimble-rich-text-editor` component will also offer APIs and interactive methods to format text in the following ways:
 
@@ -48,7 +56,8 @@ The `nimble-rich-text-viewer` provides support for converting the input markdown
 
 -   Allowing the user to tag or mention by entering `@` in the editor and selecting the user name from the drop-down list.
 -   Support for adding images to the editor either by uploading or by pasting it.
--   Support for adding hyperlinks to the existing words in the editor.
+-   Support for adding hyperlinks to the existing text in the editor. This allows users to add links to existing text in the editor. When the
+    link button in the formatting options is clicked, a dialog opens, providing a space to enter the hyperlink for the selected text.
 -   Support for [striking out](https://tiptap.dev/api/marks/strike) and [underlining](https://tiptap.dev/api/marks/underline) text. We use the
     [prosemirror-markdown](https://github.com/ProseMirror/prosemirror-markdown) serializer and parser to convert the text into markdown format and vice
     versa. However, the supported functionality of prosemirror-markdown, as mentioned in their
@@ -102,8 +111,8 @@ Example usage of the `nimble-rich-text-editor` in the application layer is as fo
 
 _Props/Attrs_
 
--   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved through Tiptap's
-    [isEmpty](https://tiptap.dev/api/editor#is-empty) API. The component and the Angular directive will have a getter method
+-   `empty` - is a read-only property that indicates whether the editor is empty or not. This will be achieved by retrieving the current text
+    content from the editor and calculating its length. The component and the Angular directive will have a getter method
     that can be used to bind it in the Angular application.
 -   `fit-to-content` - is a boolean attribute allows the text area to expand vertically to fit the content.
 -   `placeholder` - is a string attribute to include a placeholder text for the editor when it is empty. This text is passed as plain text (not markdown)
@@ -149,6 +158,14 @@ However, in frameworks like Angular, using `markdown` as a data binding may lead
 problematic when attempting to clear the editor's content by setting the markdown value to an empty string, as it won't trigger the desired behavior if the markdown value is already
 empty and hasn't undergone processing. To overcome this issue, utilizing `methods` could offer a potential solution, allowing the content to be set regardless of whether it has
 changed from its previous value.
+
+_empty_
+
+We considered utilizing Tiptap's [isEmpty](https://tiptap.dev/api/editor#is-empty) API to determine whether the editor is empty. However, this API
+does not return true if the editor only consists of whitespace. In the context of the comments feature, this property is exposed to find out the
+editor's empty state, even when it contains only whitespace. This is necessary because the Backend service for comments does not permit the
+creation of comments comprised of just whitespace. Consequently, by using this property, we should disable the `OK` button when the editor is
+empty. To achieve this, we retrieve the current text content value, trim the string, and return true if its length is zero.
 
 _Events_
 
@@ -277,6 +294,12 @@ An Angular directive will be created for both components. Input and accessor API
 emitters will be created for the events, similar to how it's done in other directives. The components will not have form
 association, so a `ControlValueAccessor` will not be created.
 
+_Future enhancements:_
+
+1. Support for intelligent behavior of links which includes configurations for opening in the same tab, new tab, indications for external links, etc. based on [Accessibility Guidelines](#accessibility)
+2. An Angular router integration will be implemented for the same domain internal `links` in the viewer. This integration will help avoid loading a whole page when the linked page is also part of the same application.
+   Instead of a full page reload, the Angular router integration is expected to enable the rendering of components only on the activated route relative to the existing route, making the user experience smoother while keeping the background work on the lower side.
+
 ### Blazor integration
 
 A Blazor wrapper is initially out of scope for these components.
@@ -320,9 +343,58 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Italics - `*Italics*`
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
+-   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
+
+_Configurations on Tiptap to support only absolute links_:
+
+Install the [link extension](https://tiptap.dev/api/marks/link) mark from Tiptap and initialize the `Links` with the following configurations:
+
+1.  Set regular expression in [validate](https://tiptap.dev/api/marks/link#validate) field to support only `HTTP` and `HTTPS` absolute links in the editor.
+2.  Set [openOnClick](https://tiptap.dev/api/marks/link#open-on-click) to `false` for the editor, to restrict the user from opening a link from the editor by clicking. Users can open the link only by
+    `Right-click >> Open link in new tab` from the editor.
+3.  Set [autoLink](https://tiptap.dev/api/marks/link#autolink) to `true`, to add the valid link automatically when typing.
+4.  Set [linkOnPaste](https://tiptap.dev/api/marks/link#link-on-paste) to `false` which will attach the URL to current selected text in the editor, converting it into a hyperlink. If it is `true`,
+    pasting a link to the selection will add the link behind the word which is not supported for the initial pass.
 
 The `nimble-rich-text-viewer` will be responsible for converting the input markdown string to HTML Fragments with the help of
 `prosemirror-markdown` parser, which is then converted to HTML string and rendered into the component to view all rich text content.
+
+_Implementation details for supporting absolute link:_
+
+For the `nimble-rich-text-viewer` component, we will set up the `link` mark in the Prosemirror schema as below, allowing links in the component to open with default behavior (same tab).
+
+Only links with schema HTTP and HTTPS will be treated as links within `nimble-rich-text-editor` and `nimble-rich-text-viewer` and rest of the links with any other schemas will be rendered as plain text. Note that APIs `setMarkdown()` of editor and `markdown` of viewer will have necessary validation mechanisms to ensure this schema restriction.
+
+Here is the default [link configuration](https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/schema.ts#L138C5-L148C6)
+from the `prosemirror-markdown` package for comparison with the newly updated configuration.
+
+```js
+link: {
+    attrs: {
+        href: {},
+        rel: { default: 'noopener noreferrer' }
+    },
+    inclusive: false,
+    toDOM(node) {
+        return [
+            anchorTag, // nimble-anchor here
+            {
+                href: node.attrs.href as Attr,
+                rel: node.attrs.rel as Attr
+            }
+        ];
+    }
+}
+```
+
+1.  We will set the `rel` attribute value to `noopener noreferrer` to enhance security and ensure responsible linking practices.
+2.  In the `toDOM` function, we have incorporated the `anchorTag` to render all links within the viewer component as `nimble-anchor` elements.
+
+_Future Enhancements:_
+
+We have observed that issues such as [#1412](https://github.com/ni/nimble/issues/1412) and [#1331](https://github.com/ni/nimble/issues/1331) were created for the guidelines on
+opening anchor elements in a new tab. Once the visual design is finalized and integrated the implementation into the `nimble-anchor`, we will update the above `link` mark schema,
+in case we are required to update any attributes for the `nimble-anchor` component.
 
 ### Prototype
 
@@ -330,10 +402,10 @@ The `nimble-rich-text-viewer` will be responsible for converting the input markd
 
 The prototype includes the below functionalities,
 
-1. Basic formatting support.
-2. Image support. - The prototype includes [`Tiptap Extension`](https://tiptap.dev/api/nodes/image) to support images.
-3. `@mention` support. - The prototype includes a default user list that gets triggered using `@` character.
-4. Markdown support. - The prototype includes support to render/retrieve content in markdown format.
+1. Basic formatting support
+2. Image support - The prototype includes [`Tiptap Extension`](https://tiptap.dev/api/nodes/image) to support images.
+3. `@mention` support - The prototype includes a default user list that gets triggered using `@` character.
+4. Markdown support - The prototype includes support to render/retrieve content in markdown format.
 5. `Shadow root` support - The prototype uses [Microsoft Fast](https://github.com/microsoft/fast) to create the rich text editor as a
    custom component that renders in the shadow root.
 6. `Top layer` support - Hyperlink using `nimble-dialog` which renders the popup in the top layer.
@@ -359,6 +431,11 @@ text in the editor.
 [Toolbar Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/)
 
 [Button Accessibility](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
+
+Accessibility for links in the component:
+
+-   Accessibility guidelines to open link only in a new tab when required: <https://www.w3.org/TR/WCAG20-TECHS/G200.html>
+-   Accessibility guidelines on opening a link in a new tab: <https://www.w3.org/TR/WCAG20-TECHS/G201.html>
 
 _Focus_
 
@@ -396,10 +473,9 @@ _Note_: All other keyboard interaction determined by the slotted element will no
 
 ### Globalization
 
-Currently, there is no need to localize any string data for this component. However, in the footer menu, a few icon buttons will have tooltip strings, which
-will be implemented using the `title` attribute. To enable localization for these accessible strings, we will configure the titles in the buttons according to
-the specifications outlined in [spec (#1272)](https://github.com/ni/nimble/pull/1272), once the issue (
-[#1090](https://github.com/ni/nimble/issues/1090)) regarding the same is closed.
+Localization: The `nimble-rich-text-editor` will use the `bold`, `italics`, `numberedList`, and `bulletedList` labels from `nimble-label-provider-rich-text` for the icons displayed in
+the formatting toolbar located in the footer section. The text in this toolbar will be visually hidden, but it will be present for accessibility.
+Therefore, a new label provider will be created for rich text component.
 
 ### Security
 
@@ -422,10 +498,19 @@ This component is dependent on the [`tiptap`](https://tiptap.dev/) third party l
 library. For the currently supported features, we will include the following libraries that will be added to the package.json
 
 -   [@tiptap/core](https://www.npmjs.com/package/@tiptap/core)
--   [@tiptap/starter-kit](https://www.npmjs.com/package/@tiptap/starter-kit)
+-   [@tiptap/extension-bold](https://www.npmjs.com/package/@tiptap/extension-bold)
+-   [@tiptap/extension-bullet-list](https://www.npmjs.com/package/@tiptap/extension-bullet-list)
+-   [@tiptap/extension-document](https://www.npmjs.com/package/@tiptap/extension-document)
+-   [@tiptap/extension-history](https://www.npmjs.com/package/@tiptap/extension-history)
+-   [@tiptap/extension-italic](https://www.npmjs.com/package/@tiptap/extension-italic)
+-   [@tiptap/extension-list-item](https://www.npmjs.com/package/@tiptap/extension-list-item)
+-   [@tiptap/extension-ordered-list](https://www.npmjs.com/package/@tiptap/extension-ordered-list)
+-   [@tiptap/extension-paragraph](https://www.npmjs.com/package/@tiptap/extension-paragraph)
+-   [@tiptap/extension-text](https://www.npmjs.com/package/@tiptap/extension-text)
 -   [@tiptap/extension-placeholder](https://www.npmjs.com/package/@tiptap/extension-placeholder)
 -   [prosemirror-markdown](https://www.npmjs.com/package/prosemirror-markdown)
 -   [prosemirror-model](https://www.npmjs.com/package/prosemirror-model)
+-   [@tiptap/extension-link](https://www.npmjs.com/package/@tiptap/extension-link)
 
 These packages will add up to a total space of approximately 900 KB in the components bundle. For more info see
 [this discussion on Teams](https://teams.microsoft.com/l/message/19:b6a61b8a7ffd451696e0cbbb8976c03b@thread.skype/1686833093592?tenantId=87ba1f9a-44cd-43a6-b008-6fdb45a5204e&groupId=41626d4a-3f1f-49e2-abdc-f590be4a329d&parentMessageId=1686833093592&teamName=ASW%20SystemLink&channelName=LIMS&createdTime=1686833093592).

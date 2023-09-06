@@ -1,8 +1,136 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 17 Aug 2023 00:10:58 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 05:43:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.2
+
+Wed, 06 Sep 2023 05:43:09 GMT
+
+### Patches
+
+- Add label provider for rich-text-editor ([ni/nimble@75dcf39](https://github.com/ni/nimble/commit/75dcf394df02a54bf85c6d41cdaab40963d9ef3f))
+
+## 20.2.1
+
+Fri, 01 Sep 2023 20:47:01 GMT
+
+### Patches
+
+- Update table page object to return spinner from icon column ([ni/nimble@a229bd6](https://github.com/ni/nimble/commit/a229bd60ac4258bf9f9cf67d2a2560fc4d2912fa))
+
+## 20.2.0
+
+Fri, 01 Sep 2023 19:43:28 GMT
+
+### Minor changes
+
+- Add locale support to theme provider and use in date-text column ([ni/nimble@5e462b1](https://github.com/ni/nimble/commit/5e462b1baf6d1867f4e273a753856568f514ba0f))
+
+## 20.1.22
+
+Fri, 01 Sep 2023 07:27:14 GMT
+
+### Patches
+
+- Changed quadrant to originLocation and default to bottomLeft ([ni/nimble@11a47cc](https://github.com/ni/nimble/commit/11a47cc637634d5b79e56088a7431bc4fbd2fcd2))
+
+## 20.1.21
+
+Fri, 01 Sep 2023 06:00:57 GMT
+
+### Patches
+
+- Fix bug with rich text editor nested list button state ([ni/nimble@903a5d2](https://github.com/ni/nimble/commit/903a5d25104c6e5bfa0439fb7f41c191f0048abb))
+
+## 20.1.20
+
+Thu, 31 Aug 2023 19:17:18 GMT
+
+### Patches
+
+- Fix for Firefox caret disappearing issue ([ni/nimble@fcc12d5](https://github.com/ni/nimble/commit/fcc12d554b6342d1751f6bc54d598189d5465fc3))
+
+## 20.1.19
+
+Thu, 31 Aug 2023 17:09:05 GMT
+
+### Patches
+
+- Implementation of additional APIs for rich text editor ([ni/nimble@ce10bda](https://github.com/ni/nimble/commit/ce10bda19b1b9cc4e935f22cfa2b0d7ca02ed20b))
+
+## 20.1.18
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Fix typo in file name ([ni/nimble@6343b16](https://github.com/ni/nimble/commit/6343b16415af699b84e911aa25506e58a03dbde9))
+
+## 20.1.17
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Make DateText columnConfig `undefined` when the column is invalid ([ni/nimble@6837caa](https://github.com/ni/nimble/commit/6837caaf36898d3537da8b2f352d7c1bdc31dce1))
+
+## 20.1.16
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Add 'decimal' format to number-text column ([ni/nimble@40b952e](https://github.com/ni/nimble/commit/40b952e1910a61a4532821033bfbd2de0e8309d4))
+
+## 20.1.15
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Implement `alignment` attribute on number-text column ([ni/nimble@2292048](https://github.com/ni/nimble/commit/2292048647dfcd1f61fbf897ec083eacb3e269db))
+
+## 20.1.14
+
+Tue, 22 Aug 2023 12:48:52 GMT
+
+### Patches
+
+- Add setMarkdown and getMarkdown methods in rich-text-editor ([ni/nimble@42928b3](https://github.com/ni/nimble/commit/42928b304ad9b9362501f6bc923f21b4e1e81ddc))
+
+## 20.1.13
+
+Mon, 21 Aug 2023 23:23:23 GMT
+
+### Patches
+
+- Icon table column ([ni/nimble@4f0f474](https://github.com/ni/nimble/commit/4f0f4745ba013ddfbb0dbf8820df2bb6f4fb4db5))
+
+## 20.1.12
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Export date-text column from all-components ([ni/nimble@0ab6b4f](https://github.com/ni/nimble/commit/0ab6b4f5df8d01f6734c824d65e62e3c88546000))
+
+## 20.1.11
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Initial component bring up by integrating tiptap editor along with the footer formatting options ([ni/nimble@733c77c](https://github.com/ni/nimble/commit/733c77c1a63c30bd698fb6b03b4f559ef621c7d9))
+
+## 20.1.10
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Initial implementation of nimble-table-column-number-text ([ni/nimble@270d7fe](https://github.com/ni/nimble/commit/270d7fe2085569c0dad6deee75160c774f6c3ecc))
 
 ## 20.1.9
 

@@ -1,9 +1,9 @@
-import type { WaferMapOrientation, WaferMapQuadrant } from '../types';
+import type { WaferMapOrientation, WaferMapOriginLocation } from '../types';
 
 describe('Wafermap Types', () => {
-    it('WaferMapQuadrant fails compile if assigning arbitrary string values', () => {
+    it('WaferMapOriginLocation fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
-        const value: WaferMapQuadrant = 'hello';
+        const value: WaferMapOriginLocation = 'hello';
         expect(value).toEqual('hello');
     });
 

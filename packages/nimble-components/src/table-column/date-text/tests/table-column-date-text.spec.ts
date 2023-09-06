@@ -7,6 +7,7 @@ import type { TableRecord } from '../../../table/types';
 import { TablePageObject } from '../../../table/testing/table.pageobject';
 import { TableColumnDateTextPageObject } from '../testing/table-column-date-text.pageobject';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
+import { lang, themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
     field?: number | null;
@@ -23,6 +24,8 @@ describe('TableColumnDateText', () => {
 
     // prettier-ignore
     async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
+        const themeProvider = document.createElement(themeProviderTag);
+        themeProvider.lang = 'en-US';
         return fixture<Table<SimpleTableRecord>>(
             html`<nimble-table style="width: 700px">
                     <${tableColumnDateTextTag} field-name="field" group-index="0">
@@ -31,7 +34,10 @@ describe('TableColumnDateText', () => {
                     <${tableColumnDateTextTag} field-name="anotherField">
                         Squeeze Column 1
                     </${tableColumnDateTextTag}>
-                </nimble-table>`
+                </nimble-table>`,
+            {
+                parent: themeProvider
+            }
         );
     }
 
@@ -47,6 +53,18 @@ describe('TableColumnDateText', () => {
 
         afterEach(async () => {
             await disconnect();
+        });
+
+        it('should export its tag', () => {
+            expect(tableColumnDateTextTag).toBe(
+                'nimble-table-column-date-text'
+            );
+        });
+
+        it('can construct an element instance', () => {
+            expect(
+                document.createElement('nimble-table-column-date-text')
+            ).toBeInstanceOf(TableColumnDateText);
         });
 
         it('reports column configuration valid', () => {
@@ -232,6 +250,21 @@ describe('TableColumnDateText', () => {
             column.format = 'custom';
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe('12/10/2012');
+        });
+
+        it('updates displayed date when lang token changes', async () => {
+            await element.setData([
+                { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
+            ]);
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                'Dec 10, 2012, 10:35:05 PM'
+            );
+            lang.setValueFor(element, 'fr');
+            await waitForUpdatesAsync();
+            expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                '10 déc. 2012, 22:35:05'
+            );
         });
 
         it('honors customDateStyle property', async () => {
@@ -453,7 +486,7 @@ describe('TableColumnDateText', () => {
             expect(column.validity.invalidCustomOptionsCombination).toBeFalse();
         });
 
-        it('sets invalid flag on column when custom options are incompatible', async () => {
+        it('sets invalidCustomOptionsCombination flag on column when custom options are incompatible', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
@@ -465,7 +498,7 @@ describe('TableColumnDateText', () => {
             expect(column.validity.invalidCustomOptionsCombination).toBeTrue();
         });
 
-        it('clears invalid flag on column after fixing custom option incompatibility', async () => {
+        it('clears invalidCustomOptionsCombination flag on column after fixing custom option incompatibility', async () => {
             await element.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);

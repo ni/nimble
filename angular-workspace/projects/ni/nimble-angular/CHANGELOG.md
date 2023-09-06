@@ -1,8 +1,200 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 17 Aug 2023 00:10:58 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 05:43:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.2.1
+
+Wed, 06 Sep 2023 05:43:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.2
+
+## 17.2.0
+
+Tue, 05 Sep 2023 23:18:39 GMT
+
+### Minor changes
+
+- Fully export spinnerTag from nimble-angular ([ni/nimble@0ffafcf](https://github.com/ni/nimble/commit/0ffafcfe4acc742de0fff89e5db67f5825604e76))
+
+## 17.1.23
+
+Fri, 01 Sep 2023 20:47:01 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.1
+
+## 17.1.22
+
+Fri, 01 Sep 2023 19:43:28 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.0
+
+## 17.1.21
+
+Fri, 01 Sep 2023 07:27:14 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.22
+
+## 17.1.20
+
+Fri, 01 Sep 2023 06:00:57 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.21
+
+## 17.1.19
+
+Thu, 31 Aug 2023 23:28:43 GMT
+
+### Patches
+
+- Angular support for number-text table column ([ni/nimble@38a495f](https://github.com/ni/nimble/commit/38a495ff56b8fb86e292c6c2e8ea1ee04a7a4155))
+
+## 17.1.18
+
+Thu, 31 Aug 2023 22:45:50 GMT
+
+### Patches
+
+- Fix issue with large amount of options in Combobox in Angular causing endless recursion. ([ni/nimble@3020020](https://github.com/ni/nimble/commit/30200207363c7cb772c26bd0e74f10d9f6533037))
+
+## 17.1.17
+
+Thu, 31 Aug 2023 19:17:18 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.20
+
+## 17.1.16
+
+Thu, 31 Aug 2023 18:31:42 GMT
+
+### Patches
+
+- Angular integration for rich text editor component ([ni/nimble@8cc3101](https://github.com/ni/nimble/commit/8cc3101283de8f101c2c8dcb8874dabd6d5abdad))
+
+## 17.1.15
+
+Thu, 31 Aug 2023 17:09:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.19
+
+## 17.1.14
+
+Wed, 30 Aug 2023 18:22:20 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.18
+
+## 17.1.13
+
+Tue, 29 Aug 2023 16:32:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.17
+
+## 17.1.12
+
+Mon, 28 Aug 2023 21:12:37 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.16
+
+## 17.1.11
+
+Mon, 28 Aug 2023 20:03:32 GMT
+
+### Patches
+
+- Export MappingKeyType fully instead of just as type ([ni/nimble@f734040](https://github.com/ni/nimble/commit/f734040392806895f0b0ffcab2e88e5d11775148))
+
+## 17.1.10
+
+Thu, 24 Aug 2023 21:19:51 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.15
+
+## 17.1.9
+
+Thu, 24 Aug 2023 20:06:06 GMT
+
+### Patches
+
+- Angular support for icon table column ([ni/nimble@d3f5a24](https://github.com/ni/nimble/commit/d3f5a24b3f00a86f0c0abc0b271ea4b9bcee25b4))
+
+## 17.1.8
+
+Tue, 22 Aug 2023 12:48:52 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.14
+
+## 17.1.7
+
+Mon, 21 Aug 2023 23:23:23 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.13
+
+## 17.1.6
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.12
+
+## 17.1.5
+
+Mon, 21 Aug 2023 21:38:56 GMT
+
+### Patches
+
+- Fully import date-text column types before exporting them ([ni/nimble@2a73240](https://github.com/ni/nimble/commit/2a73240f77e6c45cb0de13c5db4482bdc881d3ba))
+
+## 17.1.4
+
+Fri, 18 Aug 2023 11:34:36 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.11
+
+## 17.1.3
+
+Thu, 17 Aug 2023 22:37:05 GMT
+
+### Patches
+
+- Export date-text column enums fully ([ni/nimble@cf03fa3](https://github.com/ni/nimble/commit/cf03fa396190d1f6f28be670ed532018d5641d39))
+
+## 17.1.2
+
+Thu, 17 Aug 2023 21:57:29 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.1.10
 
 ## 17.1.1
 
