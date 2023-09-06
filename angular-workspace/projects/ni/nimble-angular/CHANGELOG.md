@@ -1,8 +1,17 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 06 Sep 2023 19:06:56 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 20:42:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.2.5
+
+Wed, 06 Sep 2023 20:42:14 GMT
+
+### Patches
+
+- Revamp folder structure for rich text components ([ni/nimble@97cc70d](https://github.com/ni/nimble/commit/97cc70d749dbca3251e3efc18920ada8b4cbdfee))
+- Bump @ni/nimble-components to v20.2.5
 
 ## 17.2.4
 

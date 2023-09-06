@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 06 Sep 2023 20:42:14 GMT",
+      "tag": "@ni/nimble-components_v20.2.5",
+      "version": "20.2.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "97cc70d749dbca3251e3efc18920ada8b4cbdfee",
+            "comment": "Revamp folder structure for rich text components"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Sep 2023 19:47:09 GMT",
       "tag": "@ni/nimble-components_v20.2.4",
       "version": "20.2.4",

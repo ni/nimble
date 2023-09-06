@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 06 Sep 2023 16:21:23 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 20:42:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.5
+
+Wed, 06 Sep 2023 20:42:14 GMT
+
+### Patches
+
+- Revamp folder structure for rich text components ([ni/nimble@97cc70d](https://github.com/ni/nimble/commit/97cc70d749dbca3251e3efc18920ada8b4cbdfee))
 
 ## 20.2.4
 
