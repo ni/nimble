@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 06 Sep 2023 14:58:43 GMT",
+      "tag": "@ni/nimble-components_v20.2.3",
+      "version": "20.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "ff093f4490485f0ffe0eca8733f6a16957ecda86",
+            "comment": "Revert firefox workaround for caret disappear"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Sep 2023 05:43:09 GMT",
       "tag": "@ni/nimble-components_v20.2.2",
       "version": "20.2.2",
