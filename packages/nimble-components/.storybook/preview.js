@@ -26,6 +26,8 @@ export const parameters = {
                 'Tokens',
                 ['Docs'],
                 'Tests',
+                ['Docs'],
+                'Internal',
                 ['Docs']
             ]
         }
