@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Upgrade Storybook dev dependencies",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
