@@ -5,6 +5,7 @@ import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { createEventListener } from '../../utilities/tests/component';
 import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
+import { SelectPageObject } from '../testing/select.pageobject';
 
 async function setup(
     position?: string,
@@ -115,9 +116,9 @@ describe('Select', () => {
 
     it('should keep selected value when options change', async () => {
         const { element, connect, disconnect } = await setup();
+        const pageObject = new SelectPageObject(element);
         await connect();
-        element.value = 'two';
-        await waitForUpdatesAsync();
+        await pageObject.setValue('two');
         expect(element.value).toBe('two');
 
         // Add option zero at the top of the options list
