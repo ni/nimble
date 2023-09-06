@@ -14,6 +14,10 @@
 
 ## Design
 
+*Include code snippets showing basic component use and any interesting configurations.*
+
+*For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.*
+
 ### API
 
 *Include a permalink to FAST's API documentation (from the FAST component spec on GitHub, press `y` to update the URL bar to show the latest commit)*

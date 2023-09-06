@@ -5,7 +5,6 @@
     appearance="@Appearance.ToAttributeValue()"
     current-value="@BindConverter.FormatValue(CurrentValue)"
     @onchange="@(EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString))"
-    size="@Size"
     minlength="@MinLength"
     maxlength="@MaxLength"
     resize="@TextAreaResize.ToAttributeValue()"
@@ -14,6 +13,8 @@
     spellcheck="@Spellcheck"
     readonly="@ReadOnly"
     disabled="@Disabled"
+    error-visible="@ErrorVisible"
+    error-text="@ErrorText"
     required="@Required"
     placeholder="@Placeholder"
     @attributes="AdditionalAttributes">

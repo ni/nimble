@@ -1,6 +1,8 @@
 # Folders
 NimbleBlazor/wwwroot/nimble-*/
+NimbleBlazor/wwwroot/NimbleBlazor.HybridWorkaround.js
 NimbleBlazor/Components/Icons/
+build/generate-playwright-version-properties/dist/
 artifacts/
 bin/
 obj/

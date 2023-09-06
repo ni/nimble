@@ -1,12 +1,9 @@
-import {
-    DesignSystem,
-    TooltipPosition,
-    Tooltip as FoundationTooltip
-} from '@microsoft/fast-foundation';
-import { DOM, html } from '@microsoft/fast-element';
+import { TooltipPosition } from '@microsoft/fast-foundation';
+import { html } from '@microsoft/fast-element';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { Tooltip } from '..';
-import { AnchoredRegion } from '../../anchored-region';
+import { Tooltip, tooltipTag } from '..';
+import { anchoredRegionTag } from '../../anchored-region';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<Tooltip>> {
     return fixture<Tooltip>(html`<nimble-tooltip></nimble-tooltip>`);
@@ -21,9 +18,29 @@ describe('Tooltip', () => {
     function isIconVisible(elementName: string): boolean {
         const iconElement = element.shadowRoot?.querySelector(elementName);
         if (!iconElement) {
-            return false;
+            throw new Error(`Cannot find icon with name ${elementName}`);
         }
-        return window.getComputedStyle(iconElement).display !== 'none';
+        const display = window.getComputedStyle(iconElement).display;
+        if (typeof display !== 'string' || display === '') {
+            throw new Error(
+                `Invalid display value was calcualted for ${elementName}`
+            );
+        }
+        return display !== 'none';
+    }
+
+    async function waitUntilAnchoredRegionLoaded(
+        tooltip: Tooltip
+    ): Promise<void> {
+        await waitForUpdatesAsync();
+        const region = tooltip.shadowRoot!.querySelector(
+            'nimble-anchored-region'
+        )!;
+        return new Promise((resolve, _reject) => {
+            region.addEventListener('loaded', () => {
+                resolve();
+            });
+        });
     }
 
     beforeEach(async () => {
@@ -49,14 +66,10 @@ describe('Tooltip', () => {
         element.delay = 0;
 
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.visible).toBeUndefined();
-        expect(
-            element.shadowRoot?.querySelector(
-                DesignSystem.tagFor(AnchoredRegion)
-            )
-        ).toBeNull();
+        expect(element.shadowRoot?.querySelector(anchoredRegionTag)).toBeNull();
 
         await disconnect();
     });
@@ -66,13 +79,11 @@ describe('Tooltip', () => {
         element.delay = 0;
 
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.visible).toBe(true);
         expect(
-            element.shadowRoot?.querySelector(
-                DesignSystem.tagFor(AnchoredRegion)
-            )
+            element.shadowRoot?.querySelector(anchoredRegionTag)
         ).not.toBeNull();
 
         await disconnect();
@@ -83,14 +94,10 @@ describe('Tooltip', () => {
         element.delay = 0;
 
         await connect();
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.visible).toBe(false);
-        expect(
-            element.shadowRoot?.querySelector(
-                DesignSystem.tagFor(AnchoredRegion)
-            )
-        ).toBeNull();
+        expect(element.shadowRoot?.querySelector(anchoredRegionTag)).toBeNull();
 
         await disconnect();
     });
@@ -134,7 +141,7 @@ describe('Tooltip', () => {
         element.visible = true;
 
         await connect();
-        await DOM.nextUpdate();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -147,7 +154,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await DOM.nextUpdate();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -160,7 +167,7 @@ describe('Tooltip', () => {
         element.severity = 'error';
 
         await connect();
-        await DOM.nextUpdate();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -174,7 +181,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await DOM.nextUpdate();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeTrue();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -187,7 +194,7 @@ describe('Tooltip', () => {
         element.severity = 'information';
 
         await connect();
-        await DOM.nextUpdate();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeFalse();
@@ -201,7 +208,7 @@ describe('Tooltip', () => {
         element.iconVisible = true;
 
         await connect();
-        await DOM.nextUpdate();
+        await waitUntilAnchoredRegionLoaded(element);
 
         expect(isIconVisible('nimble-icon-exclamation-mark')).toBeFalse();
         expect(isIconVisible('nimble-icon-info')).toBeTrue();
@@ -370,8 +377,8 @@ describe('Tooltip', () => {
 
     // end of position tests ^
 
-    it('should have its tag returned by tagFor(FoundationTooltip)', () => {
-        expect(DesignSystem.tagFor(FoundationTooltip)).toBe('nimble-tooltip');
+    it('should export its tag', () => {
+        expect(tooltipTag).toBe('nimble-tooltip');
     });
 
     it('can construct an element instance', () => {

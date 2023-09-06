@@ -1,5 +1,6 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { AnchorButton } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
 
@@ -30,22 +31,22 @@ describe('AnchorButton', () => {
 
     it('should set the "control" class on the internal control', async () => {
         await connect();
-        expect(element.control.classList.contains('control')).toBe(true);
+        expect(element.control!.classList.contains('control')).toBe(true);
     });
 
     it('should set the `part` attribute to "control" on the internal control', async () => {
         await connect();
-        expect(element.control.part.contains('control')).toBe(true);
+        expect(element.control!.part.contains('control')).toBe(true);
     });
 
     it('should clear `href` on the internal control when disabled', async () => {
         await connect();
-        element.control.setAttribute('href', 'http://www.ni.com');
+        element.control!.setAttribute('href', 'http://www.ni.com');
 
         element.disabled = true;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
-        expect(element.control.getAttribute('href')).toBeNull();
+        expect(element.control!.getAttribute('href')).toBeNull();
     });
 
     const attributeNames: { name: string }[] = [
@@ -91,9 +92,9 @@ describe('AnchorButton', () => {
                 await connect();
 
                 element.setAttribute(attribute.name, 'foo');
-                await DOM.nextUpdate();
+                await waitForUpdatesAsync();
 
-                expect(element.control.getAttribute(attribute.name)).toBe(
+                expect(element.control!.getAttribute(attribute.name)).toBe(
                     'foo'
                 );
             });

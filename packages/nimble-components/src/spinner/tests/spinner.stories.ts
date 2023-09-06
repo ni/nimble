@@ -1,36 +1,113 @@
 import { html } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import { isChromatic } from '../../utilities/tests/isChromatic';
+
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
+import {
+    spinnerLargeHeight,
+    spinnerMediumHeight
+} from '../../theme-provider/design-tokens';
+import {
+    scssPropertyFromTokenName,
+    scssPropertySetterMarkdown,
+    tokenNames
+} from '../../theme-provider/design-token-names';
+import { spinnerTag } from '..';
+import { SpinnerAppearance } from '../types';
 
-const overviewText = 'The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent loading progress, or an ongoing operation, of an indeterminate / unknown duration.'
-    + '<p>The default spinner size is 16x16. Other sizes can be set via width/height CSS styles on the component, and it will scale appropriately.</p>'
-    + '<p>Other sizes suggested by the Nimble designers: 32x32, 48x48, 64x64, 96x96, 128x128.</p>';
+const spinnerSize = {
+    small: null,
+    medium: `height: var(${spinnerMediumHeight.cssCustomProperty});`,
+    large: `height: var(${spinnerLargeHeight.cssCustomProperty});`
+} as const;
 
-const metadata: Meta = {
-    title: 'Spinner',
-    decorators: [withXD],
+interface SpinnerArgs {
+    size: keyof typeof spinnerSize;
+    appearance: keyof typeof SpinnerAppearance;
+}
+
+const overviewText = '<p>The `nimble-spinner` is an animating indicator that can be placed in a particular region of a page to represent '
+    + 'loading progress, or an ongoing operation, of an indeterminate / unknown duration.</p>'
+    + '<p>It has 3 sizes (64px, 32px, and 16px) and 2 appearance types (default and accent).</p>';
+const metadata: Meta<SpinnerArgs> = {
+    title: 'Components/Spinner',
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/specs/'
         }
     },
-    argTypes: {},
+    argTypes: {
+        size: {
+            description:
+                '<p>Size of the spinner component.</p><details><summary>Usage details</summary>To customize its size, set its CSS '
+                + '<span style="font-family: monospace;">height</span> to a design token, and its width will automatically match its height. Each size will also require minimum pixel margins.<br/><ul>'
+                + `<li>For Small (16x16): ${scssPropertySetterMarkdown(
+                    tokenNames.spinnerSmallHeight,
+                    'height'
+                )}
+                Requires 4px minimum margins.
+                </li>`
+                + `<li>For Medium (32x32): ${scssPropertySetterMarkdown(
+                    tokenNames.spinnerMediumHeight,
+                    'height'
+                )}
+                Requires 32px minimum margins.
+                </li>`
+                + `<li>For Large (64x64): ${scssPropertySetterMarkdown(
+                    tokenNames.spinnerLargeHeight,
+                    'height'
+                )}
+                Requires 64px minimum margins.
+                </li></ul></details>`,
+            options: Object.keys(spinnerSize),
+            table: { defaultValue: { summary: 'Small (16x16)' } },
+            control: {
+                type: 'radio',
+                labels: {
+                    small: `Small - 16x16 (default) - ${scssPropertyFromTokenName(
+                        tokenNames.spinnerSmallHeight
+                    )}`,
+                    medium: `Medium - 32x32 - ${scssPropertyFromTokenName(
+                        tokenNames.spinnerMediumHeight
+                    )}`,
+                    large: `Large - 64x64 - ${scssPropertyFromTokenName(
+                        tokenNames.spinnerLargeHeight
+                    )}`
+                }
+            }
+        },
+        appearance: {
+            options: Object.keys(SpinnerAppearance),
+            control: { type: 'radio' },
+            description:
+                '<p>Appearance of the spinner component.</p><details><summary>Usage details</summary>'
+                + '<ul>'
+                + `<li>For appearance \`default\`:<br/>
+                        Use in product instances.  This version helps avoid any association to status and the idea that this indicator is representing any context outside of an indeterminate wait time.
+                    </li>`
+                + `<li>For appearance \`accent\`:<br/>
+                        Use for promoting NI branding and adding a splash of color in a monochromatic setting.  Common places to use is home screens, licensing, dialogs and any instances where there will not be a conflict with green representing status.<br/>
+                        The green version is not intended to represent “Good” or “Success”.  
+                    </li></ul></details>`
+        }
+    },
+    // Disable animation in Chromatic because it intermittently causes shapshot differences
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-spinner>
-        </nimble-spinner>
+        <${spinnerTag}
+            style="${x => spinnerSize[x.size]}; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+            appearance="${x => SpinnerAppearance[x.appearance]}"
+        >
+        </${spinnerTag}>
     `),
-    args: {}
+    args: {
+        size: 'small',
+        appearance: 'default'
+    }
 };
 
 export default metadata;
 
-export const spinner: StoryObj = {};
+export const spinner: StoryObj<SpinnerArgs> = {};

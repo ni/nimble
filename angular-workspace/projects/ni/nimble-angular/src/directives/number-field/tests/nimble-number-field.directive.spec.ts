@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '../../utilities/template-value-helpers';
+import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '@ni/nimble-angular/internal-utilities';
 import { NimbleNumberFieldDirective, NumberField, NumberFieldAppearance } from '../nimble-number-field.directive';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
 

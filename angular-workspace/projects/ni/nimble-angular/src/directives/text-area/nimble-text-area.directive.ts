@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { TextArea } from '@ni/nimble-components/dist/esm/text-area';
+import { type TextArea, textAreaTag } from '@ni/nimble-components/dist/esm/text-area';
 import { TextAreaAppearance, TextAreaResize } from '@ni/nimble-components/dist/esm/text-area/types';
-import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNumberProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { TextArea };
+export { textAreaTag };
 export { TextAreaAppearance, TextAreaResize };
 
 /**
@@ -54,6 +55,26 @@ export class NimbleTextAreaDirective {
 
     @Input() public set disabled(value: BooleanValueOrAttribute) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
+    }
+
+    public get errorVisible(): boolean {
+        return this.elementRef.nativeElement.errorVisible;
+    }
+
+    // errorVisible property maps to the error-visible attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('error-visible') public set errorVisible(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorVisible', toBooleanProperty(value));
+    }
+
+    public get errorText(): string | undefined {
+        return this.elementRef.nativeElement.errorText;
+    }
+
+    // errorText property maps to the error-text attribute
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('error-text') public set errorText(value: string | undefined) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'errorText', value);
     }
 
     public get required(): boolean {

@@ -1,14 +1,8 @@
-import {
-    DesignSystem,
-    TabPanel as FoundationTabPanel
-} from '@microsoft/fast-foundation';
-import { TabPanel } from '..';
+import { TabPanel, tabPanelTag } from '..';
 
 describe('TabPanel', () => {
-    it('should have its tag returned by tagFor(FoundationTabPanel)', () => {
-        expect(DesignSystem.tagFor(FoundationTabPanel)).toBe(
-            'nimble-tab-panel'
-        );
+    it('should export its tag', () => {
+        expect(tabPanelTag).toBe('nimble-tab-panel');
     });
 
     it('can construct an element instance', () => {

@@ -1,8 +1,7 @@
 import { html, ref, when } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
-import { AnchoredRegion } from '../anchored-region';
-import { IconExclamationMark } from '../icons/exclamation-mark';
-import { IconInfo } from '../icons/info';
+import { anchoredRegionTag } from '../anchored-region';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { iconInfoTag } from '../icons/info';
 import type { Tooltip } from '.';
 
 // prettier-ignore
@@ -10,7 +9,7 @@ export const template = html<Tooltip>`
             ${when(
         x => x.tooltipVisible,
         html<Tooltip>`
-            <${DesignSystem.tagFor(AnchoredRegion)}
+            <${anchoredRegionTag}
                 class="anchored-region"
                 fixed-placement="true"
                 auto-update-mode="${x => x.autoUpdateMode}"
@@ -28,17 +27,17 @@ export const template = html<Tooltip>`
                 ${ref('region')}
             >
                 <div class="tooltip" part="tooltip" role="tooltip">
-                    <${DesignSystem.tagFor(IconExclamationMark)}
+                    <${iconExclamationMarkTag}
                         severity="error"
                         class="status-icon"
-                    ></${DesignSystem.tagFor(IconExclamationMark)}>
-                    <${DesignSystem.tagFor(IconInfo)}
+                    ></${iconExclamationMarkTag}>
+                    <${iconInfoTag}
                         severity="information"
                         class="status-icon"
-                    ></${DesignSystem.tagFor(IconInfo)}>
+                    ></${iconInfoTag}>
                     <slot></slot>
                 </div>
-            </${DesignSystem.tagFor(AnchoredRegion)}>
+            </${anchoredRegionTag}>
         `
     )}
 `;

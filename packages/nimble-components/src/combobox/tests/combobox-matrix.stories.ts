@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -10,7 +9,6 @@ import {
     createMatrix,
     sharedMatrixParameters
 } from '../../utilities/tests/matrix';
-import '../../all-components';
 import {
     disabledStates,
     DisabledState,
@@ -24,22 +22,19 @@ import {
     controlLabelFontColor,
     standardPadding
 } from '../../theme-provider/design-tokens';
+import { comboboxTag } from '..';
+import { listOptionTag } from '../../list-option';
 
 const valueStates = [
     ['No Value', undefined, 'placeholder'],
     ['Value', 'Hello', 'placeholder']
 ] as const;
-type ValueState = typeof valueStates[number];
+type ValueState = (typeof valueStates)[number];
 
 const metadata: Meta = {
     title: 'Tests/Combobox',
-    decorators: [withXD],
     parameters: {
         ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e/specs'
-        },
         controls: { hideNoControlsWarning: true },
         a11y: { disabled: true }
     }
@@ -51,7 +46,7 @@ const appearanceStates = Object.entries(DropdownAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
 
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
@@ -73,7 +68,7 @@ const component = (
             ${() => errorName}
             ${() => valueName}
         </label>
-        <nimble-combobox 
+        <${comboboxTag} 
             ?disabled="${() => disabled}"
             appearance="${() => appearance}"
             ?error-visible="${() => errorVisible}"
@@ -81,15 +76,15 @@ const component = (
             value="${() => value}"
             placeholder="${() => placeholder}"
         >
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-            <nimble-list-option value="3">Option 3</nimble-list-option>
-            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-        </nimble-combobox>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+            <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        </${comboboxTag}>
     </div>
 `;
 
-export const comboboxThemeMatrix: Story = createMatrixThemeStory(
+export const comboboxThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [
         disabledStates,
         appearanceStates,
@@ -98,17 +93,17 @@ export const comboboxThemeMatrix: Story = createMatrixThemeStory(
     ])
 );
 
-export const hiddenCombobox: Story = createStory(
+export const hiddenCombobox: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-combobox hidden>
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-        </nimble-combobox>`
+        html`<${comboboxTag} hidden>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        </${comboboxTag}>`
     )
 );
 
-export const blankListOption: Story = createStory(
-    html`<nimble-combobox open>
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option></nimble-list-option>
-    </nimble-combobox>`
+export const blankListOption: StoryFn = createStory(
+    html`<${comboboxTag} open>
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag}></${listOptionTag}>
+    </${comboboxTag}>`
 );

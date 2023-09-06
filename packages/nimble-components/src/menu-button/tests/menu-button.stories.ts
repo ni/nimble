@@ -1,9 +1,16 @@
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '..';
+import {
+    createUserSelectedThemeStory,
+    disableStorybookZoomTransform
+} from '../../utilities/tests/storybook';
 import { ButtonAppearance, MenuButtonPosition } from '../types';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
+import { menuButtonTag } from '..';
+import { menuTag } from '../../menu';
+import { menuItemTag } from '../../menu-item';
 
 interface MenuButtonArgs {
     label: string;
@@ -25,20 +32,19 @@ This icon will be hidden when \`contentHidden\` is set to \`true\`
 .`;
 
 const metadata: Meta<MenuButtonArgs> = {
-    title: 'Menu Button',
-    decorators: [withXD],
+    title: 'Components/Menu Button',
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/d022d8af-22f4-4bf2-981c-1dc0c61afece/specs'
-        },
         actions: {
-            handles: ['open-change']
+            handles: ['toggle', 'beforetoggle']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     argTypes: {
@@ -60,33 +66,34 @@ const metadata: Meta<MenuButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-menu-button
+        ${disableStorybookZoomTransform}
+        <${menuButtonTag}
             ?open="${x => x.open}"
             ?disabled="${x => x.disabled}"
             ?content-hidden="${x => x.contentHidden}"
             appearance="${x => x.appearance}"
             position="${x => x.menuPosition}"
         >
-            ${when(x => x.icon, html`<nimble-icon-key slot="start"></nimble-icon-key>`)}
+            ${when(x => x.icon, html`<${iconKeyTag} slot="start"></${iconKeyTag}>`)}
             ${x => x.label}
-            ${when(x => x.endIcon, html`<nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>`)}
+            ${when(x => x.endIcon, html`<${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>`)}
 
-            <nimble-menu slot="menu">
-                <nimble-menu-item>Item 1</nimble-menu-item>
-                <nimble-menu-item>
+            <${menuTag} slot="menu">
+                <${menuItemTag}>Item 1</${menuItemTag}>
+                <${menuItemTag}>
                     Item 2
-                    <nimble-menu>
-                        <nimble-menu-item>
+                    <${menuTag}>
+                        <${menuItemTag}>
                             Item 2.1
-                        </nimble-menu-item>
-                        <nimble-menu-item>
+                        </${menuItemTag}>
+                        <${menuItemTag}>
                             Item 2.2
-                        </nimble-menu-item>
-                    </nimble-menu>
-                </nimble-menu-item>
-                <nimble-menu-item disabled>Item 3 (disabled)</nimble-menu-item>
-            </nimble-menu>
-        </nimble-menu-button>
+                        </${menuItemTag}>
+                    </${menuTag}>
+                </${menuItemTag}>
+                <${menuItemTag} disabled>Item 3 (disabled)</${menuItemTag}>
+            </${menuTag}>
+        </${menuButtonTag}>
     `),
     args: {
         label: 'Ghost Menu Button',

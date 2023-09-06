@@ -35,3 +35,16 @@ To clients, the object and values will behave like an enum:
 import { ButtonAppearance from '../types.ts' }
 let appearance: ButtonAppearance = ButtonAppearance.outline;
 ```
+
+## Default enum values
+
+If one of the enum values represents a default, it should be named `default` and be the first enumerated value.
+
+```ts
+export const BannerSeverity = {
+    default: undefined,
+    error: 'error',
+    warning: 'warning',
+    information: 'information'
+} as const;
+```

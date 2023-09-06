@@ -34,3 +34,4 @@ const nimbleAnchoredRegion = AnchoredRegion.compose({
 DesignSystem.getOrCreate()
     .withPrefix('nimble')
     .register(nimbleAnchoredRegion());
+export const anchoredRegionTag = DesignSystem.tagFor(AnchoredRegion);

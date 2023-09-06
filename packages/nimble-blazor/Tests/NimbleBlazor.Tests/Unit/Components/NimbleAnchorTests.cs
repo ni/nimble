@@ -8,7 +8,7 @@ namespace NimbleBlazor.Tests.Unit.Components;
 /// <summary>
 /// Tests for <see cref="NimbleAnchor"/>
 /// </summary>
-public class NimbleAnchorTests
+public class NimbleAnchorTests : NimbleAnchorBaseTests<NimbleAnchor>
 {
     [Fact]
     public void NimbleAnchor_Rendered_HasAnchorMarkup()
@@ -20,6 +20,15 @@ public class NimbleAnchorTests
         var anchor = context.RenderComponent<NimbleAnchor>();
 
         Assert.Contains(expectedMarkup, anchor.Markup);
+    }
+
+    [Fact]
+    public void NimbleAnchor_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleAnchor>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
     }
 
     [Theory]

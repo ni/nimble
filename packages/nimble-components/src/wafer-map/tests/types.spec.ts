@@ -1,9 +1,9 @@
-import type { WaferMapOrientation, WaferMapQuadrant } from '../types';
+import type { WaferMapOrientation, WaferMapOriginLocation } from '../types';
 
-describe('WaferMap type', () => {
-    it('WaferMapQuadrant fails compile if assigning arbitrary string values', () => {
+describe('Wafermap Types', () => {
+    it('WaferMapOriginLocation fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
-        const value: WaferMapQuadrant = 'hello';
+        const value: WaferMapOriginLocation = 'hello';
         expect(value).toEqual('hello');
     });
 
@@ -16,6 +16,12 @@ describe('WaferMap type', () => {
     it('WaferMapColorScaleMode fails compile if assigning arbitrary string values', () => {
         // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
         const value: WaferMapColorScaleMode = 'hello';
+        expect(value).toEqual('hello');
+    });
+
+    it('HoverDieOpacity fails compile if assigning arbitrary string values', () => {
+        // @ts-expect-error This expect will fail if the enum-like type is missing "as const"
+        const value: HoverDieOpacity = 'hello';
         expect(value).toEqual('hello');
     });
 });

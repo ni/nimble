@@ -24,3 +24,4 @@ const nimbleTabPanel = TabPanel.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabPanel());
+export const tabPanelTag = DesignSystem.tagFor(TabPanel);

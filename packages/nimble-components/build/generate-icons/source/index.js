@@ -39,9 +39,11 @@ for (const key of Object.keys(icons)) {
     const elementBaseName = `icon-${spinalCase(iconName)}`; // e.g. "icon-arrow-expander-left-icon"
     const elementName = `nimble-${elementBaseName}`;
     const className = `Icon${pascalCase(iconName)}`; // e.g. "IconArrowExpanderLeft"
+    const tagName = `icon${pascalCase(iconName)}Tag`; // e.g. "iconArrowExpanderLeftTag"
 
     const componentFileContents = `${generatedFilePrefix}
 import { ${svgName} } from '@ni/nimble-tokens/dist/icons/js';
+import { DesignSystem } from '@microsoft/fast-foundation';
 import { Icon, registerIcon } from '../icon-base';
 
 declare global {
@@ -60,6 +62,7 @@ export class ${className} extends Icon {
 }
 
 registerIcon('${elementBaseName}', ${className});
+export const ${tagName} = DesignSystem.tagFor(${className});
 `;
 
     const filePath = path.resolve(iconsDirectory, `${fileName}.ts`);

@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import {
     ButtonAppearance,
     ButtonAppearanceVariant
@@ -13,6 +11,9 @@ import {
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
+import { anchorButtonTag } from '..';
+import { iconLinkTag } from '../../icons/link';
+import { iconArrowExpanderRightTag } from '../../icons/arrow-expander-right';
 
 const hrefDescription = `
 In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g. \`ping\`, \`target\`, \`type\`, etc.
@@ -21,8 +22,8 @@ In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g
 interface AnchorButtonArgs {
     label: string;
     href: string;
-    appearance: string;
-    appearanceVariant: string;
+    appearance: keyof typeof ButtonAppearance;
+    appearanceVariant: keyof typeof ButtonAppearanceVariant;
     icon: boolean;
     endIcon: boolean;
     contentHidden: boolean;
@@ -30,8 +31,7 @@ interface AnchorButtonArgs {
 }
 
 const metadata: Meta<AnchorButtonArgs> = {
-    title: 'Anchor Button',
-    decorators: [withXD],
+    title: 'Components/Anchor Button',
     parameters: {
         docs: {
             description: {
@@ -39,41 +39,37 @@ const metadata: Meta<AnchorButtonArgs> = {
                     'An anchor button is a component with the visual appearance of a button, but it navigates like an anchor/link when pressed.'
             }
         },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
-        },
         actions: {}
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-anchor-button
+        <${anchorButtonTag}
             href=${x => (x.href !== '' ? x.href : null)}
-            appearance=${x => x.appearance}
-            appearance-variant=${x => x.appearanceVariant}
+            appearance=${x => ButtonAppearance[x.appearance]}
+            appearance-variant=${x => ButtonAppearanceVariant[x.appearanceVariant]}
             ?content-hidden=${x => x.contentHidden}
             ?disabled=${x => x.disabled}
         >
             ${when(x => x.icon, html`
-                <nimble-icon-link slot="start"></nimble-icon-link>
+                <${iconLinkTag} slot="start"></${iconLinkTag}>
             `)}
             ${when(x => x.endIcon, html`
-                <nimble-icon-arrow-expander-right slot="end"></nimble-icon-arrow-expander-right>
+                <${iconArrowExpanderRightTag} slot="end"></${iconArrowExpanderRightTag}>
             `)}
             ${x => x.label}
-        </nimble-anchor-button>
+        </${anchorButtonTag}>
     `),
     argTypes: {
         href: {
             description: hrefDescription
         },
         appearance: {
-            options: Object.values(ButtonAppearance),
+            options: Object.keys(ButtonAppearance),
             control: { type: 'radio' }
         },
         appearanceVariant: {
             name: 'appearance-variant',
-            options: Object.values(ButtonAppearanceVariant),
+            options: Object.keys(ButtonAppearanceVariant),
             control: { type: 'radio' },
             description: appearanceVariantDescription
         },
@@ -91,8 +87,8 @@ const metadata: Meta<AnchorButtonArgs> = {
     args: {
         label: 'Anchor Button',
         href: 'https://nimble.ni.dev',
-        appearance: ButtonAppearance.outline,
-        appearanceVariant: undefined,
+        appearance: 'outline',
+        appearanceVariant: 'default',
         icon: false,
         endIcon: false,
         contentHidden: false,

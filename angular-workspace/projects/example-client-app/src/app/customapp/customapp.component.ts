@@ -1,6 +1,10 @@
 /* eslint-disable no-alert */
-import { Component, ViewChild } from '@angular/core';
-import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, TableRecord, UserDismissed } from '@ni/nimble-angular';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
+import type { TableRecord } from '@ni/nimble-angular/table';
+import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text-editor';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 interface ComboboxItem {
     first: string;
@@ -8,10 +12,15 @@ interface ComboboxItem {
 }
 
 interface SimpleTableRecord extends TableRecord {
-    stringValue: string;
-    numberValue: number;
-    dateValue: Date;
-    booleanValue: boolean;
+    id: string;
+    stringValue1: string;
+    stringValue2: string;
+    href?: string;
+    linkLabel?: string;
+    date: number;
+    statusCode: number;
+    result: string;
+    number: number;
 }
 
 @Component({
@@ -20,6 +29,7 @@ interface SimpleTableRecord extends TableRecord {
     styleUrls: ['./customapp.component.scss']
 })
 export class CustomAppComponent {
+    public bannerOpen = false;
     public dialogCloseReason: string;
     public drawerCloseReason: string;
     public drawerLocation: DrawerLocation = DrawerLocation.right;
@@ -34,18 +44,48 @@ export class CustomAppComponent {
     public comboboxSelectedOption?: ComboboxItem;
     public comboboxSelectedLastName = this.comboboxSelectedOption?.last;
     public selectedRadio = 'mango';
+    public activeTabId = 'tab-1';
+    public activeAnchorTabId = 'a-tab-2';
+    public viewerMarkdownString = `Supported rich text formatting options:
+1. **Bold**
+2. *Italics*
+3. Numbered lists
+    1. Option 1
+    2. Option 2
+4. Bulleted lists
+    * Option 1
+    * Option 2
+5. Absolute link: <https://nimble.ni.dev/>
+`;
 
-    public tableData: SimpleTableRecord[] = [
-        { stringValue: 'hello world', numberValue: 7, dateValue: new Date(2022, 12, 6), booleanValue: true },
-        { stringValue: 'foo', numberValue: 0, dateValue: new Date(2014, 2, 2), booleanValue: true },
-        { stringValue: 'bar', numberValue: 20, dateValue: new Date(2022, 7, 30), booleanValue: false },
-        { stringValue: 'baz', numberValue: -3, dateValue: new Date(2001, 5, 16), booleanValue: true },
-        { stringValue: 'abc 123 456', numberValue: 16, dateValue: new Date(2019, 1, 31), booleanValue: false },
-        { stringValue: 'last row', numberValue: 999, dateValue: new Date(2021, 12, 31), booleanValue: true }
-    ];
+    public editorMarkdownString = `Supported rich text formatting options:
+1. **Bold**
+2. *Italics*
+3. Numbered lists
+    1. Option 1
+    2. Option 2
+4. Bulleted lists
+    * Option 1
+    * Option 2
+`;
+
+    public readonly tableData$: Observable<SimpleTableRecord[]>;
+    private readonly tableDataSubject = new BehaviorSubject<SimpleTableRecord[]>([]);
 
     @ViewChild('dialog', { read: NimbleDialogDirective }) private readonly dialog: NimbleDialogDirective<string>;
     @ViewChild('drawer', { read: NimbleDrawerDirective }) private readonly drawer: NimbleDrawerDirective<string>;
+    @ViewChild('editor', { read: NimbleRichTextEditorDirective }) private readonly editor: NimbleRichTextEditorDirective;
+
+    public constructor(@Inject(ActivatedRoute) public readonly route: ActivatedRoute) {
+        this.tableData$ = this.tableDataSubject.asObservable();
+        this.comboboxItems = [];
+        for (let i = 0; i < 300; i++) {
+            this.comboboxItems.push({
+                first: i.toString(),
+                last: i.toString()
+            });
+        }
+    }
 
     public onMenuButtonMenuChange(event: Event): void {
         const menuItemText = (event.target as MenuItem).innerText;
@@ -83,11 +123,22 @@ export class CustomAppComponent {
     }
 
     public onAddTableRow(): void {
-        this.tableData = [...this.tableData, {
-            stringValue: `new string ${this.tableData.length}`,
-            numberValue: this.tableData.length,
-            booleanValue: true,
-            dateValue: new Date()
-        }];
+        const tableData = this.tableDataSubject.value;
+        tableData.push({
+            id: tableData.length.toString(),
+            stringValue1: `new string ${tableData.length}`,
+            stringValue2: `bar ${tableData.length}`,
+            href: '/customapp',
+            linkLabel: 'Link',
+            date: (tableData.length % 2 === 0) ? new Date(2023, 7, 16, 3, 56, 11).valueOf() : new Date(2022, 2, 7, 20, 28, 41).valueOf(),
+            statusCode: (tableData.length % 2 === 0) ? 100 : 101,
+            result: (tableData.length % 2 === 0) ? 'success' : 'unknown',
+            number: tableData.length / 10
+        });
+        this.tableDataSubject.next(tableData);
+    }
+
+    public loadRichTextEditorContent(): void {
+        this.editor.setMarkdown(this.editorMarkdownString);
     }
 }

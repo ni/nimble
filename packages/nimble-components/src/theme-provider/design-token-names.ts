@@ -13,6 +13,14 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     dividerBackgroundColor: 'divider-background-color',
     headerBackgroundColor: 'header-background-color',
     sectionBackgroundColor: 'section-background-color',
+    buttonFillPrimaryColor: 'button-fill-primary-color',
+    buttonPrimaryFontColor: 'button-primary-font-color',
+    buttonFillActivePrimaryColor: 'button-fill-active-primary-color',
+    buttonFillAccentColor: 'button-fill-accent-color',
+    buttonAccentBlockFontColor: 'button-accent-block-font-color',
+    buttonAccentOutlineFontColor: 'button-accent-outline-font-color',
+    buttonBorderAccentOutlineColor: 'button-border-accent-outline-color',
+    buttonFillAccentActiveColor: 'button-fill-accent-active-color',
     fillSelectedColor: 'fill-selected-color',
     fillSelectedRgbPartialColor: 'fill-selected-rgb-partial-color',
     fillHoverSelectedColor: 'fill-hover-selected-color',
@@ -29,6 +37,7 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     modalBackdropColor: 'modal-backdrop-color',
     popupBorderColor: 'popup-border-color',
     controlHeight: 'control-height',
+    controlSlimHeight: 'control-slim-height',
     smallPadding: 'small-padding',
     standardPadding: 'standard-padding',
     labelHeight: 'label-height',
@@ -36,6 +45,10 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     iconSize: 'icon-size',
     groupHeaderTextTransform: 'group-header-text-transform',
     drawerWidth: 'drawer-width',
+    bannerGapSize: 'banner-gap-size',
+    spinnerSmallHeight: 'spinner-small-height',
+    spinnerMediumHeight: 'spinner-medium-height',
+    spinnerLargeHeight: 'spinner-large-height',
     smallDelay: 'small-delay',
     mediumDelay: 'medium-delay',
     largeDelay: 'large-delay',
@@ -205,7 +218,8 @@ export const tokenNames: { readonly [key in TokenName]: string } = {
     tableRowBorderColor: 'table-row-border-color',
     elevation1BoxShadow: 'elevation-1-box-shadow',
     elevation2BoxShadow: 'elevation-2-box-shadow',
-    elevation3BoxShadow: 'elevation-3-box-shadow'
+    elevation3BoxShadow: 'elevation-3-box-shadow',
+    graphGridlineColor: 'graph-gridline-color'
 };
 
 const prefix = 'ni-nimble';
@@ -213,6 +227,10 @@ const prefix = 'ni-nimble';
 export const styleNameFromTokenName = (tokenName: string): string => `${prefix}-${tokenName}`;
 export const cssPropertyFromTokenName = (tokenName: string): string => `--${prefix}-${tokenName}`;
 export const scssPropertyFromTokenName = (tokenName: string): string => `$${prefix}-${tokenName}`;
+export const scssPropertySetterMarkdown = (
+    tokenName: string,
+    cssProperty: string
+): string => `\`${cssProperty}: $${prefix}-${tokenName};\``;
 export const scssInternalPropertyFromTokenName = (tokenName: string): string => `$${prefix}-internal-${tokenName}`;
 export const scssInternalPropertySetterMarkdown = (
     tokenName: string,
@@ -237,7 +255,7 @@ const tokenSuffixes = [
     'Padding',
     'Color'
 ] as const;
-export type TokenSuffix = typeof tokenSuffixes[number];
+export type TokenSuffix = (typeof tokenSuffixes)[number];
 export const suffixFromTokenName = (
     tokenName: string
 ): TokenSuffix | undefined => tokenSuffixes[

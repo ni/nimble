@@ -1,12 +1,12 @@
 import { html, ref, when } from '@microsoft/fast-element';
 import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
-import { Dialog, UserDismissed } from '..';
-import type { TextField } from '../../text-field';
+import { Dialog, dialogTag, UserDismissed } from '..';
+import { TextField, textFieldTag } from '../../text-field';
 import { ExampleContentType } from './types';
 import { loremIpsum } from '../../utilities/tests/lorem-ipsum';
+import { buttonTag } from '../../button';
+import { checkboxTag } from '../../checkbox';
 
 interface DialogArgs {
     title: string;
@@ -23,25 +23,25 @@ interface DialogArgs {
     openAndHandleResult: (
         dialogRef: Dialog<string>,
         textFieldRef: TextField
-    ) => Promise<void> | undefined;
+    ) => void;
 }
 
 const shortContent = html`
     <span>
         This action is destructive. Are you sure you would like to do it?
     </span>
-    <nimble-checkbox> Perform some other relevant action too </nimble-checkbox>
+    <${checkboxTag}> Perform some other relevant action too </${checkboxTag}>
 `;
 
 const longContent = html`
     <span> ${loremIpsum} </span>
     <span> ${loremIpsum} </span>
     <span> ${loremIpsum} </span>
-    <nimble-checkbox>Checkbox 1</nimble-checkbox>
-    <nimble-checkbox>Checkbox 2</nimble-checkbox>
-    <nimble-checkbox>Checkbox 3</nimble-checkbox>
-    <nimble-checkbox>Checkbox 4</nimble-checkbox>
-    <nimble-checkbox>Checkbox 5</nimble-checkbox>
+    <${checkboxTag}>Checkbox 1</${checkboxTag}>
+    <${checkboxTag}>Checkbox 2</${checkboxTag}>
+    <${checkboxTag}>Checkbox 3</${checkboxTag}>
+    <${checkboxTag}>Checkbox 4</${checkboxTag}>
+    <${checkboxTag}>Checkbox 5</${checkboxTag}>
 `;
 
 const content = {
@@ -50,18 +50,14 @@ const content = {
 } as const;
 
 const metadata: Meta<DialogArgs> = {
-    title: 'Dialog',
-    decorators: [withXD],
+    title: 'Components/Dialog',
+    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component:
                     'A modal dialog that appears centered on top of all other windows, blocking other interaction until dismissed.\n\nBy default, the first focusable control gets focus when the dialog is opened. To focus a specific element instead, set the `autofocus` attribute on that element.'
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6f1b5b4d-2e50-4f8d-ad49-e3dac564a006/specs/'
         }
     },
     render: createUserSelectedThemeStory(html`
@@ -70,7 +66,7 @@ const metadata: Meta<DialogArgs> = {
                 margin-right: auto;
             }
         </style>
-        <nimble-dialog
+        <${dialogTag}
             ${ref('dialogRef')}
             ?prevent-dismiss="${x => x.preventDismiss}"
             ?header-hidden="${x => x.headerHidden}"
@@ -83,41 +79,41 @@ const metadata: Meta<DialogArgs> = {
             ${when(
         x => x.includeFooterButtons,
         html<DialogArgs>`
-                    <nimble-button
+                    <${buttonTag}
                         @click="${x => x.dialogRef.close('Back pressed')}"
                         appearance="ghost"
                         slot="footer"
                         class="first-button"
                     >
                         Back
-                    </nimble-button>
-                    <nimble-button
+                    </${buttonTag}>
+                    <${buttonTag}
                         @click="${x => x.dialogRef.close('Cancel pressed')}"
                         appearance="ghost"
                         slot="footer"
                     >
                         Cancel
-                    </nimble-button>
-                    <nimble-button
+                    </${buttonTag}>
+                    <${buttonTag}
                         @click="${x => x.dialogRef.close('Continue pressed')}"
                         appearance="outline"
                         slot="footer"
                     >
                         Continue
-                    </nimble-button>
+                    </${buttonTag}>
                 `
     )}
-        </nimble-dialog>
-        <nimble-button
+        </${dialogTag}>
+        <${buttonTag}
             id="open"
             @click="${x => x.openAndHandleResult(x.dialogRef, x.textFieldRef)}"
         >
             Open
-        </nimble-button>
+        </${buttonTag}>
         <div>
-            <nimble-text-field ${ref('textFieldRef')} readonly>
+            <${textFieldTag} ${ref('textFieldRef')} readonly>
                 Close reason
-            </nimble-text-field>
+            </${textFieldTag}>
         </div>
     `),
     argTypes: {
@@ -182,9 +178,11 @@ const metadata: Meta<DialogArgs> = {
         includeFooterButtons: true,
         preventDismiss: false,
         content: ExampleContentType.shortContent,
-        openAndHandleResult: async (dialogRef, textFieldRef) => {
-            const reason = await dialogRef.show();
-            textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
+        openAndHandleResult: (dialogRef, textFieldRef) => {
+            void (async () => {
+                const reason = await dialogRef.show();
+                textFieldRef.value = reason === UserDismissed ? 'ESC pressed' : reason;
+            })();
         }
     }
 };

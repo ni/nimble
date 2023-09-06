@@ -10,25 +10,28 @@ const svgToTsConfig = {
     srcFiles: [
         iconAssetDir
     ],
-    conversionType: 'constants',
     prefix: '',
     svgoConfig: {
         // https://github.com/svg/svgo#built-in-plugins
         plugins: [
             {
-                cleanupAttrs: true
-            },
-            {
-                removeUnknownsAndDefaults: {
-                    keepDataAttrs: false
-                }
-            },
+                name: 'preset-default',
+                params: {
+                    overrides: {
+                        // customize default plugin options
+                        removeUnknownsAndDefaults: {
+                            keepDataAttrs: false,
+                        },
+                    },
+                },
+            }
         ],
     },
     fileName: 'index',
     outputDirectory: outputDir,
     interfaceName: 'NimbleIcon',
-    typeName: 'NimbleIconName'
+    typeName: 'NimbleIconName',
+    exportCompleteIconSet: false
 };
 
 module.exports = svgToTsConfig;

@@ -20,6 +20,15 @@ public class NimbleToggleButtonTests
         Assert.Contains(expectedMarkup, button.Markup);
     }
 
+    [Fact]
+    public void NimbleToggleButton_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleToggleButton>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(ButtonAppearance.Block, "block")]
     [InlineData(ButtonAppearance.Outline, "outline")]

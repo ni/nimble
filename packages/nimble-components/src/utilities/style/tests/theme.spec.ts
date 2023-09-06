@@ -6,14 +6,14 @@ import {
     observable,
     css,
     ref,
-    ElementStyles,
-    DOM
+    ElementStyles
 } from '@microsoft/fast-element';
 import type { ThemeProvider } from '../../../theme-provider';
 import { Theme } from '../../../theme-provider/types';
 import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { themeBehavior } from '../theme';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 /**
  * Test element with theme-aware styles
@@ -157,106 +157,112 @@ describe('The ThemeStylesheetBehavior', () => {
 
         it('responds to light theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
             await connect();
             themeController.theme = Theme.light;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.light
             );
+            await disconnect();
         });
 
         it('responds to dark theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
             await connect();
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('responds to color theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
             await connect();
             themeController.theme = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.color
             );
+            await disconnect();
         });
 
         it('responds to change from light theme to dark theme', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
             await connect();
             themeController.theme = Theme.light;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.light
             );
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('can share styles for dark and color themes', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.sharedDarkColorBehaviorsStyles
             );
             await connect();
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
             themeController.theme = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('can have unset color and dark themes', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.unsetDarkColorBehaviorsStyles
             );
             await connect();
             themeController.theme = Theme.light;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 Theme.light
             );
             themeController.theme = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 'theme-unset'
             );
             themeController.theme = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement.resolveThemedStyle()).toBe(
                 'theme-unset'
             );
+            await disconnect();
         });
     });
 
@@ -308,32 +314,33 @@ describe('The ThemeStylesheetBehavior', () => {
 
         it('can have one light and one dark themed element', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
             await connect();
             themeController.theme1 = Theme.light;
             themeController.theme2 = Theme.dark;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(themeController.themedElement1.resolveThemedStyle()).toBe(
                 Theme.light
             );
             expect(themeController.themedElement2.resolveThemedStyle()).toBe(
                 Theme.dark
             );
+            await disconnect();
         });
 
         it('can have one dark and one color themed element', async () => {
             const themeController = new ThemeController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 themeController,
                 ThemedElement.allBehaviorsStyles
             );
             await connect();
             themeController.theme1 = Theme.dark;
             themeController.theme2 = Theme.color;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
 
             expect(themeController.themedElement1.resolveThemedStyle()).toBe(
                 Theme.dark
@@ -341,6 +348,7 @@ describe('The ThemeStylesheetBehavior', () => {
             expect(themeController.themedElement2.resolveThemedStyle()).toBe(
                 Theme.color
             );
+            await disconnect();
         });
     });
 });

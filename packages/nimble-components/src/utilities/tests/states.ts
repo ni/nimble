@@ -18,26 +18,26 @@ export const backgroundStates = [
     }
 ] as const;
 export const [defaultBackgroundState] = backgroundStates;
-export type BackgroundState = typeof backgroundStates[number];
+export type BackgroundState = (typeof backgroundStates)[number];
 
 export const disabledStates = [
     ['', false],
     ['Disabled', true]
 ] as const;
-export type DisabledState = typeof disabledStates[number];
+export type DisabledState = (typeof disabledStates)[number];
 
 export const errorStates = [
     ['', false, ''],
     ['Error Message', true, 'This is not valid.'],
     ['Error No Message', true, '']
 ] as const;
-export type ErrorState = typeof errorStates[number];
+export type ErrorState = (typeof errorStates)[number];
 
 export const readOnlyStates = [
     ['', false],
     ['Read-Only', true]
 ] as const;
-export type ReadOnlyState = typeof readOnlyStates[number];
+export type ReadOnlyState = (typeof readOnlyStates)[number];
 
 export const iconVisibleStates = [false, true] as const;
-export type IconVisibleState = typeof iconVisibleStates[number];
+export type IconVisibleState = (typeof iconVisibleStates)[number];

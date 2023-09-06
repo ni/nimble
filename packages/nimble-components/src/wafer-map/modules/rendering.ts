@@ -1,45 +1,170 @@
-import type { DieRenderInfo, Dimensions } from '../types';
-import type { DataManager } from './data-manager';
+import type { WaferMap } from '..';
+import { DieRenderInfo, HoverDieOpacity } from '../types';
 
 /**
- * Responsible for drawing the dies inside the wafer map
+ * Responsible for drawing the dies inside the wafer map, adding dieText and scaling the canvas
  */
 export class RenderingModule {
-    private readonly waferData: DataManager;
-    private readonly context: CanvasRenderingContext2D;
+    private dies!: DieRenderInfo[];
+    private readonly minDieDim = 50;
 
-    public constructor(waferData: DataManager, canvas: HTMLCanvasElement) {
-        this.waferData = waferData;
-        this.context = canvas.getContext('2d')!;
+    public constructor(private readonly wafermap: WaferMap) {}
+
+    public updateSortedDiesAndDrawWafer(): void {
+        this.dies = this.wafermap.dataManager.diesRenderInfo.sort((a, b) => {
+            if (a.fillStyle > b.fillStyle) {
+                return 1;
+            }
+            if (b.fillStyle > a.fillStyle) {
+                return -1;
+            }
+
+            return 0;
+        });
+        this.drawWafer();
     }
 
     public drawWafer(): void {
-        const dies: DieRenderInfo[] = this.waferData.diesRenderInfo;
-        const dimensions: Dimensions = this.waferData.dieDimensions;
+        this.wafermap.canvasContext.save();
+        this.clearCanvas();
+        this.scaleCanvas();
+        this.renderDies();
+        this.renderText();
+        this.wafermap.canvasContext.restore();
+        this.renderHover();
+    }
 
-        for (const die of dies) {
-            this.context.fillStyle = die.fillStyle;
-            this.context?.fillRect(
-                die.x,
-                die.y,
-                dimensions.width,
-                dimensions.height
-            );
+    public renderHover(): void {
+        this.wafermap.hoverWidth = this.wafermap.dataManager.dieDimensions.width
+            * this.wafermap.transform.k;
+        this.wafermap.hoverHeight = this.wafermap.dataManager.dieDimensions.height
+            * this.wafermap.transform.k;
+        this.wafermap.hoverOpacity = this.wafermap.hoverDie === undefined
+            ? HoverDieOpacity.hide
+            : HoverDieOpacity.show;
+        this.wafermap.hoverTransform = this.calculateHoverTransform();
+    }
 
-            this.context.font = this.waferData.labelsFontSize.toString();
-            this.context.fillStyle = '#ffffff';
-            this.context.textAlign = 'center';
-            const aproxTextHeight = this.context.measureText('M');
+    private calculateHoverTransform(): string {
+        if (this.wafermap.hoverDie !== undefined) {
+            const scaledX = this.wafermap.dataManager.horizontalScale(
+                this.wafermap.hoverDie.x
+            )!;
+            const scaledY = this.wafermap.dataManager.verticalScale(
+                this.wafermap.hoverDie.y
+            )!;
+            const transformedPoint = this.wafermap.transform.apply([
+                scaledX + this.wafermap.dataManager.margin.left,
+                scaledY + this.wafermap.dataManager.margin.top
+            ]);
+            return `translate(${transformedPoint[0]}, ${transformedPoint[1]})`;
+        }
+        return '';
+    }
 
-            this.context.fillText(
-                die.text,
-                die.x + dimensions.width / 2,
-                die.y + dimensions.height / 2 + aproxTextHeight.width / 2
-            );
+    private renderDies(): void {
+        const context = this.wafermap.canvasContext;
+        const dieWidth = this.wafermap.dataManager.dieDimensions.width;
+        const dieHeight = this.wafermap.dataManager.dieDimensions.height;
+        const transformedCanvasMinPoint = this.wafermap.transform.invert([
+            0, 0
+        ]);
+        const transformedCanvasMaxPoint = this.wafermap.transform.invert([
+            this.wafermap.canvas.width,
+            this.wafermap.canvas.height
+        ]);
+        transformedCanvasMinPoint[0] -= dieWidth;
+        transformedCanvasMinPoint[1] -= dieHeight;
+
+        for (const die of this.dies) {
+            if (
+                this.isDieVisible(
+                    die,
+                    transformedCanvasMinPoint,
+                    transformedCanvasMaxPoint
+                )
+            ) {
+                context.fillStyle = die.fillStyle;
+                context.fillRect(die.x, die.y, dieWidth, dieHeight);
+            }
         }
     }
 
-    public clearCanvas(width: number, height: number): void {
-        this.context.clearRect(0, 0, width, height);
+    private renderText(): void {
+        if (this.wafermap.dieLabelsHidden) {
+            return;
+        }
+        const dieWidth = this.wafermap.dataManager.dieDimensions.width;
+        const dieHeight = this.wafermap.dataManager.dieDimensions.height;
+        const dieSize = dieWidth * dieHeight * (this.wafermap.transform.k || 1);
+        if (dieSize >= this.minDieDim) {
+            const fontsize = this.wafermap.dataManager.labelsFontSize;
+            const context = this.wafermap.canvasContext;
+            context.font = `${fontsize.toString()}px sans-serif`;
+            context.fillStyle = '#ffffff';
+            context.textAlign = 'center';
+            context.lineCap = 'butt';
+            const approximateTextHeight = context.measureText('M');
+
+            const transformedCanvasMinPoint = this.wafermap.transform.invert([
+                0, 0
+            ]);
+            const transformedCanvasMaxPoint = this.wafermap.transform.invert([
+                this.wafermap.canvas.width,
+                this.wafermap.canvas.height
+            ]);
+            transformedCanvasMinPoint[0] -= dieWidth;
+            transformedCanvasMinPoint[1] -= dieHeight;
+
+            for (const die of this.dies) {
+                if (
+                    this.isDieVisible(
+                        die,
+                        transformedCanvasMinPoint,
+                        transformedCanvasMaxPoint
+                    )
+                ) {
+                    context.fillText(
+                        die.text,
+                        die.x + dieWidth / 2,
+                        die.y + dieHeight / 2 + approximateTextHeight.width / 2,
+                        dieWidth - (dieWidth / 100) * 20
+                    );
+                }
+            }
+        }
+    }
+
+    private clearCanvas(): void {
+        this.wafermap.canvasContext.clearRect(
+            0,
+            0,
+            this.wafermap.canvas.width,
+            this.wafermap.canvas.height
+        );
+    }
+
+    private scaleCanvas(): void {
+        this.wafermap.canvasContext.translate(
+            this.wafermap.transform.x,
+            this.wafermap.transform.y
+        );
+        this.wafermap.canvasContext.scale(
+            this.wafermap.transform.k,
+            this.wafermap.transform.k
+        );
+    }
+
+    private isDieVisible(
+        die: DieRenderInfo,
+        minPoint: [number, number],
+        maxPoint: [number, number]
+    ): boolean {
+        return (
+            die.x >= minPoint[0]
+            && die.x < maxPoint[0]
+            && die.y >= minPoint[1]
+            && die.y < maxPoint[1]
+        );
     }
 }

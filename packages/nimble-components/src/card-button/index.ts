@@ -44,3 +44,4 @@ const nimbleCardButton = CardButton.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleCardButton());
+export const cardButtonTag = DesignSystem.tagFor(CardButton);

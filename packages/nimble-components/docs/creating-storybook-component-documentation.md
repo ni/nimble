@@ -14,7 +14,6 @@ Add a `docs.description.component` string to the component `parameters` object. 
 ```ts
 const metadata: Meta<ComponentArgs> = {
     title: 'SomeComponent',
-    decorators: [withXD],
     parameters: {
         docs: {
             description: {
@@ -33,6 +32,12 @@ The description supports Markdown, so can link to other documents or components.
 ```md
 [Links to a specific documentation page](?path=/docs/some--id)
 [Links to a specific story canvas](?path=/story/some--id)
+```
+
+Note: if linking in a story via a native or Nimble anchor component, use the following syntax:
+
+```html
+<a href="./?path=/docs/some--id" target="_top">Link</a>
 ```
 
 All other Markdown formatting is supported. See any [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) for more information.

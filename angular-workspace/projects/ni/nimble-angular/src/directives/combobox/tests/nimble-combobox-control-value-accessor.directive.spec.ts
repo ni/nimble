@@ -3,12 +3,11 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NimbleComboboxModule } from '../nimble-combobox.module';
 import { NimbleListOptionModule } from '../../list-option/nimble-list-option.module';
-import { waitTask } from '../../../async-test-utilities';
-import { processUpdates } from '../../../testing/async-helpers';
+import { processUpdates, waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { Combobox } from '../nimble-combobox.directive';
 import { OptionNotFound, OPTION_NOT_FOUND } from '../nimble-combobox-control-value-accessor.directive';
 
-function setComboboxValue(combobox: Combobox, index: number): void {
+function clickOnListOption(combobox: Combobox, index: number): void {
     combobox.dispatchEvent(new Event('click'));
     combobox.options[index].dispatchEvent(new Event('click', { bubbles: true }));
 }
@@ -29,7 +28,7 @@ describe('Nimble combobox control value accessor', () => {
     describe('when using option\'s [ngValue] binding on template-based form', () => {
         @Component({
             template: `
-                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="both">
+                <nimble-combobox #combobox [(ngModel)]="selectedOption" (ngModelChange)="onModelValueChange($event)" [compareWith]="compareWith" [disabled]="selectDisabled" autocomplete="none">
                     <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                     <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                 </nimble-combobox>
@@ -41,7 +40,7 @@ describe('Nimble combobox control value accessor', () => {
             public selectOptions: (TestModel | null)[] = [
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
-                { name: 'Option 3', value: 3 },
+                { name: ' Option 3 ', value: 3 }, // keep whitespace around name for test
                 null
             ];
 
@@ -82,7 +81,7 @@ describe('Nimble combobox control value accessor', () => {
             combobox = testHostComponent.combobox.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {
@@ -95,15 +94,22 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         it('updates selected value when bound property is changed', fakeAsync(() => {
-            testHostComponent.selectedOption = testHostComponent.selectOptions[2];
+            testHostComponent.selectedOption = testHostComponent.selectOptions[0];
             fixture.detectChanges();
             tick();
 
-            expect(combobox.selectedIndex).toBe(2);
+            expect(combobox.selectedIndex).toBe(0);
         }));
 
         it('updates bound property when selected value is changed', () => {
-            setComboboxValue(combobox, 2);
+            clickOnListOption(combobox, 0);
+            fixture.detectChanges();
+
+            expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[0]);
+        });
+
+        it('supports options with whitespace at beginning or end of textContent', () => {
+            clickOnListOption(combobox, 2);
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption).toBe(testHostComponent.selectOptions[2]);
@@ -166,7 +172,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('null option is selected, combobox display value is set to provided display string for null', fakeAsync(() => {
-            setComboboxValue(combobox, 3); // select null option
+            clickOnListOption(combobox, 3); // select null option
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -219,13 +225,34 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(testHostComponent.callbackValue).toEqual(OPTION_NOT_FOUND);
         });
+
+        it('update option value with new model, followed by updating combobox value with same model updates display correctly', async () => {
+            const newModelValue: TestModel = { name: 'newName', value: 100 };
+            testHostComponent.dynamicOption = newModelValue;
+            testHostComponent.selectedOption = newModelValue;
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+
+            expect(combobox.value).toBe('newName');
+        });
+
+        it('combobox supports a large amount of options', () => {
+            const newOptions: TestModel[] = [];
+            for (let i = 0; i < 300; i++) {
+                newOptions.push({ name: i.toString(), value: i });
+            }
+            testHostComponent.selectOptions = newOptions;
+            expect(() => {
+                fixture.detectChanges();
+            }).not.toThrow();
+        });
     });
 
     describe('when using option\'s [ngValue] binding on Reactive form', () => {
         @Component({
             template: `
                 <form [formGroup]="form">
-                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="both">
+                    <nimble-combobox #combobox [formControl]="selectedOption" [compareWith]="compareWith" autocomplete="none">
                         <nimble-list-option *ngFor="let option of selectOptions" [ngValue]="option">{{ option?.name ?? nullValueString }}</nimble-list-option>
                         <nimble-list-option [ngValue]="dynamicOption">{{ dynamicOption?.name }}</nimble-list-option>
                     </nimble-combobox>
@@ -238,7 +265,7 @@ describe('Nimble combobox control value accessor', () => {
             public selectOptions: (TestModel | null)[] = [
                 { name: 'Option 1', value: 1 },
                 { name: 'Option 2', value: 2 },
-                { name: 'Option 3', value: 3 },
+                { name: ' Option 3 ', value: 3 }, // keep whitespace around name for test
                 null
             ];
 
@@ -275,7 +302,7 @@ describe('Nimble combobox control value accessor', () => {
             combobox = testHostComponent.combobox.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
-            await waitTask();
+            await waitForUpdatesAsync();
         });
 
         afterEach(() => {
@@ -288,15 +315,22 @@ describe('Nimble combobox control value accessor', () => {
         });
 
         it('updates selected value when bound property is changed', fakeAsync(() => {
-            testHostComponent.selectedOption.setValue(testHostComponent.selectOptions[2]);
+            testHostComponent.selectedOption.setValue(testHostComponent.selectOptions[0]);
             fixture.detectChanges();
             tick();
 
-            expect(combobox.selectedIndex).toBe(2);
+            expect(combobox.selectedIndex).toBe(0);
         }));
 
         it('updates bound property when selected value is changed', () => {
-            setComboboxValue(combobox, 2);
+            clickOnListOption(combobox, 0);
+            fixture.detectChanges();
+
+            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.selectOptions[0]);
+        });
+
+        it('supports options with whitespace at beginning or end of textContent', () => {
+            clickOnListOption(combobox, 2);
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption.value).toBe(testHostComponent.selectOptions[2]);
@@ -371,7 +405,7 @@ describe('Nimble combobox control value accessor', () => {
         }));
 
         it('null option is selected, combobox display value is set to provided display string for null', fakeAsync(() => {
-            setComboboxValue(combobox, 3); // select null option
+            clickOnListOption(combobox, 3); // select null option
             fixture.detectChanges();
             tick();
             processUpdates();
@@ -424,10 +458,31 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(testHostComponent.selectedOption.value).toEqual(OPTION_NOT_FOUND);
 
-            updateComboboxWithText(combobox, 'O'); // value should autocomplete to 'Option 1'
+            updateComboboxWithText(combobox, 'Option 1');
             fixture.detectChanges();
 
             expect(testHostComponent.selectedOption.value).toEqual(testHostComponent.selectOptions[0]);
+        });
+
+        it('update option value with new model, followed by updating combobox value with same model updates display correctly', async () => {
+            const newModelValue: TestModel = { name: 'newName', value: 100 };
+            testHostComponent.dynamicOption = newModelValue;
+            testHostComponent.selectedOption.setValue(newModelValue);
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+
+            expect(combobox.value).toBe('newName');
+        });
+
+        it('combobox supports a large amount of options', () => {
+            const newOptions: TestModel[] = [];
+            for (let i = 0; i < 300; i++) {
+                newOptions.push({ name: i.toString(), value: i });
+            }
+            testHostComponent.selectOptions = newOptions;
+            expect(() => {
+                fixture.detectChanges();
+            }).not.toThrow();
         });
     });
 });

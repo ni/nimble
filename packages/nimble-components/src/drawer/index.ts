@@ -142,3 +142,4 @@ const nimbleDrawer = Drawer.compose({
     styles
 });
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleDrawer());
+export const drawerTag = DesignSystem.tagFor(Drawer);

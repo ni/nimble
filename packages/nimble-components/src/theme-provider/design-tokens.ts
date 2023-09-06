@@ -1,12 +1,13 @@
 import { CSSDesignToken, DesignToken } from '@microsoft/fast-foundation';
-import hexRgb from 'hex-rgb';
+import { parseColorHexRGB } from '@microsoft/fast-colors';
 import {
+    Black,
     Black7,
-    Black91,
-    Black85,
     Black15,
     Black80,
+    Black85,
     Black88,
+    Black91,
     White,
     ForestGreen,
     DigitalGreenLight,
@@ -89,7 +90,8 @@ import {
     GridHeaderFamily,
     GridHeaderWeight,
     GridHeaderSize,
-    Black
+    DigitalGreenDark105,
+    DigitalGreenDark110
 } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     modalBackdropColorThemeColorStatic,
@@ -100,6 +102,26 @@ import { Theme } from './types';
 import { tokenNames, styleNameFromTokenName } from './design-token-names';
 import { theme } from '.';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
+
+/* eslint-disable @typescript-eslint/naming-convention */
+const Headline1FallbackFontFamily = 'Noto Serif Fallback';
+const Headline2FallbackFontFamily = 'Noto Serif Fallback';
+const Title1FallbackFontFamily = 'Source Sans Pro Fallback';
+const Title2FallbackFontFamily = 'Source Sans Pro Fallback';
+const Title3FallbackFontFamily = 'Source Sans Pro Fallback';
+const Subtitle1FallbackFontFamily = 'Source Sans Pro Fallback';
+const Subtitle2FallbackFontFamily = 'Source Sans Pro Fallback';
+const LinkFallbackFontFamily = 'Source Sans Pro Fallback';
+const PlaceholderFallbackFontFamily = 'Source Sans Pro Fallback';
+const BodyFallbackFontFamily = 'Source Sans Pro Fallback';
+const BodyEmphasizedFallbackFontFamily = 'Source Sans Pro Fallback';
+const GroupLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
+const ControlLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
+const ButtonLabel1FallbackFontFamily = 'Source Sans Pro Fallback';
+const TooltipCaptionFallbackFontFamily = 'Source Sans Pro Fallback';
+const ErrorLightUiFallbackFontFamily = 'Source Sans Pro Fallback';
+const GridHeaderFallbackFontFamily = 'Source Sans Pro Fallback';
+/* eslint-enable @typescript-eslint/naming-convention */
 
 // Color Tokens
 export const actionRgbPartialColor = DesignToken.create<string>(
@@ -168,7 +190,7 @@ export const informationColor = DesignToken.create<string>(
 
 export const borderHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.borderHoverColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, DigitalGreenLight, White));
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenLight, PowerGreen, White));
 
 // Component Color Tokens
 export const iconColor = DesignToken.create<string>(
@@ -183,18 +205,82 @@ export const popupBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.popupBorderColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.3));
 
+export const graphGridlineColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.graphGridlineColor)
+).withDefault((element: HTMLElement) => hexToRgbaCssColor(getColorForTheme(element, Black91, Black15, White), 0.2));
+
 export const tooltipBackgroundColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tooltipBackgroundColor)
 ).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black85, ForestGreen));
 
 export const tableRowBorderColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.tableRowBorderColor)
-).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black88, ForestGreen));
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black80, ForestGreen));
+
+export const buttonFillPrimaryColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillPrimaryColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.75),
+    hexToRgbaCssColor(Black15, 0.3),
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const buttonPrimaryFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonPrimaryFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, Black15, Black15, White));
+
+export const buttonFillActivePrimaryColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillActivePrimaryColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    hexToRgbaCssColor(Black91, 0.85),
+    hexToRgbaCssColor(Black15, 0.2),
+    hexToRgbaCssColor(White, 0.2)
+));
+
+export const buttonFillAccentColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillAccentColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark,
+    DigitalGreenLight,
+    hexToRgbaCssColor(White, 0.1)
+));
+
+export const buttonAccentBlockFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonAccentBlockFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, White, Black15, White));
+
+export const buttonAccentOutlineFontColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonAccentOutlineFontColor)
+).withDefault((element: HTMLElement) => getColorForTheme(element, DigitalGreenDark105, PowerGreen, White));
+
+export const buttonBorderAccentOutlineColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonBorderAccentOutlineColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenLight,
+    PowerGreen,
+    hexToRgbaCssColor(White, 0.3)
+));
+
+export const buttonFillAccentActiveColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.buttonFillAccentActiveColor)
+).withDefault((element: HTMLElement) => getColorForTheme(
+    element,
+    DigitalGreenDark110,
+    DigitalGreenDark,
+    hexToRgbaCssColor(White, 0.2)
+));
 
 // Component Sizing Tokens
 export const controlHeight = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.controlHeight)
 ).withDefault('32px');
+export const controlSlimHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.controlSlimHeight)
+).withDefault('24px');
 export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)
 ).withDefault('4px');
@@ -213,6 +299,19 @@ export const iconSize = DesignToken.create<string>(
 export const drawerWidth = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.drawerWidth)
 ).withDefault('784px');
+export const bannerGapSize = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.bannerGapSize)
+).withDefault('1px');
+
+export const spinnerSmallHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerSmallHeight)
+).withDefault('16px');
+export const spinnerMediumHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerMediumHeight)
+).withDefault('32px');
+export const spinnerLargeHeight = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.spinnerLargeHeight)
+).withDefault('64px');
 
 // Drop Shadow Tokens
 export const elevation1BoxShadow = DesignToken.create<string>(
@@ -260,7 +359,7 @@ export const [
     Headline1Weight,
     Headline1Size,
     Headline1LineHeight,
-    'serif'
+    Headline1FallbackFontFamily
 );
 
 export const [
@@ -280,7 +379,7 @@ export const [
     Headline2Weight,
     Headline2Size,
     Headline2LineHeight,
-    'serif'
+    Headline2FallbackFontFamily
 );
 
 export const [
@@ -300,7 +399,7 @@ export const [
     Title3Weight,
     Title3Size,
     Title3LineHeight,
-    'sans-serif'
+    Title3FallbackFontFamily
 );
 
 export const [
@@ -320,7 +419,7 @@ export const [
     Title2Weight,
     Title2Size,
     Title2LineHeight,
-    'sans-serif'
+    Title2FallbackFontFamily
 );
 
 export const [
@@ -340,7 +439,7 @@ export const [
     Title1Weight,
     Title1Size,
     Title1LineHeight,
-    'sans-serif'
+    Title1FallbackFontFamily
 );
 
 export const [
@@ -360,7 +459,7 @@ export const [
     Subtitle2Weight,
     Subtitle2Size,
     Subtitle2LineHeight,
-    'sans-serif'
+    Subtitle2FallbackFontFamily
 );
 
 export const [
@@ -380,7 +479,7 @@ export const [
     Subtitle1Weight,
     Subtitle1Size,
     Subtitle1LineHeight,
-    'sans-serif'
+    Subtitle1FallbackFontFamily
 );
 
 export const [
@@ -400,7 +499,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -425,7 +524,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -445,7 +544,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -465,7 +564,7 @@ export const [
     LinkLightUiWeight,
     LinkLightUiSize,
     LinkLineHeight,
-    'sans-serif'
+    LinkFallbackFontFamily
 );
 
 export const [
@@ -485,7 +584,7 @@ export const [
     PlaceholderWeight,
     PlaceholderSize,
     PlaceholderLineHeight,
-    'sans-serif'
+    PlaceholderFallbackFontFamily
 );
 
 export const [
@@ -505,7 +604,7 @@ export const [
     BodyEmphasizedWeight,
     BodyEmphasizedSize,
     BodyEmphasizedLineHeight,
-    'sans-serif'
+    BodyEmphasizedFallbackFontFamily
 );
 
 export const [
@@ -525,7 +624,7 @@ export const [
     BodyWeight,
     BodySize,
     BodyLineHeight,
-    'sans-serif'
+    BodyFallbackFontFamily
 );
 
 export const [
@@ -545,7 +644,7 @@ export const [
     GroupLabel1Weight,
     GroupLabel1Size,
     GroupLabel1LineHeight,
-    'sans-serif'
+    GroupLabel1FallbackFontFamily
 );
 
 export const [
@@ -565,7 +664,7 @@ export const [
     ControlLabel1Weight,
     ControlLabel1Size,
     ControlLabel1LineHeight,
-    'sans-serif'
+    ControlLabel1FallbackFontFamily
 );
 
 export const [
@@ -585,7 +684,7 @@ export const [
     ButtonLabel1Weight,
     ButtonLabel1Size,
     ButtonLabel1LineHeight,
-    'sans-serif'
+    ButtonLabel1FallbackFontFamily
 );
 
 export const [
@@ -605,7 +704,7 @@ export const [
     TooltipCaptionWeight,
     TooltipCaptionSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    TooltipCaptionFallbackFontFamily
 );
 
 export const [
@@ -625,7 +724,7 @@ export const [
     ErrorLightUiWeight,
     ErrorLightUiSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    ErrorLightUiFallbackFontFamily
 );
 
 export const [
@@ -645,7 +744,7 @@ export const [
     GridHeaderWeight,
     GridHeaderSize,
     TooltipCaptionLineHeight,
-    'sans-serif'
+    GridHeaderFallbackFontFamily
 );
 
 // Font Transform Tokens
@@ -666,8 +765,8 @@ export const largeDelay = DesignToken.create<string>(
 
 // Private helpers functions
 function hexToRgbPartial(hexValue: string): string {
-    const { red, green, blue } = hexRgb(hexValue);
-    return `${red}, ${green}, ${blue}`;
+    const { r, g, b } = parseColorHexRGB(hexValue)!;
+    return `${r * 255}, ${g * 255}, ${b * 255}`;
 }
 
 function createFontTokens(
@@ -809,12 +908,7 @@ function getDefaultFontColorForTheme(element: HTMLElement): string {
 }
 
 function getFillSelectedColorForTheme(element: HTMLElement): string {
-    return getColorForTheme(
-        element,
-        DigitalGreenLight,
-        DigitalGreenLight,
-        White
-    );
+    return getColorForTheme(element, DigitalGreenLight, PowerGreen, White);
 }
 
 function getFillHoverColorForTheme(element: HTMLElement): string {

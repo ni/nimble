@@ -7,7 +7,6 @@ import {
     css,
     ref,
     ElementStyles,
-    DOM,
     Behavior,
     attr
 } from '@microsoft/fast-element';
@@ -15,6 +14,7 @@ import { uniqueElementName, fixture } from '../../tests/fixture';
 import type { Fixture } from '../../tests/fixture';
 import { TestAppearance } from './types';
 import { MultivaluePropertyStyleSheetBehavior } from '../multivalue-property-stylesheet-behavior';
+import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 
 const testAppearance = (
     value: TestAppearance | TestAppearance[],
@@ -157,7 +157,7 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
 
         it('has a default appearance', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
@@ -165,63 +165,67 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
+            await disconnect();
         });
 
         it('has an appearance of awesome', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
             await connect();
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
+            await disconnect();
         });
 
         it('responds to change of appearance from awesome to best', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
             await connect();
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
             appearanceController.appearance = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.best);
+            await disconnect();
         });
 
         it('can share styles for appearances awesome and best', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.sharedAppearanceStyles
             );
             await connect();
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
             appearanceController.appearance = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
+            await disconnect();
         });
 
         it('can have an unset appearance best', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.unsetAppearanceStyles
             );
@@ -230,15 +234,16 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
             appearanceController.appearance = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
             appearanceController.appearance = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
+            await disconnect();
         });
     });
 
@@ -296,37 +301,39 @@ describe('The MultivaluePropertyStyleSheetBehavior', () => {
 
         it('can have one default and one awesome element', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
             await connect();
             appearanceController.appearance2 = TestAppearance.awesome;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement1.resolveApearanceStyle()
             ).toBe(TestAppearance.default);
             expect(
                 appearanceController.appearanceElement2.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
+            await disconnect();
         });
 
         it('can have one awesome and one best element', async () => {
             const appearanceController = new AppearanceController();
-            const { connect } = await setup(
+            const { connect, disconnect } = await setup(
                 appearanceController,
                 AppearanceElement.allAppearanceStyles
             );
             await connect();
             appearanceController.appearance1 = TestAppearance.awesome;
             appearanceController.appearance2 = TestAppearance.best;
-            await DOM.nextUpdate();
+            await waitForUpdatesAsync();
             expect(
                 appearanceController.appearanceElement1.resolveApearanceStyle()
             ).toBe(TestAppearance.awesome);
             expect(
                 appearanceController.appearanceElement2.resolveApearanceStyle()
             ).toBe(TestAppearance.best);
+            await disconnect();
         });
     });
 });

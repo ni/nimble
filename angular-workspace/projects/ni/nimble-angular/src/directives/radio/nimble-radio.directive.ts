@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import type { Radio } from '@ni/nimble-components/dist/esm/radio';
+import { type Radio, radioTag } from '@ni/nimble-components/dist/esm/radio';
 import type { RadioGroup } from '@ni/nimble-components/dist/esm/radio-group';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { Radio };
+export { radioTag };
 
 /**
  * Directive to provide Angular integration for the radio button.

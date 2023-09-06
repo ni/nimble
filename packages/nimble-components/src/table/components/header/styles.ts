@@ -1,8 +1,8 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    applicationBackgroundColor,
     controlHeight,
+    iconColor,
     standardPadding,
     tableHeaderFont,
     tableHeaderFontColor
@@ -14,9 +14,17 @@ export const styles = css`
     :host {
         height: ${controlHeight};
         align-items: center;
-        background: ${applicationBackgroundColor};
         padding: 0px calc(${standardPadding} / 2);
         font: ${tableHeaderFont};
         color: ${tableHeaderFontColor};
+        ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
+        text-transform: uppercase;
+        gap: calc(${standardPadding} / 2);
+        cursor: default;
+    }
+
+    .sort-indicator,
+    .grouped-indicator {
+        flex: 0 0 auto;
     }
 `;

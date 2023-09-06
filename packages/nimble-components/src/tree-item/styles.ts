@@ -11,10 +11,12 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     borderWidth,
-    iconSize
+    iconSize,
+    mediumDelay
 } from '../theme-provider/design-tokens';
 import { groupSelectedAttribute } from '../tree-view/types';
 import { DirectionalStyleSheetBehavior } from '../utilities/style/direction';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('block')}
@@ -89,7 +91,7 @@ export const styles = css`
         padding-left: 10px;
         font: inherit;
         font-size: ${bodyFontSize};
-        user-select: none;
+        ${userSelectNone}
         position: relative;
         margin-inline-start: ${iconSize};
     }
@@ -120,7 +122,7 @@ export const styles = css`
     .expand-collapse-button svg {
         width: ${iconSize};
         height: ${iconSize};
-        transition: transform 0.2s ease-in;
+        transition: transform ${mediumDelay} ease-in;
         pointer-events: none;
         fill: currentcolor;
     }
@@ -128,7 +130,7 @@ export const styles = css`
     ${
         /* this rule keeps children without an icon text aligned with parents */ ''
     }
-    span[part="start"] {
+    [part="start"] {
         width: ${iconSize};
     }
 
@@ -147,13 +149,6 @@ export const styles = css`
         height: ${iconSize};
     }
 
-    ${
-        /*
-        Cannot call DesignSystem.tagFor(TreeItem) as this string is evaluated
-        before the registration of the element itself; the style is self-referencing.
-        Instead styling against the role which is more general and likely a better approach.
-    */ ''
-    }
     ::slotted([role='treeitem']) {
         --ni-private-tree-item-nested-width: 1em;
         --ni-private-expand-collapse-button-nested-width: calc(
@@ -161,11 +156,8 @@ export const styles = css`
         );
     }
 
-    ${/* the end class is applied when the corresponding slots is filled */ ''}
-    .end {
-        display: flex;
-        fill: currentcolor;
-        margin-inline-start: ${iconSize};
+    [part='end'] {
+        display: none;
     }
 
     .items {

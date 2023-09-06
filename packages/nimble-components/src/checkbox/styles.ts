@@ -12,18 +12,19 @@ import {
     iconSize,
     borderWidth,
     smallDelay,
-    buttonLabelFont
+    bodyFont
 } from '../theme-provider/design-tokens';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        font: ${buttonLabelFont};
+        font: ${bodyFont};
         align-items: center;
         cursor: pointer;
         outline: none;
-        user-select: none;
+        ${userSelectNone}
     }
 
     :host([disabled]) {
@@ -98,11 +99,11 @@ export const styles = css`
         display: contents;
     }
 
-    slot[name='checked-indicator'] path {
+    slot[name='checked-indicator'] svg {
         fill: ${borderColor};
     }
 
-    :host([disabled]) slot[name='checked-indicator'] path {
+    :host([disabled]) slot[name='checked-indicator'] svg {
         fill: rgba(${borderRgbPartialColor}, 0.3);
     }
 
@@ -116,11 +117,11 @@ export const styles = css`
         display: contents;
     }
 
-    slot[name='indeterminate-indicator'] path {
+    slot[name='indeterminate-indicator'] svg {
         fill: ${borderColor};
     }
 
-    :host([disabled]) slot[name='indeterminate-indicator'] path {
+    :host([disabled]) slot[name='indeterminate-indicator'] svg {
         fill: rgba(${borderRgbPartialColor}, 0.3);
     }
 `;

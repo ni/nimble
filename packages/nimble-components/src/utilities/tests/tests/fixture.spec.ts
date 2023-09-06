@@ -9,9 +9,9 @@ import {
     customElement,
     FASTElement,
     html,
-    DOM,
     observable,
 } from "@microsoft/fast-element";
+import { waitForUpdatesAsync } from "../../../testing/async-helpers";
 import { uniqueElementName, fixture } from "../fixture";
 
 describe("The fixture helper", () => {
@@ -88,7 +88,7 @@ describe("The fixture helper", () => {
 
         source.value = "something else";
 
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.value).toEqual(source.value);
 

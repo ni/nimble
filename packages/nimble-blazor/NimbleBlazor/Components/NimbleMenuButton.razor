@@ -2,7 +2,8 @@
 @inherits ComponentBase
 <nimble-menu-button
     open="@BindConverter.FormatValue(Open)"
-    @onnimblemenubuttonopenchange="(__value) => UpdateOpen(__value.Open)"
+    @onnimblemenubuttontoggle="(__value) => HandleToggle(__value)"
+    @onnimblemenubuttonbeforetoggle="(__value) => HandleBeforeToggle(__value)"
     appearance="@Appearance.ToAttributeValue()"
     position="@Position.ToAttributeValue()"
     disabled="@Disabled"

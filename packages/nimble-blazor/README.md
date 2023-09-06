@@ -10,7 +10,7 @@ NI-styled UI components for Blazor applications
 
 This repo contains:
 1. Blazor components and styles matching the NI brand. These are published as a Nuget package to be consumed by either Blazor WebAssembly or Blazor Server applications.
-2. Two Blazor demo applications that consume the components: a Blazor WebAssembly application (`Demo.Client`) and a Blazor Server application (`Demo.Server`).
+2. Three Blazor demo applications that consume the components: a Blazor WebAssembly application (`Demo.Client`), a Blazor Server application (`Demo.Server`), and a Blazor Hybrid application (`Demo.Hybrid`).
 
 ## Getting Started
 
@@ -21,7 +21,7 @@ This repo contains:
         - Visual Studio 2022 ([Enterprise, if available](https://my.visualstudio.com/Downloads?PId=8229)): Choose the "ASP.NET and Web Development" Workload in the installer
         - Ensure Visual Studio is completely up to date (v17.1.6+): In Visual Studio click "Help" then "Check for Updates"
     - **Mac with Visual Studio Code**: Install [Visual Studio Code](https://code.visualstudio.com/) and open it. Open the Extensions pane ("Preferences" >> "Extensions"), and search for / install the `ms-dotnettools.csharp` extension.
-2. .NET 6 SDK: If not already done, download and install the .NET 6 SDK version 6.0.202+  (run `dotnet --version`) which can be downloaded from https://dotnet.microsoft.com/en-us/download
+2. .NET SDK: See [the main contributing doc](/CONTRIBUTING.md) for the required version.
 
 ### Creating a new Blazor project
 
@@ -78,10 +78,14 @@ To test out your changes, do "Debug" >> "Start without Debugging" in Visual Stud
 
 More complete examples can be found in the Demo.Client/Server example projects.
 
-### Using Nimble Design Tokens (CSS/SCSS)
+### Theming and Design Tokens
+
+To use Nimble's theme-aware design tokens in a Blazor app, you should have a `<NimbleThemeProvider>` element as an ancestor to all of the Nimble components you use. The app's default layout (`MainLayout.razor` in the examples) is a good place to put the theme provider (as the root content of the page).
+
+#### Using Nimble Design Tokens (CSS/SCSS)
 
 Blazor doesn't have built-in support for using/ building SCSS files, however Nimble's design tokens can be used as CSS variables (`var(--ni-nimble-...)`) in Blazor apps without any additional work.  
-For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Property Names"](https://ni.github.io/nimble/storybook/?path=/story/tokens-property-names--property-names&args=propertyFormat:CSS).
+For a full list of supported variable names, see the [Nimble Storybook, "Tokens" >> "Theme-aware tokens"](https://nimble.ni.dev/storybook/?path=/story/tokens-theme-aware-tokens--theme-aware-tokens&args=propertyFormat:CSS).
 
 **Experimental: Manually including Nimble Tokens SCSS files**  
 There are currently extra manual steps required to use the Nimble design tokens as SCSS in Blazor projects (which results in better IntelliSense and compile-time checking for the Nimble tokens and variables):
@@ -93,6 +97,37 @@ There are currently extra manual steps required to use the Nimble design tokens 
 
 The SCSS compilation happens before the rest of Blazor's compilation, so this approach works fine with Blazor CSS isolation.  
 Note: This approach requires periodically updating the Nimble tokens SCSS files manually (whenever the Nimble Blazor NuGet version is updated).
+
+### Localization (Optional)
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English.
+
+To provide localized strings in a localized Blazor app:
+1. Add the label providers as children of your `<NimbleThemeProvider>`:
+    - `<NimbleLabelProviderCore>`: Used for labels for all components besides the table
+    - `<NimbleLabelProviderTable>`: Used for labels for the table (and table sub-components / column types)
+2. For each Nimble-provided label shown in the [Label Provider Storybook documentation](https://nimble.ni.dev/storybook/?path=/docs/tokens-label-providers--docs):
+    - Add a new entry for the label in a resource file (`.resx`). You can either add to an existing resx file, or create a new one just for the Nimble strings. The resource value should be the Nimble-provided English default string shown in Storybook.
+    - Follow [standard Blazor localization patterns](https://learn.microsoft.com/en-us/aspnet/core/blazor/globalization-localization) to localize the strings, and load the localized versions at runtime in your application.
+    - Provide Nimble the localized strings with the label provider APIs. For example, to provide the `popupDismiss` label on `NimbleLabelProviderCore`, if you load your string resources with a .NET `IStringLocalizer` instance, your label provider may look like the following:
+        ```xml
+        <NimbleLabelProviderCore PopupDismiss="@LabelStringLocalizer["popupDismiss"]"></NimbleLabelProviderCore>
+        ```
+
+### Using Nimble Blazor in a Blazor Hybrid app
+
+There is currently an [issue in ASP.NET Core](https://github.com/dotnet/aspnetcore/issues/42349) that prevents the necessary JavaScript that Nimble Blazor relies on from loading in a Blazor Hybrid application. The Demo.Hybrid project illustrates the current required steps for getting Nimble Blazor to work properly. This simply involves adding the script `NimbleBlazor.HybridWorkaround.js` in the `index.html` file in `wwwroot`:
+
+wwwroot/index.html
+```html
+    ...
+    <script src="_framework/blazor.webview.js"></script>
+    <script src="_content/NimbleBlazor/nimble-components/all-components-bundle.min.js"></script>
+    <!-- This script is a workaround needed for Nimble Blazor to work in Blazor Hybrid.
+         See https://github.com/dotnet/aspnetcore/issues/42349 -->
+    <script src="_content/NimbleBlazor/NimbleBlazor.HybridWorkaround.js"></script>
+</body>
+```
 
 ## Contributing
 

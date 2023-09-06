@@ -1,7 +1,6 @@
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { DesignSystem } from '@microsoft/fast-foundation';
-import type { Story } from '@storybook/html';
-import { ThemeProvider } from '../../theme-provider';
+import { themeProviderTag } from '../../theme-provider';
+import { bodyFont } from '../../theme-provider/design-tokens';
 import type { Theme } from '../../theme-provider/types';
 import { createMatrix } from './matrix';
 import {
@@ -29,8 +28,8 @@ const renderViewTemplate = <TSource>(
  */
 export const createStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
-    return (source: TSource, _context: unknown): Element => {
+): ((source: TSource) => Element) => {
+    return (source: TSource): Element => {
         const wrappedViewTemplate = html<TSource>`
             <div class="code-hide-top-container">${viewTemplate}</div>
         `;
@@ -56,15 +55,15 @@ const getGlobalTheme = (context: unknown): Theme => {
  */
 export const createUserSelectedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
+): ((source: TSource, context: unknown) => Element) => {
     return (source: TSource, context: unknown): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <${DesignSystem.tagFor(ThemeProvider)}
+            <${themeProviderTag}
                 theme="${getGlobalTheme(context)}"
                 class="code-hide-top-container"
             >
                 ${viewTemplate}
-            </${DesignSystem.tagFor(ThemeProvider)}>
+            </${themeProviderTag}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -80,26 +79,28 @@ export const createUserSelectedThemeStory = <TSource>(
 export const createFixedThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>,
     backgroundState: BackgroundState
-): Story<TSource> => {
-    return (source: TSource, _context: unknown): Element => {
+): ((source: TSource) => Element) => {
+    return (source: TSource): Element => {
         const wrappedViewTemplate = html<TSource>`
-            <${DesignSystem.tagFor(ThemeProvider)}
+            <${themeProviderTag}
                 theme="${backgroundState.theme}"
                 class="code-hide-top-container"
             >
+                <style>
+                    body {
+                        /* Override storybook's padding styling */
+                        padding: 0px !important;
+                    }
+                </style>
                 <div
                     style="
                         background-color: ${backgroundState.value};
-                        position: absolute;
-                        width: 100%;
-                        min-height: 100%;
-                        left: 0px;
-                        top: 0px;
+                        min-height: 100vh;
                     "
                 >
                     ${viewTemplate}
                 </div>
-            </${DesignSystem.tagFor(ThemeProvider)}>
+            </${themeProviderTag}>
         `;
         const fragment = renderViewTemplate(wrappedViewTemplate, source);
         const content = fragment.firstElementChild!;
@@ -112,16 +113,16 @@ export const createFixedThemeStory = <TSource>(
  */
 export const createMatrixThemeStory = <TSource>(
     viewTemplate: ViewTemplate<TSource>
-): Story<TSource> => {
-    return (source: TSource, _context: unknown): Element => {
+): ((source: TSource) => Element) => {
+    return (source: TSource): Element => {
         const matrixTemplate = createMatrix(
             ({ theme, value }: BackgroundState) => html`
-                <${DesignSystem.tagFor(ThemeProvider)}
+                <${themeProviderTag}
                     theme="${theme}">
                     <div style="background-color: ${value}; padding:20px;">
                         ${viewTemplate}
                     </div>
-                </${DesignSystem.tagFor(ThemeProvider)}>
+                </${themeProviderTag}>
             `,
             [backgroundStates]
         );
@@ -144,3 +145,36 @@ Overrides of properties are not recommended and are not theme-aware by default. 
 
 ${howToOverride}
 </details>`;
+
+export interface IncubatingWarningConfig {
+    componentName: string;
+    statusLink: string;
+}
+
+export const incubatingWarning = (config: IncubatingWarningConfig): string => `
+<style class="code-hide">
+#incubating-warning {
+    color: red;
+    font: var(${bodyFont.cssCustomProperty});
+}
+</style>
+<div id="incubating-warning" class="code-hide">
+WARNING - The ${config.componentName} is still incubating. It is not recommended for application use. 
+See the <a href="${config.statusLink}">incubating component status</a>.
+</div>`;
+
+// On Firefox, on the Docs page, there is a div with a scale(1) transform that causes the dropdown
+// to be confined to the div. We remove the transform to allow the dropdown to escape the div, but
+// that also breaks zooming behavior, so we remove the zoom buttons on the docs page.
+export const disableStorybookZoomTransform = `
+<style class="code-hide">
+    [scale] {
+        transform: none !important;
+    }
+    button[title="Zoom in"],
+    button[title="Zoom out"],
+    button[title="Reset zoom"] {
+        display: none;
+    }
+</style>
+`;

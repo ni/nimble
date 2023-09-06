@@ -9,10 +9,14 @@ import { styles } from './styles';
 import { NumberFieldAppearance } from './types';
 import { errorTextTemplate } from '../patterns/error/template';
 import type { ErrorPattern } from '../patterns/error/types';
-import { Button } from '../button';
-import { IconMinusWide } from '../icons/minus-wide';
-import { IconAdd } from '../icons/add';
-import { IconExclamationMark } from '../icons/exclamation-mark';
+import { buttonTag } from '../button';
+import { iconMinusWideTag } from '../icons/minus-wide';
+import { iconAddTag } from '../icons/add';
+import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import {
+    numericDecrementLabel,
+    numericIncrementLabel
+} from '../label-provider/core/label-tokens';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -64,40 +68,41 @@ const nimbleNumberField = NumberField.compose<NumberFieldOptions>({
     shadowOptions: {
         delegatesFocus: true
     },
-    stepDownGlyph: html`
-        <${DesignSystem.tagFor(Button)}
+    stepDownGlyph: html<NumberField>`
+        <${buttonTag}
             class="step-up-down-button"
             appearance="ghost"
             content-hidden
             tabindex="-1"
         >
-            "Decrement"
-            <${DesignSystem.tagFor(IconMinusWide)}
+            ${x => numericDecrementLabel.getValueFor(x)}
+            <${iconMinusWideTag}
                 slot="start"
             >
-            </${DesignSystem.tagFor(IconMinusWide)}>
-        </${DesignSystem.tagFor(Button)}>
+            </${iconMinusWideTag}>
+        </${buttonTag}>
     `,
-    stepUpGlyph: html`
-        <${DesignSystem.tagFor(Button)}
+    stepUpGlyph: html<NumberField>`
+        <${buttonTag}
             class="step-up-down-button"
             appearance="ghost"
             content-hidden
             tabindex="-1"
         >
-            "Increment"
-            <${DesignSystem.tagFor(IconAdd)}
+            ${x => numericIncrementLabel.getValueFor(x)}
+            <${iconAddTag}
                 slot="start">
-            </${DesignSystem.tagFor(IconAdd)}>
-        </${DesignSystem.tagFor(Button)}>
+            </${iconAddTag}>
+        </${buttonTag}>
     `,
     end: html<NumberField>`
-        <${DesignSystem.tagFor(IconExclamationMark)}
+        <${iconExclamationMarkTag}
             severity="error"
             class="error-icon"
-        ></${DesignSystem.tagFor(IconExclamationMark)}>
+        ></${iconExclamationMarkTag}>
         ${errorTextTemplate}
     `
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleNumberField());
+export const numberFieldTag = DesignSystem.tagFor(NumberField);

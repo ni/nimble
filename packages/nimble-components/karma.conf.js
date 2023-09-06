@@ -3,7 +3,13 @@
 // Coverage from the fast configuration removed due to lack of Webpack 5 support:
 // https://github.com/webpack-contrib/istanbul-instrumenter-loader/issues/110
 
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+const playwright = require('playwright');
+
+process.env.WEBKIT_HEADLESS_BIN = playwright.webkit.executablePath();
+process.env.WEBKIT_BIN = playwright.webkit.executablePath();
+process.env.FIREFOX_BIN = playwright.firefox.executablePath();
+process.env.CHROME_BIN = playwright.chromium.executablePath();
+
 const path = require('path');
 const webpack = require('webpack');
 
@@ -22,7 +28,8 @@ const commonChromeFlags = [
     '--disable-extensions',
     '--disable-infobars',
     '--disable-translate',
-    '--force-prefers-reduced-motion'
+    '--force-prefers-reduced-motion',
+    '--lang=en-US'
 ];
 
 // Create a webpack environment plugin to use while running tests so that
@@ -41,15 +48,22 @@ module.exports = config => {
         basePath,
         browserDisconnectTimeout: 10000,
         processKillTimeout: 10000,
-        frameworks: ['source-map-support', 'jasmine', 'webpack'],
+        frameworks: [
+            'source-map-support',
+            'jasmine',
+            'webpack',
+            'jasmine-spec-tags'
+        ],
         plugins: [
             'karma-jasmine',
             'karma-jasmine-html-reporter',
+            'karma-jasmine-spec-tags',
             'karma-webpack',
             'karma-source-map-support',
             'karma-sourcemap-loader',
             'karma-chrome-launcher',
-            'karma-firefox-launcher'
+            'karma-firefox-launcher',
+            'karma-webkit-launcher'
         ],
         files: ['dist/esm/utilities/tests/setup.js'],
         preprocessors: {
@@ -117,6 +131,14 @@ module.exports = config => {
             ChromeHeadlessOpt: {
                 base: 'ChromeHeadless',
                 flags: [...commonChromeFlags]
+            },
+            FirefoxDebugging: {
+                base: 'Firefox',
+                debug: true
+            },
+            WebkitDebugging: {
+                base: 'Webkit',
+                debug: true
             }
         },
         client: {

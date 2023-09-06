@@ -1,5 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
+import { White } from '@ni/nimble-tokens/dist/styledictionary/js/tokens';
 import {
     applicationBackgroundColor,
     bodyFont,
@@ -17,9 +18,13 @@ import {
     failColor,
     elevation2BoxShadow
 } from '../../theme-provider/design-tokens';
+import { Theme } from '../../theme-provider/types';
 import { appearanceBehavior } from '../../utilities/style/appearance';
+import { hexToRgbaCssColor } from '../../utilities/style/colors';
 import { focusVisible } from '../../utilities/style/focus';
+import { themeBehavior } from '../../utilities/style/theme';
 import { DropdownAppearance } from './types';
+import { userSelectNone } from '../../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-flex')}
@@ -31,7 +36,7 @@ export const styles = css`
         height: ${controlHeight};
         position: relative;
         justify-content: center;
-        user-select: none;
+        ${userSelectNone}
         min-width: 250px;
         outline: none;
         vertical-align: top;
@@ -97,6 +102,10 @@ export const styles = css`
         width: 0px;
     }
 
+    [part='start'] {
+        display: none;
+    }
+
     .control {
         align-items: center;
         box-sizing: border-box;
@@ -125,29 +134,29 @@ export const styles = css`
         border-bottom-color: ${failColor};
     }
 
+    .anchored-region[hidden] {
+        visibility: hidden;
+    }
+
     .listbox {
         box-sizing: border-box;
         display: inline-flex;
         flex-direction: column;
         left: 0;
         overflow-y: auto;
-        position: absolute;
         width: 100%;
         --ni-private-listbox-padding: ${smallPadding};
-        max-height: calc(
-            var(--ni-private-select-max-height) - 2 *
-                var(--ni-private-listbox-padding)
-        );
+        max-height: calc(var(--ni-private-select-max-height) - ${smallPadding});
         z-index: 1;
-        padding: var(--ni-private-listbox-padding);
         box-shadow: ${elevation2BoxShadow};
         border: 1px solid ${popupBorderColor};
         background-color: ${applicationBackgroundColor};
-        background-clip: padding-box;
     }
 
-    .listbox[hidden] {
-        display: none;
+    .listbox slot {
+        display: block;
+        background: transparent;
+        padding: var(--ni-private-listbox-padding);
     }
 
     :host([open][position='above']) .listbox {
@@ -160,12 +169,12 @@ export const styles = css`
         border-top-right-radius: 0;
     }
 
-    :host([open][position='above']) .listbox {
-        bottom: ${controlHeight};
+    :host([open][position='above']) .anchored-region {
+        padding-bottom: ${smallPadding};
     }
 
-    :host([open][position='below']) .listbox {
-        top: calc(${controlHeight} + ${smallPadding});
+    :host([open][position='below']) .anchored-region {
+        padding-top: ${smallPadding};
     }
 
     .selected-value {
@@ -202,17 +211,7 @@ export const styles = css`
         fill: ${bodyDisabledFontColor};
     }
 
-    slot[name='listbox'] {
-        display: none;
-        width: 100%;
-    }
-
-    :host([open]) slot[name='listbox'] {
-        display: flex;
-        position: absolute;
-    }
-
-    .end {
+    [part='end'] {
         margin-inline-start: auto;
     }
 
@@ -257,6 +256,14 @@ export const styles = css`
 
             :host([disabled]) .control {
                 background-color: rgba(${borderRgbPartialColor}, 0.07);
+            }
+        `
+    ),
+    themeBehavior(
+        Theme.color,
+        css`
+            .listbox slot {
+                background: ${hexToRgbaCssColor(White, 0.15)};
             }
         `
     )

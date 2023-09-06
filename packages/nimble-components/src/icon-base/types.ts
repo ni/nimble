@@ -9,4 +9,4 @@ export const IconSeverity = {
     success: 'success',
     information: 'information'
 } as const;
-export type IconSeverity = typeof IconSeverity[keyof typeof IconSeverity];
+export type IconSeverity = (typeof IconSeverity)[keyof typeof IconSeverity];

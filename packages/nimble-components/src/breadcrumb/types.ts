@@ -7,4 +7,4 @@ export const BreadcrumbAppearance = {
     prominent: 'prominent'
 } as const;
 export type BreadcrumbAppearance =
-    typeof BreadcrumbAppearance[keyof typeof BreadcrumbAppearance];
+    (typeof BreadcrumbAppearance)[keyof typeof BreadcrumbAppearance];

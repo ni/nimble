@@ -7,6 +7,7 @@
 ### Background
 
 *Relevant historical or background information*
+*Link to Interaction Design spec*
 *Link to Visual Design spec*
 *Link to relevant work items, related existing issues, etc.*
 
@@ -35,6 +36,10 @@
 - *A customer using the component on a web page.*
 - *A developer building an app with the component and interacting through HTML/CSS/JavaScript.*
 - *A designer customizing the component.*
+
+*Include code snippets showing basic component use and any interesting configurations.*
+
+*For each section below, consider adding an "Alternatives" sub-section to describe any design alternatives and discuss why they were rejected.*
 
 ### API
 

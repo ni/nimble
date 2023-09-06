@@ -1,7 +1,8 @@
-import { DOM, html } from '@microsoft/fast-element';
+import { html } from '@microsoft/fast-element';
 import { keyEnter, keySpace } from '@microsoft/fast-web-utilities';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { ToggleButton } from '..';
+import { waitForUpdatesAsync } from '../../testing/async-helpers';
 
 async function setup(): Promise<Fixture<ToggleButton>> {
     return fixture<ToggleButton>(
@@ -39,7 +40,7 @@ describe('ToggleButton', () => {
         expect(element.control.getAttribute('aria-pressed')).toBe('true');
 
         element.checked = false;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-pressed')).toBe('false');
     });
@@ -61,7 +62,7 @@ describe('ToggleButton', () => {
         expect(element.control.getAttribute('aria-disabled')).toBe('true');
 
         element.disabled = false;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-disabled')).toBe('false');
     });
@@ -77,7 +78,7 @@ describe('ToggleButton', () => {
         expect(element.control.getAttribute('aria-readonly')).toBe('true');
 
         element.readOnly = false;
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-readonly')).toBe('false');
     });
@@ -91,7 +92,7 @@ describe('ToggleButton', () => {
         await connect();
 
         element.setAttribute('aria-haspopup', 'menu');
-        await DOM.nextUpdate();
+        await waitForUpdatesAsync();
 
         expect(element.control.getAttribute('aria-haspopup')).toBe('menu');
     });

@@ -31,3 +31,4 @@ const nimbleTabs = Tabs.compose<TabsOptions>({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleTabs());
+export const tabsTag = DesignSystem.tagFor(Tabs);

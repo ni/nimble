@@ -14,13 +14,15 @@ import {
     bodyFont,
     controlLabelFontColor,
     controlLabelDisabledFontColor,
-    standardPadding
+    standardPadding,
+    iconColor
 } from '../theme-provider/design-tokens';
 import { appearanceBehavior } from '../utilities/style/appearance';
 import { TextFieldAppearance } from './types';
 import { Theme } from '../theme-provider/types';
 import { themeBehavior } from '../utilities/style/theme';
 import { styles as errorStyles } from '../patterns/error/styles';
+import { userSelectNone } from '../utilities/style/user-select';
 
 export const styles = css`
     ${display('inline-block')}
@@ -29,8 +31,7 @@ export const styles = css`
     :host {
         font: ${bodyFont};
         outline: none;
-        user-select: none;
-        --webkit-user-select: none;
+        ${userSelectNone}
         color: ${bodyFontColor};
         --ni-private-hover-indicator-width: calc(${borderWidth} + 1px);
         --ni-private-height-within-border: calc(
@@ -92,7 +93,7 @@ export const styles = css`
         content: ' ';
         color: transparent;
         width: 0px;
-        user-select: none;
+        ${userSelectNone}
     }
 
     :host([appearance='frameless'][full-bleed]) .root::before {
@@ -104,7 +105,7 @@ export const styles = css`
         content: ' ';
         color: transparent;
         width: 0px;
-        user-select: none;
+        ${userSelectNone}
     }
 
     :host([appearance='frameless'][full-bleed]) .root::after {
@@ -117,6 +118,7 @@ export const styles = css`
 
     slot[name='start']::slotted(*) {
         flex: none;
+        ${iconColor.cssCustomProperty}: currentcolor;
     }
 
     .control {

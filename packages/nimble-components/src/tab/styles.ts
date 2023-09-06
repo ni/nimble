@@ -1,7 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
-    bodyFont,
     borderHoverColor,
     borderWidth,
     bodyFontColor,
@@ -10,7 +9,8 @@ import {
     fillHoverColor,
     fillHoverSelectedColor,
     standardPadding,
-    smallDelay
+    smallDelay,
+    buttonLabelFont
 } from '../theme-provider/design-tokens';
 import { focusVisible } from '../utilities/style/focus';
 
@@ -20,7 +20,7 @@ export const styles = css`
     :host {
         position: relative;
         box-sizing: border-box;
-        font: ${bodyFont};
+        font: ${buttonLabelFont};
         height: ${controlHeight};
         color: ${bodyFontColor};
         align-items: center;
@@ -36,11 +36,7 @@ export const styles = css`
         background-color: ${fillHoverColor};
     }
 
-    :host(:focus) {
-        outline: none;
-    }
-
-    :host(:focus:hover) {
+    :host(:hover[aria-selected='true']) {
         background-color: ${fillHoverSelectedColor};
     }
 
@@ -58,7 +54,7 @@ export const styles = css`
         background: none;
     }
 
-    slot {
+    slot:not([name]) {
         display: block;
         padding: calc(${standardPadding} / 2) ${standardPadding}
             calc(${standardPadding} / 2 - ${borderWidth});
@@ -80,7 +76,7 @@ export const styles = css`
 
     @media (prefers-reduced-motion) {
         :host::before {
-            transition-duration: 0.01s;
+            transition-duration: 0s;
         }
     }
 
@@ -101,11 +97,21 @@ export const styles = css`
 
     @media (prefers-reduced-motion) {
         :host::after {
-            transition-duration: 0.01s;
+            transition-duration: 0s;
         }
+    }
+
+    :host(${focusVisible})::after {
+        width: 100%;
+        border-bottom-width: var(--ni-private-focus-indicator-width);
     }
 
     :host([aria-selected='true'])::after {
         width: 100%;
+        border-bottom-width: var(--ni-private-active-indicator-width);
+    }
+
+    :host([aria-selected='true'][disabled])::after {
+        border-bottom-color: rgba(${borderHoverColor}, 0.3);
     }
 `;

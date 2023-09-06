@@ -1,9 +1,11 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import type { MenuButton } from '@ni/nimble-components/dist/esm/menu-button';
-import type { ButtonAppearance } from '@ni/nimble-components/dist/esm/menu-button/types';
-import { BooleanValueOrAttribute, toBooleanProperty } from '../utilities/template-value-helpers';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { type MenuButton, menuButtonTag } from '@ni/nimble-components/dist/esm/menu-button';
+import type { ButtonAppearance, MenuButtonToggleEventDetail } from '@ni/nimble-components/dist/esm/menu-button/types';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
 
 export type { MenuButton };
+export { menuButtonTag };
+export type { MenuButtonToggleEventDetail };
 
 /**
  * Directive to provide Angular integration for the menu button.
@@ -46,14 +48,5 @@ export class NimbleMenuButtonDirective {
         this.renderer.setProperty(this.elementRef.nativeElement, 'open', toBooleanProperty(value));
     }
 
-    @Output() public openChange = new EventEmitter<boolean>();
-
     public constructor(private readonly renderer: Renderer2, private readonly elementRef: ElementRef<MenuButton>) {}
-
-    @HostListener('open-change', ['$event'])
-    public onOpenChange($event: Event): void {
-        if ($event.target === this.elementRef.nativeElement) {
-            this.openChange.emit(this.open);
-        }
-    }
 }

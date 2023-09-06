@@ -1,6 +1,8 @@
-import type { Story, Meta } from '@storybook/html';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { withXD } from 'storybook-addon-xd-designs';
+import { pascalCase } from '@microsoft/fast-web-utilities';
+import { isChromatic } from '../../utilities/tests/isChromatic';
+
 import {
     createMatrix,
     sharedMatrixParameters
@@ -9,41 +11,57 @@ import {
     createMatrixThemeStory,
     createStory
 } from '../../utilities/tests/storybook';
-import { bodyFontColor } from '../../theme-provider/design-tokens';
+import {
+    bodyFontColor,
+    spinnerLargeHeight,
+    spinnerMediumHeight
+} from '../../theme-provider/design-tokens';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
+import { spinnerTag } from '..';
+import { SpinnerAppearance } from '../types';
 
 const metadata: Meta = {
     title: 'Tests/Spinner',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/dece308f-79e7-48ec-ab41-011f3376b49b/specs/'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
 export default metadata;
 
 const sizeStates = [
-    ['16x16', 'width: 16px; height: 16px'],
-    ['32x32', 'width: 32px; height: 32px']
+    ['Small (16x16)', ''],
+    ['Medium (32x32)', `height: var(${spinnerMediumHeight.cssCustomProperty})`],
+    ['Large (64x64)', `height: var(${spinnerLargeHeight.cssCustomProperty})`]
 ];
-type SizeState = typeof sizeStates[number];
+type SizeState = (typeof sizeStates)[number];
 
-const component = ([stateName, state]: SizeState): ViewTemplate => html`
+const appearanceStates: [string, string | undefined][] = Object.entries(
+    SpinnerAppearance
+).map(([key, value]) => [pascalCase(key), value]);
+type AppearanceState = (typeof appearanceStates)[number];
+
+// Disable animation in Chromatic because it intermittently causes shapshot differences
+// prettier-ignore
+const component = (
+    [stateName, state]: SizeState,
+    [appearanceName, appearance]: AppearanceState,
+): ViewTemplate => html`
     <span style="color: var(${() => bodyFontColor.cssCustomProperty});">
         ${() => stateName}
+        ${() => appearanceName}
     </span>
-    <nimble-spinner style="${() => state}"></nimble-spinner>
+    <${spinnerTag} 
+        style="${() => state}; ${isChromatic() ? '--ni-private-spinner-animation-play-state:paused' : ''}"
+        appearance="${() => appearance}"
+    >
+    </${spinnerTag}>
 `;
 
-export const spinnerThemeMatrix: Story = createMatrixThemeStory(
-    createMatrix(component, [sizeStates])
+export const spinnerThemeMatrix: StoryFn = createMatrixThemeStory(
+    createMatrix(component, [sizeStates, appearanceStates])
 );
 
-export const hiddenSpinner: Story = createStory(
-    hiddenWrapper(html`<nimble-spinner hidden></nimble-spinner>`)
+export const hiddenSpinner: StoryFn = createStory(
+    hiddenWrapper(html`<${spinnerTag} hidden></${spinnerTag}>`)
 );

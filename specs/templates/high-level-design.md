@@ -17,6 +17,8 @@
    - *Does the design create new requirements on clients or break any APIs?*
    - *How does the design affect testing, documentation, performance, security, etc?*
 
+*It may be useful to review the sections of the custom component spec template to remind you of other items to consider.*
+
 ## Alternative Implementations / Designs
 
 *Describe any design alternatives and discuss why they were rejected.*

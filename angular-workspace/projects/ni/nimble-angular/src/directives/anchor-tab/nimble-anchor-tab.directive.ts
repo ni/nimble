@@ -1,0 +1,27 @@
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { type AnchorTab, anchorTabTag } from '@ni/nimble-components/dist/esm/anchor-tab';
+import { BooleanValueOrAttribute, toBooleanProperty } from '@ni/nimble-angular/internal-utilities';
+import { NimbleAnchorBaseDirective } from '../anchor-base/nimble-anchor-base.directive';
+
+export type { AnchorTab };
+export { anchorTabTag };
+
+/**
+ * Directive to provide Angular integration for the anchor tab.
+ */
+@Directive({
+    selector: 'nimble-anchor-tab'
+})
+export class NimbleAnchorTabDirective extends NimbleAnchorBaseDirective<AnchorTab> {
+    public get disabled(): boolean {
+        return this.elementRef.nativeElement.disabled;
+    }
+
+    @Input() public set disabled(value: BooleanValueOrAttribute) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', toBooleanProperty(value));
+    }
+
+    public constructor(renderer: Renderer2, elementRef: ElementRef<AnchorTab>) {
+        super(renderer, elementRef);
+    }
+}

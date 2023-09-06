@@ -23,6 +23,15 @@ public class NimbleRadioTests
     }
 
     [Fact]
+    public void NimbleRadio_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleRadio>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleRadioCurrentValue_AttributeIsSet()
     {
         var radio = RenderNimbleRadioWithPropertySet(x => x.CurrentValue, "foo");

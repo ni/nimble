@@ -8,7 +8,23 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     applicationBackgroundColor: 'Primary background color for the application',
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
-    sectionBackgroundColor: 'Background color for dialogs and menus',
+    sectionBackgroundColor: 'Background color for sections',
+    buttonFillPrimaryColor:
+        'Control fill color for "primary" appearance-variant buttons',
+    buttonPrimaryFontColor:
+        'Font color for "primary" appearance-variant buttons',
+    buttonFillActivePrimaryColor:
+        'Active fill color for "primary" appearance-variant buttons',
+    buttonFillAccentColor:
+        'Control fill color for "accent" appearance-variant buttons',
+    buttonAccentBlockFontColor:
+        'Font color for "accent" appearance-variant block buttons',
+    buttonAccentOutlineFontColor:
+        'Font color for "accent" appearance-variant outline buttons',
+    buttonBorderAccentOutlineColor:
+        'Border color for "accent" appearance-variant outline buttons',
+    buttonFillAccentActiveColor:
+        'Active fill color for "accent" appearance-variant buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
@@ -32,6 +48,8 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     popupBorderColor: 'Border color for menus and dialog boxes',
     controlHeight:
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
+    controlSlimHeight:
+        'Height of controls that are somewhat shorter than standard height.',
     smallPadding: 'Small layout padding for components',
     standardPadding: 'Standard layout padding for components',
     labelHeight:
@@ -40,6 +58,10 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     iconSize: 'Standard layout height for all icons',
     groupHeaderTextTransform: 'CSS text-transform string to use for headers',
     drawerWidth: 'TODO: delete when able',
+    bannerGapSize: 'Space between stacked banners',
+    spinnerSmallHeight: 'Small height (16px) for a spinner component',
+    spinnerMediumHeight: 'Medium height (32px) for a spinner component',
+    spinnerLargeHeight: 'Large height (64px) for a spinner component',
     smallDelay:
         'Elements with small transition areas, such as icons and selection controls, have short durations.',
     mediumDelay:
@@ -258,5 +280,6 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     elevation2BoxShadow:
         'The box shadow for elevation 2. Used for components such as menus, banners, tooltips, error notifications, and scrolling.',
     elevation3BoxShadow:
-        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.'
+        'The box shadow for elevation 3. Used for components such as dialogs, overlays, and pop-ups.',
+    graphGridlineColor: 'Gridline color for graphs'
 };

@@ -1,8 +1,128 @@
 # Change Log - @ni/nimble-tokens
 
-This log was last generated on Wed, 11 Jan 2023 20:34:04 GMT and should not be manually modified.
+This log was last generated on Wed, 02 Aug 2023 19:10:45 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 6.3.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Adding new DigitalGreenDark color tokens (105 and 110) for new button appearance variants (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+
+## 6.2.1
+
+Fri, 14 Jul 2023 22:15:57 GMT
+
+### Patches
+
+- Changed button label font weight token from Regular to Semi-Bold ([ni/nimble@88248bc](https://github.com/ni/nimble/commit/88248bc22d9b50da299331a87863c65fe3c25cdb))
+
+## 6.2.0
+
+Fri, 14 Jul 2023 20:57:32 GMT
+
+### Minor changes
+
+- New icon with a clock and exclamation mark to represent an expired state ([ni/nimble@448a014](https://github.com/ni/nimble/commit/448a0147ee38c0f1cbe0ece06ecd103e4e3f5788))
+
+## 6.1.0
+
+Tue, 20 Jun 2023 14:17:25 GMT
+
+### Minor changes
+
+- New icons for bold, italic, and numbered list ([ni/nimble@d8a2f69](https://github.com/ni/nimble/commit/d8a2f6933982381c2724f87737873b2f9374a706))
+
+## 6.0.0
+
+Fri, 12 May 2023 17:59:07 GMT
+
+### Major changes
+
+- Added 'down-right-from-square', 'up-right-from-square', and 'file-arrow-curved-right' icons. Removed 'share-square' (use the 'up-right-from-square' icon instead) and 'file-export' (use the 'file-arrow-curved-right' icon instead) icons. ([ni/nimble@1e04075](https://github.com/ni/nimble/commit/1e040752c74ea8fc0df586a2a54525e15d5c8b29))
+
+## 5.0.0
+
+Wed, 19 Apr 2023 17:58:44 GMT
+
+### Major changes
+
+- Refactor token build output. This removes some source files from the built package. ([ni/nimble@203525b](https://github.com/ni/nimble/commit/203525bfb38afb4d440c54a8bc8950e4748bf748))
+
+## 4.9.0
+
+Tue, 11 Apr 2023 01:58:34 GMT
+
+### Minor changes
+
+- Adding icon: file-export ([ni/nimble@d339db7](https://github.com/ni/nimble/commit/d339db767c179e2398ccadc6111d9ab7c72ca6bb))
+
+## 4.8.0
+
+Mon, 10 Apr 2023 18:53:34 GMT
+
+### Minor changes
+
+- Adding 3 icons: triangle-two-lines-horizontal, two-squares-in-brackets, two-triangles-between-lines ([ni/nimble@b14c239](https://github.com/ni/nimble/commit/b14c239ec88207b6561e90f447c1975e429e086f))
+
+## 4.7.3
+
+Fri, 07 Apr 2023 20:48:27 GMT
+
+### Patches
+
+- Generate a fonts.scss file in addition to the fonts.css file ([ni/nimble@ce0d505](https://github.com/ni/nimble/commit/ce0d505f4f79cd384aa4224f7faf2b66d4941138))
+
+## 4.7.2
+
+Wed, 05 Apr 2023 18:54:28 GMT
+
+### Patches
+
+- Upgrade to typescript 4.7.4 ([ni/nimble@2dd4d31](https://github.com/ni/nimble/commit/2dd4d31306ba122fb8f5378cd83e8abc83bfa618))
+
+## 4.7.1
+
+Wed, 01 Mar 2023 18:28:57 GMT
+
+### Patches
+
+- Created fallback `@font-face` definitions for local fonts to more closely match the design system fonts. These fallbacks can be used to reduce font swap jitter on initial page load. ([ni/nimble@29c1ec3](https://github.com/ni/nimble/commit/29c1ec36b4284fff6e104f61a1c483f94945870c))
+
+## 4.7.0
+
+Tue, 14 Feb 2023 16:15:37 GMT
+
+### Minor changes
+
+- Add font asset for Noto Serif ([ni/nimble@d9e4787](https://github.com/ni/nimble/commit/d9e478746435367f4909d7592d859747f4b67145))
+
+## 4.6.0
+
+Fri, 10 Feb 2023 19:40:36 GMT
+
+### Minor changes
+
+- Add icons for column sorting ([ni/nimble@4df842d](https://github.com/ni/nimble/commit/4df842d8bc104a9f02d4f73c76f778c6f7b71ef8))
+
+## 4.5.0
+
+Fri, 10 Feb 2023 15:26:34 GMT
+
+### Minor changes
+
+- Add new save icon ([ni/nimble@b5ca27c](https://github.com/ni/nimble/commit/b5ca27c7db12c4d69eaf4cc0b57cd15ebc581ddb))
+
+## 4.4.0
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Minor changes
+
+- Nimble dependencies updated to latest ([ni/nimble@e1da136](https://github.com/ni/nimble/commit/e1da13662d82fa41f81f038335e6a142355de29e))
 
 ## 4.3.2
 

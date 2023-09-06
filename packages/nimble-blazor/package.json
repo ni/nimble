@@ -1,14 +1,16 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "10.0.0",
+  "version": "12.1.30",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
-    "build": "npm run generate-icons && npm run build:release && npm run build:client",
+    "postinstall": "node build/generate-playwright-version-properties/source/index.js",
+    "build": "npm run generate-icons && npm run generate-hybrid && npm run build:release && npm run build:client",
     "build:release": "dotnet build -c Release /p:TreatWarningsAsErrors=true /warnaserror",
     "build:client": "dotnet publish -p:BlazorEnableCompression=false -c Release Examples/Demo.Client --output dist/blazor-client-app",
     "generate-icons": "npm run generate-icons:bundle && npm run generate-icons:run",
-    "generate-icons:bundle": "rollup --config build/generate-icons/rollup.config.js",
+    "generate-icons:bundle": "rollup --bundleConfigAsCjs --config build/generate-icons/rollup.config.js",
     "generate-icons:run": "node build/generate-icons/dist/index.js",
+    "generate-hybrid": "rollup --bundleConfigAsCjs --config build/generate-hybrid/rollup.config.js",
     "lint": "npm run lint:cs && npm run lint:js",
     "lint:cs": "dotnet format --verify-no-changes",
     "lint:js": "eslint .",
@@ -38,13 +40,14 @@
     "!*"
   ],
   "devDependencies": {
-    "@microsoft/fast-web-utilities": "^5.4.1",
+    "@microsoft/fast-web-utilities": "^6.0.0",
     "@ni/eslint-config-javascript": "^4.2.0",
     "@ni/nimble-components": "*",
     "@ni/nimble-tokens": "*",
-    "@rollup/plugin-node-resolve": "^13.1.3",
+    "playwright": "1.36.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "cross-env": "^7.0.3",
-    "glob": "^8.0.1",
-    "rollup": "^2.61.1"
+    "glob": "^8.1.0",
+    "rollup": "^3.10.1"
   }
 }

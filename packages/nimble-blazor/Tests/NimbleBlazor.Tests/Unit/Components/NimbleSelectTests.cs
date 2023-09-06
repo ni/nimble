@@ -22,6 +22,15 @@ public class NimbleSelectTests
         Assert.Contains(expectedMarkup, select.Markup);
     }
 
+    [Fact]
+    public void NimbleSelect_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleSelect>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData(Position.Below, "below")]
     [InlineData(Position.Above, "above")]

@@ -1,14 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { ComboboxAutocomplete } from '@microsoft/fast-foundation';
-import '../../all-components';
-import '../../list-option';
 import { html, repeat } from '@microsoft/fast-element';
-import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
+import { listOptionTag } from '../../list-option';
+import {
+    createUserSelectedThemeStory,
+    disableStorybookZoomTransform
+} from '../../utilities/tests/storybook';
 import {
     DropdownAppearance,
     DropdownPosition
 } from '../../patterns/dropdown/types';
+import { comboboxTag } from '..';
 
 interface ComboboxArgs {
     disabled: boolean;
@@ -28,27 +31,27 @@ interface OptionArgs {
 }
 
 const metadata: Meta<ComboboxArgs> = {
-    title: 'Combobox',
-    decorators: [withXD],
+    title: 'Components/Combobox',
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
-                component: `Combobox is a list in which the current value is displayed in the element. Upon clicking on the element, the other options are visible. The user can enter aribtrary values in the input area. 
-                     The combobox provides 'autocomplete' options that help finding and selecting a particular value. The value of the combobox comes from the text content of the selected list-option, or, if no matching
-                     list option is found, the user-entered text. Whereas with the \`nimble-select\` component, the value property of the list-option is always used for its value.`
+                component: `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/), a combobox is an input widget that has an associated popup. The popup enables users to choose a value for the input from a collection.
+                The \`nimble-combobox\` provides 'autocomplete' options that can help a user find and select a particular value. Unlike with the \`nimble-select\` component, the \`nimble-combobox\` allows the user to enter
+                arbitrary values in the input area, not just those that exist as autocomplete options.`
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/bd6755d9-8fd2-4b97-9709-939ea20680ae/specs/'
         },
         actions: {
             handles: ['change', 'input']
+        },
+        toolbar: {
+            zoom: { hidden: true }
         }
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-combobox
+        ${disableStorybookZoomTransform}
+        <${comboboxTag}
             autocomplete="${x => x.autocomplete}"
             ?disabled="${x => x.disabled}"
             position="${x => x.dropDownPosition}"
@@ -59,9 +62,9 @@ const metadata: Meta<ComboboxArgs> = {
             placeholder="${x => x.placeholder}"
         >
             ${repeat(x => x.options, html<OptionArgs>`
-                <nimble-list-option ?disabled="${x => x.disabled}">${x => x.label}</nimble-list-option>
+                <${listOptionTag} ?disabled="${x => x.disabled}">${x => x.label}</${listOptionTag}>
             `)}
-        </nimble-combobox>
+        </${comboboxTag}>
     `),
     argTypes: {
         autocomplete: {

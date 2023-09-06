@@ -8,8 +8,22 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleMenuItemModule, NimbleCheckboxModule, NimbleToggleButtonModule, NimbleBreadcrumbModule, NimbleBreadcrumbItemModule,
     NimbleIconAddModule, NimbleSwitchModule, NimbleToolbarModule, NimbleMenuButtonModule, NimbleComboboxModule, NimbleTooltipModule,
     NimbleCardButtonModule, NimbleDialogModule, NimbleRadioGroupModule, NimbleRadioModule, NimbleSpinnerModule,
-    NimbleAnchorModule, NimbleAnchorButtonModule } from '@ni/nimble-angular';
-import { NimbleTableModule } from 'projects/ni/nimble-angular/src/public-api';
+    NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
+    NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
+import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
+import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
+import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
+import { NimbleMappingIconModule } from '@ni/nimble-angular/mapping/icon';
+import { NimbleMappingSpinnerModule } from '@ni/nimble-angular/mapping/spinner';
+import { NimbleTableModule } from '@ni/nimble-angular/table';
+import { NimbleTableColumnTextModule } from '@ni/nimble-angular/table-column/text';
+import { NimbleTableColumnAnchorModule } from '@ni/nimble-angular/table-column/anchor';
+import { NimbleTableColumnDateTextModule } from '@ni/nimble-angular/table-column/date-text';
+import { NimbleTableColumnEnumTextModule } from '@ni/nimble-angular/table-column/enum-text';
+import { NimbleTableColumnIconModule } from '@ni/nimble-angular/table-column/icon';
+import { NimbleTableColumnNumberTextModule } from '@ni/nimble-angular/table-column/number-text';
+import { NimbleRichTextViewerModule } from '@ni/nimble-angular/rich-text-viewer';
+import { NimbleRichTextEditorModule } from '@ni/nimble-angular/rich-text-editor';
 import { AppComponent } from './app.component';
 import { CustomAppComponent } from './customapp/customapp.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,6 +39,8 @@ import { HeaderComponent } from './header/header.component';
         FormsModule,
         ReactiveFormsModule,
         NimbleThemeProviderModule,
+        NimbleLabelProviderCoreModule,
+        NimbleLabelProviderTableModule,
         NimbleTextAreaModule,
         NimbleTextFieldModule,
         NimbleNumberFieldModule,
@@ -35,6 +51,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleTreeItemModule,
         NimbleMenuModule,
         NimbleMenuItemModule,
+        NimbleAnchorMenuItemModule,
         NimbleTabsModule,
         NimbleTabModule,
         NimbleTabPanelModule,
@@ -45,6 +62,7 @@ import { HeaderComponent } from './header/header.component';
         NimbleBreadcrumbModule,
         NimbleBreadcrumbItemModule,
         NimbleIconAddModule,
+        NimbleIconCheckModule,
         NimbleSpinnerModule,
         NimbleSwitchModule,
         NimbleToolbarModule,
@@ -57,11 +75,26 @@ import { HeaderComponent } from './header/header.component';
         NimbleRadioModule,
         NimbleAnchorModule,
         NimbleAnchorButtonModule,
+        NimbleAnchorTabModule,
+        NimbleAnchorTabsModule,
+        NimbleAnchorTreeItemModule,
         NimbleTableModule,
+        NimbleTableColumnTextModule,
+        NimbleTableColumnAnchorModule,
+        NimbleTableColumnDateTextModule,
+        NimbleTableColumnEnumTextModule,
+        NimbleTableColumnNumberTextModule,
+        NimbleMappingTextModule,
+        NimbleBannerModule,
+        NimbleRichTextViewerModule,
+        NimbleRichTextEditorModule,
+        NimbleTableColumnIconModule,
+        NimbleMappingIconModule,
+        NimbleMappingSpinnerModule,
         RouterModule.forRoot(
             [
                 { path: '', redirectTo: '/customapp', pathMatch: 'full' },
-                { path: 'customapp', component: CustomAppComponent }
+                { path: 'customapp', component: CustomAppComponent, title: 'Angular All Components Demo - Nimble Design System - NI' }
             ],
             { useHash: true }
         )

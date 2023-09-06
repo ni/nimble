@@ -1,15 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
 import { html, when } from '@microsoft/fast-element';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj } from '@storybook/html';
 import { ButtonAppearance, ButtonAppearanceVariant } from '../types';
 import { createUserSelectedThemeStory } from '../../utilities/tests/storybook';
-import '../../all-components';
 import {
+    appearanceDescription,
     appearanceVariantDescription,
     contentHiddenDescription,
     endIconDescription,
     iconDescription
 } from '../../patterns/button/tests/doc-strings';
+import { buttonTag } from '..';
+import { iconArrowExpanderDownTag } from '../../icons/arrow-expander-down';
+import { iconKeyTag } from '../../icons/key';
 
 interface ButtonArgs {
     label: string;
@@ -29,17 +32,13 @@ a dialog is to append "…" (ellipsis) to the button label, e.g., "Save as…".
 If you want a button that triggers navigation to a URL, use the \`nimble-anchor-button\` instead.`;
 
 const metadata: Meta<ButtonArgs> = {
-    title: 'Button',
-    decorators: [withXD],
+    title: 'Components/Button',
+    decorators: [withActions],
     parameters: {
         docs: {
             description: {
                 component: overviewText
             }
-        },
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/42001df1-2969-438e-b353-4327d7a15102/specs/'
         },
         actions: {
             handles: ['click']
@@ -48,7 +47,8 @@ const metadata: Meta<ButtonArgs> = {
     argTypes: {
         appearance: {
             options: Object.keys(ButtonAppearance),
-            control: { type: 'radio' }
+            control: { type: 'radio' },
+            description: appearanceDescription
         },
         appearanceVariant: {
             name: 'appearance-variant',
@@ -68,19 +68,19 @@ const metadata: Meta<ButtonArgs> = {
     },
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
-        <nimble-button
+        <${buttonTag}
             ?disabled="${x => x.disabled}"
             appearance="${x => ButtonAppearance[x.appearance]}"
             appearance-variant="${x => ButtonAppearanceVariant[x.appearanceVariant]}"
             ?content-hidden="${x => x.contentHidden}">
             ${when(x => x.icon, html`
-                <nimble-icon-key slot="start"></nimble-icon-key>
+                <${iconKeyTag} slot="start"></${iconKeyTag}>
             `)}
             ${x => x.label}
             ${when(x => x.endIcon, html`
-                <nimble-icon-arrow-expander-down slot="end"></nimble-icon-arrow-expander-down>
+                <${iconArrowExpanderDownTag} slot="end"></${iconArrowExpanderDownTag}>
             `)}
-        </nimble-button>
+        </${buttonTag}>
 `),
     args: {
         label: 'Button',

@@ -19,4 +19,13 @@ public class NimbleCheckboxTests
 
         Assert.Contains(expectedMarkup, checkbox.Markup);
     }
+
+    [Fact]
+    public void NimbleCheckbox_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleCheckbox>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
 }

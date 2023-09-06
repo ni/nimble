@@ -1,0 +1,24 @@
+import {
+    Meta,
+    Controls,
+    DocsStory,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as iconsStories from './icons.stories';
+
+<Meta of={iconsStories} />
+
+<Title of={iconsStories} />
+<Description of={iconsStories} />
+
+<DocsStory of={iconsStories.icons} expanded={false} />
+<Controls of={iconsStories.icons} />
+
+# Usage Docs
+
+<br />
+
+## Accessibility
+
+When using an icon standalone, the `title` attribute should usually be set, to provide accessible text (which will also show as a tooltip).

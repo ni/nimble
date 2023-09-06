@@ -15,11 +15,9 @@ The `nimble-table-column-text` is a component that defines how to render a cell 
 ### Non-goals
 
 -   Defining an API that supports editable text. Once we need editable text we will determine if it makes sense to modify this component or introduce a new column type.
--   Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the abstract `cssStyles` property.
+-   Provide API to customize styling of the column content. Styles will be defined statically in the implementation via the cell view element.
 
 ### Features
-
--   Offers a `placeholder` attribute that allows a user to define what text to render when no value is provided by the `nimble-table` data.
 
 ---
 
@@ -29,8 +27,8 @@ Below is an example of how the `nimble-table-column-text` would be used within a
 
 ```HTML
 <nimble-table>
-    <nimble-table-column-text field-name="firstName" placeholder="No data">First Name</nimble-table-column-text-field>
-    <nimble-table-column-text field-name="lastName" placeholder="No data">Last Name</nimble-table-column-text-field>
+    <nimble-table-column-text field-name="firstName">First Name</nimble-table-column-text-field>
+    <nimble-table-column-text field-name="lastName">Last Name</nimble-table-column-text-field>
 </nimble-table>
 ```
 
@@ -43,35 +41,35 @@ _Component Name_
 _*Props/Attrs*_
 
 -   `field-name`: string
--   `placeholder`: string
 
 _Type Reference_
 
 -   [`TableColumn`](../table-columns-hld.md#tablecolumn)
--   [`StringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
+-   [`TableStringField`](https://github.com/ni/nimble/blob/main/packages/nimble-components/src/table/specs/table-data-api.md#implementation--design) (section showing example types)
 -   [`TableCellState`](../table-columns-hld.md#tablecellstate-interface)
 
 The `TableColumnText` will extend the `TableColumn` in a manner similar to the following:
 
 ```TS
-type TableColumnTextCellData = StringField<'value'>;
-type TableColumnTextColumnConfig = { placeholder: string };
+type TableColumnTextCellRecord = TableStringField<'value'>;
+type TableColumnTextColumnConfig = {};
 
-public class TableColumnText extends TableColumn<TableColumnTextCellData, TableColumnTextColumnConfig> {
+public class TableColumnText extends TableColumn<TableColumnTextCellRecord, TableColumnTextColumnConfig> {
     ...
 
     @attr({ attribute: 'field-name'})
     public fieldName: string;
 
-    @attr
-    public placeholder: string; // Column auxiliary configuration
-
-    public cellStateDataFieldNames = ['value'] as const;
-
-    public getRecordFieldNames(): string[] {
-        return [fieldName];
+    protected fieldNameChanged(): void {
+        this.columnInternals.dataRecordFieldNames = [this.fieldName] as const;
     }
 
+    protected override getColumnInternalsOptions(): ColumnInternalsOptions {
+        return {
+            cellRecordFieldNames: ['value'],
+            ...
+        };
+    }
     ...
 }
 ```
@@ -96,31 +94,21 @@ The visual appearance of the text content will match that of a frameless `nimble
 
 ## Implementation
 
-For the `cellTemplate` implementation required for a `TableColumn<>` implementation we will provide something similar to the following:
+The cell view element will have styles and and template similar to:
 
 ```TS
-public class TableColumnText ...
-{
-    ...
+const styles = css`
+    .text-value {
+        // set necessary text-value styles
+    }
+`;
 
-    public readonly cellStyles = css`
-        .text-value {
-            // set necessary text-value styles
-        }
+const template = html<TableCellState<TableColumnTextCellRecord, TableColumnTextColumnConfig>>`
+    <span class="${x => x.data.value ? 'text-value' : undefined}">
+        ${x => x.data.value? x.data.value : x.columnConfig.plaeholder}
+    </span>
+`;
 
-        .placeholder {
-            // set necessary placeholder styles
-        }
-    `;
-
-    public readonly cellTemplate = html<TableCellState<TableColumnTextCellData, TableColumnTextColumnConfig>>`
-            <span class="${x => x.data.value ? 'text-value' : 'placeholder'}">
-                ${x => x.data.value? x.data.value : x.columnConfig.plaeholder}
-            </span>
-        `;
-
-    ...
-}
 ```
 
 Note that as we are using a `span` element for the visual we will not support many of the features native to the `nimble-text-field` component as they have little value. This includes:
@@ -132,7 +120,7 @@ Note that as we are using a `span` element for the visual we will not support ma
 
 ### Alternatives considered
 
-We are using `span` elements for the text rendering of the values instead of a `nimble-text-field` for performance's sake, as we avoid the presumably heavier cost of using a custom element. The other benefits that using a `nimble-text-field` offer, such as built-in styling and a placeholder implementation seem trivial to replicate, which seems worth it for a performance improvement.
+We are using `span` elements for the text rendering of the values instead of a `nimble-text-field` for performance's sake, as we avoid the presumably heavier cost of using a custom element. The other benefits that using a `nimble-text-field` offer, such as built-in styling, seems trivial to replicate, which seems worth it for a performance improvement.
 
 One notable difference in behavior is that the proposed implementation will not support a behavior present in the `nimble-text-field` where a user can begin dragging at an arbitrary location in the text, and go to the end of the text, even if it has been clipped by the column (and thus showing an `...`). Users will still be able to double-click such text and copy the entire contents.
 
@@ -179,5 +167,3 @@ This component will be documented via its usage in the storybook for the `nimble
 ---
 
 ## Open Issues
-
--   Are there specific configurarable styling requirements we need for both the rendered data value and the placeholder (e.g. italics for placeholder)

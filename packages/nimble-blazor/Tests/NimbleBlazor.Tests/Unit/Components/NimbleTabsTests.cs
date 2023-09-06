@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using AngleSharp.Dom;
 using Bunit;
 using Xunit;
@@ -22,6 +23,15 @@ public class NimbleTabsTests
     }
 
     [Fact]
+    public void NimbleTabs_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleTabs>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleTabsWithChildContent_HasChildMarkup()
     {
         var tabs = RenderTabsWithContent();
@@ -29,6 +39,29 @@ public class NimbleTabsTests
 
         var actualChildNodeNames = tabs.Nodes.First().ChildNodes.OfType<IElement>().Select(node => node.LocalName).ToArray();
         Assert.Equal(expectedChildrenNames, actualChildNodeNames);
+    }
+
+    [Fact]
+    public async void NimbleTabs_ChangeActiveIdToNull_ActiveTabIdDoesNotSwitch()
+    {
+        var expectedActiveTabId = "tab1";
+        var tabs = CreateTwoTabsWithActiveTabIdSet(expectedActiveTabId);
+
+        await TriggerNimbleTabsActiveIdChangeEventAsync(tabs, eventArgs: null);
+
+        Assert.Equal(expectedActiveTabId, tabs.Instance.ActiveId);
+    }
+
+    [Fact]
+    public async void NimbleTabs_ChangeActiveId_ActiveTabUpdates()
+    {
+        var expectedActiveTabId = "tab2";
+        var eventArgs = new TabsChangeEventArgs { ActiveId = expectedActiveTabId };
+        var tabs = CreateTwoTabsWithActiveTabIdSet(activeTabId: "tab1");
+
+        await TriggerNimbleTabsActiveIdChangeEventAsync(tabs, eventArgs);
+
+        Assert.Equal(expectedActiveTabId, tabs.Instance.ActiveId);
     }
 
     private IRenderedComponent<NimbleTabs> RenderTabsWithContent()
@@ -43,5 +76,32 @@ public class NimbleTabsTests
         parameters.AddChildContent<NimbleTab>();
         parameters.AddChildContent<NimbleTabPanel>();
         parameters.AddChildContent<NimbleTabsToolbar>();
+    }
+
+    private IRenderedComponent<NimbleTabs> CreateTwoTabsWithActiveTabIdSet(string activeTabId)
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var tabComponent = context.RenderComponent<NimbleTabs>(parameters =>
+        {
+            parameters.Add(x => x.ActiveId, activeTabId);
+            parameters.AddChildContent<NimbleTab>();
+            parameters.AddChildContent<NimbleTab>();
+            parameters.AddChildContent<NimbleTabPanel>();
+            parameters.AddChildContent<NimbleTabPanel>();
+        });
+
+        Assert.Equal(activeTabId, tabComponent.Instance.ActiveId);
+
+        return tabComponent;
+    }
+
+    private async Task TriggerNimbleTabsActiveIdChangeEventAsync(
+        IRenderedComponent<NimbleTabs> tabs,
+        TabsChangeEventArgs eventArgs)
+    {
+        var tabsElement = tabs.Find("nimble-tabs");
+
+        await tabsElement.TriggerEventAsync("onnimbletabsactiveidchange", eventArgs);
     }
 }

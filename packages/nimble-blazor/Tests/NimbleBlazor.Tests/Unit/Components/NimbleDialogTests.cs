@@ -23,6 +23,15 @@ public class NimbleDialogTests
     }
 
     [Fact]
+    public void NimbleDialog_SupportsAdditionalAttributes()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var exception = Record.Exception(() => context.RenderComponent<NimbleDialog<string>>(ComponentParameter.CreateParameter("class", "foo")));
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public void NimbleDialog_WithChildContent_HasChildMarkup()
     {
         var dialog = RenderDialogWithContent<NimbleButton>();

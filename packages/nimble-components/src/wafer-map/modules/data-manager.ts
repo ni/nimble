@@ -1,14 +1,13 @@
-import type { ScaleLinear } from 'd3-scale';
+import type { ScaleBand, ScaleQuantile } from 'd3-scale';
 import { Computations } from './computations';
 import { Prerendering } from './prerendering';
+import type { WaferMap } from '..';
 import type {
     Dimensions,
     Margin,
-    WaferMapQuadrant,
     DieRenderInfo,
-    WaferMapColorScale,
     WaferMapDie,
-    WaferMapColorScaleMode
+    PointCoordinates
 } from '../types';
 
 /**
@@ -31,12 +30,20 @@ export class DataManager {
         return this.computations.margin;
     }
 
-    public get horizontalScale(): ScaleLinear<number, number> {
+    public get horizontalScale(): ScaleBand<number> {
         return this.computations.horizontalScale;
     }
 
-    public get verticalScale(): ScaleLinear<number, number> {
+    public get invertedHorizontalScale(): ScaleQuantile<number, number> {
+        return this.computations.invertedHorizontalScale;
+    }
+
+    public get verticalScale(): ScaleBand<number> {
         return this.computations.verticalScale;
+    }
+
+    public get invertedVerticalScale(): ScaleQuantile<number, number> {
+        return this.computations.invertedVerticalScale;
     }
 
     public get labelsFontSize(): number {
@@ -47,45 +54,46 @@ export class DataManager {
         return this.prerendering.diesRenderInfo;
     }
 
-    public get mainCircleLocation(): { x: number, y: number } {
-        return {
-            x: this.computations.containerDimensions.width / 2,
-            y: this.computations.containerDimensions.height / 2
-        };
+    public get data(): Map<string, WaferMapDie> {
+        return this.dataMap;
     }
 
-    private readonly computations: Computations;
-    private readonly prerendering: Prerendering;
+    private readonly computations;
+    private readonly prerendering;
+    private dataMap!: Map<string, WaferMapDie>;
 
-    public constructor(
-        dies: Readonly<Readonly<WaferMapDie>[]>,
-        axisLocation: Readonly<WaferMapQuadrant>,
-        canvasDimensions: Readonly<Dimensions>,
-        colorScale: Readonly<WaferMapColorScale>,
-        highlightedValues: Readonly<string[]>,
-        colorScaleMode: Readonly<WaferMapColorScaleMode>,
-        dieLabelsHidden: Readonly<boolean>,
-        dieLabelsSuffix: Readonly<string>,
-        maxCharacters: Readonly<number>
-    ) {
-        this.computations = new Computations(
-            dies,
-            axisLocation,
-            canvasDimensions
-        );
+    public constructor(private readonly wafermap: WaferMap) {
+        this.computations = new Computations(wafermap);
+        this.prerendering = new Prerendering(wafermap, this);
+    }
 
-        this.prerendering = new Prerendering(
-            dies,
-            colorScale,
-            highlightedValues,
-            this.computations.horizontalScale,
-            this.computations.verticalScale,
-            colorScaleMode,
-            dieLabelsHidden,
-            dieLabelsSuffix,
-            maxCharacters,
-            this.computations.dieDimensions,
-            this.computations.margin
+    public updateContainerDimensions(): void {
+        this.computations.updateContainerDimensions();
+        this.updateDataMap();
+        this.updateLabelsFontSize();
+    }
+
+    public updateScales(): void {
+        this.computations.updateScales();
+        this.updateDataMap();
+        this.updateLabelsFontSize();
+    }
+
+    public updateLabelsFontSize(): void {
+        this.prerendering.updateLabelsFontSize();
+    }
+
+    public updateDiesRenderInfo(): void {
+        this.prerendering.updateDiesRenderInfo();
+    }
+
+    public getWaferMapDie(point: PointCoordinates): WaferMapDie | undefined {
+        return this.dataMap.get(`${point.x}_${point.y}`);
+    }
+
+    private updateDataMap(): void {
+        this.dataMap = new Map(
+            this.wafermap.dies.map(die => [`${die.x}_${die.y}`, die])
         );
     }
 }

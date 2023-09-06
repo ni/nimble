@@ -39,13 +39,13 @@ public partial class NimbleTextField : NimbleInputBase<string?>
     public bool? Spellcheck { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the combobox error text
+    /// Gets or sets the error text
     /// </summary>
     [Parameter]
     public string? ErrorText { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the combobox error is visible
+    /// Gets or sets whether the error is visible
     /// </summary>
     [Parameter]
     public bool? ErrorVisible { get; set; }

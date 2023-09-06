@@ -2,7 +2,7 @@
 
 ## Package overview
 
-This package contains a library of NI-styled web components.
+This package contains a library of NI-styled web components. Components are built using [custom elements](https://web.dev/custom-elements-v1/) and [Shadow DOM](https://web.dev/shadowdom-v1/) which are native features in modern browsers.
 
 The library is built on the open source [FAST Design System library](https://fast.design) created by Microsoft. This provides several useful starting points:
 
@@ -30,13 +30,13 @@ From the `nimble` directory:
 
     - To run the unit tests and re-run the tests on source changes: `npm run tdd:watch -w @ni/nimble-components`
 
-## Visual design spec process
-
-Components added to Nimble are based on specs created by NI visual designers. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
-
 ## Component spec process
 
-Before building a new component, create a spec document to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
+Before building a new component, 3 specification documents need to be created:
+
+1. An interaction design (IxD) spec to get agreement on the component's behavior and other core requirements. The spec process is described in the [`/specs` folder](/specs/README.md).
+2. A visual design (ViD) spec to get agreement on the component's appearance, spacing, icons, and tokens. The visual design spec can be created in Adobe XD or Figma, and linked to the component work item and Storybook documentation. See [Tips for using Adobe XD to inspect component designs](/packages/nimble-components/docs/xd-tips.md) to learn more about how to navigate these specs.
+3. A technical design spec to get agreement on the component's behavior, API, and high-level implementation. The spec process is described in the [`/specs` folder](/specs/README.md).
 
 ## Development workflow
 
@@ -63,23 +63,47 @@ Before building a new component, create a spec document to get agreement on the 
 
     See [Unit tests](#unit-tests) for additional available commands.
 
-5. Create change files for your work by running the following from the `nimble` directory:
+5. Test out the component in each of the 3 major browsers: Chrome, Firefox, and Safari (WebKit).
+   For developers on non-Mac platforms, Safari/WebKit can be tested via the Playwright package:
+
+    - To open Storybook with WebKit, after running the Storybook command, run the command `npm run storybook-open-webkit -w @ni/nimble-components` from the `nimble` directory.
+    - To run the unit tests with WebKit, use the command `npm run test-webkit -w @ni/nimble-components` from the `nimble` directory.
+
+6. Create change files for your work by running the following from the `nimble` directory:
 
     `npm run change`
 
-6. Update the [Component Status table](/README.md#component-status) to reflect the new component state.
+7. Update the [Component Status table](./docs/component-status.stories.ts) to reflect the new component state.
 
 ## Develop new components
 
-### Marking a component as in development
+### Marking a component as incubating
 
-If a component will require multiple pull requests before having a complete and stable API, it should be marked as "in-development" to indicate to clients that they shouldn't start using it yet. To do this:
+If a component is not ready for general use, it should be marked as "incubating" to indicate that status to clients. A component could be in this state if any of the following are true:
+
+-   It is still in development.
+-   It is currently experimental or application-specific and hasn't yet been generalized for broader use.
+-   It is missing important features like interaction design, visual design, accessibility, or framework integration.
+
+Incubating contributions may compromise on the above capabilities but they still must abide by other repository requirements. For example:
+
+-   Start development with a spec describing the high level plan and what's in or out of scope
+-   Coding conventions (element naming, linting, code quality)
+-   Unit and Chromatic test coverage
+-   Storybook documentation
+
+To mark a component as incubating:
 
 1. In the component status table, set its status to ⚠️
-2. In the component Storybook documentation, add a red text banner to the page indicating that the component should not be used
-3. Consider placing the component implementation in a sub-folder named `experimental` so that it will be obvious when importing it that it is incomplete
+2. In the component Storybook documentation:
+    - add a red text banner to the page indicating that the component is not ready for general use
+    - start the Storybook name with "Incubating/" so that it appears in a separate section of the documentation page
+3. Add CODEOWNERS from both the contributing team and the Nimble team.
 
-Be sure to remove these warnings when the component is complete!
+To move a component out of incubating status:
+
+1. Have a conversation with the Nimble team to decide if it is sufficiently complete.
+2. Update the markings described above to indicate that it is now ready for general use!
 
 ### Folder structure
 
@@ -94,6 +118,7 @@ Create a new folder named after your component with some core files:
 | types.ts                               | Contains any enum-like types defined by the component                                                                                                                                                                                                                      |
 | models/                                | A folder containing any classes or interfaces that are part of the component API or implementation                                                                                                                                                                         |
 | components/                            | A folder containing any components that are used within the component but are not exported as public components themselves.                                                                                                                                                |
+| testing/component-name.pageobject.ts   | Page object to ease testing of this component.                                                                                                                                                                                                                             |
 | tests/component-name.spec.ts           | Unit tests for this component. Covers behaviors added to components on top of existing Foundation behaviors or behavior of new components.                                                                                                                                 |
 | tests/component-name.stories.ts        | Contains the component hosted in Storybook. This provides a live component view for development and testing. In the future, this will also provide API documentation.                                                                                                      |
 | tests/component-name-matrix.stories.ts | Contains a story that shows all component states for all themes hosted in Storybook. This is used by Chromatic visual tests to verify styling changes across all themes and states.                                                                                        |
@@ -109,9 +134,13 @@ All components should have an import added to `src/all-components.ts` so they ar
 
 If Fast Foundation contains a component similar to what you're adding, create a new class that extends the existing component with any Nimble-specific functionality. Do not prefix the new class name with "Nimble"; namespacing is accomplished through imports. Use `MyComponent.compose()` to add the component to Nimble.
 
-If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value. Make sure to include a test that shows the tag name for the element is found when using `DesignSystem.tagFor(FastFoundationBaseClass)`.
+If your component is the canonical representation of the FAST Foundation base class that it extends, then in the argument to `compose` provide a `baseClass` value. No two Nimble components should specify the same `baseClass` value.
 
-Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template).
+Sometimes you may want to extend a FAST component, but need to make changes to their template. If possible, you should submit a PR to FAST to make the necessary changes in their repo. As a last resort, you may instead copy the template over to the Nimble repo, then make your changes. If you do so, you must also copy over the FAST unit tests for the component (making any adjustments to account for your changes to the template). When copying over unit tests:
+
+1. Put the FAST tests in a separate file named `<component>.foundation.spec.ts`
+2. Update the code to follow NI coding conventions (i.e. linting and formatting)
+3. Add a comment at the top of the file that links to the original source in FAST
 
 Use the `css` tagged template helper to style the component according to Nimble guidelines. See [leveraging-css.md](https://github.com/microsoft/fast/blob/c94ad896dda3d4c806585d1d0bbfb37abdc3d758/packages/web-components/fast-element/docs/guide/leveraging-css.md) for (hopefully up-to-date) tips from FAST.
 
@@ -138,7 +167,7 @@ const nimbleButton = Button.compose({
 If you need to compose multiple elements into a new component, use previously built Nimble elements or basic HTML elements as your template building blocks.
 Extend `FoundationElement` and use a simple, unprefixed name, e.g. `QueryBuilder`.
 
-Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `DesignSystem.tagFor(NimbleComponentClass)` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
+Use the `html` tagged template helper to define your custom template. See [Declaring Templates](https://www.fast.design/docs/fast-element/declaring-templates) for tips from FAST. Reference other nimble components using `import { componentNameTag } ...;` instead of hard coding the nimble tag name in templates. This improves the maintainability of the repo because it ensures usages of a component will be updated if it is renamed.
 
 #### Build a new component without leveraging FAST Foundation or existing Nimble components
 
@@ -171,6 +200,7 @@ It is common in web development to represent variations of control states using 
 -   Do not use attribute names that conflict with native attribute names:
     -   Avoid any names in the [MDN HTML attribute reference list](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#attribute_list) (unless the attribute is trying to match that behavior exactly).
     -   Do a best effort search in relevant working groups for new attributes that may be coming to avoid, i.e. https://github.com/openui and https://github.com/whatwg.
+    -   Avoid any names that are [reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words) in JavaScript.
 -   Use lower-kebab-case for attributes and enum values that are part of a component's public API.
 
     ```ts
@@ -190,7 +220,7 @@ It is common in web development to represent variations of control states using 
 
 ##### Attribute common value patterns
 
--   When applicable, the default value for an attribute that is allowed to be unconfigured should have the enum name `default` and be the enum value `undefined`.
+-   When applicable, the default value for an attribute that is allowed to be unconfigured should be first in the enum object, have a descriptive enum name, such as `default`, `none`, etc, based on the context, and be the enum value `undefined`.
 -   States representing the following ideas should use those names: `success`, `error`, `warning`, `information`.
 
     Avoid shorthands, i.e. `warn`, `info` and avoid alternatives, i.e. `pass`, `fail`, `invalid`.
@@ -232,6 +262,19 @@ With an attribute defined there are several ways to react to updates. To minimiz
     This should NOT be done for style purposes and instead rely on CSS attribute selectors or behaviors as previously described.
 
     Some valid use cases are reflecting correct aria values based on the updated attribute or forwarding updates to child components.
+
+#### Don't throw exceptions when a component is misconfigured
+
+Components should be robust to having their properties and attributes configured in invalid ways and should typically not throw exceptions. This matches native element behavior and helps avoid situations where client code must be set component state in a specific order.
+
+Instead of throwing an exceptions, components should ignore invalid state and render in a predictable way. This could mean reverting to a default or empty state. This behavior should be covered by auto tests.
+
+Components can also consider exposing an API that checks the validity of the component configuration. Clients can use this to assert about the validity in their tests and to discover why a component is invalid when debugging. See the `nimble-table` for an example of this.
+
+It is acceptable to throw exceptions in production code in other situations. For example:
+
+-   when a case gets hit that should be impossible, like an invalid enum value.
+-   from a component method when it shouldn't be called in the component's current state, like `show()` on a dialog that is already open.
 
 #### Comments
 
@@ -288,6 +331,16 @@ const fancyCheckbox = FoundationCheckbox.compose<CheckboxOptions>({
 
 The project uses a code generation build script to create a Nimble component for each icon provided by nimble tokens. The script is run as part of the `npm run build` command, and can be run individually by invoking `npm run generate-icons`. The generated icon components are not checked into source control, so the icons must be generated before running the TypeScript compilation. The code generation source can be found at `nimble-components/build/generate-icons`.
 
+### Export component tag
+
+Every component should export its custom element tag (e.g. `nimble-button`) in a constant like this:
+
+```ts
+export const buttonTag = DesignSystem.tagFor(Button);
+```
+
+Client code can use this to refer to the component in an HTML template and having a dependency on the export will let a compiled application detect if a tag name changes.
+
 ### TypeScript integration
 
 For any custom element definition, extend TypeScript's `HTMLElementTagNameMap` to register the new element. For example:
@@ -326,6 +379,16 @@ const nimbleButton = Button.compose({
 });
 ```
 
+### Leverage mixins for shared APIs across components
+
+TypeScript and the FAST library each offer patterns and/or mechanisms to alter the APIs for a component via a mixin.
+
+FAST provides an `applyMixins` function (which is just an implementation of the [Alternative Pattern](https://www.typescriptlang.org/docs/handbook/mixins.html#alternative-pattern) described in the Typscript docs) to alter the API of a given component with a set of provided mixin classes. For an example, see how the [ToggleButton StartEnd mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/toggle-button/index.ts#L44) is applied.
+
+Another pattern in use within in Nimble is the [Constrained Mixin](https://www.typescriptlang.org/docs/handbook/mixins.html#constrained-mixins) pattern. An example in Nimble is the [FractionalWidth mixin](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/mixins/fractional-width-column.ts#L16) which `TableColumnText`, for example, [ultimately extends](https://github.com/ni/nimble/blob/6839ee05cf4d72efa6a20cd23e1d830047103745/packages/nimble-components/src/table-column/text/index.ts#L61). This offers the ability for a mixin to extend the functionality of another concrete type and interface with its implementation.
+
+The 'Constrained Mixin' pattern is used for applying mixins that are defined within Nimble, as they do not fundamentally alter existing types, and the `applyMixins` FAST method is used for consuming mixins exported from the FAST library.
+
 ## Unit tests
 
 Unit tests are written using karma and jasmine in files named `<component-name>.spec.ts`.
@@ -346,6 +409,8 @@ The following commands can be run from the `nimble` directory:
 
     You can also take the page url and open it in a different browser to test interactively.
 
+-   `npm run test-webkit:debugger -w @ni/nimble-components`: Similar to `test-chrome:debugger` but for WebKit. Can be run on Windows.
+
 ### Test utilities
 
 Test utilities located in [`/src/testing`](/packages/nimble-components/src/testing) may be used for testing:
@@ -359,11 +424,56 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 
 The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
 
+### Disabling tests
+
+If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#SkipFirefox`, `#SkipWebkit`, or `#SkipChrome` to the test name:
+
+```ts
+// Firefox skipped, see: https://github.com/ni/nimble/issues/####
+it('sets title when cell text is ellipsized #SkipFirefox', ...);
+```
+
+Before disabling a test, you **must** have investigated the failure and attempted to find a proper resolution. If you still end up needing to disable it, there must be an issue in this repo tracking the failure, and you must add a comment in the source linking to that issue.
+
 ## Theming
 
 Nimble includes three NI-brand aligned themes (i.e. `light`, `dark`, & `color`).
 
 When creating a new component, create a `*-matrix.stories.ts` Storybook file to confirm that the component reflects the design intent across all themes and states.
+
+## Localization
+
+Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
+
+The current label providers:
+
+-   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+-   `nimble-label-provider-rich-text`: Used for labels for the rich text components
+-   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
+
+The expected format for label token names is:
+
+-   element/type(s) to which the token applies, e.g. `number-field` or `table`
+    -   This may not be an exact element name, if this label applies to multiple elements or will be used in multiple contexts
+-   component part/category (optional), e.g. `column-header`
+-   specific functionality or sub-part, e.g. `decrement`
+-   the suffix `label` (will be omitted from the label-provider properties/attributes)
+
+Components using localized labels should document them in Storybook. To add a "Localizable Labels" section:
+
+-   Their story `Args` should extend `LabelUserArgs`
+-   Call `addLabelUseMetadata()` and pass their declared metadata object, the applicable label provider tag, and the label tokens that they're using
+
+## Component naming
+
+Component custom element names are specified in `index.ts` when registering the element. Use the following structure when naming components.
+
+`nimble[-category][-variant]-presentation`
+
+1. All Nimble custom elements are prefixed with `nimble-` to avoid name collisions with other component libraries. Applications should choose their own unique prefix if they define their own elements.
+2. **category** can be used to group similar components together alphabetically. Examples include `icon` and `table-column`.
+3. **variant** can be used to distinguish alternate configurations of one presentation. For example, `anchor-`, `card-`, `menu-`, and `toggle-` are all variants of the `button` presentation. The primary configuration can omit the `variant` segment (e.g. `nimble-button`).
+4. **presentation** describes the visual presentation of the component. For example, `button`, `tab`, or `text-field`.
 
 ## Token naming
 

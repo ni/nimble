@@ -2,12 +2,12 @@ import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
 import {
     bodyDisabledFontColor,
+    bodyFont,
     bodyFontColor,
     borderColor,
     borderHoverColor,
     borderRgbPartialColor,
     borderWidth,
-    buttonLabelFont,
     controlHeight,
     iconSize,
     smallDelay
@@ -18,7 +18,7 @@ export const styles = css`
     ${display('inline-flex')}
 
     :host {
-        font: ${buttonLabelFont};
+        font: ${bodyFont};
         align-items: center;
         outline: none;
         width: fit-content;
@@ -30,6 +30,7 @@ export const styles = css`
     }
 
     .control {
+        position: relative;
         width: calc(${controlHeight} / 2);
         height: calc(${controlHeight} / 2);
         box-sizing: border-box;

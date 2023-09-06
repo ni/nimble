@@ -20,7 +20,7 @@
         "importsNotUsedAsValues": "error",
         "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
-        "noPropertyAccessFromIndexSignature": true
+        "noPropertyAccessFromIndexSignature": false
     },
     "include": ["src"]
 }

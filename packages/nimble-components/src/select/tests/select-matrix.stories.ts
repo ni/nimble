@@ -1,5 +1,4 @@
-import type { Story, Meta } from '@storybook/html';
-import { withXD } from 'storybook-addon-xd-designs';
+import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
 import { pascalCase } from '@microsoft/fast-web-utilities';
 import {
@@ -17,7 +16,6 @@ import {
     errorStates
 } from '../../utilities/tests/states';
 import { hiddenWrapper } from '../../utilities/tests/hidden';
-import '../../all-components';
 import { DropdownAppearance } from '../../patterns/dropdown/types';
 import { textCustomizationWrapper } from '../../utilities/tests/text-customization';
 import {
@@ -25,16 +23,13 @@ import {
     controlLabelFontColor,
     standardPadding
 } from '../../theme-provider/design-tokens';
+import { selectTag } from '..';
+import { listOptionTag } from '../../list-option';
 
 const metadata: Meta = {
     title: 'Tests/Select',
-    decorators: [withXD],
     parameters: {
-        ...sharedMatrixParameters(),
-        design: {
-            artboardUrl:
-                'https://xd.adobe.com/view/33ffad4a-eb2c-4241-b8c5-ebfff1faf6f6-66ac/screen/6ec70d21-9a59-40cd-a8f4-45cfeed9e01e/specs'
-        }
+        ...sharedMatrixParameters()
     }
 };
 
@@ -44,7 +39,7 @@ const appearanceStates = Object.entries(DropdownAppearance).map(
     ([key, value]) => [pascalCase(key), value]
 );
 
-type AppearanceState = typeof appearanceStates[number];
+type AppearanceState = (typeof appearanceStates)[number];
 
 // prettier-ignore
 const component = (
@@ -60,46 +55,46 @@ const component = (
         color: var(${controlLabelFontColor.cssCustomProperty});"
     >
         <label>${() => errorName} ${() => disabledName} ${() => appearanceName}</label>
-        <nimble-select
+        <${selectTag}
             ?error-visible="${() => errorVisible}"
             error-text="${() => errorText}"
             ?disabled="${() => disabled}"
             appearance="${() => appearance}"
         >
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-            <nimble-list-option value="2" disabled>Option 2</nimble-list-option>
-            <nimble-list-option value="3">Option 3</nimble-list-option>
-            <nimble-list-option value="4" hidden>Option 4</nimble-list-option>
-        </nimble-select>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+            <${listOptionTag} value="2" disabled>Option 2</${listOptionTag}>
+            <${listOptionTag} value="3">Option 3</${listOptionTag}>
+            <${listOptionTag} value="4" hidden>Option 4</${listOptionTag}>
+        </${selectTag}>
     </div>
 `;
 
-export const selectThemeMatrix: Story = createMatrixThemeStory(
+export const selectThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(component, [disabledStates, appearanceStates, errorStates])
 );
 
-export const hiddenSelect: Story = createStory(
+export const hiddenSelect: StoryFn = createStory(
     hiddenWrapper(
-        html`<nimble-select hidden>
-            <nimble-list-option value="1">Option 1</nimble-list-option>
-        </nimble-select>`
+        html`<${selectTag} hidden>
+            <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        </${selectTag}>`
     )
 );
 
-export const blankListOption: Story = createStory(
-    html`<nimble-select open>
-        <nimble-list-option value="1">Option 1</nimble-list-option>
-        <nimble-list-option></nimble-list-option>
-    </nimble-select>`
+export const blankListOption: StoryFn = createStory(
+    html`<${selectTag} open>
+        <${listOptionTag} value="1">Option 1</${listOptionTag}>
+        <${listOptionTag}></${listOptionTag}>
+    </${selectTag}>`
 );
 
-export const textCustomized: Story = createMatrixThemeStory(
+export const textCustomized: StoryFn = createMatrixThemeStory(
     textCustomizationWrapper(
         html`
-            <nimble-select>
+            <${selectTag}>
                 Inner text
-                <nimble-list-option> Nimble select item </nimble-list-option>
-            </nimble-select>
+                <${listOptionTag}> Nimble select item </${listOptionTag}>
+            </${selectTag}>
         `
     )
 );

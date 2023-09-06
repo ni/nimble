@@ -1,8 +1,288 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Wed, 04 Jan 2023 21:51:15 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Aug 2023 21:41:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.1.23
+
+Thu, 31 Aug 2023 21:41:33 GMT
+
+### Patches
+
+- Blazor support for icon table column ([ni/nimble@49a4b98](https://github.com/ni/nimble/commit/49a4b98696681bcfc1bc8730de2fa9ef931da96a))
+
+## 12.1.14
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Blazor support for date text column ([ni/nimble@0ab6b4f](https://github.com/ni/nimble/commit/0ab6b4f5df8d01f6734c824d65e62e3c88546000))
+
+## 12.1.10
+
+Tue, 15 Aug 2023 19:50:33 GMT
+
+### Patches
+
+- Add Blazor support for enum-text table column ([ni/nimble@72fa5e6](https://github.com/ni/nimble/commit/72fa5e6e16a1f8aa023febb8ff92577fff3afce1))
+
+## 12.1.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Blazor integration for primary and accent appearance-variant buttons (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+
+## 12.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
+
+## 11.11.0
+
+Mon, 24 Jul 2023 19:42:55 GMT
+
+### Minor changes
+
+- Blazor integration for label providers, doc updates ([ni/nimble@2df1e98](https://github.com/ni/nimble/commit/2df1e989a3da722c233e49221952c48d63321c38))
+
+## 11.10.5
+
+Thu, 20 Jul 2023 16:23:00 GMT
+
+### Patches
+
+- Remove placeholder support from table columns ([ni/nimble@a318010](https://github.com/ni/nimble/commit/a3180102e5798540621a0d60ef93ca827649a988))
+
+## 11.10.0
+
+Mon, 17 Jul 2023 17:19:39 GMT
+
+### Minor changes
+
+- Spinner Accent Appearance Implementation (#1298) ([ni/nimble@9ecabb3](https://github.com/ni/nimble/commit/9ecabb35fbca4f0c233eb2dd0c4adb78027e0add))
+
+## 11.9.5
+
+Tue, 06 Jun 2023 14:41:27 GMT
+
+### Patches
+
+- Specify .NET 6 via global.json file; re-enable Blazor linting ([ni/nimble@717b586](https://github.com/ni/nimble/commit/717b586acc08f4cc956c1142ef5e16e62b88df01))
+
+## 11.9.0
+
+Mon, 22 May 2023 18:39:33 GMT
+
+### Minor changes
+
+- Introduce column configuration validation ([ni/nimble@c23fbe5](https://github.com/ni/nimble/commit/c23fbe55a607508ecc94d7e9d475dc478629cf8a))
+
+## 11.8.30
+
+Wed, 17 May 2023 21:33:40 GMT
+
+### Patches
+
+- Add support for the column-configuration-change event to the table ([ni/nimble@71351b1](https://github.com/ni/nimble/commit/71351b15e45f68adb8b08db2168b5faf499a49f9))
+
+## 11.8.29
+
+Mon, 15 May 2023 14:59:04 GMT
+
+### Patches
+
+- Ensure components can take additional attributes ([ni/nimble@c582727](https://github.com/ni/nimble/commit/c5827276a724ddd368d0acf35b1d29956971639f))
+
+## 11.8.20
+
+Tue, 02 May 2023 15:07:15 GMT
+
+### Patches
+
+- Create Blazor Hybrid example app. Provide workaround for Blazor Hybrid to work with Nimble Blazor. ([ni/nimble@da1d0f2](https://github.com/ni/nimble/commit/da1d0f27d9b555f2b7df2d112122dda0520826f0))
+
+## 11.8.18
+
+Fri, 28 Apr 2023 15:33:54 GMT
+
+### Patches
+
+- Anchor table column type ([ni/nimble@78d39d3](https://github.com/ni/nimble/commit/78d39d34d9ee9a8852ba6eeb40119157493e7f76))
+
+## 11.8.12
+
+Tue, 18 Apr 2023 14:12:28 GMT
+
+### Patches
+
+- Blazor support for row selection in the table ([ni/nimble@2281770](https://github.com/ni/nimble/commit/228177017cae5427fd0bb3a535b0087c17c3bb32))
+
+## 11.8.10
+
+Tue, 11 Apr 2023 02:40:33 GMT
+
+### Patches
+
+- Blazor row grouping support ([ni/nimble@036c36d](https://github.com/ni/nimble/commit/036c36d86d8c009579f1b4734b485785f0173b08))
+
+## 11.8.5
+
+Thu, 06 Apr 2023 21:12:10 GMT
+
+### Patches
+
+- Update setData() to be async ([ni/nimble@16d3c53](https://github.com/ni/nimble/commit/16d3c53c367518f8c670696c997fbc8d5e89bea0))
+
+## 11.8.0
+
+Wed, 05 Apr 2023 17:16:16 GMT
+
+### Minor changes
+
+- Blazor support for anchor tree item ([ni/nimble@1827deb](https://github.com/ni/nimble/commit/1827debb2b303a140bee1b23a01f8d94dbc35247))
+
+## 11.7.0
+
+Tue, 04 Apr 2023 19:42:20 GMT
+
+### Minor changes
+
+- Error state for text area component ([ni/nimble@32bd2ad](https://github.com/ni/nimble/commit/32bd2adecfea401853993df53e8307e060ceb45a))
+
+## 11.6.0
+
+Mon, 03 Apr 2023 17:06:25 GMT
+
+### Minor changes
+
+- Fix bug where NimbleTab would respond to `change` event from children components, causing tabs to change. Also made NimbleTabs.UpdateActiveId private. ([ni/nimble@67c3790](https://github.com/ni/nimble/commit/67c3790a9412dcb482959971edef0040028556e9))
+
+## 11.5.0
+
+Tue, 28 Mar 2023 22:52:47 GMT
+
+### Minor changes
+
+- Blazor support for anchor menu item component ([ni/nimble@fcc2f9c](https://github.com/ni/nimble/commit/fcc2f9c0a871020f8da04213e561c0953a71d62c))
+
+## 11.4.0
+
+Thu, 16 Mar 2023 22:00:14 GMT
+
+### Minor changes
+
+- Add missing properties to NimbleAnchorTab ([ni/nimble@e1746f2](https://github.com/ni/nimble/commit/e1746f201eb7919b8e44ab53caa7eba95f036ffd))
+
+## 11.3.3
+
+Fri, 10 Mar 2023 22:17:50 GMT
+
+### Patches
+
+- Programmatic table column width API ([ni/nimble@d38391e](https://github.com/ni/nimble/commit/d38391e69c9984de80bf7f4a41cfbcc0181e0d16))
+
+## 11.2.7
+
+Thu, 02 Mar 2023 17:48:40 GMT
+
+### Patches
+
+- Add programmatic column sorting support to the table ([ni/nimble@1a1e630](https://github.com/ni/nimble/commit/1a1e630c2741fd00d73f6b6be700aada832143c4))
+
+## 11.2.2
+
+Tue, 21 Feb 2023 20:30:27 GMT
+
+### Patches
+
+- Allow table columns to be marked as hidden ([ni/nimble@8fcdeb8](https://github.com/ni/nimble/commit/8fcdeb884b9be29b92b4e273991fbc96f077d744))
+
+## 11.2.0
+
+Mon, 20 Feb 2023 15:59:14 GMT
+
+### Minor changes
+
+- Blazor wrapper for banner ([ni/nimble@e3870e9](https://github.com/ni/nimble/commit/e3870e99f628096689cefede40b9d5222f3e2a84))
+
+## 11.1.15
+
+Fri, 17 Feb 2023 19:44:11 GMT
+
+### Patches
+
+- Provide ability to specify an action menu for a table column ([ni/nimble@0cc63e6](https://github.com/ni/nimble/commit/0cc63e618d789506063b68d2b153059df2d21b1f))
+
+## 11.1.11
+
+Tue, 14 Feb 2023 17:27:05 GMT
+
+### Patches
+
+- Add column IDs to table ([ni/nimble@a88731d](https://github.com/ni/nimble/commit/a88731d393687500fc23f86437a73bc6c947e17f))
+
+## 11.1.9
+
+Tue, 14 Feb 2023 15:44:48 GMT
+
+### Patches
+
+- Support dynamic arbitrary header content ([ni/nimble@9b95448](https://github.com/ni/nimble/commit/9b954486247d818d9f5326c1942d51d6a6d0af7b))
+
+## 11.1.0
+
+Mon, 30 Jan 2023 19:00:43 GMT
+
+### Minor changes
+
+- Nimble dependencies updated to latest ([ni/nimble@e1da136](https://github.com/ni/nimble/commit/e1da13662d82fa41f81f038335e6a142355de29e))
+
+## 11.0.2
+
+Fri, 27 Jan 2023 15:05:13 GMT
+
+### Patches
+
+- Update Blazor Table to call `setData()` rather than setting the `data` property. ([ni/nimble@f19bf61](https://github.com/ni/nimble/commit/f19bf610f46683eae4c80f2bdd5967d76e63124a))
+
+## 11.0.0
+
+Thu, 26 Jan 2023 18:50:13 GMT
+
+### Major changes
+
+- Add 'beforetoggle' event on menu button and rename 'open-change' event to 'toggle' ([ni/nimble@c39e8c8](https://github.com/ni/nimble/commit/c39e8c80af79ada2a696372c93161355187944af))
+
+## 10.1.0
+
+Wed, 25 Jan 2023 17:37:11 GMT
+
+### Minor changes
+
+- Support for anchor tabs ([ni/nimble@0671e34](https://github.com/ni/nimble/commit/0671e34c7650008aa063fa0145cee62d4a981dd7))
+
+## 10.0.7
+
+Wed, 18 Jan 2023 22:26:41 GMT
+
+### Patches
+
+- Add table row ID and validity support to Blazor ([ni/nimble@a882a4c](https://github.com/ni/nimble/commit/a882a4ce55fb60b786dfde385fa97863536c45d6))
+
+## 10.0.3
+
+Sat, 14 Jan 2023 00:16:05 GMT
+
+### Patches
+
+- Adding Blazor support for TableColumnText ([ni/nimble@86ea30b](https://github.com/ni/nimble/commit/86ea30bf6d6ed01cbe449f5ec67652b151d8d2a5))
 
 ## 9.4.0
 

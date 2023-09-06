@@ -29,3 +29,4 @@ const nimbleBreadcrumb = Breadcrumb.compose({
 });
 
 DesignSystem.getOrCreate().withPrefix('nimble').register(nimbleBreadcrumb());
+export const breadcrumbTag = DesignSystem.tagFor(Breadcrumb);

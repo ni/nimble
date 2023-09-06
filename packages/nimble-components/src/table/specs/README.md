@@ -100,27 +100,30 @@ The various APIs/features of the `nimble-table` will be split up amongst several
 -   [Data API](table-data-api.md)
 -   [Column API](table-columns-hld.md)
     -   Define the interface we will provide for the column providers/components (i.e., width, sorting, allowSort, allowGrouping, etc...)
+        -   [Column Widths](./table-column-width-hld.md)
     -   Define how we intend to support defining a column that uses information from multiple columns (e.g. a hyperlink column that uses data from one column for the URL and the data from another as the text to display)
         -   What column gets used for sorting?
     -   List the set of column providers that Nimble will provide and provide their respective APIs where unique (e.g., formatter for DateTime column)
         -   [TableColumnText](table-column-specs/table-column-text-field.md)
+        -   [Formatted Text Columns](table-column-specs/table-column-formatted-text.md)
+        -   [TableColumnAnchor](table-column-specs/table-column-anchor-hld.md)
+        -   [TableColumnMapping](table-column-specs/table-column-mapping.md)
 -   Headers
     -   Define the anatomy of headers in the table DOM
-        -   Require specific component type (i.e. do we need to create a `nimble-table-header`)
         -   What is the component to use for interaction? Outline Button? Ghost button?
         -   What and where are the interactive mechanisms/indicators? Sort arrow, etc..
--   Row Selection
+-   [Row Selection](table-row-selection.md)
     -   Define the anatomy of row selection in the table DOM
         -   Indeterminate checkbox at the far left of each row?
         -   Selected row CSS/design
     -   Define events raised when row selection changes/occurs
     -   Define table-level row-selection API
--   Grouping
+-   [Grouping](table-row-grouping-hld.md)
     -   Define interactive mechanism, if any, to provide grouping
     -   Define table-level API for setting grouping
     -   Define events raised when grouping changes
     -   Describe how data hierarchy should work with grouping
--   Sorting
+-   [Sorting](table-column-sort-hld.md)
     -   Define the table-level API for setting sorting
     -   Define events raised when sorting changes
     -   Describe how sorting should with with hierarchical and/or grouped data
@@ -129,9 +132,7 @@ The various APIs/features of the `nimble-table` will be split up amongst several
         -   Attribute on table to represent parentId?
     -   Define event/property APIs needed for dealing with lazily-loaded hierarchical data (possibly out of scope of initial release)
     -   Describe the UI representation of hierarchical data (there should be a design doc to reference)
--   Action Menu
-    -   Define how the action menu gets associated with a particular column
-    -   Define the table-level(column-level?) API(s) for applying an action menu to the table (slot, properties, etc...)
+-   [Action Menu](action-menu-hld.md)
 
 _Attributes_
 
@@ -143,7 +144,7 @@ _Attributes_
 _Properties_
 
 -   `data` - An array of key/value pairs where each item in the array represents one row of data. For more information about the `data` property, refer to the [data API spec](table-data-api.md).
--   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidityState`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
+-   `validity` - Readonly object of boolean values that represents the validity states that the table's configuration can be in. The object's type is `TableValidity`, analogous to the [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) property used for HTML 5 control validation.
 
 _Functions_
 
@@ -151,14 +152,32 @@ _Functions_
 
 _Events_
 
-Placeholder
+-   `action-menu-beforetoggle` - An event that is emitted immediately prior to the action menu opening or closing. This can be used to update the items in the menu so that they are in the correct state for the record(s) the menu is associated with. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element is transitioning in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element is transitioning out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `action-menu-toggle` - An event that is emitted when the action menu opens or closes. See [the action menu HLD](./action-menu-hld.md) for more information. The event details include the following:
+    -   `newState` - boolean - The value of `open` on the menu button that the element transitioned in to.
+    -   `oldState` - boolean - The value of `open` on the menu button that the element transitioned out of.
+    -   `recordIds` - string array - The IDs of the records that the menu is associated with.
+    -   `columnId` - string | undefined - The column ID of the column that the menu is associated with.
+-   `column-configuration-change` - An event that is emitted when a user interactively changes the configuration of a column, such as by sorting or resizing the column. See [the table column interaction events HLD](./table-column-interaction-events.md) for more information. The event details include the following:
+    -   `columns` - array of column configuration details - The columns that are currently in the table in the order specified in the DOM, along with their current configuration. Each entry in the array contains:
+        -   `columnId` - string | undefined - The column ID of the column.
+        -   `sortIndex` - number | undefined - The current sort index of the column.
+        -   `sortDirection` - TableColumnSortDirection - The direction the column is sorted.
+        -   `groupIndex` - number | undefined - The current group index of the column.
+        -   `hidden` - boolean - Whether or not the column is currently hidden.
+        -   `fractionalWidth` - number - The current fractional width of the column.
+        -   `pixelWidth` - number | undefined - The current pixel width of the column. The value will be undefined if the column is not configured to be a fixed-width column.
 
 ### Anatomy
 
 _Slots_
 
 -   default - the column elements
--   `action-menu` (Placeholder for action menu)
+-   _user specified_ - Slots dynamically created based on the values specified for `action-menu-slot` on the slotted column elements. A menu element should be provided in each slot that is associated with the action menu for any column that has `action-menu-slot` set. For more information about the action menu, refer to the [action menu HLD](action-menu-hld.md).
 
 ### Security
 
@@ -176,9 +195,17 @@ Blazor support should be accomplished through the typical integration patterns.
 
 One aspect of note is that the Data property is not attribute based so the connection from the blazor component wrapper Data property to the web component will require additional JSInterop considerations.
 
-### Visual Appearance
+### Visual appearance
 
 Placeholder
+
+### State management
+
+Most of the state on the table is declaratively set through attributes/properties on the table itself or on its columns. Examples of this are sorting state, grouping state, and record IDs. Updates to the declarative state are asynchronously applied in batches for performance reasons. For example, changing the sorting state on two columns as back-to-back updates to the columns will be batched and only cause the table to be updated one time.
+
+State that cannot be set declaratively is applied using asynchronous functions. Examples of this are setting the data and getting/setting the row selection. These asynchronous functions wait on pending batches, then apply their state, and then resolve.
+
+Both declarative and function-based state can be applied before the `nimble-table` element is connected to the DOM.
 
 ---
 
@@ -217,13 +244,23 @@ We will be using TanStack Table to manage all of the table state related to data
 
 TanStack Virtual provides various pieces of state to enable simple, efficient virtualization of table data. The Nimble Table will provide certain state/objects to the TanStack Virtual API for it to then provide the needed state that we can virtualize the table rows with. Namely:
 
--   The element that will serve as the scollable element
+-   The element that will serve as the scrollable element
 -   An estimated height for each row
 -   The total count of rows in the data
 
 With this set of information, the Nimble Table will be able to register a callback to the TanStack Virtual `onChange` which will happen any time the scrollable element scrolls. In that handler the Nimble Table can retrieve the set of virtual items from TanStack Virtual (i.e. `getVirtualItems()`), which represent the total set of rows that should be displayed, and contain the state information that allows the Nimble Table to retrieve the appropriate data from the TanStack Table model to apply to each rendered row, as well as the position each row should be rendered.
 
-_Placeholder for other implementation details_
+Our implementation has some differences from the TanStack Virtual examples:
+
+-   The scrollable element is the parent of 2 containers (the 1st has its `height` set to the height of all rows, and the 2nd is the row container)
+-   Rather than doing a `translate` `transform` on each individual row in the row container, we have one `translate` `transform` on the row container itself, which is never larger than the height of a couple of rows.
+-   The rows always render at the top of their container (which has `position: sticky` applied to it)
+
+The changes above result in better rendering performance (notably in Firefox which sometimes had flickering otherwise).
+
+#### Cell State and Virtualized Scrolling
+
+With virtualization enabled, when a scroll occurs, before components in cells are reused for data at the new scroll position, we need to clear/commit some cell state first. The [Cell State when Scrolling HLD](cell-state-when-scrolling-hld.md) covers specifics for that behavior.
 
 ### States
 

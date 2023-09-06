@@ -4,15 +4,18 @@
         <Recognized>
             <Word>args</Word>
             <Word>blazor</Word>
+            <Word>bool</Word>
             <Word>combobox</Word>
             <Word>dropdown</Word>
             <Word>enum</Word>
             <Word>frameless</Word>
             <Word>getter</Word>
+            <Word>groupable</Word>
             <Word>href</Word>
             <Word>json</Word>
             <Word>lang</Word>
             <Word>ltr</Word>
+            <Word>matcher</Word>
             <Word>nullable</Word>
             <Word>runtime</Word>
             <Word>rtl</Word>
