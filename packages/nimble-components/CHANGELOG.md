@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 06 Sep 2023 14:58:43 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 16:21:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.4
+
+Wed, 06 Sep 2023 16:21:23 GMT
+
+### Patches
+
+- Fix bug in number-text column when the value rounds to -0 ([ni/nimble@1e44e91](https://github.com/ni/nimble/commit/1e44e9169c32bfbf7c4d69af57b2c848d4960b1d))
 
 ## 20.2.3
 
