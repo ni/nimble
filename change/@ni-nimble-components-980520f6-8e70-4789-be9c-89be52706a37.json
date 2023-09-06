@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Revert firefox workaround for caret disappear",
+  "packageName": "@ni/nimble-components",
+  "email": "123377167+aagash-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
