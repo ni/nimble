@@ -2,7 +2,6 @@ import { html } from '@microsoft/fast-element';
 import { RichTextViewer, richTextViewerTag } from '..';
 import { fixture, type Fixture } from '../../../utilities/tests/fixture';
 import { RichTextViewerPageObject } from '../testing/rich-text-viewer.pageobject';
-import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<RichTextViewer>> {

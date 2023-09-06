@@ -16,7 +16,9 @@ describe('Markdown parser', () => {
         return nodes;
     }
 
-    function getLeafContentsFromDocumentFragment(doc: DocumentFragment): string[] {
+    function getLeafContentsFromDocumentFragment(
+        doc: DocumentFragment
+    ): string[] {
         const nodes = Array.from(doc.querySelectorAll('*'))
             .filter((el, _) => {
                 return el.children.length === 0;
@@ -28,92 +30,104 @@ describe('Markdown parser', () => {
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         it('bold markdown string("**") to "strong" HTML tag', () => {
             const doc = markDownParser.parseMarkdownToDOM('**Bold**');
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['P', 'STRONG']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual(['Bold']);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['P', 'STRONG']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Bold']);
         });
 
         it('bold markdown string("__") to "strong" HTML tag', () => {
             const doc = markDownParser.parseMarkdownToDOM('__Bold__');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['P', 'STRONG']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual(['Bold']);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['P', 'STRONG']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Bold']);
         });
 
         it('italics markdown string("*") to "em" HTML tag', () => {
             const doc = markDownParser.parseMarkdownToDOM('*Italics*');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['P', 'EM']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual(['Italics']);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['P', 'EM']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Italics']);
         });
 
         it('italics markdown string("_") to "em" HTML tag', () => {
             const doc = markDownParser.parseMarkdownToDOM('_Italics_');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['P', 'EM']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual(['Italics']);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['P', 'EM']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Italics']);
         });
 
         it('numbered list markdown string("1.") to "ol" and "li" HTML tags', () => {
             const doc = markDownParser.parseMarkdownToDOM('1. Numbered list');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['OL', 'LI', 'P']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Numbered list'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['OL', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Numbered list']);
         });
 
         it('numbered list markdown string("1)") to "ol" and "li" HTML tags', () => {
             const doc = markDownParser.parseMarkdownToDOM('1) Numbered list');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['OL', 'LI', 'P']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Numbered list'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['OL', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Numbered list']);
         });
 
         it('multiple numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('1. Option 1\n 2. Option 2');
+            const doc = markDownParser.parseMarkdownToDOM(
+                '1. Option 1\n 2. Option 2'
+            );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'OL',
-                'LI',
-                'P',
-                'LI',
-                'P'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Option 1',
-                'Option 2'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['OL', 'LI', 'P', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Option 1', 'Option 2']);
         });
 
         it('multiple empty numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
             const doc = markDownParser.parseMarkdownToDOM('1.    \n 2.    ');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'OL',
-                'LI',
-                'P',
-                'LI',
-                'P'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual(['', '']);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['OL', 'LI', 'P', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['', '']);
         });
 
         it('numbered lists that start with numbers and are not sequential to "ol" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('1. Option 1\n 1. Option 2');
+            const doc = markDownParser.parseMarkdownToDOM(
+                '1. Option 1\n 1. Option 2'
+            );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'OL',
-                'LI',
-                'P',
-                'LI',
-                'P'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Option 1',
-                'Option 2'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['OL', 'LI', 'P', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Option 1', 'Option 2']);
         });
 
         it('numbered lists if there is some content between lists', () => {
@@ -121,16 +135,12 @@ describe('Markdown parser', () => {
                 '1. Option 1\n\nSome content in between lists\n\n 2. Option 2'
             );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'OL',
-                'LI',
-                'P',
-                'P',
-                'OL',
-                'LI',
-                'P'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['OL', 'LI', 'P', 'P', 'OL', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual([
                 'Option 1',
                 'Some content in between lists',
                 'Option 2'
@@ -140,47 +150,47 @@ describe('Markdown parser', () => {
         it('bulleted list markdown string("*") to "ul" and "li" HTML tags', () => {
             const doc = markDownParser.parseMarkdownToDOM('* Bulleted list');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['UL', 'LI', 'P']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Bulleted list'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['UL', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("-") to "ul" and "li" HTML tags', () => {
             const doc = markDownParser.parseMarkdownToDOM('- Bulleted list');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['UL', 'LI', 'P']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Bulleted list'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['UL', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("+") to "ul" and "li" HTML tags', () => {
             const doc = markDownParser.parseMarkdownToDOM('+ Bulleted list');
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['UL', 'LI', 'P']);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Bulleted list'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['UL', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Bulleted list']);
         });
 
         it('multiple bulleted lists markdown string("* \n* \n*") to "ul" and "li" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('* Option 1\n * Option 2\n * Option 3');
+            const doc = markDownParser.parseMarkdownToDOM(
+                '* Option 1\n * Option 2\n * Option 3'
+            );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'UL',
-                'LI',
-                'P',
-                'LI',
-                'P',
-                'LI',
-                'P'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Option 1',
-                'Option 2',
-                'Option 3'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['UL', 'LI', 'P', 'LI', 'P', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Option 1', 'Option 2', 'Option 3']);
         });
 
         it('bulleted lists if there is some content between lists', () => {
@@ -188,16 +198,12 @@ describe('Markdown parser', () => {
                 '* Option 1\n\nSome content in between lists\n\n * Option 2'
             );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'UL',
-                'LI',
-                'P',
-                'P',
-                'UL',
-                'LI',
-                'P'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['UL', 'LI', 'P', 'P', 'UL', 'LI', 'P']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual([
                 'Option 1',
                 'Some content in between lists',
                 'Option 2'
@@ -205,31 +211,29 @@ describe('Markdown parser', () => {
         });
 
         it('numbered list with bold markdown string to "ol", "li" and "strong" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('1. **Numbered list in bold**');
+            const doc = markDownParser.parseMarkdownToDOM(
+                '1. **Numbered list in bold**'
+            );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'OL',
-                'LI',
-                'P',
-                'STRONG'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Numbered list in bold'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['OL', 'LI', 'P', 'STRONG']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Numbered list in bold']);
         });
 
         it('bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', () => {
-            const doc = markDownParser.parseMarkdownToDOM('* *Bulleted list in italics*');
+            const doc = markDownParser.parseMarkdownToDOM(
+                '* *Bulleted list in italics*'
+            );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'UL',
-                'LI',
-                'P',
-                'EM'
-            ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                'Bulleted list in italics'
-            ]);
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['UL', 'LI', 'P', 'EM']);
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual(['Bulleted list in italics']);
         });
 
         it('combination of all supported markdown string', () => {
@@ -237,7 +241,9 @@ describe('Markdown parser', () => {
                 '1. ***Numbered list with bold and italics***\n* ___Bulleted list with bold and italics___'
             );
 
-            expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual([
+            expect(
+                getTagsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual([
                 'OL',
                 'LI',
                 'P',
@@ -249,7 +255,9 @@ describe('Markdown parser', () => {
                 'EM',
                 'STRONG'
             ]);
-            expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
+            expect(
+                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
+            ).toEqual([
                 'Numbered list with bold and italics',
                 'Bulleted list with bold and italics'
             ]);
@@ -294,10 +302,14 @@ describe('Markdown parser', () => {
                 () => {
                     const doc = markDownParser.parseMarkdownToDOM(value.name);
 
-                    expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['P']);
-                    expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
-                        value.name
-                    ]);
+                    expect(
+                        getTagsFromDocumentFragment(doc as DocumentFragment)
+                    ).toEqual(['P']);
+                    expect(
+                        getLeafContentsFromDocumentFragment(
+                            doc as DocumentFragment
+                        )
+                    ).toEqual([value.name]);
                 }
             );
         }
@@ -319,12 +331,18 @@ describe('Markdown parser', () => {
                     `wacky string "${value.name}" that are unmodified when set the same "${value.name}" within paragraph tag`,
                     // eslint-disable-next-line @typescript-eslint/no-loop-func
                     () => {
-                        const doc = markDownParser.parseMarkdownToDOM(value.name);
-
-                        expect(getTagsFromDocumentFragment(doc as DocumentFragment)).toEqual(['P']);
-                        expect(getLeafContentsFromDocumentFragment(doc as DocumentFragment)).toEqual([
+                        const doc = markDownParser.parseMarkdownToDOM(
                             value.name
-                        ]);
+                        );
+
+                        expect(
+                            getTagsFromDocumentFragment(doc as DocumentFragment)
+                        ).toEqual(['P']);
+                        expect(
+                            getLeafContentsFromDocumentFragment(
+                                doc as DocumentFragment
+                            )
+                        ).toEqual([value.name]);
                     }
                 );
             });
