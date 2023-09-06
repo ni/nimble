@@ -1,7 +1,7 @@
 import { spinalCase } from '@microsoft/fast-web-utilities';
 import { html } from '@microsoft/fast-element';
 import * as labelTokensNamespace from '../label-tokens';
-import { LabelProviderTable, labelProviderTableTag } from '..';
+import { LabelProviderRichText, labelProviderRichTextTag } from '..';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import {
     getAttributeName,
@@ -19,20 +19,20 @@ const designTokenPropertyNames = Object.keys(
 async function setup(): Promise<Fixture<ThemeProvider>> {
     return fixture<ThemeProvider>(html`
         <${themeProviderTag}>
-            <${labelProviderTableTag}></${labelProviderTableTag}>
+            <${labelProviderRichTextTag}></${labelProviderRichTextTag}>
         </${themeProviderTag}>
     `);
 }
 
-describe('Label Provider Table', () => {
-    let element: LabelProviderTable;
+describe('Label Provider Rich Text', () => {
+    let element: LabelProviderRichText;
     let themeProvider: ThemeProvider;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
 
     beforeEach(async () => {
         ({ element: themeProvider, connect, disconnect } = await setup());
-        element = themeProvider.querySelector(labelProviderTableTag)!;
+        element = themeProvider.querySelector(labelProviderRichTextTag)!;
         await connect();
     });
 
@@ -42,8 +42,8 @@ describe('Label Provider Table', () => {
 
     it('can construct an element instance', () => {
         expect(
-            document.createElement('nimble-label-provider-table')
-        ).toBeInstanceOf(LabelProviderTable);
+            document.createElement('nimble-label-provider-rich-text')
+        ).toBeInstanceOf(LabelProviderRichText);
     });
 
     describe('token JS key should match DesignToken.name', () => {
@@ -89,7 +89,7 @@ describe('Label Provider Table', () => {
             specType(`for token name ${tokenEntry.name}`, () => {
                 const tokenName = removePrefixAndCamelCase(
                     tokenEntry.name,
-                    'table'
+                    'richText'
                 );
                 const expectedPropertyName = getPropertyName(tokenName);
                 const expectedAttributeName = getAttributeName(tokenName);
@@ -124,7 +124,7 @@ describe('Label Provider Table', () => {
             specType(`for token name ${tokenEntry.name}`, () => {
                 const tokenName = removePrefixAndCamelCase(
                     tokenEntry.name,
-                    'table'
+                    'richText'
                 );
                 const attributeName = getAttributeName(tokenName);
                 const updatedValue = `NewString-${tokenName}`;

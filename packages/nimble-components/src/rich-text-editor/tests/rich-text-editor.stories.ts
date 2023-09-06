@@ -7,9 +7,14 @@ import {
 } from '../../utilities/tests/storybook';
 import { RichTextEditor, richTextEditorTag } from '..';
 import { buttonTag } from '../../button';
+import {
+    addLabelUseMetadata,
+    type LabelUserArgs
+} from '../../label-provider/base/tests/label-user-stories-utils';
+import { labelProviderRichTextTag } from '../../label-provider/rich-text';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface RichTextEditorArgs {
+interface RichTextEditorArgs extends LabelUserArgs {
     data: ExampleDataType;
     footerActionButtons: boolean;
     getMarkdown: undefined;
@@ -168,6 +173,8 @@ const metadata: Meta<RichTextEditorArgs> = {
         }
     }
 };
+
+addLabelUseMetadata(metadata, labelProviderRichTextTag);
 
 export default metadata;
 

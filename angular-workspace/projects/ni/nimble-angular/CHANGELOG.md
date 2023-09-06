@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 01 Sep 2023 20:47:01 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 05:43:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.2.1
+
+Wed, 06 Sep 2023 05:43:09 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.2
+
+## 17.2.0
+
+Tue, 05 Sep 2023 23:18:39 GMT
+
+### Minor changes
+
+- Fully export spinnerTag from nimble-angular ([ni/nimble@0ffafcf](https://github.com/ni/nimble/commit/0ffafcfe4acc742de0fff89e5db67f5825604e76))
 
 ## 17.1.23
 
