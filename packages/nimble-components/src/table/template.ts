@@ -42,9 +42,10 @@ export const template = html<Table>`
             --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
+            --ni-private-table-viewport-width: ${x => x.virtualizer.viewportWidth}px;
             ">
             <div class="glass-overlay">
-                <div role="rowgroup" class="header-row-container">
+                <div role="rowgroup" class="header-row-container" ${ref('headerRowContainer')}>
                     <div class="header-row" role="row">
                         <span class="header-row-action-container" ${ref('headerRowActionContainer')}>
                             ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
@@ -72,7 +73,11 @@ export const template = html<Table>`
                         </span>
                         <span class="column-headers-container" ${ref('columnHeadersContainer')}>
                             ${repeat(x => x.visibleColumns, html<TableColumn, Table>`
-                                <div class="header-container">
+                               <div class="header-container ${x => `${x.pinned ? 'pinned' : ''}`}"
+                                   style="
+                                        ${(x, c) => (x.pinned ? `--ni-private-table-pinned-column-left: ${c.parent.pinnedColumnLeftValues[c.index]!}px` : '')}
+                                    "
+                               >
                                     ${when((_, c) => c.index > 0, html<TableColumn, Table>`
                                         <div class="column-divider left ${(_, c) => `${c.parent.layoutManager.activeColumnIndex === c.index ? 'active' : ''}`}" 
                                              @mousedown="${(_, c) => c.parent.onLeftDividerMouseDown(c.event as MouseEvent, c.index)}">

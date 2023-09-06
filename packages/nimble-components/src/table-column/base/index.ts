@@ -45,6 +45,9 @@ export abstract class TableColumn<
     @attr({ attribute: 'sorting-disabled', mode: 'boolean' })
     public sortingDisabled = false;
 
+    @attr({ attribute: 'pinned', mode: 'boolean' })
+    public pinned = false;
+
     /** @internal */
     @observable
     public hasOverflow = false;

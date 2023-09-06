@@ -9,7 +9,8 @@ import {
     controlSlimHeight,
     smallPadding,
     standardPadding,
-    tableRowBorderColor
+    tableRowBorderColor,
+    controlHeight
 } from '../theme-provider/design-tokens';
 import { Theme } from '../theme-provider/types';
 import { hexToRgbaCssColor } from '../utilities/style/colors';
@@ -49,26 +50,20 @@ export const styles = css`
     .header-row-container {
         position: sticky;
         top: 0;
+        overflow: hidden;
     }
 
     .header-row {
-        display: flex;
+        display: inline-grid;
+        grid-template-columns: auto 1fr;
         background: ${applicationBackgroundColor};
-        position: relative;
-        width: fit-content;
-        min-width: max(
-            100%,
-            calc(
-                var(--ni-private-table-scrollable-min-width) +
-                    var(--ni-private-table-header-container-margin-right)
-            )
-        );
-        left: var(--ni-private-table-scroll-x);
         align-items: center;
     }
 
     .header-row-action-container {
         display: flex;
+        position: sticky;
+        left: 0px;
     }
 
     .checkbox-container {
@@ -76,8 +71,8 @@ export const styles = css`
     }
 
     .column-headers-container {
-        display: grid;
-        width: 100%;
+        display: inline-grid;
+        width: max(calc(var(--ni-private-table-viewport-width) - ${controlHeight}), calc(var(--ni-private-table-scrollable-min-width) - ${controlHeight}));
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
     }
 
@@ -95,6 +90,11 @@ export const styles = css`
         display: flex;
         align-items: center;
         position: relative;
+    }
+
+    .header-container.pinned {
+        position: sticky;
+        left: var(--ni-private-table-pinned-column-left);
     }
 
     .header-scrollbar-spacer {

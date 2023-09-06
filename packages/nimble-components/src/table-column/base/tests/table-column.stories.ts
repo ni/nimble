@@ -615,6 +615,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
                 field-name="firstName"
                 group-index="${x => getColumnGroupData('first-name-column', x.groupedColumns).index}"
                 grouping-disabled="${x => getGroupingDisabledData('first-name-column', x.groupingDisabled)}"
+                pinned
             >
                 First Name
             </${tableColumnTextTag}>
@@ -622,6 +623,7 @@ export const grouping: StoryObj<GroupingTableArgs> = {
                 field-name="lastName"
                 group-index="${x => getColumnGroupData('last-name-column', x.groupedColumns).index}"
                 grouping-disabled="${x => getGroupingDisabledData('last-name-column', x.groupingDisabled)}"
+                pinned
             >
                 Last Name
             </${tableColumnTextTag}>

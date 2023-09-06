@@ -29,6 +29,9 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
     public headerContainerMarginRight = 0;
 
     @observable
+    public viewportWidth?: number;
+
+    @observable
     public rowContainerYOffset = 0;
 
     private readonly table: Table<TData>;
@@ -49,6 +52,7 @@ export class Virtualizer<TData extends TableRecord = TableRecord> {
                 // by the same margin so the column headers align with the corresponding rendered cells
                 const viewportBoundingWidth = borderBoxSize.inlineSize;
                 this.headerContainerMarginRight = viewportBoundingWidth - this.table.viewport.clientWidth;
+                this.viewportWidth = viewportBoundingWidth;
             }
         });
     }

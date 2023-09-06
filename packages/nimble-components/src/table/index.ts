@@ -156,6 +156,11 @@ export class Table<
     /**
      * @internal
      */
+    public readonly headerRowContainer!: HTMLElement;
+
+    /**
+     * @internal
+     */
     public readonly headerRowActionContainer!: HTMLElement;
 
     /**
@@ -190,6 +195,9 @@ export class Table<
     @observable
     public visibleColumns: TableColumn[] = [];
 
+    @observable
+    public pinnedColumnLeftValues: number[] = [];
+
     /**
      * @internal
      * This value determines the size of the viewport area when a user has created horizontal scrollable
@@ -210,6 +218,7 @@ export class Table<
     private readonly layoutManagerNotifier: Notifier;
     private isInitialized = false;
     private readonly collapsedRows = new Set<string>();
+    private readonly tableResizeObserver: ResizeObserver;
     // Programmatically updating the selection state of a checkbox fires the 'change' event.
     // Therefore, selection change events that occur due to programmatically updating
     // the selection checkbox 'checked' value should be ingored.
@@ -251,6 +260,12 @@ export class Table<
             this.table,
             this.selectionMode
         );
+        this.tableResizeObserver = new ResizeObserver(entries => {
+            const borderBoxSize = entries[0]?.borderBoxSize[0];
+            if (borderBoxSize) {
+                this.calculatePinnedColumnLeftValues();
+            }
+        });
     }
 
     public async setData(newData: readonly TData[]): Promise<void> {
@@ -312,6 +327,7 @@ export class Table<
         super.connectedCallback();
         this.initialize();
         this.virtualizer.connectedCallback();
+        this.tableResizeObserver.observe(this);
         this.viewport.addEventListener('scroll', this.onViewPortScroll, {
             passive: true
         });
@@ -357,6 +373,7 @@ export class Table<
             // 'isColumnBeingSized' changing to 'false' indicates an interactive
             // column sizing operation has been completed
             this.emitColumnConfigurationChangeEvent();
+            this.calculatePinnedColumnLeftValues();
         }
     }
 
@@ -633,6 +650,7 @@ export class Table<
 
     private readonly onViewPortScroll = (event: Event): void => {
         this.scrollX = (event.target as HTMLElement).scrollLeft;
+        this.headerRowContainer.scrollLeft = this.scrollX;
     };
 
     private readonly onKeyDown = (event: KeyboardEvent): void => {
@@ -1074,6 +1092,19 @@ export class Table<
         }
 
         return tanstackSelectionState;
+    }
+
+    private calculatePinnedColumnLeftValues(): void {
+        const headerActionContainer = this.shadowRoot!.querySelector('.header-row-action-container');
+        const columnHeaders = Array.from(this.shadowRoot!.querySelectorAll<HTMLElement>('.header-container'));
+        const pinnedColumns = this.columns.filter(column => column.pinned);
+        const headerActionContainerWidth = headerActionContainer?.getBoundingClientRect().width ?? 0;
+        let currentLeft = headerActionContainerWidth;
+        this.pinnedColumnLeftValues = [];
+        for (let i = 0; i < pinnedColumns?.length; i++) {
+            this.pinnedColumnLeftValues.push(currentLeft);
+            currentLeft += columnHeaders[i]!.getBoundingClientRect().width;
+        }
     }
 }
 

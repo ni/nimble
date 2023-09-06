@@ -30,6 +30,7 @@ export const styles = css`
                     (var(--ni-private-table-group-row-indent-level) + 1)
             )
             1fr;
+        width: var(--ni-private-table-viewport-width);
     }
 
     :host([selectable]) {
