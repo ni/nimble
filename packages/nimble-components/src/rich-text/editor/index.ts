@@ -13,15 +13,6 @@ import {
     AnyExtension,
     Extension
 } from '@tiptap/core';
-import {
-    schema,
-    defaultMarkdownParser,
-    MarkdownParser,
-    MarkdownSerializer,
-    defaultMarkdownSerializer,
-    MarkdownSerializerState
-} from 'prosemirror-markdown';
-import { DOMSerializer, Node } from 'prosemirror-model';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
@@ -38,6 +29,8 @@ import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
 import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
+import { RichTextMarkdownParser } from '../models/markdown-parser';
+import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -153,9 +146,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     private resizeObserver?: ResizeObserver;
     private updateScrollbarWidthQueued = false;
 
-    private readonly markdownParser = this.initializeMarkdownParser();
-    private readonly markdownSerializer = this.initializeMarkdownSerializer();
-    private readonly domSerializer = DOMSerializer.fromSchema(schema);
+    private readonly markdownParser = new RichTextMarkdownParser();
+    private readonly markdownSerializer = new RichTextMarkdownSerializer();
     private readonly xmlSerializer = new XMLSerializer();
 
     /**
@@ -323,10 +315,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @public
      */
     public getMarkdown(): string {
-        const markdownContent = this.markdownSerializer.serialize(
+        return this.markdownSerializer.serializeDOMToMarkdown(
             this.tiptapEditor.state.doc
         );
-        return markdownContent;
     }
 
     /**
@@ -378,83 +369,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * This function takes the Fragment from parseMarkdownToDOM function and return the serialized string using XMLSerializer
      */
     private getHtmlContent(markdown: string): string {
-        const documentFragment = this.parseMarkdownToDOM(markdown);
+        const documentFragment = this.markdownParser.parseMarkdownToDOM(markdown);
         return this.xmlSerializer.serializeToString(documentFragment);
-    }
-
-    private initializeMarkdownParser(): MarkdownParser {
-        /**
-         * It configures the tokenizer of the default Markdown parser with the 'zero' preset.
-         * The 'zero' preset is a configuration with no rules enabled by default to selectively enable specific rules.
-         * https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/presets/zero.js#L1
-         *
-         */
-        const zeroTokenizerConfiguration = defaultMarkdownParser.tokenizer.configure('zero');
-
-        // The detailed information of the supported rules were provided in the below CommonMark spec document.
-        // https://spec.commonmark.org/0.30/
-        const supportedTokenizerRules = zeroTokenizerConfiguration.enable([
-            'emphasis',
-            'list'
-        ]);
-
-        return new MarkdownParser(
-            schema,
-            supportedTokenizerRules,
-            defaultMarkdownParser.tokens
-        );
-    }
-
-    private initializeMarkdownSerializer(): MarkdownSerializer {
-        /**
-         * orderedList Node is getting 'order' attribute which it is not present in the
-         * tip-tap orderedList Node and having start instead of order, Changed it to start (nodes.attrs.start)
-         * Assigned updated node in place of orderedList node from defaultMarkdownSerializer
-         * https://github.com/ProseMirror/prosemirror-markdown/blob/b7c1fd2fb74c7564bfe5428c7c8141ded7ebdd9f/src/to_markdown.ts#L94C2-L101C7
-         */
-        const orderedListNode = function orderedList(
-            state: MarkdownSerializerState,
-            node: Node
-        ): void {
-            const start = (node.attrs.start as number) || 1;
-            const maxW = String(start + node.childCount - 1).length;
-            const space = state.repeat(' ', maxW + 2);
-            state.renderList(node, space, i => {
-                const nStr = String(start + i);
-                return `${state.repeat(' ', maxW - nStr.length) + nStr}. `;
-            });
-        };
-
-        /**
-         * Internally Tiptap editor creates it own schema ( Nodes AND Marks ) based on the extensions ( Here Starter Kit is used for Bold, italic, orderedList and
-         * bulletList extensions) and defaultMarkdownSerializer uses schema from prosemirror-markdown to serialize the markdown.
-         * So, there is variations in the nodes and marks name (Eg. 'ordered_list' in prosemirror-markdown schema whereas 'orderedList' in tip tap editor schema),
-         * To fix up this reassigned the respective nodes and marks with tip-tap editor schema.
-         */
-        const nodes = {
-            bulletList: defaultMarkdownSerializer.nodes.bullet_list!,
-            listItem: defaultMarkdownSerializer.nodes.list_item!,
-            orderedList: orderedListNode,
-            doc: defaultMarkdownSerializer.nodes.doc!,
-            paragraph: defaultMarkdownSerializer.nodes.paragraph!,
-            text: defaultMarkdownSerializer.nodes.text!
-        };
-        const marks = {
-            italic: defaultMarkdownSerializer.marks.em!,
-            bold: defaultMarkdownSerializer.marks.strong!
-        };
-        return new MarkdownSerializer(nodes, marks);
-    }
-
-    private parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
-        const parsedMarkdownContent = this.markdownParser.parse(value);
-        if (parsedMarkdownContent === null) {
-            return document.createDocumentFragment();
-        }
-
-        return this.domSerializer.serializeFragment(
-            parsedMarkdownContent.content
-        );
     }
 
     /**
