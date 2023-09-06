@@ -35,7 +35,7 @@
       "groupName": "NI ESLint config",
       "matchPackagePatterns": ["^@ni/eslint-config"],
       "enabled": true
-    }
+    },
     {
       "groupName": "Playwright",
       "matchPackagePatterns": ["playwright"],
