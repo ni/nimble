@@ -6,13 +6,12 @@ addons.setConfig({
     sidebar: {
         filters: {
             patterns: item => {
-                return (
-                    // Hide docs that aren't useful to clients from the sidebar on public site
-                    window.location.hostname !== 'nimble.ni.dev'
-                    && !item.title.startsWith('Tests/')
-                    && !item.title.startsWith('Internal/')
-                    && !item.title.startsWith('patterns/')
-                );
+                const isPublicSite = window.location.hostname === 'nimble.ni.dev';
+                const isItemInternal = item.title.startsWith('Tests/')
+                    || item.title.startsWith('Internal/')
+                    || item.title.startsWith('patterns/');
+                const shouldHideInSidebar = isPublicSite && isItemInternal;
+                return !shouldHideInSidebar;
             }
         }
     },
