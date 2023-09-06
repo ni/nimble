@@ -11,6 +11,7 @@ This repository uses the following tooling. See below for more info.
 3. Testing via [Karma](http://karma-runner.github.io/6.3/index.html), [Jasmine](https://jasmine.github.io/), [bUnit](https://bunit.dev/), and [Playwright](https://playwright.dev/)
 4. Releases via [beachball](https://microsoft.github.io/beachball/)
 5. Pipelines automating the above via [GitHub Actions](https://github.com/features/actions)
+6. Automated dependency updates via [Renovate](https://docs.renovatebot.com/)
 
 ### Helpful links
 
@@ -175,6 +176,12 @@ Example: Add a monorepo package `nimble-tokens` as a dependency to another monor
 ```bash
 npm install @ni/nimble-tokens --workspace=@ni/nimble-components
 ```
+
+## Updating dependencies
+
+This repository uses [Renovate](https://docs.renovatebot.com/) to automatically create pull requests that bump the version of key dependencies on a schedule. Renovate is configured via [`renovate.json`](./renovate.json).
+
+Code owners are responsible for completing or rejecting Renovate PRs. Completing a PR currently requires manually adding a beachball change file to the branch.
 
 ## Handling intermittent test failures
 
