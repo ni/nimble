@@ -6,7 +6,7 @@
   "enabledManagers": ["npm"],
   "rangeStrategy": "update-lockfile",
   "schedule": [
-    "every 1 month on the first Sunday"
+    "monthly"
   ],
   "vulnerabilityAlerts": {
       "enabled": false
