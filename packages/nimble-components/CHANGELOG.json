@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 06 Sep 2023 16:21:23 GMT",
+      "tag": "@ni/nimble-components_v20.2.4",
+      "version": "20.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "1e44e9169c32bfbf7c4d69af57b2c848d4960b1d",
+            "comment": "Fix bug in number-text column when the value rounds to -0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Sep 2023 14:58:43 GMT",
       "tag": "@ni/nimble-components_v20.2.3",
       "version": "20.2.3",
