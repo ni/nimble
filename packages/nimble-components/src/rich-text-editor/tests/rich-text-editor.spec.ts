@@ -132,6 +132,12 @@ describe('RichTextEditor', () => {
         expect(okButtonSpy).toHaveBeenCalledTimes(1);
     });
 
+    it('Should return editor as active element after clicking formatting button', async () => {
+        await pageObject.setEditorTextContent('Sample Text');
+        await pageObject.clickFooterButton(ToolbarButton.bulletList);
+        expect(pageObject.isRichTextEditorActiveElement()).toBeTrue();
+    });
+
     const formattingButtons: {
         name: string,
         toolbarButtonIndex: ToolbarButton,
@@ -446,7 +452,7 @@ describe('RichTextEditor', () => {
             ]);
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.numberedList)
-            ).toBeTrue();
+            ).toBeFalse();
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
             ).toBeTrue();
@@ -528,7 +534,7 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
-            ).toBeTrue();
+            ).toBeFalse();
         });
 
         it('should have "ul" tag names for bullet lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {

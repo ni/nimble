@@ -1,14 +1,14 @@
 import type { DataManager } from './modules/data-manager';
 
-export const WaferMapQuadrant = {
+export const WaferMapOriginLocation = {
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
     topLeft: 'top-left',
     topRight: 'top-right'
 } as const;
 
-export type WaferMapQuadrant =
-    (typeof WaferMapQuadrant)[keyof typeof WaferMapQuadrant];
+export type WaferMapOriginLocation =
+    (typeof WaferMapOriginLocation)[keyof typeof WaferMapOriginLocation];
 
 export const WaferMapOrientation = {
     top: 'top',
@@ -53,7 +53,7 @@ export interface HoverHandlerData {
     canvas: HTMLCanvasElement;
     rect: HTMLElement;
     dataManager: DataManager;
-    quadrant: WaferMapQuadrant;
+    originLocation: WaferMapOriginLocation;
 }
 
 export interface Dimensions {

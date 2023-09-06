@@ -5,7 +5,7 @@ import { type Fixture, fixture } from '../../utilities/tests/fixture';
 import {
     WaferMapColorScaleMode,
     WaferMapOrientation,
-    WaferMapQuadrant
+    WaferMapOriginLocation
 } from '../types';
 
 async function setup(): Promise<Fixture<WaferMap>> {
@@ -37,8 +37,8 @@ describe('WaferMap', () => {
             spy = spyOn(element, 'update');
         });
 
-        it('will update once after quadrant changes', () => {
-            element.quadrant = WaferMapQuadrant.topRight;
+        it('will update once after originLocation changes', () => {
+            element.originLocation = WaferMapOriginLocation.topRight;
             processUpdates();
             expect(spy).toHaveBeenCalledTimes(1);
         });
@@ -92,7 +92,7 @@ describe('WaferMap', () => {
         });
 
         it('will update once after sequential attribute changes', () => {
-            element.quadrant = WaferMapQuadrant.topRight;
+            element.originLocation = WaferMapOriginLocation.topRight;
             element.orientation = WaferMapOrientation.right;
             element.maxCharacters = 3;
             element.dieLabelsHidden = true;

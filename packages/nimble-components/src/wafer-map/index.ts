@@ -16,7 +16,7 @@ import {
     WaferMapColorScaleMode,
     WaferMapDie,
     WaferMapOrientation,
-    WaferMapQuadrant
+    WaferMapOriginLocation
 } from './types';
 import { WaferMapUpdateTracker } from './modules/wafer-map-update-tracker';
 
@@ -36,32 +36,22 @@ export class WaferMap extends FoundationElement {
      */
     public readonly waferMapUpdateTracker = new WaferMapUpdateTracker(this);
 
-    @attr
-    public quadrant: WaferMapQuadrant = WaferMapQuadrant.topLeft;
+    @attr({ attribute: 'origin-location' })
+    public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
     @attr
     public orientation: WaferMapOrientation = WaferMapOrientation.top;
 
-    @attr({
-        attribute: 'max-characters',
-        converter: nullableNumberConverter
-    })
+    @attr({ attribute: 'max-characters', converter: nullableNumberConverter })
     public maxCharacters = 4;
 
-    @attr({
-        attribute: 'die-labels-hidden',
-        mode: 'boolean'
-    })
+    @attr({ attribute: 'die-labels-hidden', mode: 'boolean' })
     public dieLabelsHidden = false;
 
-    @attr({
-        attribute: 'die-labels-suffix'
-    })
+    @attr({ attribute: 'die-labels-suffix' })
     public dieLabelsSuffix = '';
 
-    @attr({
-        attribute: 'color-scale-mode'
-    })
+    @attr({ attribute: 'color-scale-mode' })
     public colorScaleMode: WaferMapColorScaleMode = WaferMapColorScaleMode.linear;
 
     /**
@@ -210,8 +200,8 @@ export class WaferMap extends FoundationElement {
         return resizeObserver;
     }
 
-    private quadrantChanged(): void {
-        this.waferMapUpdateTracker.track('quadrant');
+    private originLocationChanged(): void {
+        this.waferMapUpdateTracker.track('originLocation');
         this.waferMapUpdateTracker.queueUpdate();
     }
 

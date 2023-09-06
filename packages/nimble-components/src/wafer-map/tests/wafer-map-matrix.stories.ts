@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from '@storybook/html';
 import { html, ViewTemplate } from '@microsoft/fast-element';
-import { WaferMapOrientation, WaferMapQuadrant } from '../types';
+import { WaferMapOrientation, WaferMapOriginLocation } from '../types';
 import {
     createMatrix,
     sharedMatrixParameters
@@ -28,13 +28,13 @@ const orientationStates = [
 ] as const;
 type OrientationState = (typeof orientationStates)[number];
 
-const dieOrientation = [
-    [WaferMapQuadrant.topLeft],
-    [WaferMapQuadrant.bottomLeft],
-    [WaferMapQuadrant.topRight],
-    [WaferMapQuadrant.bottomRight]
+const originLocationStates = [
+    [WaferMapOriginLocation.topLeft],
+    [WaferMapOriginLocation.bottomLeft],
+    [WaferMapOriginLocation.topRight],
+    [WaferMapOriginLocation.bottomRight]
 ] as const;
-type DieOrientation = (typeof dieOrientation)[number];
+type OriginLocationStates = (typeof originLocationStates)[number];
 
 const colorsScales = [
     [
@@ -84,7 +84,7 @@ const simpleWaferWithDies = (): ViewTemplate => html`<${waferMapTag}
 >
 </${waferMapTag}>`;
 
-const componentWaferWithDies = ([
+const componentWaferWithOrientation = ([
     orientation
 ]: OrientationState): ViewTemplate => html`<${waferMapTag}
     orientation="${() => orientation}"
@@ -103,10 +103,10 @@ const componentWaferWithHiddenDieLabel = (
 >
 </${waferMapTag}>`;
 
-const componentWaferWithDieOrientation = ([
-    orientation
-]: DieOrientation): ViewTemplate => html`<${waferMapTag}
-    quadrant="${() => orientation}"
+const componentWaferWithOriginLocation = ([
+    originLocation
+]: OriginLocationStates): ViewTemplate => html`<${waferMapTag}
+    origin-location="${() => originLocation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
@@ -126,7 +126,7 @@ export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
 );
 
 export const waferMapDiesAndOrientationTest: StoryFn = createStory(
-    createMatrix(componentWaferWithDies, [orientationStates])
+    createMatrix(componentWaferWithOrientation, [orientationStates])
 );
 
 export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
@@ -136,8 +136,8 @@ export const waferMapDieLabelAndColorScaleTest: StoryFn = createStory(
     ])
 );
 
-export const waferMapDieOrientationTest: StoryFn = createStory(
-    createMatrix(componentWaferWithDieOrientation, [dieOrientation])
+export const waferMapOriginLocationTest: StoryFn = createStory(
+    createMatrix(componentWaferWithOriginLocation, [originLocationStates])
 );
 
 export const waferMapResizeTest: StoryFn = createStory(

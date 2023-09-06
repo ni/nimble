@@ -224,6 +224,20 @@
                     <NimbleMappingText Key="101" Text="Status message 2"></NimbleMappingText>
                     Status
                 </NimbleTableColumnEnumText>
+                <NimbleTableColumnIcon FieldName="Result" TKey="string" ColumnId="result-column">
+                    <NimbleMappingIcon
+                        Key=@("success")
+                        Text="Success"
+                        Icon="nimble-icon-check"
+                        Severity="IconSeverity.Success">
+                    </NimbleMappingIcon>
+                    <NimbleMappingSpinner
+                        Key=@("unknown")
+                        Text="Unknown">
+                    </NimbleMappingSpinner>
+                    Result
+                    Status
+                </NimbleTableColumnIcon>
                 <NimbleTableColumnText FieldName="LastName" ColumnId="last-name-column" GroupIndex="0">Last Name</NimbleTableColumnText>
 
                 <NimbleMenu slot="action-menu">
