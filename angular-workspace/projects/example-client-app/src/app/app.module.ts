@@ -11,6 +11,7 @@ import { NimbleTextAreaModule, NimbleTextFieldModule, NimbleNumberFieldModule, N
     NimbleAnchorModule, NimbleAnchorButtonModule, NimbleAnchorTabModule, NimbleAnchorTabsModule,
     NimbleIconCheckModule, NimbleBannerModule, NimbleAnchorMenuItemModule, NimbleAnchorTreeItemModule } from '@ni/nimble-angular';
 import { NimbleLabelProviderCoreModule } from '@ni/nimble-angular/label-provider/core';
+import { NimbleLabelProviderRichTextModule } from '@ni/nimble-angular/label-provider/rich-text';
 import { NimbleLabelProviderTableModule } from '@ni/nimble-angular/label-provider/table';
 import { NimbleMappingTextModule } from '@ni/nimble-angular/mapping/text';
 import { NimbleMappingIconModule } from '@ni/nimble-angular/mapping/icon';
@@ -40,6 +41,7 @@ import { HeaderComponent } from './header/header.component';
         ReactiveFormsModule,
         NimbleThemeProviderModule,
         NimbleLabelProviderCoreModule,
+        NimbleLabelProviderRichTextModule,
         NimbleLabelProviderTableModule,
         NimbleTextAreaModule,
         NimbleTextFieldModule,
