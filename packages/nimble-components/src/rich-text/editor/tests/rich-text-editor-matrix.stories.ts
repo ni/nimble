@@ -174,6 +174,20 @@ multipleSubPointsContentInMobileWidth.play = (): void => {
         .setMarkdown(multipleSubPointsContent);
 };
 
+const differentListElementContentInSameLevel = `
+1. Point 1
+    * Sub point 1
+    1. Sub point 2
+    * Sub point 3
+    1. Sub point 4`;
+
+export const differentListElementInSameLevel: StoryFn = createStory(mobileWidthComponent);
+differentListElementInSameLevel.play = (): void => {
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(differentListElementContentInSameLevel);
+};
+
 export const longWordContentInMobileWidth: StoryFn = createStory(mobileWidthComponent);
 longWordContentInMobileWidth.play = (): void => {
     document

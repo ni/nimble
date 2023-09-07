@@ -625,6 +625,23 @@ describe('RichTextEditor', () => {
                 'bold, italics and bullet list'
             ]);
         });
+
+        it('should have different type of list at same level possible', () => {
+            element.setMarkdown(`- Bulleted List 
+            \n  1. Numbered List 
+            \n  - Bulleted List`);
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'OL',
+                'LI',
+                'P',
+                'UL',
+                'LI',
+                'P'
+            ]);
+        });
     });
 
     describe('various wacky string values input into the editor', () => {
