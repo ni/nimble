@@ -424,6 +424,17 @@ Test utilties located in [`/src/utilities/tests`](/packages/nimble-components/sr
 
 The jasmine unit tests utilize [`fixture.ts`](/packages/nimble-components/src/utilities/tests/fixture.ts) for component tests. The fixture utility gives tools for managing the component lifecycle. For some usage examples see [`fixture.spec.ts`](/packages/nimble-components/src/utilities/tests/fixture.spec.ts).
 
+#### Page objects
+
+Components should expose a page object to simplify interacting with the component and querying its state. Page objects can provide an abstraction for implementation details like these:
+
+-   the component's DOM structure; client tests should never need to inspect a component's shadow DOM
+-   timing details of how a component processes updates; client tests should never need to call `waitForUpdatesAsync()` or `processUpdates()` to wait for state changes to propagate
+-   component interactions; client tests shouldn't need to artificially trigger click or keyboard events to interact with a component
+-   complex component state; client tests may be simplified by helpers that describe things like a component's rows or items
+
+Page objects typically won't need to provide methods for querying simple component state; if the page object's interaction methods are properly constructed then client tests can use the component's public attribute or property API to inspect simple state.
+
 ### Disabling tests
 
 If a test is failing on a specific browser but passing on others, it is possible to temporarily mark it to be skipped for that browser by applying the tag `#SkipFirefox`, `#SkipWebkit`, or `#SkipChrome` to the test name:
