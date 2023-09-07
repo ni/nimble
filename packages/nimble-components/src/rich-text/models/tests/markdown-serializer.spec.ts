@@ -131,7 +131,7 @@ describe('Markdown serializer', () => {
             },
             {
                 name: 'HTML entities <&>',
-                html: '&',
+                html: '&amp;',
                 markdown: '&'
             },
             {
@@ -147,17 +147,17 @@ describe('Markdown serializer', () => {
             {
                 name: 'Markdown syntax strings <*>',
                 html: '*',
-                markdown: '\\*'
+                markdown: String.raw`\*`
             },
             {
                 name: 'Markdown syntax strings <**>',
                 html: '**',
-                markdown: '\\*\\*'
+                markdown: String.raw`\*\*`
             },
             {
                 name: 'Markdown syntax strings <_>',
                 html: '_',
-                markdown: '\\_'
+                markdown: String.raw`\_`
             }
         ];
 
