@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add page object for nimble-select",
+  "packageName": "@ni/nimble-components",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
