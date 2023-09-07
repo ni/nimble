@@ -627,9 +627,9 @@ describe('RichTextEditor', () => {
         });
 
         it('should have different type of list at same level possible', () => {
-            element.setMarkdown(`- Bullet List 
+            element.setMarkdown(`- Bulleted List 
             \n  1. Numbered List 
-            \n  - Bullet List`);
+            \n  - Bulleted List`);
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
                 'LI',
