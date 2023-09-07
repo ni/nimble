@@ -5,11 +5,11 @@ import { LabelProviderTable, labelProviderTableTag } from '..';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import {
     getAttributeName,
-    getPropertyName
+    getPropertyName,
+    removePrefixAndCamelCase
 } from '../../base/tests/label-name-utils';
 import { ThemeProvider, themeProviderTag } from '../../../theme-provider';
 import { Fixture, fixture } from '../../../utilities/tests/fixture';
-import { removeTablePrefixAndCamelCase } from '../name-utils';
 
 type DesignTokenPropertyName = keyof typeof labelTokensNamespace;
 const designTokenPropertyNames = Object.keys(
@@ -87,8 +87,9 @@ describe('Label Provider Table', () => {
             );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for token name ${tokenEntry.name}`, () => {
-                const tokenName = removeTablePrefixAndCamelCase(
-                    tokenEntry.name
+                const tokenName = removePrefixAndCamelCase(
+                    tokenEntry.name,
+                    'table'
                 );
                 const expectedPropertyName = getPropertyName(tokenName);
                 const expectedAttributeName = getAttributeName(tokenName);
@@ -121,8 +122,9 @@ describe('Label Provider Table', () => {
             );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`for token name ${tokenEntry.name}`, () => {
-                const tokenName = removeTablePrefixAndCamelCase(
-                    tokenEntry.name
+                const tokenName = removePrefixAndCamelCase(
+                    tokenEntry.name,
+                    'table'
                 );
                 const attributeName = getAttributeName(tokenName);
                 const updatedValue = `NewString-${tokenName}`;

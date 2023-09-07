@@ -3,7 +3,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerLocation, MenuItem, NimbleDialogDirective, NimbleDrawerDirective, OptionNotFound, OPTION_NOT_FOUND, UserDismissed } from '@ni/nimble-angular';
 import type { TableRecord } from '@ni/nimble-angular/table';
-import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text-editor';
+import { NimbleRichTextEditorDirective } from '@ni/nimble-angular/rich-text/editor';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 interface ComboboxItem {

@@ -585,7 +585,9 @@ function getGroupingDisabledData(
 }
 
 const groupedRowsDescription = `A column can be configured such that all values within that column that have the same value get parented under a collapsible row.
-There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is configured with a group-index, the precedence is determined by the value of group-index on each column.`;
+There will be a collapsible row per unique value in a given column. When group-index is set on a column, that column will be grouped. If more than one column is
+configured with a group-index, the precedence is determined by the value of group-index on each column. Grouping is based on the underlying field values in the column,
+not the rendered values.`;
 
 const groupingDisabledDescription = 'A groupable column can disable its ability to be grouped through setting `grouping-disabled`.';
 

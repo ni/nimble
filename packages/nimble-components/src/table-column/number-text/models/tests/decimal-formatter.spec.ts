@@ -33,6 +33,12 @@ describe('DecimalFormatter', () => {
             expectedFormattedValue: '0.00'
         },
         {
+            name: 'does not round to -0',
+            decimalDigits: 2,
+            value: -0.00001,
+            expectedFormattedValue: '0.00'
+        },
+        {
             name: '+0 renders without positive sign',
             decimalDigits: 2,
             value: 0,
