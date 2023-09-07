@@ -23,7 +23,7 @@ const metadata: Meta<ComponentArgs> = {
         ...
 ```
 
-If the component has a [W3C ARIA description](https://w3c.github.io/aria-practices/), consider using that to describe the component purpose.
+If the component has a [W3C ARIA description](https://www.w3.org/WAI/ARIA/apg/patterns/), consider using that to describe the component purpose.
 
 ### Markdown
 

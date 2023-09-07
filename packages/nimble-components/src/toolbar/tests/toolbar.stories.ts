@@ -9,7 +9,7 @@ import { iconFilterTag } from '../../icons/filter';
 import { iconPencilTag } from '../../icons/pencil';
 import { iconTrashTag } from '../../icons/trash';
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#toolbar) - A toolbar is a container
+const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/) - A toolbar is a container
 for grouping a set of controls, such as buttons, menubuttons, or checkboxes.
 
 When a set of controls is visually presented as a group, the toolbar role can be used to communicate the
