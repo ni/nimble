@@ -106,19 +106,24 @@ describe('Markdown serializer', () => {
                 markdown: '1. <Numbered list with link>'
             },
             {
-                name: 'Bullet list',
-                html: '<ul><li><p>Bullet list</p></li></ul>',
-                markdown: '* Bullet list'
+                name: 'Bulleted list',
+                html: '<ul><li><p>Bulleted list</p></li></ul>',
+                markdown: '* Bulleted list'
             },
             {
-                name: 'Multiple Bullet list',
+                name: 'Multiple Bulleted list',
                 html: '<ul><li><p>list 1</p></li><li><p>list 2</p></li></ul>',
                 markdown: '* list 1\n\n* list 2'
             },
             {
-                name: 'Bullet list with bold',
-                html: '<ul><li><p><strong>Bullet list with bold</strong></p></li></ul>',
-                markdown: '* **Bullet list with bold**'
+                name: 'Bulleted list with bold',
+                html: '<ul><li><p><strong>Bulleted list with bold</strong></p></li></ul>',
+                markdown: '* **Bulleted list with bold**'
+            },
+            {
+                name: 'Bulleted list with italics',
+                html: '<ul><li><p><em>Bulleted list with italics</em></p></li></ul>',
+                markdown: '* *Bulleted list with italics*'
             },
             {
                 name: 'Bullet list with italics',
@@ -129,6 +134,69 @@ describe('Markdown serializer', () => {
                 name: 'Bullet list with link',
                 html: '<ul><li><p><a href="#">Bullet list with link</a></p></li></ul>',
                 markdown: '* <Bullet list with link>'
+            },
+            {
+                name: 'Nested list with levels 1 - Bulleted list, 2 - Numbered list (Bold)',
+                html: '<ul><li><p>Bulleted list</p><ol><li><p><strong>Nested bold numbered list</strong></p></li></ol></li></ul>',
+                markdown:
+                    '* Bulleted list\n\n  1. **Nested bold numbered list**'
+            },
+            {
+                name: 'Nested list with levels 1 - Bulleted list, 2 - Numbered list (Italics)',
+                html: '<ul><li><p>Bulleted list</p><ol><li><p><em>Nested bold numbered list</em></p></li></ol></li></ul>',
+                markdown: '* Bulleted list\n\n  1. *Nested bold numbered list*'
+            },
+            {
+                name: 'Nested list with levels 1- Numbered list (Bold), 2-Bulleted list',
+                html: '<ol><li><p><strong>Numbered list bold</strong></p><ul><li><p>Nested bulleted list</p></li></ul></li></ol>',
+                markdown:
+                    '1. **Numbered list bold**\n\n   * Nested bulleted list'
+            },
+            {
+                name: 'Nested list with levels 1- Numbered list (Italics), 2-Bulleted list',
+                html: '<ol><li><p><em>Numbered list italics</em></p><ul><li><p>Nested bulleted list</p></li></ul></li></ol>',
+                markdown:
+                    '1. *Numbered list italics*\n\n   * Nested bulleted list'
+            },
+            {
+                name: 'Nested list with levels 1- Numbered list, level 2- Bulleted list with multiple items',
+                html: '<ol><li><p>Numbered list</p><ul><li><p>list 1</p></li><li><p>list 2</p></li></ul></li></ol>',
+                markdown: '1. Numbered list\n\n   * list 1\n\n   * list 2'
+            },
+            {
+                name: 'Nested list with levels 1- Bulleted list, level 2- Numbered list with multiple items',
+                html: '<ul><li><p>Bulleted list</p><ol><li><p>list 1</p></li><li><p>list 2</p></li></ol></li></ul>',
+                markdown: '* Bulleted list\n\n  1. list 1\n\n  2. list 2'
+            },
+            {
+                name: 'HTML entities <&>',
+                html: '&amp;',
+                markdown: '&'
+            },
+            {
+                name: 'HTML entities <&trade;>',
+                html: '&trade;',
+                markdown: '™'
+            },
+            {
+                name: 'HTML entities <&euro>',
+                html: '&euro;',
+                markdown: '€'
+            },
+            {
+                name: 'Markdown syntax strings <*>',
+                html: '*',
+                markdown: String.raw`\*`
+            },
+            {
+                name: 'Markdown syntax strings <**>',
+                html: '**',
+                markdown: String.raw`\*\*`
+            },
+            {
+                name: 'Markdown syntax strings <_>',
+                html: '_',
+                markdown: String.raw`\_`
             }
         ];
 
@@ -198,6 +266,16 @@ describe('Markdown serializer', () => {
                 name: 'Underline',
                 html: '<u>Underline</u>',
                 plainText: 'Underline'
+            },
+            {
+                name: 'Script tag',
+                html: '<script href="script.js"></script>',
+                plainText: ''
+            },
+            {
+                name: 'iframe tag',
+                html: '<iframe src="www.google.com"></iframe>',
+                plainText: ''
             }
         ];
 

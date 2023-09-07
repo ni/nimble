@@ -558,7 +558,6 @@ describe('Markdown parser', () => {
 
         for (const value of modifiedWackyStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `wacky string "${value.name}" modified when rendered`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func

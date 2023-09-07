@@ -626,6 +626,23 @@ describe('RichTextEditor', () => {
             ]);
         });
 
+        it('should have different type of list at same level possible', () => {
+            element.setMarkdown(`- Bulleted List 
+            \n  1. Numbered List 
+            \n  - Bulleted List`);
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'OL',
+                'LI',
+                'P',
+                'UL',
+                'LI',
+                'P'
+            ]);
+        });
+
         describe('Absolute link interactions in the editor', () => {
             it('should change the text to "nimble-anchor" tag when it is a valid absolute link', async () => {
                 await pageObject.setEditorTextContent(
