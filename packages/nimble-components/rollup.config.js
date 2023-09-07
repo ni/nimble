@@ -26,13 +26,14 @@ const onwarn = (warning, defaultHandler) => {
     const ignoredWarnings = [
         {
             code: 'CIRCULAR_DEPENDENCY',
-            file: 'node_modules/d3-',
-        },
+            file: 'node_modules/d3-'
+        }
     ];
 
-    if (!ignoredWarnings.some(({ code, file }) => (
-        warning.code === code
-        && warning.message.includes(file)))
+    if (
+        !ignoredWarnings.some(
+            ({ code, file }) => warning.code === code && warning.message.includes(file)
+        )
     ) {
         defaultHandler(warning);
     }
