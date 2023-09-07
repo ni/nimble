@@ -17,7 +17,9 @@ export class RichTextMarkdownParser {
      * DOM structure using a DOMSerializer, and returns the serialized result.
      * If the markdown parser returns null, it will clear the viewer component by creating an empty document fragment.
      */
-    public static parseMarkdownToDOM(value: string): HTMLElement | DocumentFragment {
+    public static parseMarkdownToDOM(
+        value: string
+    ): HTMLElement | DocumentFragment {
         const parsedMarkdownContent = this.markdownParser.parse(value);
         if (parsedMarkdownContent === null) {
             return document.createDocumentFragment();

@@ -294,7 +294,9 @@ describe('Markdown parser', () => {
                 `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
-                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(value.name);
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        value.name
+                    );
 
                     expect(
                         getTagsFromDocumentFragment(doc as DocumentFragment)
