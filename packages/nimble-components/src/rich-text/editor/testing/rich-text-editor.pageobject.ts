@@ -105,13 +105,13 @@ export class RichTextEditorPageObject {
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
-        let lastElement = this.getTiptapEditor()?.lastElementChild;
-
-        while (lastElement?.lastElementChild) {
-            lastElement = lastElement?.lastElementChild;
-        }
+        const lastElement = this.getEditorLastChildElement();
         lastElement!.parentElement!.textContent = value;
         await waitForUpdatesAsync();
+    }
+
+    public getEditorLastChildAttribute(attribute: string): string {
+        return this.getEditorLastChildElement()?.getAttribute(attribute) || '';
     }
 
     public getEditorFirstChildTagName(): string {
@@ -134,6 +134,28 @@ export class RichTextEditorPageObject {
                 return el.children.length === 0;
             })
             .map(el => el.textContent || '');
+    }
+
+    public getEditorTagNamesWithClosingTags(): string[] {
+        const tagNames: string[] = [];
+        const tiptapEditor = this.getTiptapEditor();
+
+        const processNode = (node: Node): void => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                const el = node as Element;
+                tagNames.push(el.tagName);
+
+                el.childNodes.forEach(processNode);
+
+                tagNames.push(`/${el.tagName}`);
+            }
+        };
+
+        if (tiptapEditor) {
+            processNode(tiptapEditor);
+        }
+
+        return tagNames.slice(1, -1);
     }
 
     public getFormattingButtonTextContent(
@@ -216,5 +238,14 @@ export class RichTextEditorPageObject {
             'nimble-toggle-button'
         );
         return buttons[button];
+    }
+
+    private getEditorLastChildElement(): Element | null | undefined {
+        let lastElement = this.getTiptapEditor()?.lastElementChild;
+
+        while (lastElement?.lastElementChild) {
+            lastElement = lastElement?.lastElementChild;
+        }
+        return lastElement;
     }
 }

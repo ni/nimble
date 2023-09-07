@@ -3,14 +3,18 @@ import {
     defaultMarkdownParser,
     MarkdownParser
 } from 'prosemirror-markdown';
-import { DOMSerializer } from 'prosemirror-model';
+import { DOMSerializer, Schema } from 'prosemirror-model';
+import { anchorTag } from '../../anchor';
 
 /**
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
+    private static readonly updatedSchema = this.getUpdatedSchema();
     private static readonly markdownParser = this.initializeMarkdownParser();
-    private static readonly domSerializer = DOMSerializer.fromSchema(schema);
+    private static readonly domSerializer = DOMSerializer.fromSchema(
+        this.updatedSchema
+    );
 
     /**
      * This function takes a markdown string, parses it using the ProseMirror MarkdownParser, serializes the parsed content into a
@@ -46,10 +50,39 @@ export class RichTextMarkdownParser {
             'autolink'
         ]);
 
+        supportedTokenizerRules.validateLink = href => /^https?:\/\//.test(href);
+
         return new MarkdownParser(
-            schema,
+            this.updatedSchema,
             supportedTokenizerRules,
             defaultMarkdownParser.tokens
         );
+    }
+
+    private static getUpdatedSchema(): Schema {
+        return new Schema({
+            nodes: schema.spec.nodes,
+            marks: {
+                link: {
+                    attrs: {
+                        href: {},
+                        rel: { default: 'noopener noreferrer' }
+                    },
+                    inclusive: false,
+                    excludes: '_',
+                    toDOM(node) {
+                        return [
+                            anchorTag,
+                            {
+                                href: node.attrs.href as Attr,
+                                rel: node.attrs.rel as Attr
+                            }
+                        ];
+                    }
+                },
+                em: schema.spec.marks.get('em')!,
+                strong: schema.spec.marks.get('strong')!
+            }
+        });
     }
 }

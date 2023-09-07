@@ -70,6 +70,7 @@
     "@tiptap/extension-document": "^2.1.6",
     "@tiptap/extension-history": "^2.1.6",
     "@tiptap/extension-italic": "^2.1.6",
+    "@tiptap/extension-link": "^2.1.6",
     "@tiptap/extension-list-item": "^2.1.6",
     "@tiptap/extension-ordered-list": "^2.1.6",
     "@tiptap/extension-paragraph": "^2.1.6",

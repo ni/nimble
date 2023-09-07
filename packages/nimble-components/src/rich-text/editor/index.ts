@@ -11,13 +11,15 @@ import {
     findParentNode,
     isList,
     AnyExtension,
-    Extension
+    Extension,
+    Mark
 } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
 import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
+import Link, { LinkOptions } from '@tiptap/extension-link';
 import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
@@ -31,6 +33,7 @@ import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
+import { anchorTag } from '../../anchor';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -330,6 +333,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private createTiptapEditor(): Editor {
+        const customLink = this.getCustomLinkExtension();
+
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
          * Tiptap marks: https://tiptap.dev/api/marks
@@ -350,8 +355,43 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 Placeholder.configure({
                     placeholder: '',
                     showOnlyWhenEditable: false
+                }),
+                customLink.configure({
+                    // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    HTMLAttributes: {
+                        rel: 'noopener noreferrer',
+                        target: null
+                    },
+                    openOnClick: false,
+                    linkOnPaste: false,
+                    validate: href => /^https?:\/\//.test(href)
                 })
             ]
+        });
+    }
+
+    /**
+     * Extending the default link mark schema defined in the TipTap.
+     *
+     * "exclude": https://prosemirror.net/docs/ref/#model.MarkSpec.excludes
+     * "inclusive": https://prosemirror.net/docs/ref/#model.MarkSpec.inclusive
+     * "parseHTML": https://tiptap.dev/guide/custom-extensions#parse-html
+     * "renderHTML": https://tiptap.dev/guide/custom-extensions/#render-html
+     */
+    private getCustomLinkExtension(): Mark<LinkOptions> {
+        return Link.extend({
+            excludes: '_',
+            inclusive: false,
+            parseHTML() {
+                return [{ tag: anchorTag }];
+            },
+            // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            renderHTML({ HTMLAttributes }) {
+                HTMLAttributes.tabindex = '-1';
+                return [anchorTag, HTMLAttributes];
+            }
         });
     }
 

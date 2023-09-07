@@ -7,6 +7,7 @@ import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
+import Link from '@tiptap/extension-link';
 import type { Node } from 'prosemirror-model';
 import { RichTextMarkdownSerializer } from '../markdown-serializer';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
@@ -22,7 +23,10 @@ describe('Markdown serializer', () => {
             OrderedList,
             ListItem,
             Bold,
-            Italic
+            Italic,
+            Link.extend({
+                excludes: '_'
+            })
         ]
     });
 
@@ -52,9 +56,29 @@ describe('Markdown serializer', () => {
                 markdown: '*Italics*'
             },
             {
+                name: 'Link',
+                html: '<p><a href="#">Link</a></p>',
+                markdown: '<Link>'
+            },
+            {
                 name: 'Bold and Italics',
                 html: '<strong><em>Bold and Italics</em></strong>',
                 markdown: '***Bold and Italics***'
+            },
+            {
+                name: 'Link and Bold',
+                html: '<p><a href="#"><strong>Link and Bold</strong></a></p>',
+                markdown: '<Link and Bold>'
+            },
+            {
+                name: 'Link and Italics',
+                html: '<p><a href="#"><em>Link and Italics</em></a></p>',
+                markdown: '<Link and Italics>'
+            },
+            {
+                name: 'Link, Bold and Italics',
+                html: '<p><a href="#"><strong><em>Link, Bold and Italics</em></strong></a></p>',
+                markdown: '<Link, Bold and Italics>'
             },
             {
                 name: 'Numbered list',
@@ -77,6 +101,11 @@ describe('Markdown serializer', () => {
                 markdown: '1. *Numbered list with italics*'
             },
             {
+                name: 'Numbered list with link',
+                html: '<ol><li><p><a href="#">Numbered list with link</a></p></li></ol>',
+                markdown: '1. <Numbered list with link>'
+            },
+            {
                 name: 'Bullet list',
                 html: '<ul><li><p>Bullet list</p></li></ul>',
                 markdown: '* Bullet list'
@@ -95,6 +124,11 @@ describe('Markdown serializer', () => {
                 name: 'Bullet list with italics',
                 html: '<ul><li><p><em>Bullet list with italics</em></p></li></ul>',
                 markdown: '* *Bullet list with italics*'
+            },
+            {
+                name: 'Bullet list with link',
+                html: '<ul><li><p><a href="#">Bullet list with link</a></p></li></ul>',
+                markdown: '* <Bullet list with link>'
             }
         ];
 
@@ -149,7 +183,6 @@ describe('Markdown serializer', () => {
                 html: '<mark>Highlight</mark>',
                 plainText: 'Highlight'
             },
-            { name: 'Link', html: '<a href="#">Link</a>', plainText: 'Link' },
             {
                 name: 'Strikethrough',
                 html: '<s>Strikethrough</s>',

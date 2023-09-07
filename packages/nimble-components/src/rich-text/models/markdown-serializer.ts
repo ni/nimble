@@ -51,7 +51,15 @@ export class RichTextMarkdownSerializer {
         };
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,
-            bold: defaultMarkdownSerializer.marks.strong!
+            bold: defaultMarkdownSerializer.marks.strong!,
+            // Autolink markdown in CommonMark flavor: https://spec.commonmark.org/0.30/#autolinks
+            link: {
+                open: '<',
+                close: '>',
+                mixable: true,
+                escape: false,
+                expelEnclosingWhitespace: true
+            }
         };
         return new MarkdownSerializer(nodes, marks);
     }

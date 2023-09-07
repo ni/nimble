@@ -77,6 +77,12 @@ export const styles = css`
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
     }
 
+    :host([disabled]) nimble-anchor::part(control) {
+        color: ${bodyDisabledFontColor};
+        fill: currentcolor;
+        cursor: default;
+    }
+
     :host([error-visible]) .container {
         border-bottom-color: ${failColor};
     }
@@ -186,6 +192,23 @@ export const styles = css`
 
     :host([disabled]) .ProseMirror p.is-editor-empty:first-child::before {
         color: ${controlLabelDisabledFontColor};
+    }
+
+    nimble-anchor {
+        white-space: normal;
+        ${
+            /**
+             * Restricting the pointer events for the following reasons:
+             * 1. nimble-anchor inside a "contenteditable" div is not working as native anchor HTML anchor tag.
+             *    i.e. clicking on the link opens in the same tab whereas the default behavior of native HTML anchor
+             *    tag is not clickable inside "contenteditable" div.
+             * 2. Restricting the user from opening a link using the right-click context menu: If the user manually edits
+             *    the link, the 'href' attribute of the anchor tag will not be updated. If they attempt to open it using
+             *    the right-click context menu with 'Open in new tab/window,' it will still navigate to the link specified
+             *    in the 'href' attribute.
+             */ ''
+        }
+        pointer-events: none;
     }
 
     .footer-section {

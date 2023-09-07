@@ -30,7 +30,7 @@ const metadata: Meta = {
     }
 };
 
-const richTextMarkdownString = '1. **Bold*Italics***';
+const richTextMarkdownString = '1. <https://nimble.ni.dev>\n2. **Bold*Italics***';
 
 export default metadata;
 
@@ -63,7 +63,7 @@ const component = (
         ${() => footerHiddenName} ${() => errorStateName} ${() => placeholderName} ${() => disabledName} 
     </p>
     <${richTextEditorTag}
-        style="margin: 5px 0px; width: 500px;"
+        style="margin: 5px 0px; width: 500px; height: 100px"
         ?disabled="${() => disabled}"
         ?footer-hidden="${() => footerHidden}"
         ?error-visible="${() => isError}"

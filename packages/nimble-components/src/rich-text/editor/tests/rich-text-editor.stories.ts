@@ -12,6 +12,7 @@ import {
     type LabelUserArgs
 } from '../../../label-provider/base/tests/label-user-stories-utils';
 import { labelProviderRichTextTag } from '../../../label-provider/rich-text';
+import { richTextMarkdownString } from '../../../utilities/tests/rich-text-markdown-string';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RichTextEditorArgs extends LabelUserArgs {
@@ -38,20 +39,9 @@ const exampleDataType = {
 
 const plainString = 'Plain text' as const;
 
-const markdownString = `
-Supported rich text formatting options:
-1. **Bold**
-2. *Italics*
-3. Numbered lists
-   1. Option 1
-   2. Option 2
-4. Bulleted lists
-   * Option 1
-   * Option 2` as const;
-
 const dataSets = {
     [exampleDataType.plainString]: plainString,
-    [exampleDataType.markdownString]: markdownString
+    [exampleDataType.markdownString]: richTextMarkdownString
 } as const;
 
 const richTextEditorDescription = 'The rich text editor component allows users to add/edit text formatted with various styling options including bold, italics, numbered lists, and bulleted lists. The editor generates markdown output and takes markdown as input. The markdown flavor used is [CommonMark](https://spec.commonmark.org/0.30/).\n\n See the [rich text viewer](?path=/docs/incubating-rich-text-viewer--docs) component to render markdown without allowing editing.';
@@ -86,6 +76,7 @@ const metadata: Meta<RichTextEditorArgs> = {
     })}
     <${richTextEditorTag}
         ${ref('editorRef')}
+        style="height: 160px"
         data-unused="${x => x.setMarkdownData(x)}"
         ?disabled="${x => x.disabled}"
         ?footer-hidden="${x => x.footerHidden}"
