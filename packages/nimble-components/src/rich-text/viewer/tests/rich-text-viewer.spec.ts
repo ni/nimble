@@ -610,6 +610,31 @@ describe('RichTextViewer', () => {
                 'https://nimble.ni.dev/'
             ]);
         });
+
+        it('should have different type of list at same level possible', async () => {
+            element.markdown = `- Bulleted List 
+            \n  1. Numbered List 
+            \n  - Bulleted List`;
+
+            await connect();
+
+            expect(pageObject.getRenderedMarkdownTagNames()).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'OL',
+                'LI',
+                'P',
+                'UL',
+                'LI',
+                'P'
+            ]);
+            expect(pageObject.getRenderedMarkdownLeafContents()).toEqual([
+                'Bulleted List',
+                'Numbered List',
+                'Bulleted List'
+            ]);
+        });
     });
 
     describe('various not supported markdown string values render as unchanged strings', () => {
