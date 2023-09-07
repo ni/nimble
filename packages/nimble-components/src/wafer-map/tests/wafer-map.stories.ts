@@ -9,7 +9,7 @@ import { generateWaferData } from './data-generator';
 import { goodValueGenerator, badValueGenerator } from './value-generator';
 import type { WaferMapDie, WaferMapColorScale } from '../types';
 import {
-    WaferMapQuadrant,
+    WaferMapOriginLocation,
     WaferMapOrientation,
     WaferMapColorScaleMode
 } from '../types';
@@ -29,7 +29,7 @@ interface WaferMapArgs {
     highlightedValues: string;
     maxCharacters: number;
     orientation: WaferMapOrientation;
-    quadrant: WaferMapQuadrant;
+    originLocation: WaferMapOriginLocation;
     dieHover: unknown;
 }
 
@@ -110,7 +110,7 @@ const metadata: Meta<WaferMapArgs> = {
             die-labels-suffix="${x => x.dieLabelsSuffix}"
             max-characters="${x => x.maxCharacters}"
             orientation="${x => x.orientation}"
-            quadrant="${x => x.quadrant}"
+            origin-location="${x => x.originLocation}"
             :colorScale="${x => x.colorScale}"
             :dies="${x => getDiesSet(x.dies, wafermapDieSets)}"
             :highlightedValues="${x => getHighLightedValueSets(
@@ -135,7 +135,7 @@ const metadata: Meta<WaferMapArgs> = {
         highlightedValues: 'set1',
         maxCharacters: 4,
         orientation: WaferMapOrientation.left,
-        quadrant: WaferMapQuadrant.bottomLeft
+        originLocation: WaferMapOriginLocation.bottomLeft
     },
     argTypes: {
         colorScale: {
@@ -247,17 +247,17 @@ const metadata: Meta<WaferMapArgs> = {
                 }
             }
         },
-        quadrant: {
+        originLocation: {
             description:
                 'Represents the orientation of the dies on the wafer map',
-            options: Object.values(WaferMapQuadrant),
+            options: Object.values(WaferMapOriginLocation),
             control: {
                 type: 'radio',
                 labels: {
-                    [WaferMapQuadrant.bottomLeft]: 'bottom-left',
-                    [WaferMapQuadrant.bottomRight]: 'bottom-right',
-                    [WaferMapQuadrant.topLeft]: 'top-left',
-                    [WaferMapQuadrant.topRight]: 'top-right'
+                    [WaferMapOriginLocation.bottomLeft]: 'bottom-left',
+                    [WaferMapOriginLocation.bottomRight]: 'bottom-right',
+                    [WaferMapOriginLocation.topLeft]: 'top-left',
+                    [WaferMapOriginLocation.topRight]: 'top-right'
                 }
             }
         },

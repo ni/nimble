@@ -77,7 +77,7 @@ describe('TableColumnText', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
     }
 
@@ -90,33 +90,33 @@ describe('TableColumnText', () => {
         firstColumn.fieldName = 'anotherField';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('bar');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('bar');
     });
 
     it('changing data from value to null displays blank', async () => {
         await element.setData([{ field: 'foo' }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
 
         const updatedValue = { field: null };
         const updatedData = [updatedValue];
         await element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
     });
 
     it('changing data from null to value displays value', async () => {
         await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
         await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
     });
 
     it('when no fieldName provided, nothing is displayed', async () => {
@@ -128,7 +128,7 @@ describe('TableColumnText', () => {
         await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
     });
 
     it('sets title when cell text is ellipsized', async () => {
@@ -211,7 +211,7 @@ describe('TableColumnText', () => {
                     await element.setData([{ field: value.name }]);
                     await waitForUpdatesAsync();
 
-                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                         value.name
                     );
                 }
@@ -235,7 +235,7 @@ describe('TableColumnText', () => {
                     await waitForUpdatesAsync();
 
                     expect(
-                        pageObject.getRenderedGroupHeaderContent(0)
+                        pageObject.getRenderedGroupHeaderTextContent(0)
                     ).toContain(value.name);
                 }
             );

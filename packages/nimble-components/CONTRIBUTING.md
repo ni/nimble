@@ -445,9 +445,10 @@ When creating a new component, create a `*-matrix.stories.ts` Storybook file to 
 
 Most user-visible strings displayed by Nimble components are provided by the client application and are expected to be localized by the application if necessary. However, some strings are built into Nimble components and are provided only in English. An application can provide localized versions of these strings by using design tokens set on label provider elements.
 
-There are currently 2 label providers:
+The current label providers:
 
--   `nimble-label-provider-core`: Used for labels for all components besides the table
+-   `nimble-label-provider-core`: Used for labels for all components without a dedicated label provider
+-   `nimble-label-provider-rich-text`: Used for labels for the rich text components
 -   `nimble-label-provider-table`: Used for labels for the table (and table sub-components / column types)
 
 The expected format for label token names is:
