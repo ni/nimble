@@ -1,8 +1,40 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 01 Sep 2023 20:47:01 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Sep 2023 20:42:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.5
+
+Wed, 06 Sep 2023 20:42:14 GMT
+
+### Patches
+
+- Revamp folder structure for rich text components ([ni/nimble@97cc70d](https://github.com/ni/nimble/commit/97cc70d749dbca3251e3efc18920ada8b4cbdfee))
+
+## 20.2.4
+
+Wed, 06 Sep 2023 16:21:23 GMT
+
+### Patches
+
+- Fix bug in number-text column when the value rounds to -0 ([ni/nimble@1e44e91](https://github.com/ni/nimble/commit/1e44e9169c32bfbf7c4d69af57b2c848d4960b1d))
+
+## 20.2.3
+
+Wed, 06 Sep 2023 14:58:43 GMT
+
+### Patches
+
+- Revert firefox workaround for caret disappear ([ni/nimble@ff093f4](https://github.com/ni/nimble/commit/ff093f4490485f0ffe0eca8733f6a16957ecda86))
+
+## 20.2.2
+
+Wed, 06 Sep 2023 05:43:09 GMT
+
+### Patches
+
+- Add label provider for rich-text-editor ([ni/nimble@75dcf39](https://github.com/ni/nimble/commit/75dcf394df02a54bf85c6d41cdaab40963d9ef3f))
 
 ## 20.2.1
 
