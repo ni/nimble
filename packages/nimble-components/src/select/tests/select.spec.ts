@@ -3,7 +3,6 @@ import { fixture, Fixture } from '../../utilities/tests/fixture';
 import { Select, selectTag } from '..';
 import { listOptionTag } from '../../list-option';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
-import { checkFullyInViewport } from '../../utilities/tests/intersection-observer';
 import { SelectPageObject } from '../testing/select.pageobject';
 
 async function setup(
@@ -144,7 +143,7 @@ describe('Select', () => {
             const pageObject = new SelectPageObject(element);
             await connect();
             await pageObject.clickAndWaitForOpen();
-            const fullyVisible = await checkFullyInViewport(element.listbox);
+            const fullyVisible = await pageObject.isDropdownFullyInViewport();
 
             expect(element.listbox.scrollHeight).toBeGreaterThan(
                 window.innerHeight
@@ -156,7 +155,7 @@ describe('Select', () => {
     });
 
     describe('within a div', () => {
-        async function setupInDiv(): Promise<Fixture<Select>> {
+        async function setupInDiv(): Promise<Fixture<HTMLDivElement>> {
             // prettier-ignore
             const viewTemplate = html`
                 <div style="overflow: auto;">
@@ -166,18 +165,96 @@ describe('Select', () => {
                     </${selectTag}>
                 </div>
             `;
-            return fixture<Select>(viewTemplate);
+            return fixture<HTMLDivElement>(viewTemplate);
         }
 
         it('should not confine dropdown to div with "overflow: auto"', async () => {
             const { element, connect, disconnect } = await setupInDiv();
-            const pageObject = new SelectPageObject(element);
+            const select: Select = element.querySelector(selectTag)!;
+            const pageObject = new SelectPageObject(select);
             await connect();
             await pageObject.clickAndWaitForOpen();
-            const fullyVisible = await checkFullyInViewport(element);
+            const fullyVisible = await pageObject.isDropdownFullyInViewport();
 
             expect(fullyVisible).toBe(true);
 
+            await disconnect();
+        });
+    });
+
+    describe('when used with page object', () => {
+        async function setupOptions(): Promise<Fixture<Select>> {
+            // prettier-ignore
+            const viewTemplate = html`
+                <${selectTag}>
+                    ${repeat(() => [...Array(100).keys()], html<number>`
+                        <nimble-list-option value="${x => x}">${x => `  This is item ${x}  `}</nimble-list-option>`)}
+                </${selectTag}>
+            `;
+            return fixture<Select>(viewTemplate);
+        }
+
+        it('should allow selecting an item initially visible', async () => {
+            const { element, connect, disconnect } = await setupOptions();
+            const pageObject = new SelectPageObject(element);
+            await connect();
+            await pageObject.selectValue('1');
+            expect(element.value).toEqual('1');
+            await disconnect();
+        });
+
+        it('should allow selecting an item initially off screen', async () => {
+            const { element, connect, disconnect } = await setupOptions();
+            const pageObject = new SelectPageObject(element);
+            await connect();
+            await pageObject.selectValue('99');
+            expect(element.value).toEqual('99');
+            await disconnect();
+        });
+
+        it('should not change selection when selecting a disabled item', async () => {
+            const { element, connect, disconnect } = await setupOptions();
+            const pageObject = new SelectPageObject(element);
+            await connect();
+            pageObject.getOptionWithValue('2')!.disabled = true;
+            await pageObject.selectValue('2');
+            expect(element.value).toEqual('0');
+            await disconnect();
+        });
+
+        it('should cause page object to throw when selecting an invalid item', async () => {
+            const { element, connect, disconnect } = await setupOptions();
+            const pageObject = new SelectPageObject(element);
+            await connect();
+            await expectAsync(
+                pageObject.selectValue('not a value')
+            ).toBeRejected();
+            await disconnect();
+        });
+
+        it('should cause page object to return option count', async () => {
+            const { element, connect, disconnect } = await setupOptions();
+            const pageObject = new SelectPageObject(element);
+            await connect();
+            expect(pageObject.getOptionCount()).toEqual(100);
+            await disconnect();
+        });
+
+        it('should cause page object to return option value', async () => {
+            const { element, connect, disconnect } = await setupOptions();
+            const pageObject = new SelectPageObject(element);
+            await connect();
+            expect(pageObject.getOptionValues()[1]).toEqual('1');
+            await disconnect();
+        });
+
+        it('should cause page object to return trimmed option display value', async () => {
+            const { element, connect, disconnect } = await setupOptions();
+            const pageObject = new SelectPageObject(element);
+            await connect();
+            expect(pageObject.getOptionDisplayValues()[1]).toEqual(
+                'This is item 1'
+            );
             await disconnect();
         });
     });
