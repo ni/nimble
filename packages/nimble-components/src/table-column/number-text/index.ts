@@ -1,4 +1,4 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import { DesignSystem, DesignTokenSubscriber } from '@microsoft/fast-foundation';
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -15,6 +15,7 @@ import { DefaultFormatter } from './models/default-formatter';
 import { DecimalFormatter } from './models/decimal-formatter';
 import { TableColumnNumberTextValidator } from './models/table-column-number-text-validator';
 import { TextCellViewBaseAlignment } from '../text-base/cell-view/types';
+import { lang } from '../../theme-provider';
 
 export type TableColumnNumberTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnNumberTextColumnConfig {
@@ -46,13 +47,21 @@ export class TableColumnNumberText extends TableColumnTextBase {
     @attr({ attribute: 'decimal-digits', converter: nullableNumberConverter })
     public decimalDigits?: number;
 
+    private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
+        handleChange: () => {
+            this.updateColumnConfig();
+        }
+    };
+
     public override connectedCallback(): void {
         super.connectedCallback();
+        lang.subscribe(this.langSubscriber, this);
         this.updateColumnConfig();
     }
 
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
+        lang.unsubscribe(this.langSubscriber, this);
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
@@ -94,13 +103,14 @@ export class TableColumnNumberText extends TableColumnTextBase {
     private createFormatter(): NumberFormatter {
         switch (this.format) {
             case NumberTextFormat.roundToInteger:
-                return new RoundToIntegerFormatter();
+                return new RoundToIntegerFormatter(lang.getValueFor(this));
             case NumberTextFormat.decimal:
                 return new DecimalFormatter(
+                    lang.getValueFor(this),
                     this.decimalDigits ?? defaultDecimalDigits
                 );
             default:
-                return new DefaultFormatter();
+                return new DefaultFormatter(lang.getValueFor(this));
         }
     }
 

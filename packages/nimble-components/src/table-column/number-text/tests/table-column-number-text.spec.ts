@@ -9,6 +9,7 @@ import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
+import { lang, themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;
@@ -22,6 +23,8 @@ class ColumnInstances {
 
 // prettier-ignore
 async function setup(source: ColumnInstances): Promise<Fixture<Table<SimpleTableRecord>>> {
+    const themeProvider = document.createElement(themeProviderTag);
+    themeProvider.lang = 'en-US';
     return fixture<Table<SimpleTableRecord>>(
         html`<nimble-table style="width: 700px">
                 <${tableColumnNumberTextTag} ${ref('column1')} field-name="number1" group-index="0">
@@ -31,7 +34,10 @@ async function setup(source: ColumnInstances): Promise<Fixture<Table<SimpleTable
                     Column 2
                 </${tableColumnNumberTextTag}>
             </nimble-table>`,
-        { source }
+        {
+            source,
+            parent: themeProvider
+        }
     );
 }
 
@@ -115,6 +121,21 @@ describe('TableColumnNumberText', () => {
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('3');
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('3');
+    });
+
+    it('changing lang token updates display', async () => {
+        await element.setData([{ number1: 1002.9 }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('1,002.9');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('1,002.9');
+
+        lang.setValueFor(element, 'de');
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('1.002,9');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('1.002,9');
     });
 
     it('shows initial values', async () => {
