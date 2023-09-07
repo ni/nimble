@@ -99,7 +99,8 @@ describe('Markdown serializer', () => {
             {
                 name: 'Nested list with levels 1 - Bulleted list, 2 - Numbered list (Bold)',
                 html: '<ul><li><p>Bulleted list</p><ol><li><p><strong>Nested bold numbered list</strong></p></li></ol></li></ul>',
-                markdown: '* Bulleted list\n\n  1. **Nested bold numbered list**'
+                markdown:
+                    '* Bulleted list\n\n  1. **Nested bold numbered list**'
             },
             {
                 name: 'Nested list with levels 1 - Bulleted list, 2 - Numbered list (Italics)',
@@ -109,12 +110,14 @@ describe('Markdown serializer', () => {
             {
                 name: 'Nested list with levels 1- Numbered list (Bold), 2-Bulleted list',
                 html: '<ol><li><p><strong>Numbered list bold</strong></p><ul><li><p>Nested bulleted list</p></li></ul></li></ol>',
-                markdown: '1. **Numbered list bold**\n\n   * Nested bulleted list'
+                markdown:
+                    '1. **Numbered list bold**\n\n   * Nested bulleted list'
             },
             {
                 name: 'Nested list with levels 1- Numbered list (Italics), 2-Bulleted list',
                 html: '<ol><li><p><em>Numbered list italics</em></p><ul><li><p>Nested bulleted list</p></li></ul></li></ol>',
-                markdown: '1. *Numbered list italics*\n\n   * Nested bulleted list'
+                markdown:
+                    '1. *Numbered list italics*\n\n   * Nested bulleted list'
             },
             {
                 name: 'Nested list with levels 1- Numbered list, level 2- Bulleted list with multiple items',
@@ -155,7 +158,7 @@ describe('Markdown serializer', () => {
                 name: 'Markdown syntax strings <_>',
                 html: '_',
                 markdown: '\\_'
-            },
+            }
         ];
 
         const focused: string[] = [];
@@ -228,12 +231,12 @@ describe('Markdown serializer', () => {
             },
             {
                 name: 'Script tag',
-                html: '<script href=\'script.js\'></script>',
+                html: '<script href="script.js"></script>',
                 plainText: ''
             },
             {
                 name: 'iframe tag',
-                html: '<iframe src=\'www.google.com\'></iframe>',
+                html: '<iframe src="www.google.com"></iframe>',
                 plainText: ''
             }
         ];
