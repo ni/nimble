@@ -199,7 +199,7 @@ export const styles = css`
         ${
             /**
              * Restricting the pointer events for the following reasons:
-             * 1. nimble-anchor inside a "contenteditable" div is not working as native anchor HTML anchor tag.
+             * 1. nimble-anchor inside a "contenteditable" div is not working as native HTML anchor tag.
              *    i.e. clicking on the link opens in the same tab whereas the default behavior of native HTML anchor
              *    tag is not clickable inside "contenteditable" div.
              * 2. Restricting the user from opening a link using the right-click context menu: If the user manually edits
