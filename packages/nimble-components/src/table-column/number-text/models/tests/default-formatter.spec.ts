@@ -217,15 +217,23 @@ describe('DefaultFormatter', () => {
     const disabled: string[] = [];
     for (const locale of locales) {
         for (const testCase of testCases) {
-            const specType = getSpecTypeByNamedList(testCase, focused, disabled);
+            const specType = getSpecTypeByNamedList(
+                testCase,
+                focused,
+                disabled
+            );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(
                 `${testCase.name} with '${locale}' locale`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
                     const formatter = new DefaultFormatter(locale);
-                    const formattedValue = formatter.formatValue(testCase.value);
-                    expect(formattedValue).toEqual(testCase.expectedFormattedValue[locale]);
+                    const formattedValue = formatter.formatValue(
+                        testCase.value
+                    );
+                    expect(formattedValue).toEqual(
+                        testCase.expectedFormattedValue[locale]
+                    );
                 }
             );
         }

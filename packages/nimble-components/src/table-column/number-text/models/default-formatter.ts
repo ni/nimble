@@ -30,27 +30,18 @@ export class DefaultFormatter extends NumberFormatter {
 
     public constructor(locale: string) {
         super();
-        this.defaultFormatter = new Intl.NumberFormat(
-            locale,
-            {
-                maximumSignificantDigits: DefaultFormatter.maximumDigits,
-                useGrouping: true
-            }
-        );
-        this.leadingZeroFormatter = new Intl.NumberFormat(
-            locale,
-            {
-                maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
-                useGrouping: true
-            }
-        );
-        this.exponentialFormatter = new Intl.NumberFormat(
-            locale,
-            {
-                maximumSignificantDigits: DefaultFormatter.maximumDigits,
-                notation: 'scientific'
-            }
-        );
+        this.defaultFormatter = new Intl.NumberFormat(locale, {
+            maximumSignificantDigits: DefaultFormatter.maximumDigits,
+            useGrouping: true
+        });
+        this.leadingZeroFormatter = new Intl.NumberFormat(locale, {
+            maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
+            useGrouping: true
+        });
+        this.exponentialFormatter = new Intl.NumberFormat(locale, {
+            maximumSignificantDigits: DefaultFormatter.maximumDigits,
+            notation: 'scientific'
+        });
     }
 
     protected format(number: number): string {

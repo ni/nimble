@@ -1,4 +1,7 @@
-import { DesignSystem, DesignTokenSubscriber } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    DesignTokenSubscriber
+} from '@microsoft/fast-foundation';
 import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
