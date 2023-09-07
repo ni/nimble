@@ -23,7 +23,7 @@
     },
     {
       "groupName": "D3",
-      "matchPackagePatterns": ["^d3-", "^@types/d3-"],
+      "matchPackagePatterns": ["d3"],
       "enabled": true
     },
     {
