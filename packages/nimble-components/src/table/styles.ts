@@ -180,7 +180,8 @@ export const styles = css`
     }
 
     .group-row {
-        position: relative;
+        position: sticky;
+        left: 0px;
     }
 
     .row {
