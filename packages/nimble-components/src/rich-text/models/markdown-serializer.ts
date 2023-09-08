@@ -53,6 +53,7 @@ export class RichTextMarkdownSerializer {
             italic: defaultMarkdownSerializer.marks.em!,
             bold: defaultMarkdownSerializer.marks.strong!,
             // Autolink markdown in CommonMark flavor: https://spec.commonmark.org/0.30/#autolinks
+            // ProseMirror model reference: https://github.com/ProseMirror/prosemirror-markdown/blob/c7210d0e55c82bfb0b2f7cba5dffe804575fafb3/src/to_markdown.ts#L3C1-L26C2
             link: {
                 open: '<',
                 close: '>',

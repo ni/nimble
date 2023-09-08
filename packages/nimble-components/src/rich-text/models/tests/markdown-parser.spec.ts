@@ -1,108 +1,54 @@
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
+import {
+    getLeafContentsFromElement,
+    getTagsFromElement,
+    getLastChildElementAttribute
+} from '../testing/markdown-parser-utils';
 
 describe('Markdown parser', () => {
-    function getTagsFromDocumentFragment(doc: DocumentFragment): string[] {
-        const nodes = Array.from(doc.querySelectorAll('*')).map(
-            el => el.tagName
-        );
-        return nodes;
-    }
-
-    function getLeafContentsFromDocumentFragment(
-        doc: DocumentFragment
-    ): string[] {
-        const nodes = Array.from(doc.querySelectorAll('*'))
-            .filter((el, _) => {
-                return el.children.length === 0;
-            })
-            .map(el => el.textContent || '');
-        return nodes;
-    }
-
-    function getEditorLastChildAttribute(
-        attribute: string,
-        doc: DocumentFragment
-    ): string {
-        return getEditorLastChildElement(doc)?.getAttribute(attribute) || '';
-    }
-
-    function getEditorLastChildElement(
-        doc: DocumentFragment
-    ): Element | null | undefined {
-        let lastElement = doc.lastElementChild;
-
-        while (lastElement?.lastElementChild) {
-            lastElement = lastElement?.lastElementChild;
-        }
-        return lastElement;
-    }
-
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         it('bold markdown string("**") to "strong" HTML tag', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('**Bold**');
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['P', 'STRONG']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Bold']);
+
+            expect(getTagsFromElement(doc)).toEqual(['P', 'STRONG']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Bold']);
         });
 
         it('bold markdown string("__") to "strong" HTML tag', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('__Bold__');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['P', 'STRONG']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Bold']);
+            expect(getTagsFromElement(doc)).toEqual(['P', 'STRONG']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Bold']);
         });
 
         it('italics markdown string("*") to "em" HTML tag', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('*Italics*');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['P', 'EM']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Italics']);
+            expect(getTagsFromElement(doc)).toEqual(['P', 'EM']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Italics']);
         });
 
         it('italics markdown string("_") to "em" HTML tag', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('_Italics_');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['P', 'EM']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Italics']);
+            expect(getTagsFromElement(doc)).toEqual(['P', 'EM']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Italics']);
         });
 
         it('numbered list markdown string("1.") to "ol" and "li" HTML tags', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('1. Numbered list');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['OL', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Numbered list']);
+            expect(getTagsFromElement(doc)).toEqual(['OL', 'LI', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Numbered list']);
         });
 
         it('numbered list markdown string("1)") to "ol" and "li" HTML tags', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('1) Numbered list');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['OL', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Numbered list']);
+            expect(getTagsFromElement(doc)).toEqual(['OL', 'LI', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Numbered list']);
         });
 
         it('multiple numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
@@ -110,23 +56,30 @@ describe('Markdown parser', () => {
                 '1. Option 1\n 2. Option 2'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['OL', 'LI', 'P', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Option 1', 'Option 2']);
+            expect(getTagsFromElement(doc)).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'LI',
+                'P'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
         });
 
         it('multiple empty numbered lists markdown string("1.\n2.") to "ol" and "li" HTML tags', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('1.    \n 2.    ');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['OL', 'LI', 'P', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['', '']);
+            expect(getTagsFromElement(doc)).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'LI',
+                'P'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual(['', '']);
         });
 
         it('numbered lists that start with numbers and are not sequential to "ol" and "li" HTML tags', () => {
@@ -134,12 +87,17 @@ describe('Markdown parser', () => {
                 '1. Option 1\n 1. Option 2'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['OL', 'LI', 'P', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Option 1', 'Option 2']);
+            expect(getTagsFromElement(doc)).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'LI',
+                'P'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'Option 1',
+                'Option 2'
+            ]);
         });
 
         it('numbered lists if there is some content between lists', () => {
@@ -147,12 +105,16 @@ describe('Markdown parser', () => {
                 '1. Option 1\n\nSome content in between lists\n\n 2. Option 2'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['OL', 'LI', 'P', 'P', 'OL', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual([
+            expect(getTagsFromElement(doc)).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'P',
+                'OL',
+                'LI',
+                'P'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
                 'Option 1',
                 'Some content in between lists',
                 'Option 2'
@@ -162,34 +124,22 @@ describe('Markdown parser', () => {
         it('bulleted list markdown string("*") to "ul" and "li" HTML tags', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('* Bulleted list');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['UL', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Bulleted list']);
+            expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("-") to "ul" and "li" HTML tags', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('- Bulleted list');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['UL', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Bulleted list']);
+            expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
         });
 
         it('bulleted list markdown string("+") to "ul" and "li" HTML tags', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('+ Bulleted list');
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['UL', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Bulleted list']);
+            expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['Bulleted list']);
         });
 
         it('multiple bulleted lists markdown string("* \n* \n*") to "ul" and "li" HTML tags', () => {
@@ -197,12 +147,20 @@ describe('Markdown parser', () => {
                 '* Option 1\n * Option 2\n * Option 3'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['UL', 'LI', 'P', 'LI', 'P', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Option 1', 'Option 2', 'Option 3']);
+            expect(getTagsFromElement(doc)).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'LI',
+                'P',
+                'LI',
+                'P'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'Option 1',
+                'Option 2',
+                'Option 3'
+            ]);
         });
 
         it('bulleted lists if there is some content between lists', () => {
@@ -210,12 +168,16 @@ describe('Markdown parser', () => {
                 '* Option 1\n\nSome content in between lists\n\n * Option 2'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['UL', 'LI', 'P', 'P', 'UL', 'LI', 'P']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual([
+            expect(getTagsFromElement(doc)).toEqual([
+                'UL',
+                'LI',
+                'P',
+                'P',
+                'UL',
+                'LI',
+                'P'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
                 'Option 1',
                 'Some content in between lists',
                 'Option 2'
@@ -227,12 +189,15 @@ describe('Markdown parser', () => {
                 '1. **Numbered list in bold**'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['OL', 'LI', 'P', 'STRONG']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Numbered list in bold']);
+            expect(getTagsFromElement(doc)).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'STRONG'
+            ]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'Numbered list in bold'
+            ]);
         });
 
         it('bulleted list with italics markdown string to "ul", "li" and "em" HTML tags', () => {
@@ -240,29 +205,25 @@ describe('Markdown parser', () => {
                 '* *Bulleted list in italics*'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['UL', 'LI', 'P', 'EM']);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual(['Bulleted list in italics']);
+            expect(getTagsFromElement(doc)).toEqual(['UL', 'LI', 'P', 'EM']);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                'Bulleted list in italics'
+            ]);
         });
 
         describe('Absolute link', () => {
-            it('absolute link markdown string to "a" tags with the link as the text content', () => {
+            it('absolute link markdown string to "nimble-anchor" tags with the link as the text content', () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     '<https://nimble.ni.dev/>'
                 );
 
-                expect(
-                    getTagsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['P', 'NIMBLE-ANCHOR']);
-                expect(
-                    getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['https://nimble.ni.dev/']);
-                expect(
-                    getEditorLastChildAttribute('href', doc as DocumentFragment)
-                ).toBe('https://nimble.ni.dev/');
+                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getLeafContentsFromElement(doc)).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(getLastChildElementAttribute('href', doc)).toBe(
+                    'https://nimble.ni.dev/'
+                );
             });
 
             it('absolute link should add "rel" attribute', () => {
@@ -270,41 +231,47 @@ describe('Markdown parser', () => {
                     '<https://nimble.ni.dev/>'
                 );
 
-                expect(
-                    getEditorLastChildAttribute('rel', doc as DocumentFragment)
-                ).toBe('noopener noreferrer');
+                expect(getLastChildElementAttribute('rel', doc)).toBe(
+                    'noopener noreferrer'
+                );
             });
 
-            it('bulleted list with absolute links markdown string to "ul", "li" and "a" HTML tags', () => {
+            it('bulleted list with absolute links markdown string to "ul", "li" and "nimble-anchor" HTML tags', () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     '* <https://nimble.ni.dev/>'
                 );
 
-                expect(
-                    getTagsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['UL', 'LI', 'P', 'NIMBLE-ANCHOR']);
-                expect(
-                    getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['https://nimble.ni.dev/']);
-                expect(
-                    getEditorLastChildAttribute('href', doc as DocumentFragment)
-                ).toBe('https://nimble.ni.dev/');
+                expect(getTagsFromElement(doc)).toEqual([
+                    'UL',
+                    'LI',
+                    'P',
+                    'NIMBLE-ANCHOR'
+                ]);
+                expect(getLeafContentsFromElement(doc)).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(getLastChildElementAttribute('href', doc)).toBe(
+                    'https://nimble.ni.dev/'
+                );
             });
 
-            it('numbered list with absolute links markdown string to "ol", "li" and "a" HTML tags', () => {
+            it('numbered list with absolute links markdown string to "ol", "li" and "nimble-anchor" HTML tags', () => {
                 const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                     '1. <https://nimble.ni.dev/>'
                 );
 
-                expect(
-                    getTagsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['OL', 'LI', 'P', 'NIMBLE-ANCHOR']);
-                expect(
-                    getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['https://nimble.ni.dev/']);
-                expect(
-                    getEditorLastChildAttribute('href', doc as DocumentFragment)
-                ).toBe('https://nimble.ni.dev/');
+                expect(getTagsFromElement(doc)).toEqual([
+                    'OL',
+                    'LI',
+                    'P',
+                    'NIMBLE-ANCHOR'
+                ]);
+                expect(getLeafContentsFromElement(doc)).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(getLastChildElementAttribute('href', doc)).toBe(
+                    'https://nimble.ni.dev/'
+                );
             });
 
             it('absolute links in bold markdown string should not be parsed to "strong" HTML tag', () => {
@@ -312,15 +279,13 @@ describe('Markdown parser', () => {
                     '**<https://nimble.ni.dev/>**'
                 );
 
-                expect(
-                    getTagsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['P', 'NIMBLE-ANCHOR']);
-                expect(
-                    getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['https://nimble.ni.dev/']);
-                expect(
-                    getEditorLastChildAttribute('href', doc as DocumentFragment)
-                ).toBe('https://nimble.ni.dev/');
+                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getLeafContentsFromElement(doc)).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(getLastChildElementAttribute('href', doc)).toBe(
+                    'https://nimble.ni.dev/'
+                );
             });
 
             it('absolute links in italics markdown string should not be parsed to "em" HTML tag', () => {
@@ -328,15 +293,13 @@ describe('Markdown parser', () => {
                     '*<https://nimble.ni.dev/>*'
                 );
 
-                expect(
-                    getTagsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['P', 'NIMBLE-ANCHOR']);
-                expect(
-                    getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['https://nimble.ni.dev/']);
-                expect(
-                    getEditorLastChildAttribute('href', doc as DocumentFragment)
-                ).toBe('https://nimble.ni.dev/');
+                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getLeafContentsFromElement(doc)).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(getLastChildElementAttribute('href', doc)).toBe(
+                    'https://nimble.ni.dev/'
+                );
             });
 
             it('absolute links in both bold and italics markdown string should not be parsed to "strong" and "em" HTML tag', () => {
@@ -344,15 +307,13 @@ describe('Markdown parser', () => {
                     '___<https://nimble.ni.dev/>___'
                 );
 
-                expect(
-                    getTagsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['P', 'NIMBLE-ANCHOR']);
-                expect(
-                    getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['https://nimble.ni.dev/']);
-                expect(
-                    getEditorLastChildAttribute('href', doc as DocumentFragment)
-                ).toBe('https://nimble.ni.dev/');
+                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getLeafContentsFromElement(doc)).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(getLastChildElementAttribute('href', doc)).toBe(
+                    'https://nimble.ni.dev/'
+                );
             });
 
             it('adding marks like bold inside absolute links should not be parsed to "strong" HTML tag', () => {
@@ -360,15 +321,13 @@ describe('Markdown parser', () => {
                     '<https://**nimble**.ni.dev/>'
                 );
 
-                expect(
-                    getTagsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['P', 'NIMBLE-ANCHOR']);
-                expect(
-                    getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-                ).toEqual(['https://**nimble**.ni.dev/']);
-                expect(
-                    getEditorLastChildAttribute('href', doc as DocumentFragment)
-                ).toBe('https://**nimble**.ni.dev/');
+                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
+                expect(getLeafContentsFromElement(doc)).toEqual([
+                    'https://**nimble**.ni.dev/'
+                ]);
+                expect(getLastChildElementAttribute('href', doc)).toBe(
+                    'https://**nimble**.ni.dev/'
+                );
             });
 
             describe('various absolute links with different schemas other than https/http should be render as unchanged strings', () => {
@@ -408,16 +367,10 @@ describe('Markdown parser', () => {
                                 value.name
                             );
 
-                            expect(
-                                getTagsFromDocumentFragment(
-                                    doc as DocumentFragment
-                                )
-                            ).toEqual(['P']);
-                            expect(
-                                getLeafContentsFromDocumentFragment(
-                                    doc as DocumentFragment
-                                )
-                            ).toEqual([value.name]);
+                            expect(getTagsFromElement(doc)).toEqual(['P']);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                value.name
+                            ]);
                         }
                     );
                 }
@@ -429,9 +382,7 @@ describe('Markdown parser', () => {
                 '1. ***Numbered list with bold and italics***\n* ___Bulleted list with bold and italics___\n* <https://nimble.ni.dev/>'
             );
 
-            expect(
-                getTagsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual([
+            expect(getTagsFromElement(doc)).toEqual([
                 'OL',
                 'LI',
                 'P',
@@ -446,9 +397,7 @@ describe('Markdown parser', () => {
                 'P',
                 'NIMBLE-ANCHOR'
             ]);
-            expect(
-                getLeafContentsFromDocumentFragment(doc as DocumentFragment)
-            ).toEqual([
+            expect(getLeafContentsFromElement(doc)).toEqual([
                 'Numbered list with bold and italics',
                 'Bulleted list with bold and italics',
                 'https://nimble.ni.dev/'
@@ -496,14 +445,10 @@ describe('Markdown parser', () => {
                         value.name
                     );
 
-                    expect(
-                        getTagsFromDocumentFragment(doc as DocumentFragment)
-                    ).toEqual(['P']);
-                    expect(
-                        getLeafContentsFromDocumentFragment(
-                            doc as DocumentFragment
-                        )
-                    ).toEqual([value.name]);
+                    expect(getTagsFromElement(doc)).toEqual(['P']);
+                    expect(getLeafContentsFromElement(doc)).toEqual([
+                        value.name
+                    ]);
                 }
             );
         }
@@ -529,14 +474,10 @@ describe('Markdown parser', () => {
                             value.name
                         );
 
-                        expect(
-                            getTagsFromDocumentFragment(doc as DocumentFragment)
-                        ).toEqual(['P']);
-                        expect(
-                            getLeafContentsFromDocumentFragment(
-                                doc as DocumentFragment
-                            )
-                        ).toEqual([value.name]);
+                        expect(getTagsFromElement(doc)).toEqual(['P']);
+                        expect(getLeafContentsFromElement(doc)).toEqual([
+                            value.name
+                        ]);
                     }
                 );
             });
@@ -566,14 +507,10 @@ describe('Markdown parser', () => {
                         value.name
                     );
 
-                    expect(
-                        getTagsFromDocumentFragment(doc as DocumentFragment)
-                    ).toEqual(value.tags);
-                    expect(
-                        getLeafContentsFromDocumentFragment(
-                            doc as DocumentFragment
-                        )
-                    ).toEqual(value.textContent);
+                    expect(getTagsFromElement(doc)).toEqual(value.tags);
+                    expect(getLeafContentsFromElement(doc)).toEqual(
+                        value.textContent
+                    );
                 }
             );
         }

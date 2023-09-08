@@ -56,6 +56,8 @@ describe('Markdown serializer', () => {
                 markdown: '*Italics*'
             },
             {
+                // All links will have `<a>` tag here as an input, since it is a mock editor.
+                // In the actual editor, links will render as `nimble-anchor` using `renderHTML`.
                 name: 'Link',
                 html: '<p><a href="#">Link</a></p>',
                 markdown: '<Link>'

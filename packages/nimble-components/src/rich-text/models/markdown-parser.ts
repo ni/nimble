@@ -10,7 +10,8 @@ import { anchorTag } from '../../anchor';
  * Provides markdown parser for rich text components
  */
 export class RichTextMarkdownParser {
-    private static readonly updatedSchema = this.getUpdatedSchema();
+    private static readonly updatedSchema = this.getSchemaWithLinkConfiguration();
+
     private static readonly markdownParser = this.initializeMarkdownParser();
     private static readonly domSerializer = DOMSerializer.fromSchema(
         this.updatedSchema
@@ -59,7 +60,7 @@ export class RichTextMarkdownParser {
         );
     }
 
-    private static getUpdatedSchema(): Schema {
+    private static getSchemaWithLinkConfiguration(): Schema {
         return new Schema({
             nodes: schema.spec.nodes,
             marks: {

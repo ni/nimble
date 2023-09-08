@@ -3,6 +3,12 @@ import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
 import type { ToolbarButton } from './types';
+import {
+    getTagsFromElement,
+    getLeafContentsFromElement,
+    getLastChildElement,
+    getLastChildElementAttribute
+} from '../../models/testing/markdown-parser-utils';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -111,7 +117,10 @@ export class RichTextEditorPageObject {
     }
 
     public getEditorLastChildAttribute(attribute: string): string {
-        return this.getEditorLastChildElement()?.getAttribute(attribute) || '';
+        return getLastChildElementAttribute(
+            attribute,
+            this.getTiptapEditor() as HTMLElement
+        );
     }
 
     public getEditorFirstChildTagName(): string {
@@ -123,17 +132,13 @@ export class RichTextEditorPageObject {
     }
 
     public getEditorTagNames(): string[] {
-        return Array.from(this.getTiptapEditor()!.querySelectorAll('*')).map(
-            el => el.tagName
-        );
+        return getTagsFromElement(this.getTiptapEditor() as HTMLElement);
     }
 
     public getEditorLeafContents(): string[] {
-        return Array.from(this.getTiptapEditor()!.querySelectorAll('*'))
-            .filter((el, _) => {
-                return el.children.length === 0;
-            })
-            .map(el => el.textContent || '');
+        return getLeafContentsFromElement(
+            this.getTiptapEditor() as HTMLElement
+        );
     }
 
     public getEditorTagNamesWithClosingTags(): string[] {
@@ -241,11 +246,6 @@ export class RichTextEditorPageObject {
     }
 
     private getEditorLastChildElement(): Element | null | undefined {
-        let lastElement = this.getTiptapEditor()?.lastElementChild;
-
-        while (lastElement?.lastElementChild) {
-            lastElement = lastElement?.lastElementChild;
-        }
-        return lastElement;
+        return getLastChildElement(this.getTiptapEditor() as HTMLElement);
     }
 }
