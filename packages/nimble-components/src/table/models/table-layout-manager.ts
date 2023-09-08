@@ -29,6 +29,9 @@ export class TableLayoutManager<TData extends TableRecord> {
     @observable
     public headerDragElementY = 0;
 
+    @observable
+    public headerDragElementWidth = 0;
+
     private activeColumnDivider?: number;
     private gridSizedColumns?: TableColumn[];
     private visibleColumns: TableColumn[] = [];
@@ -119,12 +122,14 @@ export class TableLayoutManager<TData extends TableRecord> {
         this.isClickingOrDraggingColumnHeader = true;
         this.dragColumn = column;
 
+        this.headerDragElementWidth = this.getColumnRect(this.dragColumn).width - 8;
+        const contentDestination = this.table.columnHeaderDragElement.firstElementChild!;
         // TODO instead of cloning content from the header, we might slot the existing header content into the drag element
-        while (this.table.columnHeaderDragElement.firstChild) {
-            this.table.columnHeaderDragElement.removeChild(this.table.columnHeaderDragElement.firstChild);
+        while (contentDestination.firstChild) {
+            contentDestination.removeChild(contentDestination.firstChild);
         }
         const clonedContent = this.dragColumn.contentSlot.assignedNodes().map(e => e.cloneNode(true));
-        clonedContent.forEach(e => this.table.columnHeaderDragElement.appendChild(e));
+        clonedContent.forEach(e => contentDestination.appendChild(e));
 
         this.onHeaderDocumentMouseMove(event);
 
@@ -172,8 +177,8 @@ export class TableLayoutManager<TData extends TableRecord> {
                 this.isDraggingColumnHeader = true;
             }
 
-            this.headerDragElementX = event.clientX - this.tableBounds!.left;
-            this.headerDragElementY = event.clientY - this.tableBounds!.top;
+            this.headerDragElementX = event.clientX - this.tableBounds!.left - 32;
+            this.headerDragElementY = event.clientY - this.tableBounds!.top + 16;
 
             const deltaXs = this.columnXOffsets.map(x => Math.abs(event.clientX - x));
             const minDelta = Math.min(...deltaXs);

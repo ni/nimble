@@ -39,7 +39,9 @@ export const template = html<Table>`
             --ni-private-table-scroll-height: ${x => x.virtualizer.scrollHeight}px;
             --ni-private-table-row-container-top: ${x => x.virtualizer.rowContainerYOffset}px;
             --ni-private-table-row-grid-columns: ${x => x.rowGridColumns ?? ''};
-            --ni-private-table-cursor-override: ${x => (x.layoutManager.isColumnBeingSized ? 'col-resize' : 'default')};
+            --ni-private-table-cursor-override: ${x =>
+    // eslint-disable-next-line no-nested-ternary, implicit-arrow-linebreak
+        (x.layoutManager.isColumnBeingSized ? 'col-resize' : (x.layoutManager.isDraggingColumnHeader ? 'default' /* 'move' */ : 'default'))};
             --ni-private-table-scrollable-min-width: ${x => x.tableScrollableMinWidth}px;
             --ni-private-glass-overlay-pointer-events: ${x => (x.layoutManager.isColumnBeingSized ? 'none' : 'default')};
             ">
@@ -148,10 +150,10 @@ export const template = html<Table>`
                             `)}
                         `)}
                     </div>
-                    <div class="reorder-drag-line" style="left: ${x => x.layoutManager.headerDragLineX}px;"></div>
+                    <div class="disabled-reorder-drag-line" style="left: ${x => x.layoutManager.headerDragLineX}px;"></div>
                 </div>
             </div>
-            <div class="column-header-drag-element" ${ref('columnHeaderDragElement')} style="left: ${x => x.layoutManager.headerDragElementX}px; top: ${x => x.layoutManager.headerDragElementY}px;"></div>
+            <div class="column-header-drag-element" ${ref('columnHeaderDragElement')} style="left: ${x => x.layoutManager.headerDragElementX}px; top: ${x => x.layoutManager.headerDragElementY}px; width: ${x => x.layoutManager.headerDragElementWidth}px;"><div></div></div>
         </div>
     </template>
 `;

@@ -32,19 +32,23 @@ export const styles = css`
 
     div.column-header-drag-element {
         position: absolute;
-        width: fit-content;
         height: 32px;
         background-color: ${applicationBackgroundColor};
         border: 1px solid ${popupBorderColor};
         z-index: 100;
         display: none;
-        opacity: 0.85;
+        opacity: 0.5;
         align-items: center;
-        padding: 4px;
+        padding-left: 8px;
         color: ${tableHeaderFontColor};
         ${iconColor.cssCustomProperty}: ${tableHeaderFontColor};
         font: ${tableHeaderFont};
         text-transform: uppercase;
+    }
+
+    div.column-header-drag-element > div {
+        display: flex;
+        width: fit-content;
     }
 
     .dragging-columns div.column-header-drag-element {
@@ -54,7 +58,7 @@ export const styles = css`
     div.reorder-drag-line {
         display: none;
         position: absolute;
-        width: 1px;
+        width: 2px;
         top: 0px;
         height: 100%;
         z-index: 99;
