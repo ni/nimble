@@ -2,6 +2,51 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 07 Sep 2023 19:21:37 GMT",
+      "tag": "@ni/nimble-components_v20.2.6",
+      "version": "20.2.6",
+      "comments": {
+        "none": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "4a306be70d04b0214eb1e58d08a27438bc0cde5b",
+            "comment": "Filter rollup d3 related warning messages"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Sep 2023 18:16:08 GMT",
+      "tag": "@ni/nimble-components_v20.2.6",
+      "version": "20.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "rajsite@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "3f637ad62b61475a9340c65e4923cb01e86de8ce",
+            "comment": "Update component rollup build configuration"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 07 Sep 2023 13:01:15 GMT",
+      "tag": "@ni/nimble-components_v20.2.5",
+      "version": "20.2.5",
+      "comments": {
+        "none": [
+          {
+            "author": "123591928+saikrishnan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "aa918007f59111fb3f5cd720471c08f7c49b08b2",
+            "comment": "Added test for different list types at same level in rich text editor"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Sep 2023 21:32:54 GMT",
       "tag": "@ni/nimble-components_v20.2.5",
       "version": "20.2.5",
