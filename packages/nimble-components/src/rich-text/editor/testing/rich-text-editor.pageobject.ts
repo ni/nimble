@@ -3,7 +3,10 @@ import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
 import type { ToolbarButton } from './types';
-import { getTagsFromDocumentFragment, getLeafContentsFromDocumentFragment } from '../../models/testing/markdown-parser-utils';
+import {
+    getTagsFromElement,
+    getLeafContentsFromElement
+} from '../../models/testing/markdown-parser-utils';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -124,11 +127,13 @@ export class RichTextEditorPageObject {
     }
 
     public getEditorTagNames(): string[] {
-        return getTagsFromDocumentFragment(this.getTiptapEditor() as HTMLElement);
+        return getTagsFromElement(this.getTiptapEditor() as HTMLElement);
     }
 
     public getEditorLeafContents(): string[] {
-        return getLeafContentsFromDocumentFragment(this.getTiptapEditor() as HTMLElement);
+        return getLeafContentsFromElement(
+            this.getTiptapEditor() as HTMLElement
+        );
     }
 
     public getFormattingButtonTextContent(

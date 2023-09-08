@@ -1,11 +1,11 @@
-export const getTagsFromDocumentFragment = (doc: DocumentFragment | HTMLElement): string[] => {
-    const nodes = Array.from(doc.querySelectorAll('*')).map(
-        el => el.tagName
-    );
+export const getTagsFromElement = (
+    doc: DocumentFragment | HTMLElement
+): string[] => {
+    const nodes = Array.from(doc.querySelectorAll('*')).map(el => el.tagName);
     return nodes;
 };
 
-export const getLeafContentsFromDocumentFragment = (
+export const getLeafContentsFromElement = (
     doc: DocumentFragment | HTMLElement
 ): string[] => {
     const nodes = Array.from(doc.querySelectorAll('*'))
