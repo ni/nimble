@@ -219,6 +219,10 @@ export const styles = css`
         place-items: center;
     }
 
+    nimble-toggle-button::part(start) {
+        pointer-events: none;
+    }
+
     :host([error-visible]) .error-icon {
         display: none;
     }
