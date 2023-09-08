@@ -101,7 +101,11 @@ export class Computations {
             this._containerDimensions.width,
             this._containerDimensions.height
         );
-        const gridDimensions = this.calculateGridDimensions(this.wafermap.dies);
+        // the dimensions are valid if they are all undefined
+        const gridDimensions = !this.wafermap.validity.invalidGridDimensions
+            && this.wafermap.gridMinX
+            ? this.calculateGridDimensionsFromBoundingBox()
+            : this.calculateGridDimensionsFromDies(this.wafermap.dies);
         // this scale is used for positioning the dies on the canvas
         const originLocation = this.wafermap.originLocation;
         this._horizontalScale = this.createHorizontalScale(
@@ -131,7 +135,23 @@ export class Computations {
         };
     }
 
-    private calculateGridDimensions(
+    private calculateGridDimensionsFromBoundingBox(): GridDimensions {
+        const gridDimensions = { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
+        if (this.wafermap.gridMaxY === undefined
+            || this.wafermap.gridMinY === undefined
+            || this.wafermap.gridMaxX === undefined
+            || this.wafermap.gridMinX === undefined
+        ) {
+            return gridDimensions;
+        }
+        gridDimensions.origin.x = Number(this.wafermap.gridMinX);
+        gridDimensions.origin.y = Number(this.wafermap.gridMinY);
+        gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
+        gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
+        return gridDimensions;
+    }
+
+    private calculateGridDimensionsFromDies(
         dies: Readonly<Readonly<WaferMapDie>[]>
     ): GridDimensions {
         if (dies.length === 0 || dies[0] === undefined) {
