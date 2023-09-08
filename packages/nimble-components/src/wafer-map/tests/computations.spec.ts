@@ -16,7 +16,11 @@ describe('Wafermap Computations module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+            | 'dies'
+            | 'originLocation'
+            | 'canvasWidth'
+            | 'canvasHeight'
+            | 'validity'
             > = {
                 dies: getWaferMapDies(),
                 originLocation: WaferMapOriginLocation.topLeft,
@@ -70,7 +74,11 @@ describe('Wafermap Computations module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+            | 'dies'
+            | 'originLocation'
+            | 'canvasWidth'
+            | 'canvasHeight'
+            | 'validity'
             > = {
                 dies: getWaferMapDies(),
                 originLocation: WaferMapOriginLocation.topLeft,
@@ -118,7 +126,11 @@ describe('Wafermap Computations module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+            | 'dies'
+            | 'originLocation'
+            | 'canvasWidth'
+            | 'canvasHeight'
+            | 'validity'
             > = {
                 dies: getWaferMapDies(),
                 originLocation: WaferMapOriginLocation.topLeft,
@@ -143,7 +155,11 @@ describe('Wafermap Computations module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+            | 'dies'
+            | 'originLocation'
+            | 'canvasWidth'
+            | 'canvasHeight'
+            | 'validity'
             > = {
                 dies: getWaferMapDies(),
                 originLocation: WaferMapOriginLocation.topRight,
@@ -168,7 +184,11 @@ describe('Wafermap Computations module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+            | 'dies'
+            | 'originLocation'
+            | 'canvasWidth'
+            | 'canvasHeight'
+            | 'validity'
             > = {
                 dies: getWaferMapDies(),
                 originLocation: WaferMapOriginLocation.bottomLeft,
@@ -193,7 +213,11 @@ describe('Wafermap Computations module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            'dies' | 'originLocation' | 'canvasWidth' | 'canvasHeight' | 'validity'
+            | 'dies'
+            | 'originLocation'
+            | 'canvasWidth'
+            | 'canvasHeight'
+            | 'validity'
             > = {
                 dies: getWaferMapDies(),
                 originLocation: WaferMapOriginLocation.bottomRight,

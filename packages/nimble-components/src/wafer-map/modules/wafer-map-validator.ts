@@ -21,12 +21,15 @@ export class WaferMapValidator {
 
     public validateGridDimensions(): boolean {
         this.invalidGridDimensions = false;
-        if (!this.wafermap.gridMinX
+        if (
+            !this.wafermap.gridMinX
             && !this.wafermap.gridMaxX
             && !this.wafermap.gridMinY
-            && !this.wafermap.gridMaxY) {
+            && !this.wafermap.gridMaxY
+        ) {
             this.invalidGridDimensions = false;
-        } else if (!this.wafermap.gridMinX
+        } else if (
+            !this.wafermap.gridMinX
             || !this.wafermap.gridMaxX
             || !this.wafermap.gridMinY
             || !this.wafermap.gridMaxY

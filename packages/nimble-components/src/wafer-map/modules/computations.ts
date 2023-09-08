@@ -137,7 +137,8 @@ export class Computations {
 
     private calculateGridDimensionsFromBoundingBox(): GridDimensions {
         const gridDimensions = { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
-        if (this.wafermap.gridMaxY === undefined
+        if (
+            this.wafermap.gridMaxY === undefined
             || this.wafermap.gridMinY === undefined
             || this.wafermap.gridMaxX === undefined
             || this.wafermap.gridMinX === undefined

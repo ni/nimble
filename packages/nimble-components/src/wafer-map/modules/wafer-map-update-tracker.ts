@@ -56,12 +56,14 @@ export class WaferMapUpdateTracker extends UpdateTracker<typeof trackedItems> {
     }
 
     public get requiresScalesUpdate(): boolean {
-        return this.isTracked('originLocation')
-        || this.isTracked('gridMinX')
-        || this.isTracked('gridMaxX')
-        || this.isTracked('gridMinY')
-        || this.isTracked('gridMaxY')
-        || this.isTracked('dies');
+        return (
+            this.isTracked('originLocation')
+            || this.isTracked('gridMinX')
+            || this.isTracked('gridMaxX')
+            || this.isTracked('gridMinY')
+            || this.isTracked('gridMaxY')
+            || this.isTracked('dies')
+        );
     }
 
     public get requiresLabelsFontSizeUpdate(): boolean {

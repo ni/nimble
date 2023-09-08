@@ -2,7 +2,13 @@ import type { WaferMap } from '..';
 import type { DataManager } from '../modules/data-manager';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
-import { getDataManagerMock, getHorizontalScale, getScaleBand, getVerticalScale, getWaferMapDies } from './utilities';
+import {
+    getDataManagerMock,
+    getHorizontalScale,
+    getScaleBand,
+    getVerticalScale,
+    getWaferMapDies
+} from './utilities';
 
 describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
@@ -75,7 +81,10 @@ describe('Wafermap Prerendering module', () => {
         const dieLabelsHidden = false;
         const maxCharacters = 2;
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-        const horizontalScale = getScaleBand([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 100]);
+        const horizontalScale = getScaleBand(
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            [0, 100]
+        );
         const verticalScale = getVerticalScale();
         const highlightedValues: string[] = [];
 
@@ -136,7 +145,10 @@ describe('Wafermap Prerendering module', () => {
         const maxCharacters = 2;
         const margin = { top: 0, right: 0, bottom: 0, left: 0 };
         const horizontalScale = getHorizontalScale();
-        const verticalScale = getScaleBand([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 100]);
+        const verticalScale = getScaleBand(
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            [0, 100]
+        );
         const highlightedValues: string[] = [];
 
         beforeEach(() => {

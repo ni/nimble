@@ -2,7 +2,12 @@ import type { WaferMap } from '..';
 import type { DataManager } from '../modules/data-manager';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
-import { getDataManagerMock, getHorizontalScale, getVerticalScale, getWaferMapDies } from './utilities';
+import {
+    getDataManagerMock,
+    getHorizontalScale,
+    getVerticalScale,
+    getWaferMapDies
+} from './utilities';
 
 describe('Wafermap Prerendering module', () => {
     let prerenderingModule: Prerendering;
