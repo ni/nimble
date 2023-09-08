@@ -103,7 +103,7 @@ export class Computations {
         );
         // the dimensions are valid if they are all undefined
         const gridDimensions = !this.wafermap.validity.invalidGridDimensions
-            && this.wafermap.gridMinX
+            && this.wafermap.gridMinX !== undefined
             ? this.calculateGridDimensionsFromBoundingBox()
             : this.calculateGridDimensionsFromDies(this.wafermap.dies);
         // this scale is used for positioning the dies on the canvas
