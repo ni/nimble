@@ -14,10 +14,12 @@ import {
     smallDelay,
     standardPadding
 } from '../theme-provider/design-tokens';
+import { styles as dropdownStyles } from '../patterns/dropdown/styles';
 import { styles as errorStyles } from '../patterns/error/styles';
 
 export const styles = css`
     ${display('inline-flex')}
+    ${dropdownStyles}
     ${errorStyles}
 
     :host {
@@ -31,7 +33,7 @@ export const styles = css`
         ${
             /** Initial height of rich text editor with one line space when the footer is visible. */ ''
         }
-        height: 82px;
+        height: 200px;
         --ni-private-rich-text-editor-footer-section-height: 40px;
         ${
             /** Minimum width is added to accommodate all the possible buttons in the toolbar and to support the mobile width. */ ''

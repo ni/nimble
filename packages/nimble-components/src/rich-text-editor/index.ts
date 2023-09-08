@@ -33,11 +33,15 @@ import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
+import Mention from '@tiptap/extension-mention';
+import type { SuggestionProps } from '@tiptap/suggestion';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../toggle-button';
 import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../patterns/error/types';
+import type { AnchoredRegion } from '../anchored-region';
+import type { ListOption } from '../list-option';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -118,6 +122,12 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      * @internal
      */
     @observable
+    public slottedOptions!: ListOption[];
+
+    /**
+     * @internal
+     */
+    @observable
     public boldButton!: ToggleButton;
 
     /**
@@ -148,9 +158,28 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * @internal
      */
+    @observable
+    public region?: AnchoredRegion;
+
+    /**
+     * @internal
+     */
+    @observable
+    public controlWrapper!: HTMLDivElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public open?: boolean;
+
+    /**
+     * @internal
+     */
     public editorContainer!: HTMLDivElement;
 
     private resizeObserver?: ResizeObserver;
+    private mentionPropCommand!: SuggestionProps;
     private updateScrollbarWidthQueued = false;
 
     private readonly markdownParser = this.initializeMarkdownParser();
@@ -194,6 +223,15 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             'aria-disabled',
             this.disabled ? 'true' : 'false'
         );
+    }
+
+    public slottedOptionsChanged(_prev: unknown, _next: unknown): void {
+        this.slottedOptions.forEach(ele => {
+            ele.hidden = false;
+            ele.addEventListener('click', () => {
+                this.mentionPropCommand.command({ id: ele.value, label: ele.value });
+            });
+        });
     }
 
     /**
@@ -369,6 +407,52 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 Placeholder.configure({
                     placeholder: '',
                     showOnlyWhenEditable: false
+                }),
+                Mention.configure({
+                    renderLabel({ options, node }) {
+                        return `${options.suggestion.char!}${node.attrs.label as string ?? node.attrs.id}`;
+                    },
+                    suggestion: {
+                        char: '@',
+                        render: () => {
+                            return {
+                                onStart: (props): void => {
+                                    this.mentionPropCommand = props;
+                                    this.open = true;
+                                    this.slottedOptions.forEach(ele => {
+                                        ele.hidden = false;
+                                    });
+                                    if (this.region) {
+                                        this.region.anchorElement = props.decorationNode as HTMLElement;
+                                        this.region.update();
+                                    }
+                                },
+
+                                onUpdate: (props): void => {
+                                    this.mentionPropCommand = props;
+                                    this.slottedOptions.forEach(ele => {
+                                        ele.hidden = !ele.value.toLowerCase().startsWith(props.text.slice(1).toLowerCase());
+                                    });
+                                    if (this.region) {
+                                        this.region.anchorElement = props.decorationNode as HTMLElement;
+                                        this.region.update();
+                                    }
+                                },
+
+                                onKeyDown: (props): boolean => {
+                                    if (props.event.key === 'Escape') {
+                                        this.open = false;
+                                        return true;
+                                    }
+                                    return false;
+                                },
+
+                                onExit: (): void => {
+                                    this.open = false;
+                                },
+                            };
+                        },
+                    }
                 })
             ]
         });

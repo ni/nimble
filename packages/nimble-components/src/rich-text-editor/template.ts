@@ -1,4 +1,4 @@
-import { html, ref } from '@microsoft/fast-element';
+import { html, ref, slotted } from '@microsoft/fast-element';
 import type { RichTextEditor } from '.';
 import { toolbarTag } from '../toolbar';
 import { toggleButtonTag } from '../toggle-button';
@@ -8,6 +8,8 @@ import { iconListTag } from '../icons/list';
 import { iconNumberListTag } from '../icons/number-list';
 import { errorTextTemplate } from '../patterns/error/template';
 import { iconExclamationMarkTag } from '../icons/exclamation-mark';
+import { anchoredRegionTag } from '../anchored-region';
+import { ListOption } from '../list-option';
 
 // prettier-ignore
 export const template = html<RichTextEditor>`
@@ -24,6 +26,7 @@ export const template = html<RichTextEditor>`
                 <${toolbarTag}>
                     <${toggleButtonTag}
                         ${ref('boldButton')}
+
                         appearance="ghost"
                         content-hidden
                         ?disabled="${x => x.disabled}"
@@ -85,5 +88,27 @@ export const template = html<RichTextEditor>`
             </section>
             ${errorTextTemplate}
         </div>
+        <${anchoredRegionTag}
+            ${ref('region')}
+            class="anchored-region"
+            auto-update-mode="auto"
+            vertical-positioning-mode="dynamic"
+            horizontal-positioning-mode="dynamic"
+            ?hidden="${x => !x.open}">
+            <div
+                class="listbox"
+                part="listbox"
+                role="listbox"
+                ?disabled="${x => x.disabled}"
+            >
+                <slot
+                    ${slotted({
+        filter: (n: Node) => n instanceof ListOption,
+        flatten: true,
+        property: 'slottedOptions',
+    })}
+                ></slot>
+            </div>
+        </${anchoredRegionTag}>
     </template>
 `;

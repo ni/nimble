@@ -91,6 +91,12 @@ const metadata: Meta<RichTextEditorArgs> = {
         ${when(x => x.footerActionButtons, html`
             <${buttonTag} appearance="ghost" slot="footer-actions">Cancel</${buttonTag}>
             <${buttonTag} slot="footer-actions">OK</${buttonTag}>`)}
+            <nimble-list-option>Mary</nimble-list-option>
+            <nimble-list-option>Sue</nimble-list-option>
+            <nimble-list-option>Joaquin</nimble-list-option>
+            <nimble-list-option>Frank</nimble-list-option>
+            <nimble-list-option>Albert</nimble-list-option>
+            <nimble-list-option>Sue Ann</nimble-list-option>
     </${richTextEditorTag}>
     `),
     argTypes: {
