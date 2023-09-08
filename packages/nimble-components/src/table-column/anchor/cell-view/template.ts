@@ -8,31 +8,31 @@ import { overflow } from '../../../utilities/directive/overflow';
 export const template = html<TableColumnAnchorCellView>`
     <template
         @click="${(x, c) => {
-            if (typeof x.cellRecord.href === 'string') {
+            if (typeof x.cellRecord?.href === 'string') {
                 c.event.stopPropagation();
             }
             return true;
         }}"
     >
-        ${when(x => typeof x.cellRecord.href === 'string', html<TableColumnAnchorCellView>`
+        ${when(x => typeof x.cellRecord?.href === 'string', html<TableColumnAnchorCellView>`
             <${anchorTag}
                 ${ref('anchor')}
                 ${overflow('hasOverflow')}
-                href="${x => x.cellRecord.href}"
-                hreflang="${x => x.columnConfig.hreflang}"
-                ping="${x => x.columnConfig.ping}"
-                referrerpolicy="${x => x.columnConfig.referrerpolicy}"
-                rel="${x => x.columnConfig.rel}"
-                target="${x => x.columnConfig.target}"
-                type="${x => x.columnConfig.type}"
-                download="${x => x.columnConfig.download}"
-                underline-hidden="${x => x.columnConfig.underlineHidden}"
-                appearance="${x => x.columnConfig.appearance}"
+                href="${x => x.cellRecord?.href}"
+                hreflang="${x => x.columnConfig?.hreflang}"
+                ping="${x => x.columnConfig?.ping}"
+                referrerpolicy="${x => x.columnConfig?.referrerpolicy}"
+                rel="${x => x.columnConfig?.rel}"
+                target="${x => x.columnConfig?.target}"
+                type="${x => x.columnConfig?.type}"
+                download="${x => x.columnConfig?.download}"
+                underline-hidden="${x => x.columnConfig?.underlineHidden}"
+                appearance="${x => x.columnConfig?.appearance}"
                 title=${x => (x.hasOverflow ? x.text : null)}
             >
                 ${x => x.text}
             </${anchorTag}>`)}
-        ${when(x => typeof x.cellRecord.href !== 'string', html<TableColumnAnchorCellView>`
+        ${when(x => typeof x.cellRecord?.href !== 'string', html<TableColumnAnchorCellView>`
             <span
                 ${overflow('hasOverflow')}
                 title=${x => (x.hasOverflow ? x.text : null)}

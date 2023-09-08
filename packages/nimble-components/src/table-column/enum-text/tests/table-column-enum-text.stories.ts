@@ -8,6 +8,7 @@ import { tableTag } from '../../../table';
 import { tableColumnEnumTextTag } from '..';
 import {
     SharedTableArgs,
+    columnOperationBehavior,
     sharedTableArgTypes,
     sharedTableArgs
 } from '../../base/tests/table-column-stories-utils';
@@ -38,7 +39,9 @@ const simpleData = [
     }
 ];
 
-const enumTextColumnDescription = 'The `nimble-table-column-enum-text` column renders string, number, or boolean values as mapped text in the `nimble-table`.';
+const enumTextColumnDescription = `The \`nimble-table-column-enum-text\` column renders string, number, or boolean values as mapped text in the \`nimble-table\`.
+
+${columnOperationBehavior}`;
 
 const metadata: Meta<EnumTextColumnTableArgs> = {
     title: 'Incubating/Table Column - Enum Text',

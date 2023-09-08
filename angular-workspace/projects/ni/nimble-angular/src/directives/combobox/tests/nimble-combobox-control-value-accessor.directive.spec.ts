@@ -312,6 +312,27 @@ describe('Nimble combobox control value accessor', () => {
             expect(testHostComponent.selectedOption).toBe(testHostComponent.sharedOption);
             expect(combobox.value).toBe('Shared Option 2');
         });
+
+        it('update option value with new model, followed by updating combobox value with same model updates display correctly', async () => {
+            const newModelValue: TestModel = { name: 'newName', value: 101 };
+            testHostComponent.dynamicOption = newModelValue;
+            testHostComponent.selectedOption = newModelValue;
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+
+            expect(combobox.value).toBe('newName');
+        });
+
+        it('combobox supports a large amount of options', () => {
+            const newOptions: TestModel[] = [];
+            for (let i = 0; i < 300; i++) {
+                newOptions.push({ name: i.toString(), value: i });
+            }
+            testHostComponent.selectOptions = newOptions;
+            expect(() => {
+                fixture.detectChanges();
+            }).not.toThrow();
+        });
     });
 
     describe('when using option\'s [ngValue] binding on Reactive form', () => {
@@ -610,6 +631,27 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(testHostComponent.selectedOption.value).toBe(testHostComponent.sharedOption);
             expect(combobox.value).toBe('Shared Option 2');
+        });
+
+        it('update option value with new model, followed by updating combobox value with same model updates display correctly', async () => {
+            const newModelValue: TestModel = { name: 'newName', value: 101 };
+            testHostComponent.dynamicOption = newModelValue;
+            testHostComponent.selectedOption.setValue(newModelValue);
+            fixture.detectChanges();
+            await waitForUpdatesAsync();
+
+            expect(combobox.value).toBe('newName');
+        });
+
+        it('combobox supports a large amount of options', () => {
+            const newOptions: TestModel[] = [];
+            for (let i = 0; i < 300; i++) {
+                newOptions.push({ name: i.toString(), value: i });
+            }
+            testHostComponent.selectOptions = newOptions;
+            expect(() => {
+                fixture.detectChanges();
+            }).not.toThrow();
         });
     });
 });

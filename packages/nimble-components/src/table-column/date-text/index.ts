@@ -1,4 +1,7 @@
-import { DesignSystem } from '@microsoft/fast-foundation';
+import {
+    DesignSystem,
+    DesignTokenSubscriber
+} from '@microsoft/fast-foundation';
 import { attr } from '@microsoft/fast-element';
 import { styles } from '../base/styles';
 import { template } from '../base/template';
@@ -8,7 +11,7 @@ import { TableColumnSortOperation, TableColumnValidity } from '../base/types';
 import { tableColumnDateTextGroupHeaderViewTag } from './group-header-view';
 import { tableColumnDateTextCellViewTag } from './cell-view';
 import type { ColumnInternalsOptions } from '../base/models/column-internals';
-import type {
+import {
     DateTextFormat,
     LocaleMatcherAlgorithm,
     EraFormat,
@@ -27,10 +30,12 @@ import type {
     WeekdayFormat
 } from './types';
 import { TableColumnDateTextValidator } from './models/table-column-date-text-validator';
+import { lang } from '../../theme-provider';
+import { optionalBooleanConverter } from '../../utilities/models/converter';
 
 export type TableColumnDateTextCellRecord = TableNumberField<'value'>;
 export interface TableColumnDateTextColumnConfig {
-    formatter?: Intl.DateTimeFormat;
+    formatter: Intl.DateTimeFormat;
 }
 
 declare global {
@@ -82,7 +87,10 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-format-matcher' })
     public customFormatMatcher: FormatMatcherAlgorithm;
 
-    @attr({ attribute: 'custom-hour12', mode: 'boolean' })
+    // Later versions of FAST (than the legacy branch we're on) have a nullableBooleanConverter.
+    // We should replace our converter with that one when it is available to us.
+    // See issue related to adopting FastElement 2.0: https://github.com/ni/nimble/issues/572
+    @attr({ attribute: 'custom-hour12', converter: optionalBooleanConverter })
     public customHour12?: boolean;
 
     @attr({ attribute: 'custom-time-zone' })
@@ -106,9 +114,21 @@ export class TableColumnDateText extends TableColumnTextBase {
     @attr({ attribute: 'custom-hour-cycle' })
     public customHourCycle: HourCycleFormat;
 
+    private readonly langSubscriber: DesignTokenSubscriber<typeof lang> = {
+        handleChange: () => {
+            this.updateColumnConfig();
+        }
+    };
+
     public override connectedCallback(): void {
         super.connectedCallback();
+        lang.subscribe(this.langSubscriber, this);
         this.updateColumnConfig();
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        lang.unsubscribe(this.langSubscriber, this);
     }
 
     public override get validity(): TableColumnValidity {
@@ -206,18 +226,23 @@ export class TableColumnDateText extends TableColumnTextBase {
     }
 
     private updateColumnConfig(): void {
-        const columnConfig: TableColumnDateTextColumnConfig = {
-            formatter: this.createFormatter()
-        };
-        this.columnInternals.columnConfig = columnConfig;
-        this.validator.setCustomOptionsValidity(
-            columnConfig.formatter !== undefined
-        );
+        const formatter = this.createFormatter();
+
+        if (formatter) {
+            const columnConfig: TableColumnDateTextColumnConfig = {
+                formatter
+            };
+            this.columnInternals.columnConfig = columnConfig;
+            this.validator.setCustomOptionsValidity(true);
+        } else {
+            this.columnInternals.columnConfig = undefined;
+            this.validator.setCustomOptionsValidity(false);
+        }
     }
 
     private createFormatter(): Intl.DateTimeFormat | undefined {
         let options: Intl.DateTimeFormatOptions;
-        if (!this.format) {
+        if (this.format === DateTextFormat.default) {
             options = {
                 dateStyle: 'medium',
                 timeStyle: 'medium'
@@ -226,7 +251,7 @@ export class TableColumnDateText extends TableColumnTextBase {
             options = this.getCustomFormattingOptions();
         }
         try {
-            return new Intl.DateTimeFormat(undefined, options);
+            return new Intl.DateTimeFormat(lang.getValueFor(this), options);
         } catch (e) {
             return undefined;
         }

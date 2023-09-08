@@ -79,7 +79,6 @@ export abstract class TableColumnEnumBase<
 
     /**
      * Called when any Mapping related state has changed.
-     * Implementations should run validation before updating the column config.
      */
     private updateColumnConfig(): void {
         this.validator.validate(this.mappings, this.keyType);

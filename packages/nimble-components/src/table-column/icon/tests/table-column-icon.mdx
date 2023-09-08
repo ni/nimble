@@ -1,0 +1,36 @@
+import {
+    DocsStory,
+    Meta,
+    Controls,
+    Stories,
+    Title,
+    Description
+} from '@storybook/blocks';
+import * as tableColumnIconStories from './table-column-icon.stories';
+import * as iconMappingStories from '../../../mapping/icon/tests/mapping-icon.stories';
+import * as spinnerMappingStories from '../../../mapping/spinner/tests/mapping-spinner.stories';
+
+<Meta of={tableColumnIconStories} />
+
+<Title of={tableColumnIconStories} />
+<Description of={tableColumnIconStories} />
+
+<DocsStory of={tableColumnIconStories.iconColumn} expanded={false} />
+<Controls of={tableColumnIconStories.iconColumn} />
+
+# Usage Docs
+
+## Blazor Usage
+
+When setting a child mapping element's `Key` value to a string, you must wrap it in `@()` so that the compiler treats it as a string, e.g.
+`<NimbleMappingIcon Key=@("foo") ...>`
+
+# Icon Mapping
+
+<Description of={iconMappingStories} />
+<Controls of={iconMappingStories.iconMapping} />
+
+# Spinner Mapping
+
+<Description of={spinnerMappingStories} />
+<Controls of={spinnerMappingStories.spinnerMapping} />
