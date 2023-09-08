@@ -1,26 +1,9 @@
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { wackyStrings } from '../../../utilities/tests/wacky-strings';
 import { RichTextMarkdownParser } from '../markdown-parser';
+import { getLeafContentsFromDocumentFragment, getTagsFromDocumentFragment } from '../testing/markdown-parser-utils';
 
 describe('Markdown parser', () => {
-    function getTagsFromDocumentFragment(doc: DocumentFragment): string[] {
-        const nodes = Array.from(doc.querySelectorAll('*')).map(
-            el => el.tagName
-        );
-        return nodes;
-    }
-
-    function getLeafContentsFromDocumentFragment(
-        doc: DocumentFragment
-    ): string[] {
-        const nodes = Array.from(doc.querySelectorAll('*'))
-            .filter((el, _) => {
-                return el.children.length === 0;
-            })
-            .map(el => el.textContent || '');
-        return nodes;
-    }
-
     describe('supported rich text formatting options from markdown string to its respective HTML elements', () => {
         it('bold markdown string("**") to "strong" HTML tag', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM('**Bold**');
