@@ -56,7 +56,6 @@ export class RichTextMarkdownSerializer {
             link: {
                 open: '<',
                 close: '>',
-                mixable: true,
                 escape: false,
                 expelEnclosingWhitespace: true
             }
