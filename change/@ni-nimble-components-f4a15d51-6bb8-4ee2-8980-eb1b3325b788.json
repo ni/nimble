@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Adding pointer-events: none to toggle-buttons in toolbar",
+  "comment": "Fix for tabindex value change when clicked on icon of the buttons in rich text editor toolbar.",
   "packageName": "@ni/nimble-components",
   "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
