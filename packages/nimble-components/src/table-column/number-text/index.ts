@@ -62,9 +62,13 @@ export class TableColumnNumberText extends TableColumnTextBase {
         this.updateColumnConfig();
     }
 
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback();
+        lang.unsubscribe(this.langSubscriber, this);
+    }
+
     public override get validity(): TableColumnValidity {
         return this.validator.getValidity();
-        lang.unsubscribe(this.langSubscriber, this);
     }
 
     protected override getColumnInternalsOptions(): ColumnInternalsOptions {
