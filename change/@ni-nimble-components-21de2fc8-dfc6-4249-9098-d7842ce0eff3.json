@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Refactored rich text components to use common models",
+  "packageName": "@ni/nimble-components",
+  "email": "123591928+saikrishnan-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
