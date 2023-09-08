@@ -78,6 +78,12 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async clickFooterIcon(button: ToolbarButton): Promise<void> {
+        const icon = this.getIcon(button);
+        icon!.click();
+        await waitForUpdatesAsync();
+    }
+
     public getButtonCheckedState(button: ToolbarButton): boolean {
         const toggleButton = this.getFormattingButton(button);
         return toggleButton!.checked;
@@ -216,5 +222,10 @@ export class RichTextEditorPageObject {
             'nimble-toggle-button'
         );
         return buttons[button];
+    }
+
+    private getIcon(button: ToolbarButton): HTMLSpanElement | null | undefined {
+        const toggleButton = this.getFormattingButton(button);
+        return toggleButton?.shadowRoot?.querySelector('.start');
     }
 }
