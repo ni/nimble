@@ -171,9 +171,7 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
     -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Will be displayed right-aligned by default.
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
--   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2.
--   `unit` - an optional string that specifies the units to apply to the value when it is displayed. The value must be [one of the units sanctioned for use in ECMAScript](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers). When a unit is specified, the `style` of the `Intl.NumberFormat` formatter will be set to `unit`.
--   `unitDisplay` - an optional display format for the specified `unit` on the column. This corresponds to `unitDisplay` on [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat). Possible values are `"long"`, `"short"`, and `"narrow"`, with the default being `"short"`.
+-   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 if unspecified.
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
@@ -199,9 +197,8 @@ This column will trigger `invalidColumnConfiguration` on the table's validity st
         field-name="temperature"
         format="decimal"
         decimal-digits="1"
-        unit="celsius"
     >
-        Temperature
+        Temperature (°C)
     </nimble-table-column-number-text>
 </nimble-table>
 ```
@@ -334,9 +331,52 @@ Nimble already has a mechanism for clients to provide custom columns by deriving
 
 ### Additional unit APIs
 
-We considered adding attributes for `prefix` and `suffix` that could be used to specify any string to append to the front or back of the formatted number. We decided against this idea because it poses some localization challenges. For example, the prefix or suffix might change based on the value of the number (e.g. `1 gram` vs `2 grams`). Additionally, there may be cases where units that are a suffix in one locale are a prefix in another (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese). Therefore, we decided to require units to be those supported by ECMAScript so that localization would be built in to the formatter.
+We considered a few different options for displaying units within a cell, but it was unclear if any of them would satisfy the requirements of our clients. Because there are a number of open questions regarding the client requirements, we decided to defer any work involving units.
 
-Additionally, we considered adding attributes for `prefix-field-name` and `suffix-field-name` which would allow those values to be populated with a dynamic field value rather than a constant string. This could help use cases where values have disparate types or units. We decided this is not necessary initially but could revisit in the future. See [this thread](https://github.com/ni/nimble/pull/1268#discussion_r1212385898) for more discussion.
+Some of the options considered are described below:
+
+#### Expose unit and unitDisplay from the Intl.NumberFormatter
+
+We could add attributes for `unit` and `unit-display` that mirror the `unit` and `unitDisplay` configuration options on the `Intl.NumberFormatter`.
+
+**Pros:**
+
+-   Built-in localization support
+
+**Cons:**
+
+-   `Intl.NumberFormatter` supports a fairly limited amount of `unit` values with no way to extend the supported set
+-   Requires all records to have the same unit
+
+#### Add prefix and suffix attributes
+
+We could add attributes for `prefix` and `suffix` that could be used to specify any string to append to the front or back of the formatted number.
+
+**Pros:**
+
+-   Fairly flexible, as it does not impose any restrictions on the units that are supported
+
+**Cons:**
+
+-   Poses localization challenges. For example:
+    -   The prefix or suffix might need to change based on the value of the number (e.g. `1 gram` vs `2 grams`)
+    -   A prefix in one locale might be a suffix in another locale (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese)
+-   Doesn't provide the flexibility of having different units for each record
+
+#### Specify prefix and suffix through additional fields in the record
+
+We could add attributes for `prefix-field-name` and `suffix-field-name` which would allow those values to be populated with a dynamic field value rather than a constant string. This could help use cases where values have disparate types or units. See [this thread](https://github.com/ni/nimble/pull/1268#discussion_r1212385898) for more discussion.
+
+**Pros:**
+
+-   Flexible; allows different units per record and does not impose any restrictions on the units that are supported.
+-   Solves the problem where units might change based on the value of the number (e.g `1 gram` vs `2 grams`)
+
+**Cons:**
+
+-   Requires adding additional fields to each record, which could significantly increase memory usage in the cases where there are many records, each of which has many numeric values requiring prefix and/or suffix fields
+-   Poses localization challenges. For example:
+    -   A prefix in one locale might be a suffix in another locale (e.g. `56.8 degrees Celsius` in English will be represented as `摂氏 56.8 度` in Japanese)
 
 ### Expose all configuration options of Intl.NumberFormatter
 
