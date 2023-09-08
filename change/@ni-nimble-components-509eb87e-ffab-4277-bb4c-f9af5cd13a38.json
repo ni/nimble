@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add work-break for viewer container",
+  "packageName": "@ni/nimble-components",
+  "email": "123377167+aagash-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
