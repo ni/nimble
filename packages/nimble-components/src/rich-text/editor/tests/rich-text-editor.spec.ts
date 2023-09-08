@@ -218,9 +218,7 @@ describe('RichTextEditor', () => {
                 `"${value.name}" button icon click check`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
-                    await pageObject.clickFooterIcon(
-                        value.toolbarButtonIndex
-                    );
+                    await pageObject.clickFooterIcon(value.toolbarButtonIndex);
 
                     expect(
                         pageObject.getButtonTabIndex(value.toolbarButtonIndex)
