@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 08 Sep 2023 23:00:33 GMT",
+      "tag": "@ni/nimble-components_v20.2.7",
+      "version": "20.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "123591928+saikrishnan-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "fcbe79bafc733fd35a4fcae6ebc6aee88388d1ad",
+            "comment": "Refactored rich text components to use common models"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 08 Sep 2023 22:14:55 GMT",
       "tag": "@ni/nimble-components_v20.2.6",
       "version": "20.2.6",
