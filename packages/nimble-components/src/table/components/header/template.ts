@@ -4,7 +4,11 @@ import { iconArrowDownTag } from '../../../icons/arrow-down';
 import { iconArrowUpTag } from '../../../icons/arrow-up';
 import { iconTwoSquaresInBracketsTag } from '../../../icons/two-squares-in-brackets';
 import { TableColumnSortDirection } from '../../types';
-import { tableColumnHeaderGroupedIndicatorLabel, tableColumnHeaderSortedAscendingIndicatorLabel, tableColumnHeaderSortedDescendingIndicatorLabel } from '../../../label-provider/table/label-tokens';
+import {
+    tableColumnHeaderGroupedIndicatorLabel,
+    tableColumnHeaderSortedAscendingIndicatorLabel,
+    tableColumnHeaderSortedDescendingIndicatorLabel
+} from '../../../label-provider/table/label-tokens';
 
 // prettier-ignore
 export const template = html<TableHeader>`
@@ -15,14 +19,14 @@ export const template = html<TableHeader>`
     >
         <slot></slot>
         ${'' /* Set aria-hidden="true" on sort indicators because aria-sort is set on the 1st sorted column */}
-        ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html`
+        ${when(x => x.sortDirection === TableColumnSortDirection.ascending, html<TableHeader>`
             <${iconArrowUpTag}
                 class="sort-indicator"
                 title="${x => tableColumnHeaderSortedAscendingIndicatorLabel.getValueFor(x)}"
                 aria-hidden="true"
             ></${iconArrowUpTag}>
         `)}
-        ${when(x => x.sortDirection === TableColumnSortDirection.descending, html`
+        ${when(x => x.sortDirection === TableColumnSortDirection.descending, html<TableHeader>`
             <${iconArrowDownTag}
                 class="sort-indicator"
                 title="${x => tableColumnHeaderSortedDescendingIndicatorLabel.getValueFor(x)}"

@@ -23,7 +23,10 @@ import { buttonTag } from '../button';
 import { ButtonAppearance } from '../button/types';
 import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 import { checkboxTag } from '../checkbox';
-import { tableGroupsCollapseAllLabel, tableSelectAllLabel } from '../label-provider/table/label-tokens';
+import {
+    tableGroupsCollapseAllLabel,
+    tableSelectAllLabel
+} from '../label-provider/table/label-tokens';
 
 // prettier-ignore
 export const template = html<Table>`

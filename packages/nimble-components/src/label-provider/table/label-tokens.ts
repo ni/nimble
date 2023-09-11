@@ -29,12 +29,16 @@ export const tableColumnHeaderGroupedIndicatorLabel = DesignToken.create<string>
 export const tableColumnHeaderSortedAscendingIndicatorLabel = DesignToken.create<string>({
     name: 'table-column-header-sorted-ascending-indicator-label',
     cssCustomPropertyName: null
-}).withDefault(tableLabelDefaults.tableColumnHeaderSortedAscendingIndicatorLabel);
+}).withDefault(
+    tableLabelDefaults.tableColumnHeaderSortedAscendingIndicatorLabel
+);
 
 export const tableColumnHeaderSortedDescendingIndicatorLabel = DesignToken.create<string>({
     name: 'table-column-header-sorted-descending-indicator-label',
     cssCustomPropertyName: null
-}).withDefault(tableLabelDefaults.tableColumnHeaderSortedDescendingIndicatorLabel);
+}).withDefault(
+    tableLabelDefaults.tableColumnHeaderSortedDescendingIndicatorLabel
+);
 
 export const tableSelectAllLabel = DesignToken.create<string>({
     name: 'table-select-all-label',
