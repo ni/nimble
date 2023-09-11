@@ -651,7 +651,7 @@ describe('RichTextEditor', () => {
                     { name: 'HttPS://NIMBLE.ni.DEV ' },
                     { name: 'http://nimble.ni.dev/ ' },
                     { name: 'HTTP://NIMBLE.NI.DEV ' },
-                    { name: 'HttP://nimble.NI.dev ' },
+                    { name: 'HttP://nimble.NI.dev ' }
                 ];
 
                 const focused: string[] = [];
