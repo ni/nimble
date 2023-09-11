@@ -51,7 +51,7 @@ export class RichTextMarkdownParser {
             'autolink'
         ]);
 
-        supportedTokenizerRules.validateLink = href => /^https?:\/\//.test(href);
+        supportedTokenizerRules.validateLink = href => /^https?:\/\//i.test(href);
 
         return new MarkdownParser(
             this.updatedSchema,

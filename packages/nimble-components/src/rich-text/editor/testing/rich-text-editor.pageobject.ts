@@ -112,7 +112,7 @@ export class RichTextEditorPageObject {
 
     public async setEditorTextContent(value: string): Promise<void> {
         const lastElement = this.getEditorLastChildElement();
-        lastElement!.parentElement!.textContent = value;
+        lastElement.parentElement!.textContent = value;
         await waitForUpdatesAsync();
     }
 
@@ -245,7 +245,7 @@ export class RichTextEditorPageObject {
         return buttons[button];
     }
 
-    private getEditorLastChildElement(): Element | null | undefined {
-        return getLastChildElement(this.getTiptapEditor() as HTMLElement);
+    private getEditorLastChildElement(): Element {
+        return getLastChildElement(this.getTiptapEditor() as HTMLElement)!;
     }
 }

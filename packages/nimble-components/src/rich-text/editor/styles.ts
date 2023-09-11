@@ -77,12 +77,6 @@ export const styles = css`
         border: ${borderWidth} solid rgba(${borderRgbPartialColor}, 0.1);
     }
 
-    :host([disabled]) nimble-anchor::part(control) {
-        color: ${bodyDisabledFontColor};
-        fill: currentcolor;
-        cursor: default;
-    }
-
     :host([error-visible]) .container {
         border-bottom-color: ${failColor};
     }
@@ -210,6 +204,12 @@ export const styles = css`
              */ ''
         }
         pointer-events: none;
+    }
+
+    :host([disabled]) nimble-anchor::part(control) {
+        color: ${bodyDisabledFontColor};
+        fill: currentcolor;
+        cursor: default;
     }
 
     .footer-section {

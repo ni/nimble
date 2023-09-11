@@ -644,18 +644,40 @@ describe('RichTextEditor', () => {
         });
 
         describe('Absolute link interactions in the editor', () => {
-            it('should change the text to "nimble-anchor" tag when it is a valid absolute link', async () => {
-                await pageObject.setEditorTextContent(
-                    'https://nimble.ni.dev/ '
-                );
+            describe('various absolute links without other nodes and marks', () => {
+                const supportedAbsoluteLink: { name: string }[] = [
+                    { name: 'https://nimble.ni.dev/ ' },
+                    { name: 'HTTPS://NIMBLE.NI.DEV ' },
+                    { name: 'HttPS://NIMBLE.ni.DEV ' },
+                    { name: 'http://nimble.ni.dev/ ' },
+                    { name: 'HTTP://NIMBLE.NI.DEV ' },
+                    { name: 'HttP://nimble.NI.dev ' },
+                ];
 
-                expect(pageObject.getEditorTagNames()).toEqual([
-                    'P',
-                    'NIMBLE-ANCHOR'
-                ]);
-                expect(pageObject.getEditorLeafContents()).toEqual([
-                    'https://nimble.ni.dev/'
-                ]);
+                const focused: string[] = [];
+                const disabled: string[] = [];
+                for (const value of supportedAbsoluteLink) {
+                    const specType = getSpecTypeByNamedList(
+                        value,
+                        focused,
+                        disabled
+                    );
+                    specType(
+                        `should change the ${value.name} to "nimble-anchor" tag when it is a valid absolute link`,
+                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                        async () => {
+                            await pageObject.setEditorTextContent(value.name);
+
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P',
+                                'NIMBLE-ANCHOR'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.name.slice(0, -1)
+                            ]);
+                        }
+                    );
+                }
             });
 
             it('should have the right attributes to the nimble-anchor', async () => {

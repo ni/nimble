@@ -365,7 +365,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     },
                     openOnClick: false,
                     linkOnPaste: false,
-                    validate: href => /^https?:\/\//.test(href)
+                    validate: href => /^https?:\/\//i.test(href)
                 })
             ]
         });
@@ -374,7 +374,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     /**
      * Extending the default link mark schema defined in the TipTap.
      *
-     * "exclude": https://prosemirror.net/docs/ref/#model.MarkSpec.excludes
+     * "excludes": https://prosemirror.net/docs/ref/#model.MarkSpec.excludes
      * "inclusive": https://prosemirror.net/docs/ref/#model.MarkSpec.inclusive
      * "parseHTML": https://tiptap.dev/guide/custom-extensions#parse-html
      * "renderHTML": https://tiptap.dev/guide/custom-extensions/#render-html

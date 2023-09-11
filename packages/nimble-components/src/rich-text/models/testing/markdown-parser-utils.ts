@@ -20,7 +20,7 @@ export const getLastChildElementAttribute = (
     attribute: string,
     doc: DocumentFragment | HTMLElement
 ): string => {
-    return getLastChildElement(doc)?.getAttribute(attribute) || '';
+    return getLastChildElement(doc)?.getAttribute(attribute) ?? '';
 };
 
 export function getLastChildElement(
@@ -29,7 +29,7 @@ export function getLastChildElement(
     let lastElement = doc.lastElementChild;
 
     while (lastElement?.lastElementChild) {
-        lastElement = lastElement?.lastElementChild;
+        lastElement = lastElement.lastElementChild;
     }
     return lastElement;
 }
