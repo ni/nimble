@@ -866,10 +866,7 @@ describe('RichTextEditor', () => {
             it('absolute link markdown string to "a" tags with the link as the text content', () => {
                 element.setMarkdown('<https://nimble.ni.dev/>');
 
-                expect(pageObject.getEditorTagNames()).toEqual([
-                    'P',
-                    'A'
-                ]);
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -915,10 +912,7 @@ describe('RichTextEditor', () => {
             it('absolute links in bold markdown string should not be parsed to "strong" tag', () => {
                 element.setMarkdown('**<https://nimble.ni.dev/>**');
 
-                expect(pageObject.getEditorTagNames()).toEqual([
-                    'P',
-                    'A'
-                ]);
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -930,10 +924,7 @@ describe('RichTextEditor', () => {
             it('absolute links in italics markdown string should not be parsed to "em" tag', () => {
                 element.setMarkdown('*<https://nimble.ni.dev/>*');
 
-                expect(pageObject.getEditorTagNames()).toEqual([
-                    'P',
-                    'A'
-                ]);
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -945,10 +936,7 @@ describe('RichTextEditor', () => {
             it('absolute links in both bold and italics markdown string should not be parsed to "strong" and "em" tag', () => {
                 element.setMarkdown('___<https://nimble.ni.dev/>___');
 
-                expect(pageObject.getEditorTagNames()).toEqual([
-                    'P',
-                    'A'
-                ]);
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
                 ]);
@@ -960,10 +948,7 @@ describe('RichTextEditor', () => {
             it('adding marks like bold inside absolute links should not be parsed to "strong" tag', () => {
                 element.setMarkdown('<https://**nimble**.ni.dev/>');
 
-                expect(pageObject.getEditorTagNames()).toEqual([
-                    'P',
-                    'A'
-                ]);
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://**nimble**.ni.dev/'
                 ]);
