@@ -59,13 +59,10 @@ export function getScaleBand(
     return scaleBand<number>().domain(domain).range(range);
 }
 
-export function getHorizontalScale(): ScaleBand<number> {
-    return getScaleBand([2, 3, 4, 5, 6], [2, 7]);
-}
+export const defaultHorizontalScale = scaleBand<number>().domain([2, 3, 4, 5, 6]).range([2, 7]);
 
-export function getVerticalScale(): ScaleBand<number> {
-    return getScaleBand([1, 2, 3, 4, 5, 6], [1, 7]);
-}
+export const defaultVerticalScale = scaleBand<number>().domain([1, 2, 3, 4, 5, 6]).range([1, 7]);
+
 export function getDataManagerMock(
     dieDimensions: Dimensions,
     margin: Margin,

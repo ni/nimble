@@ -4,8 +4,8 @@ import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
     getDataManagerMock,
-    getHorizontalScale,
-    getVerticalScale,
+    defaultHorizontalScale,
+    defaultVerticalScale,
     getWaferMapDies
 } from './utilities';
 
@@ -47,8 +47,8 @@ describe('Wafermap Prerendering module', () => {
                 const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin,
-                    getHorizontalScale(),
-                    getVerticalScale()
+                    defaultHorizontalScale,
+                    defaultVerticalScale
                 );
                 prerenderingModule = new Prerendering(
                     waferMock as WaferMap,
@@ -97,8 +97,8 @@ describe('Wafermap Prerendering module', () => {
                 const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin,
-                    getHorizontalScale(),
-                    getVerticalScale()
+                    defaultHorizontalScale,
+                    defaultVerticalScale
                 );
                 prerenderingModule = new Prerendering(
                     waferMock as WaferMap,
@@ -147,8 +147,8 @@ describe('Wafermap Prerendering module', () => {
                 const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin,
-                    getHorizontalScale(),
-                    getVerticalScale()
+                    defaultHorizontalScale,
+                    defaultVerticalScale
                 );
                 prerenderingModule = new Prerendering(
                     waferMock as WaferMap,
@@ -206,8 +206,8 @@ describe('Wafermap Prerendering module', () => {
                 const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin,
-                    getHorizontalScale(),
-                    getVerticalScale()
+                    defaultHorizontalScale,
+                    defaultVerticalScale
                 );
                 prerenderingModule = new Prerendering(
                     waferMock as WaferMap,
@@ -256,8 +256,8 @@ describe('Wafermap Prerendering module', () => {
                 const dataManagerMock = getDataManagerMock(
                     dieDimensions,
                     margin,
-                    getHorizontalScale(),
-                    getVerticalScale()
+                    defaultHorizontalScale,
+                    defaultVerticalScale
                 );
                 prerenderingModule = new Prerendering(
                     waferMock as WaferMap,
@@ -324,8 +324,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                getHorizontalScale(),
-                getVerticalScale()
+                defaultHorizontalScale,
+                defaultVerticalScale
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
@@ -380,8 +380,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                getHorizontalScale(),
-                getVerticalScale()
+                defaultHorizontalScale,
+                defaultVerticalScale
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
@@ -427,8 +427,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                getHorizontalScale(),
-                getVerticalScale()
+                defaultHorizontalScale,
+                defaultVerticalScale
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
@@ -483,8 +483,8 @@ describe('Wafermap Prerendering module', () => {
             const dataManagerMock = getDataManagerMock(
                 dieDimensions,
                 margin,
-                getHorizontalScale(),
-                getVerticalScale()
+                defaultHorizontalScale,
+                defaultVerticalScale
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
