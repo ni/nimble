@@ -3,6 +3,7 @@ import type { TableRow, ColumnState } from '.';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { tableCellTag } from '../cell';
 import { checkboxTag } from '../../../checkbox';
+import { tableRowSelectLabel } from '../../../label-provider/table/label-tokens';
 
 // prettier-ignore
 export const template = html<TableRow>`
@@ -14,6 +15,8 @@ export const template = html<TableRow>`
                     class="selection-checkbox"
                     @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
                     @click="${(_, c) => c.event.stopPropagation()}"
+                    title="${x => tableRowSelectLabel.getValueFor(x)}"
+                    aria-label="${x => tableRowSelectLabel.getValueFor(x)}"
                 >
                 </${checkboxTag}>
             </span>

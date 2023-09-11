@@ -23,7 +23,7 @@ import { buttonTag } from '../button';
 import { ButtonAppearance } from '../button/types';
 import { iconTriangleTwoLinesHorizontalTag } from '../icons/triangle-two-lines-horizontal';
 import { checkboxTag } from '../checkbox';
-import { tableGroupsCollapseAllLabel } from '../label-provider/table/label-tokens';
+import { tableGroupsCollapseAllLabel, tableSelectAllLabel } from '../label-provider/table/label-tokens';
 
 // prettier-ignore
 export const template = html<Table>`
@@ -48,11 +48,13 @@ export const template = html<Table>`
                     <div class="header-row" role="row">
                         <span class="header-row-action-container" ${ref('headerRowActionContainer')}>
                             ${when(x => x.selectionMode === TableRowSelectionMode.multiple, html<Table>`
-                                <span role="columnheader" class="checkbox-container">
+                                <span role="gridcell" class="checkbox-container">
                                     <${checkboxTag}
                                         ${ref('selectionCheckbox')}
                                         class="${x => `selection-checkbox ${x.selectionMode ?? ''}`}"
                                         @change="${(x, c) => x.onAllRowsSelectionChange(c.event as CustomEvent)}"
+                                        title="${x => tableSelectAllLabel.getValueFor(x)}"
+                                        aria-label="${x => tableSelectAllLabel.getValueFor(x)}"
                                     >
                                     </${checkboxTag}>
                                 </span>

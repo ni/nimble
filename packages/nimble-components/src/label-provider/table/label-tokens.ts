@@ -25,3 +25,28 @@ export const tableColumnHeaderGroupedIndicatorLabel = DesignToken.create<string>
     name: 'table-column-header-grouped-indicator-label',
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableColumnHeaderGroupedIndicatorLabel);
+
+export const tableColumnHeaderSortedAscendingIndicatorLabel = DesignToken.create<string>({
+    name: 'table-column-header-sorted-ascending-indicator-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableColumnHeaderSortedAscendingIndicatorLabel);
+
+export const tableColumnHeaderSortedDescendingIndicatorLabel = DesignToken.create<string>({
+    name: 'table-column-header-sorted-descending-indicator-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableColumnHeaderSortedDescendingIndicatorLabel);
+
+export const tableSelectAllLabel = DesignToken.create<string>({
+    name: 'table-select-all-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableSelectAllLabel);
+
+export const tableGroupSelectAllLabel = DesignToken.create<string>({
+    name: 'table-group-select-all-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableGroupSelectAllLabel);
+
+export const tableRowSelectLabel = DesignToken.create<string>({
+    name: 'table-row-select-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableRowSelectLabel);
