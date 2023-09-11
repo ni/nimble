@@ -24,6 +24,7 @@ import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
+import HardBreak from '@tiptap/extension-hard-break';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -350,7 +351,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 Placeholder.configure({
                     placeholder: '',
                     showOnlyWhenEditable: false
-                })
+                }),
+                HardBreak
             ]
         });
     }

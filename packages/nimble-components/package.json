@@ -75,6 +75,7 @@
     "@tiptap/extension-paragraph": "^2.1.6",
     "@tiptap/extension-placeholder": "^2.1.6",
     "@tiptap/extension-text": "^2.1.6",
+    "@tiptap/extension-hard-break": "^2.1.6",
     "@types/d3-array": "^3.0.4",
     "@types/d3-random": "^3.0.1",
     "@types/d3-scale": "^4.0.2",
