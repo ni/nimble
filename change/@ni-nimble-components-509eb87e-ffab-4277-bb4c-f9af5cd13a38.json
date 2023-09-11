@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Add work-break for viewer container",
+  "comment": "Wrap long words to the next line in rich-text viewer",
   "packageName": "@ni/nimble-components",
   "email": "123377167+aagash-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
