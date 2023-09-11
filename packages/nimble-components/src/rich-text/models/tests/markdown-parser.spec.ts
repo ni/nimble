@@ -244,7 +244,11 @@ describe('Markdown parser', () => {
             );
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
-            expect(getLeafContentsFromElement(doc)).toEqual([r`1.\ item 1`, r`2. item 2`, r`3.\item 3`]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                r`1.\ item 1`,
+                r`2. item 2`,
+                r`3.\item 3`
+            ]);
         });
 
         it('bullet list with escape character should be parsed as string and not as list', () => {
@@ -258,14 +262,16 @@ describe('Markdown parser', () => {
             );
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
-            expect(getLeafContentsFromElement(doc)).toEqual([r`-\ item 1`, r`-\ item 2`, r`-\item 3`]);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                r`-\ item 1`,
+                r`-\ item 2`,
+                r`-\item 3`
+            ]);
         });
 
         it('escape character should not be parsed and return only non escape character<\\*>', () => {
             const r = String.raw;
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                r`\*`
-            );
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\*`);
 
             expect(getTagsFromElement(doc)).toEqual(['P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['*']);
