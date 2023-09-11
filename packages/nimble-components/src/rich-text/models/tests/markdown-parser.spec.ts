@@ -232,6 +232,64 @@ describe('Markdown parser', () => {
                 'Bulleted list with bold and italics'
             ]);
         });
+
+        it('numbers with escape character should be parsed as string and not as list', () => {
+            const r = String.raw;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`1\.\ item 1
+                
+                2\. item 2
+                
+                3\.\item 3`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([r`1.\ item 1`, r`2. item 2`, r`3.\item 3`]);
+        });
+
+        it('bullet list with escape character should be parsed as string and not as list', () => {
+            const r = String.raw;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`-\ item 1
+                
+                -\ item 2
+                
+                -\item 3`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([r`-\ item 1`, r`-\ item 2`, r`-\item 3`]);
+        });
+
+        it('escape character should not be parsed and return only non escape character<\\*>', () => {
+            const r = String.raw;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`\*`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['*']);
+        });
+
+        it('escape character should not be parsed and return only non escape character<\\*\\*Bold\\*\\*>', () => {
+            const r = String.raw;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`\*\*bold\*\*`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([r`**bold**`]);
+        });
+
+        it('escape character should not be parsed and return only non escape character<\\*Italics\\*>', () => {
+            const r = String.raw;
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`\*italics\*`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([r`*italics*`]);
+        });
     });
 
     describe('various not supported markdown string values render as unchanged strings', () => {
