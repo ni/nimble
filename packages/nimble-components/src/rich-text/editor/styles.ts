@@ -12,7 +12,8 @@ import {
     failColor,
     iconSize,
     smallDelay,
-    standardPadding
+    standardPadding,
+    linkFontColor
 } from '../../theme-provider/design-tokens';
 import { styles as errorStyles } from '../../patterns/error/styles';
 
@@ -188,12 +189,13 @@ export const styles = css`
         color: ${controlLabelDisabledFontColor};
     }
 
-    nimble-anchor {
+    .ProseMirror a {
+        color: ${linkFontColor};
         white-space: normal;
         ${
             /**
              * Restricting the pointer events for the following reasons:
-             * 1. nimble-anchor inside a "contenteditable" div is not working as native HTML anchor tag.
+             * 1. If rendering 'nimble-anchor' inside a "contenteditable" div is not working as native HTML anchor tag.
              *    i.e. clicking on the link opens in the same tab whereas the default behavior of native HTML anchor
              *    tag is not clickable inside "contenteditable" div.
              *    Issue link: https://github.com/ni/nimble/issues/1502

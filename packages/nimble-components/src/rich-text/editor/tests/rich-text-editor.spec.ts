@@ -663,14 +663,14 @@ describe('RichTextEditor', () => {
                         disabled
                     );
                     specType(
-                        `should change the ${value.name} to "nimble-anchor" tag when it is a valid absolute link`,
+                        `should change the ${value.name} to "a" tag when it is a valid absolute link`,
                         // eslint-disable-next-line @typescript-eslint/no-loop-func
                         async () => {
                             await pageObject.setEditorTextContent(value.name);
 
                             expect(pageObject.getEditorTagNames()).toEqual([
                                 'P',
-                                'NIMBLE-ANCHOR'
+                                'A'
                             ]);
                             expect(pageObject.getEditorLeafContents()).toEqual([
                                 value.name.slice(0, -1)
@@ -680,7 +680,7 @@ describe('RichTextEditor', () => {
                 }
             });
 
-            it('should have the right attributes to the nimble-anchor', async () => {
+            it('should have the right attributes to the "a" tag', async () => {
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
                 );
@@ -690,9 +690,6 @@ describe('RichTextEditor', () => {
                 );
                 expect(pageObject.getEditorLastChildAttribute('rel')).toBe(
                     'noopener noreferrer'
-                );
-                expect(pageObject.getEditorLastChildAttribute('tabindex')).toBe(
-                    '-1'
                 );
             });
 
@@ -704,8 +701,8 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
                     'P',
-                    'NIMBLE-ANCHOR',
-                    '/NIMBLE-ANCHOR',
+                    'A',
+                    '/A',
                     'STRONG',
                     '/STRONG',
                     '/P'
@@ -724,8 +721,8 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
                     'P',
-                    'NIMBLE-ANCHOR',
-                    '/NIMBLE-ANCHOR',
+                    'A',
+                    '/A',
                     'EM',
                     '/EM',
                     '/P'
@@ -746,7 +743,7 @@ describe('RichTextEditor', () => {
                     'UL',
                     'LI',
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -763,7 +760,7 @@ describe('RichTextEditor', () => {
                     'OL',
                     'LI',
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -774,6 +771,7 @@ describe('RichTextEditor', () => {
                 const notSupportedAbsoluteLink: { name: string }[] = [
                     { name: 'ftp://example.com/files/document.pdf ' },
                     { name: 'mailto:info@example.com ' },
+                    { name: 'info@example.com ' },
                     { name: 'file:///path/to/local/file.txt ' },
                     { name: 'tel:+1234567890 ' },
                     // eslint-disable-next-line no-script-url
@@ -865,12 +863,12 @@ describe('RichTextEditor', () => {
 
     describe('Absolute link markdown tests', () => {
         describe('asserting rendered links in the editor', () => {
-            it('absolute link markdown string to "nimble-anchor" tags with the link as the text content', () => {
+            it('absolute link markdown string to "a" tags with the link as the text content', () => {
                 element.setMarkdown('<https://nimble.ni.dev/>');
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -880,14 +878,14 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            it('bulleted list with absolute links markdown string to "ul", "li" and "nimble-anchor" tags', () => {
+            it('bulleted list with absolute links markdown string to "ul", "li" and "a" tags', () => {
                 element.setMarkdown('* <https://nimble.ni.dev/>');
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'UL',
                     'LI',
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -897,14 +895,14 @@ describe('RichTextEditor', () => {
                 );
             });
 
-            it('numbered list with absolute links markdown string to "ol", "li" and "nimble-anchor" tags', () => {
+            it('numbered list with absolute links markdown string to "ol", "li" and "a" tags', () => {
                 element.setMarkdown('1. <https://nimble.ni.dev/>');
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'OL',
                     'LI',
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -919,7 +917,7 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -934,7 +932,7 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -949,7 +947,7 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://nimble.ni.dev/'
@@ -964,7 +962,7 @@ describe('RichTextEditor', () => {
 
                 expect(pageObject.getEditorTagNames()).toEqual([
                     'P',
-                    'NIMBLE-ANCHOR'
+                    'A'
                 ]);
                 expect(pageObject.getEditorLeafContents()).toEqual([
                     'https://**nimble**.ni.dev/'

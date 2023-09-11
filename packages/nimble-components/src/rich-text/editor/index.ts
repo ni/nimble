@@ -363,6 +363,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                         rel: 'noopener noreferrer',
                         target: null
                     },
+                    autolink: true,
                     openOnClick: false,
                     linkOnPaste: false,
                     validate: href => /^https?:\/\//i.test(href)
@@ -389,8 +390,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
             // eslint-disable-next-line @typescript-eslint/naming-convention
             renderHTML({ HTMLAttributes }) {
-                HTMLAttributes.tabindex = '-1';
-                return [anchorTag, HTMLAttributes];
+                // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
+                // https://github.com/ni/nimble/issues/1502
+                return ['a', HTMLAttributes];
             }
         });
     }
