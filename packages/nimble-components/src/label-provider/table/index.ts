@@ -4,9 +4,14 @@ import { DesignTokensFor, LabelProviderBase } from '../base';
 import {
     tableCellActionMenuLabel,
     tableColumnHeaderGroupedIndicatorLabel,
+    tableColumnHeaderSortedAscendingIndicatorLabel,
+    tableColumnHeaderSortedDescendingIndicatorLabel,
     tableGroupCollapseLabel,
     tableGroupExpandLabel,
-    tableGroupsCollapseAllLabel
+    tableGroupSelectAllLabel,
+    tableGroupsCollapseAllLabel,
+    tableRowSelectLabel,
+    tableSelectAllLabel
 } from './label-tokens';
 
 declare global {
@@ -20,7 +25,14 @@ const supportedLabels = {
     groupExpand: tableGroupExpandLabel,
     groupsCollapseAll: tableGroupsCollapseAllLabel,
     cellActionMenu: tableCellActionMenuLabel,
-    columnHeaderGroupedIndicator: tableColumnHeaderGroupedIndicatorLabel
+    columnHeaderGroupedIndicator: tableColumnHeaderGroupedIndicatorLabel,
+    columnHeaderSortedAscendingIndicator:
+        tableColumnHeaderSortedAscendingIndicatorLabel,
+    columnHeaderSortedDescendingIndicator:
+        tableColumnHeaderSortedDescendingIndicatorLabel,
+    selectAll: tableSelectAllLabel,
+    groupSelectAll: tableGroupSelectAllLabel,
+    rowSelect: tableRowSelectLabel
 } as const;
 
 /**
@@ -43,6 +55,21 @@ export class LabelProviderTable
 
     @attr({ attribute: 'column-header-grouped-indicator' })
     public columnHeaderGroupedIndicator: string | undefined;
+
+    @attr({ attribute: 'column-header-sorted-ascending-indicator' })
+    public columnHeaderSortedAscendingIndicator: string | undefined;
+
+    @attr({ attribute: 'column-header-sorted-descending-indicator' })
+    public columnHeaderSortedDescendingIndicator: string | undefined;
+
+    @attr({ attribute: 'select-all' })
+    public selectAll: string | undefined;
+
+    @attr({ attribute: 'group-select-all' })
+    public groupSelectAll: string | undefined;
+
+    @attr({ attribute: 'row-select' })
+    public rowSelect: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }
