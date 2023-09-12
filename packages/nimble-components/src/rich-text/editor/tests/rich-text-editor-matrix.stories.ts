@@ -63,7 +63,7 @@ const component = (
         ${() => footerHiddenName} ${() => errorStateName} ${() => placeholderName} ${() => disabledName} 
     </p>
     <${richTextEditorTag}
-        style="margin: 5px 0px; width: 500px; height: 100px"
+        style="margin: 5px 0px; width: 500px;"
         ?disabled="${() => disabled}"
         ?footer-hidden="${() => footerHidden}"
         ?error-visible="${() => isError}"
