@@ -653,7 +653,7 @@ describe('RichTextEditor', () => {
                     { name: 'HTTP://NIMBLE.NI.DEV ' },
                     { name: 'HttP://nimble.NI.dev ' },
                     {
-                        name: 'https://www.example.com/path/equals=ampersand&question?dollar$plus+comma,At@semicolon; '
+                        name: 'https://www.example.com/path/=equals&ampersand?question$dollar+plus,comma;semicolon@At '
                     },
                     { name: 'https://example.com/my%20page.html ' },
                     { name: 'https://example.com/smiley😀.html ' },
