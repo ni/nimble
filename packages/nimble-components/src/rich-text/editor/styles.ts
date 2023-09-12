@@ -194,7 +194,7 @@ export const styles = css`
         white-space: normal;
         ${
             /**
-             * Restricting the user from opening a link using the right-click context menu: If the user manually edits
+             * Setting 'pointer-events: none;' to restrict the user from opening a link using the right-click context menu: If the user manually edits
              * the link's text content, the 'href' attribute of the anchor tag will not be updated. If they attempt to open it using
              * the right-click context menu with 'Open in new tab/window,' it will still navigate to the link specified
              * in the 'href' attribute, which may create unnecessary confusion while trying to open the link.

@@ -53,8 +53,8 @@ export class RichTextMarkdownParser {
 
         supportedTokenizerRules.validateLink = href => /^https?:\/\//i.test(href);
 
-        // To achieve rendering the encoded characters, non-ASCII characters, emojis, etc., as they are,
-        // bypassing the default normalization of link text in markdown-it because we only support "AutoLink" in markdown format.
+        // In order to display encoded characters, non-ASCII characters, emojis, and other special characters in their original form,
+        // we bypass the default normalization of link text in markdown-it. This is done because we support only "AutoLink" feature in CommonMark flavor.
         // "normalizeLinkText" method reference in markdown-it: https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/index.js#L67C1-L86C2
         supportedTokenizerRules.normalizeLinkText = url => url;
 

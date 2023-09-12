@@ -651,7 +651,11 @@ describe('RichTextEditor', () => {
                     { name: 'HttPS://NIMBLE.ni.DEV ' },
                     { name: 'http://nimble.ni.dev/ ' },
                     { name: 'HTTP://NIMBLE.NI.DEV ' },
-                    { name: 'HttP://nimble.NI.dev ' }
+                    { name: 'HttP://nimble.NI.dev ' },
+                    { name: 'https://www.example.com/path/equals=ampersand&question?dollar$plus+comma,At@semicolon; ' },
+                    { name: 'https://example.com/my%20page.html ' },
+                    { name: 'https://example.com/smiley😀.html ' },
+                    { name: 'https://example.com/пример.html ' },
                 ];
 
                 const focused: string[] = [];
@@ -767,8 +771,8 @@ describe('RichTextEditor', () => {
                 ]);
             });
 
-            describe('various absolute links with different schemas other than https/http should be render as unchanged strings', () => {
-                const notSupportedAbsoluteLink: { name: string }[] = [
+            describe('various absolute links with different protocols other than https/http should be render as unchanged strings', () => {
+                const differentProtocolLinks: { name: string }[] = [
                     { name: 'ftp://example.com/files/document.pdf ' },
                     { name: 'mailto:info@example.com ' },
                     { name: 'info@example.com ' },
@@ -793,7 +797,7 @@ describe('RichTextEditor', () => {
 
                 const focused: string[] = [];
                 const disabled: string[] = [];
-                for (const value of notSupportedAbsoluteLink) {
+                for (const value of differentProtocolLinks) {
                     const specType = getSpecTypeByNamedList(
                         value,
                         focused,

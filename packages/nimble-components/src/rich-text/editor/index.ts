@@ -391,7 +391,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             renderHTML({ HTMLAttributes }) {
                 // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
-                // https://github.com/ni/nimble/issues/1502
+                // https://github.com/ni/nimble/issues/1516
                 return ['a', HTMLAttributes];
             }
         });

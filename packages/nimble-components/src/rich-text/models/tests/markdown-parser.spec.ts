@@ -512,7 +512,7 @@ describe('Markdown parser', () => {
                 );
             });
 
-            describe('various absolute links with different schemas other than https/http should be render as unchanged strings', () => {
+            describe('various absolute links with different protocols other than https/http should be render as unchanged strings', () => {
                 const differentProtocolLinks: { name: string }[] = [
                     { name: '<ftp://example.com/files/document.pdf>' },
                     { name: '<mailto:info@example.com>' },
