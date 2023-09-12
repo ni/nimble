@@ -554,7 +554,9 @@ describe('TableColumnDateText', () => {
 
         beforeEach(async () => {
             elementReferences = new ElementReferences();
-            ({ connect, disconnect } = await setupWithConfig(elementReferences));
+            ({ connect, disconnect } = await setupWithConfig(
+                elementReferences
+            ));
             table = elementReferences.table;
             tablePageObject = new TablePageObject<SimpleTableRecord>(table);
             pageObject = new TableColumnDateTextPageObject(tablePageObject);
