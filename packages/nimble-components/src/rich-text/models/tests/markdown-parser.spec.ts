@@ -212,18 +212,180 @@ describe('Markdown parser', () => {
         });
 
         describe('Absolute link', () => {
-            it('absolute link markdown string to "nimble-anchor" tags with the link as the text content', () => {
-                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                    '<https://nimble.ni.dev/>'
-                );
+            describe('various valid absolute links should render same as in the markdown', () => {
+                const supportedAbsoluteLink: {
+                    name: string,
+                    validLink: string
+                }[] = [
+                    {
+                        name: 'Lowercase HTTPS URL',
+                        validLink: '<https://nimble.ni.dev/>'
+                    },
+                    {
+                        name: 'Uppercase HTTPS URL',
+                        validLink: '<HTTPS://NIMBLE.NI.DEV>'
+                    },
+                    {
+                        name: 'Mixed case HTTPS URL',
+                        validLink: '<HttPS://NIMBLE.ni.DEV>'
+                    },
+                    {
+                        name: 'Lowercase HTTP URL',
+                        validLink: '<http://nimble.ni.dev/>'
+                    },
+                    {
+                        name: 'Uppercase HTTP URL',
+                        validLink: '<HTTP://NIMBLE.NI.DEV>'
+                    },
+                    {
+                        name: 'Mixed case HTTP URL',
+                        validLink: '<HttP://nimble.NI.dev>'
+                    },
+                    {
+                        name: 'URL with query params & special characters',
+                        validLink:
+                            '<https://www.example.com/path/page?name=John&Doe>'
+                    },
+                    {
+                        name: 'Whitespace encoded URL',
+                        validLink: '<https://example.com/my%20page.html>'
+                    },
+                    {
+                        name: 'Question mark encoded URL',
+                        validLink:
+                            '<https://example.com/search?q=what%20is%20percent%3F>'
+                    },
+                    {
+                        name: 'Emoji encoded URL',
+                        validLink:
+                            '<https://example.com/smiley%F0%9F%98%80.html>'
+                    },
+                    {
+                        name: 'Ampersand encoded URL',
+                        validLink:
+                            '<https://example.com/search?category=books&author=John%26Jane>'
+                    },
+                    {
+                        name: 'Non-latin encoded URL',
+                        validLink:
+                            '<https://example.com/%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80.html>'
+                    },
+                    {
+                        name: 'URL with Fragment Identifier',
+                        validLink: '<https://www.example.com/page#section>'
+                    },
+                    {
+                        name: 'URL with Port Number',
+                        validLink: '<http://www.example.com:8080/path/page>'
+                    }
+                ];
 
-                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
-                expect(getLeafContentsFromElement(doc)).toEqual([
-                    'https://nimble.ni.dev/'
-                ]);
-                expect(getLastChildElementAttribute('href', doc)).toBe(
-                    'https://nimble.ni.dev/'
-                );
+                const focused: string[] = [];
+                const disabled: string[] = [];
+                for (const value of supportedAbsoluteLink) {
+                    const specType = getSpecTypeByNamedList(
+                        value,
+                        focused,
+                        disabled
+                    );
+                    specType(
+                        `${value.name} to "nimble-anchor" tags with the link as the text content`,
+                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                        () => {
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                value.validLink
+                            );
+                            const renderedLink = value.validLink.slice(1, -1);
+
+                            expect(getTagsFromElement(doc)).toEqual([
+                                'P',
+                                'NIMBLE-ANCHOR'
+                            ]);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                renderedLink
+                            ]);
+                            expect(
+                                getLastChildElementAttribute('href', doc)
+                            ).toBe(renderedLink);
+                        }
+                    );
+                }
+            });
+
+            describe('various absolute links with non-ASCII (IRI) characters within it', () => {
+                const supportedAbsoluteLink: {
+                    name: string,
+                    validLink: string,
+                    encodeURL: string
+                }[] = [
+                    {
+                        name: 'Emoji',
+                        validLink: '<https://example.com/smiley😀.html>',
+                        encodeURL: 'https://example.com/smiley%F0%9F%98%80.html'
+                    },
+                    {
+                        name: 'Basic IRI characters',
+                        validLink: '<https://example.com/élève.html>',
+                        encodeURL: 'https://example.com/%C3%A9l%C3%A8ve.html'
+                    },
+                    {
+                        name: 'Non-Latin Scripts',
+                        validLink: '<https://example.com/пример.html>',
+                        encodeURL:
+                            'https://example.com/%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80.html'
+                    },
+                    {
+                        name: 'Math symbols',
+                        validLink: '<https://example.com/√2.html>',
+                        encodeURL: 'https://example.com/%E2%88%9A2.html'
+                    },
+                    {
+                        name: 'Special symbols',
+                        validLink: '<https://example.com/♥-music.html>',
+                        encodeURL: 'https://example.com/%E2%99%A5-music.html'
+                    },
+                    {
+                        name: 'Accented Characters',
+                        validLink: '<https://example.com/españa.html>',
+                        encodeURL: 'https://example.com/espa%C3%B1a.html'
+                    },
+                    {
+                        name: 'Japanese Characters',
+                        validLink: '<https://example.com/東京.html>',
+                        encodeURL: 'https://example.com/%E6%9D%B1%E4%BA%AC.html'
+                    }
+                ];
+
+                const focused: string[] = [];
+                const disabled: string[] = [];
+                for (const value of supportedAbsoluteLink) {
+                    const specType = getSpecTypeByNamedList(
+                        value,
+                        focused,
+                        disabled
+                    );
+                    specType(
+                        `${value.name} to "nimble-anchor" tags with the non-ASCII characters as the text content and encoded as their href`,
+                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                        () => {
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                value.validLink
+                            );
+                            const renderedLink = value.validLink.slice(1, -1);
+
+                            expect(getTagsFromElement(doc)).toEqual([
+                                'P',
+                                'NIMBLE-ANCHOR'
+                            ]);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                renderedLink
+                            ]);
+                            expect(
+                                getLastChildElementAttribute('href', doc)
+                            ).toBe(value.encodeURL);
+                        }
+                    );
+                }
             });
 
             it('absolute link should add "rel" attribute', () => {
@@ -331,7 +493,7 @@ describe('Markdown parser', () => {
             });
 
             describe('various absolute links with different schemas other than https/http should be render as unchanged strings', () => {
-                const notSupportedAbsoluteLink: { name: string }[] = [
+                const differentProtocolLinks: { name: string }[] = [
                     { name: '<ftp://example.com/files/document.pdf>' },
                     { name: '<mailto:info@example.com>' },
                     { name: '<file:///path/to/local/file.txt>' },
@@ -353,7 +515,7 @@ describe('Markdown parser', () => {
 
                 const focused: string[] = [];
                 const disabled: string[] = [];
-                for (const value of notSupportedAbsoluteLink) {
+                for (const value of differentProtocolLinks) {
                     const specType = getSpecTypeByNamedList(
                         value,
                         focused,
