@@ -326,6 +326,20 @@ describe('Markdown parser', () => {
                 r`-\item 3`
             ]);
         });
+
+        it('\n backslash<n> should render a new line', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\n`);
+
+            expect(getTagsFromElement(doc)).toEqual(['P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([r`\n`]);
+        });
+
+        it('\\ double backslash should render a single backslash', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM('\\');
+
+            expect(getTagsFromElement(doc)).toEqual(['P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['\\']);
+        });
     });
 
     describe('various not supported markdown string values render as unchanged strings', () => {
