@@ -279,11 +279,27 @@ describe('Markdown parser', () => {
             { name: r`\*\*bold\*\*`, tags: ['P'], textContent: ['**bold**'] },
             { name: r`\*italics\*`, tags: ['P'], textContent: ['*italics*'] },
             { name: r`\# test1`, tags: ['P'], textContent: ['# test1'] },
-            { name: r`\> blockquote`, tags: ['P'], textContent: ['> blockquote'] },
+            {
+                name: r`\> blockquote`,
+                tags: ['P'],
+                textContent: ['> blockquote']
+            },
             { name: r`\`code\``, tags: ['P'], textContent: ['`code`'] },
-            { name: r`\~\~strikethrough\~\~`, tags: ['P'], textContent: ['~~strikethrough~~'] },
-            { name: r`\## heading 2`, tags: ['P'], textContent: ['## heading 2'] },
-            { name: r`\[link\](url)`, tags: ['P'], textContent: ['[link](url)'] }
+            {
+                name: r`\~\~strikethrough\~\~`,
+                tags: ['P'],
+                textContent: ['~~strikethrough~~']
+            },
+            {
+                name: r`\## heading 2`,
+                tags: ['P'],
+                textContent: ['## heading 2']
+            },
+            {
+                name: r`\[link\](url)`,
+                tags: ['P'],
+                textContent: ['[link](url)']
+            }
         ];
 
         for (const value of testsWithEscapeCharacters) {
