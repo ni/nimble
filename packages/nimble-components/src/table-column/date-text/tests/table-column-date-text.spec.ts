@@ -1,5 +1,5 @@
-import { html } from '@microsoft/fast-element';
-import type { Table } from '../../../table';
+import { html, ref } from '@microsoft/fast-element';
+import { tableTag, type Table } from '../../../table';
 import { TableColumnDateText, tableColumnDateTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
@@ -14,41 +14,46 @@ interface SimpleTableRecord extends TableRecord {
     anotherField?: number | null;
 }
 
+class ElementReferences {
+    public table!: Table;
+    public column1!: TableColumnDateText;
+}
+
 describe('TableColumnDateText', () => {
-    let element: Table<SimpleTableRecord>;
+    let table: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
+    let elementReferences: ElementReferences;
     let tablePageObject: TablePageObject<SimpleTableRecord>;
     let pageObject: TableColumnDateTextPageObject<SimpleTableRecord>;
     let column: TableColumnDateText;
 
     // prettier-ignore
-    async function setup(): Promise<Fixture<Table<SimpleTableRecord>>> {
-        const themeProvider = document.createElement(themeProviderTag);
-        themeProvider.lang = 'en-US';
+    async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
         return fixture<Table<SimpleTableRecord>>(
-            html`<nimble-table style="width: 700px">
-                    <${tableColumnDateTextTag} field-name="field" group-index="0">
-                        Column 1
-                    </${tableColumnDateTextTag}>
-                    <${tableColumnDateTextTag} field-name="anotherField">
-                        Squeeze Column 1
-                    </${tableColumnDateTextTag}>
-                </nimble-table>`,
-            {
-                parent: themeProvider
-            }
+            html`<${themeProviderTag} lang="en-US">
+                    <${tableTag} ${ref('table')} style="width: 700px">
+                        <${tableColumnDateTextTag} ${ref('column1')} field-name="field" group-index="0">
+                            Column 1
+                        </${tableColumnDateTextTag}>
+                        <${tableColumnDateTextTag} field-name="anotherField">
+                            Squeeze Column 1
+                        </${tableColumnDateTextTag}>
+                    </${tableTag}>
+                </${themeProviderTag}>`,
+            { source }
         );
     }
 
     describe('no static config', () => {
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setup());
-            tablePageObject = new TablePageObject<SimpleTableRecord>(element);
+            elementReferences = new ElementReferences();
+            ({ connect, disconnect } = await setup(elementReferences));
+            table = elementReferences.table;
+            tablePageObject = new TablePageObject<SimpleTableRecord>(table);
             pageObject = new TableColumnDateTextPageObject(tablePageObject);
             await connect();
             await waitForUpdatesAsync();
-            column = element.columns[0] as TableColumnDateText;
         });
 
         afterEach(async () => {
@@ -113,7 +118,7 @@ describe('TableColumnDateText', () => {
                 );
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 specType(entry.name, async () => {
-                    await element.setData(entry.data);
+                    await table.setData(entry.data);
                     await waitForUpdatesAsync();
 
                     expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
@@ -122,7 +127,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('changing fieldName updates display', async () => {
-            await element.setData([
+            await table.setData([
                 {
                     field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf(),
                     anotherField: new Date('Jan 20, 2018, 4:05:45 AM').valueOf()
@@ -139,7 +144,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('changing data from value to null displays blank', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -149,18 +154,18 @@ describe('TableColumnDateText', () => {
 
             const updatedValue = { field: null };
             const updatedData = [updatedValue];
-            await element.setData(updatedData);
+            await table.setData(updatedData);
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
         });
 
         it('changing data from null to value displays value', async () => {
-            await element.setData([{ field: null }]);
+            await table.setData([{ field: null }]);
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toEqual('');
 
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -172,7 +177,7 @@ describe('TableColumnDateText', () => {
 
         it('when no fieldName provided, nothing is displayed', async () => {
             column.fieldName = undefined;
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -181,8 +186,8 @@ describe('TableColumnDateText', () => {
         });
 
         it('sets title when cell text is ellipsized', async () => {
-            element.style.width = '200px';
-            await element.setData([
+            table.style.width = '200px';
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -198,7 +203,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('does not set title when cell text is fully visible', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -212,8 +217,8 @@ describe('TableColumnDateText', () => {
         });
 
         it('removes title on mouseout of cell', async () => {
-            element.style.width = '200px';
-            await element.setData([
+            table.style.width = '200px';
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -233,7 +238,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('sets group header text to rendered date value', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -243,7 +248,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('updates displayed date when format changes', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -253,14 +258,14 @@ describe('TableColumnDateText', () => {
         });
 
         it('updates displayed date when lang token changes', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
                 'Dec 10, 2012, 10:35:05 PM'
             );
-            lang.setValueFor(element, 'fr');
+            lang.setValueFor(table, 'fr');
             await waitForUpdatesAsync();
             expect(pageObject.getRenderedCellContent(0, 0)).toBe(
                 '10 déc. 2012, 22:35:05'
@@ -268,7 +273,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customDateStyle property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -281,7 +286,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customTimeStyle property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -292,7 +297,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customWeekday property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -303,7 +308,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customDay property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -314,7 +319,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customMonth property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -325,7 +330,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customYear property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -336,7 +341,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customEra property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -349,7 +354,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customHour property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -360,7 +365,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customMinute property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -371,7 +376,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customSecond property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -382,7 +387,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customHour12 property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -395,7 +400,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors setting customHour12 property to undefined', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -413,7 +418,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customHourCycle property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -425,7 +430,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customTimeZone and customTimeZoneName properties', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM UTC').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -439,7 +444,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customDayPeriod property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -451,7 +456,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customCalendar property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -467,7 +472,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('honors customNumberingSystem property', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -479,7 +484,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('has no invalid flag on column when using default formatting', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -487,7 +492,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('sets invalidCustomOptionsCombination flag on column when custom options are incompatible', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -499,7 +504,7 @@ describe('TableColumnDateText', () => {
         });
 
         it('clears invalidCustomOptionsCombination flag on column after fixing custom option incompatibility', async () => {
-            await element.setData([
+            await table.setData([
                 { field: new Date('Dec 10, 2012, 10:35:05 PM').valueOf() }
             ]);
             await waitForUpdatesAsync();
@@ -515,10 +520,10 @@ describe('TableColumnDateText', () => {
 
     describe('with static config', () => {
         // prettier-ignore
-        async function setupWithConfig(): Promise<Fixture<Table<SimpleTableRecord>>> {
+        async function setupWithConfig(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
             return fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table style="width: 700px">
-                        <${tableColumnDateTextTag} field-name="field" group-index="0"
+                html`<${tableTag} ${ref('table')} style="width: 700px">
+                        <${tableColumnDateTextTag} ${ref('column1')} field-name="field" group-index="0"
                             format="custom"
                             custom-locale-matcher="lookup"
                             custom-weekday="short"
@@ -542,17 +547,20 @@ describe('TableColumnDateText', () => {
                         >
                             Column 1
                         </${tableColumnDateTextTag}>
-                    </nimble-table>`
+                    </${tableTag}>`,
+                { source }
             );
         }
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setupWithConfig());
-            tablePageObject = new TablePageObject<SimpleTableRecord>(element);
+            elementReferences = new ElementReferences();
+            ({ connect, disconnect } = await setupWithConfig(elementReferences));
+            table = elementReferences.table;
+            tablePageObject = new TablePageObject<SimpleTableRecord>(table);
             pageObject = new TableColumnDateTextPageObject(tablePageObject);
             await connect();
             await waitForUpdatesAsync();
-            column = element.columns[0] as TableColumnDateText;
+            column = elementReferences.column1;
         });
 
         afterEach(async () => {

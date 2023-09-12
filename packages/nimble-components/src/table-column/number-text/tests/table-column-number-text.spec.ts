@@ -34,7 +34,7 @@ async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTab
                         Column 2
                     </${tableColumnNumberTextTag}>
                 </${tableTag}>
-            </${tableTag}>`,
+            </${themeProviderTag}>`,
         { source }
     );
 }
