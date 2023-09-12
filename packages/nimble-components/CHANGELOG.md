@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 06 Sep 2023 20:42:14 GMT and should not be manually modified.
+This log was last generated on Fri, 08 Sep 2023 23:00:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.7
+
+Fri, 08 Sep 2023 23:00:33 GMT
+
+### Patches
+
+- Refactored rich text components to use common models ([ni/nimble@fcbe79b](https://github.com/ni/nimble/commit/fcbe79bafc733fd35a4fcae6ebc6aee88388d1ad))
+
+## 20.2.6
+
+Thu, 07 Sep 2023 18:16:08 GMT
+
+### Patches
+
+- Update component rollup build configuration ([ni/nimble@3f637ad](https://github.com/ni/nimble/commit/3f637ad62b61475a9340c65e4923cb01e86de8ce))
 
 ## 20.2.5
 
