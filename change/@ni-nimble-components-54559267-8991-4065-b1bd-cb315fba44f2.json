@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Added support for using escape character(\\) in rich text editor",
+  "comment": "Added support for using escape character(backslash) in rich text editor",
   "packageName": "@ni/nimble-components",
   "email": "123591928+saikrishnan-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
