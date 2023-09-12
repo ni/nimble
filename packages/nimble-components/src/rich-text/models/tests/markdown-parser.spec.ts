@@ -232,45 +232,9 @@ describe('Markdown parser', () => {
                 'Bulleted list with bold and italics'
             ]);
         });
-
-        it('numbers with escape character should be parsed as paragraph', () => {
-            const r = String.raw;
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                r`1\.\ item 1
-                
-                2\. item 2
-                
-                3\.\item 3`
-            );
-
-            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
-            expect(getLeafContentsFromElement(doc)).toEqual([
-                r`1.\ item 1`,
-                r`2. item 2`,
-                r`3.\item 3`
-            ]);
-        });
-
-        it('bullet list with escape character should be parsed as paragraph', () => {
-            const r = String.raw;
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                r`-\ item 1
-                
-                -\ item 2
-                
-                -\item 3`
-            );
-
-            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
-            expect(getLeafContentsFromElement(doc)).toEqual([
-                r`-\ item 1`,
-                r`-\ item 2`,
-                r`-\item 3`
-            ]);
-        });
     });
 
-    describe('various escape characters should be parsed properly', () => {
+    describe('escape backslashes should be ignored while parsing', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
         const r = String.raw;
@@ -299,6 +263,15 @@ describe('Markdown parser', () => {
                 name: r`\[link\](url)`,
                 tags: ['P'],
                 textContent: ['[link](url)']
+            },
+            { name: r`\---`, tags: ['P'], textContent: ['---'] },
+            { name: r`\*\*\*`, tags: ['P'], textContent: ['***'] },
+            { name: r`\_\_\_`, tags: ['P'], textContent: ['___'] },
+            { name: r`\-Infinity`, tags: ['P'], textContent: ['-Infinity'] },
+            {
+                name: r`\-2147483648/-1`,
+                tags: ['P'],
+                textContent: ['-2147483648/-1']
             }
         ];
 
@@ -319,6 +292,40 @@ describe('Markdown parser', () => {
                 }
             );
         }
+
+        it('special character `.` should be parsed properly (number list test)', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`1\.\ item 1
+                
+                2\. item 2
+                
+                3\.\item 3`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                r`1.\ item 1`,
+                r`2. item 2`,
+                r`3.\item 3`
+            ]);
+        });
+
+        it('special character `.` should be parsed properly (bullet list test)', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`-\ item 1
+                
+                -\ item 2
+                
+                -\item 3`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                r`-\ item 1`,
+                r`-\ item 2`,
+                r`-\item 3`
+            ]);
+        });
     });
 
     describe('various not supported markdown string values render as unchanged strings', () => {
