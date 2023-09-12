@@ -54,6 +54,7 @@ describe('TableColumnDateText', () => {
             pageObject = new TableColumnDateTextPageObject(tablePageObject);
             await connect();
             await waitForUpdatesAsync();
+            column = elementReferences.column1;
         });
 
         afterEach(async () => {
