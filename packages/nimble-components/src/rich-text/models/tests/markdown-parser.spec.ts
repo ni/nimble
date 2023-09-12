@@ -242,9 +242,9 @@ describe('Markdown parser', () => {
                         validLink: '<HttP://nimble.NI.dev>'
                     },
                     {
-                        name: 'URL with query params & special characters',
+                        name: 'URL with reserved characters',
                         validLink:
-                            '<https://www.example.com/path/page?name=John&Doe>'
+                            '<https://www.example.com/path/equals=ampersand&question?dollar$plus+comma,At@semicolon;>'
                     },
                     {
                         name: 'Whitespace encoded URL',
@@ -273,6 +273,10 @@ describe('Markdown parser', () => {
                     {
                         name: 'URL with Fragment Identifier',
                         validLink: '<https://www.example.com/page#section>'
+                    },
+                    {
+                        name: 'URL with marks',
+                        validLink: '<http://bold**NI**.com>'
                     },
                     {
                         name: 'URL with Port Number',
@@ -322,6 +326,36 @@ describe('Markdown parser', () => {
                         name: 'Emoji',
                         validLink: '<https://example.com/smiley😀.html>',
                         encodeURL: 'https://example.com/smiley%F0%9F%98%80.html'
+                    },
+                    {
+                        name: 'Square brackets',
+                        validLink: '<https://example.com/[page]/index.html>',
+                        encodeURL: 'https://example.com/%5Bpage%5D/index.html'
+                    },
+                    {
+                        name: 'Backslashes',
+                        validLink: '<https://example.com\\path\\to\\resource>',
+                        encodeURL: 'https://example.com%5Cpath%5Cto%5Cresource'
+                    },
+                    {
+                        name: 'Open and close braces',
+                        validLink: '<https://example.com/{page}/index.html>',
+                        encodeURL: 'https://example.com/%7Bpage%7D/index.html'
+                    },
+                    {
+                        name: 'Pipe',
+                        validLink: '<https://example.com/page|/index.html>',
+                        encodeURL: 'https://example.com/page%7C/index.html'
+                    },
+                    {
+                        name: 'Caret',
+                        validLink: '<https://example.com/page^/index.html>',
+                        encodeURL: 'https://example.com/page%5E/index.html'
+                    },
+                    {
+                        name: 'Percent',
+                        validLink: '<https://example.com/page%/index.html>',
+                        encodeURL: 'https://example.com/page%25/index.html'
                     },
                     {
                         name: 'Basic IRI characters',
@@ -478,20 +512,6 @@ describe('Markdown parser', () => {
                 );
             });
 
-            it('adding marks like bold inside absolute links should not be parsed to "strong" HTML tag', () => {
-                const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                    '<https://**nimble**.ni.dev/>'
-                );
-
-                expect(getTagsFromElement(doc)).toEqual(['P', 'NIMBLE-ANCHOR']);
-                expect(getLeafContentsFromElement(doc)).toEqual([
-                    'https://**nimble**.ni.dev/'
-                ]);
-                expect(getLastChildElementAttribute('href', doc)).toBe(
-                    'https://**nimble**.ni.dev/'
-                );
-            });
-
             describe('various absolute links with different schemas other than https/http should be render as unchanged strings', () => {
                 const differentProtocolLinks: { name: string }[] = [
                     { name: '<ftp://example.com/files/document.pdf>' },
@@ -522,7 +542,44 @@ describe('Markdown parser', () => {
                         disabled
                     );
                     specType(
-                        `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
+                        `string "${value.name}" renders as plain text within paragraph tag`,
+                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                        () => {
+                            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                                value.name
+                            );
+
+                            expect(getTagsFromElement(doc)).toEqual(['P']);
+                            expect(getLeafContentsFromElement(doc)).toEqual([
+                                value.name
+                            ]);
+                        }
+                    );
+                }
+            });
+
+            describe('various unsafe characters in an absolute link', () => {
+                const notSupportedAbsoluteLink: {
+                    name: string
+                }[] = [
+                    { name: '<https://example.com/<page>>' },
+                    { name: '<https%3A%2F%2Fexample.com/>' },
+                    { name: 'http://www.example.com/' },
+                    { name: '<https:// example.com>' },
+                    { name: '<https://example .com>' },
+                    { name: '<https://example.com' }
+                ];
+
+                const focused: string[] = [];
+                const disabled: string[] = [];
+                for (const value of notSupportedAbsoluteLink) {
+                    const specType = getSpecTypeByNamedList(
+                        value,
+                        focused,
+                        disabled
+                    );
+                    specType(
+                        `string "${value.name}" renders as plain text within paragraph tag`,
                         // eslint-disable-next-line @typescript-eslint/no-loop-func
                         () => {
                             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
