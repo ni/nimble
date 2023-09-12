@@ -64,6 +64,8 @@ To allow end-users to enter a custom or create a new menu item, use a [**combobo
 
 ![ ](spec-images/select-alternative-combobox.png)
 
+> NOTE: SEE FUTURE CONSIDERATIONS FOR MULTI-SELECTION
+
 To allow end-users to multi-select menu items, use a [**tag picker**](/packages/nimble-components/src/tag-picker/specs/IxD.md).
 
 ![ ](spec-images/select-alternative-picker.png)
@@ -101,7 +103,7 @@ The client-user should be able to specify whether they want other information (i
 ![ ](spec-images/select-10.png)
 
 #### Selection
-> NOTE: NOT SURE THIS IS A REAL USE CASE FOR SELECT COMPONENT
+> NOTE: NOT SURE THIS IS A REAL USE CASE FOR SELECT COMPONENT, SEE FUTURE CONSIDERATIONS FOR MULTI-SELECTION
 
 The client-user should be able to specify whether they want to display selection with or without a check mark.
 
@@ -249,4 +251,4 @@ From a focused menu item, `UP ARROW` moves focus and selects the previous menu i
 TBD
 
 ## Future Considerations
-TBD
+- Should the select component allow multi-selection? Users on touch-screen devices may see a truncated list of comma-separated selections in the field button, without the ability to hover for a tooltip.
