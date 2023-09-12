@@ -55,6 +55,13 @@ describe('Nimble theme provider', () => {
             expect(nativeElement.validity.invalidLang).toBeFalse();
             expect(directive.checkValidity()).toBeTrue();
         });
+
+        it('updates validity when setting invalid lang', () => {
+            directive.lang = '123';
+            expect(directive.validity.invalidLang).toBeTrue();
+            expect(nativeElement.validity.invalidLang).toBeTrue();
+            expect(directive.checkValidity()).toBeFalse();
+        });
     });
 
     describe('with template string values', () => {
@@ -143,13 +150,11 @@ describe('Nimble theme provider', () => {
             expect(directive.lang).toBe('de-DE');
             expect(nativeElement.lang).toBe('de-DE');
 
-            fixture.componentInstance.lang = '123';
+            fixture.componentInstance.lang = 'fr-FR';
             fixture.detectChanges();
 
-            expect(directive.lang).toBe('123');
-            expect(nativeElement.lang).toBe('123');
-            expect(directive.validity.invalidLang).toBeTrue();
-            expect(directive.checkValidity()).toBeFalse();
+            expect(directive.lang).toBe('fr-FR');
+            expect(nativeElement.lang).toBe('fr-FR');
         });
     });
 
@@ -199,13 +204,11 @@ describe('Nimble theme provider', () => {
             expect(directive.lang).toBe('de-DE');
             expect(nativeElement.lang).toBe('de-DE');
 
-            fixture.componentInstance.lang = '123';
+            fixture.componentInstance.lang = 'fr-FR';
             fixture.detectChanges();
 
-            expect(directive.lang).toBe('123');
-            expect(nativeElement.lang).toBe('123');
-            expect(directive.validity.invalidLang).toBeTrue();
-            expect(directive.checkValidity()).toBeFalse();
+            expect(directive.lang).toBe('fr-FR');
+            expect(nativeElement.lang).toBe('fr-FR');
         });
     });
 });
