@@ -171,7 +171,7 @@ Nimble will introduce `nimble-table-column-number-text` which formats a numeric 
     -   `'decimal'` - format all values as decimal values (e.g. 123.45), always displaying `decimal-digits` digits after the separator and never displaying exponential notation. If required, values will be rounded to reach the specified number of decimial digits. Configuring `decimal-digits` to `0` will round the value to the nearest integer and display it with no decimal places. Will be displayed right-aligned by default.
     -   This could be extended to other pre-configured formats in future. Their configuration attributes would be prefixed with the name of the format mode.
     -   **Note:** all of the above will be implemented using a `Intl.NumberFormat` formatter. Nimble will configure the formatter with defaults to match the [visual design spec](https://github.com/ni/nimble/issues/887). The exception is that we will set `useGrouping: true` to achieve `1,000` rather than `1000` because this styles the values in a way that is more human readable.
--   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 if unspecified.
+-   `decimal-digits` - when format is `decimal`, a number that controls how many digits are shown to the right of the decimal separator. Defaults to 2 if unspecified. Formats other than `decimal` ignore `decimal-digits`.
 
 This column will display a blank cell when `typeof` the value is not `"number"` (i.e. if the value is `null`, `undefined`, not present, or has a different runtime data type). Note that IEE 754 numbers like Infinity, NaN, and -0 are type `"number"` so will be displayed how each formatter converts them. This will preserve values like `"∞"` and `"NaN"`.
 
@@ -345,7 +345,7 @@ We could add attributes for `unit` and `unit-display` that mirror the `unit` and
 
 **Cons:**
 
--   `Intl.NumberFormatter` supports a fairly limited amount of `unit` values with no way to extend the supported set
+-   `Intl.NumberFormatter` [supports a fairly limited amount of `unit` values](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers) with no way to extend the supported set
 -   Requires all records to have the same unit
 
 #### Add prefix and suffix attributes
