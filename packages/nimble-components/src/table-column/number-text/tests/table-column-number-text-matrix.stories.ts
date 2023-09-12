@@ -58,14 +58,6 @@ const component = (
             Default
         </${tableColumnNumberTextTag}>
         <${tableColumnNumberTextTag}
-            format="round-to-integer"
-            field-name="number"
-            group-index="1"
-            alignment="${() => alignment}"
-        >
-            Round to integer
-        </${tableColumnNumberTextTag}>
-        <${tableColumnNumberTextTag}
             format="decimal"
             decimal-digits="3"
             field-name="number"
