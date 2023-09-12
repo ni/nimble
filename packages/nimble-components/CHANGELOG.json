@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Tue, 12 Sep 2023 14:24:10 GMT",
+      "tag": "@ni/nimble-components_v20.2.7",
+      "version": "20.2.7",
+      "comments": {
+        "none": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "5f38265dd29aea52058ee9aceeb0e296b96a2e05",
+            "comment": "Setting height for rich text editor component in storybook docs and tests"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 08 Sep 2023 23:00:33 GMT",
       "tag": "@ni/nimble-components_v20.2.7",
       "version": "20.2.7",
