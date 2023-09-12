@@ -53,6 +53,18 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async pressShiftEnterKeysInEditor(): Promise<void> {
+        const editor = this.getTiptapEditor();
+        const shiftEnterEvent = new KeyboardEvent('keydown', {
+            key: keyEnter,
+            shiftKey: true,
+            bubbles: true,
+            cancelable: true
+        });
+        editor!.dispatchEvent(shiftEnterEvent);
+        await waitForUpdatesAsync();
+    }
+
     public async pressTabKeyInEditor(): Promise<void> {
         const editor = this.getTiptapEditor();
         const event = new KeyboardEvent('keydown', {
@@ -114,7 +126,13 @@ export class RichTextEditorPageObject {
         while (lastElement?.lastElementChild) {
             lastElement = lastElement?.lastElementChild;
         }
-        lastElement!.parentElement!.textContent = value;
+        const breakTags = lastElement!.parentElement!.querySelectorAll('br');
+        if (breakTags && breakTags.length > 1) {
+            const textNode = document.createTextNode(value);
+            lastElement!.parentElement!.insertBefore(textNode, lastElement as Node);
+        } else {
+            lastElement!.parentElement!.textContent = value;
+        }
         await waitForUpdatesAsync();
     }
 
