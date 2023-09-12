@@ -268,7 +268,7 @@ Placeholder
 
 ### Accessibility
 
-The `nimble-table` should align either to the W3C [grid interaction model](https://w3c.github.io/aria-practices/#grid) or the [table interaction model](https://w3c.github.io/aria-practices/#table) (TBD).
+The `nimble-table` should align either to the W3C [grid interaction model](https://www.w3.org/WAI/ARIA/apg/patterns/grid/) or the [table interaction model](https://www.w3.org/WAI/ARIA/apg/patterns/table/) (TBD).
 
 ### Globalization
 
