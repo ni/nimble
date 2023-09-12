@@ -25,8 +25,8 @@ export const styles = css`
         box-sizing: border-box;
         position: relative;
         color: inherit;
-        word-break: break-word;
-    }
+        overflow-wrap: anywhere;
+    };
 
     .viewer > :first-child {
         margin-block-start: 0;
