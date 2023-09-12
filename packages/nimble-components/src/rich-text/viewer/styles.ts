@@ -26,7 +26,7 @@ export const styles = css`
         position: relative;
         color: inherit;
         overflow-wrap: anywhere;
-    };
+    }
 
     .viewer > :first-child {
         margin-block-start: 0;
