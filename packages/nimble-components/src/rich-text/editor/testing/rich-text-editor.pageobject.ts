@@ -129,7 +129,10 @@ export class RichTextEditorPageObject {
         const breakTags = lastElement!.parentElement!.querySelectorAll('br');
         if (breakTags && breakTags.length > 1) {
             const textNode = document.createTextNode(value);
-            lastElement!.parentElement!.insertBefore(textNode, lastElement as Node);
+            lastElement!.parentElement!.insertBefore(
+                textNode,
+                lastElement as Node
+            );
         } else {
             lastElement!.parentElement!.textContent = value;
         }

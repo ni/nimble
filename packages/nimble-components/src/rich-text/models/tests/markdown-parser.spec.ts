@@ -352,12 +352,30 @@ describe('Markdown parser', () => {
             name: string,
             tags: string[]
         }[] = [
-            { name: '**bold**\\\n*Italics*', tags: ['P', 'STRONG', 'BR', 'EM'] },
-            { name: '**bold**\\\n \\ *Italics*', tags: ['P', 'STRONG', 'BR', 'EM'] },
-            { name: '* list\\\nhard break content\n* list', tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P'] },
-            { name: '* list\\\nhard break content\n* list \n  * nested list\\\nnested hard break content', tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P', 'UL', 'LI', 'P', 'BR'] },
-            { name: '1. list\\\nhard break content\n2. list', tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P'] },
-            { name: '1. list\\\nhard break content\n2. list \n   1. nested list\\\nnested hard break content', tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P', 'OL', 'LI', 'P', 'BR'] },
+            {
+                name: '**bold**\\\n*Italics*',
+                tags: ['P', 'STRONG', 'BR', 'EM']
+            },
+            {
+                name: '**bold**\\\n \\ *Italics*',
+                tags: ['P', 'STRONG', 'BR', 'EM']
+            },
+            {
+                name: '* list\\\nhard break content\n* list',
+                tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P']
+            },
+            {
+                name: '* list\\\nhard break content\n* list \n  * nested list\\\nnested hard break content',
+                tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P', 'UL', 'LI', 'P', 'BR']
+            },
+            {
+                name: '1. list\\\nhard break content\n2. list',
+                tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P']
+            },
+            {
+                name: '1. list\\\nhard break content\n2. list \n   1. nested list\\\nnested hard break content',
+                tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P', 'OL', 'LI', 'P', 'BR']
+            }
         ];
 
         for (const value of markdownStringWithHardBreak) {

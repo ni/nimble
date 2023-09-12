@@ -350,7 +350,12 @@ describe('RichTextEditor', () => {
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('bold2');
 
-            expect(pageObject.getEditorTagNames()).toEqual(['P', 'STRONG', 'BR', 'STRONG']);
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'P',
+                'STRONG',
+                'BR',
+                'STRONG'
+            ]);
         });
 
         it('should have "em" tag name for italics button click', async () => {
@@ -367,7 +372,12 @@ describe('RichTextEditor', () => {
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('italics2');
 
-            expect(pageObject.getEditorTagNames()).toEqual(['P', 'EM', 'BR', 'EM']);
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'P',
+                'EM',
+                'BR',
+                'EM'
+            ]);
         });
 
         it('should have "ol" tag name for numbered list button click', async () => {
@@ -386,7 +396,12 @@ describe('RichTextEditor', () => {
             await pageObject.pressShiftEnterKeysInEditor();
             await pageObject.setEditorTextContent('numbered list2');
 
-            expect(pageObject.getEditorTagNames()).toEqual(['OL', 'LI', 'P', 'BR']);
+            expect(pageObject.getEditorTagNames()).toEqual([
+                'OL',
+                'LI',
+                'P',
+                'BR'
+            ]);
         });
 
         it('should have multiple "ol" tag names for numbered list button click', async () => {
@@ -1027,9 +1042,13 @@ describe('RichTextEditor', () => {
         const hardBreakMarkdownStrings: { name: string }[] = [
             { name: '**bold**\\\n*Italics*' },
             { name: '* list\\\n  hard break content\n\n* list' },
-            { name: '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content' },
+            {
+                name: '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
+            },
             { name: '1. list\\\n   hard break content\n\n2. list' },
-            { name: '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content' }
+            {
+                name: '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
+            }
         ];
 
         const focused: string[] = [];

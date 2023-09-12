@@ -295,13 +295,15 @@ describe('Markdown serializer', () => {
             {
                 name: 'Nested Bulleted list and hard break',
                 html: '<ul><li><p>list<br>hard break content</p></li><li><p>list</p><ul><li><p>nested list<br>nested hard break content</p></li></ul></li></ul>',
-                markdown: '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
+                markdown:
+                    '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
             },
             {
                 name: 'Nested Numbered list and hard break',
                 html: '<ol><li><p>list<br>hard break content</p></li><li><p>list</p><ol><li><p>nested list<br>nested hard break content</p></li></ol></li></ol>',
-                markdown: '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
-            },
+                markdown:
+                    '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
+            }
         ];
 
         const focused: string[] = [];
