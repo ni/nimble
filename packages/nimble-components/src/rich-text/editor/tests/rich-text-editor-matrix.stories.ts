@@ -197,6 +197,15 @@ longWordContentInMobileWidth.play = (): void => {
         );
 };
 
+export const newLineWithForceLineBreakInMobileWidth: StoryFn = createStory(mobileWidthComponent);
+newLineWithForceLineBreakInMobileWidth.play = (): void => {
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(
+            'This is a line 1\\\nThis line enters new line using hardbreak <br> tag\n\nThis line enters new line in paragraph tag'
+        );
+};
+
 export const hiddenRichTextEditor: StoryFn = createStory(
     hiddenWrapper(html`<${richTextEditorTag} hidden></${richTextEditorTag}>`)
 );
