@@ -414,7 +414,7 @@ We will add standard unit tests, Blazor/Angular tests, and Chromatic tests for n
 
 #### Number column
 
--   number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER - n) should render as numbers
+-   number edge cases (-Inf, Inf, -0, +0, NaN, Number.MAX_SAFE_INTEGER + n, Number.MIN_SAFE_INTEGER - n) should render as numbers (the exact presentation on the numbers will depend on the formatting options chosen)
 -   non-number edge cases (e.g. strings containing numbers, undefined, null) should display blank
 -   formatting should change with different locales
 -   invalid formatter configuration should be reflected in column validity state
