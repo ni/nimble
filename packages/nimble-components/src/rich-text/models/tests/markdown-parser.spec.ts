@@ -233,7 +233,7 @@ describe('Markdown parser', () => {
             ]);
         });
 
-        it('numbers with escape character should be parsed as string and not as list', () => {
+        it('numbers with escape character should be parsed as paragraph', () => {
             const r = String.raw;
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 r`1\.\ item 1
@@ -251,7 +251,7 @@ describe('Markdown parser', () => {
             ]);
         });
 
-        it('bullet list with escape character should be parsed as string and not as list', () => {
+        it('bullet list with escape character should be parsed as paragraph', () => {
             const r = String.raw;
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
                 r`-\ item 1
@@ -268,34 +268,41 @@ describe('Markdown parser', () => {
                 r`-\item 3`
             ]);
         });
+    });
 
-        it('escape character should not be parsed and return only non escape character<\\*>', () => {
-            const r = String.raw;
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\*`);
+    describe('various escape characters should be parsed properly', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        const r = String.raw;
+        const testsWithEscapeCharacters = [
+            { name: r`\*`, tags: ['P'], textContent: ['*'] },
+            { name: r`\*\*bold\*\*`, tags: ['P'], textContent: ['**bold**'] },
+            { name: r`\*italics\*`, tags: ['P'], textContent: ['*italics*'] },
+            { name: r`\# test1`, tags: ['P'], textContent: ['# test1'] },
+            { name: r`\> blockquote`, tags: ['P'], textContent: ['> blockquote'] },
+            { name: r`\`code\``, tags: ['P'], textContent: ['`code`'] },
+            { name: r`\~\~strikethrough\~\~`, tags: ['P'], textContent: ['~~strikethrough~~'] },
+            { name: r`\## heading 2`, tags: ['P'], textContent: ['## heading 2'] },
+            { name: r`\[link\](url)`, tags: ['P'], textContent: ['[link](url)'] }
+        ];
 
-            expect(getTagsFromElement(doc)).toEqual(['P']);
-            expect(getLeafContentsFromElement(doc)).toEqual(['*']);
-        });
+        for (const value of testsWithEscapeCharacters) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            specType(
+                `"${value.name}"`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                () => {
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        value.name
+                    );
 
-        it('escape character should not be parsed and return only non escape character<\\*\\*Bold\\*\\*>', () => {
-            const r = String.raw;
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                r`\*\*bold\*\*`
+                    expect(getTagsFromElement(doc)).toEqual(value.tags);
+                    expect(getLeafContentsFromElement(doc)).toEqual(
+                        value.textContent
+                    );
+                }
             );
-
-            expect(getTagsFromElement(doc)).toEqual(['P']);
-            expect(getLeafContentsFromElement(doc)).toEqual([r`**bold**`]);
-        });
-
-        it('escape character should not be parsed and return only non escape character<\\*Italics\\*>', () => {
-            const r = String.raw;
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                r`\*italics\*`
-            );
-
-            expect(getTagsFromElement(doc)).toEqual(['P']);
-            expect(getLeafContentsFromElement(doc)).toEqual([r`*italics*`]);
-        });
+        }
     });
 
     describe('various not supported markdown string values render as unchanged strings', () => {
