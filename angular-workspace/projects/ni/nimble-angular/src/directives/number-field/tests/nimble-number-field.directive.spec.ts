@@ -92,8 +92,8 @@ describe('Nimble number field', () => {
         });
 
         it('has expected defaults for hideStep', () => {
-            expect(directive.hideStep).toBeUndefined();
-            expect(nativeElement.hideStep).toBeUndefined();
+            expect(directive.hideStep).toBeFalse();
+            expect(nativeElement.hideStep).toBeFalse();
         });
 
         it('can use the directive to set hideStep', () => {
@@ -461,10 +461,10 @@ describe('Nimble number field', () => {
         });
 
         it('can be configured with attribute binding for hideStep', () => {
-            expect(directive.hideStep).toBeUndefined();
-            expect(nativeElement.hideStep).toBeUndefined();
+            expect(directive.hideStep).toBeFalse();
+            expect(nativeElement.hideStep).toBeFalse();
 
-            fixture.componentInstance.hideStep = '';
+            fixture.componentInstance.hideStep = true;
             fixture.detectChanges();
 
             expect(directive.hideStep).toBeTrue();
