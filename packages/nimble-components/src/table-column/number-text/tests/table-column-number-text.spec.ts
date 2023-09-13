@@ -1,5 +1,5 @@
 import { html, ref } from '@microsoft/fast-element';
-import type { Table } from '../../../table';
+import { tableTag, type Table } from '../../../table';
 import { TableColumnNumberText, tableColumnNumberTextTag } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import { type Fixture, fixture } from '../../../utilities/tests/fixture';
@@ -9,43 +9,48 @@ import { NumberTextAlignment, NumberTextFormat } from '../types';
 import type { TableColumnNumberTextCellView } from '../cell-view';
 import { getSpecTypeByNamedList } from '../../../utilities/tests/parameterized';
 import { TextCellViewBaseAlignment } from '../../text-base/cell-view/types';
+import { lang, themeProviderTag } from '../../../theme-provider';
 
 interface SimpleTableRecord extends TableRecord {
     number1?: number | null;
     number2?: number | null;
 }
 
-class ColumnInstances {
+class ElementReferences {
+    public table!: Table;
     public column1!: TableColumnNumberText;
     public column2!: TableColumnNumberText;
 }
 
 // prettier-ignore
-async function setup(source: ColumnInstances): Promise<Fixture<Table<SimpleTableRecord>>> {
+async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
     return fixture<Table<SimpleTableRecord>>(
-        html`<nimble-table style="width: 700px">
-                <${tableColumnNumberTextTag} ${ref('column1')} field-name="number1" group-index="0">
-                    Column 1
-                </${tableColumnNumberTextTag}>
-                <${tableColumnNumberTextTag} ${ref('column2')} field-name="number2">
-                    Column 2
-                </${tableColumnNumberTextTag}>
-            </nimble-table>`,
+        html`<${themeProviderTag} lang="en-US">
+                <${tableTag} ${ref('table')} style="width: 700px">
+                    <${tableColumnNumberTextTag} ${ref('column1')} field-name="number1" group-index="0">
+                        Column 1
+                    </${tableColumnNumberTextTag}>
+                    <${tableColumnNumberTextTag} ${ref('column2')} field-name="number2">
+                        Column 2
+                    </${tableColumnNumberTextTag}>
+                </${tableTag}>
+            </${tableTag}>`,
         { source }
     );
 }
 
 describe('TableColumnNumberText', () => {
-    let element: Table<SimpleTableRecord>;
+    let table: Table<SimpleTableRecord>;
     let connect: () => Promise<void>;
     let disconnect: () => Promise<void>;
-    let columnInstances: ColumnInstances;
+    let elementReferences: ElementReferences;
     let pageObject: TablePageObject<SimpleTableRecord>;
 
     beforeEach(async () => {
-        columnInstances = new ColumnInstances();
-        ({ element, connect, disconnect } = await setup(columnInstances));
-        pageObject = new TablePageObject<SimpleTableRecord>(element);
+        elementReferences = new ElementReferences();
+        ({ connect, disconnect } = await setup(elementReferences));
+        table = elementReferences.table;
+        pageObject = new TablePageObject<SimpleTableRecord>(table);
     });
 
     afterEach(async () => {
@@ -68,8 +73,8 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        expect(columnInstances.column1.checkValidity()).toBeTrue();
-        expect(columnInstances.column2.checkValidity()).toBeTrue();
+        expect(elementReferences.column1.checkValidity()).toBeTrue();
+        expect(elementReferences.column2.checkValidity()).toBeTrue();
     });
 
     const noValueData = [
@@ -84,7 +89,7 @@ describe('TableColumnNumberText', () => {
     for (const testData of noValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         it(`displays empty string when ${testData.description}`, async () => {
-            await element.setData(testData.data);
+            await table.setData(testData.data);
             await connect();
             await waitForUpdatesAsync();
 
@@ -93,32 +98,47 @@ describe('TableColumnNumberText', () => {
     }
 
     it('defaults to "default" format', () => {
-        expect(columnInstances.column1.format).toBe(NumberTextFormat.default);
+        expect(elementReferences.column1.format).toBe(NumberTextFormat.default);
     });
 
     it('defaults to "default" alignment', () => {
-        expect(columnInstances.column1.alignment).toBe(
+        expect(elementReferences.column1.alignment).toBe(
             NumberTextAlignment.default
         );
     });
 
     it('changing format updates display', async () => {
-        await element.setData([{ number1: 2.9 }]);
+        await table.setData([{ number1: 2.9 }]);
         await connect();
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('2.9');
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('2.9');
 
-        columnInstances.column1.format = NumberTextFormat.roundToInteger;
+        elementReferences.column1.format = NumberTextFormat.decimal;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('3');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('3');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('2.90');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('2.90');
+    });
+
+    it('changing lang token updates display', async () => {
+        await table.setData([{ number1: 1002.9 }]);
+        await connect();
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('1,002.9');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('1,002.9');
+
+        lang.setValueFor(table, 'de');
+        await waitForUpdatesAsync();
+
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('1.002,9');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('1.002,9');
     });
 
     it('shows initial values', async () => {
-        await element.setData([{ number1: 2, number2: -99 }]);
+        await table.setData([{ number1: 2, number2: -99 }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -128,11 +148,11 @@ describe('TableColumnNumberText', () => {
     });
 
     it('changing fieldName updates display', async () => {
-        await element.setData([{ number1: 2, number2: -99 }]);
+        await table.setData([{ number1: 2, number2: -99 }]);
         await connect();
         await waitForUpdatesAsync();
 
-        columnInstances.column1.fieldName = 'number2';
+        elementReferences.column1.fieldName = 'number2';
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('-99');
@@ -140,13 +160,13 @@ describe('TableColumnNumberText', () => {
     });
 
     it('changing data from value to null displays blank', async () => {
-        await element.setData([{ number1: 10 }]);
+        await table.setData([{ number1: 10 }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('10');
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('10');
 
-        await element.setData([{ number1: null }]);
+        await table.setData([{ number1: null }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
@@ -154,13 +174,13 @@ describe('TableColumnNumberText', () => {
     });
 
     it('changing data from null to value displays value', async () => {
-        await element.setData([{ number1: null }]);
+        await table.setData([{ number1: null }]);
         await connect();
         await waitForUpdatesAsync();
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('');
 
-        await element.setData([{ number1: -16 }]);
+        await table.setData([{ number1: -16 }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('-16');
@@ -171,8 +191,8 @@ describe('TableColumnNumberText', () => {
         await connect();
         await waitForUpdatesAsync();
 
-        columnInstances.column1.fieldName = undefined;
-        await element.setData([{ number1: 11 }]);
+        elementReferences.column1.fieldName = undefined;
+        await table.setData([{ number1: 11 }]);
         await waitForUpdatesAsync();
 
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
@@ -184,15 +204,16 @@ describe('TableColumnNumberText', () => {
         const largeNumberAsIntegerString = '8,729,375,089,724,643';
 
         beforeEach(async () => {
-            // Change the format to 'roundToInteger' for the title tests so that the number isn't displayed in
+            // Change the format to 'decimal' for the title tests so that the number isn't displayed in
             // exponential notation, which makes it difficult to render a long enough string to have overflow.
-            columnInstances.column1.format = NumberTextFormat.roundToInteger;
+            elementReferences.column1.format = NumberTextFormat.decimal;
+            elementReferences.column1.decimalDigits = 0;
             await waitForUpdatesAsync();
         });
 
         it('sets title when cell text is ellipsized', async () => {
-            element.style.width = '200px';
-            await element.setData([{ number1: largeNumber }]);
+            table.style.width = '200px';
+            await table.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -204,7 +225,7 @@ describe('TableColumnNumberText', () => {
         });
 
         it('does not set title when cell text is fully visible', async () => {
-            await element.setData([{ number1: 0 }]);
+            await table.setData([{ number1: 0 }]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -214,8 +235,8 @@ describe('TableColumnNumberText', () => {
         });
 
         it('removes title on mouseout of cell', async () => {
-            element.style.width = '200px';
-            await element.setData([{ number1: largeNumber }]);
+            table.style.width = '200px';
+            await table.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -227,9 +248,9 @@ describe('TableColumnNumberText', () => {
         });
 
         it('sets title when group header text is ellipsized', async () => {
-            element.style.width = '100px';
-            columnInstances.column2.columnHidden = true;
-            await element.setData([{ number1: largeNumber }]);
+            table.style.width = '100px';
+            elementReferences.column2.columnHidden = true;
+            await table.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -244,7 +265,7 @@ describe('TableColumnNumberText', () => {
         });
 
         it('does not set title when group header text is fully visible', async () => {
-            await element.setData([{ number1: 1 }]);
+            await table.setData([{ number1: 1 }]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -257,9 +278,9 @@ describe('TableColumnNumberText', () => {
         });
 
         it('removes title on mouseout of group header', async () => {
-            element.style.width = '100px';
-            columnInstances.column2.columnHidden = true;
-            await element.setData([{ number1: largeNumber }]);
+            table.style.width = '100px';
+            elementReferences.column2.columnHidden = true;
+            await table.setData([{ number1: largeNumber }]);
             await connect();
             await waitForUpdatesAsync();
 
@@ -278,9 +299,9 @@ describe('TableColumnNumberText', () => {
     });
 
     it('uses decimal-digits applied before connection', async () => {
-        columnInstances.column1.format = NumberTextFormat.decimal;
-        columnInstances.column1.decimalDigits = 4;
-        await element.setData([{ number1: 11.01234567 }]);
+        elementReferences.column1.format = NumberTextFormat.decimal;
+        elementReferences.column1.decimalDigits = 4;
+        await table.setData([{ number1: 11.01234567 }]);
         await connect();
         await waitForUpdatesAsync();
 
@@ -290,9 +311,9 @@ describe('TableColumnNumberText', () => {
 
     describe('updating configuration after connection', () => {
         beforeEach(async () => {
-            columnInstances.column1.format = NumberTextFormat.decimal;
+            elementReferences.column1.format = NumberTextFormat.decimal;
             await connect();
-            await element.setData([{ number1: 11 }]);
+            await table.setData([{ number1: 11 }]);
             await waitForUpdatesAsync();
         });
 
@@ -304,7 +325,7 @@ describe('TableColumnNumberText', () => {
         });
 
         it('updating decimal-digits updates rendered value', async () => {
-            columnInstances.column1.decimalDigits = 5;
+            elementReferences.column1.decimalDigits = 5;
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
@@ -316,9 +337,9 @@ describe('TableColumnNumberText', () => {
         });
 
         it('updating decimal-digits to undefined uses two digits', async () => {
-            columnInstances.column1.decimalDigits = 5;
+            elementReferences.column1.decimalDigits = 5;
             await waitForUpdatesAsync();
-            columnInstances.column1.decimalDigits = undefined;
+            elementReferences.column1.decimalDigits = undefined;
             await waitForUpdatesAsync();
 
             expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('11.00');
@@ -328,48 +349,48 @@ describe('TableColumnNumberText', () => {
         });
 
         it('setting an invalid decimal-digits value makes the column invalid', async () => {
-            columnInstances.column1.decimalDigits = -5;
+            elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(columnInstances.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
             expect(
-                columnInstances.column1.validity.invalidDecimalDigits
+                elementReferences.column1.validity.invalidDecimalDigits
             ).toBeTrue();
         });
 
         it('changing format of invalid decimal column makes it valid', async () => {
-            columnInstances.column1.decimalDigits = -5;
+            elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(columnInstances.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
             expect(
-                columnInstances.column1.validity.invalidDecimalDigits
+                elementReferences.column1.validity.invalidDecimalDigits
             ).toBeTrue();
 
-            columnInstances.column1.format = NumberTextFormat.default;
+            elementReferences.column1.format = NumberTextFormat.default;
             await waitForUpdatesAsync();
 
-            expect(columnInstances.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBeTrue();
             expect(
-                columnInstances.column1.validity.invalidDecimalDigits
+                elementReferences.column1.validity.invalidDecimalDigits
             ).toBeFalse();
         });
 
         it('changing to a valid decimal-digits value makes an invalid column valid', async () => {
-            columnInstances.column1.decimalDigits = -5;
+            elementReferences.column1.decimalDigits = -5;
             await waitForUpdatesAsync();
 
-            expect(columnInstances.column1.checkValidity()).toBeFalse();
+            expect(elementReferences.column1.checkValidity()).toBeFalse();
             expect(
-                columnInstances.column1.validity.invalidDecimalDigits
+                elementReferences.column1.validity.invalidDecimalDigits
             ).toBeTrue();
 
-            columnInstances.column1.decimalDigits = 1;
+            elementReferences.column1.decimalDigits = 1;
             await waitForUpdatesAsync();
 
-            expect(columnInstances.column1.checkValidity()).toBeTrue();
+            expect(elementReferences.column1.checkValidity()).toBeTrue();
             expect(
-                columnInstances.column1.validity.invalidDecimalDigits
+                elementReferences.column1.validity.invalidDecimalDigits
             ).toBeFalse();
         });
     });
@@ -390,24 +411,6 @@ describe('TableColumnNumberText', () => {
         {
             name: 'with default format and right alignment',
             format: NumberTextFormat.default,
-            configuredColumnAlignment: NumberTextAlignment.right,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
-        },
-        {
-            name: 'with roundToInteger format and default alignment',
-            format: NumberTextFormat.roundToInteger,
-            configuredColumnAlignment: NumberTextAlignment.default,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
-        },
-        {
-            name: 'with roundToInteger format and left alignment',
-            format: NumberTextFormat.roundToInteger,
-            configuredColumnAlignment: NumberTextAlignment.left,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
-        },
-        {
-            name: 'with roundToInteger format and right alignment',
-            format: NumberTextFormat.roundToInteger,
             configuredColumnAlignment: NumberTextAlignment.right,
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
         },
@@ -441,9 +444,9 @@ describe('TableColumnNumberText', () => {
             );
             // eslint-disable-next-line @typescript-eslint/no-loop-func
             specType(`${testCase.name}`, async () => {
-                await element.setData([{ number1: 10 }]);
-                columnInstances.column1.format = testCase.format;
-                columnInstances.column1.alignment = testCase.configuredColumnAlignment;
+                await table.setData([{ number1: 10 }]);
+                elementReferences.column1.format = testCase.format;
+                elementReferences.column1.alignment = testCase.configuredColumnAlignment;
                 await connect();
                 await waitForUpdatesAsync();
 
@@ -462,9 +465,9 @@ describe('TableColumnNumberText', () => {
         let cellView: TableColumnNumberTextCellView;
 
         beforeEach(async () => {
-            await element.setData([{ number1: 10 }]);
-            columnInstances.column1.alignment = NumberTextAlignment.default;
-            columnInstances.column1.format = NumberTextFormat.default;
+            await table.setData([{ number1: 10 }]);
+            elementReferences.column1.alignment = NumberTextAlignment.default;
+            elementReferences.column1.format = NumberTextFormat.default;
             await connect();
             await waitForUpdatesAsync();
             cellView = pageObject.getRenderedCellView(
@@ -475,13 +478,13 @@ describe('TableColumnNumberText', () => {
         });
 
         it('when alignment changes', async () => {
-            columnInstances.column1.alignment = NumberTextAlignment.right;
+            elementReferences.column1.alignment = NumberTextAlignment.right;
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
         });
 
         it('when format changes and alignment is set to "default"', async () => {
-            columnInstances.column1.format = NumberTextFormat.roundToInteger;
+            elementReferences.column1.format = NumberTextFormat.decimal;
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
         });
