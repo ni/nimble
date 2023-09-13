@@ -2,6 +2,29 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 13 Sep 2023 15:39:27 GMT",
+      "tag": "@ni/nimble-angular_v17.2.12",
+      "version": "17.2.12",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f4427670abfdc441c69cf9c753877231c641b268",
+            "comment": "Update tests after removing roundToInteger format from number-text column"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.12",
+            "commit": "f4427670abfdc441c69cf9c753877231c641b268"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Sep 2023 13:01:33 GMT",
       "tag": "@ni/nimble-angular_v17.2.11",
       "version": "17.2.11",
