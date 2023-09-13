@@ -73,7 +73,6 @@ describe('Nimble combobox control value accessor', () => {
         }
 
         let combobox: Combobox;
-        let lastOption: ListOption;
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
 
@@ -88,7 +87,6 @@ describe('Nimble combobox control value accessor', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             combobox = testHostComponent.combobox.nativeElement;
-            lastOption = testHostComponent.lastOption.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
             await waitForUpdatesAsync();
@@ -174,27 +172,6 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(combobox.control.value).toEqual('foo');
             expect(testHostComponent.selectedOption).toBe(testHostComponent.dynamicOption);
-        });
-
-        it('text is changed in DOM for selected option, combobox display text and model value are unchanged', async () => {
-            const lastOptionInitialText = lastOption.text;
-            clickOnListOption(combobox, 7); // select last option (sharedOption)
-            fixture.detectChanges();
-            lastOption.textContent = 'Option 2';
-            await waitForUpdatesAsync();
-
-            expect(testHostComponent.selectedOption).toBe(testHostComponent.sharedOption);
-            expect(combobox.control.value).toBe(lastOptionInitialText);
-        });
-
-        it('text is changed in DOM for non-selected option, when changed option is selected, combobox display text matches DOM', async () => {
-            lastOption.textContent = 'foo';
-            await waitForUpdatesAsync();
-            clickOnListOption(combobox, 7); // select last option (sharedOption)
-            fixture.detectChanges();
-
-            expect(testHostComponent.selectedOption).toBe(testHostComponent.sharedOption);
-            expect(combobox.control.value).toBe('foo');
         });
 
         it('null option is selected, combobox display value is set to provided display string for null', async () => {
@@ -379,7 +356,6 @@ describe('Nimble combobox control value accessor', () => {
         }
 
         let combobox: Combobox;
-        let lastOption: ListOption;
         let fixture: ComponentFixture<TestHostComponent>;
         let testHostComponent: TestHostComponent;
 
@@ -394,7 +370,6 @@ describe('Nimble combobox control value accessor', () => {
             fixture = TestBed.createComponent(TestHostComponent);
             testHostComponent = fixture.componentInstance;
             combobox = testHostComponent.combobox.nativeElement;
-            lastOption = testHostComponent.lastOption.nativeElement;
             fixture.detectChanges();
             // wait for combobox's 'options' property to be updated from slotted content
             await waitForUpdatesAsync();
@@ -493,27 +468,6 @@ describe('Nimble combobox control value accessor', () => {
 
             expect(combobox.control.value).toEqual('foo');
             expect(testHostComponent.selectedOption.value).toBe(testHostComponent.dynamicOption);
-        });
-
-        it('text is changed in DOM for selected option, combobox display text and model value are unchanged', async () => {
-            const lastOptionText = lastOption.text;
-            clickOnListOption(combobox, 7); // select last option (sharedOption)
-            fixture.detectChanges();
-            lastOption.textContent = 'Option 2';
-            await waitForUpdatesAsync();
-
-            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.sharedOption);
-            expect(combobox.control.value).toBe(lastOptionText);
-        });
-
-        it('text is changed in DOM for non-selected option, when changed option is selected, combobox display text matches DOM', async () => {
-            lastOption.textContent = 'foo';
-            await waitForUpdatesAsync();
-            clickOnListOption(combobox, 7); // select last option (sharedOption)
-            fixture.detectChanges();
-
-            expect(testHostComponent.selectedOption.value).toBe(testHostComponent.sharedOption);
-            expect(combobox.control.value).toBe('foo');
         });
 
         it('null option is selected, combobox display value is set to provided display string for null', async () => {

@@ -1,6 +1,6 @@
 import { AfterViewChecked, Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
 import type { Combobox } from '../../public-api';
 
 /**
@@ -66,12 +66,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     @HostListener('blur')
     private onTouched: () => void;
 
-    private readonly observer: MutationObserver;
-
-    public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef) {
-        this.observer = new MutationObserver(this.mutationCallback);
-        this.observer.observe((this._elementRef.nativeElement as HTMLElement), { subtree: true, childList: true, characterData: true });
-    }
+    public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef<Combobox>) {}
 
     public ngAfterViewChecked(): void {
         for (const updateValue of this._optionUpdateQueue) {
@@ -129,6 +124,10 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._optionToModelValueMap.set(option, modelValue);
         const options = this._displayTextToOptionsMap.get(displayValue);
         if (options) {
+            const removeIndex = options.indexOf(option);
+            if (removeIndex >= 0) {
+                options.splice(removeIndex, 1);
+            }
             options.push(option);
         } else {
             this._displayTextToOptionsMap.set(displayValue, [option]);
@@ -164,19 +163,6 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._optionUpdateQueue.push({ listOption, modelValue });
     }
 
-    private refreshDisplayTextOptions(): void {
-        this._displayTextToOptionsMap.clear();
-        const options = Array.from((this._elementRef.nativeElement as Combobox).querySelectorAll('nimble-list-option'));
-        for (const option of options) {
-            const displayTextOptions = this._displayTextToOptionsMap.get(option.text);
-            if (!displayTextOptions) {
-                this._displayTextToOptionsMap.set(option.text, [option]);
-            } else {
-                displayTextOptions.push(option);
-            }
-        }
-    }
-
     private updateDisplayValue(): void {
         const valueAsString = this.getValueStringFromValue(this._modelValue);
         this.setProperty('value', valueAsString ?? '');
@@ -203,14 +189,4 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     private setProperty(key: string, value: unknown): void {
         this._renderer.setProperty(this._elementRef.nativeElement, key, value);
     }
-
-    private readonly mutationCallback = (mutations: MutationRecord[]): void => {
-        const optionTextUpdate = mutations.find(mutation => {
-            return ((mutation.type === 'characterData' && mutation.target.parentElement instanceof ListOption)
-                || (mutation.type === 'childList' && mutation.target instanceof ListOption));
-        });
-        if (optionTextUpdate) {
-            this.refreshDisplayTextOptions();
-        }
-    };
 }
