@@ -14,7 +14,7 @@
   "packageRules": [
     {
       "groupName": "dependencies",
-      "matchDepTypes": ["dependencies"],
+      "matchDepTypes": ["dependencies"]
     },
     {
       "groupName": "devDependencies",
