@@ -4,7 +4,7 @@ import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '@ni/nimble
 import { NimbleNumberFieldDirective, NumberField, NumberFieldAppearance } from '../nimble-number-field.directive';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
 
-fdescribe('Nimble number field', () => {
+describe('Nimble number field', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NimbleNumberFieldModule]
