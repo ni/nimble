@@ -13,48 +13,12 @@
   },
   "packageRules": [
     {
-      "matchManagers": ["npm"],
-      "enabled": false
+      "groupName": "dependencies",
+      "matchDepTypes": ["dependencies"],
     },
     {
-      "groupName": "beachball",
-      "matchPackageNames": ["beachball"],
-      "enabled": true
-    },
-    {
-      "groupName": "D3",
-      "matchPackagePatterns": ["d3"],
-      "enabled": true
-    },
-    {
-      "groupName": "FAST",
-      "matchPackagePatterns": ["^@microsoft/fast"],
-      "enabled": true
-    },
-    {
-      "groupName": "NI ESLint config",
-      "matchPackagePatterns": ["^@ni/eslint-config"],
-      "enabled": true
-    },
-    {
-      "groupName": "Playwright",
-      "matchPackagePatterns": ["playwright"],
-      "enabled": true
-    },
-    {
-      "groupName": "Rich Text",
-      "matchPackagePatterns": ["^@tiptap/", "@types/markdown-it", "prosemirror-"],
-      "enabled": true
-    },
-    {
-      "groupName": "Storybook",
-      "matchPackagePatterns": ["storybook"],
-      "enabled": true
-    },
-    {
-      "groupName": "TanStack",
-      "matchPackagePatterns": ["^@tanstack/"],
-      "enabled": true
+      "groupName": "devDependencies",
+      "matchDepTypes": ["devDependencies"],
     }
   ]
 }
