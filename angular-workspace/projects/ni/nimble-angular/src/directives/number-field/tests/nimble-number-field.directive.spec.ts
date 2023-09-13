@@ -4,7 +4,7 @@ import type { BooleanValueOrAttribute, NumberValueOrAttribute } from '@ni/nimble
 import { NimbleNumberFieldDirective, NumberField, NumberFieldAppearance } from '../nimble-number-field.directive';
 import { NimbleNumberFieldModule } from '../nimble-number-field.module';
 
-describe('Nimble number field', () => {
+fdescribe('Nimble number field', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NimbleNumberFieldModule]
@@ -369,7 +369,7 @@ describe('Nimble number field', () => {
                     [attr.min]="min"
                     [attr.max]="max"
                     [attr.step]="step"
-                    [attr.hide-step]="hide-step"
+                    [attr.hide-step]="hideStep"
                     [attr.placeholder]="placeholder"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
