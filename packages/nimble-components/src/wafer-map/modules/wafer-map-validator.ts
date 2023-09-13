@@ -2,8 +2,8 @@ import type { WaferMap } from '..';
 import type { WaferMapValidity } from '../types';
 
 /**
- * Helper class for the nimble-table to validate that the table's configuration
- * is valid and report which aspects of the configuration are valid or invalid.
+ * Helper class for the nimble-wafer-map to validate that the wafer maps's grid dimensions
+ * configuration is valid and report which aspects of the configuration are valid or invalid.
  */
 export class WaferMapValidator {
     private invalidGridDimensions = false;
