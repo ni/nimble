@@ -1047,15 +1047,15 @@ describe('RichTextEditor', () => {
     });
 
     describe('`getMarkdown` with hard break backslashes should be same immediately after `setMarkdown`', () => {
-        const hardBreakMarkdownStrings: { name: string }[] = [
-            { name: '**bold**\\\n*Italics*' },
-            { name: '* list\\\n  hard break content\n\n* list' },
+        const hardBreakMarkdownStrings: { name: string, value: string }[] = [
+            { name: 'bold and italics', value: '**bold**\\\n*Italics*' },
+            { name: 'two first level bulleted list items', value: '* list\\\n  hard break content\n\n* list' },
             {
-                name: '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
+                name: 'two first level bulleted list items and with nested list', value: '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
             },
-            { name: '1. list\\\n   hard break content\n\n2. list' },
+            { name: 'two first level numbered list items', value: '1. list\\\n   hard break content\n\n2. list' },
             {
-                name: '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
+                name: 'two first level numbered list items and with nested list', value: '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
             }
         ];
 
@@ -1064,14 +1064,14 @@ describe('RichTextEditor', () => {
         for (const value of hardBreakMarkdownStrings) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
             specType(
-                `markdown string with hard break "${value.name}" returns as "${value.name}" without any change`,
+                `markdown string with hard break in "${value.name}" returns as same without any change`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 async () => {
-                    element.setMarkdown(value.name);
+                    element.setMarkdown(value.value);
 
                     await connect();
 
-                    expect(element.getMarkdown()).toBe(value.name);
+                    expect(element.getMarkdown()).toBe(value.value);
 
                     await disconnect();
                 }

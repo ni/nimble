@@ -388,7 +388,7 @@ describe('Markdown parser', () => {
         for (const value of markdownStringWithHardBreak) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
             specType(
-                `should render br tag between "${value.name}"`,
+                `should render br tag with "${value.name}"`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
