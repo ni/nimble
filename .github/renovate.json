@@ -13,6 +13,9 @@
   },
   "packageRules": [
     {
+      "enabled": false
+    },
+    {
       "groupName": "Dependencies",
       "matchDepTypes": ["dependencies"],
       "matchPackagePatterns":[
@@ -22,7 +25,8 @@
         "@types/markdown-it",
         "d3-",
         "prosemirror-"
-      ]
+      ],
+      "enabled": true
     },
     {
       "groupName": "Dev Dependencies",
@@ -32,7 +36,8 @@
         "beachball",
         "playwright",
         "storybook"
-      ]
+      ],
+      "enabled": true
     }
   ]
 }
