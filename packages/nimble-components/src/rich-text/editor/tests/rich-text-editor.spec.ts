@@ -394,7 +394,9 @@ describe('RichTextEditor', () => {
             await pageObject.setEditorTextContent('numbered list1');
             await pageObject.clickFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Hard break in first level of numbered list');
+            await pageObject.setEditorTextContent(
+                'Hard break in first level of numbered list'
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -535,7 +537,9 @@ describe('RichTextEditor', () => {
             await pageObject.pressTabKeyInEditor();
             await pageObject.clickFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Hard break in Nested Bulleted List');
+            await pageObject.setEditorTextContent(
+                'Hard break in Nested Bulleted List'
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -560,7 +564,9 @@ describe('RichTextEditor', () => {
             await pageObject.setEditorTextContent('Bulleted List 1');
             await pageObject.clickFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Hard break in first level of bulleted List');
+            await pageObject.setEditorTextContent(
+                'Hard break in first level of bulleted List'
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -667,7 +673,9 @@ describe('RichTextEditor', () => {
             await pageObject.pressTabKeyInEditor();
             await pageObject.clickFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Hard break in Nested Numbered List');
+            await pageObject.setEditorTextContent(
+                'Hard break in Nested Numbered List'
+            );
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
