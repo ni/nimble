@@ -43,7 +43,8 @@ export class RichTextMarkdownParser {
         const supportedTokenizerRules = zeroTokenizerConfiguration.enable([
             'emphasis',
             'list',
-            'autolink'
+            'autolink',
+            'escape'
         ]);
 
         return new MarkdownParser(
