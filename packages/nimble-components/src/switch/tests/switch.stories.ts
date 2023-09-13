@@ -12,7 +12,7 @@ interface SwitchArgs {
     uncheckedMessage: string;
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#switch) - A switch is an input widget that
+const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) - A switch is an input widget that
 allows users to choose one of two values: on or off. Switches are similar to checkboxes and toggle buttons, which
 can also serve as binary inputs. One difference, however, is that switches can only be used for binary input while
 checkboxes and toggle buttons allow implementations the option of supporting a third middle state. Checkboxes can

@@ -3,6 +3,10 @@ import type { RichTextEditor } from '..';
 import { waitForUpdatesAsync } from '../../../testing/async-helpers';
 import type { ToggleButton } from '../../../toggle-button';
 import type { ToolbarButton } from './types';
+import {
+    getTagsFromElement,
+    getLeafContentsFromElement
+} from '../../models/testing/markdown-parser-utils';
 
 /**
  * Page object for the `nimble-rich-text-editor` component.
@@ -78,6 +82,12 @@ export class RichTextEditorPageObject {
         await waitForUpdatesAsync();
     }
 
+    public async clickFooterIconSlot(button: ToolbarButton): Promise<void> {
+        const icon = this.getIconSlot(button);
+        icon!.click();
+        await waitForUpdatesAsync();
+    }
+
     public getButtonCheckedState(button: ToolbarButton): boolean {
         const toggleButton = this.getFormattingButton(button);
         return toggleButton!.checked;
@@ -123,17 +133,13 @@ export class RichTextEditorPageObject {
     }
 
     public getEditorTagNames(): string[] {
-        return Array.from(this.getTiptapEditor()!.querySelectorAll('*')).map(
-            el => el.tagName
-        );
+        return getTagsFromElement(this.getTiptapEditor() as HTMLElement);
     }
 
     public getEditorLeafContents(): string[] {
-        return Array.from(this.getTiptapEditor()!.querySelectorAll('*'))
-            .filter((el, _) => {
-                return el.children.length === 0;
-            })
-            .map(el => el.textContent || '');
+        return getLeafContentsFromElement(
+            this.getTiptapEditor() as HTMLElement
+        );
     }
 
     public getFormattingButtonTextContent(
@@ -216,5 +222,12 @@ export class RichTextEditorPageObject {
             'nimble-toggle-button'
         );
         return buttons[button];
+    }
+
+    private getIconSlot(
+        button: ToolbarButton
+    ): HTMLSpanElement | null | undefined {
+        const toggleButton = this.getFormattingButton(button);
+        return toggleButton?.shadowRoot?.querySelector('.start');
     }
 }
