@@ -1049,13 +1049,21 @@ describe('RichTextEditor', () => {
     describe('`getMarkdown` with hard break backslashes should be same immediately after `setMarkdown`', () => {
         const hardBreakMarkdownStrings: { name: string, value: string }[] = [
             { name: 'bold and italics', value: '**bold**\\\n*Italics*' },
-            { name: 'two first level bulleted list items', value: '* list\\\n  hard break content\n\n* list' },
             {
-                name: 'two first level bulleted list items and with nested list', value: '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
+                name: 'two first level bulleted list items',
+                value: '* list\\\n  hard break content\n\n* list'
             },
-            { name: 'two first level numbered list items', value: '1. list\\\n   hard break content\n\n2. list' },
             {
-                name: 'two first level numbered list items and with nested list', value: '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
+                name: 'two first level bulleted list items and with nested list',
+                value: '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
+            },
+            {
+                name: 'two first level numbered list items',
+                value: '1. list\\\n   hard break content\n\n2. list'
+            },
+            {
+                name: 'two first level numbered list items and with nested list',
+                value: '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
             }
         ];
 
