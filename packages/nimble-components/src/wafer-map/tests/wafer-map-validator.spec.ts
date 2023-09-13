@@ -8,10 +8,7 @@ describe('Wafermap Validator module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            | 'gridMinX'
-            | 'gridMaxX'
-            | 'gridMinY'
-            | 'gridMaxY'
+            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
             > = {
                 gridMinX: undefined,
                 gridMaxX: undefined,
@@ -31,10 +28,7 @@ describe('Wafermap Validator module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            | 'gridMinX'
-            | 'gridMaxX'
-            | 'gridMinY'
-            | 'gridMaxY'
+            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
             > = {
                 gridMinX: 0,
                 gridMaxX: 0,
@@ -54,10 +48,7 @@ describe('Wafermap Validator module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            | 'gridMinX'
-            | 'gridMaxX'
-            | 'gridMinY'
-            | 'gridMaxY'
+            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
             > = {
                 gridMinX: 1,
                 gridMaxX: 2,
@@ -77,10 +68,7 @@ describe('Wafermap Validator module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            | 'gridMinX'
-            | 'gridMaxX'
-            | 'gridMinY'
-            | 'gridMaxY'
+            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
             > = {
                 gridMinX: -2,
                 gridMaxX: -1,
@@ -100,10 +88,7 @@ describe('Wafermap Validator module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            | 'gridMinX'
-            | 'gridMaxX'
-            | 'gridMinY'
-            | 'gridMaxY'
+            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
             > = {
                 gridMinX: 0,
                 gridMaxX: 0,
@@ -123,10 +108,7 @@ describe('Wafermap Validator module', () => {
         beforeEach(() => {
             const waferMock: Pick<
             WaferMap,
-            | 'gridMinX'
-            | 'gridMaxX'
-            | 'gridMinY'
-            | 'gridMaxY'
+            'gridMinX' | 'gridMaxX' | 'gridMinY' | 'gridMaxY'
             > = {
                 gridMinX: 1,
                 gridMaxX: -1,

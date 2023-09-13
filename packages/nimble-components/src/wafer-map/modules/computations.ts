@@ -134,11 +134,13 @@ export class Computations {
     }
 
     private gridDimensionsValidAndDefined(): boolean {
-        return !this.wafermap.validity.invalidGridDimensions
-        && typeof this.wafermap.gridMinX === 'number'
-        && typeof this.wafermap.gridMinY === 'number'
-        && typeof this.wafermap.gridMaxX === 'number'
-        && typeof this.wafermap.gridMinX === 'number';
+        return (
+            !this.wafermap.validity.invalidGridDimensions
+            && typeof this.wafermap.gridMinX === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
+        );
     }
 
     private calculateGridDimensionsFromBoundingBox(): GridDimensions {
