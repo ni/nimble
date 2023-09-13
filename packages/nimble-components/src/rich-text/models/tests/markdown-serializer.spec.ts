@@ -311,7 +311,7 @@ describe('Markdown serializer', () => {
         for (const value of supportedNodesMarks) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
             specType(
-                `Should return ${value.name} markdown (${value.markdown}) when its respective node is passed`,
+                `Should serialize ${value.name} to markdown`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
                     const node = getNode(value.html);

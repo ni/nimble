@@ -350,30 +350,37 @@ describe('Markdown parser', () => {
         const disabled: string[] = [];
         const markdownStringWithHardBreak: {
             name: string,
+            value: string,
             tags: string[]
         }[] = [
             {
-                name: '**bold**\\\n*Italics*',
+                name: 'bold and italics',
+                value: '**bold**\\\n*Italics*',
                 tags: ['P', 'STRONG', 'BR', 'EM']
             },
             {
-                name: '**bold**\\\n \\ *Italics*',
+                name: 'bold and back slash followed by italics',
+                value: '**bold**\\\n \\ *Italics*',
                 tags: ['P', 'STRONG', 'BR', 'EM']
             },
             {
-                name: '* list\\\nhard break content\n* list',
+                name: 'two first level bulleted list items',
+                value: '* list\\\nhard break content\n* list',
                 tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P']
             },
             {
-                name: '* list\\\nhard break content\n* list \n  * nested list\\\nnested hard break content',
+                name: 'two first level bulleted list items and with nested list',
+                value: '* list\\\nhard break content\n* list \n  * nested list\\\nnested hard break content',
                 tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P', 'UL', 'LI', 'P', 'BR']
             },
             {
-                name: '1. list\\\nhard break content\n2. list',
+                name: 'two first level numbered list items',
+                value: '1. list\\\nhard break content\n2. list',
                 tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P']
             },
             {
-                name: '1. list\\\nhard break content\n2. list \n   1. nested list\\\nnested hard break content',
+                name: 'two first level numbered list items and with nested list',
+                value: '1. list\\\nhard break content\n2. list \n   1. nested list\\\nnested hard break content',
                 tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P', 'OL', 'LI', 'P', 'BR']
             }
         ];
@@ -381,11 +388,11 @@ describe('Markdown parser', () => {
         for (const value of markdownStringWithHardBreak) {
             const specType = getSpecTypeByNamedList(value, focused, disabled);
             specType(
-                `markdown string "${value.name}" with hard break syntax when rendered`,
+                `should render br tag between "${value.name}"`,
                 // eslint-disable-next-line @typescript-eslint/no-loop-func
                 () => {
                     const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                        value.name
+                        value.value
                     );
                     expect(getTagsFromElement(doc)).toEqual(value.tags);
                 }

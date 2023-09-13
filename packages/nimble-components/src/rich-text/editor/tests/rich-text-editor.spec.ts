@@ -348,7 +348,7 @@ describe('RichTextEditor', () => {
             await pageObject.clickFooterButton(ToolbarButton.bold);
             await pageObject.setEditorTextContent('bold1');
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('bold2');
+            await pageObject.setEditorTextContent('bold after hard break');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'P',
@@ -370,7 +370,7 @@ describe('RichTextEditor', () => {
             await pageObject.clickFooterButton(ToolbarButton.italics);
             await pageObject.setEditorTextContent('italics1');
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('italics2');
+            await pageObject.setEditorTextContent('italics after hard break');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'P',
@@ -394,7 +394,7 @@ describe('RichTextEditor', () => {
             await pageObject.setEditorTextContent('numbered list1');
             await pageObject.clickFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('numbered list2');
+            await pageObject.setEditorTextContent('Hard break in first level of numbered list');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -453,7 +453,7 @@ describe('RichTextEditor', () => {
             await pageObject.pressEnterKeyInEditor();
             await pageObject.pressTabKeyInEditor();
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Nested List');
+            await pageObject.setEditorTextContent('Hard break in Nested list');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -535,7 +535,7 @@ describe('RichTextEditor', () => {
             await pageObject.pressTabKeyInEditor();
             await pageObject.clickFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Nested Bulleted List');
+            await pageObject.setEditorTextContent('Hard break in Nested Bulleted List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'OL',
@@ -560,7 +560,7 @@ describe('RichTextEditor', () => {
             await pageObject.setEditorTextContent('Bulleted List 1');
             await pageObject.clickFooterButton(ToolbarButton.bulletList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Bulleted List 2');
+            await pageObject.setEditorTextContent('Hard break in first level of bulleted List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -667,7 +667,7 @@ describe('RichTextEditor', () => {
             await pageObject.pressTabKeyInEditor();
             await pageObject.clickFooterButton(ToolbarButton.numberedList);
             await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent('Nested Numbered List');
+            await pageObject.setEditorTextContent('Hard break in Nested Numbered List');
 
             expect(pageObject.getEditorTagNames()).toEqual([
                 'UL',
@@ -1038,7 +1038,7 @@ describe('RichTextEditor', () => {
         }
     });
 
-    describe('Should return markdown with back slash (HardBreak) when markdown with hard break syntax are assigned', () => {
+    describe('`getMarkdown` with hard break backslashes should be same immediately after `setMarkdown`', () => {
         const hardBreakMarkdownStrings: { name: string }[] = [
             { name: '**bold**\\\n*Italics*' },
             { name: '* list\\\n  hard break content\n\n* list' },
