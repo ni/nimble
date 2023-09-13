@@ -3,7 +3,11 @@ import type { Meta } from '@storybook/html';
 import type { DesignToken } from '@microsoft/fast-foundation';
 import { createUserSelectedThemeStory } from '../../../utilities/tests/storybook';
 import { bodyFont } from '../../../theme-provider/design-tokens';
-import { getAttributeName, getPropertyName } from './label-name-utils';
+import {
+    getAttributeName,
+    getPropertyName,
+    removePrefixAndCamelCase
+} from './label-name-utils';
 import { Table, tableTag } from '../../../table';
 import { tableColumnTextTag } from '../../../table-column/text';
 
@@ -11,7 +15,7 @@ export interface LabelProviderArgs {
     tableRef: Table;
     labelProviderTag: string;
     labelTokens: [string, DesignToken<string>][];
-    removeNamePrefix(tokenName: string): string;
+    prefixSubstring: string;
     updateData(args: LabelProviderArgs): void;
 }
 
@@ -65,11 +69,6 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
         </div>
     `),
     argTypes: {
-        removeNamePrefix: {
-            table: {
-                disable: true
-            }
-        },
         labelProviderTag: {
             table: {
                 disable: true
@@ -89,11 +88,16 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
             table: {
                 disable: true
             }
+        },
+        prefixSubstring: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
-        removeNamePrefix: jsTokenName => jsTokenName,
         tableRef: undefined,
+        prefixSubstring: undefined,
         updateData: x => {
             void (async () => {
                 // Safari workaround: the table element instance is made at this point
@@ -104,10 +108,16 @@ export const labelProviderMetadata: Meta<LabelProviderArgs> = {
                     return {
                         tokenName: token[0],
                         htmlAttributeName: getAttributeName(
-                            x.removeNamePrefix(token[0])
+                            removePrefixAndCamelCase(
+                                token[0],
+                                x.prefixSubstring
+                            )
                         ),
                         jsPropertyName: getPropertyName(
-                            x.removeNamePrefix(token[0])
+                            removePrefixAndCamelCase(
+                                token[0],
+                                x.prefixSubstring
+                            )
                         ),
                         defaultValue: token[1].getValueFor(document.body)
                     };

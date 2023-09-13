@@ -204,7 +204,7 @@ describe('NimbleTableColumnNumberText', () => {
             public sortIndex: number | null = 0;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
-            public format: NumberTextFormat = NumberTextFormat.roundToInteger;
+            public format: NumberTextFormat = NumberTextFormat.decimal;
             public decimalDigits: number | null = 9;
         }
 
@@ -389,14 +389,14 @@ describe('NimbleTableColumnNumberText', () => {
         });
 
         it('can be configured with property binding for format', () => {
-            expect(directive.format).toBe(NumberTextFormat.roundToInteger);
-            expect(nativeElement.format).toBe(NumberTextFormat.roundToInteger);
-
-            fixture.componentInstance.format = NumberTextFormat.decimal;
-            fixture.detectChanges();
-
             expect(directive.format).toBe(NumberTextFormat.decimal);
             expect(nativeElement.format).toBe(NumberTextFormat.decimal);
+
+            fixture.componentInstance.format = NumberTextFormat.default;
+            fixture.detectChanges();
+
+            expect(directive.format).toBe(NumberTextFormat.default);
+            expect(nativeElement.format).toBe(NumberTextFormat.default);
         });
 
         it('can be configured with property binding for decimalDigits', () => {
@@ -459,7 +459,7 @@ describe('NimbleTableColumnNumberText', () => {
             public sortIndex: number | null = 0;
             public groupIndex: number | null = 0;
             public groupingDisabled = false;
-            public format: NumberTextFormat = NumberTextFormat.roundToInteger;
+            public format: NumberTextFormat = NumberTextFormat.decimal;
             public decimalDigits: number | null = 9;
         }
 
@@ -644,14 +644,17 @@ describe('NimbleTableColumnNumberText', () => {
         });
 
         it('can be configured with attribute binding for format', () => {
-            expect(directive.format).toBe(NumberTextFormat.roundToInteger);
-            expect(nativeElement.format).toBe(NumberTextFormat.roundToInteger);
-
-            fixture.componentInstance.format = NumberTextFormat.decimal;
-            fixture.detectChanges();
-
             expect(directive.format).toBe(NumberTextFormat.decimal);
             expect(nativeElement.format).toBe(NumberTextFormat.decimal);
+
+            fixture.componentInstance.format = NumberTextFormat.default;
+            fixture.detectChanges();
+
+            // Setting the attribute to `undefined` (the value backing NumberTextFormat.default) removes
+            // the attribute, which results in the web component's property being set to `null`.
+            // See https://github.com/microsoft/fast/issues/6630.
+            expect(directive.format).toBeFalsy();
+            expect(nativeElement.format).toBeFalsy();
         });
 
         it('can be configured with attribute binding for decimalDigts', () => {
