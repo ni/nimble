@@ -25,6 +25,7 @@ export const styles = css`
         box-sizing: border-box;
         position: relative;
         color: inherit;
+        overflow-wrap: anywhere;
     }
 
     .viewer > :first-child {
