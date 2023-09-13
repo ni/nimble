@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Sep 2023 05:02:34 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Sep 2023 13:01:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.11
+
+Wed, 13 Sep 2023 13:01:33 GMT
+
+### Patches
+
+- Rich-text viewer should recognize escape characters in markdown ([ni/nimble@3dc792f](https://github.com/ni/nimble/commit/3dc792f7f70d1732f645c309df0e2b3670b5eeda))
 
 ## 20.2.10
 
