@@ -52,8 +52,17 @@ export class RichTextMarkdownSerializer {
         const marks = {
             italic: defaultMarkdownSerializer.marks.em!,
             bold: defaultMarkdownSerializer.marks.strong!,
-            // Autolink markdown in CommonMark flavor: https://spec.commonmark.org/0.30/#autolinks
-            // ProseMirror model reference: https://github.com/ProseMirror/prosemirror-markdown/blob/c7210d0e55c82bfb0b2f7cba5dffe804575fafb3/src/to_markdown.ts#L3C1-L26C2
+            /**
+            * When a user inserts an absolute link into the editor and then modifies it, the 'defaultMarkdownSerializer.marks.link' function
+            * will detect whether it should be serialized as an autolink (<url>) or a regular link ([text](url)) in Markdown format by
+            * comparing the link text with 'href'. Since our markdown-parser only supports the autolink format, we need to ensure that the
+            * serializer also only supports autolink. Unfortunately, prosemirror-markdown does not offer a built-in way to update the
+            * 'defaultMarkdownSerializer' for this purpose. Therefore, we had to create a modified implementation to enable support for
+            * only autolink in serialization.
+
+            * Autolink markdown in CommonMark flavor: https://spec.commonmark.org/0.30/#autolinks
+            * ProseMirror model reference: https://github.com/ProseMirror/prosemirror-markdown/blob/c7210d0e55c82bfb0b2f7cba5dffe804575fafb3/src/to_markdown.ts#L3C1-L26C2
+            */
             link: {
                 open: '<',
                 close: '>',

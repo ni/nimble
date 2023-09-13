@@ -679,6 +679,7 @@ describe('RichTextEditor', () => {
                                 'A'
                             ]);
                             expect(pageObject.getEditorLeafContents()).toEqual([
+                                // Name without the trailing space used by the editor to trigger conversion to a link
                                 value.name.slice(0, -1)
                             ]);
                         }
