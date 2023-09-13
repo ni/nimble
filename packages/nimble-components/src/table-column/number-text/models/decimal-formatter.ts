@@ -7,9 +7,9 @@ export class DecimalFormatter extends NumberFormatter {
     private readonly formatter: Intl.NumberFormat;
     private readonly tenPowDecimalDigits: number;
 
-    public constructor(decimalsToDisplay: number) {
+    public constructor(locale: string, decimalsToDisplay: number) {
         super();
-        this.formatter = new Intl.NumberFormat(undefined, {
+        this.formatter = new Intl.NumberFormat(locale, {
             maximumFractionDigits: decimalsToDisplay,
             minimumFractionDigits: decimalsToDisplay,
             useGrouping: true
