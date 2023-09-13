@@ -2,6 +2,74 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Wed, 13 Sep 2023 15:39:27 GMT",
+      "tag": "@ni/nimble-angular_v17.2.12",
+      "version": "17.2.12",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "f4427670abfdc441c69cf9c753877231c641b268",
+            "comment": "Update tests after removing roundToInteger format from number-text column"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.12",
+            "commit": "f4427670abfdc441c69cf9c753877231c641b268"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 13:01:33 GMT",
+      "tag": "@ni/nimble-angular_v17.2.11",
+      "version": "17.2.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.11",
+            "commit": "3dc792f7f70d1732f645c309df0e2b3670b5eeda"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 05:02:34 GMT",
+      "tag": "@ni/nimble-angular_v17.2.10",
+      "version": "17.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.10",
+            "commit": "407e6e880ab4dd2122d5e9e203025492529d0b1a"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 04:11:27 GMT",
+      "tag": "@ni/nimble-angular_v17.2.9",
+      "version": "17.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.9",
+            "commit": "0940f820436cf07df5a239dec50a1022c9c054ca"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Sep 2023 17:22:19 GMT",
       "tag": "@ni/nimble-angular_v17.2.8",
       "version": "17.2.8",
