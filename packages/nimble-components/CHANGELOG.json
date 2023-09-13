@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Sep 2023 05:02:34 GMT",
+      "tag": "@ni/nimble-components_v20.2.10",
+      "version": "20.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377167+aagash-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "407e6e880ab4dd2122d5e9e203025492529d0b1a",
+            "comment": "Wrap long words to the next line in rich-text viewer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Sep 2023 04:11:27 GMT",
       "tag": "@ni/nimble-components_v20.2.9",
       "version": "20.2.9",

@@ -1,6 +1,6 @@
 {
   "name": "@ni/nimble-blazor",
-  "version": "12.1.35",
+  "version": "12.1.36",
   "description": "Blazor components for the NI Nimble Design System",
   "scripts": {
     "postinstall": "node build/generate-playwright-version-properties/source/index.js",
