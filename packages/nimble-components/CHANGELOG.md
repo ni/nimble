@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Sep 2023 13:01:33 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Sep 2023 15:39:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.12
+
+Wed, 13 Sep 2023 15:39:27 GMT
+
+### Patches
+
+- Remove roundToInteger format from number-text column ([ni/nimble@f442767](https://github.com/ni/nimble/commit/f4427670abfdc441c69cf9c753877231c641b268))
 
 ## 20.2.11
 
