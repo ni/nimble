@@ -624,6 +624,114 @@ describe('Markdown parser', () => {
         });
     });
 
+    describe('escape backslashes should be ignored while parsing', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+        const r = String.raw;
+        const testsWithEscapeCharacters = [
+            { name: r`\*`, tags: ['P'], textContent: ['*'] },
+            { name: r`\*\*bold\*\*`, tags: ['P'], textContent: ['**bold**'] },
+            { name: r`\*italics\*`, tags: ['P'], textContent: ['*italics*'] },
+            { name: r`\# test1`, tags: ['P'], textContent: ['# test1'] },
+            {
+                name: r`\> blockquote`,
+                tags: ['P'],
+                textContent: ['> blockquote']
+            },
+            { name: r`\`code\``, tags: ['P'], textContent: ['`code`'] },
+            {
+                name: r`\~\~strikethrough\~\~`,
+                tags: ['P'],
+                textContent: ['~~strikethrough~~']
+            },
+            {
+                name: r`\## heading 2`,
+                tags: ['P'],
+                textContent: ['## heading 2']
+            },
+            {
+                name: r`\[link\](url)`,
+                tags: ['P'],
+                textContent: ['[link](url)']
+            },
+            { name: r`\---`, tags: ['P'], textContent: ['---'] },
+            { name: r`\*\*\*`, tags: ['P'], textContent: ['***'] },
+            { name: r`\_\_\_`, tags: ['P'], textContent: ['___'] },
+            { name: r`\-Infinity`, tags: ['P'], textContent: ['-Infinity'] },
+            {
+                name: r`\-2147483648/-1`,
+                tags: ['P'],
+                textContent: ['-2147483648/-1']
+            }
+        ];
+
+        for (const value of testsWithEscapeCharacters) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            specType(
+                `"${value.name}"`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                () => {
+                    const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                        value.name
+                    );
+
+                    expect(getTagsFromElement(doc)).toEqual(value.tags);
+                    expect(getLeafContentsFromElement(doc)).toEqual(
+                        value.textContent
+                    );
+                }
+            );
+        }
+
+        it('special character `.` should be parsed properly (number list test)', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`1\. item 1
+                
+                2\. item 2
+                
+                3\. item 3`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                r`1. item 1`,
+                r`2. item 2`,
+                r`3. item 3`
+            ]);
+        });
+
+        it('special character `-` should be parsed properly (bullet list test)', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(
+                r`\- item 1
+                
+                \- item 2
+                
+                \- item 3`
+            );
+
+            expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([
+                r`- item 1`,
+                r`- item 2`,
+                r`- item 3`
+            ]);
+        });
+
+        it('\n backslash<n> should render a new line', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\n`);
+
+            expect(getTagsFromElement(doc)).toEqual(['P']);
+            expect(getLeafContentsFromElement(doc)).toEqual([r`\n`]);
+        });
+
+        it('\\ double backslash should render a single backslash', () => {
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\\`);
+
+            expect(getTagsFromElement(doc)).toEqual(['P']);
+            expect(getLeafContentsFromElement(doc)).toEqual(['\\']);
+        });
+    });
+
     describe('various not supported markdown string values render as unchanged strings', () => {
         const notSupportedMarkdownStrings: { name: string }[] = [
             { name: '> blockquote' },

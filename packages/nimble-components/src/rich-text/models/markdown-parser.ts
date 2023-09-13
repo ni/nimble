@@ -48,7 +48,8 @@ export class RichTextMarkdownParser {
         const supportedTokenizerRules = zeroTokenizerConfiguration.enable([
             'emphasis',
             'list',
-            'autolink'
+            'autolink',
+            'escape'
         ]);
 
         supportedTokenizerRules.validateLink = href => /^https?:\/\//i.test(href);

@@ -208,6 +208,28 @@ describe('RichTextEditor', () => {
         }
     });
 
+    describe('clicking icon slots should update the tab index of the button', () => {
+        const focused: string[] = [];
+        const disabled: string[] = [];
+
+        for (const value of formattingButtons) {
+            const specType = getSpecTypeByNamedList(value, focused, disabled);
+            specType(
+                `"${value.name}" button icon click check`,
+                // eslint-disable-next-line @typescript-eslint/no-loop-func
+                async () => {
+                    await pageObject.clickFooterIconSlot(
+                        value.toolbarButtonIndex
+                    );
+
+                    expect(
+                        pageObject.getButtonTabIndex(value.toolbarButtonIndex)
+                    ).toBe(0);
+                }
+            );
+        }
+    });
+
     describe('space key press should update the checked state of the buttons', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
