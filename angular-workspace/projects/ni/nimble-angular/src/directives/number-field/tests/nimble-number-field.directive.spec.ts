@@ -91,6 +91,16 @@ describe('Nimble number field', () => {
             expect(nativeElement.step).toBe(5);
         });
 
+        it('has expected defaults for hideStep', () => {
+            expect(directive.hideStep).toBeUndefined();
+            expect(nativeElement.hideStep).toBeUndefined();
+        });
+
+        it('can use the directive to set hideStep', () => {
+            directive.hideStep = true;
+            expect(nativeElement.hideStep).toBeTrue();
+        });
+
         it('has expected defaults for placeholder', () => {
             expect(directive.placeholder).toBeUndefined();
             expect(nativeElement.placeholder).toBeUndefined();
@@ -132,6 +142,7 @@ describe('Nimble number field', () => {
                     min=10
                     max=20
                     step=2
+                    hide-step
                     placeholder="Placeholder value"
                     error-text="error text"
                     error-visible
@@ -183,6 +194,11 @@ describe('Nimble number field', () => {
             expect(nativeElement.step).toBe(2);
         });
 
+        it('will use template string values for hide-step', () => {
+            expect(directive.hideStep).toBeTrue();
+            expect(nativeElement.hideStep).toBeTrue();
+        });
+
         it('will use template string values for placeholder', () => {
             expect(directive.placeholder).toBe('Placeholder value');
             expect(nativeElement.placeholder).toBe('Placeholder value');
@@ -208,6 +224,7 @@ describe('Nimble number field', () => {
                 [min]="min"
                 [max]="max"
                 [step]="step"
+                [hide-step]="hideStep"
                 [placeholder]="placeholder"
                 [error-text]="errorText"
                 [error-visible]="errorVisible"
@@ -222,6 +239,7 @@ describe('Nimble number field', () => {
             public min = 10;
             public max = 20;
             public step = 2;
+            public hideStep = false;
             public placeholder = 'initial';
             public errorText = 'initial value';
             public errorVisible = false;
@@ -297,6 +315,17 @@ describe('Nimble number field', () => {
             expect(nativeElement.step).toBe(1);
         });
 
+        it('can be configured with property binding for hideStep', () => {
+            expect(directive.hideStep).toBeFalse();
+            expect(nativeElement.hideStep).toBeFalse();
+
+            fixture.componentInstance.hideStep = true;
+            fixture.detectChanges();
+
+            expect(directive.hideStep).toBeTrue();
+            expect(nativeElement.hideStep).toBeTrue();
+        });
+
         it('can be configured with property binding for placeholder', () => {
             expect(directive.placeholder).toBe('initial');
             expect(nativeElement.placeholder).toBe('initial');
@@ -340,6 +369,7 @@ describe('Nimble number field', () => {
                     [attr.min]="min"
                     [attr.max]="max"
                     [attr.step]="step"
+                    [attr.hide-step]="hide-step"
                     [attr.placeholder]="placeholder"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
@@ -354,6 +384,7 @@ describe('Nimble number field', () => {
             public min: NumberValueOrAttribute = 10;
             public max: NumberValueOrAttribute = 20;
             public step: NumberValueOrAttribute = 2;
+            public hideStep: BooleanValueOrAttribute = null;
             public placeholder = 'initial';
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
@@ -427,6 +458,17 @@ describe('Nimble number field', () => {
 
             expect(directive.step).toBe(1);
             expect(nativeElement.step).toBe(1);
+        });
+
+        it('can be configured with attribute binding for hideStep', () => {
+            expect(directive.hideStep).toBeUndefined();
+            expect(nativeElement.hideStep).toBeUndefined();
+
+            fixture.componentInstance.hideStep = '';
+            fixture.detectChanges();
+
+            expect(directive.hideStep).toBeTrue();
+            expect(nativeElement.hideStep).toBeTrue();
         });
 
         it('can be configured with attribute binding for placeholder', () => {
