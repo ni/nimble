@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Tue, 12 Sep 2023 17:22:19 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Sep 2023 04:11:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.9
+
+Wed, 13 Sep 2023 04:11:27 GMT
+
+### Patches
+
+- Update tabindex when clicking icon of a button in rich text editor toolbar. ([ni/nimble@0940f82](https://github.com/ni/nimble/commit/0940f820436cf07df5a239dec50a1022c9c054ca))
 
 ## 20.2.8
 

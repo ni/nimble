@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Sep 2023 04:11:27 GMT",
+      "tag": "@ni/nimble-components_v20.2.9",
+      "version": "20.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "0940f820436cf07df5a239dec50a1022c9c054ca",
+            "comment": "Update tabindex when clicking icon of a button in rich text editor toolbar."
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Sep 2023 17:22:19 GMT",
       "tag": "@ni/nimble-components_v20.2.8",
       "version": "20.2.8",
