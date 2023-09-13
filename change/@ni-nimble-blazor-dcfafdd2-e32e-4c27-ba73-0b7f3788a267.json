@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add API to hide step buttons on NumberField",
+  "packageName": "@ni/nimble-blazor",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
