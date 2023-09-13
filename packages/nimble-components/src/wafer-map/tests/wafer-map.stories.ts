@@ -265,8 +265,9 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         originLocation: {
+            name: 'origin-location',
             description:
-                'Represents the orientation of the dies on the wafer map',
+                'Represents the starting point and the direction of the two axes, X and Y, which are used for displaying the die grid on the wafer map canvas.',
             options: Object.values(WaferMapOriginLocation),
             control: {
                 type: 'radio',
@@ -279,25 +280,25 @@ const metadata: Meta<WaferMapArgs> = {
             }
         },
         gridMinX: {
-            name: 'gridMinX',
+            name: 'grid-min-x',
             description:
                 'Represents the X coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum X value of the bounding box of the input dies coordinates.',
             control: { type: 'number' }
         },
         gridMaxX: {
-            name: 'gridMaxX',
+            name: 'grid-max-x',
             description:
                 'Represents the X coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum X value of the bounding box of the input dies coordinates.',
             control: { type: 'number' }
         },
         gridMinY: {
-            name: 'gridMinY',
+            name: 'grid-min-y',
             description:
                 'Represents the Y coordinate of the minimum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the minimum Y value of the bounding box of the input dies coordinates.',
             control: { type: 'number' }
         },
         gridMaxY: {
-            name: 'gridMaxY',
+            name: 'grid-max-y',
             description:
                 'Represents the Y coordinate of the maximum corner of the the grid bounding box for rendering the wafer map. Leaving the value `undefined` will set the value to the maximum Y value of the bounding box of the input dies coordinates.',
             control: { type: 'number' }
@@ -311,7 +312,7 @@ const metadata: Meta<WaferMapArgs> = {
             description: `Readonly object of boolean values that represents the validity states that the wafer map's configuration can be in.
 The object's type is \`WaferMapValidity\`, and it contains the following boolean properties:
 
--   \`invalidGridDimensions \`: \`true\` when any of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` is \`undefined\`, but false when all of them are \`undefined\``,
+-   \`invalidGridDimensions \`: \`true\` when some of the \`gridMinX\`, \`gridMinY\`, \`gridMaxX\` or \`gridMaxY\` are \`undefined\`, but \`false\` when all of them are provided or all of them are \`undefined\``,
             control: false
         }
     }
