@@ -295,35 +295,35 @@ describe('Markdown parser', () => {
 
         it('special character `.` should be parsed properly (number list test)', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                r`1\.\ item 1
+                r`1\. item 1
                 
                 2\. item 2
                 
-                3\.\item 3`
+                3\. item 3`
             );
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual([
-                r`1.\ item 1`,
+                r`1. item 1`,
                 r`2. item 2`,
-                r`3.\item 3`
+                r`3. item 3`
             ]);
         });
 
-        it('special character `.` should be parsed properly (bullet list test)', () => {
+        it('special character `-` should be parsed properly (bullet list test)', () => {
             const doc = RichTextMarkdownParser.parseMarkdownToDOM(
-                r`-\ item 1
+                r`\- item 1
                 
-                -\ item 2
+                \- item 2
                 
-                -\item 3`
+                \- item 3`
             );
 
             expect(getTagsFromElement(doc)).toEqual(['P', 'P', 'P']);
             expect(getLeafContentsFromElement(doc)).toEqual([
-                r`-\ item 1`,
-                r`-\ item 2`,
-                r`-\item 3`
+                r`- item 1`,
+                r`- item 2`,
+                r`- item 3`
             ]);
         });
 
@@ -335,7 +335,7 @@ describe('Markdown parser', () => {
         });
 
         it('\\ double backslash should render a single backslash', () => {
-            const doc = RichTextMarkdownParser.parseMarkdownToDOM('\\');
+            const doc = RichTextMarkdownParser.parseMarkdownToDOM(r`\\`);
 
             expect(getTagsFromElement(doc)).toEqual(['P']);
             expect(getLeafContentsFromElement(doc)).toEqual(['\\']);

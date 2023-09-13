@@ -1,6 +1,6 @@
 {
   "type": "patch",
-  "comment": "Render special characters properly without unnecessary backslashes",
+  "comment": "Rich-text viewer should recognize escape characters in markdown",
   "packageName": "@ni/nimble-components",
   "email": "123591928+saikrishnan-ni@users.noreply.github.com",
   "dependentChangeType": "patch"
