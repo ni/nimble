@@ -13,12 +13,26 @@
   },
   "packageRules": [
     {
-      "groupName": "dependencies",
-      "matchDepTypes": ["dependencies"]
+      "groupName": "Dependencies",
+      "matchDepTypes": ["dependencies"],
+      "matchPackagePatterns":[
+        "^@microsoft/fast",
+        "^@tanstack/",
+        "^@tiptap/",
+        "@types/markdown-it",
+        "d3-",
+        "prosemirror-"
+      ]
     },
     {
-      "groupName": "devDependencies",
-      "matchDepTypes": ["devDependencies"]
+      "groupName": "Dev Dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns":[
+        "^@ni/eslint-config",
+        "beachball",
+        "playwright",
+        "storybook"
+      ]
     }
   ]
 }
