@@ -17,34 +17,32 @@ export class DefaultFormatter extends NumberFormatter {
     private static readonly exponentialUpperBound = 999999.5;
 
     // Formatter to use by default. It renders the number with a maximum of 6 signficant digits.
-    private static readonly defaultFormatter = new Intl.NumberFormat(
-        undefined,
-        {
-            maximumSignificantDigits: DefaultFormatter.maximumDigits,
-            useGrouping: true
-        }
-    );
+    private readonly defaultFormatter: Intl.NumberFormat;
 
     // Formatter to use for numbers that have leading zeros. It limits the number of rendered
     // digits using 'maximumFractionDigits', which will result in less than 6 significant digits
     // in order to render no more than 6 total digits.
-    private static readonly leadingZeroFormatter = new Intl.NumberFormat(
-        undefined,
-        {
-            maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
-            useGrouping: true
-        }
-    );
+    private readonly leadingZeroFormatter: Intl.NumberFormat;
 
     // Formatter for numbers that should be displayed in exponential notation. This should be used
     // for numbers with magintudes over 'exponentialUpperBound' or under 'exponentialLowerBound'.
-    private static readonly exponentialFormatter = new Intl.NumberFormat(
-        undefined,
-        {
+    private readonly exponentialFormatter: Intl.NumberFormat;
+
+    public constructor(locale: string) {
+        super();
+        this.defaultFormatter = new Intl.NumberFormat(locale, {
+            maximumSignificantDigits: DefaultFormatter.maximumDigits,
+            useGrouping: true
+        });
+        this.leadingZeroFormatter = new Intl.NumberFormat(locale, {
+            maximumFractionDigits: DefaultFormatter.maximumDigits - 1,
+            useGrouping: true
+        });
+        this.exponentialFormatter = new Intl.NumberFormat(locale, {
             maximumSignificantDigits: DefaultFormatter.maximumDigits,
             notation: 'scientific'
-        }
-    );
+        });
+    }
 
     protected format(number: number): string {
         // The NumberFormat option of `signDisplay: "negative"` is not supported in all browsers nimble supports.
@@ -56,7 +54,7 @@ export class DefaultFormatter extends NumberFormatter {
 
     private getFormatterForNumber(number: number): Intl.NumberFormat {
         if (number === 0) {
-            return DefaultFormatter.defaultFormatter;
+            return this.defaultFormatter;
         }
 
         const absoluteValue = Math.abs(number);
@@ -64,14 +62,14 @@ export class DefaultFormatter extends NumberFormatter {
             absoluteValue >= DefaultFormatter.exponentialUpperBound
             || absoluteValue < DefaultFormatter.exponentialLowerBound
         ) {
-            return DefaultFormatter.exponentialFormatter;
+            return this.exponentialFormatter;
         }
         // Ideally, we could set 'roundingPriority: "lessPrecision"' with a formatter that has both 'maximumSignificantDigits' and
         // 'maximumFractionDigits' configured instead of having two different formatters that we conditionally choose between. However,
         // 'roundingPrioirty' is not supported yet in all browsers nimble supports.
         if (absoluteValue < 1) {
-            return DefaultFormatter.leadingZeroFormatter;
+            return this.leadingZeroFormatter;
         }
-        return DefaultFormatter.defaultFormatter;
+        return this.defaultFormatter;
     }
 }
