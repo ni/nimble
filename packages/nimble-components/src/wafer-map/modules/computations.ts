@@ -101,9 +101,7 @@ export class Computations {
             this._containerDimensions.width,
             this._containerDimensions.height
         );
-        // the dimensions are valid if they are all undefined
-        const gridDimensions = !this.wafermap.validity.invalidGridDimensions
-            && this.wafermap.gridMinX !== undefined
+        const gridDimensions = this.gridDimensionsValidAndDefined()
             ? this.calculateGridDimensionsFromBoundingBox()
             : this.calculateGridDimensionsFromDies(this.wafermap.dies);
         // this scale is used for positioning the dies on the canvas
@@ -135,20 +133,27 @@ export class Computations {
         };
     }
 
+    private gridDimensionsValidAndDefined(): boolean {
+        return !this.wafermap.validity.invalidGridDimensions
+        && typeof this.wafermap.gridMinX === 'number'
+        && typeof this.wafermap.gridMinY === 'number'
+        && typeof this.wafermap.gridMaxX === 'number'
+        && typeof this.wafermap.gridMinX === 'number';
+    }
+
     private calculateGridDimensionsFromBoundingBox(): GridDimensions {
         const gridDimensions = { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
         if (
-            this.wafermap.gridMaxY === undefined
-            || this.wafermap.gridMinY === undefined
-            || this.wafermap.gridMaxX === undefined
-            || this.wafermap.gridMinX === undefined
+            typeof this.wafermap.gridMaxY === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
         ) {
-            return gridDimensions;
+            gridDimensions.origin.x = Number(this.wafermap.gridMinX);
+            gridDimensions.origin.y = Number(this.wafermap.gridMinY);
+            gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
+            gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
         }
-        gridDimensions.origin.x = Number(this.wafermap.gridMinX);
-        gridDimensions.origin.y = Number(this.wafermap.gridMinY);
-        gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
-        gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
         return gridDimensions;
     }
 
