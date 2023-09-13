@@ -53,11 +53,19 @@ export function getHighlightedValues(): string[] {
 }
 
 export function getScaleBand(
-    domain: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    range: number[] = [0, 100]
+    domain: number[] = [],
+    range: number[] = []
 ): ScaleBand<number> {
     return scaleBand<number>().domain(domain).range(range);
 }
+
+export const defaultHorizontalScale = scaleBand<number>()
+    .domain([2, 3, 4, 5, 6])
+    .range([2, 7]);
+
+export const defaultVerticalScale = scaleBand<number>()
+    .domain([1, 2, 3, 4, 5, 6])
+    .range([1, 7]);
 
 export function getDataManagerMock(
     dieDimensions: Dimensions,
