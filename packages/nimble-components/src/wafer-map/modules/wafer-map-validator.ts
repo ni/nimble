@@ -22,17 +22,17 @@ export class WaferMapValidator {
     public validateGridDimensions(): boolean {
         this.invalidGridDimensions = false;
         if (
-            this.wafermap.gridMinX === undefined
-            && this.wafermap.gridMaxX === undefined
-            && this.wafermap.gridMinY === undefined
-            && this.wafermap.gridMaxY === undefined
+            typeof this.wafermap.gridMinX === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxY === 'number'
         ) {
             this.invalidGridDimensions = false;
         } else if (
-            this.wafermap.gridMinX === undefined
-            || this.wafermap.gridMaxX === undefined
-            || this.wafermap.gridMinY === undefined
-            || this.wafermap.gridMaxY === undefined
+            typeof this.wafermap.gridMinX !== 'number'
+            || typeof this.wafermap.gridMaxX !== 'number'
+            || typeof this.wafermap.gridMinY !== 'number'
+            || typeof this.wafermap.gridMaxY !== 'number'
             || this.wafermap.gridMaxX < this.wafermap.gridMinX
             || this.wafermap.gridMaxY < this.wafermap.gridMinY
         ) {
