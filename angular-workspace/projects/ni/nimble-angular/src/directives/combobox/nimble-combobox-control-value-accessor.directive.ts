@@ -124,11 +124,10 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._optionToModelValueMap.set(option, modelValue);
         const options = this._displayTextToOptionsMap.get(displayValue);
         if (options) {
-            const removeIndex = options.indexOf(option);
-            if (removeIndex >= 0) {
-                options.splice(removeIndex, 1);
+            const optionIndex = options.indexOf(option);
+            if (optionIndex < 0) {
+                options.push(option);
             }
-            options.push(option);
         } else {
             this._displayTextToOptionsMap.set(displayValue, [option]);
         }
