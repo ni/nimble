@@ -149,8 +149,8 @@ export class Computations {
             && typeof this.wafermap.gridMaxX === 'number'
             && typeof this.wafermap.gridMinX === 'number'
         ) {
-            gridDimensions.origin.x = Number(this.wafermap.gridMinX);
-            gridDimensions.origin.y = Number(this.wafermap.gridMinY);
+            gridDimensions.origin.x = this.wafermap.gridMinX;
+            gridDimensions.origin.y = this.wafermap.gridMinY;
             gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
             gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
         }

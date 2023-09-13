@@ -41,16 +41,16 @@ export class WaferMap extends FoundationElement {
     @attr({ attribute: 'origin-location' })
     public originLocation: WaferMapOriginLocation = WaferMapOriginLocation.bottomLeft;
 
-    @attr({ attribute: 'grid-min-x' })
+    @attr({ attribute: 'grid-min-x', converter: nullableNumberConverter })
     public gridMinX?: number = undefined;
 
-    @attr({ attribute: 'grid-max-x' })
+    @attr({ attribute: 'grid-max-x', converter: nullableNumberConverter })
     public gridMaxX?: number = undefined;
 
-    @attr({ attribute: 'grid-min-y' })
+    @attr({ attribute: 'grid-min-y', converter: nullableNumberConverter })
     public gridMinY?: number = undefined;
 
-    @attr({ attribute: 'grid-max-y' })
+    @attr({ attribute: 'grid-max-y', converter: nullableNumberConverter })
     public gridMaxY?: number = undefined;
 
     @attr

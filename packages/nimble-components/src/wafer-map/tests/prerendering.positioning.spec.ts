@@ -113,7 +113,7 @@ describe('Wafermap Prerendering module', () => {
                 dieDimensions,
                 margin,
                 horizontalScale,
-                defaultHorizontalScale
+                defaultVerticalScale
             );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
