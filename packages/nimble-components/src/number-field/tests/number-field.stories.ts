@@ -18,6 +18,7 @@ interface NumberFieldArgs extends LabelUserArgs {
     label: string;
     value: number;
     step: number;
+    hideStep: boolean;
     min: number;
     max: number;
     appearance: NumberFieldAppearance;
@@ -46,6 +47,7 @@ const metadata: Meta<NumberFieldArgs> = {
             placeholder="${x => x.label}"
             value="${x => x.value}"
             step="${x => x.step}"
+            ?hide-step="${x => x.hideStep}"
             min="${x => x.min}"
             max="${x => x.max}"
             appearance="${x => x.appearance}"
@@ -61,6 +63,21 @@ const metadata: Meta<NumberFieldArgs> = {
             options: Object.values(NumberFieldAppearance),
             control: { type: 'radio' }
         },
+        step: {
+            description:
+                'The amount to increase or decrease the value when a step button is pressed.'
+        },
+        hideStep: {
+            name: 'hide-step',
+            description:
+                'Configures the visibility of the increment and decrement step buttons.'
+        },
+        min: {
+            description: 'The minimum value that can be set.'
+        },
+        max: {
+            description: 'The maximum value that can be set.'
+        },
         errorText: {
             name: 'error-text'
         },
@@ -72,6 +89,7 @@ const metadata: Meta<NumberFieldArgs> = {
         label: 'default label',
         value: 42,
         step: 1,
+        hideStep: false,
         min: -10,
         max: 50,
         appearance: NumberFieldAppearance.underline,
