@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update dependency on prosemirror-markdown",
+  "packageName": "@ni/nimble-components",
+  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
