@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Update tests after removing roundToInteger format from number-text column",
+  "packageName": "@ni/nimble-angular",
+  "email": "20542556+mollykreis@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
