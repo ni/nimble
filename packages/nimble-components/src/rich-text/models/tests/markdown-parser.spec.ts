@@ -330,7 +330,7 @@ describe('Markdown parser', () => {
                     {
                         name: 'Emoji at the host (punycode encoded)',
                         validLink: '<https://www.😀.com>',
-                        encodeURL: 'https://www.xn--h28h.com'
+                        encodeURL: 'https://www.xn--e28h.com/'
                     },
                     {
                         name: 'Square brackets',
