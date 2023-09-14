@@ -85,3 +85,12 @@ export const textWrapping: StoryFn = createStory(
     </p>
     `
 );
+
+export const inlineSpacing: StoryFn = createStory(
+    html`<style>
+        .inline-link {
+            font: var(${bodyFont.cssCustomProperty});
+        }
+    </style>
+    <span class="inline-link">ABC<${anchorTag} href='#'>DEF</${anchorTag}>GHI</span>`
+);
