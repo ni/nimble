@@ -78,6 +78,50 @@ const waferMapDie = [
 
 const waferMapSizes = [70, 200, 300, 400];
 
+const gridDimensions = [
+    [
+        {
+            gridMinX: undefined,
+            gridMaxX: undefined,
+            gridMinY: undefined,
+            gridMaxY: undefined
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 0,
+            gridMinY: 0,
+            gridMaxY: 0
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 4,
+            gridMinY: 0,
+            gridMaxY: 0
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 0,
+            gridMinY: 0,
+            gridMaxY: 4
+        }
+    ],
+    [
+        {
+            gridMinX: 0,
+            gridMaxX: 4,
+            gridMinY: 0,
+            gridMaxY: 4
+        }
+    ]
+] as const;
+type GridDimensions = (typeof gridDimensions)[number];
+
 const simpleWaferWithDies = (): ViewTemplate => html`<${waferMapTag}
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
@@ -106,7 +150,7 @@ const componentWaferWithHiddenDieLabel = (
 const componentWaferWithOriginLocation = ([
     originLocation
 ]: OriginLocationStates): ViewTemplate => html`<${waferMapTag}
-    origin-location="${() => originLocation}"
+    :originLocation="${() => originLocation}"
     :dies="${() => waferMapDie}"
     :colorScale="${() => defaultColor}"
 >
@@ -120,6 +164,18 @@ const componentWaferResize = (
     :colorScale="${() => defaultColor}"
 >
 </${waferMapTag}> `;
+
+const componentWaferWithGridDimensions = ([
+    dimensions
+]: GridDimensions): ViewTemplate => html`<${waferMapTag}
+    :dies="${() => waferMapDie}"
+    :colorScale="${() => defaultColor}"
+    :gridMaxX=${() => dimensions.gridMaxX}
+    :gridMaxY=${() => dimensions.gridMaxY}
+    :gridMinX=${() => dimensions.gridMinX}
+    :gridMinY=${() => dimensions.gridMinY}
+>
+</${waferMapTag}>`;
 
 export const waferMapThemeMatrix: StoryFn = createMatrixThemeStory(
     createMatrix(simpleWaferWithDies)
@@ -142,4 +198,8 @@ export const waferMapOriginLocationTest: StoryFn = createStory(
 
 export const waferMapResizeTest: StoryFn = createStory(
     createMatrix(componentWaferResize, [waferMapSizes])
+);
+
+export const waferMapGridDimensionsTest: StoryFn = createStory(
+    createMatrix(componentWaferWithGridDimensions, [gridDimensions])
 );

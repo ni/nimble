@@ -97,9 +97,8 @@ const formatDescription = `Configures the way that the numeric value is formatte
     <ul>
         <li>\`default\`: Integers are shown with no trailing zeros, the value is limited to 6 digits, and exponential notation is used for numbers that are large (\`>= 1e6\`) or small (\`< 1e-3\`) in magnitude.
         </li>
-        <li>\`decimal\`: Values as are formatted as decimal values, always displaying \`decimal-digits\` digits after the separator and never displaying exponential notation.
-        </li>
-        <li>\`roundToInteger\`: Values are rounded to the nearest whole number. Exponential notation is never used. It can only safely represent integers up to the magnitude of \`MAX_SAFE_INTEGER\`.
+        <li>\`decimal\`: Values as are formatted as decimal values, always displaying \`decimal-digits\` digits after the separator and never displaying exponential notation. Setting \`decimal-digits\` to \`0\`
+        will display the value as an integer without a decimal separator.
         </li>
     </ul>
 </details>
@@ -122,8 +121,6 @@ To improve the ability for users to visually scan values, applications should se
         <li>\`default\` format: Values are left-aligned.
         </li>
         <li>\`decimal\` format: Values are right-aligned.
-        </li>
-        <li>\`roundToInteger\` format: Values are right-aligned.
         </li>
     </ul>
 </details>
