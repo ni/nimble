@@ -32,6 +32,7 @@ import {
     TimeZoneNameFormat,
     WeekdayFormat
 } from '../types';
+import { tableColumnNumberTextTag } from '../../number-text';
 
 const simpleData = [
     {
@@ -161,6 +162,11 @@ export const dateTextColumn: StoryObj<TextColumnTableArgs> = {
             >
             Birthday
             </${tableColumnDateTextTag}>
+            <${tableColumnNumberTextTag}
+                field-name="birthday"
+            >
+            Birthday
+            </${tableColumnNumberTextTag}>
         </${tableTag}>
     `),
     argTypes: {

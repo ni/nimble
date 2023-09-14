@@ -1,8 +1,9 @@
-import { html } from '@microsoft/fast-element';
+import { html, ref } from '@microsoft/fast-element';
 import { TableRow } from '..';
-import type {
+import {
+    tableColumnTextTag,
     TableColumnText,
-    TableColumnTextCellRecord
+    type TableColumnTextCellRecord
 } from '../../../../table-column/text';
 
 import { waitForUpdatesAsync } from '../../../../testing/async-helpers';
@@ -13,11 +14,12 @@ import type {
 } from '../../../types';
 import { TableRowPageObject } from './table-row.pageobject';
 import { createEventListener } from '../../../../utilities/tests/component';
-import type { Table } from '../../..';
+import { tableTag, type Table } from '../../..';
+import { TableColumnDateText, TableColumnDateTextCellRecord, tableColumnDateTextTag } from '../../../../table-column/date-text';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
-    moreStringData: string;
+    numberData: number;
 }
 
 describe('TableRow', () => {
@@ -200,13 +202,19 @@ describe('TableRow', () => {
     });
 
     describe('in table', () => {
+        class ColumnReferences {
+            public textColumn!: TableColumnText;
+            public dateColumn!: TableColumnDateText;
+        }
+
         // prettier-ignore
-        async function setupTable(): Promise<Fixture<Table<SimpleTableRecord>>> {
+        async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
             return fixture<Table<SimpleTableRecord>>(
-                html`<nimble-table>
-                        <nimble-table-column-text id="first-column" field-name="stringData" column-id='foo'>Column 1</nimble-table-column-text>
-                        <nimble-table-column-text id="second-column" field-name="moreStringData" column-id='bar'>Column 2</nimble-table-column-text>
-                    </nimble-table>`
+                html`<${tableTag}>
+                        <${tableColumnTextTag} ${ref('textColumn')} id="first-column" field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
+                        <${tableColumnDateTextTag} ${ref('dateColumn')} id="second-column" field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
+                    </${tableTag}>`,
+                { source }
             );
         }
 
@@ -215,21 +223,21 @@ describe('TableRow', () => {
         let disconnect: () => Promise<void>;
         let pageObject: TableRowPageObject;
         let row: TableRow;
-        let column1: TableColumnText;
+        let columnReferences: ColumnReferences;
 
         beforeEach(async () => {
-            ({ element, connect, disconnect } = await setupTable());
+            columnReferences = new ColumnReferences();
+            ({ element, connect, disconnect } = await setupTable(columnReferences));
             await connect();
             await element.setData([
                 {
                     stringData: 'string 1',
-                    moreStringData: 'string 2'
+                    numberData: 0
                 }
             ]);
             await waitForUpdatesAsync();
             row = element.shadowRoot!.querySelector('nimble-table-row')!;
             pageObject = new TableRowPageObject(row);
-            column1 = element.querySelector<TableColumnText>('#first-column')!;
         });
 
         afterEach(async () => {
@@ -240,7 +248,7 @@ describe('TableRow', () => {
             const renderedCell = pageObject.getRenderedCell(0);
 
             expect(renderedCell!.cellViewTemplate).toEqual(
-                column1.columnInternals.cellViewTemplate
+                columnReferences.textColumn.columnInternals.cellViewTemplate
             );
         });
 
@@ -258,14 +266,14 @@ describe('TableRow', () => {
             const secondCellState = columnStates[1]?.cellState;
             expect(secondCellState).toEqual(secondCell.cellState);
             const secondCellRecord = secondCellState!
-                .cellRecord as TableColumnTextCellRecord;
-            expect(secondCellRecord.value).toBe('string 2');
+                .cellRecord as TableColumnDateTextCellRecord;
+            expect(secondCellRecord.value).toBe(0);
         });
 
         it('updates cell.columnId when column changes', async () => {
             const cell = pageObject.getRenderedCell(0)!;
             expect(cell.columnId).toEqual('foo');
-            element.removeChild(column1);
+            element.removeChild(columnReferences.textColumn);
             await waitForUpdatesAsync();
             expect(cell.columnId).toBe('bar');
         });
@@ -273,9 +281,27 @@ describe('TableRow', () => {
         it('updates cell.columnId when id of column changes', async () => {
             const cell = pageObject.getRenderedCell(0)!;
             expect(cell.columnId).toEqual('foo');
-            column1.columnId = 'baz';
+            columnReferences.textColumn.columnId = 'baz';
             await waitForUpdatesAsync();
             expect(cell.columnId).toBe('baz');
+        });
+
+        it('reordering columns reorders cells', async () => {
+            // Swap the two columns
+            element.insertBefore(columnReferences.dateColumn, columnReferences.textColumn);
+            await waitForUpdatesAsync();
+
+            const cell0 = pageObject.getRenderedCell(0)!;
+            expect(cell0.cellViewTemplate).toEqual(
+                columnReferences.dateColumn.columnInternals.cellViewTemplate
+            );
+            expect(cell0.cellState?.columnConfig).toEqual(columnReferences.dateColumn.columnInternals.columnConfig);
+
+            const cell1 = pageObject.getRenderedCell(1)!;
+            expect(cell1.cellViewTemplate).toEqual(
+                columnReferences.textColumn.columnInternals.cellViewTemplate
+            );
+            expect(cell1.cellState?.columnConfig).toEqual(columnReferences.textColumn.columnInternals.columnConfig);
         });
     });
 });
