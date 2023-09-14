@@ -1,8 +1,48 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Wed, 13 Sep 2023 18:16:44 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 17:13:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.4.3
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.15
+
+## 17.4.2
+
+Thu, 14 Sep 2023 15:46:47 GMT
+
+### Patches
+
+- Support duplicate values in combobox. ([ni/nimble@8dd2768](https://github.com/ni/nimble/commit/8dd27681c0246ff98185e99529894d0899d8de5b))
+
+## 17.4.1
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.14
+
+## 17.4.0
+
+Thu, 14 Sep 2023 01:19:15 GMT
+
+### Minor changes
+
+- Add open attribute to Combobox Angular directive. ([ni/nimble@df0bf79](https://github.com/ni/nimble/commit/df0bf79263e39f99d272a4b00692dbb25fe4f61a))
+
+## 17.3.1
+
+Wed, 13 Sep 2023 20:54:15 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.2.13
 
 ## 17.3.0
 

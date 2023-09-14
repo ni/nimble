@@ -79,3 +79,10 @@ export interface PointCoordinates {
     readonly x: number;
     readonly y: number;
 }
+
+export interface ValidityObject {
+    [key: string]: boolean;
+}
+export interface WaferMapValidity extends ValidityObject {
+    readonly invalidGridDimensions: boolean;
+}

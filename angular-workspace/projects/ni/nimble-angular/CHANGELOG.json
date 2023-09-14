@@ -2,6 +2,81 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 14 Sep 2023 17:13:47 GMT",
+      "tag": "@ni/nimble-angular_v17.4.3",
+      "version": "17.4.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.15",
+            "commit": "f5dfad6fbce2701e9fabab100c7e4ebf17e61f50"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 15:46:47 GMT",
+      "tag": "@ni/nimble-angular_v17.4.2",
+      "version": "17.4.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "8dd27681c0246ff98185e99529894d0899d8de5b",
+            "comment": "Support duplicate values in combobox."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 13:22:30 GMT",
+      "tag": "@ni/nimble-angular_v17.4.1",
+      "version": "17.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.14",
+            "commit": "e50529159ae06c89b97e270f459b7f6095721bb1"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 01:19:15 GMT",
+      "tag": "@ni/nimble-angular_v17.4.0",
+      "version": "17.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "df0bf79263e39f99d272a4b00692dbb25fe4f61a",
+            "comment": "Add open attribute to Combobox Angular directive."
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 20:54:15 GMT",
+      "tag": "@ni/nimble-angular_v17.3.1",
+      "version": "17.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.2.13",
+            "commit": "6bb30f55e68c85eac7225ee430920b0729c3feeb"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Sep 2023 18:16:44 GMT",
       "tag": "@ni/nimble-angular_v17.3.0",
       "version": "17.3.0",
