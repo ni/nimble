@@ -86,7 +86,7 @@
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
-    "prosemirror-markdown": "^1.11.0",
+    "prosemirror-markdown": "^1.11.2",
     "prosemirror-model": "^1.19.2",
     "tslib": "^2.2.0"
   },
