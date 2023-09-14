@@ -70,7 +70,7 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
 
     public ngAfterViewChecked(): void {
         for (const updateValue of this._optionUpdateQueue) {
-            this.addOption(updateValue.listOption.text, updateValue.modelValue, updateValue.listOption);
+            this.addOption(updateValue.modelValue, updateValue.listOption);
         }
         this._optionUpdateQueue = [];
     }
@@ -120,16 +120,16 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     /**
      * @internal
      */
-    public addOption(displayValue: string, modelValue: unknown, option: ListOption): void {
+    public addOption(modelValue: unknown, option: ListOption): void {
         this._optionToModelValueMap.set(option, modelValue);
-        const options = this._displayTextToOptionsMap.get(displayValue);
+        const options = this._displayTextToOptionsMap.get(option.text);
         if (options) {
             const optionIndex = options.indexOf(option);
             if (optionIndex < 0) {
                 options.push(option);
             }
         } else {
-            this._displayTextToOptionsMap.set(displayValue, [option]);
+            this._displayTextToOptionsMap.set(option.text, [option]);
         }
         this.updateDisplayValue();
     }
@@ -137,8 +137,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     /**
      * @internal
      */
-    public removeOption(displayValue: string, option: ListOption): void {
-        const options = this._displayTextToOptionsMap.get(displayValue);
+    public removeOption(option: ListOption): void {
+        const options = this._displayTextToOptionsMap.get(option.text);
         if (options) {
             if (options.length > 1) {
                 const removeIndex = options.indexOf(option);
@@ -146,19 +146,17 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
                     options.splice(removeIndex, 1);
                 }
             } else {
-                this._displayTextToOptionsMap.delete(displayValue);
+                this._displayTextToOptionsMap.delete(option.text);
             }
         }
         this._optionToModelValueMap.delete(option);
     }
 
-    public updateOption(modelValue: unknown, option: ListOption): void {
-        this._optionToModelValueMap.set(option, modelValue);
-        this.updateDisplayValue();
-    }
-
-    public queueOptionUpdate(listOption: ListOption, modelValue: unknown): void {
-        this.removeOption(listOption.text, listOption);
+    /**
+     * @internal
+     */
+    public queueOptionUpdate(modelValue: unknown, listOption: ListOption): void {
+        this.removeOption(listOption);
         this._optionUpdateQueue.push({ listOption, modelValue });
     }
 
