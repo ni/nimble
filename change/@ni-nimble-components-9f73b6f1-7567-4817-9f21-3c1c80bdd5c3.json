@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Support for absolute links in rich text components",
-  "packageName": "@ni/nimble-components",
-  "email": "123377523+vivinkrishna-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

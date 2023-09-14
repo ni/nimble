@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Sep 2023 13:22:30 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 17:13:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.15
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Support for absolute links in rich text components ([ni/nimble@f5dfad6](https://github.com/ni/nimble/commit/f5dfad6fbce2701e9fabab100c7e4ebf17e61f50))
 
 ## 20.2.14
 
