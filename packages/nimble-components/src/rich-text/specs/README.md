@@ -460,7 +460,7 @@ in macOS.
 | Ctrl + Shift + 8        | To enable the focused paragraph a bulleted list          |
 | Tab (For lists)         | To create a sub point within a bulleted or numbered list |
 | Shift + Tab (For lists) | To remove a sub point from a bulleted or numbered lists  |
-| Shift/Ctrl + Enter  | To enter new line by forces a line break                 |
+| Shift/Ctrl + Enter      | To enter new line by forces a line break                 |
 
 _Keyboard navigation with toolbar buttons focused_
 

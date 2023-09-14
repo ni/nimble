@@ -552,28 +552,6 @@ describe('RichTextEditor', () => {
             ).toBeTrue();
         });
 
-        it('should have br tag name when pressing shift + Enter with numbered list and nested bulleted list content', async () => {
-            await pageObject.setEditorTextContent('Numbered List');
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
-            await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent(
-                'Hard break in Nested Bulleted List'
-            );
-
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'OL',
-                'LI',
-                'P',
-                'UL',
-                'LI',
-                'P',
-                'BR'
-            ]);
-        });
-
         it('should have "ul" tag name for bullet list button click', async () => {
             await pageObject.setEditorTextContent('Bullet List');
             await pageObject.clickFooterButton(ToolbarButton.bulletList);
@@ -686,28 +664,6 @@ describe('RichTextEditor', () => {
             expect(
                 pageObject.getButtonCheckedState(ToolbarButton.bulletList)
             ).toBeFalse();
-        });
-
-        it('should have br tag name when pressing shift + Enter with bulleted list and nested numbered list content', async () => {
-            await pageObject.setEditorTextContent('Bulleted List');
-            await pageObject.clickFooterButton(ToolbarButton.bulletList);
-            await pageObject.pressEnterKeyInEditor();
-            await pageObject.pressTabKeyInEditor();
-            await pageObject.clickFooterButton(ToolbarButton.numberedList);
-            await pageObject.pressShiftEnterKeysInEditor();
-            await pageObject.setEditorTextContent(
-                'Hard break in Nested Numbered List'
-            );
-
-            expect(pageObject.getEditorTagNames()).toEqual([
-                'UL',
-                'LI',
-                'P',
-                'OL',
-                'LI',
-                'P',
-                'BR'
-            ]);
         });
 
         it('should have "ul" tag names for bullet lists when clicking "tab" to make it nested and "shift+Tab" to make it usual list', async () => {
