@@ -54,9 +54,14 @@ export class RichTextMarkdownParser {
 
         supportedTokenizerRules.validateLink = href => /^https?:\/\//i.test(href);
 
-        // In order to display encoded characters, non-ASCII characters, emojis, and other special characters in their original form,
-        // we bypass the default normalization of link text in markdown-it. This is done because we support only "AutoLink" feature in CommonMark flavor.
-        // "normalizeLinkText" method reference in markdown-it: https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/index.js#L67C1-L86C2
+        /**
+         * In order to display encoded characters, non-ASCII characters, emojis, and other special characters in their original form,
+         * we bypass the default normalization of link text in markdown-it. This is done because we support only "AutoLink" feature in CommonMark flavor.
+         * "normalizeLinkText" method reference in markdown-it: https://github.com/markdown-it/markdown-it/blob/2b6cac25823af011ff3bc7628bc9b06e483c5a08/lib/index.js#L67C1-L86C2
+         *
+         * We can use the default normalization once hyperlink support is added.
+         * See: https://github.com/ni/nimble/issues/1527
+         */
         supportedTokenizerRules.normalizeLinkText = url => url;
 
         return new MarkdownParser(
@@ -75,7 +80,11 @@ export class RichTextMarkdownParser {
                         href: {},
                         rel: { default: 'noopener noreferrer' }
                     },
+                    // Inclusive can be updated when hyperlink support added
+                    // See: https://github.com/ni/nimble/issues/1527
                     inclusive: false,
+                    // Excludes can be removed enabled when hyperlink support added
+                    // See: https://github.com/ni/nimble/issues/1527
                     excludes: '_',
                     toDOM(node) {
                         return [

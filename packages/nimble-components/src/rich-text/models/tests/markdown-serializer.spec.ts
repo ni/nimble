@@ -56,11 +56,9 @@ describe('Markdown serializer', () => {
                 markdown: '*Italics*'
             },
             {
-                // All links will have `<a>` tag here as an input, since it is a mock editor.
-                // In the actual editor, links will render as `nimble-anchor` using `renderHTML`.
                 name: 'Link',
-                html: '<p><a href="#">Link</a></p>',
-                markdown: '<Link>'
+                html: '<p><a href="https://nimble.ni.dev">https://nimble.ni.dev</a></p>',
+                markdown: '<https://nimble.ni.dev>'
             },
             {
                 name: 'Bold and Italics',
@@ -69,18 +67,18 @@ describe('Markdown serializer', () => {
             },
             {
                 name: 'Link and Bold',
-                html: '<p><a href="#"><strong>Link and Bold</strong></a></p>',
-                markdown: '<Link and Bold>'
+                html: '<p><a href="https://nimble.ni.dev"><strong>https://nimble.ni.dev</strong></a></p>',
+                markdown: '<https://nimble.ni.dev>'
             },
             {
                 name: 'Link and Italics',
-                html: '<p><a href="#"><em>Link and Italics</em></a></p>',
-                markdown: '<Link and Italics>'
+                html: '<p><a href="https://nimble.ni.dev"><em>https://nimble.ni.dev</em></a></p>',
+                markdown: '<https://nimble.ni.dev>'
             },
             {
                 name: 'Link, Bold and Italics',
-                html: '<p><a href="#"><strong><em>Link, Bold and Italics</em></strong></a></p>',
-                markdown: '<Link, Bold and Italics>'
+                html: '<p><a href="https://nimble.ni.dev"><strong><em>https://nimble.ni.dev</em></strong></a></p>',
+                markdown: '<https://nimble.ni.dev>'
             },
             {
                 name: 'Numbered list',
@@ -104,8 +102,8 @@ describe('Markdown serializer', () => {
             },
             {
                 name: 'Numbered list with link',
-                html: '<ol><li><p><a href="#">Numbered list with link</a></p></li></ol>',
-                markdown: '1. <Numbered list with link>'
+                html: '<ol><li><p><a href="https://nimble.ni.dev">https://nimble.ni.dev</a></p></li></ol>',
+                markdown: '1. <https://nimble.ni.dev>'
             },
             {
                 name: 'Bulleted list',
@@ -128,14 +126,9 @@ describe('Markdown serializer', () => {
                 markdown: '* *Bulleted list with italics*'
             },
             {
-                name: 'Bullet list with italics',
-                html: '<ul><li><p><em>Bullet list with italics</em></p></li></ul>',
-                markdown: '* *Bullet list with italics*'
-            },
-            {
                 name: 'Bullet list with link',
-                html: '<ul><li><p><a href="#">Bullet list with link</a></p></li></ul>',
-                markdown: '* <Bullet list with link>'
+                html: '<ul><li><p><a href="https://nimble.ni.dev">https://nimble.ni.dev</a></p></li></ul>',
+                markdown: '* <https://nimble.ni.dev>'
             },
             {
                 name: 'Nested list with levels 1 - Bulleted list, 2 - Numbered list (Bold)',

@@ -679,6 +679,7 @@ describe('RichTextEditor', () => {
                     },
                     { name: 'https://example.com/my%20page.html ' },
                     { name: 'https://example.com/smiley😀.html ' },
+                    { name: 'https://www.😀.com ' },
                     { name: 'https://example.com/пример.html ' }
                 ];
 
@@ -709,7 +710,7 @@ describe('RichTextEditor', () => {
                 }
             });
 
-            it('should have the right attributes to the "a" tag', async () => {
+            it('the "a" tag should have href and rel attributes', async () => {
                 await pageObject.setEditorTextContent(
                     'https://nimble.ni.dev/ '
                 );

@@ -328,6 +328,11 @@ describe('Markdown parser', () => {
                         encodeURL: 'https://example.com/smiley%F0%9F%98%80.html'
                     },
                     {
+                        name: 'Emoji at the host (punycode encoded)',
+                        validLink: '<https://www.😀.com>',
+                        encodeURL: 'https://www.xn--h28h.com'
+                    },
+                    {
                         name: 'Square brackets',
                         validLink: '<https://example.com/[page]/index.html>',
                         encodeURL: 'https://example.com/%5Bpage%5D/index.html'

@@ -365,6 +365,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                     },
                     autolink: true,
                     openOnClick: false,
+                    // linkOnPaste can be enabled when hyperlink support added
+                    // See: https://github.com/ni/nimble/issues/1527
                     linkOnPaste: false,
                     validate: href => /^https?:\/\//i.test(href)
                 })
@@ -382,9 +384,16 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     private getCustomLinkExtension(): Mark<LinkOptions> {
         return Link.extend({
+            // Excludes can be removed enabled when hyperlink support added
+            // See: https://github.com/ni/nimble/issues/1527
             excludes: '_',
+            // Inclusive can be updated when hyperlink support added
+            // See: https://github.com/ni/nimble/issues/1527
             inclusive: false,
             parseHTML() {
+                // As the markdown parser parses the links in the markdown string to 'nimble-anchor' tags,
+                // the link extension should identify that all 'nimble-anchor' tags are links. Therefore, it should
+                // return the 'nimble-anchor' tag.
                 return [{ tag: anchorTag }];
             },
             // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
