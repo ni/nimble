@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 14 Sep 2023 14:47:46 GMT",
+      "tag": "@ni/nimble-components_v20.2.14",
+      "version": "20.2.14",
+      "comments": {
+        "none": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "a5d50aa10fe63dac3fea271685453b5728c443bb",
+            "comment": "Remove ability to configure a parent in a test fixture"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 14 Sep 2023 13:22:30 GMT",
+      "tag": "@ni/nimble-components_v20.2.14",
+      "version": "20.2.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e50529159ae06c89b97e270f459b7f6095721bb1",
+            "comment": "Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Sep 2023 20:54:15 GMT",
       "tag": "@ni/nimble-components_v20.2.13",
       "version": "20.2.13",

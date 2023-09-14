@@ -4,8 +4,10 @@
 // https://github.com/microsoft/fast/blob/928d73621c62064992189270a920b2c6d6d9e19e/packages/web-components/fast-foundation/src/test-utilities/fixture.ts
 // Pending standalone availability in a package:
 // https://github.com/microsoft/fast/issues/4930
-// With updated imports and the following type patch:
-// https://github.com/microsoft/fast/issues/4930#issuecomment-885326451
+// With updated imports and the following patches:
+// 1. https://github.com/microsoft/fast/issues/4930#issuecomment-885326451
+// 2. Style the parent to be at the top-left corner of the page to prevent intermittencies related to controls being pushed out of the viewport by the tet runner page content.
+// 3. Remove the option for a custom parent to be specified in the `FixtureOptions` so that the patch mentioned above will never be unintentially bypassed.
 
 import {
     Constructable,
@@ -30,12 +32,6 @@ export interface FixtureOptions {
      * @defaultValue `globalThis.document`
      */
     document?: Document;
-
-    /**
-     * The parent element to append the fixture to.
-     * @defaultValue An instance of `HTMLDivElement`.
-     */
-    parent?: HTMLElement;
 
     /**
      * The data source to bind the HTML to.
@@ -149,7 +145,7 @@ export async function fixture<TElement = HTMLElement>(
     options: FixtureOptions = {}
 ): Promise<Fixture<TElement>> {
     const document = options.document || globalThis.document;
-    const parent = options.parent || Object.assign(document.createElement("div"), {
+    const parent = Object.assign(document.createElement("div"), {
         // Position the fixture in the top-left corner of the page.
         // Prevents intermittencies related to controls being pushed out of the
         // view port by test runner page content, i.e. jasmine reporter content
