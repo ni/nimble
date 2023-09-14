@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Remove ability to configure a parent in a test fixture",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "none"
-}
