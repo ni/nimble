@@ -81,6 +81,46 @@ describe('Markdown serializer', () => {
                 markdown: '<https://nimble.ni.dev>'
             },
             {
+                name: 'Italics without spaces in between bold texts',
+                html: '<strong>Bold<em>italics</em>bold</strong>',
+                markdown: '**Bold*italics*bold**'
+            },
+            {
+                name: 'Italics with leading and trailing spaces in between bold texts',
+                html: '<strong>Bold<em> italics </em>bold</strong>',
+                markdown: '**Bold *italics* bold**'
+            },
+            {
+                name: 'Bold and italics with leading and trailing spaces in italics with isolated italics at the end',
+                html: '<strong>Bold<em> italics </em></strong><em>italics</em>',
+                markdown: '**Bold *italics*** *italics*'
+            },
+            {
+                name: 'Bold and italics with leading and trailing spaces in bold with isolated italics at the end',
+                html: '<strong> Bold <em>italics</em> </strong><em>italics</em>',
+                markdown: '**Bold *italics*** *italics*'
+            },
+            {
+                name: 'Bold and italics with leading and trailing spaces in both',
+                html: '<strong>Bold <em>italics</em> bold <em>italics </em></strong><em>italics</em>',
+                markdown: '**Bold *italics* bold *italics*** *italics*'
+            },
+            {
+                name: 'Bold without spaces in between italics texts',
+                html: '<em>Italics</em><strong><em>bold</em></strong><em>italics</em>',
+                markdown: '*Italics**bold**italics*'
+            },
+            {
+                name: 'Bold with leading and trailing spaces in between italics texts',
+                html: '<em>Italics</em><strong><em> bold </em></strong><em>italics</em>',
+                markdown: '*Italics **bold** italics*'
+            },
+            {
+                name: 'Italics and bold with leading and trailing spaces in bold with isolated bold at the end',
+                html: '<em>Italics </em><strong><em>bold </em>bold</strong>',
+                markdown: '*Italics **bold*** **bold**'
+            },
+            {
                 name: 'Numbered list',
                 html: '<ol><li><p>Numbered list</p></li></ol>',
                 markdown: '1. Numbered list'

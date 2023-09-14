@@ -153,7 +153,7 @@ describe('Nimble Spinner', () => {
             nativeElement = fixture.componentInstance.elementRef.nativeElement;
         });
 
-        it('can be configured with property binding for appearance', () => {
+        it('can be configured with attribute binding for appearance', () => {
             expect(directive.appearance).toBe(SpinnerAppearance.default);
             expect(nativeElement.appearance).toBe(SpinnerAppearance.default);
 
