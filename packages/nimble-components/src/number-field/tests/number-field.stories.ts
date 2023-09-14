@@ -70,7 +70,7 @@ const metadata: Meta<NumberFieldArgs> = {
         hideStep: {
             name: 'hide-step',
             description:
-                'Configures the visibility of the increment and decrement step buttons.'
+                'Configures the visibility of the increment and decrement step buttons. Consider hiding the buttons if the input values will commonly have varied levels of precision (for example both integers and decimal numbers).'
         },
         min: {
             description: 'The minimum value that can be set.'
