@@ -77,7 +77,7 @@ describe('NimbleTableColumnNumberText', () => {
                         grouping-disabled
                         format="${NumberTextFormat.decimal}"
                         decimal-digits="6"
-                        alignment=${NumberTextAlignment.left}
+                        alignment="${NumberTextAlignment.left}"
                     ></nimble-table-column-number-text>
                 </nimble-table>
             `
