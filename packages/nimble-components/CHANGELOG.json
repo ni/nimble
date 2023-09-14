@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Thu, 14 Sep 2023 13:22:30 GMT",
+      "tag": "@ni/nimble-components_v20.2.14",
+      "version": "20.2.14",
+      "comments": {
+        "patch": [
+          {
+            "author": "123377523+vivinkrishna-ni@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "e50529159ae06c89b97e270f459b7f6095721bb1",
+            "comment": "Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Sep 2023 20:54:15 GMT",
       "tag": "@ni/nimble-components_v20.2.13",
       "version": "20.2.13",
