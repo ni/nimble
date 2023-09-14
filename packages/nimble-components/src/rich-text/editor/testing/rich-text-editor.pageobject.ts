@@ -5,7 +5,9 @@ import type { ToggleButton } from '../../../toggle-button';
 import type { ToolbarButton } from './types';
 import {
     getTagsFromElement,
-    getLeafContentsFromElement
+    getLeafContentsFromElement,
+    getLastChildElement,
+    getLastChildElementAttribute
 } from '../../models/testing/markdown-parser-utils';
 
 /**
@@ -115,13 +117,16 @@ export class RichTextEditorPageObject {
     }
 
     public async setEditorTextContent(value: string): Promise<void> {
-        let lastElement = this.getTiptapEditor()?.lastElementChild;
-
-        while (lastElement?.lastElementChild) {
-            lastElement = lastElement?.lastElementChild;
-        }
-        lastElement!.parentElement!.textContent = value;
+        const lastElement = this.getEditorLastChildElement();
+        lastElement.parentElement!.textContent = value;
         await waitForUpdatesAsync();
+    }
+
+    public getEditorLastChildAttribute(attribute: string): string {
+        return getLastChildElementAttribute(
+            attribute,
+            this.getTiptapEditor() as HTMLElement
+        );
     }
 
     public getEditorFirstChildTagName(): string {
@@ -140,6 +145,28 @@ export class RichTextEditorPageObject {
         return getLeafContentsFromElement(
             this.getTiptapEditor() as HTMLElement
         );
+    }
+
+    public getEditorTagNamesWithClosingTags(): string[] {
+        const tagNames: string[] = [];
+        const tiptapEditor = this.getTiptapEditor();
+
+        const processNode = (node: Node): void => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                const el = node as Element;
+                tagNames.push(el.tagName);
+
+                el.childNodes.forEach(processNode);
+
+                tagNames.push(`/${el.tagName}`);
+            }
+        };
+
+        if (tiptapEditor) {
+            processNode(tiptapEditor);
+        }
+
+        return tagNames.slice(1, -1);
     }
 
     public getFormattingButtonTextContent(
@@ -222,6 +249,10 @@ export class RichTextEditorPageObject {
             'nimble-toggle-button'
         );
         return buttons[button];
+    }
+
+    private getEditorLastChildElement(): Element {
+        return getLastChildElement(this.getTiptapEditor() as HTMLElement)!;
     }
 
     private getIconSlot(
