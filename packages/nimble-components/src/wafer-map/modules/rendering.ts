@@ -49,10 +49,16 @@ export class RenderingModule {
         if (this.wafermap.hoverDie !== undefined) {
             const scaledX = this.wafermap.dataManager.horizontalScale(
                 this.wafermap.hoverDie.x
-            )!;
+            );
+            if (scaledX === undefined) {
+                return '';
+            }
             const scaledY = this.wafermap.dataManager.verticalScale(
                 this.wafermap.hoverDie.y
-            )!;
+            );
+            if (scaledY === undefined) {
+                return '';
+            }
             const transformedPoint = this.wafermap.transform.apply([
                 scaledX + this.wafermap.dataManager.margin.left,
                 scaledY + this.wafermap.dataManager.margin.top

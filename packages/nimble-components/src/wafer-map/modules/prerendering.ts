@@ -59,8 +59,14 @@ export class Prerendering {
         const dieLabelsSuffix = this.wafermap.dieLabelsSuffix;
         this._diesRenderInfo = [];
         for (const die of this.wafermap.dies) {
-            const scaledX = horizontalScale(die.x) ?? 0;
-            const scaledY = verticalScale(die.y) ?? 0;
+            const scaledX = horizontalScale(die.x);
+            if (scaledX === undefined) {
+                continue;
+            }
+            const scaledY = verticalScale(die.y);
+            if (scaledY === undefined) {
+                continue;
+            }
             this._diesRenderInfo.push({
                 x: scaledX + margin.right,
                 y: scaledY + margin.top,

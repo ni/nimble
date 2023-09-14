@@ -101,7 +101,9 @@ export class Computations {
             this._containerDimensions.width,
             this._containerDimensions.height
         );
-        const gridDimensions = this.calculateGridDimensions(this.wafermap.dies);
+        const gridDimensions = this.gridDimensionsValidAndDefined()
+            ? this.calculateGridDimensionsFromBoundingBox()
+            : this.calculateGridDimensionsFromDies(this.wafermap.dies);
         // this scale is used for positioning the dies on the canvas
         const originLocation = this.wafermap.originLocation;
         this._horizontalScale = this.createHorizontalScale(
@@ -131,7 +133,33 @@ export class Computations {
         };
     }
 
-    private calculateGridDimensions(
+    private gridDimensionsValidAndDefined(): boolean {
+        return (
+            !this.wafermap.validity.invalidGridDimensions
+            && typeof this.wafermap.gridMinX === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
+        );
+    }
+
+    private calculateGridDimensionsFromBoundingBox(): GridDimensions {
+        const gridDimensions = { origin: { x: 0, y: 0 }, rows: 0, cols: 0 };
+        if (
+            typeof this.wafermap.gridMaxY === 'number'
+            && typeof this.wafermap.gridMinY === 'number'
+            && typeof this.wafermap.gridMaxX === 'number'
+            && typeof this.wafermap.gridMinX === 'number'
+        ) {
+            gridDimensions.origin.x = this.wafermap.gridMinX;
+            gridDimensions.origin.y = this.wafermap.gridMinY;
+            gridDimensions.rows = this.wafermap.gridMaxY - this.wafermap.gridMinY + 1;
+            gridDimensions.cols = this.wafermap.gridMaxX - this.wafermap.gridMinX + 1;
+        }
+        return gridDimensions;
+    }
+
+    private calculateGridDimensionsFromDies(
         dies: Readonly<Readonly<WaferMapDie>[]>
     ): GridDimensions {
         if (dies.length === 0 || dies[0] === undefined) {

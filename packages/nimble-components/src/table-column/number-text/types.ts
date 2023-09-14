@@ -3,7 +3,6 @@
  */
 export const NumberTextFormat = {
     default: undefined,
-    roundToInteger: 'round-to-integer',
     decimal: 'decimal'
 } as const;
 export type NumberTextFormat =
