@@ -504,6 +504,7 @@ library. For the currently supported features, we will include the following lib
 -   [@tiptap/extension-history](https://www.npmjs.com/package/@tiptap/extension-history)
 -   [@tiptap/extension-italic](https://www.npmjs.com/package/@tiptap/extension-italic)
 -   [@tiptap/extension-list-item](https://www.npmjs.com/package/@tiptap/extension-list-item)
+-   [@tiptap/extension-list-keymap](https://tiptap.dev/api/extensions/list-keymap)
 -   [@tiptap/extension-ordered-list](https://www.npmjs.com/package/@tiptap/extension-ordered-list)
 -   [@tiptap/extension-paragraph](https://www.npmjs.com/package/@tiptap/extension-paragraph)
 -   [@tiptap/extension-text](https://www.npmjs.com/package/@tiptap/extension-text)

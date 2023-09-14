@@ -19,6 +19,7 @@ import Document from '@tiptap/extension-document';
 import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
 import ListItem from '@tiptap/extension-list-item';
+import ListKeymap from '@tiptap/extension-list-keymap';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -350,7 +351,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 Placeholder.configure({
                     placeholder: '',
                     showOnlyWhenEditable: false
-                })
+                }),
+                ListKeymap
             ]
         });
     }
