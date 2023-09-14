@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 14 Sep 2023 01:19:15 GMT",
+      "tag": "@ni/nimble-angular_v17.4.0",
+      "version": "17.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "26874831+atmgrifter00@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "df0bf79263e39f99d272a4b00692dbb25fe4f61a",
+            "comment": "Add open attribute to Combobox Angular directive."
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Sep 2023 20:54:15 GMT",
       "tag": "@ni/nimble-angular_v17.3.1",
       "version": "17.3.1",
