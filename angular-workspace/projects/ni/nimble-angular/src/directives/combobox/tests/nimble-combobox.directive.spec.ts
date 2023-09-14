@@ -79,6 +79,17 @@ describe('Nimble combobox', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('has expected defaults for open', () => {
+            expect(directive.open).toBeFalse();
+            expect(nativeElement.open).toBeFalse();
+        });
+
+        it('can use the directive to set open', () => {
+            directive.open = true;
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
+        });
     });
 
     describe('with template string values', () => {
@@ -91,6 +102,7 @@ describe('Nimble combobox', () => {
                     placeholder="Enter value:"
                     error-text="error text"
                     error-visible
+                    open
                 >
                 </nimble-combobox>`
         })
@@ -143,6 +155,11 @@ describe('Nimble combobox', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('will use template string values for open', () => {
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
+        });
     });
 
     describe('with property bound values', () => {
@@ -155,6 +172,7 @@ describe('Nimble combobox', () => {
                     [placeholder]="placeholder"
                     [error-text]="errorText"
                     [error-visible]="errorVisible"
+                    [open]="open"
                 >
                 </nimble-combobox>
             `
@@ -168,6 +186,7 @@ describe('Nimble combobox', () => {
             public errorText = 'initial value';
             public placeholder = 'Enter value:';
             public errorVisible = false;
+            public open = false;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -251,6 +270,17 @@ describe('Nimble combobox', () => {
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
         });
+
+        it('can be configured with property binding for open', () => {
+            expect(directive.open).toBeFalse();
+            expect(nativeElement.open).toBeFalse();
+
+            fixture.componentInstance.open = true;
+            fixture.detectChanges();
+
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
+        });
     });
 
     describe('with attribute bound values', () => {
@@ -263,6 +293,7 @@ describe('Nimble combobox', () => {
                     [attr.placeholder]="placeholder"
                     [attr.error-text]="errorText"
                     [attr.error-visible]="errorVisible"
+                    [attr.open]="open"
                 >
                 </nimble-combobox>
             `
@@ -276,6 +307,7 @@ describe('Nimble combobox', () => {
             public placeholder = 'Enter value:';
             public errorText = 'initial value';
             public errorVisible: BooleanValueOrAttribute = null;
+            public open: BooleanValueOrAttribute = null;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -358,6 +390,17 @@ describe('Nimble combobox', () => {
 
             expect(directive.errorVisible).toBeTrue();
             expect(nativeElement.errorVisible).toBeTrue();
+        });
+
+        it('can be configured with attribute binding for open', () => {
+            expect(directive.open).toBeFalse();
+            expect(nativeElement.open).toBeFalse();
+
+            fixture.componentInstance.open = '';
+            fixture.detectChanges();
+
+            expect(directive.open).toBeTrue();
+            expect(nativeElement.open).toBeTrue();
         });
     });
 

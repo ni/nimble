@@ -34,7 +34,7 @@ async function setup(source: ElementReferences): Promise<Fixture<Table<SimpleTab
                         Column 2
                     </${tableColumnNumberTextTag}>
                 </${tableTag}>
-            </${tableTag}>`,
+            </${themeProviderTag}>`,
         { source }
     );
 }
@@ -115,11 +115,11 @@ describe('TableColumnNumberText', () => {
         expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('2.9');
         expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('2.9');
 
-        elementReferences.column1.format = NumberTextFormat.roundToInteger;
+        elementReferences.column1.format = NumberTextFormat.decimal;
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('3');
-        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('3');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('2.90');
+        expect(pageObject.getRenderedGroupHeaderTextContent(0)).toBe('2.90');
     });
 
     it('changing lang token updates display', async () => {
@@ -204,9 +204,10 @@ describe('TableColumnNumberText', () => {
         const largeNumberAsIntegerString = '8,729,375,089,724,643';
 
         beforeEach(async () => {
-            // Change the format to 'roundToInteger' for the title tests so that the number isn't displayed in
+            // Change the format to 'decimal' for the title tests so that the number isn't displayed in
             // exponential notation, which makes it difficult to render a long enough string to have overflow.
-            elementReferences.column1.format = NumberTextFormat.roundToInteger;
+            elementReferences.column1.format = NumberTextFormat.decimal;
+            elementReferences.column1.decimalDigits = 0;
             await waitForUpdatesAsync();
         });
 
@@ -414,24 +415,6 @@ describe('TableColumnNumberText', () => {
             expectedCellViewAlignment: TextCellViewBaseAlignment.right
         },
         {
-            name: 'with roundToInteger format and default alignment',
-            format: NumberTextFormat.roundToInteger,
-            configuredColumnAlignment: NumberTextAlignment.default,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
-        },
-        {
-            name: 'with roundToInteger format and left alignment',
-            format: NumberTextFormat.roundToInteger,
-            configuredColumnAlignment: NumberTextAlignment.left,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.left
-        },
-        {
-            name: 'with roundToInteger format and right alignment',
-            format: NumberTextFormat.roundToInteger,
-            configuredColumnAlignment: NumberTextAlignment.right,
-            expectedCellViewAlignment: TextCellViewBaseAlignment.right
-        },
-        {
             name: 'with decimal format and default alignment',
             format: NumberTextFormat.decimal,
             configuredColumnAlignment: NumberTextAlignment.default,
@@ -501,7 +484,7 @@ describe('TableColumnNumberText', () => {
         });
 
         it('when format changes and alignment is set to "default"', async () => {
-            elementReferences.column1.format = NumberTextFormat.roundToInteger;
+            elementReferences.column1.format = NumberTextFormat.decimal;
             await waitForUpdatesAsync();
             expect(cellView.alignment).toEqual(TextCellViewBaseAlignment.right);
         });
