@@ -1,8 +1,88 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 06 Sep 2023 16:21:23 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 13:22:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.14
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown ([ni/nimble@e505291](https://github.com/ni/nimble/commit/e50529159ae06c89b97e270f459b7f6095721bb1))
+
+## 20.2.13
+
+Wed, 13 Sep 2023 20:54:15 GMT
+
+### Patches
+
+- Created new grid dimensions api for the wafer map component ([ni/nimble@6bb30f5](https://github.com/ni/nimble/commit/6bb30f55e68c85eac7225ee430920b0729c3feeb))
+
+## 20.2.12
+
+Wed, 13 Sep 2023 15:39:27 GMT
+
+### Patches
+
+- Remove roundToInteger format from number-text column ([ni/nimble@f442767](https://github.com/ni/nimble/commit/f4427670abfdc441c69cf9c753877231c641b268))
+
+## 20.2.11
+
+Wed, 13 Sep 2023 13:01:33 GMT
+
+### Patches
+
+- Rich-text viewer should recognize escape characters in markdown ([ni/nimble@3dc792f](https://github.com/ni/nimble/commit/3dc792f7f70d1732f645c309df0e2b3670b5eeda))
+
+## 20.2.10
+
+Wed, 13 Sep 2023 05:02:34 GMT
+
+### Patches
+
+- Wrap long words to the next line in rich-text viewer ([ni/nimble@407e6e8](https://github.com/ni/nimble/commit/407e6e880ab4dd2122d5e9e203025492529d0b1a))
+
+## 20.2.9
+
+Wed, 13 Sep 2023 04:11:27 GMT
+
+### Patches
+
+- Update tabindex when clicking icon of a button in rich text editor toolbar. ([ni/nimble@0940f82](https://github.com/ni/nimble/commit/0940f820436cf07df5a239dec50a1022c9c054ca))
+
+## 20.2.8
+
+Tue, 12 Sep 2023 17:22:19 GMT
+
+### Patches
+
+- Add locale support to number-text column ([ni/nimble@b49755b](https://github.com/ni/nimble/commit/b49755bcb4948910c5b896b7c11abb64c6aca2cf))
+
+## 20.2.7
+
+Fri, 08 Sep 2023 23:00:33 GMT
+
+### Patches
+
+- Refactored rich text components to use common models ([ni/nimble@fcbe79b](https://github.com/ni/nimble/commit/fcbe79bafc733fd35a4fcae6ebc6aee88388d1ad))
+
+## 20.2.6
+
+Thu, 07 Sep 2023 18:16:08 GMT
+
+### Patches
+
+- Update component rollup build configuration ([ni/nimble@3f637ad](https://github.com/ni/nimble/commit/3f637ad62b61475a9340c65e4923cb01e86de8ce))
+
+## 20.2.5
+
+Wed, 06 Sep 2023 20:42:14 GMT
+
+### Patches
+
+- Revamp folder structure for rich text components ([ni/nimble@97cc70d](https://github.com/ni/nimble/commit/97cc70d749dbca3251e3efc18920ada8b4cbdfee))
 
 ## 20.2.4
 

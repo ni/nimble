@@ -21,9 +21,10 @@
 
 ## Design
 
-- *Full description of the proposed interaction design.*
-- *Include links or embedded views of design in XD or Figma and provide any additional context.*
+- *Full description of the proposed interaction design*
+- *Include links or embedded views of design in XD or Figma and provide any additional context*
 - *Include accessibility considerations like keyboard interactions and ARIA role/states/properties*
+- *Include mobile considerations like touch interactions and behavior on small screens*
 
 ## Validation
 
