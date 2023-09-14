@@ -2,6 +2,36 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Wed, 13 Sep 2023 20:54:15 GMT",
+      "tag": "@ni/nimble-components_v20.2.13",
+      "version": "20.2.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "33986780+munteannatan@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "6bb30f55e68c85eac7225ee430920b0729c3feeb",
+            "comment": "Created new grid dimensions api for the wafer map component"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Sep 2023 15:39:27 GMT",
+      "tag": "@ni/nimble-components_v20.2.12",
+      "version": "20.2.12",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "f4427670abfdc441c69cf9c753877231c641b268",
+            "comment": "Remove roundToInteger format from number-text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Sep 2023 13:01:33 GMT",
       "tag": "@ni/nimble-components_v20.2.11",
       "version": "20.2.11",
