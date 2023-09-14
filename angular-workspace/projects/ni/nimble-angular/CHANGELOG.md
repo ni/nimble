@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 14 Sep 2023 13:22:30 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 15:46:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.4.2
+
+Thu, 14 Sep 2023 15:46:47 GMT
+
+### Patches
+
+- Support duplicate values in combobox. ([ni/nimble@8dd2768](https://github.com/ni/nimble/commit/8dd27681c0246ff98185e99529894d0899d8de5b))
 
 ## 17.4.1
 
