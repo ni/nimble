@@ -1,11 +1,6 @@
 import { css } from '@microsoft/fast-element';
 import { display } from '@microsoft/fast-foundation';
-import {
-    bodyFont,
-    bodyFontColor,
-    linkActiveFontColor,
-    linkFontColor
-} from '../../theme-provider/design-tokens';
+import { bodyFont, bodyFontColor } from '../../theme-provider/design-tokens';
 
 export const styles = css`
     ${display('flex')}
@@ -45,14 +40,5 @@ export const styles = css`
     }
     li > p:empty {
         display: none;
-    }
-
-    a {
-        word-break: break-all;
-        color: ${linkFontColor};
-    }
-
-    a:active {
-        color: ${linkActiveFontColor};
     }
 `;
