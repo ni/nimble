@@ -133,10 +133,7 @@ export class RichTextEditorPageObject {
             lastElement = lastElement?.lastElementChild;
         }
         const textNode = document.createTextNode(value);
-        lastElement!.parentElement!.insertBefore(
-            textNode,
-            lastElement as Node
-        );
+        lastElement!.parentElement!.appendChild(textNode);
         await waitForUpdatesAsync();
     }
 
