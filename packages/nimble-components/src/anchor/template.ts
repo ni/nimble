@@ -43,24 +43,35 @@ AnchorOptions
         ${ref('control')}
     >${
     /* Start and End slot templates inlined to avoid extra whitespace.
-        See https://github.com/microsoft/fast/issues/6557 */ ''
-}${
-    /* Whitespace intentionally avoided between tags for inline styles */ ''
+       See https://github.com/microsoft/fast/issues/6557
+
+       Whitespace intentionally avoided between tags for inline styles */ ''
 }<span
         part="start"
         ${ref('startContainer')}
         class="${_x => (definition.start ? 'start' : null)}"
-    >
-        <slot name="start" ${ref('start')} @slotchange="${x => x.handleStartContentChange()}">
+        ><slot
+            name="start"
+            ${ref('start')}
+            @slotchange="${x => x.handleStartContentChange()}">
             ${definition.start || ''}
-        </slot>
-    </span><span class="content" part="content"><slot ${slotted('defaultSlottedContent')}></slot></span
+        </slot
+    ></span
+    ><span
+        class="content"
+        part="content"
+        ><slot
+            ${slotted('defaultSlottedContent')}
+        ></slot
+    ></span
     ><span
         part="end"
         ${ref('endContainer')}
         class=${_x => (definition.end ? 'end' : null)}
-    >
-        <slot name="end" ${ref('end')} @slotchange="${x => x.handleEndContentChange()}">
+        ><slot
+            name="end"
+            ${ref('end')}
+            @slotchange="${x => x.handleEndContentChange()}">
             ${definition.end || ''}
-        </slot>
-    </span></a>`;
+        </slot
+    ></span></a>`;
