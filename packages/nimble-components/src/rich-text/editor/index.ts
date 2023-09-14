@@ -391,9 +391,9 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
             // See: https://github.com/ni/nimble/issues/1527
             inclusive: false,
             parseHTML() {
-                // As the markdown parser parses the links in the markdown string to 'nimble-anchor' tags,
-                // the link extension should identify that all 'nimble-anchor' tags are links. Therefore, it should
-                // return the 'nimble-anchor' tag.
+                // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the
+                // Tiptap editor, the `parseHTML` of Link extension should return `anchorTag`. This is because the
+                // link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
                 return [{ tag: anchorTag }];
             },
             // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
