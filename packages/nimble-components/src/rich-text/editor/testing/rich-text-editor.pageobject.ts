@@ -132,16 +132,21 @@ export class RichTextEditorPageObject {
         while (lastElement?.lastElementChild) {
             lastElement = lastElement?.lastElementChild;
         }
-        const breakTags = lastElement!.parentElement!.querySelectorAll('br');
-        if (breakTags && breakTags.length > 1) {
-            const textNode = document.createTextNode(value);
-            lastElement!.parentElement!.insertBefore(
-                textNode,
-                lastElement as Node
-            );
-        } else {
-            lastElement!.parentElement!.textContent = value;
+        const textNode = document.createTextNode(value);
+        lastElement!.parentElement!.insertBefore(
+            textNode,
+            lastElement as Node
+        );
+        await waitForUpdatesAsync();
+    }
+
+    public async replaceEditorContent(value: string): Promise<void> {
+        let lastElement = this.getTiptapEditor()?.lastElementChild;
+
+        while (lastElement?.lastElementChild) {
+            lastElement = lastElement?.lastElementChild;
         }
+        lastElement!.parentElement!.textContent = value;
         await waitForUpdatesAsync();
     }
 

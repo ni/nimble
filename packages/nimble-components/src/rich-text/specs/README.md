@@ -344,6 +344,7 @@ markdown based on [CommonMark](http://commonmark.org/) flavor:
 -   Numbered list - `1. Numbered list`
 -   Bulleted list - `* Bulleted list`
 -   Absolute URL links - `<Absolute URI link>` (For more details on the markdown syntax for absolute URL links, see [Autolinks in CommonMark](https://spec.commonmark.org/0.30/#autolink))
+-   Hard line break - a backslash before the line ending `line1\\nline2` (For more details on the markdown syntax for Hard line breaks, see [Hard line breaks in CommanMark](https://spec.commonmark.org/0.30/#hard-line-breaks))
 
 _Configurations on Tiptap to support only absolute links_:
 
@@ -459,6 +460,7 @@ in macOS.
 | Ctrl + Shift + 8        | To enable the focused paragraph a bulleted list          |
 | Tab (For lists)         | To create a sub point within a bulleted or numbered list |
 | Shift + Tab (For lists) | To remove a sub point from a bulleted or numbered lists  |
+| Shift/Ctrl + Enter  | To enter new line by forces a line break                 |
 
 _Keyboard navigation with toolbar buttons focused_
 
@@ -501,6 +503,7 @@ library. For the currently supported features, we will include the following lib
 -   [@tiptap/extension-bold](https://www.npmjs.com/package/@tiptap/extension-bold)
 -   [@tiptap/extension-bullet-list](https://www.npmjs.com/package/@tiptap/extension-bullet-list)
 -   [@tiptap/extension-document](https://www.npmjs.com/package/@tiptap/extension-document)
+-   [@tiptap/extension-hard-break](https://www.npmjs.com/package/@tiptap/extension-hard-break)
 -   [@tiptap/extension-history](https://www.npmjs.com/package/@tiptap/extension-history)
 -   [@tiptap/extension-italic](https://www.npmjs.com/package/@tiptap/extension-italic)
 -   [@tiptap/extension-list-item](https://www.npmjs.com/package/@tiptap/extension-list-item)

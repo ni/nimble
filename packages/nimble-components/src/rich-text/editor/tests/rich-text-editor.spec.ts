@@ -1322,10 +1322,10 @@ describe('RichTextEditor', () => {
     it('should initialize "empty" to true and set false when there is content', async () => {
         expect(element.empty).toBeTrue();
 
-        await pageObject.setEditorTextContent('not empty');
+        await pageObject.replaceEditorContent('not empty');
         expect(element.empty).toBeFalse();
 
-        await pageObject.setEditorTextContent('');
+        await pageObject.replaceEditorContent('');
         expect(element.empty).toBeTrue();
     });
 

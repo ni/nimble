@@ -263,7 +263,7 @@ describe('Markdown serializer', () => {
             markdown: string
         }[] = [
             {
-                name: 'Had Break',
+                name: 'Hard Break',
                 html: '<p>Hard<br>Break</p>',
                 markdown: 'Hard\\\nBreak'
             },
