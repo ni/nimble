@@ -384,7 +384,7 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
      */
     private getCustomLinkExtension(): Mark<LinkOptions> {
         return Link.extend({
-            // Excludes can be removed enabled when hyperlink support added
+            // Excludes can be removed/enabled when hyperlink support added
             // See: https://github.com/ni/nimble/issues/1527
             excludes: '_',
             // Inclusive can be updated when hyperlink support added

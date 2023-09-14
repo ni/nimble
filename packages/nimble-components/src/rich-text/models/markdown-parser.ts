@@ -83,7 +83,7 @@ export class RichTextMarkdownParser {
                     // Inclusive can be updated when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
                     inclusive: false,
-                    // Excludes can be removed enabled when hyperlink support added
+                    // Excludes can be removed/enabled when hyperlink support added
                     // See: https://github.com/ni/nimble/issues/1527
                     excludes: '_',
                     toDOM(node) {
