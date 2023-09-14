@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Thu, 14 Sep 2023 19:53:56 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 21:02:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.4.5
+
+Thu, 14 Sep 2023 21:02:07 GMT
+
+### Patches
+
+- Add `alignment` to Angular directive for number-text table column ([ni/nimble@a288335](https://github.com/ni/nimble/commit/a28833512f2e7bf19338c4ffadc130a8fa02f5fd))
 
 ## 17.4.4
 

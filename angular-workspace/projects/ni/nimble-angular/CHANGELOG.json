@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Thu, 14 Sep 2023 21:02:07 GMT",
+      "tag": "@ni/nimble-angular_v17.4.5",
+      "version": "17.4.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "a28833512f2e7bf19338c4ffadc130a8fa02f5fd",
+            "comment": "Add `alignment` to Angular directive for number-text table column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 14 Sep 2023 19:53:56 GMT",
       "tag": "@ni/nimble-angular_v17.4.4",
       "version": "17.4.4",
