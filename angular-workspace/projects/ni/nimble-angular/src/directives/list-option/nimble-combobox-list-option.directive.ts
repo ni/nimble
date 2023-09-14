@@ -31,7 +31,6 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
     }
 
     private _modelValue: unknown = undefined;
-    private _currentTextContent: string;
 
     public constructor(
         private readonly elementRef: ElementRef<ListOption>,
@@ -41,7 +40,6 @@ export class NimbleComboboxListOptionDirective implements AfterViewInit, OnDestr
 
     public ngAfterViewInit(): void {
         if (this.combobox) {
-            this._currentTextContent = this.elementRef.nativeElement.text;
             this.combobox.addOption(this._modelValue, this.elementRef.nativeElement);
         }
     }
