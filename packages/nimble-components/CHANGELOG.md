@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Sep 2023 17:13:47 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 19:53:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.16
+
+Thu, 14 Sep 2023 19:53:56 GMT
+
+### Patches
+
+- Remove unexpected whitespace at start/end of anchor ([ni/nimble@b73a610](https://github.com/ni/nimble/commit/b73a610e56ae33783ad662354ef28ef80ab38f70))
 
 ## 20.2.15
 
