@@ -292,6 +292,9 @@ export const iconMetadata: {
     IconHourglass: {
         tags: ['history', 'timer']
     },
+    IconIndent: {
+        tags: ['increase-list-level', 'right-arrow-three-lines']
+    },
     IconIndeterminantCheckbox: {
         tags: ['selection']
     },
@@ -354,6 +357,9 @@ export const iconMetadata: {
     },
     IconNumberList: {
         tags: ['order']
+    },
+    IconOutdent: {
+        tags: ['decrease-list-level']
     },
     IconPaste: {
         tags: ['clipboard']
