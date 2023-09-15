@@ -330,6 +330,7 @@ describe('Markdown serializer', () => {
     });
 
     describe('HardBreak node should be serialized to back slash (hard break syntax) markdown output', () => {
+        const r = String.raw;
         const supportedNodesMarks: {
             name: string,
             html: string,
@@ -338,44 +339,61 @@ describe('Markdown serializer', () => {
             {
                 name: 'Hard Break',
                 html: '<p>Hard<br>Break</p>',
-                markdown: 'Hard\\\nBreak'
+                markdown: r`Hard\
+Break`
             },
             {
                 name: 'Bold',
                 html: '<strong>Bold</strong><br><strong>Bold</strong>',
-                markdown: '**Bold**\\\n**Bold**'
+                markdown: r`**Bold**\
+**Bold**`
             },
             {
                 name: 'Italics',
                 html: '<em>Italics</em><br><em>Italics</em>',
-                markdown: '*Italics*\\\n*Italics*'
+                markdown: r`*Italics*\
+*Italics*`
             },
             {
                 name: 'Bold, Hard break and Italics',
                 html: '<strong>Bold</strong><br><em>Italics</em>',
-                markdown: '**Bold**\\\n*Italics*'
+                markdown: r`**Bold**\
+*Italics*`
             },
             {
                 name: 'Numbered list',
                 html: '<ol><li><p>Numbered<br>list</p></li></ol>',
-                markdown: '1. Numbered\\\n   list'
+                markdown: r`1. Numbered\
+   list`
             },
             {
                 name: 'Bulleted list',
                 html: '<ul><li><p>Bulleted<br>list</p></li></ul>',
-                markdown: '* Bulleted\\\n  list'
+                markdown: r`* Bulleted\
+  list`
             },
             {
                 name: 'Nested Bulleted list and hard break',
                 html: '<ul><li><p>list<br>hard break content</p></li><li><p>list</p><ul><li><p>nested list<br>nested hard break content</p></li></ul></li></ul>',
-                markdown:
-                    '* list\\\n  hard break content\n\n* list\n\n  * nested list\\\n    nested hard break content'
+                markdown: r`* list\
+  hard break content
+
+* list
+
+  * nested list\
+    nested hard break content`
             },
             {
                 name: 'Nested Numbered list and hard break',
                 html: '<ol><li><p>list<br>hard break content</p></li><li><p>list</p><ol><li><p>nested list<br>nested hard break content</p></li></ol></li></ol>',
                 markdown:
-                    '1. list\\\n   hard break content\n\n2. list\n\n   1. nested list\\\n      nested hard break content'
+                    r`1. list\
+   hard break content
+
+2. list
+
+   1. nested list\
+      nested hard break content`
             }
         ];
 

@@ -851,6 +851,7 @@ describe('Markdown parser', () => {
     describe('Markdown string with hard break should have respective br tag when rendered', () => {
         const focused: string[] = [];
         const disabled: string[] = [];
+        const r = String.raw;
         const markdownStringWithHardBreak: {
             name: string,
             value: string,
@@ -858,32 +859,52 @@ describe('Markdown parser', () => {
         }[] = [
             {
                 name: 'bold and italics',
-                value: '**bold**\\\n*Italics*',
+                value: r`**bold**\
+*Italics*`,
                 tags: ['P', 'STRONG', 'BR', 'EM']
             },
             {
                 name: 'bold and back slash followed by italics',
-                value: '**bold**\\\n \\ *Italics*',
+                value: r`**bold**\
+ \ *Italics*`,
                 tags: ['P', 'STRONG', 'BR', 'EM']
             },
             {
                 name: 'two first level bulleted list items',
-                value: '* list\\\nhard break content\n* list',
+                value: r`* list\
+  hard break content
+
+* list`,
                 tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P']
             },
             {
                 name: 'two first level bulleted list items and with nested list',
-                value: '* list\\\nhard break content\n* list \n  * nested list\\\nnested hard break content',
+                value: r`* list\
+  hard break content
+
+* list
+
+  * nested list\
+    nested hard break content`,
                 tags: ['UL', 'LI', 'P', 'BR', 'LI', 'P', 'UL', 'LI', 'P', 'BR']
             },
             {
                 name: 'two first level numbered list items',
-                value: '1. list\\\nhard break content\n2. list',
+                value: r`1. list\
+   hard break content
+
+2. list`,
                 tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P']
             },
             {
                 name: 'two first level numbered list items and with nested list',
-                value: '1. list\\\nhard break content\n2. list \n   1. nested list\\\nnested hard break content',
+                value: r`1. list\
+   hard break content
+
+2. list
+
+   1. nested list\
+      nested hard break content`,
                 tags: ['OL', 'LI', 'P', 'BR', 'LI', 'P', 'OL', 'LI', 'P', 'BR']
             }
         ];
