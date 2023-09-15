@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Thu, 14 Sep 2023 19:53:56 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Sep 2023 20:36:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.3.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Import number-text column in all-components.ts ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
+
+## 20.3.0
+
+Fri, 15 Sep 2023 14:38:16 GMT
+
+### Minor changes
+
+- Add partial token for fill hover color ([ni/nimble@b03b880](https://github.com/ni/nimble/commit/b03b880ff881d7046209e59cf4a9cbf74e2fcceb))
 
 ## 20.2.16
 
