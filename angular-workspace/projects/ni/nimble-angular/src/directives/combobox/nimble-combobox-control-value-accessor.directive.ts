@@ -1,6 +1,7 @@
 import { AfterViewChecked, Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { ListOption } from '../../public-api';
+import type { ListOption } from '@ni/nimble-components/dist/esm/list-option';
+import type { Combobox } from '../../public-api';
 
 /**
 * @description
@@ -40,7 +41,8 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
         this._compareWith = fn;
     }
 
-    private readonly _optionMap: Map<string, unknown> = new Map<string, unknown>();
+    private readonly _displayTextToOptionsMap: Map<string, ListOption[]> = new Map<string, ListOption[]>();
+    private readonly _optionToModelValueMap: Map<ListOption, unknown> = new Map<ListOption, unknown>();
 
     private _modelValue: unknown;
 
@@ -64,14 +66,11 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     @HostListener('blur')
     private onTouched: () => void;
 
-    public constructor(
-        private readonly _renderer: Renderer2,
-        private readonly _elementRef: ElementRef
-    ) {}
+    public constructor(private readonly _renderer: Renderer2, private readonly _elementRef: ElementRef<Combobox>) {}
 
     public ngAfterViewChecked(): void {
         for (const updateValue of this._optionUpdateQueue) {
-            this.addOption(updateValue.listOption.text, updateValue.modelValue);
+            this.addOption(updateValue.modelValue, updateValue.listOption);
         }
         this._optionUpdateQueue = [];
     }
@@ -91,9 +90,11 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
      */
     public registerOnChange(fn: (value: unknown) => void): void {
         this.onChange = (valueString: string): void => {
-            const modelValue = this._optionMap.has(valueString) ? this._optionMap.get(valueString) : OPTION_NOT_FOUND;
-            this._modelValue = modelValue;
-            fn(modelValue);
+            const options = this._displayTextToOptionsMap.get(valueString);
+            this._modelValue = options
+                ? this._optionToModelValueMap.get(options[0])
+                : OPTION_NOT_FOUND;
+            fn(this._modelValue);
         };
     }
 
@@ -119,20 +120,43 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     /**
      * @internal
      */
-    public addOption(displayValue: string, modelValue: unknown): void {
-        this._optionMap.set(displayValue, modelValue);
+    public addOption(modelValue: unknown, option: ListOption): void {
+        this._optionToModelValueMap.set(option, modelValue);
+        const options = this._displayTextToOptionsMap.get(option.text);
+        if (options) {
+            const optionIndex = options.indexOf(option);
+            if (optionIndex < 0) {
+                options.push(option);
+            }
+        } else {
+            this._displayTextToOptionsMap.set(option.text, [option]);
+        }
         this.updateDisplayValue();
     }
 
     /**
      * @internal
      */
-    public removeOption(displayValue: string): void {
-        this._optionMap.delete(displayValue);
+    public removeOption(option: ListOption): void {
+        const options = this._displayTextToOptionsMap.get(option.text);
+        if (options) {
+            if (options.length > 1) {
+                const removeIndex = options.indexOf(option);
+                if (removeIndex >= 0) {
+                    options.splice(removeIndex, 1);
+                }
+            } else {
+                this._displayTextToOptionsMap.delete(option.text);
+            }
+        }
+        this._optionToModelValueMap.delete(option);
     }
 
-    public queueOptionUpdate(listOption: ListOption, modelValue: unknown): void {
-        this.removeOption(listOption.text);
+    /**
+     * @internal
+     */
+    public queueOptionUpdate(modelValue: unknown, listOption: ListOption): void {
+        this.removeOption(listOption);
         this._optionUpdateQueue.push({ listOption, modelValue });
     }
 
@@ -142,9 +166,13 @@ export class NimbleComboboxControlValueAccessorDirective implements ControlValue
     }
 
     private getValueStringFromValue(value: unknown): string | undefined {
-        for (const [optionKey, optionValue] of this._optionMap.entries()) {
-            if (this._compareWith(optionValue, value)) {
-                return optionKey;
+        for (const [option, modelValue] of this._optionToModelValueMap.entries()) {
+            if (this._compareWith(modelValue, value)) {
+                for (const [displayText, options] of this._displayTextToOptionsMap.entries()) {
+                    if (options.includes(option)) {
+                        return displayText;
+                    }
+                }
             }
         }
         return undefined;

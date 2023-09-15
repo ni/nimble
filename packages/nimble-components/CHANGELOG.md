@@ -1,8 +1,56 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Sep 2023 15:39:27 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Sep 2023 20:36:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.3.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Import number-text column in all-components.ts ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
+
+## 20.3.0
+
+Fri, 15 Sep 2023 14:38:16 GMT
+
+### Minor changes
+
+- Add partial token for fill hover color ([ni/nimble@b03b880](https://github.com/ni/nimble/commit/b03b880ff881d7046209e59cf4a9cbf74e2fcceb))
+
+## 20.2.16
+
+Thu, 14 Sep 2023 19:53:56 GMT
+
+### Patches
+
+- Remove unexpected whitespace at start/end of anchor ([ni/nimble@b73a610](https://github.com/ni/nimble/commit/b73a610e56ae33783ad662354ef28ef80ab38f70))
+
+## 20.2.15
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Support for absolute links in rich text components ([ni/nimble@f5dfad6](https://github.com/ni/nimble/commit/f5dfad6fbce2701e9fabab100c7e4ebf17e61f50))
+
+## 20.2.14
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown ([ni/nimble@e505291](https://github.com/ni/nimble/commit/e50529159ae06c89b97e270f459b7f6095721bb1))
+
+## 20.2.13
+
+Wed, 13 Sep 2023 20:54:15 GMT
+
+### Patches
+
+- Created new grid dimensions api for the wafer map component ([ni/nimble@6bb30f5](https://github.com/ni/nimble/commit/6bb30f55e68c85eac7225ee430920b0729c3feeb))
 
 ## 20.2.12
 
