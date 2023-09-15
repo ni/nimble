@@ -160,6 +160,10 @@ export const fillHoverColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillHoverColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillHoverColorForTheme(element), 0.1));
 
+export const fillHoverRgbPartialColor = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.fillHoverRgbPartialColor)
+).withDefault((element: HTMLElement) => hexToRgbPartial(getFillHoverColorForTheme(element)));
+
 export const fillDownColor = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.fillDownColor)
 ).withDefault((element: HTMLElement) => hexToRgbaCssColor(getFillDownColorForTheme(element), 0.15));
