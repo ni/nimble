@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 15 Sep 2023 19:43:51 GMT",
+      "tag": "@ni/nimble-components_v20.3.0",
+      "version": "20.3.0",
+      "comments": {
+        "none": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2314df2fff61db8fb20ca1fbddad9f4961957afa",
+            "comment": "Document and test API to hide step buttons on number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 14:38:16 GMT",
       "tag": "@ni/nimble-components_v20.3.0",
       "version": "20.3.0",
