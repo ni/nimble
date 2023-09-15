@@ -203,16 +203,16 @@ describe('TableRow', () => {
 
     describe('in table', () => {
         class ColumnReferences {
-            public textColumn!: TableColumnText;
-            public dateColumn!: TableColumnDateText;
+            public firstColumn!: TableColumnText;
+            public secondColumn!: TableColumnDateText;
         }
 
         // prettier-ignore
         async function setupTable(source: ColumnReferences): Promise<Fixture<Table<SimpleTableRecord>>> {
             return fixture<Table<SimpleTableRecord>>(
                 html`<${tableTag}>
-                        <${tableColumnTextTag} ${ref('textColumn')} id="first-column" field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
-                        <${tableColumnDateTextTag} ${ref('dateColumn')} id="second-column" field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
+                        <${tableColumnTextTag} ${ref('firstColumn')} id="first-column" field-name="stringData" column-id='foo'>Column 1</${tableColumnTextTag}>
+                        <${tableColumnDateTextTag} ${ref('secondColumn')} id="second-column" field-name="numberData" column-id='bar'>Column 2</${tableColumnDateTextTag}>
                     </${tableTag}>`,
                 { source }
             );
@@ -248,22 +248,22 @@ describe('TableRow', () => {
             const renderedCell = pageObject.getRenderedCell(0);
 
             expect(renderedCell!.cellViewTemplate).toEqual(
-                columnReferences.textColumn.columnInternals.cellViewTemplate
+                columnReferences.firstColumn.columnInternals.cellViewTemplate
             );
         });
 
         it('rendered cell gets cellState from column', () => {
-            const columnStates = row.columnStates;
+            const cellStates = row.cellStates;
 
             const firstCell = pageObject.getRenderedCell(0)!;
-            const firstCellState = columnStates[0]?.cellState;
+            const firstCellState = cellStates[0];
             expect(firstCellState).toEqual(firstCell.cellState);
             const firstCellRecord = firstCellState!
                 .cellRecord as TableColumnTextCellRecord;
             expect(firstCellRecord.value).toBe('string 1');
 
             const secondCell = pageObject.getRenderedCell(1)!;
-            const secondCellState = columnStates[1]?.cellState;
+            const secondCellState = cellStates[1];
             expect(secondCellState).toEqual(secondCell.cellState);
             const secondCellRecord = secondCellState!
                 .cellRecord as TableColumnDateTextCellRecord;
@@ -271,37 +271,56 @@ describe('TableRow', () => {
         });
 
         it('updates cell.columnId when column changes', async () => {
-            const cell = pageObject.getRenderedCell(0)!;
-            expect(cell.columnId).toEqual('foo');
-            element.removeChild(columnReferences.textColumn);
+            expect(pageObject.getRenderedCell(0)!.columnId).toEqual('foo');
+            element.removeChild(columnReferences.firstColumn);
             await waitForUpdatesAsync();
-            expect(cell.columnId).toBe('bar');
+            expect(pageObject.getRenderedCell(0)!.columnId).toBe('bar');
         });
 
         it('updates cell.columnId when id of column changes', async () => {
-            const cell = pageObject.getRenderedCell(0)!;
-            expect(cell.columnId).toEqual('foo');
-            columnReferences.textColumn.columnId = 'baz';
+            expect(pageObject.getRenderedCell(0)!.columnId).toEqual('foo');
+            columnReferences.firstColumn.columnId = 'baz';
             await waitForUpdatesAsync();
-            expect(cell.columnId).toBe('baz');
+            expect(pageObject.getRenderedCell(0)!.columnId).toBe('baz');
         });
 
         it('reordering columns reorders cells', async () => {
             // Swap the two columns
-            element.insertBefore(columnReferences.dateColumn, columnReferences.textColumn);
+            element.insertBefore(columnReferences.secondColumn, columnReferences.firstColumn);
             await waitForUpdatesAsync();
 
             const cell0 = pageObject.getRenderedCell(0)!;
             expect(cell0.cellViewTemplate).toEqual(
-                columnReferences.dateColumn.columnInternals.cellViewTemplate
+                columnReferences.secondColumn.columnInternals.cellViewTemplate
             );
-            expect(cell0.cellState?.columnConfig).toEqual(columnReferences.dateColumn.columnInternals.columnConfig);
+            expect(cell0.cellState?.columnConfig).toEqual(columnReferences.secondColumn.columnInternals.columnConfig);
 
             const cell1 = pageObject.getRenderedCell(1)!;
             expect(cell1.cellViewTemplate).toEqual(
-                columnReferences.textColumn.columnInternals.cellViewTemplate
+                columnReferences.firstColumn.columnInternals.cellViewTemplate
             );
-            expect(cell1.cellState?.columnConfig).toEqual(columnReferences.textColumn.columnInternals.columnConfig);
+            expect(cell1.cellState?.columnConfig).toEqual(columnReferences.firstColumn.columnInternals.columnConfig);
+        });
+
+        it('updating column reuses cell', async () => {
+            const originalCell = pageObject.getRenderedCell(0);
+
+            columnReferences.firstColumn.fieldName = 'updated-field-name';
+            await waitForUpdatesAsync();
+
+            const updatedCell = pageObject.getRenderedCell(0);
+            expect(originalCell).toBe(updatedCell);
+        });
+
+        it('reordering columns creates new cells', async () => {
+            const originalCell = pageObject.getRenderedCell(0);
+
+            // Swap the two columns
+            element.insertBefore(columnReferences.secondColumn, columnReferences.firstColumn);
+            await waitForUpdatesAsync();
+
+            const updatedCell = pageObject.getRenderedCell(0);
+            expect(originalCell).not.toBe(updatedCell);
         });
     });
 });

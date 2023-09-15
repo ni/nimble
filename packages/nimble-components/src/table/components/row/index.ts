@@ -1,4 +1,4 @@
-import { attr, observable, volatile } from '@microsoft/fast-element';
+import { Notifier, Observable, attr, observable, volatile } from '@microsoft/fast-element';
 import {
     Checkbox,
     DesignSystem,
@@ -16,17 +16,12 @@ import type {
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { TableCell } from '../cell';
+import { ColumnInternals } from '../../../table-column/base/models/column-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
         'nimble-table-row': TableRow;
     }
-}
-
-export interface ColumnState {
-    column: TableColumn;
-    cellState?: TableCellState;
-    cellIndentLevel: number;
 }
 
 /** Represents a single row (element) in the Table's data  */
@@ -69,6 +64,14 @@ export class TableRow<
 
     /** @internal */
     @observable
+    public cellIndentLevels: number[] = [];
+
+    /** @internal */
+    @observable
+    public cellStates: (TableCellState | undefined)[] = [];
+
+    /** @internal */
+    @observable
     public readonly selectionCheckbox?: Checkbox;
 
     /** @internal */
@@ -80,31 +83,7 @@ export class TableRow<
     // https://github.com/microsoft/fast/issues/5750
     private ignoreSelectionChangeEvents = false;
 
-    @volatile
-    public get columnStates(): ColumnState[] {
-        return this.columns.map((column, i) => {
-            const fieldNames = column.columnInternals.dataRecordFieldNames;
-            let cellState: TableCellState | undefined;
-            if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
-                const cellDataValues = fieldNames.map(
-                    field => this.dataRecord![field]
-                );
-                const cellRecord = Object.fromEntries(
-                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
-                        k,
-                        cellDataValues[j]
-                    ])
-                );
-                const columnConfig = column.columnInternals.columnConfig;
-                cellState = {
-                    cellRecord,
-                    columnConfig
-                };
-            }
-            const cellIndentLevel = i === 0 && this.nestingLevel > 0 ? this.nestingLevel - 1 : 0;
-            return { column, cellState, cellIndentLevel };
-        });
-    }
+    private columnNotifiers?: Notifier[] = [];
 
     @volatile
     public override get ariaSelected(): 'true' | 'false' | null {
@@ -165,6 +144,24 @@ export class TableRow<
         }
     }
 
+    public handleChange(source: unknown, args: unknown): void {
+        if (source instanceof ColumnInternals && typeof args === 'string' && (this.isColumnInternalsProperty(args, 'columnConfig') || this.isColumnInternalsProperty(args, 'dataRecordFieldNames'))) {
+            this.updateCellStates();
+        }
+    }
+
+    private isColumnInternalsProperty(
+        changedProperty: string,
+        ...args: (keyof ColumnInternals<unknown>)[]
+    ): boolean {
+        for (const arg of args) {
+            if (changedProperty === arg) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private emitActionMenuToggleEvent(
         eventType: string,
         menuButtonEventDetail: MenuButtonToggleEventDetail,
@@ -177,6 +174,74 @@ export class TableRow<
             columnId: column.columnId
         };
         this.$emit(eventType, detail);
+    }
+
+    private columnsChanged(): void {
+        this.updateCellIndentLevels();
+        this.updateCellStates();
+
+        this.observeColumns();
+    }
+
+    private dataRecordChanged(): void {
+        this.updateCellIndentLevels();
+        this.updateCellStates();
+    }
+
+    private nestingLevelChanged(): void {
+        this.updateCellIndentLevels();
+    }
+
+    private updateCellIndentLevels(): void {
+        this.cellIndentLevels = this.columns.map((_, i) => {
+            if (i === 0 && this.nestingLevel > 0) {
+                return this.nestingLevel - 1;
+            }
+            return 0;
+        });
+    }
+
+    private removeColumnObservers(): void {
+        this.columnNotifiers?.forEach(notifier => {
+            notifier.unsubscribe(this);
+        });
+        this.columnNotifiers = [];
+    }
+
+    private observeColumns(): void {
+        this.removeColumnObservers();
+
+        this.columnNotifiers = this.columns.map(column => {
+            const notifier = Observable.getNotifier(
+                column.columnInternals
+            );
+            notifier.subscribe(this);
+            return notifier;
+        });
+    }
+
+    private updateCellStates(): void {
+        this.cellStates = this.columns.map(column => {
+            const fieldNames = column.columnInternals.dataRecordFieldNames;
+            let cellState: TableCellState | undefined;
+            if (this.hasValidFieldNames(fieldNames) && this.dataRecord) {
+                const cellDataValues = fieldNames.map(
+                    field => this.dataRecord![field]
+                );
+                const cellRecord = Object.fromEntries(
+                    column.columnInternals.cellRecordFieldNames.map((k, j) => [
+                        k,
+                        cellDataValues[j]
+                    ])
+                );
+                const columnConfig = column.columnInternals.columnConfig;
+                cellState = {
+                    cellRecord,
+                    columnConfig
+                };
+            }
+            return cellState;
+        });
     }
 
     private hasValidFieldNames(
