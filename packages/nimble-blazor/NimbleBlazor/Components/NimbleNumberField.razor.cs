@@ -39,6 +39,12 @@ public partial class NimbleNumberField : NimbleInputBase<double?>
     public double Step { get; set; } = 1.0;
 
     /// <summary>
+    /// Gets or sets the whether to hide the step buttons of the number field.
+    /// </summary>
+    [Parameter]
+    public bool? HideStep { get; set; }
+
+    /// <summary>
     /// Gets or sets the min value of the number field.
     /// </summary>
     /// <remarks>default is <see cref="double.MinValue"/></remarks>
