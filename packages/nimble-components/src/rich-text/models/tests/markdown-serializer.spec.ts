@@ -386,8 +386,7 @@ Break`
             {
                 name: 'Nested Numbered list and hard break',
                 html: '<ol><li><p>list<br>hard break content</p></li><li><p>list</p><ol><li><p>nested list<br>nested hard break content</p></li></ol></li></ol>',
-                markdown:
-                    r`1. list\
+                markdown: r`1. list\
    hard break content
 
 2. list
