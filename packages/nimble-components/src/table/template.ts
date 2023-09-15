@@ -115,7 +115,7 @@ export const template = html<Table>`
                                         ?selectable="${(_, c) => c.parent.selectionMode === TableRowSelectionMode.multiple}"
                                         selection-state="${(x, c) => c.parent.tableData[x.index]?.selectionState}"
                                         @group-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
-                                        @group-expand-toggle="${(x, c) => c.parent.handleGroupRowExpanded(x.index, c.event)}"
+                                        @group-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index, c.event)}"
                                     >
                                     </${tableGroupRowTag}>
                                 `)}
@@ -125,14 +125,18 @@ export const template = html<Table>`
                                         record-id="${(x, c) => c.parent.tableData[x.index]?.id}"
                                         ?selectable="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.none}"
                                         ?selected="${(x, c) => c.parent.tableData[x.index]?.selectionState === TableRowSelectionState.selected}"
+                                        ?expanded="${(x, c) => c.parent.tableData[x.index]?.isExpanded}"
                                         ?hide-selection="${(_, c) => c.parent.selectionMode !== TableRowSelectionMode.multiple}"
                                         :dataRecord="${(x, c) => c.parent.tableData[x.index]?.record}"
                                         :columns="${(_, c) => c.parent.columns}"
+                                        :isParentRow="${(x, c) => c.parent.tableData[x.index]?.record.subRows !== undefined}"
                                         :nestingLevel="${(x, c) => c.parent.tableData[x.index]?.nestingLevel}"
                                         @click="${(x, c) => c.parent.onRowClick(x.index, c.event as MouseEvent)}"
                                         @row-selection-toggle="${(x, c) => c.parent.onRowSelectionToggle(x.index, c.event as CustomEvent<TableRowSelectionToggleEventDetail>)}"
                                         @row-action-menu-beforetoggle="${(x, c) => c.parent.onRowActionMenuBeforeToggle(x.index, c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
                                         @row-action-menu-toggle="${(_, c) => c.parent.onRowActionMenuToggle(c.event as CustomEvent<TableActionMenuToggleEventDetail>)}"
+                                        @row-expand-toggle="${(x, c) => c.parent.handleRowExpanded(x.index, c.event)}"
+                                        :dataIndex="${x => x.index}"
                                     >
                                     ${when((x, c) => (c.parent as Table).openActionMenuRecordId === (c.parent as Table).tableData[x.index]?.id, html<VirtualItem, Table>`
                                         ${repeat((_, c) => (c.parent as Table).actionMenuSlots, html<string, Table>`

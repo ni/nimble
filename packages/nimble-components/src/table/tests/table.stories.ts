@@ -7,7 +7,7 @@ import {
 } from '../../utilities/tests/storybook';
 import { ExampleDataType } from './types';
 import { Table, tableTag } from '..';
-import { TableRowSelectionMode } from '../types';
+import { TableRowExpandedEventDetail, TableRowSelectionMode } from '../types';
 import { iconUserTag } from '../../icons/user';
 import { menuTag } from '../../menu';
 import { menuItemTag } from '../../menu-item';
@@ -28,6 +28,7 @@ interface TableArgs extends LabelUserArgs {
     getSelectedRecordIds: undefined;
     tableRef: Table;
     updateData: (args: TableArgs) => void;
+    expandData: (args: TableArgs, event: CustomEvent<TableRowExpandedEventDetail>) => void;
 }
 
 const simpleData = [
@@ -54,14 +55,15 @@ const simpleData = [
 const firstNames = ['John', 'Sally', 'Joe', 'Michael', 'Sam'];
 const lastNames = ['Davidson', 'Johnson', 'Abraham', 'Wilson'];
 const colors = ['Red', 'Blue', 'Green', 'Yellow'];
-const largeData = [];
-for (let i = 0; i < 10000; i++) {
+const largeData: any[] = [];
+for (let i = 0; i < 10; i++) {
     largeData.push({
         id: i.toString(),
         firstName: firstNames[i % firstNames.length],
         lastName: lastNames[i % lastNames.length],
         favoriteColor: colors[i % colors.length],
-        quote: `I'm number ${i + 1}!`
+        quote: `I'm number ${i + 1}!`,
+        subRows: []
     });
 }
 
@@ -152,6 +154,7 @@ const metadata: Meta<TableArgs> = {
             selection-mode="${x => TableRowSelectionMode[x.selectionMode]}"
             id-field-name="${x => dataSetIdFieldNames[x.data]}"
             data-unused="${x => x.updateData(x)}"
+            @row-expand-toggle="${(x, c) => x.expandData(x, c.event as CustomEvent<TableRowExpandedEventDetail>)}"
         >
             <${tableColumnTextTag}
                 column-id="first-name-column"
@@ -255,6 +258,11 @@ const metadata: Meta<TableArgs> = {
             table: {
                 disable: true
             }
+        },
+        expandData: {
+            table: {
+                disable: true
+            }
         }
     },
     args: {
@@ -271,7 +279,32 @@ const metadata: Meta<TableArgs> = {
                 await customElements.whenDefined('nimble-table');
                 await x.tableRef.setData(dataSets[x.data]);
             })();
+        },
+        expandData: (x, e) => {
+            const detail = ((e as CustomEvent).detail as TableRowExpandedEventDetail);
+            if (!detail.newState) {
+                return;
+            }
+            for (let i = 0; i < largeData.length; i++) {
+                if (largeData[i].subRows.length > 0) {
+                    continue;
+                }
+                for (let j = 0; j < 5000; j++) {
+                    if (largeData[i].id === detail.recordId) {
+                        largeData[i]!.subRows!.push({
+                            id: `${(i + largeData.length + 1) * (j + 1)}`,
+                            firstName: firstNames[i % firstNames.length]!,
+                            lastName: lastNames[i % lastNames.length]!,
+                            favoriteColor: colors[i % colors.length]!,
+                            quote: `I'm number ${(i + largeData.length + 1) * (j + 1)}!`,
+                            subRows: undefined
+                        });
+                    }
+                }
+            }
+            x.updateData(x);
         }
+
     }
 };
 addLabelUseMetadata(metadata, labelProviderTableTag);

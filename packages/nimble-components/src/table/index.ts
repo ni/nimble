@@ -50,7 +50,7 @@ import { Virtualizer } from './models/virtualizer';
 import { getTanStackSortingFunction } from './models/sort-operations';
 import { TableLayoutManager } from './models/table-layout-manager';
 import { TableUpdateTracker } from './models/table-update-tracker';
-import type { TableRow } from './components/row';
+import { TableRow } from './components/row';
 import { ColumnInternals } from '../table-column/base/models/column-internals';
 import { InteractiveSelectionManager } from './models/interactive-selection-manager';
 
@@ -201,6 +201,7 @@ export class Table<
     public documentShiftKeyDown = false;
 
     private readonly table: TanStackTable<TData>;
+    private _data: TData[] = [];
     private options: TanStackTableOptionsResolved<TData>;
     private readonly tableValidator = new TableValidator();
     private readonly tableUpdateTracker = new TableUpdateTracker(this);
@@ -227,6 +228,7 @@ export class Table<
             getGroupedRowModel: tanStackGetGroupedRowModel(),
             getExpandedRowModel: tanStackGetExpandedRowModel(),
             getIsRowExpanded: this.getIsRowExpanded,
+            getSubRows: row => row.subRows as TData[] | undefined,
             columns: [],
             state: {
                 rowSelection: {},
@@ -258,6 +260,7 @@ export class Table<
         const data = newData.map(record => {
             return { ...record };
         });
+        this._data = data;
         const tanStackUpdates: Partial<TanStackTableOptionsResolved<TData>> = {
             data
         };
@@ -458,9 +461,8 @@ export class Table<
     }
 
     /** @internal */
-    public handleGroupRowExpanded(rowIndex: number, event: Event): void {
-        this.toggleGroupExpanded(rowIndex);
-        event.stopPropagation();
+    public handleRowExpanded(rowIndex: number, event: Event): void {
+        this.toggleRowExpanded(rowIndex);
     }
 
     /**
@@ -942,22 +944,33 @@ export class Table<
         this.refreshRows();
     }
 
+    private readonly getSubRows = (row: TData, _: number): TData[] | undefined => {
+        if (row.subRows && row.subRows.length > 0) {
+            return (row.subRows as unknown) as TData[];
+        }
+        if (!this.idFieldName) {
+            return undefined;
+        }
+        const rowIdValue = row[this.idFieldName];
+        return this._data.filter(record => Object.keys(record).includes('parentId') && record.parentId === rowIdValue);
+    };
+
     private readonly getIsRowExpanded = (row: TanStackRow<TData>): boolean => {
-        if (!row.getIsGrouped()) {
+        if (!row.getIsGrouped() && !row.subRows.length) {
             return false;
         }
 
         const expandedState = this.table.options.state.expanded;
 
-        if (expandedState === true) {
-            return true;
+        if (this.collapsedRows.has(row.id)) {
+            return false;
         }
 
         if (Object.keys(expandedState ?? {}).includes(row.id)) {
-            return expandedState![row.id]!;
+            return true;
         }
 
-        return !this.collapsedRows.has(row.id);
+        return false;
     };
 
     private readonly handleRowSelectionChange: TanStackOnChangeFn<TanStackRowSelectionState> = (updaterOrValue: TanStackUpdater<TanStackRowSelectionState>): void => {
@@ -984,16 +997,31 @@ export class Table<
         });
     };
 
-    private toggleGroupExpanded(rowIndex: number): void {
-        const row = this.table.getRowModel().rows[rowIndex]!;
+    private toggleRowExpanded(rowIndex: number): void {
+        const rows = this.table.getRowModel().rows;
+        const row = rows[rowIndex]!;
         const wasExpanded = row.getIsExpanded();
         // must update the collapsedRows before toggling expanded state
         if (wasExpanded) {
             this.collapsedRows.add(row.id);
         } else {
+            // if expanded is set to "true" this means that the table is in a default state
+            // so we need to go through each row and determine if it is really expanded or
+            // collapsed and update our internal state to match
+            if (this.table.options.state.expanded === true) {
+                for (const tanstackRow of rows) {
+                    if (!row.getIsExpanded()) {
+                        this.collapsedRows.add(tanstackRow.id);
+                    }
+                }
+                this.table.toggleAllRowsExpanded(false);
+            }
             this.collapsedRows.delete(row.id);
         }
         row.toggleExpanded();
+        if (row instanceof TableRow) {
+            this.$emit('rowExpanded')
+        }
     }
 
     private calculateTanStackSortState(): TanStackSortingState {

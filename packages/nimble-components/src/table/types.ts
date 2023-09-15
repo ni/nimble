@@ -6,11 +6,16 @@ import type { TableColumn } from '../table-column/base';
  */
 export type TableFieldName = string;
 
+export type TableSubRowsFieldName = 'subRows';
+
 /**
  * TableFieldValue describes the type associated with values within
  * a table's records.
  */
-export type TableFieldValue = string | number | boolean | null | undefined;
+export type TableFieldValue = string | number | boolean | null | undefined | TableFieldValueArray;
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TableFieldValueArray extends Array<TableFieldValue>{}
 
 /**
  * TableStringFieldValue describes the type associated with values within
@@ -25,6 +30,7 @@ export type TableStringFieldValue = string | null | undefined;
  */
 export interface TableRecord {
     [key: TableFieldName]: TableFieldValue;
+    subRows?: TableFieldValueArray;
 }
 
 export type TableStringField<FieldName extends TableFieldName> = {
@@ -97,6 +103,16 @@ export type TableRowSelectionState =
 export interface TableRowSelectionToggleEventDetail {
     oldState: boolean;
     newState: boolean;
+}
+
+/**
+ * @internal
+ */
+export interface TableRowExpandedEventDetail {
+    oldState: boolean;
+    newState: boolean;
+    index?: number;
+    recordId?: string;
 }
 
 /**

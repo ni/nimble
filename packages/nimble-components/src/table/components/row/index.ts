@@ -52,6 +52,9 @@ export class TableRow<
     @attr({ attribute: 'hide-selection', mode: 'boolean' })
     public hideSelection = false;
 
+    @attr({ mode: 'boolean' })
+    public expanded = false;
+
     @observable
     public dataRecord?: TDataRecord;
 
@@ -64,12 +67,29 @@ export class TableRow<
     @observable
     public nestingLevel = 0;
 
+    @observable
+    public isParentRow = false;
+
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
+
+    @observable
+    public dataIndex?: number;
 
     /** @internal */
     @observable
     public readonly selectionCheckbox?: Checkbox;
+
+    /**
+     * @internal
+     */
+    public readonly expandIcon!: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public animationClass = '';
 
     /** @internal */
     public readonly cellContainer!: HTMLSpanElement;
@@ -118,6 +138,22 @@ export class TableRow<
         }
 
         return null;
+    }
+
+    public onGroupExpandToggle(event: Event): void {
+        this.$emit('row-expand-toggle');
+        event.stopImmediatePropagation();
+        // To avoid a visual glitch with improper expand/collapse icons performing an
+        // animation, we apply a class to the appropriate group row such that we can have
+        // a more targeted CSS animation. We use the 'transitionend' event to remove the
+        // temporary class and register a function reference as the handler to avoid issues
+        // that may result from the 'transitionend' event not firing, as it will never result
+        // in multiple event listeners being registered.
+        this.animationClass = 'animating';
+        this.expandIcon.addEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
     }
 
     public onSelectionChange(event: CustomEvent): void {
@@ -205,6 +241,14 @@ export class TableRow<
             this.ignoreSelectionChangeEvents = false;
         }
     }
+
+    private readonly removeAnimatingClass = (): void => {
+        this.animationClass = '';
+        this.expandIcon.removeEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    };
 }
 
 const nimbleTableRow = TableRow.compose({

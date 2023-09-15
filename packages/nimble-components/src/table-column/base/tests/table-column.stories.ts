@@ -20,6 +20,7 @@ import {
 } from './table-column-stories-utils';
 import {
     TableColumnSortDirection,
+    TableFieldValueArray,
     TableRowSelectionMode
 } from '../../../table/types';
 import { iconUserTag } from '../../../icons/user';
@@ -28,51 +29,61 @@ import { tableColumnTextTag } from '../../text';
 
 const simpleData = [
     {
-        firstName: 'Ralph',
-        lastName: 'Wiggum',
-        favoriteColor: 'Rainbow',
-        quote: "I'm in danger!"
-    },
-    {
         firstName: 'Quincy',
         lastName: 'Wiggum',
         favoriteColor: 'Blue',
-        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity."
+        quote: "I've got everything I need to convict your boy, except for motive, means, and opportunity.",
+        parentId: '',
+        subRows: [
+            {
+                firstName: 'Ralph',
+                lastName: 'Wiggum',
+                favoriteColor: 'Rainbow',
+                quote: "I'm in danger!",
+                parentId: 'Quincy'
+            }
+        ] as unknown as TableFieldValueArray
     },
     {
         firstName: 'Milhouse',
         lastName: 'Van Houten',
         favoriteColor: 'Crimson',
-        quote: "Not only am I not learning, I'm forgetting stuff I used to know!"
+        quote: "Not only am I not learning, I'm forgetting stuff I used to know!",
+        parentId: ''
     },
     {
         firstName: 'Ned',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Hi diddly-ho neighbor!'
+        quote: 'Hi diddly-ho neighbor!',
+        parentId: ''
     },
     {
         firstName: 'Maude',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling."
+        quote: "Neddy doesn't believe in insurance. He considers it a form of gambling.",
+        parentId: ''
     },
     {
         firstName: 'Rod',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Lies make baby Jesus cry.'
+        quote: 'Lies make baby Jesus cry.',
+        parentId: 'Ned'
     },
     {
         firstName: 'Todd',
         lastName: 'Flanders',
         favoriteColor: 'Taupe',
-        quote: 'Dad, should I poke Rod with a sharp thing like the mouse did?'
+        quote: 'Dad, should I poke Rod with a sharp thing like the mouse did?',
+        parentId: 'Ned'
     },
     {
         firstName: 'Maggie',
         lastName: 'Simpson',
-        favoriteColor: 'Red'
+        favoriteColor: 'Red',
+        parentId: ''
     }
 ];
 
@@ -713,11 +724,10 @@ const fractionalWidthOptions = {
 } as const;
 
 const fractionalWidthDescription = `Configure each column's width relative to the other columns with the \`fractional-width\` property. For example, a column with a \`fractional-width\` set to 2 will be twice as wide as a column with a \`fractional-width\` set to 1. 
-The default value for \`fractional-width\` is 1, and columns that don't support \`fractional-width\` explicitly, or another API responsible for managing the width of the column, will also behave as if they have a \`fractional-width\` of 1. This value only serves
-as an initial state for a column. Once a column has been manually resized the column will use a fractional width calculated by the table from the resize.`;
+The default value for \`fractional-width\` is 1, and columns that don't support \`fractional-width\` explicitly, or another API responsible for managing the width of the column, will also behave as if they have a \`fractional-width\` of 1.`;
 
 const minPixelWidthDescription = `Table columns that support having a \`fractional-width\` can also be configured to have a minimum width such that its width
-will never shrink below the specified pixel width. This applies to both when a table is resized as well as when a column is interactively resized.`;
+will never shrink below the specified pixel width.`;
 
 export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
     parameters: {
@@ -759,6 +769,7 @@ export const fractionalWidthColumn: StoryObj<ColumnWidthTableArgs> = {
             </${tableColumnTextTag}>
             <${tableColumnTextTag}
                 field-name="quote"
+                placeholder="${'<pacifier noise>'}"
                 fractional-width="${x => x.getColumnWidthData('quote-column', x)}"
                 min-pixel-width="${x => x.minPixelWidth}"
             >

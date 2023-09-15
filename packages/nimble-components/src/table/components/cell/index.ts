@@ -9,6 +9,7 @@ import type {
 } from '../../../table-column/base/types';
 import { styles } from './styles';
 import { template } from './template';
+import type { TableRowExpandedEventDetail } from '../../types';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -32,6 +33,15 @@ export class TableCell<
     @observable
     public recordId?: string;
 
+    @observable
+    public isParentRow = false;
+
+    @observable
+    public isFirstCell = false;
+
+    @attr({ mode: 'boolean' })
+    public expanded = false;
+
     @attr({ attribute: 'has-action-menu', mode: 'boolean' })
     public hasActionMenu = false;
 
@@ -47,7 +57,21 @@ export class TableCell<
     @observable
     public nestingLevel = 0;
 
+    @observable
+    public dataIndex?: number;
+
     public readonly actionMenuButton?: MenuButton;
+
+    /**
+     * @internal
+     */
+    public readonly expandIcon?: HTMLElement;
+
+    /**
+     * @internal
+     */
+    @observable
+    public animationClass = '';
 
     public onActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>
@@ -61,6 +85,35 @@ export class TableCell<
         this.menuOpen = event.detail.newState;
         this.$emit('cell-action-menu-toggle', event.detail);
     }
+
+    public onRowExpandToggle(event: Event): void {
+        const expandEventDetail: TableRowExpandedEventDetail = {
+            oldState: this.expanded,
+            newState: !this.expanded,
+            recordId: this.recordId
+        }
+        this.$emit('row-expand-toggle', expandEventDetail);
+        event.stopImmediatePropagation();
+        // To avoid a visual glitch with improper expand/collapse icons performing an
+        // animation, we apply a class to the appropriate group row such that we can have
+        // a more targeted CSS animation. We use the 'transitionend' event to remove the
+        // temporary class and register a function reference as the handler to avoid issues
+        // that may result from the 'transitionend' event not firing, as it will never result
+        // in multiple event listeners being registered.
+        this.animationClass = 'animating';
+        this.expandIcon?.addEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    }
+
+    private readonly removeAnimatingClass = (): void => {
+        this.animationClass = '';
+        this.expandIcon?.removeEventListener(
+            'transitionend',
+            this.removeAnimatingClass
+        );
+    };
 }
 
 const nimbleTableCell = TableCell.compose({

@@ -5,9 +5,12 @@ import {
     applicationBackgroundColor,
     borderWidth,
     controlHeight,
+    controlSlimHeight,
     fillHoverColor,
     fillHoverSelectedColor,
     fillSelectedColor,
+    mediumDelay,
+    smallPadding,
     standardPadding
 } from '../../../theme-provider/design-tokens';
 import { Theme } from '../../../theme-provider/types';
@@ -25,6 +28,7 @@ export const styles = css`
         border-top: calc(2 * ${borderWidth}) solid transparent;
         box-sizing: border-box;
         background-clip: padding-box;
+        align-items: center;
     }
 
     :host::before {
@@ -47,6 +51,27 @@ export const styles = css`
 
     :host([selected]:hover)::before {
         background-color: ${fillHoverSelectedColor};
+    }
+
+    :host([expanded]) .animating,
+    :host .animating {
+        transition: ${mediumDelay} ease-in-out;
+    }
+
+    .expand-collapse-button {
+        margin-left: calc(
+            ${smallPadding} * 2 + ${standardPadding} * 2 *
+                var(--ni-private-table-group-row-indent-level)
+        );
+        height: ${controlSlimHeight};
+    }
+
+    :host([expanded]) .expander-icon {
+        transform: rotate(90deg);
+    }
+
+    .expander-icon {
+        transform: rotate(0deg);
     }
 
     .checkbox-container {
@@ -72,6 +97,13 @@ export const styles = css`
         grid-auto-flow: column;
         grid-auto-columns: 1fr;
         grid-template-columns: var(--ni-private-table-row-grid-columns) auto;
+    }
+
+    @media (prefers-reduced-motion) {
+        :host .animating,
+        :host([expanded]) .animating {
+            transition-duration: 0s;
+        }
     }
 
     nimble-table-cell {
