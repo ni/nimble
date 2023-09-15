@@ -293,7 +293,7 @@ export const iconMetadata: {
         tags: ['history', 'timer']
     },
     IconIndent: {
-        tags: ['increase-list-level']
+        tags: ['increase-list-level', 'indent-right']
     },
     IconIndeterminantCheckbox: {
         tags: ['selection']
@@ -359,7 +359,7 @@ export const iconMetadata: {
         tags: ['order']
     },
     IconOutdent: {
-        tags: ['decrease-list-level']
+        tags: ['decrease-list-level', 'indent-left']
     },
     IconPaste: {
         tags: ['clipboard']
