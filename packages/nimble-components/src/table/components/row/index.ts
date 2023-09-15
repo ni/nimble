@@ -22,7 +22,7 @@ import type {
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { TableCell } from '../cell';
-import { ColumnInternals } from '../../../table-column/base/models/column-internals';
+import { ColumnInternals, isColumnInternalsProperty } from '../../../table-column/base/models/column-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -68,11 +68,19 @@ export class TableRow<
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
-    /** @internal */
+    /**
+     * @internal
+     * An array that parallels the `columns` array and contains the indent
+     * level of each column's cell.
+     * */
     @observable
     public cellIndentLevels: number[] = [];
 
-    /** @internal */
+    /**
+     * @internal
+     * An array that parallels the `columns` array and contains the cell state
+     * of each column's cell.
+     * */
     @observable
     public cellStates: (TableCellState | undefined)[] = [];
 
@@ -154,23 +162,11 @@ export class TableRow<
         if (
             source instanceof ColumnInternals
             && typeof args === 'string'
-            && (this.isColumnInternalsProperty(args, 'columnConfig')
-                || this.isColumnInternalsProperty(args, 'dataRecordFieldNames'))
+            && (isColumnInternalsProperty(args, 'columnConfig')
+                || isColumnInternalsProperty(args, 'dataRecordFieldNames'))
         ) {
             this.updateCellStates();
         }
-    }
-
-    private isColumnInternalsProperty(
-        changedProperty: string,
-        ...args: (keyof ColumnInternals<unknown>)[]
-    ): boolean {
-        for (const arg of args) {
-            if (changedProperty === arg) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private emitActionMenuToggleEvent(
