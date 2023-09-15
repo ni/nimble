@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add Blazor support for the number-text column",
-  "packageName": "@ni/nimble-blazor",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

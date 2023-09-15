@@ -1,8 +1,16 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Fri, 15 Sep 2023 19:43:51 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Sep 2023 20:36:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.2.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Add Blazor support for the number-text column ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
 
 ## 12.2.0
 

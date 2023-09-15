@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Import number-text column in all-components.ts",
-  "packageName": "@ni/nimble-components",
-  "email": "20542556+mollykreis@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

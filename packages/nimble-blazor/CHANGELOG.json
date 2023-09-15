@@ -2,6 +2,21 @@
   "name": "@ni/nimble-blazor",
   "entries": [
     {
+      "date": "Fri, 15 Sep 2023 20:36:47 GMT",
+      "tag": "@ni/nimble-blazor_v12.2.1",
+      "version": "12.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-blazor",
+            "commit": "2a987381442f5076ea40ea8e60010e2a839bca5a",
+            "comment": "Add Blazor support for the number-text column"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 19:43:51 GMT",
       "tag": "@ni/nimble-blazor_v12.2.0",
       "version": "12.2.0",

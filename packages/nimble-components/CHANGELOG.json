@@ -2,6 +2,21 @@
   "name": "@ni/nimble-components",
   "entries": [
     {
+      "date": "Fri, 15 Sep 2023 20:36:47 GMT",
+      "tag": "@ni/nimble-components_v20.3.1",
+      "version": "20.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "20542556+mollykreis@users.noreply.github.com",
+            "package": "@ni/nimble-components",
+            "commit": "2a987381442f5076ea40ea8e60010e2a839bca5a",
+            "comment": "Import number-text column in all-components.ts"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 19:43:51 GMT",
       "tag": "@ni/nimble-components_v20.3.0",
       "version": "20.3.0",
