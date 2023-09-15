@@ -137,7 +137,10 @@ export class Table<
     }
 
     public get showRowOperationColumn(): boolean {
-        return this.selectionMode === TableRowSelectionMode.multiple || this.showCollapseAll;
+        return (
+            this.selectionMode === TableRowSelectionMode.multiple
+            || this.showCollapseAll
+        );
     }
 
     /**
