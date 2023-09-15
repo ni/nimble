@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Wed, 13 Sep 2023 20:54:15 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 19:53:56 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.2.16
+
+Thu, 14 Sep 2023 19:53:56 GMT
+
+### Patches
+
+- Remove unexpected whitespace at start/end of anchor ([ni/nimble@b73a610](https://github.com/ni/nimble/commit/b73a610e56ae33783ad662354ef28ef80ab38f70))
+
+## 20.2.15
+
+Thu, 14 Sep 2023 17:13:47 GMT
+
+### Patches
+
+- Support for absolute links in rich text components ([ni/nimble@f5dfad6](https://github.com/ni/nimble/commit/f5dfad6fbce2701e9fabab100c7e4ebf17e61f50))
+
+## 20.2.14
+
+Thu, 14 Sep 2023 13:22:30 GMT
+
+### Patches
+
+- Mixed bold and italics formatting corner cases fixed. Update dependency on prosemirror-markdown ([ni/nimble@e505291](https://github.com/ni/nimble/commit/e50529159ae06c89b97e270f459b7f6095721bb1))
 
 ## 20.2.13
 

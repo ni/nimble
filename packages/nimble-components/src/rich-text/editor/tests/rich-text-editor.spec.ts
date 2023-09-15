@@ -771,6 +771,188 @@ describe('RichTextEditor', () => {
                 'P'
             ]);
         });
+
+        describe('Absolute link interactions in the editor', () => {
+            describe('various absolute links without other nodes and marks', () => {
+                const supportedAbsoluteLink: { name: string }[] = [
+                    { name: 'https://nimble.ni.dev/ ' },
+                    { name: 'HTTPS://NIMBLE.NI.DEV ' },
+                    { name: 'HttPS://NIMBLE.ni.DEV ' },
+                    { name: 'http://nimble.ni.dev/ ' },
+                    { name: 'HTTP://NIMBLE.NI.DEV ' },
+                    { name: 'HttP://nimble.NI.dev ' },
+                    {
+                        name: 'https://www.example.com/path/=equals&ampersand?question$dollar+plus,comma;semicolon@At '
+                    },
+                    { name: 'https://example.com/my%20page.html ' },
+                    { name: 'https://example.com/smiley😀.html ' },
+                    { name: 'https://www.😀.com ' },
+                    { name: 'https://example.com/пример.html ' }
+                ];
+
+                const focused: string[] = [];
+                const disabled: string[] = [];
+                for (const value of supportedAbsoluteLink) {
+                    const specType = getSpecTypeByNamedList(
+                        value,
+                        focused,
+                        disabled
+                    );
+                    specType(
+                        `should change the ${value.name} to "a" tag when it is a valid absolute link`,
+                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                        async () => {
+                            await pageObject.setEditorTextContent(value.name);
+
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P',
+                                'A'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                // Name without the trailing space used by the editor to trigger conversion to a link
+                                value.name.slice(0, -1)
+                            ]);
+                        }
+                    );
+                }
+            });
+
+            it('the "a" tag should have href and rel attributes', async () => {
+                await pageObject.setEditorTextContent(
+                    'https://nimble.ni.dev/ '
+                );
+
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://nimble.ni.dev/'
+                );
+                expect(pageObject.getEditorLastChildAttribute('rel')).toBe(
+                    'noopener noreferrer'
+                );
+            });
+
+            it('should not affect bold formatting on the link in editor', async () => {
+                await pageObject.clickFooterButton(ToolbarButton.bold);
+                await pageObject.setEditorTextContent(
+                    'https://nimble.ni.dev/ '
+                );
+
+                expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
+                    'P',
+                    'A',
+                    '/A',
+                    'STRONG',
+                    '/STRONG',
+                    '/P'
+                ]);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/',
+                    ' '
+                ]);
+            });
+
+            it('should not affect italics formatting on the link in editor', async () => {
+                await pageObject.clickFooterButton(ToolbarButton.italics);
+                await pageObject.setEditorTextContent(
+                    'https://nimble.ni.dev/ '
+                );
+
+                expect(pageObject.getEditorTagNamesWithClosingTags()).toEqual([
+                    'P',
+                    'A',
+                    '/A',
+                    'EM',
+                    '/EM',
+                    '/P'
+                ]);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/',
+                    ' '
+                ]);
+            });
+
+            it('should able to add links to the bullet list', async () => {
+                await pageObject.setEditorTextContent(
+                    'https://nimble.ni.dev/ '
+                );
+                await pageObject.clickFooterButton(ToolbarButton.bulletList);
+
+                expect(pageObject.getEditorTagNames()).toEqual([
+                    'UL',
+                    'LI',
+                    'P',
+                    'A'
+                ]);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+            });
+
+            it('should able to add links to the numbered list', async () => {
+                await pageObject.setEditorTextContent(
+                    'https://nimble.ni.dev/ '
+                );
+                await pageObject.clickFooterButton(ToolbarButton.numberedList);
+
+                expect(pageObject.getEditorTagNames()).toEqual([
+                    'OL',
+                    'LI',
+                    'P',
+                    'A'
+                ]);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+            });
+
+            describe('various absolute links with different protocols other than https/http should be render as unchanged strings', () => {
+                const differentProtocolLinks: { name: string }[] = [
+                    { name: 'ftp://example.com/files/document.pdf ' },
+                    { name: 'mailto:info@example.com ' },
+                    { name: 'info@example.com ' },
+                    { name: 'file:///path/to/local/file.txt ' },
+                    { name: 'tel:+1234567890 ' },
+                    // eslint-disable-next-line no-script-url
+                    { name: 'javascript:void(0) ' },
+                    { name: 'data:image/png;base64,iVBORw0KG... ' },
+                    { name: 'ftps://example.com/files/document.pdf ' },
+                    { name: 'ssh://username@example.com ' },
+                    { name: 'urn:isbn:0451450523 ' },
+                    {
+                        name: 'magnet:?xt=urn:btih:8c6dcd8d4f9151cb5cc01c68225b92db417c411f&dn=ExampleFile.iso '
+                    },
+                    {
+                        name: 'bitcoin:1Hf1KqNPZzkFJ5Wv8VPop9uaF5RjKN3N9s?amount=0.001 '
+                    },
+                    // eslint-disable-next-line no-script-url
+                    { name: 'javascript:vbscript:alert("not alert") ' },
+                    { name: 'test://test.com ' }
+                ];
+
+                const focused: string[] = [];
+                const disabled: string[] = [];
+                for (const value of differentProtocolLinks) {
+                    const specType = getSpecTypeByNamedList(
+                        value,
+                        focused,
+                        disabled
+                    );
+                    specType(
+                        `string "${value.name}" renders as plain text "${value.name}" within paragraph tag`,
+                        // eslint-disable-next-line @typescript-eslint/no-loop-func
+                        async () => {
+                            await pageObject.setEditorTextContent(value.name);
+
+                            expect(pageObject.getEditorTagNames()).toEqual([
+                                'P'
+                            ]);
+                            expect(pageObject.getEditorLeafContents()).toEqual([
+                                value.name
+                            ]);
+                        }
+                    );
+                }
+            });
+        });
     });
 
     describe('various wacky string values input into the editor', () => {
@@ -814,6 +996,178 @@ describe('RichTextEditor', () => {
         expect(pageObject.getEditorLeafContents()).toEqual([
             'new markdown string'
         ]);
+    });
+
+    describe('Absolute link markdown tests', () => {
+        describe('asserting rendered links in the editor', () => {
+            it('absolute link markdown string to "a" tags with the link as the text content', () => {
+                element.setMarkdown('<https://nimble.ni.dev/>');
+
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://nimble.ni.dev/'
+                );
+            });
+
+            it('bulleted list with absolute links markdown string to "ul", "li" and "a" tags', () => {
+                element.setMarkdown('* <https://nimble.ni.dev/>');
+
+                expect(pageObject.getEditorTagNames()).toEqual([
+                    'UL',
+                    'LI',
+                    'P',
+                    'A'
+                ]);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://nimble.ni.dev/'
+                );
+            });
+
+            it('numbered list with absolute links markdown string to "ol", "li" and "a" tags', () => {
+                element.setMarkdown('1. <https://nimble.ni.dev/>');
+
+                expect(pageObject.getEditorTagNames()).toEqual([
+                    'OL',
+                    'LI',
+                    'P',
+                    'A'
+                ]);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://nimble.ni.dev/'
+                );
+            });
+
+            it('absolute links in bold markdown string should not be parsed to "strong" tag', () => {
+                element.setMarkdown('**<https://nimble.ni.dev/>**');
+
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://nimble.ni.dev/'
+                );
+            });
+
+            it('absolute links in italics markdown string should not be parsed to "em" tag', () => {
+                element.setMarkdown('*<https://nimble.ni.dev/>*');
+
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://nimble.ni.dev/'
+                );
+            });
+
+            it('absolute links in both bold and italics markdown string should not be parsed to "strong" and "em" tag', () => {
+                element.setMarkdown('___<https://nimble.ni.dev/>___');
+
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://nimble.ni.dev/'
+                ]);
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://nimble.ni.dev/'
+                );
+            });
+
+            it('adding marks like bold inside absolute links should not be parsed to "strong" tag', () => {
+                element.setMarkdown('<https://**nimble**.ni.dev/>');
+
+                expect(pageObject.getEditorTagNames()).toEqual(['P', 'A']);
+                expect(pageObject.getEditorLeafContents()).toEqual([
+                    'https://**nimble**.ni.dev/'
+                ]);
+                expect(pageObject.getEditorLastChildAttribute('href')).toBe(
+                    'https://**nimble**.ni.dev/'
+                );
+            });
+        });
+
+        describe('asserting getMarkdown for rendered links', () => {
+            it('absolute link markdown string', () => {
+                element.setMarkdown('<https://nimble.ni.dev/>');
+
+                expect(element.getMarkdown()).toEqual(
+                    '<https://nimble.ni.dev/>'
+                );
+            });
+
+            it('bulleted list with absolute links markdown string', () => {
+                element.setMarkdown('* <https://nimble.ni.dev/>');
+
+                expect(element.getMarkdown()).toEqual(
+                    '* <https://nimble.ni.dev/>'
+                );
+            });
+
+            it('numbered list with absolute links markdown string', () => {
+                element.setMarkdown('1. <https://nimble.ni.dev/>');
+
+                expect(element.getMarkdown()).toEqual(
+                    '1. <https://nimble.ni.dev/>'
+                );
+            });
+
+            it('absolute links in bold markdown string should not be serialized to link in bold markdown', () => {
+                element.setMarkdown('**<https://nimble.ni.dev/>**');
+
+                expect(element.getMarkdown()).toEqual(
+                    '<https://nimble.ni.dev/>'
+                );
+            });
+
+            it('absolute links in italics markdown string should not be serialized to link in italics markdown', () => {
+                element.setMarkdown('*<https://nimble.ni.dev/>*');
+
+                expect(element.getMarkdown()).toEqual(
+                    '<https://nimble.ni.dev/>'
+                );
+            });
+
+            it('absolute links in both bold and italics markdown string should not be serialized to link in bold and italics markdown', () => {
+                element.setMarkdown('___<https://nimble.ni.dev/>___');
+
+                expect(element.getMarkdown()).toEqual(
+                    '<https://nimble.ni.dev/>'
+                );
+            });
+
+            it('adding marks like bold inside absolute links should not be serialized to bold markdown', () => {
+                element.setMarkdown('<https://**nimble**.ni.dev/>');
+
+                expect(element.getMarkdown()).toEqual(
+                    '<https://**nimble**.ni.dev/>'
+                );
+            });
+
+            it('adding marks like italics inside absolute links should not be serialized to italics markdown', () => {
+                element.setMarkdown('<https://*nimble*.ni.dev/>');
+
+                expect(element.getMarkdown()).toEqual(
+                    '<https://*nimble*.ni.dev/>'
+                );
+            });
+
+            it('adding both the italics and bold inside absolute links should not be serialized to bold and italics markdown', () => {
+                element.setMarkdown('<https://__nimble__.ni.dev/>');
+
+                expect(element.getMarkdown()).toEqual(
+                    '<https://__nimble__.ni.dev/>'
+                );
+            });
+        });
     });
 
     it('Should return a empty string when empty string is assigned', () => {

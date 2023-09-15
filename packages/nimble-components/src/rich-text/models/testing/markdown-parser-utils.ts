@@ -15,3 +15,21 @@ export const getLeafContentsFromElement = (
         .map(el => el.textContent || '');
     return nodes;
 };
+
+export const getLastChildElementAttribute = (
+    attribute: string,
+    doc: DocumentFragment | HTMLElement
+): string => {
+    return getLastChildElement(doc)?.getAttribute(attribute) ?? '';
+};
+
+export function getLastChildElement(
+    doc: DocumentFragment | HTMLElement
+): Element | null | undefined {
+    let lastElement = doc.lastElementChild;
+
+    while (lastElement?.lastElementChild) {
+        lastElement = lastElement.lastElementChild;
+    }
+    return lastElement;
+}

@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NimbleTableModule } from '../../../table/nimble-table.module';
 import { TableColumnSortDirection } from '../../nimble-table-column-base.directive';
-import { NimbleTableColumnNumberTextDirective, NumberTextFormat, TableColumnNumberText } from '../nimble-table-column-number-text.directive';
+import { NimbleTableColumnNumberTextDirective, NumberTextAlignment, NumberTextFormat, TableColumnNumberText } from '../nimble-table-column-number-text.directive';
 import { NimbleTableColumnNumberTextModule } from '../nimble-table-column-number-text.module';
 
 describe('NimbleTableColumnNumberText', () => {
@@ -77,6 +77,7 @@ describe('NimbleTableColumnNumberText', () => {
                         grouping-disabled
                         format="${NumberTextFormat.decimal}"
                         decimal-digits="6"
+                        alignment="${NumberTextAlignment.left}"
                     ></nimble-table-column-number-text>
                 </nimble-table>
             `
@@ -161,6 +162,11 @@ describe('NimbleTableColumnNumberText', () => {
             expect(nativeElement.format).toBe(NumberTextFormat.decimal);
         });
 
+        it('will use template string values for alignment', () => {
+            expect(directive.alignment).toBe(NumberTextAlignment.left);
+            expect(nativeElement.alignment).toBe(NumberTextAlignment.left);
+        });
+
         it('will use template string values for decimalDigits', () => {
             expect(directive.decimalDigits).toBe(6);
             expect(nativeElement.decimalDigits).toBe(6);
@@ -186,6 +192,7 @@ describe('NimbleTableColumnNumberText', () => {
                         [grouping-disabled]="groupingDisabled"
                         [format]="format"
                         [decimal-digits]="decimalDigits"
+                        [alignment]="alignment"
                     ></nimble-table-column-number-text>
                 </nimble-table>
             `
@@ -206,6 +213,7 @@ describe('NimbleTableColumnNumberText', () => {
             public groupingDisabled = false;
             public format: NumberTextFormat = NumberTextFormat.decimal;
             public decimalDigits: number | null = 9;
+            public alignment: NumberTextAlignment = NumberTextAlignment.left;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -399,6 +407,17 @@ describe('NimbleTableColumnNumberText', () => {
             expect(nativeElement.format).toBe(NumberTextFormat.default);
         });
 
+        it('can be configured with property binding for alignment', () => {
+            expect(directive.alignment).toBe(NumberTextAlignment.left);
+            expect(nativeElement.alignment).toBe(NumberTextAlignment.left);
+
+            fixture.componentInstance.alignment = NumberTextAlignment.right;
+            fixture.detectChanges();
+
+            expect(directive.alignment).toBe(NumberTextAlignment.right);
+            expect(nativeElement.alignment).toBe(NumberTextAlignment.right);
+        });
+
         it('can be configured with property binding for decimalDigits', () => {
             expect(directive.decimalDigits).toBe(9);
             expect(nativeElement.decimalDigits).toBe(9);
@@ -441,6 +460,7 @@ describe('NimbleTableColumnNumberText', () => {
                         [attr.grouping-disabled]="groupingDisabled"
                         [attr.format]="format"
                         [attr.decimal-digits]="decimalDigits"
+                        [attr.alignment]="alignment"
                     ></nimble-table-column-number-text>
                 </nimble-table>
             `
@@ -461,6 +481,7 @@ describe('NimbleTableColumnNumberText', () => {
             public groupingDisabled = false;
             public format: NumberTextFormat = NumberTextFormat.decimal;
             public decimalDigits: number | null = 9;
+            public alignment: NumberTextAlignment = NumberTextAlignment.left;
         }
 
         let fixture: ComponentFixture<TestHostComponent>;
@@ -655,6 +676,17 @@ describe('NimbleTableColumnNumberText', () => {
             // See https://github.com/microsoft/fast/issues/6630.
             expect(directive.format).toBeFalsy();
             expect(nativeElement.format).toBeFalsy();
+        });
+
+        it('can be configured with attribute binding for alignment', () => {
+            expect(directive.alignment).toBe(NumberTextAlignment.left);
+            expect(nativeElement.alignment).toBe(NumberTextAlignment.left);
+
+            fixture.componentInstance.alignment = NumberTextAlignment.right;
+            fixture.detectChanges();
+
+            expect(directive.alignment).toBe(NumberTextAlignment.right);
+            expect(nativeElement.alignment).toBe(NumberTextAlignment.right);
         });
 
         it('can be configured with attribute binding for decimalDigts', () => {

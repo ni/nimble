@@ -30,7 +30,7 @@ const metadata: Meta = {
     }
 };
 
-const richTextMarkdownString = '1. **Bold*Italics***';
+const richTextMarkdownString = '1. <https://nimble.ni.dev>\n2. **Bold*Italics***';
 
 export default metadata;
 
@@ -215,6 +215,15 @@ newLineWithForceLineBreakInMobileWidth.play = (): void => {
     document
         .querySelector('nimble-rich-text-editor')!
         .setMarkdown(newLineWithForceLineBreakContent);
+};
+
+export const longLinkInMobileWidth: StoryFn = createStory(mobileWidthComponent);
+longLinkInMobileWidth.play = (): void => {
+    document
+        .querySelector('nimble-rich-text-editor')!
+        .setMarkdown(
+            '<https://www.google.com/search?q=what+is+nimble&rlz=1C1CHBF_enIN1007IN1007&oq=what+is+nimble&aqs=chrome..69i57j0i512l9.2837j1j7&sourceid=chrome&ie=UTF-8>'
+        );
 };
 
 export const hiddenRichTextEditor: StoryFn = createStory(
