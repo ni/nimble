@@ -2,6 +2,21 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 15 Sep 2023 19:43:51 GMT",
+      "tag": "@ni/nimble-angular_v17.5.0",
+      "version": "17.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2314df2fff61db8fb20ca1fbddad9f4961957afa",
+            "comment": "Add API to hide step buttons on number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 14:38:16 GMT",
       "tag": "@ni/nimble-angular_v17.4.6",
       "version": "17.4.6",
