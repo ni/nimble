@@ -8,17 +8,19 @@ import { tableRowSelectLabel } from '../../../label-provider/table/label-tokens'
 // prettier-ignore
 export const template = html<TableRow>`
     <template role="row" aria-selected=${x => x.ariaSelected}>
-        ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
-            <span role="gridcell" class="checkbox-container">
-                <${checkboxTag}
-                    ${ref('selectionCheckbox')}
-                    class="selection-checkbox"
-                    @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
-                    @click="${(_, c) => c.event.stopPropagation()}"
-                    title="${x => tableRowSelectLabel.getValueFor(x)}"
-                    aria-label="${x => tableRowSelectLabel.getValueFor(x)}"
-                >
-                </${checkboxTag}>
+        ${when(x => !x.rowOperationGridCellHidden, html<TableRow>`
+            <span role="gridcell" class="row-operations-container">
+                ${when(x => x.selectable && !x.hideSelection, html<TableRow>`
+                    <${checkboxTag}
+                        ${ref('selectionCheckbox')}
+                        class="selection-checkbox"
+                        @change="${(x, c) => x.onSelectionChange(c.event as CustomEvent)}"
+                        @click="${(_, c) => c.event.stopPropagation()}"
+                        title="${x => tableRowSelectLabel.getValueFor(x)}"
+                        aria-label="${x => tableRowSelectLabel.getValueFor(x)}"
+                    >
+                    </${checkboxTag}>
+                `)}
             </span>
         `)}
         ${'' /* This is needed to help align the cell widths exactly with the column headers, due to the space reserved for

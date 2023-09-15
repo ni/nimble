@@ -47,6 +47,20 @@ describe('TableRow', () => {
             expect(document.createElement('nimble-table-row')).toBeInstanceOf(TableRow);
         });
 
+        it('includes row operations gridcell when rowOperationGridCellHidden is false', async () => {
+            element.rowOperationGridCellHidden = false;
+            await connect();
+
+            expect(element.shadowRoot!.querySelectorAll('[role="gridcell"]').length).toBe(1);
+        });
+
+        it('does not include row operations gridcell when rowOperationGridCellHidden is true', async () => {
+            element.rowOperationGridCellHidden = true;
+            await connect();
+
+            expect(element.shadowRoot!.querySelectorAll('[role="gridcell"]').length).toBe(0);
+        });
+
         it('does not have aria-selected attribute when it is not selectable', async () => {
             element.selectable = false;
             element.selected = false;

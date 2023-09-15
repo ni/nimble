@@ -136,6 +136,10 @@ export class Table<
         return this.tableValidator.getValidity();
     }
 
+    public get showRowOperationColumn(): boolean {
+        return this.selectionMode === TableRowSelectionMode.multiple || this.showCollapseAll;
+    }
+
     /**
      * @internal
      */

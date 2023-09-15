@@ -10,6 +10,7 @@ import {
     tableGroupExpandLabel,
     tableGroupSelectAllLabel,
     tableGroupsCollapseAllLabel,
+    tableRowOperationColumnLabel,
     tableRowSelectLabel,
     tableSelectAllLabel
 } from './label-tokens';
@@ -32,7 +33,8 @@ const supportedLabels = {
         tableColumnHeaderSortedDescendingIndicatorLabel,
     selectAll: tableSelectAllLabel,
     groupSelectAll: tableGroupSelectAllLabel,
-    rowSelect: tableRowSelectLabel
+    rowSelect: tableRowSelectLabel,
+    rowOperationColumn: tableRowOperationColumnLabel
 } as const;
 
 /**
@@ -70,6 +72,9 @@ export class LabelProviderTable
 
     @attr({ attribute: 'row-select' })
     public rowSelect: string | undefined;
+
+    @attr({ attribute: 'row-operation-column' })
+    public rowOperationColumn: string | undefined;
 
     protected override readonly supportedLabels = supportedLabels;
 }

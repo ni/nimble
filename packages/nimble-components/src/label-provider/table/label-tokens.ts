@@ -54,3 +54,8 @@ export const tableRowSelectLabel = DesignToken.create<string>({
     name: 'table-row-select-label',
     cssCustomPropertyName: null
 }).withDefault(tableLabelDefaults.tableRowSelectLabel);
+
+export const tableRowOperationColumnLabel = DesignToken.create<string>({
+    name: 'table-row-operation-column-label',
+    cssCustomPropertyName: null
+}).withDefault(tableLabelDefaults.tableRowOperationColumnLabel);

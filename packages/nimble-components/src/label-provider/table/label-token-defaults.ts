@@ -12,5 +12,6 @@ export const tableLabelDefaults: { readonly [key in TokenName]: string } = {
     tableColumnHeaderSortedDescendingIndicatorLabel: 'Sorted descending',
     tableSelectAllLabel: 'Select all rows',
     tableGroupSelectAllLabel: 'Select all rows in group',
-    tableRowSelectLabel: 'Select row'
+    tableRowSelectLabel: 'Select row',
+    tableRowOperationColumnLabel: 'Row operations'
 };

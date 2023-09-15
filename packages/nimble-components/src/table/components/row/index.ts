@@ -67,6 +67,9 @@ export class TableRow<
     @attr({ attribute: 'menu-open', mode: 'boolean' })
     public menuOpen = false;
 
+    @attr({ attribute: 'row-operation-grid-cell-hidden', mode: 'boolean' })
+    public rowOperationGridCellHidden = false;
+
     /** @internal */
     @observable
     public readonly selectionCheckbox?: Checkbox;
