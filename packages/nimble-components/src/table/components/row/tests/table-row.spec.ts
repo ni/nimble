@@ -15,7 +15,11 @@ import type {
 import { TableRowPageObject } from './table-row.pageobject';
 import { createEventListener } from '../../../../utilities/tests/component';
 import { tableTag, type Table } from '../../..';
-import { TableColumnDateText, TableColumnDateTextCellRecord, tableColumnDateTextTag } from '../../../../table-column/date-text';
+import {
+    TableColumnDateText,
+    TableColumnDateTextCellRecord,
+    tableColumnDateTextTag
+} from '../../../../table-column/date-text';
 
 interface SimpleTableRecord extends TableRecord {
     stringData: string;
@@ -227,7 +231,9 @@ describe('TableRow', () => {
 
         beforeEach(async () => {
             columnReferences = new ColumnReferences();
-            ({ element, connect, disconnect } = await setupTable(columnReferences));
+            ({ element, connect, disconnect } = await setupTable(
+                columnReferences
+            ));
             await connect();
             await element.setData([
                 {
@@ -286,20 +292,27 @@ describe('TableRow', () => {
 
         it('reordering columns reorders cells', async () => {
             // Swap the two columns
-            element.insertBefore(columnReferences.secondColumn, columnReferences.firstColumn);
+            element.insertBefore(
+                columnReferences.secondColumn,
+                columnReferences.firstColumn
+            );
             await waitForUpdatesAsync();
 
             const cell0 = pageObject.getRenderedCell(0)!;
             expect(cell0.cellViewTemplate).toEqual(
                 columnReferences.secondColumn.columnInternals.cellViewTemplate
             );
-            expect(cell0.cellState?.columnConfig).toEqual(columnReferences.secondColumn.columnInternals.columnConfig);
+            expect(cell0.cellState?.columnConfig).toEqual(
+                columnReferences.secondColumn.columnInternals.columnConfig
+            );
 
             const cell1 = pageObject.getRenderedCell(1)!;
             expect(cell1.cellViewTemplate).toEqual(
                 columnReferences.firstColumn.columnInternals.cellViewTemplate
             );
-            expect(cell1.cellState?.columnConfig).toEqual(columnReferences.firstColumn.columnInternals.columnConfig);
+            expect(cell1.cellState?.columnConfig).toEqual(
+                columnReferences.firstColumn.columnInternals.columnConfig
+            );
         });
 
         it('updating column reuses cell', async () => {
@@ -316,7 +329,10 @@ describe('TableRow', () => {
             const originalCell = pageObject.getRenderedCell(0);
 
             // Swap the two columns
-            element.insertBefore(columnReferences.secondColumn, columnReferences.firstColumn);
+            element.insertBefore(
+                columnReferences.secondColumn,
+                columnReferences.firstColumn
+            );
             await waitForUpdatesAsync();
 
             const updatedCell = pageObject.getRenderedCell(0);

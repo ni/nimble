@@ -1,4 +1,10 @@
-import { Notifier, Observable, attr, observable, volatile } from '@microsoft/fast-element';
+import {
+    Notifier,
+    Observable,
+    attr,
+    observable,
+    volatile
+} from '@microsoft/fast-element';
 import {
     Checkbox,
     DesignSystem,
@@ -145,7 +151,12 @@ export class TableRow<
     }
 
     public handleChange(source: unknown, args: unknown): void {
-        if (source instanceof ColumnInternals && typeof args === 'string' && (this.isColumnInternalsProperty(args, 'columnConfig') || this.isColumnInternalsProperty(args, 'dataRecordFieldNames'))) {
+        if (
+            source instanceof ColumnInternals
+            && typeof args === 'string'
+            && (this.isColumnInternalsProperty(args, 'columnConfig')
+                || this.isColumnInternalsProperty(args, 'dataRecordFieldNames'))
+        ) {
             this.updateCellStates();
         }
     }
@@ -184,7 +195,6 @@ export class TableRow<
     }
 
     private dataRecordChanged(): void {
-        this.updateCellIndentLevels();
         this.updateCellStates();
     }
 
@@ -212,9 +222,7 @@ export class TableRow<
         this.removeColumnObservers();
 
         this.columnNotifiers = this.columns.map(column => {
-            const notifier = Observable.getNotifier(
-                column.columnInternals
-            );
+            const notifier = Observable.getNotifier(column.columnInternals);
             notifier.subscribe(this);
             return notifier;
         });
