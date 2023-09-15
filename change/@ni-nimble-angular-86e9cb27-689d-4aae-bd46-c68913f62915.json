@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add API to hide step buttons on number-field",
+  "packageName": "@ni/nimble-angular",
+  "email": "jattasNI@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
