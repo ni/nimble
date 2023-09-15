@@ -2,10 +2,10 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import { BooleanValueOrAttribute, NumberValueOrAttribute, toBooleanProperty, toNullableNumberProperty } from '@ni/nimble-angular/internal-utilities';
 import { NimbleTableColumnBaseDirective } from '@ni/nimble-angular/table-column';
 import { type TableColumnNumberText, tableColumnNumberTextTag } from '@ni/nimble-components/dist/esm/table-column/number-text';
-import { NumberTextFormat } from '@ni/nimble-components/dist/esm/table-column/number-text/types';
+import { NumberTextAlignment, NumberTextFormat } from '@ni/nimble-components/dist/esm/table-column/number-text/types';
 
 export type { TableColumnNumberText };
-export { tableColumnNumberTextTag, NumberTextFormat };
+export { tableColumnNumberTextTag, NumberTextFormat, NumberTextAlignment };
 
 /**
  * Directive to provide Angular integration for the table column element for number text.
@@ -30,6 +30,14 @@ export class NimbleTableColumnNumberTextDirective extends NimbleTableColumnBaseD
 
     @Input() public set format(value: NumberTextFormat) {
         this.renderer.setProperty(this.elementRef.nativeElement, 'format', value);
+    }
+
+    public get alignment(): NumberTextAlignment {
+        return this.elementRef.nativeElement.alignment;
+    }
+
+    @Input() public set alignment(value: NumberTextAlignment) {
+        this.renderer.setProperty(this.elementRef.nativeElement, 'alignment', value);
     }
 
     public get decimalDigits(): number | null | undefined {
