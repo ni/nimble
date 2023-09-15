@@ -22,7 +22,10 @@ import type {
 import type { TableColumn } from '../../../table-column/base';
 import type { MenuButtonToggleEventDetail } from '../../../menu-button/types';
 import { TableCell } from '../cell';
-import { ColumnInternals, isColumnInternalsProperty } from '../../../table-column/base/models/column-internals';
+import {
+    ColumnInternals,
+    isColumnInternalsProperty
+} from '../../../table-column/base/models/column-internals';
 
 declare global {
     interface HTMLElementTagNameMap {
