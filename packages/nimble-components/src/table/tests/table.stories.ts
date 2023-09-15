@@ -292,11 +292,11 @@ const metadata: Meta<TableArgs> = {
                 for (let j = 0; j < 5000; j++) {
                     if (largeData[i].id === detail.recordId) {
                         largeData[i]!.subRows!.push({
-                            id: `${(i + largeData.length + 1) * (j + 1)}`,
+                            id: `${(i * 5000) + j + largeData.length}`,
                             firstName: firstNames[i % firstNames.length]!,
                             lastName: lastNames[i % lastNames.length]!,
                             favoriteColor: colors[i % colors.length]!,
-                            quote: `I'm number ${(i + largeData.length + 1) * (j + 1)}!`,
+                            quote: `I'm number ${(i * 5000) + j + largeData.length}!`,
                             subRows: undefined
                         });
                     }
