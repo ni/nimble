@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Shift/Ctrl/Cmd + Enter will add line break in editor",
-  "packageName": "@ni/nimble-components",
-  "email": "123377167+aagash-ni@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
