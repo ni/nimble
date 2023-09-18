@@ -1,8 +1,32 @@
 # Change Log - @ni/nimble-angular
 
-This log was last generated on Fri, 15 Sep 2023 14:38:16 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Sep 2023 21:18:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 17.5.2
+
+Fri, 15 Sep 2023 21:18:05 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.2
+
+## 17.5.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Bump @ni/nimble-components to v20.3.1
+
+## 17.5.0
+
+Fri, 15 Sep 2023 19:43:51 GMT
+
+### Minor changes
+
+- Add API to hide step buttons on number-field ([ni/nimble@2314df2](https://github.com/ni/nimble/commit/2314df2fff61db8fb20ca1fbddad9f4961957afa))
 
 ## 17.4.6
 

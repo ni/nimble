@@ -1,8 +1,24 @@
 # Change Log - @ni/nimble-components
 
-This log was last generated on Fri, 15 Sep 2023 14:38:16 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Sep 2023 21:18:04 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 20.3.2
+
+Fri, 15 Sep 2023 21:18:04 GMT
+
+### Patches
+
+- Shift/Ctrl/Cmd + Enter will add line break in editor ([ni/nimble@129af80](https://github.com/ni/nimble/commit/129af8084eab1d47df84d6ee7281fd28bbaef8ec))
+
+## 20.3.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Import number-text column in all-components.ts ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
 
 ## 20.3.0
 

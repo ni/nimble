@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Document and test API to hide step buttons on number-field",
-  "packageName": "@ni/nimble-components",
-  "email": "jattasNI@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

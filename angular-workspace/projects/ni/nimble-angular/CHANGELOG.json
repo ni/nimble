@@ -2,6 +2,51 @@
   "name": "@ni/nimble-angular",
   "entries": [
     {
+      "date": "Fri, 15 Sep 2023 21:18:05 GMT",
+      "tag": "@ni/nimble-angular_v17.5.2",
+      "version": "17.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.3.2",
+            "commit": "129af8084eab1d47df84d6ee7281fd28bbaef8ec"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 20:36:47 GMT",
+      "tag": "@ni/nimble-angular_v17.5.1",
+      "version": "17.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ni/nimble-angular",
+            "comment": "Bump @ni/nimble-components to v20.3.1",
+            "commit": "2a987381442f5076ea40ea8e60010e2a839bca5a"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 15 Sep 2023 19:43:51 GMT",
+      "tag": "@ni/nimble-angular_v17.5.0",
+      "version": "17.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "jattasNI@users.noreply.github.com",
+            "package": "@ni/nimble-angular",
+            "commit": "2314df2fff61db8fb20ca1fbddad9f4961957afa",
+            "comment": "Add API to hide step buttons on number-field"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 15 Sep 2023 14:38:16 GMT",
       "tag": "@ni/nimble-angular_v17.4.6",
       "version": "17.4.6",
