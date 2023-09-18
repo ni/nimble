@@ -52,9 +52,9 @@ export const comments: { readonly [key in TokenName]: string | null } = {
         'Standard layout height for all controls. Add "labelHeight" for labels on top.',
     controlSlimHeight:
         'Height of controls that are somewhat shorter than standard height.',
-    smallPadding: '4px spacing for component layout',
-    mediumPadding: '8px spacing for component layout',
-    standardPadding: '16px spacing for component layout',
+    smallPadding: 'Fixed 4px size token for component layout',
+    mediumPadding: 'Fixed 8px size token for component layout',
+    standardPadding: 'Fixed 16px size token for component layout',
     labelHeight:
         'Standard label height for components. Set the label font rather than explicitly setting the height for a label.',
     borderWidth: 'Standard border width for most components',

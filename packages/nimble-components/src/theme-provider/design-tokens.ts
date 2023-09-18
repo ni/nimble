@@ -289,7 +289,7 @@ export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)
 ).withDefault('4px');
 export const mediumPadding = DesignToken.create<string>(
-    styleNameFromTokenName(tokenNames.smallPadding)
+    styleNameFromTokenName(tokenNames.mediumPadding)
 ).withDefault('8px');
 export const standardPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.standardPadding)
