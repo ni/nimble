@@ -30,12 +30,17 @@
 
     protected override bool ShouldRender()
     {
-        UpdateValidityAsync();
+        _ = UpdateValidityAsync();
         return base.ShouldRender();
     }
 
     private async Task UpdateValidityAsync()
     {
+        if (_themeProvider == null)
+        {
+            return;
+        }
+
         var currentIsValid = await _themeProvider.CheckValidityAsync();
         var currentInvalidLang = (await _themeProvider.GetValidityAsync()).InvalidLang;
 
