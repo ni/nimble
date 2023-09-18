@@ -12,6 +12,7 @@ import {
     failColor,
     iconSize,
     smallDelay,
+    mediumPadding,
     standardPadding,
     linkFontColor
 } from '../../theme-provider/design-tokens';
@@ -268,7 +269,7 @@ export const styles = css`
     :host([error-visible]) .error-icon.scrollbar-width-calculated {
         display: inline-flex;
         position: absolute;
-        top: calc(${standardPadding} / 2);
+        top: ${mediumPadding};
         right: var(--ni-private-rich-text-editor-scrollbar-width);
     }
 `;
