@@ -27,7 +27,7 @@
 *What types of options need to be available on the component to support client-user use cases?*
 
 ### Behavior
-*What types of behaviors need to be built-in to the component to support end-user experience?*
+*What types of behaviors need to be built in to the component to support end-user experience?*
 
 ### Mouse Interactions
 *Full description of the proposed interaction design using a mouse.*
@@ -36,15 +36,6 @@
 - *Link to appropriate ARIA authoring guidelines*
 - *Full description of the proposed interaction design using a keyboard*
 - *Additional accessibility considerations like ARIA role/states/properties*
-
-## Validation
-- *Description of or link to testing plan*
-- *Description of or link to testing outcomes*
-
-
-[TBD]
-- *Quote or link to feedback from design reviews. New interaction design patterns require broad support from design stakeholders (IxD, ViD, POs) before they can be adopted within Nimble.*
-- *Quote or link to feedback from user feedback. All interaction design patterns should be user tested with some combination of internal and external users. Consult with the User Research team for low-cost ways to validate your design.*
 
 ## Open Issues
 *Highlight any open questions for discussion during the spec PR. Before the spec is approved these should typically be resolved with the answers incorporated in this document.*
