@@ -288,6 +288,9 @@ export const controlSlimHeight = DesignToken.create<string>(
 export const smallPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.smallPadding)
 ).withDefault('4px');
+export const mediumPadding = DesignToken.create<string>(
+    styleNameFromTokenName(tokenNames.smallPadding)
+).withDefault('8px');
 export const standardPadding = DesignToken.create<string>(
     styleNameFromTokenName(tokenNames.standardPadding)
 ).withDefault('16px');
