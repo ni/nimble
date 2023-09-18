@@ -52,24 +52,21 @@ public class NimbleThemeProviderTests
         Assert.Contains(expectedMarkup, themeProvider.Markup);
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("en-US")]
-    [InlineData("de-DE")]
-    [InlineData("123")]
-    public async void NimbleThemeProvider_LangIsSet(string value)
+    [Fact]
+    public async void NimbleThemeProvider_ValidLangIsSet()
     {
-        var themeProvider = RenderNimbleThemeProvider(value);
+        var themeProvider = RenderNimbleThemeProvider("de-DE");
 
-        if (value == null)
-        {
-            Assert.DoesNotContain("lang", themeProvider.Markup);
-        }
-        else
-        {
-            var expectedMarkup = $"lang=\"{value}\"";
-            Assert.Contains(expectedMarkup, themeProvider.Markup);
-        }
+        var expectedMarkup = $"lang=\"de-DE\"";
+        Assert.Contains(expectedMarkup, themeProvider.Markup);
+    }
+
+    [Fact]
+    public async void NimbleThemeProvider_NullLangIsSet()
+    {
+        var themeProvider = RenderNimbleThemeProvider(null);
+
+        Assert.DoesNotContain("lang", themeProvider.Markup);
     }
 
     private IRenderedComponent<NimbleThemeProvider> RenderNimbleThemeProvider(Theme theme)

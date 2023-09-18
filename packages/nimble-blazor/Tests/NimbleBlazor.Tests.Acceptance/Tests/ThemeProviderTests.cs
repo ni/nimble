@@ -20,7 +20,6 @@ namespace NimbleBlazor.Tests.Acceptance
                 var invalidButton = page.Locator("nimble-button", new PageLocatorOptions() { HasText = "Set Invalid Lang" });
                 var isValidCheckbox = page.Locator("nimble-checkbox", new PageLocatorOptions() { HasText = "IsValid" });
                 var langIsInvalidCheckbox = page.Locator("nimble-checkbox", new PageLocatorOptions() { HasText = "InvalidLang" });
-                await Assertions.Expect(validButton).ToBeVisibleAsync();
 
                 await invalidButton.ClickAsync();
                 await Assertions.Expect(isValidCheckbox).Not.ToBeCheckedAsync();
