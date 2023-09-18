@@ -111,6 +111,7 @@ export class TableRow<
         return null;
     }
 
+    /** @internal */
     public onSelectionChange(event: CustomEvent): void {
         if (this.ignoreSelectionChangeEvents) {
             return;
@@ -126,6 +127,7 @@ export class TableRow<
         this.$emit('row-selection-toggle', detail);
     }
 
+    /** @internal */
     public onCellActionMenuBeforeToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
@@ -138,6 +140,7 @@ export class TableRow<
         );
     }
 
+    /** @internal */
     public onCellActionMenuToggle(
         event: CustomEvent<MenuButtonToggleEventDetail>,
         column: TableColumn
@@ -161,6 +164,7 @@ export class TableRow<
         }
     }
 
+    /** @internal */
     public handleChange(source: unknown, args: unknown): void {
         if (
             source instanceof ColumnInternals
