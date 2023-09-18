@@ -16,6 +16,8 @@ import type { TableRow } from '../components/row';
 import { Anchor, anchorTag } from '../../anchor';
 import type { TableGroupRow } from '../components/group-row';
 import type { Button } from '../../button';
+import { Icon } from '../../icon-base';
+import { Spinner } from '../../spinner';
 
 /**
  * Summary information about a column that is sorted in the table for use in the `TablePageObject`.
@@ -144,7 +146,21 @@ export class TablePageObject<T extends TableRecord> {
         return cellView as TableCellView;
     }
 
-    public getRenderedCellContent(
+    public getRenderedCellViewById(
+        recordId: string,
+        columnId: string
+    ): TableCellView {
+        const cell = this.getCellById(recordId, columnId);
+        const cellView = cell.shadowRoot!.firstElementChild;
+        if (!(cellView instanceof TableCellView)) {
+            throw new Error(
+                'Cell view not found in cell - ensure cellViewTag is set for column'
+            );
+        }
+        return cellView as TableCellView;
+    }
+
+    public getRenderedCellTextContent(
         rowIndex: number,
         columnIndex: number
     ): string {
@@ -172,7 +188,71 @@ export class TablePageObject<T extends TableRecord> {
         return anchor as Anchor;
     }
 
-    public getRenderedGroupHeaderContent(groupRowIndex: number): string {
+    public getRenderedIconColumnCellIconSeverity(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (!content || !(content instanceof Icon)) {
+            throw new Error(
+                `Icon not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.severity ?? '';
+    }
+
+    public getRenderedIconColumnCellIconAriaLabel(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.ariaLabel ?? '';
+    }
+
+    public getRenderedIconColumnCellIconTagName(
+        rowIndex: number,
+        columnIndex: number
+    ): string {
+        const content = this.getRenderedCellView(rowIndex, columnIndex)
+            .shadowRoot!.firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at cell ${rowIndex},${columnIndex}`
+            );
+        }
+        return content.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedIconColumnGroupHeaderIconTagName(
+        groupRowIndex: number
+    ): string {
+        const content = this.getGroupRowHeaderView(groupRowIndex).shadowRoot!
+            .firstElementChild;
+        if (
+            !content
+            || !(content instanceof Icon || content instanceof Spinner)
+        ) {
+            throw new Error(
+                `Icon or Spinner not found at group header ${groupRowIndex}`
+            );
+        }
+        return content.tagName.toLocaleLowerCase();
+    }
+
+    public getRenderedGroupHeaderTextContent(groupRowIndex: number): string {
         return (
             this.getGroupRowHeaderView(
                 groupRowIndex
@@ -180,12 +260,12 @@ export class TablePageObject<T extends TableRecord> {
         );
     }
 
-    public getAllRenderedGroupHeaderContent(): string[] {
+    public getAllRenderedGroupHeaderTextContent(): string[] {
         const groupRows = this.tableElement.shadowRoot!.querySelectorAll(
             'nimble-table-group-row'
         );
         return Array.from(groupRows).map((_, i) => {
-            return this.getRenderedGroupHeaderContent(i);
+            return this.getRenderedGroupHeaderTextContent(i);
         });
     }
 
@@ -604,6 +684,19 @@ export class TablePageObject<T extends TableRecord> {
         return rows.item(rowIndex);
     }
 
+    private getRowById(recordId: string): TableRow {
+        const row: TableRow | null = this.tableElement.shadowRoot!.querySelector(
+            `nimble-table-row[record-id="${CSS.escape(recordId)}"]`
+        );
+        if (!row) {
+            throw new Error(
+                'Row with given id was not found. It may not be scrolled into view.'
+            );
+        }
+
+        return row;
+    }
+
     private getCell(rowIndex: number, columnIndex: number): TableCell {
         const row = this.getRow(rowIndex);
         const cells = row.shadowRoot!.querySelectorAll('nimble-table-cell');
@@ -614,6 +707,19 @@ export class TablePageObject<T extends TableRecord> {
         }
 
         return cells.item(columnIndex);
+    }
+
+    private getCellById(recordId: string, columnId: string): TableCell {
+        const row = this.getRowById(recordId);
+        const cell: TableCell | null = row.shadowRoot!.querySelector(
+            `nimble-table-cell[column-id="${CSS.escape(columnId)}"]`
+        );
+
+        if (!cell) {
+            throw new Error('Cell with given columnId was not found in row');
+        }
+
+        return cell;
     }
 
     private getCollapseAllButton(): Button | null {

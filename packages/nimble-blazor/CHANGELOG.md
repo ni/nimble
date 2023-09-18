@@ -1,8 +1,72 @@
 # Change Log - @ni/nimble-blazor
 
-This log was last generated on Thu, 20 Jul 2023 16:23:00 GMT and should not be manually modified.
+This log was last generated on Fri, 15 Sep 2023 20:36:47 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 12.2.1
+
+Fri, 15 Sep 2023 20:36:47 GMT
+
+### Patches
+
+- Add Blazor support for the number-text column ([ni/nimble@2a98738](https://github.com/ni/nimble/commit/2a987381442f5076ea40ea8e60010e2a839bca5a))
+
+## 12.2.0
+
+Fri, 15 Sep 2023 19:43:51 GMT
+
+### Minor changes
+
+- Add API to hide step buttons on NumberField ([ni/nimble@2314df2](https://github.com/ni/nimble/commit/2314df2fff61db8fb20ca1fbddad9f4961957afa))
+
+## 12.1.23
+
+Thu, 31 Aug 2023 21:41:33 GMT
+
+### Patches
+
+- Blazor support for icon table column ([ni/nimble@49a4b98](https://github.com/ni/nimble/commit/49a4b98696681bcfc1bc8730de2fa9ef931da96a))
+
+## 12.1.14
+
+Mon, 21 Aug 2023 22:42:29 GMT
+
+### Patches
+
+- Blazor support for date text column ([ni/nimble@0ab6b4f](https://github.com/ni/nimble/commit/0ab6b4f5df8d01f6734c824d65e62e3c88546000))
+
+## 12.1.10
+
+Tue, 15 Aug 2023 19:50:33 GMT
+
+### Patches
+
+- Add Blazor support for enum-text table column ([ni/nimble@72fa5e6](https://github.com/ni/nimble/commit/72fa5e6e16a1f8aa023febb8ff92577fff3afce1))
+
+## 12.1.0
+
+Wed, 02 Aug 2023 19:10:45 GMT
+
+### Minor changes
+
+- Blazor integration for primary and accent appearance-variant buttons (#663) ([ni/nimble@3b37cf1](https://github.com/ni/nimble/commit/3b37cf1deb3377b36c069e884d2b938b11048acd))
+
+## 12.0.0
+
+Tue, 25 Jul 2023 21:12:32 GMT
+
+### Major changes
+
+- Remove nimble-banner dismissButtonLabel (replaced by the popupDismiss label on nimble-label-provider-core) ([ni/nimble@2c77e8e](https://github.com/ni/nimble/commit/2c77e8e7b542572ca792c3d1aa00d8ac2010a888))
+
+## 11.11.0
+
+Mon, 24 Jul 2023 19:42:55 GMT
+
+### Minor changes
+
+- Blazor integration for label providers, doc updates ([ni/nimble@2df1e98](https://github.com/ni/nimble/commit/2df1e989a3da722c233e49221952c48d63321c38))
 
 ## 11.10.5
 

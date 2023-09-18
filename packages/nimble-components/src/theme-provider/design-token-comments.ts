@@ -9,12 +9,30 @@ export const comments: { readonly [key in TokenName]: string | null } = {
     dividerBackgroundColor: 'Divider background color',
     headerBackgroundColor: 'Background color for application headers',
     sectionBackgroundColor: 'Background color for sections',
+    buttonFillPrimaryColor:
+        'Control fill color for "primary" appearance-variant buttons',
+    buttonPrimaryFontColor:
+        'Font color for "primary" appearance-variant buttons',
+    buttonFillActivePrimaryColor:
+        'Active fill color for "primary" appearance-variant buttons',
+    buttonFillAccentColor:
+        'Control fill color for "accent" appearance-variant buttons',
+    buttonAccentBlockFontColor:
+        'Font color for "accent" appearance-variant block buttons',
+    buttonAccentOutlineFontColor:
+        'Font color for "accent" appearance-variant outline buttons',
+    buttonBorderAccentOutlineColor:
+        'Border color for "accent" appearance-variant outline buttons',
+    buttonFillAccentActiveColor:
+        'Active fill color for "accent" appearance-variant buttons',
     fillSelectedColor: 'Control fill color when a control is selected',
     fillSelectedRgbPartialColor:
         'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillHoverSelectedColor:
         'Control fill color when hovering a selected control',
     fillHoverColor: 'Control fill color when hovering component',
+    fillHoverRgbPartialColor:
+        'DEPRECATED: *-partial tokens are used with rgba() to set color transparency in component stylesheets',
     fillDownColor: 'Control fill color when mousedown event occurs',
     borderColor: 'Standard control outline or border color',
     borderRgbPartialColor:

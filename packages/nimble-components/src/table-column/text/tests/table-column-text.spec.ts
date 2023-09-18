@@ -42,6 +42,16 @@ describe('TableColumnText', () => {
         await disconnect();
     });
 
+    it('should export its tag', () => {
+        expect(tableColumnTextTag).toBe('nimble-table-column-text');
+    });
+
+    it('can construct an element instance', () => {
+        expect(
+            document.createElement('nimble-table-column-text')
+        ).toBeInstanceOf(TableColumnText);
+    });
+
     it('reports column configuration valid', async () => {
         await connect();
         await waitForUpdatesAsync();
@@ -54,7 +64,11 @@ describe('TableColumnText', () => {
     const noValueData = [
         { description: 'field not present', data: [{ unused: 'foo' }] },
         { description: 'value is null', data: [{ field: null }] },
-        { description: 'value is undefined', data: [{ field: undefined }] }
+        { description: 'value is undefined', data: [{ field: undefined }] },
+        {
+            description: 'value is not a string',
+            data: [{ field: 10 as unknown as string }]
+        }
     ];
     for (const testData of noValueData) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
@@ -63,7 +77,7 @@ describe('TableColumnText', () => {
             await connect();
             await waitForUpdatesAsync();
 
-            expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+            expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
         });
     }
 
@@ -76,33 +90,33 @@ describe('TableColumnText', () => {
         firstColumn.fieldName = 'anotherField';
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('bar');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('bar');
     });
 
     it('changing data from value to null displays blank', async () => {
         await element.setData([{ field: 'foo' }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
 
         const updatedValue = { field: null };
         const updatedData = [updatedValue];
         await element.setData(updatedData);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
     });
 
     it('changing data from null to value displays value', async () => {
         await element.setData([{ field: null }]);
         await connect();
         await waitForUpdatesAsync();
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
 
         await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('foo');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('foo');
     });
 
     it('when no fieldName provided, nothing is displayed', async () => {
@@ -114,7 +128,7 @@ describe('TableColumnText', () => {
         await element.setData([{ field: 'foo' }]);
         await waitForUpdatesAsync();
 
-        expect(pageObject.getRenderedCellContent(0, 0)).toBe('');
+        expect(pageObject.getRenderedCellTextContent(0, 0)).toBe('');
     });
 
     it('sets title when cell text is ellipsized', async () => {
@@ -197,7 +211,7 @@ describe('TableColumnText', () => {
                     await element.setData([{ field: value.name }]);
                     await waitForUpdatesAsync();
 
-                    expect(pageObject.getRenderedCellContent(0, 0)).toBe(
+                    expect(pageObject.getRenderedCellTextContent(0, 0)).toBe(
                         value.name
                     );
                 }
@@ -221,7 +235,7 @@ describe('TableColumnText', () => {
                     await waitForUpdatesAsync();
 
                     expect(
-                        pageObject.getRenderedGroupHeaderContent(0)
+                        pageObject.getRenderedGroupHeaderTextContent(0)
                     ).toContain(value.name);
                 }
             );

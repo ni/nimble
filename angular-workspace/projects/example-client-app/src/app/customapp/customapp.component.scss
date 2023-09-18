@@ -77,3 +77,13 @@ nimble-table {
 .query-param-word {
     margin-top: $ni-nimble-standard-padding;
 }
+
+.rich-text-viewer-container {
+    border: $ni-nimble-border-width solid rgba($ni-nimble-action-rgb-partial-color, 0.3);
+    padding: $ni-nimble-small-padding;
+    width: 350px;
+}
+
+.rich-text-editor-container {
+    padding: $ni-nimble-small-padding;
+}

@@ -1,8 +1,11 @@
 import type { WaferMap } from '..';
+import type { DataManager } from '../modules/data-manager';
 import { Prerendering } from '../modules/prerendering';
 import { WaferMapColorScaleMode } from '../types';
 import {
-    getScaleBand,
+    getDataManagerMock,
+    defaultHorizontalScale,
+    defaultVerticalScale,
     getWaferMapDies,
     getWaferMapDiesAsFloats,
     getWaferMapDiesAsNaN
@@ -41,13 +44,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have as many dies as provided', () => {
@@ -93,13 +100,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should not have labelsFontSize larger than the die width', () => {
@@ -139,13 +150,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have label suffix for each die', () => {
@@ -185,13 +200,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should not have full label suffix for each die and end in ellipsis', () => {
@@ -232,13 +251,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have labels equal with values for each die', () => {
@@ -281,13 +304,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have labels equal with values for each die', () => {
@@ -330,13 +357,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it(
@@ -388,13 +419,17 @@ describe('Wafermap Prerendering module', () => {
                 dieLabelsSuffix,
                 maxCharacters
             };
+            const dataManagerMock = getDataManagerMock(
+                dieDimensions,
+                margin,
+                defaultHorizontalScale,
+                defaultVerticalScale
+            );
             prerenderingModule = new Prerendering(
                 waferMock as WaferMap,
-                getScaleBand([], []),
-                getScaleBand([], []),
-                dieDimensions,
-                margin
+                dataManagerMock as DataManager
             );
+            prerenderingModule.updateLabelsFontSize();
         });
 
         it('should have empty label for each die', () => {

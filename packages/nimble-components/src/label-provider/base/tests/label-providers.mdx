@@ -1,6 +1,7 @@
 import { Canvas, Meta, Title } from '@storybook/blocks';
 import { coreLabelProvider } from '../../core/tests/label-provider-core.stories';
 import { tableLabelProvider } from '../../table/tests/label-provider-table.stories';
+import { richTextLabelProvider } from '../../rich-text/tests/label-provider-rich-text.stories';
 
 <Meta title="Tokens/Label Providers" />
 <Title>Label Providers</Title>
@@ -10,11 +11,25 @@ Most user-visible strings displayed by Nimble components are provided by the cli
 See the <a href="https://github.com/ni/nimble/tree/main/packages/nimble-components">nimble-components</a> readme and
 contributing docs for more information.
 
+### Angular
+
+For Angular clients, see [Localization section of the nimble-angular readme](https://github.com/ni/nimble/blob/main/angular-workspace/projects/ni/nimble-angular/README.md#localization-optional) for specific usage guidance with Angular.
+
+### Blazor
+
+See the [Localization section of the nimble-blazor readme](https://github.com/ni/nimble/tree/main/packages/nimble-blazor#localization-optional) for specific usage guidance for the label providers with Blazor.
+
 ## Core Label Provider
 
-Provides labels for all Nimble components besides the table component.
+Provides labels for all Nimble components that do not have a dedicated label provider.
 
 <Canvas of={coreLabelProvider} sourceState="none" />
+
+## Rich Text Label Provider
+
+Provides labels for the the rich text components.
+
+<Canvas of={richTextLabelProvider} sourceState="none" />
 
 ## Table Label Provider
 

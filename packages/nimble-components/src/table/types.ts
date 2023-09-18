@@ -1,4 +1,5 @@
 import type { TableColumn } from '../table-column/base';
+import type { ValidityObject } from '../utilities/models/validator';
 
 /**
  * TableFieldName describes the type associated with keys within
@@ -19,6 +20,18 @@ export type TableFieldValue = string | number | boolean | null | undefined;
 export type TableStringFieldValue = string | null | undefined;
 
 /**
+ * TableBooleanFieldValue describes the type associated with values within
+ * a table's boolean records.
+ */
+export type TableBooleanFieldValue = boolean | null | undefined;
+
+/**
+ * TableNumberFieldValue describes the type associated with values within
+ * a table's number records.
+ */
+export type TableNumberFieldValue = number | null | undefined;
+
+/**
  * TableRecord describes the data structure that backs a single row in a table.
  * It is made up of fields, which are key/value pairs that have a key of type
  * TableFieldName and a value of type TableFieldValue.
@@ -31,9 +44,13 @@ export type TableStringField<FieldName extends TableFieldName> = {
     [name in FieldName]: TableStringFieldValue;
 };
 
-export interface ValidityObject {
-    [key: string]: boolean;
-}
+export type TableBooleanField<FieldName extends TableFieldName> = {
+    [name in FieldName]: TableBooleanFieldValue;
+};
+
+export type TableNumberField<FieldName extends TableFieldName> = {
+    [name in FieldName]: TableNumberFieldValue;
+};
 
 export interface TableValidity extends ValidityObject {
     readonly duplicateRecordId: boolean;

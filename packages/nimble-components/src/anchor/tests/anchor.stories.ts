@@ -20,12 +20,11 @@ interface AnchorArgs {
 
 const metadata: Meta<AnchorArgs> = {
     title: 'Components/Anchor',
-    tags: ['autodocs'],
     parameters: {
         docs: {
             description: {
                 component:
-                    'Per [W3C](https://w3c.github.io/aria-practices/#link), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
+                    'Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/link/), an anchor/link widget provides an interactive reference to a resource. The target resource can be either external or local, i.e., either outside or within the current page or application.'
             }
         },
         actions: {}
@@ -33,15 +32,15 @@ const metadata: Meta<AnchorArgs> = {
     // prettier-ignore
     render: createUserSelectedThemeStory(html`
         <style class='code-hide'>
-            * {
+            .anchor-container {
                 font: var(${bodyFont.cssCustomProperty});
             }
         </style>
-        Click on the <${anchorTag}
+        <span class="anchor-container">Click on the <${anchorTag}
             href=${x => (x.href !== '' ? x.href : null)}
             ?underline-hidden=${x => x.underlineHidden}
             appearance=${x => x.appearance}
-        >${x => x.label}</${anchorTag}> to navigate.
+        >${x => x.label}</${anchorTag}> to navigate.</span>
     `),
     argTypes: {
         href: {

@@ -31,7 +31,7 @@ interface AnchorItemArgs {
     icon: boolean;
 }
 
-const overviewText = `Per [W3C](https://w3c.github.io/aria-practices/#TreeView) - A tree view widget
+const overviewText = `Per [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/) - A tree view widget
 presents a hierarchical list. Any item in the hierarchy may have child items, and items that have
 children may be expanded or collapsed to show or hide the children. For example, in a file system
 navigator that uses a tree view to display folders and files, an item representing a folder can be
@@ -54,7 +54,6 @@ In addition to \`href\`, all other attributes of \`<a>\` are also supported, e.g
 
 const metadata: Meta<TreeArgs> = {
     title: 'Components/Tree View',
-    tags: ['autodocs'],
     decorators: [withActions],
     parameters: {
         docs: {

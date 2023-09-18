@@ -20,8 +20,7 @@ interface IconArgs {
 }
 
 const metadata: Meta<IconArgs> = {
-    title: 'Components/Icons',
-    tags: ['autodocs']
+    title: 'Components/Icons'
 };
 
 export default metadata;

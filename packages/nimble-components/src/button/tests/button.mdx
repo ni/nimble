@@ -1,11 +1,13 @@
 import {
-    Canvas,
+    DocsStory,
     Meta,
     Controls,
+    Primary,
     Stories,
     Title,
     Description
 } from '@storybook/blocks';
+import ContentHiddenDocs from '../../patterns/button/tests/content-hidden-docs.mdx';
 import * as buttonStories from './button.stories';
 
 <Meta of={buttonStories} />
@@ -13,25 +15,93 @@ import * as buttonStories from './button.stories';
 <Title of={buttonStories} />
 <Description of={buttonStories} />
 
-<Canvas of={buttonStories.outlineButton} />
+<DocsStory of={buttonStories.outlineButton} expanded={false} />
 <Controls of={buttonStories.outlineButton} />
-<Stories of={buttonStories} />
 
 # Usage Docs
 
-<br />
+## Styling
+
+### Appearances
+
+These appearances have the default styling of the nimble-button. Each should be considered for use before using appearance variant buttons.
+
+#### Ghost Button:
+
+Ghost is the default style and should be the first consideration for use.
+
+Use as the default and standard option to create a clean airy and open UI feel. Ghost buttons fit comfortably in tight spaces and help control the visual density of the UI.
+Be careful when using that the surrounding context does not cause this button to be confused for emphasized body text, tabs or a standalone links.
+
+Use in combination with a primary outline and primary block buttons to create a hierarchy of importance. There is no primary ghost button.
+
+#### Outline Button:
+
+Outline is the secondary style and should be considered for use when ghost button is not sufficient.
+
+Use as an alternative standard button when a ghost button is not suitable. Use similarly to a ghost button to create a clean, light and airy feel.
+The outline button is more visually direct about the control’s functionality than a ghost button.
+
+Use in combination with ghost buttons (but not block buttons) to create hierarchy.
+
+#### Block Button:
+
+Block is the tertiary style used for creating the most eye catching and functionally direct button. Use in areas where controls are not often present or obvious, or when lots of busy information can cause an important control to be overlooked.
+
+Use as a standard button when the most visible solution is required. Use as an alternative to overly subtle button solutions when it is important
+to emphasize an action and the functionality of the control.
+
+Use in combination with ghost buttons (but not outline buttons) to create hierarchy.
+
+### Appearance Variants
+
+Button appearance variants are mainly used when a button needs be distinguished for one of the following reasons:
+
+-   To indicate the action that allows the user to accomplish their most common or important goal
+-   To indicate the action that allows the user to complete their task
+
+There are currently two available values for `appearance-variant`: `primary` and `accent`.
+
+#### Primary Button:
+
+Use only 1 primary button in a section. It should be used when there is a conflict with color and its context.
+
+Use in combination with ghost buttons to create hierarchy.
+
+When using an outline button, do not use it with a block button to create hierarchy.
+
+When using a block button, do not use it with an outline button to create hierarchy.
+
+#### Accent Button:
+
+Use only 1 accent button in a section. It should be used when trying to achieve the most prominent eye-catching approach. Consider the contextual implications
+of using a green colored button in relation to its name or metaphor. Remember that color has accessibility constraints and the color alone should not be relied on.
+
+Use in situations that lack color and enthusiasm to help support the brand.
+
+Use in combination with ghost buttons to create hierarchy.
+
+When using an outline button, do not use it with a block button to create hierarchy.
+
+When using a block button, do not use it with an outline button to create hierarchy.
+
+#### Examples:
+
+To see examples of appearance variant button hierarchy, see the nimble-button Figma docs for [Primary and Standard Actions](https://www.figma.com/file/PO9mFOu5BCl8aJvFchEeuN/Nimble_Components?type=design&node-id=1604-74603&mode=design&t=SQ3lyK83VHBUaOkg-0).
 
 ## Sizing
 
-    Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if you need these in an application, please comment on [Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
+Nimble Buttons are currently always 32px tall. Designs exist for other sizes; if you need these in an application, please comment on [Configurable height for nimble controls (#610)](https://github.com/ni/nimble/issues/610).
 
 ## Styling / Theme
 
-    Use the Color UI version for backgrounds with color (e.g. purple, blue).
+Use the Color UI version for backgrounds with color (e.g. purple, blue).
 
-    See the usage details for more information on button styling / usage.
+See the usage details for more information on button styling / usage.
 
 ## Accessibility
 
-    Please work with your designer and ensure you have a 4.5:1
-    contrast ratio text to background.
+Please work with your designer and ensure you have a 4.5:1
+contrast ratio text to background.
+
+<ContentHiddenDocs buttonElement="nimble-button" />

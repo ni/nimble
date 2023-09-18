@@ -8,7 +8,7 @@ import {
     Dimensions,
     Margin,
     WaferMapColorScaleMode,
-    WaferMapQuadrant
+    WaferMapOriginLocation
 } from '../types';
 import {
     getColorScale,
@@ -45,7 +45,7 @@ describe('Wafermap Data Manager', () => {
         await connect();
         element.dies = getWaferMapDies();
         element.colorScale = getColorScale();
-        element.quadrant = WaferMapQuadrant.topLeft;
+        element.originLocation = WaferMapOriginLocation.bottomLeft;
         element.dieLabelsSuffix = dieLabelsSuffix;
         element.dieLabelsHidden = false;
         element.maxCharacters = 3;
@@ -56,7 +56,7 @@ describe('Wafermap Data Manager', () => {
 
         processUpdates();
 
-        dataManagerModule = element.dataManager!;
+        dataManagerModule = element.dataManager;
     });
 
     afterEach(async () => {
