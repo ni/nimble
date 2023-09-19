@@ -11,19 +11,22 @@ import {
     findParentNode,
     isList,
     AnyExtension,
-    Extension
+    Extension,
+    Mark
 } from '@tiptap/core';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
 import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
+import Link, { LinkOptions } from '@tiptap/extension-link';
 import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
 import type { PlaceholderOptions } from '@tiptap/extension-placeholder';
 import Text from '@tiptap/extension-text';
+import HardBreak from '@tiptap/extension-hard-break';
 import { template } from './template';
 import { styles } from './styles';
 import type { ToggleButton } from '../../toggle-button';
@@ -31,6 +34,7 @@ import { TipTapNodeName } from './types';
 import type { ErrorPattern } from '../../patterns/error/types';
 import { RichTextMarkdownParser } from '../models/markdown-parser';
 import { RichTextMarkdownSerializer } from '../models/markdown-serializer';
+import { anchorTag } from '../../anchor';
 
 declare global {
     interface HTMLElementTagNameMap {
@@ -330,6 +334,8 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
     }
 
     private createTiptapEditor(): Editor {
+        const customLink = this.getCustomLinkExtension();
+
         /**
          * For more information on the extensions for the supported formatting options, refer to the links below.
          * Tiptap marks: https://tiptap.dev/api/marks
@@ -350,8 +356,55 @@ export class RichTextEditor extends FoundationElement implements ErrorPattern {
                 Placeholder.configure({
                     placeholder: '',
                     showOnlyWhenEditable: false
+                }),
+                HardBreak,
+                customLink.configure({
+                    // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    HTMLAttributes: {
+                        rel: 'noopener noreferrer',
+                        target: null
+                    },
+                    autolink: true,
+                    openOnClick: false,
+                    // linkOnPaste can be enabled when hyperlink support added
+                    // See: https://github.com/ni/nimble/issues/1527
+                    linkOnPaste: false,
+                    validate: href => /^https?:\/\//i.test(href)
                 })
             ]
+        });
+    }
+
+    /**
+     * Extending the default link mark schema defined in the TipTap.
+     *
+     * "excludes": https://prosemirror.net/docs/ref/#model.MarkSpec.excludes
+     * "inclusive": https://prosemirror.net/docs/ref/#model.MarkSpec.inclusive
+     * "parseHTML": https://tiptap.dev/guide/custom-extensions#parse-html
+     * "renderHTML": https://tiptap.dev/guide/custom-extensions/#render-html
+     */
+    private getCustomLinkExtension(): Mark<LinkOptions> {
+        return Link.extend({
+            // Excludes can be removed/enabled when hyperlink support added
+            // See: https://github.com/ni/nimble/issues/1527
+            excludes: '_',
+            // Inclusive can be updated when hyperlink support added
+            // See: https://github.com/ni/nimble/issues/1527
+            inclusive: false,
+            parseHTML() {
+                // To load the `nimble-anchor` from the HTML parsed content by markdown-parser as links in the
+                // Tiptap editor, the `parseHTML` of Link extension should return `anchorTag`. This is because the
+                // link mark schema in `markdown-parser.ts` file uses `<nimble-anchor>` as anchor tag and not `<a>`.
+                return [{ tag: anchorTag }];
+            },
+            // HTMLAttribute cannot be in camelCase as we want to match it with the name in Tiptap
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            renderHTML({ HTMLAttributes }) {
+                // The below 'a' tag should be replaced with 'nimble-anchor' once the below issue is fixed.
+                // https://github.com/ni/nimble/issues/1516
+                return ['a', HTMLAttributes];
+            }
         });
     }
 

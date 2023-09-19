@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { AnchorButton } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { getSpecTypeByNamedList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return fixture<AnchorButton>(
@@ -49,7 +49,7 @@ describe('AnchorButton', () => {
         expect(element.control!.getAttribute('href')).toBeNull();
     });
 
-    const attributeNames: { name: string }[] = [
+    const attributeNames = [
         { name: 'download' },
         { name: 'hreflang' },
         { name: 'ping' },
@@ -77,27 +77,17 @@ describe('AnchorButton', () => {
         { name: 'aria-owns' },
         { name: 'aria-relevant' },
         { name: 'aria-roledescription' }
-    ];
+    ] as const;
     describe('should reflect value to the internal control', () => {
-        const focused: string[] = [];
-        const disabled: string[] = [];
-        for (const attribute of attributeNames) {
-            const specType = getSpecTypeByNamedList(
-                attribute,
-                focused,
-                disabled
-            );
-            // eslint-disable-next-line @typescript-eslint/no-loop-func
-            specType(`for attribute ${attribute.name}`, async () => {
+        parameterizeNamedList(attributeNames, (spec, name) => {
+            spec(`for attribute ${name}`, async () => {
                 await connect();
 
-                element.setAttribute(attribute.name, 'foo');
+                element.setAttribute(name, 'foo');
                 await waitForUpdatesAsync();
 
-                expect(element.control!.getAttribute(attribute.name)).toBe(
-                    'foo'
-                );
+                expect(element.control!.getAttribute(name)).toBe('foo');
             });
-        }
+        });
     });
 });
