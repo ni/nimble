@@ -1,7 +1,7 @@
 # Nimble Component (IxD) [Template]
 
 ## Overview
-*The name of the component, along with high-level description of what the component is used for and it's value to the end-user experience.*
+*The name of the component, along with high-level description of what the component is used for and its value to the end-user experience.*
 
 ### Background
 *Relevant historical or background information, including:*
