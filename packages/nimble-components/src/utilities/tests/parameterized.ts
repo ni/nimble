@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-restricted-globals
 type SpecTypes = typeof fit | typeof xit | typeof it;
 /**
- * @deprecated switch to `parameterize` or `parameterizeList` instead
+ * @deprecated switch to `parameterize` or `parameterizeNamedList` instead
  */
 const getSpecType = <T>(
     value: T,
@@ -19,7 +19,7 @@ const getSpecType = <T>(
 };
 
 /**
- * @deprecated switch to `parameterize` or `parameterizeList` instead
+ * @deprecated switch to `parameterize` or `parameterizeNamedList` instead
  */
 export const getSpecTypeByNamedList = <T extends { name: string }>(
     value: T,
@@ -101,26 +101,26 @@ export const parameterize = <T extends object>(
     });
 };
 
-type ObjectFromList<T extends readonly string[]> = {
-    [K in T extends readonly (infer U)[] ? U : never]: K;
+type ObjectFromNamedList<T extends readonly { name: string }[]> = {
+    [K in T extends readonly { name: infer U }[] ? U : never]: T[number];
 };
 
 /**
- * Used to create a parameterized test using an array of test names.
+ * Used to create a parameterized test using an array of tests with names.
  * In the following example:
  *  - the test named `cats-and-dogs` is focused for debugging
  *  - the test named `frogs` is configured to always be disabled
  *  - the test named `men` will run normally as it has no override
  * @example
  * const rainTests = [
- *     'cats-and-dogs',
- *     'frogs',
- *     'men'
+ *   { name: 'cats-and-dogs', type: 'idiom' },
+ *   { name: 'frogs' type: 'idiom'},
+ *   { name: 'men', type: 'lyrics'}
  * ] as const;
  * describe('Different rains', () => {
- *     parameterizeList(rainTests, (spec, name) => {
+ *     parameterizeNamedList(rainTests, (spec, name, value) => {
  *         spec(`of type ${name} exist`, () => {
- *             expect(name).toBeDefined();
+ *             expect(value.type).toBeDefined();
  *         });
  *     }, {
  *         'cats-and-dogs': fit,
@@ -128,19 +128,23 @@ type ObjectFromList<T extends readonly string[]> = {
  *     });
  * });
  */
-export const parameterizeList = <T extends readonly string[]>(
+export const parameterizeNamedList = <T extends readonly { name: string }[]>(
     list: T,
-    test: (spec: Spec, name: keyof ObjectFromList<T>) => void,
+    test: (
+        spec: Spec,
+        name: keyof ObjectFromNamedList<T>,
+        value: T[number]
+    ) => void,
     specOverrides?: {
-        [P in keyof ObjectFromList<T>]?: SpecOverride;
+        [P in keyof ObjectFromNamedList<T>]?: SpecOverride;
     }
 ): void => {
-    const testCases = list.reduce<{ [key: string]: string }>(
+    const testCases = list.reduce<{ [key: string]: { name: string } }>(
         (result, entry) => {
-            result[entry] = entry;
+            result[entry.name] = entry;
             return result;
         },
         {}
-    ) as ObjectFromList<T>;
-    parameterize(testCases, test, specOverrides);
+    ) as ObjectFromNamedList<T>;
+    parameterize<ObjectFromNamedList<T>>(testCases, test, specOverrides);
 };

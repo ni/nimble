@@ -1,4 +1,4 @@
-import { parameterize, parameterizeList } from '../parameterized';
+import { parameterize, parameterizeNamedList } from '../parameterized';
 
 // eslint-disable-next-line no-restricted-globals
 const FIT = fit;
@@ -151,12 +151,12 @@ const paramertizeListTestArgs = ([
     name
 } as ParameterizeListTestArgs);
 
-describe('Funtion parameterizeList', () => {
+describe('Funtion parameterizeNamedList', () => {
     describe('can parameterize simple lists', () => {
         it('with test enabled', () => {
-            const testcases = ['case1'] as const;
+            const testcases = [{ name: 'case1' }] as const;
             const spy = jasmine.createSpy();
-            parameterizeList(testcases, spy);
+            parameterizeNamedList(testcases, spy);
 
             expect(spy).toHaveBeenCalledTimes(1);
             const { spec, name } = paramertizeListTestArgs(
@@ -167,9 +167,9 @@ describe('Funtion parameterizeList', () => {
         });
 
         it('with test focused', () => {
-            const testcases = ['case1'] as const;
+            const testcases = [{ name: 'case1' }] as const;
             const spy = jasmine.createSpy();
-            parameterizeList(testcases, spy, {
+            parameterizeNamedList(testcases, spy, {
                 case1: FIT
             });
 
@@ -182,9 +182,9 @@ describe('Funtion parameterizeList', () => {
         });
 
         it('with test disabled', () => {
-            const testcases = ['case1'] as const;
+            const testcases = [{ name: 'case1' }] as const;
             const spy = jasmine.createSpy();
-            parameterizeList(testcases, spy, {
+            parameterizeNamedList(testcases, spy, {
                 case1: XIT
             });
 
@@ -197,9 +197,13 @@ describe('Funtion parameterizeList', () => {
         });
 
         it('with various test cases enabled and disabled', () => {
-            const testcases = ['case1', 'case2', 'case3'];
+            const testcases = [
+                { name: 'case1' },
+                { name: 'case2' },
+                { name: 'case3' }
+            ] as const;
             const spy = jasmine.createSpy();
-            parameterizeList(testcases, spy, {
+            parameterizeNamedList(testcases, spy, {
                 case2: XIT,
                 case3: FIT
             });
@@ -230,19 +234,19 @@ describe('Funtion parameterizeList', () => {
     });
     describe('errors', () => {
         it('for override not in test cases', () => {
-            const testcases = ['case1'] as string[];
+            const testcases = [{ name: 'case1' }] as { name: string }[];
 
             expect(() => {
-                parameterizeList(testcases, () => {}, {
+                parameterizeNamedList(testcases, () => {}, {
                     unknown: XIT
                 });
             }).toThrowError(/override names must match test case name/);
         });
         it('for override not referencing supported xit or fit', () => {
-            const testcases = ['case1'] as const;
+            const testcases = [{ name: 'case1' }] as const;
 
             expect(() => {
-                parameterizeList(testcases, () => {}, {
+                parameterizeNamedList(testcases, () => {}, {
                     case1: IT
                 });
             }).toThrowError(/jasmine spec functions: fit or xit/);

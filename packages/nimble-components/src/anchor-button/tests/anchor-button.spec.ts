@@ -2,7 +2,7 @@ import { html } from '@microsoft/fast-element';
 import { AnchorButton } from '..';
 import { waitForUpdatesAsync } from '../../testing/async-helpers';
 import { fixture, Fixture } from '../../utilities/tests/fixture';
-import { parameterizeList } from '../../utilities/tests/parameterized';
+import { parameterizeNamedList } from '../../utilities/tests/parameterized';
 
 async function setup(): Promise<Fixture<AnchorButton>> {
     return fixture<AnchorButton>(
@@ -50,36 +50,36 @@ describe('AnchorButton', () => {
     });
 
     const attributeNames = [
-        'download',
-        'hreflang',
-        'ping',
-        'referrerpolicy',
-        'rel',
-        'target',
-        'type',
-        'aria-atomic',
-        'aria-busy',
-        'aria-controls',
-        'aria-current',
-        'aria-describedby',
-        'aria-details',
-        'aria-disabled',
-        'aria-errormessage',
-        'aria-expanded',
-        'aria-flowto',
-        'aria-haspopup',
-        'aria-hidden',
-        'aria-invalid',
-        'aria-keyshortcuts',
-        'aria-label',
-        'aria-labelledby',
-        'aria-live',
-        'aria-owns',
-        'aria-relevant',
-        'aria-roledescription'
+        { name: 'download' },
+        { name: 'hreflang' },
+        { name: 'ping' },
+        { name: 'referrerpolicy' },
+        { name: 'rel' },
+        { name: 'target' },
+        { name: 'type' },
+        { name: 'aria-atomic' },
+        { name: 'aria-busy' },
+        { name: 'aria-controls' },
+        { name: 'aria-current' },
+        { name: 'aria-describedby' },
+        { name: 'aria-details' },
+        { name: 'aria-disabled' },
+        { name: 'aria-errormessage' },
+        { name: 'aria-expanded' },
+        { name: 'aria-flowto' },
+        { name: 'aria-haspopup' },
+        { name: 'aria-hidden' },
+        { name: 'aria-invalid' },
+        { name: 'aria-keyshortcuts' },
+        { name: 'aria-label' },
+        { name: 'aria-labelledby' },
+        { name: 'aria-live' },
+        { name: 'aria-owns' },
+        { name: 'aria-relevant' },
+        { name: 'aria-roledescription' }
     ] as const;
     describe('should reflect value to the internal control', () => {
-        parameterizeList(attributeNames, (spec, name) => {
+        parameterizeNamedList(attributeNames, (spec, name) => {
             spec(`for attribute ${name}`, async () => {
                 await connect();
 
