@@ -250,16 +250,6 @@ export const styles = css`
         gap: ${standardPadding};
         place-items: center;
     }
-    ${
-        /**
-         * Restricting the pointer-events for the slot="start" where the icon is rendered.
-         * This can be removed after the below issue is fixed.
-         * https://github.com/ni/nimble/issues/1422
-         */ ''
-    }
-    nimble-toggle-button::part(start) {
-        pointer-events: none;
-    }
 
     :host([error-visible]) .error-icon {
         display: none;
